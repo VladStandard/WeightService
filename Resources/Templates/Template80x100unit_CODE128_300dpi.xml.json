@@ -1,0 +1,50 @@
+{
+	"#type": "jcfg:CatalogObject.ВС_ZPLШаблоны",
+	"#value": {
+		"IsFolder": false,
+		"Ref": "76f82a3c-ca90-11ea-bc40-ac1f6b02ad52",
+		"DeletionMark": false,
+		"Parent": "f1eb3dac-c5d5-11ea-bc3e-ac1f6b02ad52",
+		"Code": "000000011",
+		"Description": "Template80x100weight_CODE128_300dpi",
+		"Описание": "CODE 128",
+		"Шаблон": "<?xml version=\"1.0\" encoding=\"UTF-16\"?>\n<xsl:stylesheet version=\"2.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n<xsl:output method=\"text\" encoding=\"UTF-16\" omit-xml-declaration=\"no\"/>\n<xsl:decimal-format name=\"euro2\" decimal-separator=\".\" grouping-separator=\" \"/>\n\n<xsl:template match=\"/\">\n\n\n<xsl:text>\n^XA</xsl:text>\n\n<xsl:text>\n^CI28\n^CWK,E:COURB.TTF\n^CWL,E:COURBI.TTF\n^CWM,E:COURBD.TTF\n^CWN,E:COUR.TTF\n^CWZ,E:ARIAL.TTF\n^CWW,E:ARIALBI.TTF\n^CWE,E:ARIALBD.TTF\n^CWR,E:ARIALI.TTF\n\n^LH0,10\n^FWR\n</xsl:text>\n\n\n<!-- размер этикеток\n 6 dots = 1 mm, 152 dots = 1 inch\n 8 dots = 1 mm, 203 dots = 1 inch\n 11.8 dots = 1 mm, 300 dots = 1 inch\n 24 dots = 1 mm, 608 dots = 1 inch -->\n\n<!--\n<xsl:variable name=\"width\" select=\"80\" />\n<xsl:variable name=\"length\" select=\"98\" />\n -->\n<xsl:variable name=\"length\" select=\"100\" />\n<xsl:variable name=\"width\" select=\"80\" />\n\n<xsl:text>\n^LL</xsl:text><xsl:value-of select=\"$length*11.8\" />\n<xsl:text>\n^PW</xsl:text><xsl:value-of select=\"$width*11.8\" />\n<xsl:text>\n\n^FO820,50\n^CFZ,24,20\n^FB1100,4,0,C,0\n</xsl:text>\n<!-- адрес предприятия -->\n<xsl:text>^FH^FD</xsl:text>\n<xsl:text>Изготовитель: ООО \"Владимирский стандарт\" Россия, 600910 Владимирская обл. г.Радужный квартал 13/13 дом 20</xsl:text>\n<xsl:text>^FS</xsl:text>\n\n<xsl:text>\n^FO510,50\n^CFE,44,34\n^FB910,4,0,J,0\n</xsl:text>\n<!-- полное наименование номенклатуры -->\n<xsl:text>^FH^FD</xsl:text>\n\n<xsl:variable name=\"GoodsFullName\">\n  <xsl:call-template name=\"string-replace-all\">\n    <xsl:with-param name=\"text\" select=\"/WeighingFactEntity/PLU/GoodsFullName\" />\n    <xsl:with-param name=\"replace\" select=\"'|'\" />\n    <xsl:with-param name=\"by\" select=\"'\\&amp;'\" />\n  </xsl:call-template>\n</xsl:variable>\n<xsl:value-of select=\"$GoodsFullName\"/>\n\n<xsl:text>^FS</xsl:text>\n\n<xsl:text>\n^FO350,50\n^CFZ,36,20\n^FB800,4,0,J,0\n</xsl:text>\n<!-- описание номенклатуры -->\n<xsl:text>^FH^FD</xsl:text>\n<xsl:value-of select=\"/WeighingFactEntity/PLU/GoodsDescription\"/>\n<xsl:text>^FS</xsl:text>\n\n<!-- дата производства -->\n<xsl:text>\n^FO320,50\n^CFZ,25,20\n^FB170,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FDДата изготовления: </xsl:text>\n<xsl:text>^FS</xsl:text>\n\n<xsl:text>\n^FO270,50\n^CFK,56,40\n^FB300,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FD</xsl:text>\n<xsl:variable name=\"dt\" select=\"/WeighingFactEntity/ProductDate\"/>\n<xsl:value-of select=\"concat(substring($dt,9,2),'.',substring($dt,6,2),'.',substring($dt,1,4))\"/>\n<xsl:text/>\n<xsl:text>^FS</xsl:text>\n\n<!-- срок годности -->\n<xsl:text>\n^FO320,360\n^CFZ,25,20\n^FB170,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FDГоден до: </xsl:text>\n<xsl:text>^FS</xsl:text>\n\n<xsl:text>\n^FO270,360\n^CFK,56,40\n^FB300,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FD</xsl:text>\n<xsl:variable name=\"et\" select=\"/WeighingFactEntity/ExpirationDate\"/>\n<xsl:value-of select=\"concat(substring($et,9,2),'.',substring($et,6,2),'.',substring($et,1,4))\"/>\n<xsl:text/>\n<xsl:text>^FS</xsl:text>\n\n\n<!-- вес нетто \n<xsl:text>\n^FO320,760\n^CFZ,25,20\n^FB100,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FDКол-во:^FS</xsl:text>\n\n<xsl:text>\n^FO270,760\n^CFK,43,37\n^FB150,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FD</xsl:text>\n<xsl:value-of select=\"/WeighingFactEntity/PLU/GoodsBoxQuantly\"/>\n<xsl:text>^FS</xsl:text>\n\n<xsl:text>\n^FO270,910\n^CFM,42,38\n^FB100,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FDШТ^FS</xsl:text>\n-->\n\n\n<!-- вес нетто -->\n<xsl:text>\n^FO320,700\n^CFZ,25,20\n^FB100,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FDВес нетто: ^FS</xsl:text>\n\n<xsl:text>\n^FO270,700\n^CFK,56,38\n^FB230,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FD</xsl:text>\n<xsl:variable name=\"netweight\" select=\"/WeighingFactEntity/WeightNetto\"/>\n<xsl:value-of select=\"format-number(($netweight), '# ###.000', 'euro2')\"/>\n<xsl:text>^FS</xsl:text>\n\n<xsl:text>\n^FO270,815\n^CFK,56,38\n^FB100,1,0,L,0\n</xsl:text>\n<xsl:text>^FH^FDкг^FS</xsl:text>\n\n\n\n<xsl:text>\n^FO200,50\n^CFZ,25,20\n^FB200,1,0,L,0\n</xsl:text>\n<!-- замес -->\n<xsl:text>^FH^FDЗамес: </xsl:text>\n<xsl:value-of select=\"/WeighingFactEntity/KneadingNumber\"/>\n<xsl:text>^FS</xsl:text>\n\n<xsl:text>\n^FO200,200\n^CFZ,25,20\n^FB450,1,0,L,0\n</xsl:text>\n<!-- цех - линия - весовой пост -->\n<xsl:text>^FH^FDЦех/Линия: </xsl:text>\n<xsl:value-of select=\"/WeighingFactEntity/Scale/Description\"/>\n<xsl:text>^FS\n</xsl:text>\n\n<!-- штрихкод CODE128 299 -->\n<xsl:text>\n^FO200,1000\n^BCN,120,Y,N,N\n^BY2\n</xsl:text>\n<xsl:text>^FD</xsl:text>\n<xsl:text>299</xsl:text>\n<!-- терминал -->\n<xsl:variable name=\"deviceid\" select=\"/WeighingFactEntity/Scale/DeviceId\"/>\n<xsl:value-of select=\"substring(concat('00000',$deviceid),string-length($deviceid)+1,5)\"/>\n<!-- регистрация  -->\n<xsl:variable name=\"unitid\" select=\"/WeighingFactEntity/Sscc/UnitID\"/>\n<xsl:value-of select=\"substring(concat('00000000',$unitid),string-length($unitid)+1,8)\"/>\n<xsl:text>^FS\n</xsl:text>\n\n<!-- штрихкод Code128  -->\n<xsl:text>\n^FO740,50\n^BY2\n^BCR,120,Y,N,N\n\n</xsl:text>\n<xsl:text>^FD</xsl:text>\n<xsl:text>298</xsl:text>\n\n<!-- терминал -->\n<xsl:value-of select=\"substring(concat('00000',$deviceid),string-length($deviceid)+1,5)\"/>\n<!-- регистрация  -->\n<xsl:value-of select=\"substring(concat('00000000',$unitid),string-length($unitid)+1,8)\"/>\n<!-- дата -->\n<xsl:variable name=\"dt2\" select=\"/WeighingFactEntity/ProductDate\"/>\n<xsl:value-of select=\"concat(substring($dt2,3,2), substring($dt2,6,2), substring($dt2,9,2) )\"/>\n<!-- время -->\n<xsl:variable name=\"tm\" select=\"/WeighingFactEntity/RegDate\"/>\n<xsl:value-of select=\"concat(substring($tm,12,2), substring($tm,15,2), substring($tm,18,2) )\"/>\n<!-- плу -->\n<xsl:variable name=\"plu\" select=\"/WeighingFactEntity/PLU/PLU\"/>\n<xsl:value-of select=\"substring(concat('000',$plu),string-length($plu)+1,3)\"/>\n\n<!-- ScaleFactor -->\n<xsl:variable name=\"sf\" select=\"/WeighingFactEntity/ScaleFactor\"/>\n\n<!-- нетто -->\n<xsl:variable name=\"nw\" select=\"/WeighingFactEntity/WeightNetto\"/>\n<xsl:value-of select=\"substring(concat('00000',$nw * $sf),string-length($nw)+1,5)\"/>\n\n<xsl:variable name=\"knd\" select=\"/WeighingFactEntity/KneadingNumber\"/>\n<xsl:value-of select=\"substring(concat('000',$knd),string-length($knd)+1,3)\"/>\n\n<xsl:text>^FS\n</xsl:text>\n\n<!-- штрихкод GS1 -->\n<xsl:text>\n^FO50,50\n^BCR,120,Y,N,Y,D\n^BY3\n</xsl:text>\n<xsl:text>^FD</xsl:text>\n<xsl:text>(01)</xsl:text><xsl:value-of select=\"/WeighingFactEntity/PLU/GTIN\"/>\n<xsl:text>(3103)</xsl:text><xsl:value-of select=\"substring(concat('000000',$nw * $sf),string-length($nw)+1,6)\"/>\n<xsl:variable name=\"xt\" select=\"/WeighingFactEntity/ProductDate\"/>\n<xsl:text>(11)</xsl:text><xsl:value-of select=\"concat(substring($xt,3,2), substring($xt,6,2), substring($xt,9,2) )\"/>\n<xsl:text>(10)</xsl:text><xsl:value-of select=\"concat(substring($xt,6,2), substring($xt,9,2) )\"/><xsl:text>&gt;8</xsl:text>\n<!-- номер по порядку \n<xsl:text>(21)</xsl:text><xsl:value-of select=\"substring(concat('000000000',$unitid),string-length($unitid)+1,9)\"/><xsl:text>&gt;8</xsl:text>\n-->\n<xsl:text>^FS\n</xsl:text>\n\n<!-- логотипы -->\n<xsl:text>\n^FO200,888\n^XGE:EAC.GRF,1,1^FS\n^FO315,888\n^XGE:FISH.GRF,1,1^FS\n^FO435,888\n^XGE:TEMP6.GRF,1,1^FS\n</xsl:text>\n\n<xsl:text>\n^XZ</xsl:text><xsl:text>\n</xsl:text>\n</xsl:template>\n\n\n<xsl:template name=\"string-replace-all\">\n  <xsl:param name=\"text\" />\n  <xsl:param name=\"replace\" />\n  <xsl:param name=\"by\" />\n  <xsl:choose>\n    <xsl:when test=\"contains($text, $replace)\">\n      <xsl:value-of select=\"substring-before($text,$replace)\" />\n      <xsl:value-of select=\"$by\" />\n      <xsl:call-template name=\"string-replace-all\">\n        <xsl:with-param name=\"text\" select=\"substring-after($text,$replace)\" />\n        <xsl:with-param name=\"replace\" select=\"$replace\" />\n        <xsl:with-param name=\"by\" select=\"$by\" />\n      </xsl:call-template>\n    </xsl:when>\n    <xsl:otherwise>\n      <xsl:value-of select=\"$text\" />\n    </xsl:otherwise>\n  </xsl:choose>\n</xsl:template>\n\n</xsl:stylesheet>\n",
+		"Шрифты": [
+			{
+				"Шрифт": "6371a81b-bc6a-11ea-bc3c-ac1f6b02ad52"
+			},
+			{
+				"Шрифт": "7859b483-bc6a-11ea-bc3c-ac1f6b02ad52"
+			},
+			{
+				"Шрифт": "4a6c5ae3-bc6a-11ea-bc3c-ac1f6b02ad52"
+			},
+			{
+				"Шрифт": "57400743-bc6a-11ea-bc3c-ac1f6b02ad52"
+			},
+			{
+				"Шрифт": "709d7e90-bc6a-11ea-bc3c-ac1f6b02ad52"
+			},
+			{
+				"Шрифт": "69691d94-bc6a-11ea-bc3c-ac1f6b02ad52"
+			},
+			{
+				"Шрифт": "5063ce90-bc6a-11ea-bc3c-ac1f6b02ad52"
+			},
+			{
+				"Шрифт": "5d39ddc5-bc6a-11ea-bc3c-ac1f6b02ad52"
+			}
+		],
+		"Логотипы": [
+			{
+				"Логотип": "1d105c09-bc6a-11ea-bc3c-ac1f6b02ad52"
+			},
+			{
+				"Логотип": "f4fddcc9-bc69-11ea-bc3c-ac1f6b02ad52"
+			},
+			{
+				"Логотип": "368a6c45-bc6a-11ea-bc3c-ac1f6b02ad52"
+			}
+		]
+	}
+}
