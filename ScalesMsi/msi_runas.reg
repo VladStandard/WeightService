@@ -1,0 +1,18 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Msi.Package]
+"EditFlags"=hex:00,00,10,00
+"FriendlyTypeName"=hex(2):40,00,25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,\
+  00,6f,00,6f,00,74,00,25,00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,33,00,\
+  32,00,5c,00,6d,00,73,00,69,00,2e,00,64,00,6c,00,6c,00,2c,00,2d,00,33,00,34,\
+  00,00,00
+@="Windows Installer Package"
+
+[HKEY_CLASSES_ROOT\Msi.Package\DefaultIcon]
+@="C:\\WINDOWS\\system32\\msiexec.exe,0"
+
+[HKEY_CLASSES_ROOT\Msi.Package\shell]
+@="Open,Repair,Uninstall"
+
+[HKEY_CLASSES_ROOT\Msi.Package\shell\runas\command]
+@="msiexec /i \"%1\""

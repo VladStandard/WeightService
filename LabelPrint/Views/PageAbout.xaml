@@ -1,0 +1,20 @@
+﻿<Page x:Class="LabelPrint.Views.PageAbout"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" 
+      d:DesignWidth="700" d:DesignHeight="700"
+      Title="О программе" Loaded="Page_Loaded"
+      Background="Transparent" 
+      DataContext="{StaticResource ViewModelProgramSettings}" FontSize="{Binding FontSize, Mode=OneWay}">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Name="ImageAbout" Grid.Row="0" Source="{StaticResource BitmapImageLogo}" Margin="200"></Image>
+        <Label Name="LabelVersion" Grid.Row="1" Content="Версия программы" HorizontalAlignment="Center" 
+            VerticalAlignment="Center" Foreground="Blue" ></Label>
+    </Grid>
+</Page>

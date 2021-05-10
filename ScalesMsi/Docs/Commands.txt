@@ -1,0 +1,9 @@
+PowerShell - List MSI packages
+gwmi Win32_Product | Format-Table IdentifyingNumber, Name, Vendor, Version, Caption -AutoSize
+
+// Удалить
+"C:\Program Files\Windows Sysinternals\PSTools\PsExec64.exe" -u kolbasa-vs\morozov_dv_adm -p Qwert1257214 msiexec.exe /x {6FE30B47-2577-43AD-9095-1861BA2A989B} /qn
+msiexec.exe /uninstall "c:\Program Files (x86)\VladimirStandardCorp\ScalesUI\ScalesUI.msi" /qn
+
+// Установить
+msiexec.exe /i \\DS2\Common\VladimirStandardCorp\ScalesUI.msi /quiet /norestart

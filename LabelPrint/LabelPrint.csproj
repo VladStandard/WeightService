@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{99B4E0CC-5595-4C51-A559-E619439802C9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>LabelPrint</RootNamespace>
+    <AssemblyName>LabelPrint</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>LabelPrint.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>labels_1.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WPF.Utils, Version=0.2.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPF.Utils.0.2.19\lib\net48\WPF.Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Views\PageChangeLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PageHome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PageAbout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PagePinCode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PageSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\PinCode.cs" />
+    <Compile Include="Models\Utils.cs" />
+    <Compile Include="Models\WindowResolution.cs" />
+    <Compile Include="ViewModels\ProgramSettings.cs" />
+    <Compile Include="Views\PageChangeLog.xaml.cs">
+      <DependentUpon>PageChangeLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PageHome.xaml.cs">
+      <DependentUpon>PageHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PageAbout.xaml.cs">
+      <DependentUpon>PageAbout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PagePinCode.xaml.cs">
+      <DependentUpon>PagePinCode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PageSettings.xaml.cs">
+      <DependentUpon>PageSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowMain.xaml.cs">
+      <DependentUpon>WindowMain.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="CHANGELOG.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="labels_1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\Resources\Icons\about_1.ico">
+      <Link>Resources\about_1.ico</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\about_1.png">
+      <Link>Resources\about_1.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\changelog_1.png">
+      <Link>Resources\changelog_1.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\exit_1.png">
+      <Link>Resources\exit_1.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\exit_2.png">
+      <Link>Resources\exit_2.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\home_1.png">
+      <Link>Resources\home_1.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\labels_1.ico">
+      <Link>Resources\labels_1.ico</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\labels_1.png">
+      <Link>Resources\labels_1.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\logo_1.png">
+      <Link>Resources\logo_1.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\print_1.png">
+      <Link>Resources\print_1.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\ScalesUI.ico">
+      <Link>Resources\ScalesUI.ico</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\scales_1.gif">
+      <Link>Resources\scales_1.gif</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\scales_2.gif">
+      <Link>Resources\scales_2.gif</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\settings_1.png">
+      <Link>Resources\settings_1.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\settings_2.png">
+      <Link>Resources\settings_2.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\settings_default.png">
+      <Link>Resources\settings_default.png</Link>
+    </Resource>
+    <Resource Include="..\Resources\Icons\update_1.png">
+      <Link>Resources\update_1.png</Link>
+    </Resource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,8 @@
+﻿CREATE LOGIN [1Cv8Log2] 
+WITH 
+	PASSWORD = 'Pa$$w0rd',
+	DEFAULT_DATABASE = [$(DatabaseName)],
+	CHECK_EXPIRATION = OFF, 
+	CHECK_POLICY     = OFF
+GO
+

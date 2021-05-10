@@ -1,0 +1,15 @@
+echo -----------------------------------------------------------------------------------------------
+echo Скрипты Post-build
+echo Версия ScalesMsi: @(VersionNumber)
+if $(ConfigurationName) == Debug (
+  copy "$(ProjectDir)ScalesUI.msi" "$(ProjectDir)Msi\Debug\ScalesUI @(VersionNumber).msi" /y
+  echo Файл "$(ProjectDir)ScalesUI.msi" скопирован в каталог Debug
+) else (
+  copy "$(ProjectDir)ScalesUI.msi" "$(ProjectDir)Msi\Release\ScalesUI @(VersionNumber).msi" /y
+  echo Файл "$(ProjectDir)ScalesUI.msi" скопирован в каталог Release
+)
+del "$(ProjectDir)ScalesUI.msi"
+echo Файл "$(ProjectDir)ScalesUI.msi" удалён
+echo -----------------------------------------------------------------------------------------------
+
+copy "$(SolutionDir)ScalesLib\bin\$(ConfigurationName)\ScalesLib.dll" "$(ProjectDir)\ScalesLib.dll" /y

@@ -1,0 +1,12 @@
+﻿CREATE USER [1Cv8Log2]
+	FOR LOGIN [1Cv8Log2]
+	WITH DEFAULT_SCHEMA = dbo
+
+GO
+
+
+ALTER ROLE [db_scales_users] ADD MEMBER [1Cv8Log2]
+GO
+
+
+

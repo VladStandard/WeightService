@@ -1,0 +1,1 @@
+start msiexec /uninstall ScalesUI.msi

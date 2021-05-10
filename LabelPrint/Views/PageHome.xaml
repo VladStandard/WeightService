@@ -1,0 +1,34 @@
+﻿<Page x:Class="LabelPrint.Views.PageHome"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d" 
+      d:DesignWidth="700" d:DesignHeight="700"
+      Title="Главная" Loaded="PageHome_OnLoaded" 
+      Background="Transparent" 
+      DataContext="{StaticResource ViewModelProgramSettings}" FontSize="{Binding FontSize, Mode=OneWay}">
+
+    <Grid Name="GridHome">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="13.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="12.5*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="ButtonUpdate" ToolTip="Обновить" Margin="0" 
+                Grid.Column="0" BorderBrush="Transparent" Background="Transparent"
+                Click="ButtonUpdate_Click" >
+            <Image Source="{StaticResource BitmapImageUpdate}" />
+        </Button>
+        <Button x:Name="ButtonPrint" ToolTip="Печать" Margin="0" 
+                Grid.Column="5" BorderBrush="Transparent" Background="Transparent"
+                Click="ButtonPrint_Click" >
+            <Image Source="{StaticResource BitmapImagePrint}" />
+        </Button>
+    </Grid>
+</Page>
