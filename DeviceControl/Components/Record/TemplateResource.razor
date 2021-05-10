@@ -142,12 +142,12 @@
                 {
                     Item.Type = strValue;
                 }
+                StateHasChanged();
                 break;
         }
-        StateHasChanged();
     }
 
-    void OnError(UploadErrorEventArgs args, string name)
+    private void OnError(UploadErrorEventArgs args, string name)
     {
         var msg = new NotificationMessage
         {

@@ -369,9 +369,11 @@
                     var scalesEntity = (ScalesEntity)Item;
                     scalesEntity.CreateDate = DateTime.Now;
                     scalesEntity.ModifiedDate = DateTime.Now;
-                    success = FieldControlDeny(scalesEntity.TemplateDefault, "Шаблон по-умолчанию");
+                    success = FieldControlDeny(scalesEntity.Printer, "Принтер");
                     if (success)
-                        success = FieldControlDeny(scalesEntity.Printer, "Принтер");
+                        success = FieldControlDeny(scalesEntity.Host, "Хост");
+                    if (success)
+                        success = FieldControlDeny(scalesEntity.TemplateDefault, "Шаблон по-умолчанию");
                     if (success)
                         success = FieldControlDeny(scalesEntity.WorkShop, "Цех");
                     if (success)

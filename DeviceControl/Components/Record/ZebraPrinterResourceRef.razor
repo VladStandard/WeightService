@@ -150,6 +150,10 @@
                         Item.Resource = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idTemplateResource } }),
                         null);
+                        if (string.IsNullOrEmpty(Item.Description))
+                        {
+                            Item.Description = Item.Resource.Name;
+                        }
                     }
                 }
                 break;
