@@ -1,0 +1,37 @@
+﻿@page "/SqlSettings"
+@using DeviceControl.Core.DAL
+@using BlazorDeviceControl.Models
+@inject TooltipService Tooltip
+@inject NotificationService Notification
+@inject DialogService Dialog
+@inject AppSettings AppSettings
+@inject DataAccessConfig DataAccessConfig
+
+<h2>Настройки SQL</h2>
+
+<br style="margin-top: 20px" />
+<span>Статус подключения: </span>
+<RadzenCheckBox @bind-Value=@IsDisabled TValue="bool" Disabled="true" />
+<RadzenTextBox Style="width: 15%" Disabled=true Value=@AppSettings.DataAccess.IsDisabled.ToString() Change=@(args => Change(args, "State")) />
+
+@code {
+    public DataAccessEntity DataAccess { get; set; }
+    private bool _isDisabled;
+    public bool IsDisabled { get => DataAccess.IsDisabled; set => _isDisabled = value; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(true);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+    }
+
+    private void Change(string value, string name)
+    {
+        StateHasChanged();
+    }
+
+    private void ShowTooltipSqlDefault(ElementReference elementReference, TooltipOptions options = null) => Tooltip.Open(elementReference, "Сбросить значения по-умолчанию", options);
+    private void ShowTooltipSqlOpen(ElementReference elementReference, TooltipOptions options = null) => Tooltip.Open(elementReference, "Открыть подключение к  SQL-серверу", options);
+    private void ShowTooltipSqlClose(ElementReference elementReference, TooltipOptions options = null) => Tooltip.Open(elementReference, "Закрыть подключение к  SQL-серверу", options);
+    private void ShowTooltipGenerateException(ElementReference elementReference, TooltipOptions options = null) => Tooltip.Open(elementReference, "Сгенерировать тестовое исключение", options);
+}

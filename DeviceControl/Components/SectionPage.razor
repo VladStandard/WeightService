@@ -1,0 +1,710 @@
+﻿@page "/SectionPage"
+@using BlazorDeviceControl.Components.Record
+@using BlazorDeviceControl.Models
+@using DeviceControl.Core.DAL
+@using DeviceControl.Core.DAL.TableModels
+@using System.Runtime.CompilerServices
+@using DeviceControl.Core.DAL.DataModels
+@using DeviceControl.Core.Models
+@inject AppSettings AppSettings
+@inject DataAccessConfig DataAccessConfig
+@inject DialogService Dialog
+@inject NotificationService Notification
+@inject TooltipService Tooltip
+@inject NavigationManager UriHelper
+@* Header *@
+<h2 style="font-size: @FontSizeHeader;">
+    @GetHeader()
+    <RadzenButton Click=@(args => GetDataAsync())
+                  ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
+                  class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
+</h2>
+
+<RadzenTabs>
+    <Tabs>
+        <RadzenTabsItem Text=@Utils.LocalizationStrings.Table>
+            @* RadzenGrid *@
+            <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px;">
+                @if (Entities == null)
+                {
+                    <RadzenLabel Text=@Utils.LocalizationStrings.DataLoading Style="width: 20%" />
+                    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+                }
+                else
+                {
+                    switch (Table)
+                    {
+                        case EnumTable.BarCodeTypes:
+                            var barCodeTypesEntities = new List<BarCodeTypesEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                barCodeTypesEntities.Add((BarCodeTypesEntity)entity);
+                            }
+                            <RadzenGrid Data=@barCodeTypesEntities TItem="BarCodeTypesEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="BarCodeTypesEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="50%" />
+                                    <RadzenGridColumn TItem="BarCodeTypesEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldName
+                                                      Type="string" Width="50%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.Contragents:
+                            var contragentsEntities = new List<ContragentsEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                contragentsEntities.Add((ContragentsEntity)entity);
+                            }
+                            <RadzenGrid Data=@contragentsEntities TItem="ContragentsEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="ContragentsEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="7.5%" />
+                                    <RadzenGridColumn TItem="ContragentsEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldName
+                                                      Type="string" Width="85%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.Hosts:
+                            var hostsEntities = new List<HostsEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                hostsEntities.Add((HostsEntity)entity);
+                            }
+                            <RadzenGrid Data=@hostsEntities TItem="HostsEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="HostsEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="7.5%" />
+                                    <RadzenGridColumn TItem="HostsEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldName
+                                                      Type="string" Width="17.5%" />
+                                    <RadzenGridColumn TItem="HostsEntity" Property="Ip" Title=@Utils.LocalizationStrings.TableFieldDeviceIp
+                                                      Type="string" Width="10%" />
+                                    <RadzenGridColumn TItem="HostsEntity" Property="Mac" Title=@Utils.LocalizationStrings.TableFieldDeviceMac
+                                                      Type="string" Width="10%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.Nomenclature:
+                            var nomenclatureEntities = new List<NomenclatureEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                nomenclatureEntities.Add((NomenclatureEntity)entity);
+                            }
+                            <RadzenGrid Data=@nomenclatureEntities TItem="NomenclatureEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="NomenclatureEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="7.5%" />
+                                    <RadzenGridColumn TItem="NomenclatureEntity" Property="Marked" Title=@Utils.LocalizationStrings.TableFieldMarked
+                                                      Type="bool" Width="7.5%" />
+                                    <RadzenGridColumn TItem="NomenclatureEntity" Property="Code" Title=@Utils.LocalizationStrings.TableFieldCode
+                                                      Type="string" Width="25%" />
+                                    <RadzenGridColumn TItem="NomenclatureEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldName
+                                                      Type="string" Width="30%" />
+                                    <RadzenGridColumn TItem="NomenclatureEntity" Property="NomenclatureTypeGui" Title=@Utils.LocalizationStrings.TableFieldNomenclatureType
+                                                      Type="string" Width="30%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.ProductionFacility:
+                            var productionFacilityEntities = new List<ProductionFacilityEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                productionFacilityEntities.Add((ProductionFacilityEntity)entity);
+                            }
+                            // Sorting by [Name].
+                            productionFacilityEntities = productionFacilityEntities.OrderBy(x => x.Name).ToList();
+                            <RadzenGrid Data=@productionFacilityEntities TItem="ProductionFacilityEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="ProductionFacilityEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="7.5%" />
+                                    <RadzenGridColumn TItem="ProductionFacilityEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldName
+                                                      Type="string" Width="92.5%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.ProductSeries:
+                            var productSeries = new List<ProductSeriesEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                productSeries.Add((ProductSeriesEntity)entity);
+                            }
+                            <RadzenGrid Data=@productSeries TItem="ProductSeriesEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="7.5%" />
+                                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="ScaleId" Title=@Utils.LocalizationStrings.TableFieldScaleId
+                                                      Type="string" Width="12.5%" />
+                                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="Uid" Title=@Utils.LocalizationStrings.TableFieldUid
+                                                      Type="Guid" Width="25%" />
+                                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="IsClose" Title=@Utils.LocalizationStrings.TableFieldIsClose
+                                                      Type="bool" Width="25%" />
+                                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="Sscc" Title=@Utils.LocalizationStrings.TableFieldSscc
+                                                      Type="string" Width="30%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.Scales:
+                            var scalesEntities = new List<ScalesEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                scalesEntities.Add((ScalesEntity)entity);
+                            }
+                            // Sorting by [Description].
+                            scalesEntities = scalesEntities.OrderBy(x => x.Description).ToList();
+                            <RadzenGrid Data=@scalesEntities TItem="ScalesEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId Width="7.5%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="Description"
+                                                      Title=@Utils.LocalizationStrings.TableFieldDescription Width="17%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="Printer.Name"
+                                                      Title=@Utils.LocalizationStrings.TableFieldZebraPrinter Width="10%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="Host.Name"
+                                                      Title=@Utils.LocalizationStrings.TableFieldHost Width="10.5%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="Host.Ip"
+                                                      Title=@Utils.LocalizationStrings.TableFieldDeviceIp Width="8%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="WorkShop.Name"
+                                                      Title=@Utils.LocalizationStrings.TableFieldWorkShopName Width="12%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="TemplateDefault.Title"
+                                                      Title=@Utils.LocalizationStrings.TableFieldTemplateDefault Width="17%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="TemplateSeries.Title"
+                                                      Title=@Utils.LocalizationStrings.TableFieldTemplateSeries Width="17%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.SsccStorage:
+                            break;
+                        case EnumTable.TemplateResources:
+                            var templateResourcesEntities = new List<TemplateResourcesEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                templateResourcesEntities.Add((TemplateResourcesEntity)entity);
+                            }
+                            // Sorting by [Type].
+                            templateResourcesEntities = templateResourcesEntities.OrderBy(x => x.Type).ToList();
+                            <RadzenGrid Data=@templateResourcesEntities TItem="TemplateResourcesEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="TemplateResourcesEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId Width="7.5%" />
+                                    <RadzenGridColumn TItem="TemplateResourcesEntity" Property="Type" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldType Width="10%" />
+                                    <RadzenGridColumn TItem="TemplateResourcesEntity" Property="Name"
+                                                      Title=@Utils.LocalizationStrings.TableFieldName Width="30%" />
+                                    <RadzenGridColumn TItem="TemplateResourcesEntity" Property="Description"
+                                                      Title=@Utils.LocalizationStrings.TableFieldDescription Width="28%" />
+                                    <RadzenGridColumn TItem="TemplateResourcesEntity" Property="ImageDataInfo"
+                                                      Title=@Utils.LocalizationStrings.TableFieldImageDataInfo Width="22.5%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.Templates:
+                            var templatesEntities = new List<TemplatesEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                templatesEntities.Add((TemplatesEntity)entity);
+                            }
+                            // Sorting by [CategoryId].
+                            templatesEntities = templatesEntities.OrderBy(x => x.CategoryId).ToList();
+                            <RadzenGrid Data=@templatesEntities TItem="TemplatesEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="TemplatesEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId Width="7.5%" />
+                                    <RadzenGridColumn TItem="TemplatesEntity" Property="CategoryId" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldCategoryName Width="10%" />
+                                    <RadzenGridColumn TItem="TemplatesEntity" Property="Title" Title=@Utils.LocalizationStrings.TableFieldTitle Width="82.5%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.WeithingFact:
+                            var weithingFactEntities = new List<WeithingFactEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                weithingFactEntities.Add((WeithingFactEntity)entity);
+                            }
+                            // Sorting by [Id].
+                            weithingFactEntities = weithingFactEntities.OrderBy(x => x.Id).ToList();
+                            <RadzenGrid Data=@weithingFactEntities TItem="WeithingFactEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="WeithingFactEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="7.5%" />
+                                    <RadzenGridColumn TItem="WeithingFactEntity" Property="Plu.Id" Title=@Utils.LocalizationStrings.TableFieldPlu
+                                                      Type="string" Width="55%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.WorkShop:
+                            var workshopEntities = new List<WorkshopEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                workshopEntities.Add((WorkshopEntity)entity);
+                            }
+                            // Sorting by [ProductionFacility].
+                            workshopEntities = workshopEntities.OrderBy(x => x.ProductionFacility.Name).ToList();
+                            <RadzenGrid Data=@workshopEntities TItem="WorkshopEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="WorkshopEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="7.5%" />
+                                    <RadzenGridColumn TItem="WorkshopEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldWorkShopName
+                                                      Type="string" Width="52.5%" />
+                                    <RadzenGridColumn TItem="WorkshopEntity" Property="ProductionFacility.Name"
+                                                      Title=@Utils.LocalizationStrings.TableFieldProductionFacilityName
+                                                      Type="int" Width="45%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.ZebraPrinter:
+                            var zebraPrinterEntities = new List<ZebraPrinterEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                zebraPrinterEntities.Add((ZebraPrinterEntity)entity);
+                            }
+                            // Sorting by [Name].
+                            zebraPrinterEntities = zebraPrinterEntities.OrderBy(x => x.Name).ToList();
+                            <RadzenGrid Data=@zebraPrinterEntities TItem="ZebraPrinterEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="ZebraPrinterEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="7.5%" />
+                                    <RadzenGridColumn TItem="ZebraPrinterEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldZebraPrinter
+                                                      Type="string" Width="17%" />
+                                    <RadzenGridColumn TItem="ZebraPrinterEntity" Property="PrinterType.Name"
+                                                      Title=@Utils.LocalizationStrings.TableFieldZebraPrinterType
+                                                      Type="string" Width="16.5%" />
+                                    <RadzenGridColumn TItem="ZebraPrinterEntity" Property="Ip" Title=@Utils.LocalizationStrings.TableFieldZebraPrinterIp
+                                                      Type="string" Width="20%" />
+                                    <RadzenGridColumn TItem="ZebraPrinterEntity" Property="Port" Title=@Utils.LocalizationStrings.TableFieldZebraPrinterPort
+                                                      Type="string" Width="20%" />
+                                    <RadzenGridColumn TItem="ZebraPrinterEntity" Property="Mac" Title=@Utils.LocalizationStrings.TableFieldZebraPrinterMac
+                                                      Type="string" Width="20%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                        case EnumTable.PrinterType:
+                            var zebraPrinterTypeEntities = new List<ZebraPrinterTypeEntity>();
+                            foreach (var entity in Entities)
+                            {
+                                zebraPrinterTypeEntities.Add((ZebraPrinterTypeEntity)entity);
+                            }
+                            // Sorting by [Name].
+                            zebraPrinterTypeEntities = zebraPrinterTypeEntities.OrderBy(x => x.Name).ToList();
+                            <RadzenGrid Data=@zebraPrinterTypeEntities TItem="ZebraPrinterTypeEntity"
+                                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                        AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                <Columns>
+                                    <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Id" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldId
+                                                      Type="int" Width="7.5%" />
+                                    <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldZebraPrinter
+                                                      Type="string" Width="60%" />
+                                </Columns>
+                            </RadzenGrid>
+                            break;
+                    }
+                }
+            </div>
+            @* Actions *@
+            <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
+                @switch (Table)
+                {
+                    case EnumTable.Contragents:
+                    case EnumTable.Nomenclature:
+                    case EnumTable.ProductionFacility:
+                    case EnumTable.Scales:
+                    case EnumTable.TemplateResources:
+                    case EnumTable.Templates:
+                    case EnumTable.WorkShop:
+                    case EnumTable.ZebraPrinter:
+                    case EnumTable.PrinterType:
+                        AppSettings.ShowActionsButtons = true;
+                        break;
+                    default:
+                        AppSettings.ShowActionsButtons = false;
+                        break;
+                }
+                @if (AppSettings.ShowActionsButtons)
+                {
+                    <RadzenButton Click=@(args => ActionAddAsync(Table, Entity, null))
+                                  ButtonStyle="ButtonStyle.Secondary"
+                                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;"
+                                  Text=@Utils.LocalizationStrings.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
+                    <RadzenButton Click=@(args => ActionEditAsync(Table, Entity, null))
+                                  ButtonStyle="ButtonStyle.Secondary"
+                                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
+                                  Text=@Utils.LocalizationStrings.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
+                    @if (AppSettings.AccessRights == EnumAccessRights.Admin)
+                    {
+                        <RadzenButton Click=@(args => ActionCopyAsync(Table, Entity, null))
+                                      ButtonStyle="ButtonStyle.Secondary"
+                                      Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
+                                      Text=@Utils.LocalizationStrings.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
+                    }
+                    <RadzenButton Click=@(args => ActionMarkedAsync(Table, Entity, null))
+                                  ButtonStyle="ButtonStyle.Secondary"
+                                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
+                                  Text=@Utils.LocalizationStrings.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
+                }
+                else
+                {
+                    <span>@Utils.LocalizationStrings.TableActionsIsDeny</span>
+                }
+            </div>
+        </RadzenTabsItem>
+        <RadzenTabsItem Text=@Utils.LocalizationStrings.Chart>
+            @switch (Table)
+            {
+                case EnumTable.Contragents:
+                    @if (ContragentsChartCreated == null || ContragentsChartCreated.Length == 0 ||
+                        ContragentsChartModified == null || ContragentsChartModified.Length == 0)
+                    {
+                        <RadzenLabel Text=@Utils.LocalizationStrings.DataLoading Style="width: 20%" />
+                        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+                    }
+                    else
+                    {
+                        <RadzenLabel Style="width: 80px" Text=@Utils.LocalizationStrings.ChartSmooth>
+                        </RadzenLabel>
+                        <RadzenCheckBox Style="height: 30px" @bind-Value=@AppSettings.ChartSmooth></RadzenCheckBox>
+                        <br />
+                        <RadzenChart>
+                            <RadzenLineSeries Smooth=@AppSettings.ChartSmooth Data=@ContragentsChartCreated CategoryProperty="Date"
+                                              Title=@Utils.LocalizationStrings.ChartCreated
+                                              LineType="LineType.Dashed" ValueProperty="Count">
+                                <RadzenMarkers MarkerType="MarkerType.Square" />
+                            </RadzenLineSeries>
+                            <RadzenLineSeries Smooth=@AppSettings.ChartSmooth Data=@ContragentsChartModified CategoryProperty="Date"
+                                              Title=@Utils.LocalizationStrings.ChartModified
+                                              LineType="LineType.Dashed" ValueProperty="Count">
+                                <RadzenMarkers MarkerType="MarkerType.Square" />
+                            </RadzenLineSeries>
+                            <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}{0:dd}" />
+                            <RadzenValueAxis>
+                                <RadzenGridLines Visible="true" />
+                                <RadzenAxisTitle Text=@Utils.LocalizationStrings.ChartCount />
+                            </RadzenValueAxis>
+                        </RadzenChart>
+                    }
+                    break;
+                case EnumTable.Nomenclature:
+                    @if (NomenclaturesChartCreated == null || NomenclaturesChartCreated.Length == 0 ||
+                        NomenclaturesChartModified == null || NomenclaturesChartModified.Length == 0)
+                    {
+                        <RadzenLabel Text=@Utils.LocalizationStrings.DataLoading Style="width: 20%" />
+                        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+                    }
+                    else
+                    {
+                        <RadzenLabel Style="width: 80px" Text=@Utils.LocalizationStrings.ChartSmooth>
+                        </RadzenLabel>
+                        <RadzenCheckBox Style="height: 30px" @bind-Value=@AppSettings.ChartSmooth></RadzenCheckBox>
+                        <br />
+                        <RadzenChart>
+                            <RadzenLineSeries Smooth=@AppSettings.ChartSmooth Data=@NomenclaturesChartCreated CategoryProperty="Date"
+                                              Title=@Utils.LocalizationStrings.ChartCreated
+                                              LineType="LineType.Dashed" ValueProperty="Count">
+                                <RadzenMarkers MarkerType="MarkerType.Square" />
+                            </RadzenLineSeries>
+                            <RadzenLineSeries Smooth=@AppSettings.ChartSmooth Data=@NomenclaturesChartModified CategoryProperty="Date"
+                                              Title=@Utils.LocalizationStrings.ChartModified
+                                              LineType="LineType.Dashed" ValueProperty="Count">
+                                <RadzenMarkers MarkerType="MarkerType.Square" />
+                            </RadzenLineSeries>
+                            <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}{0:dd}" />
+                            <RadzenValueAxis>
+                                <RadzenGridLines Visible="true" />
+                                <RadzenAxisTitle Text=@Utils.LocalizationStrings.ChartCount />
+                            </RadzenValueAxis>
+                        </RadzenChart>
+                    }
+
+                    break;
+                case EnumTable.ProductionFacility:
+                    break;
+                case EnumTable.Scales:
+                    break;
+                case EnumTable.TemplateResources:
+                    break;
+                case EnumTable.Templates:
+                    break;
+                case EnumTable.WeithingFact:
+                    break;
+                case EnumTable.WorkShop:
+                    break;
+                case EnumTable.ZebraPrinter:
+                    break;
+                case EnumTable.PrinterType:
+                    break;
+            }
+        </RadzenTabsItem>
+    </Tabs>
+</RadzenTabs>
+
+
+@code {
+    #region Public and private fields and properties
+    private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) =>
+        Tooltip.Open(elementReference, Utils.LocalizationStrings.TableReadData, options);
+    ChartCountEntity[] ContragentsChartCreated { get; set; }
+    ChartCountEntity[] ContragentsChartModified { get; set; }
+    ChartCountEntity[] NomenclaturesChartCreated { get; set; }
+    ChartCountEntity[] NomenclaturesChartModified { get; set; }
+    [Parameter]
+    public EnumTable Table { get; set; }
+    [Parameter]
+    public BaseEntity Entity { get; set; }
+    [Parameter]
+    public BaseEntity[] Entities { get; set; }
+    [Parameter]
+    public int FontSizeHeader { get; set; }
+    [Parameter]
+    public int FontSize { get; set; }
+
+    #endregion
+
+    #region Public and private methods
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(true);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        if (parameters.TryGetValue<EnumTable>("Table", out var table))
+        {
+            Table = table;
+        }
+        FontSize = parameters.TryGetValue<int>("FontSize", out var fontSize) ? fontSize : 14;
+        FontSizeHeader = parameters.TryGetValue<int>("FontSizeHeader", out var fontSizeHeader) ? fontSizeHeader : 20;
+        StateHasChanged();
+        return base.SetParametersAsync(parameters);
+    }
+
+    private string GetHeader()
+    {
+        return Table switch
+        {
+            EnumTable.AttributeDefinationList => Utils.LocalizationStrings.TableTitleAttributeDefinationListShort,
+            EnumTable.AttributeValues => Utils.LocalizationStrings.TableTitleAttributeValuesShort,
+            EnumTable.BarCodeTypes => Utils.LocalizationStrings.TableTitleBarCodeTypesShort,
+            EnumTable.Contragents => Utils.LocalizationStrings.TableTitleContragentsShort,
+            EnumTable.Nomenclature => Utils.LocalizationStrings.TableTitleNomenclatureShort,
+            EnumTable.Orders => Utils.LocalizationStrings.TableTitleOrderStatusShort,
+            EnumTable.OrderStatus => Utils.LocalizationStrings.TableTitleOrderStatusShort,
+            EnumTable.OrderTypes => Utils.LocalizationStrings.TableTitleOrderTypesShort,
+            EnumTable.Plu => Utils.LocalizationStrings.TableTitlePluShort,
+            EnumTable.ProductionFacility => Utils.LocalizationStrings.TableTitleProductionFacilityShort,
+            EnumTable.ProductSeries => Utils.LocalizationStrings.TableTitleProductSeriesShort,
+            EnumTable.Scales => Utils.LocalizationStrings.TableTitleScalesShort,
+            EnumTable.SsccStorage => Utils.LocalizationStrings.TableTitleSsccStorageShort,
+            EnumTable.TemplateResources => Utils.LocalizationStrings.TableTitleTemplateResourcesShort,
+            EnumTable.Templates => Utils.LocalizationStrings.TableTitleTemplatesShort,
+            EnumTable.WeithingFact => Utils.LocalizationStrings.TableTitleWeithingFactShort,
+            EnumTable.WorkShop => Utils.LocalizationStrings.TableTitleWorkShopShort,
+            EnumTable.ZebraPrinter => Utils.LocalizationStrings.TableTitleZebraPrintersShort,
+            _ => string.Empty
+        };
+    }
+
+    private async Task RowSelectAsync(BaseEntity entity,
+    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            Entity = entity;
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    private async Task RowDoubleClickAsync(BaseEntity entity,
+    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            Entity = entity;
+            await ActionEditAsync(Table, Entity, null).ConfigureAwait(true);
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    private async Task GetDataAsync(
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            switch (Table)
+            {
+                case EnumTable.Hosts:
+                    Entities = AppSettings.DataAccess.HostsCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
+                    break;
+                case EnumTable.Plu:
+                    Entities = AppSettings.DataAccess.PluCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
+                    break;
+                case EnumTable.ProductionFacility:
+                    Entities = AppSettings.DataAccess.ProductionFacilityCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
+                    break;
+                case EnumTable.Scales:
+                    Entities = AppSettings.DataAccess.ScalesCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(EnumField.Description, EnumOrderDirection.Asc));
+                    break;
+                case EnumTable.TemplateResources:
+                    Entities = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
+                    break;
+                case EnumTable.Templates:
+                    Entities = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(EnumField.Title, EnumOrderDirection.Asc));
+                    break;
+                case EnumTable.WorkShop:
+                    Entities = AppSettings.DataAccess.WorkshopCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
+                    break;
+                case EnumTable.ZebraPrinter:
+                    Entities = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
+                    break;
+                case EnumTable.PrinterType:
+                    Entities = AppSettings.DataAccess.ZebraPrinterTypeCrud.GetEntities(
+                        null,
+                        new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
+                    break;
+            }
+
+            // ChartDataCreated.
+            ContragentsChartCreated = AppSettings.GetContragentsChartEntities(EnumField.CreateDate);
+            // ChartDataModified.
+            ContragentsChartModified = AppSettings.GetContragentsChartEntities(EnumField.ModifiedDate);
+
+            // ChartDataCreated.
+            NomenclaturesChartCreated = AppSettings.GetNomenclaturesChartEntities(EnumField.CreateDate);
+            // ChartDataModified.
+            NomenclaturesChartModified = AppSettings.GetNomenclaturesChartEntities(EnumField.ModifiedDate);
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    private async Task ActionEditAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionDeleteAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionMarkedAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    #endregion
+}

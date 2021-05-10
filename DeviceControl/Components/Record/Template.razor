@@ -1,0 +1,181 @@
+﻿@page "/Template"
+@using BlazorDeviceControl.Models
+@using DeviceControl.Core.DAL
+@using DeviceControl.Core.DAL.TableModels
+@using DeviceControl.Core.Models
+@using System.Runtime.CompilerServices
+@inject AppSettings AppSettings
+@inject DataAccessConfig DataAccessConfig
+@inject DialogService Dialog
+@inject NotificationService Notification
+
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 27%;" Text=@Utils.LocalizationStrings.TableFieldTitle />
+        <RadzenTextBox Style="width: 70%; " Disabled="false" TValue="string" @bind-value=@Item.Title />
+        <br />
+        <RadzenLabel Style="width: 27%;" Text=@Utils.LocalizationStrings.TableFieldImageData />
+        <br />
+    </div>
+    <br />
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 27%;" Text=@Utils.LocalizationStrings.TableFieldCategoryName />
+        @if (TemplateCategories == null)
+        {
+            <RadzenTextBox Style="width: 70%;" Disabled="true" TValue="string" Value="" />
+            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+        }
+        else
+        {
+            <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                            Data=@TemplateCategories PageSize="5" TextProperty="Name" ValueProperty="Value"
+                            Value=@Item.CategoryId Change=@(args => OnChange(args, "TemlateCategories")) />
+        }
+        <br />
+        <br />
+    </div>
+</div>
+
+@* ImageDataUnicode *@
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 0px; height: 550px;">
+    <RadzenTextArea Style="width: 100%; height: 100%; font-size: 13px; line-height: 18px;"
+                    ReadOnly="false" TValue="string" @bind-value=@Item.ImageDataStringUnicode />
+</div>
+
+@* Dates *@
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldCreateDate />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString() />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldModifiedDate />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString() />
+</div>
+
+@code {
+    public List<TypeEntity<string>> TemplateCategories { get; set; }
+    [Parameter]
+    public TemplatesEntity Item { get; set; }
+
+    #region Public and private methods
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(true);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task RowSelectAsync(BaseEntity entity,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            //
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    private async Task RowDoubleClickAsync(BaseEntity entity, string table,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            //
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    private async Task GetDataAsync(
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            TemplateCategories = new List<TypeEntity<string>>
+            {
+                new TypeEntity<string>("", ""),
+                new TypeEntity<string>("NaN", "NaN"),
+                new TypeEntity<string>("203 dpi", "203 dpi"),
+                new TypeEntity<string>("300 dpi", "300 dpi"),
+                new TypeEntity<string>("608 dpi", "608 dpi"),
+            };
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    private void OnChange(object value, string name)
+    {
+        switch (name)
+        {
+            case "TemlateCategories":
+                if (value is string strValue)
+                {
+                    Item.CategoryId = strValue;
+                }
+                break;
+        }
+        StateHasChanged();
+    }
+
+    private async Task ActionEditAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionDeleteAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    #endregion
+}

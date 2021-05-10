@@ -1,0 +1,525 @@
+﻿@page "/EntityPage"
+@using BlazorDeviceControl.Models
+@using DeviceControl.Core.DAL
+@using DeviceControl.Core.DAL.DataModels
+@using DeviceControl.Core.DAL.TableModels
+@using DeviceControl.Core.Models
+@using System.Runtime.CompilerServices
+@inject AppSettings AppSettings
+@inject DataAccessConfig DataAccessConfig
+@inject DialogService Dialog
+@inject NotificationService Notification
+@inject TooltipService Tooltip
+
+@* RadzenCard *@
+<RadzenCard Style="margin-bottom: 0; font-size: 13px; ">
+    <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
+        @switch (Table)
+        {
+            case EnumTable.AttributeDefinationList:
+                break;
+            case EnumTable.AttributeValues:
+                break;
+            case EnumTable.BarCodeTypes:
+                break;
+            case EnumTable.Contragents:
+                break;
+            case EnumTable.Hosts:
+                var hostEntity = (HostsEntity) Item;
+                <BlazorDeviceControl.Components.Record.Host Item=@hostEntity />
+                break;
+            case EnumTable.Nomenclature:
+                break;
+            case EnumTable.Orders:
+                break;
+            case EnumTable.OrderStatus:
+                break;
+            case EnumTable.OrderTypes:
+                break;
+            case EnumTable.Plu:
+                var pluEntity = (PluEntity)Item;
+                <BlazorDeviceControl.Components.Record.Plu Item=@pluEntity />
+                break;
+            case EnumTable.ProductionFacility:
+                var productionFacilityEntity = (ProductionFacilityEntity)Item;
+                <BlazorDeviceControl.Components.Record.ProductionFacility Item=@productionFacilityEntity />
+                break;
+            case EnumTable.ProductSeries:
+                var productSeries = (ProductSeriesEntity)Item;
+                @*<span Style="align-self: start; width: 15%; height: 25px; ">@Utils.LocalizationStrings.TableFieldId</span>
+                <RadzenNumeric Style="align-self: end; width: 85%; height: 25px; " TValue="int" Disabled=true @bind-value=@productSeries.Id />
+                <div class="col-md-6" Style="margin-top: 0; margin-left: 0; margin-right: 0;">
+                    <br Style="margin-top: 0; margin-left: 0; margin-right: 0;" />
+                    <span Style="align-self: start; width: 25%; height: 25px;">@Utils.LocalizationStrings.TableFieldScaleId</span>
+                    <RadzenTextBox TValue="string" Style="align-self: end; width: 60%; height: 25px;"
+                                   @bind-value=@productSeries.Scale.Id />
+                    <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
+                    <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldCreateDate</span>
+                    <RadzenDatePicker Disabled="true" @bind-Value=@productSeries.CreateDate />
+                    <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
+                    <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldUid</span>-->
+                    <RadzenTextBox Mask="********-****-****-****-************" Placeholder="00000000-0000-0000-0000-000000000000"
+                                   Disabled="false" @bind-Value=@productSeries.UidGui Style="width: 70%" />
+                    <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
+                    <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldIsClose</span>
+                    <RadzenCheckBox Disabled="false" @bind-Value=@productSeries.IsCloseGui TValue="bool" />
+                    <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
+                    <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldSscc</span>
+                    <RadzenTextBox Disabled="false" @bind-Value=@productSeries.Sscc />
+                </div>*@
+                break;
+            case EnumTable.Scales:
+                var scalesEntity = (ScalesEntity)Item;
+                <BlazorDeviceControl.Components.Record.Scale Item=@scalesEntity />
+                break;
+            case EnumTable.SsccStorage:
+                break;
+            case EnumTable.TemplateResources:
+                var templateResourcesEntity = (TemplateResourcesEntity)Item;
+                <BlazorDeviceControl.Components.Record.TemplateResource Item=@templateResourcesEntity />
+                break;
+            case EnumTable.Templates:
+                var templatesEntity = (TemplatesEntity)Item;
+                <BlazorDeviceControl.Components.Record.Template Item=@templatesEntity />
+                break;
+            case EnumTable.WeithingFact:
+                break;
+            case EnumTable.WorkShop:
+                var workshopEntity = (WorkshopEntity)Item;
+                <BlazorDeviceControl.Components.Record.Workshop Item=@workshopEntity />
+                break;
+            case EnumTable.ZebraPrinter:
+                var zebraPrinterEntity = (ZebraPrinterEntity)Item;
+                <BlazorDeviceControl.Components.Record.ZebraPrinter Item=@zebraPrinterEntity />
+                break;
+            case EnumTable.ZebraPrinterResourceRef:
+                var zebraPrinterResourceRef = (ZebraPrinterResourceRefEntity)Item;
+                <BlazorDeviceControl.Components.Record.ZebraPrinterResourceRef Item=@zebraPrinterResourceRef />
+                break;
+            case EnumTable.PrinterType:
+                var printerTypeEntity = (ZebraPrinterTypeEntity)Item;
+                <BlazorDeviceControl.Components.Record.PrinterType Item=@printerTypeEntity />
+                break;
+        }
+    </div>
+</RadzenCard>
+
+@* Actions *@
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 20px;">
+    <RadzenButton Click=@(args => SaveAsync(args))
+                  Text=@Utils.LocalizationStrings.TableActionSave
+                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
+    <RadzenButton ButtonStyle="ButtonStyle.Secondary"
+                  Click=@(args => CancelAsync(args))
+                  Text=@Utils.LocalizationStrings.TableActionCancel
+                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
+</div>
+
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    .full-height {
+        height: 100%;
+    }
+</style>
+
+@code {
+    #region Public and private fields and properties
+
+    [Parameter]
+    public EnumTable Table { get; set; }
+    [Parameter]
+    public BaseEntity Item { get; set; }
+    [Parameter]
+    public EnumTableAction TableAction { get; set; }
+    [Parameter]
+    public EventCallback CallbackActionSaveAsync { get; set; }
+    [Parameter]
+    public EventCallback CallbackActionCancelAsync { get; set; }
+
+    #endregion
+
+    #region Public and private methods
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(true);
+    }
+
+    private bool FieldControlDeny(BaseEntity entity, string field)
+    {
+        var result = entity != null;
+        if (entity is BarCodeTypesEntity barCodeTypesEntity)
+        {
+            if (barCodeTypesEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is ContragentsEntity contragentsEntity)
+        {
+            if (contragentsEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is HostsEntity hostsEntity)
+        {
+            if (hostsEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is LabelsEntity labelsEntity)
+        {
+            if (labelsEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is NomenclatureEntity nomenclatureEntity)
+        {
+            if (nomenclatureEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is OrdersEntity ordersEntity)
+        {
+            if (ordersEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is OrderStatusEntity orderStatusEntity)
+        {
+            if (orderStatusEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is OrderTypesEntity orderTypesEntity)
+        {
+            if (orderTypesEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is PluEntity pluEntity)
+        {
+            if (pluEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is ProductionFacilityEntity productionFacilityEntity)
+        {
+            if (productionFacilityEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is ProductSeriesEntity productSeriesEntity)
+        {
+            if (productSeriesEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is ScalesEntity scalesEntity)
+        {
+            if (scalesEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is TemplateResourcesEntity templateResourcesEntity)
+        {
+            if (templateResourcesEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is TemplatesEntity templatesEntity)
+        {
+            if (templatesEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is WeithingFactEntity weithingFactEntity)
+        {
+            if (weithingFactEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is WorkshopEntity workshopEntity)
+        {
+            if (workshopEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is ZebraPrinterEntity zebraPrinterEntity)
+        {
+            if (zebraPrinterEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
+        {
+            if (zebraPrinterResourceRefEntity.EqualsDefault())
+                result = false;
+        }
+        else if (entity is ZebraPrinterTypeEntity zebraPrinterTypeEntity)
+        {
+            if (zebraPrinterTypeEntity.EqualsDefault())
+                result = false;
+        }
+        if (!result)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Warning,
+                Summary = "Контроль данных",
+                Detail = $"Необходимо заполнить поле [{field}]!",
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            return false;
+        }
+        return true;
+    }
+
+    private async Task SaveAsync(MouseEventArgs args,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        var success = true;
+        try
+        {
+            AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+            switch (Table)
+            {
+                case EnumTable.AttributeDefinationList:
+                    break;
+                case EnumTable.AttributeValues:
+                    break;
+                case EnumTable.BarCodeTypes:
+                    break;
+                case EnumTable.Hosts:
+                    var hostsEntity = (HostsEntity)Item;
+                    hostsEntity.CreateDate ??= DateTime.Now;
+                    hostsEntity.ModifiedDate = DateTime.Now;
+                    if (TableAction == EnumTableAction.Add)
+                        AppSettings.DataAccess.HostsCrud.SaveEntity(hostsEntity);
+                    else
+                        AppSettings.DataAccess.HostsCrud.UpdateEntity(hostsEntity);
+                    break;
+                case EnumTable.Contragents:
+                    var contragentsEntity = (ContragentsEntity)Item;
+                    contragentsEntity.CreateDate ??= DateTime.Now;
+                    contragentsEntity.ModifiedDate = DateTime.Now;
+                    if (TableAction == EnumTableAction.Add)
+                        AppSettings.DataAccess.ContragentsCrud.SaveEntity(contragentsEntity);
+                    else
+                        AppSettings.DataAccess.ContragentsCrud.UpdateEntity(contragentsEntity);
+                    break;
+                case EnumTable.Nomenclature:
+                    var nomenclatureEntity = (NomenclatureEntity)Item;
+                    nomenclatureEntity.CreateDate ??= DateTime.Now;
+                    nomenclatureEntity.ModifiedDate = DateTime.Now;
+                    if (TableAction == EnumTableAction.Add)
+                        AppSettings.DataAccess.NomenclatureCrud.SaveEntity(nomenclatureEntity);
+                    else
+                        AppSettings.DataAccess.NomenclatureCrud.UpdateEntity(nomenclatureEntity);
+                    break;
+                case EnumTable.Orders:
+                    break;
+                case EnumTable.OrderStatus:
+                    break;
+                case EnumTable.OrderTypes:
+                    break;
+                case EnumTable.Plu:
+                    var pluEntity = (PluEntity)Item;
+                    pluEntity.ModifiedDate = DateTime.Now;
+                    success = FieldControlDeny(pluEntity.Scale, "Устройство");
+                    if (success)
+                        success = FieldControlDeny(pluEntity.Templates, "Шаблон");
+                    if (success)
+                        success = FieldControlDeny(pluEntity.Nomenclature, "Номенклатура");
+                    if (success)
+                    {
+                        // Контроль номера PLU.
+                        var pluEntities = AppSettings.DataAccess.PluCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object>
+                            {
+                                { "Scale.Id", pluEntity.Scale.Id },
+                                { EnumField.Plu.ToString(), pluEntity.Plu },
+                                        }),
+                            null);
+                        if (pluEntities.Any() && !pluEntities.Where(x => x.Id.Equals(Item.Id)).Select(x => x).Any())
+                        {
+                            var msg = new NotificationMessage
+                            {
+                                Severity = NotificationSeverity.Warning,
+                                Summary = "Контроль данных",
+                                Detail = $"Таблица PLU уже имеет такой номер [{pluEntity.Plu}]!",
+                                Duration = Utils.LocalizationStrings.Timeout
+                            };
+                            Notification.Notify(msg);
+                        }
+                        else
+                        {
+                            if (TableAction == EnumTableAction.Add)
+                                AppSettings.DataAccess.PluCrud.SaveEntity(pluEntity);
+                            else
+                                AppSettings.DataAccess.PluCrud.UpdateEntity(pluEntity);
+                        }
+                    }
+                    break;
+                case EnumTable.ProductionFacility:
+                    var productionFacilityEntity = (ProductionFacilityEntity)Item;
+                    productionFacilityEntity.CreateDate ??= DateTime.Now;
+                    productionFacilityEntity.ModifiedDate = DateTime.Now;
+                    if (TableAction == EnumTableAction.Add)
+                        AppSettings.DataAccess.ProductionFacilityCrud.SaveEntity(productionFacilityEntity);
+                    else
+                        AppSettings.DataAccess.ProductionFacilityCrud.UpdateEntity(productionFacilityEntity);
+                    break;
+                case EnumTable.ProductSeries:
+                    var productSeries = (ProductSeriesEntity)Item;
+                    productSeries.CreateDate ??= DateTime.Now;
+                    if (TableAction == EnumTableAction.Add)
+                        AppSettings.DataAccess.ProductSeriesCrud.SaveEntity(productSeries);
+                    else
+                        AppSettings.DataAccess.ProductSeriesCrud.UpdateEntity(productSeries);
+                    break;
+                case EnumTable.Scales:
+                    var scalesEntity = (ScalesEntity)Item;
+                    scalesEntity.CreateDate = DateTime.Now;
+                    scalesEntity.ModifiedDate = DateTime.Now;
+                    success = FieldControlDeny(scalesEntity.TemplateDefault, "Шаблон по-умолчанию");
+                    if (success)
+                        success = FieldControlDeny(scalesEntity.Printer, "Принтер");
+                    if (success)
+                        success = FieldControlDeny(scalesEntity.WorkShop, "Цех");
+                    if (success)
+                    {
+                        if (TableAction == EnumTableAction.Add)
+                        {
+                            if (scalesEntity.TemplateSeries != null && scalesEntity.TemplateSeries.EqualsDefault())
+                                scalesEntity.TemplateSeries = null;
+                            AppSettings.DataAccess.ScalesCrud.SaveEntity(scalesEntity);
+                        }
+                        else
+                        {
+                            AppSettings.DataAccess.ScalesCrud.UpdateEntity(scalesEntity);
+                        }
+                    }
+                    Console.WriteLine($"scalesEntity: {scalesEntity}");
+                    break;
+                case EnumTable.SsccStorage:
+                    break;
+                case EnumTable.TemplateResources:
+                    var templateResourcesEntity = (TemplateResourcesEntity)Item;
+                    templateResourcesEntity.CreateDate ??= DateTime.Now;
+                    templateResourcesEntity.ModifiedDate = DateTime.Now;
+                    if (TableAction == EnumTableAction.Add)
+                        AppSettings.DataAccess.TemplateResourcesCrud.SaveEntity(templateResourcesEntity);
+                    else
+                        AppSettings.DataAccess.TemplateResourcesCrud.UpdateEntity(templateResourcesEntity);
+                    break;
+                case EnumTable.Templates:
+                    var templatesEntity = (TemplatesEntity)Item;
+                    if (string.IsNullOrEmpty(templatesEntity.CategoryId))
+                    {
+                        success = false;
+                        var msg = new NotificationMessage
+                        {
+                            Severity = NotificationSeverity.Warning,
+                            Summary = "Контроль данных",
+                            Detail = "Необходимо заполнить поле [Категория]!",
+                            Duration = Utils.LocalizationStrings.Timeout
+                        };
+                        Notification.Notify(msg);
+                    }
+                    if (success)
+                    {
+                        templatesEntity.CreateDate ??= DateTime.Now;
+                        templatesEntity.ModifiedDate = DateTime.Now;
+                        if (TableAction == EnumTableAction.Add)
+                        {
+                            AppSettings.DataAccess.TemplatesCrud.SaveEntity(templatesEntity);
+                        }
+                        else
+                        {
+                            AppSettings.DataAccess.TemplatesCrud.UpdateEntity(templatesEntity);
+                        }
+                    }
+                    break;
+                case EnumTable.WeithingFact:
+                    break;
+                case EnumTable.WorkShop:
+                    var workshopEntity = (WorkshopEntity)Item;
+                    workshopEntity.CreateDate ??= DateTime.Now;
+                    workshopEntity.ModifiedDate = DateTime.Now;
+                    if (TableAction == EnumTableAction.Add)
+                        AppSettings.DataAccess.WorkshopCrud.SaveEntity(workshopEntity);
+                    else
+                        AppSettings.DataAccess.WorkshopCrud.UpdateEntity(workshopEntity);
+                    break;
+                case EnumTable.ZebraPrinter:
+                    var zebraPrinterEntity = (ZebraPrinterEntity)Item;
+                    zebraPrinterEntity.CreateDate = DateTime.Now;
+                    zebraPrinterEntity.ModifiedDate = DateTime.Now;
+                    success = FieldControlDeny(zebraPrinterEntity.PrinterType, "Тип принтера");
+                    if (success)
+                    {
+                        if (TableAction == EnumTableAction.Add)
+                            AppSettings.DataAccess.ZebraPrinterCrud.SaveEntity(zebraPrinterEntity);
+                        else
+                            AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(zebraPrinterEntity);
+                    }
+                    break;
+                case EnumTable.ZebraPrinterResourceRef:
+                    var zebraPrinterResourceRefEntity = (ZebraPrinterResourceRefEntity)Item;
+                    zebraPrinterResourceRefEntity.CreateDate = DateTime.Now;
+                    zebraPrinterResourceRefEntity.ModifiedDate = DateTime.Now;
+                    if (TableAction == EnumTableAction.Add)
+                    {
+                        AppSettings.DataAccess.ZebraPrinterResourceRefCrud.SaveEntity(zebraPrinterResourceRefEntity);
+                    }
+                    else
+                    {
+                        var existsEntity = AppSettings.DataAccess.ZebraPrinterResourceRefCrud.ExistsEntity(
+                            new FieldListEntity(new Dictionary<string, object>
+                            {{EnumField.Id.ToString(), zebraPrinterResourceRefEntity.Id}}),
+                            new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
+                        if (existsEntity)
+                        {
+                            var idLast = AppSettings.DataAccess.ZebraPrinterResourceRefCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object>
+                                { { "Printer.Id", zebraPrinterResourceRefEntity.Printer.Id }}),
+                                new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                            //zebraPrinterResourceRefEntity.Id = idLast + 1;
+                            AppSettings.DataAccess.ZebraPrinterResourceRefCrud.UpdateEntity(zebraPrinterResourceRefEntity);
+                        }
+                        else
+                        {
+                            AppSettings.DataAccess.ZebraPrinterResourceRefCrud.UpdateEntity(zebraPrinterResourceRefEntity);
+                        }
+                    }
+                    break;
+                case EnumTable.PrinterType:
+                    var printerTypeEntity = (ZebraPrinterTypeEntity)Item;
+                    if (TableAction == EnumTableAction.Add)
+                    {
+                        var idLast = AppSettings.DataAccess.ZebraPrinterTypeCrud.GetEntity(null,
+                            new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                        printerTypeEntity.Id = idLast + 1;
+                        AppSettings.DataAccess.ZebraPrinterTypeCrud.SaveEntity(printerTypeEntity);
+                    }
+                    else
+                        AppSettings.DataAccess.ZebraPrinterTypeCrud.UpdateEntity(printerTypeEntity);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(ex.Message);
+            Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+        }
+        finally
+        {
+            if (success)
+                Dialog.Close(true);
+        }
+    }
+
+    private async Task CancelAsync(MouseEventArgs args)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        Dialog.Close(false);
+    }
+
+    #endregion
+}

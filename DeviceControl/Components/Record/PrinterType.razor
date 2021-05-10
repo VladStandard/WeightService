@@ -1,0 +1,70 @@
+﻿@page "/PrinterType"
+@using DeviceControl.Core.DAL.TableModels
+@using System.Runtime.CompilerServices
+@using BlazorDeviceControl.Models
+@inject AppSettings AppSettings
+@inject DataAccessConfig DataAccessConfig
+@inject DialogService Dialog
+@inject NotificationService Notification
+
+@* Fields *@
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldId />
+        <RadzenNumeric Style="width: 63%; text-align: center" Disabled="true" TValue="int" @bind-Value=@Item.Id />
+        <br />
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldName />
+        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-Value=@Item.Name />
+        <br />
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ZebraPrinterTypeEntity Item { get; set; }
+
+    #region Public and private methods
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(true);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private void OnChange(object value, string name)
+    {
+        switch (name)
+        {
+            //
+        }
+        StateHasChanged();
+    }
+
+    private async Task GetDataAsync(
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            //
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    #endregion
+}
