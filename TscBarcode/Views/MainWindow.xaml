@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TscBarcode"
-        xmlns:viewModels="clr-namespace:TscBarcode.ViewModels;assembly=ZplCommonLib"
+        xmlns:tsc="clr-namespace:ZplCommonLib.Tsc;assembly=ZplCommonLib"
         mc:Ignorable="d"
         Title="MainWindow" Width="800" Height="600" Closed="Window_Closed" >
 
     <Window.DataContext>
-        <viewModels:ProgramSettings />
+        <tsc:PrintControlEntity />
     </Window.DataContext>
 
     <Grid DataContext="viewModels:ProgramSettings" >

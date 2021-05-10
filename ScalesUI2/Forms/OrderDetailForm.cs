@@ -19,7 +19,7 @@ namespace ScalesUI.Forms
 
         private void OrderDetailForm_Load(object sender, EventArgs e)
         {
-            TopMost = !_ws.IsAdmin;
+            TopMost = !_ws.IsDebug;
             listBox1.Items.Clear();
             foreach (string prop in _ws.CurrentOrder.ToString().Split('\n'))
             {

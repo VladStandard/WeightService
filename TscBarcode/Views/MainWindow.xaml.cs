@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using TscBarcode.ViewModels;
+using ZplCommonLib.Tsc;
 
 namespace TscBarcode.Views
 {
@@ -11,7 +11,7 @@ namespace TscBarcode.Views
     {
         #region Public and private fields and properties
 
-        private ProgramSettings Settings { get; set; }
+        private PrintControlEntity PrintControl { get; set; }
 
         #endregion
 
@@ -22,10 +22,10 @@ namespace TscBarcode.Views
             InitializeComponent();
 
             var context = FindResource("ViewModelProgramSettings");
-            if (context is ProgramSettings settings)
+            if (context is PrintControlEntity printControl)
             {
-                Settings = settings;
-                Settings.Log = "TSC is ready for use." + Environment.NewLine;
+                PrintControl = printControl;
+                PrintControl.Log = "TSC is ready for use." + Environment.NewLine;
             }
         }
 
@@ -73,27 +73,27 @@ namespace TscBarcode.Views
 
         private void ButtonEthernetOpen_Click(object sender, RoutedEventArgs e)
         {
-            Settings.EthernetOpen();
+            PrintControl.EthernetOpen();
         }
 
         private void ButtonEthernetClose_Click(object sender, RoutedEventArgs e)
         {
-            Settings.EthernetClose();
+            PrintControl.EthernetClose();
         }
 
         private void ButtonEthernetPrint_Click(object sender, RoutedEventArgs e)
         {
-            Settings.EthernetPrintTest();
+            PrintControl.EthernetPrintTest();
         }
 
         private void ButtonEthernetPrinterSetupReset_Click(object sender, RoutedEventArgs e)
         {
-            Settings.EthernetSetupReset();
+            PrintControl.EthernetSetupReset();
         }
 
         private void ButtonEthernetPrinterSetup_Click(object sender, RoutedEventArgs e)
         {
-            Settings.EthernetSetup();
+            PrintControl.EthernetSetup();
         }
 
         #endregion

@@ -1,5 +1,4 @@
-﻿
-using EntitiesLib;
+﻿using EntitiesLib;
 using ScalesUI.Forms;
 using System;
 using System.Reflection;
@@ -8,13 +7,13 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using WeightServices.Common;
 using WeightServices.Common.MK;
-using WeightServices.Common.Zpl;
 using WeightServices.Entities;
 using ZabbixAgentLib;
 using ZplCommonLib;
+using ZplCommonLib.Zebra;
+
 // ReSharper disable IdentifierTypo
 // ReSharper disable StringLiteralTypo
-
 // ReSharper disable CommentTypo
 
 namespace ScalesUI.Common
@@ -75,8 +74,8 @@ namespace ScalesUI.Common
 
             try
             {
-                zebraDeviceEntity = new ZebraPrinterWithSdk(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port, 120);
-                zebraDeviceEntity.Open(CurrentScale.ZebraPrinter.PrinterType);
+                ZebraDeviceEntity = new PrintSdk(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port, 120);
+                ZebraDeviceEntity.Open(CurrentScale.ZebraPrinter.PrinterType);
             }
             catch (Exception ex)
             {
@@ -116,12 +115,12 @@ namespace ScalesUI.Common
 
         #endregion
 
+        #region Public and private fields and properties
+
         private readonly LogHelper _log = LogHelper.Instance;
         public string AppVersion => UtilsAppVersion.GetMainFormText(Assembly.GetExecutingAssembly());
 
         public ProductSeriesEntity ProductSeries { get; private set; }
-
-        public bool IsAdmin => IsDebug;
 
         public bool IsDebug
         {
@@ -135,15 +134,11 @@ namespace ScalesUI.Common
             }
         }
 
-
         public HostEntity Host { get; private set; }
 
         public ZplCommander ZplCommander { get; private set; }
 
-        //public ZebraDeviceСontainer ZebraDeviceСontainer { get; private set; }
-
-        //public ZebraDeviceEntity ZebraDeviceEntity { get; }
-        public ZebraPrinterWithSdk zebraDeviceEntity { get; }
+        public PrintSdk ZebraDeviceEntity { get; }
 
         public MkDeviceEntity MkDevice { get; }
 
@@ -151,9 +146,17 @@ namespace ScalesUI.Common
         private CancellationToken _token;
         private CancellationToken _tokenHttpListener;
         private ThreadChecker _threadChecker;
+        public int CurrentScaleId { get; private set; }
 
-        public MkCommander mkCommander { get; private set; }
         public OrderEntity CurrentOrder { get; set; }
+
+        [XmlElement(IsNullable = true)]
+        public ScaleEntity CurrentScale { get; set; }
+
+        [XmlElement(IsNullable = true)]
+        public WeighingFactEntity CurrentWeighingFact { get; set; }
+        
+        #endregion
 
         #region PalletSize
         public static readonly int PalletSizeMinValue = 1;
@@ -211,10 +214,10 @@ namespace ScalesUI.Common
         {
             CurrentBox = 1;
             //если новая паллета - чистим очередь печати
-            if (zebraDeviceEntity != null)
+            if (ZebraDeviceEntity != null)
             {
-                zebraDeviceEntity.ClearZebraPrintBuffer();
-                zebraDeviceEntity.SetOdometorUserLabel(1);
+                ZebraDeviceEntity.ClearZebraPrintBuffer();
+                ZebraDeviceEntity.SetOdometorUserLabel(1);
                 ProductSeries.New();
 
             }
@@ -235,10 +238,10 @@ namespace ScalesUI.Common
             set
             {
                 //если замес изменился - чистим очередь печати
-                if (zebraDeviceEntity != null)
+                if (ZebraDeviceEntity != null)
                 {
-                    zebraDeviceEntity.ClearZebraPrintBuffer();
-                    zebraDeviceEntity.SetOdometorUserLabel(CurrentBox);
+                    ZebraDeviceEntity.ClearZebraPrintBuffer();
+                    ZebraDeviceEntity.SetOdometorUserLabel(CurrentBox);
                 }
                 _kneading = value;
                 NotifyKneading?.Invoke(value);
@@ -279,8 +282,8 @@ namespace ScalesUI.Common
             set
             {
                 //если дата изменилась - чистим очередь печати
-                if (zebraDeviceEntity != null)
-                    zebraDeviceEntity.ClearZebraPrintBuffer();
+                if (ZebraDeviceEntity != null)
+                    ZebraDeviceEntity.ClearZebraPrintBuffer();
                 _productDate = value;
                 NotifyProductDate?.Invoke(value);
             }
@@ -315,9 +318,9 @@ namespace ScalesUI.Common
             set
             {
                 //если ПЛУ изменился - чистим очередь печати
-                if (zebraDeviceEntity != null)
-                    zebraDeviceEntity.ClearZebraPrintBuffer();
-                    zebraDeviceEntity.SetOdometorUserLabel(1);
+                if (ZebraDeviceEntity != null)
+                    ZebraDeviceEntity.ClearZebraPrintBuffer();
+                    ZebraDeviceEntity.SetOdometorUserLabel(1);
                 _currentPLU = value;
                 CurrentBox = 1;
                 NotifyPLU?.Invoke(value);
@@ -327,6 +330,7 @@ namespace ScalesUI.Common
         #endregion
 
         #region PrintMethods
+
         public void ProcessWeighingResult()
         {
             CurrentWeighingFact = null;
@@ -355,19 +359,15 @@ namespace ScalesUI.Common
                     // для КАЖДОЙ!!! коробки отдельно
                     // и при этом получать правильный вес
                     PrintWithCheckWeight(template);
-
                 }
             }
-
         }
 
         private void PrintCheckWeightWithout(TemplateEntity template)
         {
-            // если все ОК выводим серию этикеток
-            // по заданному размеру паллеты
-            for (int i = CurrentBox; i <= PalletSize; i++)
+            // Вывести серию этикеток по заданному размеру паллеты.
+            for (var i = CurrentBox; i <= PalletSize; i++)
             {
-
                 CurrentWeighingFact = WeighingFactEntity.New(
                     CurrentScale,
                     CurrentPLU,
@@ -381,17 +381,15 @@ namespace ScalesUI.Common
                 CurrentWeighingFact.Save();
                 var xmlInput = CurrentWeighingFact.SerializeObject();
 
-                string zplContent = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
-                zebraDeviceEntity.SendAsync(zplContent);
+                var zplContent = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
+                ZebraDeviceEntity.SendAsync(zplContent);
                 var zplLabel = new ZplLabel
                 {
                     WeighingFactId = CurrentWeighingFact.Id,
                     Content = zplContent
                 };
                 zplLabel.Save();
-
             }
-            
         }
 
         private void PrintWithCheckWeight(TemplateEntity template)
@@ -418,13 +416,11 @@ namespace ScalesUI.Common
                 CurrentWeighingFact.Save();
                 var xmlInput = CurrentWeighingFact.SerializeObject();
 
-
                 //_ws.zebraDeviceEntity.SendAsync(template.XslContent, xmlInput);
                 // заменил один вызов на другой
                 // хочу сохранять полученный  ZPL в таблицу Labels
-                //
-                string zplContent = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
-                zebraDeviceEntity.SendAsync(zplContent);
+                var zplContent = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
+                ZebraDeviceEntity.SendAsync(zplContent);
 
                 var zplLabel = new ZplLabel
                 {
@@ -432,26 +428,12 @@ namespace ScalesUI.Common
                     Content = zplContent
                 };
                 zplLabel.Save();
-
             }
-
         }
-
 
         #endregion
 
-
-
-        public int CurrentScaleId { get; private set; }
-
-        [XmlElement(IsNullable = true)]
-        public ScaleEntity CurrentScale { get; set; }
-
-        [XmlElement(IsNullable = true)]
-        public WeighingFactEntity CurrentWeighingFact { get; set; }
-
         #region Public and private methods - Http listener
-
 
         private void StartHttpListener()
         {
@@ -493,7 +475,5 @@ namespace ScalesUI.Common
         }
 
         #endregion
-
-
     }
 }

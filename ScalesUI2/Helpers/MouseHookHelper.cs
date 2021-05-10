@@ -108,7 +108,6 @@ namespace ScalesUI.Helpers
             }
         }
 
-
         #endregion
     }
 

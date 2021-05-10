@@ -14,6 +14,8 @@ using TapangaMaha.Forms;
 using WeightServices.Common;
 using WeightServices.Common.Zpl;
 using WeightServices.Entities;
+using ZplCommonLib;
+
 // ReSharper disable IdentifierTypo
 // ReSharper disable CommentTypo
 

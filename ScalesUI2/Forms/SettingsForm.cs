@@ -3,16 +3,14 @@
 
 using log4net;
 using ScalesUI.Common;
-using ScalesUI.Utils;
 using System;
 using System.Data.SqlClient;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using WeightServices.Common;
-using WeightServices.Common.MK;
 using WeightServices.Common.Zpl;
+using ZplCommonLib;
 
 namespace ScalesUI.Forms
 {
@@ -40,7 +38,7 @@ namespace ScalesUI.Forms
             if (_ws is null)
                 TopMost = false;
             else
-                TopMost = !_ws.IsAdmin;
+                TopMost = !_ws.IsDebug;
 
             // Загружить при кажом открытии формы.
             _ws?.CurrentScale?.Load();
@@ -148,7 +146,7 @@ namespace ScalesUI.Forms
                 Thread.Sleep(10);
                 Application.DoEvents();
 
-                ZPLConverterHelper zp = new ZPLConverterHelper();
+                ZplConverterHelper zp = new ZplConverterHelper();
                 zp.LogoClear(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port);
                 zp.FontsClear(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port);
                 if (_ws.CurrentScale.UseOrder)
@@ -202,7 +200,7 @@ namespace ScalesUI.Forms
                     Thread.Sleep(10);
                     Application.DoEvents();
 
-                    ZPLConverterHelper zp = new ZPLConverterHelper();
+                    ZplConverterHelper zp = new ZplConverterHelper();
                     zp.Сalibration(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port);
                 }
                 catch (Exception ex)
@@ -224,7 +222,7 @@ namespace ScalesUI.Forms
 
         private void buttonResetPrinter_Click(object sender, EventArgs e)
         {
-            _ws.zebraDeviceEntity.SendAsync(ZplPipeClass.ZplPowerOnReset());
+            _ws.ZebraDeviceEntity.SendAsync(ZplPipeClass.ZplPowerOnReset());
         }
 
         /// <summary>
@@ -234,7 +232,7 @@ namespace ScalesUI.Forms
         /// <param name="e"></param>
         private void buttonCalibrate_Click(object sender, EventArgs e)
         {
-            _ws.zebraDeviceEntity.SendAsync(ZplPipeClass.ZplCalibration());
+            _ws.ZebraDeviceEntity.SendAsync(ZplPipeClass.ZplCalibration());
         }
 
 
@@ -243,7 +241,7 @@ namespace ScalesUI.Forms
 
         private void buttonPrintOptions_Click(object sender, EventArgs e)
         {
-            _ws.zebraDeviceEntity.SendAsync(ZplPipeClass.ZplPrintConfigurationLabel());
+            _ws.ZebraDeviceEntity.SendAsync(ZplPipeClass.ZplPrintConfigurationLabel());
         }
 
         #endregion
@@ -354,7 +352,7 @@ namespace ScalesUI.Forms
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            _ws.zebraDeviceEntity.SendAsync(ZplPipeClass.ZplClearPrintBuffer());
+            _ws.ZebraDeviceEntity.SendAsync(ZplPipeClass.ZplClearPrintBuffer());
 
         }
     }

@@ -1,0 +1,11 @@
+-- Таблица Hosts
+select [Id]
+      ,[CreateDate]
+      ,[ModifiedDate]
+      ,[Name]
+      ,[IP]
+      ,[MAC]
+      ,[IdRRef]
+      ,[Marked]
+      ,[SettingsFile]
+from [db_scales].[Hosts]

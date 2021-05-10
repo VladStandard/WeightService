@@ -41,7 +41,7 @@ namespace ScalesUI.Forms
 
         private void PluListForm_Load(object sender, EventArgs e)
         {
-            TopMost = !_ws.IsAdmin;
+            TopMost = !_ws.IsDebug;
             this.Width = Owner.Width;
             this.Height = Owner.Height;
             this.Left   = Owner.Left;

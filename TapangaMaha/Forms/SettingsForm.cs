@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using TapangaMaha.Common;
 using WeightServices.Entities;
 using WeightServices.Common.Zpl;
+using ZplCommonLib;
 
 namespace TapangaMaha.Forms
 {

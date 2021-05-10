@@ -254,14 +254,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="frx\arial.ttf" />
-    <None Include="frx\arialbd.ttf" />
-    <None Include="frx\arialbi.ttf" />
-    <None Include="frx\ariali.ttf" />
-    <None Include="frx\cour.ttf" />
-    <None Include="frx\courbd.ttf" />
-    <None Include="frx\courbi.ttf" />
-    <None Include="frx\couri.ttf" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

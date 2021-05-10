@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 18.00
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B767E50B-2865-4916-A244-48F53B41139F}"
+	ProjectSection(SolutionItems) = preProject
+		WeightService\Blazor. 1. Список устройств.sql = WeightService\Blazor. 1. Список устройств.sql
+		WeightService\Blazor. 2. Устройство.sql = WeightService\Blazor. 2. Устройство.sql
+		WeightService\Blazor. 3. Весовой пост.sql = WeightService\Blazor. 3. Весовой пост.sql
+		WeightService\Exec LoadResourceToDB.sql = WeightService\Exec LoadResourceToDB.sql
+		WeightService\Exec SaveWeighingFact.sql = WeightService\Exec SaveWeighingFact.sql
+		WeightService\Exec SetNewScale.sql = WeightService\Exec SetNewScale.sql
+		WeightService\ScaleEntity.Load.sql = WeightService\ScaleEntity.Load.sql
+		WeightService\SSCCStorage.sql = WeightService\SSCCStorage.sql
+		WeightService\Атрибуты значения.sql = WeightService\Атрибуты значения.sql
+		WeightService\Атрибуты.sql = WeightService\Атрибуты.sql
+		WeightService\Веса. Последние.sql = WeightService\Веса. Последние.sql
+		WeightService\Веса.sql = WeightService\Веса.sql
+		WeightService\Диаграмма. Взвешивания.sql = WeightService\Диаграмма. Взвешивания.sql
+		WeightService\Диаграмма. Контрагенты.sql = WeightService\Диаграмма. Контрагенты.sql
+		WeightService\Диаграмма. Номенклатура.sql = WeightService\Диаграмма. Номенклатура.sql
+		WeightService\Диаграмма. Произв площадки.sql = WeightService\Диаграмма. Произв площадки.sql
+		WeightService\Диаграмма. Устройства.sql = WeightService\Диаграмма. Устройства.sql
+		WeightService\Заказы статус.sql = WeightService\Заказы статус.sql
+		WeightService\Заказы.sql = WeightService\Заказы.sql
+		WeightService\Импорт данных.sql = WeightService\Импорт данных.sql
+		WeightService\Обновление БД ScalesDB 2021-01-19.sql = WeightService\Обновление БД ScalesDB 2021-01-19.sql
+		WeightService\Таблица BarCodes.sql = WeightService\Таблица BarCodes.sql
+		WeightService\Таблица BarCodeTypes.sql = WeightService\Таблица BarCodeTypes.sql
+		WeightService\Таблица Contragents.sql = WeightService\Таблица Contragents.sql
+		WeightService\Таблица Hosts. Свободные.sql = WeightService\Таблица Hosts. Свободные.sql
+		WeightService\Таблица Hosts.sql = WeightService\Таблица Hosts.sql
+		WeightService\Таблица Nomenclature.sql = WeightService\Таблица Nomenclature.sql
+		WeightService\Таблица NomenclatureUnits.sql = WeightService\Таблица NomenclatureUnits.sql
+		WeightService\Таблица Orders.sql = WeightService\Таблица Orders.sql
+		WeightService\Таблица OrderTypes.sql = WeightService\Таблица OrderTypes.sql
+		WeightService\Таблица Organization.sql = WeightService\Таблица Organization.sql
+		WeightService\Таблица PLU.sql = WeightService\Таблица PLU.sql
+		WeightService\Таблица ProductionFacility.sql = WeightService\Таблица ProductionFacility.sql
+		WeightService\Таблица Scales. АРМ фасовщика.sql = WeightService\Таблица Scales. АРМ фасовщика.sql
+		WeightService\Таблица Scales. Заполнить данные.sql = WeightService\Таблица Scales. Заполнить данные.sql
+		WeightService\Таблица Scales. Поиск GUID.sql = WeightService\Таблица Scales. Поиск GUID.sql
+		WeightService\Таблица Scales.sql = WeightService\Таблица Scales.sql
+		WeightService\Таблица TemplateResourceRef.sql = WeightService\Таблица TemplateResourceRef.sql
+		WeightService\Таблица TemplateResources.sql = WeightService\Таблица TemplateResources.sql
+		WeightService\Таблица Templates. Заполнить данные.sql = WeightService\Таблица Templates. Заполнить данные.sql
+		WeightService\Таблица Templates.sql = WeightService\Таблица Templates.sql
+		WeightService\Таблица WeithingFact.sql = WeightService\Таблица WeithingFact.sql
+		WeightService\Таблица WorkShop.sql = WeightService\Таблица WorkShop.sql
+		WeightService\Таблица ZebraPrinter.sql = WeightService\Таблица ZebraPrinter.sql
+		WeightService\Таблица ZebraPrinterResourceRef.sql = WeightService\Таблица ZebraPrinterResourceRef.sql
+		WeightService\Таблица ZebraPrinterType.sql = WeightService\Таблица ZebraPrinterType.sql
+		WeightService\Таблицы и строки.sql = WeightService\Таблицы и строки.sql
+		WeightService\Функция GetPrinterResources.sql = WeightService\Функция GetPrinterResources.sql
+		WeightService\Функция GetScaleByID.sql = WeightService\Функция GetScaleByID.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D860D0E-9C2A-49D0-A266-BC1F144B362E}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EBA2AB0-2E3B-485D-BF4D-A8883A013791}
+	EndGlobalSection
+EndGlobal

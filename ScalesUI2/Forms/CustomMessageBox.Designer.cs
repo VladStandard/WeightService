@@ -66,7 +66,7 @@ namespace ScalesUI.Forms
             this.btOk.Text = "Ok";
             this.btOk.UseVisualStyleBackColor = true;
             this.btOk.Visible = false;
-            this.btOk.Click += new System.EventHandler(this.btOk_Click);
+            this.btOk.Click += new System.EventHandler(this.OnOk_Click);
             // 
             // btAbort
             // 
@@ -77,7 +77,7 @@ namespace ScalesUI.Forms
             this.btAbort.Text = "Abort";
             this.btAbort.UseVisualStyleBackColor = true;
             this.btAbort.Visible = false;
-            this.btAbort.Click += new System.EventHandler(this.btAbort_Click);
+            this.btAbort.Click += new System.EventHandler(this.OnAbort_Click);
             // 
             // btCancel
             // 
@@ -88,7 +88,7 @@ namespace ScalesUI.Forms
             this.btCancel.Text = "Cancel";
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Visible = false;
-            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
+            this.btCancel.Click += new System.EventHandler(this.OnCancel_Click);
             // 
             // btIgnore
             // 
@@ -99,7 +99,7 @@ namespace ScalesUI.Forms
             this.btIgnore.Text = "Ignore";
             this.btIgnore.UseVisualStyleBackColor = true;
             this.btIgnore.Visible = false;
-            this.btIgnore.Click += new System.EventHandler(this.btIgnore_Click);
+            this.btIgnore.Click += new System.EventHandler(this.OnIgnore_Click);
             // 
             // btNo
             // 
@@ -110,7 +110,7 @@ namespace ScalesUI.Forms
             this.btNo.Text = "No";
             this.btNo.UseVisualStyleBackColor = true;
             this.btNo.Visible = false;
-            this.btNo.Click += new System.EventHandler(this.btNo_Click);
+            this.btNo.Click += new System.EventHandler(this.OnNo_Click);
             // 
             // btRetry
             // 
@@ -121,7 +121,7 @@ namespace ScalesUI.Forms
             this.btRetry.Text = "Retry";
             this.btRetry.UseVisualStyleBackColor = true;
             this.btRetry.Visible = false;
-            this.btRetry.Click += new System.EventHandler(this.btRetry_Click);
+            this.btRetry.Click += new System.EventHandler(this.OnRetry_Click);
             // 
             // btYes
             // 
@@ -132,7 +132,7 @@ namespace ScalesUI.Forms
             this.btYes.Text = "Yes";
             this.btYes.UseVisualStyleBackColor = true;
             this.btYes.Visible = false;
-            this.btYes.Click += new System.EventHandler(this.btYes_Click);
+            this.btYes.Click += new System.EventHandler(this.OnYes_Click);
             // 
             // fieldMessage
             // 
@@ -156,7 +156,7 @@ namespace ScalesUI.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "CustomMessageBox";
             this.Text = "CustomMessageBox";
-            this.Load += new System.EventHandler(this.CustomMessageBox_Load);
+            this.TopMost = true;
             this.Shown += new System.EventHandler(this.CustomMessageBox_Shown);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

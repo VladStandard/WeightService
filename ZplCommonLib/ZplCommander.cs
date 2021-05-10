@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using WeightServices.Common.Zpl;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
@@ -10,7 +11,7 @@ using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 // ReSharper disable StringLiteralTypo
 // ReSharper disable IdentifierTypo
 
-namespace WeightServices.Common.Zpl
+namespace ZplCommonLib
 {
 
     public class ZplCommander
@@ -31,13 +32,13 @@ namespace WeightServices.Common.Zpl
 
         #region Public methods
 
-        public ZplCommander(string address, ZebraDeviceEntity mkDeviceEntity, string cmd)
+        public ZplCommander(string address, DeviceEntity mkDeviceEntity, string cmd)
         {
             //StartThread(mkDeviceEntity, cmd);
             StartTask(address, mkDeviceEntity, cmd);
         }
 
-        public void StartThread(ZebraDeviceEntity mkDeviceEntity, string cmd)
+        public void StartThread(DeviceEntity mkDeviceEntity, string cmd)
         {
             if (_commandThread != null)
                 return;
@@ -90,7 +91,7 @@ namespace WeightServices.Common.Zpl
 
         }
 
-        public void StartTask(string address, ZebraDeviceEntity mkDeviceEntity, string cmd)
+        public void StartTask(string address, DeviceEntity mkDeviceEntity, string cmd)
         {
             if (_task != null)
                 return;

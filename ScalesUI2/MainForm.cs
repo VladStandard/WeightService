@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using WeightServices.Common;
 using WeightServices.Common.MK;
 using WeightServices.Entities;
-using ZplCommonLib;
+using ZplCommonLib.Zebra;
 
 // ReSharper disable CommentTypo
 // ReSharper disable StringLiteralTypo
@@ -60,10 +60,10 @@ namespace ScalesUI
             { IsBackground = true };
             _dtThread.Start();
 
-            FormBorderStyle = _ws.IsAdmin ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
-            TopMost = !_ws.IsAdmin;
-            fieldResolution.Visible = _ws.IsAdmin;
-            fieldResolution.SelectedIndex = _ws.IsAdmin ? 1 : 0;
+            FormBorderStyle = _ws.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
+            TopMost = !_ws.IsDebug;
+            fieldResolution.Visible = _ws.IsDebug;
+            fieldResolution.SelectedIndex = _ws.IsDebug ? 1 : 0;
             
        }
 
@@ -87,7 +87,7 @@ namespace ScalesUI
             _ws.NotifyProductDate += DisplayMessageProductDate;
             _ws.NotifyKneading += DisplayMessageKneading;
             _ws.NotifyPLU += DisplayMessagePlu;
-            _ws.zebraDeviceEntity.Notify += DisplayMessageZebraState;
+            _ws.ZebraDeviceEntity.Notify += DisplayMessageZebraState;
             _ws.NotifyPalletSize += DisplayMessagePalletSize;
             _ws.NotifyCurrentBox += DisplayMessageCurrentBox;
             _ws.NewPallet();
@@ -166,13 +166,13 @@ namespace ScalesUI
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var isClose = false;
-            if (_ws.IsAdmin)
+            if (_ws.IsDebug)
             {
                 isClose = true;
             }
             else
             {
-                using (var pinForm = new PasswordForm() { TopMost = !_ws.IsAdmin })
+                using (var pinForm = new PasswordForm() { TopMost = !_ws.IsDebug })
                 {
                     isClose = pinForm.ShowDialog() == DialogResult.OK;
                     pinForm.Close();
@@ -259,14 +259,14 @@ namespace ScalesUI
             _log.Debug($"PLU.GoodsTareWeight: {plu?.GoodsTareWeight}");
         }
 
-        private void DisplayMessageZebraState(ZebraPrinterWithSdk zebraPrinter)
+        private void DisplayMessageZebraState(PrintSdk zebraPrinter)
         {
             var state = zebraPrinter.CurrentStatus;
 
             // надо переприсвоить
             // т.к. на CurrentBox сделан Notify 
             // чтоб выводить на экран
-            _ws.CurrentBox = (_ws.zebraDeviceEntity.UserLabelCount < _ws.PalletSize) ? _ws.zebraDeviceEntity.UserLabelCount : _ws.PalletSize;
+            _ws.CurrentBox = (_ws.ZebraDeviceEntity.UserLabelCount < _ws.PalletSize) ? _ws.ZebraDeviceEntity.UserLabelCount : _ws.PalletSize;
             // а когда зебра поддергивает ленту
             // то счетчик увеличивается на 1
             // не может быть что-бы напечатано 3, а на форме 4
@@ -287,7 +287,7 @@ namespace ScalesUI
         {
             try
             {
-                if (_ws.IsAdmin)
+                if (_ws.IsDebug)
                 {
                     OpenFormSettings();
                 }
@@ -530,9 +530,6 @@ namespace ScalesUI
             }
         }
 
-        
-
-
         private void fieldDt_DoubleClick(object sender, EventArgs e)
         {
             ServiceMessagesWindow.BuildServiceMessagesWindow(this);
@@ -546,8 +543,6 @@ namespace ScalesUI
             //}
         }
 
-        #endregion
-
         private void btAddKneading_Click(object sender, EventArgs e)
         {
             //_ws.RotateKneading(Direction.forward);
@@ -557,8 +552,6 @@ namespace ScalesUI
             {
                 _ws.Kneading = numberInputForm.InputValue;
             }
-
-
         }
 
         private void btNewPallet_Click(object sender, EventArgs e)
@@ -593,5 +586,7 @@ namespace ScalesUI
         {
             InitLeds();
         }
+
+        #endregion
     }
 }

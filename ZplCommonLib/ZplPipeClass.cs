@@ -6,8 +6,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Xsl;
+using WeightServices.Common;
+using ZplCommonLib.Native;
 
-namespace WeightServices.Common.Zpl
+namespace ZplCommonLib
 {
     public static class ZplPipeClass
     {

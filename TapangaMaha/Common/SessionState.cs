@@ -8,6 +8,7 @@ using WeightServices.Common;
 using WeightServices.Entities;
 using WeightServices.Common.Zpl;
 using log4net;
+using ZplCommonLib;
 
 namespace  TapangaMaha.Common
 {
@@ -52,7 +53,7 @@ namespace  TapangaMaha.Common
             // с необходимым крннектором (т.е. TCP, а можно и через USB)
             WeightServices.Common.Zpl.DeviceSocketTcp zplDeviceSocket =
                 new WeightServices.Common.Zpl.DeviceSocketTcp(this.CurrentScale.ZebraPrinter.Ip, this.CurrentScale.ZebraPrinter.Port);
-            zebraDeviceEntity = new ZebraDeviceEntity(zplDeviceSocket, Guid.NewGuid());
+            zebraDeviceEntity = new DeviceEntity(zplDeviceSocket, Guid.NewGuid());
             // тут запускается поток 
             // который разбирает очередь 
             // т.к. команды пишутся не напрямую, а в очередь
@@ -66,7 +67,7 @@ namespace  TapangaMaha.Common
 
         public ZplCommander ZplCommander { get; private set; }
 
-        public ZebraDeviceEntity zebraDeviceEntity { get; private set; }
+        public DeviceEntity zebraDeviceEntity { get; private set; }
 
 
 

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.50] - 2021-05-10
+### Changed
+- ZplCommonLib
+
 ## [0.5.40] - 2021-05-06
 ### Changed
 - ZplCommonLib

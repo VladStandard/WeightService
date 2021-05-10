@@ -29,7 +29,7 @@ namespace ScalesUI.Forms
 
         private void OrderListForm_Load(object sender, EventArgs e)
         {
-            TopMost = !_ws.IsAdmin;
+            TopMost = !_ws.IsDebug;
 
             _ordList = OrderEntity.GetOrderList(_ws.CurrentScale);
             if (_ordList.Count < offset)
