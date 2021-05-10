@@ -1,0 +1,16 @@
+-- Таблица Orders
+select
+	 [Id]
+	,[OrderType]
+	,[ProductDate]
+	,[PlaneBoxCount]
+	,[PlanePalletCount]
+	,[PlanePackingOperationBeginDate]
+	,[PlanePackingOperationEndDate]
+	,[ScaleId]
+	,[PLU]
+	,[IdRRef]
+	,[TemplateId]
+	,[CreateDate]
+	,[ModifiedDate]
+from [db_scales].[Orders]

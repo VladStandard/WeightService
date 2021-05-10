@@ -1,0 +1,18 @@
+-- Таблица NomenclatureUnits
+select
+	 [NomenclatureUnits].[Id]
+	,[NomenclatureUnits].[CreateDate]
+	,[NomenclatureUnits].[ModifiedDate]
+	,[NomenclatureUnits].[IdRRef]
+	,[NomenclatureUnits].[Name]
+	,[NomenclatureUnits].[NomenclatureId]
+	,[Nomenclature].[Name] [Nomenclature_Name]
+	,[NomenclatureUnits].[Marked]
+	,[NomenclatureUnits].[PackWeight]
+	,[NomenclatureUnits].[PackQuantly]
+	,[NomenclatureUnits].[PackTypeId]
+	,[Nomenclature2].[Name] [Nomenclature2_Name]
+from [db_scales].[NomenclatureUnits]
+left join [db_scales].[Nomenclature] on [NomenclatureUnits].[NomenclatureId]=[Nomenclature].[Id]
+left join [db_scales].[Nomenclature] [Nomenclature2] on [NomenclatureUnits].[PackTypeId]=[Nomenclature2].[Id]
+order by [NomenclatureUnits].[Id]

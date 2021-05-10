@@ -1,0 +1,14 @@
+п»ї1;GoodsName;A1;"<xs:element name=""GoodsName"" type=""xs:string"" value = """"/>";Наименование товара
+2;PlaneBoxCount;A2;"<xs:element name=""PlaneBoxCount"" type=""xs:integer"" value = ""15""/>";Плановое кол-во упаковок
+3;PlanePalletCount;A3;"<xs:element name=""PlanePalletCount"" type=""xs:integer"" value = ""15""/>";Плановое кол-во паллет
+4;PlanePackingOperationBeginDate;A4;"<xs:element name=""PlanePackingOperationBeginDate"" type=""xs:date"" value = """"/>";Дата начала упаковки
+5;PlanePackingOperationEndDate;A5;"<xs:element name=""PlanePackingOperationEndDate"" type=""xs:date"" value = """"/>";Дата окончания упаковки
+6;GoodsDescription;A6;"<xs:element name=""GoodsDescription"" type=""xs:string"" value = """"/>";Описание товара
+7;GoodsFullName;A7;"<xs:element name=""GoodsFullName"" type=""xs:string"" value = """"/>";Полное наименование товара
+8;GTIN;A8;"<xs:element name=""GTIN"" type=""xs:string"" value = """"/>";GTIN
+9;GLN;A9;"<xs:element name=""GLN"" type=""xs:integer"" value = """"/>";GLN
+10;GoodsShelfLifeDays;AA;"<xs:element name=""GoodsShelfLifeDays"" type=""xs:integer"" value = ""30""/>";Срок годности
+11;GoodsTareWeight;AB;"<xs:element name=""GoodsTareWeight"" type=""xs:string"" value = """"/>";Вес единицы тары
+12;GoodsBoxQuantly;AC;"<xs:element name=""GoodsBoxQuantly"" type=""xs:string"" value = """"/>";Кол-во вложений
+13;ProductDate;AD;"<xs:element name=""ProductDate"" type=""xs:date"" value = """"/>";Дата упаковки
+14;Template;AE;"<xs:element name=""TemplateName"" type=""xs:string"" value = """"/>";Шаблон этикетки
