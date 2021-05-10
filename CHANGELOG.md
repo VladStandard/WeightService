@@ -10,4 +10,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Create new repo
 ### Changed
-- DeviceControl v.0.2.150
+- DeviceControl v.0.2.160

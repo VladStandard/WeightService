@@ -16,23 +16,23 @@
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
         <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldName />
-        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-Value=@Item.Name />
+        <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Name />
         <br />
         <RadzenLink Style="width: 12%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinter 
                     Target="_blank" Path=@Item.Link />
         <RadzenLabel Style="width: 23.5%; margin-left: 2.3%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterIp />
-        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-Value=@Item.Ip />
+        <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Ip />
         <br />
         <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterPort />
-        <RadzenNumeric Style="width: 63%;" Disabled="false" TValue="short" @bind-Value=@Item.Port />
+        <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="short" @bind-Value=@Item.Port />
         <br />
     </div>
     <div class="col-sm-6 col-md-6 col-lg-6">
         <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterMac />
-        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-Value=@Item.Mac />
+        <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Mac />
         <br />
         <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterPassword />
-        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-Value=@Item.Password />
+        <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Password />
         <br />
         <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterType />
         @if (ItemsZebraPrinterType == null)

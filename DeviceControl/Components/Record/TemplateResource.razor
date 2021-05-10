@@ -20,10 +20,10 @@
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
         <RadzenLabel Style="width: 27%;" Text=@Utils.LocalizationStrings.TableFieldName />
-        <RadzenTextBox Style="width: 70%; " Disabled="false" TValue="string" @bind-value=@Item.Name />
+        <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@Item.Name />
         <br />
         <RadzenLabel Style="width: 27%;" Text=@Utils.LocalizationStrings.TableFieldDescription />
-        <RadzenTextBox Style="width: 70%; " Disabled="false" TValue="string" @bind-value=@Item.Description />
+        <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@Item.Description />
         <br />
         <RadzenLabel Style="width: 97%;" Text=@FileInfo />
         <br />
@@ -54,7 +54,7 @@
         }
         <br />
         <RadzenLabel Style="width: 27%;" Text=@Utils.LocalizationStrings.TableFieldImageData />
-        <RadzenTextBox Style="width: 70%; " ReadOnly="true" TValue="string" @bind-value=@Item.ImageDataInfo />
+        <RadzenTextBox Style="width: 70%; text-align: center;" ReadOnly="true" TValue="string" @bind-value=@Item.ImageDataInfo />
         <br />
         
         <br />
