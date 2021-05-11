@@ -1,0 +1,9 @@
+ZPL requests
+
+^XA~JA^XZ
+	^XA - begin label
+	~JA - cancels all format commands in the buffer
+	^XZ - end label
+
+! U1 setvar \"odometer.user_label_count\" \"1\"
+! U1 setvar "odometer.user_label_count" "1"

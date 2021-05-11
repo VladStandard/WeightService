@@ -341,7 +341,7 @@
       <EmbeddedUI Id="WixSharp_EmbeddedUI_Asm" SourceFile="WixSharp.UI.CA.dll" />
     </UI>
 
-    <WixVariable Id="WixUILicenseRtf" Value="C:\DevSource\Kolbasa-Git\WeightService\ScalesMsi\Docs\License.rtf" />
+    <WixVariable Id="WixUILicenseRtf" Value="c:\DevSource\Kolbasa-Git\WeightService\ScalesMsi\Docs\License.rtf" />
 
     <CustomAction Id="WixSharp_SetProperty_WIXSHARP_RESILIENT_SOURCE_DIR" Property="WIXSHARP_RESILIENT_SOURCE_DIR" Value="[INSTALLDIR_TAPANGAMAHA]" Return="check" Execute="immediate" />
     <CustomAction Id="WixSharp_SetProperty_SOURCELIST" Property="SOURCELIST" Value="[WIXSHARP_RESILIENT_SOURCE_DIR]" Return="check" Execute="immediate" />

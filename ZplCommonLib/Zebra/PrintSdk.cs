@@ -129,7 +129,7 @@ namespace ZplCommonLib.Zebra
                             //Peeler = SGD.GET("sensor.peeler", printerDevice.Connection);
 
                             //if (CurrentStatus.isReadyToPrint)
-                            if (printControl.IsOpen)
+                            if (printControl.IsStatusNormal)
                             {
                                 //if (Peeler == "clear")
                                 {
@@ -138,10 +138,10 @@ namespace ZplCommonLib.Zebra
                                         request = request.Replace("|", "\\&");
                                         if (!request.Equals("^XA~JA^XZ"))
                                         {
-
+                                            Console.WriteLine(request);
                                         }
                                         //printerDevice.SendCommand(request);
-                                        printControl.EthernetPrint(request);
+                                        printControl.EthernetSendCmd(request);
                                     }
                                 }
                             }

@@ -81,9 +81,24 @@ namespace TscBarcode.Views
             PrintControl.EthernetClose();
         }
 
-        private void ButtonEthernetPrint_Click(object sender, RoutedEventArgs e)
+        private void ButtonEthernetSendCmd_Click(object sender, RoutedEventArgs e)
+        {
+            PrintControl.EthernetSendCmd(PrintControl.Cmd);
+        }
+
+        private void ButtonEthernetSetCutter_Click(object sender, RoutedEventArgs e)
+        {
+            PrintControl.EthernetSetCutter(PrintControl.CutterValue);
+        }
+
+        private void ButtonEthernetPrintTest_Click(object sender, RoutedEventArgs e)
         {
             PrintControl.EthernetPrintTest();
+        }
+
+        private void ButtonEthernetClearBuffer_Click(object sender, RoutedEventArgs e)
+        {
+            PrintControl.EthernetClearBuffer();
         }
 
         private void ButtonEthernetPrinterSetupReset_Click(object sender, RoutedEventArgs e)

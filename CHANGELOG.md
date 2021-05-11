@@ -6,7 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.60] - 2021-05-11
+### Changed
+- DeviceControl v.0.2.180
+- TscBarcode v.0.1.60
+- ZplCommonLib v.0.5.60
+### Added
+- ZplCommonLibTests v.0.5.60
+
 ## [0.1.30] - 2021-05-10
+### Changed
+- DeviceControl v.0.2.160
 ### Added
 - Create new repo
 - ControlsExamples project
@@ -38,5 +48,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ZabbixStubService project
 - ZplCommonLib project
 - ZplSdkExamples project
-### Changed
-- DeviceControl v.0.2.160

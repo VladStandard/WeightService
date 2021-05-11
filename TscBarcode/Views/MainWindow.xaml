@@ -12,14 +12,16 @@
         <tsc:PrintControlEntity />
     </Window.DataContext>
 
-    <Grid DataContext="viewModels:ProgramSettings" >
+    <Grid DataContext="{StaticResource ViewModelProgramSettings}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -35,11 +37,35 @@
                  DataContext="{StaticResource ViewModelProgramSettings}"
                  Text="{Binding Path=Port, Mode=TwoWay, IsAsync=True }"/>
 
-        <Button Margin="2" Grid.Row="1" Grid.Column="0" Content="Open" Click="ButtonEthernetOpen_Click"/>
-        <Button Margin="2" Grid.Row="1" Grid.Column="1" Content="Print" Click="ButtonEthernetPrint_Click"/>
-        <Button Margin="2" Grid.Row="1" Grid.Column="2" Content="Close" Click="ButtonEthernetClose_Click"/>
+        <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            
+            <Button Margin="2" Grid.Row="0" Grid.Column="0" Content="Open" Click="ButtonEthernetOpen_Click"/>
+            <Button Margin="2" Grid.Row="0" Grid.Column="1" Content="Print test" Click="ButtonEthernetPrintTest_Click"/>
+            <Button Margin="2" Grid.Row="0" Grid.Column="2" Content="Clear buffer" Click="ButtonEthernetClearBuffer_Click"/>
+            <Button Margin="2" Grid.Row="0" Grid.Column="3" Content="Close" Click="ButtonEthernetClose_Click"/>
+            
+            <Button Margin="2" Grid.Row="2" Grid.Column="0" Content="Set cutter" Click="ButtonEthernetSendCmd_Click"/>
+            <TextBox Margin="2" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" 
+                     Text="{Binding Path=Cmd, Mode=TwoWay, IsAsync=True}" 
+                     VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
+            
+            <Button Margin="2" Grid.Row="1" Grid.Column="0" Content="Send cmd" Click="ButtonEthernetSendCmd_Click"/>
+            <TextBox Margin="2" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" 
+                     Text="{Binding Path=CutterValue, Mode=TwoWay, IsAsync=True}" />
+        </Grid>
 
-        <Grid Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="2">
+        <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
@@ -104,9 +130,8 @@
                     Click="ButtonEthernetPrinterSetupReset_Click"/>
         </Grid>
 
-        <TextBox Margin="2" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Visible"
+        <TextBox Margin="2" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Visible"
                  VerticalContentAlignment="Top" HorizontalContentAlignment="Left" IsReadOnly="True"
-                 DataContext="{StaticResource ViewModelProgramSettings}"
                  Text="{Binding Path=Log, Mode=TwoWay, IsAsync=True }"/>
     </Grid>
 </Window>
