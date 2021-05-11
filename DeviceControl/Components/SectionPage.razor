@@ -1,5 +1,4 @@
 ﻿@page "/SectionPage"
-@using BlazorDeviceControl.Components.Record
 @using BlazorDeviceControl.Models
 @using DeviceControl.Core.DAL
 @using DeviceControl.Core.DAL.TableModels
@@ -12,6 +11,7 @@
 @inject NotificationService Notification
 @inject TooltipService Tooltip
 @inject NavigationManager UriHelper
+
 @* Header *@
 <h2 style="font-size: @FontSizeHeader;">
     @GetHeader()
@@ -365,6 +365,12 @@
                         AppSettings.ShowActionsButtons = false;
                         break;
                 }
+                @if (AppSettings.IsDebug && !AppSettings.ShowActionsButtons)
+                {
+                    AppSettings.ShowActionsButtons = true;
+                    <RadzenLabel Text=@Utils.LocalizationStrings.IsDebug />
+                    <br />
+                }
                 @if (AppSettings.ShowActionsButtons)
                 {
                     <RadzenButton Click=@(args => ActionAddAsync(Table, Entity, null))
@@ -459,7 +465,6 @@
                             </RadzenValueAxis>
                         </RadzenChart>
                     }
-
                     break;
                 case EnumTable.ProductionFacility:
                     break;
@@ -481,7 +486,6 @@
         </RadzenTabsItem>
     </Tabs>
 </RadzenTabs>
-
 
 @code {
     #region Public and private fields and properties

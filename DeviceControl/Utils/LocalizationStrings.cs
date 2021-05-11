@@ -15,6 +15,7 @@ namespace BlazorDeviceControl.Utils
         public const string CallbackEmail = @"mailto:morozov_dv@kolbasa-vs.ru?cc=dvivakin@kolbasa-vs.ru&subject=blazor-device-control.kolbasa-vs.local";
         public const string DataLoading = @"Загрузка данных...";
         public const string DataRecords = @"записей";
+        public const string IsDebug = @"Режим отладки";
         #endregion
         #region Служба поддержки
         public const string SupportTitle = @"Служба поддержки";

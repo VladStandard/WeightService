@@ -22,6 +22,17 @@ namespace BlazorDeviceControl.Models
         public EnumAccessRights AccessRights { get; set; }
         public bool ShowActionsButtons { get; set; }
         public bool ChartSmooth { get; set; }
+        public bool IsDebug
+        {
+            get
+            {
+#if DEBUG
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
 
         #endregion
 
