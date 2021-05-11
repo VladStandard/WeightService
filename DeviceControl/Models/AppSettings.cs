@@ -152,6 +152,7 @@ namespace BlazorDeviceControl.Models
                 Notification.Notify(msg);
                 Console.WriteLine(ex.Message);
                 Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }
         }
 

@@ -1,8 +1,7 @@
-﻿using System;
+﻿using DeviceControl.Core.DAL.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using DeviceControl.Core.DAL.DataModels;
 
 namespace DeviceControl.Core.DAL.TableModels
 {
@@ -33,7 +32,7 @@ select [h].[Id]
       ,[h].[Marked]
       ,[h].[SettingsFile]
 from [db_scales].[Hosts] [h]
-where [h].[Id] not in (select [HostId] from [db_scales].[Scales] [s] where [s].[HostId] is not null and [s].[Marked] = 0)
+where [h].[Id] not in (select [HostId] from [db_scales].[Scales] [s] where [s].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
 order by [h].[Name]
             ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
         }
@@ -84,7 +83,7 @@ select [h].[Id]
       ,[h].[SettingsFile]
 from [db_scales].[Hosts] [h]
 left join [db_scales].[Scales] [s] on [h].[Id] = [s].[HostId]
-where [h].[Id] in (select [HostId] from [db_scales].[Scales] where [Scales].[HostId] is not null and [s].[Marked] = 0)
+where [h].[Id] in (select [HostId] from [db_scales].[Scales] where [Scales].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
 order by [h].[Name]
             ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
         }

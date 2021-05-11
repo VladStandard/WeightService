@@ -108,6 +108,7 @@
             };
             Notification.Notify(msg);
             Console.WriteLine(msg.Detail);
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -130,6 +131,7 @@
             };
             Notification.Notify(msg);
             Console.WriteLine(msg.Detail);
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -185,6 +187,7 @@
             };
             Notification.Notify(msg);
             Console.WriteLine(msg.Detail);
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 

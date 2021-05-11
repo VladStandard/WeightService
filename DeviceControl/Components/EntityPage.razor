@@ -499,6 +499,7 @@
             Notification.Notify(msg);
             Console.WriteLine(ex.Message);
             Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
         finally
         {

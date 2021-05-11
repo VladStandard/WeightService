@@ -1,6 +1,7 @@
 ﻿@page "/Devices"
 @using DeviceControl.Core.DAL.DataModels
 @using BlazorDeviceControl.Models
+@using System.Runtime.CompilerServices
 @inject AppSettings AppSettings
 @inject DataAccessConfig DataAccessConfig
 @inject DialogService Dialog
@@ -9,7 +10,7 @@
 
 <h2>
     @Utils.LocalizationStrings.DevicesTitle
-    <RadzenButton Click="GetDataAsync" ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 100px; margin-left: 0px"
+    <RadzenButton Click=@(args => GetDataAsync()) ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 100px; margin-left: 0px"
                   class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
 </h2>
 
@@ -67,7 +68,7 @@
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task GetDataAsync()
+    private async Task GetDataAsync([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         try
@@ -80,6 +81,7 @@
         {
             var message = new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Ошибка чтения!", Detail = ex.Message, Duration = Utils.LocalizationStrings.Timeout };
             Notification.Notify(message);
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 

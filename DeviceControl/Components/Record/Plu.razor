@@ -209,6 +209,7 @@
             };
             Notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -231,10 +232,12 @@
             };
             Notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
-    private void OnChange(object value, string name)
+    private void OnChange(object value, string name,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
         {
@@ -283,6 +286,7 @@
             };
             Notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
         finally
         {
@@ -290,7 +294,8 @@
         }
     }
 
-    private void OnClickFieldsFill(string name)
+    private void OnClickFieldsFill(string name,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         try
         {
@@ -384,6 +389,7 @@
             };
             Notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -446,6 +452,7 @@
             };
             Notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 

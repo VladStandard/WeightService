@@ -9,7 +9,6 @@ using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NHibernate.SqlCommand;
 
 namespace DeviceControl.Core.DAL
 {
@@ -42,6 +41,7 @@ namespace DeviceControl.Core.DAL
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<BarCodeTypesMap>())
                             .Mappings(m => m.FluentMappings.Add<ContragentsMap>())
+                            .Mappings(m => m.FluentMappings.Add<ErrorsMap>())
                             .Mappings(m => m.FluentMappings.Add<HostsMap>())
                             .Mappings(m => m.FluentMappings.Add<LabelsMap>())
                             .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
@@ -75,6 +75,7 @@ namespace DeviceControl.Core.DAL
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<BarCodeTypesMap>())
                             .Mappings(m => m.FluentMappings.Add<ContragentsMap>())
+                            .Mappings(m => m.FluentMappings.Add<ErrorsMap>())
                             .Mappings(m => m.FluentMappings.Add<HostsMap>())
                             .Mappings(m => m.FluentMappings.Add<LabelsMap>())
                             .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
@@ -102,6 +103,7 @@ namespace DeviceControl.Core.DAL
         // Tables CRUD.
         public BaseCrud<BarCodeTypesEntity> BarCodeTypesCrud;
         public BaseCrud<ContragentsEntity> ContragentsCrud;
+        public BaseCrud<ErrorsEntity> ErrorsCrud;
         public HostsCrud HostsCrud;
         public BaseCrud<LabelsEntity> LabelsCrud;
         public BaseCrud<NomenclatureEntity> NomenclatureCrud;
@@ -143,6 +145,7 @@ namespace DeviceControl.Core.DAL
             // Tables CRUD.
             BarCodeTypesCrud = new BaseCrud<BarCodeTypesEntity>(this);
             ContragentsCrud = new BaseCrud<ContragentsEntity>(this);
+            ErrorsCrud = new BaseCrud<ErrorsEntity>(this);
             HostsCrud = new HostsCrud(this);
             LabelsCrud = new BaseCrud<LabelsEntity>(this);
             NomenclatureCrud = new BaseCrud<NomenclatureEntity>(this);
@@ -185,6 +188,25 @@ namespace DeviceControl.Core.DAL
             Console.WriteLine($"{memberName}. {ex.Message}");
             if (ex.InnerException != null)
                 Console.WriteLine($"{memberName}. {ex.InnerException.Message}");
+
+            LogExceptionToSql(ex, filePath, lineNumber, memberName);
+        }
+
+        public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
+        {
+            var idLast = ErrorsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+            var error = new ErrorsEntity
+            {
+                Id = idLast + 1,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                FilePath = filePath,
+                LineNumber = lineNumber,
+                MemberName = memberName,
+                Exception = ex.Message,
+                InnerException = ex.InnerException?.Message,
+            };
+            ErrorsCrud.SaveEntity(error);
         }
 
         #endregion

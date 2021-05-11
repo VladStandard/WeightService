@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <Version>0.2.170</Version>
+    <Version>0.2.180</Version>
 
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
