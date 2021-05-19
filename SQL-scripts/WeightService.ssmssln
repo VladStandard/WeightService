@@ -24,11 +24,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Диаграмма. Устройства.sql = WeightService\Диаграмма. Устройства.sql
 		WeightService\Заказы статус.sql = WeightService\Заказы статус.sql
 		WeightService\Заказы.sql = WeightService\Заказы.sql
+		WeightService\Импорт PLU из 1С Палыч.sql = WeightService\Импорт PLU из 1С Палыч.sql
 		WeightService\Импорт данных.sql = WeightService\Импорт данных.sql
 		WeightService\Обновление БД ScalesDB 2021-01-19.sql = WeightService\Обновление БД ScalesDB 2021-01-19.sql
 		WeightService\Таблица BarCodes.sql = WeightService\Таблица BarCodes.sql
 		WeightService\Таблица BarCodeTypes.sql = WeightService\Таблица BarCodeTypes.sql
 		WeightService\Таблица Contragents.sql = WeightService\Таблица Contragents.sql
+		WeightService\Таблица Errors.sql = WeightService\Таблица Errors.sql
+		WeightService\Таблица Hosts. Занятые.sql = WeightService\Таблица Hosts. Занятые.sql
 		WeightService\Таблица Hosts. Свободные.sql = WeightService\Таблица Hosts. Свободные.sql
 		WeightService\Таблица Hosts.sql = WeightService\Таблица Hosts.sql
 		WeightService\Таблица Nomenclature.sql = WeightService\Таблица Nomenclature.sql
@@ -52,6 +55,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Таблица ZebraPrinterResourceRef.sql = WeightService\Таблица ZebraPrinterResourceRef.sql
 		WeightService\Таблица ZebraPrinterType.sql = WeightService\Таблица ZebraPrinterType.sql
 		WeightService\Таблицы и строки.sql = WeightService\Таблицы и строки.sql
+		WeightService\Удалить индекс IDX_Scales_HostId.sql = WeightService\Удалить индекс IDX_Scales_HostId.sql
 		WeightService\Функция GetPrinterResources.sql = WeightService\Функция GetPrinterResources.sql
 		WeightService\Функция GetScaleByID.sql = WeightService\Функция GetScaleByID.sql
 	EndProjectSection
@@ -61,7 +65,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3D860D0E-9C2A-49D0-A266-BC1F144B362E}.Default|Default.ActiveCfg = Default
+		{A43EE0A7-93B5-4E4F-815E-7F7DA5864A0C}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

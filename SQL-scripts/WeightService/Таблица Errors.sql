@@ -17,4 +17,4 @@ end
 
 select *
 from [db_scales].[Errors]
-order by [CreatedDate]
+order by [CreatedDate] desc
