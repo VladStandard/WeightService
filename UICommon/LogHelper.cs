@@ -1,19 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using log4net;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using log4net;
 
-// ReSharper disable UnusedMember.Global
-// ReSharper disable CommentTypo
-// ReSharper disable CheckNamespace
-// ReSharper disable StringLiteralTypo
-
-namespace WeightServices.Common
+namespace UICommon
 {
     internal enum EnumLogType
     {

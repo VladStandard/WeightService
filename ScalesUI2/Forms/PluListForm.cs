@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using WeightServices.Common;
-using WeightServices.Entities;
+using EntitiesLib;
+using UICommon;
 
 namespace ScalesUI.Forms
 {
@@ -17,93 +17,72 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly SessionState _ws = SessionState.Instance;
-        private List<PluEntity> ordList = null;
-        //private readonly int offset = 12;
-
-        private int CurrentPage { get; set; } = 0;
-        private readonly int RowCount = 5;
-        private readonly int ColumnCount = 4;
-        private readonly int PageSize = 20;
-        private List<PluEntity> PluList;
+        private List<PluEntity> _orderList;
+        private readonly List<PluEntity> _pluList;
+        private readonly int _rowCount = 5;
+        private readonly int _columnCount = 4;
+        private readonly int _pageSize = 20;
+        private int _currentPage = 0;
 
         #endregion
 
-        #region Form methods
+        #region Public and private methods
 
         public PluListForm()
         {
             InitializeComponent();
-            GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            PluList = PluEntity.GetPLUList(_ws.CurrentScale);
+            GridCustomizatorClass.GridCustomizator(PluListGrid, _columnCount, _rowCount);
+            _pluList = PluEntity.GetPLUList(_ws.CurrentScale);
             //WindowState = FormWindowState.Maximized;
-
         }
 
         private void PluListForm_Load(object sender, EventArgs e)
         {
             TopMost = !_ws.IsDebug;
-            this.Width = Owner.Width;
-            this.Height = Owner.Height;
-            this.Left   = Owner.Left;
-            this.Top = Owner.Top;
-            this.StartPosition = FormStartPosition.CenterScreen;
+            Width = Owner.Width;
+            Height = Owner.Height;
+            Left   = Owner.Left;
+            Top = Owner.Top;
+            StartPosition = FormStartPosition.CenterScreen;
 
-            ordList = PluEntity.GetPLUList(_ws.CurrentScale);
+            _orderList = PluEntity.GetPLUList(_ws.CurrentScale);
 
-            PluEntity[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-            Control[,] controls = ControlBuilder(pluEntities, this.ColumnCount, this.RowCount);
-            GridCustomizatorClass.PageBuilder(this.PluListGrid, controls);
+            PluEntity[] pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
+            Control[,] controls = CreateControls(pluEntities, _columnCount, _rowCount);
+            GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-            lbCurrentPage.Text = $@"Cтр. {CurrentPage}";
+            lbCurrentPage.Text = $@"Cтр. {_currentPage}";
         }
 
-        private Control[,] ControlBuilder(PluEntity[] pluEntities, int _X, int _Y)
+        private Control[,] CreateControls(IReadOnlyList<PluEntity> pluEntities, int x, int y)
         {
-            Control[,] Controls = new Control[_X, _Y];
-            for (int j = 0, k = 0; j < _Y; ++j)
-                for (int i = 0; i < _X; ++i)
-                {
-                    if (k >= pluEntities.Length) break;
-                    //Control btn = NewButton(pluEntities[k], CurrentPage, k);
-                    Control btn = NewControl(pluEntities[k], CurrentPage, k);
-                    Controls[i, j] = btn;
-                    k++;
-
-                }
-            return Controls;
-        }
-
-        private Button NewButton(PluEntity plu, int pageNumber, int i)
-        {
-            Button btn = new Button
+            var controls = new Control[x, y];
+            for (int j = 0, k = 0; j < y; ++j)
             {
-                Font = new Font("Arial", 18, FontStyle.Bold),
-                Text = plu.ToString(),
-                Name = "btn_" + i,
-                TabIndex = i + pageNumber* PageSize,
-                Dock = DockStyle.Fill,
-                Size = new Size(150, 30),
-                Visible = true,
-                Parent = PluListGrid,
-                FlatStyle = FlatStyle.Flat,
-                Location = new Point(0, 0),
-                UseVisualStyleBackColor = true,
-                BackColor = SystemColors.Control
-            };
-            btn.Click += NewButton_Click;
-            return btn;
+                for (var i = 0; i < x; ++i)
+                {
+                    if (k >= pluEntities.Count) break;
+                    var control = NewControl(pluEntities[k], _currentPage, k);
+                    controls[i, j] = control;
+                    k++;
+                }
+            }
+            return controls;
         }
 
         private Control NewControl(PluEntity plu, int pageNumber, int i)
         {
+            var buttonWidth = 150;
+            var buttonHeight = 30;
+
             var button = new Button()
             {
                 Font = new Font("Arial", 18, FontStyle.Bold),
-                Text = plu.GoodsName,
+                Text = Environment.NewLine + plu.GoodsName,
                 Name = "btn_" + i,
-                TabIndex = i + pageNumber* PageSize,
+                TabIndex = i + pageNumber* _pageSize,
                 Dock = DockStyle.Fill,
-                Size = new Size(150, 30),
+                Size = new Size(buttonWidth, buttonHeight),
                 Visible = true,
                 Parent = PluListGrid,
                 FlatStyle = FlatStyle.Flat,
@@ -113,7 +92,8 @@ namespace ScalesUI.Forms
             };
             button.Click += NewButton_Click;
 
-            var mashtabW = 0.12M;
+            // PLU number label.
+            var mashtabW = 0.11M;
             var mashtabH = 0.05M;
             var label = new Label()
             {
@@ -124,24 +104,40 @@ namespace ScalesUI.Forms
                 Size = new Size((int)(PluListGrid.Height * mashtabW), (int) (PluListGrid.Height * mashtabH)),
                 Dock = DockStyle.None,
                 Left = 3,
-                Top = 3, // button.Height - (int)(PluListGrid.Height * mashtabH) - 3,
-                //BackColor = Color.YellowGreen,
-                BackColor = ((plu .CheckWeight == false) ? Color.FromArgb(255, 255, 92,  92) : Color.FromArgb(255, 92, 255, 92)),
+                Top = 3,
+                BackColor = plu.CheckWeight == false 
+                    ? Color.FromArgb(255, 255, 92,  92) 
+                    : Color.FromArgb(255, 92, 255, 92),
                 BorderStyle = BorderStyle.FixedSingle,
             };
             label.MouseClick += (sender, args) =>
             {
-                NewButton_Click(sender, null);
+                NewButton_Click(button, null);
+            };
+
+            // Weight label.
+            var labelCount = new Label()
+            {
+                Font = new Font("Arial", 20, FontStyle.Bold),
+                Text = plu.CheckWeight == false ? @"шт" : @"вес",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Parent = button,
+                Size = new Size((int) (PluListGrid.Height * mashtabW), (int) (PluListGrid.Height * mashtabH)),
+                Dock = DockStyle.None,
+                Left = label.Width + 15,
+                Top = 3,
+                BackColor = plu.CheckWeight == false
+                    ? Color.FromArgb(255, 255, 92, 92)
+                    : Color.FromArgb(255, 92, 255, 92),
+                BorderStyle = BorderStyle.FixedSingle,
+            };
+            labelCount.MouseClick += (sender, args) =>
+            {
+                NewButton_Click(button, null);
             };
 
             return button;
         }
-
-
-
-        #endregion
-
-        #region Private methods
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -149,16 +145,15 @@ namespace ScalesUI.Forms
             Close();
         }
 
-
         private void NewButton_Click(object sender, EventArgs e)
         {
             if (sender is Button button)
             {
                 _ws.CurrentOrder = null;
-                if (ordList?.Count >= button.TabIndex)
+                if (_orderList?.Count >= button.TabIndex)
                 {
-                    _ws.CurrentPLU = ordList[button.TabIndex];
-                    _ws.CurrentPLU.LoadTemplate();
+                    _ws.CurrentPlu = _orderList[button.TabIndex];
+                    _ws.CurrentPlu.LoadTemplate();
                     //_ws.WeightTare = (int)(_ws.CurrentPLU.GoodsTareWeight * _ws.Calibre);
                     //_ws.WeightReal = 0;
                     DialogResult = DialogResult.OK;
@@ -167,31 +162,28 @@ namespace ScalesUI.Forms
             }
         }
 
-
-
         private void btnLeftRoll_Click(object sender, EventArgs e)
         {
-            if (CurrentPage > 0) CurrentPage--; else CurrentPage = 0;
+            if (_currentPage > 0) _currentPage--; else _currentPage = 0;
 
-            PluEntity[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-            Control[,] controls = ControlBuilder(pluEntities, this.ColumnCount, this.RowCount);
-            GridCustomizatorClass.PageBuilder(this.PluListGrid, controls);
+            PluEntity[] pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
+            Control[,] controls = CreateControls(pluEntities, _columnCount, _rowCount);
+            GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-            lbCurrentPage.Text = $"Cтр. {CurrentPage}";
+            lbCurrentPage.Text = $"Cтр. {_currentPage}";
         }
 
         private void btnRightRoll_Click(object sender, EventArgs e)
         {
-            int countPage = (PluList.Count() / PageSize);
+            int countPage = _pluList.Count / _pageSize;
+            if (_currentPage < countPage) _currentPage++;
+            else _currentPage = countPage;
 
-            if (CurrentPage < countPage) CurrentPage++;
-            else CurrentPage = countPage;
+            PluEntity[] pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
+            Control[,] controls = CreateControls(pluEntities, _columnCount, _rowCount);
+            GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-            PluEntity[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-            Control[,] controls = ControlBuilder(pluEntities, this.ColumnCount, this.RowCount);
-            GridCustomizatorClass.PageBuilder(this.PluListGrid, controls);
-
-            lbCurrentPage.Text = $"Cтр. {CurrentPage}";
+            lbCurrentPage.Text = $@"Cтр. {_currentPage}";
         }
 
         #endregion

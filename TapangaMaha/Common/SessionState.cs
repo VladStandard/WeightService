@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using WeightServices.Common;
-using WeightServices.Entities;
-using WeightServices.Common.Zpl;
+using EntitiesLib;
+using Hardware.Zebra;
+using Hardware.Zpl;
 using log4net;
-using ZplCommonLib;
 
 namespace  TapangaMaha.Common
 {
@@ -51,8 +47,8 @@ namespace  TapangaMaha.Common
             //ZebraDeviceСontainer.CheckDeviceStatusOn();
             // создаем устройство ZEBRA
             // с необходимым крннектором (т.е. TCP, а можно и через USB)
-            WeightServices.Common.Zpl.DeviceSocketTcp zplDeviceSocket =
-                new WeightServices.Common.Zpl.DeviceSocketTcp(this.CurrentScale.ZebraPrinter.Ip, this.CurrentScale.ZebraPrinter.Port);
+            DeviceSocketTcp zplDeviceSocket =
+                new DeviceSocketTcp(this.CurrentScale.ZebraPrinter.Ip, this.CurrentScale.ZebraPrinter.Port);
             zebraDeviceEntity = new DeviceEntity(zplDeviceSocket, Guid.NewGuid());
             // тут запускается поток 
             // который разбирает очередь 

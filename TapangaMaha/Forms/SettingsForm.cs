@@ -1,17 +1,10 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.IO.Ports;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using EntitiesLib;
+using Hardware.Zpl;
 using TapangaMaha.Common;
-using WeightServices.Entities;
-using WeightServices.Common.Zpl;
-using ZplCommonLib;
 
 namespace TapangaMaha.Forms
 {
@@ -107,7 +100,7 @@ namespace TapangaMaha.Forms
                 //}
 
                 // очистим логотипы
-                ZplPipeClass.ZplCommandPipeByIP(
+                ZplPipeClass.ZplCommandPipeByIp(
                     _ws.CurrentScale.ZebraPrinter.Ip,
                     _ws.CurrentScale.ZebraPrinter.Port,
                     ZplPipeClass.ZplLogoClear());
@@ -115,7 +108,7 @@ namespace TapangaMaha.Forms
                 foreach (KeyValuePair<string, string> img in _ws.CurrentPLU.Template.Logo)
                 {
                     string zpl = ZplPipeClass.ZplLogoDownloadCommand(img.Key, img.Value);
-                    ZplPipeClass.ZplCommandPipeByIP(
+                    ZplPipeClass.ZplCommandPipeByIp(
                         _ws.CurrentScale.ZebraPrinter.Ip,
                         _ws.CurrentScale.ZebraPrinter.Port,
                         zpl
@@ -143,7 +136,7 @@ namespace TapangaMaha.Forms
                 Thread.Sleep(10);
                 Application.DoEvents();
 
-                ZplPipeClass.ZplCommandPipeByIP(
+                ZplPipeClass.ZplCommandPipeByIp(
                     _ws.CurrentScale.ZebraPrinter.Ip,
                     _ws.CurrentScale.ZebraPrinter.Port,
                     ZplPipeClass.ZplCalibration());
@@ -224,7 +217,7 @@ namespace TapangaMaha.Forms
                 Thread.Sleep(10);
                 Application.DoEvents();
 
-                ZplPipeClass.ZplCommandPipeByIP(
+                ZplPipeClass.ZplCommandPipeByIp(
                     _ws.CurrentScale.ZebraPrinter.Ip,
                     _ws.CurrentScale.ZebraPrinter.Port,
                     ZplPipeClass.ZplPrintDirectory());

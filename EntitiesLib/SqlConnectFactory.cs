@@ -4,9 +4,8 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-// ReSharper disable CheckNamespace
 
-namespace WeightServices.Common
+namespace EntitiesLib
 {
     public class SqlConnectFactory
     {

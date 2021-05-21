@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.90] - 2021-05-21
+### Changed
+- Copyright info
+- Product info
+- UICommonLib 0.5.60
+- ScalesUI 0.5.60
+- Hardware 0.5.60
+
+## [0.1.80] - 2021-05-20
+### Changed
+- DeviceControl v.0.2.200
+
+## [0.1.70] - 2021-05-12
+### Changed
+- DeviceControl v.0.2.190
+
 ## [0.1.60] - 2021-05-11
 ### Changed
 - DeviceControl v.0.2.180

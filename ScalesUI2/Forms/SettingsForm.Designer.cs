@@ -51,17 +51,17 @@
             this.fieldZebraTcpAddress = new System.Windows.Forms.MaskedTextBox();
             this.fieldZebraTcpPort = new System.Windows.Forms.MaskedTextBox();
             this.fieldDescription = new System.Windows.Forms.TextBox();
+            this.fieldCurrentMKProp = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonSaveOption = new System.Windows.Forms.Button();
-            this.btnMkParam = new System.Windows.Forms.Button();
+            this.buttonMassaParam = new System.Windows.Forms.Button();
             this.buttonUploadResources = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonPrintOptions = new System.Windows.Forms.Button();
-            this.buttonResetPrinter = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.fieldCurrentMKProp = new System.Windows.Forms.TextBox();
+            this.buttonPrintReset = new System.Windows.Forms.Button();
+            this.buttonPrintCancelAll = new System.Windows.Forms.Button();
+            this.buttonPrintCalibrate = new System.Windows.Forms.Button();
             this.tableLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -397,11 +397,22 @@
             this.fieldDescription.TabIndex = 11;
             this.fieldDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // fieldCurrentMKProp
+            // 
+            this.tableLayoutPanel3.SetColumnSpan(this.fieldCurrentMKProp, 3);
+            this.fieldCurrentMKProp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldCurrentMKProp.Location = new System.Drawing.Point(3, 427);
+            this.fieldCurrentMKProp.Multiline = true;
+            this.fieldCurrentMKProp.Name = "fieldCurrentMKProp";
+            this.fieldCurrentMKProp.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.fieldCurrentMKProp.Size = new System.Drawing.Size(684, 101);
+            this.fieldCurrentMKProp.TabIndex = 29;
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.buttonClose);
             this.flowLayoutPanel1.Controls.Add(this.buttonSaveOption);
-            this.flowLayoutPanel1.Controls.Add(this.btnMkParam);
+            this.flowLayoutPanel1.Controls.Add(this.buttonMassaParam);
             this.flowLayoutPanel1.Controls.Add(this.buttonUploadResources);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
@@ -434,16 +445,16 @@
             this.buttonSaveOption.UseVisualStyleBackColor = false;
             this.buttonSaveOption.Click += new System.EventHandler(this.buttonSaveOption_Click);
             // 
-            // btnMkParam
+            // buttonMassaParam
             // 
-            this.btnMkParam.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnMkParam.Location = new System.Drawing.Point(404, 3);
-            this.btnMkParam.Name = "btnMkParam";
-            this.btnMkParam.Size = new System.Drawing.Size(140, 120);
-            this.btnMkParam.TabIndex = 20;
-            this.btnMkParam.Text = "Запрос параметров весового устройства";
-            this.btnMkParam.UseVisualStyleBackColor = true;
-            this.btnMkParam.Click += new System.EventHandler(this.button1_Click);
+            this.buttonMassaParam.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonMassaParam.Location = new System.Drawing.Point(404, 3);
+            this.buttonMassaParam.Name = "buttonMassaParam";
+            this.buttonMassaParam.Size = new System.Drawing.Size(140, 120);
+            this.buttonMassaParam.TabIndex = 20;
+            this.buttonMassaParam.Text = "Запрос параметров весового устройства";
+            this.buttonMassaParam.UseVisualStyleBackColor = true;
+            this.buttonMassaParam.Click += new System.EventHandler(this.buttonMassaParam_Click);
             // 
             // buttonUploadResources
             // 
@@ -461,9 +472,9 @@
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Controls.Add(this.buttonPrintOptions);
-            this.flowLayoutPanel2.Controls.Add(this.buttonResetPrinter);
-            this.flowLayoutPanel2.Controls.Add(this.button1);
-            this.flowLayoutPanel2.Controls.Add(this.button2);
+            this.flowLayoutPanel2.Controls.Add(this.buttonPrintReset);
+            this.flowLayoutPanel2.Controls.Add(this.buttonPrintCancelAll);
+            this.flowLayoutPanel2.Controls.Add(this.buttonPrintCalibrate);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(696, 0);
@@ -483,55 +494,44 @@
             this.buttonPrintOptions.UseVisualStyleBackColor = false;
             this.buttonPrintOptions.Click += new System.EventHandler(this.buttonPrintOptions_Click);
             // 
-            // buttonResetPrinter
+            // buttonPrintReset
             // 
-            this.buttonResetPrinter.BackColor = System.Drawing.Color.Transparent;
-            this.buttonResetPrinter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonResetPrinter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonResetPrinter.Location = new System.Drawing.Point(3, 282);
-            this.buttonResetPrinter.Name = "buttonResetPrinter";
-            this.buttonResetPrinter.Size = new System.Drawing.Size(138, 120);
-            this.buttonResetPrinter.TabIndex = 11;
-            this.buttonResetPrinter.Text = "ZEBRA Power On Reset (~JR)";
-            this.buttonResetPrinter.UseVisualStyleBackColor = false;
-            this.buttonResetPrinter.Click += new System.EventHandler(this.buttonResetPrinter_Click);
+            this.buttonPrintReset.BackColor = System.Drawing.Color.Transparent;
+            this.buttonPrintReset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonPrintReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonPrintReset.Location = new System.Drawing.Point(3, 282);
+            this.buttonPrintReset.Name = "buttonPrintReset";
+            this.buttonPrintReset.Size = new System.Drawing.Size(138, 120);
+            this.buttonPrintReset.TabIndex = 11;
+            this.buttonPrintReset.Text = "ZEBRA Power On Reset (~JR)";
+            this.buttonPrintReset.UseVisualStyleBackColor = false;
+            this.buttonPrintReset.Click += new System.EventHandler(this.buttonPrint_Click);
             // 
-            // button1
+            // buttonPrintCancelAll
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(3, 156);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(138, 120);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "ZEBRA Cancel All (~JA)";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.buttonPrintCancelAll.BackColor = System.Drawing.Color.Transparent;
+            this.buttonPrintCancelAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonPrintCancelAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonPrintCancelAll.Location = new System.Drawing.Point(3, 156);
+            this.buttonPrintCancelAll.Name = "buttonPrintCancelAll";
+            this.buttonPrintCancelAll.Size = new System.Drawing.Size(138, 120);
+            this.buttonPrintCancelAll.TabIndex = 12;
+            this.buttonPrintCancelAll.Text = "ZEBRA Cancel All (~JA)";
+            this.buttonPrintCancelAll.UseVisualStyleBackColor = false;
+            this.buttonPrintCancelAll.Click += new System.EventHandler(this.buttonPrintCancelAll_Click);
             // 
-            // button2
+            // buttonPrintCalibrate
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(3, 30);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(138, 120);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Калибровать Zebra";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.buttonCalibrate_Click);
-            // 
-            // fieldCurrentMKProp
-            // 
-            this.tableLayoutPanel3.SetColumnSpan(this.fieldCurrentMKProp, 3);
-            this.fieldCurrentMKProp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldCurrentMKProp.Location = new System.Drawing.Point(3, 427);
-            this.fieldCurrentMKProp.Multiline = true;
-            this.fieldCurrentMKProp.Name = "fieldCurrentMKProp";
-            this.fieldCurrentMKProp.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.fieldCurrentMKProp.Size = new System.Drawing.Size(684, 101);
-            this.fieldCurrentMKProp.TabIndex = 29;
+            this.buttonPrintCalibrate.BackColor = System.Drawing.Color.Transparent;
+            this.buttonPrintCalibrate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonPrintCalibrate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.01739F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonPrintCalibrate.Location = new System.Drawing.Point(3, 30);
+            this.buttonPrintCalibrate.Name = "buttonPrintCalibrate";
+            this.buttonPrintCalibrate.Size = new System.Drawing.Size(138, 120);
+            this.buttonPrintCalibrate.TabIndex = 13;
+            this.buttonPrintCalibrate.Text = "Калибровать Zebra";
+            this.buttonPrintCalibrate.UseVisualStyleBackColor = false;
+            this.buttonPrintCalibrate.Click += new System.EventHandler(this.buttonPrintCalibrate_Click);
             // 
             // SettingsForm
             // 
@@ -586,12 +586,12 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonSaveOption;
         private System.Windows.Forms.Button buttonUploadResources;
-        private System.Windows.Forms.Button btnMkParam;
+        private System.Windows.Forms.Button buttonMassaParam;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Button buttonPrintOptions;
-        private System.Windows.Forms.Button buttonResetPrinter;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonPrintReset;
+        private System.Windows.Forms.Button buttonPrintCancelAll;
+        private System.Windows.Forms.Button buttonPrintCalibrate;
         private System.Windows.Forms.TextBox fieldCurrentMKProp;
     }
 }

@@ -132,17 +132,17 @@
       <Project>{c5ee6194-db73-4f09-9afe-aba98324b069}</Project>
       <Name>EntitiesLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UICommon\UICommonLib.csproj">
+    <ProjectReference Include="..\Hardware\Hardware.csproj">
+      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
+      <Name>Hardware</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UICommon\UICommon.csproj">
       <Project>{a814560e-4946-4da4-9735-5e7fff27da85}</Project>
-      <Name>UICommonLib</Name>
+      <Name>UICommon</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZabbixAgentLib\ZabbixAgentLib.csproj">
       <Project>{36c9a357-5e28-4ee7-a0c3-679d43a9519c}</Project>
       <Name>ZabbixAgentLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZplCommonLib\ZplCommonLib.csproj">
-      <Project>{98659766-f739-47ed-ab8f-8476eaae1812}</Project>
-      <Name>ZplCommonLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

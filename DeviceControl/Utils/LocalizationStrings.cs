@@ -71,6 +71,7 @@ namespace BlazorDeviceControl.Utils
         public const string TableActionAdd = @"Добавить";
         public const string TableActionClear = @"Очистить";
         public const string TableActionDelete = @"Удалить";
+        public const string TableActionDeleteForever = @"Удалить навсегда";
         public const string TableActionCopy = @"Копировать";
         public const string TableActionCancel = @"Отмена";
         public const string TableActionSave = @"Сохранить";

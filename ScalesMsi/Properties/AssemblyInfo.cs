@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Инсталлятор весовой платформы")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Владимирский стандарт")]
-[assembly: AssemblyProduct("ScalesUI")]
+[assembly: AssemblyProduct("WeightService")]
 [assembly: AssemblyCopyright("Copyright © 2020 - 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

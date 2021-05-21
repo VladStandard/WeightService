@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Владимирский стандарт")]
-[assembly: AssemblyProduct("EntitiesLib")]
+[assembly: AssemblyProduct("WeightService")]
 [assembly: AssemblyCopyright("Copyright © 2020 - 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

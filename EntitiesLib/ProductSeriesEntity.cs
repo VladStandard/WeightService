@@ -7,9 +7,8 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
-namespace WeightServices.Entities
+namespace EntitiesLib
 {
     [Serializable]
     public class ProductSeriesEntity
@@ -22,7 +21,7 @@ namespace WeightServices.Entities
 
         public ProductSeriesEntity(ScaleEntity _Scale)
         {
-            this.Scale = _Scale;
+            Scale = _Scale;
         }
 
 
@@ -35,7 +34,7 @@ namespace WeightServices.Entities
 
         //public string TemplateID { get; set; }
 
-        [XmlIgnoreAttribute]
+        [XmlIgnore]
         public TemplateEntity Template { get; set; }
         public Int32 CountUnit { get; set; }
         public Decimal TotalNetWeight { get; set; }
@@ -44,13 +43,13 @@ namespace WeightServices.Entities
         public void LoadTemplate(int _TemplateID)
         {
             if (_TemplateID != null)
-                this.Template = new TemplateEntity(_TemplateID);
+                Template = new TemplateEntity(_TemplateID);
         }
 
         public void New()
         {
 
-            if (this.Scale == null)
+            if (Scale == null)
             {
                 throw new Exception("Equipment instance not identified. Set [Scale].");
             }
@@ -73,14 +72,14 @@ namespace WeightServices.Entities
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        this.Id = reader.GetInt32(0);
-                        this.CreateDate = reader.GetDateTime(1);
-                        this.UUID = reader.GetGuid(2);
-                        this.CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
-                        this.TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
-                        this.TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
+                        Id = reader.GetInt32(0);
+                        CreateDate = reader.GetDateTime(1);
+                        UUID = reader.GetGuid(2);
+                        CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
+                        TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
+                        TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
 
-                        this.Sscc = new SsccEntity(reader.GetString(3));
+                        Sscc = new SsccEntity(reader.GetString(3));
 
                     }
                     reader.Close();
@@ -93,7 +92,7 @@ namespace WeightServices.Entities
         public void Load()
         {
 
-            if (this.Scale.Id == null)
+            if (Scale.Id == null)
             {
                 throw new Exception("Equipment instance not identified. Set [Scale].");
             }
@@ -111,14 +110,14 @@ namespace WeightServices.Entities
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        this.Id = reader.GetInt32(0);
-                        this.CreateDate = reader.GetDateTime(1);
-                        this.UUID = reader.GetGuid(2);
-                        this.CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
-                        this.TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
-                        this.TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
+                        Id = reader.GetInt32(0);
+                        CreateDate = reader.GetDateTime(1);
+                        UUID = reader.GetGuid(2);
+                        CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
+                        TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
+                        TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
 
-                        this.Sscc = new SsccEntity(reader.GetString(3));
+                        Sscc = new SsccEntity(reader.GetString(3));
 
                     }
                     reader.Close();

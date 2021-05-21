@@ -10,15 +10,16 @@ if (@delete = 1) begin
 end
 ------------------------------------------------------------------------------------------------------------------------
 select
-	 [db_scales].[Templates].[Id]
-	,[db_scales].[Templates].[Marked]
-	,[db_scales].[Templates].[CreateDate]
-	,[db_scales].[Templates].[ModifiedDate]
-	,[db_scales].[Templates].[CategoryID]
-	,[db_scales].[Templates].[Title]
-	,[db_scales].[Templates].[ImageData]
-	--,cast([db_scales].[Templates].[ImageData] as varchar(max)) [ImageStr]
+	 [Id]
+	,[CategoryID]
+	,[IdRRef]
+	,[Title]
+	,[ImageData]
 	,convert (nvarchar(max), [ImageData]) [ImageStr]
+	,[CreateDate]
+	,[ModifiedDate]
+	,[Marked]
 from [db_scales].[Templates]
 order by [db_scales].[Templates].[Id]
+------------------------------------------------------------------------------------------------------------------------
 set nocount off

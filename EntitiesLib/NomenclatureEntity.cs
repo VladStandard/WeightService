@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
 namespace EntitiesLib
 {
@@ -35,7 +31,7 @@ namespace EntitiesLib
 
         public NomenclatureEntity(int _Id)
         {
-            this.Id = _Id;
+            Id = _Id;
             Load();
         }
 
@@ -72,7 +68,7 @@ namespace EntitiesLib
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Id", this.Id);
+                    cmd.Parameters.AddWithValue("@Id", Id);
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -131,23 +127,23 @@ namespace EntitiesLib
 
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue($"@1CRRefID", this.RRefID ?? (object)DBNull.Value);  // @1CRRefID
-                    cmd.Parameters.AddWithValue($"@Code "            , this.Code ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Marked", this.Marked);  // 
-                    cmd.Parameters.AddWithValue($"@Name", this.Name ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@NameFull", this.NameFull ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Description", this.Description ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Comment", this.Comment ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Brand", this.Brand ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@GUID_Mercury", this.GUID_Mercury ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@NomenclatureType", this.NomenclatureType ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@VATRate", this.VATRate ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
+                    cmd.Parameters.AddWithValue($"@Code "            , Code ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
+                    cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@NameFull", NameFull ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@Description", Description ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@Comment", Comment ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@Brand", Brand ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@GUID_Mercury", GUID_Mercury ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@NomenclatureType", NomenclatureType ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@VATRate", VATRate ?? (object)DBNull.Value);  // 
 
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        this.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
                     }
 
                     reader.Close();

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -8,10 +7,8 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
 namespace EntitiesLib
 {
@@ -58,7 +55,7 @@ namespace EntitiesLib
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ID", this.IdRRef);
+                    cmd.Parameters.AddWithValue("@ID", IdRRef);
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -209,15 +206,17 @@ namespace EntitiesLib
         public static string Encrypt(string source)
         {
             byte[] key = ByteCipher();
-            using (TripleDESCryptoServiceProvider tripleDESCryptoService = new TripleDESCryptoServiceProvider())
+            using (TripleDESCryptoServiceProvider tripleDesCryptoService = new TripleDESCryptoServiceProvider())
             {
-                using (MD5CryptoServiceProvider hashMD5Provider = new MD5CryptoServiceProvider())
+                using (MD5CryptoServiceProvider hashMd5Provider = new MD5CryptoServiceProvider())
                 {
-                    byte[] byteHash = hashMD5Provider.ComputeHash(key);
-                    tripleDESCryptoService.Key = byteHash;
-                    tripleDESCryptoService.Mode = CipherMode.ECB;
+                    byte[] byteHash = hashMd5Provider.ComputeHash(key);
+                    tripleDesCryptoService.Key = byteHash;
+#pragma warning disable SecurityIntelliSenseCS // MS Security rules violation
+                    tripleDesCryptoService.Mode = CipherMode.ECB;
+#pragma warning restore SecurityIntelliSenseCS // MS Security rules violation
                     byte[] data = Encoding.UTF8.GetBytes(source);
-                    return Convert.ToBase64String(tripleDESCryptoService.CreateEncryptor().TransformFinalBlock(data, 0, data.Length));
+                    return Convert.ToBase64String(tripleDesCryptoService.CreateEncryptor().TransformFinalBlock(data, 0, data.Length));
                 }
             }
         }
@@ -226,18 +225,19 @@ namespace EntitiesLib
         {
             byte[] key = ByteCipher();
 
-            using (TripleDESCryptoServiceProvider tripleDESCryptoService = new TripleDESCryptoServiceProvider())
+            using (TripleDESCryptoServiceProvider tripleDesCryptoService = new TripleDESCryptoServiceProvider())
             {
-                using (MD5CryptoServiceProvider hashMD5Provider = new MD5CryptoServiceProvider())
+                using (MD5CryptoServiceProvider hashMd5Provider = new MD5CryptoServiceProvider())
                 {
-                    byte[] byteHash = hashMD5Provider.ComputeHash(key);
-                    tripleDESCryptoService.Key = byteHash;
-                    tripleDESCryptoService.Mode = CipherMode.ECB;
+                    byte[] byteHash = hashMd5Provider.ComputeHash(key);
+                    tripleDesCryptoService.Key = byteHash;
+#pragma warning disable SecurityIntelliSenseCS // MS Security rules violation
+                    tripleDesCryptoService.Mode = CipherMode.ECB;
+#pragma warning restore SecurityIntelliSenseCS // MS Security rules violation
                     byte[] data = Convert.FromBase64String(encrypt);
-                    return Encoding.UTF8.GetString(tripleDESCryptoService.CreateDecryptor().TransformFinalBlock(data, 0, data.Length));
+                    return Encoding.UTF8.GetString(tripleDesCryptoService.CreateDecryptor().TransformFinalBlock(data, 0, data.Length));
                 }
             }
         }
-
     }
 }

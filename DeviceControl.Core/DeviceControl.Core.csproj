@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.2.180</Version>
+    <Version>0.2.200</Version>
     <Platforms>AnyCPU;x64</Platforms>
+    <Product>WeightService</Product>
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Xml.Serialization;
-using WeightServices.Common;
-using WeightServices.Entities;
 
 namespace EntitiesLib
 {

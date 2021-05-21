@@ -1,36 +1,35 @@
 ﻿using EntitiesLib;
+using Hardware.MassaK;
+using Hardware.Zebra;
+using Hardware.Zpl;
 using ScalesUI.Forms;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using WeightServices.Common;
-using WeightServices.Common.MK;
-using WeightServices.Entities;
+using ScalesUI.Utils;
+using UICommon;
 using ZabbixAgentLib;
-using ZplCommonLib;
-using ZplCommonLib.Zebra;
-
-// ReSharper disable IdentifierTypo
-// ReSharper disable StringLiteralTypo
-// ReSharper disable CommentTypo
 
 namespace ScalesUI.Common
 {
-    public enum Direction { forward, back }
-
     public class SessionState
     {
         #region Design pattern "Lazy Singleton"
 
-        private static readonly Lazy<SessionState> _instance = new Lazy<SessionState>(() => new SessionState());
-        public static SessionState Instance => _instance.Value;
+        //private static readonly Lazy<SessionState> _instance = new Lazy<SessionState>(() => new SessionState());
+        //public static SessionState Instance => _instance.Value;
+        private static SessionState _instance;
+        public static SessionState Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-        private SessionState()
+        #endregion
+
+        #region Constructor and destructor
+
+        public SessionState()
         {
-
-            var x = SqlConnectFactory.GetConnection(Properties.Settings.Default.ConnectionString);
+            //var sql = SqlConnectFactory.GetConnection(Properties.Settings.Default.ConnectionString);
             ProductDate = DateTime.Now;
 
             //тут загружается ID моноблока из файла токена,
@@ -38,7 +37,7 @@ namespace ScalesUI.Common
             //--->
             Host = new HostEntity();
             Host.TokenRead();
-            CurrentScale = new ScaleEntity( Host.CurrentScaleId);
+            CurrentScale = new ScaleEntity(Host.CurrentScaleId);
             CurrentScale.Load();
 
             //this.CurrentScaleId = Properties.Settings.Default.CurrentScaleId;
@@ -74,8 +73,8 @@ namespace ScalesUI.Common
 
             try
             {
-                ZebraDeviceEntity = new PrintSdk(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port, 120);
-                ZebraDeviceEntity.Open(CurrentScale.ZebraPrinter.PrinterType);
+                PrintDevice = new PrintSdk(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port, 120);
+                PrintDevice.Open(CurrentScale.ZebraPrinter.PrinterType);
             }
             catch (Exception ex)
             {
@@ -138,7 +137,7 @@ namespace ScalesUI.Common
 
         public ZplCommander ZplCommander { get; private set; }
 
-        public PrintSdk ZebraDeviceEntity { get; }
+        public PrintSdk PrintDevice { get; }
 
         public MkDeviceEntity MkDevice { get; }
 
@@ -159,6 +158,7 @@ namespace ScalesUI.Common
         #endregion
 
         #region PalletSize
+        
         public static readonly int PalletSizeMinValue = 1;
         public static readonly int PalletSizeMaxValue = 130;
 
@@ -179,14 +179,14 @@ namespace ScalesUI.Common
 
         public void RotatePalletSize(Direction direction)
         {
-            if (direction == Direction.back)
+            if (direction == Direction.Back)
             {
                 PalletSize--;
                 if (PalletSize < PalletSizeMinValue)
                     PalletSize = PalletSizeMinValue;
 
             }
-            if (direction == Direction.forward)
+            if (direction == Direction.Forward)
             {
                 PalletSize++;
                 if (PalletSize > PalletSizeMaxValue)
@@ -200,13 +200,15 @@ namespace ScalesUI.Common
 
         public delegate void OnResponseHandlerCurrentBox(int currentBox);
         public event OnResponseHandlerCurrentBox NotifyCurrentBox;
+        
         private int _currentBox;
-        public int CurrentBox { 
+        public int CurrentBox
+        {
             get => _currentBox;
-            set 
+            set
             {
                 _currentBox = value;
-                 NotifyCurrentBox?.Invoke(value);
+                NotifyCurrentBox?.Invoke(value);
             }
         }
 
@@ -214,10 +216,10 @@ namespace ScalesUI.Common
         {
             CurrentBox = 1;
             //если новая паллета - чистим очередь печати
-            if (ZebraDeviceEntity != null)
+            if (PrintDevice != null)
             {
-                ZebraDeviceEntity.ClearZebraPrintBuffer();
-                ZebraDeviceEntity.SetOdometorUserLabel(1);
+                PrintDevice.ClearPrintBuffer(CurrentScale.ZebraPrinter.PrinterType);
+                PrintDevice.SetOdometorUserLabel(1);
                 ProductSeries.New();
 
             }
@@ -238,10 +240,10 @@ namespace ScalesUI.Common
             set
             {
                 //если замес изменился - чистим очередь печати
-                if (ZebraDeviceEntity != null)
+                if (PrintDevice != null)
                 {
-                    ZebraDeviceEntity.ClearZebraPrintBuffer();
-                    ZebraDeviceEntity.SetOdometorUserLabel(CurrentBox);
+                    PrintDevice.ClearPrintBuffer(CurrentScale.ZebraPrinter.PrinterType);
+                    PrintDevice.SetOdometorUserLabel(CurrentBox);
                 }
                 _kneading = value;
                 NotifyKneading?.Invoke(value);
@@ -250,14 +252,14 @@ namespace ScalesUI.Common
 
         public void RotateKneading(Direction direction)
         {
-            if (direction == Direction.back)
+            if (direction == Direction.Back)
             {
                 Kneading--;
                 if (Kneading < KneadingMinValue)
                     Kneading = KneadingMinValue;
 
             }
-            if (direction == Direction.forward)
+            if (direction == Direction.Forward)
             {
                 Kneading++;
                 if (Kneading > KneadingMaxValue)
@@ -282,8 +284,8 @@ namespace ScalesUI.Common
             set
             {
                 //если дата изменилась - чистим очередь печати
-                if (ZebraDeviceEntity != null)
-                    ZebraDeviceEntity.ClearZebraPrintBuffer();
+                if (PrintDevice != null)
+                    PrintDevice.ClearPrintBuffer(CurrentScale.ZebraPrinter.PrinterType);
                 _productDate = value;
                 NotifyProductDate?.Invoke(value);
             }
@@ -291,14 +293,14 @@ namespace ScalesUI.Common
 
         public void RotateProductDate(Direction direction)
         {
-            if (direction == Direction.back)
+            if (direction == Direction.Back)
             {
                 ProductDate = ProductDate.AddDays(-1);
                 if (ProductDate < ProductDateMinValue)
                     ProductDate = ProductDateMinValue;
 
             }
-            if (direction == Direction.forward)
+            if (direction == Direction.Forward)
             {
                 ProductDate = ProductDate.AddDays(1);
                 if (ProductDate > ProductDateMaxValue)
@@ -310,18 +312,17 @@ namespace ScalesUI.Common
         #region PluEntity
         public delegate void OnResponseHandlerPLU(PluEntity plu);
         public event OnResponseHandlerPLU NotifyPLU;
-        public PluEntity _currentPLU;
+        private PluEntity _currentPlu;
         [XmlElement(IsNullable = true)]
-        public PluEntity CurrentPLU
+        public PluEntity CurrentPlu
         {
-            get => _currentPLU;
+            get => _currentPlu;
             set
             {
-                //если ПЛУ изменился - чистим очередь печати
-                if (ZebraDeviceEntity != null)
-                    ZebraDeviceEntity.ClearZebraPrintBuffer();
-                    ZebraDeviceEntity.SetOdometorUserLabel(1);
-                _currentPLU = value;
+                // если ПЛУ изменился - чистим очередь печати
+                PrintDevice?.ClearPrintBuffer(CurrentScale.ZebraPrinter.PrinterType);
+                PrintDevice?.SetOdometorUserLabel(1);
+                _currentPlu = value;
                 CurrentBox = 1;
                 NotifyPLU?.Invoke(value);
             }
@@ -340,95 +341,90 @@ namespace ScalesUI.Common
                 template = CurrentOrder.Template;
                 CurrentOrder.FactBoxCount++;
             }
-            else if (CurrentPLU != null && CurrentScale != null && !CurrentScale.UseOrder)
+            else if (CurrentPlu != null && CurrentScale != null && !CurrentScale.UseOrder)
             {
-                template = CurrentPLU.Template;
+                template = CurrentPlu.Template;
             }
 
-            if (template != null && CurrentPLU != null)
+            if (template != null && CurrentPlu != null)
             {
-                if (CurrentPLU.CheckWeight == false)
+                if (CurrentPlu.CheckWeight == false)
                 {
                     // если печатать надо МНОГО!!! маленьких этикеток 
                     // и при этом правильный вес не нужен
-                    PrintCheckWeightWithout(template);
+                    PrintCountLabels(template);
                 }
-                else if (CurrentPLU.CheckWeight == true)
+                else if (CurrentPlu.CheckWeight == true)
                 {
                     // если необходимо опрашивать платформу 
                     // для КАЖДОЙ!!! коробки отдельно
                     // и при этом получать правильный вес
-                    PrintWithCheckWeight(template);
+                    PrintWeightLabels(template);
                 }
             }
         }
 
-        private void PrintCheckWeightWithout(TemplateEntity template)
+        /// <summary>
+        /// Печать штучных этикеток.
+        /// </summary>
+        /// <param name="template"></param>
+        private void PrintCountLabels(TemplateEntity template)
         {
             // Вывести серию этикеток по заданному размеру паллеты.
             for (var i = CurrentBox; i <= PalletSize; i++)
             {
                 CurrentWeighingFact = WeighingFactEntity.New(
                     CurrentScale,
-                    CurrentPLU,
+                    CurrentPlu,
                     ProductDate,
                     Kneading,
-                    CurrentPLU.Scale.ScaleFactor,
-                    CurrentPLU.NominalWeight,
-                    CurrentPLU.GoodsTareWeight
+                    CurrentPlu.Scale.ScaleFactor,
+                    CurrentPlu.NominalWeight,
+                    CurrentPlu.GoodsTareWeight
                 );
 
                 CurrentWeighingFact.Save();
                 var xmlInput = CurrentWeighingFact.SerializeObject();
-
-                var zplContent = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
-                ZebraDeviceEntity.SendAsync(zplContent);
-                var zplLabel = new ZplLabel
-                {
-                    WeighingFactId = CurrentWeighingFact.Id,
-                    Content = zplContent
-                };
-                zplLabel.Save();
+                var printCmd = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
+                // Отправить задание в очередь печати.
+                PrintDevice.SendAsync(printCmd, CurrentWeighingFact.Id, CurrentScale.ZebraPrinter.PrinterType);
             }
         }
 
-        private void PrintWithCheckWeight(TemplateEntity template)
+        /// <summary>
+        /// Печать весовых этикеток.
+        /// </summary>
+        /// <param name="template"></param>
+        private void PrintWeightLabels(TemplateEntity template)
         {
-            if (MkDevice != null)
+            // Проверка наличия устройства весов.
+            if (MkDevice == null)
             {
-                // на платформе нет товара
-                if (MkDevice.WeightNet - CurrentPLU.GoodsTareWeight <= 0)
-                {
-                    _log.Info($@"Вес товара: {MkDevice.WeightNet} кг. Печать этикетки невозможна.");
-                    return;
-                }
-
-                CurrentWeighingFact = WeighingFactEntity.New(
-                    CurrentScale,
-                    CurrentPLU,
-                    ProductDate,
-                    Kneading,
-                    CurrentPLU.Scale.ScaleFactor,
-                    MkDevice.WeightNet - CurrentPLU.GoodsTareWeight,
-                    CurrentPLU.GoodsTareWeight
-                );
-
-                CurrentWeighingFact.Save();
-                var xmlInput = CurrentWeighingFact.SerializeObject();
-
-                //_ws.zebraDeviceEntity.SendAsync(template.XslContent, xmlInput);
-                // заменил один вызов на другой
-                // хочу сохранять полученный  ZPL в таблицу Labels
-                var zplContent = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
-                ZebraDeviceEntity.SendAsync(zplContent);
-
-                var zplLabel = new ZplLabel
-                {
-                    WeighingFactId = CurrentWeighingFact.Id,
-                    Content = zplContent
-                };
-                zplLabel.Save();
+                _log.Info($@"Устройство весов не обнаружено!");
+                return;
             }
+            // Проверка товара на весах.
+            if (MkDevice.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
+            {
+                _log.Info($@"Вес товара: {MkDevice.WeightNet} кг, печать этикетки невозможна!");
+                return;
+            }
+
+            CurrentWeighingFact = WeighingFactEntity.New(
+                CurrentScale,
+                CurrentPlu,
+                ProductDate,
+                Kneading,
+                CurrentPlu.Scale.ScaleFactor,
+                MkDevice.WeightNet - CurrentPlu.GoodsTareWeight,
+                CurrentPlu.GoodsTareWeight
+            );
+
+            CurrentWeighingFact.Save();
+            var xmlInput = CurrentWeighingFact.SerializeObject();
+            var printCmd = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
+            // Отправить задание в очередь печати.
+            PrintDevice.SendAsync(printCmd, CurrentWeighingFact.Id, CurrentScale.ZebraPrinter.PrinterType);
         }
 
         #endregion

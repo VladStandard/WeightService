@@ -393,8 +393,8 @@
                         AppSettings.DataAccess.TemplateResourcesCrud.UpdateEntity(templateResourcesEntity);
                     break;
                 case EnumTable.Templates:
-                    var templatesEntity = (TemplatesEntity)Item;
-                    if (string.IsNullOrEmpty(templatesEntity.CategoryId))
+                    var templateEntity = (TemplatesEntity)Item;
+                    if (string.IsNullOrEmpty(templateEntity.CategoryId))
                     {
                         success = false;
                         var msg = new NotificationMessage
@@ -408,15 +408,15 @@
                     }
                     if (success)
                     {
-                        templatesEntity.CreateDate ??= DateTime.Now;
-                        templatesEntity.ModifiedDate = DateTime.Now;
-                        if (TableAction == EnumTableAction.Add)
+                        templateEntity.CreateDate ??= DateTime.Now;
+                        templateEntity.ModifiedDate = DateTime.Now;
+                        if (TableAction == EnumTableAction.Add || TableAction == EnumTableAction.Copy)
                         {
-                            AppSettings.DataAccess.TemplatesCrud.SaveEntity(templatesEntity);
+                            AppSettings.DataAccess.TemplatesCrud.SaveEntity(templateEntity);
                         }
                         else
                         {
-                            AppSettings.DataAccess.TemplatesCrud.UpdateEntity(templatesEntity);
+                            AppSettings.DataAccess.TemplatesCrud.UpdateEntity(templateEntity);
                         }
                     }
                     break;

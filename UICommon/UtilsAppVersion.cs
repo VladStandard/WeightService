@@ -8,7 +8,7 @@ using System.Reflection;
 // ReSharper disable CheckNamespace
 // ReSharper disable CommentTypo
 
-namespace WeightServices.Common
+namespace UICommon
 {
     /// <summary>
     /// Строковый формат.

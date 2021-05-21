@@ -9,9 +9,8 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
-namespace WeightServices.Entities
+namespace EntitiesLib
 {
     [Serializable]
     public class WeighingFactEntity
@@ -28,8 +27,8 @@ namespace WeightServices.Entities
             get => _plu;
             set
             {
-                this._plu = value;
-                this.ExpirationDate = _productDate.AddDays(this.PLU == null ? 30 : (int)this.PLU.GoodsShelfLifeDays);
+                _plu = value;
+                ExpirationDate = _productDate.AddDays(PLU == null ? 30 : (int)PLU.GoodsShelfLifeDays);
             }
         }
         private DateTime _productDate;
@@ -38,8 +37,8 @@ namespace WeightServices.Entities
             get => _productDate;
             set
             {
-                this._productDate = value;
-                this.ExpirationDate = value.AddDays(this.PLU == null ? 30 : (int)this.PLU.GoodsShelfLifeDays);
+                _productDate = value;
+                ExpirationDate = value.AddDays(PLU == null ? 30 : (int)PLU.GoodsShelfLifeDays);
             }
         }
 
@@ -51,11 +50,11 @@ namespace WeightServices.Entities
         private decimal _netWeight = 0;
         public decimal NetWeight
         {
-            get => this._netWeight;
+            get => _netWeight;
             set
             {
-                this._netWeight = value;
-                this.GrossWeight = this._netWeight + this._tareWeight;
+                _netWeight = value;
+                GrossWeight = _netWeight + _tareWeight;
             }
         }
         private decimal _tareWeight = 0;
@@ -64,8 +63,8 @@ namespace WeightServices.Entities
             get => _tareWeight;
             set
             {
-                this._tareWeight = value;
-                this.GrossWeight = this._netWeight + this._tareWeight;
+                _tareWeight = value;
+                GrossWeight = _netWeight + _tareWeight;
             }
         }
 
@@ -76,13 +75,13 @@ namespace WeightServices.Entities
 
         public WeighingFactEntity()
         {
-            this.ScaleId = 0;
-            this.PLU = null;
-            this.NetWeight = 0;
-            this.TareWeight = 0;
-            this.ScaleFactor = 1000;
-            this.RegDate = DateTime.Now;
-            this.ProductDate = DateTime.Now.Date;
+            ScaleId = 0;
+            PLU = null;
+            NetWeight = 0;
+            TareWeight = 0;
+            ScaleFactor = 1000;
+            RegDate = DateTime.Now;
+            ProductDate = DateTime.Now.Date;
         }
 
         public void Save()
@@ -105,12 +104,12 @@ namespace WeightServices.Entities
 
                     cmd.Parameters.Add(planIndexParameter);
 
-                    cmd.Parameters.AddWithValue("@ScaleID", this.ScaleId);
-                    cmd.Parameters.AddWithValue("@PLU", this.PLU.PLU);
-                    cmd.Parameters.AddWithValue("@NetWeight", (this.NetWeight));
-                    cmd.Parameters.AddWithValue("@TareWeight", (this.TareWeight));
-                    cmd.Parameters.AddWithValue("@ProductDate", this.ProductDate);
-                    cmd.Parameters.AddWithValue("@Kneading", this.KneadingNumber);
+                    cmd.Parameters.AddWithValue("@ScaleID", ScaleId);
+                    cmd.Parameters.AddWithValue("@PLU", PLU.PLU);
+                    cmd.Parameters.AddWithValue("@NetWeight", (NetWeight));
+                    cmd.Parameters.AddWithValue("@TareWeight", (TareWeight));
+                    cmd.Parameters.AddWithValue("@ProductDate", ProductDate);
+                    cmd.Parameters.AddWithValue("@Kneading", KneadingNumber);
 
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -118,8 +117,8 @@ namespace WeightServices.Entities
                     {
 
                         //string sscc             = reader.GetString(0);
-                        this.RegDate    = reader.GetDateTime(1);
-                        this.Id         = reader.GetInt32(3);
+                        RegDate    = reader.GetDateTime(1);
+                        Id         = reader.GetInt32(3);
                         XDocument xDoc = XDocument.Parse(reader.GetString(2));
 
                         SsccEntity sscc = new SsccEntity();
@@ -129,7 +128,7 @@ namespace WeightServices.Entities
                         sscc.UnitType = Byte.Parse(xDoc.Root.Element("Item").Attribute("UnitType").Value);
                         sscc.SynonymSSCC = xDoc.Root.Element("Item").Attribute("SynonymSSCC").Value;
                         sscc.Check = Int32.Parse(xDoc.Root.Element("Item").Attribute("Check").Value);
-                        this.Sscc = sscc;
+                        Sscc = sscc;
 
                     }
                     con.Close();

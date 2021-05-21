@@ -4,7 +4,8 @@
 using ScalesUI.Common;
 using System;
 using System.Windows.Forms;
-using WeightServices.Common;
+using ScalesUI.Utils;
+using UICommon;
 
 namespace ScalesUI.Forms
 {
@@ -95,13 +96,13 @@ namespace ScalesUI.Forms
 
         private void buttonDtRight_Click(object sender, EventArgs e)
         {
-            _ws.RotateProductDate(Direction.forward);
+            _ws.RotateProductDate(Direction.Forward);
             ShowProductDate();
         }
 
         private void buttonDtLeft_Click(object sender, EventArgs e)
         {
-            _ws.RotateProductDate(Direction.back);
+            _ws.RotateProductDate(Direction.Back);
             ShowProductDate();
         }
 
@@ -111,7 +112,7 @@ namespace ScalesUI.Forms
 
             for (int i = 0; i < n; i++)
             {
-                _ws.RotatePalletSize(Direction.forward);
+                _ws.RotatePalletSize(Direction.Forward);
                 ShowPalletSize();
             }
 
@@ -126,13 +127,13 @@ namespace ScalesUI.Forms
 
         private void btnPalletSizeNext_Click(object sender, EventArgs e)
         {
-            _ws.RotatePalletSize(Direction.forward);
+            _ws.RotatePalletSize(Direction.Forward);
             ShowPalletSize();
         }
 
         private void btnPalletSizePrev_Click(object sender, EventArgs e)
         {
-            _ws.RotatePalletSize(Direction.back);
+            _ws.RotatePalletSize(Direction.Back);
             ShowPalletSize();
 
         }

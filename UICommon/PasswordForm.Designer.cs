@@ -1,4 +1,4 @@
-﻿namespace WeightServices.Common
+﻿namespace UICommon
 {
     partial class PasswordForm
     {

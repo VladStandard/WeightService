@@ -6,9 +6,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// ReSharper disable CheckNamespace
-
-namespace WeightServices.Common
+namespace UICommon.WinForms.Utils
 {
     public static class AsyncControl
     {

@@ -11,10 +11,11 @@ using System.Drawing;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using WeightServices.Common;
-using WeightServices.Common.MK;
-using WeightServices.Entities;
-using ZplCommonLib.Zebra;
+using EntitiesLib;
+using Hardware.MassaK;
+using Hardware.Zebra;
+using UICommon;
+using UICommon.WinForms.Utils;
 
 // ReSharper disable CommentTypo
 // ReSharper disable StringLiteralTypo
@@ -87,7 +88,7 @@ namespace ScalesUI
             _ws.NotifyProductDate += DisplayMessageProductDate;
             _ws.NotifyKneading += DisplayMessageKneading;
             _ws.NotifyPLU += DisplayMessagePlu;
-            _ws.ZebraDeviceEntity.Notify += DisplayMessageZebraState;
+            _ws.PrintDevice.Notify += DisplayMessageZebraState;
             _ws.NotifyPalletSize += DisplayMessagePalletSize;
             _ws.NotifyCurrentBox += DisplayMessageCurrentBox;
             _ws.NewPallet();
@@ -201,24 +202,21 @@ namespace ScalesUI
         private void DisplayMessageMassa(MkDeviceEntity message)
         {
             var flag = false;
-            if (message is MkDeviceEntity)
+            if (message != null)
             {
-                
                 AsyncControl.Properties.SetText.Async(fieldGrossWeight, $"Вес брутто: {message.WeightNet:0.000} кг");
-                if (_ws.CurrentPLU != null)
+                if (_ws.CurrentPlu != null)
                 {
                     flag = true;
-                    AsyncControl.Properties.SetText.Async(labelPlu, $"PLU: {_ws.CurrentPLU.PLU}");
-                    var weight = message.WeightNet - _ws.CurrentPLU.GoodsTareWeight;
+                    AsyncControl.Properties.SetText.Async(labelPlu, _ws.CurrentPlu.CheckWeight == false
+                        ? $"PLU (шт): {_ws.CurrentPlu.PLU}" : $"PLU (вес): {_ws.CurrentPlu.PLU}");
+                    var weight = message.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
                     AsyncControl.Properties.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг");
                     AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto,
                         message.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent);
-
                     //AsyncControl.Properties.SetText.Async(fieldWeightTare, 
                     //    $"{(float)getMassa.Tare / getMassa.ScaleFactor:0.000} кг");
-
                 }
-
                 if (message.IsReady)
                     _ledMk.State = message.IsStable == 1;
             }
@@ -266,17 +264,18 @@ namespace ScalesUI
             // надо переприсвоить
             // т.к. на CurrentBox сделан Notify 
             // чтоб выводить на экран
-            _ws.CurrentBox = (_ws.ZebraDeviceEntity.UserLabelCount < _ws.PalletSize) ? _ws.ZebraDeviceEntity.UserLabelCount : _ws.PalletSize;
+            _ws.CurrentBox = _ws.PrintDevice.UserLabelCount < _ws.PalletSize ? _ws.PrintDevice.UserLabelCount : _ws.PalletSize;
             // а когда зебра поддергивает ленту
             // то счетчик увеличивается на 1
             // не может быть что-бы напечатано 3, а на форме 4
+            if (_ws.CurrentBox == 0)
+                _ws.CurrentBox = 1;
 
             if (state != null && !state.isReadyToPrint)  
                 AsyncControl.Properties.SetBackColor.Async(buttonPrint, state.isReadyToPrint ? Color.FromArgb(192, 255, 192) : Color.Transparent);
 
             if (state != null) 
                 _ledZebra.State = state.isReadyToPrint;
-
         }
 
         #endregion
@@ -335,7 +334,7 @@ namespace ScalesUI
                 }
 
                 _ws.MkDevice.SetZero();
-                _ws.CurrentPLU = null;
+                _ws.CurrentPlu = null;
             }
             catch (Exception ex)
             {
@@ -382,7 +381,7 @@ namespace ScalesUI
                     }
                     else
                     {
-                        _ws.CurrentPLU = null;
+                        _ws.CurrentPlu = null;
                     }
                 }
             }

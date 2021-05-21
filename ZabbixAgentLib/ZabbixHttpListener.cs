@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Threading;
-using WeightServices.Common;
+
 // ReSharper disable StringLiteralTypo
 // ReSharper disable IdentifierTypo
 // ReSharper disable CommentTypo

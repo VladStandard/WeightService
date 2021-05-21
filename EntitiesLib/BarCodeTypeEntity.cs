@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
 namespace EntitiesLib
 {
@@ -34,7 +29,7 @@ namespace EntitiesLib
 
         public BarCodeTypeEntity(int _Id)
         {
-            this.Id = _Id;
+            Id = _Id;
             Load();
         }
 
@@ -47,7 +42,7 @@ namespace EntitiesLib
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Id", this.Id);
+                    cmd.Parameters.AddWithValue("@Id", Id);
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())

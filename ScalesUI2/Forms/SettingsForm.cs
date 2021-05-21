@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using Hardware.Zpl;
 using log4net;
 using ScalesUI.Common;
 using System;
@@ -9,8 +10,6 @@ using System.IO.Ports;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using WeightServices.Common.Zpl;
-using ZplCommonLib;
 
 namespace ScalesUI.Forms
 {
@@ -164,15 +163,15 @@ namespace ScalesUI.Forms
                 }
                 else
                 {
-                    if (_ws.CurrentPLU == null)
+                    if (_ws.CurrentPlu == null)
                     {
                         const string message = "Не определен PLU";
                         const string caption = "Операция недоступна!";
                         MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    zp.LogoUpload(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, _ws.CurrentPLU.Template.Logo);
-                    zp.FontsUpload(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, _ws.CurrentPLU.Template.Fonts);
+                    zp.LogoUpload(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, _ws.CurrentPlu.Template.Logo);
+                    zp.FontsUpload(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, _ws.CurrentPlu.Template.Fonts);
                 }
             }
             catch (Exception ex)
@@ -219,10 +218,9 @@ namespace ScalesUI.Forms
 
         #region Private methods - Управление принтером Зебра
 
-
-        private void buttonResetPrinter_Click(object sender, EventArgs e)
+        private void buttonPrint_Click(object sender, EventArgs e)
         {
-            _ws.ZebraDeviceEntity.SendAsync(ZplPipeClass.ZplPowerOnReset());
+            _ws.PrintDevice.SendAsync(ZplPipeClass.ZplPowerOnReset(), _ws.CurrentWeighingFact.Id, _ws.CurrentScale.ZebraPrinter.PrinterType);
         }
 
         /// <summary>
@@ -230,28 +228,19 @@ namespace ScalesUI.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonCalibrate_Click(object sender, EventArgs e)
+        private void buttonPrintCalibrate_Click(object sender, EventArgs e)
         {
-            _ws.ZebraDeviceEntity.SendAsync(ZplPipeClass.ZplCalibration());
+            _ws.PrintDevice.SendAsync(ZplPipeClass.ZplCalibration(), _ws.CurrentWeighingFact.Id, _ws.CurrentScale.ZebraPrinter.PrinterType);
         }
-
-
-
-
 
         private void buttonPrintOptions_Click(object sender, EventArgs e)
         {
-            _ws.ZebraDeviceEntity.SendAsync(ZplPipeClass.ZplPrintConfigurationLabel());
+            _ws.PrintDevice.SendAsync(ZplPipeClass.ZplPrintConfigurationLabel(), _ws.CurrentWeighingFact.Id, _ws.CurrentScale.ZebraPrinter.PrinterType);
         }
 
         #endregion
 
         #region Private methods - Кнопки по умолчанию
-
-
-
-
-
 
         private void DefaultComPortName()
         {
@@ -289,7 +278,6 @@ namespace ScalesUI.Forms
             }
         }
 
-
         private void buttonSqlCheck_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(fieldSqlConnectionString.Text))
@@ -298,17 +286,39 @@ namespace ScalesUI.Forms
                 {
                     con.Open();
                     //Properties.Settings.Default.ConnectionString = fieldSqlConnectionString.Text;
-                    labelSqlStatus.Text = "Подключение выполнено.";
+                    labelSqlStatus.Text = @"Подключение выполнено.";
                 }
                 catch (Exception ex)
                 {
-                    labelSqlStatus.Text = $"Ошибка подключения! {ex.Message}";
+                    labelSqlStatus.Text = $@"Ошибка подключения! {ex.Message}";
                     log.Error(ex.Message);
                 }
             }
         }
 
+        private void buttonMassaParam_Click(object sender, EventArgs e)
+        {
+            _ws.MkDevice.GetScalePar();
+            Thread.Sleep(350);
 
+            fieldCurrentMKProp.Clear();
+
+            if (_ws.MkDevice.DeviceParameters != null)
+            {
+                fieldCurrentMKProp.Text = _ws.MkDevice.DeviceParameters.GetMessage();
+            }
+
+            if (_ws.MkDevice.DeviceError != null)
+            {
+                fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_ws.MkDevice.DeviceError.GetMessage()}";
+            }
+        }
+
+        private void buttonPrintCancelAll_Click(object sender, EventArgs e)
+        {
+            _ws.PrintDevice.SendAsync(ZplPipeClass.ZplClearPrintBuffer(), _ws.CurrentWeighingFact.Id, _ws.CurrentScale.ZebraPrinter.PrinterType);
+        }
+        
         #endregion
 
         #region Commented
@@ -329,31 +339,5 @@ namespace ScalesUI.Forms
         //RawPrinterHelper.SendStringToPrinter(@"\\info-0004\ZDesigner 105SL 203DPI Zebra", s);
 
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            _ws.MkDevice.GetScalePar();
-            Thread.Sleep(350);
-
-            fieldCurrentMKProp.Clear();
-
-            if (_ws.MkDevice.DeviceParameters != null)
-            {
-                fieldCurrentMKProp.Text = _ws.MkDevice.DeviceParameters.GetMessage();
-            }
-
-            if (_ws.MkDevice.DeviceError != null)
-            {
-                fieldCurrentMKProp.Text  =$"{fieldCurrentMKProp.Text}\n{_ws.MkDevice.DeviceError.GetMessage()}";
-            }
-
-        }
-
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            _ws.ZebraDeviceEntity.SendAsync(ZplPipeClass.ZplClearPrintBuffer());
-
-        }
     }
 }

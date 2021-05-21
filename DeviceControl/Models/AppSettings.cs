@@ -33,6 +33,7 @@ namespace BlazorDeviceControl.Models
 #endif
             }
         }
+        public DataSourceEntity DataSource { get; set; } = new DataSourceEntity();
 
         #endregion
 

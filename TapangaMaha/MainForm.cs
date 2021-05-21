@@ -1,20 +1,14 @@
-﻿
-using EntitiesLib;
+﻿using EntitiesLib;
+using Hardware.Zpl;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TapangaMaha.Common;
 using TapangaMaha.Forms;
-using WeightServices.Common;
-using WeightServices.Common.Zpl;
-using WeightServices.Entities;
-using ZplCommonLib;
+using UICommon;
 
 // ReSharper disable IdentifierTypo
 // ReSharper disable CommentTypo

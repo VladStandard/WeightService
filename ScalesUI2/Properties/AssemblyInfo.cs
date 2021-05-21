@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Печать этикеток")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Владимирский стандарт")]
-[assembly: AssemblyProduct("ScalesUI")]
+[assembly: AssemblyProduct("WeightService")]
 [assembly: AssemblyCopyright("Copyright © 2020 - 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -35,6 +35,6 @@ using System.Runtime.InteropServices;
 // Можно задать все значения или принять номер сборки и номер редакции по умолчанию.
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.5.50.0")]
-[assembly: AssemblyFileVersion("0.5.50.0")]
+[assembly: AssemblyVersion("0.5.60.0")]
+[assembly: AssemblyFileVersion("0.5.60.0")]
 

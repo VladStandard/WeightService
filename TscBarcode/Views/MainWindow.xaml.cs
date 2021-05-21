@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using ZplCommonLib.Tsc;
+using Hardware.Tsc;
 
 namespace TscBarcode.Views
 {

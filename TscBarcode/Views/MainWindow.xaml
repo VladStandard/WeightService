@@ -3,13 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TscBarcode"
-        xmlns:tsc="clr-namespace:ZplCommonLib.Tsc;assembly=ZplCommonLib"
+        xmlns:tsc1="clr-namespace:Hardware.Tsc;assembly=Hardware"
         mc:Ignorable="d"
         Title="MainWindow" Width="800" Height="600" Closed="Window_Closed" >
 
     <Window.DataContext>
-        <tsc:PrintControlEntity />
+        <tsc1:PrintControlEntity />
     </Window.DataContext>
 
     <Grid DataContext="{StaticResource ViewModelProgramSettings}">
@@ -17,11 +16,11 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -40,7 +39,7 @@
         <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="4*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>

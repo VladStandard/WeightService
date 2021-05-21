@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
 namespace EntitiesLib
 {
@@ -28,7 +24,7 @@ namespace EntitiesLib
 
         public BarCodeEntity(int _Id)
         {
-            this.Id = _Id;
+            Id = _Id;
             Load();
         }
 
@@ -65,7 +61,7 @@ namespace EntitiesLib
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Id", this.Id);
+                    cmd.Parameters.AddWithValue("@Id", Id);
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -114,17 +110,17 @@ namespace EntitiesLib
 
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue($"@BarCodeTypeId", this.BarCodeType != null ? this.BarCodeType.Id : (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@NomenclatureId", this.Nomenclature != null ? this.Nomenclature.Id : (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@NomenclatureUnitId", this.NomenclatureUnit != null ? this.NomenclatureUnit.Id : (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@ContragentId", this.Contragent != null ? this.Contragent.Id : (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Value", this.Value ?? (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@BarCodeTypeId", BarCodeType != null ? BarCodeType.Id : (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@NomenclatureId", Nomenclature != null ? Nomenclature.Id : (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@NomenclatureUnitId", NomenclatureUnit != null ? NomenclatureUnit.Id : (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@ContragentId", Contragent != null ? Contragent.Id : (object)DBNull.Value);  // 
+                    cmd.Parameters.AddWithValue($"@Value", Value ?? (object)DBNull.Value);  // 
 
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        this.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
                     }
 
                     reader.Close();

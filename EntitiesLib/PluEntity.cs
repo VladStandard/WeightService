@@ -11,9 +11,8 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
-namespace WeightServices.Entities
+namespace EntitiesLib
 {
     [Serializable]
     public class PluEntity

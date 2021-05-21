@@ -6,8 +6,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 
-
-namespace WeightServices.Entities
+namespace EntitiesLib
 {
 
     [Serializable]
@@ -40,19 +39,19 @@ namespace WeightServices.Entities
 
         public SsccEntity(string _sscc)
         {
-            this.SSCC = _sscc;
-            this.GLN = _sscc.Substring(3, 9);
-            this.UnitID = Int32.Parse(_sscc.Substring(12, 7));
-            this.UnitType = Byte.Parse(_sscc.Substring(2, 1));
-            this.SynonymSSCC = $"(00){_sscc.Substring(3, 17)}";
-            this.Check = Int32.Parse(_sscc.Substring(19, 1));
+            SSCC = _sscc;
+            GLN = _sscc.Substring(3, 9);
+            UnitID = Int32.Parse(_sscc.Substring(12, 7));
+            UnitType = Byte.Parse(_sscc.Substring(2, 1));
+            SynonymSSCC = $"(00){_sscc.Substring(3, 17)}";
+            Check = Int32.Parse(_sscc.Substring(19, 1));
         }
 
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"{this.SynonymSSCC}");
+            sb.Append($"{SynonymSSCC}");
             return sb.ToString();
         }
 

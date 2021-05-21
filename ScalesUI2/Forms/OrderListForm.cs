@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using WeightServices.Entities;
+using EntitiesLib;
 
 namespace ScalesUI.Forms
 {
@@ -101,7 +101,7 @@ namespace ScalesUI.Forms
             {
                 _ws.CurrentOrder = _ordList[btn.TabIndex];
                 _ws.CurrentOrder.LoadTemplate();
-                _ws.CurrentPLU = _ws.CurrentOrder.PLU;
+                _ws.CurrentPlu = _ws.CurrentOrder.PLU;
                 //ws.CurrentPLU.LoadTemplate();
                 //_ws.WeightTare = (int)( _ws.CurrentOrder.PLU.GoodsTareWeight * _ws.CurrentPLU.);
                 //_ws.WeightReal = 0;

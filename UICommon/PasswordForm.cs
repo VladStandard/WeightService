@@ -4,10 +4,8 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-// ReSharper disable CommentTypo
-// ReSharper disable CheckNamespace
 
-namespace WeightServices.Common
+namespace UICommon
 {
     public partial class PasswordForm : Form
     {

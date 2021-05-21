@@ -1,7 +1,8 @@
 -- Импорт PLU из 1С Палыч
+-- 1С. Палыч.
+-- 
+use [weigtService]
 
-select *
-from [dbo].[_ReferenceChngR3505]
-
+-- Справочник.Номенклатура
 select *
 from [dbo].[_Reference180]

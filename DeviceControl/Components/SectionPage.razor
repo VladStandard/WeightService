@@ -227,6 +227,21 @@
                             </RadzenGrid>
                             break;
                         case EnumTable.Templates:
+                            if (TemplateCategories == null)
+                            {
+                                <RadzenTextBox Style="width: 70%;" Disabled="true" TValue="string" Value="" />
+                                <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+                            }
+                            else
+                            {
+                                <RadzenLabel Style="" TValue="string" Text=@BlazorDeviceControl.Utils.LocalizationStrings.TableFieldCategoryName />
+                                <RadzenDropDown Style="margin-left: 10px; margin-top: -10px; width: 200px;" 
+                                                TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                                Data=@TemplateCategories PageSize="5" TextProperty="Name" ValueProperty="Value"
+                                                Value=@TemplateCategory Change=@(args => OnChange(args, "TemlateCategories")) />
+                            }
+                            <br />
                             var templatesEntities = new List<TemplatesEntity>();
                             foreach (var entity in Entities)
                             {
@@ -381,17 +396,21 @@
                                   ButtonStyle="ButtonStyle.Secondary"
                                   Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
                                   Text=@Utils.LocalizationStrings.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
-                    @if (AppSettings.AccessRights == EnumAccessRights.Admin)
+                    <RadzenButton Click=@(args => ActionMarkedAsync(Table, Entity, null))
+                                  ButtonStyle="ButtonStyle.Secondary"
+                                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
+                                  Text=@Utils.LocalizationStrings.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
+                    @if (AppSettings.IsDebug)
                     {
                         <RadzenButton Click=@(args => ActionCopyAsync(Table, Entity, null))
                                       ButtonStyle="ButtonStyle.Secondary"
                                       Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
                                       Text=@Utils.LocalizationStrings.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
+                        <RadzenButton Click=@(args => ActionDeleteAsync(Table, Entity, null))
+                                      ButtonStyle="ButtonStyle.Secondary"
+                                      Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
+                                      Text=@Utils.LocalizationStrings.TableActionDeleteForever Disabled=@AppSettings.DataAccess.IsDisabled />
                     }
-                    <RadzenButton Click=@(args => ActionMarkedAsync(Table, Entity, null))
-                                  ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
-                                  Text=@Utils.LocalizationStrings.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
                 }
                 else
                 {
@@ -505,6 +524,8 @@
     public int FontSizeHeader { get; set; }
     [Parameter]
     public int FontSize { get; set; }
+    private List<TypeEntity<string>> TemplateCategories { get; set; }
+    private string TemplateCategory { get; set; }
 
     #endregion
 
@@ -603,8 +624,7 @@
         }
     }
 
-    private async Task GetDataAsync(
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    private async Task GetDataAsync([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         try
@@ -637,9 +657,25 @@
                         new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
                     break;
                 case EnumTable.Templates:
-                    Entities = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                        new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
-                        new FieldOrderEntity(EnumField.Title, EnumOrderDirection.Asc));
+                    if (TemplateCategories == null || TemplateCategories.Count == 0)
+                        TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
+                    if (string.IsNullOrEmpty(TemplateCategory))
+                    {
+                        TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
+                        Entities = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                            new FieldOrderEntity(EnumField.Title, EnumOrderDirection.Asc));
+                    }
+                    else
+                    {
+                        Entities = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object>
+                            {
+                                { EnumField.Marked.ToString(), false },
+                                { EnumField.CategoryId.ToString(), TemplateCategory },
+                            }),
+                            new FieldOrderEntity(EnumField.Title, EnumOrderDirection.Asc));
+                    }
                     break;
                 case EnumTable.WorkShop:
                     Entities = AppSettings.DataAccess.WorkshopCrud.GetEntities(
@@ -710,6 +746,21 @@
     private async Task ActionMarkedAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
     {
         await AppSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task OnChange(object value, string name)
+    {
+        switch (name)
+        {
+            case "TemlateCategories":
+                if (value is string strValue)
+                {
+                    TemplateCategory = strValue;
+                }
+                break;
+        }
+        StateHasChanged();
         await GetDataAsync().ConfigureAwait(false);
     }
 

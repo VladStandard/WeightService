@@ -33,7 +33,6 @@
                             Value=@Item.CategoryId Change=@(args => OnChange(args, "TemlateCategories")) />
         }
         <br />
-        <br />
     </div>
 </div>
 
@@ -112,20 +111,12 @@
         }
     }
 
-    private async Task GetDataAsync(
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    private async Task GetDataAsync([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         try
         {
-            TemplateCategories = new List<TypeEntity<string>>
-            {
-                new TypeEntity<string>("", ""),
-                new TypeEntity<string>("NaN", "NaN"),
-                new TypeEntity<string>("203 dpi", "203 dpi"),
-                new TypeEntity<string>("300 dpi", "300 dpi"),
-                new TypeEntity<string>("608 dpi", "608 dpi"),
-            };
+            TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
         }
         catch (Exception ex)
         {

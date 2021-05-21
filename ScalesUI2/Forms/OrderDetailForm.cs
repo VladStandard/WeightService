@@ -4,7 +4,7 @@
 using ScalesUI.Common;
 using System;
 using System.Windows.Forms;
-using WeightServices.Entities;
+using EntitiesLib;
 
 namespace ScalesUI.Forms
 {

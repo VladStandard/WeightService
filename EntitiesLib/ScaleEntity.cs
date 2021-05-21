@@ -4,14 +4,9 @@
 using System;
 using System.Data.SqlClient;
 using System.IO;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
 using System.Xml.Serialization;
-using EntitiesLib;
-using WeightServices.Common;
 
-namespace WeightServices.Entities
+namespace EntitiesLib
 {
     [Serializable]
     public class ScaleEntity
@@ -42,7 +37,7 @@ namespace WeightServices.Entities
 
         public ScaleEntity(int ScaleID)
         {
-            this.Id = ScaleID;
+            Id = ScaleID;
             Init();
         }
 
@@ -78,7 +73,7 @@ namespace WeightServices.Entities
                 {
                     int? zebraPrinterId = null;
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ScaleID", this.Id);
+                    cmd.Parameters.AddWithValue("@ScaleID", Id);
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -137,17 +132,17 @@ namespace WeightServices.Entities
 
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue($"@Uuid", this.Id);  // @1CRRefID
-                    cmd.Parameters.AddWithValue($"@Description", this.Description);
-                    cmd.Parameters.AddWithValue($"@IP", this.DeviceIP);
-                    cmd.Parameters.AddWithValue($"@Port", this.DevicePort);
-                    cmd.Parameters.AddWithValue($"@DeviceMAC", this.DeviceMAC);
-                    cmd.Parameters.AddWithValue($"@DeviceSendTimeout", this.DeviceSendTimeout);
-                    cmd.Parameters.AddWithValue($"@DeviceReceiveTimeout", this.DeviceReceiveTimeout);
-                    cmd.Parameters.AddWithValue($"@DeviceComPort", this.DeviceComPort);
-                    cmd.Parameters.AddWithValue($"@UseOrder", this.UseOrder);
+                    cmd.Parameters.AddWithValue($"@Uuid", Id);  // @1CRRefID
+                    cmd.Parameters.AddWithValue($"@Description", Description);
+                    cmd.Parameters.AddWithValue($"@IP", DeviceIP);
+                    cmd.Parameters.AddWithValue($"@Port", DevicePort);
+                    cmd.Parameters.AddWithValue($"@DeviceMAC", DeviceMAC);
+                    cmd.Parameters.AddWithValue($"@DeviceSendTimeout", DeviceSendTimeout);
+                    cmd.Parameters.AddWithValue($"@DeviceReceiveTimeout", DeviceReceiveTimeout);
+                    cmd.Parameters.AddWithValue($"@DeviceComPort", DeviceComPort);
+                    cmd.Parameters.AddWithValue($"@UseOrder", UseOrder);
                     cmd.Parameters.AddWithValue($"@VerScalesUI", "");
-                    cmd.Parameters.AddWithValue($"@ScaleFactor", this.ScaleFactor);
+                    cmd.Parameters.AddWithValue($"@ScaleFactor", ScaleFactor);
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 

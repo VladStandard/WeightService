@@ -2,16 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>0.2.180</Version>
+    <Version>0.2.200</Version>
     <Authors>Владимирский стандарт</Authors>
     <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
     <StartupObject>BlazorDeviceControl.Program</StartupObject>
     <AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
-    <AssemblyVersion>0.2.180.0</AssemblyVersion>
+    <AssemblyVersion>0.2.200.0</AssemblyVersion>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-    <FileVersion>0.2.180.0</FileVersion>
+    <FileVersion>0.2.190.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
+    <Product>WeightService</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

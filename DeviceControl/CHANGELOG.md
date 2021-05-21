@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.190] - 2021-05-12
+### Changed
+- Plu record page
+
 ## [0.2.180] - 2021-05-11
 ### Changed
 - Get free hosts

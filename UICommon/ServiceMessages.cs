@@ -1,19 +1,18 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
+using System.Drawing;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Repository.Hierarchy;
-using System;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using System.Drawing;
 
-namespace WeightServices.Common
+namespace UICommon
 {
-
     public static class ServiceMessagesWindow
     {
 

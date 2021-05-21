@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
 namespace EntitiesLib
 {
@@ -53,7 +49,7 @@ namespace EntitiesLib
 
         public WorkShopEntity(int _Id)
         {
-            this.Id = _Id;
+            Id = _Id;
             Load();
         }
 
@@ -65,21 +61,21 @@ namespace EntitiesLib
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Id", this.Id);
+                    cmd.Parameters.AddWithValue("@Id", Id);
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
 
-                        this.Id             = SqlConnectFactory.GetValue<int>(reader, "ID");
-                        this.Name           = SqlConnectFactory.GetValue<string>(reader, "Name");
-                        this.CreateDate     = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
-                        this.ModifiedDate   = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
-                        this.RRefID         = SqlConnectFactory.GetValue<string>(reader, "RRefID");
+                        Id             = SqlConnectFactory.GetValue<int>(reader, "ID");
+                        Name           = SqlConnectFactory.GetValue<string>(reader, "Name");
+                        CreateDate     = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
+                        ModifiedDate   = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
+                        RRefID         = SqlConnectFactory.GetValue<string>(reader, "RRefID");
 
                     }
 
-                    this.ProductionFacility = new ProductionFacilityEntity( SqlConnectFactory.GetValue<int>(reader, "ProductionFacilityID"));
+                    ProductionFacility = new ProductionFacilityEntity( SqlConnectFactory.GetValue<int>(reader, "ProductionFacilityID"));
 
                     reader.Close();
                     con.Close();
@@ -108,14 +104,14 @@ namespace EntitiesLib
 
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue($"@Name", this.Name ?? (object)DBNull.Value);               // 
-                    cmd.Parameters.AddWithValue($"@ProductionFacilityID", this.ProductionFacility.Id);      // 
-                    cmd.Parameters.AddWithValue($"@1CRRefID", this.RRefID ?? (object)DBNull.Value);         // @1CRRefID
+                    cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);               // 
+                    cmd.Parameters.AddWithValue($"@ProductionFacilityID", ProductionFacility.Id);      // 
+                    cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);         // @1CRRefID
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        this.Id = SqlConnectFactory.GetValue<int>(reader, "Id");
+                        Id = SqlConnectFactory.GetValue<int>(reader, "Id");
                     }
 
                     reader.Close();

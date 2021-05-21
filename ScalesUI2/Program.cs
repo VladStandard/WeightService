@@ -6,7 +6,7 @@ using ScalesUI.Forms;
 using System;
 using System.Threading;
 using System.Windows.Forms;
-using WeightServices.Common;
+
 // ReSharper disable IdentifierTypo
 
 namespace ScalesUI

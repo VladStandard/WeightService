@@ -27,4 +27,10 @@ namespace ScalesUI.Utils
         True,
         False,
     }
+
+    public enum Direction
+    {
+        Forward,
+        Back
+    }
 }

@@ -8,9 +8,8 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
-namespace WeightServices.Entities
+namespace EntitiesLib
 {
 
     [Serializable]
@@ -21,13 +20,13 @@ namespace WeightServices.Entities
         public string XslContent { get; set; }
         public int TemplateId { get; set; }
 
-        [XmlIgnoreAttribute]
+        [XmlIgnore]
         public string CategoryId { get; set; }
 
-        [XmlIgnoreAttribute]
+        [XmlIgnore]
         public Dictionary<string, string> Fonts { get; set; }
 
-        [XmlIgnoreAttribute]
+        [XmlIgnore]
         public Dictionary<string, string> Logo { get; set; }
 
         private void Init()

@@ -8,7 +8,6 @@ using System.Drawing.Text;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WeightServices.Common;
 
 namespace ControlsExamples
 {

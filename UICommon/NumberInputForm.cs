@@ -2,12 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-// ReSharper disable CommentTypo
-// ReSharper disable CheckNamespace
 
-namespace WeightServices.Common
+namespace UICommon
 {
     public partial class NumberInputForm : Form
     {

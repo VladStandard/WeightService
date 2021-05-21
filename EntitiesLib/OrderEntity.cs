@@ -8,9 +8,8 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
-using WeightServices.Common;
 
-namespace WeightServices.Entities
+namespace EntitiesLib
 {
     public enum OrderStatus
     {
@@ -131,12 +130,12 @@ namespace WeightServices.Entities
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@OrderId", this.RRefID);
+                    cmd.Parameters.AddWithValue("@OrderId", RRefID);
                     cmd.Parameters.AddWithValue("@StatusName", orderStatus.ToString());
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
-                    this.Status = orderStatus;
+                    Status = orderStatus;
                 }
             }
         }
@@ -149,12 +148,12 @@ namespace WeightServices.Entities
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@OrderId", this.RRefID);
+                    cmd.Parameters.AddWithValue("@OrderId", RRefID);
                     con.Open();
                     string reader = Convert.ToString(cmd.ExecuteScalar());
                     con.Close();
-                    this.Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), reader);
-                    return this.Status;
+                    Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), reader);
+                    return Status;
                 }
             }
         }
