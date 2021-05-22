@@ -1,5 +1,5 @@
 -- Таблица PLU
--- PRICE LOOK UP CODE (КОД ПОИСКА ЦЕН)
+declare @id int = 172
 use [ScalesDB]
 select
 	 [db_scales].[PLU].[Id]
@@ -21,5 +21,5 @@ select
 	,[db_scales].[Scales].[ScaleFactor]
 from [db_scales].[PLU]
 left join [db_scales].[Scales] on [PLU].[ScaleId] = [Scales].[Id]
---where [db_scales].[Scales].[Id]=5
+where [db_scales].[PLU].[Id] = @id
 order by [db_scales].[PLU].[GoodsName]

@@ -82,16 +82,16 @@ namespace TapangaMaha.Forms
 
                 // в выгрузке шрифтов что-то идет не так
                 // очистим шрифты
-                //ZplPipeClass.ZplCommandPipeByIP(
+                //ZplPipeUtils.ZplCommandPipeByIP(
                 //    _ws.CurrentScale.ZebraIP, 
                 //    _ws.CurrentScale.ZebraPort, 
-                //    ZplPipeClass.ZplFontsClear());
+                //    ZplPipeUtils.ZplFontsClear());
 
 
                 //foreach (KeyValuePair<string, string> font in _ws.CurrentPLU.Template.Fonts)
                 //{
-                //    string zpl = ZplPipeClass.ZplFontDownloadCommand(font.Key, font.Value);
-                //    ZplPipeClass.ZplCommandPipeByIP(
+                //    string zpl = ZplPipeUtils.ZplFontDownloadCommand(font.Key, font.Value);
+                //    ZplPipeUtils.ZplCommandPipeByIP(
                 //        _ws.CurrentScale.ZebraIP,
                 //        _ws.CurrentScale.ZebraPort,
                 //         zpl
@@ -100,15 +100,15 @@ namespace TapangaMaha.Forms
                 //}
 
                 // очистим логотипы
-                ZplPipeClass.ZplCommandPipeByIp(
+                ZplPipeUtils.ZplCommandPipeByIp(
                     _ws.CurrentScale.ZebraPrinter.Ip,
                     _ws.CurrentScale.ZebraPrinter.Port,
-                    ZplPipeClass.ZplLogoClear());
+                    ZplPipeUtils.ZplLogoClear());
 
                 foreach (KeyValuePair<string, string> img in _ws.CurrentPLU.Template.Logo)
                 {
-                    string zpl = ZplPipeClass.ZplLogoDownloadCommand(img.Key, img.Value);
-                    ZplPipeClass.ZplCommandPipeByIp(
+                    string zpl = ZplPipeUtils.ZplLogoDownloadCommand(img.Key, img.Value);
+                    ZplPipeUtils.ZplCommandPipeByIp(
                         _ws.CurrentScale.ZebraPrinter.Ip,
                         _ws.CurrentScale.ZebraPrinter.Port,
                         zpl
@@ -136,10 +136,10 @@ namespace TapangaMaha.Forms
                 Thread.Sleep(10);
                 Application.DoEvents();
 
-                ZplPipeClass.ZplCommandPipeByIp(
+                ZplPipeUtils.ZplCommandPipeByIp(
                     _ws.CurrentScale.ZebraPrinter.Ip,
                     _ws.CurrentScale.ZebraPrinter.Port,
-                    ZplPipeClass.ZplCalibration());
+                    ZplPipeUtils.ZplCalibration());
             }
             catch (Exception ex)
             {
@@ -217,10 +217,10 @@ namespace TapangaMaha.Forms
                 Thread.Sleep(10);
                 Application.DoEvents();
 
-                ZplPipeClass.ZplCommandPipeByIp(
+                ZplPipeUtils.ZplCommandPipeByIp(
                     _ws.CurrentScale.ZebraPrinter.Ip,
                     _ws.CurrentScale.ZebraPrinter.Port,
-                    ZplPipeClass.ZplPrintDirectory());
+                    ZplPipeUtils.ZplPrintDirectory());
 
             }
             catch (Exception ex)

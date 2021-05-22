@@ -390,25 +390,25 @@
                 {
                     <RadzenButton Click=@(args => ActionAddAsync(Table, Entity, null))
                                   ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;"
+                                  Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
                                   Text=@Utils.LocalizationStrings.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
                     <RadzenButton Click=@(args => ActionEditAsync(Table, Entity, null))
                                   ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
+                                  Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                   Text=@Utils.LocalizationStrings.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
                     <RadzenButton Click=@(args => ActionMarkedAsync(Table, Entity, null))
                                   ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
+                                  Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                   Text=@Utils.LocalizationStrings.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
                     @if (AppSettings.IsDebug)
                     {
                         <RadzenButton Click=@(args => ActionCopyAsync(Table, Entity, null))
                                       ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
+                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                       Text=@Utils.LocalizationStrings.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
                         <RadzenButton Click=@(args => ActionDeleteAsync(Table, Entity, null))
                                       ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px; "
+                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                       Text=@Utils.LocalizationStrings.TableActionDeleteForever Disabled=@AppSettings.DataAccess.IsDisabled />
                     }
                 }

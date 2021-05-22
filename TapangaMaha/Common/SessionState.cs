@@ -57,7 +57,7 @@ namespace  TapangaMaha.Common
             zebraDeviceEntity.CheckDeviceStatusOn();
 
             // тут запускается процесс отправляющий комманды проверки состояния устройства
-            ZplCommander = new ZplCommander(zplDeviceSocket.DeviceIP, zebraDeviceEntity, ZplPipeClass.ZplHostQuery());
+            ZplCommander = new ZplCommander(zplDeviceSocket.DeviceIP, zebraDeviceEntity, ZplPipeUtils.ZplHostQuery());
         }
         //public ZebraDeviceСontainer ZebraDeviceСontainer { get; private set; }
 

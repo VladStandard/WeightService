@@ -168,7 +168,7 @@
     <Compile Include="Zebra\StatusDataCollector.cs" />
     <Compile Include="Zpl\ZplCommander.cs" />
     <Compile Include="Zpl\ZplConverterHelper.cs" />
-    <Compile Include="Zpl\ZplPipeClass.cs" />
+    <Compile Include="Zpl\ZplPipeUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

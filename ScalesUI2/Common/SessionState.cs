@@ -69,7 +69,7 @@ namespace ScalesUI.Common
             // а из нее потом доотправляются на устройство
             // zebraDeviceEntity.CheckDeviceStatusOn();
             // тут запускается процесс отправляющий комманды проверки состояния устройства
-            // ZplCommander = new ZplCommander(zplDeviceSocket.DeviceIP, zebraDeviceEntity, ZplPipeClass.ZplHostQuery());
+            // ZplCommander = new ZplCommander(zplDeviceSocket.DeviceIP, zebraDeviceEntity, ZplPipeUtils.ZplHostQuery());
 
             try
             {
@@ -385,7 +385,7 @@ namespace ScalesUI.Common
 
                 CurrentWeighingFact.Save();
                 var xmlInput = CurrentWeighingFact.SerializeObject();
-                var printCmd = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
+                var printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
                 // Отправить задание в очередь печати.
                 PrintDevice.SendAsync(printCmd, CurrentWeighingFact.Id, CurrentScale.ZebraPrinter.PrinterType);
             }
@@ -422,7 +422,7 @@ namespace ScalesUI.Common
 
             CurrentWeighingFact.Save();
             var xmlInput = CurrentWeighingFact.SerializeObject();
-            var printCmd = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
+            var printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
             // Отправить задание в очередь печати.
             PrintDevice.SendAsync(printCmd, CurrentWeighingFact.Id, CurrentScale.ZebraPrinter.PrinterType);
         }

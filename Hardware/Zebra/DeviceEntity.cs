@@ -51,19 +51,19 @@ namespace Hardware.Zebra
                 var msg = string.Empty;
                 requestQueue.TryDequeue(out msg);
             }
-            var zplContent = ZplPipeClass.ZplClearPrintBuffer();
+            var zplContent = ZplPipeUtils.ZplClearPrintBuffer();
             requestQueue.Enqueue(zplContent);
         }
 
         public void SetOdometorUserLabel(int value)
         {
-            var zplContent = ZplPipeClass.ZplSetOdometerUserLabel(value);
+            var zplContent = ZplPipeUtils.ZplSetOdometerUserLabel(value);
             requestQueue.Enqueue(zplContent);
         }
 
         public void GetOdometorUserLabel()
         {
-            var zplContent = ZplPipeClass.ZplGetOdometerUserLabel();
+            var zplContent = ZplPipeUtils.ZplGetOdometerUserLabel();
             requestQueue.Enqueue(zplContent);
         }
 
@@ -73,7 +73,7 @@ namespace Hardware.Zebra
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             try
             {
-                var zplContent = ZplPipeClass.XsltTransformationPipe(template, content);
+                var zplContent = ZplPipeUtils.XsltTransformationPipe(template, content);
                 requestQueue.Enqueue(zplContent);
                 log.Debug($"{Name} - send content:\n{content}");
             }
@@ -181,7 +181,7 @@ namespace Hardware.Zebra
         }
         public override string SendStringToPrinter(string szString)
         {
-            string zpl = ZplPipeClass.ToCodePoints(szString);
+            string zpl = ZplPipeUtils.ToCodePoints(szString);
             RawPrinterHelper.SendStringToPrinter(PrinterName, zpl);
             return "";
         }
@@ -212,7 +212,7 @@ namespace Hardware.Zebra
         public override string SendStringToPrinter(string szString)
         {
             string _errorMessage = String.Empty;
-            string info = ZplPipeClass.InterplayToPrinter(this.DeviceIP, this.DevicePort, szString.Split('\n'), out _errorMessage);
+            string info = ZplPipeUtils.InterplayToPrinter(this.DeviceIP, this.DevicePort, szString.Split('\n'), out _errorMessage);
             if (_errorMessage.Length > 0)
             {
                 log.Error(_errorMessage);

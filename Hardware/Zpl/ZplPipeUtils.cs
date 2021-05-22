@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hardware.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,13 +9,12 @@ using System.Text;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
-using Hardware.Utils;
 using WeightServices.Common;
 using ZplCommonLib.Native;
 
 namespace Hardware.Zpl
 {
-    public static class ZplPipeClass
+    public static class ZplPipeUtils
     {
         #region Public and private fields and properties
 
@@ -369,29 +369,27 @@ namespace Hardware.Zpl
             var unicodeCharacterList = new Dictionary<char, string>();
             // Поиск подстроки [^FH^FD].
             var isFieldData = 0;
+            var isDataStart = false;
+            var isDataEnd = false;
             foreach (var ch in zplInput)
             {
-                if (!unicodeCharacterList.ContainsKey(ch))
+                if (isFieldData == 6)
                 {
-                    if (isFieldData == 6)
+                    var bytes = Encoding.UTF8.GetBytes(ch.ToString());
+                    var hexCode = string.Empty;
+                    foreach (var b in bytes)
                     {
-                        var bytes = Encoding.UTF8.GetBytes(ch.ToString());
-                        var hexCode = string.Empty;
-                        foreach (var b in bytes)
-                        {
-                            hexCode += $"_{BitConverter.ToString(new byte[] { b }).ToLower()}";
-                        }
-                        unicodeCharacterList[ch] = hexCode;
+                        hexCode += $"_{BitConverter.ToString(new byte[] {b}).ToUpper()}";
                     }
-                    else
-                        unicodeCharacterList[ch] = ch.ToString();
-                    result.Append(unicodeCharacterList[ch]);
+
+                    unicodeCharacterList[ch] = hexCode;
                 }
                 else
                 {
-                    result.Append(unicodeCharacterList[ch]);
+                    unicodeCharacterList[ch] = ch.ToString();
                 }
 
+                // Calc isFieldData.
                 if (isFieldData == 0 && ch == '^')
                     isFieldData = 1;
                 if (isFieldData == 1 && ch == 'F')
@@ -404,13 +402,38 @@ namespace Hardware.Zpl
                     isFieldData = 5;
                 if (isFieldData == 5 && ch == 'D')
                     isFieldData = 6;
-                // Reset.
+
+                // Reset isFieldData.
                 if (isFieldData == 6 && ch == '^')
                     isFieldData = 7;
                 if (isFieldData == 7 && ch == 'F')
                     isFieldData = 8;
                 if (isFieldData == 8 && ch == 'S')
+                {
                     isFieldData = 0;
+                    isDataStart = false;
+                    isDataEnd = false;
+                }
+                if (isFieldData < 7)
+                {
+                    result.Append(unicodeCharacterList[ch]);
+                    if (isFieldData == 6 && !isDataStart)
+                    {
+                        isDataStart = true;
+                        result.Append(Environment.NewLine);
+                    }
+                }
+                else
+                {
+                    if (isFieldData == 7 && !isDataEnd)
+                    {
+                        isDataEnd = true;
+                        result.Append(Environment.NewLine);
+                        result.Append("^");
+                    }
+                    else
+                        result.Append(unicodeCharacterList[ch]);
+                }
             }
             return result.ToString();
         }

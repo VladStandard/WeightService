@@ -59,9 +59,13 @@ namespace Hardware.Zebra
         public async void SendAsync(string printCmd, int labelId, string printerType)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            // Подменить картинки ZPL.
             if (printerType.Contains("TSC "))
             {
-                printCmd = printCmd;
+                var templateEac = new TemplateEntity("EAC_107x109_090");
+                var templateFish = new TemplateEntity("FISH_94x115_000");
+                var templateTemp6 = new TemplateEntity("TEMP6_116x113_090");
+                var cmd = printCmd;
             }
             CmdQueue.Enqueue(printCmd);
             

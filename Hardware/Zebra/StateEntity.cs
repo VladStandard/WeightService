@@ -22,7 +22,7 @@ namespace Hardware.Zebra
             var noErrors = false;
             var noWarnings = false;
 
-            if (request == ZplPipeClass.ZplHostStatusReturn())
+            if (request == ZplPipeUtils.ZplHostStatusReturn())
             {
                 if (msg.Contains("PRINTER STATUS"))
                 {
@@ -40,7 +40,7 @@ namespace Hardware.Zebra
                 }
             }
 
-            if (request == ZplPipeClass.ZplGetOdometerUserLabel())
+            if (request == ZplPipeUtils.ZplGetOdometerUserLabel())
             {
                 try
                 {
@@ -52,7 +52,7 @@ namespace Hardware.Zebra
                 }
             }
 
-            if (request == ZplPipeClass.ZplPeelerState())
+            if (request == ZplPipeUtils.ZplPeelerState())
             {
 
             }

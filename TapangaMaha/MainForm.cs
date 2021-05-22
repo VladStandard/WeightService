@@ -233,16 +233,16 @@ namespace TapangaMaha
                                         // хочу сохранять полученный  ZPL в таблицу Labels
                                         //_sessionState.zebraDeviceEntity.SendAsync(template.XslContent, xmlInput);
                                         //
-                                        string zplContent = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
+                                        string zplContent = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
                                         _sessionState.zebraDeviceEntity.SendAsync(zplContent);
                                         ZplLabel zplLabel = new ZplLabel();
                                         zplLabel.WeighingFactId = weighingFact.Id;
                                         zplLabel.Content = zplContent;
                                         zplLabel.Save();
 
-                                        //string zplContent = ZplPipeClass.XsltTransformationPipe(template.XslContent, xmlInput);
-                                        ////ZplPipeClass.FakePipe(zplContent);
-                                        //ZplPipeClass.ZplCommandPipeByIP(sessionState.CurrentScale.ZebraIP, sessionState.CurrentScale.ZebraPort, zplContent);
+                                        //string zplContent = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
+                                        ////ZplPipeUtils.FakePipe(zplContent);
+                                        //ZplPipeUtils.ZplCommandPipeByIP(sessionState.CurrentScale.ZebraIP, sessionState.CurrentScale.ZebraPort, zplContent);
                                     }
                                     catch (Exception ex)
                                     {
@@ -261,8 +261,8 @@ namespace TapangaMaha
                                     string xmlInput = productSeries.SerializeObject();
                                     _sessionState.zebraDeviceEntity.SendAsync(productSeries.Template.XslContent, xmlInput);
 
-                                    //string zplContent = ZplPipeClass.XsltTransformationPipe(productSeries.Template.XslContent, xmlInput);
-                                    //ZplPipeClass.ZplCommandPipeByIP(sessionState.CurrentScale.ZebraIP, sessionState.CurrentScale.ZebraPort, zplContent);
+                                    //string zplContent = ZplPipeUtils.XsltTransformationPipe(productSeries.Template.XslContent, xmlInput);
+                                    //ZplPipeUtils.ZplCommandPipeByIP(sessionState.CurrentScale.ZebraIP, sessionState.CurrentScale.ZebraPort, zplContent);
                                 }
                                 catch (Exception ex)
                                 {

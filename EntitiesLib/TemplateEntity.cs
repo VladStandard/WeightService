@@ -15,6 +15,7 @@ namespace EntitiesLib
     [Serializable]
     public class TemplateEntity
     {
+        #region Public and private fields and properties
 
         public string Title { get; set; }
         public string XslContent { get; set; }
@@ -28,6 +29,30 @@ namespace EntitiesLib
 
         [XmlIgnore]
         public Dictionary<string, string> Logo { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public TemplateEntity()
+        {
+            Init();
+        }
+
+        public TemplateEntity(int templateId) : this()
+        {
+            TemplateId = templateId;
+            GetTemplateObjFromDb();
+        }
+
+        public TemplateEntity(string title) : this()
+        {
+            GetTemplateObjFromDb(title);
+        }
+
+        #endregion
+
+        #region Public and private methods
 
         private void Init()
         {
@@ -57,17 +82,6 @@ namespace EntitiesLib
             var sb = new StringBuilder();
             sb.Append($"{CategoryId}/{Title}");
             return sb.ToString();
-        }
-
-        public TemplateEntity()
-        {
-            Init();
-        }
-
-        public TemplateEntity(int templateId) : this()
-        {
-            TemplateId = templateId;
-            GetTemplateObjFromDB();
         }
 
         public static IDictionary<string, object> ObjectToDictionary<T>(T item) where T : class
@@ -110,13 +124,13 @@ namespace EntitiesLib
         {
             if (TemplateId != null)
             {
-                GetTemplateObjFromDB();
+                GetTemplateObjFromDb();
             }
         }
 
-        private void GetTemplateObjFromDB()
+        private void GetTemplateObjFromDb()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (var con = SqlConnectFactory.GetConnection())
             {
                 string query = "SELECT TOP(1) CategoryID,Title,XslContent FROM [db_scales].[GetTemplatesObjByID] (@TemplateID);";
                 using (var cmd = new SqlCommand(query))
@@ -159,7 +173,6 @@ namespace EntitiesLib
             //    }
             //}
 
-
             //using (SqlConnection con = SqlConnectFactory.GetConnection())
             //{
             //    string query = "SELECT [Name], [ImageData] FROM [db_scales].[GetTemplateResources] (@TemplateID,@Type); ";
@@ -178,20 +191,44 @@ namespace EntitiesLib
             //        reader.Close();
             //    }
             //}
-
         }
 
-
-
-        private void GetTemplateFromDB(string TemplateID)
+        private void GetTemplateObjFromDb(string title)
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (var con = SqlConnectFactory.GetConnection())
+            {
+                var query = @"
+select top (1) [Id], [CategoryId], convert(nvarchar(max),[ImageData],0) [XslContent]
+from [db_scales].[Templates]
+where [Title] = @Title
+                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+                using (var cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@Title", title);
+                    con.Open();
+                    var reader = cmd.ExecuteReader();
+                    if (reader.HasRows && reader.Read())
+                    {
+                        TemplateId = reader.GetInt32(0);
+                        CategoryId = reader.GetString(1);
+                        XslContent = reader.GetString(2);
+                        Title = title;
+                    }
+                    reader.Close();
+                }
+            }
+        }
+
+        private void GetTemplateFromDb(string templateId)
+        {
+            using (var con = SqlConnectFactory.GetConnection())
             {
                 var query = "SELECT [db_scales].[GetTemplateByID] ( @ID )";
                 using (var cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ID", TemplateID);
+                    cmd.Parameters.AddWithValue("@ID", templateId);
                     con.Open();
                     //var buf = (byte[])cmd.ExecuteScalar();
                     //var tmplate = Encoding.UTF8.GetString(buf, 0, buf.Length);
@@ -199,5 +236,7 @@ namespace EntitiesLib
                 }
             }
         }
+
+        #endregion
     }
 }
