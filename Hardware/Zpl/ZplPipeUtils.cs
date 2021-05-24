@@ -9,8 +9,8 @@ using System.Text;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
+using Hardware.Print.Native;
 using WeightServices.Common;
-using ZplCommonLib.Native;
 
 namespace Hardware.Zpl
 {

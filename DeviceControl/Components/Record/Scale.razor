@@ -399,10 +399,18 @@
                 }),
             new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
             PluTitle = $"{Utils.LocalizationStrings.TableTitlePluShort}  [{PluItems.Count} {Utils.LocalizationStrings.DataRecords}]";
-            TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(null, null).ToList();
-            TemplatesSeriesItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(null, null).ToList();
-            WorkshopItems = AppSettings.DataAccess.WorkshopCrud.GetEntities(null, null).ToList();
-            PrinterItems = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(null, null).ToList();
+            TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }), 
+                null).ToList();
+            TemplatesSeriesItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                null).ToList();
+            WorkshopItems = AppSettings.DataAccess.WorkshopCrud.GetEntities(
+                new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                null).ToList();
+            PrinterItems = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(
+                new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } } ),
+                null).ToList();
             HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(Item.Host?.Id);
         }
         catch (Exception ex)

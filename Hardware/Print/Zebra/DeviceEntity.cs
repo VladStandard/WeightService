@@ -2,12 +2,11 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
+using Hardware.Print.Native;
 using Hardware.Zpl;
 using log4net;
-using ZplCommonLib;
-using ZplCommonLib.Native;
 
-namespace Hardware.Zebra
+namespace Hardware.Print.Zebra
 {
     public class DeviceEntity
     {

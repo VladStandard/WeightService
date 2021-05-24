@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using Hardware.Utils;
 
-namespace Hardware.Tsc
+namespace Hardware.Print.Tsc
 {
     public class PrintSetupEntity : INotifyPropertyChanged
     {
@@ -20,37 +21,37 @@ namespace Hardware.Tsc
 
         #region Public and private fields and properties
 
-        public string WidthDefault => "100";
-        private int _width;
+        public string WidthDefault => "80";
+        private double _width;
         public string Width
         {
-            get => Convert.ToString(_width);
+            get => Convert.ToString(_width, CultureInfo.InvariantCulture);
             set
             {
-                if (int.TryParse(value, out int temp))
+                if (double.TryParse(value, out double temp))
                 {
                     if (temp >= 0 && temp <= 1000)
                         _width = temp;
                     else
-                        _width = int.Parse(WidthDefault);
+                        _width = double.Parse(WidthDefault);
                 }
                 OnPropertyRaised();
             }
         }
 
-        public string HeightDefault => "60";
-        private int _height;
+        public string HeightDefault => "100";
+        private double _height;
         public string Height
         {
-            get => Convert.ToString(_height);
+            get => Convert.ToString(_height, CultureInfo.InvariantCulture);
             set
             {
-                if (int.TryParse(value, out int temp))
+                if (double.TryParse(value, out double temp))
                 {
                     if (temp >= 0 && temp <= 1000)
                         _height = temp;
                     else
-                        _height = int.Parse(HeightDefault);
+                        _height = double.Parse(HeightDefault);
                 }
                 OnPropertyRaised();
             }
@@ -150,10 +151,49 @@ namespace Hardware.Tsc
 
         #region Constructor and destructor
 
-        public PrintSetupEntity()
+        public PrintSetupEntity(LabelSize size)
         {
-            Width = WidthDefault;
-            Height = HeightDefault;
+            switch (size)
+            {
+                case LabelSize.Size40x60:
+                    Width = "40";
+                    Height = "60";
+                    break;
+                case LabelSize.Size60x150:
+                    Width = "60";
+                    Height = "150";
+                    break;
+                case LabelSize.Size60x90:
+                    Width = "60";
+                    Height = "90";
+                    break;
+                case LabelSize.Size60x100:
+                    Width = "60";
+                    Height = "100";
+                    break;
+                case LabelSize.Size80x100:
+                    if (CultureInfo.CurrentCulture.Name.Equals("ru-RU"))
+                    {
+                        Width = "81,95";
+                        Height = "100,10";
+                    }
+                    else
+                    {
+                        Width = "81.95";
+                        Height = "100.10";
+                    }
+                    break;
+                case LabelSize.Size100x100:
+                    Width = "100";
+                    Height = "100";
+                    break;
+                case LabelSize.Size100x110:
+                    Width = "100";
+                    Height = "110";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(size), size, null);
+            }
             Speed = SpeedDefault;
             Density = DensityDefault;
             Sensor = SensorDefault;

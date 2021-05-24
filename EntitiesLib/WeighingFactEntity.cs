@@ -84,6 +84,9 @@ namespace EntitiesLib
             ProductDate = DateTime.Now.Date;
         }
 
+        /// <summary>
+        /// Сохранить запись в таблице [WeithingFact].
+        /// </summary>
         public void Save()
         {
             using (SqlConnection con = SqlConnectFactory.GetConnection())

@@ -3,7 +3,7 @@
 
 using Zebra.Sdk.Printer;
 
-namespace Hardware.Zebra
+namespace Hardware.Print.Zebra
 {
     /// <summary>
     /// Сбор данных.

@@ -216,11 +216,11 @@ namespace ScalesUI.Forms
 
         #endregion
 
-        #region Private methods - Управление принтером Зебра
+        #region Private methods - Управление принтером
 
         private void buttonPrint_Click(object sender, EventArgs e)
         {
-            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplPowerOnReset(), _ws.CurrentWeighingFact.Id, _ws.CurrentScale.ZebraPrinter.PrinterType);
+            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplPowerOnReset());
         }
 
         /// <summary>
@@ -230,12 +230,12 @@ namespace ScalesUI.Forms
         /// <param name="e"></param>
         private void buttonPrintCalibrate_Click(object sender, EventArgs e)
         {
-            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplCalibration(), _ws.CurrentWeighingFact.Id, _ws.CurrentScale.ZebraPrinter.PrinterType);
+            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplCalibration());
         }
 
         private void buttonPrintOptions_Click(object sender, EventArgs e)
         {
-            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel(), _ws.CurrentWeighingFact.Id, _ws.CurrentScale.ZebraPrinter.PrinterType);
+            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel());
         }
 
         #endregion
@@ -316,7 +316,7 @@ namespace ScalesUI.Forms
 
         private void buttonPrintCancelAll_Click(object sender, EventArgs e)
         {
-            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplClearPrintBuffer(), _ws.CurrentWeighingFact.Id, _ws.CurrentScale.ZebraPrinter.PrinterType);
+            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplClearPrintBuffer());
         }
         
         #endregion

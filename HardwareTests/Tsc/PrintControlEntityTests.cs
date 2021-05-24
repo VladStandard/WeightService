@@ -1,4 +1,5 @@
-﻿using Hardware.Tsc;
+﻿using Hardware.Print.Tsc;
+using Hardware.Utils;
 using NUnit.Framework;
 
 namespace HardwareTests.Tsc
@@ -15,7 +16,7 @@ namespace HardwareTests.Tsc
 
             Assert.DoesNotThrow(() =>
             {
-                var printControl = new PrintControlEntity("192.168.6.132");
+                var printControl = new PrintControlEntity(Interface.Ethernet, "192.168.6.132");
                 foreach (var b in _byteArray)
                 {
                     TestContext.WriteLine(printControl.GetStatusAsEnum(b));
@@ -32,7 +33,7 @@ namespace HardwareTests.Tsc
 
             Assert.DoesNotThrow(() =>
             {
-                var printControl = new PrintControlEntity("192.168.6.132");
+                var printControl = new PrintControlEntity(Interface.Ethernet, "192.168.6.132");
                 foreach (var b in _byteArray)
                 {
                     TestContext.WriteLine(printControl.GetStatusAsStringEng(b));
@@ -49,7 +50,7 @@ namespace HardwareTests.Tsc
 
             Assert.DoesNotThrow(() =>
             {
-                var printControl = new PrintControlEntity("192.168.6.132");
+                var printControl = new PrintControlEntity(Interface.Ethernet, "192.168.6.132");
                 foreach (var b in _byteArray)
                 {
                     TestContext.WriteLine(printControl.GetStatusAsStringRus(b));

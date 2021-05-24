@@ -69,4 +69,21 @@
         NonZero1 = 0xffff,
         NonZero2 = 0x1D0F,
     }
+
+    public enum Interface
+    {
+        Usb,
+        Ethernet,
+    }
+
+    public enum LabelSize
+    {
+        Size40x60,
+        Size60x150,
+        Size60x90,
+        Size60x100,
+        Size80x100,
+        Size100x100,
+        Size100x110,
+    }
 }

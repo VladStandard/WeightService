@@ -1,6 +1,5 @@
 ﻿using Hardware.Zpl;
 using NUnit.Framework;
-using System.Linq;
 
 namespace HardwareTests.Zpl
 {
@@ -273,125 +272,6 @@ namespace HardwareTests.Zpl
             Utils.MethodComplete();
         }
 
-        private string GetZplSampleFull => @"
-^XA
-^CI28
-^CWK,E:COURB.TTF
-^CWL,E:COURBI.TTF
-^CWM,E:COURBD.TTF
-^CWN,E:COUR.TTF
-^CWZ,E:ARIAL.TTF
-^CWW,E:ARIALBI.TTF
-^CWE,E:ARIALBD.TTF
-^CWR,E:ARIALI.TTF
-
-^LH0,10
-^FWR
-
-^LL1180
-^PW944
-^FO820,30
-^CFZ,24,20
-^FB1100,4,0,C,0
-^FH^FDИзготовитель: ООО ""Владимирский стандарт"" Россия, 600910 Владимирская обл. г.Радужный квартал 13/13 дом 20^FS
-
-^FO510,50
-^CFE,44,34
-^FB910,4,0,J,0
-^FH^FDКолбасные изделия вареные куриные 1 сорта, Колбаса вареная ""Докторская стандарт"" охлажденная ТУ 10,13,14-005-91005552-2016, ц/ф (500г)^FS
-
-^FO350,50
-^CFZ,36,20
-^FB800,4,0,J,0
-^FH^FDСрок годности: 30 суток при температуре от 0°С до +6°С и относительной влажности воздуха 75%-78%. Упаковано под вакуумом,^FS
-
-^FO320,50
-^CFZ,25,20
-^FB170,1,0,L,0
-^FH^FDДата изгот.: ^FS
-^FO270,50
-^CFK,56,40
-^FB300,1,0,L,0
-^FH^FD21.05.2021^FS
-^FO320,360
-^CFZ,25,20
-^FB170,1,0,L,0
-^FH^FDГоден до: ^FS
-^FO270,360
-^CFK,56,40
-^FB300,1,0,L,0
-^FH^FD20.06.2021^FS
-^FO320,720
-^CFZ,25,20
-^FB100,1,0,L,0
-^FH^FDКол-во:^FS
-^FO270,720
-^CFK,56,40
-^FB150,1,0,L,0
-^FH^FD15^FS
-^FO270,800
-^CFM,42,38
-^FB100,1,0,L,0
-^FH^FDШТ^FS
-
-^FO200,200
-^CFZ,25,20
-^FB200,1,0,L,0
-^FH^FDЗамес: 1^FS
-
-^FO200,500
-^CFZ,25,20
-^FB450,1,0,L,0
-^FH^FDЦех/Линия: Весы разработчика^FS
-
-^BY2
-^FO200,1000
-^BCN,120,Y,N,N
-^FD2990000400000413^FS
-
-^BY3
-^FO765,25
-^B2R,120,Y,N,Y,Y
-^FD298000040000041321052116332400100000001^FS
-
-^BY3
-^FO70,100
-^BCR,120,Y,N,Y,D
-^FD(01)4607100234500(37)15>8(11)210521(10)0521>8^FS
-
-^FO200,888
-^FS
-
-^FO315,888
-^FS
-
-^FO435,888
-^FS
-
-^XZ
-                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-
-        private string GetZplSample1 => @"
-^FO820,30
-^CFZ,24,20
-^FB1100,4,0,C,0
-^FH^FDИзготовитель: ООО ""Владимирский стандарт"" Россия, 600910 Владимирская обл. г.Радужный квартал 13/13 дом 20^FS
-                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-
-        private string GetZplSample2 => @"
-^FO510,50
-^CFE,44,34
-^FB910,4,0,J,0
-^FH^FDКолбасные изделия вареные куриные 1 сорта, Колбаса вареная ""Докторская стандарт"" охлажденная ТУ 10,13,14-005-91005552-2016, ц/ф (500г)^FS
-                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-
-        private string GetZplSample3 => @"
-^FO350,50
-^CFZ,36,20
-^FB800,4,0,J,0
-^FH^FDСрок годности: 30 суток при температуре от 0°С до +6°С и относительной влажности воздуха 75%-78%. Упаковано под вакуумом,^FS
-                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-
         [Test]
         public void ZplPipeUtils_ToCodePoints_GetZplSample1()
         {
@@ -399,7 +279,7 @@ namespace HardwareTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(GetZplSample1));
+                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(ZplSamples.GetSample1));
             });
 
             Utils.MethodComplete();
@@ -412,7 +292,7 @@ namespace HardwareTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(GetZplSample2));
+                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(ZplSamples.GetSample2));
             });
 
             Utils.MethodComplete();
@@ -425,7 +305,7 @@ namespace HardwareTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(GetZplSample3));
+                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(ZplSamples.GetSample3));
             });
 
             Utils.MethodComplete();
@@ -438,7 +318,11 @@ namespace HardwareTests.Zpl
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine(ZplPipeUtils.ToCodePoints(GetZplSampleFull));
+                var zpl = ZplPipeUtils.ToCodePoints(ZplSamples.GetSampleFull);
+                //zpl = zpl.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
+                //zpl = zpl.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
+                //zpl = zpl.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);
+                TestContext.WriteLine(zpl);
             });
 
             Utils.MethodComplete();

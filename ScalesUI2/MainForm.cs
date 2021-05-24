@@ -13,7 +13,8 @@ using System.Threading;
 using System.Windows.Forms;
 using EntitiesLib;
 using Hardware.MassaK;
-using Hardware.Zebra;
+using Hardware.Print;
+using Hardware.Print.Zebra;
 using UICommon;
 using UICommon.WinForms.Utils;
 
@@ -65,7 +66,6 @@ namespace ScalesUI
             TopMost = !_ws.IsDebug;
             fieldResolution.Visible = _ws.IsDebug;
             fieldResolution.SelectedIndex = _ws.IsDebug ? 1 : 0;
-            
        }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -257,7 +257,7 @@ namespace ScalesUI
             _log.Debug($"PLU.GoodsTareWeight: {plu?.GoodsTareWeight}");
         }
 
-        private void DisplayMessageZebraState(PrintSdk zebraPrinter)
+        private void DisplayMessageZebraState(PrintEntity zebraPrinter)
         {
             var state = zebraPrinter.CurrentStatus;
 

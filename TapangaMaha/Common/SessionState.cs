@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using EntitiesLib;
-using Hardware.Zebra;
+using Hardware.Print.Zebra;
 using Hardware.Zpl;
 using log4net;
 

@@ -1,16 +1,17 @@
-﻿using System;
+﻿using EntitiesLib;
+using Hardware.Print.Tsc;
+using Hardware.Utils;
+using log4net;
+using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
-using EntitiesLib;
-using Hardware.Tsc;
-using log4net;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 
-namespace Hardware.Zebra
+namespace Hardware.Print
 {
-    public class PrintSdk
+    public class PrintEntity
     {
         #region Public and private fields and properties
 
@@ -19,7 +20,7 @@ namespace Hardware.Zebra
         public PrinterStatus CurrentStatus { get; private set; }
         public int CommandThreadTimeOut { get; private set; } = 100;
 
-        public delegate void OnHandler(PrintSdk state);
+        public delegate void OnHandler(PrintEntity state);
         public event OnHandler Notify;
 
         private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -29,21 +30,25 @@ namespace Hardware.Zebra
         private Thread _sessionSharingThread = null;
         private bool _isThreadWork = true;
 
+        public PrintControlEntity PrintControl { get; set; }
+
         #endregion
 
         #region Constructor and destructor
 
-        public PrintSdk(Connection connection, int commandThreadTimeOut = 100)
+        public PrintEntity(Connection connection, string ip, int port, int commandThreadTimeOut = 100)
         {
             CommandThreadTimeOut = commandThreadTimeOut;
             Con = connection;
+            PrintControl = new PrintControlEntity(Interface.Ethernet, ip, port);
         }
 
-        public PrintSdk(string ip, int port, int commandThreadTimeOut = 100)
+        public PrintEntity(string ip, int port, int commandThreadTimeOut = 100)
         {
             //var zebraCurrentState = new StateEntity();
             CommandThreadTimeOut = commandThreadTimeOut;
             Con = new TcpConnection(ip, port);
+            PrintControl = new PrintControlEntity(Interface.Ethernet, ip, port);
         }
 
         #endregion
@@ -54,31 +59,23 @@ namespace Hardware.Zebra
         /// Отправить задание в очередь печати.
         /// </summary>
         /// <param name="printCmd"></param>
-        /// <param name="labelId"></param>
-        /// <param name="printerType"></param>
-        public async void SendAsync(string printCmd, int labelId, string printerType)
+        public async void SendAsync(string printCmd)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            // Подменить картинки ZPL.
-            if (printerType.Contains("TSC "))
-            {
-                var templateEac = new TemplateEntity("EAC_107x109_090");
-                var templateFish = new TemplateEntity("FISH_94x115_000");
-                var templateTemp6 = new TemplateEntity("TEMP6_116x113_090");
-                var cmd = printCmd;
-            }
             CmdQueue.Enqueue(printCmd);
-            
-            // Сохранить ZPL-запрос в таблицу [Labels].
-            var zplLabel = new ZplLabel
-            {
-                WeighingFactId = labelId,
-                Content = printCmd
-            };
-            zplLabel.Save();
         }
 
-        public void PrinterOpenZebra()
+        public void Open(string printerType)
+        {
+            Con.Open();
+            _isThreadWork = true;
+            if (printerType.Contains("TSC "))
+                OpenTsc();
+            else
+                OpenZebra();
+        }
+
+        public void OpenZebra()
         {
             var printerDevice = ZebraPrinterFactory.GetInstance(Con);
             _sessionSharingThread = new Thread(t =>
@@ -127,10 +124,8 @@ namespace Hardware.Zebra
             Thread.Sleep(CommandThreadTimeOut);
         }
 
-        public void PrinterOpenTsc()
+        public void OpenTsc()
         {
-            //if (PrintControl == null)
-            var printControl = new PrintControlEntity("192.168.6.132");
             _sessionSharingThread = new Thread(t =>
             {
                 UserLabelCount = 1;
@@ -145,24 +140,11 @@ namespace Hardware.Zebra
                                 request = request.Replace("|", "\\&");
                                 if (!request.Equals("^XA~JA^XZ") && !request.Contains("odometer.user_label_count"))
                                 {
-                                    printControl.EthernetOpen();
                                     //CurrentStatus = printerDevice.GetCurrentStatus();
                                     //UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", printerDevice.Connection));
                                     //UserLabelCount = 1;
                                     //Peeler = SGD.GET("sensor.peeler", printerDevice.Connection);
-
-                                    //if (CurrentStatus.isReadyToPrint)
-                                    if (printControl.IsStatusNormal)
-                                    {
-                                        //if (Peeler == "clear")
-                                        {
-                                    
-                                            Console.WriteLine(request);
-                                        }
-                                        //printerDevice.SendCommand(request);
-                                        printControl.EthernetSendCmd(request);
-                                    }
-                                    printControl.TscEthernet.closeport();
+                                    PrintControl.SendCmd(false, request, false);
                                 }
                             }
                             Notify?.Invoke(this);
@@ -181,21 +163,12 @@ namespace Hardware.Zebra
                         }
                     }
                     Thread.Sleep(CommandThreadTimeOut);
+                    System.Windows.Forms.Application.DoEvents();
                 }
             })
             { IsBackground = true };
             _sessionSharingThread.Start();
             Thread.Sleep(CommandThreadTimeOut);
-        }
-
-        public void Open(string printerType)
-        {
-            Con.Open();
-            _isThreadWork = true;
-            if (printerType.Contains("TSC "))
-                PrinterOpenTsc();
-            else
-                PrinterOpenZebra();
         }
 
         public void Close()
@@ -218,9 +191,13 @@ namespace Hardware.Zebra
                 CmdQueue.TryDequeue(out _);
             }
             if (printerType.Contains("TSC "))
-            { }
+            {
+                PrintControl.ClearBuffer(false);
+            }
             else
+            {
                 CmdQueue.Enqueue("^XA~JA^XZ");
+            }
         }
 
         public void SetOdometorUserLabel(int value)

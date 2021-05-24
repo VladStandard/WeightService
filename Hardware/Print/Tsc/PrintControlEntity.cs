@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Hardware.Utils;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Hardware.Utils;
 
-namespace Hardware.Tsc
+namespace Hardware.Print.Tsc
 {
     public class PrintControlEntity : INotifyPropertyChanged
     {
@@ -16,22 +16,6 @@ namespace Hardware.Tsc
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
 
-        #endregion
-
-        #region Constructor
-
-        public PrintControlEntity() : this("")
-        {
-            //
-        }
-        
-        public PrintControlEntity(string ipAddress, int port = 9100)
-        {
-            IpAddress = ipAddress;
-            Port = port;
-            PrinterSetup = new PrintSetupEntity();
-        }
-        
         #endregion
 
         #region Public properties
@@ -58,13 +42,24 @@ namespace Hardware.Tsc
             }
         }
 
-        private string _log;
-        public string Log
+        private string _cmd;
+        public string Cmd
         {
-            get => _log;
+            get => _cmd;
             set
             {
-                _log = value;
+                _cmd = value;
+                OnPropertyRaised();
+            }
+        }
+        
+        private LabelSize _size;
+        public LabelSize Size
+        {
+            get => _size;
+            set
+            {
+                _size = value;
                 OnPropertyRaised();
             }
         }
@@ -92,8 +87,116 @@ namespace Hardware.Tsc
         }
         public bool IsOpen { get; private set; }
         public bool IsStatusNormal => TscEthernet != null && Equals(GetStatusAsStringEng(), "Normal");
-        public string Cmd { get; set; }
         public int CutterValue { get; set; }
+        public Interface Interface { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public PrintControlEntity() : this(Interface.Ethernet, "")
+        {
+            //
+        }
+        
+        public PrintControlEntity(Interface @interface, string ipAddress = "", int port = 9100)
+        {
+            IpAddress = ipAddress;
+            Port = port;
+            Interface = @interface;
+            Size = LabelSize.Size80x100;
+            PrinterSetup = new PrintSetupEntity(Size);
+            Setup(LabelSize.Size80x100, true);
+        }
+
+        #endregion
+
+        #region Public and private methods - Base
+
+        public void Open()
+        {
+            switch (Interface)
+            {
+                case Interface.Usb:
+                    break;
+                case Interface.Ethernet:
+                    if (TscEthernet == null)
+                        TscEthernet = new TSCSDK.ethernet();
+                    if (!IsOpen && !string.IsNullOrEmpty(IpAddress) && Port > 0)
+                    {
+                        TscEthernet.openport(IpAddress, Port);
+                        IsOpen = true;
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(Interface), Interface, null);
+            }
+        }
+
+        public void Setup(LabelSize size, bool isResetGap)
+        {
+            Open();
+
+            PrinterSetup = new PrintSetupEntity(size);
+            if (isResetGap)
+                SetGap(false, true);
+
+            switch (Interface)
+            {
+                case Interface.Usb:
+                    break;
+                case Interface.Ethernet:
+                    if (IsOpen)
+                        TscEthernet?.setup(
+                            PrinterSetup.Width,
+                            PrinterSetup.Height,
+                            PrinterSetup.Speed,
+                            PrinterSetup.Density,
+                            PrinterSetup.Sensor,
+                            PrinterSetup.Vertical,
+                            PrinterSetup.Offset);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(Interface), Interface, null);
+            }
+        }
+
+        public void Close()
+        {
+            IsOpen = false;
+            switch (Interface)
+            {
+                case Interface.Usb:
+                    break;
+                case Interface.Ethernet:
+                    if (IsOpen)
+                        TscEthernet?.closeport();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(Interface), Interface, null);
+            }
+        }
+
+        public void SendCmd(bool isClose, string cmd, bool isClearBuffer)
+        {
+            Cmd = cmd;
+            Open();
+            switch (Interface)
+            {
+                case Interface.Usb:
+                    break;
+                case Interface.Ethernet:
+                    if (IsOpen && isClearBuffer)
+                        TscEthernet.clearbuffer();
+                    if (IsOpen && !string.IsNullOrEmpty(cmd))
+                        TscEthernet.sendcommand(cmd);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(Interface), Interface, null);
+            }
+            if (isClose)
+                Close();
+        }
 
         #endregion
 
@@ -269,140 +372,46 @@ namespace Hardware.Tsc
             return GetStatusAsStringEng((byte)Status.HundredTwentyEight);
         }
 
-        public void EthernetOpen()
-        {
-            if (TscEthernet == null)
-                //EthernetClose();
-                TscEthernet = new TSCSDK.ethernet();
+        #endregion
 
-            if (!IsOpen)
-            {
-                IsOpen = true;
-                TscEthernet.openport(IpAddress, Port);
-                Log = $"IP port open: {TscEthernet.printerstatus()}" + Environment.NewLine;
-                Log += $"Status: {GetStatusAsStringEng()}" + Environment.NewLine;
-            }
+        #region Public and private methods - Control
+
+        public void Calibrate(bool isClose, bool isClearBuffer)
+        {
+            SendCmd(isClose, "GAPDETECT", isClearBuffer);
         }
 
-        public void EthernetClose()
+        public void SetGap(bool isClose, bool isClearBuffer, double gapSize = 4.0, double gapOffset = 0.0)
         {
-            IsOpen = false;
-            if (TscEthernet != null)
-            {
-                TscEthernet.closeport();
-                Log += "IP port closed" + Environment.NewLine;
-            }
+            var strGapSize = $"{gapSize}".Replace(',', '.');
+            var strGapOffset = $"{gapOffset}".Replace(',', '.');
+            SendCmd(isClose, $"GAP {strGapSize} mm, {strGapOffset} mm", isClearBuffer);
         }
 
-        public void EthernetClearBuffer()
+        public void ClearBuffer(bool isClose)
         {
-            if (TscEthernet == null)
-            {
-                EthernetOpen();
-            }
+            SendCmd(isClose, string.Empty, true);
+        }
+
+        public void SetCutter(bool isClose, int value, bool isClearBuffer)
+        {
+            if (value >= 0)
+                SendCmd(isClose, $"SET CUTTER {value}", isClearBuffer);
+        }
+
+        public void PrintTest(bool isClose)
+        {
+            Open();
 
             TscEthernet.clearbuffer();
-            Log += "Clear buffer is finished" + Environment.NewLine;
-        }
-
-        public void EthernetPrintTest()
-        {
-            if (TscEthernet == null)
-            {
-                EthernetOpen();
-            }
-
-            TscEthernet.clearbuffer();
-            EthernetSetup();
 
             TscEthernet.barcode("100", "200", "128", "100", "1", "0", "3", "3", "123456789");
             TscEthernet.printerfont("100", "100", "3", "0", "1", "1", "Printer Font Test");
             TscEthernet.sendcommand("BOX 50,50,500,400,3\n");
             TscEthernet.printlabel("1", "1");
-        }
 
-        public void EthernetSendCmd(string cmd)
-        {
-            if (string.IsNullOrEmpty(cmd))
-            {
-                Log += "Cmd is null!" + Environment.NewLine;
-                return;
-            }
-
-            EthernetOpen();
-            
-            TscEthernet.clearbuffer();
-            TscEthernet.sendcommand(cmd);
-            TscEthernet.printlabel("1", "1");
-            Log += $"Send cmd: {cmd.Length} bytes" + Environment.NewLine;
-            
-            EthernetClose();
-        }
-
-        public void EthernetSetCutter(int value)
-        {
-            if (value < 0)
-            {
-                Log += "Value is less then 0!" + Environment.NewLine;
-                return;
-            }
-
-            if (TscEthernet == null)
-            {
-                EthernetOpen();
-            }
-
-            var cmd = $"SET CUTTER {value}";
-            TscEthernet.sendcommand(cmd);
-            Log += $"Send cmd: {cmd}" + Environment.NewLine;
-        }
-
-        public void EthernetSetup()
-        {
-            if (TscEthernet == null)
-            {
-                EthernetOpen();
-            }
-            
-            if (PrinterSetup == null)
-            {
-                EthernetSetupReset();
-            }
-            else
-            {
-                TscEthernet.setup(
-                    PrinterSetup.Width, 
-                    PrinterSetup.Height, 
-                    PrinterSetup.Speed,
-                    PrinterSetup.Density, 
-                    PrinterSetup.Sensor, 
-                    PrinterSetup.Vertical, 
-                    PrinterSetup.Offset);
-                Log += "PrinterSetup. " +
-                       $"{nameof(PrinterSetup.Width)}: {PrinterSetup.Width}. " +
-                       $"{nameof(PrinterSetup.Height)}: {PrinterSetup.Height}. " +
-                       $"{nameof(PrinterSetup.Speed)}: {PrinterSetup.Speed}. " +
-                       $"{nameof(PrinterSetup.Density)}: {PrinterSetup.Density}. " +
-                       $"{nameof(PrinterSetup.Sensor)}: {PrinterSetup.Sensor}. " +
-                       $"{nameof(PrinterSetup.Vertical)}: {PrinterSetup.Vertical}. " +
-                       $"{nameof(PrinterSetup.Offset)}: {PrinterSetup.Offset}. " + 
-                       Environment.NewLine;
-            }
-        }
-
-        public void EthernetSetupReset()
-        {
-            if (TscEthernet == null)
-            {
-                EthernetOpen();
-            }
-            PrinterSetup = new PrintSetupEntity();
-            TscEthernet.setup(PrinterSetup.Width, PrinterSetup.Height, PrinterSetup.Speed,
-                PrinterSetup.Density, PrinterSetup.Sensor, PrinterSetup.Vertical, PrinterSetup.Offset);
-            Log += $"PrinterSetup. {nameof(PrinterSetup.Width)}: {PrinterSetup.Width}. {nameof(PrinterSetup.Height)}: {PrinterSetup.Height}. " +
-                   $"{nameof(PrinterSetup.Speed)}: {PrinterSetup.Speed}. {nameof(PrinterSetup.Density)}: {PrinterSetup.Density}. " +
-                   $"{nameof(PrinterSetup.Sensor)}: {PrinterSetup.Sensor}. {nameof(PrinterSetup.Vertical)}: {PrinterSetup.Vertical}. " +
-                   $"{nameof(PrinterSetup.Offset)}: {PrinterSetup.Offset}. " + Environment.NewLine;
+            if (isClose)
+                Close();
         }
 
         #endregion

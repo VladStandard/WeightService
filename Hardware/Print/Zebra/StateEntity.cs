@@ -1,8 +1,7 @@
 ﻿using System;
 using Hardware.Zpl;
-using ZplCommonLib;
 
-namespace Hardware.Zebra
+namespace Hardware.Print.Zebra
 {
     public class StateEntity
     {

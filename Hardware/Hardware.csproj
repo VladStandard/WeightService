@@ -155,20 +155,21 @@
     <Compile Include="MassaK\Crc16.cs" />
     <Compile Include="MassaK\MkCommander.cs" />
     <Compile Include="MassaK\MkDeviceEntity.cs" />
-    <Compile Include="PrintNative\RawPrinterHelper.cs" />
+    <Compile Include="Print\Native\RawPrinterHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MassaK\SerialPortManager.cs" />
     <Compile Include="Utils\Enums.cs" />
-    <Compile Include="Tsc\PrintControlEntity.cs" />
-    <Compile Include="Tsc\PrintSetupEntity.cs" />
-    <Compile Include="Zebra\DeviceEntity.cs" />
-    <Compile Include="Zebra\DeviceСontainer.cs" />
-    <Compile Include="Zebra\PrintSdk.cs" />
-    <Compile Include="Zebra\StateEntity.cs" />
-    <Compile Include="Zebra\StatusDataCollector.cs" />
+    <Compile Include="Print\Tsc\PrintControlEntity.cs" />
+    <Compile Include="Print\Tsc\PrintSetupEntity.cs" />
+    <Compile Include="Print\Zebra\DeviceEntity.cs" />
+    <Compile Include="Print\Zebra\DeviceСontainer.cs" />
+    <Compile Include="Print\PrintEntity.cs" />
+    <Compile Include="Print\Zebra\StateEntity.cs" />
+    <Compile Include="Print\Zebra\StatusDataCollector.cs" />
     <Compile Include="Zpl\ZplCommander.cs" />
     <Compile Include="Zpl\ZplConverterHelper.cs" />
     <Compile Include="Zpl\ZplPipeUtils.cs" />
+    <Compile Include="Zpl\ZplSamples.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -194,7 +195,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Tsc\TSC cmd.txt" />
+    <Content Include="Print\Tsc\TSC cmd.txt" />
     <Content Include="Zpl templates\Labels sizes.txt" />
     <Content Include="Zpl templates\Request labelary.txt" />
     <Content Include="Zpl templates\Request TEMPLATE.txt" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Hardware.Zebra;
+using Hardware.Print.Zebra;
 using log4net;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;

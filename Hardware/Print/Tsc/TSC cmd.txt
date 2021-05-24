@@ -13,8 +13,8 @@ PRINT 1
 SPEED 3
 DENSITY 10
 DIRECTION 1
-SIZE 80 mm, 97.60 mm
-GAP 3.98 mm, 1.35 mm
+SIZE 100 mm, 80.00 mm
+GAP 3.50 mm, 0.00 mm
 CLS
 PUTPCX 200,888,"EAC.BMP"
 PUTBMP 315,888,"FISH.BMP"
@@ -30,6 +30,7 @@ PRINT 1
 ---------------------------------------------------------------------------------------------------
 SIZE - defines the label width and length
 GAP - gap distance between two labels
+	GAP 3.50 mm, 0.00 mm
 GAPDETECT - calibrate
 BLINEDETECT - 
 AUTODETECT - 
@@ -96,5 +97,7 @@ BLOCK - prints paragraph on label
 <ESC>!F - using to feed a label. This function is the same as to press the FEED button
 <ESC>!. - cancel all printing files
 ~!@ - inquires the mileage of the printer
-
+SET GAP - 
+	SET GAP n/AUTO/OFF/0,/REVERSE/OBVERSE
+	SET GAP 6,
 ---------------------------------------------------------------------------------------------------

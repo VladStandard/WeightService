@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:tsc1="clr-namespace:Hardware.Tsc;assembly=Hardware"
+        xmlns:tsc="clr-namespace:Hardware.Print.Tsc;assembly=Hardware"
         mc:Ignorable="d"
         Title="MainWindow" Width="800" Height="600" Closed="Window_Closed" >
 
     <Window.DataContext>
-        <tsc1:PrintControlEntity />
+        <tsc:PrintControlEntity />
     </Window.DataContext>
 
     <Grid DataContext="{StaticResource ViewModelProgramSettings}">
@@ -41,27 +41,35 @@
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="4*" />
                 <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            
+
             <Button Margin="2" Grid.Row="0" Grid.Column="0" Content="Open" Click="ButtonEthernetOpen_Click"/>
             <Button Margin="2" Grid.Row="0" Grid.Column="1" Content="Print test" Click="ButtonEthernetPrintTest_Click"/>
             <Button Margin="2" Grid.Row="0" Grid.Column="2" Content="Clear buffer" Click="ButtonEthernetClearBuffer_Click"/>
-            <Button Margin="2" Grid.Row="0" Grid.Column="3" Content="Close" Click="ButtonEthernetClose_Click"/>
-            
-            <Button Margin="2" Grid.Row="2" Grid.Column="0" Content="Set cutter" Click="ButtonEthernetSendCmd_Click"/>
-            <TextBox Margin="2" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" 
+            <Button Margin="2" Grid.Row="0" Grid.Column="3" Content="Calibrate" Click="ButtonCalibrate_Click" />
+            <Button Margin="2" Grid.Row="0" Grid.Column="4" Content="Close" Click="ButtonEthernetClose_Click"/>
+
+            <Button Margin="2" Grid.Row="1" Grid.Column="0" Content="Send cmd" Click="ButtonEthernetSendCmd_Click"/>
+            <TextBox Margin="2" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" 
                      Text="{Binding Path=Cmd, Mode=TwoWay, IsAsync=True}" 
                      VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
-            
-            <Button Margin="2" Grid.Row="1" Grid.Column="0" Content="Send cmd" Click="ButtonEthernetSendCmd_Click"/>
-            <TextBox Margin="2" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" 
+
+            <Button Margin="2" Grid.Row="2" Grid.Column="0" Content="Set cutter" Click="ButtonEthernetSendCmd_Click"/>
+            <TextBox Margin="2" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" 
                      Text="{Binding Path=CutterValue, Mode=TwoWay, IsAsync=True}" />
+
+            <Button Margin="2" Grid.Row="3" Grid.Column="0" Content="ZPL 1" Click="ButtonGetZpl1_OnClick"/>
+            <Button Margin="2" Grid.Row="3" Grid.Column="1" Content="ZPL 2" Click="ButtonGetZpl2_OnClick"/>
+            <Button Margin="2" Grid.Row="3" Grid.Column="2" Content="ZPL 3" Click="ButtonGetZpl3_OnClick"/>
+            <Button Margin="2" Grid.Row="3" Grid.Column="3" Content="ZPL Full" Click="ButtonGetZplFull_OnClick"/>
         </Grid>
 
         <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="2">
@@ -122,7 +130,7 @@
                      TextAlignment="Center" VerticalContentAlignment="Center" 
                      DataContext="{StaticResource ViewModelProgramSettings}"
                      Text="{Binding Path=PrinterSetup.Offset, Mode=TwoWay, IsAsync=True }"/>
-            
+
             <Button Margin="2" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Setup" 
                     Click="ButtonEthernetPrinterSetup_Click"/>
             <Button Margin="2" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Content="Setup reset" 

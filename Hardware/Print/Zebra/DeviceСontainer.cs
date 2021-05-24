@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Hardware.Zebra
+namespace Hardware.Print.Zebra
 {
     public class DeviceСontainer
     {

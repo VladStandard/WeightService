@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace ZplCommonLib.Native
+namespace Hardware.Print.Native
 {
     public class RawPrinterHelper
     {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
-using Hardware.Tsc;
+using Hardware.Print.Tsc;
+using Hardware.Utils;
+using Hardware.Zpl;
 
 namespace TscBarcode.Views
 {
@@ -25,7 +27,8 @@ namespace TscBarcode.Views
             if (context is PrintControlEntity printControl)
             {
                 PrintControl = printControl;
-                PrintControl.Log = "TSC is ready for use." + Environment.NewLine;
+                if (string.IsNullOrEmpty(PrintControl.IpAddress))
+                    PrintControl.IpAddress = "192.168.6.132";
             }
         }
 
@@ -73,42 +76,74 @@ namespace TscBarcode.Views
 
         private void ButtonEthernetOpen_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.EthernetOpen();
+            PrintControl.Open();
+        }
+
+        private void ButtonCalibrate_Click(object sender, RoutedEventArgs e)
+        {
+            PrintControl.Calibrate(false, true);
         }
 
         private void ButtonEthernetClose_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.EthernetClose();
+            PrintControl.Close();
         }
 
         private void ButtonEthernetSendCmd_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.EthernetSendCmd(PrintControl.Cmd);
+            PrintControl.SendCmd(false, PrintControl.Cmd, true);
         }
 
         private void ButtonEthernetSetCutter_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.EthernetSetCutter(PrintControl.CutterValue);
+            PrintControl.SetCutter(false, PrintControl.CutterValue, true);
         }
 
         private void ButtonEthernetPrintTest_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.EthernetPrintTest();
+            PrintControl.PrintTest(false);
         }
 
         private void ButtonEthernetClearBuffer_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.EthernetClearBuffer();
+            PrintControl.ClearBuffer(false);
         }
 
         private void ButtonEthernetPrinterSetupReset_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.EthernetSetupReset();
+            PrintControl.Setup(LabelSize.Size80x100, true);
         }
 
         private void ButtonEthernetPrinterSetup_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.EthernetSetup();
+            PrintControl.Setup(PrintControl.Size, true);
+        }
+
+        #endregion
+
+        #region Public and private methods - ZPL
+
+        public void ButtonGetZpl1_OnClick(object sender, RoutedEventArgs e)
+        {
+            PrintControl.Cmd = ZplPipeUtils.ToCodePoints(ZplSamples.GetSample1);
+        }
+
+        public void ButtonGetZpl2_OnClick(object sender, RoutedEventArgs e)
+        {
+            PrintControl.Cmd = ZplPipeUtils.ToCodePoints(ZplSamples.GetSample2);
+        }
+
+        public void ButtonGetZpl3_OnClick(object sender, RoutedEventArgs e)
+        {
+            PrintControl.Cmd = ZplPipeUtils.ToCodePoints(ZplSamples.GetSample3);
+        }
+
+        public void ButtonGetZplFull_OnClick(object sender, RoutedEventArgs e)
+        {
+            PrintControl.Cmd = ZplPipeUtils.ToCodePoints(ZplSamples.GetSampleFull);
+            PrintControl.Cmd = PrintControl.Cmd.Replace("[EAC_107x109_090]", ZplSamples.GetEac);
+            PrintControl.Cmd = PrintControl.Cmd.Replace("[FISH_94x115_000]", ZplSamples.GetFish);
+            PrintControl.Cmd = PrintControl.Cmd.Replace("[TEMP6_116x113_090]", ZplSamples.GetTemp6);
         }
 
         #endregion

@@ -1,14 +1,14 @@
 ﻿using EntitiesLib;
 using Hardware.MassaK;
-using Hardware.Zebra;
+using Hardware.Print;
 using Hardware.Zpl;
 using ScalesUI.Forms;
+using ScalesUI.Utils;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using ScalesUI.Utils;
 using UICommon;
 using ZabbixAgentLib;
 
@@ -18,8 +18,6 @@ namespace ScalesUI.Common
     {
         #region Design pattern "Lazy Singleton"
 
-        //private static readonly Lazy<SessionState> _instance = new Lazy<SessionState>(() => new SessionState());
-        //public static SessionState Instance => _instance.Value;
         private static SessionState _instance;
         public static SessionState Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
@@ -73,7 +71,7 @@ namespace ScalesUI.Common
 
             try
             {
-                PrintDevice = new PrintSdk(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port, 120);
+                PrintDevice = new PrintEntity(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port, 120);
                 PrintDevice.Open(CurrentScale.ZebraPrinter.PrinterType);
             }
             catch (Exception ex)
@@ -137,7 +135,7 @@ namespace ScalesUI.Common
 
         public ZplCommander ZplCommander { get; private set; }
 
-        public PrintSdk PrintDevice { get; }
+        public PrintEntity PrintDevice { get; }
 
         public MkDeviceEntity MkDevice { get; }
 
@@ -352,23 +350,56 @@ namespace ScalesUI.Common
                 {
                     // если печатать надо МНОГО!!! маленьких этикеток 
                     // и при этом правильный вес не нужен
-                    PrintCountLabels(template);
+                    PrintCountLabel(template);
                 }
                 else if (CurrentPlu.CheckWeight == true)
                 {
                     // если необходимо опрашивать платформу 
                     // для КАЖДОЙ!!! коробки отдельно
                     // и при этом получать правильный вес
-                    PrintWeightLabels(template);
+                    PrintWeightLabel(template);
                 }
             }
+        }
+
+        /// <summary>
+        /// Подменить картинки ZPL.
+        /// </summary>
+        /// <param name="value"></param>
+        public void PrintCmdReplacePics(ref string value)
+        {
+            // Подменить картинки ZPL.
+            if (CurrentScale.ZebraPrinter.PrinterType.Contains("TSC "))
+            {
+                var templateEac = new TemplateEntity("EAC_107x109_090");
+                var templateFish = new TemplateEntity("FISH_94x115_000");
+                var templateTemp6 = new TemplateEntity("TEMP6_116x113_090");
+                value = value.Replace("[EAC_107x109_090]", templateEac.XslContent);
+                value = value.Replace("[FISH_94x115_000]", templateFish.XslContent);
+                value = value.Replace("[TEMP6_116x113_090]", templateTemp6.XslContent);
+            }
+        }
+
+        /// <summary>
+        /// Сохранить ZPL-запрос в таблицу [Labels].
+        /// </summary>
+        /// <param name="printCmd"></param>
+        /// <param name="labelId"></param>
+        public void PrintSaveLabel(ref string printCmd, int labelId)
+        {
+            var zplLabel = new ZplLabel
+            {
+                Content = printCmd,
+                WeighingFactId = labelId,
+            };
+            zplLabel.Save();
         }
 
         /// <summary>
         /// Печать штучных этикеток.
         /// </summary>
         /// <param name="template"></param>
-        private void PrintCountLabels(TemplateEntity template)
+        private void PrintCountLabel(TemplateEntity template)
         {
             // Вывести серию этикеток по заданному размеру паллеты.
             for (var i = CurrentBox; i <= PalletSize; i++)
@@ -383,11 +414,8 @@ namespace ScalesUI.Common
                     CurrentPlu.GoodsTareWeight
                 );
 
-                CurrentWeighingFact.Save();
-                var xmlInput = CurrentWeighingFact.SerializeObject();
-                var printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
-                // Отправить задание в очередь печати.
-                PrintDevice.SendAsync(printCmd, CurrentWeighingFact.Id, CurrentScale.ZebraPrinter.PrinterType);
+                // Печать этикетки.
+                PrintLabel(template);
             }
         }
 
@@ -395,7 +423,7 @@ namespace ScalesUI.Common
         /// Печать весовых этикеток.
         /// </summary>
         /// <param name="template"></param>
-        private void PrintWeightLabels(TemplateEntity template)
+        private void PrintWeightLabel(TemplateEntity template)
         {
             // Проверка наличия устройства весов.
             if (MkDevice == null)
@@ -419,12 +447,29 @@ namespace ScalesUI.Common
                 MkDevice.WeightNet - CurrentPlu.GoodsTareWeight,
                 CurrentPlu.GoodsTareWeight
             );
+            
+            // Печать этикетки.
+            PrintLabel(template);
+        }
 
+        /// <summary>
+        /// Печать этикетки.
+        /// </summary>
+        /// <param name="template"></param>
+        private void PrintLabel(TemplateEntity template)
+        {
+            // Сохранить запись в таблице [WeithingFact].
             CurrentWeighingFact.Save();
+
             var xmlInput = CurrentWeighingFact.SerializeObject();
             var printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
+            
+            // Подменить картинки ZPL.
+            PrintCmdReplacePics(ref printCmd);
             // Отправить задание в очередь печати.
-            PrintDevice.SendAsync(printCmd, CurrentWeighingFact.Id, CurrentScale.ZebraPrinter.PrinterType);
+            PrintDevice.SendAsync(printCmd);
+            // Сохранить ZPL-запрос в таблицу [Labels].
+            PrintSaveLabel(ref printCmd, CurrentWeighingFact.Id);
         }
 
         #endregion
@@ -451,7 +496,6 @@ namespace ScalesUI.Common
             }
             _log.Info("Запистить http-listener. Финиш.");
         }
-
 
         private void StopHttpListener()
         {
