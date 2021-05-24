@@ -17,7 +17,7 @@
 ^CWE,E:ARIALBD.TTF
 ^CWR,E:ARIALI.TTF
 
-^LH0,10
+^LH0,0
 ^FWR
 </xsl:text>
 

@@ -41,12 +41,6 @@ namespace TscBarcode.Views
 
         #region Public and private methods
 
-        private void ButtonAbout_Click(object sender, RoutedEventArgs e)
-        {
-            var tsc = new TSCSDK.ethernet();
-            tsc.about();
-        }
-
         private void ButtonUsb_Click(object sender, RoutedEventArgs e)
         {
             //string WT1 = "TSC Printers";
