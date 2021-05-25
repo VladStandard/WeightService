@@ -4,15 +4,20 @@
 @using DeviceControl.Core.Models
 @using System.Runtime.CompilerServices
 @using System.Text
-@using BlazorDeviceControl.Models
+@using BlazorDeviceControl.Data
 @using BlazorDeviceControl.Service
 @using BlazorDownloadFile
+@using DeviceControl.Core
+@using Toolbelt.Blazor.HotKeys
 @using ProgressBarMode = Radzen.ProgressBarMode
-
 @inject AppSettings AppSettings
 @inject DataAccessConfig DataAccessConfig
 @inject DialogService Dialog
+@inject NavigationManager Navigation
 @inject NotificationService Notification
+@inject TooltipService Tooltip
+@inject HotKeys HotKeys
+@inject IJSRuntime JsRuntime
 @inject IFileUpload fileUpload
 @inject IFileDownload fileDownload
 @inject IBlazorDownloadFileService BlazorDownloadFileService
@@ -33,7 +38,7 @@
         <Microsoft.AspNetCore.Components.Forms.InputFile style="width: 50%; " OnChange=@OnFileUpload />
         <br />
         <RadzenLabel Style="width: 27%; " Text=@Utils.LocalizationStrings.FileDownload />
-        <RadzenButton Style="width: 50%; height: 30px; text-align: center; " 
+        <RadzenButton Style="width: 50%; height: 30px; text-align: center; "
                       Click=@OnFileDownload Text=@Utils.LocalizationStrings.FileDownload />
         <br />
     </div>
@@ -56,7 +61,7 @@
         <RadzenLabel Style="width: 27%;" Text=@Utils.LocalizationStrings.TableFieldImageData />
         <RadzenTextBox Style="width: 70%; text-align: center;" ReadOnly="true" TValue="string" @bind-value=@Item.ImageDataInfo />
         <br />
-        
+
         <br />
     </div>
 </div>
@@ -84,7 +89,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
 
         await GetDataAsync().ConfigureAwait(false);
     }
@@ -174,7 +179,7 @@
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         try
         {
-            ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new ("GRF", "GRF") };
+            ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
         }
         catch (Exception ex)
         {

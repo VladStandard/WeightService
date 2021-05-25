@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DeviceControl.Core.Models;
 
-namespace BlazorDeviceControl.Models
+namespace BlazorDeviceControl.Data
 {
     public class DataSourceEntity
     {

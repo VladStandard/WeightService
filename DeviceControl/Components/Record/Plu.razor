@@ -3,14 +3,19 @@
 @using DeviceControl.Core.DAL.TableModels
 @using DeviceControl.Core.Models
 @using System.Runtime.CompilerServices
-@using BlazorDeviceControl.Models
+@using BlazorDeviceControl.Data
+@using DeviceControl.Core
 @using DeviceControl.Core.DAL.DataModels
 @using DeviceControl.Core.Models.XML
+@using Toolbelt.Blazor.HotKeys
 @inject AppSettings AppSettings
 @inject DataAccessConfig DataAccessConfig
 @inject DialogService Dialog
+@inject NavigationManager Navigation
 @inject NotificationService Notification
-
+@inject TooltipService Tooltip
+@inject HotKeys HotKeys
+@inject IJSRuntime JsRuntime
 @* Fields *@
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-7 col-md-7 col-lg-7">
@@ -185,7 +190,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
 
         await GetDataAsync().ConfigureAwait(false);
     }
@@ -434,7 +439,7 @@
             {
                 var pluEntity = AppSettings.DataAccess.PluCrud.GetEntity(
                     new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", Item.Scale.Id } }),
-                    new FieldOrderEntity {Direction = EnumOrderDirection.Desc, Name = EnumField.Plu, Use = true});
+                    new FieldOrderEntity { Direction = EnumOrderDirection.Desc, Name = EnumField.Plu, Use = true });
                 if (pluEntity != null && !pluEntity.EqualsDefault())
                 {
                     Item.Plu = pluEntity.Plu + 1;

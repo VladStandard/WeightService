@@ -1,15 +1,19 @@
 ﻿@page "/EntityPage"
-@using BlazorDeviceControl.Models
 @using DeviceControl.Core.DAL
 @using DeviceControl.Core.DAL.DataModels
 @using DeviceControl.Core.DAL.TableModels
-@using DeviceControl.Core.Models
 @using System.Runtime.CompilerServices
+@using BlazorDeviceControl.Data
+@using DeviceControl.Core
+@using Toolbelt.Blazor.HotKeys
 @inject AppSettings AppSettings
 @inject DataAccessConfig DataAccessConfig
 @inject DialogService Dialog
+@inject NavigationManager Navigation
 @inject NotificationService Notification
 @inject TooltipService Tooltip
+@inject HotKeys HotKeys
+@inject IJSRuntime JsRuntime
 
 @* RadzenCard *@
 <RadzenCard Style="margin-bottom: 0; font-size: 13px; ">
@@ -25,7 +29,7 @@
             case EnumTable.Contragents:
                 break;
             case EnumTable.Hosts:
-                var hostEntity = (HostsEntity) Item;
+                var hostEntity = (HostsEntity)Item;
                 <BlazorDeviceControl.Components.Record.Host Item=@hostEntity />
                 break;
             case EnumTable.Nomenclature:
@@ -47,26 +51,26 @@
             case EnumTable.ProductSeries:
                 var productSeries = (ProductSeriesEntity)Item;
                 @*<span Style="align-self: start; width: 15%; height: 25px; ">@Utils.LocalizationStrings.TableFieldId</span>
-                <RadzenNumeric Style="align-self: end; width: 85%; height: 25px; " TValue="int" Disabled=true @bind-value=@productSeries.Id />
-                <div class="col-md-6" Style="margin-top: 0; margin-left: 0; margin-right: 0;">
-                    <br Style="margin-top: 0; margin-left: 0; margin-right: 0;" />
-                    <span Style="align-self: start; width: 25%; height: 25px;">@Utils.LocalizationStrings.TableFieldScaleId</span>
-                    <RadzenTextBox TValue="string" Style="align-self: end; width: 60%; height: 25px;"
-                                   @bind-value=@productSeries.Scale.Id />
-                    <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
-                    <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldCreateDate</span>
-                    <RadzenDatePicker Disabled="true" @bind-Value=@productSeries.CreateDate />
-                    <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
-                    <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldUid</span>-->
-                    <RadzenTextBox Mask="********-****-****-****-************" Placeholder="00000000-0000-0000-0000-000000000000"
-                                   Disabled="false" @bind-Value=@productSeries.UidGui Style="width: 70%" />
-                    <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
-                    <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldIsClose</span>
-                    <RadzenCheckBox Disabled="false" @bind-Value=@productSeries.IsCloseGui TValue="bool" />
-                    <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
-                    <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldSscc</span>
-                    <RadzenTextBox Disabled="false" @bind-Value=@productSeries.Sscc />
-                </div>*@
+                    <RadzenNumeric Style="align-self: end; width: 85%; height: 25px; " TValue="int" Disabled=true @bind-value=@productSeries.Id />
+                    <div class="col-md-6" Style="margin-top: 0; margin-left: 0; margin-right: 0;">
+                        <br Style="margin-top: 0; margin-left: 0; margin-right: 0;" />
+                        <span Style="align-self: start; width: 25%; height: 25px;">@Utils.LocalizationStrings.TableFieldScaleId</span>
+                        <RadzenTextBox TValue="string" Style="align-self: end; width: 60%; height: 25px;"
+                                       @bind-value=@productSeries.Scale.Id />
+                        <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
+                        <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldCreateDate</span>
+                        <RadzenDatePicker Disabled="true" @bind-Value=@productSeries.CreateDate />
+                        <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
+                        <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldUid</span>-->
+                        <RadzenTextBox Mask="********-****-****-****-************" Placeholder="00000000-0000-0000-0000-000000000000"
+                                       Disabled="false" @bind-Value=@productSeries.UidGui Style="width: 70%" />
+                        <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
+                        <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldIsClose</span>
+                        <RadzenCheckBox Disabled="false" @bind-Value=@productSeries.IsCloseGui TValue="bool" />
+                        <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
+                        <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldSscc</span>
+                        <RadzenTextBox Disabled="false" @bind-Value=@productSeries.Sscc />
+                    </div>*@
                 break;
             case EnumTable.Scales:
                 var scalesEntity = (ScalesEntity)Item;
@@ -258,7 +262,7 @@
         var success = true;
         try
         {
-            AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+            AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
             switch (Table)
             {
                 case EnumTable.AttributeDefinationList:
@@ -316,7 +320,7 @@
                             {
                                 { "Scale.Id", pluEntity.Scale.Id },
                                 { EnumField.Plu.ToString(), pluEntity.Plu },
-                                        }),
+                                                    }),
                             null);
                         if (pluEntities.Any() && !pluEntities.Where(x => x.Id.Equals(Item.Id)).Select(x => x).Any())
                         {

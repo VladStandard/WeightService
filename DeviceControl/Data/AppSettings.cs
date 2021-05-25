@@ -1,23 +1,30 @@
-﻿using DeviceControl.Core.DAL;
-using DeviceControl.Core.DAL.DataModels;
-using DeviceControl.Core.DAL.TableModels;
-using DeviceControl.Core.Models;
-using Radzen;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using BlazorDeviceControl.Utils;
+using DeviceControl.Core;
+using DeviceControl.Core.DAL;
+using DeviceControl.Core.DAL.DataModels;
+using DeviceControl.Core.DAL.TableModels;
+using DeviceControl.Core.Models;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using Radzen;
+using Toolbelt.Blazor.HotKeys;
 
-namespace BlazorDeviceControl.Models
+namespace BlazorDeviceControl.Data
 {
     public class AppSettings
     {
         #region Public and private fields and properties
 
-        public NotificationService Notification { get; set; }
-        public DialogService Dialog { get; set; }
+        public NavigationManager Navigation { get; private set; }
+        public NotificationService Notification { get; private set; }
+        public DialogService Dialog { get; private set; }
+        public TooltipService Tooltip { get; private set; }
         public DataAccessEntity DataAccess { get; set; }
         public EnumAccessRights AccessRights { get; set; }
         public bool ShowActionsButtons { get; set; }
@@ -34,6 +41,10 @@ namespace BlazorDeviceControl.Models
             }
         }
         public DataSourceEntity DataSource { get; set; } = new DataSourceEntity();
+        public MemoryEntity Memory { get; set; }
+        public IJSRuntime JsRuntime { get; set; }
+        public HotKeysContext HotKeys { get; private set; }
+        public int Delay { get; } = 5_000;
 
         #endregion
 
@@ -41,7 +52,8 @@ namespace BlazorDeviceControl.Models
 
         public AppSettings() { }
 
-        public void Setup(DataAccessConfig dataAccessService, NotificationService notification, DialogService dialog)
+        public void Setup(DataAccessConfig dataAccessService, NotificationService notification, DialogService dialog, NavigationManager navigation,
+            TooltipService tooltip, HotKeysContext hotKeys, IJSRuntime jsRuntime)
         {
             var appSettings = new AppSettingsEntity(dataAccessService.Server, dataAccessService.Db, dataAccessService.Trusted, dataAccessService.Username, dataAccessService.Password);
             DataAccess = new DataAccessEntity(appSettings);
@@ -49,6 +61,9 @@ namespace BlazorDeviceControl.Models
             AccessRights = EnumAccessRights.Guest;
             Dialog = dialog;
             ChartSmooth = false;
+            Tooltip = tooltip;
+            HotKeys = hotKeys;
+            JsRuntime = jsRuntime;
         }
 
         public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity entity, BaseEntity parentEntity,
@@ -254,6 +269,24 @@ namespace BlazorDeviceControl.Models
                     break;
             }
             return result;
+        }
+
+        public async Task HotKeysMenuRoot()
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Navigation.NavigateTo($"{LocalizationStrings.UriRouteRoot}");
+        }
+
+        #endregion
+
+        #region Public and private methods - Memory manager
+
+        public void MemoryOpen(MemoryEntity.DelegateGuiRefresh callRefresh)
+        {
+            if (Memory != null)
+                return;
+            Memory = new MemoryEntity(1_000, 5_000, Convert.ToUInt64(100 * 1_048_576));
+            Memory.Open(callRefresh);
         }
 
         #endregion

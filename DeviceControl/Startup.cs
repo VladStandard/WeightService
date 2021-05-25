@@ -1,4 +1,4 @@
-using BlazorDeviceControl.Models;
+using BlazorDeviceControl.Data;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Radzen;
+using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace BlazorDeviceControl
 {
@@ -34,10 +35,13 @@ namespace BlazorDeviceControl
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
             services.AddScoped<ContextMenuService>();
-            services.AddScoped<IFileUpload, FileUpload>();
-            services.AddScoped<IFileDownload, FileDownload>();
+            // HotKeys.
+            services.AddHotKeys();
+            // Other.
             services.AddControllersWithViews();
             services.AddBlazorDownloadFile();
+            services.AddScoped<IFileUpload, FileUpload>();
+            services.AddScoped<IFileDownload, FileDownload>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

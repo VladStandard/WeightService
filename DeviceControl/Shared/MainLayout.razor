@@ -1,0 +1,110 @@
+﻿@using BlazorDeviceControl.Utils
+@using Toolbelt.Blazor.HotKeys
+@using BlazorDeviceControl.Data
+@using DeviceControl.Core.Utils
+@inherits LayoutComponentBase
+@inject AppSettings AppSettings
+@inject DataAccessConfig DataAccessConfig
+@inject DialogService Dialog
+@inject NavigationManager Navigation
+@inject NotificationService Notification
+@inject TooltipService Tooltip
+@inject HotKeys HotKeys
+@inject IJSRuntime JsRuntime
+
+<RadzenDialog />
+<RadzenNotification />
+<RadzenContextMenu />
+<RadzenTooltip />
+
+@if (IsSqlServerProduct)
+{
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+}
+else
+{
+    <div class="sidebar" style="background: Green">
+        <NavMenu />
+    </div>
+}
+
+<div class="main">
+    <div class="top-row px-4">
+        <div class="col-sm-5 col-md-5 col-lg-5">
+            <RadzenLabel Text=@DbServer Style="text-align: left;" />
+        </div>
+        <div class="col-sm-5 col-md-5 col-lg-5">
+            <RadzenLabel Text=@MemoryInfo Style="text-align: center; margin-left: 50px; height: 10px;" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <RadzenLink Icon="email" Text=@LocalizationStrings.CallbackTitle Path=@LocalizationStrings.CallbackEmail
+                        Style="text-align: right" />
+        </div>
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+
+@code{
+    #region Public and private fields and properties
+
+    private string DbServer => DataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase)
+            ? "Промышленный сервер" : "Сервер разработки";
+    private bool IsSqlServerProduct => DataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase);
+    private string MemoryInfo => AppSettings.Memory != null
+        ? $"{LocalizationStrings.MemoryUsed}: {AppSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
+        : $"{LocalizationStrings.MemoryUsed}: - MB";
+
+    #endregion
+
+    #region Public and private methods
+
+    private async Task GuiRefreshAsync()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(true);
+
+        try
+        {
+            var hotKeys = HotKeys.CreateContext()
+                .Add(ModKeys.Alt, Keys.Num1, AppSettings.HotKeysMenuRoot, "Menu root");
+            AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, hotKeys, JsRuntime);
+            var task = new Task(delegate { AppSettings.MemoryOpen(GuiRefreshAsync); });
+            task.Start();
+        }
+        catch (Exception ex)
+        {
+            var msg = ex.Message;
+            if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+                msg += Environment.NewLine + ex.InnerException.Message;
+            if (!string.IsNullOrEmpty(msg))
+                Notification.Notify(NotificationSeverity.Error, LocalizationStrings.IndexDescription + Environment.NewLine, msg, 
+                    AppSettings.Delay);
+
+            Console.WriteLine(msg);
+            Console.WriteLine($"MainLayout.razor. {nameof(OnInitializedAsync)}.");
+        }
+        finally
+        {
+            await GuiRefreshAsync().ConfigureAwait(false);
+        }
+    }
+
+    public void Dispose()
+    {
+        Dialog?.Dispose();
+        Tooltip?.Dispose();
+        AppSettings.HotKeys.Dispose();
+    }
+
+    #endregion
+}

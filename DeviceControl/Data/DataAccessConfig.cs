@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 
-namespace BlazorDeviceControl.Models
+namespace BlazorDeviceControl.Data
 {
     /// <summary>
     /// appsettings.json

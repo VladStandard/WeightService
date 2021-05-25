@@ -1,16 +1,21 @@
 ﻿@page "/Scale"
-@using BlazorDeviceControl.Models
 @using DeviceControl.Core.DAL
 @using DeviceControl.Core.DAL.DataModels
 @using DeviceControl.Core.DAL.TableModels
 @using DeviceControl.Core.Models
 @using System.Runtime.CompilerServices
 @using System.Linq
+@using BlazorDeviceControl.Data
+@using DeviceControl.Core
+@using Toolbelt.Blazor.HotKeys
 @inject AppSettings AppSettings
 @inject DataAccessConfig DataAccessConfig
 @inject DialogService Dialog
+@inject NavigationManager Navigation
 @inject NotificationService Notification
-
+@inject TooltipService Tooltip
+@inject HotKeys HotKeys
+@inject IJSRuntime JsRuntime
 @* Fields *@
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
@@ -153,7 +158,7 @@
         <RadzenGrid id="RadzenGrid" Data=@PluItems TItem="PluEntity"
                     RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
                     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize="9" AllowSorting="true" ColumnWidth="50px" >
+                    AllowPaging="true" PageSize="9" AllowSorting="true" ColumnWidth="50px">
             <Columns>
                 <RadzenGridColumn TItem="PluEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId Width="5%" />
                 <RadzenGridColumn TItem="PluEntity" Property="Plu" Title=@Utils.LocalizationStrings.TableFieldPlu Width="5%" />
@@ -240,7 +245,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
 
         await GetDataAsync().ConfigureAwait(false);
     }
@@ -400,7 +405,7 @@
             new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
             PluTitle = $"{Utils.LocalizationStrings.TableTitlePluShort}  [{PluItems.Count} {Utils.LocalizationStrings.DataRecords}]";
             TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }), 
+                new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
             TemplatesSeriesItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
@@ -409,7 +414,7 @@
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
             PrinterItems = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(
-                new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } } ),
+                new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
             HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(Item.Host?.Id);
         }

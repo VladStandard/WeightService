@@ -1,13 +1,18 @@
 ﻿@page "/Nomenclature"
 @using DeviceControl.Core.DAL
 @using DeviceControl.Core.DAL.TableModels
-@using DeviceControl.Core.Models
 @using System.Runtime.CompilerServices
-@using BlazorDeviceControl.Models
+@using BlazorDeviceControl.Data
+@using DeviceControl.Core
+@using Toolbelt.Blazor.HotKeys
 @inject AppSettings AppSettings
 @inject DataAccessConfig DataAccessConfig
 @inject DialogService Dialog
+@inject NavigationManager Navigation
 @inject NotificationService Notification
+@inject TooltipService Tooltip
+@inject HotKeys HotKeys
+@inject IJSRuntime JsRuntime
 
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
@@ -31,74 +36,74 @@
         <RadzenLabel Style="width: 100%; text-align: center;" Text=@Utils.LocalizationStrings.TableTitleNomenclatureUnitsShort />
         <br />
         @*@if (NomenclatureUnitsEntities == null)
-        {
-            <RadzenLabel Text=@Utils.LocalizationStrings.DataLoading />
-            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-        }
-        else
-        {
-            <RadzenGrid Data=@NomenclatureUnitsEntities TItem="NomenclatureUnitsEntity"
-                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
-                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                        AllowPaging="true" PageSize="10" AllowSorting="true" ColumnWidth="200px">
-                <Columns>
-                    <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId
-                                      Type="int" Width="10%" />
-                    <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="CreateDate" Title=@Utils.LocalizationStrings.TableFieldCreateDate
-                                      Type="DateTime" Width="10%" />
-                    <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="ModifiedDate" Title=@Utils.LocalizationStrings.TableFieldModifiedDate
-                                      Type="DateTime" Width="10%" />
-                    <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldName
-                                      Type="string" Width="10%" />
-                    <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="NomenclatureId" Title=@Utils.LocalizationStrings.TableFieldNomenclatureId
-                                      Type="string" Width="10%" />
-                    <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Marked" Title=@Utils.LocalizationStrings.TableFieldMarked
-                                      Type="bool" Width="10%" />
-                    <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="PackWeight" Title=@Utils.LocalizationStrings.TableFieldPackWeight
-                                      Type="decimal" Width="10%" />
-                    <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="PackQuantly" Title=@Utils.LocalizationStrings.TableFieldPackQuantly
-                                      Type="int" Width="10%" />
-                    <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="PackTypeId" Title=@Utils.LocalizationStrings.TableFieldPackTypeId
-                                      Type="int" Width="10%" />
-                </Columns>
-            </RadzenGrid>
-        }*@
+            {
+                <RadzenLabel Text=@Utils.LocalizationStrings.DataLoading />
+                <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+            }
+            else
+            {
+                <RadzenGrid Data=@NomenclatureUnitsEntities TItem="NomenclatureUnitsEntity"
+                            RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                            AllowPaging="true" PageSize="10" AllowSorting="true" ColumnWidth="200px">
+                    <Columns>
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="CreateDate" Title=@Utils.LocalizationStrings.TableFieldCreateDate
+                                          Type="DateTime" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="ModifiedDate" Title=@Utils.LocalizationStrings.TableFieldModifiedDate
+                                          Type="DateTime" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldName
+                                          Type="string" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="NomenclatureId" Title=@Utils.LocalizationStrings.TableFieldNomenclatureId
+                                          Type="string" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Marked" Title=@Utils.LocalizationStrings.TableFieldMarked
+                                          Type="bool" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="PackWeight" Title=@Utils.LocalizationStrings.TableFieldPackWeight
+                                          Type="decimal" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="PackQuantly" Title=@Utils.LocalizationStrings.TableFieldPackQuantly
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="PackTypeId" Title=@Utils.LocalizationStrings.TableFieldPackTypeId
+                                          Type="int" Width="10%" />
+                    </Columns>
+                </RadzenGrid>
+            }*@
     </div>
     <br />
     <div class="col-sm-6 col-md-6 col-lg-6">
         <RadzenLabel Style="width: 100%; text-align: center;" Text=@Utils.LocalizationStrings.TableTitleBarCodesShort />
         <br />
         @*@if (BarCodesEntities == null)
-        {
-            <RadzenLabel Text=@Utils.LocalizationStrings.DataLoading />
-            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-        }
-        else
-        {
-            <RadzenGrid id="RadzenGrid" Data=@BarCodesEntities TItem="BarCodesEntity"
-                        RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
-                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                        AllowPaging="true" PageSize="10" AllowSorting="true" ColumnWidth="200px">
-                <Columns>
-                    <RadzenGridColumn TItem="BarCodesEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId
-                                      Type="int" Width="10%" />
-                    <RadzenGridColumn TItem="BarCodesEntity" Property="CreateDate" Title=@Utils.LocalizationStrings.TableFieldCreateDate
-                                      Type="DateTime" Width="10%" />
-                    <RadzenGridColumn TItem="BarCodesEntity" Property="ModifiedDate" Title=@Utils.LocalizationStrings.TableFieldModifiedDate
-                                      Type="DateTime" Width="10%" />
-                    <RadzenGridColumn TItem="BarCodesEntity" Property="BarCodeTypeId" Title=@Utils.LocalizationStrings.TableFieldBarCodeTypeId
-                                      Type="int" Width="10%" />
-                    <RadzenGridColumn TItem="BarCodesEntity" Property="NomenclatureId" Title=@Utils.LocalizationStrings.TableFieldNomenclatureId
-                                      Type="int" Width="10%" />
-                    <RadzenGridColumn TItem="BarCodesEntity" Property="NomenclatureUnitId" Title=@Utils.LocalizationStrings.TableFieldNomenclatureUnitId
-                                      Type="int" Width="10%" />
-                    <RadzenGridColumn TItem="BarCodesEntity" Property="ContragentId" Title=@Utils.LocalizationStrings.TableFieldContragentId
-                                      Type="int" Width="10%" />
-                    <RadzenGridColumn TItem="BarCodesEntity" Property="Value" Title=@Utils.LocalizationStrings.TableFieldValue
-                                      Type="string" Width="10%" />
-                </Columns>
-            </RadzenGrid>
-        }*@
+            {
+                <RadzenLabel Text=@Utils.LocalizationStrings.DataLoading />
+                <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+            }
+            else
+            {
+                <RadzenGrid id="RadzenGrid" Data=@BarCodesEntities TItem="BarCodesEntity"
+                            RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                            AllowPaging="true" PageSize="10" AllowSorting="true" ColumnWidth="200px">
+                    <Columns>
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="CreateDate" Title=@Utils.LocalizationStrings.TableFieldCreateDate
+                                          Type="DateTime" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="ModifiedDate" Title=@Utils.LocalizationStrings.TableFieldModifiedDate
+                                          Type="DateTime" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="BarCodeTypeId" Title=@Utils.LocalizationStrings.TableFieldBarCodeTypeId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="NomenclatureId" Title=@Utils.LocalizationStrings.TableFieldNomenclatureId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="NomenclatureUnitId" Title=@Utils.LocalizationStrings.TableFieldNomenclatureUnitId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="ContragentId" Title=@Utils.LocalizationStrings.TableFieldContragentId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="Value" Title=@Utils.LocalizationStrings.TableFieldValue
+                                          Type="string" Width="10%" />
+                    </Columns>
+                </RadzenGrid>
+            }*@
     </div>
 </div>
 
@@ -119,7 +124,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
 
         await GetDataAsync().ConfigureAwait(false);
     }

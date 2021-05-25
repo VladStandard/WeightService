@@ -1,4 +1,4 @@
-﻿namespace DeviceControl.Core.Models
+﻿namespace DeviceControl.Core
 {
     public enum EnumTable
     {
@@ -42,5 +42,26 @@
         Copy,
         Delete,
         Marked,
+    }
+
+    public enum EnumMemoryLimitAction
+    {
+        Exit,
+        Restart
+    }
+
+    public enum EnumRelevanceStatus
+    {
+        Unknown = 0,
+        Actual = 1,
+        NoActual = 2,
+    }
+
+    public enum EnumNormilizationStatus
+    {
+        NotNormilized = 0,
+        NormilizedFull = 1,
+        NormilizedPart = 2,
+        NotSubjectNormalization = 3,
     }
 }

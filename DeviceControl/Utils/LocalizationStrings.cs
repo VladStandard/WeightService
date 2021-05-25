@@ -27,6 +27,20 @@ namespace BlazorDeviceControl.Utils
         #region Авторизация
         public const string AuthorizationTitle = @"Авторизация";
         #endregion
+        #region Memory
+        public const string MemoryTitle = @"Менеджер памяти приложения";
+        public const string MemoryLimit = @"Лимит памяти";
+        public const string MemoryLimitNotSet = @"Лимит памяти не задан!";
+        public const string MemoryUsed = @"Занимаемая память";
+        public const string MemoryPhysical = @"Физическая память";
+        public const string MemoryVirtual = @"Виртуальная память";
+        public const string MemoryIsExecute = @"Менеджер памяти приложения в работе.";
+        public const string MemoryIsNotExecute = @"Менеджер памяти приложения не выполняется!";
+        public const string MemoryResult = @"Результат";
+        public const string MemoryException = @"Ошибка менеджера памяти";
+        public const string MemoryActionStart = @"Запустить менеджер памяти";
+        public const string MemoryActionStop = @"Остановить менеджер памяти";
+        #endregion
         #region Документация
         public const string DocTitle = @"Документация";
         public static string DocText = $@"Версия программы: {GetAppVersion()}";
@@ -35,17 +49,18 @@ namespace BlazorDeviceControl.Utils
         public const string DevicesTitle = @"Комплексы промышленных устройств";
         #endregion
         #region URI
-        public const string UriRouteTableScales = "/Scales";
-        public const string UriRouteTableHosts = "/Hosts";
-        public const string UriRouteTableZebraPrinters = "/ZebraPrinters";
-        public const string UriRouteTableZebraPrinterTypes = "/PrinterTypes";
-        public const string UriRouteTableContragents = "/Contragents";
-        public const string UriRouteTableNomenclature = "/Nomenclature";
-        public const string UriRouteTableProductionFacilities = "/ProductionFacilities";
-        public const string UriRouteTableTemplates = "/Templates";
-        public const string UriRouteTableTemplateResources = "/TemplateResources";
-        public const string UriRouteTableWeithingFacts = "/WeithingFacts";
-        public const string UriRouteTableWorkshops = "/Workshops";
+        public const string UriRouteRoot = "/";
+        public const string UriRouteTableScales = "/scales";
+        public const string UriRouteTableHosts = "/hosts";
+        public const string UriRouteTableZebraPrinters = "/zebraprinters";
+        public const string UriRouteTableZebraPrinterTypes = "/printertypes";
+        public const string UriRouteTableContragents = "/contragents";
+        public const string UriRouteTableNomenclature = "/nomenclature";
+        public const string UriRouteTableProductionFacilities = "/productionfacilities";
+        public const string UriRouteTableTemplates = "/templates";
+        public const string UriRouteTableTemplateResources = "/templateresources";
+        public const string UriRouteTableWeithingFacts = "/weithingfacts";
+        public const string UriRouteTableWorkshops = "/workshops";
         #endregion
         #region Меню
         public const string MenuReferences = "Справочники";

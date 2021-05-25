@@ -1,11 +1,15 @@
 ﻿@page "/DevicePage"
 @using DeviceControl.Core.DAL.DataModels
-@using BlazorDeviceControl.Models
-@inject DialogService Dialog
-@inject NotificationService Notification
-@inject TooltipService Tooltip
+@using BlazorDeviceControl.Data
+@using Toolbelt.Blazor.HotKeys
 @inject AppSettings AppSettings
 @inject DataAccessConfig DataAccessConfig
+@inject DialogService Dialog
+@inject NavigationManager Navigation
+@inject NotificationService Notification
+@inject TooltipService Tooltip
+@inject HotKeys HotKeys
+@inject IJSRuntime JsRuntime
 
 <RadzenCard Style="margin-bottom: 0px;">
     <div class="row" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
@@ -50,6 +54,7 @@
     html, body {
         height: 100%;
     }
+
     .full-height {
         height: 100%;
     }
@@ -74,7 +79,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
         if (!AppSettings.DataAccess.IsDisabled)
         {
             //await GetDataAsync().ConfigureAwait(false);
