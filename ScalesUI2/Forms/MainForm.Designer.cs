@@ -1,4 +1,4 @@
-﻿namespace ScalesUI
+﻿namespace ScalesUI.Forms
 {
     partial class MainForm
     {
@@ -48,10 +48,11 @@
             this.fieldKneading = new System.Windows.Forms.Label();
             this.labelPlu = new System.Windows.Forms.Label();
             this.tableLayoutPanelState = new System.Windows.Forms.TableLayoutPanel();
-            this.pnlLed1 = new System.Windows.Forms.Panel();
-            this.pnlLed2 = new System.Windows.Forms.Panel();
+            this.panelPrint = new System.Windows.Forms.Panel();
+            this.panelMassa = new System.Windows.Forms.Panel();
             this.fieldGrossWeight = new System.Windows.Forms.Label();
             this.fieldPalletSize = new System.Windows.Forms.Label();
+            this.labelMemory = new System.Windows.Forms.Label();
             this.buttonSettings = new System.Windows.Forms.Button();
             this.flowLayoutPanelBottom = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonPrint = new System.Windows.Forms.Button();
@@ -144,6 +145,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelState, 1, 9);
             this.tableLayoutPanelMain.Controls.Add(this.fieldGrossWeight, 2, 11);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPalletSize, 3, 9);
+            this.tableLayoutPanelMain.Controls.Add(this.labelMemory, 1, 12);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
@@ -373,8 +375,8 @@
             this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3F));
             this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanelState.Controls.Add(this.pnlLed1, 5, 0);
-            this.tableLayoutPanelState.Controls.Add(this.pnlLed2, 7, 0);
+            this.tableLayoutPanelState.Controls.Add(this.panelPrint, 5, 0);
+            this.tableLayoutPanelState.Controls.Add(this.panelMassa, 7, 0);
             this.tableLayoutPanelState.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelState.Location = new System.Drawing.Point(14, 455);
             this.tableLayoutPanelState.Name = "tableLayoutPanelState";
@@ -384,19 +386,19 @@
             this.tableLayoutPanelState.Size = new System.Drawing.Size(323, 95);
             this.tableLayoutPanelState.TabIndex = 35;
             // 
-            // pnlLed1
+            // panelPrint
             // 
-            this.pnlLed1.Location = new System.Drawing.Point(168, 3);
-            this.pnlLed1.Name = "pnlLed1";
-            this.pnlLed1.Size = new System.Drawing.Size(58, 89);
-            this.pnlLed1.TabIndex = 1;
+            this.panelPrint.Location = new System.Drawing.Point(168, 3);
+            this.panelPrint.Name = "panelPrint";
+            this.panelPrint.Size = new System.Drawing.Size(58, 89);
+            this.panelPrint.TabIndex = 1;
             // 
-            // pnlLed2
+            // panelMassa
             // 
-            this.pnlLed2.Location = new System.Drawing.Point(241, 3);
-            this.pnlLed2.Name = "pnlLed2";
-            this.pnlLed2.Size = new System.Drawing.Size(58, 89);
-            this.pnlLed2.TabIndex = 2;
+            this.panelMassa.Location = new System.Drawing.Point(241, 3);
+            this.panelMassa.Name = "panelMassa";
+            this.panelMassa.Size = new System.Drawing.Size(58, 89);
+            this.panelMassa.TabIndex = 2;
             // 
             // fieldGrossWeight
             // 
@@ -421,6 +423,19 @@
             this.fieldPalletSize.TabIndex = 37;
             this.fieldPalletSize.Text = "123 / 321";
             this.fieldPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelMemory
+            // 
+            this.labelMemory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMemory.AutoSize = true;
+            this.labelMemory.Location = new System.Drawing.Point(14, 553);
+            this.labelMemory.Name = "labelMemory";
+            this.labelMemory.Size = new System.Drawing.Size(323, 66);
+            this.labelMemory.TabIndex = 38;
+            this.labelMemory.Text = "Memory size";
+            this.labelMemory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonSettings
             // 
@@ -616,9 +631,10 @@
         private System.Windows.Forms.Button btAddKneading;
         private System.Windows.Forms.Button btNewPallet;
         private System.Windows.Forms.Label fieldPalletSize;
-        private System.Windows.Forms.Panel pnlLed1;
-        private System.Windows.Forms.Panel pnlLed2;
+        private System.Windows.Forms.Panel panelPrint;
+        private System.Windows.Forms.Panel panelMassa;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label labelMemory;
     }
 }
 

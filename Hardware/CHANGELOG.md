@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.80] - 2021-05-25
+### Changed
+- PVS-PVS-Studio comments for analyze
+
 ## [0.5.70] - 2021-05-22
 ### Changed
 - ZplPipeEntity

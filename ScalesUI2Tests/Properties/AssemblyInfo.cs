@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Владимирский стандарт")]
 [assembly: AssemblyProduct("WeightService")]
-[assembly: AssemblyCopyright("Copyright © 2020 - 2021")]
+[assembly: AssemblyCopyright("Copyright © 2020  - 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -15,5 +15,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("8268d4f8-0190-49ba-ac78-294a0dec314e")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.4.5.0")]
-[assembly: AssemblyFileVersion("0.4.5.0")]
+[assembly: AssemblyVersion("0.5.80.0")]
+[assembly: AssemblyFileVersion("0.5.80.0")]

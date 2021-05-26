@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.70] - 2021-05-25
+### Changed
+- Refactoring
+
 ## [0.1.60] - 2021-05-11
 ### Added
 - Ethernet TSC cmd

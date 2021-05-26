@@ -1,4 +1,7 @@
-﻿using Hardware.Utils;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using Hardware.Utils;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -106,7 +109,6 @@ namespace Hardware.Print.Tsc
             Interface = @interface;
             Size = LabelSize.Size80x100;
             PrinterSetup = new PrintSetupEntity(Size);
-            Setup(LabelSize.Size80x100, true);
         }
 
         #endregion
@@ -381,7 +383,7 @@ namespace Hardware.Print.Tsc
             SendCmd(isClose, "GAPDETECT", isClearBuffer);
         }
 
-        public void SetGap(bool isClose, bool isClearBuffer, double gapSize = 4.0, double gapOffset = 0.0)
+        public void SetGap(bool isClose, bool isClearBuffer, double gapSize = 3.5, double gapOffset = 0.0)
         {
             var strGapSize = $"{gapSize}".Replace(',', '.');
             var strGapOffset = $"{gapOffset}".Replace(',', '.');

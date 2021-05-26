@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.110] - 2021-05-25
+### Changed
+- Hardware 0.5.80
+- ScalesUI 0.5.80
+- BlazorDeviceControl 0.2.200
+
 ## [0.1.100] - 2021-05-22
 ### Changed
 - Hardware 0.5.70

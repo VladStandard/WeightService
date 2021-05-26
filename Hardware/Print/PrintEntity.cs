@@ -1,4 +1,6 @@
-﻿using EntitiesLib;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 using Hardware.Print.Tsc;
 using Hardware.Utils;
 using log4net;
@@ -19,17 +21,14 @@ namespace Hardware.Print
         public int UserLabelCount { get; private set; }
         public PrinterStatus CurrentStatus { get; private set; }
         public int CommandThreadTimeOut { get; private set; } = 100;
-
         public delegate void OnHandler(PrintEntity state);
         public event OnHandler Notify;
-
         private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public Connection Con { get; private set; }
         public ConcurrentQueue<string> CmdQueue { get; } = new ConcurrentQueue<string>();
         private readonly object _locker = new object();
         private Thread _sessionSharingThread = null;
         private bool _isThreadWork = true;
-
         public PrintControlEntity PrintControl { get; set; }
 
         #endregion
@@ -140,11 +139,12 @@ namespace Hardware.Print
                                 request = request.Replace("|", "\\&");
                                 if (!request.Equals("^XA~JA^XZ") && !request.Contains("odometer.user_label_count"))
                                 {
-                                    //CurrentStatus = printerDevice.GetCurrentStatus();
-                                    //UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", printerDevice.Connection));
-                                    //UserLabelCount = 1;
-                                    //Peeler = SGD.GET("sensor.peeler", printerDevice.Connection);
-                                    PrintControl.SendCmd(false, request, false);
+                                    var taskPrint = new Task(async () =>
+                                    {
+                                        PrintControl.SendCmd(false, request, false);
+                                        await Task.Delay(TimeSpan.FromMilliseconds(CommandThreadTimeOut)).ConfigureAwait(true);
+                                    });
+                                    taskPrint.Start();
                                 }
                             }
                             Notify?.Invoke(this);

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -174,13 +177,13 @@ namespace Hardware.Print.Tsc
                 case LabelSize.Size80x100:
                     if (CultureInfo.CurrentCulture.Name.Equals("ru-RU"))
                     {
-                        Width = "81,95";
-                        Height = "100,10";
+                        Width = "83,00";
+                        Height = "101,50";
                     }
                     else
                     {
-                        Width = "81.95";
-                        Height = "100.10";
+                        Width = "83.00";
+                        Height = "101.50";
                     }
                     break;
                 case LabelSize.Size100x100:

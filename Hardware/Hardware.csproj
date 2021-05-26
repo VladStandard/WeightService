@@ -61,14 +61,13 @@
       <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0-preview.3.21201.4\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0-preview.4.21253.7\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.DotNet.PlatformAbstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.5.0.0-preview.5.20278.1\lib\net45\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyModel, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyModel.6.0.0-preview.3.21201.4\lib\net461\Microsoft.Extensions.DependencyModel.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Extensions.DependencyModel.6.0.0-preview.4.21253.7\lib\net461\Microsoft.Extensions.DependencyModel.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -94,7 +93,6 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -110,12 +108,11 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0-preview.3.21201.4\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0-preview.4.21253.7\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
@@ -123,10 +120,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0-preview.3.21201.4\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0-preview.4.21253.7\lib\net461\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Text.Json.6.0.0-preview.3.21201.4\lib\net461\System.Text.Json.dll</HintPath>
+      <HintPath>..\packages\System.Text.Json.6.0.0-preview.4.21253.7\lib\net461\System.Text.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
@@ -134,10 +131,8 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml.XmlDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.XmlDocument.4.3.0\lib\net46\System.Xml.XmlDocument.dll</HintPath>
       <Private>True</Private>
@@ -155,6 +150,9 @@
     <Compile Include="MassaK\Crc16.cs" />
     <Compile Include="MassaK\MkCommander.cs" />
     <Compile Include="MassaK\MkDeviceEntity.cs" />
+    <Compile Include="DeviceManagerEntity.cs" />
+    <Compile Include="MemoryManagerEntity.cs" />
+    <Compile Include="MemorySizeEntity.cs" />
     <Compile Include="Print\Native\RawPrinterHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MassaK\SerialPortManager.cs" />
@@ -162,7 +160,7 @@
     <Compile Include="Print\Tsc\PrintControlEntity.cs" />
     <Compile Include="Print\Tsc\PrintSetupEntity.cs" />
     <Compile Include="Print\Zebra\DeviceEntity.cs" />
-    <Compile Include="Print\Zebra\DeviceСontainer.cs" />
+    <Compile Include="Print\Zebra\DeviceContainer.cs" />
     <Compile Include="Print\PrintEntity.cs" />
     <Compile Include="Print\Zebra\StateEntity.cs" />
     <Compile Include="Print\Zebra\StatusDataCollector.cs" />
@@ -180,10 +178,6 @@
     <None Include="Zpl templates\TEMP6_116x113_090.ZPL" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntitiesLib\EntitiesLib.csproj">
-      <Project>{C5EE6194-DB73-4F09-9AFE-ABA98324B069}</Project>
-      <Name>EntitiesLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UICommon\UICommon.csproj">
       <Project>{A814560E-4946-4DA4-9735-5E7FFF27DA85}</Project>
       <Name>UICommon</Name>
@@ -204,7 +198,6 @@
     <Content Include="Zpl templates\Request ZEBRA 2.txt" />
     <Content Include="Zpl templates\Request ZEBRA.txt" />
     <Content Include="Zpl templates\Requests.txt" />
-    <Content Include="Zpl templates\Templates.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -230,7 +230,10 @@ namespace ScalesUI.Forms
         /// <param name="e"></param>
         private void buttonPrintCalibrate_Click(object sender, EventArgs e)
         {
-            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplCalibration());
+            if (_ws.CurrentScale.ZebraPrinter.PrinterType.Contains("TSC "))
+                _ws.PrintDevice.PrintControl.Calibrate(false, true);
+            else
+                _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplCalibration());
         }
 
         private void buttonPrintOptions_Click(object sender, EventArgs e)

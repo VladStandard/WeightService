@@ -529,7 +529,7 @@
             this.buttonPrintCalibrate.Name = "buttonPrintCalibrate";
             this.buttonPrintCalibrate.Size = new System.Drawing.Size(138, 120);
             this.buttonPrintCalibrate.TabIndex = 13;
-            this.buttonPrintCalibrate.Text = "Калибровать Zebra";
+            this.buttonPrintCalibrate.Text = "Калибровка";
             this.buttonPrintCalibrate.UseVisualStyleBackColor = false;
             this.buttonPrintCalibrate.Click += new System.EventHandler(this.buttonPrintCalibrate_Click);
             // 

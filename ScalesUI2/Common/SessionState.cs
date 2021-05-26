@@ -1,6 +1,7 @@
 ﻿using EntitiesLib;
 using Hardware.MassaK;
 using Hardware.Print;
+using Hardware.Utils;
 using Hardware.Zpl;
 using ScalesUI.Forms;
 using ScalesUI.Utils;
@@ -9,6 +10,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Hardware;
 using UICommon;
 using ZabbixAgentLib;
 
@@ -20,6 +22,54 @@ namespace ScalesUI.Common
 
         private static SessionState _instance;
         public static SessionState Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+        #endregion
+
+        #region Public and private fields and properties
+
+        private readonly LogHelper _log = LogHelper.Instance;
+        public string AppVersion => UtilsAppVersion.GetMainFormText(Assembly.GetExecutingAssembly());
+
+        public ProductSeriesEntity ProductSeries { get; private set; }
+
+        public bool IsDebug
+        {
+            get
+            {
+#if DEBUG
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
+
+        public HostEntity Host { get; private set; }
+
+        public ZplCommander ZplCommander { get; private set; }
+
+        public PrintEntity PrintDevice { get; }
+
+        public MkDeviceEntity MkDevice { get; }
+
+        public ZabbixHttpListener HttpListener { get; private set; }
+        private CancellationToken _token;
+        private CancellationToken _tokenHttpListener;
+        private ThreadChecker _threadChecker;
+        public int CurrentScaleId { get; private set; }
+
+        public OrderEntity CurrentOrder { get; set; }
+
+        [XmlElement(IsNullable = true)]
+        public ScaleEntity CurrentScale { get; set; }
+
+        [XmlElement(IsNullable = true)]
+        public WeighingFactEntity CurrentWeighingFact { get; set; }
+
+        public DeviceManagerEntity DeviceManager { get; set; }
+        public bool DeviceManagerIsExit { get; set; }
+        public MemoryManagerEntity MemoryManager { get; set; }
+        public bool MemoryManagerIsExit { get; set; }
 
         #endregion
 
@@ -80,7 +130,7 @@ namespace ScalesUI.Common
                 {
 
                 }
-                throw new Exception(ex.Message);
+                //throw new Exception(ex.Message);
             }
 
 
@@ -88,7 +138,7 @@ namespace ScalesUI.Common
             // запускаем поток, который разбирает очередь команд
             // т.к. команды пишутся не напрямую, а в очередь
             // а из нее потом доотправляются на устройство
-            DeviceSocketRs232 deviceSocketRs232 = new DeviceSocketRs232(CurrentScale.DeviceComPort);
+            var deviceSocketRs232 = new DeviceSocketRs232(CurrentScale.DeviceComPort);
             MkDevice = new MkDeviceEntity(deviceSocketRs232);
             MkDevice.SetZero();
 
@@ -101,58 +151,16 @@ namespace ScalesUI.Common
             // новая паллета, если хотите
             ProductSeries = new ProductSeriesEntity(CurrentScale);
             ProductSeries.New();
-
         }
 
         ~SessionState()
         {
             StopHttpListener();
-            ZplCommander.Close();
+            ZplCommander?.Close();
+            DeviceManager?.Close();
+            MemoryManager?.Close();
         }
 
-        #endregion
-
-        #region Public and private fields and properties
-
-        private readonly LogHelper _log = LogHelper.Instance;
-        public string AppVersion => UtilsAppVersion.GetMainFormText(Assembly.GetExecutingAssembly());
-
-        public ProductSeriesEntity ProductSeries { get; private set; }
-
-        public bool IsDebug
-        {
-            get
-            {
-#if DEBUG
-                return true;
-#else
-                return false;
-#endif
-            }
-        }
-
-        public HostEntity Host { get; private set; }
-
-        public ZplCommander ZplCommander { get; private set; }
-
-        public PrintEntity PrintDevice { get; }
-
-        public MkDeviceEntity MkDevice { get; }
-
-        public ZabbixHttpListener HttpListener { get; private set; }
-        private CancellationToken _token;
-        private CancellationToken _tokenHttpListener;
-        private ThreadChecker _threadChecker;
-        public int CurrentScaleId { get; private set; }
-
-        public OrderEntity CurrentOrder { get; set; }
-
-        [XmlElement(IsNullable = true)]
-        public ScaleEntity CurrentScale { get; set; }
-
-        [XmlElement(IsNullable = true)]
-        public WeighingFactEntity CurrentWeighingFact { get; set; }
-        
         #endregion
 
         #region PalletSize
@@ -308,8 +316,8 @@ namespace ScalesUI.Common
         #endregion
 
         #region PluEntity
-        public delegate void OnResponseHandlerPLU(PluEntity plu);
-        public event OnResponseHandlerPLU NotifyPLU;
+        public delegate void OnResponseHandlerPlu(PluEntity plu);
+        public event OnResponseHandlerPlu NotifyPlu;
         private PluEntity _currentPlu;
         [XmlElement(IsNullable = true)]
         public PluEntity CurrentPlu
@@ -322,7 +330,7 @@ namespace ScalesUI.Common
                 PrintDevice?.SetOdometorUserLabel(1);
                 _currentPlu = value;
                 CurrentBox = 1;
-                NotifyPLU?.Invoke(value);
+                NotifyPlu?.Invoke(value);
             }
         }
 
@@ -348,15 +356,12 @@ namespace ScalesUI.Common
             {
                 if (CurrentPlu.CheckWeight == false)
                 {
-                    // если печатать надо МНОГО!!! маленьких этикеток 
-                    // и при этом правильный вес не нужен
+                    // Печать нескольких этикеток и при этом правильный вес не нужен.
                     PrintCountLabel(template);
                 }
                 else if (CurrentPlu.CheckWeight == true)
                 {
-                    // если необходимо опрашивать платформу 
-                    // для КАЖДОЙ!!! коробки отдельно
-                    // и при этом получать правильный вес
+                    // Опросить платформу для каждой коробки отдельно и при этом получать правильный вес.
                     PrintWeightLabel(template);
                 }
             }
@@ -395,11 +400,8 @@ namespace ScalesUI.Common
             zplLabel.Save();
         }
 
-        /// <summary>
-        /// Печать штучных этикеток.
-        /// </summary>
-        /// <param name="template"></param>
-        private void PrintCountLabel(TemplateEntity template)
+        [Obsolete(@"Use PrintCountLabel")]
+        private void PrintCountLabelOld(TemplateEntity template)
         {
             // Вывести серию этикеток по заданному размеру паллеты.
             for (var i = CurrentBox; i <= PalletSize; i++)
@@ -416,6 +418,35 @@ namespace ScalesUI.Common
 
                 // Печать этикетки.
                 PrintLabel(template);
+            }
+        }
+
+        /// <summary>
+        /// Печать штучных этикеток.
+        /// </summary>
+        /// <param name="template"></param>
+        private void PrintCountLabel(TemplateEntity template)
+        {
+            // Вывести серию этикеток по заданному размеру паллеты.
+            CurrentWeighingFact = WeighingFactEntity.New(CurrentScale, CurrentPlu, ProductDate, Kneading,
+                CurrentPlu.Scale.ScaleFactor, CurrentPlu.NominalWeight, CurrentPlu.GoodsTareWeight);
+            // Шаблон с указанием кол-ва.
+            if (template.XslContent.Contains("^PQ1"))
+            {
+                // Изменить кол-во этикеток.
+                if (PalletSize > 1)
+                    template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{PalletSize}");
+                // Печать этикетки.
+                PrintLabel(template);
+            }
+            // Шаблон без указания кол-ва.
+            else
+            {
+                for (var i = CurrentBox; i <= PalletSize; i++)
+                {
+                    // Печать этикетки.
+                    PrintLabel(template);
+                }
             }
         }
 

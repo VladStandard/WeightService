@@ -250,10 +250,10 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MouseHookHelper.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -294,7 +294,7 @@
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -330,6 +330,10 @@
     <ProjectReference Include="..\UICommon\UICommon.csproj">
       <Project>{a814560e-4946-4da4-9735-5e7fff27da85}</Project>
       <Name>UICommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UtilsLib\UtilsLib.csproj">
+      <Project>{1571a974-21f0-4027-ad38-0c100eb9c124}</Project>
+      <Name>UtilsLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZabbixAgentLib\ZabbixAgentLib.csproj">
       <Project>{36c9a357-5e28-4ee7-a0c3-679d43a9519c}</Project>

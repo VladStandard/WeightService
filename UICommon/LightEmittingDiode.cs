@@ -7,6 +7,7 @@ namespace UICommon
 {
     public class LightEmittingDiode
     {
+        #region Public and private fields and properties
 
         private Color _colorOn;
         public Color ColorOn
@@ -18,9 +19,7 @@ namespace UICommon
                 _colorOff = LighterColor(_colorOn, 75);
             }
         }
-
         private Color _colorOff;
-
         private string _description = "Description";
         public string Description
         {
@@ -31,10 +30,8 @@ namespace UICommon
                 LedDraw();
             }
         }
-
         private Control _owner;
-
-        private bool _state = false;
+        private bool _state;
         public bool State
         {
             get => _state;
@@ -53,37 +50,52 @@ namespace UICommon
             }
         }
 
-        public LightEmittingDiode(Control _owner)
-        {
-            this._owner = _owner;
-            ColorOn = Color.Green;
-            _colorOff = this._owner.BackColor;
+        #endregion
 
+        #region Constructor and destructor
+
+        public LightEmittingDiode(Control owner)
+        {
+            _owner = owner;
+            ColorOn = Color.Green;
+            _colorOff = _owner.BackColor;
         }
+
+        public LightEmittingDiode(Control owner, Color colorOn)
+        {
+            ColorOn = colorOn;
+            State = false;
+        }
+
+        #endregion
+
+        #region Public and private methods
 
         private Color DarkerColor(Color color, float correctionfactory = 50f)
         {
             const float hundredpercent = 100f;
-            return Color.FromArgb((int)(((float)color.R / hundredpercent) * correctionfactory), (int)(((float)color.G / hundredpercent) * correctionfactory), (int)(((float)color.B / hundredpercent) * correctionfactory));
+            return Color.FromArgb(
+                (int)((float)color.R / hundredpercent * correctionfactory), 
+                (int)((float)color.G / hundredpercent * correctionfactory), 
+                (int)(((float)color.B / hundredpercent) * correctionfactory));
         }
 
         private Color LighterColor(Color color, float correctionfactory = 50f)
         {
             correctionfactory = correctionfactory / 100f;
             const float rgb255 = 255f;
-            return Color.FromArgb((int)((float)color.R + ((rgb255 - (float)color.R) * correctionfactory)), (int)((float)color.G + ((rgb255 - (float)color.G) * correctionfactory)), (int)((float)color.B + ((rgb255 - (float)color.B) * correctionfactory)));
+            return Color.FromArgb(
+                (int)((float)color.R + ((rgb255 - (float)color.R) * correctionfactory)), 
+                (int)((float)color.G + ((rgb255 - (float)color.G) * correctionfactory)), 
+                (int)((float)color.B + ((rgb255 - (float)color.B) * correctionfactory)));
         }
 
-        public LightEmittingDiode(Control owner, Color _ColorOn)
-        {
-            ColorOn = _ColorOn;
-            State = false;
-        }
+        #endregion
 
-        #region CheckCanges
+        #region Public and private methods - CheckCanges
 
-        bool taskDone = false;
-        Task checkChangesTask = null;
+        private bool _taskDone;
+        private Task _checkChangesTask;
 
         private int _checkChangesTimeoutMsec = 10000;
         public int CheckChangesTimeoutMsec
@@ -115,27 +127,23 @@ namespace UICommon
 
         private async void StartCheckChangesTask()
         {
-
-            // если поток существует 
-            // удаляем поток
-            if (checkChangesTask != null)
+            // если поток существует удаляем поток
+            if (_checkChangesTask != null)
             {
-                taskDone = true;
-                await checkChangesTask;
-                checkChangesTask = null;
+                _taskDone = true;
+                await _checkChangesTask;
+                _checkChangesTask = null;
             }
 
-            // если не тебуется контроля поступления сигналов
-            // ничего делать не будем
+            // если не тебуется контроля поступления сигналов ничего делать не будем
             if (!_checkChanges)
             {
                 return;
             }
 
-            // создаем его заново
-            // если требуется, т.е. CheckChanges==true
-            taskDone = false;
-            checkChangesTask = Task.Run(SendUpdateTask);
+            // создаем его заново если требуется, т.е. CheckChanges==true
+            _taskDone = false;
+            _checkChangesTask = Task.Run(SendUpdateTask);
         }
 
         private async Task SendUpdateTask()
@@ -143,7 +151,7 @@ namespace UICommon
             int iter = 10;
             for (int i = 0; i < iter; i++)
             {
-                if (taskDone) return;
+                if (_taskDone) return;
                 await Task.Delay(CheckChangesTimeoutMsec / iter);
             }
             DrawNoCheck();
@@ -151,7 +159,8 @@ namespace UICommon
 
         #endregion
 
-        #region Draw elements
+        #region Public and private methods - Draw elements
+        
         private void DrawNoCheck()
         {
             if (_owner == null) return;
@@ -174,7 +183,7 @@ namespace UICommon
             graphics.DrawLine(p, center.X - radius, center.Y - radius, center.X + radius, center.Y + radius);
 
             // окантовка LED
-            Pen pRound = new Pen(DarkerColor(this._owner.BackColor, 75));
+            Pen pRound = new Pen(DarkerColor(_owner.BackColor, 75));
             pRound.Width = 4;
             graphics.DrawEllipse(pRound, circle);
 
@@ -252,15 +261,18 @@ namespace UICommon
         {
             return new Point((int)(_owner.Width * 0.5), (int)(_owner.Height * 0.5 + 9));
         }
+
         private float GetRadius()
         {
             return (float)(Math.Min(_owner.Width, _owner.Height) * 0.25);
         }
+        
         private float GetAlpha(float radius)
         {
             const float cutOutLen = 0;
             return (float)(Math.Asin(1f * (radius - cutOutLen) / radius) / Math.PI * 180);
         }
+        
         private RectangleF GetCircle(Point center, float radius)
         {
 
@@ -268,7 +280,6 @@ namespace UICommon
         }
 
         #endregion
-
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace WeightServices.Common
+namespace UtilsLib
 {
     public static class ByteConverter
     {

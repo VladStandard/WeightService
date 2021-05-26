@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Владимирский стандарт")]
 [assembly: AssemblyProduct("WeightService")]
-[assembly: AssemblyCopyright("Copyright © 2020 - 2021")]
+[assembly: AssemblyCopyright("Copyright © 2020  - 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
