@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Hardware.Print.Tsc;
-using Hardware.Utils;
 using log4net;
 using System;
 using System.Collections.Concurrent;
@@ -39,7 +38,7 @@ namespace Hardware.Print
         {
             CommandThreadTimeOut = commandThreadTimeOut;
             Con = connection;
-            PrintControl = new PrintControlEntity(Interface.Ethernet, ip, port);
+            PrintControl = new PrintControlEntity(PrintInterface.Ethernet, ip, port);
         }
 
         public PrintEntity(string ip, int port, int commandThreadTimeOut = 100)
@@ -47,7 +46,7 @@ namespace Hardware.Print
             //var zebraCurrentState = new StateEntity();
             CommandThreadTimeOut = commandThreadTimeOut;
             Con = new TcpConnection(ip, port);
-            PrintControl = new PrintControlEntity(Interface.Ethernet, ip, port);
+            PrintControl = new PrintControlEntity(PrintInterface.Ethernet, ip, port);
         }
 
         #endregion
@@ -141,7 +140,7 @@ namespace Hardware.Print
                                 {
                                     var taskPrint = new Task(async () =>
                                     {
-                                        PrintControl.SendCmd(false, request, false);
+                                        PrintControl.Cmd.SendCustom(false, request, false);
                                         await Task.Delay(TimeSpan.FromMilliseconds(CommandThreadTimeOut)).ConfigureAwait(true);
                                     });
                                     taskPrint.Start();
@@ -192,7 +191,7 @@ namespace Hardware.Print
             }
             if (printerType.Contains("TSC "))
             {
-                PrintControl.ClearBuffer(false);
+                PrintControl.Cmd.ClearBuffer(true);
             }
             else
             {

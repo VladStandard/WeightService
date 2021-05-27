@@ -18,7 +18,7 @@ namespace Hardware.Zpl
 ^CWE,E:ARIALBD.TTF
 ^CWR,E:ARIALI.TTF
 
-^LH0,0
+^LH0,10
 ^FWR
 
 ^FO820,30

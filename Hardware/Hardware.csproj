@@ -154,9 +154,11 @@
     <Compile Include="MemoryManagerEntity.cs" />
     <Compile Include="MemorySizeEntity.cs" />
     <Compile Include="Print\Native\RawPrinterHelper.cs" />
+    <Compile Include="Print\Tsc\PrintCmdEntity.cs" />
+    <Compile Include="Print\Tsc\TscLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MassaK\SerialPortManager.cs" />
-    <Compile Include="Utils\Enums.cs" />
+    <Compile Include="Print\Enums.cs" />
     <Compile Include="Print\Tsc\PrintControlEntity.cs" />
     <Compile Include="Print\Tsc\PrintSetupEntity.cs" />
     <Compile Include="Print\Zebra\DeviceEntity.cs" />

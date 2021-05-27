@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Hardware.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +11,7 @@ using System.Text;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
+using Hardware.Print;
 using Hardware.Print.Native;
 using UtilsLib;
 
@@ -238,7 +238,7 @@ namespace Hardware.Zpl
         {
             //с наскока не сработало
             var b = Encoding.ASCII.GetBytes(base64String);
-            var crc = new Crc16Ccitt(InitialCrcValue.Zeros);
+            var crc = new Crc16Ccitt(PrintInitialCrcValue.Zeros);
             var c = crc.ComputeChecksumBytes(b);
             //Encode the compressed data into Base64. No whitespace or line breaks allowed.
             //Convert the Base64 string to a byte array according to ASCII encoding().

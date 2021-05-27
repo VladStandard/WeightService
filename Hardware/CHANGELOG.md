@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.80] - 2021-05-25
+## [0.5.90] - 2021-05-26
 ### Changed
-- PVS-PVS-Studio comments for analyze
+- PVS-Studio comments for analyze
+- Tsc print entities
 
 ## [0.5.70] - 2021-05-22
 ### Changed

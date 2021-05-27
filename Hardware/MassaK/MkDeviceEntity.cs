@@ -98,7 +98,7 @@ namespace Hardware.MassaK
                                     //Int32 Weight
                                     //4 байта
                                     //Текущая масса нетто со знаком
-                                    this.WeightNet = (decimal)(ask as AskGetMassa).Weight / (decimal)ScaleFactor;
+                                    WeightNet = (decimal)(ask as AskGetMassa).Weight / (decimal)ScaleFactor;
 
                                     //Int32 Tare
                                     //4 байта
@@ -108,13 +108,13 @@ namespace Hardware.MassaK
                                     //Int32 Tare
                                     //4 байта
                                     //* Текущая масса тары со знаком
-                                    this.WeightGross = this.WeightNet + weightTare;
+                                    WeightGross = WeightNet + weightTare;
 
                                     //byte Stable
                                     //1 байт
                                     //Признак стабилизации массы: 0 – нестабильна,
                                     //1 – стабильна
-                                    this.IsStable = (ask as AskGetMassa).Stable;
+                                    IsStable = (ask as AskGetMassa).Stable;
 
                                     //byte Net
                                     //1 байт
@@ -222,12 +222,12 @@ namespace Hardware.MassaK
             AddRequest(x);
         }
 
-        public void SetTareWeight(int _WeightTare)
+        public void SetTareWeight(int weightTare)
         {
 
             CmdSetTare x = new CmdSetTare();
             x.ScaleFactor = 1000;
-            x.WeightTare = _WeightTare;
+            x.WeightTare = weightTare;
             AddRequest(x);
         }
 
@@ -332,19 +332,21 @@ namespace Hardware.MassaK
                 var stream = TcpClient.GetStream();
                 stream.Write(request, 0, request.Length);
 
-                var ms = new MemoryStream();
-                var readingData = new byte[256];
-                int numberOfBytesRead = 0;
-                do
+                using (var ms = new MemoryStream())
                 {
-                    numberOfBytesRead = stream.Read(readingData, 0, readingData.Length);
-                    foreach (byte b in readingData)
+                    var readingData = new byte[256];
+                    int numberOfBytesRead = 0;
+                    do
                     {
-                        ms.Write(readingData, 0, readingData.Length);
+                        numberOfBytesRead = stream.Read(readingData, 0, readingData.Length);
+                        foreach (byte b in readingData)
+                        {
+                            ms.Write(readingData, 0, readingData.Length);
+                        }
                     }
+                    while (stream.DataAvailable);
+                    result = ms.ToArray();
                 }
-                while (stream.DataAvailable);
-                result = ms.ToArray();
 
                 stream.Close();
                 TcpClient.Close();
@@ -406,9 +408,9 @@ namespace Hardware.MassaK
         public byte Header0;
         public byte Header1;
         public byte Header2;
-        public Int16 Len;
+        public short Len;
         public byte Command;
-        public Int16 CRC;
+        public short Crc;
         public bool IsValid;
 
         public abstract string GetMessage();
@@ -451,12 +453,12 @@ namespace Hardware.MassaK
             Len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
             Command = data[6];
             ErrorCode = data[7];
-            CRC = BitConverter.ToInt16(data.Skip(7).Take(2).ToArray(), 0);
+            Crc = BitConverter.ToInt16(data.Skip(7).Take(2).ToArray(), 0);
 
             var selected = data.Skip(5).Take(Len).ToArray();
             selected.Reverse();
             var crc = Crc16.ComputeChecksum(selected);
-            IsValid = (short)CRC == (short)crc && (Command == 0x28);
+            IsValid = (short)Crc == (short)crc && (Command == 0x28);
         }
 
         public override string GetMessage()
@@ -535,12 +537,12 @@ namespace Hardware.MassaK
             {
                 data[i] = CMD_TCP_SET_TARE[i];
             }
-            data[6] = (byte)(this.WeightTare & 0xFF);
-            data[7] = (byte)((byte)(this.WeightTare >> 0x08) & 0xFF);
-            data[8] = (byte)((byte)(this.WeightTare >> 0x16) & 0xFF);
-            data[9] = (byte)((byte)(this.WeightTare >> 0x32) & 0xFF);
+            data[6] = (byte)(WeightTare & 0xFF);
+            data[7] = (byte)((byte)(WeightTare >> 0x08) & 0xFF);
+            data[8] = (byte)((byte)(WeightTare >> 0x16) & 0xFF);
+            data[9] = (byte)((byte)(WeightTare >> 0x32) & 0xFF);
 
-            switch (this.ScaleFactor)
+            switch (ScaleFactor)
             {
                 case 10000:
                     data[10] = 0x00;
@@ -588,12 +590,12 @@ namespace Hardware.MassaK
             Header2 = data[2];
             Len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
             Command = data[5];
-            CRC = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
+            Crc = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
 
             var selected = data.Skip(5).Take(Len).ToArray();
             selected.Reverse();
             var crc = Crc16.ComputeChecksum(selected);
-            IsValid = (Int16)CRC == (Int16)crc;
+            IsValid = (short)Crc == (short)crc;
 
         }
 
@@ -615,12 +617,12 @@ namespace Hardware.MassaK
             Header2 = data[2];
             Len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
             Command = data[5];
-            CRC = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
+            Crc = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
 
             var selected = data.Skip(5).Take(Len).ToArray();
             selected.Reverse();
             var crc = Crc16.ComputeChecksum(selected);
-            IsValid = (Int16)CRC == (Int16)crc;
+            IsValid = (short)Crc == (short)crc;
 
         }
 
@@ -674,12 +676,12 @@ namespace Hardware.MassaK
             Header2 = data[2];
             Len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
             Command = data[5];
-            CRC = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
+            Crc = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
 
             var selected = data.Skip(5).Take(Len).ToArray();
             selected.Reverse();
             var crc = Crc16.ComputeChecksum(selected);
-            IsValid = (Int16)CRC == (Int16)crc;
+            IsValid = (short)Crc == (short)crc;
 
         }
 
@@ -719,7 +721,7 @@ namespace Hardware.MassaK
 
     public class AskGetMassa : Ask
     {
-        public Int32 Weight;
+        public int Weight;
         public int ScaleFactor;
         public byte _division;
         public byte Division
@@ -754,7 +756,7 @@ namespace Hardware.MassaK
         public byte Stable;
         public byte Net;
         public byte Zero;
-        public Int32 Tare;
+        public int Tare;
 
         public AskGetMassa(byte[] data)
         {
@@ -769,18 +771,18 @@ namespace Hardware.MassaK
             Net = data[12];
             Zero = data[13];
             Tare = BitConverter.ToInt32(data.Skip(14).Take(4).ToArray(), 0);
-            CRC = BitConverter.ToInt16(data.Skip(18).Take(2).ToArray(), 0);
+            Crc = BitConverter.ToInt16(data.Skip(18).Take(2).ToArray(), 0);
 
             var selected = data.Skip(5).Take(Len).ToArray();
             selected.Reverse();
             var crc = Crc16.ComputeChecksum(selected);
-            IsValid = ((Int16)CRC == (Int16)crc) && (Command == 0x24);
+            IsValid = ((short)Crc == (short)crc) && (Command == 0x24);
 
         }
 
         public override string GetMessage()
         {
-            return $"Текущая масса нетто со знаком {this.Weight}";
+            return $"Текущая масса нетто со знаком {Weight}";
         }
     }
 
@@ -946,294 +948,294 @@ namespace Hardware.MassaK
 
     #region CMD_SET_NAME
 
-    public struct CmdSetName
-    {
-        //Запрос установленной массы тары и цены деления
-        //Структура сообщения:
-        //byte Header[0] 0xF8 заголовочная последовательность
-        //byte Header[1] 0x55 заголовочная последовательность
-        //byte Header[2] 0xCE заголовочная последовательность
-        //word Len 0x0001 длина тела сообщения
-        //byte Command 0x22 CMD_SET_NAME
-        //word CRC 2 байта CRC
-        public static readonly byte[] CMD_SET_NAME = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x22 };
+    //public struct CmdSetName
+    //{
+    //    //Запрос установленной массы тары и цены деления
+    //    //Структура сообщения:
+    //    //byte Header[0] 0xF8 заголовочная последовательность
+    //    //byte Header[1] 0x55 заголовочная последовательность
+    //    //byte Header[2] 0xCE заголовочная последовательность
+    //    //word Len 0x0001 длина тела сообщения
+    //    //byte Command 0x22 CMD_SET_NAME
+    //    //word CRC 2 байта CRC
+    //    public static readonly byte[] CMD_SET_NAME = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x22 };
 
-        public static byte[] Get(string name = "xx")
-        {
-            var data = new byte[CMD_SET_NAME.Length + name.Length + 2];
-            int k = 0;
-            for (var i = 0; i < CMD_SET_NAME.Length; i++)
-            {
-                data[i] = CMD_SET_NAME[i];
-                k++;
-            }
+    //    public static byte[] Get(string name = "xx")
+    //    {
+    //        var data = new byte[CMD_SET_NAME.Length + name.Length + 2];
+    //        int k = 0;
+    //        for (var i = 0; i < CMD_SET_NAME.Length; i++)
+    //        {
+    //            data[i] = CMD_SET_NAME[i];
+    //            k++;
+    //        }
 
-            for (var i = 0; (i < name.Length && i < 27); i++, k++)
-            {
-                data[k] = (byte)name.ToArray<char>()[i];
-                k++;
-            }
+    //        for (var i = 0; (i < name.Length && i < 27); i++, k++)
+    //        {
+    //            data[k] = (byte)name.ToArray<char>()[i];
+    //            k++;
+    //        }
 
-            data[k++] = 0x00;
-            data[k++] = 0x00;
+    //        data[k++] = 0x00;
+    //        data[k++] = 0x00;
 
-            data[4] = (byte)(1 + name.Length);
-            data[5] = 0x00;
+    //        data[4] = (byte)(1 + name.Length);
+    //        data[5] = 0x00;
 
 
-            var selected = data.Skip(6).Take(1 + name.Length).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+    //        var selected = data.Skip(6).Take(1 + name.Length).ToArray();
+    //        selected.Reverse();
+    //        var crc = Crc16.ComputeChecksum(selected);
 
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
+    //        data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+    //        data[data.Length - 1] = (byte)(crc & 0xFF);
 
-            return data;
-        }
+    //        return data;
+    //    }
 
-    }
+    //}
 
     #endregion
 
     #region CMD_GET_NAME
 
-    public struct CmdGetName
-    {
-        //Запрос установленной массы тары и цены деления
-        //Структура сообщения:
-        //byte Header[0] 0xF8 заголовочная последовательность
-        //byte Header[1] 0x55 заголовочная последовательность
-        //byte Header[2] 0xCE заголовочная последовательность
-        //word Len 0x0001 длина тела сообщения
-        //byte Command 0x20 CMD_GET_NAME
-        //word CRC 2 байта CRC
-        public static readonly byte[] CMD_TCP_GET_TARE = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x20, 0x00, 0x00 };
+    //public struct CmdGetName
+    //{
+    //    //Запрос установленной массы тары и цены деления
+    //    //Структура сообщения:
+    //    //byte Header[0] 0xF8 заголовочная последовательность
+    //    //byte Header[1] 0x55 заголовочная последовательность
+    //    //byte Header[2] 0xCE заголовочная последовательность
+    //    //word Len 0x0001 длина тела сообщения
+    //    //byte Command 0x20 CMD_GET_NAME
+    //    //word CRC 2 байта CRC
+    //    public static readonly byte[] CMD_TCP_GET_TARE = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x20, 0x00, 0x00 };
 
-        public static byte[] Get()
-        {
-            var data = new byte[CMD_TCP_GET_TARE.Length];
-            for (var i = 0; i < CMD_TCP_GET_TARE.Length; i++)
-            {
-                data[i] = CMD_TCP_GET_TARE[i];
-            }
+    //    public static byte[] Get()
+    //    {
+    //        var data = new byte[CMD_TCP_GET_TARE.Length];
+    //        for (var i = 0; i < CMD_TCP_GET_TARE.Length; i++)
+    //        {
+    //            data[i] = CMD_TCP_GET_TARE[i];
+    //        }
 
-            var selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+    //        var selected = data.Skip(5).Take(1).ToArray();
+    //        selected.Reverse();
+    //        var crc = Crc16.ComputeChecksum(selected);
 
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
+    //        data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+    //        data[data.Length - 1] = (byte)(crc & 0xFF);
 
-            return data;
-        }
-    }
+    //        return data;
+    //    }
+    //}
 
-    public struct CmdAskNameStruct
-    {
-        public byte[] Data;
-        public byte Header0;
-        public byte Header1;
-        public byte Header2;
+    //public struct CmdAskNameStruct
+    //{
+    //    public byte[] Data;
+    //    public byte Header0;
+    //    public byte Header1;
+    //    public byte Header2;
 
-        public Int16 Len;
-        public byte Command;
-        public Int32 ScalesID;
-        public char[] Name;
-        public Int16 CRC;
+    //    public Int16 Len;
+    //    public byte Command;
+    //    public Int32 ScalesID;
+    //    public char[] Name;
+    //    public Int16 CRC;
 
-        public void Parse()
-        {
-            Header0 = Data[0];
-            Header1 = Data[1];
-            Header2 = Data[2];
-            Len = BitConverter.ToInt16(Data.Skip(3).Take(2).ToArray(), 0);
-            Command = Data[5];
-            ScalesID = BitConverter.ToInt16(Data.Skip(6).Take(2).ToArray(), 0);
-            //Name 
-            //CRC = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
+    //    public void Parse()
+    //    {
+    //        Header0 = Data[0];
+    //        Header1 = Data[1];
+    //        Header2 = Data[2];
+    //        Len = BitConverter.ToInt16(Data.Skip(3).Take(2).ToArray(), 0);
+    //        Command = Data[5];
+    //        ScalesID = BitConverter.ToInt16(Data.Skip(6).Take(2).ToArray(), 0);
+    //        //Name 
+    //        //CRC = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
 
 
-        }
+    //    }
 
-    }
+    //}
 
     #endregion
 
-    public struct CmdTcpSetRegnum
-    {
-        //2. Сохранить номер регистрации
-        //Запрос:
-        //F8 55 CE 06 00 55 07 2C 01 00 00 44 1F
-        public static readonly byte[] CMD_TCP_SET_RGNUM = { 0xF8, 0x55, 0xCE, 0x06, 0x00, 0x55, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    //public struct CmdTcpSetRegnum
+    //{
+    //    //2. Сохранить номер регистрации
+    //    //Запрос:
+    //    //F8 55 CE 06 00 55 07 2C 01 00 00 44 1F
+    //    public static readonly byte[] CMD_TCP_SET_RGNUM = { 0xF8, 0x55, 0xCE, 0x06, 0x00, 0x55, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-        public static byte[] Get(int Regnum)
-        {
-            var data = new byte[CMD_TCP_SET_RGNUM.Length];
-            for (var i = 0; i < CMD_TCP_SET_RGNUM.Length; i++)
-            {
-                data[i] = CMD_TCP_SET_RGNUM[i];
-            }
+    //    public static byte[] Get(int Regnum)
+    //    {
+    //        var data = new byte[CMD_TCP_SET_RGNUM.Length];
+    //        for (var i = 0; i < CMD_TCP_SET_RGNUM.Length; i++)
+    //        {
+    //            data[i] = CMD_TCP_SET_RGNUM[i];
+    //        }
 
-            data[7] = (byte)(Regnum & 0xFF);
-            data[8] = (byte)((byte)(Regnum >> 0x08) & 0xFF);
-            data[9] = (byte)((byte)(Regnum >> 0x16) & 0xFF);
-            data[10] = (byte)((byte)(Regnum >> 0x32) & 0xFF);
+    //        data[7] = (byte)(Regnum & 0xFF);
+    //        data[8] = (byte)((byte)(Regnum >> 0x08) & 0xFF);
+    //        data[9] = (byte)((byte)(Regnum >> 0x16) & 0xFF);
+    //        data[10] = (byte)((byte)(Regnum >> 0x32) & 0xFF);
 
-            var selected = data.Skip(5).Take(6).ToArray();
-            selected.Reverse();
+    //        var selected = data.Skip(5).Take(6).ToArray();
+    //        selected.Reverse();
 
-            // Посчитать CRC-код.
-            //short crc = ComputeCRC16CCITT(0, selected, 1);
-            var crc = Crc16.ComputeChecksum(selected);
-            //var crc2 = Utils.Crc16.ComputeCRC16CCITT(0, selected, 1);
+    //        // Посчитать CRC-код.
+    //        //short crc = ComputeCRC16CCITT(0, selected, 1);
+    //        var crc = Crc16.ComputeChecksum(selected);
+    //        //var crc2 = Utils.Crc16.ComputeCRC16CCITT(0, selected, 1);
 
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
+    //        data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+    //        data[data.Length - 1] = (byte)(crc & 0xFF);
 
-            return data;
-        }
-    }
+    //        return data;
+    //    }
+    //}
 
-    public struct CmdTcpSetDatetime
-    {
-        //4. Установить дату/время
-        //Запрос:
-        //F8 55 CE 08 00 55 01 13 0C 0B 00 00 00 <CRCLo> <CRCHi>
-        //где 13 0C 0B 00 00 00 - дата/время(00:00:00 11.12.19)
-        //Ответ(всё ОК) :
-        //F8 55 CE 06 00 56 01 13 0C 0B 00 00 00 <CRCLo> <CRCHi>
-        public static readonly byte[] CMD_TCP_SET_DATETIME = { 0xF8, 0x55, 0xCE, 0x08, 0x00, 0x55, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    //public struct CmdTcpSetDatetime
+    //{
+    //    //4. Установить дату/время
+    //    //Запрос:
+    //    //F8 55 CE 08 00 55 01 13 0C 0B 00 00 00 <CRCLo> <CRCHi>
+    //    //где 13 0C 0B 00 00 00 - дата/время(00:00:00 11.12.19)
+    //    //Ответ(всё ОК) :
+    //    //F8 55 CE 06 00 56 01 13 0C 0B 00 00 00 <CRCLo> <CRCHi>
+    //    public static readonly byte[] CMD_TCP_SET_DATETIME = { 0xF8, 0x55, 0xCE, 0x08, 0x00, 0x55, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-        public static byte[] Get(DateTime dt)
-        {
-            var data = new byte[CMD_TCP_SET_DATETIME.Length];
-            for (var i = 0; i < CMD_TCP_SET_DATETIME.Length; i++)
-            {
-                data[i] = CMD_TCP_SET_DATETIME[i];
-            }
+    //    public static byte[] Get(DateTime dt)
+    //    {
+    //        var data = new byte[CMD_TCP_SET_DATETIME.Length];
+    //        for (var i = 0; i < CMD_TCP_SET_DATETIME.Length; i++)
+    //        {
+    //            data[i] = CMD_TCP_SET_DATETIME[i];
+    //        }
 
-            data[7] = (byte)(dt.Year & 0xFF);
-            data[8] = (byte)((byte)(dt.Month >> 0xFF) & 0xFF);
-            data[9] = (byte)((byte)(dt.Day >> 0xFF) & 0xFF);
-            data[10] = (byte)((byte)(dt.Hour >> 0xFF) & 0xFF);
-            data[11] = (byte)((byte)(dt.Minute >> 0xFF) & 0xFF);
-            data[12] = (byte)((byte)(dt.Second >> 0xFF) & 0xFF);
+    //        data[7] = (byte)(dt.Year & 0xFF);
+    //        data[8] = (byte)((byte)(dt.Month >> 0xFF) & 0xFF);
+    //        data[9] = (byte)((byte)(dt.Day >> 0xFF) & 0xFF);
+    //        data[10] = (byte)((byte)(dt.Hour >> 0xFF) & 0xFF);
+    //        data[11] = (byte)((byte)(dt.Minute >> 0xFF) & 0xFF);
+    //        data[12] = (byte)((byte)(dt.Second >> 0xFF) & 0xFF);
 
-            return data;
-        }
-    }
+    //        return data;
+    //    }
+    //}
 
-    public struct CmdTcpGetSys
-    {
-        //Прочитать служебную информацию
-        //Структура сообщения:
-        //byte Header[0] 0xF8 заголовочная последовательность
-        //byte Header[1] 0x55 заголовочная последовательность
-        //byte Header[2] 0xCE заголовочная последовательность
-        //F8 55 CE 08 00 92 01 00 00 00 00 00 00 B5 EF
-        //
-        public static readonly byte[] CMD_TCP_GET_SYS = { 0xF8, 0x55, 0xCE, 0x08, 0x00, 0x92, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB5, 0xEF };
+    //public struct CmdTcpGetSys
+    //{
+    //    //Прочитать служебную информацию
+    //    //Структура сообщения:
+    //    //byte Header[0] 0xF8 заголовочная последовательность
+    //    //byte Header[1] 0x55 заголовочная последовательность
+    //    //byte Header[2] 0xCE заголовочная последовательность
+    //    //F8 55 CE 08 00 92 01 00 00 00 00 00 00 B5 EF
+    //    //
+    //    public static readonly byte[] CMD_TCP_GET_SYS = { 0xF8, 0x55, 0xCE, 0x08, 0x00, 0x92, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xB5, 0xEF };
 
-        public static byte[] Get()
-        {
-            var data = new byte[CMD_TCP_GET_SYS.Length];
-            for (var i = 0; i < CMD_TCP_GET_SYS.Length; i++)
-            {
-                data[i] = CMD_TCP_GET_SYS[i];
-            }
+    //    public static byte[] Get()
+    //    {
+    //        var data = new byte[CMD_TCP_GET_SYS.Length];
+    //        for (var i = 0; i < CMD_TCP_GET_SYS.Length; i++)
+    //        {
+    //            data[i] = CMD_TCP_GET_SYS[i];
+    //        }
 
-            return data;
-        }
-    }
+    //        return data;
+    //    }
+    //}
 
-    public struct CmdAskStruct
-    {
-        public byte[] data;
-        public byte Header0;
-        public byte Header1;
-        public byte Header2;
+    //public struct CmdAskStruct
+    //{
+    //    public byte[] data;
+    //    public byte Header0;
+    //    public byte Header1;
+    //    public byte Header2;
 
-        public Int16 Len;
-        public byte Command;
-        public Int16 CRC;
-        public bool Parse()
-        {
-            Header0 = data[0];
-            Header1 = data[1];
-            Header2 = data[2];
-            Len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
-            Command = data[5];
-            CRC = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
+    //    public Int16 Len;
+    //    public byte Command;
+    //    public Int16 CRC;
+    //    public bool Parse()
+    //    {
+    //        Header0 = data[0];
+    //        Header1 = data[1];
+    //        Header2 = data[2];
+    //        Len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
+    //        Command = data[5];
+    //        CRC = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
 
-            var selected = data.Skip(5).Take(Len).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
-            return (Int16)CRC == (Int16)crc;
+    //        var selected = data.Skip(5).Take(Len).ToArray();
+    //        selected.Reverse();
+    //        var crc = Crc16.ComputeChecksum(selected);
+    //        return (Int16)CRC == (Int16)crc;
 
-        }
-    }
+    //    }
+    //}
 
-    public struct CmdTcpGetTare
-    {
-        //Запрос установленной массы тары и цены деления
-        //Структура сообщения:
-        //byte Header[0] 0xF8 заголовочная последовательность
-        //byte Header[1] 0x55 заголовочная последовательность
-        //byte Header[2] 0xCE заголовочная последовательность
-        //word Len 0x0001 длина тела сообщения
-        //byte Command 0xA1 CMD_TCP_GET_TARE
-        //word CRC 2 байта CRC
-        public static readonly byte[] CMD_TCP_GET_TARE = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0xA1, 0x00, 0x00 };
+    //public struct CmdTcpGetTare
+    //{
+    //    //Запрос установленной массы тары и цены деления
+    //    //Структура сообщения:
+    //    //byte Header[0] 0xF8 заголовочная последовательность
+    //    //byte Header[1] 0x55 заголовочная последовательность
+    //    //byte Header[2] 0xCE заголовочная последовательность
+    //    //word Len 0x0001 длина тела сообщения
+    //    //byte Command 0xA1 CMD_TCP_GET_TARE
+    //    //word CRC 2 байта CRC
+    //    public static readonly byte[] CMD_TCP_GET_TARE = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0xA1, 0x00, 0x00 };
 
-        public static byte[] Get()
-        {
-            var data = new byte[CMD_TCP_GET_TARE.Length];
-            for (var i = 0; i < CMD_TCP_GET_TARE.Length; i++)
-            {
-                data[i] = CMD_TCP_GET_TARE[i];
-            }
+    //    public static byte[] Get()
+    //    {
+    //        var data = new byte[CMD_TCP_GET_TARE.Length];
+    //        for (var i = 0; i < CMD_TCP_GET_TARE.Length; i++)
+    //        {
+    //            data[i] = CMD_TCP_GET_TARE[i];
+    //        }
 
-            var selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+    //        var selected = data.Skip(5).Take(1).ToArray();
+    //        selected.Reverse();
+    //        var crc = Crc16.ComputeChecksum(selected);
 
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
+    //        data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+    //        data[data.Length - 1] = (byte)(crc & 0xFF);
 
-            return data;
-        }
-    }
+    //        return data;
+    //    }
+    //}
 
-    public struct CmdTcpGetWeight
-    {
-        //Запрос текущей массы, цены деления и признака стабильности показаний
-        //Структура сообщения:
-        //byte Header[0] 0xF8 заголовочная последовательность
-        //byte Header[1] 0x55 заголовочная последовательность
-        //byte Header[2] 0xCE заголовочная последовательность
-        //word Len 0x0001 длина тела сообщения
-        //byte Command 0xA0 CMD_TCP_GET_WEIGHT
-        //word CRC 2 байта CRC
-        private static readonly byte[] CMD_TCP_GET_WEIGHT = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0xA0, 0x00, 0x00 };
+    //public struct CmdTcpGetWeight
+    //{
+    //    //Запрос текущей массы, цены деления и признака стабильности показаний
+    //    //Структура сообщения:
+    //    //byte Header[0] 0xF8 заголовочная последовательность
+    //    //byte Header[1] 0x55 заголовочная последовательность
+    //    //byte Header[2] 0xCE заголовочная последовательность
+    //    //word Len 0x0001 длина тела сообщения
+    //    //byte Command 0xA0 CMD_TCP_GET_WEIGHT
+    //    //word CRC 2 байта CRC
+    //    private static readonly byte[] CMD_TCP_GET_WEIGHT = { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0xA0, 0x00, 0x00 };
 
-        public static byte[] Get()
-        {
-            var data = new byte[CMD_TCP_GET_WEIGHT.Length];
-            for (var i = 0; i < CMD_TCP_GET_WEIGHT.Length; i++)
-            {
-                data[i] = CMD_TCP_GET_WEIGHT[i];
-            }
+    //    public static byte[] Get()
+    //    {
+    //        var data = new byte[CMD_TCP_GET_WEIGHT.Length];
+    //        for (var i = 0; i < CMD_TCP_GET_WEIGHT.Length; i++)
+    //        {
+    //            data[i] = CMD_TCP_GET_WEIGHT[i];
+    //        }
 
-            var selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+    //        var selected = data.Skip(5).Take(1).ToArray();
+    //        selected.Reverse();
+    //        var crc = Crc16.ComputeChecksum(selected);
 
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
+    //        data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+    //        data[data.Length - 1] = (byte)(crc & 0xFF);
 
-            return data;
-        }
-    }
+    //        return data;
+    //    }
+    //}
 
     #endregion
 }

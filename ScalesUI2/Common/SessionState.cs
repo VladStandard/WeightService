@@ -1,7 +1,6 @@
 ﻿using EntitiesLib;
 using Hardware.MassaK;
 using Hardware.Print;
-using Hardware.Utils;
 using Hardware.Zpl;
 using ScalesUI.Forms;
 using ScalesUI.Utils;
