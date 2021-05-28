@@ -33,7 +33,7 @@
             this.btnPalletSizeNext = new System.Windows.Forms.Button();
             this.btnPalletSizePrev = new System.Windows.Forms.Button();
             this.btnPalletSize10 = new System.Windows.Forms.Button();
-            this.lbPalletSize = new System.Windows.Forms.Label();
+            this.labelPalletSize = new System.Windows.Forms.Label();
             this.lbPalletSize1 = new System.Windows.Forms.Label();
             this.buttonDtRight = new System.Windows.Forms.Button();
             this.buttonDtLeft = new System.Windows.Forms.Button();
@@ -77,7 +77,7 @@
             this.tableLayoutPanel2.Controls.Add(this.btnPalletSizeNext, 4, 3);
             this.tableLayoutPanel2.Controls.Add(this.btnPalletSizePrev, 3, 3);
             this.tableLayoutPanel2.Controls.Add(this.btnPalletSize10, 5, 3);
-            this.tableLayoutPanel2.Controls.Add(this.lbPalletSize, 2, 3);
+            this.tableLayoutPanel2.Controls.Add(this.labelPalletSize, 2, 3);
             this.tableLayoutPanel2.Controls.Add(this.lbPalletSize1, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.buttonDtRight, 4, 2);
             this.tableLayoutPanel2.Controls.Add(this.buttonDtLeft, 3, 2);
@@ -139,17 +139,17 @@
             this.btnPalletSize10.UseVisualStyleBackColor = true;
             this.btnPalletSize10.Click += new System.EventHandler(this.btnPalletSize10_Click);
             // 
-            // lbPalletSize
+            // labelPalletSize
             // 
-            this.lbPalletSize.AutoSize = true;
-            this.lbPalletSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPalletSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbPalletSize.Location = new System.Drawing.Point(255, 237);
-            this.lbPalletSize.Name = "lbPalletSize";
-            this.lbPalletSize.Size = new System.Drawing.Size(186, 91);
-            this.lbPalletSize.TabIndex = 13;
-            this.lbPalletSize.Text = "lbPalletSize";
-            this.lbPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelPalletSize.AutoSize = true;
+            this.labelPalletSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelPalletSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelPalletSize.Location = new System.Drawing.Point(255, 237);
+            this.labelPalletSize.Name = "labelPalletSize";
+            this.labelPalletSize.Size = new System.Drawing.Size(186, 91);
+            this.labelPalletSize.TabIndex = 13;
+            this.labelPalletSize.Text = "lbPalletSize";
+            this.labelPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbPalletSize1
             // 
@@ -355,7 +355,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Label lbPalletSize1;
-        private System.Windows.Forms.Label lbPalletSize;
+        private System.Windows.Forms.Label labelPalletSize;
         private System.Windows.Forms.Button btnPalletSizeNext;
         private System.Windows.Forms.Button btnPalletSizePrev;
         private System.Windows.Forms.Button btnPalletSize10;

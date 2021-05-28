@@ -7,13 +7,26 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using UICommon;
 
 namespace Hardware.MassaK
 {
-    public class MkDeviceEntity
+    public class MassaManagerEntity
     {
+        #region Public and private fields and properties - Manager
+
+        public int WaitWhileMiliSeconds { get; private set; }
+        public int WaitExceptionMiliSeconds { get; private set; }
+        public int WaitCloseMiliSeconds { get; private set; }
+        public string ExceptionMsg { get; private set; }
+        public delegate Task CallbackAsync(int wait);
+        public bool IsExecute { get; set; }
+
+        #endregion
+
         #region Public fields and properties
 
         public DeviceSocket DeviceSocket { get; private set; }
@@ -23,87 +36,133 @@ namespace Hardware.MassaK
         public decimal WeightGross { get; private set; }
         public byte IsStable { get; private set; }
         public bool IsReady { get; private set; }
-
         public int ScaleFactor { get; set; } = 1000;
-
         public int CurrentError { get; private set; }
-
         public AskScalePar DeviceParameters { get; private set; }
         public AskError DeviceError { get; private set; }
-
-    public delegate void OnResponseHandler(MkDeviceEntity message);
-        public event OnResponseHandler Notify;
-
-
-
-        #endregion
-
-        #region Private fields and properties
-
         private static readonly object Locker = new object();
-        //private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly LogHelper _log = LogHelper.Instance;
         private readonly ConcurrentQueue<Cmd> _requestQueue = new ConcurrentQueue<Cmd>();
-        private Thread _sharingSessionThread;
-        private bool _work;
 
         #endregion
 
-        public MkDeviceEntity(DeviceSocket deviceSocket)
-        {
-            _work = true;
-            DeviceSocket = deviceSocket;
-            if (_sharingSessionThread == null)
-            {
-                _sharingSessionThread = new Thread(SharingSession) { IsBackground = true };
-            }
-            _sharingSessionThread.Start();
-            Thread.Sleep(100);
+        #region Constructor and destructor
 
+        public MassaManagerEntity(int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds)
+        {
+            // Manager.
+            WaitWhileMiliSeconds = waitWhileMiliSeconds;
+            WaitExceptionMiliSeconds = waitExceptionMiliSeconds;
+            WaitCloseMiliSeconds = waitCloseMiliSeconds;
+            IsExecute = false;
         }
 
-        public void SharingSession()
+        public MassaManagerEntity(DeviceSocket deviceSocket, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds) : 
+            this(waitWhileMiliSeconds, waitExceptionMiliSeconds, waitCloseMiliSeconds)
         {
-            while (_work)
+            DeviceSocket = deviceSocket;
+        }
+
+        #endregion
+
+        #region Public and private methods - Manager
+
+        public void Open(CallbackAsync callback, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            IsExecute = true;
+            while (IsExecute)
             {
-                byte[] response = null;
-                Cmd request = null;
-                if (_requestQueue.TryDequeue(out request))
+                try
                 {
-                    lock (Locker)
+                    OpenJob();
+                    callback(WaitWhileMiliSeconds).ConfigureAwait(true);
+                }
+                catch (TaskCanceledException)
+                {
+                    // Console.WriteLine(tcex.Message);
+                    // Not the problem.
+                }
+                catch (Exception ex)
+                {
+                    ExceptionMsg = ex.Message;
+                    if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+                        ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
+                    Console.WriteLine(ExceptionMsg);
+                    Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                }
+            }
+        }
+
+        public void Close([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            try
+            {
+                IsExecute = false;
+                Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
+                CloseJob();
+            }
+            catch (Exception ex)
+            {
+                ExceptionMsg = ex.Message;
+                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+                    ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
+                Console.WriteLine(ExceptionMsg);
+                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+            }
+        }
+
+        #endregion
+
+        #region Public and private methods
+
+        private void AddRequest(Cmd request)
+        {
+            _requestQueue.Enqueue(request);
+        }
+
+        public void ParseRequest()
+        {
+            byte[] response;
+            Cmd request;
+            if (_requestQueue.TryDequeue(out request))
+            {
+                lock (Locker)
+                {
+                    IsReady = false;
+                    //var state = EnumControlState.Up;
+                    response = DeviceSocket.SharingSession(request.BuildCmd());
+                    Ask ask = AskFactory.GetAsk(response);
+                    if (ask == null)
                     {
-                        IsReady = false;
-                        //var state = EnumControlState.Up;
-                        response = DeviceSocket.SharingSession(request.BuildCmd());
-                        Ask ask = AskFactory.GetAsk(response);
-                        if (ask == null)
+                        //state = EnumControlState.Down;
+                        _log.Error("Нет ответа");
+                    }
+                    else
+                    {
+                        var scaleFactor = 0;
+                        var weightTare = 0M;
+                        if (request.GetType() == typeof(CmdGetMassa))
                         {
-                            //state = EnumControlState.Down;
-                            _log.Error("Нет ответа");
-                        }
-                        else
-                        {
-                            var scaleFactor = 0;
-                            var weightTare = 0M;
-                            if (request.GetType() == typeof(CmdGetMassa))
+                            switch (ask)
                             {
-                                if (ask is AskGetMassa)
-                                {
+                                case AskGetMassa askGetMassa:
                                     //byte Division
                                     //1 байт
                                     //Цена деления в значении массы нетто и массы тары:
                                     // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
-                                    ScaleFactor = (ask as AskGetMassa).ScaleFactor;
+                                    ScaleFactor = askGetMassa.ScaleFactor;
 
                                     //Int32 Weight
                                     //4 байта
                                     //Текущая масса нетто со знаком
-                                    WeightNet = (decimal)(ask as AskGetMassa).Weight / (decimal)ScaleFactor;
+                                    WeightNet = (decimal) askGetMassa.Weight / (decimal) ScaleFactor;
 
                                     //Int32 Tare
                                     //4 байта
                                     //* Текущая масса тары со знаком
-                                    weightTare = (decimal)(ask as AskGetMassa).Tare / (decimal)ScaleFactor;
+                                    weightTare = (decimal) askGetMassa.Tare / (decimal) ScaleFactor;
 
                                     //Int32 Tare
                                     //4 байта
@@ -114,7 +173,7 @@ namespace Hardware.MassaK
                                     //1 байт
                                     //Признак стабилизации массы: 0 – нестабильна,
                                     //1 – стабильна
-                                    IsStable = (ask as AskGetMassa).Stable;
+                                    IsStable = askGetMassa.Stable;
 
                                     //byte Net
                                     //1 байт
@@ -128,92 +187,80 @@ namespace Hardware.MassaK
                                     //1 – есть индикация
                                     //... = x.Zero;
                                     IsReady = true;
-                                }
-                                if (ask is AskError)
-                                {
-                                    DeviceError = (ask as AskError);
-                                    _log.Error(ask.GetMessage());
-                                   // state = EnumControlState.Down;
-                                }
-                            }
-                            if (request.GetType() == typeof(CmdSetZero))
-                            {
-                                if (ask is AskSetZero)
-                                {
-                                    _log.Info(ask.GetMessage());
-                                    IsReady = true;
-                                }
-                                if (ask is AskError)
-                                {
-                                    DeviceError = (ask as AskError);
-                                    _log.Error(ask.GetMessage());
-                                    //state = EnumControlState.Down;
-                                }
-                            }
-                            if (request.GetType() == typeof(CmdSetTare))
-                            {
-                                if (ask is AskSetTare)
-                                {
-                                    weightTare = (request as CmdSetTare).WeightTare;
-                                    scaleFactor = (request as CmdSetTare).ScaleFactor;
-                                    _log.Info(ask.GetMessage());
-                                    IsReady = true;
-                                }
-                                if (ask is AskNackTare)
-                                {
-                                    _log.Info(ask.GetMessage());
-                                    IsReady = true;
-                                }
-                                if (ask is AskError)
-                                {
-                                    DeviceError = (ask as AskError);
-                                    _log.Info(ask.GetMessage());
-                                   // state = EnumControlState.Down;
-                                }
-                            }
-                            if (request.GetType() == typeof(CmdGetScalePar))
-                            {
-                                if (ask is AskScalePar)
-                                {
-                                    IsReady = true;
-                                    DeviceParameters = (ask as AskScalePar);
-                                    //_log.Info(ask.GetMessage());
-                                }
-                                if (ask is AskError)
-                                {
-                                    //state = EnumControlState.Down;
-                                    DeviceError = (ask as AskError);
-                                    _log.Error(ask.GetMessage());
-                                }
+                                    break;
+                                case AskError askError:
+                                    DeviceError = askError;
+                                    _log.Error(askError.GetMessage());
+                                    // state = EnumControlState.Down;
+                                    break;
                             }
                         }
-                        Notify?.Invoke(this);
+                        else if (request.GetType() == typeof(CmdSetZero))
+                        {
+                            switch (ask)
+                            {
+                                case AskSetZero askSetZero:
+                                    _log.Info(askSetZero.GetMessage());
+                                    IsReady = true;
+                                    break;
+                                case AskError askError:
+                                    DeviceError = askError;
+                                    _log.Error(askError.GetMessage());
+                                    //state = EnumControlState.Down;
+                                    break;
+                            }
+                        }
+                        else if (request.GetType() == typeof(CmdSetTare))
+                        {
+                            switch (ask)
+                            {
+                                case AskSetTare askSetTare:
+                                    weightTare = (request as CmdSetTare).WeightTare;
+                                    scaleFactor = (request as CmdSetTare).ScaleFactor;
+                                    _log.Info(askSetTare.GetMessage());
+                                    IsReady = true;
+                                    break;
+                                case AskNackTare askNackTare:
+                                    _log.Info(askNackTare.GetMessage());
+                                    IsReady = true;
+                                    break;
+                                case AskError askError:
+                                    DeviceError = askError;
+                                    _log.Info(askError.GetMessage());
+                                    // state = EnumControlState.Down;
+                                    break;
+                            }
+                        }
+                        else if (request.GetType() == typeof(CmdGetScalePar))
+                        {
+                            switch (ask)
+                            {
+                                case AskScalePar askScalePar:
+                                    IsReady = true;
+                                    DeviceParameters = askScalePar;
+                                    //_log.Info(ask.GetMessage());
+                                    break;
+                                case AskError askError:
+                                    //state = EnumControlState.Down;
+                                    DeviceError = askError;
+                                    _log.Error(askError.GetMessage());
+                                    break;
+                            }
+                        }
                     }
                 }
-                Thread.Sleep(CommandThreadTimeOut);
             }
         }
 
-        ~MkDeviceEntity()
+        public void OpenJob()
         {
-            if (_sharingSessionThread != null && _sharingSessionThread.IsAlive)
-            {
-                _work = false;
-                Thread.Sleep(200);
-                _sharingSessionThread.Abort();
-                _sharingSessionThread.Join(1000);
-            }
+            AddRequest(new CmdGetMassa());
+            ParseRequest();
         }
 
-        private void AddRequest(Cmd request)
+        public void CloseJob()
         {
-            _requestQueue.Enqueue(request);
-        }
-
-        public void GetMassa()
-        {
-            CmdGetMassa x = new CmdGetMassa();
-            AddRequest(x);
+            //
         }
 
         public void SetZero()
@@ -224,11 +271,8 @@ namespace Hardware.MassaK
 
         public void SetTareWeight(int weightTare)
         {
-
-            CmdSetTare x = new CmdSetTare();
-            x.ScaleFactor = 1000;
-            x.WeightTare = weightTare;
-            AddRequest(x);
+            var cmdSetTare = new CmdSetTare {ScaleFactor = 1000, WeightTare = weightTare};
+            AddRequest(cmdSetTare);
         }
 
         public void GetScalePar()
@@ -237,6 +281,7 @@ namespace Hardware.MassaK
             AddRequest(x);
         }
 
+        #endregion
     }
 
     public abstract class DeviceSocket

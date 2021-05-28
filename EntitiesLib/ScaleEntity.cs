@@ -11,37 +11,43 @@ namespace EntitiesLib
     [Serializable]
     public class ScaleEntity
     {
+        #region Public and private fields and properties
+
         public int Id { get; set; }
-        public String Description { get; set; }
-        public String DeviceIP { get; set; }
+        public string Description { get; set; }
+        public string DeviceIp { get; set; }
         public int DeviceId { get; set; }
-        public String DeviceMAC { get; set; }
-        public Int32 DevicePort { get; set; }
-        public Int32 DeviceSendTimeout { get; set; }
-        public Int32 DeviceReceiveTimeout { get; set; }
-        public String DeviceComPort { get; set; }
-        //public String ZebraIP { get; set; }
-        //public short ZebraPort { get; set; }
-        public Boolean UseOrder { get; set; }
+        public string DeviceMac { get; set; }
+        public int DevicePort { get; set; }
+        public int DeviceSendTimeout { get; set; }
+        public int DeviceReceiveTimeout { get; set; }
+        public string DeviceComPort { get; set; }
+        public bool UseOrder { get; set; }
         public int ScaleFactor { get; set; }
 
-        public Int32 TemplateIdDefault { get; set; }
-        public Int32 TemplateIdSeries { get; set; }
-        
+        public int TemplateIdDefault { get; set; }
+        public int TemplateIdSeries { get; set; }
+
         public ZebraPrinterEntity ZebraPrinter { get; set; }
 
-    public ScaleEntity()
+        #endregion
+
+        #region Constructor and destructor
+
+        public ScaleEntity()
         {
             Init();
         }
 
-        public ScaleEntity(int ScaleID)
+        public ScaleEntity(int scaleId)
         {
-            Id = ScaleID;
+            Id = scaleId;
             Init();
         }
 
- 
+        #endregion
+
+        #region Public and private methods
 
         private void Init()
         {
@@ -52,7 +58,6 @@ namespace EntitiesLib
             DeviceComPort = "COM4";
             UseOrder = false;
         }
-
 
         public string SerializeObject()
         {
@@ -80,15 +85,15 @@ namespace EntitiesLib
                     {
 
                         Description = SqlConnectFactory.GetValue<string>(reader, "Description");
-                        DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
+                        DeviceIp = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
                         DeviceId = SqlConnectFactory.GetValue<int>(reader, "DeviceID");
                         DevicePort = SqlConnectFactory.GetValue<int>(reader, "DevicePort");
-                        DeviceMAC = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
+                        DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
                         DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
                         DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
                         DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
-                        TemplateIdDefault = SqlConnectFactory.GetValue<Int32>(reader, "TemplateIdDefault");
-                        TemplateIdSeries = SqlConnectFactory.GetValue<Int32>(reader, "TemplateIdSeries");
+                        TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
+                        TemplateIdSeries = SqlConnectFactory.GetValue<int>(reader, "TemplateIdSeries");
                         ScaleFactor = SqlConnectFactory.GetValue<int>(reader, "ScaleFactor");
                         UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
                         zebraPrinterId = SqlConnectFactory.GetValue<int>(reader, "ZebraPrinterId");
@@ -101,7 +106,6 @@ namespace EntitiesLib
                 }
             }
         }
-
 
         public void Save()
         {
@@ -134,9 +138,9 @@ namespace EntitiesLib
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue($"@Uuid", Id);  // @1CRRefID
                     cmd.Parameters.AddWithValue($"@Description", Description);
-                    cmd.Parameters.AddWithValue($"@IP", DeviceIP);
+                    cmd.Parameters.AddWithValue($"@IP", DeviceIp);
                     cmd.Parameters.AddWithValue($"@Port", DevicePort);
-                    cmd.Parameters.AddWithValue($"@DeviceMAC", DeviceMAC);
+                    cmd.Parameters.AddWithValue($"@DeviceMAC", DeviceMac);
                     cmd.Parameters.AddWithValue($"@DeviceSendTimeout", DeviceSendTimeout);
                     cmd.Parameters.AddWithValue($"@DeviceReceiveTimeout", DeviceReceiveTimeout);
                     cmd.Parameters.AddWithValue($"@DeviceComPort", DeviceComPort);
@@ -153,6 +157,6 @@ namespace EntitiesLib
             }
         }
 
+        #endregion
     }
-
 }

@@ -2,26 +2,26 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using ScalesUI.Common;
+using ScalesUI.Utils;
 using System;
 using System.Windows.Forms;
-using ScalesUI.Utils;
 using UICommon;
 
 namespace ScalesUI.Forms
 {
-    
-
     public partial class SetKneadingNumberForm : Form
     {
         #region Private fields and properties
 
         // Состояние устройства.
         private readonly SessionState _ws = SessionState.Instance;
-        private int oldKneading { get; set; }
-        private int oldPalletSize { get; set; }
-        private DateTime oldProductDate { get; set; }
+        private int OldKneading { get; }
+        private int OldPalletSize { get; }
+        private DateTime OldProductDate { get; }
 
         #endregion
+
+        #region Constructor and destructor
 
         public SetKneadingNumberForm()
         {
@@ -29,21 +29,25 @@ namespace ScalesUI.Forms
 
             // WindowState = FormWindowState.Maximized;
 
-            oldKneading = _ws.Kneading;
-            oldProductDate = _ws.ProductDate;
-            oldPalletSize = _ws.PalletSize;
+            OldKneading = _ws.Kneading;
+            OldProductDate = _ws.ProductDate;
+            OldPalletSize = _ws.PalletSize;
 
         }
+
+        #endregion
+
+        #region Public and private methods
 
         private void SetKneadingNumberForm_Load(object sender, EventArgs e)
         {
             TopMost = !_ws.IsDebug;
-            this.Width = Owner.Width;
-            this.Height = Owner.Height;
-            this.Left = Owner.Left;
-            this.Top = Owner.Top;
+            Width = Owner.Width;
+            Height = Owner.Height;
+            Left = Owner.Left;
+            Top = Owner.Top;
 
-            this.StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterScreen;
             ShowPalletSize();
         }
 
@@ -80,9 +84,9 @@ namespace ScalesUI.Forms
         private void btnClose_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
-            _ws.Kneading = oldKneading;
-            _ws.ProductDate = oldProductDate;
-            _ws.PalletSize = oldPalletSize;
+            _ws.Kneading = OldKneading;
+            _ws.ProductDate = OldProductDate;
+            _ws.PalletSize = OldPalletSize;
             Close();
         }
 
@@ -92,7 +96,6 @@ namespace ScalesUI.Forms
             Close();
 
         }
-
 
         private void buttonDtRight_Click(object sender, EventArgs e)
         {
@@ -120,10 +123,8 @@ namespace ScalesUI.Forms
 
         private void ShowPalletSize()
         {
-            lbPalletSize.Text = _ws.PalletSize.ToString();
+            labelPalletSize.Text = _ws.PalletSize.ToString();
         }
-
-
 
         private void btnPalletSizeNext_Click(object sender, EventArgs e)
         {
@@ -164,6 +165,6 @@ namespace ScalesUI.Forms
             ShowPalletSize();
         }
 
+        #endregion
     }
-
 }

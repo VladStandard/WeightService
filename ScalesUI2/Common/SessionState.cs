@@ -1,4 +1,7 @@
-﻿using EntitiesLib;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using EntitiesLib;
 using Hardware.MassaK;
 using Hardware.Print;
 using Hardware.Zpl;
@@ -28,9 +31,7 @@ namespace ScalesUI.Common
 
         private readonly LogHelper _log = LogHelper.Instance;
         public string AppVersion => UtilsAppVersion.GetMainFormText(Assembly.GetExecutingAssembly());
-
         public ProductSeriesEntity ProductSeries { get; private set; }
-
         public bool IsDebug
         {
             get
@@ -42,33 +43,32 @@ namespace ScalesUI.Common
 #endif
             }
         }
-
         public HostEntity Host { get; private set; }
-
         public ZplCommander ZplCommander { get; private set; }
-
-        public PrintEntity PrintDevice { get; }
-
-        public MkDeviceEntity MkDevice { get; }
-
         public ZabbixHttpListener HttpListener { get; private set; }
         private CancellationToken _token;
         private CancellationToken _tokenHttpListener;
         private ThreadChecker _threadChecker;
         public int CurrentScaleId { get; private set; }
-
         public OrderEntity CurrentOrder { get; set; }
-
         [XmlElement(IsNullable = true)]
         public ScaleEntity CurrentScale { get; set; }
-
+        public bool IsTscPrinter => CurrentScale != null && CurrentScale.ZebraPrinter.PrinterType.Contains("TSC ");
         [XmlElement(IsNullable = true)]
         public WeighingFactEntity CurrentWeighingFact { get; set; }
+
+        #endregion
+
+        #region Public and private fields and properties - Tasks managers
 
         public DeviceManagerEntity DeviceManager { get; set; }
         public bool DeviceManagerIsExit { get; set; }
         public MemoryManagerEntity MemoryManager { get; set; }
         public bool MemoryManagerIsExit { get; set; }
+        public PrintManagerEntity PrintManager { get; set; }
+        public bool PrintManagerIsExit { get; set; }
+        public MassaManagerEntity MassaManager { get; set; }
+        public bool MassaManagerIsExit { get; set; }
 
         #endregion
 
@@ -76,12 +76,9 @@ namespace ScalesUI.Common
 
         public SessionState()
         {
-            //var sql = SqlConnectFactory.GetConnection(Properties.Settings.Default.ConnectionString);
             ProductDate = DateTime.Now;
 
-            //тут загружается ID моноблока из файла токена,
-            //а затем загружается сама линия
-            //--->
+            // загружается ID моноблока из файла токена, а затем загружается сама линия
             Host = new HostEntity();
             Host.TokenRead();
             CurrentScale = new ScaleEntity(Host.CurrentScaleId);
@@ -97,7 +94,7 @@ namespace ScalesUI.Common
             Kneading = KneadingMinValue;
             ProductDate = DateTime.Now;
             CurrentBox = 1;
-            PalletSize = 60;
+            PalletSize = 1;
 
             // контейнер пока не используем
             // оставим для бурного роста
@@ -118,32 +115,31 @@ namespace ScalesUI.Common
             // тут запускается процесс отправляющий комманды проверки состояния устройства
             // ZplCommander = new ZplCommander(zplDeviceSocket.DeviceIP, zebraDeviceEntity, ZplPipeUtils.ZplHostQuery());
 
-            try
-            {
-                PrintDevice = new PrintEntity(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port, 120);
-                PrintDevice.Open(CurrentScale.ZebraPrinter.PrinterType);
-            }
-            catch (Exception ex)
-            {
-                if (CustomMessageBox.Show($"Печатающее устройство недоступно ({CurrentScale.ZebraPrinter}). {ex.Message}") == DialogResult.OK)
-                {
+            //try
+            //{
+            //    PrintManager = new PrintManagerEntity(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port, 120);
+            //    PrintManager.Open(IsTscPrinter);
+            //}
+            //catch (Exception ex)
+            //{
+            //    if (CustomMessageBox.Show($"Печатающее устройство недоступно ({CurrentScale.ZebraPrinter}). {ex.Message}") == DialogResult.OK)
+            //    {
 
-                }
-                //throw new Exception(ex.Message);
-            }
-
+            //    }
+            //    //throw new Exception(ex.Message);
+            //}
 
             // тут создается устройство работы с MassaK
             // запускаем поток, который разбирает очередь команд
             // т.к. команды пишутся не напрямую, а в очередь
             // а из нее потом доотправляются на устройство
-            var deviceSocketRs232 = new DeviceSocketRs232(CurrentScale.DeviceComPort);
-            MkDevice = new MkDeviceEntity(deviceSocketRs232);
-            MkDevice.SetZero();
+            //var deviceSocketRs232 = new DeviceSocketRs232(CurrentScale.DeviceComPort);
+            //MkDevice = new MkDeviceEntity(deviceSocketRs232);
+            //MkDevice.SetZero();
 
             // тут запускается процесс отправляющий комманды
             // для получения с устройства текущего веса
-            MkCommander mkCommander = new MkCommander(MkDevice);
+            //MkCommander mkCommander = new MkCommander(MkDevice);
 
             // начинается новыя серия
             // упаковки продукции 
@@ -166,10 +162,8 @@ namespace ScalesUI.Common
         
         public static readonly int PalletSizeMinValue = 1;
         public static readonly int PalletSizeMaxValue = 130;
-
         public delegate void OnResponseHandlerPalletSize(int palletSize);
         public event OnResponseHandlerPalletSize NotifyPalletSize;
-
         private int _palletSize;
         public int PalletSize { 
             get => _palletSize;
@@ -178,7 +172,6 @@ namespace ScalesUI.Common
                 _palletSize = value;
                 CurrentBox = 1;
                 NotifyPalletSize?.Invoke(value);
-
             } 
         }
 
@@ -221,10 +214,10 @@ namespace ScalesUI.Common
         {
             CurrentBox = 1;
             //если новая паллета - чистим очередь печати
-            if (PrintDevice != null)
+            if (PrintManager != null)
             {
-                PrintDevice.ClearPrintBuffer(CurrentScale.ZebraPrinter.PrinterType);
-                PrintDevice.SetOdometorUserLabel(1);
+                PrintManager.ClearPrintBuffer(IsTscPrinter);
+                PrintManager.SetOdometorUserLabel(1);
                 ProductSeries.New();
 
             }
@@ -244,11 +237,12 @@ namespace ScalesUI.Common
             get => _kneading;
             set
             {
-                //если замес изменился - чистим очередь печати
-                if (PrintDevice != null)
+                // если замес изменился - чистим очередь печати
+                if (PrintManager != null)
                 {
-                    PrintDevice.ClearPrintBuffer(CurrentScale.ZebraPrinter.PrinterType);
-                    PrintDevice.SetOdometorUserLabel(CurrentBox);
+                    PrintManager.ClearPrintBuffer(IsTscPrinter);
+                    if (!IsTscPrinter)
+                        PrintManager.SetOdometorUserLabel(CurrentBox);
                 }
                 _kneading = value;
                 NotifyKneading?.Invoke(value);
@@ -289,8 +283,8 @@ namespace ScalesUI.Common
             set
             {
                 //если дата изменилась - чистим очередь печати
-                if (PrintDevice != null)
-                    PrintDevice.ClearPrintBuffer(CurrentScale.ZebraPrinter.PrinterType);
+                if (PrintManager != null)
+                    PrintManager.ClearPrintBuffer(IsTscPrinter);
                 _productDate = value;
                 NotifyProductDate?.Invoke(value);
             }
@@ -325,8 +319,8 @@ namespace ScalesUI.Common
             set
             {
                 // если ПЛУ изменился - чистим очередь печати
-                PrintDevice?.ClearPrintBuffer(CurrentScale.ZebraPrinter.PrinterType);
-                PrintDevice?.SetOdometorUserLabel(1);
+                PrintManager?.ClearPrintBuffer(IsTscPrinter);
+                PrintManager?.SetOdometorUserLabel(1);
                 _currentPlu = value;
                 CurrentBox = 1;
                 NotifyPlu?.Invoke(value);
@@ -373,7 +367,7 @@ namespace ScalesUI.Common
         public void PrintCmdReplacePics(ref string value)
         {
             // Подменить картинки ZPL.
-            if (CurrentScale.ZebraPrinter.PrinterType.Contains("TSC "))
+            if (IsTscPrinter)
             {
                 var templateEac = new TemplateEntity("EAC_107x109_090");
                 var templateFish = new TemplateEntity("FISH_94x115_000");
@@ -456,15 +450,15 @@ namespace ScalesUI.Common
         private void PrintWeightLabel(TemplateEntity template)
         {
             // Проверка наличия устройства весов.
-            if (MkDevice == null)
+            if (MassaManager == null)
             {
                 _log.Info($@"Устройство весов не обнаружено!");
                 return;
             }
             // Проверка товара на весах.
-            if (MkDevice.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
+            if (MassaManager.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
             {
-                _log.Info($@"Вес товара: {MkDevice.WeightNet} кг, печать этикетки невозможна!");
+                _log.Info($@"Вес товара: {MassaManager.WeightNet} кг, печать этикетки невозможна!");
                 return;
             }
 
@@ -474,7 +468,7 @@ namespace ScalesUI.Common
                 ProductDate,
                 Kneading,
                 CurrentPlu.Scale.ScaleFactor,
-                MkDevice.WeightNet - CurrentPlu.GoodsTareWeight,
+                MassaManager.WeightNet - CurrentPlu.GoodsTareWeight,
                 CurrentPlu.GoodsTareWeight
             );
             
@@ -497,7 +491,7 @@ namespace ScalesUI.Common
             // Подменить картинки ZPL.
             PrintCmdReplacePics(ref printCmd);
             // Отправить задание в очередь печати.
-            PrintDevice.SendAsync(printCmd);
+            PrintManager.SendAsync(printCmd);
             // Сохранить ZPL-запрос в таблицу [Labels].
             PrintSaveLabel(ref printCmd, CurrentWeighingFact.Id);
         }

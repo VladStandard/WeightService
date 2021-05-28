@@ -285,7 +285,7 @@ namespace BlazorDeviceControl.Data
         {
             if (Memory != null)
                 return;
-            Memory = new MemoryEntity(1_000, 5_000, Convert.ToUInt64(100 * 1_048_576));
+            Memory = new MemoryEntity(1_000, 5_000);
             Memory.Open(callRefresh);
         }
 

@@ -2,19 +2,20 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using EntitiesLib;
+using Hardware;
 using Hardware.MassaK;
 using Hardware.Print;
 using log4net;
 using ScalesUI.Common;
 using ScalesUI.Helpers;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Hardware;
 using UICommon;
 using UICommon.WinForms.Utils;
 using UtilsLib;
@@ -36,8 +37,8 @@ namespace ScalesUI.Forms
         //private readonly MkDeviceEntity _mkDevice = MkDeviceEntity.Instance;
         private readonly decimal _threshold = 0.05M;
 
-        private LightEmittingDiode LedPrint { get; set; } 
-        private LightEmittingDiode LedMassa { get; set; }
+        //private LightEmittingDiode LedPrint { get; set; } 
+        //private LightEmittingDiode LedMassa { get; set; }
 
         #endregion
 
@@ -51,7 +52,7 @@ namespace ScalesUI.Forms
                 {
                     while (true)
                     {
-                        AsyncControl.Properties.SetText.Sync(lbCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
+                        AsyncControl.Properties.SetText.Sync(fieldCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
                         Thread.Sleep(150);
                     }
                 }
@@ -78,78 +79,20 @@ namespace ScalesUI.Forms
             // Загрузить ресурсы.
             LoadResources();
 
-            InitLeds();
-
             // Подписка.
-            _ws.MkDevice.Notify += NotifyMassa;
             _ws.NotifyProductDate += NotifyProductDate;
-            _ws.NotifyKneading += NotifyKneading;
             _ws.NotifyPlu += NotifyPlu;
             _ws.NotifyPalletSize += NotifyPalletSize;
             _ws.NotifyCurrentBox += NotifyCurrentBox;
-            _ws.PrintDevice.Notify += NotifyPrint;
+            _ws.NotifyKneading += NotifyKneading;
+            //_ws.PrintManager.Notify += NotifyPrint;
+            //_ws.MassaManager.Notify += NotifyMassa;
+            
             _ws.NewPallet();
             
             // Manager tasks.
             var task = new Task(async () => { await TaskDeviceManagerAsync();});
             task.Start();
-        }
-
-        private async Task CallbackDeviceManagerAsync(int wait)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            //await AsyncControl.Properties.SetText.Async(labelMemory,
-            //    MemoryItem != null
-            //        ? $"Использовано памяти: {MemoryItem.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurTimeRus(true)}"
-            //        : "Использовано памяти: - MB").ConfigureAwait(true);
-            Application.DoEvents();
-            Thread.Sleep(TimeSpan.FromMilliseconds(wait));
-        }
-
-        private async Task CallbackMemoryManagerAsync(int wait)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            await AsyncControl.Properties.SetText.Async(labelMemory,
-                _ws.MemoryManager != null
-                    ? $"Использовано памяти: {_ws.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurTimeRus(true)}"
-                    : "Использовано памяти: - MB").ConfigureAwait(true);
-            Application.DoEvents();
-            Thread.Sleep(TimeSpan.FromMilliseconds(wait));
-        }
-
-        private async Task TaskDeviceManagerAsync()
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-            // DeviceManager.
-            var taskDevice = new Task(async () =>
-            {
-                while (!_ws.DeviceManagerIsExit)
-                {
-                    if (_ws.DeviceManager == null)
-                    {
-                        _ws.DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
-                        _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
-                    }
-                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
-                }
-            });
-            taskDevice.Start();
-
-            // MemoryManager.
-            var taskMemory = new Task(async () =>
-            {
-                while (!_ws.MemoryManagerIsExit)
-                {
-                    if (_ws.MemoryManager == null)
-                    {
-                        _ws.MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000, Convert.ToUInt64(100 * 1_048_576));
-                        _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
-                    }
-                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
-                }
-            });
-            taskMemory.Start();
         }
 
         private void LoadResources()
@@ -168,7 +111,25 @@ namespace ScalesUI.Forms
                 }
 
                 Text = _ws.AppVersion;
-                fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {GetSqlInstance()}";
+                var sqlInstance = GetSqlInstance();
+                if (sqlInstance.Equals("DVLP"))
+                {
+                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: Тестовый сервер.";
+                    fieldTitle.BackColor = Color.Yellow;
+                }
+                else if (sqlInstance.Equals("LUTON"))
+                {
+                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}.";
+                    fieldTitle.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {sqlInstance}";
+                    fieldTitle.BackColor = Color.DarkRed;
+                }
+
+                fieldKneading.Text = string.Empty;
+                fieldProductDate.Text = string.Empty;
             }
             catch (Exception ex)
             {
@@ -178,10 +139,9 @@ namespace ScalesUI.Forms
 
         public SqlCommand GetSqlInstanceCmd(SqlConnection con)
         {
-            if (con == null)
-                return null;
             var query = @"select serverproperty('InstanceName') [InstanceName]";
             var cmd = new SqlCommand(query, con);
+            cmd.CommandType = CommandType.Text;
             cmd.Prepare();
             return cmd;
         }
@@ -193,19 +153,15 @@ namespace ScalesUI.Forms
             {
                 con.Open();
                 var cmd = GetSqlInstanceCmd(con);
-                if (cmd != null)
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    var reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            result = SqlConnectFactory.GetValue<string>(reader, "InstanceName");
-                        }
+                        result = SqlConnectFactory.GetValue<string>(reader, "InstanceName");
                     }
-
-                    reader.Close();
                 }
+                reader.Close();
             }
             return result;
         }
@@ -223,7 +179,7 @@ namespace ScalesUI.Forms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var isClose = false;
+            bool isClose;
             if (_ws.IsDebug)
             {
                 isClose = true;
@@ -242,6 +198,8 @@ namespace ScalesUI.Forms
 
             if (isClose)
             {
+                _ws.MassaManagerIsExit = true;
+                _ws.PrintManagerIsExit = true;
                 _ws.DeviceManagerIsExit = true;
                 _ws.MemoryManagerIsExit = true;
                 _mouse?.Close();
@@ -256,40 +214,225 @@ namespace ScalesUI.Forms
 
         #endregion
 
-        #region Private methods - Notifies
+        #region Public and private methods - Tasks
 
-        private void NotifyMassa(MkDeviceEntity message)
+        private async Task CallbackMemoryManagerAsync(int wait)
         {
-            var flag = false;
-            if (message != null)
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            
+            await AsyncControl.Properties.SetText.Async(fieldMemoryManager, 
+                $"{UtilsDt.FormatCurTimeRus(true)}  | Использовано памяти: {_ws.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB").ConfigureAwait(false);
+        }
+
+        private async Task CallbackDeviceManagerAsync(int wait)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            //await AsyncControl.Properties.SetText.Async(labelMemory,
+            //    MemoryItem != null
+            //        ? $"Использовано памяти: {MemoryItem.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurTimeRus(true)}"
+            //        : "Использовано памяти: - MB").ConfigureAwait(true);
+        }
+
+        private async Task CallbackPrintManagerAsync(int wait)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            //try
+            //{
+            //}
+            //catch (Exception ex)
+            //{
+            //    if (CustomMessageBox.Show($"Печатающее устройство недоступно ({_ws.CurrentScale.ZebraPrinter}). {ex.Message}") == DialogResult.OK)
+            //    {
+
+            //    }
+            //    //throw new Exception(ex.Message);
+            //}
+            
+            // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
+            _ws.CurrentBox = _ws.PrintManager.UserLabelCount < _ws.PalletSize ? _ws.PrintManager.UserLabelCount : _ws.PalletSize;
+            // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
+            if (_ws.CurrentBox == 0)
+                _ws.CurrentBox = 1;
+
+            // TSC printers.
+            if (_ws.CurrentScale?.ZebraPrinter != null && _ws.IsTscPrinter)
             {
-                AsyncControl.Properties.SetText.Async(fieldGrossWeight, $"Вес брутто: {message.WeightNet:0.000} кг");
-                if (_ws.CurrentPlu != null)
+                if (_ws.PrintManager.PrintControl != null && !_ws.PrintManager.PrintControl.IsOpen)
+                    await AsyncControl.Properties.SetBackColor.Async(buttonPrint, _ws.PrintManager.PrintControl.IsOpen
+                        ? Color.FromArgb(192, 255, 192) : Color.Transparent).ConfigureAwait(false);
+                if (_ws.PrintManager.PrintControl != null)
                 {
-                    flag = true;
-                    AsyncControl.Properties.SetText.Async(labelPlu, _ws.CurrentPlu.CheckWeight == false
-                        ? $"PLU (шт): {_ws.CurrentPlu.PLU}" : $"PLU (вес): {_ws.CurrentPlu.PLU}");
-                    var weight = message.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
-                    AsyncControl.Properties.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг");
-                    AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto,
-                        message.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent);
-                    //AsyncControl.Properties.SetText.Async(fieldWeightTare, 
-                    //    $"{(float)getMassa.Tare / getMassa.ScaleFactor:0.000} кг");
+                    //LedPrint.State = _ws.PrintManager.PrintControl.IsOpen;
+                    await AsyncControl.Properties.SetText.Async(fieldPrintManager, _ws.PrintManager.PrintControl.IsOpen
+                        ? $"{UtilsDt.FormatCurTimeRus(true)}  | Принтер: доступен" : $"{UtilsDt.FormatCurTimeRus(true)}  | Принтер: недоступен").ConfigureAwait(false);
                 }
-                if (message.IsReady)
-                    LedMassa.State = message.IsStable == 1;
             }
-            if (!flag)
+            // Zebra printers.
+            else
             {
-                AsyncControl.Properties.SetText.Async(labelPlu, "PLU");
-                AsyncControl.Properties.SetText.Async(fieldWeightNetto, "0,000 кг");
-                AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto, Color.Transparent);
+                var state = _ws.PrintManager.CurrentStatus;
+                // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
+                _ws.CurrentBox = _ws.PrintManager.UserLabelCount < _ws.PalletSize ? _ws.PrintManager.UserLabelCount : _ws.PalletSize;
+                // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
+                if (_ws.CurrentBox == 0)
+                    _ws.CurrentBox = 1;
+                if (state != null && !state.isReadyToPrint)
+                    await AsyncControl.Properties.SetBackColor.Async(buttonPrint, state.isReadyToPrint
+                        ? Color.FromArgb(192, 255, 192) : Color.Transparent).ConfigureAwait(false);
+                if (state != null)
+                {
+                    //LedPrint.State = state.isReadyToPrint;
+                    await AsyncControl.Properties.SetText.Async(fieldPrintManager, state.isReadyToPrint
+                        ? $"{UtilsDt.FormatCurTimeRus(true)}  | Принтер: доступен" : $"{UtilsDt.FormatCurTimeRus(true)}  | Принтер: недоступен").ConfigureAwait(false);
+                }
             }
         }
+
+        private async Task CallbackMassaManagerAsync(int wait)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            
+            var flag = false;
+            if (_ws.CurrentPlu != null)
+            {
+                flag = true;
+                await AsyncControl.Properties.SetText.Async(labelPlu, _ws.CurrentPlu.CheckWeight == false
+                    ? $"PLU (шт): {_ws.CurrentPlu.PLU}"
+                    : $"PLU (вес): {_ws.CurrentPlu.PLU}").ConfigureAwait(false);
+                var weight = _ws.MassaManager.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
+                await AsyncControl.Properties.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг").ConfigureAwait(false);
+                //await AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto,
+                //    _ws.MassaManager.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent).ConfigureAwait(false);
+                //AsyncControl.Properties.SetText.Async(fieldWeightTare, 
+                //    $"{(float)getMassa.Tare / getMassa.ScaleFactor:0.000} кг");
+            }
+
+            //LedMassa.State = _ws.MassaManager.IsStable == 1;
+            await AsyncControl.Properties.SetText.Async(fieldMassaManager, _ws.MassaManager.IsReady || _ws.MassaManager.IsStable == 1
+                ? $"{UtilsDt.FormatCurTimeRus(true)}  | Весы: доступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг" 
+                : $"{UtilsDt.FormatCurTimeRus(true)}  | Весы: недоступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг").ConfigureAwait(false);
+            if (!flag)
+            {
+                await AsyncControl.Properties.SetText.Async(labelPlu, "PLU").ConfigureAwait(false);
+                await AsyncControl.Properties.SetText.Async(fieldWeightNetto, "0,000 кг").ConfigureAwait(false);
+                //await AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto, Color.Transparent).ConfigureAwait(false);
+            }
+        }
+
+        private async Task TaskDeviceManagerAsync()
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+            // MemoryManager.
+            var taskMemory = new Task(async () =>
+            {
+                while (!_ws.MemoryManagerIsExit)
+                {
+                    if (_ws.MemoryManager == null)
+                    {
+                        _ws.MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
+                        _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
+                    }
+                    Application.DoEvents();
+                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
+                }
+            });
+            taskMemory.Start();
+
+            // PrintManager.
+            var taskPrint = new Task(async () =>
+            {
+                while (!_ws.PrintManagerIsExit)
+                {
+                    if (_ws.PrintManager == null)
+                    {
+                        _ws.PrintManager = new PrintManagerEntity(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port,
+                            1_000, 5_000, 5_000);
+                        _ws.PrintManager.Open(_ws.IsTscPrinter, CallbackPrintManagerAsync);
+                    }
+                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
+                    STOP
+                    if (_ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
+                    {
+                        _ws.PrintManager.PrintControl.Close();
+                        _ws.PrintManager.PrintControl = null;
+                    }
+                }
+            });
+            taskPrint.Start();
+
+            // DeviceManager.
+            var taskDevice = new Task(async () =>
+            {
+                while (!_ws.DeviceManagerIsExit)
+                {
+                    if (_ws.DeviceManager == null)
+                    {
+                        _ws.DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
+                        _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
+                    }
+                    Application.DoEvents();
+                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
+                }
+            });
+            taskDevice.Start();
+
+            // MassaManager.
+            var taskMassa = new Task(async () =>
+            {
+                while (!_ws.MassaManagerIsExit)
+                {
+                    if (_ws.MassaManager == null)
+                    {
+                        var deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
+                        _ws.MassaManager = new MassaManagerEntity(deviceSocketRs232, 1_000, 5_000, 5_000);
+                        _ws.MassaManager.Open(CallbackMassaManagerAsync);
+                        _ws.MassaManager.SetZero();
+
+                    }
+                    Application.DoEvents();
+                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
+                }
+            });
+            taskMassa.Start();
+        }
+
+        #endregion
+
+        #region Private methods - Notifications
+
+        //private void NotifyMassa(MassaManagerEntity message)
+        //{
+        //    var flag = false;
+        //    if (message != null)
+        //    {
+        //        AsyncControl.Properties.SetText.Async(fieldGrossWeight, $"Вес брутто: {message.WeightNet:0.000} кг");
+        //        if (_ws.CurrentPlu != null)
+        //        {
+        //            flag = true;
+        //            AsyncControl.Properties.SetText.Async(labelPlu, _ws.CurrentPlu.CheckWeight == false
+        //                ? $"PLU (шт): {_ws.CurrentPlu.PLU}" : $"PLU (вес): {_ws.CurrentPlu.PLU}");
+        //            var weight = message.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
+        //            AsyncControl.Properties.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг");
+        //            AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto,
+        //                message.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent);
+        //            //AsyncControl.Properties.SetText.Async(fieldWeightTare, 
+        //            //    $"{(float)getMassa.Tare / getMassa.ScaleFactor:0.000} кг");
+        //        }
+        //        if (message.IsReady)
+        //            LedMassa.State = message.IsStable == 1;
+        //    }
+        //    if (!flag)
+        //    {
+        //        AsyncControl.Properties.SetText.Async(labelPlu, "PLU");
+        //        AsyncControl.Properties.SetText.Async(fieldWeightNetto, "0,000 кг");
+        //        AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto, Color.Transparent);
+        //    }
+        //}
         
         private void NotifyProductDate(DateTime productDate)
         {
-            AsyncControl.Properties.SetText.Async(fieldProductDate, $"{productDate.ToString("dd.MM.yyyy")}");
+            AsyncControl.Properties.SetText.Async(fieldProductDate, $"{productDate:dd.MM.yyyy}");
         }
 
         private void NotifyKneading(int kneading)
@@ -315,53 +458,21 @@ namespace ScalesUI.Forms
             _log.Debug($"PLU.GoodsTareWeight: {plu?.GoodsTareWeight}");
         }
 
-        [Obsolete(@"Use NotifyPrint")]
-        private void NotifyPrintOld(PrintEntity zebraPrinter)
-        {
-            var state = zebraPrinter.CurrentStatus;
-            // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-            _ws.CurrentBox = _ws.PrintDevice.UserLabelCount < _ws.PalletSize ? _ws.PrintDevice.UserLabelCount : _ws.PalletSize;
-            // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
-            if (_ws.CurrentBox == 0)
-                _ws.CurrentBox = 1;
-            if (state != null && !state.isReadyToPrint)  
-                AsyncControl.Properties.SetBackColor.Async(buttonPrint, state.isReadyToPrint 
-                    ? Color.FromArgb(192, 255, 192) : Color.Transparent);
-            if (state != null) 
-                LedPrint.State = state.isReadyToPrint;
-        }
-
-        private void NotifyPrint(PrintEntity printer)
-        {
-            // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-            _ws.CurrentBox = _ws.PrintDevice.UserLabelCount < _ws.PalletSize ? _ws.PrintDevice.UserLabelCount : _ws.PalletSize;
-            // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
-            if (_ws.CurrentBox == 0)
-                _ws.CurrentBox = 1;
-            
-            if (_ws.CurrentScale?.ZebraPrinter != null && _ws.CurrentScale.ZebraPrinter.PrinterType.Contains("TSC "))
-            {
-                if (printer.PrintControl != null && !printer.PrintControl.IsOpen)
-                    AsyncControl.Properties.SetBackColor.Async(buttonPrint, printer.PrintControl.IsOpen
-                        ? Color.FromArgb(192, 255, 192) : Color.Transparent);
-                if (printer.PrintControl != null)
-                    LedPrint.State = printer.PrintControl.IsOpen;
-            }
-            else
-            {
-                var state = printer.CurrentStatus;
-                // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-                _ws.CurrentBox = _ws.PrintDevice.UserLabelCount < _ws.PalletSize ? _ws.PrintDevice.UserLabelCount : _ws.PalletSize;
-                // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
-                if (_ws.CurrentBox == 0)
-                    _ws.CurrentBox = 1;
-                if (state != null && !state.isReadyToPrint)  
-                    AsyncControl.Properties.SetBackColor.Async(buttonPrint, state.isReadyToPrint 
-                        ? Color.FromArgb(192, 255, 192) : Color.Transparent);
-                if (state != null) 
-                    LedPrint.State = state.isReadyToPrint;
-            }
-        }
+        //[Obsolete(@"Use NotifyPrint")]
+        //private void NotifyPrintOld(PrintEntity zebraPrinter)
+        //{
+        //    var state = zebraPrinter.CurrentStatus;
+        //    // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
+        //    _ws.CurrentBox = _ws.PrintDevice.UserLabelCount < _ws.PalletSize ? _ws.PrintDevice.UserLabelCount : _ws.PalletSize;
+        //    // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
+        //    if (_ws.CurrentBox == 0)
+        //        _ws.CurrentBox = 1;
+        //    if (state != null && !state.isReadyToPrint)  
+        //        AsyncControl.Properties.SetBackColor.Async(buttonPrint, state.isReadyToPrint 
+        //            ? Color.FromArgb(192, 255, 192) : Color.Transparent);
+        //    if (state != null) 
+        //        LedPrint.State = state.isReadyToPrint;
+        //}
 
         #endregion
 
@@ -409,7 +520,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (_ws.MkDevice.WeightNet > _threshold || _ws.MkDevice.WeightNet < -_threshold)
+                if (_ws.MassaManager.WeightNet > _threshold || _ws.MassaManager.WeightNet < -_threshold)
                 {
                     if (CustomMessageBox.Show(@"Разгрузите весовую платформу!" + Environment.NewLine +
                                               $@"Пороговое значение: {_threshold}кг" + Environment.NewLine +
@@ -418,7 +529,7 @@ namespace ScalesUI.Forms
                         return;
                 }
 
-                _ws.MkDevice.SetZero();
+                _ws.MassaManager.SetZero();
                 _ws.CurrentPlu = null;
             }
             catch (Exception ex)
@@ -431,17 +542,11 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonSetWeightTare_Click(object sender, EventArgs e)
-        {
-            //_ws.WeightTare = _ws.WeightReal;
-            //_weightPlatformControl.SetTareWeight(_ws);
-        }
-
         private void buttonSelectPlu_Click(object sender, EventArgs e)
         {
             try
             {
-                if (_ws.MkDevice.WeightNet > _threshold || _ws.MkDevice.WeightNet < -_threshold)
+                if (_ws.MassaManager.WeightNet > _threshold || _ws.MassaManager.WeightNet < -_threshold)
                 {
                     if (CustomMessageBox.Show(@"Разгрузите весовую платформу!" + Environment.NewLine +
                                               $@"Пороговое значение: {_threshold}кг" + Environment.NewLine +
@@ -518,9 +623,9 @@ namespace ScalesUI.Forms
                 }
                 if (_ws.CurrentOrder != null)
                 {
-                    progressBarCountBox.Maximum = _ws.CurrentOrder.PlaneBoxCount;
-                    progressBarCountBox.Minimum = 0;
-                    progressBarCountBox.Value = _ws.CurrentOrder.FactBoxCount;
+                    fieldCountBox.Maximum = _ws.CurrentOrder.PlaneBoxCount;
+                    fieldCountBox.Minimum = 0;
+                    fieldCountBox.Value = _ws.CurrentOrder.FactBoxCount;
                 }
             }
             catch (Exception ex)
@@ -641,34 +746,6 @@ namespace ScalesUI.Forms
         private void btNewPallet_Click(object sender, EventArgs e)
         {
             _ws.NewPallet();
-        }
-
-        private void InitLeds()
-        {
-            if (LedPrint == null)
-                LedPrint = new LightEmittingDiode(panelPrint)
-                {
-                    ColorOn = Color.LightGreen,
-                    Description = "Принтер",
-                    CheckChangesTimeoutMsec = 5000,
-                    CheckChanges = true,
-                    State = false
-                };
-
-            if (LedMassa == null)
-                LedMassa = new LightEmittingDiode(panelMassa)
-                {
-                    ColorOn = Color.LightGreen,
-                    Description = "Весы",
-                    CheckChangesTimeoutMsec = 5000,
-                    CheckChanges = true,
-                    State = false
-                };
-        }
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            InitLeds();
         }
 
         #endregion

@@ -28,7 +28,7 @@ namespace ScalesUI.Forms
         public SettingsForm()
         {
             InitializeComponent();
-            _ws.MkDevice.GetScalePar();
+            _ws.MassaManager.GetScalePar();
 
         }
 
@@ -220,7 +220,7 @@ namespace ScalesUI.Forms
 
         private void buttonPrint_Click(object sender, EventArgs e)
         {
-            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplPowerOnReset());
+            _ws.PrintManager.SendAsync(ZplPipeUtils.ZplPowerOnReset());
         }
 
         /// <summary>
@@ -230,15 +230,15 @@ namespace ScalesUI.Forms
         /// <param name="e"></param>
         private void buttonPrintCalibrate_Click(object sender, EventArgs e)
         {
-            if (_ws.CurrentScale.ZebraPrinter.PrinterType.Contains("TSC "))
-                _ws.PrintDevice.PrintControl.Calibrate(false, true);
+            if (_ws.IsTscPrinter)
+                _ws.PrintManager.PrintControl.Cmd.Calibrate(true, true);
             else
-                _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplCalibration());
+                _ws.PrintManager.SendAsync(ZplPipeUtils.ZplCalibration());
         }
 
         private void buttonPrintOptions_Click(object sender, EventArgs e)
         {
-            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel());
+            _ws.PrintManager.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel());
         }
 
         #endregion
@@ -301,25 +301,25 @@ namespace ScalesUI.Forms
 
         private void buttonMassaParam_Click(object sender, EventArgs e)
         {
-            _ws.MkDevice.GetScalePar();
+            _ws.MassaManager.GetScalePar();
             Thread.Sleep(350);
 
             fieldCurrentMKProp.Clear();
 
-            if (_ws.MkDevice.DeviceParameters != null)
+            if (_ws.MassaManager.DeviceParameters != null)
             {
-                fieldCurrentMKProp.Text = _ws.MkDevice.DeviceParameters.GetMessage();
+                fieldCurrentMKProp.Text = _ws.MassaManager.DeviceParameters.GetMessage();
             }
 
-            if (_ws.MkDevice.DeviceError != null)
+            if (_ws.MassaManager.DeviceError != null)
             {
-                fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_ws.MkDevice.DeviceError.GetMessage()}";
+                fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_ws.MassaManager.DeviceError.GetMessage()}";
             }
         }
 
         private void buttonPrintCancelAll_Click(object sender, EventArgs e)
         {
-            _ws.PrintDevice.SendAsync(ZplPipeUtils.ZplClearPrintBuffer());
+            _ws.PrintManager.SendAsync(ZplPipeUtils.ZplClearPrintBuffer());
         }
         
         #endregion

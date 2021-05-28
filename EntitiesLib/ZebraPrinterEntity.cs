@@ -15,7 +15,6 @@ namespace EntitiesLib
         public virtual short  Port { get; set; }
         public virtual string Mac { get; set; }
         public virtual string Password { get; set; }
-        
         public virtual string PrinterType { get; set; }
 
         [XmlIgnore]

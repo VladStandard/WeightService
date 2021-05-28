@@ -148,12 +148,15 @@
   <ItemGroup>
     <Compile Include="Crc16citt.cs" />
     <Compile Include="MassaK\Crc16.cs" />
+    <Compile Include="MassaK\MkCommanderBackup.cs" />
     <Compile Include="MassaK\MkCommander.cs" />
-    <Compile Include="MassaK\MkDeviceEntity.cs" />
+    <Compile Include="MassaK\MkDeviceEntityBackup.cs" />
+    <Compile Include="MassaK\MassaManagerEntity.cs" />
     <Compile Include="DeviceManagerEntity.cs" />
     <Compile Include="MemoryManagerEntity.cs" />
     <Compile Include="MemorySizeEntity.cs" />
     <Compile Include="Print\Native\RawPrinterHelper.cs" />
+    <Compile Include="Print\PrintManagerEntityBackup.cs" />
     <Compile Include="Print\Tsc\PrintCmdEntity.cs" />
     <Compile Include="Print\Tsc\TscLib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,7 +166,7 @@
     <Compile Include="Print\Tsc\PrintSetupEntity.cs" />
     <Compile Include="Print\Zebra\DeviceEntity.cs" />
     <Compile Include="Print\Zebra\DeviceContainer.cs" />
-    <Compile Include="Print\PrintEntity.cs" />
+    <Compile Include="Print\PrintManagerEntity.cs" />
     <Compile Include="Print\Zebra\StateEntity.cs" />
     <Compile Include="Print\Zebra\StatusDataCollector.cs" />
     <Compile Include="Zpl\ZplCommander.cs" />

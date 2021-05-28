@@ -24,11 +24,11 @@ namespace DeviceControl.Core
 
         #region Constructor and destructor
 
-        public MemoryEntity(int sleepMiliSeconds, int waitCloseMiliSeconds, ulong limitBytes)
+        public MemoryEntity(int sleepMiliSeconds, int waitCloseMiliSeconds)
         {
             SleepMiliSeconds = sleepMiliSeconds;
             WaitCloseMiliSeconds = waitCloseMiliSeconds;
-            MemorySize = new MemorySizeEntity(limitBytes);
+            MemorySize = new MemorySizeEntity();
             IsExecute = false;
         }
 

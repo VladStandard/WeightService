@@ -13,7 +13,7 @@ namespace Hardware
     /// </summary>
     public class DeviceManagerEntity
     {
-        #region Public and private fields and properties
+        #region Public and private fields and properties - Manager
 
         public int WaitWhileMiliSeconds { get; private set; }
         public int WaitExceptionMiliSeconds { get; private set; }
@@ -28,6 +28,7 @@ namespace Hardware
 
         public DeviceManagerEntity(int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds)
         {
+            // Manager.
             WaitWhileMiliSeconds = waitWhileMiliSeconds;
             WaitExceptionMiliSeconds = waitExceptionMiliSeconds;
             WaitCloseMiliSeconds = waitCloseMiliSeconds;
@@ -36,19 +37,17 @@ namespace Hardware
 
         #endregion
 
-        #region Public and private methods
+        #region Public and private methods - Manager
 
-        public void Open(CallbackAsync callRefresh, 
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Open(CallbackAsync callback, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             IsExecute = true;
             while (IsExecute)
             {
                 try
                 {
-                    //callRefresh?.Invoke().ConfigureAwait(false);
-                    callRefresh(WaitWhileMiliSeconds).ConfigureAwait(false);
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
+                    OpenJob();
+                    callback(WaitWhileMiliSeconds).ConfigureAwait(true);
                 }
                 catch (TaskCanceledException)
                 {
@@ -72,6 +71,8 @@ namespace Hardware
             try
             {
                 IsExecute = false;
+                Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
+                CloseJob();
             }
             catch (Exception ex)
             {
@@ -82,6 +83,20 @@ namespace Hardware
                 Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
                 Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
             }
+        }
+
+        #endregion
+        
+        #region Public and private methods
+
+        public void OpenJob()
+        {
+            //
+        }
+
+        public void CloseJob()
+        {
+            //
         }
 
         #endregion
