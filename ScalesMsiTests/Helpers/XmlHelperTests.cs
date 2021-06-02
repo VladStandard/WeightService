@@ -3,7 +3,6 @@
 
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Xml;
 using NUnit.Framework;
 using ScalesMsi.Helpers;
 using ScalesMsi.Models;

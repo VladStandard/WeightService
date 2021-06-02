@@ -6,7 +6,6 @@ using ScalesMsi.Utils;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading;
-using System.Windows.Forms;
 using WixSharp;
 using WixSharp.CommonTasks;
 

@@ -9,6 +9,6 @@ namespace SsccWebAPI.Areas.HelpPage.ModelDescriptions
             Properties = new Collection<ParameterDescription>();
         }
 
-        public Collection<ParameterDescription> Properties { get; }
+        public Collection<ParameterDescription> Properties { get; private set; }
     }
 }

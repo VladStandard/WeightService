@@ -6,12 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace ScalesMsi.Helpers
 {

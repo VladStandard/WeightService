@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DeviceControl.Core.DAL.TableModels;
-using FluentNHibernate.Mapping;
 using NUnit.Framework;
 
 namespace DeviceControl.CoreTests.DAL

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using DeviceControl.Core.DAL;
 using DeviceControl.Core.DAL.DataModels;
 using DeviceControl.Core.DAL.TableModels;

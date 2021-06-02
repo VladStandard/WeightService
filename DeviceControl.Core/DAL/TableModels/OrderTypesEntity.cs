@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DeviceControl.Core.DAL.TableModels
+﻿namespace DeviceControl.Core.DAL.TableModels
 {
     public class OrderTypesEntity : BaseEntity
     {

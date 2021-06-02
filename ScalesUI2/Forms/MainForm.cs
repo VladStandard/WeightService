@@ -48,18 +48,6 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            _dtThread = new Thread(t =>
-                {
-                    while (true)
-                    {
-                        AsyncControl.Properties.SetText.Sync(fieldCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
-                        Thread.Sleep(150);
-                    }
-                }
-            )
-            { IsBackground = true };
-            _dtThread.Start();
-
             FormBorderStyle = _ws.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
             TopMost = !_ws.IsDebug;
             fieldResolution.Visible = _ws.IsDebug;
@@ -91,7 +79,8 @@ namespace ScalesUI.Forms
             _ws.NewPallet();
             
             // Manager tasks.
-            var task = new Task(async () => { await TaskDeviceManagerAsync();});
+            var task = new Task(async () => { await TaskDeviceManagerAsync().ConfigureAwait(false); });
+            task.ConfigureAwait(false);
             task.Start();
         }
 
@@ -219,18 +208,18 @@ namespace ScalesUI.Forms
         private async Task CallbackMemoryManagerAsync(int wait)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            
+
+            var ch = UtilsDt.GetProgressChar(_ws.MemoryManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMemoryManager, 
-                $"{UtilsDt.FormatCurTimeRus(true)}  | Использовано памяти: {_ws.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB").ConfigureAwait(false);
+                $"Использовано памяти: {_ws.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}").ConfigureAwait(false);
+            _ws.MemoryManagerProgressChar = ch;
         }
 
         private async Task CallbackDeviceManagerAsync(int wait)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            //await AsyncControl.Properties.SetText.Async(labelMemory,
-            //    MemoryItem != null
-            //        ? $"Использовано памяти: {MemoryItem.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurTimeRus(true)}"
-            //        : "Использовано памяти: - MB").ConfigureAwait(true);
+
+            AsyncControl.Properties.SetText.Sync(fieldCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
         }
 
         private async Task CallbackPrintManagerAsync(int wait)
@@ -254,6 +243,7 @@ namespace ScalesUI.Forms
             if (_ws.CurrentBox == 0)
                 _ws.CurrentBox = 1;
 
+            var ch = UtilsDt.GetProgressChar(_ws.PrintManagerProgressChar);
             // TSC printers.
             if (_ws.CurrentScale?.ZebraPrinter != null && _ws.IsTscPrinter)
             {
@@ -264,7 +254,7 @@ namespace ScalesUI.Forms
                 {
                     //LedPrint.State = _ws.PrintManager.PrintControl.IsOpen;
                     await AsyncControl.Properties.SetText.Async(fieldPrintManager, _ws.PrintManager.PrintControl.IsOpen
-                        ? $"{UtilsDt.FormatCurTimeRus(true)}  | Принтер: доступен" : $"{UtilsDt.FormatCurTimeRus(true)}  | Принтер: недоступен").ConfigureAwait(false);
+                        ? $"Принтер: доступен | {ch}" : $"Принтер: недоступен | {ch}").ConfigureAwait(false);
                 }
             }
             // Zebra printers.
@@ -283,15 +273,16 @@ namespace ScalesUI.Forms
                 {
                     //LedPrint.State = state.isReadyToPrint;
                     await AsyncControl.Properties.SetText.Async(fieldPrintManager, state.isReadyToPrint
-                        ? $"{UtilsDt.FormatCurTimeRus(true)}  | Принтер: доступен" : $"{UtilsDt.FormatCurTimeRus(true)}  | Принтер: недоступен").ConfigureAwait(false);
+                        ? $"Принтер: доступен | {ch}" : $"Принтер: недоступен | {ch}").ConfigureAwait(false);
                 }
             }
+            _ws.PrintManagerProgressChar = ch;
         }
 
         private async Task CallbackMassaManagerAsync(int wait)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            
+
             var flag = false;
             if (_ws.CurrentPlu != null)
             {
@@ -308,9 +299,11 @@ namespace ScalesUI.Forms
             }
 
             //LedMassa.State = _ws.MassaManager.IsStable == 1;
+            var ch = UtilsDt.GetProgressChar(_ws.MassaManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMassaManager, _ws.MassaManager.IsReady || _ws.MassaManager.IsStable == 1
-                ? $"{UtilsDt.FormatCurTimeRus(true)}  | Весы: доступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг" 
-                : $"{UtilsDt.FormatCurTimeRus(true)}  | Весы: недоступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг").ConfigureAwait(false);
+                ? $"Весы: доступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}" 
+                : $"Весы: недоступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}").ConfigureAwait(false);
+            _ws.MassaManagerProgressChar = ch;
             if (!flag)
             {
                 await AsyncControl.Properties.SetText.Async(labelPlu, "PLU").ConfigureAwait(false);
@@ -324,7 +317,7 @@ namespace ScalesUI.Forms
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
             // MemoryManager.
-            var taskMemory = new Task(async () =>
+            var taskMemory = new Task(() =>
             {
                 while (!_ws.MemoryManagerIsExit)
                 {
@@ -333,26 +326,22 @@ namespace ScalesUI.Forms
                         _ws.MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
                         _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
                     }
-                    Application.DoEvents();
-                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
                 }
             });
             taskMemory.Start();
 
             // PrintManager.
-            var taskPrint = new Task(async () =>
+            var taskPrint = new Task(() =>
             {
                 while (!_ws.PrintManagerIsExit)
                 {
                     if (_ws.PrintManager == null)
                     {
-                        _ws.PrintManager = new PrintManagerEntity(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port,
-                            1_000, 5_000, 5_000);
+                        _ws.PrintManager = new PrintManagerEntity(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
                         _ws.PrintManager.Open(_ws.IsTscPrinter, CallbackPrintManagerAsync);
                     }
-                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
-                    STOP
-                    if (_ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
+                    // STOP
+                    if (_ws.PrintManager.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
                     {
                         _ws.PrintManager.PrintControl.Close();
                         _ws.PrintManager.PrintControl = null;
@@ -362,7 +351,7 @@ namespace ScalesUI.Forms
             taskPrint.Start();
 
             // DeviceManager.
-            var taskDevice = new Task(async () =>
+            var taskDevice = new Task(() =>
             {
                 while (!_ws.DeviceManagerIsExit)
                 {
@@ -371,14 +360,12 @@ namespace ScalesUI.Forms
                         _ws.DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
                         _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
                     }
-                    Application.DoEvents();
-                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
                 }
             });
             taskDevice.Start();
 
             // MassaManager.
-            var taskMassa = new Task(async () =>
+            var taskMassa = new Task(() =>
             {
                 while (!_ws.MassaManagerIsExit)
                 {
@@ -386,12 +373,9 @@ namespace ScalesUI.Forms
                     {
                         var deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
                         _ws.MassaManager = new MassaManagerEntity(deviceSocketRs232, 1_000, 5_000, 5_000);
+                        buttonSetZero_Click(null, null);
                         _ws.MassaManager.Open(CallbackMassaManagerAsync);
-                        _ws.MassaManager.SetZero();
-
                     }
-                    Application.DoEvents();
-                    await Task.Delay(TimeSpan.FromMilliseconds(1_000)).ConfigureAwait(true);
                 }
             });
             taskMassa.Start();
@@ -577,7 +561,10 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(@"Ошибка формы выбора PLU!" + Environment.NewLine + ex.Message);
+                var msg = ex.Message;
+                if (ex.InnerException != null)
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                CustomMessageBox.Show(@"Ошибка формы выбора PLU!" + Environment.NewLine + msg);
             }
             finally
             {

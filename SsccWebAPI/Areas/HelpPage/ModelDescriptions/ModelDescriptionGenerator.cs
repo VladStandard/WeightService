@@ -99,13 +99,19 @@ namespace SsccWebAPI.Areas.HelpPage.ModelDescriptions
 
         public Dictionary<string, ModelDescription> GeneratedModels { get; private set; }
 
-        private IModelDocumentationProvider DocumentationProvider => _documentationProvider.Value;
+        private IModelDocumentationProvider DocumentationProvider
+        {
+            get
+            {
+                return _documentationProvider.Value;
+            }
+        }
 
         public ModelDescription GetOrCreateModelDescription(Type modelType)
         {
             if (modelType == null)
             {
-                throw new ArgumentNullException(@"modelType");
+                throw new ArgumentNullException("modelType");
             }
 
             Type underlyingType = Nullable.GetUnderlyingType(modelType);

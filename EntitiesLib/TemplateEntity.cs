@@ -122,17 +122,14 @@ namespace EntitiesLib
 
         public void Load()
         {
-            if (TemplateId != null)
-            {
-                GetTemplateObjFromDb();
-            }
+            GetTemplateObjFromDb();
         }
 
         private void GetTemplateObjFromDb()
         {
             using (var con = SqlConnectFactory.GetConnection())
             {
-                string query = "SELECT TOP(1) CategoryID,Title,XslContent FROM [db_scales].[GetTemplatesObjByID] (@TemplateID);";
+                var query = "SELECT TOP(1) CategoryID,Title,XslContent FROM [db_scales].[GetTemplatesObjByID] (@TemplateID);";
                 using (var cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;

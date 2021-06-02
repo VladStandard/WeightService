@@ -48,6 +48,7 @@ namespace Hardware
                 {
                     OpenJob();
                     callback(WaitWhileMiliSeconds).ConfigureAwait(true);
+                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
                 {

@@ -56,9 +56,8 @@ namespace Hardware
                 try
                 {
                     OpenJob();
-                    //callRefresh?.Invoke().ConfigureAwait(false);
                     callback(WaitWhileMiliSeconds).ConfigureAwait(true);
-                    //Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
+                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
                 {

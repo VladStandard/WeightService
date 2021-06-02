@@ -58,13 +58,15 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.11\lib\net45\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Ninja.WebSockets, Version=1.0.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninja.WebSockets.1.1.6\lib\net45\Ninja.WebSockets.dll</HintPath>
+    <Reference Include="Ninja.WebSockets, Version=1.0.1.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninja.WebSockets.1.1.8\lib\net45\Ninja.WebSockets.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -73,8 +75,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPF.Utils, Version=0.2.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WPF.Utils.0.2.12\lib\net48\WPF.Utils.dll</HintPath>
+    <Reference Include="WPF.Utils, Version=0.2.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPF.Utils.0.2.19\lib\net48\WPF.Utils.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

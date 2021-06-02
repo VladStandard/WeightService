@@ -5,12 +5,10 @@ using EntitiesLib;
 using Hardware.MassaK;
 using Hardware.Print;
 using Hardware.Zpl;
-using ScalesUI.Forms;
 using ScalesUI.Utils;
 using System;
 using System.Reflection;
 using System.Threading;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 using Hardware;
 using UICommon;
@@ -63,12 +61,19 @@ namespace ScalesUI.Common
 
         public DeviceManagerEntity DeviceManager { get; set; }
         public bool DeviceManagerIsExit { get; set; }
+        public char DeviceManagerProgressChar { get; set; }
+
         public MemoryManagerEntity MemoryManager { get; set; }
         public bool MemoryManagerIsExit { get; set; }
+        public char MemoryManagerProgressChar { get; set; }
+
         public PrintManagerEntity PrintManager { get; set; }
         public bool PrintManagerIsExit { get; set; }
+        public char PrintManagerProgressChar { get; set; }
+
         public MassaManagerEntity MassaManager { get; set; }
         public bool MassaManagerIsExit { get; set; }
+        public char MassaManagerProgressChar { get; set; }
 
         #endregion
 
@@ -309,6 +314,7 @@ namespace ScalesUI.Common
         #endregion
 
         #region PluEntity
+        
         public delegate void OnResponseHandlerPlu(PluEntity plu);
         public event OnResponseHandlerPlu NotifyPlu;
         private PluEntity _currentPlu;

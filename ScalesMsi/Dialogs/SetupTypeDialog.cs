@@ -2,11 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Windows.Forms;
 using ScalesMsi.Helpers;
-using ScalesMsi.Properties;
 using WixSharp;
 using WixSharp.UI.Forms;
 

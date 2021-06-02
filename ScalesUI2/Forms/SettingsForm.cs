@@ -57,7 +57,7 @@ namespace ScalesUI.Forms
             if (_ws?.CurrentWeighingFact != null)
                 fieldCurrentWeightFact.Text = _ws.CurrentWeighingFact.SerializeObject();
 
-            fieldGuid.Text = _ws.CurrentScaleId.ToString();
+            fieldGuid.Text = _ws?.CurrentScaleId.ToString();
             //fieldSqlConnectionString.Text = Properties.Settings.Default.ConnectionString;
         }
 

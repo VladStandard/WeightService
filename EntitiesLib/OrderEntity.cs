@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -69,7 +68,7 @@ namespace EntitiesLib
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append($"({ProductDate})");
             sb.Append($"{PLU}");
             return sb.ToString();
@@ -78,10 +77,10 @@ namespace EntitiesLib
         public static IDictionary<string, object> ObjectToDictionary<T>(T item)
             where T : class
         {
-            Type myObjectType = item.GetType();
+            var myObjectType = item.GetType();
             IDictionary<string, object> dict = new Dictionary<string, object>();
             var indexer = new object[0];
-            PropertyInfo[] properties = myObjectType.GetProperties();
+            var properties = myObjectType.GetProperties();
             foreach (var info in properties)
             {
                 var value = info.GetValue(item, indexer);
@@ -93,8 +92,8 @@ namespace EntitiesLib
         public static T ObjectFromDictionary<T>(IDictionary<string, object> dict)
             where T : class
         {
-            Type type = typeof(T);
-            T result = (T)Activator.CreateInstance(type);
+            var type = typeof(T);
+            var result = (T)Activator.CreateInstance(type);
             foreach (var item in dict)
             {
                 type.GetProperty(item.Key)?.SetValue(result, item.Value, null);
@@ -104,8 +103,8 @@ namespace EntitiesLib
 
         public string SerializeObject()
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(OrderEntity));
-            using (StringWriter textWriter = new StringWriter())
+            var xmlSerializer = new XmlSerializer(typeof(OrderEntity));
+            using (var textWriter = new StringWriter())
             {
                 xmlSerializer.Serialize(textWriter, this);
                 return textWriter.ToString();
@@ -114,20 +113,19 @@ namespace EntitiesLib
 
         public void LoadTemplate()
         {
-            if (TemplateID != null)
-                Template = new TemplateEntity(TemplateID);
+            Template = new TemplateEntity(TemplateID);
         }
 
 
         public void SetStatus(OrderStatus orderStatus)
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (var con = SqlConnectFactory.GetConnection())
             {
-                string query =
+                var query =
                     "DECLARE @Status tinyint;" +
                     "EXECUTE [db_scales].[SetOrderStatus] @OrderId, @StatusName, @Status OUTPUT" +
                     "";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (var cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@OrderId", RRefID);
@@ -142,15 +140,15 @@ namespace EntitiesLib
 
         public OrderStatus GetStatus()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (var con = SqlConnectFactory.GetConnection())
             {
-                string query = "SELECT [db_scales].[GetOrderStatus](@OrderId, DEFAULT);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                var query = "SELECT [db_scales].[GetOrderStatus](@OrderId, DEFAULT);";
+                using (var cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@OrderId", RRefID);
                     con.Open();
-                    string reader = Convert.ToString(cmd.ExecuteScalar());
+                    var reader = Convert.ToString(cmd.ExecuteScalar());
                     con.Close();
                     Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), reader);
                     return Status;
@@ -160,15 +158,15 @@ namespace EntitiesLib
 
         public static int GetOrderPercentCompletion(OrderEntity order)
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (var con = SqlConnectFactory.GetConnection())
             {
-                string query = "SELECT [db_scales].[GetOrderPercentCompletion] (@OrderID)";
-                using (SqlCommand cmd = new SqlCommand(query))
+                var query = "SELECT [db_scales].[GetOrderPercentCompletion] (@OrderID)";
+                using (var cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@OrderId", order.RRefID);
                     con.Open();
-                    int reader = Convert.ToInt32(cmd.ExecuteScalar());
+                    var reader = Convert.ToInt32(cmd.ExecuteScalar());
                     con.Close();
                     return reader;
                 }
@@ -177,37 +175,37 @@ namespace EntitiesLib
 
         public static List<OrderEntity> GetOrderList(ScaleEntity scale)
         {
-            List<OrderEntity> res = new List<OrderEntity>();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            var res = new List<OrderEntity>();
+            using (var con = SqlConnectFactory.GetConnection())
             {
-                string query = "" +
-                    "SELECT " +
-                    "[Id]," +                               //0
-                    "[RRefID]," +                           //1
-                    "[PLU]," +                              //2
-                    "[PlaneBoxCount]," +                    //3
-                    "[PlanePalletCount]," +                 //4
-                    "[PlanePackingOperationBeginDate]," +    //5
-                    "[PlanePackingOperationEndDate]," +     //6
-                    "[ProductDate]," +                      //7
-                    "[TemplateID]," +                       //8
-                    "[CreateDate]," +                       //9
-                    "[OrderType]," +                        //10
-                    "[ScaleID]," +                          //11
-                    "[CurrentStatus] " +                    //12
-                    "FROM [db_scales].[GetOrderListByScale] (@ScaleId, @StartDate, @EndDate); " +
-                    "";
-                using (SqlCommand cmd = new SqlCommand(query))
+                var query = "" +
+                            "SELECT " +
+                            "[Id]," +                               //0
+                            "[RRefID]," +                           //1
+                            "[PLU]," +                              //2
+                            "[PlaneBoxCount]," +                    //3
+                            "[PlanePalletCount]," +                 //4
+                            "[PlanePackingOperationBeginDate]," +    //5
+                            "[PlanePackingOperationEndDate]," +     //6
+                            "[ProductDate]," +                      //7
+                            "[TemplateID]," +                       //8
+                            "[CreateDate]," +                       //9
+                            "[OrderType]," +                        //10
+                            "[ScaleID]," +                          //11
+                            "[CurrentStatus] " +                    //12
+                            "FROM [db_scales].[GetOrderListByScale] (@ScaleId, @StartDate, @EndDate); " +
+                            "";
+                using (var cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@ScaleId", scale.Id);
                     cmd.Parameters.AddWithValue("@StartDate", DateTime.Now.AddDays(-2));
                     cmd.Parameters.AddWithValue("@EndDate", DateTime.Now);
                     con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        OrderStatus enm = OrderStatus.New;
+                        var enm = OrderStatus.New;
                         int number = reader.GetByte(12);
                         if (Enum.IsDefined(typeof(OrderStatus), number))
                         {
@@ -215,13 +213,13 @@ namespace EntitiesLib
                                                        // или CustomEnum enm = (CustomEnum)Enum.ToObject(typeof(CustomEnum), number);
                         }
 
-                        int pluCode = reader.GetInt32(2);
+                        var pluCode = reader.GetInt32(2);
 
                         //PluEntity PLU = new PluEntity(SqlConnectFactory.GetValue<int>(reader, "PLU"), pluCode);
-                        PluEntity PLU = new PluEntity(scale, pluCode);
+                        var PLU = new PluEntity(scale, pluCode);
                         PLU.Load();
 
-                        OrderEntity order = new OrderEntity
+                        var order = new OrderEntity
                         {
                             Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
                             //RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID"),
@@ -250,34 +248,34 @@ namespace EntitiesLib
 
         public static List<OrderEntity> GetOrderList(ScaleEntity scale, DateTime startDate, DateTime endDate)
         {
-            List<OrderEntity> res = new List<OrderEntity>();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            var res = new List<OrderEntity>();
+            using (var con = SqlConnectFactory.GetConnection())
             {
-                string query = "" +
-                    "SELECT " +
-                    "[Id]," +                               //0
-                    "[RRefID]," +                           //1
-                    "[PLU]," +                              //2
-                    "[PlaneBoxCount]," +                    //3
-                    "[PlanePalletCount]," +                 //4
-                    "[PlanePackingOperationBeginDate]," +    //5
-                    "[PlanePackingOperationEndDate]," +     //6
-                    "[ProductDate]," +                      //7
-                    "[TemplateID]," +                       //8
-                    "[CreateDate]," +                       //9
-                    "[OrderType]," +                        //10
-                    "[ScaleID]," +                          //11
-                    "[CurrentStatus] " +                    //12
-                    "FROM [db_scales].[GetOrderListByScale] (@ScaleId, @StartDate, @EndDate); " +
-                    "";
-                using (SqlCommand cmd = new SqlCommand(query))
+                var query = "" +
+                            "SELECT " +
+                            "[Id]," +                               //0
+                            "[RRefID]," +                           //1
+                            "[PLU]," +                              //2
+                            "[PlaneBoxCount]," +                    //3
+                            "[PlanePalletCount]," +                 //4
+                            "[PlanePackingOperationBeginDate]," +    //5
+                            "[PlanePackingOperationEndDate]," +     //6
+                            "[ProductDate]," +                      //7
+                            "[TemplateID]," +                       //8
+                            "[CreateDate]," +                       //9
+                            "[OrderType]," +                        //10
+                            "[ScaleID]," +                          //11
+                            "[CurrentStatus] " +                    //12
+                            "FROM [db_scales].[GetOrderListByScale] (@ScaleId, @StartDate, @EndDate); " +
+                            "";
+                using (var cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@ScaleId", scale.Id);
                     cmd.Parameters.AddWithValue("@StartDate", startDate);
                     cmd.Parameters.AddWithValue("@EndDate", endDate);
                     con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         var enm = OrderStatus.New;
@@ -289,7 +287,7 @@ namespace EntitiesLib
                         }
                         var pluCode = reader.GetInt32(2);
 
-                        PluEntity PLU = new PluEntity(scale, pluCode);
+                        var PLU = new PluEntity(scale, pluCode);
                         PLU.Load();
 
                         var order = new OrderEntity

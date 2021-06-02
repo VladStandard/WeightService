@@ -23,7 +23,7 @@ namespace SsccWebAPI.Areas.HelpPage.Controllers
             Configuration = config;
         }
 
-        public HttpConfiguration Configuration { get; }
+        public HttpConfiguration Configuration { get; private set; }
 
         public ActionResult Index()
         {

@@ -40,10 +40,9 @@ namespace EntitiesLib
         public Decimal TotalNetWeight { get; set; }
         public Decimal TotalTareWeight { get; set; }
 
-        public void LoadTemplate(int _TemplateID)
+        public void LoadTemplate(int id)
         {
-            if (_TemplateID != null)
-                Template = new TemplateEntity(_TemplateID);
+            Template = new TemplateEntity(id);
         }
 
         public void New()
@@ -91,15 +90,9 @@ namespace EntitiesLib
 
         public void Load()
         {
-
-            if (Scale.Id == null)
+            using (var con = SqlConnectFactory.GetConnection())
             {
-                throw new Exception("Equipment instance not identified. Set [Scale].");
-            }
-
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                string query =
+                var query =
                     "SELECT Id, CreateDate, UUID, SSCC, CountUnit,TotalNetWeight, TotalTareWeight " +
                     " FROM [db_scales].[GetCurrentProductSeries](@ScaleId);";
                 using (SqlCommand cmd = new SqlCommand(query))

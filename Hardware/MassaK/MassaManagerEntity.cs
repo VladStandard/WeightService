@@ -76,6 +76,7 @@ namespace Hardware.MassaK
                 {
                     OpenJob();
                     callback(WaitWhileMiliSeconds).ConfigureAwait(true);
+                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
                 {
@@ -215,8 +216,8 @@ namespace Hardware.MassaK
                             switch (ask)
                             {
                                 case AskSetTare askSetTare:
-                                    weightTare = (request as CmdSetTare).WeightTare;
-                                    scaleFactor = (request as CmdSetTare).ScaleFactor;
+                                    //weightTare = ((CmdSetTare) request).WeightTare;
+                                    //scaleFactor = ((CmdSetTare) request).ScaleFactor;
                                     _log.Info(askSetTare.GetMessage());
                                     IsReady = true;
                                     break;

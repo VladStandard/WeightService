@@ -79,6 +79,7 @@ namespace Hardware.Print
                 {
                     OpenJob(isTscPrinter);
                     callback(WaitWhileMiliSeconds).ConfigureAwait(true);
+                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
                 {

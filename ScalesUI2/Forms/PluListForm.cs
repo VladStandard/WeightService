@@ -33,7 +33,6 @@ namespace ScalesUI.Forms
             InitializeComponent();
             GridCustomizatorClass.GridCustomizator(PluListGrid, _columnCount, _rowCount);
             _pluList = PluEntity.GetPLUList(_ws.CurrentScale);
-            //WindowState = FormWindowState.Maximized;
         }
 
         private void PluListForm_Load(object sender, EventArgs e)
@@ -43,12 +42,12 @@ namespace ScalesUI.Forms
             Height = Owner.Height;
             Left   = Owner.Left;
             Top = Owner.Top;
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
 
             _orderList = PluEntity.GetPLUList(_ws.CurrentScale);
 
-            PluEntity[] pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
-            Control[,] controls = CreateControls(pluEntities, _columnCount, _rowCount);
+            var pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
+            var controls = CreateControls(pluEntities, _columnCount, _rowCount);
             GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
             lbCurrentPage.Text = $@"Cтр. {_currentPage}";
@@ -166,8 +165,8 @@ namespace ScalesUI.Forms
         {
             if (_currentPage > 0) _currentPage--; else _currentPage = 0;
 
-            PluEntity[] pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
-            Control[,] controls = CreateControls(pluEntities, _columnCount, _rowCount);
+            var pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
+            var controls = CreateControls(pluEntities, _columnCount, _rowCount);
             GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
             lbCurrentPage.Text = $"Cтр. {_currentPage}";
@@ -175,12 +174,12 @@ namespace ScalesUI.Forms
 
         private void btnRightRoll_Click(object sender, EventArgs e)
         {
-            int countPage = _pluList.Count / _pageSize;
+            var countPage = _pluList.Count / _pageSize;
             if (_currentPage < countPage) _currentPage++;
             else _currentPage = countPage;
 
-            PluEntity[] pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
-            Control[,] controls = CreateControls(pluEntities, _columnCount, _rowCount);
+            var pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
+            var controls = CreateControls(pluEntities, _columnCount, _rowCount);
             GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
             lbCurrentPage.Text = $@"Cтр. {_currentPage}";

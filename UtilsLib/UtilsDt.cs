@@ -49,5 +49,24 @@ namespace UtilsLib
                 ? $"{dt.Hour:D2}:{dt.Minute:D2}.{dt.Second:D2}"
                 : $"{dt.Hour:D2}:{dt.Minute:D2}";
         }
+        
+        public static char GetProgressChar(char ch)
+        {
+            switch (ch)
+            {
+                case '*':
+                    return '/';
+                case '/':
+                    return '|';
+                case '|':
+                    return '\\';
+                case '\\':
+                    return '-';
+                case '-':
+                    return '/';
+                default:
+                    return '*';
+            }
+        }
     }
 }

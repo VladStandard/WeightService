@@ -38,15 +38,10 @@
             this.fieldCurrentTime = new System.Windows.Forms.Label();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.labelWeightTare = new System.Windows.Forms.Label();
-            this.pictureBoxScales = new System.Windows.Forms.PictureBox();
             this.lbKneading = new System.Windows.Forms.Label();
             this.lbProductDate = new System.Windows.Forms.Label();
             this.fieldProductDate = new System.Windows.Forms.Label();
             this.fieldKneading = new System.Windows.Forms.Label();
-            this.tableLayoutPanelState = new System.Windows.Forms.TableLayoutPanel();
-            this.fieldMemoryManager = new System.Windows.Forms.Label();
-            this.fieldMassaManager = new System.Windows.Forms.Label();
-            this.fieldPrintManager = new System.Windows.Forms.Label();
             this.fieldPalletSize = new System.Windows.Forms.Label();
             this.fieldTitle = new System.Windows.Forms.Label();
             this.fieldPlu = new System.Windows.Forms.Label();
@@ -62,10 +57,11 @@
             this.buttonSetZero = new System.Windows.Forms.Button();
             this.buttonSelectOrder = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.fieldMemoryManager = new System.Windows.Forms.Label();
+            this.fieldPrintManager = new System.Windows.Forms.Label();
+            this.fieldMassaManager = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScales)).BeginInit();
-            this.tableLayoutPanelState.SuspendLayout();
             this.flowLayoutPanelBottom.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,33 +114,34 @@
             // tableLayoutPanelMain
             // 
             this.tableLayoutPanelMain.ColumnCount = 5;
-            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.9774789F));
+            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.977479F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.9559F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0563F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00938F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.000938F));
-            this.tableLayoutPanelMain.Controls.Add(this.fieldCountBox, 3, 11);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldResolution, 3, 12);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldCurrentTime, 0, 1);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaManager, 1, 11);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldPrintManager, 1, 10);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryManager, 1, 9);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldCountBox, 3, 10);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldResolution, 3, 8);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldCurrentTime, 1, 1);
             this.tableLayoutPanelMain.Controls.Add(this.pictureBoxClose, 3, 2);
             this.tableLayoutPanelMain.Controls.Add(this.labelWeightTare, 1, 3);
             this.tableLayoutPanelMain.Controls.Add(this.labelWeightNetto, 1, 2);
             this.tableLayoutPanelMain.Controls.Add(this.fieldWeightNetto, 2, 2);
             this.tableLayoutPanelMain.Controls.Add(this.fieldWeightTare, 2, 3);
-            this.tableLayoutPanelMain.Controls.Add(this.pictureBoxScales, 3, 3);
             this.tableLayoutPanelMain.Controls.Add(this.lbKneading, 1, 5);
             this.tableLayoutPanelMain.Controls.Add(this.lbProductDate, 1, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldProductDate, 2, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldKneading, 2, 5);
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelState, 1, 10);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldPalletSize, 3, 10);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldPalletSize, 3, 9);
             this.tableLayoutPanelMain.Controls.Add(this.fieldTitle, 0, 0);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPlu, 0, 2);
             this.tableLayoutPanelMain.Controls.Add(this.labelPlu, 0, 5);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            this.tableLayoutPanelMain.RowCount = 14;
+            this.tableLayoutPanelMain.RowCount = 13;
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16F));
@@ -157,8 +154,8 @@
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1179, 619);
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
@@ -166,7 +163,7 @@
             // fieldCountBox
             // 
             this.fieldCountBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fieldCountBox.Location = new System.Drawing.Point(1051, 491);
+            this.fieldCountBox.Location = new System.Drawing.Point(1051, 461);
             this.fieldCountBox.Name = "fieldCountBox";
             this.fieldCountBox.Size = new System.Drawing.Size(112, 21);
             this.fieldCountBox.TabIndex = 30;
@@ -182,7 +179,7 @@
             "1024х768",
             "1366х768",
             "1920х1080"});
-            this.fieldResolution.Location = new System.Drawing.Point(1051, 521);
+            this.fieldResolution.Location = new System.Drawing.Point(1051, 401);
             this.fieldResolution.Name = "fieldResolution";
             this.fieldResolution.Size = new System.Drawing.Size(112, 21);
             this.fieldResolution.TabIndex = 29;
@@ -194,16 +191,16 @@
             // 
             this.fieldCurrentTime.AutoSize = true;
             this.fieldCurrentTime.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelMain.SetColumnSpan(this.fieldCurrentTime, 5);
             this.fieldCurrentTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldCurrentTime.Enabled = false;
             this.fieldCurrentTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldCurrentTime.Location = new System.Drawing.Point(3, 33);
+            this.fieldCurrentTime.Location = new System.Drawing.Point(14, 33);
             this.fieldCurrentTime.Margin = new System.Windows.Forms.Padding(3);
             this.fieldCurrentTime.Name = "fieldCurrentTime";
-            this.fieldCurrentTime.Size = new System.Drawing.Size(1173, 24);
+            this.fieldCurrentTime.Size = new System.Drawing.Size(323, 24);
             this.fieldCurrentTime.TabIndex = 25;
             this.fieldCurrentTime.Text = "Дата время";
-            this.fieldCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldCurrentTime.DoubleClick += new System.EventHandler(this.fieldDt_DoubleClick);
             // 
             // pictureBoxClose
@@ -236,28 +233,16 @@
             this.labelWeightTare.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelWeightTare.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // pictureBoxScales
-            // 
-            this.pictureBoxScales.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxScales.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxScales.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxScales.Location = new System.Drawing.Point(1051, 162);
-            this.pictureBoxScales.Name = "pictureBoxScales";
-            this.pictureBoxScales.Size = new System.Drawing.Size(112, 111);
-            this.pictureBoxScales.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxScales.TabIndex = 15;
-            this.pictureBoxScales.TabStop = false;
-            this.pictureBoxScales.Visible = false;
-            // 
             // lbKneading
             // 
             this.lbKneading.AutoSize = true;
             this.lbKneading.BackColor = System.Drawing.Color.Transparent;
             this.lbKneading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbKneading.Location = new System.Drawing.Point(14, 282);
+            this.lbKneading.Location = new System.Drawing.Point(14, 285);
+            this.lbKneading.Margin = new System.Windows.Forms.Padding(3);
             this.lbKneading.Name = "lbKneading";
-            this.lbKneading.Size = new System.Drawing.Size(323, 80);
+            this.lbKneading.Size = new System.Drawing.Size(323, 74);
             this.lbKneading.TabIndex = 27;
             this.lbKneading.Text = "Замес";
             this.lbKneading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -269,9 +254,10 @@
             this.lbProductDate.BackColor = System.Drawing.Color.Transparent;
             this.lbProductDate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbProductDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbProductDate.Location = new System.Drawing.Point(14, 368);
+            this.lbProductDate.Location = new System.Drawing.Point(14, 371);
+            this.lbProductDate.Margin = new System.Windows.Forms.Padding(3);
             this.lbProductDate.Name = "lbProductDate";
-            this.lbProductDate.Size = new System.Drawing.Size(323, 30);
+            this.lbProductDate.Size = new System.Drawing.Size(323, 24);
             this.lbProductDate.TabIndex = 28;
             this.lbProductDate.Text = "Дата производства";
             this.lbProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -282,9 +268,10 @@
             this.fieldProductDate.AutoSize = true;
             this.fieldProductDate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldProductDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldProductDate.Location = new System.Drawing.Point(343, 368);
+            this.fieldProductDate.Location = new System.Drawing.Point(343, 371);
+            this.fieldProductDate.Margin = new System.Windows.Forms.Padding(3);
             this.fieldProductDate.Name = "fieldProductDate";
-            this.fieldProductDate.Size = new System.Drawing.Size(702, 30);
+            this.fieldProductDate.Size = new System.Drawing.Size(702, 24);
             this.fieldProductDate.TabIndex = 31;
             this.fieldProductDate.Text = " Дата производства";
             this.fieldProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -294,92 +281,25 @@
             this.fieldKneading.AutoSize = true;
             this.fieldKneading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldKneading.Location = new System.Drawing.Point(343, 282);
+            this.fieldKneading.Location = new System.Drawing.Point(343, 285);
+            this.fieldKneading.Margin = new System.Windows.Forms.Padding(3);
             this.fieldKneading.Name = "fieldKneading";
-            this.fieldKneading.Size = new System.Drawing.Size(702, 80);
+            this.fieldKneading.Size = new System.Drawing.Size(702, 74);
             this.fieldKneading.TabIndex = 32;
             this.fieldKneading.Text = " Замес";
             this.fieldKneading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tableLayoutPanelState
-            // 
-            this.tableLayoutPanelState.ColumnCount = 9;
-            this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6F));
-            this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3F));
-            this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3F));
-            this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3F));
-            this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanelState.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanelState.Controls.Add(this.fieldMemoryManager, 0, 0);
-            this.tableLayoutPanelState.Controls.Add(this.fieldMassaManager, 0, 2);
-            this.tableLayoutPanelState.Controls.Add(this.fieldPrintManager, 0, 1);
-            this.tableLayoutPanelState.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelState.Location = new System.Drawing.Point(14, 461);
-            this.tableLayoutPanelState.Name = "tableLayoutPanelState";
-            this.tableLayoutPanelState.RowCount = 3;
-            this.tableLayoutPanelMain.SetRowSpan(this.tableLayoutPanelState, 3);
-            this.tableLayoutPanelState.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanelState.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanelState.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanelState.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelState.Size = new System.Drawing.Size(323, 84);
-            this.tableLayoutPanelState.TabIndex = 35;
-            // 
-            // fieldMemoryManager
-            // 
-            this.fieldMemoryManager.AutoSize = true;
-            this.fieldMemoryManager.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelState.SetColumnSpan(this.fieldMemoryManager, 9);
-            this.fieldMemoryManager.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMemoryManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMemoryManager.Location = new System.Drawing.Point(3, 0);
-            this.fieldMemoryManager.Name = "fieldMemoryManager";
-            this.fieldMemoryManager.Size = new System.Drawing.Size(317, 28);
-            this.fieldMemoryManager.TabIndex = 41;
-            this.fieldMemoryManager.Text = "Менеджер памяти";
-            this.fieldMemoryManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // fieldMassaManager
-            // 
-            this.fieldMassaManager.AutoSize = true;
-            this.fieldMassaManager.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelState.SetColumnSpan(this.fieldMassaManager, 9);
-            this.fieldMassaManager.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaManager.Location = new System.Drawing.Point(3, 56);
-            this.fieldMassaManager.Name = "fieldMassaManager";
-            this.fieldMassaManager.Size = new System.Drawing.Size(317, 28);
-            this.fieldMassaManager.TabIndex = 40;
-            this.fieldMassaManager.Text = "Менеджер весов";
-            this.fieldMassaManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // fieldPrintManager
-            // 
-            this.fieldPrintManager.AutoSize = true;
-            this.fieldPrintManager.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanelState.SetColumnSpan(this.fieldPrintManager, 9);
-            this.fieldPrintManager.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPrintManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPrintManager.Location = new System.Drawing.Point(3, 28);
-            this.fieldPrintManager.Name = "fieldPrintManager";
-            this.fieldPrintManager.Size = new System.Drawing.Size(317, 28);
-            this.fieldPrintManager.TabIndex = 39;
-            this.fieldPrintManager.Text = "Менеджер принтера";
-            this.fieldPrintManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // fieldPalletSize
             // 
             this.fieldPalletSize.AutoSize = true;
             this.fieldPalletSize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPalletSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPalletSize.Location = new System.Drawing.Point(1051, 458);
+            this.fieldPalletSize.Location = new System.Drawing.Point(1051, 431);
+            this.fieldPalletSize.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPalletSize.Name = "fieldPalletSize";
-            this.fieldPalletSize.Size = new System.Drawing.Size(112, 30);
+            this.fieldPalletSize.Size = new System.Drawing.Size(112, 24);
             this.fieldPalletSize.TabIndex = 37;
-            this.fieldPalletSize.Text = "123 / 321";
+            this.fieldPalletSize.Text = "1 / 12";
             this.fieldPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fieldTitle
@@ -564,6 +484,48 @@
             this.buttonSelectOrder.Click += new System.EventHandler(this.buttonSelectOrder_Click);
             this.buttonSelectOrder.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
+            // fieldMemoryManager
+            // 
+            this.fieldMemoryManager.AutoSize = true;
+            this.fieldMemoryManager.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMemoryManager.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMemoryManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMemoryManager.Location = new System.Drawing.Point(14, 431);
+            this.fieldMemoryManager.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMemoryManager.Name = "fieldMemoryManager";
+            this.fieldMemoryManager.Size = new System.Drawing.Size(323, 24);
+            this.fieldMemoryManager.TabIndex = 42;
+            this.fieldMemoryManager.Text = "Менеджер памяти";
+            this.fieldMemoryManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // fieldPrintManager
+            // 
+            this.fieldPrintManager.AutoSize = true;
+            this.fieldPrintManager.BackColor = System.Drawing.Color.Transparent;
+            this.fieldPrintManager.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldPrintManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldPrintManager.Location = new System.Drawing.Point(14, 461);
+            this.fieldPrintManager.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldPrintManager.Name = "fieldPrintManager";
+            this.fieldPrintManager.Size = new System.Drawing.Size(323, 24);
+            this.fieldPrintManager.TabIndex = 43;
+            this.fieldPrintManager.Text = "Менеджер принтера";
+            this.fieldPrintManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // fieldMassaManager
+            // 
+            this.fieldMassaManager.AutoSize = true;
+            this.fieldMassaManager.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaManager.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaManager.Location = new System.Drawing.Point(14, 491);
+            this.fieldMassaManager.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaManager.Name = "fieldMassaManager";
+            this.fieldMassaManager.Size = new System.Drawing.Size(323, 24);
+            this.fieldMassaManager.TabIndex = 44;
+            this.fieldMassaManager.Text = "Менеджер весов";
+            this.fieldMassaManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -587,9 +549,6 @@
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxScales)).EndInit();
-            this.tableLayoutPanelState.ResumeLayout(false);
-            this.tableLayoutPanelState.PerformLayout();
             this.flowLayoutPanelBottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -601,7 +560,6 @@
         private System.Windows.Forms.Label fieldWeightNetto;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
         private System.Windows.Forms.Label fieldPlu;
-        private System.Windows.Forms.PictureBox pictureBoxScales;
         private System.Windows.Forms.Label labelWeightTare;
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.Label fieldTitle;
@@ -621,13 +579,12 @@
         private System.Windows.Forms.Label fieldProductDate;
         private System.Windows.Forms.Label fieldKneading;
         private System.Windows.Forms.Label labelPlu;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelState;
         private System.Windows.Forms.Button btAddKneading;
         private System.Windows.Forms.Button btNewPallet;
         private System.Windows.Forms.Label fieldPalletSize;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label fieldPrintManager;
         private System.Windows.Forms.Label fieldMassaManager;
+        private System.Windows.Forms.Label fieldPrintManager;
         private System.Windows.Forms.Label fieldMemoryManager;
     }
 }
