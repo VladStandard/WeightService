@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.130] - 2021-06-02
+### Changed
+- Tasks managers
+
 ## [0.5.100] - 2021-05-27
 ### Changed
 - Print checked

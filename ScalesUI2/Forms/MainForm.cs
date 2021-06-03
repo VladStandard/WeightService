@@ -32,10 +32,9 @@ namespace ScalesUI.Forms
         private readonly SessionState _ws = SessionState.Instance;
         // Помощник мыши.
         private readonly MouseHookHelper _mouse = MouseHookHelper.Instance;
-
-        private readonly Thread _dtThread;
         //private readonly MkDeviceEntity _mkDevice = MkDeviceEntity.Instance;
         private readonly decimal _threshold = 0.05M;
+        public Task TaskManager { get; set; }
 
         //private LightEmittingDiode LedPrint { get; set; } 
         //private LightEmittingDiode LedMassa { get; set; }
@@ -77,11 +76,9 @@ namespace ScalesUI.Forms
             //_ws.MassaManager.Notify += NotifyMassa;
             
             _ws.NewPallet();
-            
+
             // Manager tasks.
-            var task = new Task(async () => { await TaskDeviceManagerAsync().ConfigureAwait(false); });
-            task.ConfigureAwait(false);
-            task.Start();
+            StartTaskManager();
         }
 
         private void LoadResources()
@@ -93,7 +90,7 @@ namespace ScalesUI.Forms
                 var exit = resourceManager.GetObject("exit_2");
                 if (exit != null)
                 {
-                    var bmpExit = new Bitmap((System.Drawing.Bitmap)exit);
+                    var bmpExit = new Bitmap((Bitmap)exit);
                     pictureBoxClose.Image = bmpExit;
                     //btnScaleOpt.Image = bmpSettings;
                     //btnScaleOpt.Text = string.Empty;
@@ -129,8 +126,7 @@ namespace ScalesUI.Forms
         public SqlCommand GetSqlInstanceCmd(SqlConnection con)
         {
             var query = @"select serverproperty('InstanceName') [InstanceName]";
-            var cmd = new SqlCommand(query, con);
-            cmd.CommandType = CommandType.Text;
+            var cmd = new SqlCommand(query, con) { CommandType = CommandType.Text };
             cmd.Prepare();
             return cmd;
         }
@@ -187,12 +183,8 @@ namespace ScalesUI.Forms
 
             if (isClose)
             {
-                _ws.MassaManagerIsExit = true;
-                _ws.PrintManagerIsExit = true;
-                _ws.DeviceManagerIsExit = true;
-                _ws.MemoryManagerIsExit = true;
+                StopTaskManager();
                 _mouse?.Close();
-                _dtThread?.Abort();
                 e.Cancel = false;
             }
             else
@@ -247,13 +239,13 @@ namespace ScalesUI.Forms
             // TSC printers.
             if (_ws.CurrentScale?.ZebraPrinter != null && _ws.IsTscPrinter)
             {
-                if (_ws.PrintManager.PrintControl != null && !_ws.PrintManager.PrintControl.IsOpen)
-                    await AsyncControl.Properties.SetBackColor.Async(buttonPrint, _ws.PrintManager.PrintControl.IsOpen
-                        ? Color.FromArgb(192, 255, 192) : Color.Transparent).ConfigureAwait(false);
+                //if (_ws.PrintManager.PrintControl != null && !_ws.PrintManager.PrintControl.IsOpen)
+                //    await AsyncControl.Properties.SetBackColor.Async(buttonPrint, _ws.PrintManager.PrintControl.IsOpen
+                //        ? Color.FromArgb(192, 255, 192) : Color.Transparent).ConfigureAwait(false);
                 if (_ws.PrintManager.PrintControl != null)
                 {
                     //LedPrint.State = _ws.PrintManager.PrintControl.IsOpen;
-                    await AsyncControl.Properties.SetText.Async(fieldPrintManager, _ws.PrintManager.PrintControl.IsOpen
+                    await AsyncControl.Properties.SetText.Async(fieldPrintManager, _ws.PrintManager.PrintControl.IsStatusNormal
                         ? $"Принтер: доступен | {ch}" : $"Принтер: недоступен | {ch}").ConfigureAwait(false);
                 }
             }
@@ -324,8 +316,8 @@ namespace ScalesUI.Forms
                     if (_ws.MemoryManager == null)
                     {
                         _ws.MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
-                        _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
                     }
+                    _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
                 }
             });
             taskMemory.Start();
@@ -338,14 +330,14 @@ namespace ScalesUI.Forms
                     if (_ws.PrintManager == null)
                     {
                         _ws.PrintManager = new PrintManagerEntity(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
-                        _ws.PrintManager.Open(_ws.IsTscPrinter, CallbackPrintManagerAsync);
                     }
+                    _ws.PrintManager.Open(_ws.IsTscPrinter, CallbackPrintManagerAsync);
                     // STOP
-                    if (_ws.PrintManager.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
-                    {
-                        _ws.PrintManager.PrintControl.Close();
-                        _ws.PrintManager.PrintControl = null;
-                    }
+                    //if (_ws.PrintManager.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
+                    //{
+                    //    _ws.PrintManager.PrintControl.Close();
+                    //    _ws.PrintManager.PrintControl = null;
+                    //}
                 }
             });
             taskPrint.Start();
@@ -358,8 +350,8 @@ namespace ScalesUI.Forms
                     if (_ws.DeviceManager == null)
                     {
                         _ws.DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
-                        _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
                     }
+                    _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
                 }
             });
             taskDevice.Start();
@@ -374,11 +366,51 @@ namespace ScalesUI.Forms
                         var deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
                         _ws.MassaManager = new MassaManagerEntity(deviceSocketRs232, 1_000, 5_000, 5_000);
                         buttonSetZero_Click(null, null);
-                        _ws.MassaManager.Open(CallbackMassaManagerAsync);
                     }
+                    _ws.MassaManager.Open(CallbackMassaManagerAsync);
                 }
             });
             taskMassa.Start();
+        }
+
+        private void StartTaskManager()
+        {
+            Application.DoEvents();
+            if (TaskManager == null)
+            {
+                _ws.MemoryManagerIsExit = false;
+                _ws.DeviceManagerIsExit = false;
+                _ws.PrintManagerIsExit = false;
+                _ws.MassaManagerIsExit = false;
+
+                TaskManager = new Task(async () => { await TaskDeviceManagerAsync().ConfigureAwait(false); });
+                TaskManager.ConfigureAwait(false);
+                TaskManager.Start();
+            }
+        }
+
+        private void StopTaskManager()
+        {
+            _ws.MemoryManagerIsExit = true;
+            _ws.DeviceManagerIsExit = true;
+            _ws.PrintManagerIsExit = true;
+            _ws.MassaManagerIsExit = true;
+
+            _ws.MemoryManager?.Close();
+            _ws.DeviceManager?.Close();
+            _ws.MassaManager?.Close();
+            
+            _ws.PrintManager?.Close();
+            if (_ws.PrintManager?.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
+            {
+                _ws.PrintManager.PrintControl.Close();
+                //_ws.PrintManager.PrintControl = null;
+            }
+
+            TaskManager?.Dispose();
+            TaskManager = null;
+
+            Application.DoEvents();
         }
 
         #endregion
@@ -413,7 +445,7 @@ namespace ScalesUI.Forms
         //        AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto, Color.Transparent);
         //    }
         //}
-        
+
         private void NotifyProductDate(DateTime productDate)
         {
             AsyncControl.Properties.SetText.Async(fieldProductDate, $"{productDate:dd.MM.yyyy}");
@@ -428,6 +460,7 @@ namespace ScalesUI.Forms
         {
             AsyncControl.Properties.SetText.Async(fieldPalletSize, $"{_ws.CurrentBox}/{_ws.PalletSize}");
         }
+        
         private void NotifyCurrentBox(int currentBox)
         {
             AsyncControl.Properties.SetText.Async(fieldPalletSize, $"{_ws.CurrentBox}/{_ws.PalletSize}");
@@ -466,6 +499,8 @@ namespace ScalesUI.Forms
         {
             try
             {
+                StopTaskManager();
+
                 if (_ws.IsDebug)
                 {
                     OpenFormSettings();
@@ -486,7 +521,8 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                buttonPrint.Select();
+                AsyncControl.Select.Invoke(buttonPrint);
+                StartTaskManager();
             }
         }
 
@@ -522,7 +558,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                buttonPrint.Select();
+                AsyncControl.Select.Invoke(buttonPrint);
             }
         }
 
@@ -530,6 +566,8 @@ namespace ScalesUI.Forms
         {
             try
             {
+                StopTaskManager();
+
                 if (_ws.MassaManager.WeightNet > _threshold || _ws.MassaManager.WeightNet < -_threshold)
                 {
                     if (CustomMessageBox.Show(@"Разгрузите весовую платформу!" + Environment.NewLine +
@@ -538,9 +576,8 @@ namespace ScalesUI.Forms
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                         return;
                 }
-                using (var pluListForm = new PluListForm() )
+                using (var pluListForm = new PluListForm { Owner = this})
                 {
-                    pluListForm.Owner = this;
                     // Комментировано 2021-03-05.
                     //buttonSetZero_Click(sender, e);
                     if (pluListForm.ShowDialog() == DialogResult.OK)
@@ -553,7 +590,7 @@ namespace ScalesUI.Forms
                         // сразу перейдем к форме с замесами, размерами паллет и прочее
                         buttonSetKneading_Click(sender, e);
                     }
-                    else
+                    else if (_ws.CurrentPlu != null)
                     {
                         _ws.CurrentPlu = null;
                     }
@@ -568,7 +605,8 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                buttonPrint.Select();
+                AsyncControl.Select.Invoke(buttonPrint);
+                StartTaskManager();
             }
         }
 
@@ -576,6 +614,8 @@ namespace ScalesUI.Forms
         {
             try
             {
+                StopTaskManager();
+
                 if (_ws.CurrentOrder == null)
                 {
                     using (OrderListForm settingsForm = new OrderListForm())
@@ -621,7 +661,8 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                buttonPrint.Select();
+                AsyncControl.Select.Invoke(buttonPrint);
+                StartTaskManager();
             }
         }
 
@@ -629,17 +670,16 @@ namespace ScalesUI.Forms
         {
             try
             {
-                using (var settingsForm = new SetKneadingNumberForm())
+                StopTaskManager();
+                
+                using (var settingsForm = new SetKneadingNumberForm { Owner = this })
                 {
-                    settingsForm.Owner = this;
-
                     if (settingsForm.ShowDialog() == DialogResult.OK)
                     {
                         //_ws.Kneading = settingsForm.CurrentKneading;
                         //_ws.ProductDate = settingsForm.CurrentProductDate;
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -647,7 +687,8 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                buttonPrint.Select();
+                AsyncControl.Select.Invoke(buttonPrint);
+                StartTaskManager();
             }
         }
 
@@ -663,7 +704,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                buttonPrint.Select();
+                AsyncControl.Select.Invoke(buttonPrint);
             }
         }
 
@@ -681,17 +722,17 @@ namespace ScalesUI.Forms
                     // 1024х768
                     case 1:
                         WindowState = FormWindowState.Normal;
-                        Size = new System.Drawing.Size(1024, 768);
+                        Size = new Size(1024, 768);
                         break;
                     // 1366х768
                     case 2:
                         WindowState = FormWindowState.Normal;
-                        Size = new System.Drawing.Size(1366, 768);
+                        Size = new Size(1366, 768);
                         break;
                     // 1920х1080
                     case 3:
                         WindowState = FormWindowState.Normal;
-                        Size = new System.Drawing.Size(1920, 1080);
+                        Size = new Size(1920, 1080);
                         break;
                     // Максимальное
                     default:
@@ -719,18 +760,20 @@ namespace ScalesUI.Forms
             //}
         }
 
-        private void btAddKneading_Click(object sender, EventArgs e)
+        private void buttonAddKneading_Click(object sender, EventArgs e)
         {
             //_ws.RotateKneading(Direction.forward);
-            var numberInputForm = new NumberInputForm();
-            numberInputForm.InputValue = 0;// _ws.Kneading;
-            if (numberInputForm.ShowDialog() == DialogResult.OK)
+            using (var numberInputForm = new NumberInputForm {InputValue = 0})
             {
-                _ws.Kneading = numberInputForm.InputValue;
+                // _ws.Kneading;
+                if (numberInputForm.ShowDialog() == DialogResult.OK)
+                {
+                    _ws.Kneading = numberInputForm.InputValue;
+                }
             }
         }
 
-        private void btNewPallet_Click(object sender, EventArgs e)
+        private void buttonNewPallet_Click(object sender, EventArgs e)
         {
             _ws.NewPallet();
         }

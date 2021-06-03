@@ -28,37 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnClose = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.PluListGrid = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnRightRoll = new System.Windows.Forms.Button();
-            this.btnLeftRoll = new System.Windows.Forms.Button();
-            this.lbCurrentPage = new System.Windows.Forms.Label();
+            this.buttonRightRoll = new System.Windows.Forms.Button();
+            this.buttonLeftRoll = new System.Windows.Forms.Button();
+            this.labelCurrentPage = new System.Windows.Forms.Label();
             this.btnRightRoll2 = new System.Windows.Forms.Button();
             this.btnLeftRoll2 = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnClose
+            // buttonClose
             // 
-            this.btnClose.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnClose.Location = new System.Drawing.Point(703, 3);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(170, 107);
-            this.btnClose.TabIndex = 0;
-            this.btnClose.Text = "Закрыть";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.buttonClose.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClose.Location = new System.Drawing.Point(716, 3);
+            this.buttonClose.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(150, 107);
+            this.buttonClose.TabIndex = 0;
+            this.buttonClose.Text = "Закрыть";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // PluListGrid
             // 
             this.PluListGrid.AutoSize = true;
             this.PluListGrid.ColumnCount = 3;
-            this.PluListGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.PluListGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.PluListGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.PluListGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.PluListGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.PluListGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.PluListGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PluListGrid.Location = new System.Drawing.Point(100, 0);
             this.PluListGrid.Name = "PluListGrid";
@@ -68,62 +69,66 @@
             this.PluListGrid.Size = new System.Drawing.Size(676, 487);
             this.PluListGrid.TabIndex = 3;
             // 
-            // flowLayoutPanel1
+            // flowLayoutPanel
             // 
-            this.flowLayoutPanel1.Controls.Add(this.btnClose);
-            this.flowLayoutPanel1.Controls.Add(this.label1);
-            this.flowLayoutPanel1.Controls.Add(this.btnRightRoll);
-            this.flowLayoutPanel1.Controls.Add(this.btnLeftRoll);
-            this.flowLayoutPanel1.Controls.Add(this.lbCurrentPage);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 487);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(876, 122);
-            this.flowLayoutPanel1.TabIndex = 2;
+            this.flowLayoutPanel.Controls.Add(this.buttonClose);
+            this.flowLayoutPanel.Controls.Add(this.label1);
+            this.flowLayoutPanel.Controls.Add(this.buttonRightRoll);
+            this.flowLayoutPanel.Controls.Add(this.buttonLeftRoll);
+            this.flowLayoutPanel.Controls.Add(this.labelCurrentPage);
+            this.flowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 487);
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Size = new System.Drawing.Size(876, 122);
+            this.flowLayoutPanel.TabIndex = 2;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(652, 0);
+            this.label1.Location = new System.Drawing.Point(658, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 23);
             this.label1.TabIndex = 4;
             // 
-            // btnRightRoll
+            // buttonRightRoll
             // 
-            this.btnRightRoll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnRightRoll.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnRightRoll.Location = new System.Drawing.Point(476, 3);
-            this.btnRightRoll.Name = "btnRightRoll";
-            this.btnRightRoll.Size = new System.Drawing.Size(170, 107);
-            this.btnRightRoll.TabIndex = 1;
-            this.btnRightRoll.Text = ">>";
-            this.btnRightRoll.UseVisualStyleBackColor = true;
-            this.btnRightRoll.Click += new System.EventHandler(this.btnRightRoll_Click);
+            this.buttonRightRoll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonRightRoll.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonRightRoll.Location = new System.Drawing.Point(495, 3);
+            this.buttonRightRoll.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.buttonRightRoll.Name = "buttonRightRoll";
+            this.buttonRightRoll.Size = new System.Drawing.Size(150, 107);
+            this.buttonRightRoll.TabIndex = 1;
+            this.buttonRightRoll.Text = ">>";
+            this.buttonRightRoll.UseVisualStyleBackColor = true;
+            this.buttonRightRoll.Click += new System.EventHandler(this.buttonRightRoll_Click);
             // 
-            // btnLeftRoll
+            // buttonLeftRoll
             // 
-            this.btnLeftRoll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLeftRoll.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnLeftRoll.Location = new System.Drawing.Point(300, 3);
-            this.btnLeftRoll.Name = "btnLeftRoll";
-            this.btnLeftRoll.Size = new System.Drawing.Size(170, 107);
-            this.btnLeftRoll.TabIndex = 2;
-            this.btnLeftRoll.Text = "<<";
-            this.btnLeftRoll.UseVisualStyleBackColor = true;
-            this.btnLeftRoll.Click += new System.EventHandler(this.btnLeftRoll_Click);
+            this.buttonLeftRoll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonLeftRoll.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonLeftRoll.Location = new System.Drawing.Point(325, 3);
+            this.buttonLeftRoll.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.buttonLeftRoll.Name = "buttonLeftRoll";
+            this.buttonLeftRoll.Size = new System.Drawing.Size(150, 107);
+            this.buttonLeftRoll.TabIndex = 2;
+            this.buttonLeftRoll.Text = "<<";
+            this.buttonLeftRoll.UseVisualStyleBackColor = true;
+            this.buttonLeftRoll.Click += new System.EventHandler(this.buttonLeftRoll_Click);
             // 
-            // lbCurrentPage
+            // labelCurrentPage
             // 
-            this.lbCurrentPage.AutoSize = true;
-            this.lbCurrentPage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lbCurrentPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbCurrentPage.Location = new System.Drawing.Point(202, 0);
-            this.lbCurrentPage.Name = "lbCurrentPage";
-            this.lbCurrentPage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lbCurrentPage.Size = new System.Drawing.Size(92, 29);
-            this.lbCurrentPage.TabIndex = 3;
-            this.lbCurrentPage.Text = "lbPage";
+            this.labelCurrentPage.AutoSize = true;
+            this.labelCurrentPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelCurrentPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCurrentPage.Location = new System.Drawing.Point(103, 3);
+            this.labelCurrentPage.Margin = new System.Windows.Forms.Padding(3);
+            this.labelCurrentPage.Name = "labelCurrentPage";
+            this.labelCurrentPage.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.labelCurrentPage.Size = new System.Drawing.Size(209, 107);
+            this.labelCurrentPage.TabIndex = 3;
+            this.labelCurrentPage.Text = "labelCurrentPage";
+            this.labelCurrentPage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnRightRoll2
             // 
@@ -136,7 +141,7 @@
             this.btnRightRoll2.TabIndex = 4;
             this.btnRightRoll2.Text = ">>";
             this.btnRightRoll2.UseVisualStyleBackColor = false;
-            this.btnRightRoll2.Click += new System.EventHandler(this.btnRightRoll_Click);
+            this.btnRightRoll2.Click += new System.EventHandler(this.buttonRightRoll_Click);
             // 
             // btnLeftRoll2
             // 
@@ -148,7 +153,7 @@
             this.btnLeftRoll2.TabIndex = 5;
             this.btnLeftRoll2.Text = "<<";
             this.btnLeftRoll2.UseVisualStyleBackColor = true;
-            this.btnLeftRoll2.Click += new System.EventHandler(this.btnLeftRoll_Click);
+            this.btnLeftRoll2.Click += new System.EventHandler(this.buttonLeftRoll_Click);
             // 
             // PluListForm
             // 
@@ -159,7 +164,7 @@
             this.Controls.Add(this.PluListGrid);
             this.Controls.Add(this.btnLeftRoll2);
             this.Controls.Add(this.btnRightRoll2);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.flowLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -168,8 +173,8 @@
             this.Text = "Выбор PLU";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.PluListForm_Load);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
+            this.flowLayoutPanel.ResumeLayout(false);
+            this.flowLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,12 +182,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.TableLayoutPanel PluListGrid;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button btnRightRoll;
-        private System.Windows.Forms.Button btnLeftRoll;
-        private System.Windows.Forms.Label lbCurrentPage;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
+        private System.Windows.Forms.Button buttonRightRoll;
+        private System.Windows.Forms.Button buttonLeftRoll;
+        private System.Windows.Forms.Label labelCurrentPage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnRightRoll2;
         private System.Windows.Forms.Button btnLeftRoll2;

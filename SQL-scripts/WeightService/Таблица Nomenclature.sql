@@ -10,5 +10,5 @@ select
 	,[Name]
 	,[SerializedRepresentationObject]
 from [db_scales].[Nomenclature]
-where name like '%Докторская стандарт%'
+where name like '%Чудо печка%'
 order by [Nomenclature].[Id]

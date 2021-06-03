@@ -19,21 +19,25 @@ namespace ScalesUI.Forms
         private readonly SessionState _ws = SessionState.Instance;
         private List<PluEntity> _orderList;
         private readonly List<PluEntity> _pluList;
-        private readonly int _rowCount = 5;
-        private readonly int _columnCount = 4;
-        private readonly int _pageSize = 20;
-        private int _currentPage = 0;
+        public int RowCount { get; } = 5;
+        public int ColumnCount { get; } = 4;
+        public int PageSize { get; } = 20;
+        public int CurrentPage { get; private set; }
 
         #endregion
 
-        #region Public and private methods
+        #region Constructor and destructor
 
         public PluListForm()
         {
             InitializeComponent();
-            GridCustomizatorClass.GridCustomizator(PluListGrid, _columnCount, _rowCount);
-            _pluList = PluEntity.GetPLUList(_ws.CurrentScale);
+            //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
+            _pluList = PluEntity.GetPluList(_ws.CurrentScale);
         }
+
+        #endregion
+
+        #region Public and private methods
 
         private void PluListForm_Load(object sender, EventArgs e)
         {
@@ -44,13 +48,13 @@ namespace ScalesUI.Forms
             Top = Owner.Top;
             StartPosition = FormStartPosition.CenterParent;
 
-            _orderList = PluEntity.GetPLUList(_ws.CurrentScale);
+            _orderList = PluEntity.GetPluList(_ws.CurrentScale);
 
-            var pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
-            var controls = CreateControls(pluEntities, _columnCount, _rowCount);
+            var pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+            var controls = CreateControls(pluEntities, ColumnCount, RowCount);
             GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-            lbCurrentPage.Text = $@"Cтр. {_currentPage}";
+            labelCurrentPage.Text = $@"Cтр. {CurrentPage}";
         }
 
         private Control[,] CreateControls(IReadOnlyList<PluEntity> pluEntities, int x, int y)
@@ -61,7 +65,7 @@ namespace ScalesUI.Forms
                 for (var i = 0; i < x; ++i)
                 {
                     if (k >= pluEntities.Count) break;
-                    var control = NewControl(pluEntities[k], _currentPage, k);
+                    var control = CreateNewControl(pluEntities[k], CurrentPage, k);
                     controls[i, j] = control;
                     k++;
                 }
@@ -69,7 +73,7 @@ namespace ScalesUI.Forms
             return controls;
         }
 
-        private Control NewControl(PluEntity plu, int pageNumber, int i)
+        private Control CreateNewControl(PluEntity plu, int pageNumber, int i)
         {
             var buttonWidth = 150;
             var buttonHeight = 30;
@@ -79,7 +83,6 @@ namespace ScalesUI.Forms
                 Font = new Font("Arial", 18, FontStyle.Bold),
                 Text = Environment.NewLine + plu.GoodsName,
                 Name = "btn_" + i,
-                TabIndex = i + pageNumber* _pageSize,
                 Dock = DockStyle.Fill,
                 Size = new Size(buttonWidth, buttonHeight),
                 Visible = true,
@@ -87,9 +90,10 @@ namespace ScalesUI.Forms
                 FlatStyle = FlatStyle.Flat,
                 Location = new Point(0, 0),
                 UseVisualStyleBackColor = true,
-                BackColor = SystemColors.Control
+                BackColor = SystemColors.Control,
+                TabIndex = i + pageNumber* PageSize,
             };
-            button.Click += NewButton_Click;
+            button.Click += buttonPlu_Click;
 
             // PLU number label.
             var mashtabW = 0.11M;
@@ -108,10 +112,11 @@ namespace ScalesUI.Forms
                     ? Color.FromArgb(255, 255, 92,  92) 
                     : Color.FromArgb(255, 92, 255, 92),
                 BorderStyle = BorderStyle.FixedSingle,
+                TabIndex = i + pageNumber * PageSize,
             };
             label.MouseClick += (sender, args) =>
             {
-                NewButton_Click(button, null);
+                buttonPlu_Click(label, null);
             };
 
             // Weight label.
@@ -129,60 +134,66 @@ namespace ScalesUI.Forms
                     ? Color.FromArgb(255, 255, 92, 92)
                     : Color.FromArgb(255, 92, 255, 92),
                 BorderStyle = BorderStyle.FixedSingle,
+                TabIndex = i + pageNumber * PageSize,
             };
             labelCount.MouseClick += (sender, args) =>
             {
-                NewButton_Click(button, null);
+                buttonPlu_Click(labelCount, null);
             };
 
             return button;
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void buttonClose_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
 
-        private void NewButton_Click(object sender, EventArgs e)
+        private void buttonPlu_Click(object sender, EventArgs e)
         {
-            if (sender is Button button)
+            _ws.CurrentOrder = null;
+            var tabIndex = 0;
+            if (sender is Control control)
+                tabIndex = control.TabIndex;
+            if (_orderList?.Count >= tabIndex)
             {
-                _ws.CurrentOrder = null;
-                if (_orderList?.Count >= button.TabIndex)
-                {
-                    _ws.CurrentPlu = _orderList[button.TabIndex];
-                    _ws.CurrentPlu.LoadTemplate();
-                    //_ws.WeightTare = (int)(_ws.CurrentPLU.GoodsTareWeight * _ws.Calibre);
-                    //_ws.WeightReal = 0;
-                    DialogResult = DialogResult.OK;
-                }
-                Close();
+                _ws.CurrentPlu = _orderList[tabIndex];
+                _ws.CurrentPlu.LoadTemplate();
+                //_ws.WeightTare = (int)(_ws.CurrentPLU.GoodsTareWeight * _ws.Calibre);
+                //_ws.WeightReal = 0;
+                DialogResult = DialogResult.OK;
             }
+            Close();
         }
 
-        private void btnLeftRoll_Click(object sender, EventArgs e)
+        private void buttonLeftRoll_Click(object sender, EventArgs e)
         {
-            if (_currentPage > 0) _currentPage--; else _currentPage = 0;
+            var saveCurrentPage = CurrentPage;
+            CurrentPage = CurrentPage > 0 ? CurrentPage - 1 : 0;
+            if (CurrentPage == saveCurrentPage)
+                return;
 
-            var pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
-            var controls = CreateControls(pluEntities, _columnCount, _rowCount);
+            var pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+            var controls = CreateControls(pluEntities, ColumnCount, RowCount);
             GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-            lbCurrentPage.Text = $"Cтр. {_currentPage}";
+            labelCurrentPage.Text = $@"Cтр. {CurrentPage}";
         }
 
-        private void btnRightRoll_Click(object sender, EventArgs e)
+        private void buttonRightRoll_Click(object sender, EventArgs e)
         {
-            var countPage = _pluList.Count / _pageSize;
-            if (_currentPage < countPage) _currentPage++;
-            else _currentPage = countPage;
+            var saveCurrentPage = CurrentPage;
+            var countPage = _pluList.Count / PageSize;
+            CurrentPage = CurrentPage < countPage ? CurrentPage + 1 : countPage;
+            if (CurrentPage == saveCurrentPage)
+                return;
 
-            var pluEntities = _pluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
-            var controls = CreateControls(pluEntities, _columnCount, _rowCount);
+            var pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+            var controls = CreateControls(pluEntities, ColumnCount, RowCount);
             GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-            lbCurrentPage.Text = $@"Cтр. {_currentPage}";
+            labelCurrentPage.Text = $@"Cтр. {CurrentPage}";
         }
 
         #endregion

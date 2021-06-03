@@ -22,10 +22,10 @@ namespace TapangaMaha
         private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Thread _datetimeThread;
         private readonly SessionState _sessionState = SessionState.Instance;
-        private int _currentPage;
-        private readonly int _rowCount = 5;
-        private readonly int _columnCount = 4;
-        private readonly int _pageSize = 20;
+        public int CurrentPage { get; }
+        public int RowCount { get; } = 5;
+        public int ColumnCount { get; } = 4;
+        public int PageSize { get; } = 20;
 
         #endregion
 
@@ -34,8 +34,7 @@ namespace TapangaMaha
         public MainForm()
         {
             InitializeComponent();
-            GridCustomizatorClass.GridCustomizator(this.PluListGrid, this._columnCount, this._rowCount);
-
+            GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
             _datetimeThread = new Thread(t =>
             {
                 while (true)
@@ -61,13 +60,13 @@ namespace TapangaMaha
         private void btnPrevPage_Click(object sender, EventArgs e)
         {
 
-            if (_currentPage > 0) _currentPage--; else _currentPage = 0;
+            if (CurrentPage > 0) CurrentPage--; else CurrentPage = 0;
 
-            PluEntity[] pluEntities = _sessionState.PluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
-            Control[,] controls = ControlBuilder(pluEntities, this._columnCount, this._rowCount);
-            GridCustomizatorClass.PageBuilder(this.PluListGrid, controls);
+            PluEntity[] pluEntities = _sessionState.PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+            Control[,] controls = ControlBuilder(pluEntities, ColumnCount, RowCount);
+            GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-            lbCurrentPage.Text = $"Cтр. {_currentPage}";
+            lbCurrentPage.Text = $"Cтр. {CurrentPage}";
 
             _log.Info(lbCurrentPage.Text);
 
@@ -75,16 +74,16 @@ namespace TapangaMaha
 
         private void btnNextPage_Click(object sender, EventArgs e)
         {
-            int countPage = (_sessionState.PluList.Count() / _pageSize);
+            int countPage = (_sessionState.PluList.Count() / PageSize);
 
-            if (_currentPage < countPage) _currentPage++;
-            else _currentPage = countPage;
+            if (CurrentPage < countPage) CurrentPage++;
+            else CurrentPage = countPage;
 
-            PluEntity[] pluEntities = _sessionState.PluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
-            Control[,] controls = ControlBuilder(pluEntities, this._columnCount, this._rowCount);
-            GridCustomizatorClass.PageBuilder(this.PluListGrid, controls);
+            PluEntity[] pluEntities = _sessionState.PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+            Control[,] controls = ControlBuilder(pluEntities, ColumnCount, RowCount);
+            GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-            lbCurrentPage.Text = $"Cтр. {_currentPage}";
+            lbCurrentPage.Text = $"Cтр. {CurrentPage}";
 
             _log.Info(lbCurrentPage.Text);
 
@@ -93,17 +92,17 @@ namespace TapangaMaha
         private void MainForm_Load(object sender, EventArgs e)
         {
 
-            if (_sessionState.PluList.Count < _pageSize)
+            if (_sessionState.PluList.Count < PageSize)
             {
                 btnPrevPage.Visible = false;
                 btnNextPage.Visible = false;
             }
 
-            PluEntity[] pluEntities = _sessionState.PluList.Skip(_currentPage * _pageSize).Take(_pageSize).ToArray();
-            Control[,] controls = ControlBuilder(pluEntities, this._columnCount, this._rowCount);
-            GridCustomizatorClass.PageBuilder(this.PluListGrid, controls);
+            PluEntity[] pluEntities = _sessionState.PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+            Control[,] controls = ControlBuilder(pluEntities, ColumnCount, RowCount);
+            GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-            lbCurrentPage.Text = $"Cтр. {_currentPage}";
+            lbCurrentPage.Text = $"Cтр. {CurrentPage}";
 
         }
 
@@ -128,7 +127,7 @@ namespace TapangaMaha
                 {
                     if (k >= pluEntities.Length) break;
                     //Control btn = NewButton(pluEntities[k], _currentPage, k);
-                    Control btn = NewControl(pluEntities[k], _currentPage, k);
+                    Control btn = NewControl(pluEntities[k], CurrentPage, k);
                     Controls[i, j] = btn;
                     k++;
 
@@ -143,7 +142,7 @@ namespace TapangaMaha
                 Font = new Font("Arial", 18, FontStyle.Bold),
                 Text = plu.GoodsName,
                 Name = "btn_" + i,
-                TabIndex = i + pageNumber * _pageSize,
+                TabIndex = i + pageNumber * PageSize,
                 Dock = DockStyle.Fill,
                 Size = new Size(150, 30),
                 Visible = true,
@@ -292,7 +291,7 @@ namespace TapangaMaha
                 Font = new Font("Arial", 24, FontStyle.Bold),
                 Text = plu.ToString(),
                 Name = $"btn_{i}",
-                TabIndex = i + pageNumber * this._pageSize,
+                TabIndex = i + pageNumber * PageSize,
                 Dock = DockStyle.Fill,
                 Size = new Size(150, 30),
                 Visible = true,

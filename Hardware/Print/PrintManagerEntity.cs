@@ -149,15 +149,15 @@ namespace Hardware.Print
                 {
                     CurrentStatus = printerDevice.GetCurrentStatus();
                     UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", printerDevice.Connection));
-                    Peeler = SGD.GET("sensor.peeler", printerDevice.Connection);
-
                     if (CurrentStatus.isReadyToPrint)
                     {
+                        Peeler = SGD.GET("sensor.peeler", printerDevice.Connection);
                         if (Peeler == "clear")
                         {
                             if (CmdQueue.TryDequeue(out var request))
                             {
                                 request = request.Replace("|", "\\&");
+                                //Console.WriteLine(request);
                                 printerDevice.SendCommand(request);
                             }
                         }
@@ -192,7 +192,7 @@ namespace Hardware.Print
                         request = request.Replace("|", "\\&");
                         if (!request.Equals("^XA~JA^XZ") && !request.Contains("odometer.user_label_count"))
                         {
-                            PrintControl.Cmd.SendCustom(true, request, true);
+                            PrintControl?.Cmd?.SendCustom(true, request, true);
                         }
                     }
 
@@ -226,7 +226,7 @@ namespace Hardware.Print
             }
             if (isTscPrinter)
             {
-                PrintControl.Cmd.ClearBuffer(true);
+                PrintControl?.Cmd?.ClearBuffer(true);
             }
             else
             {

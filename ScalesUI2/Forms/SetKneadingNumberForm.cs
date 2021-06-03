@@ -26,13 +26,10 @@ namespace ScalesUI.Forms
         public SetKneadingNumberForm()
         {
             InitializeComponent();
-
             // WindowState = FormWindowState.Maximized;
-
             OldKneading = _ws.Kneading;
             OldProductDate = _ws.ProductDate;
             OldPalletSize = _ws.PalletSize;
-
         }
 
         #endregion
@@ -53,12 +50,12 @@ namespace ScalesUI.Forms
 
         private void ShowProductDate()
         {
-            lbProdDate.Text = _ws.ProductDate.ToString("dd.MM.yyyy");
+            fieldProdDate.Text = _ws.ProductDate.ToString("dd.MM.yyyy");
         }
 
         private void ShowKneading()
         {
-            lKneadingValue.Text = _ws.Kneading.ToString();
+            fieldKneading.Text = _ws.Kneading.ToString();
         }
 
         private void buttonKneadingLeft_Click(object sender, EventArgs e)
@@ -81,7 +78,7 @@ namespace ScalesUI.Forms
             ShowProductDate();
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void buttonClose_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             _ws.Kneading = OldKneading;
@@ -90,11 +87,10 @@ namespace ScalesUI.Forms
             Close();
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             Close();
-
         }
 
         private void buttonDtRight_Click(object sender, EventArgs e)
@@ -109,57 +105,54 @@ namespace ScalesUI.Forms
             ShowProductDate();
         }
 
-        private void btnPalletSize10_Click(object sender, EventArgs e)
+        private void buttonPalletSize10_Click(object sender, EventArgs e)
         {
-            int n = _ws.PalletSize == 1 ? 9 : 10;
-
-            for (int i = 0; i < n; i++)
+            var n = _ws.PalletSize == 1 ? 9 : 10;
+            for (var i = 0; i < n; i++)
             {
                 _ws.RotatePalletSize(Direction.Forward);
                 ShowPalletSize();
             }
-
         }
 
         private void ShowPalletSize()
         {
-            labelPalletSize.Text = _ws.PalletSize.ToString();
+            fieldPalletSize.Text = _ws.PalletSize.ToString();
         }
 
-        private void btnPalletSizeNext_Click(object sender, EventArgs e)
+        private void buttonPalletSizeNext_Click(object sender, EventArgs e)
         {
             _ws.RotatePalletSize(Direction.Forward);
             ShowPalletSize();
         }
 
-        private void btnPalletSizePrev_Click(object sender, EventArgs e)
+        private void buttonPalletSizePrev_Click(object sender, EventArgs e)
         {
             _ws.RotatePalletSize(Direction.Back);
             ShowPalletSize();
-
         }
 
-        private void btSet40_Click(object sender, EventArgs e)
+        private void buttonSet40_Click(object sender, EventArgs e)
         {
             _ws.PalletSize = 40;
             ShowPalletSize();
         }
 
-        private void btSet60_Click(object sender, EventArgs e)
+        private void buttonSet60_Click(object sender, EventArgs e)
         {
             _ws.PalletSize = 60;
             ShowPalletSize();
 
         }
 
-        private void btSet120_Click(object sender, EventArgs e)
+        private void buttonSet120_Click(object sender, EventArgs e)
         {
             _ws.PalletSize = 120;
             ShowPalletSize();
 
         }
 
-        private void btSet1_Click(object sender, EventArgs e)
+        private void buttonSet1_Click(object sender, EventArgs e)
         {
             _ws.PalletSize = 1;
             ShowPalletSize();

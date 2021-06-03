@@ -222,11 +222,12 @@ namespace ScalesUI.Common
             if (PrintManager != null)
             {
                 PrintManager.ClearPrintBuffer(IsTscPrinter);
-                PrintManager.SetOdometorUserLabel(1);
+                if (!IsTscPrinter)
+                    PrintManager.SetOdometorUserLabel(1);
                 ProductSeries.New();
-
             }
         }
+
         #endregion
 
         #region Kneading

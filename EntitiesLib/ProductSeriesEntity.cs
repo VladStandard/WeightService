@@ -47,28 +47,26 @@ namespace EntitiesLib
 
         public void New()
         {
-
             if (Scale == null)
             {
                 throw new Exception("Equipment instance not identified. Set [Scale].");
             }
 
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (var con = SqlConnectFactory.GetConnection())
             {
-                string query =
-
+                var query =
                     "DECLARE @SSCC varchar(50);\n" +
                     "DECLARE @WeithingDate datetime;\n" +
                     "DECLARE @xmldata xml;\n" +
                     "EXECUTE [db_scales].[NewProductSeries] @ScaleID, @SSCC OUTPUT, @xmldata OUTPUT;\n " +
                     "SELECT Id, CreateDate, UUID, SSCC,CountUnit,TotalNetWeight, TotalTareWeight " +
                     " FROM [db_scales].[GetCurrentProductSeries](@ScaleId);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (var cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@ScaleID", Scale.Id);
                     con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         Id = reader.GetInt32(0);
@@ -85,7 +83,6 @@ namespace EntitiesLib
                     con.Close();
                 }
             }
-
         }
 
         public void Load()
@@ -95,12 +92,12 @@ namespace EntitiesLib
                 var query =
                     "SELECT Id, CreateDate, UUID, SSCC, CountUnit,TotalNetWeight, TotalTareWeight " +
                     " FROM [db_scales].[GetCurrentProductSeries](@ScaleId);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (var cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@ScaleID", Scale.Id);
                     con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         Id = reader.GetInt32(0);
@@ -123,9 +120,9 @@ namespace EntitiesLib
         public string SerializeObject()
         {
 
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProductSeriesEntity));
+            var xmlSerializer = new XmlSerializer(typeof(ProductSeriesEntity));
 
-            XmlWriterSettings settings = new XmlWriterSettings();
+            var settings = new XmlWriterSettings();
             settings.ConformanceLevel = ConformanceLevel.Document;
             settings.OmitXmlDeclaration = false;    // не подавлять xml заголовок
 
@@ -137,12 +134,12 @@ namespace EntitiesLib
             settings.Indent = true;                // добавлять отступы
             settings.IndentChars = "\t";           // сиволы отступа
 
-            XmlSerializerNamespaces dummyNSs = new XmlSerializerNamespaces();
+            var dummyNSs = new XmlSerializerNamespaces();
             dummyNSs.Add(string.Empty, string.Empty);
 
-            using (StringWriter textWriter = new StringWriter())
+            using (var textWriter = new StringWriter())
             {
-                using (XmlWriter xw = XmlWriter.Create(textWriter, settings))
+                using (var xw = XmlWriter.Create(textWriter, settings))
                 {
                     xmlSerializer.Serialize(xw, this, dummyNSs);
                 }

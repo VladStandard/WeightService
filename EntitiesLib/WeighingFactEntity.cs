@@ -152,15 +152,17 @@ namespace EntitiesLib
             decimal _TareWeight
         )
         {
-            WeighingFactEntity weighingFact = new WeighingFactEntity();
-            weighingFact.ScaleId = _Scale.Id;
-            weighingFact.ScaleFactor = _ScaleFactor;
-            weighingFact.Scale = _Scale;
-            weighingFact.PLU = _PLU;
-            weighingFact.ProductDate = _ProductDate;
-            weighingFact.KneadingNumber = _KneadingNumber;
-            weighingFact.NetWeight = _NetWeight;
-            weighingFact.TareWeight = _TareWeight;
+            WeighingFactEntity weighingFact = new WeighingFactEntity
+            {
+                ScaleId = _Scale.Id,
+                ScaleFactor = _ScaleFactor,
+                Scale = _Scale,
+                PLU = _PLU,
+                ProductDate = _ProductDate,
+                KneadingNumber = _KneadingNumber,
+                NetWeight = _NetWeight,
+                TareWeight = _TareWeight
+            };
             return weighingFact;
         }
 

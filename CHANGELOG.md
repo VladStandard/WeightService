@@ -6,10 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.140] - 2021-06-01
+## [0.1.150] - 2021-06-02
 ### Changed
-- ScalesUI 0.5.120
-- ScalesUITests 0.5.120
+- ScalesUI 0.5.130
+- ScalesUITests 0.5.130
 
 ## [0.1.130] - 2021-05-27
 ### Changed

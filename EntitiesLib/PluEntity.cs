@@ -230,9 +230,9 @@ from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
             }
         }
 
-        public static SqlCommand GetPluListCmd(SqlConnection con, ScaleEntity scale)
+        public static SqlCommand GetPluListCmd(SqlConnection con, int scaleId)
         {
-            if (con == null || scale == null)
+            if (con == null)
                 return null;
             var query = @"
 select
@@ -249,30 +249,28 @@ select
     ,[GoodsBoxQuantly]
     ,[RRefGoods]
 	,[PLU]
-
 	,[UpperWeightThreshold]
 	,[NominalWeight]			
 	,[LowerWeightThreshold]
 	,[CheckWeight]
-
 from [db_scales].[GetPLU] (@ScaleID)
 order by [PLU]
                     ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
             var cmd = new SqlCommand(query, con);
-            cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.Int) { Value = scale.Id });
+            cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.Int) { Value = scaleId });
             cmd.Prepare();
             return cmd;
         }
 
-        public static List<PluEntity> GetPLUList(ScaleEntity scale)
+        public static List<PluEntity> GetPluList(ScaleEntity scale)
         {
-            var res = new List<PluEntity>();
+            var result = new List<PluEntity>();
             using (var con = SqlConnectFactory.GetConnection())
             {
                 if (scale != null)
                 {
                     con.Open();
-                    var cmd = GetPluListCmd(con, scale);
+                    var cmd = GetPluListCmd(con, scale.Id);
                     if (cmd != null)
                     {
                         var reader = cmd.ExecuteReader();
@@ -297,21 +295,20 @@ order by [PLU]
                                     GoodsBoxQuantly = SqlConnectFactory.GetValue<int>(reader, "GoodsBoxQuantly"),
                                     //RRefGoods = SqlConnectFactory.GetValue<string>(reader, "RRefGoods"),
                                     PLU = SqlConnectFactory.GetValue<int>(reader, "PLU"),
-
                                     UpperWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "UpperWeightThreshold"),
                                     NominalWeight = SqlConnectFactory.GetValue<decimal>(reader, "NominalWeight"),
                                     LowerWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "LowerWeightThreshold"),
                                     CheckWeight = SqlConnectFactory.GetValue<bool>(reader, "CheckWeight")
 
                             };
-                                res.Add(pluEntity);
+                            result.Add(pluEntity);
                             }
                         }
                         reader.Close();
                     }
                 }
             }
-            return res;
+            return result;
         }
     }
 }

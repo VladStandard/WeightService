@@ -35,7 +35,7 @@ namespace  TapangaMaha.Common
             this.CurrentScale.Load();
 
             this.PluList = new List<PluEntity>();
-            this.PluList = PluEntity.GetPLUList(this.CurrentScale);
+            this.PluList = PluEntity.GetPluList(this.CurrentScale);
 
             this.Kneading = KneadingMinValue;
             this.ProductDate = DateTime.Now;

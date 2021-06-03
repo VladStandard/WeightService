@@ -219,7 +219,7 @@ namespace BlazorDeviceControl.Utils
         public const string TableFieldUpperWeightThreshold = @"Верхнее значение веса короба";
         public const string TableFieldNominalWeight = @"Номинальный вес короба";
         public const string TableFieldLowerWeightThreshold = @"Нижнее значение веса короба";
-        public const string TableFieldCheckWeight = @"Контроль веса";
+        public const string TableFieldCheckWeight = @"Весовая продукция";
         public const string TableFieldCheckGtin = @"v";
         public const string TableFieldHost = @"Хост";
 
