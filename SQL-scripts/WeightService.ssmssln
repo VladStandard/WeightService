@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Таблица Hosts. Свободные.sql = WeightService\Таблица Hosts. Свободные.sql
 		WeightService\Таблица Hosts.sql = WeightService\Таблица Hosts.sql
 		WeightService\Таблица Labels.sql = WeightService\Таблица Labels.sql
+		WeightService\Таблица Nomenclature. Чудо печка Scales.sql = WeightService\Таблица Nomenclature. Чудо печка Scales.sql
+		WeightService\Таблица Nomenclature. Чудо печка.sql = WeightService\Таблица Nomenclature. Чудо печка.sql
 		WeightService\Таблица Nomenclature.sql = WeightService\Таблица Nomenclature.sql
 		WeightService\Таблица NomenclatureUnits.sql = WeightService\Таблица NomenclatureUnits.sql
 		WeightService\Таблица Orders.sql = WeightService\Таблица Orders.sql
@@ -66,7 +68,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7CB0EBDA-642F-48DF-A088-5E4BF8A331F3}.Default|Default.ActiveCfg = Default
+		{4CFA4B2E-A376-414C-BEA8-5D67C2700731}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

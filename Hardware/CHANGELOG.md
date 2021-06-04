@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.150] - 2021-06-04
+### Changed
+- Updated version
+
 ## [0.5.90] - 2021-05-26
 ### Changed
 - PVS-Studio comments for analyze

@@ -6,6 +6,7 @@ using ScalesUI.Forms;
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using Hardware;
 
 // ReSharper disable IdentifierTypo
 
@@ -13,12 +14,10 @@ namespace ScalesUI
 {
     internal static class Program
     {
-
         [STAThread]
         internal static void Main(string[] args)
         {
-
-            string conectionString = Properties.Settings.Default.ConnectionString.ToString();
+            var conectionString = Properties.Settings.Default.ConnectionString;
             try
             {
                 var x = SqlConnectFactory.GetConnection(conectionString);
@@ -56,22 +55,21 @@ namespace ScalesUI
                 Application.Exit();
                 return;
             }
-            else
+
+            var host = new HostEntity();
+            //var memory = new MemorySizeEntity();
+            host.TokenRead();
+            if (host.CurrentScaleId == 0)
             {
-                HostEntity Host = new HostEntity();
-                Host.TokenRead();
-                if (Host.CurrentScaleId == 0)
+                if (CustomMessageBox.Show($"Моноблок зарегистрирован в информационной системе с идентификатором\n"+
+                                          $"{host.IdRRef.ToString()}\n"+
+                                          $"Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl."
+                ) == DialogResult.OK)
                 {
-                    if (CustomMessageBox.Show($"Моноблок зарегистрирован в информационной системе с идентификатором\n"+
-                        $"{Host.IdRRef.ToString()}\n"+
-                        $"Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl."
-                        ) == DialogResult.OK)
-                    {
-                        Clipboard.SetText($@"{Host.IdRRef.ToString()}");
-                    }
-                    Application.Exit();
-                    return;
+                    Clipboard.SetText($@"{host.IdRRef.ToString()}");
                 }
+                Application.Exit();
+                return;
             }
             _ = new Mutex(true, Application.ProductName, out var first);
             if (first != true)
