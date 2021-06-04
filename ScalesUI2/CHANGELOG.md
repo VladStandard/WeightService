@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.130] - 2021-06-02
+## [0.5.150] - 2021-06-04
 ### Changed
 - Tasks managers
+- New PLU parse EAN13
 
 ## [0.5.100] - 2021-05-27
 ### Changed

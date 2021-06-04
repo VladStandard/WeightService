@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ScalesUI.Helpers
 {
@@ -28,7 +29,7 @@ namespace ScalesUI.Helpers
         private LowLevelMouseProc _levelMouseProc;
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
         private IntPtr _hookId = IntPtr.Zero;
-        private Task _taskMouse;
+        //private Task _taskMouse;
 
         #endregion
 
@@ -91,22 +92,24 @@ namespace ScalesUI.Helpers
 
         public void OnMouseEvent(object sender, EventArgs e)
         {
-            if (_taskMouse is null)
-            {
-                _taskMouse = OnMouseEventAsync();
-                _taskMouse.Wait();
-                _taskMouse.Dispose();
-                _taskMouse = null;
-            }
+            //if (_taskMouse is null)
+            //{
+            //    _taskMouse = OnMouseEventAsync();
+            //    _taskMouse.Wait();
+            //    _taskMouse.Dispose();
+            //    _taskMouse = null;
+            //}
+            _ws?.ProcessWeighingResult();
         }
 
         private async Task OnMouseEventAsync()
         {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             if (_ws != null)
             {
-                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
                 _ws.ProcessWeighingResult();
-                await Task.Delay(TimeSpan.FromMilliseconds(800)).ConfigureAwait(false);
+                Application.DoEvents();
+                await Task.Delay(TimeSpan.FromMilliseconds(800)).ConfigureAwait(true);
             }
         }
 

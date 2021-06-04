@@ -392,7 +392,7 @@ namespace Hardware.Zpl
                     unicodeCharacterList[ch] = ch.ToString();
                 }
 
-                // Calc isFieldData.
+                // Calc isFieldData. ^FH^FD
                 if (isFieldData == 0 && ch == '^')
                     isFieldData = 1;
                 if (isFieldData == 1 && ch == 'F')
@@ -406,7 +406,7 @@ namespace Hardware.Zpl
                 if (isFieldData == 5 && ch == 'D')
                     isFieldData = 6;
 
-                // Reset isFieldData.
+                // Reset isFieldData. ^FS
                 if (isFieldData == 6 && ch == '^')
                     isFieldData = 7;
                 if (isFieldData == 7 && ch == 'F')

@@ -700,7 +700,10 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(@"Ошибка вызова печати!" + Environment.NewLine + ex.Message);
+                var msg = ex.Message;
+                if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                CustomMessageBox.Show(@"Ошибка вызова печати!" + Environment.NewLine + msg);
             }
             finally
             {
