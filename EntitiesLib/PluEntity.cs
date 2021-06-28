@@ -32,13 +32,25 @@ namespace EntitiesLib
         public decimal GoodsTareWeight { get; set; }
         public decimal GoodsFixWeight { get; set; }
         public int? GoodsBoxQuantly { get; set; }
-
+        /// <summary>
+        /// Верхнее значение веса короба.
+        /// </summary>
         public decimal UpperWeightThreshold { get; set; }
-        public decimal NominalWeight        { get; set; }
+        /// <summary>
+        /// Номинальный вес короба.
+        /// </summary>
+        public decimal NominalWeight  { get; set; }
+        /// <summary>
+        /// Нижнее значение веса короба.
+        /// </summary>
         public decimal LowerWeightThreshold { get; set; }
-        public bool? CheckWeight   { get; set; }
-
-
+        /// <summary>
+        /// Весовая продукция.
+        /// </summary>
+        public bool? CheckWeight { get; set; }
+        /// <summary>
+        /// ID шаблона.
+        /// </summary>
         public int? TemplateID { get; set; }
 
         //  [XmlIgnoreAttribute]

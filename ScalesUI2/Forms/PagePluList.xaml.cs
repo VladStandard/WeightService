@@ -1,21 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows;
-using System.Windows.Forms;
 using EntitiesLib;
 using ScalesUI.Common;
-using UICommon;
-using Button = System.Windows.Controls.Button;
-using Control = System.Windows.Controls.Control;
-using Label = System.Windows.Controls.Label;
-using Point = System.Windows.Point;
-using Size = System.Windows.Size;
-using SystemColors = System.Windows.SystemColors;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Forms;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace ScalesUI.Forms

@@ -32,27 +32,27 @@ namespace ScalesUI.Forms
         {
             if (owner is Form form)
                 return Show(form, label, "", buttons, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            return Show(label, "", buttons);
+            return Show(null, label, "", buttons);
         }
 
         public static DialogResult Show(string label, MessageBoxButtons buttons = MessageBoxButtons.OK)
         {
-            return Show(label, "", buttons);
+            return Show(null, label, "", buttons);
         }
 
-        public static DialogResult Show(string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
+        //public static DialogResult Show(string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
+        //    MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, MessageBoxDefaultButton defaultButton = MessageBoxDefaultButton.Button1)
+        //{
+        //    return Show(null, label, caption, buttons, messageBoxIcon, defaultButton);
+        //}
+
+        public static DialogResult Show(Form formOwner, string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
             MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, MessageBoxDefaultButton defaultButton = MessageBoxDefaultButton.Button1)
-        {
-            return Show(null, label, caption, buttons, messageBoxIcon, defaultButton);
-        }
-
-        public static DialogResult Show(Form formOwner, string label, string caption, MessageBoxButtons buttons,
-            MessageBoxIcon messageBoxIcon, MessageBoxDefaultButton defaultButton)
         {
             var messageBox = new CustomMessageBox
             {
-                Owner = formOwner, 
-                fieldMessage = {Text = label}, 
+                Owner = formOwner,
+                fieldMessage = { Text = label },
                 Text = caption,
                 DefaultButton = defaultButton,
             };
@@ -122,6 +122,16 @@ namespace ScalesUI.Forms
                 button.Height = 80;
                 button.Width = 140;
                 button.Font = f;
+            }
+
+            // Выровнять.
+            if (formOwner != null)
+            {
+                messageBox.TopMost = formOwner.TopMost;
+                //messageBox.Width = formOwner.Width;
+                //messageBox.Height = formOwner.Height;
+                messageBox.Left = formOwner.Left;
+                messageBox.Top = formOwner.Top;
             }
 
             messageBox.ShowDialog();

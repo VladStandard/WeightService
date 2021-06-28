@@ -1,5 +1,5 @@
 -- Таблица PLU
-declare @id int = 172
+declare @id int = 200
 use [ScalesDB]
 select
 	 [db_scales].[PLU].[Id]
@@ -17,6 +17,9 @@ select
 	,[db_scales].[PLU].[GoodsBoxQuantly]
 	,[db_scales].[PLU].[CreateDate]
 	,[db_scales].[PLU].[ModifiedDate]
+	,[db_scales].[PLU].[LowerWeightThreshold]
+	,[db_scales].[PLU].[NominalWeight]
+	,[db_scales].[PLU].[UpperWeightThreshold]
 	,[db_scales].[Scales].[Id] [Scales_Id]
 	,[db_scales].[Scales].[ScaleFactor]
 from [db_scales].[PLU]

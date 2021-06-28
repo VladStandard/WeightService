@@ -15,6 +15,7 @@ using UICommon;
 using ZabbixAgentLib;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ScalesUI.Forms;
 
 namespace ScalesUI.Common
 {
@@ -384,17 +385,19 @@ namespace ScalesUI.Common
                 template = CurrentPlu.Template;
             }
 
+            // Есть шаблон, есть PLU.
             if (template != null && CurrentPlu != null)
             {
-                if (CurrentPlu.CheckWeight == false)
+                switch (CurrentPlu.CheckWeight)
                 {
-                    // Печать нескольких этикеток и при этом правильный вес не нужен.
-                    PrintCountLabel(template);
-                }
-                else if (CurrentPlu.CheckWeight == true)
-                {
-                    // Опросить платформу для каждой коробки отдельно и при этом получать правильный вес.
-                    PrintWeightLabel(template);
+                    case true:
+                        // Печать весовых этикеток.
+                        PrintWeightLabel(template);
+                        break;
+                    default:
+                        // Печать штучных этикеток.
+                        PrintCountLabel(template);
+                        break;
                 }
             }
         }
@@ -462,6 +465,30 @@ namespace ScalesUI.Common
             // Вывести серию этикеток по заданному размеру паллеты.
             CurrentWeighingFact = WeighingFactEntity.New(CurrentScale, CurrentPlu, ProductDate, Kneading,
                 CurrentPlu.Scale.ScaleFactor, CurrentPlu.NominalWeight, CurrentPlu.GoodsTareWeight);
+
+            // Указан номинальный вес.
+            var isCheck = false;
+            if (CurrentPlu.NominalWeight > 0)
+            {
+                CurrentWeighingFact.NetWeight = MassaManager.WeightNet - CurrentPlu.GoodsTareWeight;
+                if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
+                    CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
+                {
+                    isCheck = true;
+                }
+            }
+            else
+                isCheck = true;
+
+            if (!isCheck)
+            {
+                CustomMessageBox.Show( null,"Вес выходит за границы!" + Environment.NewLine +
+                                      $"Вес нетто: {CurrentWeighingFact.NetWeight}" + Environment.NewLine +
+                                      $"Верхнее значение веса короба: {CurrentPlu.UpperWeightThreshold}" + Environment.NewLine +
+                                      $"Нижнее значение веса короба: {CurrentPlu.LowerWeightThreshold}");
+                return;
+            }
+
             // Шаблон с указанием кол-ва.
             if (template.XslContent.Contains("^PQ1"))
             {
@@ -491,7 +518,7 @@ namespace ScalesUI.Common
             // Проверка наличия устройства весов.
             if (MassaManager == null)
             {
-                _log.Info($@"Устройство весов не обнаружено!");
+                _log.Info(@"Устройство весов не обнаружено!");
                 return;
             }
             // Проверка товара на весах.
@@ -511,6 +538,21 @@ namespace ScalesUI.Common
                 CurrentPlu.GoodsTareWeight
             );
             
+            // Указан номинальный вес.
+            var isCheck = false;
+            if (CurrentPlu.NominalWeight > 0)
+            {
+                if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
+                    CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
+                {
+                    isCheck = true;
+                }
+            }
+            else
+                isCheck = true;
+            if (!isCheck)
+                return;
+
             // Печать этикетки.
             PrintLabel(template);
         }

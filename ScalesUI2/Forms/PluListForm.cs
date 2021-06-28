@@ -44,7 +44,7 @@ namespace ScalesUI.Forms
             TopMost = !_ws.IsDebug;
             Width = Owner.Width;
             Height = Owner.Height;
-            Left   = Owner.Left;
+            Left = Owner.Left;
             Top = Owner.Top;
             //StartPosition = FormStartPosition.CenterParent;
 
@@ -96,7 +96,7 @@ namespace ScalesUI.Forms
             button.Click += buttonPlu_Click;
 
             // PLU number label.
-            var mashtabW = 0.11M;
+            var mashtabW = 0.19M;
             var mashtabH = 0.05M;
             var label = new Label()
             {
@@ -120,6 +120,7 @@ namespace ScalesUI.Forms
             };
 
             // Weight label.
+            mashtabW = 0.11M;
             var labelCount = new Label()
             {
                 Font = new Font("Arial", 20, FontStyle.Bold),

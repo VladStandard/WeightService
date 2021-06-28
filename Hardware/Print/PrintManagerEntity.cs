@@ -35,7 +35,7 @@ namespace Hardware.Print
         //public event OnHandler Notify;
         private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public Connection Con { get; private set; }
-        public ConcurrentQueue<string> CmdQueue { get; } = new ConcurrentQueue<string>();
+        public ConcurrentQueue<string> PrintCmdQueue { get; } = new ConcurrentQueue<string>();
         private readonly object _locker = new object();
         public PrintControlEntity PrintControl { get; set; }
 
@@ -128,7 +128,7 @@ namespace Hardware.Print
         public async void SendAsync(string printCmd)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            CmdQueue.Enqueue(printCmd);
+            PrintCmdQueue.Enqueue(printCmd);
         }
 
         public void OpenJob(bool isTscPrinter)
@@ -147,23 +147,25 @@ namespace Hardware.Print
             {
                 try
                 {
-                    CurrentStatus = printerDevice.GetCurrentStatus();
-                    UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", printerDevice.Connection));
-                    if (CurrentStatus.isReadyToPrint)
+                    if (!PrintCmdQueue.IsEmpty)
                     {
-                        Peeler = SGD.GET("sensor.peeler", printerDevice.Connection);
-                        if (Peeler == "clear")
+                        CurrentStatus = printerDevice.GetCurrentStatus();
+                        UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", printerDevice.Connection));
+                        if (CurrentStatus.isReadyToPrint)
                         {
-                            if (CmdQueue.TryDequeue(out var request))
+                            Peeler = SGD.GET("sensor.peeler", printerDevice.Connection);
+                            if (Peeler == "clear")
                             {
-                                request = request.Replace("|", "\\&");
-                                //Console.WriteLine(request);
-                                printerDevice.SendCommand(request);
+                                if (PrintCmdQueue.TryDequeue(out var request))
+                                {
+                                    request = request.Replace("|", "\\&");
+                                    //Console.WriteLine(request);
+                                    printerDevice.SendCommand(request);
+                                }
                             }
                         }
+                        //Notify?.Invoke(this);
                     }
-
-                    //Notify?.Invoke(this);
                 }
                 catch (ConnectionException e)
                 {
@@ -187,16 +189,18 @@ namespace Hardware.Print
             {
                 try
                 {
-                    if (CmdQueue.TryDequeue(out var request))
+                    if (!PrintCmdQueue.IsEmpty)
                     {
-                        request = request.Replace("|", "\\&");
-                        if (!request.Equals("^XA~JA^XZ") && !request.Contains("odometer.user_label_count"))
+                        if (PrintCmdQueue.TryDequeue(out var request))
                         {
-                            PrintControl?.Cmd?.SendCustom(true, request, true);
+                            request = request.Replace("|", "\\&");
+                            if (!request.Equals("^XA~JA^XZ") && !request.Contains("odometer.user_label_count"))
+                            {
+                                PrintControl?.Cmd?.SendCustom(true, request, true);
+                            }
                         }
+                        //Notify?.Invoke(this);
                     }
-
-                    //Notify?.Invoke(this);
                 }
                 catch (ConnectionException e)
                 {
@@ -220,9 +224,9 @@ namespace Hardware.Print
 
         public void ClearPrintBuffer(bool isTscPrinter)
         {
-            while (!CmdQueue.IsEmpty)
+            while (!PrintCmdQueue.IsEmpty)
             {
-                CmdQueue.TryDequeue(out _);
+                PrintCmdQueue.TryDequeue(out _);
             }
             if (isTscPrinter)
             {
@@ -230,13 +234,13 @@ namespace Hardware.Print
             }
             else
             {
-                CmdQueue.Enqueue("^XA~JA^XZ");
+                PrintCmdQueue.Enqueue("^XA~JA^XZ");
             }
         }
 
         public void SetOdometorUserLabel(int value)
         {
-            CmdQueue.Enqueue($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+            PrintCmdQueue.Enqueue($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
         }
 
         #endregion

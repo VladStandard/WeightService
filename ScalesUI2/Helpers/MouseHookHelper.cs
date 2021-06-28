@@ -29,7 +29,6 @@ namespace ScalesUI.Helpers
         private LowLevelMouseProc _levelMouseProc;
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
         private IntPtr _hookId = IntPtr.Zero;
-        //private Task _taskMouse;
 
         #endregion
 
@@ -92,13 +91,6 @@ namespace ScalesUI.Helpers
 
         public void OnMouseEvent(object sender, EventArgs e)
         {
-            //if (_taskMouse is null)
-            //{
-            //    _taskMouse = OnMouseEventAsync();
-            //    _taskMouse.Wait();
-            //    _taskMouse.Dispose();
-            //    _taskMouse = null;
-            //}
             _ws?.ProcessWeighingResult();
         }
 

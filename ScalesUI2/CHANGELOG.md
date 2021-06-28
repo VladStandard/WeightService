@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.170] - 2021-06-28
+### Changed
+- MainForm
+- SessionState
+### Added
+- Штучные этикетки для "Чудо Печка"
+
 ## [0.5.160] - 2021-06-24
 ### Added
 - PluList XAML page
