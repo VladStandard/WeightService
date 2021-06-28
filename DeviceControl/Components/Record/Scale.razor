@@ -153,29 +153,37 @@
     }
     else
     {
-        <RadzenLabel Style="width: 100%; text-align: center;" Text=@PluTitle />
+        <RadzenLabel Style="width: 100%; text-align: center; white-space: pre-wrap; " Text=@PluTitle />
         <br />
         <RadzenGrid id="RadzenGrid" Data=@PluItems TItem="PluEntity"
                     RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
                     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
                     AllowPaging="true" PageSize="9" AllowSorting="true" ColumnWidth="50px">
             <Columns>
-                <RadzenGridColumn TItem="PluEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId Width="5%" />
-                <RadzenGridColumn TItem="PluEntity" Property="Plu" Title=@Utils.LocalizationStrings.TableFieldPlu Width="5%" />
-                <RadzenGridColumn TItem="PluEntity" Property="Active" Title=@Utils.LocalizationStrings.TableFieldActive Width="4%">
+                <RadzenGridColumn TItem="PluEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId Width="6%" TextAlign="TextAlign.Center" />
+                <RadzenGridColumn TItem="PluEntity" Property="Plu" Title=@Utils.LocalizationStrings.TableFieldPlu Width="6%" TextAlign="TextAlign.Center" />
+                <RadzenGridColumn TItem="PluEntity" Property="Active" Title=@Utils.LocalizationStrings.TableFieldActive Width="4%" TextAlign="TextAlign.Center">
                     <Template Context="PluEntity">
                         <RadzenCheckBox TValue="bool" @bind-Value=@PluEntity.Active Disabled="true" />
                     </Template>
                 </RadzenGridColumn>
-                <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Title=@Utils.LocalizationStrings.TableFieldCheckWeight Width="4%">
+                <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Title=@Utils.LocalizationStrings.TableFieldCheckWeight Width="4%" TextAlign="TextAlign.Center">
                     <Template Context="PluEntity">
                         <RadzenCheckBox TValue="bool?" @bind-Value="@PluEntity.CheckWeight" Disabled="true" />
                     </Template>
                 </RadzenGridColumn>
-                <RadzenGridColumn TItem="PluEntity" Property="GoodsName" Title=@Utils.LocalizationStrings.TableFieldGoodsName Width="17%" />
-                <RadzenGridColumn TItem="PluEntity" Property="Templates.Title" Title=@Utils.LocalizationStrings.TableFieldTemplate Width="15%" />
+                <RadzenGridColumn TItem="PluEntity" Title=@Utils.LocalizationStrings.TableFieldGoodsName Width="16%">
+                    <Template Context="PluEntity">
+                        <RadzenLabel Style="white-space: pre-wrap;" Text=@PluEntity.GoodsName ></RadzenLabel>
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="PluEntity" Title=@Utils.LocalizationStrings.TableFieldTemplate Width="15%" >
+                    <Template Context="PluEntity">
+                        <RadzenLabel Style="white-space: pre-wrap;" Text=@PluEntity.Templates.Title ></RadzenLabel>
+                    </Template>
+                </RadzenGridColumn>
                 <RadzenGridColumn TItem="PluEntity" Property="Gtin" Title=@Utils.LocalizationStrings.TableFieldGtin Width="10%" />
-                <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Title="" Width="3%">
+                <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Title="" Width="3%" TextAlign="TextAlign.Center">
                     <Template Context="PluEntity">
                         @if (@PluEntity.GtinCheck())
                         {
@@ -187,9 +195,13 @@
                         }
                     </Template>
                 </RadzenGridColumn>
-                <RadzenGridColumn TItem="PluEntity" Property="Nomenclature.Name" Title=@Utils.LocalizationStrings.TableFieldNomenclatureName Width="15%" />
+                <RadzenGridColumn TItem="PluEntity" Title=@Utils.LocalizationStrings.TableFieldNomenclatureName Width="15%">
+                    <Template Context="PluEntity">
+                        <RadzenLabel Style="white-space: pre-wrap;" Text=@PluEntity.Nomenclature.Name ></RadzenLabel>
+                    </Template>
+                </RadzenGridColumn>
                 <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Title=@Utils.LocalizationStrings.TableFieldShelfLifeDays Width="5%" />
-                <RadzenGridColumn TItem="PluEntity" Property="GoodsTareWeight" Title=@Utils.LocalizationStrings.TableFieldGoodsTareWeight Width="7%" />
+                <RadzenGridColumn TItem="PluEntity" Property="GoodsTareWeight" Title=@Utils.LocalizationStrings.TableFieldGoodsTareWeight Width="5%" />
                 <RadzenGridColumn TItem="PluEntity" Property="GoodsBoxQuantly" Title=@Utils.LocalizationStrings.TableFieldGoodsBoxQuantly Width="5%" />
             </Columns>
         </RadzenGrid>

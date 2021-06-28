@@ -201,7 +201,7 @@ namespace BlazorDeviceControl.Utils
         public const string TableFieldEan13 = @"EAN13";
         public const string TableFieldItf14 = @"ITF14";
         public const string TableFieldShelfLifeDays = @"Срок годности (суток)";
-        public const string TableFieldGoodsTareWeight = @"Вес тары";
+        public const string TableFieldGoodsTareWeight = @"Тара";
         public const string TableFieldGoodsBruttoWeight = @"Вес брутто";
         public const string TableFieldGoodsBoxQuantly = @"Вложений в короб";
         public const string TableFieldConsumerName = @"ConsumerName";
