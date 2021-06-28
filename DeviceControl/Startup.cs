@@ -42,6 +42,9 @@ namespace BlazorDeviceControl
             services.AddBlazorDownloadFile();
             services.AddScoped<IFileUpload, FileUpload>();
             services.AddScoped<IFileDownload, FileDownload>();
+            services.AddOptions();
+            //services.AddAuthorizationCore();
+            //services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
