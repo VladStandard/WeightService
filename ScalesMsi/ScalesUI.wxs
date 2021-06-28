@@ -14,11 +14,11 @@
           <RemoveFolder Id="INSTALLDIR_TAPANGAMAHA" On="uninstall" />
         </Component>
 
-        <Component Id="Component.TapangaMaha.exe_2252093199" Guid="6fe30b47-2577-43ad-9095-1861efb5b807">
-          <File Id="TapangaMaha.exe_2252093199" Source="..\TapangaMaha\bin\Debug\TapangaMaha.exe">
-            <Shortcut Id="Shortcut.TapangaMaha.exe_2252093199.TapangaMaha" WorkingDirectory="INSTALLDIR" Directory="VladimirStandardCorp" Name="TapangaMaha.lnk" />
-            <Shortcut Id="Shortcut.TapangaMaha.exe_2252093199.TapangaMaha.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="TapangaMaha.lnk" />
-            <Shortcut Id="Shortcut.TapangaMaha.exe_2252093199.TapangaMaha.2" WorkingDirectory="INSTALLDIR" Directory="StartupFolder" Name="TapangaMaha.lnk" />
+        <Component Id="Component.TapangaMaha.exe_3280552931" Guid="6fe30b47-2577-43ad-9095-1861418c215f">
+          <File Id="TapangaMaha.exe_3280552931" Source="..\TapangaMaha\bin\Release\TapangaMaha.exe">
+            <Shortcut Id="Shortcut.TapangaMaha.exe_3280552931.TapangaMaha" WorkingDirectory="INSTALLDIR" Directory="VladimirStandardCorp" Name="TapangaMaha.lnk" />
+            <Shortcut Id="Shortcut.TapangaMaha.exe_3280552931.TapangaMaha.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="TapangaMaha.lnk" />
+            <Shortcut Id="Shortcut.TapangaMaha.exe_3280552931.TapangaMaha.2" WorkingDirectory="INSTALLDIR" Directory="StartupFolder" Name="TapangaMaha.lnk" />
           </File>
 
           <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
@@ -26,48 +26,48 @@
           </RegistryKey>
         </Component>
 
-        <Component Id="Component.CHANGELOG.md_812753156" Guid="6fe30b47-2577-43ad-9095-18611646c6a2">
-          <File Id="CHANGELOG.md_812753156" Source="..\TapangaMaha\bin\Debug\CHANGELOG.md" />
+        <Component Id="Component.CHANGELOG.md_3167637466" Guid="6fe30b47-2577-43ad-9095-1861a4b9bbed">
+          <File Id="CHANGELOG.md_3167637466" Source="..\TapangaMaha\bin\Release\CHANGELOG.md" />
         </Component>
 
-        <Component Id="Component.EntitiesLib.dll_2426596684" Guid="6fe30b47-2577-43ad-9095-18616fa8afcb">
-          <File Id="EntitiesLib.dll_2426596684" Source="..\TapangaMaha\bin\Debug\EntitiesLib.dll" />
+        <Component Id="Component.EntitiesLib.dll_2549056803" Guid="6fe30b47-2577-43ad-9095-1861620d0442">
+          <File Id="EntitiesLib.dll_2549056803" Source="..\TapangaMaha\bin\Release\EntitiesLib.dll" />
         </Component>
 
-        <Component Id="Component.log4net.dll_2544943352" Guid="6fe30b47-2577-43ad-9095-18611afecc3e">
-          <File Id="log4net.dll_2544943352" Source="..\TapangaMaha\bin\Debug\log4net.dll" />
+        <Component Id="Component.log4net.dll_1774962875" Guid="6fe30b47-2577-43ad-9095-1861c143d13f">
+          <File Id="log4net.dll_1774962875" Source="..\TapangaMaha\bin\Release\log4net.dll" />
         </Component>
 
-        <Component Id="Component.Newtonsoft.Json.dll_1919099590" Guid="6fe30b47-2577-43ad-9095-1861c7515341">
-          <File Id="Newtonsoft.Json.dll_1919099590" Source="..\TapangaMaha\bin\Debug\Newtonsoft.Json.dll" />
+        <Component Id="Component.Newtonsoft.Json.dll_3145997491" Guid="6fe30b47-2577-43ad-9095-1861074a51fd">
+          <File Id="Newtonsoft.Json.dll_3145997491" Source="..\TapangaMaha\bin\Release\Newtonsoft.Json.dll" />
         </Component>
 
-        <Component Id="Component.SdkApi.Core.dll_2048577903" Guid="6fe30b47-2577-43ad-9095-1861d44066a3">
-          <File Id="SdkApi.Core.dll_2048577903" Source="..\TapangaMaha\bin\Debug\SdkApi.Core.dll" />
+        <Component Id="Component.SdkApi.Core.dll_2188469936" Guid="6fe30b47-2577-43ad-9095-186185fff429">
+          <File Id="SdkApi.Core.dll_2188469936" Source="..\TapangaMaha\bin\Release\SdkApi.Core.dll" />
         </Component>
 
-        <Component Id="Component.SdkApi.Desktop.dll_604617270" Guid="6fe30b47-2577-43ad-9095-186190d62440">
-          <File Id="SdkApi.Desktop.dll_604617270" Source="..\TapangaMaha\bin\Debug\SdkApi.Desktop.dll" />
+        <Component Id="Component.SdkApi.Desktop.dll_1615271021" Guid="6fe30b47-2577-43ad-9095-1861a8cb9b1b">
+          <File Id="SdkApi.Desktop.dll_1615271021" Source="..\TapangaMaha\bin\Release\SdkApi.Desktop.dll" />
         </Component>
 
-        <Component Id="Component.TapangaMaha.exe.config_1693153405" Guid="6fe30b47-2577-43ad-9095-18617bf5d97a">
-          <File Id="TapangaMaha.exe.config_1693153405" Source="..\TapangaMaha\bin\Debug\TapangaMaha.exe.config" />
+        <Component Id="Component.TapangaMaha.exe.config_2362688687" Guid="6fe30b47-2577-43ad-9095-1861d0529c75">
+          <File Id="TapangaMaha.exe.config_2362688687" Source="..\TapangaMaha\bin\Release\TapangaMaha.exe.config" />
         </Component>
 
-        <Component Id="Component.UICommon.dll_216291932" Guid="6fe30b47-2577-43ad-9095-186128708987">
-          <File Id="UICommon.dll_216291932" Source="..\TapangaMaha\bin\Debug\UICommon.dll" />
+        <Component Id="Component.UICommon.dll_1832277913" Guid="6fe30b47-2577-43ad-9095-186130effc2f">
+          <File Id="UICommon.dll_1832277913" Source="..\TapangaMaha\bin\Release\UICommon.dll" />
         </Component>
 
-        <Component Id="Component.UtilsLib.dll_1482929962" Guid="6fe30b47-2577-43ad-9095-1861d828af92">
-          <File Id="UtilsLib.dll_1482929962" Source="..\TapangaMaha\bin\Debug\UtilsLib.dll" />
+        <Component Id="Component.UtilsLib.dll_4040871034" Guid="6fe30b47-2577-43ad-9095-18615c2ecaf6">
+          <File Id="UtilsLib.dll_4040871034" Source="..\TapangaMaha\bin\Release\UtilsLib.dll" />
         </Component>
 
-        <Component Id="Component.ZabbixAgentLib.dll_1920593058" Guid="6fe30b47-2577-43ad-9095-1861d045423b">
-          <File Id="ZabbixAgentLib.dll_1920593058" Source="..\TapangaMaha\bin\Debug\ZabbixAgentLib.dll" />
+        <Component Id="Component.ZabbixAgentLib.dll_1148721929" Guid="6fe30b47-2577-43ad-9095-1861df45d6e2">
+          <File Id="ZabbixAgentLib.dll_1148721929" Source="..\TapangaMaha\bin\Release\ZabbixAgentLib.dll" />
         </Component>
 
-        <Component Id="Component.ZplCommonLib.dll_1878527640" Guid="6fe30b47-2577-43ad-9095-18610cf50c89">
-          <File Id="ZplCommonLib.dll_1878527640" Source="..\TapangaMaha\bin\Debug\ZplCommonLib.dll" />
+        <Component Id="Component.ZplCommonLib.dll_1536200834" Guid="6fe30b47-2577-43ad-9095-186169c4db74">
+          <File Id="ZplCommonLib.dll_1536200834" Source="..\TapangaMaha\bin\Release\ZplCommonLib.dll" />
         </Component>
 
       </Directory>
@@ -96,11 +96,11 @@
           <RemoveFolder Id="INSTALLDIR_SCALESUI" On="uninstall" />
         </Component>
 
-        <Component Id="Component.ScalesUI.exe_347893900" Guid="6fe30b47-2577-43ad-9095-186122cccf0b">
-          <File Id="ScalesUI.exe_347893900" Source="..\ScalesUI2\bin\Debug\ScalesUI.exe">
-            <Shortcut Id="Shortcut.ScalesUI.exe_347893900.ScalesUI_" WorkingDirectory="INSTALLDIR" Directory="VladimirStandardCorp" Name="ScalesUI.lnk" />
-            <Shortcut Id="Shortcut.ScalesUI.exe_347893900.ScalesUI.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="ScalesUI.lnk" />
-            <Shortcut Id="Shortcut.ScalesUI.exe_347893900.ScalesUI.2" WorkingDirectory="INSTALLDIR" Directory="StartupFolder" Name="ScalesUI.lnk" />
+        <Component Id="Component.ScalesUI.exe_37029291" Guid="6fe30b47-2577-43ad-9095-18616326f4fa">
+          <File Id="ScalesUI.exe_37029291" Source="..\ScalesUI2\bin\Release\ScalesUI.exe">
+            <Shortcut Id="Shortcut.ScalesUI.exe_37029291.ScalesUI_" WorkingDirectory="INSTALLDIR" Directory="VladimirStandardCorp" Name="ScalesUI.lnk" />
+            <Shortcut Id="Shortcut.ScalesUI.exe_37029291.ScalesUI.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="ScalesUI.lnk" />
+            <Shortcut Id="Shortcut.ScalesUI.exe_37029291.ScalesUI.2" WorkingDirectory="INSTALLDIR" Directory="StartupFolder" Name="ScalesUI.lnk" />
           </File>
 
           <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
@@ -108,52 +108,52 @@
           </RegistryKey>
         </Component>
 
-        <Component Id="Component.CHANGELOG.md_2217280903" Guid="6fe30b47-2577-43ad-9095-186134b8708b">
-          <File Id="CHANGELOG.md_2217280903" Source="..\ScalesUI2\bin\Debug\CHANGELOG.md" />
+        <Component Id="Component.CHANGELOG.md_2798576149" Guid="6fe30b47-2577-43ad-9095-1861241c5bfe">
+          <File Id="CHANGELOG.md_2798576149" Source="..\ScalesUI2\bin\Release\CHANGELOG.md" />
         </Component>
 
-        <Component Id="Component.EntitiesLib.dll_409340407" Guid="6fe30b47-2577-43ad-9095-1861b07ee97a">
-          <File Id="EntitiesLib.dll_409340407" Source="..\ScalesUI2\bin\Debug\EntitiesLib.dll" />
+        <Component Id="Component.EntitiesLib.dll_3127056788" Guid="6fe30b47-2577-43ad-9095-186147ce663f">
+          <File Id="EntitiesLib.dll_3127056788" Source="..\ScalesUI2\bin\Release\EntitiesLib.dll" />
         </Component>
 
-        <Component Id="Component.log4net.dll_257629152" Guid="6fe30b47-2577-43ad-9095-1861769bef9b">
-          <File Id="log4net.dll_257629152" Source="..\ScalesUI2\bin\Debug\log4net.dll" />
+        <Component Id="Component.log4net.dll_3297370083" Guid="6fe30b47-2577-43ad-9095-1861b53580f0">
+          <File Id="log4net.dll_3297370083" Source="..\ScalesUI2\bin\Release\log4net.dll" />
         </Component>
 
-        <Component Id="Component.MassaKLib.dll_4043541025" Guid="6fe30b47-2577-43ad-9095-186158bbf93e">
-          <File Id="MassaKLib.dll_4043541025" Source="..\ScalesUI2\bin\Debug\MassaKLib.dll" />
+        <Component Id="Component.MassaKLib.dll_2741074477" Guid="6fe30b47-2577-43ad-9095-186193c9a433">
+          <File Id="MassaKLib.dll_2741074477" Source="..\ScalesUI2\bin\Release\MassaKLib.dll" />
         </Component>
 
-        <Component Id="Component.Newtonsoft.Json.dll_847021457" Guid="6fe30b47-2577-43ad-9095-186143a9f9dd">
-          <File Id="Newtonsoft.Json.dll_847021457" Source="..\ScalesUI2\bin\Debug\Newtonsoft.Json.dll" />
+        <Component Id="Component.Newtonsoft.Json.dll_1394376271" Guid="6fe30b47-2577-43ad-9095-18616d3a9fb1">
+          <File Id="Newtonsoft.Json.dll_1394376271" Source="..\ScalesUI2\bin\Release\Newtonsoft.Json.dll" />
         </Component>
 
-        <Component Id="Component.ScalesUI.exe.config_3385203608" Guid="6fe30b47-2577-43ad-9095-18617fc05cac">
-          <File Id="ScalesUI.exe.config_3385203608" Source="..\ScalesUI2\bin\Debug\ScalesUI.exe.config" />
+        <Component Id="Component.ScalesUI.exe.config_2043314311" Guid="6fe30b47-2577-43ad-9095-1861fadebbe0">
+          <File Id="ScalesUI.exe.config_2043314311" Source="..\ScalesUI2\bin\Release\ScalesUI.exe.config" />
         </Component>
 
-        <Component Id="Component.SdkApi.Core.dll_2270340294" Guid="6fe30b47-2577-43ad-9095-186184716666">
-          <File Id="SdkApi.Core.dll_2270340294" Source="..\ScalesUI2\bin\Debug\SdkApi.Core.dll" />
+        <Component Id="Component.SdkApi.Core.dll_841715458" Guid="6fe30b47-2577-43ad-9095-1861e159e16b">
+          <File Id="SdkApi.Core.dll_841715458" Source="..\ScalesUI2\bin\Release\SdkApi.Core.dll" />
         </Component>
 
-        <Component Id="Component.SdkApi.Desktop.dll_72550683" Guid="6fe30b47-2577-43ad-9095-1861092f58a6">
-          <File Id="SdkApi.Desktop.dll_72550683" Source="..\ScalesUI2\bin\Debug\SdkApi.Desktop.dll" />
+        <Component Id="Component.SdkApi.Desktop.dll_3351072920" Guid="6fe30b47-2577-43ad-9095-1861f1834106">
+          <File Id="SdkApi.Desktop.dll_3351072920" Source="..\ScalesUI2\bin\Release\SdkApi.Desktop.dll" />
         </Component>
 
-        <Component Id="Component.UICommon.dll_1768493646" Guid="6fe30b47-2577-43ad-9095-1861926a52b6">
-          <File Id="UICommon.dll_1768493646" Source="..\ScalesUI2\bin\Debug\UICommon.dll" />
+        <Component Id="Component.UICommon.dll_900188164" Guid="6fe30b47-2577-43ad-9095-1861046a7ba0">
+          <File Id="UICommon.dll_900188164" Source="..\ScalesUI2\bin\Release\UICommon.dll" />
         </Component>
 
-        <Component Id="Component.UtilsLib.dll_1182421728" Guid="6fe30b47-2577-43ad-9095-186125576f3d">
-          <File Id="UtilsLib.dll_1182421728" Source="..\ScalesUI2\bin\Debug\UtilsLib.dll" />
+        <Component Id="Component.UtilsLib.dll_2716927342" Guid="6fe30b47-2577-43ad-9095-1861cb64b549">
+          <File Id="UtilsLib.dll_2716927342" Source="..\ScalesUI2\bin\Release\UtilsLib.dll" />
         </Component>
 
-        <Component Id="Component.ZabbixAgentLib.dll_3492130824" Guid="6fe30b47-2577-43ad-9095-1861737f4c88">
-          <File Id="ZabbixAgentLib.dll_3492130824" Source="..\ScalesUI2\bin\Debug\ZabbixAgentLib.dll" />
+        <Component Id="Component.ZabbixAgentLib.dll_3827319225" Guid="6fe30b47-2577-43ad-9095-1861297d2d76">
+          <File Id="ZabbixAgentLib.dll_3827319225" Source="..\ScalesUI2\bin\Release\ZabbixAgentLib.dll" />
         </Component>
 
-        <Component Id="Component.ZplCommonLib.dll_1082445229" Guid="6fe30b47-2577-43ad-9095-1861bdff5e1a">
-          <File Id="ZplCommonLib.dll_1082445229" Source="..\ScalesUI2\bin\Debug\ZplCommonLib.dll" />
+        <Component Id="Component.ZplCommonLib.dll_1041303611" Guid="6fe30b47-2577-43ad-9095-186165627d5b">
+          <File Id="ZplCommonLib.dll_1041303611" Source="..\ScalesUI2\bin\Release\ZplCommonLib.dll" />
         </Component>
 
       </Directory>
@@ -223,11 +223,11 @@
           <RemoveFolder Id="INSTALLDIR_LABELPRINT" On="uninstall" />
         </Component>
 
-        <Component Id="Component.LabelPrint.exe_1497045669" Guid="6fe30b47-2577-43ad-9095-186151a52f5a">
-          <File Id="LabelPrint.exe_1497045669" Source="..\LabelPrint\bin\Debug\LabelPrint.exe">
-            <Shortcut Id="Shortcut.LabelPrint.exe_1497045669.LabelPrint" WorkingDirectory="INSTALLDIR" Directory="VladimirStandardCorp" Name="LabelPrint.lnk" />
-            <Shortcut Id="Shortcut.LabelPrint.exe_1497045669.LabelPrint.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="LabelPrint.lnk" />
-            <Shortcut Id="Shortcut.LabelPrint.exe_1497045669.LabelPrint.2" WorkingDirectory="INSTALLDIR" Directory="StartupFolder" Name="LabelPrint.lnk" />
+        <Component Id="Component.LabelPrint.exe_1114383836" Guid="6fe30b47-2577-43ad-9095-1861585f7f15">
+          <File Id="LabelPrint.exe_1114383836" Source="..\LabelPrint\bin\Release\LabelPrint.exe">
+            <Shortcut Id="Shortcut.LabelPrint.exe_1114383836.LabelPrint" WorkingDirectory="INSTALLDIR" Directory="VladimirStandardCorp" Name="LabelPrint.lnk" />
+            <Shortcut Id="Shortcut.LabelPrint.exe_1114383836.LabelPrint.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="LabelPrint.lnk" />
+            <Shortcut Id="Shortcut.LabelPrint.exe_1114383836.LabelPrint.2" WorkingDirectory="INSTALLDIR" Directory="StartupFolder" Name="LabelPrint.lnk" />
           </File>
 
           <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
@@ -235,8 +235,8 @@
           </RegistryKey>
         </Component>
 
-        <Component Id="Component.LabelPrint.exe.config_15697547" Guid="6fe30b47-2577-43ad-9095-1861d627fe62">
-          <File Id="LabelPrint.exe.config_15697547" Source="..\LabelPrint\bin\Debug\LabelPrint.exe.config" />
+        <Component Id="Component.LabelPrint.exe.config_3186583060" Guid="6fe30b47-2577-43ad-9095-18610a423508">
+          <File Id="LabelPrint.exe.config_3186583060" Source="..\LabelPrint\bin\Release\LabelPrint.exe.config" />
         </Component>
 
       </Directory>
@@ -248,8 +248,8 @@
           <RemoveFolder Id="INSTALLDIR_LABELPRINT_DOCS" On="uninstall" />
         </Component>
 
-        <Component Id="Component.CHANGELOG.md_369129722" Guid="6fe30b47-2577-43ad-9095-1861463df3f6">
-          <File Id="CHANGELOG.md_369129722" Source="..\LabelPrint\bin\Debug\CHANGELOG.md" />
+        <Component Id="Component.CHANGELOG.md_451064944" Guid="6fe30b47-2577-43ad-9095-1861400890f1">
+          <File Id="CHANGELOG.md_451064944" Source="..\LabelPrint\bin\Release\CHANGELOG.md" />
         </Component>
 
       </Directory>
@@ -382,18 +382,18 @@
 
     <Feature Id="TapangaMaha" Title="TapangaMaha" Absent="allow" Level="2" Description="TapangaMaha" Display="expand">
       <ComponentRef Id="Component.INSTALLDIR_TAPANGAMAHA" />
-      <ComponentRef Id="Component.TapangaMaha.exe_2252093199" />
-      <ComponentRef Id="Component.CHANGELOG.md_812753156" />
-      <ComponentRef Id="Component.EntitiesLib.dll_2426596684" />
-      <ComponentRef Id="Component.log4net.dll_2544943352" />
-      <ComponentRef Id="Component.Newtonsoft.Json.dll_1919099590" />
-      <ComponentRef Id="Component.SdkApi.Core.dll_2048577903" />
-      <ComponentRef Id="Component.SdkApi.Desktop.dll_604617270" />
-      <ComponentRef Id="Component.TapangaMaha.exe.config_1693153405" />
-      <ComponentRef Id="Component.UICommon.dll_216291932" />
-      <ComponentRef Id="Component.UtilsLib.dll_1482929962" />
-      <ComponentRef Id="Component.ZabbixAgentLib.dll_1920593058" />
-      <ComponentRef Id="Component.ZplCommonLib.dll_1878527640" />
+      <ComponentRef Id="Component.TapangaMaha.exe_3280552931" />
+      <ComponentRef Id="Component.CHANGELOG.md_3167637466" />
+      <ComponentRef Id="Component.EntitiesLib.dll_2549056803" />
+      <ComponentRef Id="Component.log4net.dll_1774962875" />
+      <ComponentRef Id="Component.Newtonsoft.Json.dll_3145997491" />
+      <ComponentRef Id="Component.SdkApi.Core.dll_2188469936" />
+      <ComponentRef Id="Component.SdkApi.Desktop.dll_1615271021" />
+      <ComponentRef Id="Component.TapangaMaha.exe.config_2362688687" />
+      <ComponentRef Id="Component.UICommon.dll_1832277913" />
+      <ComponentRef Id="Component.UtilsLib.dll_4040871034" />
+      <ComponentRef Id="Component.ZabbixAgentLib.dll_1148721929" />
+      <ComponentRef Id="Component.ZplCommonLib.dll_1536200834" />
       <ComponentRef Id="Component.Uninstall_VladimirStandardCorp" />
       <ComponentRef Id="Component.DesktopFolder.EmptyDirectory" />
       <ComponentRef Id="Component.StartupFolder.EmptyDirectory" />
@@ -404,19 +404,19 @@
 
     <Feature Id="ScalesUI" Title="ScalesUI" Absent="allow" Level="2" Description="Печать этикеток" Display="expand">
       <ComponentRef Id="Component.INSTALLDIR_SCALESUI" />
-      <ComponentRef Id="Component.ScalesUI.exe_347893900" />
-      <ComponentRef Id="Component.CHANGELOG.md_2217280903" />
-      <ComponentRef Id="Component.EntitiesLib.dll_409340407" />
-      <ComponentRef Id="Component.log4net.dll_257629152" />
-      <ComponentRef Id="Component.MassaKLib.dll_4043541025" />
-      <ComponentRef Id="Component.Newtonsoft.Json.dll_847021457" />
-      <ComponentRef Id="Component.ScalesUI.exe.config_3385203608" />
-      <ComponentRef Id="Component.SdkApi.Core.dll_2270340294" />
-      <ComponentRef Id="Component.SdkApi.Desktop.dll_72550683" />
-      <ComponentRef Id="Component.UICommon.dll_1768493646" />
-      <ComponentRef Id="Component.UtilsLib.dll_1182421728" />
-      <ComponentRef Id="Component.ZabbixAgentLib.dll_3492130824" />
-      <ComponentRef Id="Component.ZplCommonLib.dll_1082445229" />
+      <ComponentRef Id="Component.ScalesUI.exe_37029291" />
+      <ComponentRef Id="Component.CHANGELOG.md_2798576149" />
+      <ComponentRef Id="Component.EntitiesLib.dll_3127056788" />
+      <ComponentRef Id="Component.log4net.dll_3297370083" />
+      <ComponentRef Id="Component.MassaKLib.dll_2741074477" />
+      <ComponentRef Id="Component.Newtonsoft.Json.dll_1394376271" />
+      <ComponentRef Id="Component.ScalesUI.exe.config_2043314311" />
+      <ComponentRef Id="Component.SdkApi.Core.dll_841715458" />
+      <ComponentRef Id="Component.SdkApi.Desktop.dll_3351072920" />
+      <ComponentRef Id="Component.UICommon.dll_900188164" />
+      <ComponentRef Id="Component.UtilsLib.dll_2716927342" />
+      <ComponentRef Id="Component.ZabbixAgentLib.dll_3827319225" />
+      <ComponentRef Id="Component.ZplCommonLib.dll_1041303611" />
       <ComponentRef Id="Component.Uninstall_VladimirStandardCorp.1" />
 
       <Feature Id="ScalesUIDocumentation" Title="Documentation" Absent="allow" Level="2" Description="Документация ScalesUI">
@@ -444,13 +444,13 @@
 
     <Feature Id="LabelPrint" Title="LabelPrint" Absent="allow" Level="2" Description="WPF печать этикеток" Display="expand">
       <ComponentRef Id="Component.INSTALLDIR_LABELPRINT" />
-      <ComponentRef Id="Component.LabelPrint.exe_1497045669" />
-      <ComponentRef Id="Component.LabelPrint.exe.config_15697547" />
+      <ComponentRef Id="Component.LabelPrint.exe_1114383836" />
+      <ComponentRef Id="Component.LabelPrint.exe.config_3186583060" />
       <ComponentRef Id="Component.Uninstall_VladimirStandardCorp.2" />
 
       <Feature Id="LabelPrintDocumentation" Title="Documentation" Absent="allow" Level="2" Description="Документация LabelPrint">
         <ComponentRef Id="Component.INSTALLDIR_LABELPRINT_DOCS" />
-        <ComponentRef Id="Component.CHANGELOG.md_369129722" />
+        <ComponentRef Id="Component.CHANGELOG.md_451064944" />
         <ComponentRef Id="TARGETDIR" />
         <ComponentRef Id="ProgramMenuFolder.1" />
         <ComponentRef Id="ProgramMenuFolder.2" />

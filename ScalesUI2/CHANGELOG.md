@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.160] - 2021-06-24
+### Added
+- PluList XAML page
+
 ## [0.5.150] - 2021-06-04
 ### Changed
 - Tasks managers

@@ -576,7 +576,8 @@ namespace ScalesUI.Forms
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
                         return;
                 }
-                using (var pluListForm = new PluListForm { Owner = this})
+                //using (var pluListForm = new PluListForm() { Owner = this })
+                using (var pluListForm = new PluListForm() { Owner = this })
                 {
                     // Комментировано 2021-03-05.
                     //buttonSetZero_Click(sender, e);

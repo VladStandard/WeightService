@@ -46,7 +46,7 @@ namespace ScalesUI.Forms
             Height = Owner.Height;
             Left   = Owner.Left;
             Top = Owner.Top;
-            StartPosition = FormStartPosition.CenterParent;
+            //StartPosition = FormStartPosition.CenterParent;
 
             _orderList = PluEntity.GetPluList(_ws.CurrentScale);
 

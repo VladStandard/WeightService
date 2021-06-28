@@ -13,15 +13,28 @@ using System.Xml.Serialization;
 using Hardware;
 using UICommon;
 using ZabbixAgentLib;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace ScalesUI.Common
 {
-    public class SessionState
+    public class SessionState : INotifyPropertyChanged
     {
         #region Design pattern "Lazy Singleton"
 
         private static SessionState _instance;
         public static SessionState Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+        #endregion
+
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyRaised([CallerMemberName] string memberName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
+        }
 
         #endregion
 
@@ -47,13 +60,32 @@ namespace ScalesUI.Common
         private CancellationToken _token;
         private CancellationToken _tokenHttpListener;
         private ThreadChecker _threadChecker;
-        public int CurrentScaleId { get; private set; }
+        public int CurrentScaleId { get; }
         public OrderEntity CurrentOrder { get; set; }
         [XmlElement(IsNullable = true)]
         public ScaleEntity CurrentScale { get; set; }
         public bool IsTscPrinter => CurrentScale != null && CurrentScale.ZebraPrinter.PrinterType.Contains("TSC ");
         [XmlElement(IsNullable = true)]
         public WeighingFactEntity CurrentWeighingFact { get; set; }
+
+        private int _currentPage;
+        /// <summary>
+        /// Текущая страница.
+        /// </summary>
+        public int CurrentPage
+        {
+            get => _currentPage;
+            set
+            {
+                _currentPage = value;
+                OnPropertyRaised();
+            }
+        }
+
+        /// <summary>
+        /// Текущая страница.
+        /// </summary>
+        public string CurrentPageAsString => $"Текущая страница: {_currentPage}";
 
         #endregion
 

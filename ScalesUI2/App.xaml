@@ -1,0 +1,10 @@
+﻿<Application x:Class="TscBarcode.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:common="clr-namespace:ScalesUI.Common"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             >
+    <Application.Resources>
+        <common:SessionState x:Key="ViewModelSessionState" />
+    </Application.Resources>
+</Application>
