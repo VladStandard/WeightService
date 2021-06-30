@@ -30,6 +30,7 @@ namespace ScalesUI.Forms
             OldKneading = _ws.Kneading;
             OldProductDate = _ws.ProductDate;
             OldPalletSize = _ws.PalletSize;
+            buttonOk.Select();
         }
 
         #endregion
@@ -159,5 +160,13 @@ namespace ScalesUI.Forms
         }
 
         #endregion
+
+        private void SetKneadingNumberForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                buttonClose_Click(sender, e);
+            }
+        }
     }
 }

@@ -187,11 +187,11 @@ namespace ScalesUI.Forms
 
         private void btnCalibrate_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = CustomMessageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!", 
+            var messageBox = CustomMessageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!", 
                 @"ВНИМАНИЕ!",MessageBoxButtons.RetryCancel);
-
+            messageBox.Wait();
             //DialogResult dialogResult = MessageBox.Show(@"Прежде чем продолжить калибровку откройте крышку отделителя!", @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
-            if (dialogResult == DialogResult.Retry)
+            if (messageBox.Result == DialogResult.Retry)
             {
                 try
                 {

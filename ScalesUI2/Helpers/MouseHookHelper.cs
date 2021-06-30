@@ -23,12 +23,12 @@ namespace ScalesUI.Helpers
 
         #region Private fields and properties
 
-        //private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly SessionState _ws = SessionState.Instance;
         private event EventHandler MiddleMouseEvent = delegate { };
         private LowLevelMouseProc _levelMouseProc;
         private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
         private IntPtr _hookId = IntPtr.Zero;
+        public IWin32Window Owner { get; set; }
 
         #endregion
 
@@ -91,7 +91,7 @@ namespace ScalesUI.Helpers
 
         public void OnMouseEvent(object sender, EventArgs e)
         {
-            _ws?.ProcessWeighingResult();
+            _ws?.ProcessWeighingResult(Owner);
         }
 
         private async Task OnMouseEventAsync()
@@ -99,7 +99,7 @@ namespace ScalesUI.Helpers
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             if (_ws != null)
             {
-                _ws.ProcessWeighingResult();
+                _ws.ProcessWeighingResult(Owner);
                 Application.DoEvents();
                 await Task.Delay(TimeSpan.FromMilliseconds(800)).ConfigureAwait(true);
             }

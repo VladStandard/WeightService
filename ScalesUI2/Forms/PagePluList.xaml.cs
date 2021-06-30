@@ -18,7 +18,7 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly SessionState _ws = SessionState.Instance;
-        private List<PluEntity> _orderList;
+        //private List<PluEntity> _orderList;
         private readonly List<PluEntity> _pluList;
         public int RowCount { get; } = 5;
         public int ColumnCount { get; } = 4;

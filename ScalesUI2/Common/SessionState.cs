@@ -15,6 +15,7 @@ using UICommon;
 using ZabbixAgentLib;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 using ScalesUI.Forms;
 
 namespace ScalesUI.Common
@@ -371,7 +372,7 @@ namespace ScalesUI.Common
 
         #region PrintMethods
 
-        public void ProcessWeighingResult()
+        public void ProcessWeighingResult(IWin32Window owner)
         {
             CurrentWeighingFact = null;
             TemplateEntity template = null;
@@ -392,11 +393,11 @@ namespace ScalesUI.Common
                 {
                     case true:
                         // Печать весовых этикеток.
-                        PrintWeightLabel(template);
+                        PrintWeightLabel(owner, template);
                         break;
                     default:
                         // Печать штучных этикеток.
-                        PrintCountLabel(template);
+                        PrintCountLabel(owner, template);
                         break;
                 }
             }
@@ -459,8 +460,9 @@ namespace ScalesUI.Common
         /// <summary>
         /// Печать штучных этикеток.
         /// </summary>
+        /// <param name="owner"></param>
         /// <param name="template"></param>
-        private void PrintCountLabel(TemplateEntity template)
+        private void PrintCountLabel(IWin32Window owner, TemplateEntity template)
         {
             // Вывести серию этикеток по заданному размеру паллеты.
             CurrentWeighingFact = WeighingFactEntity.New(CurrentScale, CurrentPlu, ProductDate, Kneading,
@@ -482,10 +484,10 @@ namespace ScalesUI.Common
 
             if (!isCheck)
             {
-                CustomMessageBox.Show( null,"Вес выходит за границы!" + Environment.NewLine +
-                                      $"Вес нетто: {CurrentWeighingFact.NetWeight}" + Environment.NewLine +
-                                      $"Верхнее значение веса короба: {CurrentPlu.UpperWeightThreshold}" + Environment.NewLine +
-                                      $"Нижнее значение веса короба: {CurrentPlu.LowerWeightThreshold}");
+                CustomMessageBox.Show(owner, Messages.WeightControl + Environment.NewLine +
+                    $"Вес нетто: {CurrentWeighingFact.NetWeight}" + Environment.NewLine +
+                    $"Верхнее значение веса короба: {CurrentPlu.UpperWeightThreshold}" + Environment.NewLine +
+                    $"Нижнее значение веса короба: {CurrentPlu.LowerWeightThreshold}", Messages.OperationControl);
                 return;
             }
 
@@ -512,8 +514,9 @@ namespace ScalesUI.Common
         /// <summary>
         /// Печать весовых этикеток.
         /// </summary>
+        /// <param name="owner"></param>
         /// <param name="template"></param>
-        private void PrintWeightLabel(TemplateEntity template)
+        private void PrintWeightLabel(IWin32Window owner, TemplateEntity template)
         {
             // Проверка наличия устройства весов.
             if (MassaManager == null)

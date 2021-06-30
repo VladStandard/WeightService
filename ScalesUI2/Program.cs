@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using Hardware;
+using ScalesUI.Utils;
 
 // ReSharper disable IdentifierTypo
 
@@ -20,30 +21,27 @@ namespace ScalesUI
             var conectionString = Properties.Settings.Default.ConnectionString;
             try
             {
-                var x = SqlConnectFactory.GetConnection(conectionString);
+                _ = SqlConnectFactory.GetConnection(conectionString);
             }
             catch (Exception ex)
             {
-                if (CustomMessageBox.Show($"База данных недоступна. {ex.Message}") == DialogResult.OK)
-                {
-                }
+                CustomMessageBox.Show(null, $"База данных недоступна. {ex.Message}", Messages.Exception);
                 throw new Exception(ex.Message);
-
             }
 
-            // если нужного файла с токеном не нашлось
-            // и не задана строка подключения к БД 
-            // то софтина не запускается
+            // если нужного файла с токеном не нашлось и не задана строка подключения к БД - то софтина не запускается
             if (!HostEntity.TokenExist())
             {
                 try
                 {
                     var uuid = HostEntity.TokenWrite(conectionString);
-                    if (CustomMessageBox.Show(
-                        $"Моноблок зарегистрирован в информационной системе с идентификатором\n" +
-                        $"{ uuid}"+
-                        "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl."
-                        ) == DialogResult.OK)
+                    var messageBox = CustomMessageBox.Show(null,
+                        "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine + 
+                        $"{uuid}" + Environment.NewLine + 
+                        "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
+                        Messages.Registration);
+                    messageBox.Wait();
+                    if (messageBox.Result == DialogResult.OK)
                     {
                         Clipboard.SetText($@"{uuid}");
                         return;
@@ -61,12 +59,15 @@ namespace ScalesUI
             host.TokenRead();
             if (host.CurrentScaleId == 0)
             {
-                if (CustomMessageBox.Show($"Моноблок зарегистрирован в информационной системе с идентификатором\n"+
-                                          $"{host.IdRRef.ToString()}\n"+
-                                          $"Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl."
-                ) == DialogResult.OK)
+                var messageBox = CustomMessageBox.Show(null,
+                    "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
+                    $"{host.IdRRef}" + Environment.NewLine +
+                    "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
+                    Messages.Registration);
+                messageBox.Wait();
+                if (messageBox.Result == DialogResult.OK)
                 {
-                    Clipboard.SetText($@"{host.IdRRef.ToString()}");
+                    Clipboard.SetText($@"{host.IdRRef}");
                 }
                 Application.Exit();
                 return;

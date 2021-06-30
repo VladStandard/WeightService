@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ScalesUI.Utils;
 using UICommon;
 using UICommon.WinForms.Utils;
 using UtilsLib;
@@ -32,12 +33,7 @@ namespace ScalesUI.Forms
         private readonly SessionState _ws = SessionState.Instance;
         // Помощник мыши.
         private readonly MouseHookHelper _mouse = MouseHookHelper.Instance;
-        //private readonly MkDeviceEntity _mkDevice = MkDeviceEntity.Instance;
-        private readonly decimal _threshold = 0.05M;
         public Task TaskManager { get; set; }
-
-        //private LightEmittingDiode LedPrint { get; set; } 
-        //private LightEmittingDiode LedMassa { get; set; }
 
         #endregion
 
@@ -51,7 +47,8 @@ namespace ScalesUI.Forms
             TopMost = !_ws.IsDebug;
             fieldResolution.Visible = _ws.IsDebug;
             fieldResolution.SelectedIndex = _ws.IsDebug ? 1 : 0;
-       }
+            _mouse.Owner = this;
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -119,7 +116,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка загрузки ресурсов!" + Environment.NewLine + ex.Message);
+                CustomMessageBox.Show(this, @"Ошибка загрузки ресурсов!" + Environment.NewLine + ex.Message, Messages.Exception);
             }
         }
 
@@ -468,9 +465,9 @@ namespace ScalesUI.Forms
 
         private void NotifyPlu(PluEntity plu)
         {
+            var strCheckWeight = plu?.CheckWeight == true ? "вес" : "шт";
             AsyncControl.Properties.SetText.Async(fieldPlu, plu != null
-                ? $"{plu.PLU} | {plu.GoodsName}"
-                : string.Empty);
+                ? $"{plu.PLU} | {strCheckWeight} | {plu.GoodsName}" : string.Empty);
             AsyncControl.Properties.SetEnabled.Async(buttonPrint, plu != null);
             AsyncControl.Properties.SetText.Async(fieldWeightTare, plu != null ? $"{plu.GoodsTareWeight:0.000} кг" : "0,000 кг");
             _log.Info($"Смена PLU: {plu?.GoodsName}");
@@ -519,7 +516,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка формы настроек!" + Environment.NewLine + ex.Message);
+                CustomMessageBox.Show(this, @"Ошибка формы настроек!" + Environment.NewLine + ex.Message, Messages.Exception);
             }
             finally
             {
@@ -542,12 +539,12 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (_ws.MassaManager.WeightNet > _threshold || _ws.MassaManager.WeightNet < -_threshold)
+                if (_ws.MassaManager.WeightNet > Messages.MassaThreshold || _ws.MassaManager.WeightNet < -Messages.MassaThreshold)
                 {
-                    if (CustomMessageBox.Show(this, @"Разгрузите весовую платформу!" + Environment.NewLine +
-                                              $@"Пороговое значение: {_threshold}кг" + Environment.NewLine +
-                                              @"Yes - Игнорировать, No - Разгрузить", @"Контроль операций",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                    var messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    messageBox.Wait();
+                    if (messageBox.Result != DialogResult.Yes)
                         return;
                 }
 
@@ -556,7 +553,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка задания 0!" + Environment.NewLine + ex.Message);
+                CustomMessageBox.Show(this, @"Ошибка задания 0!" + Environment.NewLine + ex.Message, Messages.Exception);
             }
             finally
             {
@@ -570,15 +567,14 @@ namespace ScalesUI.Forms
             {
                 StopTaskManager();
 
-                if (_ws.MassaManager.WeightNet > _threshold || _ws.MassaManager.WeightNet < -_threshold)
+                if (_ws.MassaManager.WeightNet > Messages.MassaThreshold || _ws.MassaManager.WeightNet < -Messages.MassaThreshold)
                 {
-                    if (CustomMessageBox.Show(this, @"Разгрузите весовую платформу!" + Environment.NewLine +
-                                                    $@"Пороговое значение: {_threshold}кг" + Environment.NewLine +
-                                                    @"Yes - Игнорировать, No - Разгрузить", @"Контроль операций", 
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                    var messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    messageBox.Wait();
+                    if (messageBox.Result != DialogResult.Yes)
                         return;
                 }
-                //using (var pluListForm = new PluListForm() { Owner = this })
                 using (var pluListForm = new PluListForm() { Owner = this })
                 {
                     // Комментировано 2021-03-05.
@@ -604,7 +600,7 @@ namespace ScalesUI.Forms
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка формы выбора PLU!" + Environment.NewLine + msg);
+                CustomMessageBox.Show(this, @"Ошибка формы выбора PLU!" + Environment.NewLine + msg, Messages.Exception);
             }
             finally
             {
@@ -660,7 +656,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка формы выбора заказа!" + Environment.NewLine + ex.Message);
+                CustomMessageBox.Show(this, @"Ошибка формы выбора заказа!" + Environment.NewLine + ex.Message, Messages.Exception);
             }
             finally
             {
@@ -675,9 +671,9 @@ namespace ScalesUI.Forms
             {
                 StopTaskManager();
                 
-                using (var settingsForm = new SetKneadingNumberForm { Owner = this })
+                using (var kneadingNumberForm = new SetKneadingNumberForm { Owner = this })
                 {
-                    if (settingsForm.ShowDialog() == DialogResult.OK)
+                    if (kneadingNumberForm.ShowDialog() == DialogResult.OK)
                     {
                         //_ws.Kneading = settingsForm.CurrentKneading;
                         //_ws.ProductDate = settingsForm.CurrentProductDate;
@@ -686,7 +682,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка формы выбора замеса!" + Environment.NewLine + ex.Message);
+                CustomMessageBox.Show(this, @"Ошибка формы выбора замеса!" + Environment.NewLine + ex.Message, Messages.Exception);
             }
             finally
             {
@@ -706,7 +702,7 @@ namespace ScalesUI.Forms
                 var msg = ex.Message;
                 if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
                     msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка вызова печати!" + Environment.NewLine + msg);
+                CustomMessageBox.Show(this, @"Ошибка вызова печати!" + Environment.NewLine + msg, Messages.Exception);
             }
             finally
             {
@@ -749,7 +745,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка изменения разрешения формы!" + Environment.NewLine + ex.Message);
+                CustomMessageBox.Show(this, @"Ошибка изменения разрешения формы!" + Environment.NewLine + ex.Message, Messages.Exception);
             }
         }
 

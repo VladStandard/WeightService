@@ -6,10 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.170] - 2021-06-28
+## [0.5.180] - 2021-06-29
 ### Changed
 - MainForm
 - SessionState
+- CustomMessageBox
+- MainForm PLU label
 ### Added
 - Штучные этикетки для "Чудо Печка"
 

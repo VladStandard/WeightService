@@ -59,6 +59,7 @@ namespace ScalesUI.Forms
             // 
             // btOk
             // 
+            this.btOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btOk.Location = new System.Drawing.Point(535, 3);
             this.btOk.Name = "btOk";
             this.btOk.Size = new System.Drawing.Size(75, 84);
@@ -67,9 +68,11 @@ namespace ScalesUI.Forms
             this.btOk.UseVisualStyleBackColor = true;
             this.btOk.Visible = false;
             this.btOk.Click += new System.EventHandler(this.OnOk_Click);
+            this.btOk.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CustomMessageBox_KeyUp);
             // 
             // btAbort
             // 
+            this.btAbort.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btAbort.Location = new System.Drawing.Point(454, 3);
             this.btAbort.Name = "btAbort";
             this.btAbort.Size = new System.Drawing.Size(75, 84);
@@ -78,9 +81,11 @@ namespace ScalesUI.Forms
             this.btAbort.UseVisualStyleBackColor = true;
             this.btAbort.Visible = false;
             this.btAbort.Click += new System.EventHandler(this.OnAbort_Click);
+            this.btAbort.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CustomMessageBox_KeyUp);
             // 
             // btCancel
             // 
+            this.btCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btCancel.Location = new System.Drawing.Point(373, 3);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 84);
@@ -89,9 +94,11 @@ namespace ScalesUI.Forms
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Visible = false;
             this.btCancel.Click += new System.EventHandler(this.OnCancel_Click);
+            this.btCancel.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CustomMessageBox_KeyUp);
             // 
             // btIgnore
             // 
+            this.btIgnore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btIgnore.Location = new System.Drawing.Point(292, 3);
             this.btIgnore.Name = "btIgnore";
             this.btIgnore.Size = new System.Drawing.Size(75, 84);
@@ -100,9 +107,11 @@ namespace ScalesUI.Forms
             this.btIgnore.UseVisualStyleBackColor = true;
             this.btIgnore.Visible = false;
             this.btIgnore.Click += new System.EventHandler(this.OnIgnore_Click);
+            this.btIgnore.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CustomMessageBox_KeyUp);
             // 
             // btNo
             // 
+            this.btNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btNo.Location = new System.Drawing.Point(211, 3);
             this.btNo.Name = "btNo";
             this.btNo.Size = new System.Drawing.Size(75, 84);
@@ -111,9 +120,11 @@ namespace ScalesUI.Forms
             this.btNo.UseVisualStyleBackColor = true;
             this.btNo.Visible = false;
             this.btNo.Click += new System.EventHandler(this.OnNo_Click);
+            this.btNo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CustomMessageBox_KeyUp);
             // 
             // btRetry
             // 
+            this.btRetry.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btRetry.Location = new System.Drawing.Point(130, 3);
             this.btRetry.Name = "btRetry";
             this.btRetry.Size = new System.Drawing.Size(75, 84);
@@ -122,9 +133,11 @@ namespace ScalesUI.Forms
             this.btRetry.UseVisualStyleBackColor = true;
             this.btRetry.Visible = false;
             this.btRetry.Click += new System.EventHandler(this.OnRetry_Click);
+            this.btRetry.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CustomMessageBox_KeyUp);
             // 
             // btYes
             // 
+            this.btYes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btYes.Location = new System.Drawing.Point(49, 3);
             this.btYes.Name = "btYes";
             this.btYes.Size = new System.Drawing.Size(75, 84);
@@ -133,6 +146,7 @@ namespace ScalesUI.Forms
             this.btYes.UseVisualStyleBackColor = true;
             this.btYes.Visible = false;
             this.btYes.Click += new System.EventHandler(this.OnYes_Click);
+            this.btYes.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CustomMessageBox_KeyUp);
             // 
             // fieldMessage
             // 
@@ -155,9 +169,10 @@ namespace ScalesUI.Forms
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "CustomMessageBox";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "CustomMessageBox";
-            this.TopMost = true;
             this.Shown += new System.EventHandler(this.CustomMessageBox_Shown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CustomMessageBox_KeyUp);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

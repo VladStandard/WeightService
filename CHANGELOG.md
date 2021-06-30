@@ -6,11 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.170] - 2021-06-28
+## [0.1.180] - 2021-06-28
 ### Changed
 - DeviceControl 0.2.210
 - DeviceControl.Core 0.2.210
-- ScalesUI 0.5.170
+- ScalesUI 0.5.180
 
 ## [0.1.160] - 2021-06-25
 ### Changed

@@ -4,6 +4,7 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ScalesUI.Forms
@@ -13,7 +14,7 @@ namespace ScalesUI.Forms
         #region Public and private fields and properties
 
         public DialogResult Result { get; private set; } = DialogResult.None;
-        public MessageBoxDefaultButton DefaultButton { get; private set; } = MessageBoxDefaultButton.Button1;
+        public bool IsExit { get; set; }
 
         #endregion
 
@@ -28,47 +29,21 @@ namespace ScalesUI.Forms
 
         #region Public and private methods - static Show
         
-        public static DialogResult Show(IWin32Window owner, string label, MessageBoxButtons buttons = MessageBoxButtons.OK)
-        {
-            if (owner is Form form)
-                return Show(form, label, "", buttons, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            return Show(null, label, "", buttons);
-        }
-
-        public static DialogResult Show(string label, MessageBoxButtons buttons = MessageBoxButtons.OK)
-        {
-            return Show(null, label, "", buttons);
-        }
-
-        //public static DialogResult Show(string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
-        //    MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, MessageBoxDefaultButton defaultButton = MessageBoxDefaultButton.Button1)
+        //public static DialogResult Show(IWin32Window owner, string label, MessageBoxButtons buttons = MessageBoxButtons.OK)
         //{
-        //    return Show(null, label, caption, buttons, messageBoxIcon, defaultButton);
+        //    return Show(owner, label, "", buttons);
         //}
 
-        public static DialogResult Show(Form formOwner, string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
-            MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, MessageBoxDefaultButton defaultButton = MessageBoxDefaultButton.Button1)
+        public static CustomMessageBox Show(IWin32Window owner, string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
+            MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, int selectButton = 0)
         {
-            var messageBox = new CustomMessageBox
+            CustomMessageBox messageBox = new CustomMessageBox
             {
-                Owner = formOwner,
+                Owner = owner is Form form ? form : null,
                 fieldMessage = { Text = label },
                 Text = caption,
-                DefaultButton = defaultButton,
+                IsExit = false,
             };
-
-            var i = 0;
-            foreach (var button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
-            {
-                button.Visible = false;
-                if (defaultButton == MessageBoxDefaultButton.Button1 && i == 0)
-                    button.Select();
-                else if (defaultButton == MessageBoxDefaultButton.Button2 && i == 1)
-                    button.Select();
-                else if (defaultButton == MessageBoxDefaultButton.Button3 && i == 2)
-                    button.Select();
-                i++;
-            }
 
             switch (buttons)
             {
@@ -116,6 +91,15 @@ namespace ScalesUI.Forms
                     }
             }
 
+            var i = -1;
+            foreach (var button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
+            {
+                if (button.Visible)
+                    i++;
+                if (selectButton == i)
+                    button.Select();
+            }
+
             var f = new Font("Arial", 16, FontStyle.Bold);
             foreach (var button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
             {
@@ -125,62 +109,85 @@ namespace ScalesUI.Forms
             }
 
             // Выровнять.
-            if (formOwner != null)
+            if (messageBox.Owner != null)
             {
-                messageBox.TopMost = formOwner.TopMost;
-                //messageBox.Width = formOwner.Width;
-                //messageBox.Height = formOwner.Height;
-                messageBox.Left = formOwner.Left;
-                messageBox.Top = formOwner.Top;
+                messageBox.TopMost = messageBox.Owner.TopMost;
+                //messageBox.Width = messageBox.Owner.Width;
+                //messageBox.Height = messageBox.Owner.Height;
+                //messageBox.Left = messageBox.Owner.Left;
+                //messageBox.Top = messageBox.Owner.Top;
             }
+            //else
+            //{
+                messageBox.StartPosition = FormStartPosition.CenterScreen;
+            //}
 
-            messageBox.ShowDialog();
-            return messageBox.Result;
+            if (messageBox.Owner != null)
+                messageBox.Show(messageBox.Owner);
+            else
+                messageBox.Show();
+            return messageBox;
         }
 
         #endregion
 
         #region Public and private methods
 
+        public void Wait()
+        {
+            while (!IsExit)
+            {
+                Application.DoEvents();
+                Thread.Sleep(10);
+            }
+        }
+
         private void OnYes_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Yes;
+            IsExit = true;
             Close();
         }
 
         private void OnOk_Click(object sender, EventArgs e)
         {
             Result = DialogResult.OK;
+            IsExit = true;
             Close();
         }
 
         private void OnRetry_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Retry;
+            IsExit = true;
             Close();
         }
 
         private void OnNo_Click(object sender, EventArgs e)
         {
             Result = DialogResult.No;
+            IsExit = true;
             Close();
         }
 
         private void OnIgnore_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Ignore;
+            IsExit = true;
             Close();
         }
 
         private void OnCancel_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Cancel;
+            IsExit = true;
             Close();
         }
 
         private void OnAbort_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Abort;
+            IsExit = true;
             Close();
         }
 
@@ -195,6 +202,14 @@ namespace ScalesUI.Forms
             }
         }
 
+        private void CustomMessageBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                OnCancel_Click(sender, e);
+            }
+        }
+        
         #endregion
     }
 }
