@@ -1,18 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using log4net;
 using System;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Threading;
+using log4net;
 
-// ReSharper disable StringLiteralTypo
-// ReSharper disable IdentifierTypo
-// ReSharper disable CommentTypo
-
-namespace ZabbixAgentLib
+namespace Hardware.Zabbix
 {
 
     public class ZabbixHttpListener
@@ -40,22 +36,20 @@ namespace ZabbixAgentLib
 
         #region Constructor and destructor
 
-        [Obsolete(@"Используй второй конструктор")]
-        public ZabbixHttpListener(Func<string> funcResponseStatus, CancellationToken token, int threadTimeOut) : this(token, threadTimeOut)
+        public ZabbixHttpListener()
         {
-            //
-        }
-
-        public ZabbixHttpListener(CancellationToken token, int threadTimeOut)
-        {
-            _token = token;
-            _threadTimeOut = threadTimeOut;
             DataCollectorStatus = new HealthDataCollectorStatus();
             DataCollectorZebra = new HealthDataCollectorZebra();
             DataCollectorMassa = new HealthDataCollectorMassa();
             DataCollectorSqlCon = new HealthDataCollectorSqlCon();
             // Запустить.
             Start();
+        }
+
+        public ZabbixHttpListener(CancellationToken token, int threadTimeOut) : this()
+        {
+            _token = token;
+            _threadTimeOut = threadTimeOut;
         }
 
         ~ZabbixHttpListener()

@@ -1,19 +1,19 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using Hardware.Zabbix;
 using log4net;
 using System;
 using System.Runtime.InteropServices;
 using System.ServiceProcess;
 using System.Threading;
-using ZabbixAgentLib;
 // ReSharper disable IdentifierTypo
 
 namespace ZabbixStubService
 {
     public partial class ZabbixStubService : ServiceBase
     {
-        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public enum ServiceState
         {
@@ -59,7 +59,7 @@ namespace ZabbixStubService
             }
             catch (Exception ex)
             {
-                log.Error(ex.Message);
+                _log.Error(ex.Message);
             }
 
 
@@ -72,19 +72,19 @@ namespace ZabbixStubService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
             serviceStatus.dwWaitHint = 60000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            log.Info(String.Format("ServiceState.SERVICE_START_PENDING"));
+            _log.Info(string.Format("ServiceState.SERVICE_START_PENDING"));
 
-            log.Info(String.Format("OnStart."));
+            _log.Info(string.Format("OnStart."));
             base.OnStart(args);
 
             try
             {
-                log.Info(String.Format("new HealthDataCollectorDummy()"));
+                _log.Info(string.Format("new HealthDataCollectorDummy()"));
                 healthDataCollector = new HealthDataCollectorDummy();
                 healthDataCollector.LoadValues();
 
 
-                log.Info(String.Format("new FakeCheckThreadByLog"));
+                _log.Info(string.Format("new FakeCheckThreadByLog"));
                 cancelTokenSource = new CancellationTokenSource();
                 token = cancelTokenSource.Token;
 
@@ -93,24 +93,25 @@ namespace ZabbixStubService
 
 
 
-                log.Info(String.Format("new ZabbixHttpListener"));
+                _log.Info(string.Format("new ZabbixHttpListener"));
                 cancelTokenSourceHttpListener = new CancellationTokenSource();
                 tokenHttpListener = cancelTokenSource.Token;
 
-                zabbixHttpListener = new ZabbixHttpListener(healthDataCollector.ResponseBuilderFunc, tokenHttpListener, 10);
+                //zabbixHttpListener = new ZabbixHttpListener(healthDataCollector.ResponseBuilderFunc, tokenHttpListener, 10);
+                zabbixHttpListener = new ZabbixHttpListener();
 
-                log.Info("fakeCheckThreadByLog.StartED.");
+                _log.Info("fakeCheckThreadByLog.StartED.");
             }
             catch (Exception ex)
             {
-                log.Error(ex.Message);
+                _log.Error(ex.Message);
             }
 
 
             // Update the service state to Running.
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            log.Info(String.Format("ServiceState.SERVICE_RUNNING"));
+            _log.Info(string.Format("ServiceState.SERVICE_RUNNING"));
 
         }
 
@@ -121,10 +122,10 @@ namespace ZabbixStubService
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOP_PENDING;
             serviceStatus.dwWaitHint = 60000;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            log.Info("ServiceState.SERVICE_STOP_PENDING");
+            _log.Info("ServiceState.SERVICE_STOP_PENDING");
 
 
-            log.Info("fakeCheckThreadByLog.Stop()");
+            _log.Info("fakeCheckThreadByLog.Stop()");
             try
             {
                 token.ThrowIfCancellationRequested();
@@ -135,18 +136,18 @@ namespace ZabbixStubService
             }
             catch (Exception ex)
             {
-                log.Error(ex.Message);
+                _log.Error(ex.Message);
             }
 
 
             base.OnStop();
 
-            log.Info("In OnStop.");
+            _log.Info("In OnStop.");
 
             // Update the service state to Stopped.
             serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            log.Info("ServiceState.SERVICE_STOPPED");
+            _log.Info("ServiceState.SERVICE_STOPPED");
         }
     }
 }

@@ -363,10 +363,6 @@
       <Project>{1571a974-21f0-4027-ad38-0c100eb9c124}</Project>
       <Name>UtilsLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ZabbixAgentLib\ZabbixAgentLib.csproj">
-      <Project>{36c9a357-5e28-4ee7-a0c3-679d43a9519c}</Project>
-      <Name>ZabbixAgentLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

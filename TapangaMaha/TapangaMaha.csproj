@@ -142,10 +142,6 @@
       <Project>{a814560e-4946-4da4-9735-5e7fff27da85}</Project>
       <Name>UICommon</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ZabbixAgentLib\ZabbixAgentLib.csproj">
-      <Project>{36c9a357-5e28-4ee7-a0c3-679d43a9519c}</Project>
-      <Name>ZabbixAgentLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

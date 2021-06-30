@@ -3,18 +3,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
-// ReSharper disable IdentifierTypo
-// ReSharper disable CommentTypo
-// ReSharper disable StringLiteralTypo
 
-namespace ZabbixAgentLib
+namespace Hardware.Zabbix
 {
     /// <summary>
     /// Сбор данных.
     /// </summary>
-    public class HealthDataCollectorMassa : IHealthDataCollector
+    public class HealthDataCollectorStatus : IHealthDataCollector
     {
         #region Public and private fields and properties
 
@@ -28,7 +24,7 @@ namespace ZabbixAgentLib
 
         #region Constructor and destructor
 
-        public HealthDataCollectorMassa()
+        public HealthDataCollectorStatus()
         {
             StartDateTime = DateTime.Now;
             RequestCount = 0;
@@ -46,7 +42,9 @@ namespace ZabbixAgentLib
             {
                 result.AppendLine($"{v.Key}={v.Value};");
             }
-            result.AppendLine($"CurrentTime={DateTime.Now.ToString(CultureInfo.InvariantCulture)};");
+
+            var dt = DateTime.Now;
+            result.AppendLine($"CurrentTime={dt.Year}-{dt.Month}-{dt.Day} {dt.Hour}:{dt.Minute}:{dt.Second};");
             var interval = DateTime.Now - StartDateTime;
             result.AppendLine($"TimePassed={interval};");
             result.AppendLine($"RequestCount={++RequestCount};");

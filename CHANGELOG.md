@@ -6,11 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.180] - 2021-06-28
+## [0.1.200] - 2021-06-30
+### Changed
+- ScalesUI 0.5.200
+- ZabbixStubService 0.5.200
+- ZplSdkExamples 0.5.200
+
+## [0.1.190] - 2021-06-29
 ### Changed
 - DeviceControl 0.2.210
 - DeviceControl.Core 0.2.210
-- ScalesUI 0.5.180
+- ScalesUI 0.5.190
 
 ## [0.1.160] - 2021-06-25
 ### Changed

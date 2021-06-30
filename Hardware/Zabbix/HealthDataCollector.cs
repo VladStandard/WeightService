@@ -5,16 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-// ReSharper disable IdentifierTypo
-// ReSharper disable CommentTypo
-// ReSharper disable StringLiteralTypo
 
-namespace ZabbixAgentLib
+namespace Hardware.Zabbix
 {
     /// <summary>
-    /// Сбор данных пустышка.
+    /// Сбор данных.
     /// </summary>
-    public class HealthDataCollectorDummy : IHealthDataCollector
+    public class HealthDataCollector : IHealthDataCollector
     {
         #region Public and private fields and properties
 
@@ -22,17 +19,16 @@ namespace ZabbixAgentLib
 
         public DateTime StartDateTime { get; }
 
-        private int _requestCount;
-        public int RequestCount { get => _requestCount; }
+        public int RequestCount { get ; private set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public HealthDataCollectorDummy()
+        public HealthDataCollector()
         {
             StartDateTime = DateTime.Now;
-            _requestCount = 0;
+            RequestCount = 0;
             Dict = new Dictionary<string, string>();
         }
 
@@ -56,33 +52,16 @@ namespace ZabbixAgentLib
             result.AppendLine($"CurrentTime={DateTime.Now.ToString(CultureInfo.InvariantCulture)};");
             var interval = DateTime.Now - StartDateTime;
             result.AppendLine($"TimePassed={interval};");
-            result.AppendLine($"RequestCount={++_requestCount};");
+            result.AppendLine($"RequestCount={++RequestCount};");
             return result;
         }
 
-        public void LoadValues()
+        public void LoadValues(bool dbOk, bool zebraOk, bool massaOk)
         {
             Dict.Clear();
-            var result = string.Empty;
-            var random = new Random();
-            for (var i = 0; i < 100; i++)
-            {
-                var prob = random.Next(100);
-                result = (prob <= 50) ? "OK" : "ERROR";
-            }
-            Dict.Add("Printer", result);
-            for (var i = 0; i < 100; i++)
-            {
-                var prob = random.Next(100);
-                result = (prob <= 80) ? "OK" : "ERROR";
-            }
-            Dict.Add("DataBase", result);
-            for (var i = 0; i < 100; i++)
-            {
-                var prob = random.Next(100);
-                result = (prob <= 20) ? "OK" : "ERROR";
-            }
-            Dict.Add("Platform", result);
+            Dict.Add("DataBase", dbOk ? "OK" : "ERROR");
+            Dict.Add("Zebra", zebraOk ? "OK" : "ERROR");
+            Dict.Add("Massa-K", massaOk ? "OK" : "ERROR");
         }
 
         #endregion

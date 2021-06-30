@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Hardware.Memory;
 using ScalesUI.Utils;
 using UICommon;
 using UICommon.WinForms.Utils;

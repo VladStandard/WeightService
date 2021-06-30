@@ -1,12 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using Hardware.Zabbix;
 using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ZabbixAgentLib;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZplSdkExamples.Models;
@@ -241,7 +241,8 @@ namespace ZplSdkExamples.Views
                 _cancelTokenSourceHttpListener = new CancellationTokenSource();
                 _tokenHttpListener = _cancelTokenSource.Token;
 
-                _zabbixHttpListener = new ZabbixHttpListener(_healthDataCollector.ResponseBuilderFunc, _tokenHttpListener, 10);
+                //_zabbixHttpListener = new ZabbixHttpListener(_healthDataCollector.ResponseBuilderFunc, _tokenHttpListener, 10);
+                _zabbixHttpListener = new ZabbixHttpListener();
                 _zabbixHttpListener.Start();
 
                 _log.Info("fakeCheckThreadByLog.StartED.");

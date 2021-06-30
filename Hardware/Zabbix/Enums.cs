@@ -1,6 +1,6 @@
 ﻿// ReSharper disable IdentifierTypo
 
-namespace ZabbixAgentLib
+namespace Hardware.Zabbix
 {
     public enum EnumCheckHttpAccess
     {

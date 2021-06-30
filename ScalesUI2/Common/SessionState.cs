@@ -12,10 +12,11 @@ using System.Threading;
 using System.Xml.Serialization;
 using Hardware;
 using UICommon;
-using ZabbixAgentLib;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using Hardware.Memory;
+using Hardware.Zabbix;
 using ScalesUI.Forms;
 
 namespace ScalesUI.Common
@@ -117,7 +118,7 @@ namespace ScalesUI.Common
         {
             ProductDate = DateTime.Now;
 
-            // загружается ID моноблока из файла токена, а затем загружается сама линия
+            // Load ID host from file.
             Host = new HostEntity();
             Host.TokenRead();
             CurrentScale = new ScaleEntity(Host.CurrentScaleId);

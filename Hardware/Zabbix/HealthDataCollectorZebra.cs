@@ -5,16 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-// ReSharper disable IdentifierTypo
-// ReSharper disable CommentTypo
-// ReSharper disable StringLiteralTypo
 
-namespace ZabbixAgentLib
+namespace Hardware.Zabbix
 {
     /// <summary>
     /// Сбор данных.
     /// </summary>
-    public class HealthDataCollector : IHealthDataCollector
+    public class HealthDataCollectorZebra : IHealthDataCollector
     {
         #region Public and private fields and properties
 
@@ -28,7 +25,7 @@ namespace ZabbixAgentLib
 
         #region Constructor and destructor
 
-        public HealthDataCollector()
+        public HealthDataCollectorZebra()
         {
             StartDateTime = DateTime.Now;
             RequestCount = 0;
@@ -38,12 +35,6 @@ namespace ZabbixAgentLib
         #endregion
 
         #region Public and private methods
-
-        [Obsolete(@"Используй ResponseStatus")]
-        public string ResponseBuilderFunc()
-        {
-            return Response().ToString();
-        }
 
         public StringBuilder Response()
         {
@@ -59,12 +50,9 @@ namespace ZabbixAgentLib
             return result;
         }
 
-        public void LoadValues(bool dbOk, bool zebraOk, bool massaOk)
+        public void LoadValues(Dictionary<string, string> dict)
         {
-            Dict.Clear();
-            Dict.Add("DataBase", dbOk ? "OK" : "ERROR");
-            Dict.Add("Zebra", zebraOk ? "OK" : "ERROR");
-            Dict.Add("Massa-K", massaOk ? "OK" : "ERROR");
+            Dict = dict;
         }
 
         #endregion

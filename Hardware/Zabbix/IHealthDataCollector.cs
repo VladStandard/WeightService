@@ -5,10 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-// ReSharper disable IdentifierTypo
-// ReSharper disable CommentTypo
-
-namespace ZabbixAgentLib
+namespace Hardware.Zabbix
 {
     /// <summary>
     /// Интерфейс сбора данных.
