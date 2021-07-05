@@ -485,11 +485,17 @@ namespace ScalesUI.Common
 
             if (!isCheck)
             {
-                CustomMessageBox.Show(owner, Messages.WeightControl + Environment.NewLine +
-                    $"Вес нетто: {CurrentWeighingFact.NetWeight}" + Environment.NewLine +
-                    $"Верхнее значение веса короба: {CurrentPlu.UpperWeightThreshold}" + Environment.NewLine +
-                    $"Нижнее значение веса короба: {CurrentPlu.LowerWeightThreshold}", Messages.OperationControl);
-                return;
+                var messageBox = CustomMessageBox.Show(owner, Messages.WeightControl + Environment.NewLine +
+                    $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
+                    $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
+                    $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
+                    $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
+                    "Для продолжения печати нажмите Ignore.",
+                    Messages.OperationControl,
+                    MessageBoxButtons.AbortRetryIgnore);
+                messageBox.Wait();
+                if (messageBox.Result != DialogResult.Ignore)
+                    return;
             }
 
             // Шаблон с указанием кол-ва.

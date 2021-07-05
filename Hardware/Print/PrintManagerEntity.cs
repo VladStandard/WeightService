@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 
@@ -160,6 +161,7 @@ namespace Hardware.Print
                                 {
                                     request = request.Replace("|", "\\&");
                                     //Console.WriteLine(request);
+                                    //MessageBox.Show(request);
                                     printerDevice.SendCommand(request);
                                 }
                             }

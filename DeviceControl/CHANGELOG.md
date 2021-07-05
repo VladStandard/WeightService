@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.210] - 2021-07-02
+### Added
+- Таблица взвешиваний
+
 ## [0.2.200] - 2021-05-25
 ### Added
 - MemorySize control
