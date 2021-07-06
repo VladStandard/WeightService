@@ -40,17 +40,16 @@ namespace BlazorDeviceControl.Data
 #endif
             }
         }
-        public DataSourceEntity DataSource { get; set; } = new DataSourceEntity();
+        public DataSourceEntity DataSource { get; set; } = new();
         public MemoryEntity Memory { get; set; }
         public IJSRuntime JsRuntime { get; set; }
         public HotKeysContext HotKeys { get; private set; }
         public int Delay { get; } = 5_000;
+        public delegate Task DelegateGuiRefresh();
 
         #endregion
 
         #region Constructor and destructor
-
-        public AppSettings() { }
 
         public void Setup(DataAccessConfig dataAccessService, NotificationService notification, DialogService dialog, NavigationManager navigation,
             TooltipService tooltip, HotKeysContext hotKeys, IJSRuntime jsRuntime)
@@ -60,6 +59,7 @@ namespace BlazorDeviceControl.Data
             Notification = notification;
             AccessRights = EnumAccessRights.Guest;
             Dialog = dialog;
+            Navigation = navigation;
             ChartSmooth = false;
             Tooltip = tooltip;
             HotKeys = hotKeys;
@@ -88,8 +88,8 @@ namespace BlazorDeviceControl.Data
                     EnumTable.Templates => DataAccess.ActionGetEntity<TemplatesEntity>(entity, tableAction),
                     EnumTable.WorkShop => DataAccess.ActionGetEntity<WorkshopEntity>(entity, tableAction),
                     EnumTable.WeithingFact => DataAccess.ActionGetEntity<WeithingFactEntity>(entity, tableAction),
-                    EnumTable.ZebraPrinter => DataAccess.ActionGetEntity<ZebraPrinterEntity>(entity, tableAction),
-                    EnumTable.ZebraPrinterResourceRef => DataAccess.ActionGetEntity<ZebraPrinterResourceRefEntity>(entity, tableAction),
+                    EnumTable.Printer => DataAccess.ActionGetEntity<ZebraPrinterEntity>(entity, tableAction),
+                    EnumTable.PrinterResourceRef => DataAccess.ActionGetEntity<ZebraPrinterResourceRefEntity>(entity, tableAction),
                     EnumTable.PrinterType => DataAccess.ActionGetEntity<ZebraPrinterTypeEntity>(entity, tableAction),
                     _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
                 };
@@ -109,8 +109,8 @@ namespace BlazorDeviceControl.Data
                     EnumTable.Templates => $"Шаблон. ID {entity.Id}",
                     EnumTable.WorkShop => $"Цех. ID {entity.Id}",
                     EnumTable.WeithingFact => $"Взвешивание. ID {entity.Id}",
-                    EnumTable.ZebraPrinter => $"Принтер Zebra. ID {entity.Id}",
-                    EnumTable.ZebraPrinterResourceRef => $"Ресурс принтера. ID {entity.Id}",
+                    EnumTable.Printer => $"Принтер Zebra. ID {entity.Id}",
+                    EnumTable.PrinterResourceRef => $"Ресурс принтера. ID {entity.Id}",
                     EnumTable.PrinterType => $"Тип принтера. ID {entity.Id}",
                     _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
                 };
@@ -139,7 +139,7 @@ namespace BlazorDeviceControl.Data
                     case EnumTableAction.Add:
                     case EnumTableAction.Edit:
                     case EnumTableAction.Copy:
-                        await Dialog.OpenAsync<BlazorDeviceControl.Components.EntityPage>(title,
+                        await Dialog.OpenAsync<Components.EntityPage>(title,
                             new Dictionary<string, object>
                             {
                                 {"Item", entity},
@@ -163,12 +163,64 @@ namespace BlazorDeviceControl.Data
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{memberName}]!",
                     Detail = ex.Message,
-                    Duration = Utils.LocalizationStrings.Timeout
+                    Duration = LocalizationStrings.Timeout
                 };
                 Notification.Notify(msg);
                 Console.WriteLine(ex.Message);
                 Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
                 DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            }
+        }
+
+        public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+            try
+            {
+                if (table == EnumTable.Default)
+                    return;
+                //if (item == null || item.EqualsDefault())
+                //    return;
+
+                switch (tableAction)
+                {
+                    case EnumTableAction.Add:
+                    case EnumTableAction.Edit:
+                    case EnumTableAction.Copy:
+                        switch (table)
+                        {
+                            case EnumTable.Printer:
+                                if (!isNewWindow)
+                                {
+                                    Navigation.NavigateTo(item == null ? $"{page}" : $"{page}/{item.Id}");
+                                }
+                                else
+                                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{item.Id}", "_blank").ConfigureAwait(false);
+                                break;
+                        }
+                        break;
+                    case EnumTableAction.Delete:
+                        DataAccess.ActionDeleteEntity(item);
+                        break;
+                    case EnumTableAction.Marked:
+                        DataAccess.ActionMarkedEntity(item);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = $"Ошибка метода [{memberName}]!",
+                    Detail = ex.Message,
+                    Duration = LocalizationStrings.Timeout
+                };
+                Notification.Notify(msg);
+                Console.WriteLine(ex.Message);
+                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
             }
         }
 
@@ -278,6 +330,136 @@ namespace BlazorDeviceControl.Data
         }
 
         #endregion
+
+        public ConfirmOptions GetConfirmOptions()
+        {
+            return new()
+            {
+                ShowTitle = true,
+                ShowClose = true,
+                OkButtonText = LocalizationStrings.DialogButtonYes,
+                CancelButtonText = LocalizationStrings.DialogButtonCancel,
+                Bottom = null,
+                ChildContent = null,
+                Height = null,
+                Left = null,
+                Style = null,
+                Top = null,
+                Width = null,
+            };
+        }
+        
+        public async Task RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
+            DelegateGuiRefresh callRefresh, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+            try
+            {
+                if (tasks != null)
+                {
+                    foreach (var task in tasks)
+                    {
+                        if (task != null)
+                        {
+                            task.Start();
+                            task.Wait();
+                        }
+                    }
+                }
+                if (!string.IsNullOrEmpty(detailSuccess))
+                    Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, Delay);
+                else
+                {
+                    if (!string.IsNullOrEmpty(detailCancel))
+                        Notification.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, Delay);
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                if (!string.IsNullOrEmpty(detailFail))
+                {
+                    if (!string.IsNullOrEmpty(msg))
+                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, Delay);
+                    else
+                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, Delay);
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(msg))
+                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, Delay);
+                }
+                Console.WriteLine(msg);
+                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+            }
+            finally
+            {
+                if (callRefresh != null)
+                    await callRefresh().ConfigureAwait(false);
+            }
+        }
+
+        public async Task RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel,
+            List<Task> tasks, DelegateGuiRefresh callRefresh, string questionAdd = "",
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            var confirmOptions = GetConfirmOptions();
+
+            try
+            {
+                var question = string.IsNullOrEmpty(questionAdd) ? LocalizationStrings.DialogQuestion : questionAdd;
+                var result = Dialog.Confirm(question, title, confirmOptions).Result;
+                if (result == true)
+                {
+                    if (tasks != null)
+                    {
+                        //Task.WaitAll(tasks.ToArray());
+                        foreach (var task in tasks)
+                        {
+                            task.Start();
+                            task.Wait();
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(detailSuccess))
+                        Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, Delay);
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(detailCancel))
+                        Notification.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, Delay);
+                }
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                if (!string.IsNullOrEmpty(detailFail))
+                {
+                    if (!string.IsNullOrEmpty(msg))
+                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, Delay);
+                    else
+                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, Delay);
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(msg))
+                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, Delay);
+                }
+
+                Console.WriteLine(msg);
+                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+            }
+            finally
+            {
+                if (callRefresh != null)
+                    await callRefresh().ConfigureAwait(false);
+            }
+        }
 
         #region Public and private methods - Memory manager
 

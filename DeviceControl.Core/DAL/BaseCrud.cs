@@ -236,10 +236,10 @@ namespace DeviceControl.Core.DAL
                 new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
         }
 
-        public T[] GetEntities(FieldListEntity fieldList, FieldOrderEntity order,
+        public T[] GetEntities(FieldListEntity fieldList, FieldOrderEntity order, int maxResults = 0,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            var entities = DataAccess.GetEntities<T>(fieldList, order, filePath, lineNumber, memberName);
+            var entities = DataAccess.GetEntities<T>(fieldList, order, maxResults, filePath, lineNumber, memberName);
             foreach (var entity in entities)
             {
                 FillReferences(entity);

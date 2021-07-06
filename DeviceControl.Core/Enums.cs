@@ -3,8 +3,6 @@
     public enum EnumTable
     {
         Default,
-        AttributeDefinationList,
-        AttributeValues,
         BarCodeTypes,
         Contragents,
         Hosts,
@@ -22,9 +20,8 @@
         Templates,
         WeithingFact,
         WorkShop,
-        ZebraPrinter,
-        ZebraPrinterResourceRef,
-        ZebraPrinterType,
+        Printer,
+        PrinterResourceRef,
         PrinterType,
     }
 

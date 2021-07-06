@@ -43,7 +43,7 @@ namespace BlazorDeviceControl.Controllers
                             requestedPath = "";
                         }
                         string path = Path.Combine(_environment.WebRootPath, "uploads", requestedPath, file.FileName);
-                        using (var stream = new FileStream(path, FileMode.Create))
+                        await using (var stream = new FileStream(path, FileMode.Create))
                         {
                             await file.CopyToAsync(stream).ConfigureAwait(true);
                         }

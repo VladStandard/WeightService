@@ -7,7 +7,7 @@ namespace BlazorDeviceControl.Data
     {
         public List<TypeEntity<string>> GetTemplateCategories()
         {
-            return new List<TypeEntity<string>>
+            return new()
             {
                 new TypeEntity<string>("", ""),
                 new TypeEntity<string>("NaN", "NaN"),

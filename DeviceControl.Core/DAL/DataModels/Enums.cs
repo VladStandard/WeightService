@@ -21,7 +21,8 @@
         Type,
         Plu,
         Marked,
-        GoodsName
+        GoodsName,
+        WeithingDate
     }
 
     public enum EnumOrderDirection

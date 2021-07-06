@@ -17,7 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Атрибуты.sql = WeightService\Атрибуты.sql
 		WeightService\Веса. Последние.sql = WeightService\Веса. Последние.sql
 		WeightService\Веса.sql = WeightService\Веса.sql
-		WeightService\Диаграмма. Взвешивания.sql = WeightService\Диаграмма. Взвешивания.sql
+		WeightService\Диаграмма. Взвешивания итоги.sql = WeightService\Диаграмма. Взвешивания итоги.sql
+		WeightService\Диаграмма. Взвешивания подробно.sql = WeightService\Диаграмма. Взвешивания подробно.sql
 		WeightService\Диаграмма. Контрагенты.sql = WeightService\Диаграмма. Контрагенты.sql
 		WeightService\Диаграмма. Номенклатура.sql = WeightService\Диаграмма. Номенклатура.sql
 		WeightService\Диаграмма. Произв площадки.sql = WeightService\Диаграмма. Произв площадки.sql
@@ -69,7 +70,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{21426C8F-36CA-4FF7-9B52-191E9766596B}.Default|Default.ActiveCfg = Default
+		{4E8BDB48-D265-432F-BBC1-D948A4EF3BC0}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,7 @@
 ﻿<AuthorizeView>
-    Hello, @context.User.Identity.Name!
+    Hello,
+    @if (context.User.Identity != null)
+    {
+        @context.User.Identity.Name
+    }!
 </AuthorizeView>

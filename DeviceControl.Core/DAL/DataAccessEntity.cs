@@ -254,9 +254,13 @@ namespace DeviceControl.Core.DAL
             return result;
         }
 
-        private ICriteria GetCriteria<T>(ISession session, FieldListEntity fieldList, FieldOrderEntity order)
+        private ICriteria GetCriteria<T>(ISession session, FieldListEntity fieldList, FieldOrderEntity order, int maxResults)
         {
             ICriteria criteria = session.CreateCriteria(typeof(T));
+            if (maxResults > 0)
+            {
+                criteria.SetMaxResults(maxResults);
+            }
             if (fieldList != null && fieldList.Use && fieldList.Fields != null)
             {
                 AbstractCriterion fieldsWhere = Restrictions.AllEq(fieldList.Fields);
@@ -280,7 +284,7 @@ namespace DeviceControl.Core.DAL
                 using var transaction = session.BeginTransaction();
                 try
                 {
-                    result = GetCriteria<T>(session, fieldList, order).SetMaxResults(1).List<T>().FirstOrDefault() ?? new T();
+                    result = GetCriteria<T>(session, fieldList, order, 1).List<T>().FirstOrDefault() ?? new T();
                     session.Flush();
                     transaction.Commit();
                 }
@@ -346,7 +350,7 @@ namespace DeviceControl.Core.DAL
             return session.CreateSQLQuery(query);
         }
 
-        public T[] GetEntities<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName)
+        public T[] GetEntities<T>(FieldListEntity fieldList, FieldOrderEntity order, int maxResults, string filePath, int lineNumber, string memberName)
         {
             var result = new T[0];
             using var session = GetSession();
@@ -355,7 +359,7 @@ namespace DeviceControl.Core.DAL
                 using var transaction = session.BeginTransaction();
                 try
                 {
-                    result = GetCriteria<T>(session, fieldList, order).List<T>().ToArray();
+                    result = GetCriteria<T>(session, fieldList, order, maxResults).List<T>().ToArray();
                     session.Flush();
                     transaction.Commit();
                 }
@@ -643,7 +647,7 @@ namespace DeviceControl.Core.DAL
                 using var transaction = session.BeginTransaction();
                 try
                 {
-                    result = GetCriteria<T>(session, fieldList, order).SetMaxResults(1).List<T>().Count > 0;
+                    result = GetCriteria<T>(session, fieldList, order, 1).List<T>().Count > 0;
                     session.Flush();
                     transaction.Commit();
                 }

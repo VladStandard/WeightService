@@ -2,7 +2,6 @@
 @using Toolbelt.Blazor.HotKeys
 @using BlazorDeviceControl.Data
 @using DeviceControl.Core.Utils
-@using Microsoft.AspNetCore.Http
 @inherits LayoutComponentBase
 @inject AppSettings AppSettings
 @inject DataAccessConfig DataAccessConfig
@@ -57,7 +56,7 @@ else
     #region Public and private fields and properties
 
     private string DbServer => DataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase)
-            ? "Промышленный сервер" : "Сервер разработки";
+            ? LocalizationStrings.ServerProduct : LocalizationStrings.ServerDevelop;
     private bool IsSqlServerProduct => DataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase);
     private string MemoryInfo => AppSettings.Memory != null
         ? $"{LocalizationStrings.MemoryUsed}: {AppSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"

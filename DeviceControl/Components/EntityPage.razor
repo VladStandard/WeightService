@@ -20,17 +20,13 @@
     <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
         @switch (Table)
         {
-            case EnumTable.AttributeDefinationList:
-                break;
-            case EnumTable.AttributeValues:
-                break;
             case EnumTable.BarCodeTypes:
                 break;
             case EnumTable.Contragents:
                 break;
             case EnumTable.Hosts:
-                var hostEntity = (HostsEntity)Item;
-                <BlazorDeviceControl.Components.Record.Host Item=@hostEntity />
+                var host = (HostsEntity)Item;
+                <BlazorDeviceControl.Components.Record.Host Item=@host />
                 break;
             case EnumTable.Nomenclature:
                 break;
@@ -41,16 +37,17 @@
             case EnumTable.OrderTypes:
                 break;
             case EnumTable.Plu:
-                var pluEntity = (PluEntity)Item;
-                <BlazorDeviceControl.Components.Record.Plu Item=@pluEntity />
+                var plu = (PluEntity)Item;
+                <BlazorDeviceControl.Components.Record.Plu Item=@plu />
                 break;
             case EnumTable.ProductionFacility:
-                var productionFacilityEntity = (ProductionFacilityEntity)Item;
-                <BlazorDeviceControl.Components.Record.ProductionFacility Item=@productionFacilityEntity />
+                var productionFacility = (ProductionFacilityEntity)Item;
+                <BlazorDeviceControl.Components.Record.ProductionFacility Item=@productionFacility />
                 break;
             case EnumTable.ProductSeries:
-                var productSeries = (ProductSeriesEntity)Item;
-                @*<span Style="align-self: start; width: 15%; height: 25px; ">@Utils.LocalizationStrings.TableFieldId</span>
+                @*
+                    var productSeries = (ProductSeriesEntity)Item;
+                    <span Style="align-self: start; width: 15%; height: 25px; ">@Utils.LocalizationStrings.TableFieldId</span>
                     <RadzenNumeric Style="align-self: end; width: 85%; height: 25px; " TValue="int" Disabled=true @bind-value=@productSeries.Id />
                     <div class="col-md-6" Style="margin-top: 0; margin-left: 0; margin-right: 0;">
                         <br Style="margin-top: 0; margin-left: 0; margin-right: 0;" />
@@ -73,36 +70,36 @@
                     </div>*@
                 break;
             case EnumTable.Scales:
-                var scalesEntity = (ScalesEntity)Item;
-                <BlazorDeviceControl.Components.Record.Scale Item=@scalesEntity />
+                var scales = (ScalesEntity)Item;
+                <BlazorDeviceControl.Components.Record.Scale Item=@scales />
                 break;
             case EnumTable.SsccStorage:
                 break;
             case EnumTable.TemplateResources:
-                var templateResourcesEntity = (TemplateResourcesEntity)Item;
-                <BlazorDeviceControl.Components.Record.TemplateResource Item=@templateResourcesEntity />
+                var templateResources = (TemplateResourcesEntity)Item;
+                <BlazorDeviceControl.Components.Record.TemplateResource Item=@templateResources />
                 break;
             case EnumTable.Templates:
-                var templatesEntity = (TemplatesEntity)Item;
-                <BlazorDeviceControl.Components.Record.Template Item=@templatesEntity />
+                var templates = (TemplatesEntity)Item;
+                <BlazorDeviceControl.Components.Record.Template Item=@templates />
                 break;
             case EnumTable.WeithingFact:
                 break;
             case EnumTable.WorkShop:
-                var workshopEntity = (WorkshopEntity)Item;
-                <BlazorDeviceControl.Components.Record.Workshop Item=@workshopEntity />
+                var workshop = (WorkshopEntity)Item;
+                <BlazorDeviceControl.Components.Record.Workshop Item=@workshop />
                 break;
-            case EnumTable.ZebraPrinter:
-                var zebraPrinterEntity = (ZebraPrinterEntity)Item;
-                <BlazorDeviceControl.Components.Record.ZebraPrinter Item=@zebraPrinterEntity />
+            case EnumTable.Printer:
+                var printer = (ZebraPrinterEntity)Item;
+                <BlazorDeviceControl.Components.Record.Printer Item=@printer />
                 break;
-            case EnumTable.ZebraPrinterResourceRef:
-                var zebraPrinterResourceRef = (ZebraPrinterResourceRefEntity)Item;
-                <BlazorDeviceControl.Components.Record.ZebraPrinterResourceRef Item=@zebraPrinterResourceRef />
+            case EnumTable.PrinterResourceRef:
+                var printerResourceRef = (ZebraPrinterResourceRefEntity)Item;
+                <BlazorDeviceControl.Components.Record.PrinterResourceRef Item=@printerResourceRef />
                 break;
             case EnumTable.PrinterType:
-                var printerTypeEntity = (ZebraPrinterTypeEntity)Item;
-                <BlazorDeviceControl.Components.Record.PrinterType Item=@printerTypeEntity />
+                var printerType = (ZebraPrinterTypeEntity)Item;
+                <BlazorDeviceControl.Components.Record.PrinterType Item=@printerType />
                 break;
         }
     </div>
@@ -265,38 +262,34 @@
             AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
             switch (Table)
             {
-                case EnumTable.AttributeDefinationList:
-                    break;
-                case EnumTable.AttributeValues:
-                    break;
                 case EnumTable.BarCodeTypes:
                     break;
                 case EnumTable.Hosts:
-                    var hostsEntity = (HostsEntity)Item;
-                    hostsEntity.CreateDate ??= DateTime.Now;
-                    hostsEntity.ModifiedDate = DateTime.Now;
+                    var hosts = (HostsEntity)Item;
+                    hosts.CreateDate ??= DateTime.Now;
+                    hosts.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        AppSettings.DataAccess.HostsCrud.SaveEntity(hostsEntity);
+                        AppSettings.DataAccess.HostsCrud.SaveEntity(hosts);
                     else
-                        AppSettings.DataAccess.HostsCrud.UpdateEntity(hostsEntity);
+                        AppSettings.DataAccess.HostsCrud.UpdateEntity(hosts);
                     break;
                 case EnumTable.Contragents:
-                    var contragentsEntity = (ContragentsEntity)Item;
-                    contragentsEntity.CreateDate ??= DateTime.Now;
-                    contragentsEntity.ModifiedDate = DateTime.Now;
+                    var contragents = (ContragentsEntity)Item;
+                    contragents.CreateDate ??= DateTime.Now;
+                    contragents.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        AppSettings.DataAccess.ContragentsCrud.SaveEntity(contragentsEntity);
+                        AppSettings.DataAccess.ContragentsCrud.SaveEntity(contragents);
                     else
-                        AppSettings.DataAccess.ContragentsCrud.UpdateEntity(contragentsEntity);
+                        AppSettings.DataAccess.ContragentsCrud.UpdateEntity(contragents);
                     break;
                 case EnumTable.Nomenclature:
-                    var nomenclatureEntity = (NomenclatureEntity)Item;
-                    nomenclatureEntity.CreateDate ??= DateTime.Now;
-                    nomenclatureEntity.ModifiedDate = DateTime.Now;
+                    var nomenclature = (NomenclatureEntity)Item;
+                    nomenclature.CreateDate ??= DateTime.Now;
+                    nomenclature.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        AppSettings.DataAccess.NomenclatureCrud.SaveEntity(nomenclatureEntity);
+                        AppSettings.DataAccess.NomenclatureCrud.SaveEntity(nomenclature);
                     else
-                        AppSettings.DataAccess.NomenclatureCrud.UpdateEntity(nomenclatureEntity);
+                        AppSettings.DataAccess.NomenclatureCrud.UpdateEntity(nomenclature);
                     break;
                 case EnumTable.Orders:
                     break;
@@ -305,21 +298,21 @@
                 case EnumTable.OrderTypes:
                     break;
                 case EnumTable.Plu:
-                    var pluEntity = (PluEntity)Item;
-                    pluEntity.ModifiedDate = DateTime.Now;
-                    success = FieldControlDeny(pluEntity.Scale, "Устройство");
+                    var plu = (PluEntity)Item;
+                    plu.ModifiedDate = DateTime.Now;
+                    success = FieldControlDeny(plu.Scale, "Устройство");
                     if (success)
-                        success = FieldControlDeny(pluEntity.Templates, "Шаблон");
+                        success = FieldControlDeny(plu.Templates, "Шаблон");
                     if (success)
-                        success = FieldControlDeny(pluEntity.Nomenclature, "Номенклатура");
+                        success = FieldControlDeny(plu.Nomenclature, "Номенклатура");
                     if (success)
                     {
                         // Контроль номера PLU.
                         var pluEntities = AppSettings.DataAccess.PluCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object>
                             {
-                                { "Scale.Id", pluEntity.Scale.Id },
-                                { EnumField.Plu.ToString(), pluEntity.Plu },
+                                { "Scale.Id", plu.Scale.Id },
+                                { EnumField.Plu.ToString(), plu.Plu },
                                                     }),
                             null);
                         if (pluEntities.Any() && !pluEntities.Where(x => x.Id.Equals(Item.Id)).Select(x => x).Any())
@@ -328,7 +321,7 @@
                             {
                                 Severity = NotificationSeverity.Warning,
                                 Summary = "Контроль данных",
-                                Detail = $"Таблица PLU уже имеет такой номер [{pluEntity.Plu}]!",
+                                Detail = $"Таблица PLU уже имеет такой номер [{plu.Plu}]!",
                                 Duration = Utils.LocalizationStrings.Timeout
                             };
                             Notification.Notify(msg);
@@ -336,20 +329,20 @@
                         else
                         {
                             if (TableAction == EnumTableAction.Add)
-                                AppSettings.DataAccess.PluCrud.SaveEntity(pluEntity);
+                                AppSettings.DataAccess.PluCrud.SaveEntity(plu);
                             else
-                                AppSettings.DataAccess.PluCrud.UpdateEntity(pluEntity);
+                                AppSettings.DataAccess.PluCrud.UpdateEntity(plu);
                         }
                     }
                     break;
                 case EnumTable.ProductionFacility:
-                    var productionFacilityEntity = (ProductionFacilityEntity)Item;
-                    productionFacilityEntity.CreateDate ??= DateTime.Now;
-                    productionFacilityEntity.ModifiedDate = DateTime.Now;
+                    var productionFacility = (ProductionFacilityEntity)Item;
+                    productionFacility.CreateDate ??= DateTime.Now;
+                    productionFacility.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        AppSettings.DataAccess.ProductionFacilityCrud.SaveEntity(productionFacilityEntity);
+                        AppSettings.DataAccess.ProductionFacilityCrud.SaveEntity(productionFacility);
                     else
-                        AppSettings.DataAccess.ProductionFacilityCrud.UpdateEntity(productionFacilityEntity);
+                        AppSettings.DataAccess.ProductionFacilityCrud.UpdateEntity(productionFacility);
                     break;
                 case EnumTable.ProductSeries:
                     var productSeries = (ProductSeriesEntity)Item;
@@ -434,20 +427,20 @@
                     else
                         AppSettings.DataAccess.WorkshopCrud.UpdateEntity(workshopEntity);
                     break;
-                case EnumTable.ZebraPrinter:
-                    var zebraPrinterEntity = (ZebraPrinterEntity)Item;
-                    zebraPrinterEntity.CreateDate = DateTime.Now;
-                    zebraPrinterEntity.ModifiedDate = DateTime.Now;
-                    success = FieldControlDeny(zebraPrinterEntity.PrinterType, "Тип принтера");
+                case EnumTable.Printer:
+                    var zebraPrinter = (ZebraPrinterEntity)Item;
+                    zebraPrinter.CreateDate = DateTime.Now;
+                    zebraPrinter.ModifiedDate = DateTime.Now;
+                    success = FieldControlDeny(zebraPrinter.PrinterType, "Тип принтера");
                     if (success)
                     {
                         if (TableAction == EnumTableAction.Add)
-                            AppSettings.DataAccess.ZebraPrinterCrud.SaveEntity(zebraPrinterEntity);
+                            AppSettings.DataAccess.ZebraPrinterCrud.SaveEntity(zebraPrinter);
                         else
-                            AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(zebraPrinterEntity);
+                            AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(zebraPrinter);
                     }
                     break;
-                case EnumTable.ZebraPrinterResourceRef:
+                case EnumTable.PrinterResourceRef:
                     var zebraPrinterResourceRefEntity = (ZebraPrinterResourceRefEntity)Item;
                     zebraPrinterResourceRefEntity.CreateDate = DateTime.Now;
                     zebraPrinterResourceRefEntity.ModifiedDate = DateTime.Now;

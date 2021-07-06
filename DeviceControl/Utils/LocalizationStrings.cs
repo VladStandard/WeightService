@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using DeviceControl.Core;
+
 // ReSharper disable UnusedMember.Global
 
 namespace BlazorDeviceControl.Utils
@@ -7,7 +9,7 @@ namespace BlazorDeviceControl.Utils
     {
         public const int Timeout = 5000;
         #region Главная
-        public const string SqlServerProduct = "SQLDBEP04";
+        public const string SqlServerProduct = "PALYCH";
         public const string Company = @"Владимирский стандарт";
         public const string IndexTitle = @"Внутренние ресурсы";
         public const string IndexDescription = @"Управление устройствами";
@@ -16,6 +18,8 @@ namespace BlazorDeviceControl.Utils
         public const string DataLoading = @"Загрузка данных...";
         public const string DataRecords = @"записей";
         public const string IsDebug = @"Режим отладки";
+        public const string ServerDevelop = @"Сервер разработки";
+        public const string ServerProduct = @"Промышленный сервер";
         #endregion
         #region Служба поддержки
         public const string SupportTitle = @"Служба поддержки";
@@ -52,8 +56,8 @@ namespace BlazorDeviceControl.Utils
         public const string UriRouteRoot = "/";
         public const string UriRouteTableScales = "/scales";
         public const string UriRouteTableHosts = "/hosts";
-        public const string UriRouteTableZebraPrinters = "/zebraprinters";
-        public const string UriRouteTableZebraPrinterTypes = "/printertypes";
+        public const string UriRouteTablePrinters = "/printers";
+        public const string UriRouteTablePrinterTypes = "/printertypes";
         public const string UriRouteTableContragents = "/contragents";
         public const string UriRouteTableNomenclature = "/nomenclature";
         public const string UriRouteTableProductionFacilities = "/productionfacilities";
@@ -61,6 +65,7 @@ namespace BlazorDeviceControl.Utils
         public const string UriRouteTableTemplateResources = "/templateresources";
         public const string UriRouteTableWeithingFacts = "/weithingfacts";
         public const string UriRouteTableWorkshops = "/workshops";
+        public const string UriRouteItemPrinter = "/printer";
         #endregion
         #region Меню
         public const string MenuReferences = "Справочники";
@@ -92,50 +97,27 @@ namespace BlazorDeviceControl.Utils
         public const string TableActionSave = @"Сохранить";
         public const string TableTitleFonts = @"Шрифты";
         public const string TableTitleLabels = @"Логотипы";
-        public const string TableTitleAttributeDefinationListShort = @"AttributeDefinationList";
-        public const string TableTitleAttributeDefinationListFull = @"AttributeDefinationList [AttributeDefinationList]";
-        public const string TableTitleAttributeValuesShort = @"AttributeValues";
-        public const string TableTitleAttributeValuesFull = @"AttributeValues [AttributeValues]";
         public const string TableTitleBarCodesShort = @"Штрихкоды";
-        public const string TableTitleBarCodesFull = @"Штрихкоды [BarCodes]";
         public const string TableTitleBarCodeTypesShort = @"Типы ШК";
-        public const string TableTitleBarCodeTypesFull = @"Типы ШК [BarCodeTypes]";
         public const string TableTitleContragentsShort = @"Контрагенты";
-        public const string TableTitleContragentsFull = @"Контрагенты [Contragents]";
         public const string TableTitleNomenclatureShort = @"Номенклатура";
-        public const string TableTitleNomenclatureFull = @"Номенклатура [Nomenclature]";
         public const string TableTitleNomenclatureUnitsShort = @"Упаковки";
-        public const string TableTitleNomenclatureUnitsFull = @"Упаковки [NomenclatureUnits]";
         public const string TableTitleOrdersShort = @"Заказы";
-        public const string TableTitleOrdersFull = @"Заказы [Orders]";
         public const string TableTitleOrderStatusShort = @"Статусы заказов";
-        public const string TableTitleOrderStatusFull = @"Статусы заказов [OrderStatus]";
         public const string TableTitleOrderTypesShort = @"Типы заказов";
-        public const string TableTitleOrderTypesFull = @"Типы заказов [OrderTypes]";
         public const string TableTitlePluShort = @"PLU";
-        public const string TableTitlePluFull = @"PLU [PLU]";
         public const string TableTitleProductionFacilityShort = @"Произв. площадки";
-        public const string TableTitleProductionFacilityFulll = @"Производственные площадки [ProductionFacility]";
         public const string TableTitleProductSeriesShort = @"Серии продуктов";
-        public const string TableTitleProductSeriesFull = @"Серии продуктов [ProductSeries]";
-        public const string TableTitleZebraPrintersShort = @"Принтеры";
-        public const string TableTitleZebraPrinterTypesShort = @"Типы принтеров";
-        public const string TableTitleZebraPrintersFull = @"Принтеры [ZebraPrinter]";
+        public const string TableTitlePrinters = @"Принтеры";
+        public const string TableTitlePrinterTypes = @"Типы принтеров";
         public const string TableTitleHostsShort = @"Хосты";
-        public const string TableTitleHostsFull = @"Хосты [Hosts]";
         public const string TableTitleScalesShort = @"Устройства";
-        public const string TableTitleScalesFull = @"Устройства [Scales]";
         public const string TableTitleSsccStorageShort = @"SSCCStorage";
-        public const string TableTitleSsccStorageFull = @"SSCCStorage [SSCCStorage]";
         public const string TableTitleResources = @"Ресурсы шаблонов";
         public const string TableTitleTemplateResourcesShort = @"Ресурсы шаблонов";
-        public const string TableTitleTemplateResourcesFull = @"Ресурсы шаблонов [TemplateResources]";
         public const string TableTitleTemplatesShort = @"Шаблоны";
-        public const string TableTitleTemplatesFull = @"Шаблоны [Templates]";
         public const string TableTitleWeithingFactShort = @"Взвешивания";
-        public const string TableTitleWeithingFactFull = @"Взвешивания [WeithingFact]";
         public const string TableTitleWorkShopShort = @"Цеха";
-        public const string TableTitleWorkShopFull = @"Цеха [WorkShop]";
         public const string TableFieldId = @"ID";
         public const string TableFieldName = @"Наименование";
         public const string TableFieldLine = @"Линия";
@@ -176,6 +158,7 @@ namespace BlazorDeviceControl.Utils
         public const string TableFieldIdRRef = @"ID 1C";
         public const string TableFieldStorage = @"Склад";
         public const string TableFieldState = @"Статус";
+        public const string TableFieldScale = @"Устройство";
         public const string TableFieldScaleId = @"ID весов";
         public const string TableFieldUid = @"UUID";
         public const string TableFieldIsClose = @"IsClose";
@@ -222,10 +205,60 @@ namespace BlazorDeviceControl.Utils
         public const string TableFieldCheckWeight = @"Весовая продукция";
         public const string TableFieldCheckGtin = @"v";
         public const string TableFieldHost = @"Хост";
-
+        public const string TableFieldWeithingDate = @"Дата взвешивания";
+        public const string TableFieldProductDate = @"Дата продукции";
+        public const string TableFieldNetWeight = @"Вес нетто";
+        public const string TableFieldTareWeight = @"Вес тары";
+        public const string TableFieldRegNum = @"#";
+        public const string TableFieldKneding = @"Взвешено";
+        public const string TableFieldCount = @"Количество";
+        #endregion
+        #region Item
+        public const string ItemTitlePrinter = @"Принтер";
+        public const string ItemTitleBarCodeType = @"Тип ШК";
+        public const string ItemTitleContragents = @"Контрагент";
+        public const string ItemTitleHosts = @"Хост";
+        public const string ItemTitleLabels = @"Этикетка";
+        public const string ItemTitleNomenclature = @"Номенклатура";
+        public const string ItemTitleOrders = @"Заказ";
+        public const string ItemTitleOrderStatus = @"Статус заказа";
+        public const string ItemTitleOrderTypes = @"Тип заказа";
+        public const string ItemTitlePlu = @"ПЛУ";
+        public const string ItemTitleProductionFacility = @"ProductionFacility";
+        public const string ItemTitleProductSeries = @"ProductSeries";
+        public const string ItemTitleScales = @"Устройство";
+        public const string ItemTitleSsccStorage = @"SsccStorage";
+        public const string ItemTitleTemplateResources = @"Ресурс шаблона";
+        public const string ItemTitleTemplates = @"Шаблон";
+        public const string ItemTitleWeithingFact = @"Взвешивание";
+        public const string ItemTitleWorkShop = @"WorkShop";
+        public const string ItemTitlePrinterResourceRef = @"Ресурс принтера";
+        public const string ItemTitlePrinterType = @"Тип принтера";
+        #endregion
+        #region Таблица
+        public const string TableTab = @"Переключиться между панелями";
+        public const string TableRead = @"Прочитать данные";
+        public const string TableReadCancel = @"Отмена чтения данных";
+        public const string TableEdit = @"Редактировать запись";
+        public const string TableClear = @"Деактивировать активную запись";
+        public const string TableCreate = @"Создать запись";
+        public const string TableDelete = @"Удалить запись";
+        public const string TableSelect = @"Выделить запись";
+        public const string TableIncludes = @"Вложенные записи";
+        public const string TableRecordSave = @"Сохранить запись";
+        public const string TableRecordCancel = @"Закрыть запись";
         #endregion
         #region Контроль ввода
         public const string InputControlMuchZero = @"Значение должно быть больше 0";
+        #endregion
+        #region Dialog
+        public const string DialogQuestion = @"Выполнить операцию?";
+        public const string DialogButtonYes = @"Да";
+        public const string DialogButtonCancel = @"Отмена";
+        public const string DialogButtonNo = @"Нет";
+        public const string DialogResultSuccess = @"Операция выполнена успешно.";
+        public const string DialogResultCancel = @"Отмена операции. Возможно, не выполнены необходимые условия.";
+        public const string DialogResultFail = @"Ошибка выполнения операции!";
         #endregion
 
         private static string GetAppVersion()
@@ -233,6 +266,54 @@ namespace BlazorDeviceControl.Utils
             System.Reflection.Assembly executingAssembly = System.Reflection.Assembly.GetExecutingAssembly();
             var fieVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
             return fieVersionInfo.FileVersion;
+        }
+
+        public static string GetItemTitle(EnumTable table)
+        {
+            switch (table)
+            {
+                case EnumTable.Printer:
+                    return ItemTitlePrinter;
+                case EnumTable.BarCodeTypes:
+                    return ItemTitleBarCodeType;
+                case EnumTable.Contragents:
+                    return ItemTitleContragents;
+                case EnumTable.Hosts:
+                    return ItemTitleHosts;
+                case EnumTable.Labels:
+                    return ItemTitleLabels;
+                case EnumTable.Nomenclature:
+                    return ItemTitleNomenclature;
+                case EnumTable.Orders:
+                    return ItemTitleOrders;
+                case EnumTable.OrderStatus:
+                    return ItemTitleOrderStatus;
+                case EnumTable.OrderTypes:
+                    return ItemTitleOrderTypes;
+                case EnumTable.Plu:
+                    return ItemTitlePlu;
+                case EnumTable.ProductionFacility:
+                    return ItemTitleProductionFacility;
+                case EnumTable.ProductSeries:
+                    return ItemTitleProductSeries;
+                case EnumTable.Scales:
+                    return ItemTitleScales;
+                case EnumTable.SsccStorage:
+                    return ItemTitleSsccStorage;
+                case EnumTable.TemplateResources:
+                    return ItemTitleTemplateResources;
+                case EnumTable.Templates:
+                    return ItemTitleTemplates;
+                case EnumTable.WeithingFact:
+                    return ItemTitleWeithingFact;
+                case EnumTable.WorkShop:
+                    return ItemTitleWorkShop;
+                case EnumTable.PrinterResourceRef:
+                    return ItemTitlePrinterResourceRef;
+                case EnumTable.PrinterType:
+                    return ItemTitlePrinterType;
+            }
+            return string.Empty;
         }
     }
 }
