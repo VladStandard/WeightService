@@ -87,12 +87,15 @@
                                     <RadzenDatePicker TValue="DateTime" Value=@weithingFactEntity.WeithingDate Disabled="true" DateFormat="d" />
                                 </Template>
                             </RadzenGridColumn>
+                            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
+                                              Title=@LocalizationStrings.TableFieldDayOfWeek
+                                              Type="string" Width="15%" />
                             <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
                                               Title=@LocalizationStrings.TableFieldCount
                                               Type="int" Width="10%" />
                             <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
                                               Title=@LocalizationStrings.TableFieldScale
-                                              Type="string" Width="75%" />
+                                              Type="string" Width="60%" />
                         </Columns>
                     </RadzenGrid>
                 }

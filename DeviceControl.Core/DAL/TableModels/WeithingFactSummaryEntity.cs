@@ -1,4 +1,5 @@
 ﻿using System;
+using DeviceControl.Core.Utils;
 
 namespace DeviceControl.Core.DAL.TableModels
 {
@@ -7,6 +8,9 @@ namespace DeviceControl.Core.DAL.TableModels
         #region Public and private fields and properties
 
         public virtual DateTime WeithingDate { get; set; }
+
+        public virtual string WeithingDay => WeithingDate == default || WeithingDate == DateTime.MaxValue || WeithingDate == DateTime.MinValue
+            ? string.Empty : UtilsEnum.GetDayOfWeekRu(WeithingDate.DayOfWeek);
         public virtual int Count { get; set; }
         public virtual string Scale { get; set; }
         public virtual string Host { get; set; }
@@ -20,6 +24,7 @@ namespace DeviceControl.Core.DAL.TableModels
         {
             return base.ToString() +
                    $"{nameof(WeithingDate)}: {WeithingDate}. " +
+                   $"{nameof(WeithingDay)}: {WeithingDay}. " +
                    $"{nameof(Count)}: {Count}. " +
                    $"{nameof(Scale)}: {Scale}. " +
                    $"{nameof(Host)}: {Host}. " +
@@ -30,8 +35,9 @@ namespace DeviceControl.Core.DAL.TableModels
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
-            return base.Equals(entity) &&
+            return 
                    Equals(WeithingDate, entity.WeithingDate) &&
+                   Equals(WeithingDay, entity.WeithingDay) &&
                    Equals(Count, entity.Count) &&
                    Equals(Scale, entity.Scale) &&
                    Equals(Host, entity.Host) &&
@@ -60,6 +66,7 @@ namespace DeviceControl.Core.DAL.TableModels
         {
             return 
                    Equals(WeithingDate, default(DateTime)) &&
+                   Equals(WeithingDay, string.Empty) &&
                    Equals(Count, default(int)) &&
                    Equals(Scale, default(string)) &&
                    Equals(Host, default(string)) &&

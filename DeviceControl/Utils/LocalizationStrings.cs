@@ -212,6 +212,7 @@ namespace BlazorDeviceControl.Utils
         public const string TableFieldRegNum = @"#";
         public const string TableFieldKneding = @"Взвешено";
         public const string TableFieldCount = @"Количество";
+        public const string TableFieldDayOfWeek = @"День недели";
         #endregion
         #region Item
         public const string ItemTitlePrinter = @"Принтер";
