@@ -7,12 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.2.230] - 2021-07-13
-### Added
-- Day of week for WeithingFact table
+### Changed
+- WeithingFacts section
+- Scales section
+- Hosts section
 
 ## [0.2.220] - 2021-07-06
 ### Added
-- WeithingFact table
+- WeithingFacts section
 
 ## [0.2.200] - 2021-05-25
 ### Added

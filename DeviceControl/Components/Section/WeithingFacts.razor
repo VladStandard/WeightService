@@ -84,7 +84,7 @@
                                               Title=@LocalizationStrings.TableFieldWeithingDate
                                               Type="date" Width="15%">
                                 <Template Context="weithingFactEntity">
-                                    <RadzenDatePicker TValue="DateTime" Value=@weithingFactEntity.WeithingDate Disabled="true" DateFormat="d" />
+                                    <RadzenDatePicker TValue="string" Value=@weithingFactEntity.WeithingDate Disabled="true" DateFormat="d" />
                                 </Template>
                             </RadzenGridColumn>
                             <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"

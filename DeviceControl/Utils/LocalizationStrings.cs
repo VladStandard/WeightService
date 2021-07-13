@@ -130,6 +130,7 @@ namespace BlazorDeviceControl.Utils
         public const string TableFieldImageDataInfo = @"Информация";
         public const string TableFieldProductionFacilityName = @"Площадка";
         public const string TableFieldDeviceIp = @"IP устройства";
+        public const string TableFieldIdRref = @"ID 1C";
         public const string TableFieldDevicePort = @"Порт устройства";
         public const string TableFieldDeviceMac = @"MAC устройства";
         public const string TableFieldDeviceSendTimeout = @"Таймаут отправки";

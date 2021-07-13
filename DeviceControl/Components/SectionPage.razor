@@ -92,11 +92,13 @@
                                                       Title=@Utils.LocalizationStrings.TableFieldId
                                                       Type="int" Width="7.5%" />
                                     <RadzenGridColumn TItem="HostsEntity" Property="Name" Title=@Utils.LocalizationStrings.TableFieldName
-                                                      Type="string" Width="17.5%" />
+                                                      Type="string" Width="20%" />
                                     <RadzenGridColumn TItem="HostsEntity" Property="Ip" Title=@Utils.LocalizationStrings.TableFieldDeviceIp
-                                                      Type="string" Width="10%" />
+                                                      Type="string" Width="20%" />
+                                    <RadzenGridColumn TItem="HostsEntity" Property="IdRRef" Title=@Utils.LocalizationStrings.TableFieldIdRref
+                                                      Type="string" Width="20%" />
                                     <RadzenGridColumn TItem="HostsEntity" Property="Mac" Title=@Utils.LocalizationStrings.TableFieldDeviceMac
-                                                      Type="string" Width="10%" />
+                                                      Type="string" Width="20%" />
                                 </Columns>
                             </RadzenGrid>
                             break;
@@ -186,18 +188,28 @@
                                 <Columns>
                                     <RadzenGridColumn TItem="ScalesEntity" Property="Id" TextAlign="TextAlign.Center"
                                                       Title=@Utils.LocalizationStrings.TableFieldId Width="7.5%" />
-                                    <RadzenGridColumn TItem="ScalesEntity" Property="Description"
-                                                      Title=@Utils.LocalizationStrings.TableFieldDescription Width="17%" />
-                                    <RadzenGridColumn TItem="ScalesEntity" Property="Printer.Name"
-                                                      Title=@Utils.LocalizationStrings.TableFieldZebraPrinter Width="16%" />
-                                    <RadzenGridColumn TItem="ScalesEntity" Property="Host.Name"
-                                                      Title=@Utils.LocalizationStrings.TableFieldHost Width="16.5%" />
-                                    <RadzenGridColumn TItem="ScalesEntity" Property="Host.Ip"
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="Description" TextAlign="TextAlign.Left"
+                                                      Title=@Utils.LocalizationStrings.TableFieldDescription Width="12%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="Host.Name" TextAlign="TextAlign.Left"
+                                                      Title=@Utils.LocalizationStrings.TableFieldHost Width="12%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="Host.Ip" TextAlign="TextAlign.Center"
                                                       Title=@Utils.LocalizationStrings.TableFieldDeviceIp Width="8%" />
-                                    <RadzenGridColumn TItem="ScalesEntity" Property="WorkShop.Name"
-                                                      Title=@Utils.LocalizationStrings.TableFieldWorkShopName Width="8%" />
-                                    <RadzenGridColumn TItem="ScalesEntity" Property="TemplateDefault.Title"
-                                                      Title=@Utils.LocalizationStrings.TableFieldTemplateDefault Width="26%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="TemplateDefault.Title" TextAlign="TextAlign.Left"
+                                                      Title=@Utils.LocalizationStrings.TableFieldIdRref Width="20%">
+                                        <Template Context="item">
+                                            <RadzenLabel Text=@item.IdRRef.ToString() Disabled="true" Style="white-space: pre-wrap;" />
+                                        </Template>
+                                    </RadzenGridColumn>
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="Printer.Name" TextAlign="TextAlign.Left"
+                                                      Title=@Utils.LocalizationStrings.TableFieldZebraPrinter Width="13%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="WorkShop.Name" TextAlign="TextAlign.Center"
+                                                      Title=@Utils.LocalizationStrings.TableFieldWorkShopName Width="7.5%" />
+                                    <RadzenGridColumn TItem="ScalesEntity" Property="TemplateDefault.Title" TextAlign="TextAlign.Left"
+                                                      Title=@Utils.LocalizationStrings.TableFieldTemplateDefault Width="20%">
+                                        <Template Context="item">
+                                            <RadzenLabel Text=@item.TemplateDefault.Title Disabled="true" Style="white-space: pre-wrap;" />
+                                        </Template>
+                                    </RadzenGridColumn>
                                 </Columns>
                             </RadzenGrid>
                             break;
