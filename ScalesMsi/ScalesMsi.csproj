@@ -183,6 +183,7 @@
     </Compile>
     <Compile Include="Utils\SqlExtensions.cs" />
     <Compile Include="Utils\SqlUtils.cs" />
+    <None Include="CHANGELOG.md" />
     <None Include="Docs\CHANGELOG.md" />
     <None Include="Docs\DESCRIPTION.md" />
     <None Include="Docs\License.rtf" />

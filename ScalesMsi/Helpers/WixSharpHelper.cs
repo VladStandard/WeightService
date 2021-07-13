@@ -452,7 +452,7 @@ namespace ScalesMsi.Helpers
         public List<Dir> GetDirs()
         {
             return new List<Dir> {
-                GetDirTapangaMaha(), GetDirTapangaMahaUninstall(),
+                //GetDirTapangaMaha(), GetDirTapangaMahaUninstall(),
                 GetDirScalesUI(), GetDirScalesUIDocs(), GetDirScalesUIManuals(), GetDirScalesUIUninstall(),
                 GetDirLabelPrint(), GetDirLabelPrintDocs(), GetDirLabelPrintUninstall(),
                 GetDirMassa(), GetDirMassaDriver(),

@@ -128,11 +128,11 @@ namespace ScalesMsi.Utils
             get
             {
 #if BRANCH
-                return @"..\ScalesUI2\bin\Debug";
+                return @"..\ScalesUI2\bin\x64\Debug";
 #elif DEBUG
-                return @"..\ScalesUI2\bin\Debug";
+                return @"..\ScalesUI2\bin\x64\Debug";
 #else
-                return @"..\ScalesUI2\bin\Release";
+                return @"..\ScalesUI2\bin\x64\Release";
 #endif
             }
         }
@@ -150,11 +150,11 @@ namespace ScalesMsi.Utils
             get
             {
 #if BRANCH
-                return @"..\TapangaMaha\bin\Debug";
+                return @"..\TapangaMaha\bin\x64\Debug";
 #elif DEBUG
-                return @"..\TapangaMaha\bin\Debug";
+                return @"..\TapangaMaha\bin\x64\Debug";
 #else
-                return @"..\TapangaMaha\bin\Release";
+                return @"..\TapangaMaha\bin\x64\Release";
 #endif
             }
         }
@@ -172,11 +172,11 @@ namespace ScalesMsi.Utils
             get
             {
 #if BRANCH
-                return @"..\LabelPrint\bin\Debug";
+                return @"..\LabelPrint\bin\x64\Debug";
 #elif DEBUG
-                return @"..\LabelPrint\bin\Debug";
+                return @"..\LabelPrint\bin\x64\Debug";
 #else
-                return @"..\LabelPrint\bin\Release";
+                return @"..\LabelPrint\bin\x64\Release";
 #endif
             }
         }
@@ -206,16 +206,27 @@ namespace ScalesMsi.Utils
         {
             "CHANGELOG.md",
             "EntitiesLib.dll",
+            "Hardware.dll",
             "log4net.dll",
-            "MassaKLib.dll",
+            "Microsoft.Bcl.AsyncInterfaces.dll",
+            "Microsoft.DotNet.PlatformAbstractions.dll",
+            "Microsoft.Extensions.DependencyModel.dll",
             "Newtonsoft.Json.dll",
             "ScalesUI.exe.config",
             "SdkApi.Core.dll",
             "SdkApi.Desktop.dll",
+            "System.Buffers.dll",
+            "System.Memory.dll",
+            "System.Numerics.Vectors.dll",
+            "System.Runtime.CompilerServices.Unsafe.dll",
+            "System.Text.Encodings.Web.dll",
+            "System.Text.Json.dll",
+            "System.Threading.Tasks.Extensions.dll",
+            "System.ValueTuple.dll",
+            "tsclibnet.dll",
             "UICommon.dll",
             "UtilsLib.dll",
-            "ZabbixAgentLib.dll",
-            "ZplCommonLib.dll",
+            "ZebraPrinterSdk.dll",
         };
 
         /// <summary>
@@ -236,19 +247,19 @@ namespace ScalesMsi.Utils
         /// Список бинарных файлов.
         /// </summary>
         public static List<string> ListTapangaMaha { get; } = new List<string>() 
-            {
-                "CHANGELOG.md",
-                "EntitiesLib.dll",
-                "log4net.dll",
-                "Newtonsoft.Json.dll",
-                "SdkApi.Core.dll",
-                "SdkApi.Desktop.dll",
-                "TapangaMaha.exe.config",
-                "UICommon.dll",
-                "UtilsLib.dll",
-                "ZabbixAgentLib.dll",
-                "ZplCommonLib.dll",
-            };
+        {
+            //"CHANGELOG.md",
+            //"EntitiesLib.dll",
+            //"log4net.dll",
+            //"Newtonsoft.Json.dll",
+            //"SdkApi.Core.dll",
+            //"SdkApi.Desktop.dll",
+            //"TapangaMaha.exe.config",
+            //"UICommon.dll",
+            //"UtilsLib.dll",
+            //"ZabbixAgentLib.dll",
+            //"ZplCommonLib.dll",
+        };
 
         #endregion
 
@@ -257,12 +268,19 @@ namespace ScalesMsi.Utils
         /// <summary>
         /// Список бинарных файлов.
         /// </summary>
-        public static List<string> ListLabelPrint { get; } = new List<string>() { "LabelPrint.exe.config" };
+        public static List<string> ListLabelPrint { get; } = new List<string>()
+        {
+            "LabelPrint.exe.config",
+            "WPF.Utils.dll",
+        };
 
         /// <summary>
         /// Список документации.
         /// </summary>
-        public static List<string> ListLabelPrintDocs { get; } = new List<string>() { "CHANGELOG.md" };
+        public static List<string> ListLabelPrintDocs { get; } = new List<string>()
+        {
+            "CHANGELOG.md",
+        };
 
         #endregion
 
@@ -271,20 +289,31 @@ namespace ScalesMsi.Utils
         /// <summary>
         /// Список файлов драйверов для установки.
         /// </summary>
-        public static List<string> ListMassaDrivers { get; } = new List<string>() { "en.stsw-stm32102.zip" };
+        public static List<string> ListMassaDrivers { get; } = new List<string>()
+        {
+            "en.stsw-stm32102.zip",
+        };
 
         /// <summary>
         /// Список файлов драйверов для удаления.
         /// </summary>
         public static List<string> ListMassaDriversForDelete { get; } = new List<string>()
         {
-            "readme.txt", "version.txt", "VCP_V1.5.0_Setup_W7_x64_64bits.exe", "VCP_V1.5.0_Setup_W7_x86_32bits.exe", "VCP_V1.5.0_Setup_W8_x64_64bits.exe", "VCP_V1.5.0_Setup_W8_x86_32bits.exe"
+            "readme.txt", 
+            "version.txt", 
+            "VCP_V1.5.0_Setup_W7_x64_64bits.exe", 
+            "VCP_V1.5.0_Setup_W7_x86_32bits.exe", 
+            "VCP_V1.5.0_Setup_W8_x64_64bits.exe", 
+            "VCP_V1.5.0_Setup_W8_x86_32bits.exe",
         };
 
         /// <summary>
         /// Список файлов Масса-К для установки.
         /// </summary>
-        public static List<string> ListMassa { get; } = new List<string>() { "ScalesTerminalSetup_V1.3.191.exe" };
+        public static List<string> ListMassa { get; } = new List<string>()
+        {
+            "ScalesTerminalSetup_V1.3.191.exe",
+        };
 
         #endregion
 
@@ -295,7 +324,7 @@ namespace ScalesMsi.Utils
         /// </summary>
         public static List<string> ListMsiLib { get; } = new List<string>()
         {
-            "UACHelper.dll"
+            "UACHelper.dll",
         };
 
         /// <summary>

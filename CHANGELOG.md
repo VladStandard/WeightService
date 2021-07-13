@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.230] - 2021-07-13
+### Changed
+- ScalesMsi 0.5.230
+
 ## [0.1.220] - 2021-07-06
 ### Changed
 - DeviceControl 0.2.220
