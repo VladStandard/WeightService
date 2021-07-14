@@ -81,7 +81,7 @@ namespace Hardware.Memory
             try
             {
                 IsExecute = false;
-                Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
+                //Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 CloseJob();
             }
             catch (Exception ex)
@@ -91,7 +91,7 @@ namespace Hardware.Memory
                     ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
                 Console.WriteLine(ExceptionMsg);
                 Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-                Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                //Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
             }
         }
 

@@ -170,6 +170,7 @@
             this.fieldMassaManager.TabIndex = 44;
             this.fieldMassaManager.Text = "Менеджер весов";
             this.fieldMassaManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPrintManager
             // 
@@ -184,6 +185,7 @@
             this.fieldPrintManager.TabIndex = 43;
             this.fieldPrintManager.Text = "Менеджер принтера";
             this.fieldPrintManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldPrintManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMemoryManager
             // 
@@ -198,6 +200,7 @@
             this.fieldMemoryManager.TabIndex = 42;
             this.fieldMemoryManager.Text = "Менеджер памяти";
             this.fieldMemoryManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMemoryManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldCountBox
             // 
@@ -223,7 +226,7 @@
             this.fieldResolution.Size = new System.Drawing.Size(112, 21);
             this.fieldResolution.TabIndex = 29;
             this.fieldResolution.Visible = false;
-            this.fieldResolution.SelectedIndexChanged += new System.EventHandler(this.fieldResolution_SelectedIndexChanged);
+            this.fieldResolution.SelectedIndexChanged += new System.EventHandler(this.FieldResolution_SelectedIndexChanged);
             this.fieldResolution.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldCurrentTime
@@ -240,7 +243,8 @@
             this.fieldCurrentTime.TabIndex = 25;
             this.fieldCurrentTime.Text = "Дата время";
             this.fieldCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldCurrentTime.DoubleClick += new System.EventHandler(this.fieldDt_DoubleClick);
+            this.fieldCurrentTime.DoubleClick += new System.EventHandler(this.FieldDt_DoubleClick);
+            this.fieldCurrentTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // pictureBoxClose
             // 
@@ -254,7 +258,8 @@
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxClose.TabIndex = 19;
             this.pictureBoxClose.TabStop = false;
-            this.pictureBoxClose.Click += new System.EventHandler(this.pictureBoxClose_Click);
+            this.pictureBoxClose.Click += new System.EventHandler(this.PictureBoxClose_Click);
+            this.pictureBoxClose.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // labelWeightTare
             // 
@@ -314,6 +319,7 @@
             this.fieldProductDate.TabIndex = 31;
             this.fieldProductDate.Text = " Дата производства";
             this.fieldProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldProductDate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldKneading
             // 
@@ -327,6 +333,7 @@
             this.fieldKneading.TabIndex = 32;
             this.fieldKneading.Text = " Замес";
             this.fieldKneading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPalletSize
             // 
@@ -340,6 +347,7 @@
             this.fieldPalletSize.TabIndex = 37;
             this.fieldPalletSize.Text = "1 / 12";
             this.fieldPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldPalletSize.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldTitle
             // 
@@ -368,7 +376,7 @@
             this.fieldPlu.TabIndex = 14;
             this.fieldPlu.Text = "PLU";
             this.fieldPlu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldPlu.Click += new System.EventHandler(this.buttonSelectPlu_Click);
+            this.fieldPlu.Click += new System.EventHandler(this.ButtonSelectPlu_Click);
             this.fieldPlu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // labelPlu
@@ -382,7 +390,7 @@
             this.labelPlu.TabIndex = 33;
             this.labelPlu.Text = "PLU";
             this.labelPlu.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelPlu.Click += new System.EventHandler(this.buttonSelectPlu_Click);
+            this.labelPlu.Click += new System.EventHandler(this.ButtonSelectPlu_Click);
             this.labelPlu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // buttonSettings
@@ -396,7 +404,7 @@
             this.buttonSettings.TabIndex = 0;
             this.buttonSettings.Text = "Настройки";
             this.buttonSettings.UseVisualStyleBackColor = false;
-            this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
+            this.buttonSettings.Click += new System.EventHandler(this.ButtonSettings_Click);
             this.buttonSettings.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // flowLayoutPanelBottom
@@ -429,7 +437,7 @@
             this.buttonPrint.TabIndex = 6;
             this.buttonPrint.Text = "Печать";
             this.buttonPrint.UseVisualStyleBackColor = false;
-            this.buttonPrint.Click += new System.EventHandler(this.buttonPrint_Click);
+            this.buttonPrint.Click += new System.EventHandler(this.ButtonPrint_Click);
             this.buttonPrint.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // buttonSetKneading
@@ -443,7 +451,7 @@
             this.buttonSetKneading.TabIndex = 5;
             this.buttonSetKneading.Text = "ЕЩЁ";
             this.buttonSetKneading.UseVisualStyleBackColor = false;
-            this.buttonSetKneading.Click += new System.EventHandler(this.buttonSetKneading_Click);
+            this.buttonSetKneading.Click += new System.EventHandler(this.ButtonSetKneading_Click);
             this.buttonSetKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // buttonSelectPlu
@@ -457,7 +465,7 @@
             this.buttonSelectPlu.TabIndex = 3;
             this.buttonSelectPlu.Text = "Выбрать\r\nPLU";
             this.buttonSelectPlu.UseVisualStyleBackColor = false;
-            this.buttonSelectPlu.Click += new System.EventHandler(this.buttonSelectPlu_Click);
+            this.buttonSelectPlu.Click += new System.EventHandler(this.ButtonSelectPlu_Click);
             this.buttonSelectPlu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // btAddKneading
@@ -471,7 +479,8 @@
             this.btAddKneading.TabIndex = 35;
             this.btAddKneading.Text = "ЗаМЕС";
             this.btAddKneading.UseVisualStyleBackColor = false;
-            this.btAddKneading.Click += new System.EventHandler(this.buttonAddKneading_Click);
+            this.btAddKneading.Click += new System.EventHandler(this.ButtonAddKneading_Click);
+            this.btAddKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // btNewPallet
             // 
@@ -484,7 +493,8 @@
             this.btNewPallet.TabIndex = 34;
             this.btNewPallet.Text = "Новая палета";
             this.btNewPallet.UseVisualStyleBackColor = false;
-            this.btNewPallet.Click += new System.EventHandler(this.buttonNewPallet_Click);
+            this.btNewPallet.Click += new System.EventHandler(this.ButtonNewPallet_Click);
+            this.btNewPallet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // buttonSetZero
             // 
@@ -497,7 +507,7 @@
             this.buttonSetZero.TabIndex = 1;
             this.buttonSetZero.Text = ">0<";
             this.buttonSetZero.UseVisualStyleBackColor = false;
-            this.buttonSetZero.Click += new System.EventHandler(this.buttonSetZero_Click);
+            this.buttonSetZero.Click += new System.EventHandler(this.ButtonSetZero_Click);
             this.buttonSetZero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // buttonSelectOrder
@@ -511,7 +521,7 @@
             this.buttonSelectOrder.TabIndex = 4;
             this.buttonSelectOrder.Text = "Выбрать\r\nзаказ";
             this.buttonSelectOrder.UseVisualStyleBackColor = false;
-            this.buttonSelectOrder.Click += new System.EventHandler(this.buttonSelectOrder_Click);
+            this.buttonSelectOrder.Click += new System.EventHandler(this.ButtonSelectOrder_Click);
             this.buttonSelectOrder.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // MainForm

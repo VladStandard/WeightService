@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.230] - 2021-07-14
+## [0.5.240] - 2021-07-14
 ### Added
 - Scripts\Properties.sql
 - Tables\db_scales_LOGS.sql

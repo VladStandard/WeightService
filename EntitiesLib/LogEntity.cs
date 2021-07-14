@@ -80,6 +80,14 @@ namespace EntitiesLib
         {
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
+                if (File.Length > 128)
+                    File = File.Substring(0, 128);
+                if (Member.Length > 64)
+                    Member = Member.Substring(0, 64);
+                if (Icon.Length > 64)
+                    Icon = Icon.Substring(0, 64);
+                if (Message.Length > 1024)
+                    Message = Message.Substring(0, 1024);
                 string query = @"insert into [db_scales].[LOGS]([FILE],[LINE],[MEMBER],[ICON],[MESSAGE]) values (@File,@Line,@Member,@Icon,@Message)";
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
@@ -101,7 +109,15 @@ namespace EntitiesLib
         {
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
-                string query = @"insert into [db_scales].[LOGS]([METHOD],[ICON],[MESSAGE]) values (@File,@Line,@Member,@Icon,@Message)";
+                if (file.Length > 128)
+                    file = file.Substring(0, 128);
+                if (member.Length > 64)
+                    member = member.Substring(0, 64);
+                if (icon.Length > 64)
+                    icon = icon.Substring(0, 64);
+                if (message.Length > 1024)
+                    message = message.Substring(0, 1024);
+                string query = @"insert into [db_scales].[LOGS]([FILE],[LINE],[MEMBER],[ICON],[MESSAGE]) values (@File,@Line,@Member,@Icon,@Message)";
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;

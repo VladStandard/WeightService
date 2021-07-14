@@ -1,13 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using EntitiesLib;
 using Hardware.Zpl;
 using log4net;
 using ScalesUI.Common;
+using ScalesUI.Utils;
 using System;
 using System.Data.SqlClient;
 using System.IO.Ports;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -81,7 +84,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
             try
             {
@@ -104,7 +107,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonSaveOption_Click(object sender, EventArgs e)
+        private void ButtonSaveOption_Click(object sender, EventArgs e)
         {
             try
             {
@@ -134,10 +137,10 @@ namespace ScalesUI.Forms
             }
 
             // Закрыть форму.
-            buttonClose_Click(sender, e);
+            ButtonClose_Click(sender, e);
         }
 
-        private void buttonUploadResources_Click(object sender, EventArgs e)
+        private void ButtonUploadResources_Click(object sender, EventArgs e)
         {
             try
             {
@@ -214,11 +217,34 @@ namespace ScalesUI.Forms
             }
         }
 
+        private void ButtonGenerateException([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            try
+            {
+                throw new Exception("Test exception", new Exception("Test inner exception"));
+            }
+            catch (Exception ex)
+            {
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                var msg = ex.Message;
+                if (ex.InnerException != null)
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                CustomMessageBox.Show(this, @"Генерация тестовой ошибки!" + Environment.NewLine + msg, Messages.Exception);
+            }
+        }
+        
+        private void ButtonGenerateException_Click(object sender, EventArgs e)
+        {
+            ButtonGenerateException();
+        }
+        
         #endregion
 
         #region Private methods - Управление принтером
 
-        private void buttonPrint_Click(object sender, EventArgs e)
+        private void ButtonPrint_Click(object sender, EventArgs e)
         {
             _ws.PrintManager.SendAsync(ZplPipeUtils.ZplPowerOnReset());
         }
@@ -228,7 +254,7 @@ namespace ScalesUI.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonPrintCalibrate_Click(object sender, EventArgs e)
+        private void ButtonPrintCalibrate_Click(object sender, EventArgs e)
         {
             if (_ws.IsTscPrinter)
                 _ws.PrintManager.PrintControl.Cmd.Calibrate(true, true);
@@ -236,7 +262,7 @@ namespace ScalesUI.Forms
                 _ws.PrintManager.SendAsync(ZplPipeUtils.ZplCalibration());
         }
 
-        private void buttonPrintOptions_Click(object sender, EventArgs e)
+        private void ButtonPrintOptions_Click(object sender, EventArgs e)
         {
             _ws.PrintManager.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel());
         }
@@ -281,7 +307,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonSqlCheck_Click(object sender, EventArgs e)
+        private void ButtonSqlCheck_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(fieldSqlConnectionString.Text))
             {
@@ -299,7 +325,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonMassaParam_Click(object sender, EventArgs e)
+        private void ButtonMassaParam_Click(object sender, EventArgs e)
         {
             _ws.MassaManager.GetScalePar();
             Thread.Sleep(350);
@@ -317,11 +343,11 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonPrintCancelAll_Click(object sender, EventArgs e)
+        private void ButtonPrintCancelAll_Click(object sender, EventArgs e)
         {
             _ws.PrintManager.SendAsync(ZplPipeUtils.ZplClearPrintBuffer());
         }
-        
+
         #endregion
 
         #region Commented

@@ -57,6 +57,7 @@
             this.buttonSaveOption = new System.Windows.Forms.Button();
             this.buttonMassaParam = new System.Windows.Forms.Button();
             this.buttonUploadResources = new System.Windows.Forms.Button();
+            this.buttonGenerateException = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonPrintOptions = new System.Windows.Forms.Button();
             this.buttonPrintReset = new System.Windows.Forms.Button();
@@ -169,7 +170,7 @@
             this.buttonSqlCheck.Text = "Проверить SQL-подключение";
             this.buttonSqlCheck.UseVisualStyleBackColor = false;
             this.buttonSqlCheck.Visible = false;
-            this.buttonSqlCheck.Click += new System.EventHandler(this.buttonSqlCheck_Click);
+            this.buttonSqlCheck.Click += new System.EventHandler(this.ButtonSqlCheck_Click);
             // 
             // buttonSqlConnectionString
             // 
@@ -414,6 +415,7 @@
             this.flowLayoutPanel1.Controls.Add(this.buttonSaveOption);
             this.flowLayoutPanel1.Controls.Add(this.buttonMassaParam);
             this.flowLayoutPanel1.Controls.Add(this.buttonUploadResources);
+            this.flowLayoutPanel1.Controls.Add(this.buttonGenerateException);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 531);
@@ -431,7 +433,7 @@
             this.buttonClose.TabIndex = 1;
             this.buttonClose.Text = "Закрыть";
             this.buttonClose.UseVisualStyleBackColor = false;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // buttonSaveOption
             // 
@@ -443,7 +445,7 @@
             this.buttonSaveOption.TabIndex = 2;
             this.buttonSaveOption.Text = "Сохранить настройки";
             this.buttonSaveOption.UseVisualStyleBackColor = false;
-            this.buttonSaveOption.Click += new System.EventHandler(this.buttonSaveOption_Click);
+            this.buttonSaveOption.Click += new System.EventHandler(this.ButtonSaveOption_Click);
             // 
             // buttonMassaParam
             // 
@@ -454,7 +456,7 @@
             this.buttonMassaParam.TabIndex = 20;
             this.buttonMassaParam.Text = "Запрос параметров весового устройства";
             this.buttonMassaParam.UseVisualStyleBackColor = true;
-            this.buttonMassaParam.Click += new System.EventHandler(this.buttonMassaParam_Click);
+            this.buttonMassaParam.Click += new System.EventHandler(this.ButtonMassaParam_Click);
             // 
             // buttonUploadResources
             // 
@@ -467,7 +469,19 @@
             this.buttonUploadResources.Text = "Выгрузить ресурсы для текущего шаблона";
             this.buttonUploadResources.UseVisualStyleBackColor = false;
             this.buttonUploadResources.Visible = false;
-            this.buttonUploadResources.Click += new System.EventHandler(this.buttonUploadResources_Click);
+            this.buttonUploadResources.Click += new System.EventHandler(this.ButtonUploadResources_Click);
+            // 
+            // buttonGenerateException
+            // 
+            this.buttonGenerateException.BackColor = System.Drawing.Color.Transparent;
+            this.buttonGenerateException.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonGenerateException.Location = new System.Drawing.Point(92, 3);
+            this.buttonGenerateException.Name = "buttonGenerateException";
+            this.buttonGenerateException.Size = new System.Drawing.Size(150, 120);
+            this.buttonGenerateException.TabIndex = 21;
+            this.buttonGenerateException.Text = "Генерировать тестовую ошибку";
+            this.buttonGenerateException.UseVisualStyleBackColor = false;
+            this.buttonGenerateException.Click += new System.EventHandler(this.ButtonGenerateException_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -492,7 +506,7 @@
             this.buttonPrintOptions.TabIndex = 6;
             this.buttonPrintOptions.Text = "ZEBRA Print Configuration Label (~WC)";
             this.buttonPrintOptions.UseVisualStyleBackColor = false;
-            this.buttonPrintOptions.Click += new System.EventHandler(this.buttonPrintOptions_Click);
+            this.buttonPrintOptions.Click += new System.EventHandler(this.ButtonPrintOptions_Click);
             // 
             // buttonPrintReset
             // 
@@ -505,7 +519,7 @@
             this.buttonPrintReset.TabIndex = 11;
             this.buttonPrintReset.Text = "ZEBRA Power On Reset (~JR)";
             this.buttonPrintReset.UseVisualStyleBackColor = false;
-            this.buttonPrintReset.Click += new System.EventHandler(this.buttonPrint_Click);
+            this.buttonPrintReset.Click += new System.EventHandler(this.ButtonPrint_Click);
             // 
             // buttonPrintCancelAll
             // 
@@ -518,7 +532,7 @@
             this.buttonPrintCancelAll.TabIndex = 12;
             this.buttonPrintCancelAll.Text = "ZEBRA Cancel All (~JA)";
             this.buttonPrintCancelAll.UseVisualStyleBackColor = false;
-            this.buttonPrintCancelAll.Click += new System.EventHandler(this.buttonPrintCancelAll_Click);
+            this.buttonPrintCancelAll.Click += new System.EventHandler(this.ButtonPrintCancelAll_Click);
             // 
             // buttonPrintCalibrate
             // 
@@ -531,7 +545,7 @@
             this.buttonPrintCalibrate.TabIndex = 13;
             this.buttonPrintCalibrate.Text = "Калибровка";
             this.buttonPrintCalibrate.UseVisualStyleBackColor = false;
-            this.buttonPrintCalibrate.Click += new System.EventHandler(this.buttonPrintCalibrate_Click);
+            this.buttonPrintCalibrate.Click += new System.EventHandler(this.ButtonPrintCalibrate_Click);
             // 
             // SettingsForm
             // 
@@ -593,5 +607,6 @@
         private System.Windows.Forms.Button buttonPrintCancelAll;
         private System.Windows.Forms.Button buttonPrintCalibrate;
         private System.Windows.Forms.TextBox fieldCurrentMKProp;
+        private System.Windows.Forms.Button buttonGenerateException;
     }
 }

@@ -7,13 +7,11 @@ using Hardware.MassaK;
 using Hardware.Print;
 using log4net;
 using ScalesUI.Common;
-using ScalesUI.Helpers;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Hardware.Memory;
@@ -21,6 +19,8 @@ using ScalesUI.Utils;
 using UICommon;
 using UICommon.WinForms.Utils;
 using UtilsLib;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace ScalesUI.Forms
 {
@@ -33,7 +33,7 @@ namespace ScalesUI.Forms
         // Состояние устройства.
         private readonly SessionState _ws = SessionState.Instance;
         // Помощник мыши.
-        private readonly MouseHookHelper _mouse = MouseHookHelper.Instance;
+        //private readonly MouseHookHelper _mouse = MouseHookHelper.Instance;
         public Task TaskManager { get; set; }
 
         #endregion
@@ -48,7 +48,7 @@ namespace ScalesUI.Forms
             TopMost = !_ws.IsDebug;
             fieldResolution.Visible = _ws.IsDebug;
             fieldResolution.SelectedIndex = _ws.IsDebug ? 1 : 0;
-            _mouse.Owner = this;
+            //_mouse.Owner = this;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -79,19 +79,16 @@ namespace ScalesUI.Forms
             StartTaskManager();
         }
 
-        private void LoadResources()
+        private void LoadResources([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
-                //var bmpExit = new System.Drawing.Bitmap(Properties.Resources.exit_2);
                 var resourceManager = new System.Resources.ResourceManager("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
                 var exit = resourceManager.GetObject("exit_2");
                 if (exit != null)
                 {
                     var bmpExit = new Bitmap((Bitmap)exit);
                     pictureBoxClose.Image = bmpExit;
-                    //btnScaleOpt.Image = bmpSettings;
-                    //btnScaleOpt.Text = string.Empty;
                 }
 
                 Text = _ws.AppVersion;
@@ -117,7 +114,13 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка загрузки ресурсов!" + Environment.NewLine + ex.Message, Messages.Exception);
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                var msg = ex.Message;
+                if (ex.InnerException != null)
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                CustomMessageBox.Show(this, @"Ошибка загрузки ресурсов!" + Environment.NewLine + msg, Messages.Exception);
             }
         }
 
@@ -160,35 +163,46 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void ActionFormClosing(FormClosingEventArgs e, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            bool isClose;
-            if (_ws.IsDebug)
+            try
             {
-                isClose = true;
-            }
-            else
-            {
-                using (var pinForm = new PasswordForm() { TopMost = !_ws.IsDebug })
+                bool isClose;
+                if (_ws.IsDebug)
                 {
-                    isClose = pinForm.ShowDialog() == DialogResult.OK;
-                    pinForm.Close();
+                    isClose = true;
+                }
+                else
+                {
+                    using (var pinForm = new PasswordForm() { TopMost = !_ws.IsDebug })
+                    {
+                        isClose = pinForm.ShowDialog() == DialogResult.OK;
+                        pinForm.Close();
+                    }
+                }
+                Application.DoEvents();
+                if (isClose)
+                {
+                    StopTaskManager();
+                    //_mouse?.Close();
+                    e.Cancel = false;
+                }
+                else
+                {
+                    e.Cancel = true;
                 }
             }
-
-            Application.DoEvents();
-            Thread.Sleep(100);
-
-            if (isClose)
+            catch (Exception ex)
             {
-                StopTaskManager();
-                _mouse?.Close();
-                e.Cancel = false;
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
             }
-            else
-            {
-                e.Cancel = true;
-            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ActionFormClosing(e);
         }
 
         #endregion
@@ -363,7 +377,7 @@ namespace ScalesUI.Forms
                     {
                         var deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
                         _ws.MassaManager = new MassaManagerEntity(deviceSocketRs232, 1_000, 5_000, 5_000);
-                        buttonSetZero_Click(null, null);
+                        ButtonSetZero_Click(null, null);
                     }
                     _ws.MassaManager.Open(CallbackMassaManagerAsync);
                 }
@@ -397,8 +411,8 @@ namespace ScalesUI.Forms
             _ws.MemoryManager?.Close();
             _ws.DeviceManager?.Close();
             _ws.MassaManager?.Close();
-            
             _ws.PrintManager?.Close();
+
             if (_ws.PrintManager?.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
             {
                 _ws.PrintManager.PrintControl.Close();
@@ -495,7 +509,7 @@ namespace ScalesUI.Forms
 
         #region Private methods
 
-        private void buttonSettings_Click(object sender, EventArgs e)
+        private void ButtonSettings([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -517,13 +531,24 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка формы настроек!" + Environment.NewLine + ex.Message, Messages.Exception);
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                var msg = ex.Message;
+                if (ex.InnerException != null)
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                CustomMessageBox.Show(this, @"Ошибка вызова формы настроек!" + Environment.NewLine + msg, Messages.Exception);
             }
             finally
             {
                 AsyncControl.Select.Invoke(buttonPrint);
                 StartTaskManager();
             }
+        }
+
+        private void ButtonSettings_Click(object sender, EventArgs e)
+        {
+            ButtonSettings();
         }
 
         private void OpenFormSettings()
@@ -536,7 +561,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonSetZero_Click(object sender, EventArgs e)
+        private void ButtonSetZero([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -554,7 +579,13 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка задания 0!" + Environment.NewLine + ex.Message, Messages.Exception);
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                var msg = ex.Message;
+                if (ex.InnerException != null)
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                CustomMessageBox.Show(this, @"Ошибка задания 0!" + Environment.NewLine + msg, Messages.Exception);
             }
             finally
             {
@@ -562,12 +593,18 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonSelectPlu_Click(object sender, EventArgs e)
+        private void ButtonSetZero_Click(object sender, EventArgs e)
+        {
+            ButtonSetZero();
+        }
+
+        private void ButtonSelectPlu([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
                 StopTaskManager();
 
+                // Weight check.
                 if (_ws.MassaManager.WeightNet > Messages.MassaThreshold || _ws.MassaManager.WeightNet < -Messages.MassaThreshold)
                 {
                     var messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
@@ -576,9 +613,11 @@ namespace ScalesUI.Forms
                     if (messageBox.Result != DialogResult.Yes)
                         return;
                 }
+
+                // PLU form.
                 using (var pluListForm = new PluListForm() { Owner = this })
                 {
-                    // Комментировано 2021-03-05.
+                    // Commented from 2021-03-05.
                     //buttonSetZero_Click(sender, e);
                     if (pluListForm.ShowDialog() == DialogResult.OK)
                     {
@@ -588,7 +627,7 @@ namespace ScalesUI.Forms
                         //_mkDevice.SetTareWeight((int) (_ws.CurrentPLU.GoodsTareWeight * _ws.CurrentPLU.Scale.ScaleFactor));
 
                         // сразу перейдем к форме с замесами, размерами паллет и прочее
-                        buttonSetKneading_Click(sender, e);
+                        ButtonSetKneading();
                     }
                     else if (_ws.CurrentPlu != null)
                     {
@@ -598,6 +637,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -610,7 +652,12 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonSelectOrder_Click(object sender, EventArgs e)
+        private void ButtonSelectPlu_Click(object sender, EventArgs e)
+        {
+            ButtonSelectPlu();
+        }
+
+        private void ButtonSelectOrder([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -657,7 +704,13 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка формы выбора заказа!" + Environment.NewLine + ex.Message, Messages.Exception);
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                var msg = ex.Message;
+                if (ex.InnerException != null)
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                CustomMessageBox.Show(this, @"Ошибка вызова формы выбора заказа!" + Environment.NewLine + msg, Messages.Exception);
             }
             finally
             {
@@ -666,7 +719,12 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonSetKneading_Click(object sender, EventArgs e)
+        private void ButtonSelectOrder_Click(object sender, EventArgs e)
+        {
+            ButtonSelectOrder();
+        }
+
+        private void ButtonSetKneading([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -683,7 +741,13 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка формы выбора замеса!" + Environment.NewLine + ex.Message, Messages.Exception);
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                var msg = ex.Message;
+                if (ex.InnerException != null)
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                CustomMessageBox.Show(this, @"Ошибка формы выбора замеса!" + Environment.NewLine + msg, Messages.Exception);
             }
             finally
             {
@@ -692,18 +756,26 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonPrint_Click(object sender, EventArgs e)
+        private void ButtonSetKneading_Click(object sender, EventArgs e)
+        {
+            ButtonSetKneading();
+        }
+
+        private void ButtonPrint([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
-                _mouse.OnMouseEvent(sender, e);
+                _ws?.ProcessWeighingResult(Owner);
             }
             catch (Exception ex)
             {
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
-                if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
+                if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка вызова печати!" + Environment.NewLine + msg, Messages.Exception);
+                CustomMessageBox.Show(this, @"Ошибка формы печати!" + Environment.NewLine + msg, Messages.Exception);
             }
             finally
             {
@@ -711,12 +783,17 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void pictureBoxClose_Click(object sender, EventArgs e)
+        private void ButtonPrint_Click(object sender, EventArgs e)
+        {
+            ButtonPrint();
+        }
+
+        private void PictureBoxClose_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void fieldResolution_SelectedIndexChanged(object sender, EventArgs e)
+        private void FieldResolution_Selected([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -746,24 +823,35 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(this, @"Ошибка изменения разрешения формы!" + Environment.NewLine + ex.Message, Messages.Exception);
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                var msg = ex.Message;
+                if (ex.InnerException != null)
+                    msg += Environment.NewLine + ex.InnerException.Message;
+                CustomMessageBox.Show(this, @"Ошибка изменения разрешения формы!" + Environment.NewLine + msg, Messages.Exception);
             }
         }
 
-        private void fieldDt_DoubleClick(object sender, EventArgs e)
+        private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FieldResolution_Selected();
+        }
+
+        private void FieldDt_DoubleClick(object sender, EventArgs e)
         {
             ServiceMessagesWindow.BuildServiceMessagesWindow(this);
         }
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
-            //if (e.Button.Equals(MouseButtons.Middle))
-            //{
-            //    buttonPrint_Click(sender, e);
-            //}
+            if (Equals(e.Button, MouseButtons.Middle))
+            {
+                ButtonPrint_Click(sender, e);
+            }
         }
 
-        private void buttonAddKneading_Click(object sender, EventArgs e)
+        private void ButtonAddKneading_Click(object sender, EventArgs e)
         {
             //_ws.RotateKneading(Direction.forward);
             using (var numberInputForm = new NumberInputForm {InputValue = 0})
@@ -776,7 +864,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonNewPallet_Click(object sender, EventArgs e)
+        private void ButtonNewPallet_Click(object sender, EventArgs e)
         {
             _ws.NewPallet();
         }

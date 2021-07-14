@@ -109,6 +109,7 @@ namespace ScalesUI.Forms
             }
 
             // Выровнять.
+            messageBox.StartPosition = FormStartPosition.CenterScreen;
             if (messageBox.Owner != null)
             {
                 messageBox.TopMost = messageBox.Owner.TopMost;
@@ -116,16 +117,12 @@ namespace ScalesUI.Forms
                 //messageBox.Height = messageBox.Owner.Height;
                 //messageBox.Left = messageBox.Owner.Left;
                 //messageBox.Top = messageBox.Owner.Top;
-            }
-            //else
-            //{
-                messageBox.StartPosition = FormStartPosition.CenterScreen;
-            //}
-
-            if (messageBox.Owner != null)
                 messageBox.Show(messageBox.Owner);
+            }
             else
+            {
                 messageBox.Show();
+            }
             return messageBox;
         }
 

@@ -17,8 +17,11 @@ begin
 		(
 			[UID] uniqueidentifier not null primary key default newid(),
 			[CREATE_DT] datetime not null default getdate(),
-			[TYPE] nvarchar(64) not null,
-			[EVENT] nvarchar(1024) not null,
+			[FILE] nvarchar(128) not null,
+			[LINE] int not null,
+			[MEMBER] nvarchar(64) not null,
+			[ICON] nvarchar(64) not null,
+			[MESSAGE] nvarchar(1024) not null,
 		) on [ScalesFileGroup]
 		print '[+] Created the table ['+@schema+'].['+@table+']'
 	end else begin

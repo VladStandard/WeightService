@@ -8,7 +8,6 @@ using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 
@@ -18,9 +17,9 @@ namespace Hardware.Print
     {
         #region Public and private fields and properties - Manager
 
-        public int WaitWhileMiliSeconds { get; private set; }
-        public int WaitExceptionMiliSeconds { get; private set; }
-        public int WaitCloseMiliSeconds { get; private set; }
+        public int WaitWhileMiliSeconds { get; }
+        public int WaitExceptionMiliSeconds { get; }
+        public int WaitCloseMiliSeconds { get; }
         public string ExceptionMsg { get; private set; }
         public delegate Task CallbackAsync(int wait);
         public bool IsExecute { get; set; }
@@ -35,7 +34,7 @@ namespace Hardware.Print
         //public delegate void OnHandler(PrintManagerEntity state);
         //public event OnHandler Notify;
         private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public Connection Con { get; private set; }
+        public Connection Con { get; }
         public ConcurrentQueue<string> PrintCmdQueue { get; } = new ConcurrentQueue<string>();
         private readonly object _locker = new object();
         public PrintControlEntity PrintControl { get; set; }
@@ -93,7 +92,7 @@ namespace Hardware.Print
                     if (!string.IsNullOrEmpty(ex.InnerException?.Message))
                         ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
                     Console.WriteLine(ExceptionMsg);
-                    Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                    Console.WriteLine($@"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                 }
             }
@@ -104,7 +103,7 @@ namespace Hardware.Print
             try
             {
                 IsExecute = false;
-                Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
+                //Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 CloseJob();
             }
             catch (Exception ex)
@@ -113,8 +112,8 @@ namespace Hardware.Print
                 if (!string.IsNullOrEmpty(ex.InnerException?.Message))
                     ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
                 Console.WriteLine(ExceptionMsg);
-                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-                Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                Console.WriteLine($@"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                //Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
             }
         }
 

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5240] - 2021-07-14
+### Changed
+- LogEntity
+
 ## [0.5.210] - 2021-07-02
 ### Changed
 - Skip weight control for unit

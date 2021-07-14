@@ -591,7 +591,7 @@ namespace ScalesUI.Common
 
         #region Public and private methods - Http listener
 
-        private void StartHttpListener()
+        private void StartHttpListener([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             _log.Info("Запистить http-listener. начало.");
             _log.Info("http://localhost:18086/status");
@@ -607,16 +607,19 @@ namespace ScalesUI.Common
             }
             catch (Exception ex)
             {
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 _log.Error(ex.Message);
             }
             _log.Info("Запистить http-listener. Финиш.");
         }
 
-        private void StopHttpListener()
+        private void StopHttpListener([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            _log.Info("Остановить http-listener. Начало.");
             try
             {
+                _log?.Info("Остановить http-listener. Начало.");
                 HttpListener?.Stop();
                 _token.ThrowIfCancellationRequested();
                 _tokenHttpListener.ThrowIfCancellationRequested();
@@ -624,9 +627,12 @@ namespace ScalesUI.Common
             }
             catch (Exception ex)
             {
+                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 _log.Error(ex.Message);
             }
-            _log.Info("Остановить http-listener. Финиш.");
+            _log?.Info("Остановить http-listener. Финиш.");
         }
 
         #endregion

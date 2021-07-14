@@ -6,7 +6,6 @@ using ScalesUI.Forms;
 using System;
 using System.Threading;
 using System.Windows.Forms;
-using Hardware;
 using ScalesUI.Utils;
 
 // ReSharper disable IdentifierTypo
