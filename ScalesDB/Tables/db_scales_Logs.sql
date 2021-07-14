@@ -15,7 +15,7 @@ begin
 	if not exists (select 1 from [sys].[tables] where [name]=@table and [schema_id]=@schema_id) begin
 		create table [db_scales].[LOGS]
 		(
-			[UID] uniqueidentifier not null primary key,
+			[UID] uniqueidentifier not null primary key default newid(),
 			[CREATE_DT] datetime not null default getdate(),
 			[TYPE] nvarchar(64) not null,
 			[EVENT] nvarchar(1024) not null,

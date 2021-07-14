@@ -157,6 +157,8 @@
     <Build Include="SP\LoadResourceToDB.sql" />
     <Build Include="Tables\db_scales_Hosts.sql" />
     <Build Include="SP\ArchiveIrrelevantData.sql" />
+    <Build Include="Tables\db_scales_LOGS.sql" />
+    <None Include="Scripts\Properties.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ScalesDB.refactorlog" />
@@ -170,6 +172,7 @@
     <None Include="Scripts\Migrate\TemplateResourcesMigrate.sql" />
     <None Include="ScalesDB_1.publish.xml" />
     <None Include="ScalesDB_LUTON.publish.xml" />
+    <None Include="CHANGELOG.md" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />
