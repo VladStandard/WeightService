@@ -56,4 +56,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CheckWeight" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="55b142eb-fde3-4eb7-8448-7fd16dddcd9a" ChangeDateTime="07/14/2021 10:00:33">
+    <Property Name="ElementName" Value="[db_scales].[Logs].[[UID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[Logs]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7258428c-e7b5-4cdc-8873-c94d1f140634" ChangeDateTime="07/14/2021 10:12:38">
+    <Property Name="ElementName" Value="[db_scales].[Logs].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[Logs]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DT" />
+  </Operation>
 </Operations>
