@@ -90,6 +90,8 @@ namespace ScalesUI.Common
         /// </summary>
         public string CurrentPageAsString => $"Текущая страница: {_currentPage}";
 
+        public LogEntity Log { get; private set; }
+
         #endregion
 
         #region Public and private fields and properties - Tasks managers
@@ -123,6 +125,15 @@ namespace ScalesUI.Common
             Host.TokenRead();
             CurrentScale = new ScaleEntity(Host.CurrentScaleId);
             CurrentScale.Load();
+
+            string app = null;
+            string version = null;
+            if (AppVersion.Split(' ').Length > 1)
+            {
+                app = AppVersion.Split(' ')[0];
+                version = AppVersion.Split(' ')[1];
+            }
+            Log = new LogEntity(Host.Name, Host.IdRRef, app, version);
 
             //this.CurrentScaleId = Properties.Settings.Default.CurrentScaleId;
             //this.CurrentScale = new ScaleEntity(this.CurrentScaleId);
@@ -607,9 +618,9 @@ namespace ScalesUI.Common
             }
             catch (Exception ex)
             {
-                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 _log.Error(ex.Message);
             }
             _log.Info("Запистить http-listener. Финиш.");
@@ -627,10 +638,10 @@ namespace ScalesUI.Common
             }
             catch (Exception ex)
             {
-                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                _log.Error(ex.Message);
+                    Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                _log?.Error(ex.Message);
             }
             _log?.Info("Остановить http-listener. Финиш.");
         }

@@ -13,26 +13,20 @@ namespace EntitiesLib
     {
         #region Public and private fields and properties
 
-        public Guid Uid { get; set; } = Guid.Empty;
-        public DateTime CreateDt { get; set; } = default;
-        public string File { get; set; } = string.Empty;
-        public int Line { get; set; } = -1;
-        public string Member { get; set; } = string.Empty;
-        public string Icon { get; set; } = string.Empty;
-        public string Message { get; set; } = string.Empty;
+        public int? HostId { get; private set; }
+        public Guid? AppUid { get; private set; }
+        public string Version { get; private set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public LogEntity()
+        public LogEntity(string host, Guid idRref, string app, string version)
         {
-            //
-        }
-
-        public LogEntity(DateTime dt)
-        {
-            CreateDt = dt;
+            HostId = GetHostId(host, idRref);
+            AppUid = SaveApp(app);
+            StringValueTrim(ref version, 12);
+            Version = version;
         }
 
         #endregion
@@ -49,79 +43,25 @@ namespace EntitiesLib
             }
         }
 
-        public void Load(Guid uid)
+        public void Save(string file, int line, string member, string icon, string message)
         {
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
-                string query = "select [UID],[CREATE_DT],[FILE],[LINE],[MEMBER],[ICON],[MESSAGE] from [db_scales].[LOGS] where [UID]=@UID";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@UID", uid);
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        Uid = uid;
-                        CreateDt = SqlConnectFactory.GetValue<DateTime>(reader, "CREATE_DT");
-                        File = SqlConnectFactory.GetValue<string>(reader, "FILE");
-                        Line = SqlConnectFactory.GetValue<int>(reader, "LINE");
-                        Member = SqlConnectFactory.GetValue<string>(reader, "MEMBER");
-                        Icon = SqlConnectFactory.GetValue<string>(reader, "ICON");
-                        Message = SqlConnectFactory.GetValue<string>(reader, "MESSAGE");
-                    }
-                    reader.Close();
-                    con.Close();
-                }
-            }
-        }
-
-        public void Save()
-        {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                if (File.Length > 128)
-                    File = File.Substring(0, 128);
-                if (Member.Length > 64)
-                    Member = Member.Substring(0, 64);
-                if (Icon.Length > 64)
-                    Icon = Icon.Substring(0, 64);
-                if (Message.Length > 1024)
-                    Message = Message.Substring(0, 1024);
-                string query = @"insert into [db_scales].[LOGS]([FILE],[LINE],[MEMBER],[ICON],[MESSAGE]) values (@File,@Line,@Member,@Icon,@Message)";
+                StringValueTrim(ref file, 128);
+                StringValueTrim(ref member, 64);
+                StringValueTrim(ref icon, 64);
+                StringValueTrim(ref message, 1024);
+                string query = @"
+insert into [db_scales].[LOGS]([HOST_ID],[APP_UID],[VERSION],[FILE],[LINE],[MEMBER],[ICON],[MESSAGE]) 
+values (@HostId,@AppUid,@Version,@File,@Line,@Member,@Icon,@Message)
+                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n').Replace(Environment.NewLine, " ");
                 using (SqlCommand cmd = new SqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@File", File);
-                    cmd.Parameters.AddWithValue("@Line", Line);
-                    cmd.Parameters.AddWithValue("@Member", Member);
-                    cmd.Parameters.AddWithValue("@Icon", Icon);
-                    cmd.Parameters.AddWithValue("@Message", Message);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                con.Close();
-            }
-        }
-
-        public static void Save(string file, int line, string member, string icon, string message)
-        {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                if (file.Length > 128)
-                    file = file.Substring(0, 128);
-                if (member.Length > 64)
-                    member = member.Substring(0, 64);
-                if (icon.Length > 64)
-                    icon = icon.Substring(0, 64);
-                if (message.Length > 1024)
-                    message = message.Substring(0, 1024);
-                string query = @"insert into [db_scales].[LOGS]([FILE],[LINE],[MEMBER],[ICON],[MESSAGE]) values (@File,@Line,@Member,@Icon,@Message)";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@HostId", HostId);
+                    cmd.Parameters.AddWithValue("@AppUid", AppUid);
+                    cmd.Parameters.AddWithValue("@Version", Version);
                     cmd.Parameters.AddWithValue("@File", file);
                     cmd.Parameters.AddWithValue("@Line", line);
                     cmd.Parameters.AddWithValue("@Member", member);
@@ -134,24 +74,92 @@ namespace EntitiesLib
             }
         }
 
-        public static void SaveInfo(string file, int line, string member, string message)
+        public void SaveInfo(string file, int line, string member, string message)
         {
             Save(file, line, member, "Information", message);
         }
 
-        public static void SaveError(string file, int line, string member, string message)
+        public void SaveError(string file, int line, string member, string message)
         {
             Save(file, line, member, "Error", message);
         }
 
-        public static void SaveWarning(string file, int line, string member, string message)
+        public void SaveWarning(string file, int line, string member, string message)
         {
             Save(file, line, member, "Warning", message);
         }
 
-        public static void SaveQuestion(string file, int line, string member, string message)
+        public void SaveQuestion(string file, int line, string member, string message)
         {
             Save(file, line, member, "Question", message);
+        }
+
+        public Guid? SaveApp(string app)
+        {
+            Guid? result = null;
+            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            {
+                StringValueTrim(ref app, 32);
+                string query = @"
+if not exists (select 1 from [db_scales].[APPS] where [NAME]=@app) begin
+	insert into [db_scales].[APPS]([NAME]) values(@app)
+end
+select [UID]
+from [db_scales].[APPS]
+where [NAME]=@app
+                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n').Replace(Environment.NewLine, " ");
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@app", app);
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
+                    }
+                    reader.Close();
+                }
+                con.Close();
+            }
+            return result;
+        }
+
+        public int? GetHostId(string host, Guid idRref)
+        {
+            int? result = null;
+            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            {
+                StringValueTrim(ref host, 150);
+                string query = @"
+select [ID]
+from [db_scales].[Hosts] 
+where [Name]=@host and [IdRRef]=@idrref
+                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n').Replace(Environment.NewLine, " ");
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@host", host);
+                    cmd.Parameters.AddWithValue("@idrref", idRref);
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        result = SqlConnectFactory.GetValue<int>(reader, "ID");
+                    }
+                    reader.Close();
+                }
+                con.Close();
+            }
+            return result;
+        }
+
+        public void StringValueTrim(ref string value, int length)
+        {
+            if (value.Length > length)
+                value = value.Substring(0, length);
         }
 
         #endregion

@@ -225,9 +225,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                LogEntity.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    LogEntity.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;

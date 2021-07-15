@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.250] - 2021-07-15
+### Changed
+- EntitiesLib 0.5.250
+- ScalesDB 0.5.250
+- ScalesUI 0.5.250
+
 ## [0.1.240] - 2021-07-14
 ### Changed
 - EntitiesLib 0.2.240
