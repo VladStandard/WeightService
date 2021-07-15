@@ -47,9 +47,9 @@ namespace EntitiesLib
         {
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
-                StringValueTrim(ref file, 128);
-                StringValueTrim(ref member, 64);
-                StringValueTrim(ref icon, 64);
+                StringValueTrim(ref file, 32, true);
+                StringValueTrim(ref member, 32);
+                StringValueTrim(ref icon, 32);
                 StringValueTrim(ref message, 1024);
                 string query = @"
 insert into [db_scales].[LOGS]([HOST_ID],[APP_UID],[VERSION],[FILE],[LINE],[MEMBER],[ICON],[MESSAGE]) 
@@ -156,8 +156,10 @@ where [Name]=@host and [IdRRef]=@idrref
             return result;
         }
 
-        public void StringValueTrim(ref string value, int length)
+        public void StringValueTrim(ref string value, int length, bool isGetFileName = false)
         {
+            if (isGetFileName)
+                value = Path.GetFileName(value);
             if (value.Length > length)
                 value = value.Substring(0, length);
         }

@@ -20,10 +20,10 @@ begin
 			[HOST_ID] int null foreign key references [db_scales].[HOSTS](ID),
 			[APP_UID] uniqueidentifier null foreign key references [db_scales].[APPS](UID),
 			[VERSION] nvarchar(12) null,
-			[FILE] nvarchar(128) not null,
+			[FILE] nvarchar(32) not null,
 			[LINE] int not null,
-			[MEMBER] nvarchar(64) not null,
-			[ICON] nvarchar(64) not null,
+			[MEMBER] nvarchar(32) not null,
+			[ICON] nvarchar(32) not null,
 			[MESSAGE] nvarchar(1024) not null,
 		) on [ScalesFileGroup]
 		print '[+] Created the table ['+@schema+'].['+@table+']'

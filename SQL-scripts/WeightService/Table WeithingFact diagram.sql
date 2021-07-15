@@ -1,4 +1,4 @@
--- Диаграмма. Взвешивания подробно
+-- Table WeithingFact diagram summary
 select cast([wf].[WeithingDate] as date) [WeithingDate]
 	, [s].[Description] [Scale], [h].[Name] [Host], [p].[Name] [Printer]
 	,[wf].*

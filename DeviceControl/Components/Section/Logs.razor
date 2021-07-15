@@ -1,4 +1,4 @@
-﻿@page "/weithingfacts"
+﻿@page "/logs"
 @using DeviceControl.Core.DAL
 @using DeviceControl.Core.DAL.TableModels
 @using System.Runtime.CompilerServices
@@ -37,26 +37,44 @@
                 else
                 {
                     // Sorting by [WeithingDate].
-                    <RadzenGrid Data=@EntitiesSummary TItem="WeithingFactSummaryEntity"
+                    <RadzenGrid Data=@EntitiesSummary TItem="LogSummaryEntity"
                                 AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
                                 AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
                         <Columns>
-                            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDate" TextAlign="TextAlign.Center"
-                                              Title=@LocalizationStrings.TableFieldWeithingDate
-                                              Type="date" Width="15%">
-                                <Template Context="weithingFactItem">
-                                    <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled="true" DateFormat="d" />
+                            <RadzenGridColumn TItem="LogSummaryEntity" Property="WeithingDate" TextAlign="TextAlign.Center"
+                                              Title=@LocalizationStrings.TableFieldCreateDate Type="date" Width="14%">
+                                <Template Context="logItem">
+                                    <RadzenDatePicker TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                                 </Template>
                             </RadzenGridColumn>
-                            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
-                                              Title=@LocalizationStrings.TableFieldDayOfWeek
-                                              Type="string" Width="15%" />
-                            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
-                                              Title=@LocalizationStrings.TableFieldCount
-                                              Type="int" Width="10%" />
-                            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
-                                              Title=@LocalizationStrings.TableFieldScale
-                                              Type="string" Width="60%" />
+                            <RadzenGridColumn TItem="LogSummaryEntity" Property="Host" TextAlign="TextAlign.Left"
+                                              Title=@LocalizationStrings.TableFieldHost Type="string" Width="7%" />
+                            <RadzenGridColumn TItem="LogSummaryEntity" Property="App" TextAlign="TextAlign.Left"
+                                              Title=@LocalizationStrings.TableFieldApp Type="string" Width="7%" />
+                            <RadzenGridColumn TItem="LogSummaryEntity" Property="Version" TextAlign="TextAlign.Center"
+                                              Title=@LocalizationStrings.TableFieldVersion Type="string" Width="6%">
+                                <Template Context="logItem">
+                                    <RadzenLabel Text=@logItem.Version Disabled="true" />
+                                </Template>
+                            </RadzenGridColumn>
+                            <RadzenGridColumn TItem="LogSummaryEntity" Property="File" TextAlign="TextAlign.Left"
+                                              Title=@LocalizationStrings.TableFieldFile Type="string" Width="10%" />
+                            <RadzenGridColumn TItem="LogSummaryEntity" Property="Line" TextAlign="TextAlign.Center"
+                                              Title=@LocalizationStrings.TableFieldRow Type="int" Width="5%">
+                                <Template Context="logItem">
+                                    <RadzenLabel Text=@logItem.Line.ToString() Disabled="true" />
+                                </Template>
+                            </RadzenGridColumn>
+                            <RadzenGridColumn TItem="LogSummaryEntity" Property="Member" TextAlign="TextAlign.Left"
+                                              Title=@LocalizationStrings.TableFieldMember Type="string" Width="15%" />
+                            <RadzenGridColumn TItem="LogSummaryEntity" Property="Icon" TextAlign="TextAlign.Left"
+                                              Title=@LocalizationStrings.TableFieldIcon Type="string" Width="7%" />
+                            <RadzenGridColumn TItem="LogSummaryEntity" Property="Message" TextAlign="TextAlign.Left"
+                                              Title=@LocalizationStrings.TableFieldMessage Type="string" Width="29%">
+                                <Template Context="logItem">
+                                    <RadzenLabel Text=@logItem.Message Disabled="true" Style="white-space: pre-wrap;" />
+                                </Template>
+                            </RadzenGridColumn>
                         </Columns>
                     </RadzenGrid>
                 }
@@ -113,7 +131,7 @@
     [Parameter]
     public BaseEntity Entity { get; set; }
     public BaseEntity[] Entities { get; set; }
-    public List<WeithingFactSummaryEntity> EntitiesSummary { get; set; }
+    public List<LogSummaryEntity> EntitiesSummary { get; set; }
     public object[] Objects { get; set; }
     [Parameter]
     public int FontSizeHeader { get; set; }
@@ -150,84 +168,47 @@
         return LocalizationStrings.TableTitleWeithingFactShort;
     }
 
-    private async Task RowSelectAsync(BaseEntity entity, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        try
-        {
-            Entity = entity;
-        }
-        catch (Exception ex)
-        {
-            var msg = new NotificationMessage
-            {
-                Severity = NotificationSeverity.Error,
-                Summary = $"Ошибка метода [{memberName}]!",
-                Detail = ex.Message,
-                Duration = LocalizationStrings.Timeout
-            };
-            Notification.Notify(msg);
-            Console.WriteLine(msg.Detail);
-            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-        }
-    }
-
-    private async Task RowDoubleClickAsync(BaseEntity entity,
-        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-    {
-        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        try
-        {
-            Entity = entity;
-            await ActionEditAsync(EnumTable.WeithingFact, Entity, null).ConfigureAwait(true);
-        }
-        catch (Exception ex)
-        {
-            var msg = new NotificationMessage
-            {
-                Severity = NotificationSeverity.Error,
-                Summary = $"Ошибка метода [{memberName}]!",
-                Detail = ex.Message,
-                Duration = LocalizationStrings.Timeout
-            };
-            Notification.Notify(msg);
-            Console.WriteLine(msg.Detail);
-            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-        }
-    }
-
     private void GetData()
     {
         Entities = null;
         Entities = AppSettings.DataAccess.WeithingFactCrud.GetEntities(null,
             new FieldOrderEntity(EnumField.WeithingDate, EnumOrderDirection.Desc), 100);
         Objects = AppSettings.DataAccess.GetEntitiesNativeObject(@"
--- Table WeithingFact diagram summary
-select
-	 cast([wf].[WeithingDate] as date) [WeithingDate]
-	,count(*) [Count]
-	,[s].[Description] [Scale]
-	,[h].[Name] [Host]
-	,[p].[Name] [Printer]
-from [db_scales].[WeithingFact] [wf]
-left join [db_scales].[Scales] [s] on [wf].[ScaleId] = [s].[Id]
-left join [db_scales].[Hosts] [h] on [s].[HostId] = [h].[Id]
-left join [db_scales].[ZebraPrinter] [p] on [s].[ZebraPrinterId] = [p].[Id]
-group by cast([WeithingDate] as date), [s].[Description], [h].[Name], [p].[Name]
-order by [WeithingDate] desc
+-- Table Logs diagram summary
+select 
+	 [l].[CREATE_DT]
+	,[s].[Description] [SCALE]
+	,[h].[Name] [HOST]
+	,[a].[NAME] [APP]
+	,[l].[VERSION]
+	,[l].[FILE]
+	,[l].[LINE]
+	,[l].[MEMBER]
+	,[l].[ICON]
+	,[l].[MESSAGE]
+from [db_scales].[LOGS] [l]
+left join [db_scales].[Hosts] [h] on [h].[ID]=[l].[HOST_ID]
+left join [db_scales].[Scales] [s] on [s].[HostId]=[h].[ID]
+left join [db_scales].[APPS] [a] on [a].[UID]=[l].[APP_UID]
+order by [l].[CREATE_DT] desc
             ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n'), string.Empty, 0, string.Empty);
-        EntitiesSummary = new List<WeithingFactSummaryEntity>();
+        EntitiesSummary = new List<LogSummaryEntity>();
         foreach (var obj in Objects)
         {
-            if (obj is object[] { Length: 5 } item)
+            if (obj is object[] { Length: 10 } item)
             {
-                EntitiesSummary.Add(new WeithingFactSummaryEntity
+                EntitiesSummary.Add(new LogSummaryEntity
                 {
-                    WeithingDate = Convert.ToDateTime(item[0]),
-                    Count = Convert.ToInt32(item[1]),
-                    Scale = Convert.ToString(item[2]),
-                    Host = Convert.ToString(item[3]),
-                    Printer = Convert.ToString(item[4]),
+                    CreateDt = Convert.ToDateTime(item[0]),
+                    Scale = Convert.ToString(item[1]),
+                    Host = Convert.ToString(item[2]),
+                    App = Convert.ToString(item[3]),
+                    Version = Convert.ToString(item[4]),
+                    File = Convert.ToString(item[5]),
+                    Line = Convert.ToInt32(item[6]),
+                    Member = Convert.ToString(item[7]),
+                    Icon = Convert.ToString(item[8]),
+                    Message = Convert.ToString(item[9]),
                 });
             }
         }

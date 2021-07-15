@@ -1,4 +1,5 @@
--- Table LOGS
+-- Table Logs diagram summary
+--delete from [db_scales].[LOGS]
 select 
 	 [l].[CREATE_DT]
 	,[s].[Description] [SCALE]

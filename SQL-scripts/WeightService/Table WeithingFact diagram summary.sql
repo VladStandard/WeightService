@@ -1,4 +1,4 @@
--- Диаграмма. Взвешивания итоги
+-- Table WeithingFact diagram summary
 select
 	 cast([wf].[WeithingDate] as date) [WeithingDate]
 	,count(*) [Count]
