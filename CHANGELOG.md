@@ -6,12 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.250] - 2021-07-15
+## [0.1.260] - 2021-07-15
 ### Changed
 - EntitiesLib 0.5.250
 - ScalesDB 0.5.250
-- ScalesUI 0.5.250
-- DeviceControl 0.2.250
+- ScalesUI 0.5.260
+- DeviceControl 0.2.260
 
 ## [0.1.240] - 2021-07-14
 ### Changed

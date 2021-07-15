@@ -51,7 +51,7 @@ namespace ScalesUI.Forms
             //_mouse.Owner = this;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void ActionFormLoad([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (_ws.CurrentScale != null)
             {
@@ -77,6 +77,13 @@ namespace ScalesUI.Forms
 
             // Manager tasks.
             StartTaskManager();
+
+            _ws.Log.SaveInfo(filePath, lineNumber, memberName, "The program is running");
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            ActionFormLoad();
         }
 
         private void LoadResources([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -191,6 +198,7 @@ namespace ScalesUI.Forms
                 {
                     e.Cancel = true;
                 }
+                _ws.Log.SaveInfo(filePath, lineNumber, memberName, "The program is closed");
             }
             catch (Exception ex)
             {

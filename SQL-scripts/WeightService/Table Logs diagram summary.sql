@@ -1,7 +1,8 @@
 -- Table Logs diagram summary
---delete from [db_scales].[LOGS]
+--delete from [db_scales].[LOGS] where [UID]='31B51BB9-19B3-4C0C-9C62-189661BBE8A3'
 select 
-	 [l].[CREATE_DT]
+	 [l].[UID]
+	,[l].[CREATE_DT]
 	,[s].[Description] [SCALE]
 	,[h].[Name] [HOST]
 	,[a].[NAME] [APP]

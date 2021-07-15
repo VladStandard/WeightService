@@ -42,13 +42,13 @@
                                 AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
                         <Columns>
                             <RadzenGridColumn TItem="LogSummaryEntity" Property="WeithingDate" TextAlign="TextAlign.Center"
-                                              Title=@LocalizationStrings.TableFieldCreateDate Type="date" Width="14%">
+                                              Title=@LocalizationStrings.TableFieldCreateDate Type="date" Width="13%">
                                 <Template Context="logItem">
                                     <RadzenDatePicker TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                                 </Template>
                             </RadzenGridColumn>
                             <RadzenGridColumn TItem="LogSummaryEntity" Property="Host" TextAlign="TextAlign.Left"
-                                              Title=@LocalizationStrings.TableFieldHost Type="string" Width="7%" />
+                                              Title=@LocalizationStrings.TableFieldHost Type="string" Width="12%" />
                             <RadzenGridColumn TItem="LogSummaryEntity" Property="App" TextAlign="TextAlign.Left"
                                               Title=@LocalizationStrings.TableFieldApp Type="string" Width="7%" />
                             <RadzenGridColumn TItem="LogSummaryEntity" Property="Version" TextAlign="TextAlign.Center"
@@ -70,9 +70,9 @@
                             <RadzenGridColumn TItem="LogSummaryEntity" Property="Icon" TextAlign="TextAlign.Left"
                                               Title=@LocalizationStrings.TableFieldIcon Type="string" Width="7%" />
                             <RadzenGridColumn TItem="LogSummaryEntity" Property="Message" TextAlign="TextAlign.Left"
-                                              Title=@LocalizationStrings.TableFieldMessage Type="string" Width="29%">
+                                              Title=@LocalizationStrings.TableFieldMessage Type="string" Width="25%">
                                 <Template Context="logItem">
-                                    <RadzenLabel Text=@logItem.Message Disabled="true" Style="white-space: pre-wrap;" />
+                                    <RadzenLabel Text=@logItem.Message Disabled="false" Style="white-space: pre-wrap;" />
                                 </Template>
                             </RadzenGridColumn>
                         </Columns>
