@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 using BlazorDeviceControl.Data;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
@@ -29,7 +32,7 @@ namespace BlazorDeviceControl
             // appsettings.json
             services.AddSingleton<DataAccessConfig>();
             // User settings.
-            services.AddScoped<AppSettings>();
+            services.AddScoped<BlazorSettingsEntity>();
             // Radzen.
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();

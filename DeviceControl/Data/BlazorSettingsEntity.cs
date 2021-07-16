@@ -1,4 +1,7 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -17,7 +20,7 @@ using Toolbelt.Blazor.HotKeys;
 
 namespace BlazorDeviceControl.Data
 {
-    public class AppSettings
+    public class BlazorSettingsEntity
     {
         #region Public and private fields and properties
 
@@ -49,12 +52,12 @@ namespace BlazorDeviceControl.Data
 
         #endregion
 
-        #region Constructor and destructor
+        #region Public and private methods
 
         public void Setup(DataAccessConfig dataAccessService, NotificationService notification, DialogService dialog, NavigationManager navigation,
             TooltipService tooltip, HotKeysContext hotKeys, IJSRuntime jsRuntime)
         {
-            var appSettings = new AppSettingsEntity(dataAccessService.Server, dataAccessService.Db, dataAccessService.Trusted, dataAccessService.Username, dataAccessService.Password);
+            var appSettings = new CoreSettingsEntity(dataAccessService.Server, dataAccessService.Db, dataAccessService.Trusted, dataAccessService.Username, dataAccessService.Password);
             DataAccess = new DataAccessEntity(appSettings);
             Notification = notification;
             AccessRights = EnumAccessRights.Guest;
@@ -329,8 +332,6 @@ namespace BlazorDeviceControl.Data
             Navigation.NavigateTo($"{LocalizationStrings.UriRouteRoot}");
         }
 
-        #endregion
-
         public ConfirmOptions GetConfirmOptions()
         {
             return new()
@@ -348,7 +349,7 @@ namespace BlazorDeviceControl.Data
                 Width = null,
             };
         }
-        
+
         public async Task RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
             DelegateGuiRefresh callRefresh, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
@@ -460,6 +461,8 @@ namespace BlazorDeviceControl.Data
                     await callRefresh().ConfigureAwait(false);
             }
         }
+
+        #endregion
 
         #region Public and private methods - Memory manager
 

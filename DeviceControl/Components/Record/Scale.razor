@@ -8,14 +8,14 @@
 @using BlazorDeviceControl.Data
 @using DeviceControl.Core
 @using Toolbelt.Blazor.HotKeys
-@inject AppSettings AppSettings
-@inject DataAccessConfig DataAccessConfig
-@inject DialogService Dialog
-@inject NavigationManager Navigation
-@inject NotificationService Notification
-@inject TooltipService Tooltip
-@inject HotKeys HotKeys
-@inject IJSRuntime JsRuntime
+@inject Data.BlazorSettingsEntity _appSettings
+@inject DataAccessConfig _dataAccessConfig
+@inject DialogService _dialog
+@inject NavigationManager _navigation
+@inject NotificationService _notification
+@inject TooltipService _tooltip
+@inject HotKeys _hotKeys
+@inject IJSRuntime _jsRuntime
 @* Fields *@
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
@@ -163,29 +163,29 @@
                 <RadzenGridColumn TItem="PluEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId Width="6%" TextAlign="TextAlign.Center" />
                 <RadzenGridColumn TItem="PluEntity" Property="Plu" Title=@Utils.LocalizationStrings.TableFieldPlu Width="6%" TextAlign="TextAlign.Center" />
                 <RadzenGridColumn TItem="PluEntity" Property="Active" Title=@Utils.LocalizationStrings.TableFieldActive Width="4%" TextAlign="TextAlign.Center">
-                    <Template Context="PluEntity">
-                        <RadzenCheckBox TValue="bool" @bind-Value=@PluEntity.Active Disabled="true" />
+                    <Template Context="pluEntity">
+                        <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.Active Disabled="true" />
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Title=@Utils.LocalizationStrings.TableFieldCheckWeight Width="4%" TextAlign="TextAlign.Center">
-                    <Template Context="PluEntity">
-                        <RadzenCheckBox TValue="bool?" @bind-Value="@PluEntity.CheckWeight" Disabled="true" />
+                    <Template Context="pluEntity">
+                        <RadzenCheckBox TValue="bool?" @bind-Value="@pluEntity.CheckWeight" Disabled="true" />
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="PluEntity" Title=@Utils.LocalizationStrings.TableFieldGoodsName Width="16%">
-                    <Template Context="PluEntity">
-                        <RadzenLabel Style="white-space: pre-wrap;" Text=@PluEntity.GoodsName ></RadzenLabel>
+                    <Template Context="pluEntity">
+                        <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.GoodsName ></RadzenLabel>
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="PluEntity" Title=@Utils.LocalizationStrings.TableFieldTemplate Width="15%" >
-                    <Template Context="PluEntity">
-                        <RadzenLabel Style="white-space: pre-wrap;" Text=@PluEntity.Templates.Title ></RadzenLabel>
+                    <Template Context="pluEntity">
+                        <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Templates.Title ></RadzenLabel>
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="PluEntity" Property="Gtin" Title=@Utils.LocalizationStrings.TableFieldGtin Width="10%" />
                 <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Title="" Width="3%" TextAlign="TextAlign.Center">
-                    <Template Context="PluEntity">
-                        @if (@PluEntity.GtinCheck())
+                    <Template Context="pluEntity">
+                        @if (pluEntity.GtinCheck())
                         {
                             <RadzenIcon Icon="" Disabled="true" />
                         }
@@ -196,8 +196,8 @@
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="PluEntity" Title=@Utils.LocalizationStrings.TableFieldNomenclatureName Width="15%">
-                    <Template Context="PluEntity">
-                        <RadzenLabel Style="white-space: pre-wrap;" Text=@PluEntity.Nomenclature.Name ></RadzenLabel>
+                    <Template Context="pluEntity">
+                        <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Nomenclature.Name ></RadzenLabel>
                     </Template>
                 </RadzenGridColumn>
                 <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Title=@Utils.LocalizationStrings.TableFieldShelfLifeDays Width="5%" />
@@ -210,20 +210,20 @@
 
 @* Actions *@
 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px">
-    @if (AppSettings.ShowActionsButtons)
+    @if (_appSettings.ShowActionsButtons)
     {
         <RadzenButton Click=@(args => ActionAddAsync(EnumTable.Plu, PluItem, Item))
                       ButtonStyle="ButtonStyle.Secondary"
                       Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
-                      Text=@Utils.LocalizationStrings.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
+                      Text=@Utils.LocalizationStrings.TableActionAdd Disabled=@_appSettings.DataAccess.IsDisabled />
         <RadzenButton Click=@(args => ActionEditAsync(EnumTable.Plu, PluItem, Item))
                       ButtonStyle="ButtonStyle.Secondary"
                       Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
-                      Text=@Utils.LocalizationStrings.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
+                      Text=@Utils.LocalizationStrings.TableActionEdit Disabled=@_appSettings.DataAccess.IsDisabled />
         <RadzenButton Click=@(args => ActionMarkedAsync(EnumTable.Plu, PluItem, Item))
                       ButtonStyle="ButtonStyle.Secondary"
                       Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
-                      Text=@Utils.LocalizationStrings.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
+                      Text=@Utils.LocalizationStrings.TableActionDelete Disabled=@_appSettings.DataAccess.IsDisabled />
     }
     else
     {
@@ -257,7 +257,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
+        _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
 
         await GetDataAsync().ConfigureAwait(false);
     }
@@ -282,9 +282,9 @@
                 Detail = ex.Message,
                 Duration = Utils.LocalizationStrings.Timeout
             };
-            Notification.Notify(msg);
+            _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -309,9 +309,9 @@
                 Detail = ex.Message,
                 Duration = Utils.LocalizationStrings.Timeout
             };
-            Notification.Notify(msg);
+            _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -332,7 +332,7 @@
                         Item.TemplateDefault = null;
                     else
                     {
-                        Item.TemplateDefault = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                        Item.TemplateDefault = _appSettings.DataAccess.TemplatesCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idDefault } }),
                             null);
                     }
@@ -345,7 +345,7 @@
                         Item.TemplateSeries = null;
                     else
                     {
-                        Item.TemplateSeries = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                        Item.TemplateSeries = _appSettings.DataAccess.TemplatesCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idSeries } }),
                             null);
                     }
@@ -358,7 +358,7 @@
                         Item.WorkShop = null;
                     else
                     {
-                        Item.WorkShop = AppSettings.DataAccess.WorkshopCrud.GetEntity(
+                        Item.WorkShop = _appSettings.DataAccess.WorkshopCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idWorkShop } }),
                             null);
                     }
@@ -371,7 +371,7 @@
                         Item.Printer = null;
                     else
                     {
-                        Item.Printer = AppSettings.DataAccess.ZebraPrinterCrud.GetEntity(
+                        Item.Printer = _appSettings.DataAccess.ZebraPrinterCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idPrinter } }),
                             null);
                     }
@@ -384,7 +384,7 @@
                         Item.Host = null;
                     else
                     {
-                        Item.Host = AppSettings.DataAccess.HostsCrud.GetEntity(
+                        Item.Host = _appSettings.DataAccess.HostsCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idHost } }),
                             null);
                     }
@@ -410,25 +410,25 @@
             Item.ScaleFactor ??= 1000;
 
             PluTitle = $"{Utils.LocalizationStrings.TableTitlePluShort}  [{Utils.LocalizationStrings.DataLoading}]";
-            PluItems = AppSettings.DataAccess.PluCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
+            PluItems = _appSettings.DataAccess.PluCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
                     { EnumField.Marked.ToString(), false },
                     { "Scale.Id", Item.Id },
                 }),
             new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
             PluTitle = $"{Utils.LocalizationStrings.TableTitlePluShort}  [{PluItems.Count} {Utils.LocalizationStrings.DataRecords}]";
-            TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+            TemplatesDefaultItems = _appSettings.DataAccess.TemplatesCrud.GetEntities(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
-            TemplatesSeriesItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+            TemplatesSeriesItems = _appSettings.DataAccess.TemplatesCrud.GetEntities(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
-            WorkshopItems = AppSettings.DataAccess.WorkshopCrud.GetEntities(
+            WorkshopItems = _appSettings.DataAccess.WorkshopCrud.GetEntities(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
-            PrinterItems = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(
+            PrinterItems = _appSettings.DataAccess.ZebraPrinterCrud.GetEntities(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
-            HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(Item.Host?.Id);
+            HostItems = _appSettings.DataAccess.HostsCrud.GetFreeHosts(Item.Host?.Id);
         }
         catch (Exception ex)
         {
@@ -439,33 +439,33 @@
                 Detail = ex.Message,
                 Duration = Utils.LocalizationStrings.Timeout
             };
-            Notification.Notify(msg);
+            _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
     private async Task ActionEditAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
     {
-        await AppSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+        await _appSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
     private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
     {
-        await AppSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        await _appSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
     private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
     {
-        await AppSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await _appSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
     private async Task ActionMarkedAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
     {
-        await AppSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+        await _appSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 

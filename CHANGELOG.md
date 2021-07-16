@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.270] - 2021-07-16
+### Changed
+- DeviceControl 0.2.270
+
 ## [0.1.260] - 2021-07-15
 ### Changed
 - EntitiesLib 0.5.250

@@ -2,21 +2,21 @@
 @using DeviceControl.Core.DAL
 @using BlazorDeviceControl.Data
 @using Toolbelt.Blazor.HotKeys
-@inject AppSettings AppSettings
-@inject DataAccessConfig DataAccessConfig
-@inject DialogService Dialog
-@inject NavigationManager Navigation
-@inject NotificationService Notification
-@inject TooltipService Tooltip
-@inject HotKeys HotKeys
-@inject IJSRuntime JsRuntime
+@inject Data.BlazorSettingsEntity _appSettings
+@inject DataAccessConfig _dataAccessConfig
+@inject DialogService _dialog
+@inject NavigationManager _navigation
+@inject NotificationService _notification
+@inject TooltipService _tooltip
+@inject HotKeys _hotKeys
+@inject IJSRuntime _jsRuntime
 
 <h2>Настройки SQL</h2>
 
 <br style="margin-top: 20px" />
 <span>Статус подключения: </span>
 <RadzenCheckBox @bind-Value=@IsDisabled TValue="bool" Disabled="true" />
-<RadzenTextBox Style="width: 15%" Disabled=true Value=@AppSettings.DataAccess.IsDisabled.ToString() Change=@(args => Change(args, "State")) />
+<RadzenTextBox Style="width: 15%" Disabled=true Value=@_appSettings.DataAccess.IsDisabled.ToString() Change=@(args => Change(args, "State")) />
 
 @code {
     public DataAccessEntity DataAccess { get; set; }
@@ -26,7 +26,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
+        _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
     }
 
     private void Change(string value, string name)
@@ -34,8 +34,8 @@
         StateHasChanged();
     }
 
-    private void ShowTooltipSqlDefault(ElementReference elementReference, TooltipOptions options = null) => Tooltip.Open(elementReference, "Сбросить значения по-умолчанию", options);
-    private void ShowTooltipSqlOpen(ElementReference elementReference, TooltipOptions options = null) => Tooltip.Open(elementReference, "Открыть подключение к  SQL-серверу", options);
-    private void ShowTooltipSqlClose(ElementReference elementReference, TooltipOptions options = null) => Tooltip.Open(elementReference, "Закрыть подключение к  SQL-серверу", options);
-    private void ShowTooltipGenerateException(ElementReference elementReference, TooltipOptions options = null) => Tooltip.Open(elementReference, "Сгенерировать тестовое исключение", options);
+    private void ShowTooltipSqlDefault(ElementReference elementReference, TooltipOptions options = null) => _tooltip.Open(elementReference, "Сбросить значения по-умолчанию", options);
+    private void ShowTooltipSqlOpen(ElementReference elementReference, TooltipOptions options = null) => _tooltip.Open(elementReference, "Открыть подключение к  SQL-серверу", options);
+    private void ShowTooltipSqlClose(ElementReference elementReference, TooltipOptions options = null) => _tooltip.Open(elementReference, "Закрыть подключение к  SQL-серверу", options);
+    private void ShowTooltipGenerateException(ElementReference elementReference, TooltipOptions options = null) => _tooltip.Open(elementReference, "Сгенерировать тестовое исключение", options);
 }

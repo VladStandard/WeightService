@@ -3,14 +3,14 @@
 @using BlazorDeviceControl.Data
 @using DeviceControl.Core.Utils
 @inherits LayoutComponentBase
-@inject AppSettings AppSettings
-@inject DataAccessConfig DataAccessConfig
-@inject DialogService Dialog
-@inject NavigationManager Navigation
-@inject NotificationService Notification
-@inject TooltipService Tooltip
-@inject HotKeys HotKeys
-@inject IJSRuntime JsRuntime
+@inject Data.BlazorSettingsEntity _appSettings
+@inject DataAccessConfig _dataAccessConfig
+@inject DialogService _dialog
+@inject NavigationManager _navigation
+@inject NotificationService _notification
+@inject TooltipService _tooltip
+@inject HotKeys _hotKeys
+@inject IJSRuntime _jsRuntime
 
 <RadzenDialog />
 <RadzenNotification />
@@ -55,11 +55,11 @@ else
 @code{
     #region Public and private fields and properties
 
-    private string DbServer => DataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase)
+    private string DbServer => _dataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase)
             ? LocalizationStrings.ServerProduct : LocalizationStrings.ServerDevelop;
-    private bool IsSqlServerProduct => DataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase);
-    private string MemoryInfo => AppSettings.Memory != null
-        ? $"{LocalizationStrings.MemoryUsed}: {AppSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
+    private bool IsSqlServerProduct => _dataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase);
+    private string MemoryInfo => _appSettings.Memory != null
+        ? $"{LocalizationStrings.MemoryUsed}: {_appSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
         : $"{LocalizationStrings.MemoryUsed}: - MB";
     private string _authMessage => "";
 
@@ -79,10 +79,10 @@ else
 
         try
         {
-            var hotKeys = HotKeys.CreateContext()
-                .Add(ModKeys.Alt, Keys.Num1, AppSettings.HotKeysMenuRoot, "Menu root");
-            AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, hotKeys, JsRuntime);
-            var task = new Task(delegate { AppSettings.MemoryOpen(GuiRefreshAsync); });
+            var hotKeys = _hotKeys.CreateContext()
+                .Add(ModKeys.Alt, Keys.Num1, _appSettings.HotKeysMenuRoot, "Menu root");
+            _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, hotKeys, _jsRuntime);
+            var task = new Task(delegate { _appSettings.MemoryOpen(GuiRefreshAsync); });
             task.Start();
         }
         catch (Exception ex)
@@ -91,8 +91,8 @@ else
             if (!string.IsNullOrEmpty(ex.InnerException?.Message))
                 msg += Environment.NewLine + ex.InnerException.Message;
             if (!string.IsNullOrEmpty(msg))
-                Notification.Notify(NotificationSeverity.Error, LocalizationStrings.IndexDescription + Environment.NewLine, msg,
-                    AppSettings.Delay);
+                _notification.Notify(NotificationSeverity.Error, LocalizationStrings.IndexDescription + Environment.NewLine, msg,
+                    _appSettings.Delay);
 
             Console.WriteLine(msg);
             Console.WriteLine($"MainLayout.razor. {nameof(OnInitializedAsync)}.");
@@ -105,9 +105,9 @@ else
 
     public void Dispose()
     {
-        Dialog?.Dispose();
-        Tooltip?.Dispose();
-        AppSettings.HotKeys.Dispose();
+        _dialog?.Dispose();
+        _tooltip?.Dispose();
+        _appSettings.HotKeys.Dispose();
     }
 
     #endregion

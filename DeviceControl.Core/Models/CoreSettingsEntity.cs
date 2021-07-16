@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.Models
 {
-    public class AppSettingsEntity
+    public class CoreSettingsEntity
     {
         #region Public and private fields and properties
 
@@ -21,12 +21,12 @@ namespace DeviceControl.Core.Models
         /// <summary>
         /// Empty constructor need for HostBuilder.
         /// </summary>
-        public AppSettingsEntity()
+        public CoreSettingsEntity()
         {
             //
         }
 
-        public AppSettingsEntity(string server, string db, bool trusted, string username, string password)
+        public CoreSettingsEntity(string server, string db, bool trusted, string username, string password)
         {
             Server = server;
             Db = db;

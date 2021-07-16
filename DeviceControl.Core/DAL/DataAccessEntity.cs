@@ -16,7 +16,7 @@ namespace DeviceControl.Core.DAL
     {
         #region Public and private fields and properties
         
-        public AppSettingsEntity AppSettings { get; set; }
+        public CoreSettingsEntity AppSettings { get; set; }
         public DataConfigurationEntity DataConfig { get; set; }
 
         private ISessionFactory _sessionFactory;
@@ -133,12 +133,12 @@ namespace DeviceControl.Core.DAL
 
         #region Constructor and destructor
 
-        public DataAccessEntity(AppSettingsEntity appSettings)
+        public DataAccessEntity(CoreSettingsEntity appSettings)
         {
             Setup(appSettings);
         }
 
-        public void Setup(AppSettingsEntity appSettings)
+        public void Setup(CoreSettingsEntity appSettings)
         {
             AppSettings = appSettings;
             DataConfig = new DataConfigurationEntity();

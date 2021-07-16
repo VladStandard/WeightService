@@ -1,7 +1,7 @@
 ﻿@page "/Docs"
 @using BlazorDeviceControl.Utils
 @using BlazorDeviceControl.Data
-@inject DataAccessConfig DataAccessConfig
+@inject DataAccessConfig _dataAccessConfig
 
 <h2>@LocalizationStrings.DocTitle</h2>
 
@@ -11,9 +11,9 @@
 </div>
 
 @code {
-    private string SqlUser => DataAccessConfig.Trusted ? "windows-аккаунт" : $"sql-аккаунт: {DataAccessConfig.Username}";
+    private string SqlUser => _dataAccessConfig.Trusted ? "windows-аккаунт" : $"sql-аккаунт: {_dataAccessConfig.Username}";
     public string Doc => LocalizationStrings.DocText + Environment.NewLine + Environment.NewLine + 
-                         $@"SQL-сервер: {DataAccessConfig.Server}" + Environment.NewLine + 
-                         $@"SQL-БД: {DataAccessConfig.Db}" + Environment.NewLine + 
+                         $@"SQL-сервер: {_dataAccessConfig.Server}" + Environment.NewLine + 
+                         $@"SQL-БД: {_dataAccessConfig.Db}" + Environment.NewLine + 
                          $@"{SqlUser}" + Environment.NewLine;
 }

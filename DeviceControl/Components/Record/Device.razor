@@ -2,19 +2,19 @@
 @using DeviceControl.Core.DAL.DataModels
 @using BlazorDeviceControl.Data
 @using Toolbelt.Blazor.HotKeys
-@inject AppSettings AppSettings
-@inject DataAccessConfig DataAccessConfig
-@inject DialogService Dialog
-@inject NavigationManager Navigation
-@inject NotificationService Notification
-@inject TooltipService Tooltip
-@inject HotKeys HotKeys
-@inject IJSRuntime JsRuntime
+@inject Data.BlazorSettingsEntity _appSettings
+@inject DataAccessConfig _dataAccessConfig
+@inject DialogService _dialog
+@inject NavigationManager _navigation
+@inject NotificationService _notification
+@inject TooltipService _tooltip
+@inject HotKeys _hotKeys
+@inject IJSRuntime _jsRuntime
 
 <RadzenCard Style="margin-bottom: 0px;">
     <div class="row" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
         <span Style="align-self: start; width: 15%; height: 25px; ">@Utils.LocalizationStrings.TableActions</span>
-        <RadzenTextBox Style="align-self: end; width: 85%; height: 25px; " Disabled=@AppSettings.DataAccess.IsDisabled TValue="string"
+        <RadzenTextBox Style="align-self: end; width: 85%; height: 25px; " Disabled=@_appSettings.DataAccess.IsDisabled TValue="string"
                        @bind-value=@Item.Scales.Description
                        Change=@(args => Change<string>(args, "Description")) />
         <div class="col-md-6" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
@@ -30,7 +30,7 @@
             <span Style="align-self: start; width: 25%; height: 25px; ">Статус:</span>
             @*RadzenCheckBox Style="align-self: end; width: 25px; height: 25px; " Disabled=@DataAccess.IsDisabled TValue="bool" @bind-value=@Device.State Change=@(args => Change<bool>(args, "State")) />*@
             <RadzenLabel Text="@_state" Component="CheckBox1" Style="align-self: end; width: 60%; height: 25px; "
-                         Disabled=@AppSettings.DataAccess.IsDisabled />
+                         Disabled=@_appSettings.DataAccess.IsDisabled />
             <br Style="margin-top: 5px; margin-left: 0px; margin-right: 0px; " />
             <span Style="align-self: start; width: 38%; height: 25px; ">Шаблон сум. этикетки:</span>
             @*<RadzenTextBox Style="align-self: end; width: 60%; height: 25px; " Disabled=@DataAccess.IsDisabled @bind-value=@Device.TemplateSeriesTitle Change=@(args => Change<string>(args, "TemplateSeriesTitle")) />*@
@@ -42,11 +42,11 @@
 <div class="row">
     <div class="col-md-6" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
         <RadzenButton Click="@SaveAsync" Text="Сохранить" Style="margin-bottom: 10px; width: 150px"
-                      Disabled=@AppSettings.DataAccess.IsDisabled />
+                      Disabled=@_appSettings.DataAccess.IsDisabled />
     </div>
     <div class="col-md-6" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
         <RadzenButton Click="@CancelAsync" ButtonStyle="ButtonStyle.Secondary" Text="Закрыть" Style="margin-bottom: 10px; width: 150px"
-                      Disabled=@AppSettings.DataAccess.IsDisabled />
+                      Disabled=@_appSettings.DataAccess.IsDisabled />
     </div>
 </div>
 
@@ -79,8 +79,8 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
-        if (!AppSettings.DataAccess.IsDisabled)
+        _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
+        if (!_appSettings.DataAccess.IsDisabled)
         {
             //await GetDataAsync().ConfigureAwait(false);
         }
@@ -93,7 +93,7 @@
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         var result = false;
         // ...
-        Dialog.Close(true);
+        _dialog.Close(true);
         var message = result
             ? new NotificationMessage
             {
@@ -109,13 +109,13 @@
                 Detail = "Ошибка сохранения!",
                 Duration = Utils.LocalizationStrings.Timeout
             };
-        Notification.Notify(message);
+        _notification.Notify(message);
     }
 
     private async Task CancelAsync()
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        Dialog.Close(false);
+        _dialog.Close(false);
     }
 
     #endregion

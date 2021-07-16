@@ -18,7 +18,7 @@ namespace DeviceControl.CoreTests.DAL
                 {
                     Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
                     {
-                        var appSettings = new AppSettingsEntity(server, db, true, "username", "password");
+                        var appSettings = new CoreSettingsEntity(server, db, true, "username", "password");
                         appSettings.CheckProperties();
                     }));
                     foreach (var username in EnumValues.GetSqlUsername())
@@ -27,7 +27,7 @@ namespace DeviceControl.CoreTests.DAL
                         {
                             Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
                             {
-                                var appSettings = new AppSettingsEntity(server, db, true, username, password);
+                                var appSettings = new CoreSettingsEntity(server, db, true, username, password);
                                 appSettings.CheckProperties();
                             }));
                         }

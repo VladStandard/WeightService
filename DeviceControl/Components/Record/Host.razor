@@ -5,14 +5,14 @@
 @using BlazorDeviceControl.Data
 @using DeviceControl.Core
 @using Toolbelt.Blazor.HotKeys
-@inject AppSettings AppSettings
-@inject DataAccessConfig DataAccessConfig
-@inject DialogService Dialog
-@inject NavigationManager Navigation
-@inject NotificationService Notification
-@inject TooltipService Tooltip
-@inject HotKeys HotKeys
-@inject IJSRuntime JsRuntime
+@inject Data.BlazorSettingsEntity _appSettings
+@inject DataAccessConfig _dataAccessConfig
+@inject DialogService _dialog
+@inject NavigationManager _navigation
+@inject NotificationService _notification
+@inject TooltipService _tooltip
+@inject HotKeys _hotKeys
+@inject IJSRuntime _jsRuntime
 @* Fields *@
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
@@ -62,7 +62,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        AppSettings.Setup(DataAccessConfig, Notification, Dialog, Navigation, Tooltip, null, JsRuntime);
+        _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
 
         await GetDataAsync().ConfigureAwait(false);
     }
@@ -84,33 +84,33 @@
                 Detail = ex.Message,
                 Duration = Utils.LocalizationStrings.Timeout
             };
-            Notification.Notify(msg);
+            _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
     private async Task ActionEditAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
     {
-        await AppSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+        await _appSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
     private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
     {
-        await AppSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        await _appSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
     private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
     {
-        await AppSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await _appSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
     private async Task ActionMarkedAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
     {
-        await AppSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+        await _appSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
