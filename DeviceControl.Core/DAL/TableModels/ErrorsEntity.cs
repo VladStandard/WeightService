@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class ErrorsEntity : BaseEntity
+    public class ErrorsEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

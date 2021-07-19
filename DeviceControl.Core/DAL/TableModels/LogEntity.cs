@@ -1,16 +1,15 @@
 ﻿using System;
-using DeviceControl.Core.Utils;
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class LogSummaryEntity
+    public class LogEntity : BaseUidEntity
     {
         #region Public and private fields and properties
 
         public virtual DateTime CreateDt { get; set; }
         public virtual string Scale { get; set; }
-        public virtual string Host { get; set; }
-        public virtual string App { get; set; }
+        public virtual HostsEntity Host { get; set; }
+        public virtual AppEntity App { get; set; }
         public virtual string Version { get; set; }
         public virtual string File { get; set; }
         public virtual int Line { get; set; }
@@ -24,11 +23,14 @@ namespace DeviceControl.Core.DAL.TableModels
 
         public override string ToString()
         {
+            var strHost = Host != null ? Host.Id.ToString() : "null";
+            var strApp = App != null ? App.Uid.ToString() : "null";
             return base.ToString() +
+                   $"{nameof(Uid)}: {Uid}. " +
                    $"{nameof(CreateDt)}: {CreateDt}. " +
                    $"{nameof(Scale)}: {Scale}. " +
-                   $"{nameof(Host)}: {Host}. " +
-                   $"{nameof(App)}: {App}. " +
+                   $"{nameof(Host)}: {strHost}. " +
+                   $"{nameof(App)}: {strApp}. " +
                    $"{nameof(Version)}: {Version}. " +
                    $"{nameof(File)}: {File}. " +
                    $"{nameof(Line)}: {Line}. " +
@@ -37,11 +39,12 @@ namespace DeviceControl.Core.DAL.TableModels
                    $"{nameof(Message)}: {Message}. ";
         }
 
-        public virtual bool Equals(LogSummaryEntity entity)
+        public virtual bool Equals(LogEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return 
+                   Equals(Uid, entity.Uid) &&
                    Equals(CreateDt, entity.CreateDt) &&
                    Equals(Scale, entity.Scale) &&
                    Equals(Host, entity.Host) &&
@@ -59,7 +62,7 @@ namespace DeviceControl.Core.DAL.TableModels
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((LogSummaryEntity)obj);
+            return Equals((LogEntity)obj);
         }
 
         public override int GetHashCode()
@@ -69,16 +72,19 @@ namespace DeviceControl.Core.DAL.TableModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new LogSummaryEntity());
+            return Equals(new LogEntity());
         }
 
-        public virtual bool EqualsDefault()
+        public new virtual bool EqualsDefault()
         {
-            return 
+            if (Host != null && !Host.EqualsDefault())
+                return false;
+            if (App != null && !App.EqualsDefault())
+                return false;
+            return base.EqualsDefault() &&
+                   Equals(Uid, default(Guid)) &&
                    Equals(CreateDt, default(DateTime)) &&
                    Equals(Scale, default(string)) &&
-                   Equals(Host, default(string)) &&
-                   Equals(App, default(string)) &&
                    Equals(Version, default(string)) &&
                    Equals(File, default(string)) &&
                    Equals(Line, default(int)) &&
@@ -87,10 +93,11 @@ namespace DeviceControl.Core.DAL.TableModels
                    Equals(Message, default(string));
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            return new LogSummaryEntity
+            return new LogEntity
             {
+                Uid = Uid,
                 CreateDt = CreateDt,
                 Scale = Scale,
                 Host = Host,

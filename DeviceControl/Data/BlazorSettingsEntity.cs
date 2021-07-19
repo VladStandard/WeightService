@@ -75,54 +75,66 @@ namespace BlazorDeviceControl.Data
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             try
             {
-                entity = table switch
+                string title = string.Empty;
+                if (entity is BaseIdEntity idEntity)
                 {
-                    EnumTable.BarCodeTypes => DataAccess.ActionGetEntity<BarCodeTypesEntity>(entity, tableAction),
-                    EnumTable.Contragents => DataAccess.ActionGetEntity<ContragentsEntity>(entity, tableAction),
-                    EnumTable.Hosts => DataAccess.ActionGetEntity<HostsEntity>(entity, tableAction),
-                    EnumTable.Nomenclature => DataAccess.ActionGetEntity<NomenclatureEntity>(entity, tableAction),
-                    EnumTable.OrderStatus => DataAccess.ActionGetEntity<OrderStatusEntity>(entity, tableAction),
-                    EnumTable.OrderTypes => DataAccess.ActionGetEntity<OrderTypesEntity>(entity, tableAction),
-                    EnumTable.Plu => DataAccess.ActionGetEntity<PluEntity>(entity, tableAction),
-                    EnumTable.ProductionFacility => DataAccess.ActionGetEntity<ProductionFacilityEntity>(entity, tableAction),
-                    EnumTable.ProductSeries => DataAccess.ActionGetEntity<ProductSeriesEntity>(entity, tableAction),
-                    EnumTable.Scales => DataAccess.ActionGetEntity<ScalesEntity>(entity, tableAction),
-                    EnumTable.TemplateResources => DataAccess.ActionGetEntity<TemplateResourcesEntity>(entity, tableAction),
-                    EnumTable.Templates => DataAccess.ActionGetEntity<TemplatesEntity>(entity, tableAction),
-                    EnumTable.WorkShop => DataAccess.ActionGetEntity<WorkshopEntity>(entity, tableAction),
-                    EnumTable.WeithingFact => DataAccess.ActionGetEntity<WeithingFactEntity>(entity, tableAction),
-                    EnumTable.Printer => DataAccess.ActionGetEntity<ZebraPrinterEntity>(entity, tableAction),
-                    EnumTable.PrinterResourceRef => DataAccess.ActionGetEntity<ZebraPrinterResourceRefEntity>(entity, tableAction),
-                    EnumTable.PrinterType => DataAccess.ActionGetEntity<ZebraPrinterTypeEntity>(entity, tableAction),
-                    _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                };
-                var title = table switch
+                    idEntity = table switch
+                    {
+                        EnumTable.BarCodeTypes => DataAccess.ActionGetIdEntity<BarCodeTypesEntity>(idEntity, tableAction),
+                        EnumTable.Contragents => DataAccess.ActionGetIdEntity<ContragentsEntity>(idEntity, tableAction),
+                        EnumTable.Hosts => DataAccess.ActionGetIdEntity<HostsEntity>(idEntity, tableAction),
+                        EnumTable.Nomenclature => DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
+                        EnumTable.OrderStatus => DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
+                        EnumTable.OrderTypes => DataAccess.ActionGetIdEntity<OrderTypesEntity>(idEntity, tableAction),
+                        EnumTable.Plu => DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
+                        EnumTable.ProductionFacility => DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
+                        EnumTable.ProductSeries => DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
+                        EnumTable.Scales => DataAccess.ActionGetIdEntity<ScalesEntity>(idEntity, tableAction),
+                        EnumTable.TemplateResources => DataAccess.ActionGetIdEntity<TemplateResourcesEntity>(idEntity, tableAction),
+                        EnumTable.Templates => DataAccess.ActionGetIdEntity<TemplatesEntity>(idEntity, tableAction),
+                        EnumTable.WorkShop => DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
+                        EnumTable.WeithingFact => DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
+                        EnumTable.Printer => DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
+                        EnumTable.PrinterResourceRef => DataAccess.ActionGetIdEntity<ZebraPrinterResourceRefEntity>(idEntity, tableAction),
+                        EnumTable.PrinterType => DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
+                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                    };
+                    title = table switch
+                    {
+                        EnumTable.BarCodeTypes => $"Штрих-код. ID {idEntity.Id}",
+                        EnumTable.Contragents => $"Контрагент. ID {idEntity.Id}",
+                        EnumTable.Hosts => $"Хост. ID {idEntity.Id}",
+                        EnumTable.Nomenclature => $"Номенклатура. ID {idEntity.Id}",
+                        EnumTable.OrderStatus => $"Статус заказа. ID {idEntity.Id}",
+                        EnumTable.OrderTypes => $"Тип заказа. ID {idEntity.Id}",
+                        EnumTable.Plu => $"PLU. ID {idEntity.Id}",
+                        EnumTable.ProductionFacility => $"Производственная площадка. ID {idEntity.Id}",
+                        EnumTable.ProductSeries => $"Серия продукта. ID {idEntity.Id}",
+                        EnumTable.Scales => $"Устройство. ID {idEntity.Id}",
+                        EnumTable.TemplateResources => $"Ресурс шаблона. ID {idEntity.Id}",
+                        EnumTable.Templates => $"Шаблон. ID {idEntity.Id}",
+                        EnumTable.WorkShop => $"Цех. ID {idEntity.Id}",
+                        EnumTable.WeithingFact => $"Взвешивание. ID {idEntity.Id}",
+                        EnumTable.Printer => $"Принтер Zebra. ID {idEntity.Id}",
+                        EnumTable.PrinterResourceRef => $"Ресурс принтера. ID {idEntity.Id}",
+                        EnumTable.PrinterType => $"Тип принтера. ID {idEntity.Id}",
+                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                    };
+                }
+                else if (entity is BaseUidEntity uidEntity)
                 {
-                    EnumTable.BarCodeTypes => $"Штрих-код. ID {entity.Id}",
-                    EnumTable.Contragents => $"Контрагент. ID {entity.Id}",
-                    EnumTable.Hosts => $"Хост. ID {entity.Id}",
-                    EnumTable.Nomenclature => $"Номенклатура. ID {entity.Id}",
-                    EnumTable.OrderStatus => $"Статус заказа. ID {entity.Id}",
-                    EnumTable.OrderTypes => $"Тип заказа. ID {entity.Id}",
-                    EnumTable.Plu => $"PLU. ID {entity.Id}",
-                    EnumTable.ProductionFacility => $"Производственная площадка. ID {entity.Id}",
-                    EnumTable.ProductSeries => $"Серия продукта. ID {entity.Id}",
-                    EnumTable.Scales => $"Устройство. ID {entity.Id}",
-                    EnumTable.TemplateResources => $"Ресурс шаблона. ID {entity.Id}",
-                    EnumTable.Templates => $"Шаблон. ID {entity.Id}",
-                    EnumTable.WorkShop => $"Цех. ID {entity.Id}",
-                    EnumTable.WeithingFact => $"Взвешивание. ID {entity.Id}",
-                    EnumTable.Printer => $"Принтер Zebra. ID {entity.Id}",
-                    EnumTable.PrinterResourceRef => $"Ресурс принтера. ID {entity.Id}",
-                    EnumTable.PrinterType => $"Тип принтера. ID {entity.Id}",
-                    _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                };
-                
-                //Console.WriteLine($"ActionAsync. table: {table}");
-                //Console.WriteLine($"table: {table}");
-                //Console.WriteLine($"tableAction: {tableAction}");
-                //Console.WriteLine($"entity: {entity}");
-                //Console.WriteLine($"parentEntity: {parentEntity}");
+                    uidEntity = table switch
+                    {
+                        EnumTable.Logs => DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
+                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                    };
+                    title = table switch
+                    {
+                        EnumTable.Logs => $"Лог. UID {uidEntity.Uid}",
+                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                    };
+                }
+
                 // Printer from ZebraPrinter.razor.
                 if (entity is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
                 {
@@ -186,6 +198,12 @@ namespace BlazorDeviceControl.Data
                     return;
                 //if (item == null || item.EqualsDefault())
                 //    return;
+                BaseIdEntity idEntity = null;
+                BaseUidEntity uidEntity = null;
+                if (item is BaseIdEntity baseIdEntity)
+                    idEntity = baseIdEntity;
+                else if (item is BaseUidEntity baseUidEntity)
+                    uidEntity = baseUidEntity;
 
                 switch (tableAction)
                 {
@@ -197,10 +215,22 @@ namespace BlazorDeviceControl.Data
                             case EnumTable.Printer:
                                 if (!isNewWindow)
                                 {
-                                    Navigation.NavigateTo(item == null ? $"{page}" : $"{page}/{item.Id}");
+                                    if (idEntity != null)
+                                        Navigation.NavigateTo($"{page}/{idEntity.Id}");
+                                    else if (uidEntity != null)
+                                        Navigation.NavigateTo($"{page}/{uidEntity.Uid}");
+                                    else
+                                        Navigation.NavigateTo(@"{page}");
                                 }
                                 else
-                                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{item.Id}", "_blank").ConfigureAwait(false);
+                                {
+                                    if (idEntity != null)
+                                        await JsRuntime.InvokeAsync<object>("open", $"{page}/{idEntity.Id}", "_blank").ConfigureAwait(false);
+                                    else if (uidEntity != null)
+                                        await JsRuntime.InvokeAsync<object>("open", $"{page}/{uidEntity.Uid}", "_blank").ConfigureAwait(false);
+                                    else
+                                        await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                                }
                                 break;
                         }
                         break;

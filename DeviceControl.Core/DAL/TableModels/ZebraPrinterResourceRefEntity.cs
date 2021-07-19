@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class ZebraPrinterResourceRefEntity : BaseEntity
+    public class ZebraPrinterResourceRefEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

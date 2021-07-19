@@ -5,13 +5,15 @@
 
     <IsPackable>false</IsPackable>
 
-    <Version>0.2.200</Version>
+    <Version>0.2.270</Version>
 
     <Platforms>AnyCPU;x64</Platforms>
 
     <Product>WeightService</Product>
 
     <Copyright>Copyright © 2020  - 2021</Copyright>
+
+    <AssemblyVersion>0.2.270.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

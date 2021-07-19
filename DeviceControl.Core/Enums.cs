@@ -23,6 +23,7 @@
         Printer,
         PrinterResourceRef,
         PrinterType,
+        Logs,
     }
 
     public enum EnumAccessRights

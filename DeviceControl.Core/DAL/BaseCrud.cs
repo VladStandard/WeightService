@@ -37,8 +37,11 @@ namespace DeviceControl.Core.DAL
                         deviceEntity.Scales = DataAccess.ScalesCrud.GetEntity(deviceEntity.Scales.Id);
                 }
             }
-            
             // Tables.
+            else if (typeof(T) == typeof(AppEntity))
+            {
+                //
+            }
             else if (typeof(T) == typeof(BarCodeTypesEntity))
             {
                 var barCodeTypesEntity = (BarCodeTypesEntity)(object)entity;
@@ -62,6 +65,17 @@ namespace DeviceControl.Core.DAL
                 {
                     if (labelsEntity.WeithingFact != null)
                         labelsEntity.WeithingFact = DataAccess.WeithingFactCrud.GetEntity(labelsEntity.WeithingFact.Id);
+                }
+            }
+            else if (typeof(T) == typeof(LogEntity))
+            {
+                var logEntity = (LogEntity)(object)entity;
+                if (!logEntity.EqualsEmpty())
+                {
+                    if (logEntity.App != null)
+                        logEntity.App = DataAccess.AppCrud.GetEntity(logEntity.App.Uid);
+                    if (logEntity.Host != null)
+                        logEntity.Host = DataAccess.HostsCrud.GetEntity(logEntity.Host.Id);
                 }
             }
             else if (typeof(T) == typeof(NomenclatureEntity))
@@ -224,7 +238,7 @@ namespace DeviceControl.Core.DAL
         public T GetEntity(FieldListEntity fieldList, FieldOrderEntity order,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            var entity = DataAccess.GetEntity<T>(fieldList, order, filePath, lineNumber, memberName);
+            T entity = DataAccess.GetEntity<T>(fieldList, order, filePath, lineNumber, memberName);
             FillReferences(entity);
             return entity;
         }
@@ -234,6 +248,13 @@ namespace DeviceControl.Core.DAL
             return GetEntity(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), id } }),
                 new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
+        }
+
+        public T GetEntity(Guid uid)
+        {
+            return GetEntity(
+                new FieldListEntity(new Dictionary<string, object> { { EnumField.Uid.ToString(), uid } }),
+                new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc));
         }
 
         public T[] GetEntities(FieldListEntity fieldList, FieldOrderEntity order, int maxResults = 0,
@@ -275,21 +296,46 @@ namespace DeviceControl.Core.DAL
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (entity.EqualsEmpty()) return;
-            if (!entity.Equals(GetEntity(entity.Id)))
+            if (entity is BaseIdEntity idEntity)
             {
-                if (typeof(T) == typeof(ContragentsEntity))
+                if (!entity.Equals(GetEntity(idEntity.Id)))
                 {
-                    throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
+                    if (typeof(T) == typeof(ContragentsEntity))
+                    {
+                        throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
+                    }
+                    if (typeof(T) == typeof(NomenclatureEntity))
+                    {
+                        throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
+                    }
+                    if (typeof(T) == typeof(ZebraPrinterTypeEntity))
+                    {
+                        Console.WriteLine($"SaveEntity: {entity}");
+                    }
+                    DataAccess.SaveEntity(entity, filePath, lineNumber, memberName);
                 }
-                if (typeof(T) == typeof(NomenclatureEntity))
+            }
+            else
+            {
+                if (entity is BaseUidEntity uidEntity)
                 {
-                    throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
+                    if (!entity.Equals(GetEntity(uidEntity.Uid)))
+                    {
+                        if (typeof(T) == typeof(ContragentsEntity))
+                        {
+                            throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
+                        }
+                        if (typeof(T) == typeof(NomenclatureEntity))
+                        {
+                            throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
+                        }
+                        if (typeof(T) == typeof(ZebraPrinterTypeEntity))
+                        {
+                            Console.WriteLine($"SaveEntity: {entity}");
+                        }
+                        DataAccess.SaveEntity(entity, filePath, lineNumber, memberName);
+                    }
                 }
-                if (typeof(T) == typeof(ZebraPrinterTypeEntity))
-                {
-                    Console.WriteLine($"SaveEntity: {entity}");
-                }
-                DataAccess.SaveEntity(entity, filePath, lineNumber, memberName);
             }
         }
 
@@ -298,7 +344,11 @@ namespace DeviceControl.Core.DAL
         {
             if (entity.EqualsEmpty()) return;
             
-            if (typeof(T) == typeof(BarCodeTypesEntity))
+            if (typeof(T) == typeof(AppEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(BarCodeTypesEntity))
             {
                 //
             }
@@ -311,6 +361,10 @@ namespace DeviceControl.Core.DAL
                 ((HostsEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
             else if (typeof(T) == typeof(LabelsEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(LogEntity))
             {
                 //
             }
@@ -370,6 +424,14 @@ namespace DeviceControl.Core.DAL
             {
                 //
             }
+            else if (typeof(T) == typeof(LogEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(AppEntity))
+            {
+                //
+            }
             
             DataAccess.UpdateEntity(entity, filePath, lineNumber, memberName);
         }
@@ -387,7 +449,11 @@ namespace DeviceControl.Core.DAL
         {
             if (entity.EqualsEmpty()) return;
             
-            if (typeof(T) == typeof(BarCodeTypesEntity))
+            if (typeof(T) == typeof(AppEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(BarCodeTypesEntity))
             {
                 //
             }
@@ -400,6 +466,10 @@ namespace DeviceControl.Core.DAL
                 ((HostsEntity)(object)entity).Marked = true;
             }
             else if (typeof(T) == typeof(LabelsEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(LogEntity))
             {
                 //
             }

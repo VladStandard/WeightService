@@ -6,7 +6,7 @@
 @using BlazorDeviceControl.Data
 @using DeviceControl.Core
 @using Toolbelt.Blazor.HotKeys
-@inject BlazorDeviceControl.Data.BlazorSettingsEntity _appSettings
+@inject BlazorSettingsEntity _blazorSettings
 @inject DataAccessConfig _dataAccessConfig
 @inject DialogService _dialog
 @inject NavigationManager _navigation
@@ -122,7 +122,7 @@
     [Parameter]
     public EnumTable Table { get; set; }
     [Parameter]
-    public BaseEntity Item { get; set; }
+    public BaseIdEntity Item { get; set; }
     [Parameter]
     public EnumTableAction TableAction { get; set; }
     [Parameter]
@@ -139,7 +139,7 @@
         await base.OnInitializedAsync().ConfigureAwait(true);
     }
 
-    private bool FieldControlDeny(BaseEntity entity, string field)
+    private bool FieldControlDeny(BaseIdEntity entity, string field)
     {
         var result = entity != null;
         if (entity is BarCodeTypesEntity barCodeTypesEntity)
@@ -259,7 +259,7 @@
         var success = true;
         try
         {
-            _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
+            _blazorSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
             switch (Table)
             {
                 case EnumTable.BarCodeTypes:
@@ -269,27 +269,27 @@
                     hosts.CreateDate ??= DateTime.Now;
                     hosts.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        _appSettings.DataAccess.HostsCrud.SaveEntity(hosts);
+                        _blazorSettings.DataAccess.HostsCrud.SaveEntity(hosts);
                     else
-                        _appSettings.DataAccess.HostsCrud.UpdateEntity(hosts);
+                        _blazorSettings.DataAccess.HostsCrud.UpdateEntity(hosts);
                     break;
                 case EnumTable.Contragents:
                     var contragents = (ContragentsEntity)Item;
                     contragents.CreateDate ??= DateTime.Now;
                     contragents.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        _appSettings.DataAccess.ContragentsCrud.SaveEntity(contragents);
+                        _blazorSettings.DataAccess.ContragentsCrud.SaveEntity(contragents);
                     else
-                        _appSettings.DataAccess.ContragentsCrud.UpdateEntity(contragents);
+                        _blazorSettings.DataAccess.ContragentsCrud.UpdateEntity(contragents);
                     break;
                 case EnumTable.Nomenclature:
                     var nomenclature = (NomenclatureEntity)Item;
                     nomenclature.CreateDate ??= DateTime.Now;
                     nomenclature.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        _appSettings.DataAccess.NomenclatureCrud.SaveEntity(nomenclature);
+                        _blazorSettings.DataAccess.NomenclatureCrud.SaveEntity(nomenclature);
                     else
-                        _appSettings.DataAccess.NomenclatureCrud.UpdateEntity(nomenclature);
+                        _blazorSettings.DataAccess.NomenclatureCrud.UpdateEntity(nomenclature);
                     break;
                 case EnumTable.Orders:
                     break;
@@ -308,7 +308,7 @@
                     if (success)
                     {
                         // Контроль номера PLU.
-                        var pluEntities = _appSettings.DataAccess.PluCrud.GetEntities(
+                        var pluEntities = _blazorSettings.DataAccess.PluCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object>
                             {
                                 { "Scale.Id", plu.Scale.Id },
@@ -329,9 +329,9 @@
                         else
                         {
                             if (TableAction == EnumTableAction.Add)
-                                _appSettings.DataAccess.PluCrud.SaveEntity(plu);
+                                _blazorSettings.DataAccess.PluCrud.SaveEntity(plu);
                             else
-                                _appSettings.DataAccess.PluCrud.UpdateEntity(plu);
+                                _blazorSettings.DataAccess.PluCrud.UpdateEntity(plu);
                         }
                     }
                     break;
@@ -340,17 +340,17 @@
                     productionFacility.CreateDate ??= DateTime.Now;
                     productionFacility.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        _appSettings.DataAccess.ProductionFacilityCrud.SaveEntity(productionFacility);
+                        _blazorSettings.DataAccess.ProductionFacilityCrud.SaveEntity(productionFacility);
                     else
-                        _appSettings.DataAccess.ProductionFacilityCrud.UpdateEntity(productionFacility);
+                        _blazorSettings.DataAccess.ProductionFacilityCrud.UpdateEntity(productionFacility);
                     break;
                 case EnumTable.ProductSeries:
                     var productSeries = (ProductSeriesEntity)Item;
                     productSeries.CreateDate ??= DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        _appSettings.DataAccess.ProductSeriesCrud.SaveEntity(productSeries);
+                        _blazorSettings.DataAccess.ProductSeriesCrud.SaveEntity(productSeries);
                     else
-                        _appSettings.DataAccess.ProductSeriesCrud.UpdateEntity(productSeries);
+                        _blazorSettings.DataAccess.ProductSeriesCrud.UpdateEntity(productSeries);
                     break;
                 case EnumTable.Scales:
                     var scalesEntity = (ScalesEntity)Item;
@@ -369,11 +369,11 @@
                         {
                             if (scalesEntity.TemplateSeries != null && scalesEntity.TemplateSeries.EqualsDefault())
                                 scalesEntity.TemplateSeries = null;
-                            _appSettings.DataAccess.ScalesCrud.SaveEntity(scalesEntity);
+                            _blazorSettings.DataAccess.ScalesCrud.SaveEntity(scalesEntity);
                         }
                         else
                         {
-                            _appSettings.DataAccess.ScalesCrud.UpdateEntity(scalesEntity);
+                            _blazorSettings.DataAccess.ScalesCrud.UpdateEntity(scalesEntity);
                         }
                     }
                     break;
@@ -384,9 +384,9 @@
                     templateResourcesEntity.CreateDate ??= DateTime.Now;
                     templateResourcesEntity.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        _appSettings.DataAccess.TemplateResourcesCrud.SaveEntity(templateResourcesEntity);
+                        _blazorSettings.DataAccess.TemplateResourcesCrud.SaveEntity(templateResourcesEntity);
                     else
-                        _appSettings.DataAccess.TemplateResourcesCrud.UpdateEntity(templateResourcesEntity);
+                        _blazorSettings.DataAccess.TemplateResourcesCrud.UpdateEntity(templateResourcesEntity);
                     break;
                 case EnumTable.Templates:
                     var templateEntity = (TemplatesEntity)Item;
@@ -408,11 +408,11 @@
                         templateEntity.ModifiedDate = DateTime.Now;
                         if (TableAction == EnumTableAction.Add || TableAction == EnumTableAction.Copy)
                         {
-                            _appSettings.DataAccess.TemplatesCrud.SaveEntity(templateEntity);
+                            _blazorSettings.DataAccess.TemplatesCrud.SaveEntity(templateEntity);
                         }
                         else
                         {
-                            _appSettings.DataAccess.TemplatesCrud.UpdateEntity(templateEntity);
+                            _blazorSettings.DataAccess.TemplatesCrud.UpdateEntity(templateEntity);
                         }
                     }
                     break;
@@ -423,9 +423,9 @@
                     workshopEntity.CreateDate ??= DateTime.Now;
                     workshopEntity.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
-                        _appSettings.DataAccess.WorkshopCrud.SaveEntity(workshopEntity);
+                        _blazorSettings.DataAccess.WorkshopCrud.SaveEntity(workshopEntity);
                     else
-                        _appSettings.DataAccess.WorkshopCrud.UpdateEntity(workshopEntity);
+                        _blazorSettings.DataAccess.WorkshopCrud.UpdateEntity(workshopEntity);
                     break;
                 case EnumTable.Printer:
                     var zebraPrinter = (ZebraPrinterEntity)Item;
@@ -435,9 +435,9 @@
                     if (success)
                     {
                         if (TableAction == EnumTableAction.Add)
-                            _appSettings.DataAccess.ZebraPrinterCrud.SaveEntity(zebraPrinter);
+                            _blazorSettings.DataAccess.ZebraPrinterCrud.SaveEntity(zebraPrinter);
                         else
-                            _appSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(zebraPrinter);
+                            _blazorSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(zebraPrinter);
                     }
                     break;
                 case EnumTable.PrinterResourceRef:
@@ -446,26 +446,26 @@
                     zebraPrinterResourceRefEntity.ModifiedDate = DateTime.Now;
                     if (TableAction == EnumTableAction.Add)
                     {
-                        _appSettings.DataAccess.ZebraPrinterResourceRefCrud.SaveEntity(zebraPrinterResourceRefEntity);
+                        _blazorSettings.DataAccess.ZebraPrinterResourceRefCrud.SaveEntity(zebraPrinterResourceRefEntity);
                     }
                     else
                     {
-                        var existsEntity = _appSettings.DataAccess.ZebraPrinterResourceRefCrud.ExistsEntity(
+                        var existsEntity = _blazorSettings.DataAccess.ZebraPrinterResourceRefCrud.ExistsEntity(
                             new FieldListEntity(new Dictionary<string, object>
                             {{EnumField.Id.ToString(), zebraPrinterResourceRefEntity.Id}}),
                             new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
                         if (existsEntity)
                         {
-                            var idLast = _appSettings.DataAccess.ZebraPrinterResourceRefCrud.GetEntity(
+                            var idLast = _blazorSettings.DataAccess.ZebraPrinterResourceRefCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object>
                                 { { "Printer.Id", zebraPrinterResourceRefEntity.Printer.Id }}),
                                 new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                             //zebraPrinterResourceRefEntity.Id = idLast + 1;
-                            _appSettings.DataAccess.ZebraPrinterResourceRefCrud.UpdateEntity(zebraPrinterResourceRefEntity);
+                            _blazorSettings.DataAccess.ZebraPrinterResourceRefCrud.UpdateEntity(zebraPrinterResourceRefEntity);
                         }
                         else
                         {
-                            _appSettings.DataAccess.ZebraPrinterResourceRefCrud.UpdateEntity(zebraPrinterResourceRefEntity);
+                            _blazorSettings.DataAccess.ZebraPrinterResourceRefCrud.UpdateEntity(zebraPrinterResourceRefEntity);
                         }
                     }
                     break;
@@ -473,13 +473,13 @@
                     var printerTypeEntity = (ZebraPrinterTypeEntity)Item;
                     if (TableAction == EnumTableAction.Add)
                     {
-                        var idLast = _appSettings.DataAccess.ZebraPrinterTypeCrud.GetEntity(null,
+                        var idLast = _blazorSettings.DataAccess.ZebraPrinterTypeCrud.GetEntity(null,
                             new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                         printerTypeEntity.Id = idLast + 1;
-                        _appSettings.DataAccess.ZebraPrinterTypeCrud.SaveEntity(printerTypeEntity);
+                        _blazorSettings.DataAccess.ZebraPrinterTypeCrud.SaveEntity(printerTypeEntity);
                     }
                     else
-                        _appSettings.DataAccess.ZebraPrinterTypeCrud.UpdateEntity(printerTypeEntity);
+                        _blazorSettings.DataAccess.ZebraPrinterTypeCrud.UpdateEntity(printerTypeEntity);
                     break;
             }
         }
@@ -495,7 +495,7 @@
             _notification.Notify(msg);
             Console.WriteLine(ex.Message);
             Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
         finally
         {

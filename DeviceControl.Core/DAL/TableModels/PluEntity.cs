@@ -6,7 +6,7 @@ using DeviceControl.Core.Models;
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class PluEntity : BaseEntity
+    public class PluEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

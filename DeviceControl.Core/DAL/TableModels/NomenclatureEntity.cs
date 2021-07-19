@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class NomenclatureEntity : BaseEntity
+    public class NomenclatureEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

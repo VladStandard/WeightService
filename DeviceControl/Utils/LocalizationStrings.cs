@@ -248,6 +248,7 @@ namespace BlazorDeviceControl.Utils
         public const string ItemTitleWorkShop = @"WorkShop";
         public const string ItemTitlePrinterResourceRef = @"Ресурс принтера";
         public const string ItemTitlePrinterType = @"Тип принтера";
+        public const string ItemTitleLog = @"Лог";
         #endregion
         #region Таблица
         public const string TableTab = @"Переключиться между панелями";
@@ -326,6 +327,8 @@ namespace BlazorDeviceControl.Utils
                     return ItemTitlePrinterResourceRef;
                 case EnumTable.PrinterType:
                     return ItemTitlePrinterType;
+                case EnumTable.Logs:
+                    return ItemTitleLog;
             }
             return string.Empty;
         }

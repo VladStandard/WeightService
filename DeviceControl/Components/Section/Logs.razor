@@ -6,9 +6,8 @@
 @using BlazorDeviceControl.Utils
 @using DeviceControl.Core
 @using DeviceControl.Core.DAL.DataModels
-@using DeviceControl.Core.Models
 @using Toolbelt.Blazor.HotKeys
-@inject Data.BlazorSettingsEntity _appSettings
+@inject BlazorSettingsEntity _blazorSettings
 @inject DataAccessConfig _dataAccessConfig
 @inject DialogService _dialog
 @inject NavigationManager _navigation
@@ -21,7 +20,7 @@
     @GetHeader()
     <RadzenButton Click=@(args => GetDataAsync())
                   ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
-                  class="oi oi-reload" Disabled=@_appSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
+                  class="oi oi-reload" Disabled=@_blazorSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
 </h2>
 
 <RadzenTabs>
@@ -38,6 +37,7 @@
                 {
                     // Sorting by [WeithingDate].
                     <RadzenGrid Data=@EntitiesSummary TItem="LogSummaryEntity"
+                                RowSelect=@(args => RowSelectAsync(args)) 
                                 AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
                                 AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
                         <Columns>
@@ -81,36 +81,28 @@
             </div>
             @* Actions *@
             <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
-                @if (_appSettings.IsDebug && !_appSettings.ShowActionsButtons)
+                @if (_blazorSettings.IsDebug && !_blazorSettings.ShowActionsButtons)
                 {
-                    _appSettings.ShowActionsButtons = true;
+                    _blazorSettings.ShowActionsButtons = true;
                     <RadzenLabel Text=@LocalizationStrings.IsDebug />
                     <br />
                 }
-                @if (_appSettings.ShowActionsButtons)
+                @if (_blazorSettings.ShowActionsButtons)
                 {
-                    <RadzenButton Click=@(args => ActionAddAsync(EnumTable.WeithingFact, Entity, null))
+                    <RadzenButton Click=@(args => ActionAddAsync(EnumTable.Logs, Item, null))
                                   ButtonStyle="ButtonStyle.Secondary"
                                   Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
-                                  Text=@LocalizationStrings.TableActionAdd Disabled=@_appSettings.DataAccess.IsDisabled />
-                    <RadzenButton Click=@(args => ActionEditAsync(EnumTable.WeithingFact, Entity, null))
+                                  Text=@LocalizationStrings.TableActionAdd Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                    <RadzenButton Click=@(args => ActionEditAsync(Item, null))
                                   ButtonStyle="ButtonStyle.Secondary"
                                   Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                  Text=@LocalizationStrings.TableActionEdit Disabled=@_appSettings.DataAccess.IsDisabled />
-                    <RadzenButton Click=@(args => ActionMarkedAsync(EnumTable.WeithingFact, Entity, null))
-                                  ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                  Text=@LocalizationStrings.TableActionDelete Disabled=@_appSettings.DataAccess.IsDisabled />
-                    @if (_appSettings.IsDebug)
+                                  Text=@LocalizationStrings.TableActionEdit Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                    @if (_blazorSettings.IsDebug)
                     {
-                        <RadzenButton Click=@(args => ActionCopyAsync(EnumTable.WeithingFact, Entity, null))
+                        <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.Logs, Item, null))
                                       ButtonStyle="ButtonStyle.Secondary"
                                       Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                      Text=@LocalizationStrings.TableActionCopy Disabled=@_appSettings.DataAccess.IsDisabled />
-                        <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.WeithingFact, Entity, null))
-                                      ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                      Text=@LocalizationStrings.TableActionDeleteForever Disabled=@_appSettings.DataAccess.IsDisabled />
+                                      Text=@LocalizationStrings.TableActionDeleteForever Disabled=@_blazorSettings.DataAccess.IsDisabled />
                     }
                 }
                 else
@@ -128,9 +120,8 @@
     #region Public and private fields and properties
     private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) =>
         _tooltip.Open(elementReference, LocalizationStrings.TableReadData, options);
-    [Parameter]
-    public BaseEntity Entity { get; set; }
-    public BaseEntity[] Entities { get; set; }
+    public BaseUidEntity Item { get; set; }
+    public BaseUidEntity[] Items { get; set; }
     public List<LogSummaryEntity> EntitiesSummary { get; set; }
     public object[] Objects { get; set; }
     [Parameter]
@@ -151,12 +142,12 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
+        _blazorSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
     }
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        _appSettings.ShowActionsButtons = false;
+        _blazorSettings.ShowActionsButtons = false;
         await base.SetParametersAsync(parameters);
         FontSize = parameters.TryGetValue<int>("FontSize", out var fontSize) ? fontSize : 14;
         FontSizeHeader = parameters.TryGetValue<int>("FontSizeHeader", out var fontSizeHeader) ? fontSizeHeader : 20;
@@ -170,13 +161,14 @@
 
     private void GetData()
     {
-        Entities = null;
-        Entities = _appSettings.DataAccess.WeithingFactCrud.GetEntities(null,
+        Items = null;
+        Items = _blazorSettings.DataAccess.LogSummaryCrud.GetEntities(null,
             new FieldOrderEntity(EnumField.WeithingDate, EnumOrderDirection.Desc), 100);
-        Objects = _appSettings.DataAccess.GetEntitiesNativeObject(@"
+        Objects = _blazorSettings.DataAccess.GetEntitiesNativeObject(@"
 -- Table Logs diagram summary
 select 
-	 [l].[CREATE_DT]
+	 [l].[UID]
+	,[l].[CREATE_DT]
 	,[s].[Description] [SCALE]
 	,[h].[Name] [HOST]
 	,[a].[NAME] [APP]
@@ -191,25 +183,30 @@ left join [db_scales].[Hosts] [h] on [h].[ID]=[l].[HOST_ID]
 left join [db_scales].[Scales] [s] on [s].[HostId]=[h].[ID]
 left join [db_scales].[APPS] [a] on [a].[UID]=[l].[APP_UID]
 order by [l].[CREATE_DT] desc
+
             ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n'), string.Empty, 0, string.Empty);
         EntitiesSummary = new List<LogSummaryEntity>();
         foreach (var obj in Objects)
         {
-            if (obj is object[] { Length: 10 } item)
+            if (obj is object[] { Length: 11 } item)
             {
-                EntitiesSummary.Add(new LogSummaryEntity
+                if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
                 {
-                    CreateDt = Convert.ToDateTime(item[0]),
-                    Scale = Convert.ToString(item[1]),
-                    Host = Convert.ToString(item[2]),
-                    App = Convert.ToString(item[3]),
-                    Version = Convert.ToString(item[4]),
-                    File = Convert.ToString(item[5]),
-                    Line = Convert.ToInt32(item[6]),
-                    Member = Convert.ToString(item[7]),
-                    Icon = Convert.ToString(item[8]),
-                    Message = Convert.ToString(item[9]),
-                });
+                    EntitiesSummary.Add(new LogSummaryEntity()
+                    {
+                        Uid = uid,
+                        CreateDt = Convert.ToDateTime(item[1]),
+                        Scale = Convert.ToString(item[2]),
+                        Host = Convert.ToString(item[3]),
+                        App = Convert.ToString(item[4]),
+                        Version = Convert.ToString(item[5]),
+                        File = Convert.ToString(item[6]),
+                        Line = Convert.ToInt32(item[7]),
+                        Member = Convert.ToString(item[8]),
+                        Icon = Convert.ToString(item[9]),
+                        Message = Convert.ToString(item[10]),
+                    });
+                }
             }
         }
     }
@@ -217,58 +214,41 @@ order by [l].[CREATE_DT] desc
     private async Task GetDataAsync([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         var task = new Task(GetData);
-        await _appSettings.RunTasks(LocalizationStrings.TableRead,
+        await _blazorSettings.RunTasks(LocalizationStrings.TableRead,
             "", LocalizationStrings.DialogResultFail, "",
             new List<Task> { task }, GuiRefreshAsync, filePath, lineNumber, memberName).ConfigureAwait(false);
     }
 
-    private async Task ActionEditAsync(EnumTable table, BaseEntity item, BaseEntity parentEntity)
+    private async Task ActionEditAsync(BaseUidEntity item, BaseUidEntity parentEntity)
     {
-        // Backup
-        //await AppSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
-        //await GetDataAsync().ConfigureAwait(false);
-
-        Task task = null;
-        var title = LocalizationStrings.GetItemTitle(table);
-        switch (table)
-        {
-            case EnumTable.Printer:
-                task = new Task(() =>
-                {
-                    _appSettings.ActionAsync(table, EnumTableAction.Edit, item, LocalizationStrings.UriRouteItemPrinter, false)
-                        .ConfigureAwait(true);
-                });
-                break;
-            default:
-                await _appSettings.ActionAsync(table, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
-                await GetDataAsync().ConfigureAwait(false);
-                break;
-        }
-        await _appSettings.RunTasks(title, "", LocalizationStrings.DialogResultFail, "",
-            new List<Task> { task }, null).ConfigureAwait(false);
-    }
-
-    private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
-    {
-        await _appSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        //var title = LocalizationStrings.GetItemTitle(EnumTable.Logs);
+        await _blazorSettings.ActionAsync(EnumTable.Logs, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionAddAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionDeleteAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionCopyAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionMarkedAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionDeleteAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+        LogEntity logEntity = _blazorSettings.DataAccess.LogCrud.GetEntity(new FieldListEntity(
+        new Dictionary<string, object> { { EnumField.Uid.ToString(), entity.Uid } }), null);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Delete, logEntity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionMarkedAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
+    {
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
@@ -285,6 +265,28 @@ order by [l].[CREATE_DT] desc
         }
         StateHasChanged();
         await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task RowSelectAsync(LogSummaryEntity entity,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            Item = entity;
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = LocalizationStrings.Timeout
+            };
+            _notification.Notify(msg);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+        }
     }
 
     #endregion

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class TemplatesEntity : BaseEntity
+    public class TemplatesEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

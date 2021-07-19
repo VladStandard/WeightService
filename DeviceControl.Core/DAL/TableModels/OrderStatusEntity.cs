@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class OrderStatusEntity : BaseEntity
+    public class OrderStatusEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

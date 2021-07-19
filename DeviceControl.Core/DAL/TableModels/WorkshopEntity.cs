@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class WorkshopEntity : BaseEntity
+    public class WorkshopEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

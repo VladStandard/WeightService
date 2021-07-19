@@ -1,9 +1,9 @@
 ﻿using System;
 using DeviceControl.Core.Utils;
 
-namespace DeviceControl.Core.DAL.TableModels
+namespace DeviceControl.Core.DAL.DataModels
 {
-    public class WeithingFactSummaryEntity
+    public class WeithingFactSummaryEntity : BaseEntity
     {
         #region Public and private fields and properties
 

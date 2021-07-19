@@ -8,7 +8,7 @@
 @using BlazorDeviceControl.Data
 @using DeviceControl.Core
 @using Toolbelt.Blazor.HotKeys
-@inject Data.BlazorSettingsEntity _appSettings
+@inject BlazorSettingsEntity _blazorSettings
 @inject DataAccessConfig _dataAccessConfig
 @inject DialogService _dialog
 @inject NavigationManager _navigation
@@ -210,20 +210,20 @@
 
 @* Actions *@
 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px">
-    @if (_appSettings.ShowActionsButtons)
+    @if (_blazorSettings.ShowActionsButtons)
     {
         <RadzenButton Click=@(args => ActionAddAsync(EnumTable.Plu, PluItem, Item))
                       ButtonStyle="ButtonStyle.Secondary"
                       Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
-                      Text=@Utils.LocalizationStrings.TableActionAdd Disabled=@_appSettings.DataAccess.IsDisabled />
+                      Text=@Utils.LocalizationStrings.TableActionAdd Disabled=@_blazorSettings.DataAccess.IsDisabled />
         <RadzenButton Click=@(args => ActionEditAsync(EnumTable.Plu, PluItem, Item))
                       ButtonStyle="ButtonStyle.Secondary"
                       Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
-                      Text=@Utils.LocalizationStrings.TableActionEdit Disabled=@_appSettings.DataAccess.IsDisabled />
+                      Text=@Utils.LocalizationStrings.TableActionEdit Disabled=@_blazorSettings.DataAccess.IsDisabled />
         <RadzenButton Click=@(args => ActionMarkedAsync(EnumTable.Plu, PluItem, Item))
                       ButtonStyle="ButtonStyle.Secondary"
                       Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
-                      Text=@Utils.LocalizationStrings.TableActionDelete Disabled=@_appSettings.DataAccess.IsDisabled />
+                      Text=@Utils.LocalizationStrings.TableActionDelete Disabled=@_blazorSettings.DataAccess.IsDisabled />
     }
     else
     {
@@ -257,12 +257,12 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
+        _blazorSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
 
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task RowSelectAsync(BaseEntity entity,
+    private async Task RowSelectAsync(BaseIdEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -284,11 +284,11 @@
             };
             _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
-    private async Task RowDoubleClickAsync(BaseEntity entity,
+    private async Task RowDoubleClickAsync(BaseIdEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -311,7 +311,7 @@
             };
             _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -332,7 +332,7 @@
                         Item.TemplateDefault = null;
                     else
                     {
-                        Item.TemplateDefault = _appSettings.DataAccess.TemplatesCrud.GetEntity(
+                        Item.TemplateDefault = _blazorSettings.DataAccess.TemplatesCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idDefault } }),
                             null);
                     }
@@ -345,7 +345,7 @@
                         Item.TemplateSeries = null;
                     else
                     {
-                        Item.TemplateSeries = _appSettings.DataAccess.TemplatesCrud.GetEntity(
+                        Item.TemplateSeries = _blazorSettings.DataAccess.TemplatesCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idSeries } }),
                             null);
                     }
@@ -358,7 +358,7 @@
                         Item.WorkShop = null;
                     else
                     {
-                        Item.WorkShop = _appSettings.DataAccess.WorkshopCrud.GetEntity(
+                        Item.WorkShop = _blazorSettings.DataAccess.WorkshopCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idWorkShop } }),
                             null);
                     }
@@ -371,7 +371,7 @@
                         Item.Printer = null;
                     else
                     {
-                        Item.Printer = _appSettings.DataAccess.ZebraPrinterCrud.GetEntity(
+                        Item.Printer = _blazorSettings.DataAccess.ZebraPrinterCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idPrinter } }),
                             null);
                     }
@@ -384,7 +384,7 @@
                         Item.Host = null;
                     else
                     {
-                        Item.Host = _appSettings.DataAccess.HostsCrud.GetEntity(
+                        Item.Host = _blazorSettings.DataAccess.HostsCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idHost } }),
                             null);
                     }
@@ -410,25 +410,25 @@
             Item.ScaleFactor ??= 1000;
 
             PluTitle = $"{Utils.LocalizationStrings.TableTitlePluShort}  [{Utils.LocalizationStrings.DataLoading}]";
-            PluItems = _appSettings.DataAccess.PluCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
+            PluItems = _blazorSettings.DataAccess.PluCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
                     { EnumField.Marked.ToString(), false },
                     { "Scale.Id", Item.Id },
                 }),
             new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
             PluTitle = $"{Utils.LocalizationStrings.TableTitlePluShort}  [{PluItems.Count} {Utils.LocalizationStrings.DataRecords}]";
-            TemplatesDefaultItems = _appSettings.DataAccess.TemplatesCrud.GetEntities(
+            TemplatesDefaultItems = _blazorSettings.DataAccess.TemplatesCrud.GetEntities(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
-            TemplatesSeriesItems = _appSettings.DataAccess.TemplatesCrud.GetEntities(
+            TemplatesSeriesItems = _blazorSettings.DataAccess.TemplatesCrud.GetEntities(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
-            WorkshopItems = _appSettings.DataAccess.WorkshopCrud.GetEntities(
+            WorkshopItems = _blazorSettings.DataAccess.WorkshopCrud.GetEntities(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
-            PrinterItems = _appSettings.DataAccess.ZebraPrinterCrud.GetEntities(
+            PrinterItems = _blazorSettings.DataAccess.ZebraPrinterCrud.GetEntities(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                 null).ToList();
-            HostItems = _appSettings.DataAccess.HostsCrud.GetFreeHosts(Item.Host?.Id);
+            HostItems = _blazorSettings.DataAccess.HostsCrud.GetFreeHosts(Item.Host?.Id);
         }
         catch (Exception ex)
         {
@@ -441,31 +441,31 @@
             };
             _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
-    private async Task ActionEditAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionEditAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionMarkedAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 

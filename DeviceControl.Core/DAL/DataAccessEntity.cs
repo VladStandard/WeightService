@@ -32,18 +32,19 @@ namespace DeviceControl.Core.DAL
                 {
                     if (AppSettings.Trusted)
                     {
-                        _sessionFactory = Fluently.Configure()
+                        FluentConfiguration configuration = Fluently.Configure()
                             .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
                                 .Server(AppSettings.Server)
                                 .Database(AppSettings.Db)
                                 .TrustedConnection()
                             ))
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
+                            .Mappings(m => m.FluentMappings.Add<AppMap>())
                             .Mappings(m => m.FluentMappings.Add<BarCodeTypesMap>())
                             .Mappings(m => m.FluentMappings.Add<ContragentsMap>())
                             .Mappings(m => m.FluentMappings.Add<ErrorsMap>())
                             .Mappings(m => m.FluentMappings.Add<HostsMap>())
                             .Mappings(m => m.FluentMappings.Add<LabelsMap>())
+                            .Mappings(m => m.FluentMappings.Add<LogMap>())
                             .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
                             .Mappings(m => m.FluentMappings.Add<OrdersMap>())
                             .Mappings(m => m.FluentMappings.Add<OrderTypesMap>())
@@ -57,27 +58,29 @@ namespace DeviceControl.Core.DAL
                             .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
                             .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceRefMap>())
-                            .BuildSessionFactory();
+                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>());
+                        configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
+                        _sessionFactory = configuration.BuildSessionFactory();
                     }
                     else
                     {
                         if (string.IsNullOrEmpty(AppSettings.Username) || string.IsNullOrEmpty(AppSettings.Password))
                             throw new ArgumentException("AppSettings.Username or AppSettings.Password is null!");
-                        _sessionFactory = Fluently.Configure()
+                        FluentConfiguration configuration = Fluently.Configure()
                             .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
                                 .Server(AppSettings.Server)
                                 .Database(AppSettings.Db)
                                 .Username(AppSettings.Username)
                                 .Password(AppSettings.Password)
                             ))
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
+                            .Mappings(m => m.FluentMappings.Add<AppMap>())
                             .Mappings(m => m.FluentMappings.Add<BarCodeTypesMap>())
                             .Mappings(m => m.FluentMappings.Add<ContragentsMap>())
                             .Mappings(m => m.FluentMappings.Add<ErrorsMap>())
                             .Mappings(m => m.FluentMappings.Add<HostsMap>())
                             .Mappings(m => m.FluentMappings.Add<LabelsMap>())
+                            .Mappings(m => m.FluentMappings.Add<LogMap>())
                             .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
                             .Mappings(m => m.FluentMappings.Add<OrdersMap>())
                             .Mappings(m => m.FluentMappings.Add<OrderTypesMap>())
@@ -92,8 +95,10 @@ namespace DeviceControl.Core.DAL
                             .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceRefMap>())
-                            .BuildSessionFactory();
+                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
+                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceRefMap>());
+                        configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
+                        _sessionFactory = configuration.BuildSessionFactory();
                     }
                 }
                 return _sessionFactory;
@@ -101,11 +106,13 @@ namespace DeviceControl.Core.DAL
         }
 
         // Tables CRUD.
+        public BaseCrud<AppEntity> AppCrud;
         public BaseCrud<BarCodeTypesEntity> BarCodeTypesCrud;
         public BaseCrud<ContragentsEntity> ContragentsCrud;
         public BaseCrud<ErrorsEntity> ErrorsCrud;
         public HostsCrud HostsCrud;
         public BaseCrud<LabelsEntity> LabelsCrud;
+        public BaseCrud<LogEntity> LogCrud;
         public BaseCrud<NomenclatureEntity> NomenclatureCrud;
         public BaseCrud<ScalesEntity> ScalesCrud;
         public BaseCrud<OrdersEntity> OrdersCrud;
@@ -123,6 +130,8 @@ namespace DeviceControl.Core.DAL
         public BaseCrud<ZebraPrinterEntity> ZebraPrinterCrud;
         // Datas CRUD.
         public BaseCrud<DeviceEntity> DeviceCrud;
+        public BaseCrud<LogSummaryEntity> LogSummaryCrud;
+        public BaseCrud<WeithingFactSummaryEntity> WeithingFactSummaryCrud;
 
         public bool IsDisabled => !GetSession().IsConnected;
         public bool IsOpen => GetSession().IsOpen;
@@ -143,11 +152,13 @@ namespace DeviceControl.Core.DAL
             AppSettings = appSettings;
             DataConfig = new DataConfigurationEntity();
             // Tables CRUD.
+            AppCrud = new BaseCrud<AppEntity>(this);
             BarCodeTypesCrud = new BaseCrud<BarCodeTypesEntity>(this);
             ContragentsCrud = new BaseCrud<ContragentsEntity>(this);
             ErrorsCrud = new BaseCrud<ErrorsEntity>(this);
             HostsCrud = new HostsCrud(this);
             LabelsCrud = new BaseCrud<LabelsEntity>(this);
+            LogCrud = new BaseCrud<LogEntity>(this);
             NomenclatureCrud = new BaseCrud<NomenclatureEntity>(this);
             ScalesCrud = new BaseCrud<ScalesEntity>(this);
             OrdersCrud = new BaseCrud<OrdersEntity>(this);
@@ -165,6 +176,8 @@ namespace DeviceControl.Core.DAL
             ZebraPrinterCrud = new BaseCrud<ZebraPrinterEntity>(this);
             // Datas CRUD.
             DeviceCrud = new BaseCrud<DeviceEntity>(this);
+            LogSummaryCrud = new BaseCrud<LogSummaryEntity>(this);
+            WeithingFactSummaryCrud = new BaseCrud<WeithingFactSummaryEntity>(this);
         }
 
         #endregion
@@ -261,12 +274,13 @@ namespace DeviceControl.Core.DAL
             {
                 criteria.SetMaxResults(maxResults);
             }
-            if (fieldList != null && fieldList.Use && fieldList.Fields != null)
+            if (fieldList is {Use: true, Fields: { }})
             {
                 AbstractCriterion fieldsWhere = Restrictions.AllEq(fieldList.Fields);
                 criteria.Add(fieldsWhere);
             }
-            if (order != null && order.Use)
+            //if (order != null && order.Use)
+            if (order is { Use: true })
             {
                 Order fieldOrder = order.Direction == EnumOrderDirection.Asc ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
                 criteria.AddOrder(fieldOrder);
@@ -274,8 +288,7 @@ namespace DeviceControl.Core.DAL
             return criteria;
         }
 
-        public T GetEntity<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) 
-            where T : BaseEntity, new()
+        public T GetEntity<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             var result = new T();
             using var session = GetSession();
@@ -284,7 +297,9 @@ namespace DeviceControl.Core.DAL
                 using var transaction = session.BeginTransaction();
                 try
                 {
-                    result = GetCriteria<T>(session, fieldList, order, 1).List<T>().FirstOrDefault() ?? new T();
+                    ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
+                    var list = criteria?.List<T>();
+                    result = list?.FirstOrDefault() ?? new T();
                     session.Flush();
                     transaction.Commit();
                 }
@@ -582,7 +597,6 @@ namespace DeviceControl.Core.DAL
                     session.Disconnect();
                 }
             }
-            return;
         }
 
         public void DeleteEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : BaseEntity
@@ -665,9 +679,9 @@ namespace DeviceControl.Core.DAL
             return result;
         }
 
-        public T ActionGetEntity<T>(BaseEntity entity, EnumTableAction tableAction) where T : BaseEntity, new()
+        public T ActionGetIdEntity<T>(BaseIdEntity entity, EnumTableAction tableAction) where T : BaseIdEntity, new()
         {
-            var result = tableAction switch
+            T result = tableAction switch
             {
                 EnumTableAction.Add => new T(),
                 EnumTableAction.Edit => (T)entity,
@@ -757,12 +771,48 @@ namespace DeviceControl.Core.DAL
                 }
                 result.Id = nextId + 1;
             }
+            return (T) result;
+        }
+
+        public T ActionGetUidEntity<T>(BaseUidEntity entity, EnumTableAction tableAction) where T : BaseUidEntity, new()
+        {
+            var result = tableAction switch
+            {
+                EnumTableAction.Add => new T(),
+                EnumTableAction.Edit => (T)entity,
+                EnumTableAction.Copy => (T)((T)entity).Clone(),
+                EnumTableAction.Delete => (T)entity,
+                EnumTableAction.Marked => (T)entity,
+                _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+            };
+            if (tableAction == EnumTableAction.Add || tableAction == EnumTableAction.Copy)
+            {
+                if (typeof(T) == typeof(AppEntity))
+                {
+                    _ = AppCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                }
+                else if (typeof(T) == typeof(LogEntity))
+                {
+                    _ = LogCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                }
+                else if (typeof(T) == typeof(LogSummaryEntity))
+                {
+                    _ = LogSummaryCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                }
+                else if (typeof(T) == typeof(WeithingFactSummaryEntity))
+                {
+                    //_ = WeithingFactSummaryCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                }
+                result.Uid = Guid.NewGuid();
+            }
             return result;
         }
 
         public void ActionDeleteEntity<T>(T entity) where T : BaseEntity
         {
-            if (entity is BarCodeTypesEntity barCodeTypesEntity)
+            if (entity is AppEntity appEntity)
+                AppCrud.DeleteEntity(appEntity);
+            else if (entity is BarCodeTypesEntity barCodeTypesEntity)
                 BarCodeTypesCrud.DeleteEntity(barCodeTypesEntity);
             else if (entity is ContragentsEntity contragentsEntity)
                 ContragentsCrud.DeleteEntity(contragentsEntity);
@@ -770,6 +820,10 @@ namespace DeviceControl.Core.DAL
                 HostsCrud.DeleteEntity(hostsEntity);
             else if (entity is LabelsEntity labelsEntity)
                 LabelsCrud.DeleteEntity(labelsEntity);
+            else if (entity is LogEntity logEntity)
+                LogCrud.DeleteEntity(logEntity);
+            else if (entity is LogSummaryEntity logSummaryEntity)
+                LogSummaryCrud.DeleteEntity(logSummaryEntity);
             else if (entity is NomenclatureEntity nomenclatureEntity)
                 NomenclatureCrud.DeleteEntity(nomenclatureEntity);
             else if (entity is OrdersEntity ordersEntity)
@@ -792,6 +846,8 @@ namespace DeviceControl.Core.DAL
                 TemplateResourcesCrud.DeleteEntity(templateResourcesEntity);
             else if (entity is WeithingFactEntity weithingFactEntity)
                 WeithingFactCrud.DeleteEntity(weithingFactEntity);
+            else if (entity is WeithingFactSummaryEntity weithingFactSummaryEntity)
+                WeithingFactSummaryCrud.DeleteEntity(weithingFactSummaryEntity);
             else if (entity is WorkshopEntity workshopEntity)
                 WorkshopCrud.DeleteEntity(workshopEntity);
             else if (entity is ZebraPrinterEntity zebraPrinterEntity)
@@ -804,7 +860,9 @@ namespace DeviceControl.Core.DAL
 
         public void ActionMarkedEntity<T>(T entity) where T : BaseEntity
         {
-            if (entity is BarCodeTypesEntity barCodeTypesEntity)
+            if (entity is AppEntity appEntity)
+                AppCrud.MarkedEntity(appEntity);
+            else if (entity is BarCodeTypesEntity barCodeTypesEntity)
                 BarCodeTypesCrud.MarkedEntity(barCodeTypesEntity);
             else if (entity is ContragentsEntity contragentsEntity)
                 ContragentsCrud.MarkedEntity(contragentsEntity);
@@ -812,6 +870,10 @@ namespace DeviceControl.Core.DAL
                 HostsCrud.MarkedEntity(hostsEntity);
             else if (entity is LabelsEntity labelsEntity)
                 LabelsCrud.MarkedEntity(labelsEntity);
+            else if (entity is LogEntity logEntity)
+                LogCrud.MarkedEntity(logEntity);
+            else if (entity is LogSummaryEntity logSummaryEntity)
+                LogSummaryCrud.MarkedEntity(logSummaryEntity);
             else if (entity is NomenclatureEntity nomenclatureEntity)
                 NomenclatureCrud.MarkedEntity(nomenclatureEntity);
             else if (entity is OrdersEntity ordersEntity)
@@ -834,6 +896,8 @@ namespace DeviceControl.Core.DAL
                 TemplateResourcesCrud.MarkedEntity(templateResourcesEntity);
             else if (entity is WeithingFactEntity weithingFactEntity)
                 WeithingFactCrud.MarkedEntity(weithingFactEntity);
+            else if (entity is WeithingFactSummaryEntity weithingFactSummaryEntity)
+                WeithingFactSummaryCrud.MarkedEntity(weithingFactSummaryEntity);
             else if (entity is WorkshopEntity workshopEntity)
                 WorkshopCrud.MarkedEntity(workshopEntity);
             else if (entity is ZebraPrinterEntity zebraPrinterEntity)

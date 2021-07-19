@@ -1,6 +1,8 @@
-﻿namespace DeviceControl.Core.DAL.TableModels
+﻿using System;
+
+namespace DeviceControl.Core.DAL.TableModels
 {
-    public class BarCodeTypesEntity : BaseIdEntity
+    public class AppEntity : BaseUidEntity
     {
         #region Public and private fields and properties
 
@@ -12,11 +14,11 @@
 
         public override string ToString()
         {
-            return base.ToString() + 
-                $"{nameof(Name)}: {Name}.";
+            return base.ToString() +
+                   $"{nameof(Name)}: {Name}. ";
         }
 
-        public virtual bool Equals(BarCodeTypesEntity entity)
+        public virtual bool Equals(AppEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
@@ -29,7 +31,7 @@
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((BarCodeTypesEntity)obj);
+            return Equals((AppEntity)obj);
         }
 
         public override int GetHashCode()
@@ -39,21 +41,21 @@
 
         public virtual bool EqualsNew()
         {
-            return Equals(new BarCodeTypesEntity());
+            return Equals(new AppEntity());
         }
 
         public new virtual bool EqualsDefault()
         {
-            return base.EqualsDefault() && 
-            Equals(Name, default(string));
+            return base.EqualsDefault() &&
+                   Equals(Name, default(string));
         }
 
         public override object Clone()
         {
-            return new BarCodeTypesEntity
+            return new AppEntity
             {
-                Id = Id,
-                Name = Name
+                Uid = Uid,
+                Name = Name,
             };
         }
 

@@ -6,59 +6,15 @@ using System.Threading.Tasks;
 
 namespace DeviceControl.Core.DAL
 {
-    public class BaseEntity : ICloneable
+    public class BaseEntity
     {
-        #region Public and private fields and properties
-
-        public virtual int Id { get; set; }
-
-        #endregion
-
         #region Public and private methods
-
-        public override string ToString()
-        {
-            return $"{nameof(Id)}: {Id}. ";
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
-
-        public virtual bool Equals(BaseEntity entity)
-        {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return Id.Equals(entity.Id);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((BaseEntity)obj);
-        }
-
-        public virtual bool EqualsDefault()
-        {
-            return Equals(Id, default(int));
-        }
 
         public virtual bool EqualsEmpty()
         {
             if (Equals(default) || Equals(null))
                 return true;
             return false;
-        }
-
-        public virtual object Clone()
-        {
-            return new BaseEntity
-            {
-                Id = Id,
-            };
         }
 
         public virtual byte[] CloneBytes(byte[] bytes)
@@ -100,10 +56,7 @@ namespace DeviceControl.Core.DAL
         {
 
             var ms = new MemoryStream(bytes, 0, bytes.Length);
-            if (useBase64)
-                ms.Write(Convert.FromBase64String(bytes.ToString()), 0, bytes.Length);
-            else
-                ms.Write(bytes, 0, bytes.Length);
+            ms.Write(useBase64 ? Convert.FromBase64String(bytes.ToString()) : bytes, 0, bytes.Length);
             return Image.FromStream(ms, true);
         }
 

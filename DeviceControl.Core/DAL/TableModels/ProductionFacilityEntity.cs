@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class ProductionFacilityEntity : BaseEntity
+    public class ProductionFacilityEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

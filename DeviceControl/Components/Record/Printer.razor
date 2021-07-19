@@ -9,7 +9,7 @@
 @using BlazorDeviceControl.Utils
 @using DeviceControl.Core
 @using Toolbelt.Blazor.HotKeys
-@inject Data.BlazorSettingsEntity _appSettings
+@inject BlazorSettingsEntity _blazorSettings
 @inject DataAccessConfig _dataAccessConfig
 @inject DialogService _dialog
 @inject NavigationManager _navigation
@@ -27,26 +27,26 @@
     else
     {
         <div class="col-sm-6 col-md-6 col-lg-6">
-            <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldName />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldName />
             <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Name />
             <br />
-            <RadzenLink Style="width: 12%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinter
+            <RadzenLink Style="width: 12%;" Text=@LocalizationStrings.TableFieldZebraPrinter
                         Target="_blank" Path=@Item.Link />
-            <RadzenLabel Style="width: 23.5%; margin-left: 2.3%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterIp />
+            <RadzenLabel Style="width: 23.5%; margin-left: 2.3%;" Text=@LocalizationStrings.TableFieldZebraPrinterIp />
             <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Ip />
             <br />
-            <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterPort />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldZebraPrinterPort />
             <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="short" @bind-Value=@Item.Port />
             <br />
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6">
-            <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterMac />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldZebraPrinterMac />
             <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Mac />
             <br />
-            <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterPassword />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldZebraPrinterPassword />
             <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Password />
             <br />
-            <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinterType />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldZebraPrinterType />
             @if (ItemsZebraPrinterType == null)
             {
                 <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
@@ -68,11 +68,11 @@
 
 @* Resources grids *@
 <div class="row col-sm-12 col-md-12 col-lg-12">
-    <RadzenLabel Style="width: 100%; text-align: center;" Text=@Utils.LocalizationStrings.TableTitleResources />
+    <RadzenLabel Style="width: 100%; text-align: center;" Text=@LocalizationStrings.TableTitleResources />
     <br />
     @if (ItemsResource == null)
     {
-        <RadzenLabel Text=@Utils.LocalizationStrings.DataLoading />
+        <RadzenLabel Text=@LocalizationStrings.DataLoading />
         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
     else
@@ -84,34 +84,34 @@
                     AllowPaging="true" PageSize="10" AllowSorting="true" ColumnWidth="200px">
             <Columns>
                 <RadzenGridColumn TItem="ZebraPrinterResourceRefEntity" Property="Id"
-                                  Title=@Utils.LocalizationStrings.TableFieldId Type="int" Width="10%" />
+                                  Title=@LocalizationStrings.TableFieldId Type="int" Width="10%" />
                 <RadzenGridColumn TItem="ZebraPrinterResourceRefEntity" Property="Description"
-                                  Title=@Utils.LocalizationStrings.TableFieldDescription Type="string" Width="30%" />
+                                  Title=@LocalizationStrings.TableFieldDescription Type="string" Width="30%" />
                 <RadzenGridColumn TItem="ZebraPrinterResourceRefEntity" Property="Resource.Name"
-                                  Title=@Utils.LocalizationStrings.TableFieldResource Type="string" Width="30%" />
+                                  Title=@LocalizationStrings.TableFieldResource Type="string" Width="30%" />
             </Columns>
         </RadzenGrid>
     }
     @* Resource actions *@
     <div style="margin-top: 5px">
-        @if (_appSettings.ShowActionsButtons)
+        @if (_blazorSettings.ShowActionsButtons)
         {
             <RadzenButton Click=@(args => ActionAddAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
                           ButtonStyle="ButtonStyle.Secondary"
                           Style="margin-left: 30px; margin-top: 5px; width: 150px; height: 30px; font-size: 12px;"
-                          Text=@Utils.LocalizationStrings.TableActionAdd Disabled=@_appSettings.DataAccess.IsDisabled />
+                          Text=@LocalizationStrings.TableActionAdd Disabled=@_blazorSettings.DataAccess.IsDisabled />
             <RadzenButton Click=@(args => ActionEditAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
                           ButtonStyle="ButtonStyle.Secondary"
                           Style="margin-left: 30px; margin-top: 5px; width: 150px; height: 30px; font-size: 12px;"
-                          Text=@Utils.LocalizationStrings.TableActionEdit Disabled=@_appSettings.DataAccess.IsDisabled />
+                          Text=@LocalizationStrings.TableActionEdit Disabled=@_blazorSettings.DataAccess.IsDisabled />
             <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
                           ButtonStyle="ButtonStyle.Secondary"
                           Style="margin-left: 30px; margin-top: 5px; width: 150px; height: 30px; font-size: 12px;"
-                          Text=@Utils.LocalizationStrings.TableActionDelete Disabled=@_appSettings.DataAccess.IsDisabled />
+                          Text=@LocalizationStrings.TableActionDelete Disabled=@_blazorSettings.DataAccess.IsDisabled />
         }
         else
         {
-            <RadzenLabel Text=@Utils.LocalizationStrings.TableActionsIsDeny />
+            <RadzenLabel Text=@LocalizationStrings.TableActionsIsDeny />
         }
     </div>
 </div>
@@ -125,9 +125,9 @@
     }
     else
     {
-        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldCreateDate />
+        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.TableFieldCreateDate />
         <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString(CultureInfo.InvariantCulture) />
-        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldModifiedDate />
+        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.TableFieldModifiedDate />
         <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString(CultureInfo.InvariantCulture) />
     }
 </div>
@@ -163,7 +163,7 @@
         //    .Add(ModKeys.Ctrl, Keys.S, SaveAsync, LocalizationStrings.TableTab)
         //    .Add(ModKeys.None, Keys.Backspace, CancelAsync, LocalizationStrings.TableTab)
         //    ;
-        _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
+        _blazorSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
     }
 
     public override async Task SetParametersAsync(ParameterView parameters)
@@ -174,7 +174,7 @@
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task RowSelectAsync(BaseEntity entity,
+    private async Task RowSelectAsync(BaseIdEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -192,15 +192,15 @@
                 Severity = NotificationSeverity.Error,
                 Summary = $"Ошибка метода [{memberName}]!",
                 Detail = ex.Message,
-                Duration = Utils.LocalizationStrings.Timeout
+                Duration = LocalizationStrings.Timeout
             };
             _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
-    private async Task RowDoubleClickAsync(BaseEntity entity,
+    private async Task RowDoubleClickAsync(BaseIdEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -219,11 +219,11 @@
                 Severity = NotificationSeverity.Error,
                 Summary = $"Ошибка метода [{memberName}]!",
                 Detail = ex.Message,
-                Duration = Utils.LocalizationStrings.Timeout
+                Duration = LocalizationStrings.Timeout
             };
             _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -238,7 +238,7 @@
                         Item.PrinterType = null;
                     else
                     {
-                        Item.PrinterType = _appSettings.DataAccess.ZebraPrinterTypeCrud.GetEntity(
+                        Item.PrinterType = _blazorSettings.DataAccess.ZebraPrinterTypeCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), id } }),
                         null);
                     }
@@ -250,13 +250,13 @@
 
     private void GetData()
     {
-        Item = _appSettings.DataAccess.ZebraPrinterCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+        Item = _blazorSettings.DataAccess.ZebraPrinterCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
             { { EnumField.Id.ToString(), ItemId } }), null);
 
-        ItemsZebraPrinterType = _appSettings.DataAccess.ZebraPrinterTypeCrud.GetEntities(null, null).ToList();
+        ItemsZebraPrinterType = _blazorSettings.DataAccess.ZebraPrinterTypeCrud.GetEntities(null, null).ToList();
 
         ItemsResource = new List<ZebraPrinterResourceRefEntity>();
-        var items = _appSettings.DataAccess.ZebraPrinterResourceRefCrud.GetEntities(
+        var items = _blazorSettings.DataAccess.ZebraPrinterResourceRefCrud.GetEntities(
             new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", Item.Id } }),
             new FieldOrderEntity(EnumField.Description, EnumOrderDirection.Asc));
         ItemsResource.AddRange(items);
@@ -265,32 +265,32 @@
     private async Task GetDataAsync([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         var task = new Task(GetData);
-        await _appSettings.RunTasks(LocalizationStrings.TableRead,
+        await _blazorSettings.RunTasks(LocalizationStrings.TableRead,
             "", LocalizationStrings.DialogResultFail, "",
             new List<Task> { task }, GuiRefreshAsync, filePath, lineNumber, memberName).ConfigureAwait(false);
     }
 
-    private async Task ActionEditAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionEditAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionDeleteAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
@@ -300,11 +300,11 @@
             return;
         if (ItemId == 0)
         {
-            _appSettings.DataAccess.ZebraPrinterCrud.SaveEntity(Item);
+            _blazorSettings.DataAccess.ZebraPrinterCrud.SaveEntity(Item);
         }
         else
         {
-            _appSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(Item);
+            _blazorSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(Item);
         }
         _navigation.NavigateTo($"{LocalizationStrings.UriRouteTablePrinters}");
     }
@@ -312,7 +312,7 @@
     private async Task SaveAsync()
     {
         var task = new Task(Save);
-        await _appSettings.RunTasksWithQeustion(LocalizationStrings.TableRecordSave,
+        await _blazorSettings.RunTasksWithQeustion(LocalizationStrings.TableRecordSave,
             LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
             new List<Task> { task }, GuiRefreshAsync);
     }
@@ -327,7 +327,7 @@
     private async Task CancelAsync()
     {
         var task = new Task(Cancel);
-        await _appSettings.RunTasks(LocalizationStrings.TableRecordCancel,
+        await _blazorSettings.RunTasks(LocalizationStrings.TableRecordCancel,
             LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
             new List<Task> { task }, GuiRefreshAsync);
     }

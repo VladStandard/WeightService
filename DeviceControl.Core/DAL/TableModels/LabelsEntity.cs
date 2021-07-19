@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class LabelsEntity : BaseEntity
+    public class LabelsEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

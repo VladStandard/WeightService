@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class ContragentsEntity : BaseEntity
+    public class ContragentsEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

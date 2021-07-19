@@ -43,7 +43,7 @@ namespace DeviceControl.CoreTests.DAL.TableModels
             if (!DataAccessUtils.DataAccess.OrderTypesCrud.ExistsEntity(new FieldListEntity(
                 new Dictionary<string, object> { { EnumField.Description.ToString(), description } }), null))
             {
-                var entity = new OrderTypesEntity
+                OrderTypesEntity entity = new OrderTypesEntity
                 {
                     Id = -1,
                     Description = description
@@ -62,7 +62,7 @@ namespace DeviceControl.CoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var description = "ORDER TYPE";
+                var description = "TEST ORDER TYPE";
                 var entityNew = EntityCreate(description);
 
                 // UpdateEntity

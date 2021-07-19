@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class ScalesEntity : BaseEntity
+    public class ScalesEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

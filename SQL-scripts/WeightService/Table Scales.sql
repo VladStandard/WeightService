@@ -1,4 +1,4 @@
--- Таблица Scales
+-- Table Scales
 use [ScalesDB]
 select
 	 [Id]

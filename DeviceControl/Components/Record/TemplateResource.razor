@@ -10,7 +10,7 @@
 @using DeviceControl.Core
 @using Toolbelt.Blazor.HotKeys
 @using ProgressBarMode = Radzen.ProgressBarMode
-@inject Data.BlazorSettingsEntity _appSettings
+@inject BlazorSettingsEntity _blazorSettings
 @inject DataAccessConfig _dataAccessConfig
 @inject DialogService _dialog
 @inject NavigationManager _navigation
@@ -89,12 +89,12 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
+        _blazorSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
 
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task RowSelectAsync(BaseEntity entity,
+    private async Task RowSelectAsync(BaseIdEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -113,11 +113,11 @@
             };
             _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
-    private async Task RowDoubleClickAsync(BaseEntity entity,
+    private async Task RowDoubleClickAsync(BaseIdEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -136,7 +136,7 @@
             };
             _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -192,31 +192,31 @@
             };
             _notification.Notify(msg);
             Console.WriteLine(msg.Detail);
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
-    private async Task ActionEditAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionEditAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionDeleteAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
@@ -224,7 +224,7 @@
     {
         foreach (var file in e.GetMultipleFiles(e.FileCount))
         {
-            await _fileUpload.UploadAsync(_appSettings.DataAccess, Item, file.OpenReadStream(10_000_000));
+            await _fileUpload.UploadAsync(_blazorSettings.DataAccess, Item, file.OpenReadStream(10_000_000));
         }
         await InvokeAsync(StateHasChanged);
     }

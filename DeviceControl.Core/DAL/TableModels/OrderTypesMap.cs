@@ -9,7 +9,7 @@ namespace DeviceControl.Core.DAL.TableModels
             Table("[db_scales].[OrderTypes]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.Description).CustomSqlType("NVARCHAR(250)").Column("Description").Length(250);
+            Map(x => x.Description).CustomSqlType("NVARCHAR(250)").Column("Description").Length(250).Nullable();
         }
     }
 }

@@ -3,7 +3,7 @@
 @using BlazorDeviceControl.Data
 @using DeviceControl.Core.Utils
 @inherits LayoutComponentBase
-@inject Data.BlazorSettingsEntity _appSettings
+@inject BlazorSettingsEntity _blazorSettings
 @inject DataAccessConfig _dataAccessConfig
 @inject DialogService _dialog
 @inject NavigationManager _navigation
@@ -58,8 +58,8 @@ else
     private string DbServer => _dataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase)
             ? LocalizationStrings.ServerProduct : LocalizationStrings.ServerDevelop;
     private bool IsSqlServerProduct => _dataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase);
-    private string MemoryInfo => _appSettings.Memory != null
-        ? $"{LocalizationStrings.MemoryUsed}: {_appSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
+    private string MemoryInfo => _blazorSettings.Memory != null
+        ? $"{LocalizationStrings.MemoryUsed}: {_blazorSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
         : $"{LocalizationStrings.MemoryUsed}: - MB";
     private string _authMessage => "";
 
@@ -80,9 +80,9 @@ else
         try
         {
             var hotKeys = _hotKeys.CreateContext()
-                .Add(ModKeys.Alt, Keys.Num1, _appSettings.HotKeysMenuRoot, "Menu root");
-            _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, hotKeys, _jsRuntime);
-            var task = new Task(delegate { _appSettings.MemoryOpen(GuiRefreshAsync); });
+                .Add(ModKeys.Alt, Keys.Num1, _blazorSettings.HotKeysMenuRoot, "Menu root");
+            _blazorSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, hotKeys, _jsRuntime);
+            var task = new Task(delegate { _blazorSettings.MemoryOpen(GuiRefreshAsync); });
             task.Start();
         }
         catch (Exception ex)
@@ -92,7 +92,7 @@ else
                 msg += Environment.NewLine + ex.InnerException.Message;
             if (!string.IsNullOrEmpty(msg))
                 _notification.Notify(NotificationSeverity.Error, LocalizationStrings.IndexDescription + Environment.NewLine, msg,
-                    _appSettings.Delay);
+                    _blazorSettings.Delay);
 
             Console.WriteLine(msg);
             Console.WriteLine($"MainLayout.razor. {nameof(OnInitializedAsync)}.");
@@ -107,7 +107,7 @@ else
     {
         _dialog?.Dispose();
         _tooltip?.Dispose();
-        _appSettings.HotKeys.Dispose();
+        _blazorSettings.HotKeys.Dispose();
     }
 
     #endregion

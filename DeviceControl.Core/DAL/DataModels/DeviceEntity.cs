@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.DataModels
 {
-    public class DeviceEntity : BaseEntity
+    public class DeviceEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

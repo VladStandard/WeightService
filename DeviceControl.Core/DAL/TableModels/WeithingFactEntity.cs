@@ -2,7 +2,7 @@
 
 namespace DeviceControl.Core.DAL.TableModels
 {
-    public class WeithingFactEntity : BaseEntity
+    public class WeithingFactEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 

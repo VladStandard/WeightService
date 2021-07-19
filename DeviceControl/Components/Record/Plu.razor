@@ -8,7 +8,7 @@
 @using DeviceControl.Core.DAL.DataModels
 @using DeviceControl.Core.Models.XML
 @using Toolbelt.Blazor.HotKeys
-@inject Data.BlazorSettingsEntity _appSettings
+@inject BlazorSettingsEntity _blazorSettings
 @inject DataAccessConfig _dataAccessConfig
 @inject DialogService _dialog
 @inject NavigationManager _navigation
@@ -190,12 +190,12 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync().ConfigureAwait(true);
-        _appSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
+        _blazorSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, null, _jsRuntime);
 
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task RowSelectAsync(BaseEntity entity,
+    private async Task RowSelectAsync(BaseIdEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -214,11 +214,11 @@
             };
             _notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
-    private async Task RowDoubleClickAsync(BaseEntity entity,
+    private async Task RowDoubleClickAsync(BaseIdEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -237,7 +237,7 @@
             };
             _notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -251,7 +251,7 @@
                 case "Scale":
                     if (value is int idScale)
                     {
-                        Item.Scale = _appSettings.DataAccess.ScalesCrud.GetEntity(
+                        Item.Scale = _blazorSettings.DataAccess.ScalesCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idScale } }),
                             null);
                     }
@@ -259,7 +259,7 @@
                 case "Nomenclature":
                     if (value is int idNomenclature)
                     {
-                        Item.Nomenclature = _appSettings.DataAccess.NomenclatureCrud.GetEntity(
+                        Item.Nomenclature = _blazorSettings.DataAccess.NomenclatureCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idNomenclature } }),
                             null);
                         OnClickFieldsFill("Entity");
@@ -272,7 +272,7 @@
                             Item.Templates = null;
                         else
                         {
-                            Item.Templates = _appSettings.DataAccess.TemplatesCrud.GetEntity(
+                            Item.Templates = _blazorSettings.DataAccess.TemplatesCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idTemplate } }),
                                 null);
                         }
@@ -291,7 +291,7 @@
             };
             _notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
         finally
         {
@@ -394,7 +394,7 @@
             };
             _notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
@@ -405,7 +405,7 @@
         try
         {
             ScalesEntities = null;
-            var scalesEntities = _appSettings.DataAccess.ScalesCrud.GetEntities(null, null);
+            var scalesEntities = _blazorSettings.DataAccess.ScalesCrud.GetEntities(null, null);
             ScalesEntities = new List<ScalesEntity>();
             foreach (var scalesEntity in scalesEntities)
             {
@@ -413,7 +413,7 @@
             }
 
             TemplatesEntities = null;
-            var templatesEntities = _appSettings.DataAccess.TemplatesCrud.GetEntities(null, null);
+            var templatesEntities = _blazorSettings.DataAccess.TemplatesCrud.GetEntities(null, null);
             TemplatesEntities = new List<TemplatesEntity>();
             foreach (var templatesEntity in templatesEntities)
             {
@@ -421,7 +421,7 @@
             }
 
             NomenclatureEntities = null;
-            var nomenclatureEntities = _appSettings.DataAccess.NomenclatureCrud.GetEntities(null, null);
+            var nomenclatureEntities = _blazorSettings.DataAccess.NomenclatureCrud.GetEntities(null, null);
             NomenclatureEntities = new List<NomenclatureEntity>();
             foreach (var templatesEntity in nomenclatureEntities)
             {
@@ -437,7 +437,7 @@
             // Номер PLU.
             if (Item.Plu == 0)
             {
-                var pluEntity = _appSettings.DataAccess.PluCrud.GetEntity(
+                var pluEntity = _blazorSettings.DataAccess.PluCrud.GetEntity(
                     new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", Item.Scale.Id } }),
                     new FieldOrderEntity { Direction = EnumOrderDirection.Desc, Name = EnumField.Plu, Use = true });
                 if (pluEntity != null && !pluEntity.EqualsDefault())
@@ -457,31 +457,31 @@
             };
             _notification.Notify(msg);
             Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-            _appSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            _blazorSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
     }
 
-    private async Task ActionEditAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionEditAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task ActionDeleteAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
     {
-        await _appSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+        await _blazorSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
         await GetDataAsync().ConfigureAwait(false);
     }
 
