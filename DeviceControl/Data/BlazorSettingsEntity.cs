@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using BlazorDeviceControl.Utils;
 using DeviceControl.Core;
@@ -14,6 +15,7 @@ using DeviceControl.Core.DAL.DataModels;
 using DeviceControl.Core.DAL.TableModels;
 using DeviceControl.Core.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using Radzen;
 using Toolbelt.Blazor.HotKeys;
@@ -30,7 +32,6 @@ namespace BlazorDeviceControl.Data
         public TooltipService Tooltip { get; private set; }
         public DataAccessEntity DataAccess { get; set; }
         public EnumAccessRights AccessRights { get; set; }
-        public bool ShowActionsButtons { get; set; }
         public bool ChartSmooth { get; set; }
         public bool IsDebug
         {
@@ -49,6 +50,9 @@ namespace BlazorDeviceControl.Data
         public HotKeysContext HotKeys { get; private set; }
         public int Delay { get; } = 5_000;
         public delegate Task DelegateGuiRefresh();
+        public AuthenticationState State { get; set; }
+        public IIdentity Identity { get; set; }
+        public bool? UserAccessLevel { get; set; }
 
         #endregion
 
@@ -154,20 +158,29 @@ namespace BlazorDeviceControl.Data
                     case EnumTableAction.Add:
                     case EnumTableAction.Edit:
                     case EnumTableAction.Copy:
-                        await Dialog.OpenAsync<Components.EntityPage>(title,
-                            new Dictionary<string, object>
-                            {
-                                {"Item", entity},
-                                {"Table", table},
-                                {"TableAction", tableAction},
-                            },
-                            new DialogOptions() {Width = "1400px", Height = "970px"}).ConfigureAwait(false);
+                        if (UserAccessLevel == true)
+                        {
+                            await Dialog.OpenAsync<Components.EntityPage>(title,
+                                new Dictionary<string, object>
+                                {
+                                    {"Item", entity},
+                                    {"Table", table},
+                                    {"TableAction", tableAction},
+                                },
+                                new DialogOptions() {Width = "1400px", Height = "970px"}).ConfigureAwait(false);
+                        }
                         break;
                     case EnumTableAction.Delete:
-                        DataAccess.ActionDeleteEntity(entity);
+                        if (UserAccessLevel == true)
+                        {
+                            DataAccess.ActionDeleteEntity(entity);
+                        }
                         break;
                     case EnumTableAction.Marked:
-                        DataAccess.ActionMarkedEntity(entity);
+                        if (UserAccessLevel == true)
+                        {
+                            DataAccess.ActionMarkedEntity(entity);
+                        }
                         break;
                 }
             }
@@ -210,35 +223,44 @@ namespace BlazorDeviceControl.Data
                     case EnumTableAction.Add:
                     case EnumTableAction.Edit:
                     case EnumTableAction.Copy:
-                        switch (table)
+                        if (UserAccessLevel == true)
                         {
-                            case EnumTable.Printer:
-                                if (!isNewWindow)
-                                {
-                                    if (idEntity != null)
-                                        Navigation.NavigateTo($"{page}/{idEntity.Id}");
-                                    else if (uidEntity != null)
-                                        Navigation.NavigateTo($"{page}/{uidEntity.Uid}");
+                            switch (table)
+                            {
+                                case EnumTable.Printer:
+                                    if (!isNewWindow)
+                                    {
+                                        if (idEntity != null)
+                                            Navigation.NavigateTo($"{page}/{idEntity.Id}");
+                                        else if (uidEntity != null)
+                                            Navigation.NavigateTo($"{page}/{uidEntity.Uid}");
+                                        else
+                                            Navigation.NavigateTo(@"{page}");
+                                    }
                                     else
-                                        Navigation.NavigateTo(@"{page}");
-                                }
-                                else
-                                {
-                                    if (idEntity != null)
-                                        await JsRuntime.InvokeAsync<object>("open", $"{page}/{idEntity.Id}", "_blank").ConfigureAwait(false);
-                                    else if (uidEntity != null)
-                                        await JsRuntime.InvokeAsync<object>("open", $"{page}/{uidEntity.Uid}", "_blank").ConfigureAwait(false);
-                                    else
-                                        await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
-                                }
-                                break;
+                                    {
+                                        if (idEntity != null)
+                                            await JsRuntime.InvokeAsync<object>("open", $"{page}/{idEntity.Id}", "_blank").ConfigureAwait(false);
+                                        else if (uidEntity != null)
+                                            await JsRuntime.InvokeAsync<object>("open", $"{page}/{uidEntity.Uid}", "_blank").ConfigureAwait(false);
+                                        else
+                                            await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                                    }
+                                    break;
+                            }
                         }
                         break;
                     case EnumTableAction.Delete:
-                        DataAccess.ActionDeleteEntity(item);
+                        if (UserAccessLevel == true)
+                        {
+                            DataAccess.ActionDeleteEntity(item);
+                        }
                         break;
                     case EnumTableAction.Marked:
-                        DataAccess.ActionMarkedEntity(item);
+                        if (UserAccessLevel == true)
+                        {
+                            DataAccess.ActionMarkedEntity(item);
+                        }
                         break;
                 }
             }
@@ -502,6 +524,38 @@ namespace BlazorDeviceControl.Data
                 return;
             Memory = new MemoryEntity(1_000, 5_000);
             Memory.Open(callRefresh);
+        }
+
+        #endregion
+
+        #region Public and private methods - Authentication
+
+        public void AuthenticationOpen(AuthenticationStateProvider stateProvider, MemoryEntity.DelegateGuiRefresh callRefresh)
+        {
+            if (stateProvider == null)
+                return;
+            Identity = stateProvider.GetAuthenticationStateAsync().Result.User.Identity;
+            SetUserAccessLevel(Identity?.Name);
+        }
+
+        private void SetUserAccessLevel(string userName,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            UserAccessLevel = null;
+            object[] objects = DataAccess.GetEntitiesNativeObject(SqlQueries.GetAccessUser(userName), filePath, lineNumber, memberName);
+            if (objects.Length == 1)
+            {
+                if (objects[0] is object[] {Length: 5} item)
+                {
+                    if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
+                    {
+                        if (item[4] != null)
+                        {
+                            UserAccessLevel = Convert.ToBoolean(item[4]);
+                        }
+                    }
+                }
+            }
         }
 
         #endregion

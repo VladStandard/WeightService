@@ -15,104 +15,104 @@
 @inject TooltipService _tooltip
 @inject HotKeys _hotKeys
 @inject IJSRuntime _jsRuntime
-@* Header *@
-<h2 style="font-size: @FontSizeHeader;">
-    @GetHeader()
-    <RadzenButton Click=@(args => GetDataAsync())
-                  ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
-                  class="oi oi-reload" Disabled=@_blazorSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
-</h2>
 
-<RadzenTabs>
-    <Tabs>
-        <RadzenTabsItem Text=@LocalizationStrings.Table>
-            @* RadzenGrid *@
-            <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px;">
-                @if (EntitiesSummary == null)
-                {
-                    <RadzenLabel Text=@LocalizationStrings.DataLoading Style="width: 20%" />
-                    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-                }
-                else
-                {
-                    // Sorting by [WeithingDate].
-                    <RadzenGrid Data=@EntitiesSummary TItem="WeithingFactSummaryEntity"
-                                AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                                AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
-                        <Columns>
-                            <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign="TextAlign.Center"
-                                              Title=@LocalizationStrings.TableFieldWeithingDate
-                                              Type="date" Width="15%">
-                                <Template Context="weithingFactItem">
-                                    <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled="true" DateFormat="d" />
-                                </Template>
-                            </RadzenGridColumn>
-                            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
-                                              Title=@LocalizationStrings.TableFieldDayOfWeek
-                                              Type="string" Width="15%" />
-                            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
-                                              Title=@LocalizationStrings.TableFieldCount
-                                              Type="int" Width="10%" />
-                            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
-                                              Title=@LocalizationStrings.TableFieldScale
-                                              Type="string" Width="60%" />
-                        </Columns>
-                    </RadzenGrid>
-                }
-            </div>
-            @* Actions *@
-            <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
-                @if (_blazorSettings.IsDebug && !_blazorSettings.ShowActionsButtons)
-                {
-                    _blazorSettings.ShowActionsButtons = true;
-                    <RadzenLabel Text=@LocalizationStrings.IsDebug />
-                    <br />
-                }
-                @if (_blazorSettings.ShowActionsButtons)
-                {
-                    <RadzenButton Click=@(args => ActionAddAsync(EnumTable.WeithingFact, Entity, null))
-                                  ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
-                                  Text=@LocalizationStrings.TableActionAdd Disabled=@_blazorSettings.DataAccess.IsDisabled />
-                    <RadzenButton Click=@(args => ActionEditAsync(EnumTable.WeithingFact, Entity, null))
-                                  ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                  Text=@LocalizationStrings.TableActionEdit Disabled=@_blazorSettings.DataAccess.IsDisabled />
-                    <RadzenButton Click=@(args => ActionMarkedAsync(EnumTable.WeithingFact, Entity, null))
-                                  ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                  Text=@LocalizationStrings.TableActionDelete Disabled=@_blazorSettings.DataAccess.IsDisabled />
-                    @if (_blazorSettings.IsDebug)
+@if (_blazorSettings.UserAccessLevel == true || _blazorSettings.UserAccessLevel == false)
+{
+    @* Header *@
+    <h2 style="font-size: @FontSizeHeader;">
+        @GetHeader()
+        <RadzenButton Click=@(args => GetDataAsync())
+                      ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
+                      class="oi oi-reload" Disabled=@_blazorSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
+    </h2>
+
+    <RadzenTabs>
+        <Tabs>
+            <RadzenTabsItem Text=@LocalizationStrings.Table>
+                @* RadzenGrid *@
+                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px;">
+                    @if (Items == null)
                     {
-                        <RadzenButton Click=@(args => ActionCopyAsync(EnumTable.WeithingFact, Entity, null))
-                                      ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                      Text=@LocalizationStrings.TableActionCopy Disabled=@_blazorSettings.DataAccess.IsDisabled />
-                        <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.WeithingFact, Entity, null))
-                                      ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                      Text=@LocalizationStrings.TableActionDeleteForever Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                        <RadzenLabel Text=@LocalizationStrings.DataLoading Style="width: 20%" />
+                        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
                     }
-                }
-                else
-                {
-                    <span>@LocalizationStrings.TableActionsIsDeny</span>
-                }
-            </div>
-        </RadzenTabsItem>
-        <RadzenTabsItem Text=@LocalizationStrings.Chart>
-        </RadzenTabsItem>
-    </Tabs>
-</RadzenTabs>
+                    else
+                    {
+                        // Sorting by [WeithingDate].
+                        <RadzenGrid Data=@Items TItem="WeithingFactSummaryEntity"
+                                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                    AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
+                            <Columns>
+                                <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign="TextAlign.Center"
+                                                  Title=@LocalizationStrings.TableFieldWeithingDate
+                                                  Type="date" Width="15%">
+                                    <Template Context="weithingFactItem">
+                                        <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled="true" DateFormat="d" />
+                                    </Template>
+                                </RadzenGridColumn>
+                                <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
+                                                  Title=@LocalizationStrings.TableFieldDayOfWeek
+                                                  Type="string" Width="15%" />
+                                <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
+                                                  Title=@LocalizationStrings.TableFieldCount
+                                                  Type="int" Width="10%" />
+                                <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
+                                                  Title=@LocalizationStrings.TableFieldScale
+                                                  Type="string" Width="60%" />
+                            </Columns>
+                        </RadzenGrid>
+                    }
+                </div>
+                @* Actions *@
+                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
+                    @if (_blazorSettings.UserAccessLevel == true)
+                    {
+                        <RadzenButton Click=@(args => ActionAddAsync(EnumTable.WeithingFact, Item, null))
+                                      ButtonStyle="ButtonStyle.Secondary"
+                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
+                                      Text=@LocalizationStrings.TableActionAdd Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                        <RadzenButton Click=@(args => ActionEditAsync(EnumTable.WeithingFact, Item, null))
+                                      ButtonStyle="ButtonStyle.Secondary"
+                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
+                                      Text=@LocalizationStrings.TableActionEdit Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                        <RadzenButton Click=@(args => ActionMarkedAsync(EnumTable.WeithingFact, Item, null))
+                                      ButtonStyle="ButtonStyle.Secondary"
+                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
+                                      Text=@LocalizationStrings.TableActionDelete Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                        @if (_blazorSettings.IsDebug)
+                        {
+                            <RadzenButton Click=@(args => ActionCopyAsync(EnumTable.WeithingFact, Item, null))
+                                          ButtonStyle="ButtonStyle.Secondary"
+                                          Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
+                                          Text=@LocalizationStrings.TableActionCopy Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.WeithingFact, Item, null))
+                                          ButtonStyle="ButtonStyle.Secondary"
+                                          Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
+                                          Text=@LocalizationStrings.TableActionDeleteForever Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                        }
+                    }
+                    else
+                    {
+                        <span>@LocalizationStrings.TableActionsIsDeny</span>
+                    }
+                </div>
+            </RadzenTabsItem>
+            <RadzenTabsItem Text=@LocalizationStrings.Chart>
+            </RadzenTabsItem>
+        </Tabs>
+    </RadzenTabs>
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.MenuAccessDeny></RadzenLabel>
+}
 
 @code {
     #region Public and private fields and properties
     private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) =>
         _tooltip.Open(elementReference, LocalizationStrings.TableReadData, options);
-    [Parameter]
-    public BaseIdEntity Entity { get; set; }
-    public BaseIdEntity[] Entities { get; set; }
-    public List<WeithingFactSummaryEntity> EntitiesSummary { get; set; }
+    public BaseIdEntity Item { get; set; }
+    public List<WeithingFactSummaryEntity> Items { get; set; }
     public object[] Objects { get; set; }
     [Parameter]
     public int FontSizeHeader { get; set; }
@@ -137,7 +137,6 @@
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {
-        _blazorSettings.ShowActionsButtons = false;
         await base.SetParametersAsync(parameters);
         FontSize = parameters.TryGetValue<int>("FontSize", out var fontSize) ? fontSize : 14;
         FontSizeHeader = parameters.TryGetValue<int>("FontSizeHeader", out var fontSizeHeader) ? fontSizeHeader : 20;
@@ -154,7 +153,7 @@
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         try
         {
-            Entity = entity;
+            Item = entity;
         }
         catch (Exception ex)
         {
@@ -176,8 +175,8 @@
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
         try
         {
-            Entity = entity;
-            await ActionEditAsync(EnumTable.WeithingFact, Entity, null).ConfigureAwait(true);
+            Item = entity;
+            await ActionEditAsync(EnumTable.WeithingFact, Item, null).ConfigureAwait(true);
         }
         catch (Exception ex)
         {
@@ -195,30 +194,13 @@
 
     private void GetData()
     {
-        Entities = null;
-        Entities = _blazorSettings.DataAccess.WeithingFactCrud.GetEntities(null,
-            new FieldOrderEntity(EnumField.WeithingDate, EnumOrderDirection.Desc), 100);
-        Objects = _blazorSettings.DataAccess.GetEntitiesNativeObject(@"
--- Table WeithingFact diagram summary
-select
-	 cast([wf].[WeithingDate] as date) [WeithingDate]
-	,count(*) [Count]
-	,[s].[Description] [Scale]
-	,[h].[Name] [Host]
-	,[p].[Name] [Printer]
-from [db_scales].[WeithingFact] [wf]
-left join [db_scales].[Scales] [s] on [wf].[ScaleId] = [s].[Id]
-left join [db_scales].[Hosts] [h] on [s].[HostId] = [h].[Id]
-left join [db_scales].[ZebraPrinter] [p] on [s].[ZebraPrinterId] = [p].[Id]
-group by cast([WeithingDate] as date), [s].[Description], [h].[Name], [p].[Name]
-order by [WeithingDate] desc
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n'), string.Empty, 0, string.Empty);
-        EntitiesSummary = new List<WeithingFactSummaryEntity>();
+        Objects = _blazorSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.WeithingFacts, string.Empty, 0, string.Empty);
+        Items = new List<WeithingFactSummaryEntity>();
         foreach (var obj in Objects)
         {
             if (obj is object[] { Length: 5 } item)
             {
-                EntitiesSummary.Add(new WeithingFactSummaryEntity
+                Items.Add(new WeithingFactSummaryEntity
                 {
                     WeithingDate = Convert.ToDateTime(item[0]),
                     Count = Convert.ToInt32(item[1]),

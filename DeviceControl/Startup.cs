@@ -4,6 +4,7 @@
 using BlazorDeviceControl.Data;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
+using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +41,10 @@ namespace BlazorDeviceControl
             services.AddScoped<ContextMenuService>();
             // HotKeys.
             services.AddHotKeys();
+            // Authentication.
+            services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
+            // Windows authentication may not be applied with Kestrel without this line
+            services.AddAuthorization(options => options.FallbackPolicy = options.DefaultPolicy);
             // Other.
             services.AddControllersWithViews();
             services.AddBlazorDownloadFile();
@@ -66,6 +71,10 @@ namespace BlazorDeviceControl
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            // Authentication.
+            app.UseAuthentication();
+            app.UseAuthorization();
+            // Last step.
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();

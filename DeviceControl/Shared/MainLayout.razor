@@ -1,4 +1,5 @@
-﻿@using BlazorDeviceControl.Utils
+﻿@attribute [Authorize]
+@using BlazorDeviceControl.Utils
 @using Toolbelt.Blazor.HotKeys
 @using BlazorDeviceControl.Data
 @using DeviceControl.Core.Utils
@@ -11,6 +12,7 @@
 @inject TooltipService _tooltip
 @inject HotKeys _hotKeys
 @inject IJSRuntime _jsRuntime
+@inject AuthenticationStateProvider _authenticationState
 
 <RadzenDialog />
 <RadzenNotification />
@@ -32,18 +34,17 @@ else
 
 <div class="main">
     <div class="top-row px-4">
-        <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="col-sm-3 col-md-3 col-lg-3">
             <RadzenLabel Text=@DbServer Style="text-align: left;" />
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <RadzenLabel Text=@_authMessage Style="text-align: center; margin-left: 50px; height: 10px;" />
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <RadzenLabel Text=@AuthMessage Style="text-align: center; margin-left: 50px; height: 10px;" />
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
             <RadzenLabel Text=@MemoryInfo Style="text-align: center; margin-left: 50px; height: 10px;" />
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
-            <RadzenLink Icon="email" Text=@LocalizationStrings.CallbackTitle Path=@LocalizationStrings.CallbackEmail
-                        Style="text-align: right" />
+            <RadzenLink Icon="email" Text=@LocalizationStrings.CallbackTitle Path=@LocalizationStrings.CallbackEmail Style="text-align: right" />
         </div>
     </div>
 
@@ -56,12 +57,12 @@ else
     #region Public and private fields and properties
 
     private string DbServer => _dataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase)
-            ? LocalizationStrings.ServerProduct : LocalizationStrings.ServerDevelop;
+        ? LocalizationStrings.ServerProduct : LocalizationStrings.ServerDevelop;
     private bool IsSqlServerProduct => _dataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase);
     private string MemoryInfo => _blazorSettings.Memory != null
         ? $"{LocalizationStrings.MemoryUsed}: {_blazorSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
         : $"{LocalizationStrings.MemoryUsed}: - MB";
-    private string _authMessage => "";
+    private string AuthMessage => _blazorSettings.Identity != null ? _blazorSettings.Identity.Name : @"User error!";
 
     #endregion
 
@@ -79,15 +80,19 @@ else
 
         try
         {
-            var hotKeys = _hotKeys.CreateContext()
+            HotKeysContext hotKeys = _hotKeys.CreateContext()
                 .Add(ModKeys.Alt, Keys.Num1, _blazorSettings.HotKeysMenuRoot, "Menu root");
             _blazorSettings.Setup(_dataAccessConfig, _notification, _dialog, _navigation, _tooltip, hotKeys, _jsRuntime);
-            var task = new Task(delegate { _blazorSettings.MemoryOpen(GuiRefreshAsync); });
-            task.Start();
+
+            Task taskMemory = new Task(delegate { _blazorSettings.MemoryOpen(GuiRefreshAsync); });
+            taskMemory.Start();
+
+            Task taskAuthentication = new Task(delegate { _blazorSettings.AuthenticationOpen(_authenticationState, GuiRefreshAsync); });
+            taskAuthentication.Start();
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
+            string msg = ex.Message;
             if (!string.IsNullOrEmpty(ex.InnerException?.Message))
                 msg += Environment.NewLine + ex.InnerException.Message;
             if (!string.IsNullOrEmpty(msg))

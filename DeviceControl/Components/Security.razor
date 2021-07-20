@@ -1,0 +1,39 @@
+﻿@page "/security"
+@attribute [Authorize]
+@inject BlazorSettingsEntity _blazorSettings
+@using Newtonsoft.Json
+@using BlazorDeviceControl.Utils
+@using BlazorDeviceControl.Data
+
+@if (_blazorSettings.UserAccessLevel == true || _blazorSettings.UserAccessLevel == false)
+{
+    <p>The current authenticated user:</p>
+    <div id="jsonRender"></div>
+
+    <p>Invoke secured api with the current identity: </p>
+    <button @onclick="@InvokeSecuredApi">Invoke</button>
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.MenuAccessDeny></RadzenLabel>
+}
+
+
+@code {
+    [Inject]
+    IJSRuntime JsRuntimeInstance { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        string jsonString = JsonConvert.SerializeObject(_blazorSettings.Identity, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore, Formatting = Formatting.None });
+        await JsRuntimeInstance.InvokeVoidAsync("TestingBlazor.renderJson", "jsonRender", jsonString);
+    }
+
+    private void InvokeSecuredApi()
+    {
+        var url = "api/requireauthentication";
+        _ = JsRuntimeInstance.InvokeVoidAsync("open", url, "_blank");
+    }
+}

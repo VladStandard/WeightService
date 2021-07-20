@@ -38,6 +38,7 @@ namespace DeviceControl.Core.DAL
                                 .Database(AppSettings.Db)
                                 .TrustedConnection()
                             ))
+                            .Mappings(m => m.FluentMappings.Add<AccessMap>())
                             .Mappings(m => m.FluentMappings.Add<AppMap>())
                             .Mappings(m => m.FluentMappings.Add<BarCodeTypesMap>())
                             .Mappings(m => m.FluentMappings.Add<ContragentsMap>())
@@ -74,6 +75,7 @@ namespace DeviceControl.Core.DAL
                                 .Username(AppSettings.Username)
                                 .Password(AppSettings.Password)
                             ))
+                            .Mappings(m => m.FluentMappings.Add<AccessMap>())
                             .Mappings(m => m.FluentMappings.Add<AppMap>())
                             .Mappings(m => m.FluentMappings.Add<BarCodeTypesMap>())
                             .Mappings(m => m.FluentMappings.Add<ContragentsMap>())
@@ -106,6 +108,7 @@ namespace DeviceControl.Core.DAL
         }
 
         // Tables CRUD.
+        public BaseCrud<AccessEntity> AccessCrud;
         public BaseCrud<AppEntity> AppCrud;
         public BaseCrud<BarCodeTypesEntity> BarCodeTypesCrud;
         public BaseCrud<ContragentsEntity> ContragentsCrud;
@@ -152,6 +155,7 @@ namespace DeviceControl.Core.DAL
             AppSettings = appSettings;
             DataConfig = new DataConfigurationEntity();
             // Tables CRUD.
+            AccessCrud = new BaseCrud<AccessEntity>(this);
             AppCrud = new BaseCrud<AppEntity>(this);
             BarCodeTypesCrud = new BaseCrud<BarCodeTypesEntity>(this);
             ContragentsCrud = new BaseCrud<ContragentsEntity>(this);
@@ -787,7 +791,11 @@ namespace DeviceControl.Core.DAL
             };
             if (tableAction == EnumTableAction.Add || tableAction == EnumTableAction.Copy)
             {
-                if (typeof(T) == typeof(AppEntity))
+                if (typeof(T) == typeof(AccessEntity))
+                {
+                    _ = AccessCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                }
+                else if (typeof(T) == typeof(AppEntity))
                 {
                     _ = AppCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
                 }
@@ -810,7 +818,9 @@ namespace DeviceControl.Core.DAL
 
         public void ActionDeleteEntity<T>(T entity) where T : BaseEntity
         {
-            if (entity is AppEntity appEntity)
+            if (entity is AccessEntity accessEntity)
+                AccessCrud.DeleteEntity(accessEntity);
+            else if (entity is AppEntity appEntity)
                 AppCrud.DeleteEntity(appEntity);
             else if (entity is BarCodeTypesEntity barCodeTypesEntity)
                 BarCodeTypesCrud.DeleteEntity(barCodeTypesEntity);
@@ -860,7 +870,9 @@ namespace DeviceControl.Core.DAL
 
         public void ActionMarkedEntity<T>(T entity) where T : BaseEntity
         {
-            if (entity is AppEntity appEntity)
+            if (entity is AccessEntity accessEntity)
+                AccessCrud.MarkedEntity(accessEntity);
+            else if (entity is AppEntity appEntity)
                 AppCrud.MarkedEntity(appEntity);
             else if (entity is BarCodeTypesEntity barCodeTypesEntity)
                 BarCodeTypesCrud.MarkedEntity(barCodeTypesEntity);

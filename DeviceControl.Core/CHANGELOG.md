@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.280] - 2021-07-20
+### Added
+- Access section
+
 ## [0.2.270] - 2021-07-19
 ### Changed
 - Scales section
+### Added
+- Apps section
 - Logs section

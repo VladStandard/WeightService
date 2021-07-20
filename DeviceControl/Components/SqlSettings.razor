@@ -1,6 +1,7 @@
 ﻿@page "/SqlSettings"
 @using DeviceControl.Core.DAL
 @using BlazorDeviceControl.Data
+@using BlazorDeviceControl.Utils
 @using Toolbelt.Blazor.HotKeys
 @inject BlazorSettingsEntity _blazorSettings
 @inject DataAccessConfig _dataAccessConfig
@@ -11,12 +12,19 @@
 @inject HotKeys _hotKeys
 @inject IJSRuntime _jsRuntime
 
-<h2>Настройки SQL</h2>
+@if (_blazorSettings.UserAccessLevel == true || _blazorSettings.UserAccessLevel == false)
+{
+    <h2>Настройки SQL</h2>
 
-<br style="margin-top: 20px" />
-<span>Статус подключения: </span>
-<RadzenCheckBox @bind-Value=@IsDisabled TValue="bool" Disabled="true" />
-<RadzenTextBox Style="width: 15%" Disabled=true Value=@_blazorSettings.DataAccess.IsDisabled.ToString() Change=@(args => Change(args, "State")) />
+    <br style="margin-top: 20px" />
+    <span>Статус подключения: </span>
+    <RadzenCheckBox @bind-Value=@IsDisabled TValue="bool" Disabled="true" />
+    <RadzenTextBox Style="width: 15%" Disabled=true Value=@_blazorSettings.DataAccess.IsDisabled.ToString() Change=@(args => Change(args, "State")) />
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.MenuAccessDeny></RadzenLabel>
+}
 
 @code {
     public DataAccessEntity DataAccess { get; set; }

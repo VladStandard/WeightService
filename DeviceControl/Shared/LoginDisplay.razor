@@ -1,7 +1,34 @@
-﻿<AuthorizeView>
-    Hello,
-    @if (context.User.Identity != null)
-    {
-        @context.User.Identity.Name
-    }!
+﻿@page "/login"
+@inject BlazorSettingsEntity _blazorSettings
+@using BlazorDeviceControl.Utils
+@using BlazorDeviceControl.Data
+
+<AuthorizeView>
+    <Authorizing>
+        <div>Authorizing ...</div>
+    </Authorizing>
+    <Authorized>
+        @if (context.User.Identity != null)
+        {
+            _blazorSettings.State = context;
+            <div>@context.User.Identity.Name</div>
+        }!
+        <div>User detect error!</div>
+    </Authorized>
+    <NotAuthorized>
+        <div>Not authorized!</div>
+    </NotAuthorized>
 </AuthorizeView>
+
+@code{
+    #region Public and private fields and properties
+
+    
+
+    #endregion
+
+    #region Public and private methods
+
+
+    #endregion
+}

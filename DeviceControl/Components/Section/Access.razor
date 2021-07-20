@@ -1,4 +1,4 @@
-﻿@page "/logs"
+﻿@page "/access"
 @using DeviceControl.Core.DAL
 @using DeviceControl.Core.DAL.TableModels
 @using System.Runtime.CompilerServices
@@ -18,14 +18,13 @@
 
 @if (_blazorSettings.UserAccessLevel == true || _blazorSettings.UserAccessLevel == false)
 {
-    @* Header *@
+@* Header *@
     <h2 style="font-size: @FontSizeHeader;">
         @GetHeader()
         <RadzenButton Click=@(args => GetDataAsync())
                       ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
                       class="oi oi-reload" Disabled=@_blazorSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
     </h2>
-
     <RadzenTabs>
         <Tabs>
             <RadzenTabsItem Text=@LocalizationStrings.Table>
@@ -39,43 +38,40 @@
                     else
                     {
                         // Sorting by [WeithingDate].
-                        <RadzenGrid Data=@Items TItem="LogSummaryEntity"
+                        <RadzenGrid Data=@Items TItem="AccessEntity"
                                     RowSelect=@(args => RowSelectAsync(args))
                                     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
                                     AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
                             <Columns>
-                                <RadzenGridColumn TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
+                                <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
                                                   Title=@LocalizationStrings.TableFieldCreateDt Type="date" Width="13%">
                                     <Template Context="logItem">
                                         <RadzenDatePicker TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                                     </Template>
                                 </RadzenGridColumn>
-                                <RadzenGridColumn TItem="LogSummaryEntity" Property="Host" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.TableFieldHost Type="string" Width="12%" />
-                                <RadzenGridColumn TItem="LogSummaryEntity" Property="App" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.TableFieldApp Type="string" Width="7%" />
-                                <RadzenGridColumn TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
-                                                  Title=@LocalizationStrings.TableFieldVersion Type="string" Width="6%">
+                                <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
+                                                  Title=@LocalizationStrings.TableFieldChangeDt Type="date" Width="13%">
                                     <Template Context="logItem">
-                                        <RadzenLabel Text=@logItem.Version Disabled="true" />
+                                        <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                                     </Template>
                                 </RadzenGridColumn>
-                                <RadzenGridColumn TItem="LogSummaryEntity" Property="File" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.TableFieldFile Type="string" Width="10%" />
-                                <RadzenGridColumn TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
-                                                  Title=@LocalizationStrings.TableFieldRow Type="int" Width="5%">
-                                    <Template Context="logItem">
-                                        <RadzenLabel Text=@logItem.Line.ToString() Disabled="true" />
-                                    </Template>
-                                </RadzenGridColumn>
-                                <RadzenGridColumn TItem="LogSummaryEntity" Property="Member" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.TableFieldMember Type="string" Width="15%" />
-                                <RadzenGridColumn TItem="LogSummaryEntity" Property="Icon" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.TableFieldIcon Type="string" Width="7%" />
-                                <RadzenGridColumn TItem="LogSummaryEntity" Property="Message" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.TableFieldMessage Type="string" Width="25%">
-                                    <Template Context="logItem">
-                                        <RadzenLabel Text=@logItem.Message Disabled="false" Style="white-space: pre-wrap;" />
+                                <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
+                                                  Title=@LocalizationStrings.TableFieldUser Type="string" Width="40%" />
+                                <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
+                                                  Title=@LocalizationStrings.TableFieldAccessLevel Type="string" Width="34%">
+                                    <Template Context="accessItem">
+                                        @if (accessItem.Level == null)
+                                        {
+                                            <RadzenLabel Text="Нет доступа" Disabled="true" />
+                                        }
+                                        else if (accessItem.Level == false)
+                                        {
+                                            <RadzenLabel Text="Доступ на чтение" Disabled="true" />
+                                        }
+                                        else if (accessItem.Level == true)
+                                        {
+                                            <RadzenLabel Text="Доступ на запись" Disabled="true" />
+                                        }
                                     </Template>
                                 </RadzenGridColumn>
                             </Columns>
@@ -83,30 +79,30 @@
                     }
                 </div>
                 @* Actions *@
-            <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
-                @if (_blazorSettings.UserAccessLevel == true)
-                {
-                    <RadzenButton Click=@(args => ActionAddAsync(EnumTable.Logs, Item, null))
-                                  ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
-                                  Text=@LocalizationStrings.TableActionAdd Disabled=@_blazorSettings.DataAccess.IsDisabled />
-                    <RadzenButton Click=@(args => ActionEditAsync(Item, null))
-                                  ButtonStyle="ButtonStyle.Secondary"
-                                  Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                  Text=@LocalizationStrings.TableActionEdit Disabled=@_blazorSettings.DataAccess.IsDisabled />
-                    @if (_blazorSettings.IsDebug)
+                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
+                    @if (_blazorSettings.UserAccessLevel == true)
                     {
-                        <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.Logs, Item, null))
+                        <RadzenButton Click=@(args => ActionAddAsync(EnumTable.Logs, Item, null))
                                       ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                      Text=@LocalizationStrings.TableActionDeleteForever Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
+                                      Text=@LocalizationStrings.TableActionAdd Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                        <RadzenButton Click=@(args => ActionEditAsync(Item, null))
+                                      ButtonStyle="ButtonStyle.Secondary"
+                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
+                                      Text=@LocalizationStrings.TableActionEdit Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                        @if (_blazorSettings.IsDebug)
+                        {
+                            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.Logs, Item, null))
+                                          ButtonStyle="ButtonStyle.Secondary"
+                                          Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
+                                          Text=@LocalizationStrings.TableActionDeleteForever Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                        }
                     }
-                }
-                else
-                {
-                    <span>@LocalizationStrings.TableActionsIsDeny</span>
-                }
-            </div>
+                    else
+                    {
+                        <span>@LocalizationStrings.TableActionsIsDeny</span>
+                    }
+                </div>
             </RadzenTabsItem>
             <RadzenTabsItem Text=@LocalizationStrings.Chart>
             </RadzenTabsItem>
@@ -123,7 +119,7 @@ else
     private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) =>
         _tooltip.Open(elementReference, LocalizationStrings.TableReadData, options);
     public BaseUidEntity Item { get; set; }
-    public List<LogSummaryEntity> Items { get; set; }
+    public List<AccessEntity> Items { get; set; }
     public object[] Objects { get; set; }
     [Parameter]
     public int FontSizeHeader { get; set; }
@@ -155,44 +151,38 @@ else
 
     private string GetHeader()
     {
-        return LocalizationStrings.TableTitleWeithingFactShort;
+        return LocalizationStrings.TableTitleAccess;
     }
 
     private void GetData()
     {
-        Objects = _blazorSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetLogs, string.Empty, 0, string.Empty);
-        Items = new List<LogSummaryEntity>();
+        Objects = _blazorSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetAccess, string.Empty, 0, string.Empty);
+        Items = new List<AccessEntity>();
         foreach (var obj in Objects)
         {
-            if (obj is object[] { Length: 11 } item)
+            if (obj is object[] { Length: 5 } item)
             {
                 if (Guid.TryParse(Convert.ToString(item[0]), out var uid))
                 {
-                    Items.Add(new LogSummaryEntity()
+                    Items.Add(new AccessEntity()
                     {
                         Uid = uid,
                         CreateDt = Convert.ToDateTime(item[1]),
-                        Scale = Convert.ToString(item[2]),
-                        Host = Convert.ToString(item[3]),
-                        App = Convert.ToString(item[4]),
-                        Version = Convert.ToString(item[5]),
-                        File = Convert.ToString(item[6]),
-                        Line = Convert.ToInt32(item[7]),
-                        Member = Convert.ToString(item[8]),
-                        Icon = Convert.ToString(item[9]),
-                        Message = Convert.ToString(item[10]),
+                        ChangeDt = Convert.ToDateTime(item[2]),
+                        User = Convert.ToString(item[3]),
+                        Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
                     });
                 }
             }
         }
     }
 
-    private async Task GetDataAsync()
+    private async Task GetDataAsync([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         var task = new Task(GetData);
         await _blazorSettings.RunTasks(LocalizationStrings.TableRead,
             "", LocalizationStrings.DialogResultFail, "",
-            new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
+            new List<Task> { task }, GuiRefreshAsync, filePath, lineNumber, memberName).ConfigureAwait(false);
     }
 
     private async Task ActionEditAsync(BaseUidEntity item, BaseUidEntity parentEntity)
@@ -228,7 +218,7 @@ else
         await GetDataAsync().ConfigureAwait(false);
     }
 
-    private async Task RowSelectAsync(LogSummaryEntity entity,
+    private async Task RowSelectAsync(AccessEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
     {
         await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);

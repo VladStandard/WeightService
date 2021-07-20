@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>0.2.270</Version>
+    <Version>0.2.280</Version>
     <Authors>Владимирский стандарт</Authors>
     <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
     <StartupObject>BlazorDeviceControl.Program</StartupObject>
     <AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
-    <AssemblyVersion>0.2.270.0</AssemblyVersion>
+    <AssemblyVersion>0.2.280.0</AssemblyVersion>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-    <FileVersion>0.2.270.0</FileVersion>
+    <FileVersion>0.2.280.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020  - 2021</Copyright>
@@ -40,11 +40,15 @@
   <ItemGroup>
     <PackageReference Include="BlazorDownloadFile" Version="2.1.6" />
     <PackageReference Include="BlazorInputFile" Version="0.2.0" />
-    <PackageReference Include="bootstrap" Version="5.0.1" />
+    <PackageReference Include="bootstrap" Version="5.0.2" />
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.0" />
     <PackageReference Include="log4net" Version="2.0.12" />
-    <PackageReference Include="NHibernate" Version="5.3.8" />
-    <PackageReference Include="Radzen.Blazor" Version="3.3.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="5.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="5.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NHibernate" Version="5.3.9" />
+    <PackageReference Include="Radzen.Blazor" Version="3.7.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="Toolbelt.Blazor.HotKeys" Version="10.0.1" />
   </ItemGroup>

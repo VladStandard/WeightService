@@ -2,6 +2,7 @@
 @using DeviceControl.Core.DAL.DataModels
 @using System.Runtime.CompilerServices
 @using BlazorDeviceControl.Data
+@using BlazorDeviceControl.Utils
 @using Toolbelt.Blazor.HotKeys
 @inject BlazorSettingsEntity _blazorSettings
 @inject DataAccessConfig _dataAccessConfig
@@ -12,45 +13,62 @@
 @inject HotKeys _hotKeys
 @inject IJSRuntime _jsRuntime
 
-<h2>
-    @Utils.LocalizationStrings.DevicesTitle
-    <RadzenButton Click=@(args => GetDataAsync()) ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 100px; margin-left: 0px"
-                  class="oi oi-reload" Disabled=@_blazorSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
-</h2>
+@if (_blazorSettings.UserAccessLevel == true || _blazorSettings.UserAccessLevel == false)
+{
+    <h2>
+        @Utils.LocalizationStrings.DevicesTitle
+        <RadzenButton Click=@(args => GetDataAsync()) ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 100px; margin-left: 0px"
+                      class="oi oi-reload" Disabled=@_blazorSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
+    </h2>
 
-<br style="margin-top: 50px" />
-<p>
-    <RadzenGrid Data=@Entities TItem="DeviceEntity" Value=@Entity
-                RowSelect=@(RowSelectAsync) RowDoubleClick=@(RowDoubleClickAsync)
-                AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
-        <Columns>
-            <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Description" Title=@Utils.LocalizationStrings.TableFieldName
-                              Type="string" Width="20%" />
-            <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Id" Title=@Utils.LocalizationStrings.TableFieldId
-                              Type="System.Guid" Width="10%" />
-            <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Storage" Title=@Utils.LocalizationStrings.TableFieldStorage
-                              Type="string" Width="35%" />
-            <RadzenGridColumn TItem="DeviceEntity" Property="Scales.State" Title=@Utils.LocalizationStrings.TableFieldState
-                              Type="bool" Width="35%" />
-        </Columns>
-    </RadzenGrid>
-</p>
-
-<br style="margin-top: 50px" />
-<p>
-    <span>@Utils.LocalizationStrings.TableActions</span>
     <br style="margin-top: 50px" />
-    <RadzenButton Click="ActionAddAsync" ButtonStyle="ButtonStyle.Secondary" Style="margin-top: 20px; width: 200px; margin-left: 30px"
-                  Text=@Utils.LocalizationStrings.TableActionAdd
-                  Disabled=@_blazorSettings.DataAccess.IsDisabled />
-    <RadzenButton Click="ActionCopyAsync" ButtonStyle="ButtonStyle.Secondary" Style="margin-top: 20px; width: 200px; margin-left: 30px"
-                  Text=@Utils.LocalizationStrings.TableActionCopy
-                  Disabled=@_blazorSettings.DataAccess.IsDisabled />
-    <RadzenButton Click="ActionDeleteAsync" ButtonStyle="ButtonStyle.Secondary" Style="margin-top: 20px; width: 200px; margin-left: 30px"
-                  Text=@Utils.LocalizationStrings.TableActionDelete
-                  Disabled=@_blazorSettings.DataAccess.IsDisabled />
-</p>
+    <p>
+        <RadzenGrid Data=@Entities TItem="DeviceEntity" Value=@Entity
+                    RowSelect=@(RowSelectAsync) RowDoubleClick=@(RowDoubleClickAsync)
+                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                    AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+            <Columns>
+                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Description" Title=@Utils.LocalizationStrings.TableFieldName
+                                  Type="string" Width="20%" />
+                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Id" Title=@Utils.LocalizationStrings.TableFieldId
+                                  Type="System.Guid" Width="10%" />
+                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Storage" Title=@Utils.LocalizationStrings.TableFieldStorage
+                                  Type="string" Width="35%" />
+                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.State" Title=@Utils.LocalizationStrings.TableFieldState
+                                  Type="bool" Width="35%" />
+            </Columns>
+        </RadzenGrid>
+    </p>
+
+    <br style="margin-top: 50px" />
+    <p>
+        @* Actions *@
+        <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
+            @if (_blazorSettings.UserAccessLevel == true)
+            {
+                <span>@Utils.LocalizationStrings.TableActions</span>
+                <br style="margin-top: 50px" />
+                <RadzenButton Click="ActionAddAsync" ButtonStyle="ButtonStyle.Secondary" Style="margin-top: 20px; width: 200px; margin-left: 30px"
+                              Text=@Utils.LocalizationStrings.TableActionAdd
+                              Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                <RadzenButton Click="ActionCopyAsync" ButtonStyle="ButtonStyle.Secondary" Style="margin-top: 20px; width: 200px; margin-left: 30px"
+                              Text=@Utils.LocalizationStrings.TableActionCopy
+                              Disabled=@_blazorSettings.DataAccess.IsDisabled />
+                <RadzenButton Click="ActionDeleteAsync" ButtonStyle="ButtonStyle.Secondary" Style="margin-top: 20px; width: 200px; margin-left: 30px"
+                              Text=@Utils.LocalizationStrings.TableActionDelete
+                              Disabled=@_blazorSettings.DataAccess.IsDisabled />
+            }
+            else
+            {
+                <span>@LocalizationStrings.TableActionsIsDeny</span>
+            }
+        </div>
+    </p>
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.MenuAccessDeny></RadzenLabel>
+}
 
 @code {
 

@@ -43,8 +43,7 @@ namespace DeviceControl.Core.DAL.TableModels
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
-            return 
-                   Equals(Uid, entity.Uid) &&
+            return base.Equals(entity) &&
                    Equals(CreateDt, entity.CreateDt) &&
                    Equals(Scale, entity.Scale) &&
                    Equals(Host, entity.Host) &&
@@ -82,7 +81,6 @@ namespace DeviceControl.Core.DAL.TableModels
             if (App != null && !App.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Uid, default(Guid)) &&
                    Equals(CreateDt, default(DateTime)) &&
                    Equals(Scale, default(string)) &&
                    Equals(Version, default(string)) &&

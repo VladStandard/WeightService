@@ -49,7 +49,7 @@
                     <Columns>
                         <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId
                                           Type="int" Width="10%" />
-                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="CreateDate" Title=@Utils.LocalizationStrings.TableFieldCreateDate
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="CreateDate" Title=@Utils.LocalizationStrings.TableFieldCreateDt
                                           Type="DateTime" Width="10%" />
                         <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="ModifiedDate" Title=@Utils.LocalizationStrings.TableFieldModifiedDate
                                           Type="DateTime" Width="10%" />
@@ -87,7 +87,7 @@
                     <Columns>
                         <RadzenGridColumn TItem="BarCodesEntity" Property="Id" Title=@Utils.LocalizationStrings.TableFieldId
                                           Type="int" Width="10%" />
-                        <RadzenGridColumn TItem="BarCodesEntity" Property="CreateDate" Title=@Utils.LocalizationStrings.TableFieldCreateDate
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="CreateDate" Title=@Utils.LocalizationStrings.TableFieldCreateDt
                                           Type="DateTime" Width="10%" />
                         <RadzenGridColumn TItem="BarCodesEntity" Property="ModifiedDate" Title=@Utils.LocalizationStrings.TableFieldModifiedDate
                                           Type="DateTime" Width="10%" />
@@ -109,7 +109,7 @@
 
 @* Dates *@
 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldCreateDate />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldCreateDt />
     <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString() />
     <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldModifiedDate />
     <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString() />

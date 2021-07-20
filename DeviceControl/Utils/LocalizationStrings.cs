@@ -70,6 +70,9 @@ namespace BlazorDeviceControl.Utils
         public const string UriRouteTableWorkshops = "/workshops";
         public const string UriRouteItemPrinter = "/printer";
         public const string UriRouteTableLogs = "/logs";
+        public const string UriRouteSecurity = "/security";
+        public const string UriRouteLogin = "/login";
+        public const string UriRouteAccess = "/access";
         #endregion
         #region Меню
         public const string MenuReferences = "Справочники";
@@ -84,6 +87,11 @@ namespace BlazorDeviceControl.Utils
         public const string ChartCreated = @"Создано";
         public const string ChartModified = @"Изменено";
         public const string ChartCount = @"Количество";
+        public const string MenuSecurity = @"Безопасность";
+        public const string MenuLogin = @"Логин";
+        public const string MenuAccess = @"Доступ";
+        public const string MenuAccessDeny = @"Доступ запрещён";
+        public const string MenuAccessAllow = @"Доступ разрешён";
         #endregion
         #region Таблицы
         public const string Table = @"Таблица";
@@ -121,6 +129,7 @@ namespace BlazorDeviceControl.Utils
         public const string TableTitleTemplateResourcesShort = @"Ресурсы шаблонов";
         public const string TableTitleTemplatesShort = @"Шаблоны";
         public const string TableTitleWeithingFactShort = @"Взвешивания";
+        public const string TableTitleAccess = @"Доступ";
         public const string TableTitleLogs = @"Логи";
         public const string TableTitleWorkShopShort = @"Цеха";
         public const string TableFieldId = @"ID";
@@ -216,7 +225,8 @@ namespace BlazorDeviceControl.Utils
         public const string TableFieldCheckGtin = @"v";
         public const string TableFieldHost = @"Хост";
         public const string TableFieldWeithingDate = @"Дата взвешивания";
-        public const string TableFieldCreateDate = @"Дата создания";
+        public const string TableFieldCreateDt = @"Дата создания";
+        public const string TableFieldChangeDt = @"Дата измнения";
         public const string TableFieldProductDate = @"Дата продукции";
         public const string TableFieldNetWeight = @"Вес нетто";
         public const string TableFieldTareWeight = @"Вес тары";
@@ -226,6 +236,9 @@ namespace BlazorDeviceControl.Utils
         public const string TableFieldDayOfWeek = @"День недели";
         public const string TableFieldApp = @"Программа";
         public const string TableFieldVersion = @"Версия";
+        public const string TableFieldUser = @"Пользователь";
+        public const string TableFieldLevel = @"Уровень";
+        public const string TableFieldAccessLevel = @"Уровень доступа";
         #endregion
         #region Item
         public const string ItemTitlePrinter = @"Принтер";

@@ -4,6 +4,7 @@
 @using DeviceControl.Core.DAL.TableModels
 @using System.Runtime.CompilerServices
 @using BlazorDeviceControl.Data
+@using BlazorDeviceControl.Utils
 @using DeviceControl.Core
 @using Toolbelt.Blazor.HotKeys
 @inject BlazorSettingsEntity _blazorSettings
@@ -15,106 +16,113 @@
 @inject HotKeys _hotKeys
 @inject IJSRuntime _jsRuntime
 
-@* RadzenCard *@
-<RadzenCard Style="margin-bottom: 0; font-size: 13px; ">
-    <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
-        @switch (Table)
-        {
-            case EnumTable.BarCodeTypes:
-                break;
-            case EnumTable.Contragents:
-                break;
-            case EnumTable.Hosts:
-                var host = (HostsEntity)Item;
-                <BlazorDeviceControl.Components.Record.Host Item=@host />
-                break;
-            case EnumTable.Nomenclature:
-                break;
-            case EnumTable.Orders:
-                break;
-            case EnumTable.OrderStatus:
-                break;
-            case EnumTable.OrderTypes:
-                break;
-            case EnumTable.Plu:
-                var plu = (PluEntity)Item;
-                <BlazorDeviceControl.Components.Record.Plu Item=@plu />
-                break;
-            case EnumTable.ProductionFacility:
-                var productionFacility = (ProductionFacilityEntity)Item;
-                <BlazorDeviceControl.Components.Record.ProductionFacility Item=@productionFacility />
-                break;
-            case EnumTable.ProductSeries:
-                @*
-                    var productSeries = (ProductSeriesEntity)Item;
-                    <span Style="align-self: start; width: 15%; height: 25px; ">@Utils.LocalizationStrings.TableFieldId</span>
-                    <RadzenNumeric Style="align-self: end; width: 85%; height: 25px; " TValue="int" Disabled=true @bind-value=@productSeries.Id />
-                    <div class="col-md-6" Style="margin-top: 0; margin-left: 0; margin-right: 0;">
-                        <br Style="margin-top: 0; margin-left: 0; margin-right: 0;" />
-                        <span Style="align-self: start; width: 25%; height: 25px;">@Utils.LocalizationStrings.TableFieldScaleId</span>
-                        <RadzenTextBox TValue="string" Style="align-self: end; width: 60%; height: 25px;"
-                                       @bind-value=@productSeries.Scale.Id />
-                        <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
-                        <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldCreateDate</span>
-                        <RadzenDatePicker Disabled="true" @bind-Value=@productSeries.CreateDate />
-                        <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
-                        <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldUid</span>-->
-                        <RadzenTextBox Mask="********-****-****-****-************" Placeholder="00000000-0000-0000-0000-000000000000"
-                                       Disabled="false" @bind-Value=@productSeries.UidGui Style="width: 70%" />
-                        <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
-                        <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldIsClose</span>
-                        <RadzenCheckBox Disabled="false" @bind-Value=@productSeries.IsCloseGui TValue="bool" />
-                        <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
-                        <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldSscc</span>
-                        <RadzenTextBox Disabled="false" @bind-Value=@productSeries.Sscc />
-                    </div>*@
-                break;
-            case EnumTable.Scales:
-                var scales = (ScalesEntity)Item;
-                <BlazorDeviceControl.Components.Record.Scale Item=@scales />
-                break;
-            case EnumTable.SsccStorage:
-                break;
-            case EnumTable.TemplateResources:
-                var templateResources = (TemplateResourcesEntity)Item;
-                <BlazorDeviceControl.Components.Record.TemplateResource Item=@templateResources />
-                break;
-            case EnumTable.Templates:
-                var templates = (TemplatesEntity)Item;
-                <BlazorDeviceControl.Components.Record.Template Item=@templates />
-                break;
-            case EnumTable.WeithingFact:
-                break;
-            case EnumTable.WorkShop:
-                var workshop = (WorkshopEntity)Item;
-                <BlazorDeviceControl.Components.Record.Workshop Item=@workshop />
-                break;
-            case EnumTable.Printer:
-                var printer = (ZebraPrinterEntity)Item;
-                <BlazorDeviceControl.Components.Record.Printer Item=@printer />
-                break;
-            case EnumTable.PrinterResourceRef:
-                var printerResourceRef = (ZebraPrinterResourceRefEntity)Item;
-                <BlazorDeviceControl.Components.Record.PrinterResourceRef Item=@printerResourceRef />
-                break;
-            case EnumTable.PrinterType:
-                var printerType = (ZebraPrinterTypeEntity)Item;
-                <BlazorDeviceControl.Components.Record.PrinterType Item=@printerType />
-                break;
-        }
-    </div>
-</RadzenCard>
+@if (_blazorSettings.UserAccessLevel == true || _blazorSettings.UserAccessLevel == false)
+{
+    @* RadzenCard *@
+    <RadzenCard Style="margin-bottom: 0; font-size: 13px; ">
+        <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
+            @switch (Table)
+            {
+                case EnumTable.BarCodeTypes:
+                    break;
+                case EnumTable.Contragents:
+                    break;
+                case EnumTable.Hosts:
+                    var host = (HostsEntity)Item;
+                    <BlazorDeviceControl.Components.Record.Host Item=@host />
+                    break;
+                case EnumTable.Nomenclature:
+                    break;
+                case EnumTable.Orders:
+                    break;
+                case EnumTable.OrderStatus:
+                    break;
+                case EnumTable.OrderTypes:
+                    break;
+                case EnumTable.Plu:
+                    var plu = (PluEntity)Item;
+                    <BlazorDeviceControl.Components.Record.Plu Item=@plu />
+                    break;
+                case EnumTable.ProductionFacility:
+                    var productionFacility = (ProductionFacilityEntity)Item;
+                    <BlazorDeviceControl.Components.Record.ProductionFacility Item=@productionFacility />
+                    break;
+                case EnumTable.ProductSeries:
+                    @*
+                        var productSeries = (ProductSeriesEntity)Item;
+                        <span Style="align-self: start; width: 15%; height: 25px; ">@Utils.LocalizationStrings.TableFieldId</span>
+                        <RadzenNumeric Style="align-self: end; width: 85%; height: 25px; " TValue="int" Disabled=true @bind-value=@productSeries.Id />
+                        <div class="col-md-6" Style="margin-top: 0; margin-left: 0; margin-right: 0;">
+                            <br Style="margin-top: 0; margin-left: 0; margin-right: 0;" />
+                            <span Style="align-self: start; width: 25%; height: 25px;">@Utils.LocalizationStrings.TableFieldScaleId</span>
+                            <RadzenTextBox TValue="string" Style="align-self: end; width: 60%; height: 25px;"
+                                           @bind-value=@productSeries.Scale.Id />
+                            <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
+                            <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldCreateDt</span>
+                            <RadzenDatePicker Disabled="true" @bind-Value=@productSeries.CreateDate />
+                            <br Style="margin-top: 5px; margin-left: 0; margin-right: 0;" />
+                            <span Style="align-self: start; width: 38%; height: 25px;">@Utils.LocalizationStrings.TableFieldUid</span>-->
+                            <RadzenTextBox Mask="********-****-****-****-************" Placeholder="00000000-0000-0000-0000-000000000000"
+                                           Disabled="false" @bind-Value=@productSeries.UidGui Style="width: 70%" />
+                            <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
+                            <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldIsClose</span>
+                            <RadzenCheckBox Disabled="false" @bind-Value=@productSeries.IsCloseGui TValue="bool" />
+                            <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
+                            <span Style="align-self: start; width: 38%; height: 25px; ">@Utils.LocalizationStrings.TableFieldSscc</span>
+                            <RadzenTextBox Disabled="false" @bind-Value=@productSeries.Sscc />
+                        </div>*@
+                    break;
+                case EnumTable.Scales:
+                    var scales = (ScalesEntity)Item;
+                    <BlazorDeviceControl.Components.Record.Scale Item=@scales />
+                    break;
+                case EnumTable.SsccStorage:
+                    break;
+                case EnumTable.TemplateResources:
+                    var templateResources = (TemplateResourcesEntity)Item;
+                    <BlazorDeviceControl.Components.Record.TemplateResource Item=@templateResources />
+                    break;
+                case EnumTable.Templates:
+                    var templates = (TemplatesEntity)Item;
+                    <BlazorDeviceControl.Components.Record.Template Item=@templates />
+                    break;
+                case EnumTable.WeithingFact:
+                    break;
+                case EnumTable.WorkShop:
+                    var workshop = (WorkshopEntity)Item;
+                    <BlazorDeviceControl.Components.Record.Workshop Item=@workshop />
+                    break;
+                case EnumTable.Printer:
+                    var printer = (ZebraPrinterEntity)Item;
+                    <BlazorDeviceControl.Components.Record.Printer Item=@printer />
+                    break;
+                case EnumTable.PrinterResourceRef:
+                    var printerResourceRef = (ZebraPrinterResourceRefEntity)Item;
+                    <BlazorDeviceControl.Components.Record.PrinterResourceRef Item=@printerResourceRef />
+                    break;
+                case EnumTable.PrinterType:
+                    var printerType = (ZebraPrinterTypeEntity)Item;
+                    <BlazorDeviceControl.Components.Record.PrinterType Item=@printerType />
+                    break;
+            }
+        </div>
+    </RadzenCard>
 
-@* Actions *@
-<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 20px;">
-    <RadzenButton Click=@(args => SaveAsync(args))
-                  Text=@Utils.LocalizationStrings.TableActionSave
-                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
-    <RadzenButton ButtonStyle="ButtonStyle.Secondary"
-                  Click=@(args => CancelAsync(args))
-                  Text=@Utils.LocalizationStrings.TableActionCancel
-                  Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
-</div>
+    @* Actions *@
+    <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 20px;">
+        <RadzenButton Click=@(args => SaveAsync(args))
+                      Text=@Utils.LocalizationStrings.TableActionSave
+                      Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
+        <RadzenButton ButtonStyle="ButtonStyle.Secondary"
+                      Click=@(args => CancelAsync(args))
+                      Text=@Utils.LocalizationStrings.TableActionCancel
+                      Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
+    </div>
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.MenuAccessDeny></RadzenLabel>
+}
 
 @code {
     #region Public and private fields and properties
@@ -313,7 +321,7 @@
                             {
                                 { "Scale.Id", plu.Scale.Id },
                                 { EnumField.Plu.ToString(), plu.Plu },
-                                                        }),
+                                                                }),
                             null);
                         if (pluEntities.Any() && !pluEntities.Where(x => x.Id.Equals(Item.Id)).Select(x => x).Any())
                         {

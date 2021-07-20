@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Exec SetNewScale.sql = WeightService\Exec SetNewScale.sql
 		WeightService\ScaleEntity.Load.sql = WeightService\ScaleEntity.Load.sql
 		WeightService\SSCCStorage.sql = WeightService\SSCCStorage.sql
+		WeightService\Table Access diagram summary.sql = WeightService\Table Access diagram summary.sql
+		WeightService\Table Access insert new user.sql = WeightService\Table Access insert new user.sql
 		WeightService\Table APPS.sql = WeightService\Table APPS.sql
 		WeightService\Table BarCodes.sql = WeightService\Table BarCodes.sql
 		WeightService\Table BarCodeTypes.sql = WeightService\Table BarCodeTypes.sql
@@ -72,7 +74,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B8171E96-A9DA-406D-A570-C450E73F6D6C}.Default|Default.ActiveCfg = Default
+		{5294CA2D-C2AF-46DB-868D-380C99A55D35}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

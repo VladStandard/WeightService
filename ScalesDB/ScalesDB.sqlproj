@@ -160,6 +160,7 @@
     <Build Include="Tables\db_scales_LOGS.sql" />
     <None Include="Scripts\Properties.sql" />
     <Build Include="Tables\db_scales_APPS.sql" />
+    <Build Include="Tables\db_scales_ACCESS.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ScalesDB.refactorlog" />
