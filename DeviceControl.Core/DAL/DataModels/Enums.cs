@@ -2,8 +2,8 @@
 {
     public enum EnumDb
     {
-        Develop,
-        Product,
+        Debug,
+        Release,
     }
 
     public enum EnumField

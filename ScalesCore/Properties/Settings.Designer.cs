@@ -25,7 +25,7 @@ namespace ScalesCore.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=192.168.0.26\\WMS;Database=ScalesDB;Uid=scale01;Pwd=scale01;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=PALYCH\\LUTON;Database=ScalesDB;Uid=scale01;Pwd=scale01;")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

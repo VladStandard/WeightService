@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ConnectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Server=192.168.0.26\WMS;Database=ScalesDB;Uid=scale01;Pwd=scale01;</Value>
+      <Value Profile="(Default)">Server=PALYCH\LUTON;Database=ScalesDB;Uid=scale01;Pwd=scale01;</Value>
     </Setting>
     <Setting Name="AppNameScalesCore" Type="System.String" Scope="User">
       <Value Profile="(Default)">ScalesCore</Value>

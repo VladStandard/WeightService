@@ -12,7 +12,7 @@ namespace ScalesMsi.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace ScalesMsi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=SQLDBEP04\\LUTON;Database=ScalesDB;Uid=scale01;Pwd=scale01;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=PALYCH\\LUTON;Database=ScalesDB;Uid=scale01;Pwd=scale01;")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

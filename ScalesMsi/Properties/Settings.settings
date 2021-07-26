@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ConnectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Server=SQLDBEP04\LUTON;Database=ScalesDB;Uid=scale01;Pwd=scale01;</Value>
+      <Value Profile="(Default)">Server=PALYCH\LUTON;Database=ScalesDB;Uid=scale01;Pwd=scale01;</Value>
     </Setting>
     <Setting Name="Features" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />

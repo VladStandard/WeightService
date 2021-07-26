@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - DeviceControl 0.2.290
 - ScalesDB 0.5.290
+- ScalesUI 0.5.290
 
 ## [0.1.280] - 2021-07-20
 ### Changed

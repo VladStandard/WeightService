@@ -19,7 +19,6 @@ using ScalesUI.Utils;
 using UICommon;
 using UICommon.WinForms.Utils;
 using UtilsLib;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace ScalesUI.Forms
@@ -100,7 +99,7 @@ namespace ScalesUI.Forms
 
                 Text = _ws.AppVersion;
                 var sqlInstance = GetSqlInstance();
-                if (sqlInstance.Equals("DVLP"))
+                if (sqlInstance.Equals("INS1"))
                 {
                     fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: Тестовый сервер.";
                     fieldTitle.BackColor = Color.Yellow;

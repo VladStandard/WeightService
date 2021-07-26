@@ -60,7 +60,7 @@ namespace EntitiesLib
             {
                 string query = @"
 SELECT x.Id,x.Name,x.Ip,x.Port,x.Password,x.Mac,y.Name as PrinterType
-FROM[ScalesDB].[db_scales].[ZebraPrinter] x
+FROM [db_scales].[ZebraPrinter] x
 INNER JOIN[db_scales].[ZebraPrinterType] y
 ON x.[PrinterTypeId] = y.Id
 WHERE x.[Id] = @ID;

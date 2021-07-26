@@ -121,7 +121,7 @@ namespace ScalesCoreTests.Helpers
 
                 Assert.AreEqual(
                     actual.NoError
-                        ? @"Server=192.168.5.80\DVLP;Database=ScalesDB;Uid=scale01;Pwd=1q2w3e4r;"
+                        ? @"Server=CREATIO\INS1;Database=Scales;Uid=scale01;Pwd=scale01;"
                         : string.Empty, actual.Value);
             }
             else

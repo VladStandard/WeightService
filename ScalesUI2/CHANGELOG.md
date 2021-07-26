@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.290] - 2021-07-26
+### Changed
+- Debug DB location
+
 ## [0.5.260] - 2021-07-15
 ### Changed
 - LogEntity

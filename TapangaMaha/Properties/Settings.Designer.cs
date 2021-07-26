@@ -58,8 +58,8 @@ namespace TapangaMaha.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DEV1C.kolbasa-vs.local\\DVLP;Initial Catalog=ScalesDB;Persist Security" +
-            " Info=True;User ID=scale01;Password=scale01")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CREATIO\\INS1;Initial Catalog=Scales;Persist Security Info=True;User I" +
+            "D=scale01;Password=scale01")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));
