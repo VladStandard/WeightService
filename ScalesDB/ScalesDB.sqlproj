@@ -140,7 +140,7 @@
     <Build Include="Tables\db_scales_Nomenclature.sql" />
     <Build Include="Tables\db_scales_BarCodeTypes.sql" />
     <Build Include="Tables\db_scales_Contragent.sql" />
-    <Build Include="Security\Scale01.sql" />
+    <Build Include="Security\scale01.sql" />
     <Build Include="Tables\db_scales_Labels.sql" />
     <Build Include="Storage\ScalesFileGroupLargeData.sql" />
     <Build Include="Storage\ScalesFileGroupJJ.sql" />

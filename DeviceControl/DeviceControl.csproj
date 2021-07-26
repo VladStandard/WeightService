@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>0.2.280</Version>
+    <Version>0.2.290</Version>
     <Authors>Владимирский стандарт</Authors>
     <UserSecretsId>993a2cab-36f2-4b69-a954-68c43db890b1</UserSecretsId>
     <StartupObject>BlazorDeviceControl.Program</StartupObject>
     <AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
-    <AssemblyVersion>0.2.280.0</AssemblyVersion>
+    <AssemblyVersion>0.2.290.0</AssemblyVersion>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-    <FileVersion>0.2.280.0</FileVersion>
+    <FileVersion>0.2.290.0</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020  - 2021</Copyright>
@@ -48,9 +48,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="5.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.9" />
-    <PackageReference Include="Radzen.Blazor" Version="3.7.1" />
+    <PackageReference Include="Radzen.Blazor" Version="3.7.2" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-    <PackageReference Include="Toolbelt.Blazor.HotKeys" Version="10.0.1" />
+    <PackageReference Include="Toolbelt.Blazor.HotKeys" Version="11.0.0-preview.1" />
   </ItemGroup>
 
   <ItemGroup>

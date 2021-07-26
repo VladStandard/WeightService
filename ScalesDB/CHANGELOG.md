@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.290] - 2021-07-26
+### Changed
+- Security\scale01.sql
+
 ## [0.5.280] - 2021-07-20
 ### Changed
 - Security\db_scales_users_Role.sql

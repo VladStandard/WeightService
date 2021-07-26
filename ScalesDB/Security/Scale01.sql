@@ -6,7 +6,7 @@ WITH
 	CHECK_POLICY     = OFF
 GO
 
-CREATE USER [Scale01] 
+CREATE USER [scale01] 
 FOR LOGIN [scale01] WITH DEFAULT_SCHEMA=[scales_db]
 GO
 

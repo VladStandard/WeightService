@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.290] - 2021-07-26
+### Changed
+- DB location
+
 ## [0.2.280] - 2021-07-20
 ### Added
 - Authentication
