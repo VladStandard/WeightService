@@ -1,8 +1,9 @@
 ﻿declare @schema nvarchar(255) = N'db_scales'
 declare @table nvarchar(255) = N'ACCESS'
 declare @drop bit = 1
-----------------------------------------------------------------------------------------------------
 declare @schema_id int = (select [schema_id] from [sys].[schemas] where [name]=@schema)
+----------------------------------------------------------------------------------------------------
+-- Drop table
 if (@drop = 1) begin
 	if exists (select 1 from [sys].[tables] where [name]=@table and [schema_id]=@schema_id) begin
 		drop table [db_scales].[ACCESS]
@@ -11,6 +12,8 @@ if (@drop = 1) begin
 		print '[!] Can not drop the table ['+@schema+'].['+@table+']'
 	end
 end
+----------------------------------------------------------------------------------------------------
+-- Create table
 begin
 	if not exists (select 1 from [sys].[tables] where [name]=@table and [schema_id]=@schema_id) begin
 		create table [db_scales].[ACCESS]
@@ -26,6 +29,8 @@ begin
 		print '[!] Can not create the table ['+@schema+'].['+@table+']'
 	end
 end
+----------------------------------------------------------------------------------------------------
+-- Add properties
 begin
 	if exists (select 1 from [sys].[tables] where [name]=@table and [schema_id]=@schema_id) begin
 		exec sp_addextendedproperty @name = N'MS_Description', @value = N'Access.', @level0type = N'SCHEMA', 
@@ -35,3 +40,9 @@ begin
 		print '[!] Can not add properties for the table ['+@schema+'].['+@table+']'
 	end
 end
+----------------------------------------------------------------------------------------------------
+go
+-- Access rights
+grant select on [db_scales].[ACCESS] to [db_scales_users]
+go
+----------------------------------------------------------------------------------------------------

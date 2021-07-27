@@ -6,8 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.290] - 2021-07-26
+## [0.5.300] - 2021-07-27
+### Added
+- Security\db_scales_LOG_TYPES.sql
+- Tables\db_scales_Scales_Changed.sql
 ### Changed
+- Tables\db_scales_ACCESS.sql
+- Tables\db_scales_APPS.sql
+- Tables\db_scales_LOGS.sql
 - Security\scale01.sql
 
 ## [0.5.280] - 2021-07-20

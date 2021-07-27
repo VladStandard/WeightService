@@ -4,9 +4,11 @@
 using EntitiesLib;
 using ScalesUI.Forms;
 using System;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using ScalesUI.Utils;
+using System.Runtime.CompilerServices;
 
 // ReSharper disable IdentifierTypo
 
@@ -14,10 +16,9 @@ namespace ScalesUI
 {
     internal static class Program
     {
-        [STAThread]
-        internal static void Main(string[] args)
+        internal static void MainExec([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            var conectionString = Properties.Settings.Default.ConnectionString;
+            string conectionString = Properties.Settings.Default.ConnectionString;
             try
             {
                 _ = SqlConnectFactory.GetConnection(conectionString);
@@ -33,10 +34,10 @@ namespace ScalesUI
             {
                 try
                 {
-                    var uuid = HostEntity.TokenWrite(conectionString);
-                    var messageBox = CustomMessageBox.Show(null,
-                        "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine + 
-                        $"{uuid}" + Environment.NewLine + 
+                    Guid uuid = HostEntity.TokenWrite(conectionString);
+                    CustomMessageBox messageBox = CustomMessageBox.Show(null,
+                        "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
+                        $"{uuid}" + Environment.NewLine +
                         "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
                         Messages.Registration);
                     messageBox.Wait();
@@ -46,19 +47,26 @@ namespace ScalesUI
                         return;
                     }
                 }
-                finally
+                catch (Exception ex)
                 {
+                    filePath = Path.GetFileName(filePath);
+                    string message = $"Файл: {filePath}" + Environment.NewLine + 
+                                     $"Метод: {memberName}. Строка: {lineNumber}" + Environment.NewLine + Environment.NewLine +
+                                     ex.Message;
+                    if (ex.InnerException != null)
+                        message += Environment.NewLine + ex.InnerException;
+                    CustomMessageBox messageBox = CustomMessageBox.Show(null, message, Messages.Exception);
                 }
                 Application.Exit();
                 return;
             }
 
-            var host = new HostEntity();
+            HostEntity host = new HostEntity();
             //var memory = new MemorySizeEntity();
             host.TokenRead();
             if (host.CurrentScaleId == 0)
             {
-                var messageBox = CustomMessageBox.Show(null,
+                CustomMessageBox messageBox = CustomMessageBox.Show(null,
                     "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
                     $"{host.IdRRef}" + Environment.NewLine +
                     "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
@@ -71,7 +79,7 @@ namespace ScalesUI
                 Application.Exit();
                 return;
             }
-            _ = new Mutex(true, Application.ProductName, out var first);
+            _ = new Mutex(true, Application.ProductName, out bool first);
             if (first != true)
             {
                 MessageBox.Show($@"Application {Application.ProductName} already running!");
@@ -83,6 +91,12 @@ namespace ScalesUI
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());
             }
+        }
+
+        [STAThread]
+        internal static void Main()
+        {
+            MainExec();
         }
     }
 }

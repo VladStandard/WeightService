@@ -5,6 +5,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using UICommon;
 
 namespace Hardware
 {
@@ -21,6 +22,7 @@ namespace Hardware
         public string ExceptionMsg { get; private set; }
         public delegate Task CallbackAsync(int wait);
         public bool IsExecute { get; set; }
+        private readonly LogHelper _log = LogHelper.Instance;
 
         #endregion
 
@@ -62,6 +64,7 @@ namespace Hardware
                         ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
                     Console.WriteLine(ExceptionMsg);
                     Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                    _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                 }
             }

@@ -50,7 +50,7 @@ namespace UICommon
 
         #region Public and private methods
 
-        private void Message(string message, EnumLogType logType, [CallerFilePath] string sourceFilePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int sourceLineNumber = 0)
+        private void Message(string message, EnumLogType logType, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             var dt = DateTime.Now;
             var dtStamp = $"[{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}:{dt.Second:D2}]";
@@ -81,39 +81,39 @@ namespace UICommon
             }
             if (isDebug)
             {
-                var msgDebug = $"{dtStamp} Файл {sourceFilePath}. Метод {memberName}. Строка {sourceLineNumber}.";
+                var msgDebug = $"{dtStamp} Файл {filePath}. Метод {memberName}. Строка {lineNumber}.";
                 _log?.Debug(msgDebug);
             }
         }
 
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
-        public void Debug(string message, [CallerFilePath] string sourceFilePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int sourceLineNumber = 0)
+        public void Debug(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, EnumLogType.Debug, sourceFilePath, memberName, sourceLineNumber);
+            Message(message, EnumLogType.Debug, filePath, memberName, lineNumber);
         }
 
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
-        public void Error(string message, [CallerFilePath] string sourceFilePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int sourceLineNumber = 0)
+        public void Error(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, EnumLogType.Error, sourceFilePath, memberName, sourceLineNumber);
+            Message(message, EnumLogType.Error, filePath, memberName, lineNumber);
         }
 
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
-        public void Fatal(string message, [CallerFilePath] string sourceFilePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int sourceLineNumber = 0)
+        public void Fatal(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, EnumLogType.Fatal, sourceFilePath, memberName, sourceLineNumber);
+            Message(message, EnumLogType.Fatal, filePath, memberName, lineNumber);
         }
 
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
-        public void Info(string message, [CallerFilePath] string sourceFilePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int sourceLineNumber = 0)
+        public void Info(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, EnumLogType.Info, sourceFilePath, memberName, sourceLineNumber);
+            Message(message, EnumLogType.Info, filePath, memberName, lineNumber);
         }
 
         [SuppressMessage("ReSharper", "ExplicitCallerInfoArgument")]
-        public void Warn(string message, [CallerFilePath] string sourceFilePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int sourceLineNumber = 0)
+        public void Warn(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, EnumLogType.Warn, sourceFilePath, memberName, sourceLineNumber);
+            Message(message, EnumLogType.Warn, filePath, memberName, lineNumber);
         }
 
         #endregion

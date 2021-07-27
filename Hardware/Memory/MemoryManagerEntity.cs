@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using UICommon;
 
 namespace Hardware.Memory
 {
@@ -28,6 +29,7 @@ namespace Hardware.Memory
         #region Public and private fields and properties
 
         public MemorySizeEntity MemorySize { get; private set; }
+        private readonly LogHelper _log = LogHelper.Instance;
 
         #endregion
 
@@ -71,6 +73,7 @@ namespace Hardware.Memory
                         ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
                     Console.WriteLine(ExceptionMsg);
                     Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                    _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                 }
             }

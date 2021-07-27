@@ -90,7 +90,7 @@ namespace ScalesUI.Common
         /// </summary>
         public string CurrentPageAsString => $"Текущая страница: {_currentPage}";
 
-        public LogEntity Log { get; private set; }
+        public LogEntity Log { get; }
 
         #endregion
 

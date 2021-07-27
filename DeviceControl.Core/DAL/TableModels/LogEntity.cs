@@ -14,7 +14,7 @@ namespace DeviceControl.Core.DAL.TableModels
         public virtual string File { get; set; }
         public virtual int Line { get; set; }
         public virtual string Member { get; set; }
-        public virtual string Icon { get; set; }
+        public virtual LogTypeEntity LogType { get; set; }
         public virtual string Message { get; set; }
 
         #endregion
@@ -25,8 +25,8 @@ namespace DeviceControl.Core.DAL.TableModels
         {
             var strHost = Host != null ? Host.Id.ToString() : "null";
             var strApp = App != null ? App.Uid.ToString() : "null";
+            var strLogType = LogType != null ? LogType.Uid.ToString() : "null";
             return base.ToString() +
-                   $"{nameof(Uid)}: {Uid}. " +
                    $"{nameof(CreateDt)}: {CreateDt}. " +
                    $"{nameof(Scale)}: {Scale}. " +
                    $"{nameof(Host)}: {strHost}. " +
@@ -35,7 +35,7 @@ namespace DeviceControl.Core.DAL.TableModels
                    $"{nameof(File)}: {File}. " +
                    $"{nameof(Line)}: {Line}. " +
                    $"{nameof(Member)}: {Member}. " +
-                   $"{nameof(Icon)}: {Icon}. " +
+                   $"{nameof(LogType)}: {strLogType}. " +
                    $"{nameof(Message)}: {Message}. ";
         }
 
@@ -52,7 +52,7 @@ namespace DeviceControl.Core.DAL.TableModels
                    Equals(File, entity.File) &&
                    Equals(Line, entity.Line) &&
                    Equals(Member, entity.Member) &&
-                   Equals(Icon, entity.Icon) &&
+                   Equals(LogType, entity.LogType) &&
                    Equals(Message, entity.Message);
         }
 
@@ -80,6 +80,8 @@ namespace DeviceControl.Core.DAL.TableModels
                 return false;
             if (App != null && !App.EqualsDefault())
                 return false;
+            if (LogType != null && !LogType.EqualsDefault())
+                return false;
             return base.EqualsDefault() &&
                    Equals(CreateDt, default(DateTime)) &&
                    Equals(Scale, default(string)) &&
@@ -87,7 +89,6 @@ namespace DeviceControl.Core.DAL.TableModels
                    Equals(File, default(string)) &&
                    Equals(Line, default(int)) &&
                    Equals(Member, default(string)) &&
-                   Equals(Icon, default(string)) &&
                    Equals(Message, default(string));
         }
 
@@ -98,13 +99,13 @@ namespace DeviceControl.Core.DAL.TableModels
                 Uid = Uid,
                 CreateDt = CreateDt,
                 Scale = Scale,
-                Host = Host,
-                App = App,
+                Host = (HostsEntity)Host?.Clone(),
+                App = (AppEntity)App?.Clone(),
                 Version = Version,
                 File = File,
                 Line = Line,
                 Member = Member,
-                Icon = Icon,
+                LogType = (LogTypeEntity)LogType?.Clone(),
                 Message = Message,
             };
         }

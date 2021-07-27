@@ -206,7 +206,9 @@
       <Name>UtilsLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Db\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Print\Tsc\TSC cmd.txt" />
     <Content Include="Zpl templates\Labels sizes.txt" />

@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using UICommon;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 
@@ -33,11 +34,12 @@ namespace Hardware.Print
         public PrinterStatus CurrentStatus { get; private set; }
         //public delegate void OnHandler(PrintManagerEntity state);
         //public event OnHandler Notify;
-        private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _ilog = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public Connection Con { get; }
         public ConcurrentQueue<string> PrintCmdQueue { get; } = new ConcurrentQueue<string>();
         private readonly object _locker = new object();
         public PrintControlEntity PrintControl { get; set; }
+        private readonly LogHelper _log = LogHelper.Instance;
 
         #endregion
 
@@ -93,6 +95,7 @@ namespace Hardware.Print
                         ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
                     Console.WriteLine(ExceptionMsg);
                     Console.WriteLine($@"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                    _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                 }
             }
@@ -170,15 +173,15 @@ namespace Hardware.Print
                 }
                 catch (ConnectionException e)
                 {
-                    _log.Error(e.ToString());
+                    _ilog.Error(e.ToString());
                 }
                 catch (ZebraPrinterLanguageUnknownException e)
                 {
-                    _log.Error(e.ToString());
+                    _ilog.Error(e.ToString());
                 }
                 catch (Exception e)
                 {
-                    _log.Error(e.ToString());
+                    _ilog.Error(e.ToString());
                 }
             }
         }
@@ -205,15 +208,15 @@ namespace Hardware.Print
                 }
                 catch (ConnectionException e)
                 {
-                    _log.Error(e.ToString());
+                    _ilog.Error(e.ToString());
                 }
                 catch (ZebraPrinterLanguageUnknownException e)
                 {
-                    _log.Error(e.ToString());
+                    _ilog.Error(e.ToString());
                 }
                 catch (Exception e)
                 {
-                    _log.Error(e.ToString());
+                    _ilog.Error(e.ToString());
                 }
             }
         }

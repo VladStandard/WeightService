@@ -46,6 +46,7 @@ namespace DeviceControl.Core.DAL
                             .Mappings(m => m.FluentMappings.Add<HostsMap>())
                             .Mappings(m => m.FluentMappings.Add<LabelsMap>())
                             .Mappings(m => m.FluentMappings.Add<LogMap>())
+                            .Mappings(m => m.FluentMappings.Add<LogTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
                             .Mappings(m => m.FluentMappings.Add<OrdersMap>())
                             .Mappings(m => m.FluentMappings.Add<OrderTypesMap>())
@@ -83,6 +84,7 @@ namespace DeviceControl.Core.DAL
                             .Mappings(m => m.FluentMappings.Add<HostsMap>())
                             .Mappings(m => m.FluentMappings.Add<LabelsMap>())
                             .Mappings(m => m.FluentMappings.Add<LogMap>())
+                            .Mappings(m => m.FluentMappings.Add<LogTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
                             .Mappings(m => m.FluentMappings.Add<OrdersMap>())
                             .Mappings(m => m.FluentMappings.Add<OrderTypesMap>())
@@ -116,6 +118,7 @@ namespace DeviceControl.Core.DAL
         public HostsCrud HostsCrud;
         public BaseCrud<LabelsEntity> LabelsCrud;
         public BaseCrud<LogEntity> LogCrud;
+        public BaseCrud<LogTypeEntity> LogTypeCrud;
         public BaseCrud<NomenclatureEntity> NomenclatureCrud;
         public BaseCrud<ScalesEntity> ScalesCrud;
         public BaseCrud<OrdersEntity> OrdersCrud;
@@ -163,6 +166,7 @@ namespace DeviceControl.Core.DAL
             HostsCrud = new HostsCrud(this);
             LabelsCrud = new BaseCrud<LabelsEntity>(this);
             LogCrud = new BaseCrud<LogEntity>(this);
+            LogTypeCrud = new BaseCrud<LogTypeEntity>(this);
             NomenclatureCrud = new BaseCrud<NomenclatureEntity>(this);
             ScalesCrud = new BaseCrud<ScalesEntity>(this);
             OrdersCrud = new BaseCrud<OrdersEntity>(this);
@@ -803,6 +807,10 @@ namespace DeviceControl.Core.DAL
                 {
                     _ = LogCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
                 }
+                else if (typeof(T) == typeof(LogTypeEntity))
+                {
+                    _ = LogTypeCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                }
                 else if (typeof(T) == typeof(LogSummaryEntity))
                 {
                     _ = LogSummaryCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
@@ -832,6 +840,8 @@ namespace DeviceControl.Core.DAL
                 LabelsCrud.DeleteEntity(labelsEntity);
             else if (entity is LogEntity logEntity)
                 LogCrud.DeleteEntity(logEntity);
+            else if (entity is LogTypeEntity logTypeEntity)
+                LogTypeCrud.DeleteEntity(logTypeEntity);
             else if (entity is LogSummaryEntity logSummaryEntity)
                 LogSummaryCrud.DeleteEntity(logSummaryEntity);
             else if (entity is NomenclatureEntity nomenclatureEntity)
@@ -884,6 +894,8 @@ namespace DeviceControl.Core.DAL
                 LabelsCrud.MarkedEntity(labelsEntity);
             else if (entity is LogEntity logEntity)
                 LogCrud.MarkedEntity(logEntity);
+            else if (entity is LogTypeEntity logTypeEntity)
+                LogTypeCrud.MarkedEntity(logTypeEntity);
             else if (entity is LogSummaryEntity logSummaryEntity)
                 LogSummaryCrud.MarkedEntity(logSummaryEntity);
             else if (entity is NomenclatureEntity nomenclatureEntity)

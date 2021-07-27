@@ -24,7 +24,8 @@
 	[WorkShopId]            INT NOT NULL FOREIGN KEY REFERENCES [db_scales].[WorkShop] (Id) DEFAULT 0,
     [ZebraPrinterId]        INT NULL FOREIGN KEY REFERENCES [db_scales].[ZebraPrinter](Id),
     [Marked]                BIT NOT NULL DEFAULT 0,
-    [HostId]                INT NULL FOREIGN KEY REFERENCES [db_scales].[Hosts](Id)
+    [HostId]                INT NULL FOREIGN KEY REFERENCES [db_scales].[Hosts](Id), 
+    [LOG_TYPE] TINYINT NOT NULL DEFAULT 0 FOREIGN KEY REFERENCES [db_scales].[LOG_TYPES]([NUMBER]),
 
 ) ON [ScalesFileGroup]
 GO

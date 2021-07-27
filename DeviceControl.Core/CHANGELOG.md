@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.300] - 2021-07-27
+### Changed
+- Logs section
+
 ## [0.2.280] - 2021-07-20
 ### Added
 - Access section

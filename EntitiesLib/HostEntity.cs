@@ -19,9 +19,9 @@ namespace EntitiesLib
 
         public int Id { get; set; }
         public int CurrentScaleId { get; set; }
-        public String Name { get; set; }
-        public String IP { get; set; }
-        public String MAC { get; set; }
+        public string Name { get; set; }
+        public string IP { get; set; }
+        public string MAC { get; set; }
         public Guid IdRRef { get; set; }
         public bool Marked { get; set; }
 

@@ -1,5 +1,4 @@
 -- Table Scales
-use [ScalesDB]
 select
 	 [Id]
 	,[CreateDate]
@@ -22,5 +21,7 @@ select
 	,[ScaleFactor]
 	,[Marked]
 	,[HostId]
-from [db_scales].[Scales]
+	,[lt].[ICON]
+from [db_scales].[Scales] [s]
+left join [db_scales].[LOG_TYPES] [lt] on [lt].[NUMBER]=[s].[LOG_TYPE]
 order by [Id]

@@ -6,100 +6,100 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.290] - 2021-07-26
+## [0.1.300] - 2021-07-27
 ### Changed
-- DeviceControl 0.2.290
-- ScalesDB 0.5.290
-- ScalesUI 0.5.290
+- DeviceControl v.0.2.300
+- ScalesDB v.0.5.300
+- ScalesUI v.0.5.300
 
 ## [0.1.280] - 2021-07-20
 ### Changed
-- DeviceControl 0.2.280
-- ScalesDB 0.5.280
+- DeviceControl v.0.2.280
+- ScalesDB v.0.5.280
 
 ## [0.1.270] - 2021-07-19
 ### Changed
-- DeviceControl 0.2.270
-- DeviceControl.Core 0.2.270
+- DeviceControl v.0.2.270
+- DeviceControl.Core v.0.2.270
 
 ## [0.1.260] - 2021-07-15
 ### Changed
-- EntitiesLib 0.5.250
-- ScalesDB 0.5.250
-- ScalesUI 0.5.260
-- DeviceControl 0.2.260
+- EntitiesLib v.0.5.250
+- ScalesDB v.0.5.250
+- ScalesUI v.0.5.260
+- DeviceControl v.0.2.260
 
 ## [0.1.240] - 2021-07-14
 ### Changed
-- EntitiesLib 0.2.240
-- ScalesDB 0.2.240
-- ScalesUI 0.2.240
+- EntitiesLib v.0.2.240
+- ScalesDB v.0.2.240
+- ScalesUI v.0.2.240
 
 ## [0.1.230] - 2021-07-13
 ### Changed
-- DeviceControl 0.2.230
-- DeviceControl.Core 0.2.230
-- ScalesMsi 0.5.230
-- ScalesUI 0.2.230
+- DeviceControl v.0.2.230
+- DeviceControl.Core v.0.2.230
+- ScalesMsi v.0.5.230
+- ScalesUI v.0.2.230
 
 ## [0.1.220] - 2021-07-06
 ### Changed
-- DeviceControl 0.2.220
+- DeviceControl v.0.2.220
 
 ## [0.1.210] - 2021-07-02
 ### Changed
-- ScalesUI 0.5.210
+- ScalesUI v.0.5.210
 
 ## [0.1.200] - 2021-06-30
 ### Changed
-- ScalesUI 0.5.200
-- ZabbixStubService 0.5.200
-- ZplSdkExamples 0.5.200
+- ScalesUI v.0.5.200
+- ZabbixStubService v.0.5.200
+- ZplSdkExamples v.0.5.200
 
 ## [0.1.190] - 2021-06-29
 ### Changed
-- DeviceControl 0.2.210
-- DeviceControl.Core 0.2.210
-- ScalesUI 0.5.190
+- DeviceControl v.0.2.210
+- DeviceControl.Core v.0.2.210
+- ScalesUI v.0.5.190
 
 ## [0.1.160] - 2021-06-25
 ### Changed
-- ScalesUI 0.5.160
+- ScalesUI v.0.5.160
 
 ## [0.1.150] - 2021-06-04
 ### Changed
-- ScalesUI 0.5.150
-- ScalesUITests 0.5.150
+- ScalesUI v.0.5.150
+- ScalesUITests v.0.5.150
 
 ## [0.1.130] - 2021-05-27
 ### Changed
-- ScalesUI 0.5.100
-- ScalesUITests 0.5.100
+- ScalesUI v.0.5.100
+- ScalesUITests v.0.5.100
 
 ## [0.1.120] - 2021-05-26
 ### Changed
-- Hardware 0.5.90
-- HardwareTests 0.5.90
-- ScalesUI 0.5.90
-- ScalesUITests 0.5.90
+- Hardware v.0.5.90
+- HardwareTests v.0.5.90
+- ScalesUI v.0.5.90
+- ScalesUITests v.0.5.90
 
 ## [0.1.110] - 2021-05-25
 ### Changed
-- Hardware 0.5.80
-- ScalesUI 0.5.80
-- BlazorDeviceControl 0.2.200
+- Hardware v.0.5.80
+- ScalesUI v.0.5.80
+- BlazorDeviceControl v.0.2.200
 
 ## [0.1.100] - 2021-05-22
 ### Changed
-- Hardware 0.5.70
+- Hardware v.0.5.70
 
 ## [0.1.90] - 2021-05-21
 ### Changed
 - Copyright info
 - Product info
-- UICommonLib 0.5.60
-- ScalesUI 0.5.60
-- Hardware 0.5.60
+- UICommonLib v.0.5.60
+- ScalesUI v.0.5.60
+- Hardware v.0.5.60
 
 ## [0.1.80] - 2021-05-20
 ### Changed

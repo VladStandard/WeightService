@@ -63,8 +63,11 @@
     <Compile Include="BarCodeTypeEntity.cs" />
     <Compile Include="ContregentEntity.cs" />
     <Compile Include="Crc16.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="HostEntity.cs" />
+    <Compile Include="LogTypeEntity.cs" />
     <Compile Include="LogEntity.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="ZebraPrinterEntity.cs" />
     <Compile Include="ZplLabel.cs" />
     <Compile Include="NomenclatureEntity.cs" />

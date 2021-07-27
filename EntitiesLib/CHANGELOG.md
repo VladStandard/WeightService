@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.300] - 2021-07-27
+### Added
+- Enums
+- LogTypeEntity
+### Changed
+- LogEntity
+
 ## [0.5.250] - 2021-07-15
 ### Changed
 - LogEntity

@@ -16,7 +16,7 @@ namespace DeviceControl.Core.DAL.TableModels
             Map(x => x.File).CustomSqlType("NVARCHAR(32)").Column("FILE").Length(32).Not.Nullable();
             Map(x => x.Line).CustomSqlType("INT").Column("LINE").Not.Nullable();
             Map(x => x.Member).CustomSqlType("NVARCHAR(32)").Column("MEMBER").Length(32).Not.Nullable();
-            Map(x => x.Icon).CustomSqlType("NVARCHAR(32)").Column("ICON").Length(32).Not.Nullable();
+            References(x => x.LogType).Column("LOG_TYPE_UID").Nullable();
             Map(x => x.Message).CustomSqlType("NVARCHAR(1024)").Column("MESSAGE").Length(1024).Not.Nullable();
         }
     }

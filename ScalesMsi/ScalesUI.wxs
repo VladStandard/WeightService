@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="6fe30b47-2577-43ad-9095-1861ba83f89b" Name="ScalesUI" Language="1049" Codepage="windows-1251" Version="0.5.230" UpgradeCode="6fe30b47-2577-43ad-9095-1861ba25889b" Manufacturer="Владимирский стандарт">
+    <Package InstallerVersion="200" Compressed="yes" SummaryCodepage="windows-1251" InstallPrivileges="elevated" InstallScope="perMachine" Languages="1049" />
+    <Media Id="1" Cabinet="ScalesUI.cab" EmbedCab="yes" />
+
+    <Condition Message="Сначала установите .Net Framework 4.8."><![CDATA[ (NETFRAMEWORK45 >= "#528040") ]]></Condition>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="INSTALLDIR_SCALESUI" Name="ScalesUI">
+
+        <Component Id="Component.INSTALLDIR_SCALESUI" Guid="6fe30b47-2577-43ad-9095-1861d0a91e21" KeyPath="yes">
+          <CreateFolder />
+          <RemoveFolder Id="INSTALLDIR_SCALESUI" On="uninstall" />
+        </Component>
+
+        <Component Id="Component.ScalesUI.exe_3225583554" Guid="6fe30b47-2577-43ad-9095-1861299838a6">
+          <File Id="ScalesUI.exe_3225583554" Source="..\ScalesUI2\bin\x64\Debug\ScalesUI.exe">
+            <Shortcut Id="Shortcut.ScalesUI.exe_3225583554.ScalesUI_" WorkingDirectory="INSTALLDIR" Directory="VladimirStandardCorp" Name="ScalesUI.lnk" />
+            <Shortcut Id="Shortcut.ScalesUI.exe_3225583554.ScalesUI.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="ScalesUI.lnk" />
+            <Shortcut Id="Shortcut.ScalesUI.exe_3225583554.ScalesUI.2" WorkingDirectory="INSTALLDIR" Directory="StartupFolder" Name="ScalesUI.lnk" />
+          </File>
+
+          <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+            <RegistryValue Value="0" Type="string" KeyPath="yes" />
+          </RegistryKey>
+        </Component>
+
+        <Component Id="Component.CHANGELOG.md_736277375" Guid="6fe30b47-2577-43ad-9095-1861eca82b87">
+          <File Id="CHANGELOG.md_736277375" Source="..\ScalesUI2\bin\x64\Debug\CHANGELOG.md" />
+        </Component>
+
+        <Component Id="Component.EntitiesLib.dll_1623128886" Guid="6fe30b47-2577-43ad-9095-186137bc764c">
+          <File Id="EntitiesLib.dll_1623128886" Source="..\ScalesUI2\bin\x64\Debug\EntitiesLib.dll" />
+        </Component>
+
+        <Component Id="Component.Hardware.dll_1530137947" Guid="6fe30b47-2577-43ad-9095-18613392dadc">
+          <File Id="Hardware.dll_1530137947" Source="..\ScalesUI2\bin\x64\Debug\Hardware.dll" />
+        </Component>
+
+        <Component Id="Component.log4net.dll_759438420" Guid="6fe30b47-2577-43ad-9095-1861c7e620e8">
+          <File Id="log4net.dll_759438420" Source="..\ScalesUI2\bin\x64\Debug\log4net.dll" />
+        </Component>
+
+        <Component Id="Component.Microsoft.Bcl.AsyncInterfaces.dll_1947921203" Guid="6fe30b47-2577-43ad-9095-1861b7c93269">
+          <File Id="Microsoft.Bcl.AsyncInterfaces.dll_1947921203" Source="..\ScalesUI2\bin\x64\Debug\Microsoft.Bcl.AsyncInterfaces.dll" />
+        </Component>
+
+        <Component Id="Component.Microsoft.DotNet.PlatformAbstractions.dll_3226711501" Guid="6fe30b47-2577-43ad-9095-1861abede2f1">
+          <File Id="Microsoft.DotNet.PlatformAbstractions.dll_3226711501" Source="..\ScalesUI2\bin\x64\Debug\Microsoft.DotNet.PlatformAbstractions.dll" />
+        </Component>
+
+        <Component Id="Component.Microsoft.Extensions.DependencyModel.dll_3189917287" Guid="6fe30b47-2577-43ad-9095-18617248e92c">
+          <File Id="Microsoft.Extensions.DependencyModel.dll_3189917287" Source="..\ScalesUI2\bin\x64\Debug\Microsoft.Extensions.DependencyModel.dll" />
+        </Component>
+
+        <Component Id="Component.Newtonsoft.Json.dll_1405544433" Guid="6fe30b47-2577-43ad-9095-18611b530376">
+          <File Id="Newtonsoft.Json.dll_1405544433" Source="..\ScalesUI2\bin\x64\Debug\Newtonsoft.Json.dll" />
+        </Component>
+
+        <Component Id="Component.ScalesUI.exe.config_1130392401" Guid="6fe30b47-2577-43ad-9095-1861b69e4c97">
+          <File Id="ScalesUI.exe.config_1130392401" Source="..\ScalesUI2\bin\x64\Debug\ScalesUI.exe.config" />
+        </Component>
+
+        <Component Id="Component.SdkApi.Core.dll_1152440107" Guid="6fe30b47-2577-43ad-9095-1861ffda5bc7">
+          <File Id="SdkApi.Core.dll_1152440107" Source="..\ScalesUI2\bin\x64\Debug\SdkApi.Core.dll" />
+        </Component>
+
+        <Component Id="Component.SdkApi.Desktop.dll_1266613680" Guid="6fe30b47-2577-43ad-9095-186138486779">
+          <File Id="SdkApi.Desktop.dll_1266613680" Source="..\ScalesUI2\bin\x64\Debug\SdkApi.Desktop.dll" />
+        </Component>
+
+        <Component Id="Component.System.Buffers.dll_1616873463" Guid="6fe30b47-2577-43ad-9095-1861ef5f6757">
+          <File Id="System.Buffers.dll_1616873463" Source="..\ScalesUI2\bin\x64\Debug\System.Buffers.dll" />
+        </Component>
+
+        <Component Id="Component.System.Memory.dll_3887372928" Guid="6fe30b47-2577-43ad-9095-18613e13998d">
+          <File Id="System.Memory.dll_3887372928" Source="..\ScalesUI2\bin\x64\Debug\System.Memory.dll" />
+        </Component>
+
+        <Component Id="Component.System.Numerics.Vectors.dll_3017740978" Guid="6fe30b47-2577-43ad-9095-1861d6615cf0">
+          <File Id="System.Numerics.Vectors.dll_3017740978" Source="..\ScalesUI2\bin\x64\Debug\System.Numerics.Vectors.dll" />
+        </Component>
+
+        <Component Id="Component.System.Runtime.CompilerServices.Unsafe.dll_1152601799" Guid="6fe30b47-2577-43ad-9095-1861f1439e31">
+          <File Id="System.Runtime.CompilerServices.Unsafe.dll_1152601799" Source="..\ScalesUI2\bin\x64\Debug\System.Runtime.CompilerServices.Unsafe.dll" />
+        </Component>
+
+        <Component Id="Component.System.Text.Encodings.Web.dll_1214395167" Guid="6fe30b47-2577-43ad-9095-18618da94dea">
+          <File Id="System.Text.Encodings.Web.dll_1214395167" Source="..\ScalesUI2\bin\x64\Debug\System.Text.Encodings.Web.dll" />
+        </Component>
+
+        <Component Id="Component.System.Text.Json.dll_424787783" Guid="6fe30b47-2577-43ad-9095-18616a5a170d">
+          <File Id="System.Text.Json.dll_424787783" Source="..\ScalesUI2\bin\x64\Debug\System.Text.Json.dll" />
+        </Component>
+
+        <Component Id="Component.System.Threading.Tasks.Extensions.dll_1237198786" Guid="6fe30b47-2577-43ad-9095-1861484df245">
+          <File Id="System.Threading.Tasks.Extensions.dll_1237198786" Source="..\ScalesUI2\bin\x64\Debug\System.Threading.Tasks.Extensions.dll" />
+        </Component>
+
+        <Component Id="Component.System.ValueTuple.dll_2278019697" Guid="6fe30b47-2577-43ad-9095-1861f65726b7">
+          <File Id="System.ValueTuple.dll_2278019697" Source="..\ScalesUI2\bin\x64\Debug\System.ValueTuple.dll" />
+        </Component>
+
+        <Component Id="Component.tsclibnet.dll_1073934592" Guid="6fe30b47-2577-43ad-9095-18619c309155">
+          <File Id="tsclibnet.dll_1073934592" Source="..\ScalesUI2\bin\x64\Debug\tsclibnet.dll" />
+        </Component>
+
+        <Component Id="Component.UICommon.dll_1423243087" Guid="6fe30b47-2577-43ad-9095-18612f8ebd46">
+          <File Id="UICommon.dll_1423243087" Source="..\ScalesUI2\bin\x64\Debug\UICommon.dll" />
+        </Component>
+
+        <Component Id="Component.UtilsLib.dll_1718734914" Guid="6fe30b47-2577-43ad-9095-1861ce2981fe">
+          <File Id="UtilsLib.dll_1718734914" Source="..\ScalesUI2\bin\x64\Debug\UtilsLib.dll" />
+        </Component>
+
+        <Component Id="Component.ZebraPrinterSdk.dll_4103698211" Guid="6fe30b47-2577-43ad-9095-186107d34850">
+          <File Id="ZebraPrinterSdk.dll_4103698211" Source="..\ScalesUI2\bin\x64\Debug\ZebraPrinterSdk.dll" />
+        </Component>
+
+      </Directory>
+
+      <Directory Id="INSTALLDIR_SCALESUI_DOCS" Name="ScalesUIDocs">
+
+        <Component Id="Component.INSTALLDIR_SCALESUI_DOCS" Guid="6fe30b47-2577-43ad-9095-1861193b3201" KeyPath="yes">
+          <CreateFolder />
+          <RemoveFolder Id="INSTALLDIR_SCALESUI_DOCS" On="uninstall" />
+        </Component>
+
+        <Component Id="Component.CHANGELOG.md_3160011581" Guid="6fe30b47-2577-43ad-9095-18613bc286fa">
+          <File Id="CHANGELOG.md_3160011581" Source="Docs\CHANGELOG.md" />
+        </Component>
+
+        <Component Id="Component.README.md_220112422" Guid="6fe30b47-2577-43ad-9095-1861f089f31c">
+          <File Id="README.md_220112422" Source="Docs\README.md" />
+        </Component>
+
+        <Component Id="Component.License.rtf_2433999274" Guid="6fe30b47-2577-43ad-9095-186106c3cf7c">
+          <File Id="License.rtf_2433999274" Source="Docs\License.rtf" />
+        </Component>
+
+      </Directory>
+
+      <Directory Id="INSTALLDIR_SCALESUI_MANUALS" Name="ScalesUIManuals">
+
+        <Component Id="Component.INSTALLDIR_SCALESUI_MANUALS" Guid="6fe30b47-2577-43ad-9095-1861543dc5ee" KeyPath="yes">
+          <CreateFolder />
+          <RemoveFolder Id="INSTALLDIR_SCALESUI_MANUALS" On="uninstall" />
+        </Component>
+
+        <Component Id="Component.________________________.docx_3998897672" Guid="6fe30b47-2577-43ad-9095-186121c3dee3">
+          <File Id="________________________.docx_3998897672" Source="..\Resources\Manuals\Руководство пользователя.docx" />
+        </Component>
+
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="ProgramMenuFolder">
+        <Directory Id="VladimirStandardCorp" Name="VladimirStandardCorp">
+
+          <Component Id="Component.Uninstall_VladimirStandardCorp" Guid="6fe30b47-2577-43ad-9095-18614fb1be72">
+            <Shortcut Id="VladimirStandardCorp.Uninstall_VladimirStandardCorp" WorkingDirectory="System64Folder" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Name="Uninstall VladimirStandardCorp.lnk" />
+
+            <CreateFolder />
+            <RemoveFolder Id="VladimirStandardCorp" On="uninstall" />
+
+            <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+              <RegistryValue Value="0" Type="string" KeyPath="yes" />
+            </RegistryKey>
+          </Component>
+
+        </Directory>
+      </Directory>
+
+      <Directory Id="INSTALLDIR_LABELPRINT" Name="LabelPrint">
+
+        <Component Id="Component.INSTALLDIR_LABELPRINT" Guid="6fe30b47-2577-43ad-9095-1861d35078ce" KeyPath="yes">
+          <CreateFolder />
+          <RemoveFolder Id="INSTALLDIR_LABELPRINT" On="uninstall" />
+        </Component>
+
+        <Component Id="Component.LabelPrint.exe_2532670042" Guid="6fe30b47-2577-43ad-9095-18615daa6e70">
+          <File Id="LabelPrint.exe_2532670042" Source="..\LabelPrint\bin\x64\Debug\LabelPrint.exe">
+            <Shortcut Id="Shortcut.LabelPrint.exe_2532670042.LabelPrint" WorkingDirectory="INSTALLDIR" Directory="VladimirStandardCorp" Name="LabelPrint.lnk" />
+            <Shortcut Id="Shortcut.LabelPrint.exe_2532670042.LabelPrint.1" WorkingDirectory="INSTALLDIR" Directory="DesktopFolder" Name="LabelPrint.lnk" />
+            <Shortcut Id="Shortcut.LabelPrint.exe_2532670042.LabelPrint.2" WorkingDirectory="INSTALLDIR" Directory="StartupFolder" Name="LabelPrint.lnk" />
+          </File>
+
+          <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+            <RegistryValue Value="0" Type="string" KeyPath="yes" />
+          </RegistryKey>
+        </Component>
+
+        <Component Id="Component.LabelPrint.exe.config_3290141458" Guid="6fe30b47-2577-43ad-9095-186170c016d4">
+          <File Id="LabelPrint.exe.config_3290141458" Source="..\LabelPrint\bin\x64\Debug\LabelPrint.exe.config" />
+        </Component>
+
+        <Component Id="Component.WPF.Utils.dll_483558462" Guid="6fe30b47-2577-43ad-9095-18614b606e50">
+          <File Id="WPF.Utils.dll_483558462" Source="..\LabelPrint\bin\x64\Debug\WPF.Utils.dll" />
+        </Component>
+
+      </Directory>
+
+      <Directory Id="INSTALLDIR_LABELPRINT_DOCS" Name="LabelPrintDocs">
+
+        <Component Id="Component.INSTALLDIR_LABELPRINT_DOCS" Guid="6fe30b47-2577-43ad-9095-186175f08cb2" KeyPath="yes">
+          <CreateFolder />
+          <RemoveFolder Id="INSTALLDIR_LABELPRINT_DOCS" On="uninstall" />
+        </Component>
+
+        <Component Id="Component.CHANGELOG.md_3630328183" Guid="6fe30b47-2577-43ad-9095-18614aba9e2c">
+          <File Id="CHANGELOG.md_3630328183" Source="..\LabelPrint\bin\x64\Debug\CHANGELOG.md" />
+        </Component>
+
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder.1" Name="ProgramMenuFolder">
+        <Directory Id="VladimirStandardCorp.1" Name="VladimirStandardCorp">
+
+          <Component Id="Component.Uninstall_VladimirStandardCorp.1" Guid="6fe30b47-2577-43ad-9095-1861fb3b3e71">
+            <Shortcut Id="VladimirStandardCorp.1.Uninstall_VladimirStandardCorp.1" WorkingDirectory="System64Folder" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Name="Uninstall VladimirStandardCorp.lnk" />
+
+            <CreateFolder />
+            <RemoveFolder Id="VladimirStandardCorp.1" On="uninstall" />
+
+            <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+              <RegistryValue Value="0" Type="string" KeyPath="yes" />
+            </RegistryKey>
+          </Component>
+
+        </Directory>
+
+        <Component Id="ProgramMenuFolder.1" Guid="6fe30b47-2577-43ad-9095-186177f132c6">
+          <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+            <RegistryValue Value="0" Type="string" KeyPath="yes" />
+          </RegistryKey>
+        </Component>
+
+      </Directory>
+
+      <Directory Id="INSTALLDIR_MASSA" Name="Massa-K">
+
+        <Component Id="Component.INSTALLDIR_MASSA.EmptyDirectory" Guid="6fe30b47-2577-43ad-9095-1861dd6ad0d3" KeyPath="yes">
+          <CreateFolder />
+          <RemoveFolder Id="INSTALLDIR_MASSA" On="uninstall" />
+        </Component>
+
+      </Directory>
+
+      <Directory Id="INSTALLDIR_MASSA_DRIVER" Name="MassaDriver">
+
+        <Component Id="Component.INSTALLDIR_MASSA_DRIVER.EmptyDirectory" Guid="6fe30b47-2577-43ad-9095-18615d033f90" KeyPath="yes">
+          <CreateFolder />
+          <RemoveFolder Id="INSTALLDIR_MASSA_DRIVER" On="uninstall" />
+        </Component>
+
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="DesktopFolder">
+
+        <Component Id="Component.DesktopFolder.EmptyDirectory" Guid="6fe30b47-2577-43ad-9095-1861f93f29a1">
+          <CreateFolder />
+
+          <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+            <RegistryValue Value="0" Type="string" KeyPath="yes" />
+          </RegistryKey>
+        </Component>
+
+      </Directory>
+
+      <Directory Id="StartupFolder" Name="StartupFolder">
+
+        <Component Id="Component.StartupFolder.EmptyDirectory" Guid="6fe30b47-2577-43ad-9095-1861730c6738">
+          <CreateFolder />
+
+          <RegistryKey Root="HKCU" Key="Software\WixSharp\Used">
+            <RegistryValue Value="0" Type="string" KeyPath="yes" />
+          </RegistryKey>
+        </Component>
+
+      </Directory>
+
+      <Component Id="TARGETDIR" Guid="6fe30b47-2577-43ad-9095-18612df5f80e" KeyPath="yes">
+        <CreateFolder />
+        <RemoveFolder Id="TARGETDIR" On="uninstall" />
+      </Component>
+
+    </Directory>
+
+    <PropertyRef Id="NETFRAMEWORK45" />
+
+    <UI />
+
+    <UI>
+      <EmbeddedUI Id="WixSharp_EmbeddedUI_Asm" SourceFile="WixSharp.UI.CA.dll" />
+    </UI>
+
+    <WixVariable Id="WixUILicenseRtf" Value="c:\DevSource\Kolbasa-Git\WeightService\ScalesMsi\Docs\License.rtf" />
+
+    <CustomAction Id="WixSharp_SetProperty_WIXSHARP_RESILIENT_SOURCE_DIR" Property="WIXSHARP_RESILIENT_SOURCE_DIR" Value="[INSTALLDIR_SCALESUI]" Return="check" Execute="immediate" />
+    <CustomAction Id="WixSharp_SetProperty_SOURCELIST" Property="SOURCELIST" Value="[WIXSHARP_RESILIENT_SOURCE_DIR]" Return="check" Execute="immediate" />
+    <CustomAction Id="WixSharp_SetPackageName_Action" BinaryKey="WixSharp_SetPackageName_Action_File" DllEntry="WixSharp_SetPackageName_Action" Return="ignore" Execute="immediate" />
+    <CustomAction Id="Set_WixSharp_RemoveResilientPackage_Action_Props" Property="WixSharp_RemoveResilientPackage_Action" Value="WIXSHARP_RESILIENT_SOURCE_DIR=[WIXSHARP_RESILIENT_SOURCE_DIR];WIXSHARP_PACKAGENAME=[WIXSHARP_PACKAGENAME];INSTALLDIR=[INSTALLDIR];UILevel=[UILevel];ProductCode=[ProductCode];ADDLOCAL=[ADDLOCAL];ADDFEATURES=[ADDFEATURES]" />
+    <CustomAction Id="WixSharp_RemoveResilientPackage_Action" BinaryKey="WixSharp_SetPackageName_Action_File" DllEntry="WixSharp_RemoveResilientPackage_Action" Return="ignore" Impersonate="no" Execute="deferred" />
+    <CustomAction Id="Set_WixSharp_CreateResilientPackage_Action_Props" Property="WixSharp_CreateResilientPackage_Action" Value="UserSID=[UserSID];OriginalDatabase=[OriginalDatabase];ALLUSERS=[ALLUSERS];WIXSHARP_RESILIENT_SOURCE_DIR=[WIXSHARP_RESILIENT_SOURCE_DIR];INSTALLDIR=[INSTALLDIR];UILevel=[UILevel];ProductCode=[ProductCode];ADDLOCAL=[ADDLOCAL];ADDFEATURES=[ADDFEATURES]" />
+    <CustomAction Id="WixSharp_CreateResilientPackage_Action" BinaryKey="WixSharp_SetPackageName_Action_File" DllEntry="WixSharp_CreateResilientPackage_Action" Return="ignore" Impersonate="no" Execute="deferred" />
+    <CustomAction Id="WixSharp_InitRuntime_Action" BinaryKey="WixSharp_SetPackageName_Action_File" DllEntry="WixSharp_InitRuntime_Action" Return="check" Execute="immediate" />
+    <CustomAction Id="Set_CancelRequestHandler_Props" Property="CancelRequestHandler" Value="UpgradeCode=[UpgradeCode];INSTALLDIR=[INSTALLDIR];UILevel=[UILevel];ProductCode=[ProductCode];ADDLOCAL=[ADDLOCAL];ADDFEATURES=[ADDFEATURES]" />
+    <CustomAction Id="CancelRequestHandler" BinaryKey="WixSharp_SetPackageName_Action_File" DllEntry="CancelRequestHandler" Return="check" Impersonate="no" Execute="deferred" />
+    <CustomAction Id="WixSharp_Load_Action" BinaryKey="WixSharp_SetPackageName_Action_File" DllEntry="WixSharp_Load_Action" Return="check" Execute="immediate" />
+    <CustomAction Id="WixSharp_BeforeInstall_Action" BinaryKey="WixSharp_SetPackageName_Action_File" DllEntry="WixSharp_BeforeInstall_Action" Return="check" Execute="immediate" />
+    <CustomAction Id="Set_WixSharp_AfterInstall_Action_Props" Property="WixSharp_AfterInstall_Action" Value="WixSharp_AfterInstall_Handlers=[WixSharp_AfterInstall_Handlers];WIXSHARP_RUNTIME_DATA=[WIXSHARP_RUNTIME_DATA];INSTALLDIR=[INSTALLDIR];UILevel=[UILevel];ProductName=[ProductName];FOUNDPREVIOUSVERSION=[FOUNDPREVIOUSVERSION];INSTALLDIR=[INSTALLDIR];UILevel=[UILevel];ProductCode=[ProductCode];ADDLOCAL=[ADDLOCAL];ADDFEATURES=[ADDFEATURES]" />
+    <CustomAction Id="WixSharp_AfterInstall_Action" BinaryKey="WixSharp_SetPackageName_Action_File" DllEntry="WixSharp_AfterInstall_Action" Return="check" Impersonate="no" Execute="deferred" />
+
+    <Binary Id="WixSharp_SetPackageName_Action_File" SourceFile="WixSharp.CA.dll" />
+    <Binary Id="en_xsl" SourceFile="WixUI_en-us.wxl" />
+    <Binary Id="ru_xsl" SourceFile="WixUI_ru-RU.wxl" />
+    <Binary Id="WixSharp_UIText" SourceFile="ScalesUI.wxl" />
+    <Binary Id="WixSharp_LicenceFile" SourceFile="Docs\License.rtf" />
+    <Binary Id="WixUI_Bmp_Dialog" SourceFile="ScalesUI.dialog_bmp.png" />
+    <Binary Id="WixUI_Bmp_Banner" SourceFile="ScalesUI.dialog_banner.png" />
+
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Property Id="INSTALLDIR" Value="C:\Program Files (x86)\VladimirStandardCorp" />
+    <Property Id="INSTALLDIR_LABELPRINT" Value="C:\Program Files (x86)\VladimirStandardCorp\LabelPrint" />
+    <Property Id="INSTALLDIR_LABELPRINT_DOCS" Value="C:\Program Files (x86)\VladimirStandardCorp\LabelPrint\Docs" />
+    <Property Id="INSTALLDIR_SCALESUI" Value="C:\Program Files (x86)\VladimirStandardCorp\ScalesUI" />
+    <Property Id="INSTALLDIR_SCALESUI_DOCS" Value="C:\Program Files (x86)\VladimirStandardCorp\ScalesUI\Docs" />
+    <Property Id="INSTALLDIR_MASSA_DRIVER" Value="C:\Program Files (x86)\VladimirStandardCorp\Massa-K\Drivers" />
+    <Property Id="INSTALLDIR_SCALESUI_MANUALS" Value="C:\Program Files (x86)\VladimirStandardCorp\ScalesUI\Manuals" />
+    <Property Id="INSTALLDIR_TAPANGAMAHA" Value="C:\Program Files (x86)\VladimirStandardCorp\TapangaMaha" />
+    <Property Id="WixSharp_UI_INSTALLDIR" Value="INSTALLDIR" />
+    <Property Id="UAC_REVEALER_ENABLED" Value="true" />
+    <Property Id="UAC_WARNING" Value="Please wait for UAC prompt to appear.&#xD;&#xA;&#xD;&#xA;If it appears minimized then activate it from the taskbar." />
+    <Property Id="WixSharp_InstallDialogs" Value="ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.LanguageDialog&#xA;ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.WelcomeDialog&#xA;ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.SetupTypeDialog&#xA;ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.FeaturesDialog&#xA;ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.InstallDirDialog&#xA;ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.ProgressDialog&#xA;ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.ExitDialog" />
+    <Property Id="WixSharp_ModifyDialogs" Value="ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.MaintenanceTypeDialog&#xA;ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.FeaturesDialog&#xA;ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.ProgressDialog&#xA;ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Dialogs.ExitDialog" />
+    <Property Id="WixSharp_UIInitialized_Handlers" Value="ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Program+&lt;&gt;c|&lt;Localize&gt;b__5_0" />
+    <Property Id="WixSharp_Load_Handlers" Value="ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Program|Load" />
+    <Property Id="WixSharp_BeforeInstall_Handlers" Value="ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Program|BeforeInstall" />
+    <Property Id="WixSharp_AfterInstall_Handlers" Value="ScalesMsi, Version=0.5.230.0, Culture=neutral, PublicKeyToken=null|ScalesMsi.Program|AfterInstall" />
+
+    <Feature Id="ScalesUI" Title="ScalesUI" Absent="allow" Level="2" Description="Печать этикеток" Display="expand">
+      <ComponentRef Id="Component.INSTALLDIR_SCALESUI" />
+      <ComponentRef Id="Component.ScalesUI.exe_3225583554" />
+      <ComponentRef Id="Component.CHANGELOG.md_736277375" />
+      <ComponentRef Id="Component.EntitiesLib.dll_1623128886" />
+      <ComponentRef Id="Component.Hardware.dll_1530137947" />
+      <ComponentRef Id="Component.log4net.dll_759438420" />
+      <ComponentRef Id="Component.Microsoft.Bcl.AsyncInterfaces.dll_1947921203" />
+      <ComponentRef Id="Component.Microsoft.DotNet.PlatformAbstractions.dll_3226711501" />
+      <ComponentRef Id="Component.Microsoft.Extensions.DependencyModel.dll_3189917287" />
+      <ComponentRef Id="Component.Newtonsoft.Json.dll_1405544433" />
+      <ComponentRef Id="Component.ScalesUI.exe.config_1130392401" />
+      <ComponentRef Id="Component.SdkApi.Core.dll_1152440107" />
+      <ComponentRef Id="Component.SdkApi.Desktop.dll_1266613680" />
+      <ComponentRef Id="Component.System.Buffers.dll_1616873463" />
+      <ComponentRef Id="Component.System.Memory.dll_3887372928" />
+      <ComponentRef Id="Component.System.Numerics.Vectors.dll_3017740978" />
+      <ComponentRef Id="Component.System.Runtime.CompilerServices.Unsafe.dll_1152601799" />
+      <ComponentRef Id="Component.System.Text.Encodings.Web.dll_1214395167" />
+      <ComponentRef Id="Component.System.Text.Json.dll_424787783" />
+      <ComponentRef Id="Component.System.Threading.Tasks.Extensions.dll_1237198786" />
+      <ComponentRef Id="Component.System.ValueTuple.dll_2278019697" />
+      <ComponentRef Id="Component.tsclibnet.dll_1073934592" />
+      <ComponentRef Id="Component.UICommon.dll_1423243087" />
+      <ComponentRef Id="Component.UtilsLib.dll_1718734914" />
+      <ComponentRef Id="Component.ZebraPrinterSdk.dll_4103698211" />
+      <ComponentRef Id="Component.Uninstall_VladimirStandardCorp" />
+      <ComponentRef Id="Component.DesktopFolder.EmptyDirectory" />
+      <ComponentRef Id="Component.StartupFolder.EmptyDirectory" />
+
+      <Feature Id="ScalesUIDocumentation" Title="Documentation" Absent="allow" Level="2" Description="Документация ScalesUI">
+        <ComponentRef Id="Component.INSTALLDIR_SCALESUI_DOCS" />
+        <ComponentRef Id="Component.CHANGELOG.md_3160011581" />
+        <ComponentRef Id="Component.README.md_220112422" />
+        <ComponentRef Id="Component.License.rtf_2433999274" />
+        <ComponentRef Id="TARGETDIR" />
+        <ComponentRef Id="ProgramMenuFolder.1" />
+      </Feature>
+
+      <Feature Id="ScalesUIManuals" Title="Manuals" Absent="allow" Level="2" Description="Руководства ScalesUI">
+        <ComponentRef Id="Component.INSTALLDIR_SCALESUI_MANUALS" />
+        <ComponentRef Id="Component.________________________.docx_3998897672" />
+        <ComponentRef Id="TARGETDIR" />
+        <ComponentRef Id="ProgramMenuFolder.1" />
+      </Feature>
+
+      <ComponentRef Id="TARGETDIR" />
+      <ComponentRef Id="ProgramMenuFolder.1" />
+    </Feature>
+
+    <Feature Id="LabelPrint" Title="LabelPrint" Absent="allow" Level="2" Description="WPF печать этикеток" Display="expand">
+      <ComponentRef Id="Component.INSTALLDIR_LABELPRINT" />
+      <ComponentRef Id="Component.LabelPrint.exe_2532670042" />
+      <ComponentRef Id="Component.LabelPrint.exe.config_3290141458" />
+      <ComponentRef Id="Component.WPF.Utils.dll_483558462" />
+      <ComponentRef Id="Component.Uninstall_VladimirStandardCorp.1" />
+
+      <Feature Id="LabelPrintDocumentation" Title="Documentation" Absent="allow" Level="2" Description="Документация LabelPrint">
+        <ComponentRef Id="Component.INSTALLDIR_LABELPRINT_DOCS" />
+        <ComponentRef Id="Component.CHANGELOG.md_3630328183" />
+        <ComponentRef Id="TARGETDIR" />
+        <ComponentRef Id="ProgramMenuFolder.1" />
+      </Feature>
+
+      <ComponentRef Id="TARGETDIR" />
+      <ComponentRef Id="ProgramMenuFolder.1" />
+    </Feature>
+
+    <Feature Id="Massa" Title="Massa-K" Absent="allow" Level="1" Description="Масса-К" Display="expand">
+      <ComponentRef Id="Component.INSTALLDIR_MASSA.EmptyDirectory" />
+
+      <Feature Id="MassaDriver" Title="MassaDriver" Absent="allow" Level="1" Description="STM-драйвер (Virtual COM Port)">
+        <ComponentRef Id="Component.INSTALLDIR_MASSA_DRIVER.EmptyDirectory" />
+        <ComponentRef Id="TARGETDIR" />
+        <ComponentRef Id="ProgramMenuFolder.1" />
+      </Feature>
+
+      <Feature Id="MassaScalesTerminal" Title="MassaScalesTerminal" Absent="allow" Level="1" Description="Весовой терминал 100">
+        <ComponentRef Id="TARGETDIR" />
+        <ComponentRef Id="ProgramMenuFolder.1" />
+      </Feature>
+
+      <ComponentRef Id="TARGETDIR" />
+      <ComponentRef Id="ProgramMenuFolder.1" />
+    </Feature>
+
+    <InstallExecuteSequence>
+      <Custom Action="WixSharp_SetProperty_WIXSHARP_RESILIENT_SOURCE_DIR" Before="InstallInitialize">WIXSHARP_RESILIENT_SOURCE_DIR=""</Custom>
+      <Custom Action="WixSharp_SetProperty_SOURCELIST" Before="PublishProduct"> (NOT Installed) </Custom>
+      <Custom Action="WixSharp_SetPackageName_Action" Before="InstallInitialize"> (REMOVE="ALL") </Custom>
+      <Custom Action="Set_WixSharp_RemoveResilientPackage_Action_Props" Before="RemoveFiles" />
+      <Custom Action="WixSharp_RemoveResilientPackage_Action" After="Set_WixSharp_RemoveResilientPackage_Action_Props"> (REMOVE="ALL") </Custom>
+      <Custom Action="Set_WixSharp_CreateResilientPackage_Action_Props" Before="InstallFinalize" />
+      <Custom Action="WixSharp_CreateResilientPackage_Action" After="Set_WixSharp_CreateResilientPackage_Action_Props"><![CDATA[( (NOT Installed)  OR REINSTALL<>"")]]></Custom>
+      <Custom Action="WixSharp_InitRuntime_Action" Before="AppSearch"> (1) </Custom>
+      <Custom Action="Set_CancelRequestHandler_Props" Before="InstallFinalize" />
+      <Custom Action="CancelRequestHandler" After="Set_CancelRequestHandler_Props"> (NOT (REMOVE="ALL")) </Custom>
+      <Custom Action="WixSharp_Load_Action" Before="AppSearch">1</Custom>
+      <Custom Action="WixSharp_BeforeInstall_Action" Before="InstallFiles">1</Custom>
+      <Custom Action="Set_WixSharp_AfterInstall_Action_Props" After="InstallFiles" />
+      <Custom Action="WixSharp_AfterInstall_Action" After="Set_WixSharp_AfterInstall_Action_Props">1</Custom>
+    </InstallExecuteSequence>
+
+  </Product>
+</Wix>
+

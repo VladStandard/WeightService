@@ -90,6 +90,7 @@ namespace Hardware.MassaK
                         ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
                     Console.WriteLine(ExceptionMsg);
                     Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                    _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                 }
             }
@@ -125,15 +126,13 @@ namespace Hardware.MassaK
 
         public void ParseRequest()
         {
-            byte[] response;
-            Cmd request;
-            if (_requestQueue.TryDequeue(out request))
+            if (_requestQueue.TryDequeue(out Cmd request))
             {
                 lock (Locker)
                 {
                     IsReady = false;
                     //var state = EnumControlState.Up;
-                    response = DeviceSocket.SharingSession(request.BuildCmd());
+                    byte[] response = DeviceSocket.SharingSession(request.BuildCmd());
                     Ask ask = AskFactory.GetAsk(response);
                     if (ask == null)
                     {
@@ -143,7 +142,7 @@ namespace Hardware.MassaK
                     else
                     {
                         //var scaleFactor = 0;
-                        var weightTare = 0M;
+                        decimal weightTare = 0M;
                         if (request.GetType() == typeof(CmdGetMassa))
                         {
                             switch (ask)
@@ -272,7 +271,7 @@ namespace Hardware.MassaK
 
         public void SetTareWeight(int weightTare)
         {
-            var cmdSetTare = new CmdSetTare {ScaleFactor = 1000, WeightTare = weightTare};
+            CmdSetTare cmdSetTare = new CmdSetTare {ScaleFactor = 1000, WeightTare = weightTare};
             AddRequest(cmdSetTare);
         }
 
@@ -332,8 +331,8 @@ namespace Hardware.MassaK
                 {
                     SerialPort.Write(request, 0, request.Length);
                     Thread.Sleep(50);
-                    var bytes = SerialPort.BytesToRead;
-                    var buffer = new byte[bytes];
+                    int bytes = SerialPort.BytesToRead;
+                    byte[] buffer = new byte[bytes];
                     if (bytes > 0)
                     {
                         SerialPort.Read(buffer, 0, bytes);
@@ -375,12 +374,12 @@ namespace Hardware.MassaK
                     ReceiveTimeout = DeviceReceiveTimeout,
                 };
 
-                var stream = TcpClient.GetStream();
+                NetworkStream stream = TcpClient.GetStream();
                 stream.Write(request, 0, request.Length);
 
-                using (var ms = new MemoryStream())
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    var readingData = new byte[256];
+                    byte[] readingData = new byte[256];
                     int numberOfBytesRead = 0;
                     do
                     {
@@ -471,13 +470,13 @@ namespace Hardware.MassaK
             if (data == null || data.Length < 5)
                 return false;
 
-            var header0 = data[0];
-            var header1 = data[1];
-            var header2 = data[2];
+            byte header0 = data[0];
+            byte header1 = data[1];
+            byte header2 = data[2];
             if (!(header0 == 0xF8 && header1 == 0x55 && header2 == 0xCE))
                 return false;
 
-            var len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
+            short len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
             if (len <= 0)
                 return false;
 
@@ -501,15 +500,15 @@ namespace Hardware.MassaK
             ErrorCode = data[7];
             Crc = BitConverter.ToInt16(data.Skip(7).Take(2).ToArray(), 0);
 
-            var selected = data.Skip(5).Take(Len).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+            byte[] selected = data.Skip(5).Take(Len).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
             IsValid = (short)Crc == (short)crc && (Command == 0x28);
         }
 
         public override string GetMessage()
         {
-            var msg = string.Empty;
+            string msg = string.Empty;
             switch (ErrorCode)
             {
                 case 0x07:
@@ -578,8 +577,8 @@ namespace Hardware.MassaK
 
         public override byte[] BuildCmd()
         {
-            var data = new byte[CMD_TCP_SET_TARE.Length];
-            for (var i = 0; i < CMD_TCP_SET_TARE.Length; i++)
+            byte[] data = new byte[CMD_TCP_SET_TARE.Length];
+            for (int i = 0; i < CMD_TCP_SET_TARE.Length; i++)
             {
                 data[i] = CMD_TCP_SET_TARE[i];
             }
@@ -610,12 +609,12 @@ namespace Hardware.MassaK
                     break;
             }
 
-            var selected = data.Skip(5).Take(9).ToArray();
-            selected.Reverse();
+            byte[] selected = data.Skip(5).Take(9).ToArray();
+            _ = selected.Reverse();
 
             // Посчитать CRC-код.
             //short crc = ComputeCRC16CCITT(0, selected, 1);
-            var crc = Crc16.ComputeChecksum(selected);
+            ushort crc = Crc16.ComputeChecksum(selected);
             //var crc2 = Utils.Crc16.ComputeCRC16CCITT(0, selected, 1);
 
             data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
@@ -638,9 +637,9 @@ namespace Hardware.MassaK
             Command = data[5];
             Crc = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
 
-            var selected = data.Skip(5).Take(Len).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+            byte[] selected = data.Skip(5).Take(Len).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
             IsValid = (short)Crc == (short)crc;
 
         }
@@ -665,9 +664,9 @@ namespace Hardware.MassaK
             Command = data[5];
             Crc = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
 
-            var selected = data.Skip(5).Take(Len).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+            byte[] selected = data.Skip(5).Take(Len).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
             IsValid = (short)Crc == (short)crc;
 
         }
@@ -696,15 +695,15 @@ namespace Hardware.MassaK
 
         public override byte[] BuildCmd()
         {
-            var data = new byte[CMD_TCP_SET_ZERO.Length];
-            for (var i = 0; i < CMD_TCP_SET_ZERO.Length; i++)
+            byte[] data = new byte[CMD_TCP_SET_ZERO.Length];
+            for (int i = 0; i < CMD_TCP_SET_ZERO.Length; i++)
             {
                 data[i] = CMD_TCP_SET_ZERO[i];
             }
 
-            var selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+            byte[] selected = data.Skip(5).Take(1).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
 
             data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
             data[data.Length - 1] = (byte)(crc & 0xFF);
@@ -724,9 +723,9 @@ namespace Hardware.MassaK
             Command = data[5];
             Crc = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
 
-            var selected = data.Skip(5).Take(Len).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+            byte[] selected = data.Skip(5).Take(Len).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
             IsValid = (short)Crc == (short)crc;
 
         }
@@ -748,15 +747,15 @@ namespace Hardware.MassaK
 
         public override byte[] BuildCmd()
         {
-            var data = new byte[CMD_GET_MASSA.Length];
-            for (var i = 0; i < CMD_GET_MASSA.Length; i++)
+            byte[] data = new byte[CMD_GET_MASSA.Length];
+            for (int i = 0; i < CMD_GET_MASSA.Length; i++)
             {
                 data[i] = CMD_GET_MASSA[i];
             }
 
-            var selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+            byte[] selected = data.Skip(5).Take(1).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
 
             data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
             data[data.Length - 1] = (byte)(crc & 0xFF);
@@ -819,9 +818,9 @@ namespace Hardware.MassaK
             Tare = BitConverter.ToInt32(data.Skip(14).Take(4).ToArray(), 0);
             Crc = BitConverter.ToInt16(data.Skip(18).Take(2).ToArray(), 0);
 
-            var selected = data.Skip(5).Take(Len).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+            byte[] selected = data.Skip(5).Take(Len).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
             IsValid = ((short)Crc == (short)crc) && (Command == 0x24);
 
         }
@@ -850,15 +849,15 @@ namespace Hardware.MassaK
 
         public override byte[] BuildCmd()
         {
-            var data = new byte[CMD_GET_SCALE_PAR.Length];
-            for (var i = 0; i < CMD_GET_SCALE_PAR.Length; i++)
+            byte[] data = new byte[CMD_GET_SCALE_PAR.Length];
+            for (int i = 0; i < CMD_GET_SCALE_PAR.Length; i++)
             {
                 data[i] = CMD_GET_SCALE_PAR[i];
             }
 
-            var selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+            byte[] selected = data.Skip(5).Take(1).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
 
             data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
             data[data.Length - 1] = (byte)(crc & 0xFF);
@@ -895,9 +894,9 @@ namespace Hardware.MassaK
             Len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
             Command = data[5];
 
-            var selected = data.Skip(5).Take(Len).ToArray();
-            selected.Reverse();
-            var crc = Crc16.ComputeChecksum(selected);
+            byte[] selected = data.Skip(5).Take(Len).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
 
             // сюда надо вставить логику
             int i = 6;

@@ -6,7 +6,6 @@
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    @*<ul class="nav flex-column">*@
     <ul class="nav flex-xl-column">
         <li class="nav-item px-1">
             <NavLink class="nav-link" href=@Utils.LocalizationStrings.UriRouteTableScales>
@@ -68,9 +67,7 @@
 
 @code {
     private bool _collapseNavMenu = true;
-
     private string NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
-
     private void ToggleNavMenu()
     {
         _collapseNavMenu = !_collapseNavMenu;
