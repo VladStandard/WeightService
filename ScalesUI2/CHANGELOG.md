@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.290] - 2021-07-26
+## [0.5.310] - 2021-07-27
 ### Changed
 - Debug DB location
+- Log errors into DB
 
 ## [0.5.260] - 2021-07-15
 ### Changed

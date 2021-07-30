@@ -1,0 +1,16 @@
+﻿@page "/security"
+@using DeviceControlBlazor.Utils
+@inherits DeviceControlBlazor.Data.BaseRazorEntity
+
+@if (AppSettings.IdentityAccessLevel == true || AppSettings.IdentityAccessLevel == false)
+{
+    <p>The current authenticated user:</p>
+    <div id="jsonRender"></div>
+
+    <p>Invoke secured api with the current identity: </p>
+    <button @onclick="@InvokeSecuredApi">Invoke</button>
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.MenuAccessDeny></RadzenLabel>
+}

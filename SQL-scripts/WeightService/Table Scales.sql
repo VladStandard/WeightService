@@ -23,5 +23,5 @@ select
 	,[HostId]
 	,[lt].[ICON]
 from [db_scales].[Scales] [s]
-left join [db_scales].[LOG_TYPES] [lt] on [lt].[NUMBER]=[s].[LOG_TYPE]
+left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID]=[s].[LOG_TYPE_UID]
 order by [Id]

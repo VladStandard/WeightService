@@ -349,10 +349,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntitiesLib\EntitiesLib.csproj">
-      <Project>{c5ee6194-db73-4f09-9afe-aba98324b069}</Project>
-      <Name>EntitiesLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Hardware\Hardware.csproj">
       <Project>{51C1AA1F-3104-4438-93EA-9E348F18EAD7}</Project>
       <Name>Hardware</Name>

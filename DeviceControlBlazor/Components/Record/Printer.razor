@@ -1,0 +1,125 @@
+﻿@page "/printer"
+@page "/printer/{ItemId:int}"
+@using DeviceControlBlazor.Utils
+@using DeviceControlCore
+@using DeviceControlCore.DAL.TableModels
+@using System.Globalization
+@inherits DeviceControlBlazor.Data.BaseRazorEntity
+
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    @if (Item == null)
+    {
+        <RadzenLabel Text=@LocalizationStrings.DataLoading />
+        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    }
+    else
+    {
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldName />
+            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Name />
+            <br />
+            <RadzenLink Style="width: 12%;" Text=@LocalizationStrings.TableFieldZebraPrinter
+                        Target="_blank" Path=@Item.Link />
+            <RadzenLabel Style="width: 23.5%; margin-left: 2.3%;" Text=@LocalizationStrings.TableFieldZebraPrinterIp />
+            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Ip />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldZebraPrinterPort />
+            <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="short" @bind-Value=@Item.Port />
+            <br />
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldZebraPrinterMac />
+            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Mac />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldZebraPrinterPassword />
+            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Password />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldZebraPrinterType />
+            @if (ItemsZebraPrinterType == null)
+            {
+                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+                <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+            }
+            else
+            {
+                <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                        AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                        Data=@ItemsZebraPrinterType PageSize="10"
+                                        TextProperty="Name" ValueProperty="Id"
+                                        Value=@Item.PrinterType?.Id
+                                        Change=@(args => OnChange(args, "ZebraPrinterTypeItems")) />
+            }
+            <br />
+        </div>
+    }
+</div>
+
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <RadzenLabel Style="width: 100%; text-align: center;" Text=@LocalizationStrings.TableTitleResources />
+    <br />
+    @if (ItemsResource == null)
+    {
+        <RadzenLabel Text=@LocalizationStrings.DataLoading />
+        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    }
+    else
+    {
+        <RadzenGrid Data=@ItemsResource TItem="ZebraPrinterResourceRefEntity"
+                    RowSelect=@(args => RowSelectAsync(args))
+                    RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                    AllowPaging="true" PageSize="10" AllowSorting="true" ColumnWidth="200px">
+            <Columns>
+                <RadzenGridColumn TItem="ZebraPrinterResourceRefEntity" Property="Id"
+                                  Title=@LocalizationStrings.TableFieldId Type="int" Width="10%" />
+                <RadzenGridColumn TItem="ZebraPrinterResourceRefEntity" Property="Description"
+                                  Title=@LocalizationStrings.TableFieldDescription Type="string" Width="30%" />
+                <RadzenGridColumn TItem="ZebraPrinterResourceRefEntity" Property="Resource.Name"
+                                  Title=@LocalizationStrings.TableFieldResource Type="string" Width="30%" />
+            </Columns>
+        </RadzenGrid>
+    }
+    <div style="margin-top: 5px">
+        @if (AppSettings.IdentityAccessLevel == true)
+        {
+            <RadzenButton Click=@(args => ActionAddAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
+                          ButtonStyle="ButtonStyle.Secondary"
+                          Style="margin-left: 30px; margin-top: 5px; width: 150px; height: 30px; font-size: 12px;"
+                          Text=@LocalizationStrings.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
+            <RadzenButton Click=@(args => ActionEditAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
+                          ButtonStyle="ButtonStyle.Secondary"
+                          Style="margin-left: 30px; margin-top: 5px; width: 150px; height: 30px; font-size: 12px;"
+                          Text=@LocalizationStrings.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
+            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
+                          ButtonStyle="ButtonStyle.Secondary"
+                          Style="margin-left: 30px; margin-top: 5px; width: 150px; height: 30px; font-size: 12px;"
+                          Text=@LocalizationStrings.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
+        }
+        else
+        {
+            <RadzenLabel Text=@LocalizationStrings.TableActionsIsDeny />
+        }
+    </div>
+</div>
+
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
+    @if (Item == null)
+    {
+        <RadzenLabel Text=@LocalizationStrings.DataLoading />
+        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    }
+    else
+    {
+        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.TableFieldCreateDt />
+        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString(CultureInfo.InvariantCulture) />
+        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.TableFieldModifiedDate />
+        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString(CultureInfo.InvariantCulture) />
+    }
+</div>
+
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 25px;">
+    <RadzenButton Click=@(args => SaveAsync())
+                  Text=@LocalizationStrings.TableActionSave Style="margin-left: 30px; width: 250px; " />
+    <RadzenButton Click=@(args => CancelAsync()) ButtonStyle="ButtonStyle.Secondary"
+                  Text=@LocalizationStrings.TableActionCancel Style="margin-left: 30px; width: 250px; " />
+</div>

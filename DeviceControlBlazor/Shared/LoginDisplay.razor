@@ -1,0 +1,19 @@
+﻿@page "/login"
+@inherits DeviceControlBlazor.Data.BaseRazorEntity
+
+<AuthorizeView>
+    <Authorizing>
+        <div>Authorizing ...</div>
+    </Authorizing>
+    <Authorized>
+        @if (context.User.Identity != null)
+        {
+            AppSettings.AuthenticationStateItem = context;
+            <div>@context.User.Identity.Name</div>
+        }!
+        <div>User detect error!</div>
+    </Authorized>
+    <NotAuthorized>
+        <div>Not authorized!</div>
+    </NotAuthorized>
+</AuthorizeView>

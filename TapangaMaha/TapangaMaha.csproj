@@ -130,10 +130,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntitiesLib\EntitiesLib.csproj">
-      <Project>{c5ee6194-db73-4f09-9afe-aba98324b069}</Project>
-      <Name>EntitiesLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Hardware\Hardware.csproj">
       <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
       <Name>Hardware</Name>

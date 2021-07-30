@@ -1,0 +1,103 @@
+﻿@page "/access"
+@using DeviceControlBlazor.Utils
+@using DeviceControlCore
+@using DeviceControlCore.DAL.TableModels
+@inherits DeviceControlBlazor.Data.BaseRazorEntity
+
+@if (AppSettings.IdentityAccessLevel == true || AppSettings.IdentityAccessLevel == false)
+{
+    @* Header *@
+    <h2 style="font-size: @AppSettings.FontSizeHeader;">
+        @GetHeader()
+        <RadzenButton Click=@(args => GetDataAsync())
+                      ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
+                      class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
+    </h2>
+    <RadzenTabs>
+        <Tabs>
+            <RadzenTabsItem Text=@LocalizationStrings.Table>
+                @* RadzenGrid *@
+                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px;">
+                    @if (Items == null)
+                    {
+                        <RadzenLabel Text=@LocalizationStrings.DataLoading Style="width: 20%" />
+                        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+                    }
+                    else
+                    {
+                        // Sorting by [WeithingDate].
+                        <RadzenGrid Data=@Items TItem="AccessEntity"
+                                    RowSelect=@(args => RowSelectAsync(args))
+                                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                                    AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
+                            <Columns>
+                                <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
+                                                  Title=@LocalizationStrings.TableFieldCreateDt Type="date" Width="13%">
+                                    <Template Context="logItem">
+                                        <RadzenDatePicker TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
+                                    </Template>
+                                </RadzenGridColumn>
+                                <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
+                                                  Title=@LocalizationStrings.TableFieldChangeDt Type="date" Width="13%">
+                                    <Template Context="logItem">
+                                        <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
+                                    </Template>
+                                </RadzenGridColumn>
+                                <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
+                                                  Title=@LocalizationStrings.TableFieldUser Type="string" Width="40%" />
+                                <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
+                                                  Title=@LocalizationStrings.TableFieldAccessLevel Type="string" Width="34%">
+                                    <Template Context="accessItem">
+                                        @if (accessItem.Level == null)
+                                        {
+                                            <RadzenLabel Text="Нет доступа" Disabled="true" />
+                                        }
+                                        else if (accessItem.Level == false)
+                                        {
+                                            <RadzenLabel Text="Доступ на чтение" Disabled="true" />
+                                        }
+                                        else if (accessItem.Level == true)
+                                        {
+                                            <RadzenLabel Text="Доступ на запись" Disabled="true" />
+                                        }
+                                    </Template>
+                                </RadzenGridColumn>
+                            </Columns>
+                        </RadzenGrid>
+                    }
+                </div>
+                @* Actions *@
+                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
+                    @if (AppSettings.IdentityAccessLevel == true)
+                    {
+                        <RadzenButton Click=@(args => ActionAddAsync(EnumTable.Logs, Item, null))
+                                      ButtonStyle="ButtonStyle.Secondary"
+                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
+                                      Text=@LocalizationStrings.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
+                        <RadzenButton Click=@(args => ActionEditAsync(Item, null))
+                                      ButtonStyle="ButtonStyle.Secondary"
+                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
+                                      Text=@LocalizationStrings.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
+                        @if (AppSettings.IsDebug)
+                        {
+                            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.Logs, Item, null))
+                                          ButtonStyle="ButtonStyle.Secondary"
+                                          Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
+                                          Text=@LocalizationStrings.TableActionDeleteForever Disabled=@AppSettings.DataAccess.IsDisabled />
+                        }
+                    }
+                    else
+                    {
+                        <span>@LocalizationStrings.TableActionsIsDeny</span>
+                    }
+                </div>
+            </RadzenTabsItem>
+            <RadzenTabsItem Text=@LocalizationStrings.Chart>
+            </RadzenTabsItem>
+        </Tabs>
+    </RadzenTabs>
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.MenuAccessDeny></RadzenLabel>
+}

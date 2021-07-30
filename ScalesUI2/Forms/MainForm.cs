@@ -383,7 +383,7 @@ namespace ScalesUI.Forms
                     if (_ws.MassaManager == null)
                     {
                         var deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
-                        _ws.MassaManager = new MassaManagerEntity(deviceSocketRs232, 1_000, 5_000, 5_000);
+                        _ws.MassaManager = new MassaManagerEntity(_ws.Log, deviceSocketRs232, 1_000, 5_000, 5_000);
                         ButtonSetZero_Click(null, null);
                     }
                     _ws.MassaManager.Open(CallbackMassaManagerAsync);

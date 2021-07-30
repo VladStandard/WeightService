@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using EntitiesLib;
 using UICommon;
 
 namespace Hardware.MassaK
@@ -43,6 +44,7 @@ namespace Hardware.MassaK
         private static readonly object Locker = new object();
         private readonly LogHelper _log = LogHelper.Instance;
         private readonly ConcurrentQueue<Cmd> _requestQueue = new ConcurrentQueue<Cmd>();
+        public LogEntity Log { get; }
 
         #endregion
 
@@ -57,10 +59,11 @@ namespace Hardware.MassaK
             IsExecute = false;
         }
 
-        public MassaManagerEntity(DeviceSocket deviceSocket, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds) : 
+        public MassaManagerEntity(LogEntity log, DeviceSocket deviceSocket, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds) : 
             this(waitWhileMiliSeconds, waitExceptionMiliSeconds, waitCloseMiliSeconds)
         {
             DeviceSocket = deviceSocket;
+            Log = log;
         }
 
         #endregion
@@ -91,6 +94,7 @@ namespace Hardware.MassaK
                     Console.WriteLine(ExceptionMsg);
                     Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
                     _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
+                    Log.SaveError(filePath, lineNumber, memberName, ExceptionMsg);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                 }
             }
@@ -124,7 +128,7 @@ namespace Hardware.MassaK
             _requestQueue.Enqueue(request);
         }
 
-        public void ParseRequest()
+        public void ParseRequest([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (_requestQueue.TryDequeue(out Cmd request))
             {
@@ -206,6 +210,11 @@ namespace Hardware.MassaK
                                 case AskError askError:
                                     DeviceError = askError;
                                     _log.Error(askError.GetMessage());
+                                    Log.SaveError(filePath, lineNumber, memberName, askError.GetMessage());
+                                    Log.SaveError(filePath, lineNumber, memberName, $"ErrorCode: {askError.ErrorCode}");
+                                    Log.SaveError(filePath, lineNumber, memberName, $"Command: {askError.Command}");
+                                    Log.SaveError(filePath, lineNumber, memberName, $"Data: {askError.Data}");
+                                    Log.SaveError(filePath, lineNumber, memberName, $"IsValid: {askError.IsValid}");
                                     //state = EnumControlState.Down;
                                     break;
                             }

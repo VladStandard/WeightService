@@ -59,44 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BarCodeEntity.cs" />
-    <Compile Include="BarCodeTypeEntity.cs" />
-    <Compile Include="ContregentEntity.cs" />
-    <Compile Include="Crc16.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="HostEntity.cs" />
-    <Compile Include="LogTypeEntity.cs" />
-    <Compile Include="LogEntity.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="ZebraPrinterEntity.cs" />
-    <Compile Include="ZplLabel.cs" />
-    <Compile Include="NomenclatureEntity.cs" />
-    <Compile Include="NomenclatureUnitEntity.cs" />
-    <Compile Include="OrderEntity.cs" />
-    <Compile Include="PluEntity.cs" />
-    <Compile Include="ProductionFacilityEntity.cs" />
-    <Compile Include="ProductSeriesEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScaleEntity.cs" />
-    <Compile Include="SqlConnectFactory.cs" />
-    <Compile Include="SsccEntity.cs" />
-    <Compile Include="TemplateEntity.cs" />
-    <Compile Include="WeighingFactEntity.cs" />
-    <Compile Include="WorkShopEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="CHANGELOG.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hardware\Hardware.csproj">
-      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
-      <Name>Hardware</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UICommon\UICommon.csproj">
-      <Project>{a814560e-4946-4da4-9735-5e7fff27da85}</Project>
-      <Name>UICommon</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
