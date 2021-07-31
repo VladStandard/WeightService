@@ -44,14 +44,6 @@ namespace DeviceControlBlazor.Shared
                         AppSettings.MemoryOpen(GuiRefreshAsync);
                     }),
                 }, null, false).ConfigureAwait(false);
-
-            //await RunTasks(LocalizationStrings.MethodOnInitializedAsync, "", LocalizationStrings.DialogResultFail, "",
-            //    new List<Task> {
-            //        new(() => {
-            //            AppSettings.IdentityOpen();
-            //        }),
-            //    }, GuiRefreshAsync, true).ConfigureAwait(true);
-            AppSettings.IdentityOpen();
         }
 
         #endregion

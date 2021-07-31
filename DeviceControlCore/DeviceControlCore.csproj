@@ -10,6 +10,7 @@
     <FileVersion>0.2.320.0</FileVersion>
     <AssemblyName>DeviceControlCore</AssemblyName>
     <RootNamespace>DeviceControlCore</RootNamespace>
+    <Configurations>Debug;Release;Dev</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

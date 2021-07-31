@@ -28,8 +28,6 @@ namespace DeviceControlBlazor.Data
 
         public void Setup(AuthenticationStateProvider stateProvider, JsonAppSettingsEntity jsonAppSettings, HotKeys hotKeys)
         {
-            if (stateProvider != null)
-                AuthenticationStateProviderItem = stateProvider;
             if (jsonAppSettings != null)
             {
                 JsonAppSettings = jsonAppSettings;
@@ -39,18 +37,21 @@ namespace DeviceControlBlazor.Data
             }
             if (hotKeys != null)
                 HotKeysItem = hotKeys;
+            if (stateProvider != null)
+                IdentityOpen(stateProvider);
+
             // Debug log.
             if (IsDebug)
             {
                 Console.WriteLine("--------------------------------------------------------------------------------");
-                Console.WriteLine("---------- AppSettingsEntity.Setup (for Debug mode) ---------- ");
-                Console.WriteLine($"AuthenticationStateProvider: {AuthenticationStateProviderItem}");
-                Console.WriteLine($"AuthenticationStateItem: {AuthenticationStateItem}");
-                Console.WriteLine($"DataAccess: {DataAccess}");
-                Console.WriteLine($"DataSource: {DataSource}");
-                Console.WriteLine($"JsonAppSettings: {JsonAppSettings}");
-                Console.WriteLine($"HotKeysItem: {HotKeysItem}");
-                Console.WriteLine($"Memory: {Memory}");
+                Console.WriteLine($"---------- {nameof(AppSettingsEntity)}.{nameof(Setup)} (for Debug mode) ---------- ");
+                Console.WriteLine($"{nameof(Memory)}: {Memory}");
+                Console.WriteLine($"{nameof(HotKeysItem)}: {HotKeysItem}");
+                Console.WriteLine($"{nameof(JsonAppSettings)}: {JsonAppSettings}");
+                Console.WriteLine($"{nameof(DataAccess.CoreSettings)}: {DataAccess.CoreSettings}");
+                Console.WriteLine($"{nameof(DataAccess)}: {DataAccess}");
+                Console.WriteLine($"{nameof(DataSource)}: {DataSource}");
+                Console.WriteLine($"{nameof(stateProvider)}: {stateProvider}");
                 Console.WriteLine("--------------------------------------------------------------------------------");
             }
         }
@@ -59,8 +60,8 @@ namespace DeviceControlBlazor.Data
 
         #region Public and private fields and properties
 
-        public AuthenticationStateProvider AuthenticationStateProviderItem { get; private set; }
-        public AuthenticationState AuthenticationStateItem { get; set; }
+        public bool? IdentityAccessLevel { get; private set; }
+
         public DataAccessEntity DataAccess { get; private set; }
         public DataSourceEntity DataSource { get; private set; } = new();
         public JsonAppSettingsEntity JsonAppSettings { get; private set; }
@@ -78,12 +79,10 @@ namespace DeviceControlBlazor.Data
             return false;
 #endif
         public int Delay { get; } = 5_000;
-        public IIdentity Identity { get; private set; }
-        public bool? IdentityAccessLevel { get; private set; }
         public string MemoryInfo => Memory != null
             ? $"{LocalizationStrings.MemoryUsed}: {Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
             : $"{LocalizationStrings.MemoryUsed}: - MB";
-        public string IdentityMessage => Identity != null ? Identity.Name : LocalizationStrings.IdentityError;
+        public string IdentityMessage { get; private set; }
         public bool IsChartSmooth { get; set; }
 
         public string SqlServerDescription => JsonAppSettings != null && JsonAppSettings.Server != null
@@ -113,14 +112,15 @@ namespace DeviceControlBlazor.Data
 
         #region Public and private methods - Authentication & identity
 
-        public void IdentityOpen()
+        public void IdentityOpen(AuthenticationStateProvider stateProvider)
         {
-            if (AuthenticationStateProviderItem != null)
+            if (stateProvider != null)
             {
-                AuthenticationState authenticationState = AuthenticationStateProviderItem.GetAuthenticationStateAsync().Result;
-                Identity = authenticationState?.User?.Identity;
+                AuthenticationState authenticationState = stateProvider.GetAuthenticationStateAsync().Result;
+                IIdentity identity = authenticationState?.User?.Identity;
+                IdentityMessage = identity != null ? identity.Name : LocalizationStrings.IdentityError;
+                SetUserAccessLevel(identity?.Name);
             }
-            SetUserAccessLevel(Identity?.Name);
         }
 
         private void SetUserAccessLevel(string userName,

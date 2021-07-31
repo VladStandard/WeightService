@@ -8,7 +8,7 @@
     <Authorized>
         @if (context.User.Identity != null)
         {
-            AppSettings.AuthenticationStateItem = context;
+            AuthenticationStateItem = context;
             <div>@context.User.Identity.Name</div>
         }!
         <div>User detect error!</div>

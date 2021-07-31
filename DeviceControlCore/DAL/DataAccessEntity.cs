@@ -16,7 +16,7 @@ namespace DeviceControlCore.DAL
     {
         #region Public and private fields and properties
         
-        public CoreSettingsEntity AppSettings { get; set; }
+        public CoreSettingsEntity CoreSettings { get; set; }
         public DataConfigurationEntity DataConfig { get; set; }
 
         private ISessionFactory _sessionFactory;
@@ -26,16 +26,16 @@ namespace DeviceControlCore.DAL
             {
                 if (_sessionFactory != null)
                     return _sessionFactory;
-                if (AppSettings == null)
-                    throw new ArgumentException("AppSettings is null!");
+                if (CoreSettings == null)
+                    throw new ArgumentException("CoreSettings is null!");
                 if (_sessionFactory == null)
                 {
-                    if (AppSettings.Trusted)
+                    if (CoreSettings.Trusted)
                     {
                         FluentConfiguration configuration = Fluently.Configure()
                             .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                                .Server(AppSettings.Server)
-                                .Database(AppSettings.Db)
+                                .Server(CoreSettings.Server)
+                                .Database(CoreSettings.Db)
                                 .TrustedConnection()
                             ))
                             .Mappings(m => m.FluentMappings.Add<AccessMap>())
@@ -67,14 +67,14 @@ namespace DeviceControlCore.DAL
                     }
                     else
                     {
-                        if (string.IsNullOrEmpty(AppSettings.Username) || string.IsNullOrEmpty(AppSettings.Password))
-                            throw new ArgumentException("AppSettings.Username or AppSettings.Password is null!");
+                        if (string.IsNullOrEmpty(CoreSettings.Username) || string.IsNullOrEmpty(CoreSettings.Password))
+                            throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
                         FluentConfiguration configuration = Fluently.Configure()
                             .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                                .Server(AppSettings.Server)
-                                .Database(AppSettings.Db)
-                                .Username(AppSettings.Username)
-                                .Password(AppSettings.Password)
+                                .Server(CoreSettings.Server)
+                                .Database(CoreSettings.Db)
+                                .Username(CoreSettings.Username)
+                                .Password(CoreSettings.Password)
                             ))
                             .Mappings(m => m.FluentMappings.Add<AccessMap>())
                             .Mappings(m => m.FluentMappings.Add<AppMap>())
@@ -155,7 +155,7 @@ namespace DeviceControlCore.DAL
 
         public void Setup(CoreSettingsEntity appSettings)
         {
-            AppSettings = appSettings;
+            CoreSettings = appSettings;
             DataConfig = new DataConfigurationEntity();
             // Tables CRUD.
             AccessCrud = new BaseCrud<AccessEntity>(this);

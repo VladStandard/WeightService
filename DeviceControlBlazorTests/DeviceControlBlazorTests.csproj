@@ -20,6 +20,8 @@
     <AssemblyName>DeviceControlBlazorTests</AssemblyName>
 
     <RootNamespace>DeviceControlBlazorTests</RootNamespace>
+
+    <Configurations>Debug;Release;Dev</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

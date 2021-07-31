@@ -5,8 +5,8 @@ using DeviceControlCore.DAL.DataModels;
 using DeviceControlCore.DAL.TableModels;
 using DeviceControlCore.Models;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
+using NHibernate.Mapping;
 using Radzen;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace DeviceControlBlazor.Data
 {
-    public class BaseRazorEntity : LayoutComponentBase
+    public class BaseRazorEntity : LayoutComponentBase, IDisposable
     {
         #region Public and private fields and properties - Inject
 
@@ -31,12 +31,12 @@ namespace DeviceControlBlazor.Data
 
         #region IDisposable
 
-        //public void Dispose()
-        //{
-        //    Dialog?.Dispose();
-        //    Tooltip?.Dispose();
-        //    //AppSettings.HotKeysContextItem?.Dispose();
-        //}
+        public void Dispose()
+        {
+            Dialog?.Dispose();
+            Tooltip?.Dispose();
+            //AppSettings.HotKeysContextItem?.Dispose();
+        }
 
         #endregion
 
@@ -65,8 +65,8 @@ namespace DeviceControlBlazor.Data
         public async Task GetDataAsync(Task task)
         {
             await RunTasks(LocalizationStrings.TableRead, "", LocalizationStrings.DialogResultFail, "",
-                new List<Task> { 
-                    task 
+                new List<Task> {
+                    task
                 }, GuiRefreshAsync).ConfigureAwait(false);
         }
 
@@ -74,7 +74,7 @@ namespace DeviceControlBlazor.Data
         {
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
-            
+
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
             //await RunTasks(LocalizationStrings.MethodOnInitializedAsync, "", LocalizationStrings.DialogResultFail, "",
@@ -436,7 +436,7 @@ namespace DeviceControlBlazor.Data
                     if (AppSettings.IsDebug)
                     {
                         Console.WriteLine("--------------------------------------------------------------------------------");
-                        Console.WriteLine("---------- RunTasks (for Debug mode) ---------- ");
+                        Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasks)} (for Debug mode) ---------- ");
                         Console.WriteLine($"filePath: {filePath}");
                         Console.WriteLine($"memberName: {memberName} | lineNumber: {lineNumber}");
                         Console.WriteLine($"tasks.Count: {tasks.Count}");
@@ -457,7 +457,7 @@ namespace DeviceControlBlazor.Data
                 if (AppSettings.IsDebug)
                 {
                     Console.WriteLine("--------------------------------------------------------------------------------");
-                    Console.WriteLine("---------- Catch the Exception (for Debug mode) ---------- ");
+                    Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasks)} - Catch the Exception (for Debug mode) ---------- ");
                     Console.WriteLine($"filePath: {filePath}");
                     Console.WriteLine($"memberName: {memberName} | lineNumber: {lineNumber}");
                     Console.WriteLine($"Exception: {ex.Message}");

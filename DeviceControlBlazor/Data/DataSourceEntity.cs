@@ -8,6 +8,13 @@ namespace DeviceControlBlazor.Data
 {
     public class DataSourceEntity
     {
+        #region Public and private methods
+
+        public override string ToString()
+        {
+            return $"{nameof(GetTemplateCategories)}: {GetTemplateCategories().Count}";
+        }
+
         public List<TypeEntity<string>> GetTemplateCategories()
         {
             return new()
@@ -23,5 +30,7 @@ namespace DeviceControlBlazor.Data
                 new TypeEntity<string>("zpl", "zpl"),
             };
         }
+
+        #endregion
     }
 }

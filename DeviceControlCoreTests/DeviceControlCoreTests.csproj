@@ -18,6 +18,8 @@
     <AssemblyName>DeviceControlCoreTests</AssemblyName>
 
     <RootNamespace>DeviceControlCoreTests</RootNamespace>
+
+    <Configurations>Debug;Release;Dev</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControlBlazor.Data;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
@@ -10,12 +12,22 @@ namespace DeviceControlBlazor.Components
 {
     public partial class Security : BaseRazorEntity
     {
+        #region Public and private fields and properties
+
+        [Inject] public AuthenticationStateProvider AuthenticationStateProviderItem { get; private set; }
+
+        #endregion
+
         #region Public and private methods
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
-            string jsonString = JsonConvert.SerializeObject(AppSettings.Identity, 
+
+            AuthenticationState authenticationState = AuthenticationStateProviderItem.GetAuthenticationStateAsync().Result;
+            System.Security.Principal.IIdentity identity = authenticationState?.User?.Identity;
+
+            string jsonString = JsonConvert.SerializeObject(identity, 
                 new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore, Formatting = Formatting.None });
             await JsRuntime.InvokeVoidAsync("TestingBlazor.renderJson", "jsonRender", jsonString);
         }
