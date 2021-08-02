@@ -1,0 +1,12 @@
+﻿@page "/contacts"
+@using BlazorCore.Utils
+
+<h2>
+    <RadzenLabel Text="@LocalizationStrings.Resources.ContactsTitle" />
+</h2>
+
+<body>
+<RadzenLink Icon="account_box" Path="@LocalizationStrings.Resources.ContactsPhonePath" Text="@LocalizationStrings.Resources.ContactsPhoneText" />
+<br />
+<RadzenLink Icon="account_box" Path="@LocalizationStrings.Resources.ContactsCreatioPath" Text="@LocalizationStrings.Resources.ContactsCreatioText" />
+</body>

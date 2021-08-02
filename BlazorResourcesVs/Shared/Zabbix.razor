@@ -1,0 +1,14 @@
+﻿@page "/zabbix"
+@using BlazorCore.Utils
+
+<h2>
+    <RadzenLabel Text="@LocalizationStrings.Resources.ZabbixTitle" />
+</h2>
+
+<body>
+    <RadzenLink Icon="task_alt" Path="@LocalizationStrings.Resources.ZabbixKolbasaPath" Text="@LocalizationStrings.Resources.ZabbixKolbasaText" />
+    <br />
+    <RadzenLink Icon="task_alt" Path="@LocalizationStrings.Resources.ZabbixGlobalPath" Text="@LocalizationStrings.Resources.ZabbixGlobalText" />
+    <br />
+    <RadzenLink Icon="task_alt" Path="@LocalizationStrings.Resources.ZabbixWebPath" Text="@LocalizationStrings.Resources.ZabbixWebText" />
+</body>

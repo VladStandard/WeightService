@@ -1,12 +1,10 @@
-﻿using DeviceControlBlazor.Utils;
-using DeviceControlCore;
-using DeviceControlCore.DAL;
-using DeviceControlCore.DAL.DataModels;
-using DeviceControlCore.DAL.TableModels;
-using DeviceControlCore.Models;
+﻿using BlazorCore;
+using BlazorCore.DAL;
+using BlazorCore.DAL.DataModels;
+using BlazorCore.DAL.TableModels;
+using BlazorCore.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using NHibernate.Mapping;
 using Radzen;
 using System;
 using System.Collections.Generic;
@@ -14,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using BlazorCore.Utils;
 
 namespace DeviceControlBlazor.Data
 {
@@ -64,7 +63,7 @@ namespace DeviceControlBlazor.Data
 
         public async Task GetDataAsync(Task task)
         {
-            await RunTasks(LocalizationStrings.TableRead, "", LocalizationStrings.DialogResultFail, "",
+            await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     task
                 }, GuiRefreshAsync).ConfigureAwait(false);
@@ -171,7 +170,7 @@ namespace DeviceControlBlazor.Data
                     case EnumTableAction.Copy:
                         if (AppSettings.IdentityAccessLevel == true)
                         {
-                            await Dialog.OpenAsync<Components.EntityPage>(title,
+                            await Dialog.OpenAsync<Shared.EntityPage>(title,
                                 new Dictionary<string, object>
                                 {
                                     {"Item", entity},
@@ -392,7 +391,7 @@ namespace DeviceControlBlazor.Data
         public async Task HotKeysMenuRoot()
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Navigation.NavigateTo($"{LocalizationStrings.UriRouteRoot}");
+            Navigation.NavigateTo($"{LocalizationStrings.DeviceControl.UriRouteRoot}");
         }
 
         public ConfirmOptions GetConfirmOptions()
@@ -401,8 +400,8 @@ namespace DeviceControlBlazor.Data
             {
                 ShowTitle = true,
                 ShowClose = true,
-                OkButtonText = LocalizationStrings.DialogButtonYes,
-                CancelButtonText = LocalizationStrings.DialogButtonCancel,
+                OkButtonText = LocalizationStrings.Share.DialogButtonYes,
+                CancelButtonText = LocalizationStrings.Share.DialogButtonCancel,
                 Bottom = null,
                 ChildContent = null,
                 Height = null,
@@ -502,7 +501,7 @@ namespace DeviceControlBlazor.Data
 
             try
             {
-                string question = string.IsNullOrEmpty(questionAdd) ? LocalizationStrings.DialogQuestion : questionAdd;
+                string question = string.IsNullOrEmpty(questionAdd) ? LocalizationStrings.Share.DialogQuestion : questionAdd;
                 bool? result = Dialog.Confirm(question, title, confirmOptions).Result;
                 if (result == true)
                 {

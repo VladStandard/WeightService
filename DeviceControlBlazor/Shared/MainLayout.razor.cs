@@ -2,11 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DeviceControlBlazor.Data;
-using DeviceControlBlazor.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlazorCore.Utils;
 using Toolbelt.Blazor.HotKeys;
 
 namespace DeviceControlBlazor.Shared
@@ -27,7 +27,7 @@ namespace DeviceControlBlazor.Shared
         {
             await base.OnInitializedAsync().ConfigureAwait(true);
 
-            await RunTasks(LocalizationStrings.MethodOnInitializedAsync, "", LocalizationStrings.DialogResultFail, "",
+            await RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     //new Task(delegate {
                     new(() => {
@@ -38,7 +38,7 @@ namespace DeviceControlBlazor.Shared
                     }),
                 }, GuiRefreshAsync).ConfigureAwait(false);
 
-            await RunTasks(LocalizationStrings.MethodOnInitializedAsync, "", LocalizationStrings.DialogResultFail, "",
+            await RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(() => {
                         AppSettings.MemoryOpen(GuiRefreshAsync);

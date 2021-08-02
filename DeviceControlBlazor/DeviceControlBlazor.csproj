@@ -59,7 +59,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeviceControlCore\DeviceControlCore.csproj" />
+    <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

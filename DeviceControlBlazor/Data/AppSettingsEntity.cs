@@ -1,8 +1,7 @@
-﻿using DeviceControlBlazor.Utils;
-using DeviceControlCore;
-using DeviceControlCore.DAL;
-using DeviceControlCore.Models;
-using DeviceControlCore.Utils;
+﻿using BlazorCore;
+using BlazorCore.DAL;
+using BlazorCore.Models;
+using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
@@ -80,19 +79,17 @@ namespace DeviceControlBlazor.Data
 #endif
         public int Delay { get; } = 5_000;
         public string MemoryInfo => Memory != null
-            ? $"{LocalizationStrings.MemoryUsed}: {Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
-            : $"{LocalizationStrings.MemoryUsed}: - MB";
+            ? $"{LocalizationStrings.DeviceControl.MemoryUsed}: {Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
+            : $"{LocalizationStrings.DeviceControl.MemoryUsed}: - MB";
         public string IdentityMessage { get; private set; }
         public bool IsChartSmooth { get; set; }
 
-        public string SqlServerDescription => JsonAppSettings != null && JsonAppSettings.Server != null
-            ? JsonAppSettings.Server.Contains(LocalizationStrings.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
-                ? LocalizationStrings.ServerProduct : LocalizationStrings.ServerDevelop
-            : LocalizationStrings.NotLoad;
-        public bool IsSqlServerRelease => JsonAppSettings != null && JsonAppSettings.Server != null
-            && JsonAppSettings.Server.Contains(LocalizationStrings.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-        public bool IsSqlServerDebug => JsonAppSettings != null && JsonAppSettings.Server != null
-            && JsonAppSettings.Server.Contains(LocalizationStrings.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
+        public string SqlServerDescription => JsonAppSettings is {Server: { }}
+            ? JsonAppSettings.Server.Contains(LocalizationStrings.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
+                ? LocalizationStrings.Share.ServerRelease : LocalizationStrings.Share.ServerDevelop
+            : LocalizationStrings.Share.NotLoad;
+        public bool IsSqlServerRelease => JsonAppSettings is {Server: { }} && JsonAppSettings.Server.Contains(LocalizationStrings.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerDebug => JsonAppSettings is {Server: { }} && JsonAppSettings.Server.Contains(LocalizationStrings.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
         #endregion
 
@@ -118,7 +115,7 @@ namespace DeviceControlBlazor.Data
             {
                 AuthenticationState authenticationState = stateProvider.GetAuthenticationStateAsync().Result;
                 IIdentity identity = authenticationState?.User?.Identity;
-                IdentityMessage = identity != null ? identity.Name : LocalizationStrings.IdentityError;
+                IdentityMessage = identity != null ? identity.Name : LocalizationStrings.Share.IdentityError;
                 SetUserAccessLevel(identity?.Name);
             }
         }

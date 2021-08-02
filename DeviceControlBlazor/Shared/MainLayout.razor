@@ -1,4 +1,4 @@
-﻿@using DeviceControlBlazor.Utils
+﻿@using BlazorCore.Utils
 @inherits DeviceControlBlazor.Data.BaseRazorEntity
 
 <div class="page">
@@ -32,7 +32,7 @@
                 <RadzenLabel Text=@AppSettings.MemoryInfo Style="text-align: center; margin-left: 50px; height: 10px;" />
             </div>
             <div class="col-sm-2 col-md-2 col-lg-2">
-                <RadzenLink Icon="email" Text=@LocalizationStrings.CallbackTitle Path=@LocalizationStrings.CallbackEmail Style="text-align: right" />
+                <RadzenLink Icon="email" Text=@LocalizationStrings.Share.CallbackTitle Path=@LocalizationStrings.DeviceControl.CallbackEmail Style="text-align: right" />
             </div>
         </div>
         <div class="content px-4">

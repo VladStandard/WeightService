@@ -4,8 +4,8 @@
 using System.IO;
 using System.Threading.Tasks;
 using BlazorInputFile;
-using DeviceControlCore.DAL;
-using DeviceControlCore.DAL.TableModels;
+using BlazorCore.DAL;
+using BlazorCore.DAL.TableModels;
 
 namespace DeviceControlBlazor.Service
 {

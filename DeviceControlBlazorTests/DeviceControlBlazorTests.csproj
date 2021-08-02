@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeviceControl\DeviceControlBlazor.csproj" />
+    <ProjectReference Include="..\DeviceControlBlazor\DeviceControlBlazor.csproj" />
   </ItemGroup>
 
 </Project>
