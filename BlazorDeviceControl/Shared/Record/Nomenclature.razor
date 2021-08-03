@@ -1,0 +1,104 @@
+﻿@page "/Nomenclature"
+@using BlazorCore.Utils
+@using Microsoft.VisualBasic.CompilerServices
+@inherits BlazorDeviceControl.Data.BaseRazorEntity
+
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
+        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Name />
+        <br />
+        <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldCode />
+        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Code />
+        <br />
+    </div>
+    <br />
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldXml />
+        <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.SerializedRepresentationObject />
+        <br />
+    </div>
+</div>
+
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 100%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableTitleNomenclatureUnitsShort />
+        <br />
+        @*@if (NomenclatureUnitsEntities == null)
+            {
+                <RadzenLabel Text=@LocalizationStrings.DeviceControl.DataLoading />
+                <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+            }
+            else
+            {
+                <RadzenGrid Data=@NomenclatureUnitsEntities TItem="NomenclatureUnitsEntity"
+                            RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                            AllowPaging="true" PageSize="10" AllowSorting="true" ColumnWidth="200px">
+                    <Columns>
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Id" Title=@LocalizationStrings.DeviceControl.TableFieldId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="CreateDate" Title=@LocalizationStrings.DeviceControl.TableFieldCreateDt
+                                          Type="DateTime" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="ModifiedDate" Title=@LocalizationStrings.DeviceControl.TableFieldModifiedDate
+                                          Type="DateTime" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldName
+                                          Type="string" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="NomenclatureId" Title=@LocalizationStrings.DeviceControl.TableFieldNomenclatureId
+                                          Type="string" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Marked" Title=@LocalizationStrings.DeviceControl.TableFieldMarked
+                                          Type="bool" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="PackWeight" Title=@LocalizationStrings.DeviceControl.TableFieldPackWeight
+                                          Type="decimal" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="PackQuantly" Title=@LocalizationStrings.DeviceControl.TableFieldPackQuantly
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="PackTypeId" Title=@LocalizationStrings.DeviceControl.TableFieldPackTypeId
+                                          Type="int" Width="10%" />
+                    </Columns>
+                </RadzenGrid>
+            }*@
+    </div>
+    <br />
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 100%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableTitleBarCodesShort />
+        <br />
+        @*@if (BarCodesEntities == null)
+            {
+                <RadzenLabel Text=@LocalizationStrings.DeviceControl.DataLoading />
+                <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+            }
+            else
+            {
+                <RadzenGrid id="RadzenGrid" Data=@BarCodesEntities TItem="BarCodesEntity"
+                            RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                            AllowPaging="true" PageSize="10" AllowSorting="true" ColumnWidth="200px">
+                    <Columns>
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="Id" Title=@LocalizationStrings.DeviceControl.TableFieldId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="CreateDate" Title=@LocalizationStrings.DeviceControl.TableFieldCreateDt
+                                          Type="DateTime" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="ModifiedDate" Title=@LocalizationStrings.DeviceControl.TableFieldModifiedDate
+                                          Type="DateTime" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="BarCodeTypeId" Title=@LocalizationStrings.DeviceControl.TableFieldBarCodeTypeId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="NomenclatureId" Title=@LocalizationStrings.DeviceControl.TableFieldNomenclatureId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="NomenclatureUnitId" Title=@LocalizationStrings.DeviceControl.TableFieldNomenclatureUnitId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="ContragentId" Title=@LocalizationStrings.DeviceControl.TableFieldContragentId
+                                          Type="int" Width="10%" />
+                        <RadzenGridColumn TItem="BarCodesEntity" Property="Value" Title=@LocalizationStrings.DeviceControl.TableFieldValue
+                                          Type="string" Width="10%" />
+                    </Columns>
+                </RadzenGrid>
+            }*@
+    </div>
+</div>
+
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldCreateDt />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString() />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldModifiedDate />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString() />
+</div>

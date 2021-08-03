@@ -5,7 +5,23 @@
 
     <IsPackable>false</IsPackable>
 
+    <Version>0.2.270</Version>
+
     <Platforms>AnyCPU;x64</Platforms>
+
+    <Product>WeightService</Product>
+
+    <Copyright>Copyright © 2020  - 2021</Copyright>
+
+    <AssemblyVersion>0.2.270.0</AssemblyVersion>
+
+    <FileVersion>0.2.270.0</FileVersion>
+
+    <AssemblyName>DeviceControlBlazorTests</AssemblyName>
+
+    <RootNamespace>DeviceControlBlazorTests</RootNamespace>
+
+    <Configurations>Debug;Release;Dev</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorResourcesVs\BlazorResourcesVs.csproj" />
+    <ProjectReference Include="..\BlazorDeviceControl\BlazorDeviceControl.csproj" />
   </ItemGroup>
 
 </Project>

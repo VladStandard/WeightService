@@ -1,0 +1,22 @@
+﻿@page "/productionfacility"
+@using BlazorCore.Utils
+@inherits BlazorDeviceControl.Data.BaseRazorEntity
+
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
+        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Name />
+        <br />
+    </div>
+    <br />
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <br />
+    </div>
+</div>
+
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldCreateDt />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString() />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldModifiedDate />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString() />
+</div>

@@ -1,0 +1,42 @@
+﻿@using BlazorCore.Utils
+@inherits BlazorDeviceControl.Data.BaseRazorEntity
+
+<div class="page">
+    @if (AppSettings.IsSqlServerRelease)
+    {
+        <div class="sidebar">
+            <NavMenu />
+        </div>
+    }
+    else if (AppSettings.IsSqlServerDebug)
+    {
+        <div class="sidebar" style="background: Green">
+            <NavMenu />
+        </div>
+    }
+    else
+    {
+        <div class="sidebar" style="background: Red">
+            <NavMenu />
+        </div>
+    }
+    <div class="main">
+        <div class="top-row px-4 auth">
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <RadzenLabel Text=@AppSettings.SqlServerDescription Style="text-align: left;" />
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <RadzenLabel Text=@AppSettings.IdentityMessage Style="text-align: center; margin-left: 50px; height: 10px;" />
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <RadzenLabel Text=@AppSettings.MemoryInfo Style="text-align: center; margin-left: 50px; height: 10px;" />
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                <RadzenLink Icon="email" Text=@LocalizationStrings.Share.CallbackTitle Path=@LocalizationStrings.DeviceControl.CallbackEmail Style="text-align: right" />
+            </div>
+        </div>
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>
