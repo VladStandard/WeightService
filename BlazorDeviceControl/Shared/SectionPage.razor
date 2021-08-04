@@ -277,7 +277,7 @@
                 </div>
                 @* Actions *@
                 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
-                    @if (@AppSettings.IdentityAccessLevel == true)
+                    @if (AppSettings.IdentityAccessLevel == true)
                     {
                         <RadzenButton Click=@(args => ActionAddAsync(Table, Entity, null))
                                       ButtonStyle="ButtonStyle.Secondary"

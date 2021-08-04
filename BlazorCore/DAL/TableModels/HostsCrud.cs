@@ -1,4 +1,5 @@
 ﻿using BlazorCore.DAL.DataModels;
+using BlazorCore.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,28 +19,9 @@ namespace BlazorCore.DAL.TableModels
 
         #region Public and private methods
 
-        public string GetQueryFreeHosts()
-        {
-            return @"
--- Get free hosts
-select [h].[Id]
-      ,[h].[CreateDate]
-      ,[h].[ModifiedDate]
-      ,[h].[Name]
-      ,[h].[IP]
-      ,[h].[MAC]
-      ,[h].[IdRRef]
-      ,[h].[Marked]
-      ,[h].[SettingsFile]
-from [db_scales].[Hosts] [h]
-where [h].[Id] not in (select [HostId] from [db_scales].[Scales] [s] where [s].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
-order by [h].[Name]
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-        }
-
         public List<HostsEntity> GetFreeHosts(int? id)
         {
-            var entities = DataAccess.HostsCrud.GetEntitiesNativeObject(GetQueryFreeHosts());
+            var entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.GetFreeHosts);
             var items = new List<HostsEntity>();
             foreach (var entity in entities)
             {
@@ -67,30 +49,9 @@ order by [h].[Name]
             return items;
         }
 
-        public string GetQueryBusyHosts()
-        {
-            return @"
--- Get busy hosts
-select [h].[Id]
-      ,[h].[CreateDate]
-      ,[h].[ModifiedDate]
-      ,[h].[Name]
-      ,[s].[Description]
-      ,[h].[IP]
-      ,[h].[MAC]
-      ,[h].[IdRRef]
-      ,[h].[Marked]
-      ,[h].[SettingsFile]
-from [db_scales].[Hosts] [h]
-left join [db_scales].[Scales] [s] on [h].[Id] = [s].[HostId]
-where [h].[Id] in (select [HostId] from [db_scales].[Scales] where [Scales].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
-order by [h].[Name]
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-        }
-
         public List<HostsEntity> GetBusyHosts()
         {
-            var entities = DataAccess.HostsCrud.GetEntitiesNativeObject(GetQueryBusyHosts());
+            var entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.GetBusyHosts);
             var items = new List<HostsEntity>();
             foreach (var entity in entities)
             {
@@ -111,6 +72,26 @@ order by [h].[Name]
                 }
             }
             return items;
+        }
+
+        public bool IsDebug(string host, Guid uid)
+        {
+            if (uid == Guid.Empty)
+                return false;
+            var entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.GetIsDebugHost(host));
+            foreach (var entity in entities)
+            {
+                if (entity is object[] { Length: 4 } ent)
+                {
+                    string xml = Convert.ToString(ent[3]);
+                    string strUid = Convert.ToString(uid);
+                    if (!string.IsNullOrEmpty(xml) && !string.IsNullOrEmpty(strUid) && xml.Contains(strUid, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return Convert.ToBoolean(ent[2]);
+                    }
+                }
+            }
+            return false;
         }
 
         #endregion

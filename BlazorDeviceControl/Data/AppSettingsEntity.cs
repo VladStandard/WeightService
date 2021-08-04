@@ -62,22 +62,17 @@ namespace BlazorDeviceControl.Data
         public bool? IdentityAccessLevel { get; private set; }
 
         public DataAccessEntity DataAccess { get; private set; }
-        public DataSourceEntity DataSource { get; private set; } = new();
+        public DataSourceEntity DataSource { get; private init; } = new();
         public JsonAppSettingsEntity JsonAppSettings { get; private set; }
         public HotKeys HotKeysItem { get; private set; }
         public HotKeysContext HotKeysContextItem { get; set; }
         public MemoryEntity Memory { get; set; }
-
+        
+        public bool IsDebug => DataAccess?.HostsCrud != null && 
+            DataAccess.HostsCrud.IsDebug(Environment.MachineName, Guid.Parse("5724d417-5aec-427c-8679-86c00ef60164"));
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
-
-        public bool IsDebug =>
-#if DEBUG
-            true;
-#else
-            return false;
-#endif
-        public int Delay { get; } = 5_000;
+        public int Delay => 5_000;
         public string MemoryInfo => Memory != null
             ? $"{LocalizationStrings.DeviceControl.MemoryUsed}: {Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
             : $"{LocalizationStrings.DeviceControl.MemoryUsed}: - MB";

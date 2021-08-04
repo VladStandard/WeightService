@@ -33,7 +33,7 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await GetDataAsync(new Task(delegate
             {
-                Objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.WeithingFacts, string.Empty, 0, string.Empty);
+                Objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetWeithingFacts, string.Empty, 0, string.Empty);
                 Items = new List<WeithingFactSummaryEntity>();
                 foreach (object obj in Objects)
                 {

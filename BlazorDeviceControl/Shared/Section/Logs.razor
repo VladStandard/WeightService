@@ -33,13 +33,13 @@
                                     AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
                             <Columns>
                                 <RadzenGridColumn TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldCreateDt Type="date" Width="13%">
+                                                  Title=@LocalizationStrings.DeviceControl.TableFieldCreateDt Type="date" Width="15%">
                                     <Template Context="logItem">
                                         <RadzenDatePicker TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                                     </Template>
                                 </RadzenGridColumn>
                                 <RadzenGridColumn TItem="LogSummaryEntity" Property="Host" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldHost Type="string" Width="12%" />
+                                                  Title=@LocalizationStrings.DeviceControl.TableFieldHost Type="string" Width="10%" />
                                 <RadzenGridColumn TItem="LogSummaryEntity" Property="App" TextAlign="TextAlign.Left"
                                                   Title=@LocalizationStrings.DeviceControl.TableFieldApp Type="string" Width="7%" />
                                 <RadzenGridColumn TItem="LogSummaryEntity" TextAlign="TextAlign.Center"

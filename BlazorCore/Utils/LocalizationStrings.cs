@@ -18,10 +18,17 @@ namespace BlazorCore.Utils
             public static string DataLoading => Lang == EnumLang.Eng ? @"Loading data..." : @"Загрузка данных...";
             public static string IdentityError => Lang == EnumLang.Eng ? @"User error!" : @"Ошибка пользователя";
             public static string NotLoad => Lang == EnumLang.Eng ? @"Not load!" : @"Не загружено";
-            public static string IsDebug => Lang == EnumLang.Eng ? @"Debug mode" : @"Режим отладки";
+            public static string DebugMode => Lang == EnumLang.Eng ? @"Debug mode" : @"Режим отладки";
             public static string ServerDevelop => Lang == EnumLang.Eng ? @"Debug server" : @"Сервер разработки";
             public static string ServerRelease => Lang == EnumLang.Eng ? @"Debug release" : @"Промышленный сервер";
             public static string Authorization => Lang == EnumLang.Eng ? @"Authorization" : @"Авторизация";
+            public static string Doc => Lang == EnumLang.Eng ? @"Documentation" : @"Документация";
+            public static string ProgramVer => Lang == EnumLang.Eng ? @"Program version" : @"Версия программы";
+            public static string HostName => Lang == EnumLang.Eng ? @"Host name" : @"Имя хоста";
+            public static string Language => Lang == EnumLang.Eng ? @"Language" : @"Язык";
+            public static string LanguageDetect => Lang == EnumLang.Eng ? @"English" : @"Русский";
+            public static string IsYes (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
+            public static string IsEnable (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
             #endregion
             #region Menu
             public static string MenuReferences => Lang == EnumLang.Eng ? @"References" : @"Справочники";
@@ -69,6 +76,10 @@ namespace BlazorCore.Utils
                 @"Cancel operation. The necessary conditions may not have been met." : 
                 @"Отмена операции. Возможно, не выполнены необходимые условия.";
             public static string DialogResultFail => Lang == EnumLang.Eng ? @"Operation error!" : @"Ошибка выполнения операции!";
+            #endregion
+            #region SQL
+            public static string SqlServer => Lang == EnumLang.Eng ? @"SQL-server" : @"SQL-сервер";
+            public static string SqlDb => Lang == EnumLang.Eng ? @"DB" : @"БД";
             #endregion
         }
 
@@ -253,10 +264,6 @@ namespace BlazorCore.Utils
             public const string MemoryException = @"Ошибка менеджера памяти";
             public const string MemoryActionStart = @"Запустить менеджер памяти";
             public const string MemoryActionStop = @"Остановить менеджер памяти";
-            #endregion
-            #region Документация
-            public const string DocTitle = @"Документация";
-            public static readonly string DocText = $@"Версия программы: {GetAppVersion()}";
             #endregion
             #region Комплексы промышленных устройств
             public const string DevicesTitle = @"Комплексы промышленных устройств";
@@ -489,7 +496,7 @@ namespace BlazorCore.Utils
             
         }
 
-        private static string GetAppVersion()
+        public static string GetAppVersion()
         {
             System.Reflection.Assembly executingAssembly = System.Reflection.Assembly.GetExecutingAssembly();
             FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);

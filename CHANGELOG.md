@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.010] - 2021-08-04
+### Changed
+- 
+
 ## [0.1.320] - 2021-07-28
 ### Changed
 - DeviceControl v.0.2.320

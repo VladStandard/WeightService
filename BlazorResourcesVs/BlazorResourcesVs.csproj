@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
-    <Version>0.1.20</Version>
+    <Version>0.3.010</Version>
     <UserSecretsId>49c9fcd1-72a7-49db-8a2c-3ef041b6be9e</UserSecretsId>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
@@ -17,6 +17,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

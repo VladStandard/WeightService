@@ -28,7 +28,7 @@ from [db_scales].[ACCESS]
 where [USER]=N'{userName}'
         ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
         
-        public static string GetLogTypes=> @"
+        public static string GetLogTypes => @"
 -- Table LOG_TYPES
 select 
 	 [UID]
@@ -38,7 +38,7 @@ from [db_scales].[LOG_TYPES]
 order by [NUMBER]
             ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
         
-        public static string GetLogs=> @"
+        public static string GetLogs => @"
 -- Table LOGS diagram summary
 select 
 	 [l].[UID]
@@ -60,7 +60,7 @@ left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID]=[l].[LOG_TYPE_UID]
 order by [l].[CREATE_DT] desc
             ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
         
-        public static string WeithingFacts => @"
+        public static string GetWeithingFacts => @"
 -- Table WeithingFact diagram summary
 select
 	 cast([wf].[WeithingDate] as date) [WeithingDate]
@@ -74,6 +74,50 @@ left join [db_scales].[Hosts] [h] on [s].[HostId] = [h].[Id]
 left join [db_scales].[ZebraPrinter] [p] on [s].[ZebraPrinterId] = [p].[Id]
 group by cast([WeithingDate] as date), [s].[Description], [h].[Name], [p].[Name]
 order by [WeithingDate] desc
+            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+
+        public static string GetBusyHosts => @"
+-- Get busy hosts
+select [h].[Id]
+      ,[h].[CreateDate]
+      ,[h].[ModifiedDate]
+      ,[h].[Name]
+      ,[s].[Description]
+      ,[h].[IP]
+      ,[h].[MAC]
+      ,[h].[IdRRef]
+      ,[h].[Marked]
+      ,[h].[SettingsFile]
+from [db_scales].[Hosts] [h]
+left join [db_scales].[Scales] [s] on [h].[Id] = [s].[HostId]
+where [h].[Id] in (select [HostId] from [db_scales].[Scales] where [Scales].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
+order by [h].[Name]
+            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+
+        public static string GetFreeHosts => @"
+-- Get free hosts
+select [h].[Id]
+      ,[h].[CreateDate]
+      ,[h].[ModifiedDate]
+      ,[h].[Name]
+      ,[h].[IP]
+      ,[h].[MAC]
+      ,[h].[IdRRef]
+      ,[h].[Marked]
+      ,[h].[SettingsFile]
+from [db_scales].[Hosts] [h]
+where [h].[Id] not in (select [HostId] from [db_scales].[Scales] [s] where [s].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
+order by [h].[Name]
+            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+
+        public static string GetIsDebugHost(string host) => @$"
+-- Table Hosts. IsDebug
+select [ID]
+      ,[NAME]
+      ,[IS_DEBUG]
+      ,[SETTINGSFILE] [XML]
+from [db_scales].[Hosts]
+where [NAME]='{host}'
             ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
     }
 }

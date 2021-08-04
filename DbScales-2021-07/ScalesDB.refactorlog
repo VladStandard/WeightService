@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="765aecba-a2dc-4b2f-9a53-be939cc659a1" ChangeDateTime="02/18/2020 09:53:28">
+    <Property Name="ElementName" Value="[dbo].[db_scales_SSCCStorage].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[db_scales_SSCCStorage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="GLN" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2cc04a57-dbf0-4100-9ccf-51cda761eefe" ChangeDateTime="02/26/2020 11:39:56">
+    <Property Name="ElementName" Value="[db_scales].[WeithingFact].[CurrentWeight]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[WeithingFact]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NetWeight" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4f80ed2f-35c1-4bcd-8e6f-8e638bcce439" ChangeDateTime="04/28/2020 06:12:50">
+    <Property Name="ElementName" Value="[db_scales].[AttributeValues].[AttID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[AttributeValues]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AttrDefinionID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ff4eb2d2-5b84-455d-b599-4d3e3d17739e" ChangeDateTime="05/12/2020 09:17:03">
+    <Property Name="ElementName" Value="[db_scales].[Orders].[Template]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[Orders]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TemplateID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="eaf011d7-5c23-429f-9ee8-f2eeb111e83e" ChangeDateTime="05/13/2020 11:41:06">
+    <Property Name="ElementName" Value="[db_scales].[WeithingFact].[PLUID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[WeithingFact]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PLU" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6fd3b9aa-79f3-4ea8-bf04-7eab5251228c" ChangeDateTime="05/13/2020 11:42:04">
+    <Property Name="ElementName" Value="[db_scales].[WeithingFact].[Scale]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[WeithingFact]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ScaleID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="57650330-0f46-455a-a67d-2fd147769faf" ChangeDateTime="05/18/2020 09:42:47">
+    <Property Name="ElementName" Value="[db_scales].[Orders].[1CRRefPLU]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[Orders]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PLU" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6b53f7b8-d182-45ba-a548-cfd03f9b3e94" ChangeDateTime="03/16/2021 09:40:08">
+    <Property Name="ElementName" Value="[db_scales].[PLU].[WeightControlWithout]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[PLU]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CheckWeight" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="55b142eb-fde3-4eb7-8448-7fd16dddcd9a" ChangeDateTime="07/14/2021 10:00:33">
+    <Property Name="ElementName" Value="[db_scales].[Logs].[[UID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[Logs]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7258428c-e7b5-4cdc-8873-c94d1f140634" ChangeDateTime="07/14/2021 10:12:38">
+    <Property Name="ElementName" Value="[db_scales].[Logs].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[Logs]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DT" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3f93aa40-1b10-4d98-9ff9-c1ddae25fead" ChangeDateTime="08/04/2021 13:49:28">
+    <Property Name="ElementName" Value="[db_scales].[Hosts].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[db_scales].[Hosts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+</Operations>

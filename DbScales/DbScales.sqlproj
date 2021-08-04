@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>DbScales</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{5c31dcc7-1f2b-4eec-8625-4a3c7a0361c7}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql140DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>DbScales</RootNamespace>
+    <AssemblyName>DbScales</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="db_sscc\" />
+    <Folder Include="db_sscc\Tables\" />
+    <Folder Include="db_scales\" />
+    <Folder Include="db_scales\Tables\" />
+    <Folder Include="db_scales\Views\" />
+    <Folder Include="Storage\" />
+    <Folder Include="Security\" />
+    <Folder Include="db_scales\Functions\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="db_sscc\Stored Procedures\" />
+    <Folder Include="db_scales\Stored Procedures\" />
+    <Folder Include="Assemblies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="db_sscc\Tables\SSCCStorage.sql" />
+    <Build Include="db_scales\Tables\APPS.sql" />
+    <Build Include="db_scales\Tables\ZebraPrinterType.sql" />
+    <Build Include="db_scales\Tables\ZebraPrinterResourceRef.sql" />
+    <Build Include="db_scales\Tables\ZebraPrinter.sql" />
+    <Build Include="db_scales\Tables\Nomenclature.sql" />
+    <Build Include="db_scales\Tables\Contragents.sql" />
+    <Build Include="db_scales\Tables\Errors.sql" />
+    <Build Include="db_scales\Tables\LOG_TYPES.sql" />
+    <Build Include="db_scales\Tables\ProductSeries.sql" />
+    <Build Include="db_scales\Tables\WeithingFact.sql" />
+    <Build Include="db_scales\Tables\Labels.sql" />
+    <Build Include="db_scales\Tables\TemplateResources.sql" />
+    <Build Include="db_scales\Tables\LOGS.sql" />
+    <Build Include="db_scales\Tables\Templates.sql" />
+    <Build Include="db_scales\Tables\OrderTypes.sql" />
+    <Build Include="db_scales\Tables\Orders.sql" />
+    <Build Include="db_scales\Tables\WorkShop.sql" />
+    <Build Include="db_scales\Tables\ProductionFacility.sql" />
+    <Build Include="db_scales\Tables\OrderStatus.sql" />
+    <Build Include="db_scales\Tables\BarCodeTypes.sql" />
+    <Build Include="db_scales\Tables\AttributeValues.sql" />
+    <Build Include="db_scales\Tables\Scales.sql" />
+    <Build Include="db_scales\Tables\PLU.sql" />
+    <Build Include="db_scales\Tables\AttributeDefinationList.sql" />
+    <Build Include="db_scales\Tables\Organization.sql" />
+    <Build Include="db_scales\Tables\HOSTS.sql" />
+    <Build Include="db_scales\Tables\ACCESS.sql" />
+    <Build Include="db_scales\Views\vwProdDynamicsHour.sql" />
+    <Build Include="db_scales\Views\vwProductionDynamics.sql" />
+    <Build Include="Storage\ScalesFileGroupLargeData.sql" />
+    <Build Include="Storage\ScalesFileGroupJJ.sql" />
+    <Build Include="Storage\ScalesFileGroup.sql" />
+    <Build Include="Security\db_scales_users.sql" />
+    <Build Include="Security\scales_owner.sql" />
+    <Build Include="db_scales\Functions\GetCurrentProductSeriesId.sql" />
+    <Build Include="db_scales\Functions\GetOrderStatusName.sql" />
+    <Build Include="db_scales\Functions\GetOrderStatus.sql" />
+    <Build Include="db_scales\Functions\GetTemplateByID.sql" />
+    <Build Include="db_scales\Functions\BuildZplLabel.sql" />
+    <Build Include="db_scales\Functions\GetOrderPercentCompletion.sql" />
+    <Build Include="dbo\Functions\scales_db_GetTemplateResource.sql" />
+    <Build Include="db_scales\Functions\GetCurrentProductSeries.sql" />
+    <Build Include="db_scales\Functions\GetOrderStatusList.sql" />
+    <Build Include="db_scales\Functions\GetScaleByID.sql" />
+    <Build Include="db_scales\Functions\GetPLUbyID.sql" />
+    <Build Include="db_scales\Functions\GetPLU.sql" />
+    <Build Include="db_scales\Functions\GetOrderListByStatus.sql" />
+    <Build Include="db_scales\Functions\GetOrderListByScale.sql" />
+    <Build Include="db_scales\Functions\GetTemplatesObjByID.sql" />
+    <Build Include="db_scales\Functions\GetWorkShop.sql" />
+    <Build Include="db_scales\Functions\GetWeithingFactsByScale.sql" />
+    <Build Include="db_scales\Functions\GetWeithingFactsByPLU.sql" />
+    <Build Include="db_scales\Functions\GetWeithingFactsByOrderID.sql" />
+    <Build Include="db_scales\Functions\GetTemplates.sql" />
+    <Build Include="db_scales\Functions\GetScale.sql" />
+    <Build Include="db_scales\Functions\GetScaleList.sql" />
+    <Build Include="db_scales\Functions\GetProductionFacility.sql" />
+    <Build Include="db_scales\Functions\GetPrinterResources.sql" />
+    <Build Include="dbo\Stored Procedures\ArchiveIrrelevantData.sql" />
+    <Build Include="db_sscc\Stored Procedures\GetSSCCList.sql" />
+    <Build Include="db_sscc\Stored Procedures\GetSSCCxml.sql" />
+    <Build Include="db_scales\Stored Procedures\ZplСalibration.sql" />
+    <Build Include="db_scales\Stored Procedures\ZplPipeNow.sql" />
+    <Build Include="db_scales\Stored Procedures\ZplPipe.sql" />
+    <Build Include="db_scales\Stored Procedures\ZplLogoUpload.sql" />
+    <Build Include="db_scales\Stored Procedures\ZplLogoClear.sql" />
+    <Build Include="db_scales\Stored Procedures\ZplHostStatus.sql" />
+    <Build Include="db_scales\Stored Procedures\ZplFontUpload.sql" />
+    <Build Include="db_scales\Stored Procedures\ZplFontsClear.sql" />
+    <Build Include="db_scales\Stored Procedures\XSLTTransform.sql" />
+    <Build Include="db_scales\Stored Procedures\UploadLogo.sql" />
+    <Build Include="db_scales\Stored Procedures\UploadFont.sql" />
+    <Build Include="db_scales\Stored Procedures\SetWeithingFact.sql" />
+    <Build Include="db_scales\Stored Procedures\NewProductSeries.sql" />
+    <Build Include="db_scales\Stored Procedures\SetNewScale.sql" />
+    <Build Include="db_scales\Stored Procedures\SetWorkShop.sql" />
+    <Build Include="db_scales\Stored Procedures\SetWeithingFactWithTemplate.sql" />
+    <Build Include="db_scales\Stored Procedures\SetTemplate.sql" />
+    <Build Include="db_scales\Stored Procedures\SetProductionFacility.sql" />
+    <Build Include="db_scales\Stored Procedures\SetPLU.sql" />
+    <Build Include="db_scales\Stored Procedures\SetOrder.sql" />
+    <Build Include="db_scales\Stored Procedures\SetOrderStatus.sql" />
+    <Build Include="db_scales\Stored Procedures\GetSSCCTable.sql" />
+    <Build Include="db_scales\Stored Procedures\LoadResourceToDB.sql" />
+    <Build Include="Security\db_sscc.sql" />
+    <Build Include="Security\db_scales.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DbScales.Debug.publish.xml" />
+    <None Include="Assemblies\System.Drawing.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ScalesDB">
+      <HintPath>Assemblies\ScalesDB.dll</HintPath>
+      <SqlAssemblyName>ScalesDB</SqlAssemblyName>
+      <IsModelAware>True</IsModelAware>
+      <GenerateSqlClrDdl>False</GenerateSqlClrDdl>
+      <SqlOwnerName>dbo</SqlOwnerName>
+      <SqlPermissionSet>UNSAFE</SqlPermissionSet>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>Assemblies\System.Drawing.dll</HintPath>
+      <SqlAssemblyName>System.Drawing</SqlAssemblyName>
+      <IsModelAware>True</IsModelAware>
+      <GenerateSqlClrDdl>False</GenerateSqlClrDdl>
+      <SqlOwnerName>dbo</SqlOwnerName>
+      <SqlPermissionSet>UNSAFE</SqlPermissionSet>
+    </Reference>
+  </ItemGroup>
+</Project>

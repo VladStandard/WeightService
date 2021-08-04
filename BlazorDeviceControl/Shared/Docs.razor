@@ -1,0 +1,15 @@
+﻿@page "/docs"
+@using BlazorCore.Utils
+@inherits BlazorDeviceControl.Data.BaseRazorEntity
+
+<h2>@LocalizationStrings.Share.Doc</h2>
+@if (AppSettings.IdentityAccessLevel is true or false)
+{
+    <div>
+        <RadzenTextArea Value=@Doc Style="width: 100%; height: 80%; font-size: 14px; line-height: 20px;" ReadOnly="true" />
+    </div>
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
+}

@@ -16,6 +16,7 @@ namespace BlazorCore.DAL.TableModels
             Map(x => x.Mac).CustomSqlType("VARCHAR(35)").Column("MAC").Length(35).Nullable();
             Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Not.Nullable();
             Map(x => x.Marked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
+            Map(x => x.IsDebug).CustomSqlType("BIT").Column("IS_DEBUG").Not.Nullable().Default("0");
             Map(x => x.SettingsFile).CustomSqlType("XML").Column("SettingsFile").Nullable().Length(int.MaxValue);
         }
     }
