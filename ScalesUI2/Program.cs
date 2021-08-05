@@ -79,6 +79,7 @@ namespace ScalesUI
                 Application.Exit();
                 return;
             }
+            
             _ = new Mutex(true, Application.ProductName, out bool first);
             if (first != true)
             {

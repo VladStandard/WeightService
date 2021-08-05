@@ -96,7 +96,9 @@ namespace Hardware.MassaK
                     _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Log.SaveError(filePath, lineNumber, memberName, ExceptionMsg);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                    throw;
                 }
+                System.Windows.Forms.Application.DoEvents();
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace BlazorCore.Utils
 {
@@ -28,7 +29,9 @@ namespace BlazorCore.Utils
             public static string Language => Lang == EnumLang.Eng ? @"Language" : @"Язык";
             public static string LanguageDetect => Lang == EnumLang.Eng ? @"English" : @"Русский";
             public static string IsYes (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
-            public static string IsEnable (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
+            public static string IsEnableIt (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
+            public static string IsEnableShe (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
+            public static string IsEnableHe (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
             #endregion
             #region Menu
             public static string MenuReferences => Lang == EnumLang.Eng ? @"References" : @"Справочники";
@@ -282,6 +285,7 @@ namespace BlazorCore.Utils
             public const string UriRouteTableWeithingFacts = "/weithingfacts";
             public const string UriRouteTableWorkshops = "/workshops";
             public const string UriRouteItemPrinter = "/printer";
+            public const string UriRouteItemScale = "/scale";
             public const string UriRouteTableLogs = "/logs";
             public const string UriRouteSecurity = "/security";
             public const string UriRouteLogin = "/login";
@@ -496,11 +500,13 @@ namespace BlazorCore.Utils
             
         }
 
-        public static string GetAppVersion()
+        public static string GetAppVersion(System.Reflection.Assembly executingAssembly)
         {
-            System.Reflection.Assembly executingAssembly = System.Reflection.Assembly.GetExecutingAssembly();
             FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
-            return fieVersionInfo.FileVersion;
+            string ver = fieVersionInfo.FileVersion;
+            if (!string.IsNullOrEmpty(ver) && ver.EndsWith(".0"))
+                ver = ver.Substring(0, ver.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase));
+            return ver;
         }
     }
 }

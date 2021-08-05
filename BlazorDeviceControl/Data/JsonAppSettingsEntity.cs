@@ -17,6 +17,11 @@ namespace BlazorDeviceControl.Data
         public bool Trusted => Convert.ToBoolean(Configuration["Sql:Trusted"]);
         public string Username => Configuration["Sql:Username"];
         public string Password => Configuration["Sql:Password"];
+        public bool IsDebug
+        {
+            get => Convert.ToBoolean(Configuration["IsDebug"]);
+            set => Configuration["IsDebug"] = value.ToString();
+        }
 
         public JsonAppSettingsEntity(IConfiguration configuration)
         {
@@ -26,7 +31,10 @@ namespace BlazorDeviceControl.Data
         public override string ToString()
         {
             string strTrusted = Trusted ? $"{nameof(Trusted)}: true." : $"{nameof(Username)}: {Username}. {nameof(Password)}: {Password}.";
-            return $"{nameof(Server)}: { Server}. " + $"{nameof(Db)}: {Db}. " + $"{strTrusted}";
+            return $"{nameof(Server)}: {Server}. " + 
+                   $"{nameof(Db)}: {Db}. " + 
+                   $"{strTrusted} " + 
+                   $"{nameof(IsDebug)}: {IsDebug}";
         }
     }
 }

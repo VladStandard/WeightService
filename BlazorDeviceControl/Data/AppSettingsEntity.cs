@@ -68,8 +68,7 @@ namespace BlazorDeviceControl.Data
         public HotKeysContext HotKeysContextItem { get; set; }
         public MemoryEntity Memory { get; set; }
         
-        public bool IsDebug => DataAccess?.HostsCrud != null && 
-            DataAccess.HostsCrud.IsDebug(Environment.MachineName, Guid.Parse("5724d417-5aec-427c-8679-86c00ef60164"));
+        public bool IsDebug => JsonAppSettings.IsDebug;
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
         public int Delay => 5_000;

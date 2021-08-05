@@ -92,6 +92,14 @@
                     ZebraPrinterTypeEntity printerType = (ZebraPrinterTypeEntity)Item;
                     <BlazorDeviceControl.Shared.Record.PrinterType Item=@printerType />
                     break;
+                case EnumTable.Default:
+                    break;
+                case EnumTable.Labels:
+                    break;
+                case EnumTable.Logs:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         </div>
     </RadzenCard>

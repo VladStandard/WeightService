@@ -15,5 +15,5 @@ GRANT SELECT
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'Access.', @level0type = N'SCHEMA', @level0name = N'db_scales', @level1type = N'TABLE', @level1name = N'ACCESS';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'ACCESS', @level0type = N'SCHEMA', @level0name = N'db_scales', @level1type = N'TABLE', @level1name = N'ACCESS';
 

@@ -163,6 +163,7 @@
     <Build Include="Tables\db_scales_ACCESS.sql" />
     <Build Include="Tables\db_scales_LOG_TYPES.sql" />
     <Build Include="Tables\db_scales_Scales_Changed.sql" />
+    <Build Include="Tables\db_scales_ACCESS_APPS.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ScalesDB.refactorlog" />

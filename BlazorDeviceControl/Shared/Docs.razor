@@ -5,11 +5,29 @@
 <h2>@LocalizationStrings.Share.Doc</h2>
 @if (AppSettings.IdentityAccessLevel is true or false)
 {
-    <div>
-        <RadzenTextArea Value=@Doc Style="width: 100%; height: 80%; font-size: 14px; line-height: 20px;" ReadOnly="true" />
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <RadzenLabel Style="width: 100%;" Text=@ProgramVer />
+        <br />
+        <RadzenLabel Style="width: 30%;" Text=@LocalizationStrings.Share.Language />
+        @if (TemplateLanguages == null)
+        {
+            <RadzenTextBox Style="width: 60%;" Disabled="true" TValue="string" Value="" />
+            <RadzenProgressBar Style="width: 60%; height: 15px" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+        }
+        else
+        {
+            <RadzenDropDown Style="width: 20%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
+                            Data=@TemplateLanguages PageSize="5" TextProperty="Name" ValueProperty="Value"
+                            Value=@AppSettings.JsonAppSettings.IsDebug Change=@(args => OnChange(args, "TemplateLanguages")) />
+        }
+        <br />
+
     </div>
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.Share.MenuAccessDeny />
+    </div>
 }

@@ -8,7 +8,4 @@
 
 
 GO
-GRANT SELECT
-    ON OBJECT::[db_scales].[LOG_TYPES] TO [db_scales_users]
-    AS [scales_owner];
-
+GRANT SELECT ON OBJECT::[db_scales].[LOG_TYPES] TO [db_scales_users] AS [scales_owner];

@@ -97,7 +97,9 @@ namespace Hardware.Print
                     Console.WriteLine($@"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
                     _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                    throw;
                 }
+                System.Windows.Forms.Application.DoEvents();
             }
         }
 

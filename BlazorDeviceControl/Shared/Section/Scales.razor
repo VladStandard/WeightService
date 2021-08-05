@@ -20,7 +20,7 @@
             <RadzenTabsItem Text=@LocalizationStrings.DeviceControl.Table>
                 @* RadzenGrid *@
                 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px;">
-                    @if (Entities == null)
+                    @if (Items == null)
                     {
                         <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
                         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
@@ -28,14 +28,14 @@
                     else
                     {
                         List<ScalesEntity> scalesEntities = new List<ScalesEntity>();
-                        foreach (BaseIdEntity entity in Entities)
+                        foreach (BaseIdEntity entity in Items)
                         {
                             scalesEntities.Add((ScalesEntity)entity);
                         }
                         // Sorting by [Description].
                         scalesEntities = scalesEntities.OrderBy(x => x.Description).ToList();
                         <RadzenGrid Data=@scalesEntities TItem="ScalesEntity"
-                                    RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
+                                    RowSelect=@(args => ItemSelectAsync(args)) RowDoubleClick=@(args => ItemEditAsync())
                                     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
                                     AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
                             <Columns>
@@ -71,25 +71,25 @@
                 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
                     @if (AppSettings.IdentityAccessLevel == true)
                     {
-                        <RadzenButton Click=@(args => ActionAddAsync(EnumTable.Scales, Entity, null))
+                        <RadzenButton Click=@(args => ItemAddAsync(EnumTable.Scales, Item, null))
                                       ButtonStyle="ButtonStyle.Secondary"
                                       Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
                                       Text=@LocalizationStrings.DeviceControl.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
-                        <RadzenButton Click=@(args => ActionEditAsync(Entity, null))
+                        <RadzenButton Click=@(args => ItemEditAsync())
                                       ButtonStyle="ButtonStyle.Secondary"
                                       Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                       Text=@LocalizationStrings.DeviceControl.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
-                        <RadzenButton Click=@(args => ActionMarkedAsync(EnumTable.Scales, Entity, null))
+                        <RadzenButton Click=@(args => ItemMarkedAsync(EnumTable.Scales, Item, null))
                                       ButtonStyle="ButtonStyle.Secondary"
                                       Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                       Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
                         @if (AppSettings.IsDebug)
                         {
-                            <RadzenButton Click=@(args => ActionCopyAsync(EnumTable.Scales, Entity, null))
+                            <RadzenButton Click=@(args => ItemCopyAsync(EnumTable.Scales, Item, null))
                                           ButtonStyle="ButtonStyle.Secondary"
                                           Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                           Text=@LocalizationStrings.DeviceControl.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
-                            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.Scales, Entity, null))
+                            <RadzenButton Click=@(args => ItemDeleteAsync(EnumTable.Scales, Item, null))
                                           ButtonStyle="ButtonStyle.Secondary"
                                           Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                           Text=@LocalizationStrings.DeviceControl.TableActionDeleteForever Disabled=@AppSettings.DataAccess.IsDisabled />

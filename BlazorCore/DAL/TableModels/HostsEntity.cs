@@ -19,7 +19,6 @@ namespace BlazorCore.DAL.TableModels
             set => IdRRef = Guid.Parse(value);
         }
         public virtual bool Marked { get; set; }
-        public virtual bool IsDebug { get; set; }
         public virtual string SettingsFile { get; set; }
 
         #endregion
@@ -39,7 +38,6 @@ namespace BlazorCore.DAL.TableModels
                    $"{nameof(Mac)}: {Mac}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +
                    $"{nameof(Marked)}: {Marked}. " +
-                   $"{nameof(IsDebug)}: {IsDebug}. " +
                    $"{nameof(SettingsFile)}: {strSettingsFileString}. ";
         }
 
@@ -55,7 +53,6 @@ namespace BlazorCore.DAL.TableModels
                    Equals(Mac, entity.Mac) &&
                    Equals(IdRRef, entity.IdRRef) &&
                    Equals(Marked, entity.Marked) &&
-                   Equals(IsDebug, entity.IsDebug) &&
                    Equals(SettingsFile, entity.SettingsFile);
         }
 
@@ -87,7 +84,6 @@ namespace BlazorCore.DAL.TableModels
                    Equals(Mac, default(string)) &&
                    Equals(IdRRef, default(Guid)) &&
                    Equals(Marked, default(bool)) &&
-                   Equals(IsDebug, default(bool)) &&
                    Equals(SettingsFile, default(byte[]));
         }
 
@@ -103,7 +99,6 @@ namespace BlazorCore.DAL.TableModels
                 Mac = Mac,
                 IdRRef = IdRRef,
                 Marked = Marked,
-                IsDebug = IsDebug,
                 SettingsFile = SettingsFile,
             };
         }

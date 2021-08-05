@@ -74,26 +74,6 @@ namespace BlazorCore.DAL.TableModels
             return items;
         }
 
-        public bool IsDebug(string host, Guid uid)
-        {
-            if (uid == Guid.Empty)
-                return false;
-            var entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.GetIsDebugHost(host));
-            foreach (var entity in entities)
-            {
-                if (entity is object[] { Length: 4 } ent)
-                {
-                    string xml = Convert.ToString(ent[3]);
-                    string strUid = Convert.ToString(uid);
-                    if (!string.IsNullOrEmpty(xml) && !string.IsNullOrEmpty(strUid) && xml.Contains(strUid, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        return Convert.ToBoolean(ent[2]);
-                    }
-                }
-            }
-            return false;
-        }
-
         #endregion
     }
 }

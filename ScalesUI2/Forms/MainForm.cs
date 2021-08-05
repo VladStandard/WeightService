@@ -69,15 +69,13 @@ namespace ScalesUI.Forms
             _ws.NotifyPalletSize += NotifyPalletSize;
             _ws.NotifyCurrentBox += NotifyCurrentBox;
             _ws.NotifyKneading += NotifyKneading;
-            //_ws.PrintManager.Notify += NotifyPrint;
-            //_ws.MassaManager.Notify += NotifyMassa;
-            
+
             _ws.NewPallet();
 
             // Manager tasks.
             StartTaskManager();
 
-            _ws.Log.SaveInfo(filePath, lineNumber, memberName, "The program is running");
+            _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "The program is runned");
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -120,9 +118,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -197,13 +195,13 @@ namespace ScalesUI.Forms
                 {
                     e.Cancel = true;
                 }
-                _ws.Log.SaveInfo(filePath, lineNumber, memberName, "The program is closed");
+                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "The program is closed");
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
             }
         }
 
@@ -323,20 +321,31 @@ namespace ScalesUI.Forms
             }
         }
 
-        private async Task TaskDeviceManagerAsync()
+        private async Task TaskDeviceManagerAsync(
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
             // MemoryManager.
             var taskMemory = new Task(() =>
             {
-                while (!_ws.MemoryManagerIsExit)
+                try
                 {
-                    if (_ws.MemoryManager == null)
+                    //while (!_ws.MemoryManagerIsExit)
                     {
-                        _ws.MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
+                        if (_ws.MemoryManager == null)
+                        {
+                            _ws.MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
+                        }
+                        _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
                     }
-                    _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
+                    _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MemoryManager is runned");
+                }
+                catch (Exception ex)
+                {
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                    if (ex.InnerException != null)
+                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 }
             });
             taskMemory.Start();
@@ -344,19 +353,29 @@ namespace ScalesUI.Forms
             // PrintManager.
             var taskPrint = new Task(() =>
             {
-                while (!_ws.PrintManagerIsExit)
+                try
                 {
-                    if (_ws.PrintManager == null)
+                    //while (!_ws.PrintManagerIsExit)
                     {
-                        _ws.PrintManager = new PrintManagerEntity(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
+                        if (_ws.PrintManager == null)
+                        {
+                            _ws.PrintManager = new PrintManagerEntity(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
+                        }
+                        _ws.PrintManager.Open(_ws.IsTscPrinter, CallbackPrintManagerAsync);
+                        // STOP
+                        //if (_ws.PrintManager.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
+                        //{
+                        //    _ws.PrintManager.PrintControl.Close();
+                        //    _ws.PrintManager.PrintControl = null;
+                        //}
                     }
-                    _ws.PrintManager.Open(_ws.IsTscPrinter, CallbackPrintManagerAsync);
-                    // STOP
-                    //if (_ws.PrintManager.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
-                    //{
-                    //    _ws.PrintManager.PrintControl.Close();
-                    //    _ws.PrintManager.PrintControl = null;
-                    //}
+                    _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "PrintManager is runned");
+                }
+                catch (Exception ex)
+                {
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                    if (ex.InnerException != null)
+                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 }
             });
             taskPrint.Start();
@@ -364,13 +383,23 @@ namespace ScalesUI.Forms
             // DeviceManager.
             var taskDevice = new Task(() =>
             {
-                while (!_ws.DeviceManagerIsExit)
+                try
                 {
-                    if (_ws.DeviceManager == null)
+                    //while (!_ws.DeviceManagerIsExit)
                     {
-                        _ws.DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
+                        if (_ws.DeviceManager == null)
+                        {
+                            _ws.DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
+                        }
+                        _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
                     }
-                    _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
+                    _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "DeviceManager is runned");
+                }
+                catch (Exception ex)
+                {
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                    if (ex.InnerException != null)
+                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 }
             });
             taskDevice.Start();
@@ -378,56 +407,88 @@ namespace ScalesUI.Forms
             // MassaManager.
             var taskMassa = new Task(() =>
             {
-                while (!_ws.MassaManagerIsExit)
+                try
                 {
-                    if (_ws.MassaManager == null)
+                    //while (!_ws.MassaManagerIsExit)
                     {
-                        var deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
-                        _ws.MassaManager = new MassaManagerEntity(_ws.Log, deviceSocketRs232, 1_000, 5_000, 5_000);
-                        ButtonSetZero_Click(null, null);
+                        if (_ws.MassaManager == null)
+                        {
+                            var deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
+                            _ws.MassaManager = new MassaManagerEntity(_ws?.Log, deviceSocketRs232, 1_000, 5_000, 5_000);
+                            ButtonSetZero();
+                        }
+                        _ws.MassaManager.Open(CallbackMassaManagerAsync);
                     }
-                    _ws.MassaManager.Open(CallbackMassaManagerAsync);
+                    _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is runned");
+                }
+                catch (Exception ex)
+                {
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                    if (ex.InnerException != null)
+                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 }
             });
             taskMassa.Start();
         }
 
-        private void StartTaskManager()
+        private void StartTaskManager([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             Application.DoEvents();
-            if (TaskManager == null)
+            try
             {
-                _ws.MemoryManagerIsExit = false;
-                _ws.DeviceManagerIsExit = false;
-                _ws.PrintManagerIsExit = false;
-                _ws.MassaManagerIsExit = false;
+                if (TaskManager == null)
+                {
+                    _ws.MemoryManagerIsExit = false;
+                    _ws.DeviceManagerIsExit = false;
+                    _ws.PrintManagerIsExit = false;
+                    _ws.MassaManagerIsExit = false;
 
-                TaskManager = new Task(async () => { await TaskDeviceManagerAsync().ConfigureAwait(false); });
-                TaskManager.ConfigureAwait(false);
-                TaskManager.Start();
+                    TaskManager = new Task(async () => { await TaskDeviceManagerAsync().ConfigureAwait(false); });
+                    TaskManager.ConfigureAwait(false);
+                    TaskManager.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
             }
         }
 
-        private void StopTaskManager()
+        private void StopTaskManager([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            _ws.MemoryManagerIsExit = true;
-            _ws.DeviceManagerIsExit = true;
-            _ws.PrintManagerIsExit = true;
-            _ws.MassaManagerIsExit = true;
-
-            _ws.MemoryManager?.Close();
-            _ws.DeviceManager?.Close();
-            _ws.MassaManager?.Close();
-            _ws.PrintManager?.Close();
-
-            if (_ws.PrintManager?.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
+            try
             {
-                _ws.PrintManager.PrintControl.Close();
-                //_ws.PrintManager.PrintControl = null;
-            }
+                _ws.MemoryManagerIsExit = true;
+                _ws.DeviceManagerIsExit = true;
+                _ws.PrintManagerIsExit = true;
+                _ws.MassaManagerIsExit = true;
 
-            TaskManager?.Dispose();
-            TaskManager = null;
+                _ws.MemoryManager?.Close();
+                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is closed");
+                _ws.DeviceManager?.Close();
+                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is closed");
+                _ws.MassaManager?.Close();
+                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is closed");
+                _ws.PrintManager?.Close();
+                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is closed");
+
+                if (_ws.PrintManager?.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
+                {
+                    _ws.PrintManager.PrintControl.Close();
+                    //_ws.PrintManager.PrintControl = null;
+                }
+
+                TaskManager?.Dispose();
+                TaskManager = null;
+            }
+            catch (Exception ex)
+            {
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                if (ex.InnerException != null)
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+            }
 
             Application.DoEvents();
         }
@@ -538,9 +599,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -586,9 +647,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -644,9 +705,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -711,9 +772,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -748,9 +809,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -776,9 +837,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -830,9 +891,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;

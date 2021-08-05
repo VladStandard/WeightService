@@ -22,6 +22,9 @@ namespace BlazorDeviceControl.Shared.Record
     {
         #region Public and private fields and properties
 
+        [Parameter]
+        public int? ItemId { get; set; }
+        public ScalesEntity Item { get; set; }
         public string PluTitle { get; set; }
         public PluEntity PluItem { get; set; }
         public List<PluEntity> PluItems { get; set; } = null;
@@ -31,8 +34,6 @@ namespace BlazorDeviceControl.Shared.Record
         public List<WorkshopEntity> WorkshopItems { get; set; } = null;
         public List<TypeEntity<string>> ComPorts { get; set; }
         public List<HostsEntity> HostItems { get; set; } = null;
-        [Parameter]
-        public ScalesEntity Item { get; set; }
 
         #endregion
 
@@ -42,6 +43,9 @@ namespace BlazorDeviceControl.Shared.Record
         {
             await GetDataAsync(new Task(delegate
             {
+                Item = AppSettings.DataAccess.ScalesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                    { { EnumField.Id.ToString(), ItemId } }), null);
+                
                 ComPorts = new List<TypeEntity<string>>();
                 for (int i = 1; i < 256; i++)
                 {
@@ -75,6 +79,8 @@ namespace BlazorDeviceControl.Shared.Record
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
+
+            ItemId ??= 0;
 
             await GetDataAsync().ConfigureAwait(true);
         }

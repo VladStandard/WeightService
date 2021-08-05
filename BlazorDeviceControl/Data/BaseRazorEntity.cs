@@ -77,216 +77,192 @@ namespace BlazorDeviceControl.Data
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
             //await RunTasks(LocalizationStrings.MethodOnInitializedAsync, "", LocalizationStrings.DialogResultFail, "",
-            //    new List<Task> {
-            //        new(() => {
+            //    new List<Task> { new(() => {
             //            GetDataAsync().ConfigureAwait(true);
             //    })}, null).ConfigureAwait(true);
         }
 
-        public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity entity, BaseEntity parentEntity,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem)
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                string title = string.Empty;
-                if (entity is BaseIdEntity idEntity)
-                {
-                    idEntity = table switch
+            await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> { new Task(delegate {
+                    Console.WriteLine($"ActionAsync. table: {table}. tableAction: {tableAction}. item: {item}");
+                    string title = string.Empty;
+                    if (item is BaseIdEntity idEntity)
                     {
-                        EnumTable.BarCodeTypes => AppSettings.DataAccess.ActionGetIdEntity<BarCodeTypesEntity>(idEntity, tableAction),
-                        EnumTable.Contragents => AppSettings.DataAccess.ActionGetIdEntity<ContragentsEntity>(idEntity, tableAction),
-                        EnumTable.Hosts => AppSettings.DataAccess.ActionGetIdEntity<HostsEntity>(idEntity, tableAction),
-                        EnumTable.Nomenclature => AppSettings.DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
-                        EnumTable.OrderStatus => AppSettings.DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
-                        EnumTable.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity<OrderTypesEntity>(idEntity, tableAction),
-                        EnumTable.Plu => AppSettings.DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
-                        EnumTable.ProductionFacility => AppSettings.DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
-                        EnumTable.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
-                        EnumTable.Scales => AppSettings.DataAccess.ActionGetIdEntity<ScalesEntity>(idEntity, tableAction),
-                        EnumTable.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity<TemplateResourcesEntity>(idEntity, tableAction),
-                        EnumTable.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplatesEntity>(idEntity, tableAction),
-                        EnumTable.WorkShop => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
-                        EnumTable.WeithingFact => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
-                        EnumTable.Printer => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
-                        EnumTable.PrinterResourceRef => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceRefEntity>(idEntity, tableAction),
-                        EnumTable.PrinterType => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
-                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                    };
-                    title = table switch
-                    {
-                        EnumTable.BarCodeTypes => $"Штрих-код. ID {idEntity.Id}",
-                        EnumTable.Contragents => $"Контрагент. ID {idEntity.Id}",
-                        EnumTable.Hosts => $"Хост. ID {idEntity.Id}",
-                        EnumTable.Nomenclature => $"Номенклатура. ID {idEntity.Id}",
-                        EnumTable.OrderStatus => $"Статус заказа. ID {idEntity.Id}",
-                        EnumTable.OrderTypes => $"Тип заказа. ID {idEntity.Id}",
-                        EnumTable.Plu => $"PLU. ID {idEntity.Id}",
-                        EnumTable.ProductionFacility => $"Производственная площадка. ID {idEntity.Id}",
-                        EnumTable.ProductSeries => $"Серия продукта. ID {idEntity.Id}",
-                        EnumTable.Scales => $"Устройство. ID {idEntity.Id}",
-                        EnumTable.TemplateResources => $"Ресурс шаблона. ID {idEntity.Id}",
-                        EnumTable.Templates => $"Шаблон. ID {idEntity.Id}",
-                        EnumTable.WorkShop => $"Цех. ID {idEntity.Id}",
-                        EnumTable.WeithingFact => $"Взвешивание. ID {idEntity.Id}",
-                        EnumTable.Printer => $"Принтер Zebra. ID {idEntity.Id}",
-                        EnumTable.PrinterResourceRef => $"Ресурс принтера. ID {idEntity.Id}",
-                        EnumTable.PrinterType => $"Тип принтера. ID {idEntity.Id}",
-                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                    };
-                }
-                else if (entity is BaseUidEntity uidEntity)
-                {
-                    uidEntity = table switch
-                    {
-                        EnumTable.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
-                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                    };
-                    title = table switch
-                    {
-                        EnumTable.Logs => $"Лог. UID {uidEntity.Uid}",
-                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                    };
-                }
-
-                // Printer from ZebraPrinter.razor.
-                if (entity is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
-                {
-                    zebraPrinterResourceRefEntity.Printer = (ZebraPrinterEntity)parentEntity;
-                }
-
-                if (tableAction == EnumTableAction.Add)
-                {
-                    if (entity is PluEntity pluEntity)
-                    {
-                        pluEntity.Scale = (ScalesEntity)parentEntity;
+                        idEntity = table switch
+                        {
+                            EnumTable.BarCodeTypes => AppSettings.DataAccess.ActionGetIdEntity<BarCodeTypesEntity>(idEntity, tableAction),
+                            EnumTable.Contragents => AppSettings.DataAccess.ActionGetIdEntity<ContragentsEntity>(idEntity, tableAction),
+                            EnumTable.Hosts => AppSettings.DataAccess.ActionGetIdEntity<HostsEntity>(idEntity, tableAction),
+                            EnumTable.Nomenclature => AppSettings.DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
+                            EnumTable.OrderStatus => AppSettings.DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
+                            EnumTable.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity<OrderTypesEntity>(idEntity, tableAction),
+                            EnumTable.Plu => AppSettings.DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
+                            EnumTable.ProductionFacility => AppSettings.DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
+                            EnumTable.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
+                            EnumTable.Scales => AppSettings.DataAccess.ActionGetIdEntity<ScalesEntity>(idEntity, tableAction),
+                            EnumTable.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity<TemplateResourcesEntity>(idEntity, tableAction),
+                            EnumTable.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplatesEntity>(idEntity, tableAction),
+                            EnumTable.WorkShop => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
+                            EnumTable.WeithingFact => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
+                            EnumTable.Printer => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
+                            EnumTable.PrinterResourceRef => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceRefEntity>(idEntity, tableAction),
+                            EnumTable.PrinterType => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
+                            _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                        };
+                        title = table switch
+                        {
+                            EnumTable.BarCodeTypes => $"Штрих-код. ID {idEntity.Id}",
+                            EnumTable.Contragents => $"Контрагент. ID {idEntity.Id}",
+                            EnumTable.Hosts => $"Хост. ID {idEntity.Id}",
+                            EnumTable.Nomenclature => $"Номенклатура. ID {idEntity.Id}",
+                            EnumTable.OrderStatus => $"Статус заказа. ID {idEntity.Id}",
+                            EnumTable.OrderTypes => $"Тип заказа. ID {idEntity.Id}",
+                            EnumTable.Plu => $"PLU. ID {idEntity.Id}",
+                            EnumTable.ProductionFacility => $"Производственная площадка. ID {idEntity.Id}",
+                            EnumTable.ProductSeries => $"Серия продукта. ID {idEntity.Id}",
+                            EnumTable.Scales => $"Устройство. ID {idEntity.Id}",
+                            EnumTable.TemplateResources => $"Ресурс шаблона. ID {idEntity.Id}",
+                            EnumTable.Templates => $"Шаблон. ID {idEntity.Id}",
+                            EnumTable.WorkShop => $"Цех. ID {idEntity.Id}",
+                            EnumTable.WeithingFact => $"Взвешивание. ID {idEntity.Id}",
+                            EnumTable.Printer => $"Принтер Zebra. ID {idEntity.Id}",
+                            EnumTable.PrinterResourceRef => $"Ресурс принтера. ID {idEntity.Id}",
+                            EnumTable.PrinterType => $"Тип принтера. ID {idEntity.Id}",
+                            _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                        };
                     }
-                }
+                    else if (item is BaseUidEntity uidEntity)
+                    {
+                        uidEntity = table switch
+                        {
+                            EnumTable.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
+                            _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                        };
+                        title = table switch
+                        {
+                            EnumTable.Logs => $"Лог. UID {uidEntity.Uid}",
+                            _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                        };
+                    }
 
-                switch (tableAction)
-                {
-                    case EnumTableAction.Add:
-                    case EnumTableAction.Edit:
-                    case EnumTableAction.Copy:
-                        if (AppSettings.IdentityAccessLevel == true)
+                    // Printer from ZebraPrinter.razor.
+                    if (item is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
+                    {
+                        zebraPrinterResourceRefEntity.Printer = (ZebraPrinterEntity)parentItem;
+                    }
+
+                    if (tableAction == EnumTableAction.Add)
+                    {
+                        if (item is PluEntity pluEntity)
                         {
-                            await Dialog.OpenAsync<Shared.EntityPage>(title,
-                                new Dictionary<string, object>
-                                {
-                                    {"Item", entity},
-                                    {"Table", table},
-                                    {"TableAction", tableAction},
-                                },
-                                new DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
+                            pluEntity.Scale = (ScalesEntity)parentItem;
                         }
-                        break;
-                    case EnumTableAction.Delete:
-                        if (AppSettings.IdentityAccessLevel == true)
-                        {
-                            AppSettings.DataAccess.ActionDeleteEntity(entity);
-                        }
-                        break;
-                    case EnumTableAction.Marked:
-                        if (AppSettings.IdentityAccessLevel == true)
-                        {
-                            AppSettings.DataAccess.ActionMarkedEntity(entity);
-                        }
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettings.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine(ex.Message);
-                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
+                    }
+
+                    switch (tableAction)
+                    {
+                        case EnumTableAction.Add:
+                        case EnumTableAction.Edit:
+                        case EnumTableAction.Copy:
+                            if (AppSettings.IdentityAccessLevel == true)
+                            {
+                                Console.WriteLine($"ActionAsync. AppSettings.IdentityAccessLevel: {AppSettings.IdentityAccessLevel}");
+                                Dialog.OpenAsync<Shared.EntityPage>(title,
+                                    new Dictionary<string, object>
+                                    {
+                                        {"Item", item},
+                                        {"Table", table},
+                                        {"TableAction", tableAction},
+                                    },
+                                    new DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
+                            }
+                            break;
+                        case EnumTableAction.Delete:
+                            if (AppSettings.IdentityAccessLevel == true)
+                            {
+                                AppSettings.DataAccess.ActionDeleteEntity(item);
+                            }
+                            break;
+                        case EnumTableAction.Marked:
+                            if (AppSettings.IdentityAccessLevel == true)
+                            {
+                                AppSettings.DataAccess.ActionMarkedEntity(item);
+                            }
+                            break;
+                    }
+                })}, GuiRefreshAsync).ConfigureAwait(false);
         }
 
-        public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow)
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> { new Task(delegate {
+                    Console.WriteLine($"{nameof(ActionAsync)}. {nameof(table)}: {table}. {nameof(tableAction)}: {tableAction}. {nameof(page)}: {page}. ");
+                    if (table == EnumTable.Default)
+                        return;
+                    //if (item == null || item.EqualsDefault())
+                    //    return;
+                    BaseIdEntity idItem = null;
+                    BaseUidEntity uidItem = null;
+                    switch (item)
+                    {
+                        case BaseIdEntity baseIdEntity:
+                            idItem = baseIdEntity;
+                            break;
+                        case BaseUidEntity baseUidEntity:
+                            uidItem = baseUidEntity;
+                            break;
+                    }
 
-            try
-            {
-                if (table == EnumTable.Default)
-                    return;
-                //if (item == null || item.EqualsDefault())
-                //    return;
-                BaseIdEntity idEntity = null;
-                BaseUidEntity uidEntity = null;
-                if (item is BaseIdEntity baseIdEntity)
-                    idEntity = baseIdEntity;
-                else if (item is BaseUidEntity baseUidEntity)
-                    uidEntity = baseUidEntity;
-
-                switch (tableAction)
-                {
-                    case EnumTableAction.Add:
-                    case EnumTableAction.Edit:
-                    case EnumTableAction.Copy:
-                        if (AppSettings.IdentityAccessLevel == true)
-                        {
-                            switch (table)
+                    switch (tableAction)
+                    {
+                        case EnumTableAction.Add:
+                        case EnumTableAction.Edit:
+                        case EnumTableAction.Copy:
+                            if (AppSettings.IdentityAccessLevel == true)
                             {
-                                case EnumTable.Printer:
-                                    if (!isNewWindow)
-                                    {
-                                        if (idEntity != null)
-                                            Navigation.NavigateTo($"{page}/{idEntity.Id}");
-                                        else if (uidEntity != null)
-                                            Navigation.NavigateTo($"{page}/{uidEntity.Uid}");
+                                switch (table)
+                                {
+                                    case EnumTable.Scales:
+                                    case EnumTable.Printer:
+                                        if (!isNewWindow)
+                                        {
+                                            if (idItem != null)
+                                                Navigation.NavigateTo($"{page}/{idItem.Id}");
+                                            else if (uidItem != null)
+                                                Navigation.NavigateTo($"{page}/{uidItem.Uid}");
+                                            else
+                                                Navigation.NavigateTo(@"{page}");
+                                        }
                                         else
-                                            Navigation.NavigateTo(@"{page}");
-                                    }
-                                    else
-                                    {
-                                        if (idEntity != null)
-                                            await JsRuntime.InvokeAsync<object>("open", $"{page}/{idEntity.Id}", "_blank").ConfigureAwait(false);
-                                        else if (uidEntity != null)
-                                            await JsRuntime.InvokeAsync<object>("open", $"{page}/{uidEntity.Uid}", "_blank").ConfigureAwait(false);
-                                        else
-                                            await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
-                                    }
-                                    break;
+                                        {
+                                            if (idItem != null)
+                                                JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
+                                            else if (uidItem != null)
+                                                JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
+                                            else
+                                                JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                                        }
+                                        break;
+                                }
                             }
-                        }
-                        break;
-                    case EnumTableAction.Delete:
-                        if (AppSettings.IdentityAccessLevel == true)
-                        {
-                            AppSettings.DataAccess.ActionDeleteEntity(item);
-                        }
-                        break;
-                    case EnumTableAction.Marked:
-                        if (AppSettings.IdentityAccessLevel == true)
-                        {
-                            AppSettings.DataAccess.ActionMarkedEntity(item);
-                        }
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettings.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine(ex.Message);
-                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-            }
+                            break;
+                        case EnumTableAction.Delete:
+                            if (AppSettings.IdentityAccessLevel == true)
+                            {
+                                AppSettings.DataAccess.ActionDeleteEntity(item);
+                            }
+                            break;
+                        case EnumTableAction.Marked:
+                            if (AppSettings.IdentityAccessLevel == true)
+                            {
+                                AppSettings.DataAccess.ActionMarkedEntity(item);
+                            }
+                            break;
+                    }
+                })}, GuiRefreshAsync).ConfigureAwait(false);
         }
 
         public string ChartDataFormat(object value)

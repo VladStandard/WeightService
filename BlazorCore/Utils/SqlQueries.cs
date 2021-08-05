@@ -109,15 +109,5 @@ from [db_scales].[Hosts] [h]
 where [h].[Id] not in (select [HostId] from [db_scales].[Scales] [s] where [s].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
 order by [h].[Name]
             ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-
-        public static string GetIsDebugHost(string host) => @$"
--- Table Hosts. IsDebug
-select [ID]
-      ,[NAME]
-      ,[IS_DEBUG]
-      ,[SETTINGSFILE] [XML]
-from [db_scales].[Hosts]
-where [NAME]='{host}'
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
     }
 }
