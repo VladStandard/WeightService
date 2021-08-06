@@ -6,6 +6,7 @@ using BlazorCore.DAL;
 using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Models;
+using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -13,8 +14,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using BlazorCore.Utils;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace BlazorDeviceControl.Shared.Record
 {
@@ -23,7 +22,7 @@ namespace BlazorDeviceControl.Shared.Record
         #region Public and private fields and properties
 
         [Parameter]
-        public int? ItemId { get; set; }
+        public int ItemId { get; set; }
         public ScalesEntity Item { get; set; }
         public string PluTitle { get; set; }
         public PluEntity PluItem { get; set; }
@@ -43,22 +42,22 @@ namespace BlazorDeviceControl.Shared.Record
         {
             await GetDataAsync(new Task(delegate
             {
-                Item = AppSettings.DataAccess.ScalesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                    { { EnumField.Id.ToString(), ItemId } }), null);
-                
+                Item = AppSettings?.DataAccess?.ScalesCrud?.GetEntity(new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), ItemId } }), null);
+
                 ComPorts = new List<TypeEntity<string>>();
                 for (int i = 1; i < 256; i++)
                 {
                     ComPorts.Add(new TypeEntity<string>($"COM{i}", $"COM{i}"));
                 }
+
                 // ScaleFactor
                 Item.ScaleFactor ??= 1000;
                 PluTitle = $"{LocalizationStrings.DeviceControl.TableTitlePluShort}  [{LocalizationStrings.Share.DataLoading}]";
                 PluItems = AppSettings.DataAccess.PluCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
                     { EnumField.Marked.ToString(), false },
                     { "Scale.Id", Item.Id },
-                }),
-                new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
+                }), new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
+
                 PluTitle = $"{LocalizationStrings.DeviceControl.TableTitlePluShort}  [{PluItems.Count} {LocalizationStrings.DeviceControl.DataRecords}]";
                 TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
                     new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
@@ -79,8 +78,6 @@ namespace BlazorDeviceControl.Shared.Record
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            ItemId ??= 0;
 
             await GetDataAsync().ConfigureAwait(true);
         }
@@ -120,7 +117,9 @@ namespace BlazorDeviceControl.Shared.Record
                 if (entity is PluEntity pluEntity)
                 {
                     PluItem = pluEntity;
-                    await ActionEditAsync(EnumTable.Plu, PluItem, Item).ConfigureAwait(true);
+                    //await EntityActions.ActionEditAsync(EnumTable.Plu, PluItem, Item).ConfigureAwait(true);
+                    await ActionAsync<BaseRazorEntity>(EnumTable.Plu, EnumTableAction.Edit, PluItem, Item).ConfigureAwait(true);
+                    await GetDataAsync().ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
@@ -215,30 +214,6 @@ namespace BlazorDeviceControl.Shared.Record
                     break;
             }
             StateHasChanged();
-        }
-
-        private async Task ActionEditAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
-        }
-
-        private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
-        }
-
-        private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
-        }
-
-        private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
         }
 
         #endregion

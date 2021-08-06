@@ -3,7 +3,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Radzen;
-using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared
 {

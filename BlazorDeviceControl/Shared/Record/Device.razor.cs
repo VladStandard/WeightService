@@ -47,12 +47,6 @@ namespace BlazorDeviceControl.Shared.Record
             Notification.Notify(message);
         }
 
-        private async Task CancelAsync()
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Dialog.Close(false);
-        }
-
         private void Change<T>(T value, string name) where T : class
         {
             if (name.Equals("State"))

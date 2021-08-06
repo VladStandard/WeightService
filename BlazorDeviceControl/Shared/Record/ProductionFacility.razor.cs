@@ -3,7 +3,6 @@
 
 using BlazorCore.DAL.TableModels;
 using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Record
 {

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using BlazorCore.Utils;
+using BlazorCore.Models;
 
 namespace BlazorDeviceControl.Shared.Section
 {
@@ -126,7 +127,7 @@ namespace BlazorDeviceControl.Shared.Section
                     });
                     break;
                 default:
-                    await ActionAsync(table, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
+                    await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
                     await GetDataAsync().ConfigureAwait(false);
                     break;
             }
@@ -138,25 +139,25 @@ namespace BlazorDeviceControl.Shared.Section
 
         private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
         private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
         private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
         private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 

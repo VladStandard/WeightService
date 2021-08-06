@@ -20,16 +20,11 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        [Parameter]
-        public EnumTable Table { get; set; }
-        [Parameter]
-        public BaseIdEntity Item { get; set; }
-        [Parameter]
-        public EnumTableAction TableAction { get; set; }
-        [Parameter]
-        public EventCallback CallbackActionSaveAsync { get; set; }
-        [Parameter]
-        public EventCallback CallbackActionCancelAsync { get; set; }
+        [Parameter] public EnumTable Table { get; set; }
+        [Parameter] public BaseIdEntity Item { get; set; }
+        [Parameter] public EnumTableAction TableAction { get; set; }
+        [Parameter] public EventCallback CallbackActionSaveAsync { get; set; }
+        [Parameter] public EventCallback CallbackActionCancelAsync { get; set; }
 
         #endregion
 

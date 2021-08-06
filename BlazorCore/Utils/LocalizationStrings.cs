@@ -275,6 +275,7 @@ namespace BlazorCore.Utils
             public const string UriRouteRoot = "/";
             public const string UriRouteTableScales = "/scales";
             public const string UriRouteTableHosts = "/hosts";
+            public const string UriRouteTableDevices = "/devices";
             public const string UriRouteTablePrinters = "/printers";
             public const string UriRouteTablePrinterTypes = "/printertypes";
             public const string UriRouteTableContragents = "/contragents";

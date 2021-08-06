@@ -1,9 +1,9 @@
-﻿using BlazorCore;
-using BlazorCore.DAL;
+﻿using BlazorCore.DAL;
 using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
-using BlazorCore.Models;
+using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using Radzen;
 using System;
@@ -12,9 +12,8 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using BlazorCore.Utils;
 
-namespace BlazorDeviceControl.Data
+namespace BlazorCore.Models
 {
     public class BaseRazorEntity : LayoutComponentBase, IDisposable
     {
@@ -34,7 +33,7 @@ namespace BlazorDeviceControl.Data
         {
             Dialog?.Dispose();
             Tooltip?.Dispose();
-            //AppSettings.HotKeysContextItem?.Dispose();
+            AppSettings.HotKeysContextItem?.Dispose();
         }
 
         #endregion
@@ -43,6 +42,7 @@ namespace BlazorDeviceControl.Data
 
         public AppSettingsEntity AppSettings = AppSettingsEntity.Instance;
         public delegate Task DelegateGuiRefresh();
+        //public BaseEntity BaseItem { get; private set; }
 
         #endregion
 
@@ -82,7 +82,7 @@ namespace BlazorDeviceControl.Data
             //    })}, null).ConfigureAwait(true);
         }
 
-        public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem)
+        public async Task ActionAsync<T>(EnumTable table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem) where T : BaseRazorEntity
         {
             await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> { new Task(delegate {
@@ -169,7 +169,7 @@ namespace BlazorDeviceControl.Data
                             if (AppSettings.IdentityAccessLevel == true)
                             {
                                 Console.WriteLine($"ActionAsync. AppSettings.IdentityAccessLevel: {AppSettings.IdentityAccessLevel}");
-                                Dialog.OpenAsync<Shared.EntityPage>(title,
+                                Dialog.OpenAsync<T>(title,
                                     new Dictionary<string, object>
                                     {
                                         {"Item", item},
@@ -199,7 +199,6 @@ namespace BlazorDeviceControl.Data
         {
             await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> { new Task(delegate {
-                    Console.WriteLine($"{nameof(ActionAsync)}. {nameof(table)}: {table}. {nameof(tableAction)}: {tableAction}. {nameof(page)}: {page}. ");
                     if (table == EnumTable.Default)
                         return;
                     //if (item == null || item.EqualsDefault())
@@ -214,6 +213,26 @@ namespace BlazorDeviceControl.Data
                         case BaseUidEntity baseUidEntity:
                             uidItem = baseUidEntity;
                             break;
+                    }
+                    // Debug log.
+                    if (AppSettings.IsDebug)
+                    {
+                        Console.WriteLine("--------------------------------------------------------------------------------");
+                        Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(ActionAsync)} (for Debug mode) ---------- ");
+                        Console.WriteLine($"{nameof(ActionAsync)}. {nameof(table)}: {table}. {nameof(tableAction)}: {tableAction}. {nameof(page)}: {page}. ");
+                        if (idItem != null)
+                        {
+                            Console.WriteLine($"{nameof(idItem)}: {idItem}");
+                            if (AppSettings.IdentityAccessLevel == true)
+                                Console.WriteLine($"Open page {page}/{idItem.Id}");
+                        }
+                        else if (uidItem != null)
+                        {
+                            Console.WriteLine($"{nameof(uidItem)}: {uidItem}");
+                            if (AppSettings.IdentityAccessLevel == true)
+                                Console.WriteLine($"Open page {page}/{uidItem.Uid}");
+                        }
+                        Console.WriteLine("--------------------------------------------------------------------------------");
                     }
 
                     switch (tableAction)
@@ -230,11 +249,17 @@ namespace BlazorDeviceControl.Data
                                         if (!isNewWindow)
                                         {
                                             if (idItem != null)
+                                            {
                                                 Navigation.NavigateTo($"{page}/{idItem.Id}");
+                                            }
                                             else if (uidItem != null)
+                                            {
                                                 Navigation.NavigateTo($"{page}/{uidItem.Uid}");
+                                            }
                                             else
-                                                Navigation.NavigateTo(@"{page}");
+                                            {
+                                                Navigation.NavigateTo("{page}");
+                                            }
                                         }
                                         else
                                         {
@@ -370,23 +395,26 @@ namespace BlazorDeviceControl.Data
             Navigation.NavigateTo($"{LocalizationStrings.DeviceControl.UriRouteRoot}");
         }
 
-        public ConfirmOptions GetConfirmOptions()
-        {
-            return new()
+        public ConfirmOptions GetConfirmOptions() =>
+            //return new()
+            //{
+            //    ShowTitle = true,
+            //    ShowClose = true,
+            //    OkButtonText = LocalizationStrings.Share.DialogButtonYes,
+            //    CancelButtonText = LocalizationStrings.Share.DialogButtonCancel,
+            //    Bottom = null,
+            //    ChildContent = null,
+            //    Height = null,
+            //    Left = null,
+            //    Style = null,
+            //    Top = null,
+            //    Width = null,
+            //};
+            new ConfirmOptions()
             {
-                ShowTitle = true,
-                ShowClose = true,
                 OkButtonText = LocalizationStrings.Share.DialogButtonYes,
                 CancelButtonText = LocalizationStrings.Share.DialogButtonCancel,
-                Bottom = null,
-                ChildContent = null,
-                Height = null,
-                Left = null,
-                Style = null,
-                Top = null,
-                Width = null,
             };
-        }
 
         public async Task RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
             DelegateGuiRefresh callRefresh, bool isWait = true,
@@ -469,25 +497,35 @@ namespace BlazorDeviceControl.Data
         }
 
         public async Task RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel,
-            List<Task> tasks, DelegateGuiRefresh callRefresh, string questionAdd = "",
+            List<Task> tasks, DelegateGuiRefresh callRefresh, string questionAdd = "", bool isWait = true,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            ConfirmOptions confirmOptions = GetConfirmOptions();
-
+            //await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             try
             {
                 string question = string.IsNullOrEmpty(questionAdd) ? LocalizationStrings.Share.DialogQuestion : questionAdd;
-                bool? result = Dialog.Confirm(question, title, confirmOptions).Result;
+                Console.WriteLine($"RunTasksWithQeustion. Dialog: {Dialog}");
+                Console.WriteLine($"RunTasksWithQeustion. question: {question}");
+                Console.WriteLine($"RunTasksWithQeustion. title: {title}");
+                Console.WriteLine($"RunTasksWithQeustion. Dialog: {Dialog}");
+                //bool? result = Dialog.Confirm(question, title, confirmOptions).Result;
+                Task<bool?> dialog = Dialog.Confirm(question, title, GetConfirmOptions());
+                Console.WriteLine("RunTasksWithQeustion 2");
+                dialog.Start();
+                Console.WriteLine("RunTasksWithQeustion 3");
+                bool? result = dialog.Result;
+                Console.WriteLine("RunTasksWithQeustion 4");
                 if (result == true)
                 {
+                    Console.WriteLine("RunTasksWithQeustion 3");
                     if (tasks != null)
                     {
                         //Task.WaitAll(tasks.ToArray());
                         foreach (Task task in tasks)
                         {
                             task.Start();
-                            task.Wait();
+                            if (isWait)
+                                task.Wait();
                         }
                     }
                     if (!string.IsNullOrEmpty(detailSuccess))
@@ -525,6 +563,58 @@ namespace BlazorDeviceControl.Data
                 if (callRefresh != null)
                     await callRefresh().ConfigureAwait(false);
             }
+        }
+
+        #endregion
+
+        #region Public and private methods - Actions
+
+        public async Task ItemCancelAsync(BaseEntity item, string page)
+        {
+            await RunTasks(LocalizationStrings.Share.TableRecordCancel,
+                LocalizationStrings.Share.DialogResultSuccess, LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel,
+                new List<Task> { new Task(delegate {
+                    if (item == null)
+                        return;
+                    if (item is BaseIdEntity idItem && idItem.EqualsDefault())
+                        return;
+                    if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+                        return;
+                    Navigation.NavigateTo(page);
+                })}, GuiRefreshAsync).ConfigureAwait(false);
+        }
+
+        public async Task ItemSaveAsync(BaseEntity item, bool continueOnCapturedContext = true)
+        {
+            await RunTasksWithQeustion(LocalizationStrings.Share.TableRecordSave,
+                LocalizationStrings.Share.DialogResultSuccess, LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel,
+                new List<Task> { new Task(delegate {
+                    if (item == null)
+                        return;
+                    if (item is BaseIdEntity idItem && idItem.EqualsDefault())
+                        return;
+                    if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+                        return;
+                    //if (ItemId == 0)
+                    if (item is BaseIdEntity idItem2)
+                    {
+                        if (idItem2 is ZebraPrinterEntity printerItem)
+                        {
+                            if (printerItem.Id == 0)
+                                AppSettings.DataAccess.ZebraPrinterCrud.SaveEntity(printerItem);
+                            else
+                                AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(printerItem);
+                        }
+                        else if (idItem2 is ScalesEntity scaleItem)
+                        {
+                            if (scaleItem.Id == 0)
+                                AppSettings.DataAccess.ScalesCrud.SaveEntity(scaleItem);
+                            else
+                                AppSettings.DataAccess.ScalesCrud.UpdateEntity(scaleItem);
+                        }
+                   }
+                    Navigation.NavigateTo($"{LocalizationStrings.DeviceControl.UriRouteTablePrinters}");
+                })}, GuiRefreshAsync).ConfigureAwait(continueOnCapturedContext);
         }
 
         #endregion

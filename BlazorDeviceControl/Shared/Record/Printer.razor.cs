@@ -5,6 +5,7 @@ using BlazorCore;
 using BlazorCore.DAL;
 using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
+using BlazorCore.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -12,7 +13,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using BlazorCore.Utils;
 
 namespace BlazorDeviceControl.Shared.Record
 {
@@ -133,62 +133,26 @@ namespace BlazorDeviceControl.Shared.Record
 
         private async Task ActionEditAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
         private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
         private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
         private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
-        }
-
-        private void Save()
-        {
-            if (Item == null || Item.EqualsDefault())
-                return;
-            if (ItemId == 0)
-            {
-                AppSettings.DataAccess.ZebraPrinterCrud.SaveEntity(Item);
-            }
-            else
-            {
-                AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(Item);
-            }
-            Navigation.NavigateTo($"{LocalizationStrings.DeviceControl.UriRouteTablePrinters}");
-        }
-
-        private async Task SaveAsync()
-        {
-            Task task = new(Save);
-            await RunTasksWithQeustion(LocalizationStrings.Share.TableRecordSave,
-                LocalizationStrings.Share.DialogResultSuccess, LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel,
-                new List<Task> { task }, GuiRefreshAsync);
-        }
-
-        private async Task CancelAsync()
-        {
-            await RunTasks(LocalizationStrings.Share.TableRecordCancel,
-                LocalizationStrings.Share.DialogResultSuccess, LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel,
-                new List<Task> {
-                    new(() => {
-                        if (Item == null || Item.EqualsDefault())
-                            return;
-                        Navigation.NavigateTo($"{LocalizationStrings.DeviceControl.UriRouteTablePrinters}");
-                }),
-            }, GuiRefreshAsync).ConfigureAwait(false);
         }
 
         #endregion

@@ -1,12 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorDeviceControl.Data;
+using BlazorCore.Models;
+using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BlazorCore.Utils;
 using Toolbelt.Blazor.HotKeys;
 
 namespace BlazorDeviceControl.Shared

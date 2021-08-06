@@ -194,7 +194,7 @@ namespace BlazorDeviceControl.Shared
             if (AppSettings.IdentityAccessLevel != true)
                 return;
 
-            await ActionAsync(table, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
@@ -203,7 +203,7 @@ namespace BlazorDeviceControl.Shared
             if (AppSettings.IdentityAccessLevel != true)
                 return;
 
-            await ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
@@ -212,7 +212,7 @@ namespace BlazorDeviceControl.Shared
             if (AppSettings.IdentityAccessLevel != true)
                 return;
 
-            await ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
@@ -221,7 +221,7 @@ namespace BlazorDeviceControl.Shared
             if (AppSettings.IdentityAccessLevel != true)
                 return;
 
-            await ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
@@ -230,7 +230,7 @@ namespace BlazorDeviceControl.Shared
             if (AppSettings.IdentityAccessLevel != true)
                 return;
 
-            await ActionAsync(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 

@@ -1,9 +1,9 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorDownloadFile;
-using BlazorDeviceControl.Data;
+using BlazorCore.Models;
 using BlazorDeviceControl.Service;
+using BlazorDownloadFile;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Radzen;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
+using MudBlazor.Services;
+using System.Net.Http;
+using System;
 
 namespace BlazorDeviceControl
 {
@@ -33,10 +36,11 @@ namespace BlazorDeviceControl
             // Inject.
             services.AddHotKeys();
             services.AddSingleton<JsonAppSettingsEntity>();
+            services.AddScoped<ContextMenuService>();
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
-            services.AddScoped<ContextMenuService>();
+            services.AddMudServices();
             // Authentication.
             services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
             // Windows authentication may not be applied with Kestrel without this line

@@ -5,6 +5,7 @@ using BlazorCore;
 using BlazorCore.DAL;
 using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
+using BlazorCore.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -130,25 +131,25 @@ namespace BlazorDeviceControl.Shared.Record
 
         private async Task ActionEditAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
         private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
         private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 
         private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
             await GetDataAsync().ConfigureAwait(false);
         }
 

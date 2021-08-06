@@ -1,5 +1,10 @@
 ﻿@using BlazorCore.Utils
-@inherits BlazorDeviceControl.Data.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorEntity
+
+<RadzenDialog />
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
 
 <div class="page">
     @if (AppSettings.IsSqlServerRelease)

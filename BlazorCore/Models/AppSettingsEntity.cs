@@ -1,6 +1,4 @@
-﻿using BlazorCore;
-using BlazorCore.DAL;
-using BlazorCore.Models;
+﻿using BlazorCore.DAL;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -10,7 +8,7 @@ using System.Security.Principal;
 using System.Threading;
 using Toolbelt.Blazor.HotKeys;
 
-namespace BlazorDeviceControl.Data
+namespace BlazorCore.Models
 {
     public class AppSettingsEntity : LayoutComponentBase
     {
@@ -30,7 +28,7 @@ namespace BlazorDeviceControl.Data
             if (jsonAppSettings != null)
             {
                 JsonAppSettings = jsonAppSettings;
-                CoreSettingsEntity appSettings = new(JsonAppSettings.Server, JsonAppSettings.Db, JsonAppSettings.Trusted, 
+                CoreSettingsEntity appSettings = new(JsonAppSettings.Server, JsonAppSettings.Db, JsonAppSettings.Trusted,
                     JsonAppSettings.Username, JsonAppSettings.Password);
                 DataAccess = new DataAccessEntity(appSettings);
             }
@@ -67,7 +65,7 @@ namespace BlazorDeviceControl.Data
         public HotKeys HotKeysItem { get; private set; }
         public HotKeysContext HotKeysContextItem { get; set; }
         public MemoryEntity Memory { get; set; }
-        
+
         public bool IsDebug => JsonAppSettings.IsDebug;
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
@@ -78,12 +76,12 @@ namespace BlazorDeviceControl.Data
         public string IdentityMessage { get; private set; }
         public bool IsChartSmooth { get; set; }
 
-        public string SqlServerDescription => JsonAppSettings is {Server: { }}
+        public string SqlServerDescription => JsonAppSettings is { Server: { } }
             ? JsonAppSettings.Server.Contains(LocalizationStrings.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
                 ? LocalizationStrings.Share.ServerRelease : LocalizationStrings.Share.ServerDevelop
             : LocalizationStrings.Share.NotLoad;
-        public bool IsSqlServerRelease => JsonAppSettings is {Server: { }} && JsonAppSettings.Server.Contains(LocalizationStrings.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-        public bool IsSqlServerDebug => JsonAppSettings is {Server: { }} && JsonAppSettings.Server.Contains(LocalizationStrings.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerRelease => JsonAppSettings is { Server: { } } && JsonAppSettings.Server.Contains(LocalizationStrings.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerDebug => JsonAppSettings is { Server: { } } && JsonAppSettings.Server.Contains(LocalizationStrings.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
         #endregion
 

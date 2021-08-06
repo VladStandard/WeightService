@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorDeviceControl.Data;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared
 {
-    public partial class Security : BaseRazorEntity
+    public partial class Security
     {
         #region Public and private fields and properties
 
