@@ -1,25 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using EntitiesLib;
-using Hardware;
-using Hardware.MassaK;
-using Hardware.Print;
+using WeightCore.Db;
+using WeightCore;
+using WeightCore.MassaK;
+using WeightCore.Print;
 using log4net;
 using ScalesUI.Common;
 using System;
-using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Hardware.Memory;
+using WeightCore.Memory;
 using ScalesUI.Utils;
 using UICommon;
 using UICommon.WinForms.Utils;
-using UtilsLib;
 using System.Runtime.CompilerServices;
+using ScalesUI.Helpers;
+using WeightCore.Utils;
 
 namespace ScalesUI.Forms
 {
@@ -34,6 +33,7 @@ namespace ScalesUI.Forms
         // Помощник мыши.
         //private readonly MouseHookHelper _mouse = MouseHookHelper.Instance;
         public Task TaskManager { get; set; }
+        private SqlHelper _sqlHelper = SqlHelper.Instance;
 
         #endregion
 
@@ -87,29 +87,33 @@ namespace ScalesUI.Forms
         {
             try
             {
-                var resourceManager = new System.Resources.ResourceManager("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
-                var exit = resourceManager.GetObject("exit_2");
+                System.Resources.ResourceManager resourceManager = new System.Resources.ResourceManager("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
+                object exit = resourceManager.GetObject("exit_2");
                 if (exit != null)
                 {
-                    var bmpExit = new Bitmap((Bitmap)exit);
+                    Bitmap bmpExit = new Bitmap((Bitmap)exit);
                     pictureBoxClose.Image = bmpExit;
                 }
 
                 Text = _ws.AppVersion;
-                var sqlInstance = GetSqlInstance();
-                if (sqlInstance.Equals("INS1"))
+                if (Equals(_sqlHelper.TypePublish, EnumTypePublish.Debug))
                 {
                     fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: Тестовый сервер.";
                     fieldTitle.BackColor = Color.Yellow;
                 }
-                else if (sqlInstance.Equals("LUTON"))
+                else if (Equals(_sqlHelper.TypePublish, EnumTypePublish.Dev))
+                {
+                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: Сервер разработки.";
+                    fieldTitle.BackColor = Color.Yellow;
+                }
+                else if (Equals(_sqlHelper.TypePublish, EnumTypePublish.Release))
                 {
                     fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}.";
                     fieldTitle.BackColor = Color.LightGreen;
                 }
                 else
                 {
-                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {sqlInstance}";
+                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_sqlHelper.SqlInstance}";
                     fieldTitle.BackColor = Color.DarkRed;
                 }
 
@@ -121,39 +125,11 @@ namespace ScalesUI.Forms
                 _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
                     _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                var msg = ex.Message;
+                string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
                 CustomMessageBox.Show(this, @"Ошибка загрузки ресурсов!" + Environment.NewLine + msg, Messages.Exception);
             }
-        }
-
-        public SqlCommand GetSqlInstanceCmd(SqlConnection con)
-        {
-            var query = @"select serverproperty('InstanceName') [InstanceName]";
-            var cmd = new SqlCommand(query, con) { CommandType = CommandType.Text };
-            cmd.Prepare();
-            return cmd;
-        }
-
-        public string GetSqlInstance()
-        {
-            var result = string.Empty;
-            using (var con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                var cmd = GetSqlInstanceCmd(con);
-                var reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        result = SqlConnectFactory.GetValue<string>(reader, "InstanceName");
-                    }
-                }
-                reader.Close();
-            }
-            return result;
         }
 
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
@@ -178,7 +154,7 @@ namespace ScalesUI.Forms
                 }
                 else
                 {
-                    using (var pinForm = new PasswordForm() { TopMost = !_ws.IsDebug })
+                    using (PasswordForm pinForm = new PasswordForm() { TopMost = !_ws.IsDebug })
                     {
                         isClose = pinForm.ShowDialog() == DialogResult.OK;
                         pinForm.Close();
@@ -218,7 +194,7 @@ namespace ScalesUI.Forms
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            var ch = UtilsDt.GetProgressChar(_ws.MemoryManagerProgressChar);
+            char ch = UtilsDt.GetProgressChar(_ws.MemoryManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMemoryManager, 
                 $"Использовано памяти: {_ws.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}").ConfigureAwait(false);
             _ws.MemoryManagerProgressChar = ch;
@@ -252,7 +228,7 @@ namespace ScalesUI.Forms
             if (_ws.CurrentBox == 0)
                 _ws.CurrentBox = 1;
 
-            var ch = UtilsDt.GetProgressChar(_ws.PrintManagerProgressChar);
+            char ch = UtilsDt.GetProgressChar(_ws.PrintManagerProgressChar);
             // TSC printers.
             if (_ws.CurrentScale?.ZebraPrinter != null && _ws.IsTscPrinter)
             {
@@ -269,7 +245,7 @@ namespace ScalesUI.Forms
             // Zebra printers.
             else
             {
-                var state = _ws.PrintManager.CurrentStatus;
+                Zebra.Sdk.Printer.PrinterStatus state = _ws.PrintManager.CurrentStatus;
                 // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
                 _ws.CurrentBox = _ws.PrintManager.UserLabelCount < _ws.PalletSize ? _ws.PrintManager.UserLabelCount : _ws.PalletSize;
                 // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
@@ -292,14 +268,14 @@ namespace ScalesUI.Forms
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            var flag = false;
+            bool flag = false;
             if (_ws.CurrentPlu != null)
             {
                 flag = true;
                 await AsyncControl.Properties.SetText.Async(labelPlu, _ws.CurrentPlu.CheckWeight == false
                     ? $"PLU (шт): {_ws.CurrentPlu.PLU}"
                     : $"PLU (вес): {_ws.CurrentPlu.PLU}").ConfigureAwait(false);
-                var weight = _ws.MassaManager.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
+                decimal weight = _ws.MassaManager.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
                 await AsyncControl.Properties.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг").ConfigureAwait(false);
                 //await AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto,
                 //    _ws.MassaManager.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent).ConfigureAwait(false);
@@ -308,7 +284,7 @@ namespace ScalesUI.Forms
             }
 
             //LedMassa.State = _ws.MassaManager.IsStable == 1;
-            var ch = UtilsDt.GetProgressChar(_ws.MassaManagerProgressChar);
+            char ch = UtilsDt.GetProgressChar(_ws.MassaManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMassaManager, _ws.MassaManager.IsReady || _ws.MassaManager.IsStable == 1
                 ? $"Весы: доступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}" 
                 : $"Весы: недоступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}").ConfigureAwait(false);
@@ -327,7 +303,7 @@ namespace ScalesUI.Forms
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
             // MemoryManager.
-            var taskMemory = new Task(() =>
+            Task taskMemory = new Task(() =>
             {
                 try
                 {
@@ -351,7 +327,7 @@ namespace ScalesUI.Forms
             taskMemory.Start();
 
             // PrintManager.
-            var taskPrint = new Task(() =>
+            Task taskPrint = new Task(() =>
             {
                 try
                 {
@@ -381,7 +357,7 @@ namespace ScalesUI.Forms
             taskPrint.Start();
 
             // DeviceManager.
-            var taskDevice = new Task(() =>
+            Task taskDevice = new Task(() =>
             {
                 try
                 {
@@ -405,7 +381,7 @@ namespace ScalesUI.Forms
             taskDevice.Start();
 
             // MassaManager.
-            var taskMassa = new Task(() =>
+            Task taskMassa = new Task(() =>
             {
                 try
                 {
@@ -413,7 +389,7 @@ namespace ScalesUI.Forms
                     {
                         if (_ws.MassaManager == null)
                         {
-                            var deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
+                            DeviceSocketRs232 deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
                             _ws.MassaManager = new MassaManagerEntity(_ws?.Log, deviceSocketRs232, 1_000, 5_000, 5_000);
                             ButtonSetZero();
                         }
@@ -548,7 +524,7 @@ namespace ScalesUI.Forms
 
         private void NotifyPlu(PluEntity plu)
         {
-            var strCheckWeight = plu?.CheckWeight == true ? "вес" : "шт";
+            string strCheckWeight = plu?.CheckWeight == true ? "вес" : "шт";
             AsyncControl.Properties.SetText.Async(fieldPlu, plu != null
                 ? $"{plu.PLU} | {strCheckWeight} | {plu.GoodsName}" : string.Empty);
             AsyncControl.Properties.SetEnabled.Async(buttonPrint, plu != null);
@@ -589,7 +565,7 @@ namespace ScalesUI.Forms
                 }
                 else
                 {
-                    var pinForm = new PasswordForm();
+                    PasswordForm pinForm = new PasswordForm();
                     if (pinForm.ShowDialog() == DialogResult.OK)
                     {
                         OpenFormSettings();
@@ -602,7 +578,7 @@ namespace ScalesUI.Forms
                 _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
                     _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                var msg = ex.Message;
+                string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
                 CustomMessageBox.Show(this, @"Ошибка вызова формы настроек!" + Environment.NewLine + msg, Messages.Exception);
@@ -621,7 +597,7 @@ namespace ScalesUI.Forms
 
         private void OpenFormSettings()
         {
-            using (var settingsForm = new SettingsForm())
+            using (SettingsForm settingsForm = new SettingsForm())
             {
                 if (settingsForm.ShowDialog() == DialogResult.OK)
                 {
@@ -635,7 +611,7 @@ namespace ScalesUI.Forms
             {
                 if (_ws.MassaManager.WeightNet > Messages.MassaThreshold || _ws.MassaManager.WeightNet < -Messages.MassaThreshold)
                 {
-                    var messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
+                    CustomMessageBox messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     messageBox.Wait();
                     if (messageBox.Result != DialogResult.Yes)
@@ -650,7 +626,7 @@ namespace ScalesUI.Forms
                 _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
                     _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                var msg = ex.Message;
+                string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
                 CustomMessageBox.Show(this, @"Ошибка задания 0!" + Environment.NewLine + msg, Messages.Exception);
@@ -675,7 +651,7 @@ namespace ScalesUI.Forms
                 // Weight check.
                 if (_ws.MassaManager.WeightNet > Messages.MassaThreshold || _ws.MassaManager.WeightNet < -Messages.MassaThreshold)
                 {
-                    var messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
+                    CustomMessageBox messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     messageBox.Wait();
                     if (messageBox.Result != DialogResult.Yes)
@@ -683,7 +659,7 @@ namespace ScalesUI.Forms
                 }
 
                 // PLU form.
-                using (var pluListForm = new PluListForm() { Owner = this })
+                using (PluListForm pluListForm = new PluListForm() { Owner = this })
                 {
                     // Commented from 2021-03-05.
                     //buttonSetZero_Click(sender, e);
@@ -708,7 +684,7 @@ namespace ScalesUI.Forms
                 _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
                     _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                var msg = ex.Message;
+                string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
                 CustomMessageBox.Show(this, @"Ошибка формы выбора PLU!" + Environment.NewLine + msg, Messages.Exception);
@@ -745,7 +721,7 @@ namespace ScalesUI.Forms
                 {
                     using (OrderDetailForm settingsForm = new OrderDetailForm())
                     {
-                        var dialogResult = settingsForm.ShowDialog();
+                        DialogResult dialogResult = settingsForm.ShowDialog();
 
                         if (dialogResult == DialogResult.Retry)
                         {
@@ -775,7 +751,7 @@ namespace ScalesUI.Forms
                 _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
                     _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                var msg = ex.Message;
+                string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
                 CustomMessageBox.Show(this, @"Ошибка вызова формы выбора заказа!" + Environment.NewLine + msg, Messages.Exception);
@@ -798,7 +774,7 @@ namespace ScalesUI.Forms
             {
                 StopTaskManager();
                 
-                using (var kneadingNumberForm = new SetKneadingNumberForm { Owner = this })
+                using (SetKneadingNumberForm kneadingNumberForm = new SetKneadingNumberForm { Owner = this })
                 {
                     if (kneadingNumberForm.ShowDialog() == DialogResult.OK)
                     {
@@ -812,7 +788,7 @@ namespace ScalesUI.Forms
                 _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
                     _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                var msg = ex.Message;
+                string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
                 CustomMessageBox.Show(this, @"Ошибка формы выбора замеса!" + Environment.NewLine + msg, Messages.Exception);
@@ -840,7 +816,7 @@ namespace ScalesUI.Forms
                 _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
                     _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                var msg = ex.Message;
+                string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
                 CustomMessageBox.Show(this, @"Ошибка формы печати!" + Environment.NewLine + msg, Messages.Exception);
@@ -894,7 +870,7 @@ namespace ScalesUI.Forms
                 _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
                 if (ex.InnerException != null)
                     _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                var msg = ex.Message;
+                string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
                 CustomMessageBox.Show(this, @"Ошибка изменения разрешения формы!" + Environment.NewLine + msg, Messages.Exception);
@@ -922,7 +898,7 @@ namespace ScalesUI.Forms
         private void ButtonAddKneading_Click(object sender, EventArgs e)
         {
             //_ws.RotateKneading(Direction.forward);
-            using (var numberInputForm = new NumberInputForm {InputValue = 0})
+            using (NumberInputForm numberInputForm = new NumberInputForm {InputValue = 0})
             {
                 // _ws.Kneading;
                 if (numberInputForm.ShowDialog() == DialogResult.OK)
@@ -935,6 +911,17 @@ namespace ScalesUI.Forms
         private void ButtonNewPallet_Click(object sender, EventArgs e)
         {
             _ws.NewPallet();
+        }
+
+        private void fieldTitle_DoubleClick(object sender, EventArgs e)
+        {
+            using (WpfPageLoader wpfPageLoader = new WpfPageLoader(EnumPage.SqlSettings, false) { Width = 400, Height = 400 })
+            {
+                if (wpfPageLoader.ShowDialog(this) == DialogResult.OK)
+                {
+                    //
+                }
+            }
         }
 
         #endregion

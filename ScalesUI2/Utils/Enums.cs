@@ -33,4 +33,19 @@ namespace ScalesUI.Utils
         Forward,
         Back
     }
+
+    public enum EnumPage
+    {
+        Default,
+        PluList,
+        SqlSettings
+    }
+
+    public enum EnumTypePublish
+    {
+        Default,
+        Dev,
+        Debug,
+        Release
+    }
 }

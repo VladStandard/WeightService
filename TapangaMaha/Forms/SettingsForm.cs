@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using EntitiesLib;
-using Hardware.Zpl;
+using WeightCore.Db;
+using WeightCore.Zpl;
 using TapangaMaha.Common;
 
 namespace TapangaMaha.Forms

@@ -3,9 +3,9 @@
 
 using System;
 using System.Windows;
-using Hardware.Print;
-using Hardware.Print.Tsc;
-using Hardware.Zpl;
+using WeightCore.Print;
+using WeightCore.Print.Tsc;
+using WeightCore.Zpl;
 
 namespace TscBarcode.Views
 {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using EntitiesLib;
+using WeightCore.Db;
 
 namespace ScalesUI.Forms
 {
@@ -111,7 +111,6 @@ namespace ScalesUI.Forms
 
             panel.Controls.Add(btn, i % tableLayoutPanel1.ColumnCount, i / tableLayoutPanel1.ColumnCount);
         }
-
 
         private void DropButtons(TableLayoutPanel panel)
         {

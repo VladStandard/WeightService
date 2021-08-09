@@ -362,6 +362,7 @@
             this.fieldTitle.TabIndex = 20;
             this.fieldTitle.Text = "ScalesUI";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldTitle.DoubleClick += new System.EventHandler(this.fieldTitle_DoubleClick);
             this.fieldTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPlu

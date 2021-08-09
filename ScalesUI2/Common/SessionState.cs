@@ -1,22 +1,22 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using EntitiesLib;
-using Hardware.MassaK;
-using Hardware.Print;
-using Hardware.Zpl;
+using WeightCore.Db;
+using WeightCore.MassaK;
+using WeightCore.Print;
+using WeightCore.Zpl;
 using ScalesUI.Utils;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Xml.Serialization;
-using Hardware;
+using WeightCore;
 using UICommon;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using Hardware.Memory;
-using Hardware.Zabbix;
+using WeightCore.Memory;
+using WeightCore.Zabbix;
 using ScalesUI.Forms;
 
 namespace ScalesUI.Common
@@ -91,6 +91,21 @@ namespace ScalesUI.Common
         public string CurrentPageAsString => $"Текущая страница: {_currentPage}";
 
         public LogEntity Log { get; }
+        private bool _isWpfPageLoaderClose;
+        /// <summary>
+        /// Close WpfPageLoader form.
+        /// </summary>
+        public bool IsWpfPageLoaderClose
+        {
+            get => _isWpfPageLoaderClose;
+            set
+            {
+                _isWpfPageLoaderClose = value;
+                WpfPageLoader_OnClose?.Invoke(null, null);
+                OnPropertyRaised();
+            }
+        }
+        public System.Windows.RoutedEventHandler WpfPageLoader_OnClose { get; set; }
 
         #endregion
 

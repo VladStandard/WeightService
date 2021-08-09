@@ -234,12 +234,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Hardware\Hardware.csproj">
-      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
-      <Name>Hardware</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

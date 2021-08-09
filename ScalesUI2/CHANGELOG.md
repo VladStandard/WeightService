@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.350] - 2021-08-09
+### Changed
+- Downgrade .NET Framework to v.4.7.2
+### Added
+- WPF PageSqlsettings
+
 ## [0.5.310] - 2021-07-27
 ### Changed
 - Debug DB location

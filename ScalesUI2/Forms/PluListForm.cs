@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using EntitiesLib;
+using WeightCore.Db;
 using UICommon;
 
 namespace ScalesUI.Forms

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using EntitiesLib;
-using Hardware.Print.Zebra;
-using Hardware.Zpl;
+using WeightCore.Db;
+using WeightCore.Print.Zebra;
+using WeightCore.Zpl;
 using log4net;
 
 namespace  TapangaMaha.Common
@@ -29,16 +29,16 @@ namespace  TapangaMaha.Common
 
         private SessionState()
         {
-            this.ID = Properties.Settings.Default.CurrentScaleId;
+            ID = Properties.Settings.Default.CurrentScaleId;
             SqlConnectFactory.GetConnection(Properties.Settings.Default.ConnectionString.ToString());
-            this.CurrentScale = new ScaleEntity(this.ID);
-            this.CurrentScale.Load();
+            CurrentScale = new ScaleEntity(ID);
+            CurrentScale.Load();
 
-            this.PluList = new List<PluEntity>();
-            this.PluList = PluEntity.GetPluList(this.CurrentScale);
+            PluList = new List<PluEntity>();
+            PluList = PluEntity.GetPluList(CurrentScale);
 
-            this.Kneading = KneadingMinValue;
-            this.ProductDate = DateTime.Now;
+            Kneading = KneadingMinValue;
+            ProductDate = DateTime.Now;
 
             // контейнер пока не используем
             // оставим для бурного роста
@@ -48,7 +48,7 @@ namespace  TapangaMaha.Common
             // создаем устройство ZEBRA
             // с необходимым крннектором (т.е. TCP, а можно и через USB)
             DeviceSocketTcp zplDeviceSocket =
-                new DeviceSocketTcp(this.CurrentScale.ZebraPrinter.Ip, this.CurrentScale.ZebraPrinter.Port);
+                new DeviceSocketTcp(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port);
             zebraDeviceEntity = new DeviceEntity(zplDeviceSocket, Guid.NewGuid());
             // тут запускается поток 
             // который разбирает очередь 

@@ -1,5 +1,5 @@
-﻿using EntitiesLib;
-using Hardware.Zpl;
+﻿using WeightCore.Db;
+using WeightCore.Zpl;
 using log4net;
 using System;
 using System.Drawing;

@@ -206,7 +206,7 @@ namespace ScalesMsi.Utils
         {
             "CHANGELOG.md",
             "EntitiesLib.dll",
-            "Hardware.dll",
+            "WeightCore.dll",
             "log4net.dll",
             "Microsoft.Bcl.AsyncInterfaces.dll",
             "Microsoft.DotNet.PlatformAbstractions.dll",
