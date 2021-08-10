@@ -8,7 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using TapangaMaha.Common;
 using TapangaMaha.Forms;
-using UICommon;
+using WeightCore.Gui;
 
 // ReSharper disable IdentifierTypo
 // ReSharper disable CommentTypo

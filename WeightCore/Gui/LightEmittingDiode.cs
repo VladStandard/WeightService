@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UICommon
+namespace WeightCore.Gui
 {
     public class LightEmittingDiode
     {

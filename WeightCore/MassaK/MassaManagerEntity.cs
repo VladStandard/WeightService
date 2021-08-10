@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Db;
-using UICommon;
+using WeightCore.Gui;
 
 namespace WeightCore.MassaK
 {

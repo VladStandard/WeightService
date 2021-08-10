@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Threading;
 using System.Xml.Serialization;
 using WeightCore;
-using UICommon;
+using WeightCore.Gui;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;

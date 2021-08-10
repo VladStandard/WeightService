@@ -4,7 +4,7 @@
 //// https://docs.microsoft.com/ru-ru/dotnet/api/system.threading.thread.abort?view=netframework-4.8
 
 //using System.Threading;
-//using UICommon;
+//using WeightCore.Gui;
 
 //namespace WeightCore.MassaK
 //{

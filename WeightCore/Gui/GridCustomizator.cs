@@ -3,7 +3,7 @@
 
 using System.Windows.Forms;
 
-namespace UICommon
+namespace WeightCore.Gui
 {
     public static class GridCustomizatorClass
     {

@@ -1,7 +1,4 @@
-﻿// ReSharper disable CheckNamespace
-// ReSharper disable CommentTypo
-
-namespace WeightServices.Common
+﻿namespace WeightCore.WinForms.Utils
 {
     /// <summary>
     /// Состояние контрола.

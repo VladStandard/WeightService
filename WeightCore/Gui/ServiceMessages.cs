@@ -11,7 +11,7 @@ using log4net.Appender;
 using log4net.Config;
 using log4net.Repository.Hierarchy;
 
-namespace UICommon
+namespace WeightCore.Gui
 {
     public static class ServiceMessagesWindow
     {

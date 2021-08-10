@@ -5,7 +5,7 @@ using ScalesUI.Common;
 using ScalesUI.Utils;
 using System;
 using System.Windows.Forms;
-using UICommon;
+using WeightCore.Gui;
 
 namespace ScalesUI.Forms
 {

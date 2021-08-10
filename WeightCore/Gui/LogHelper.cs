@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using log4net;
 
-namespace UICommon
+namespace WeightCore.Gui
 {
     internal enum EnumLogType
     {

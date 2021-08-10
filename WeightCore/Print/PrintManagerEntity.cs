@@ -8,7 +8,7 @@ using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using UICommon;
+using WeightCore.Gui;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 

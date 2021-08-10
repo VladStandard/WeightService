@@ -6,9 +6,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// ReSharper disable CheckNamespace
-
-namespace WeightServices.Common
+namespace WeightCore.WinForms.Utils
 {
     public static class AsyncControl
     {
@@ -152,13 +150,12 @@ namespace WeightServices.Common
 
         public static class GetHandle
         {
-            private static IntPtr Work(Control control)
-            {
-                return control.Handle;
-            }
-
             public static IntPtr Invoke(Control control)
             {
+                IntPtr Work(Control inControl)
+                {
+                    return inControl.Handle;
+                }
                 IntPtr result = default;
                 if (control != null)
                 {

@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using UICommon;
+using WeightCore.Gui;
 
 namespace WeightCore.Memory
 {

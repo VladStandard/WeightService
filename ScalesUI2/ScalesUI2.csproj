@@ -382,10 +382,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UICommon\UICommon.csproj">
-      <Project>{a814560e-4946-4da4-9735-5e7fff27da85}</Project>
-      <Name>UICommon</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WeightCore\WeightCore.csproj">
       <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
       <Name>WeightCore</Name>

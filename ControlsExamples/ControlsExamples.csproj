@@ -124,11 +124,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UICommon\UICommon.csproj">
-      <Project>{a814560e-4946-4da4-9735-5e7fff27da85}</Project>
-      <Name>UICommon</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

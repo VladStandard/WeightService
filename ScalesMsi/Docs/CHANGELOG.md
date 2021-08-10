@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - ScalesUI 0.4.21
 - EntitiesLib 0.4.21
-- UICommon 0.4.21
+- WeightCore.Gui 0.4.21
 
 ## [0.4.17] - 2020-10-22
 ### Added
@@ -40,14 +40,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - MassaKLib 0.03.96.
 - ScalesUI 0.03.96.
 - TapangaMaha 0.03.96.
-- UICommon 0.03.96.
+- WeightCore.Gui 0.03.96.
 
 ## [0.03.92] - 2020-10-08
 ### Changed
 - EntitiesLib 0.03.90.
 - MassaKLib 0.03.90.
 - ScalesUI 0.03.90.
-- UICommon 0.03.90.
+- WeightCore.Gui 0.03.90.
 - UtilsLib 0.03.90.
 - ZplCommonLib 0.03.90.
 - TapangaMaha 0.03.90.
@@ -62,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - EntitiesLib 0.03.70.
 - MassaKLib 0.03.70.
 - ScalesUI 0.03.70.
-- UICommon 0.03.70.
+- WeightCore.Gui 0.03.70.
 - UtilsLib 0.03.70.
 - ZplCommonLib 0.03.70.
 - TapangaMaha 0.03.70.
@@ -70,7 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.03.87] - 2020-09-28
 ### Changed
 - ScalesUI 0.03.60.
-- UICommon 0.03.60.
+- WeightCore.Gui 0.03.60.
 - TapangaMaha 0.03.60.
 
 ## [0.03.85] - 2020-09-23

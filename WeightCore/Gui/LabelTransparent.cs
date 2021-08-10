@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 // https://stackoverflow.com/questions/605920/reasons-for-why-a-winforms-label-does-not-want-to-be-transparent
 
-namespace UICommon
+namespace WeightCore.Gui
 {
 
     public class LabelTransparent : Label

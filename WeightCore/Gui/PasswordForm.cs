@@ -2,22 +2,23 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace UICommon
+namespace WeightCore.Gui
 {
-    public partial class NumberInputForm : Form
+    public partial class PasswordForm : Form
     {
         #region Private fields and properties
 
-        public int InputValue { get; set; }
-        private int _InputValueShadow;
+        private int ePin { get; set; }
+        private int uPin { get; set; }
 
         #endregion
-
+        
         #region Constructor and destructor
 
-        public NumberInputForm()
+        public PasswordForm()
         {
             InitializeComponent();
         }
@@ -25,6 +26,17 @@ namespace UICommon
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Форма загружена.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PasswordForm_Load(object sender, EventArgs e)
+        {
+            ePin = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
+            ShowPin();
+        }
 
         private void PasswordForm_KeyUp(object sender, KeyEventArgs e)
         {
@@ -80,40 +92,58 @@ namespace UICommon
         private void btnNum_Click(object sender, EventArgs e)
         {
             var num = (string)(sender as Control)?.Tag;
-            _InputValueShadow = int.Parse(_InputValueShadow + num);
-            ShowPin(_InputValueShadow);
+            uPin = int.Parse(uPin + num);
+            if (CheckPin())
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            if (uPin.ToString().Length > 3)
+            {
+                uPin = 0;
+            }
+            ShowPin();
         }
 
-        private void ShowPin(int value)
+        private void ShowPin()
         {
-            if (value == 0)
+            if (uPin == 0)
             {
-                lbPIn.Text = "";
+                lbPIn.Text = "....";
                 return;
             }
 
-            string x = value.ToString();
-            lbPIn.Text = x;
+            string x = string.Empty;
+            string y = string.Empty;
+
+            x = uPin.ToString();
+            y = Regex.Replace(x, "[0-9]", "*");
+            lbPIn.Text = y;
 
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            _InputValueShadow = 0;
-            ShowPin(_InputValueShadow);
+            uPin = 0;
+            ShowPin();
+        }
+
+        private bool CheckPin()
+        {
+            if (uPin == ePin)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            InputValue = _InputValueShadow;
-            DialogResult = (InputValue != 0) ? DialogResult.OK : DialogResult.Cancel;
+            DialogResult = CheckPin() ? DialogResult.OK : DialogResult.Cancel;
             Close();
-        }
-
-        private void NumberInputForm_Shown(object sender, EventArgs e)
-        {
-            _InputValueShadow = 0;
-            ShowPin(InputValue);
         }
 
         #endregion

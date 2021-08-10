@@ -1,6 +1,6 @@
-﻿namespace UICommon
+﻿namespace WeightCore.Gui
 {
-    partial class PasswordForm
+    partial class NumberInputForm
     {
         #region Windows Form Designer generated code
 
@@ -68,7 +68,7 @@
             this.lbPIn.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.lbPIn, 3);
             this.lbPIn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.lbPIn.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
             this.lbPIn.Location = new System.Drawing.Point(23, 20);
             this.lbPIn.Name = "lbPIn";
             this.lbPIn.Size = new System.Drawing.Size(471, 102);
@@ -243,21 +243,21 @@
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             this.btnClose.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // PasswordForm
+            // NumberInputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(519, 554);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "PasswordForm";
+            this.Name = "NumberInputForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ПИН-код";
+            this.Text = "Ваша цифра";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.PasswordForm_Load);
+            this.Shown += new System.EventHandler(this.NumberInputForm_Shown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

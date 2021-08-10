@@ -205,8 +205,6 @@ namespace ScalesMsi.Utils
         public static List<string> ListScalesBin { get; } = new List<string>()
         {
             "CHANGELOG.md",
-            "EntitiesLib.dll",
-            "WeightCore.dll",
             "log4net.dll",
             "Microsoft.Bcl.AsyncInterfaces.dll",
             "Microsoft.DotNet.PlatformAbstractions.dll",
@@ -224,8 +222,7 @@ namespace ScalesMsi.Utils
             "System.Threading.Tasks.Extensions.dll",
             "System.ValueTuple.dll",
             "tsclibnet.dll",
-            "UICommon.dll",
-            "UtilsLib.dll",
+            "WeightCore.dll",
             "ZebraPrinterSdk.dll",
         };
 
@@ -255,7 +252,7 @@ namespace ScalesMsi.Utils
             //"SdkApi.Core.dll",
             //"SdkApi.Desktop.dll",
             //"TapangaMaha.exe.config",
-            //"UICommon.dll",
+            //"WeightCore.Gui.dll",
             //"UtilsLib.dll",
             //"ZabbixAgentLib.dll",
             //"ZplCommonLib.dll",

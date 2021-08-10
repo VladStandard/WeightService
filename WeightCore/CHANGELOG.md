@@ -6,9 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.350] - 2021-07-27
+## [0.5.350] - 2021-08-10
 ### Changed
-- Union EntitiesLib inside Hardware
+- Union EntitiesLib inside WeightCore
+- Union UtilsLib inside WeightCore
+- Union UICommon inside WeightCore
 
 ## [0.5.200] - 2021-06-30
 ### Changed

@@ -193,6 +193,26 @@
     <Compile Include="Db\WorkShopEntity.cs" />
     <Compile Include="Db\ZebraPrinterEntity.cs" />
     <Compile Include="Db\ZplLabel.cs" />
+    <Compile Include="Gui\GridCustomizator.cs" />
+    <Compile Include="Gui\LabelTransparent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Gui\LightEmittingDiode.cs" />
+    <Compile Include="Gui\LogHelper.cs" />
+    <Compile Include="Gui\NumberInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\NumberInputForm.Designer.cs">
+      <DependentUpon>NumberInputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\PasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\PasswordForm.Designer.cs">
+      <DependentUpon>PasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ServiceMessages.cs" />
+    <Compile Include="Gui\UtilsAppVersion.cs" />
     <Compile Include="MassaK\Crc16.cs" />
     <Compile Include="MassaK\MkCommanderBackup.cs" />
     <Compile Include="MassaK\MkCommander.cs" />
@@ -216,6 +236,8 @@
     <Compile Include="Print\Zebra\StateEntity.cs" />
     <Compile Include="Print\Zebra\StatusDataCollector.cs" />
     <Compile Include="Utils\UtilsDt.cs" />
+    <Compile Include="WinForms.Utils\Enums.cs" />
+    <Compile Include="WinForms.Utils\InvokeControl.cs" />
     <Compile Include="Zabbix\Enums.cs" />
     <Compile Include="Zabbix\FakeCheckThreadByLog.cs" />
     <Compile Include="Zabbix\HealthDataCollector.cs" />
@@ -244,12 +266,13 @@
     <None Include="Zpl templates\TEMP6_116x113_090.ZPL" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UICommon\UICommon.csproj">
-      <Project>{A814560E-4946-4DA4-9735-5E7FFF27DA85}</Project>
-      <Name>UICommon</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Gui\NumberInputForm.resx">
+      <DependentUpon>NumberInputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\PasswordForm.resx">
+      <DependentUpon>PasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Print\Tsc\TSC cmd.txt" />
     <Content Include="Zpl templates\Labels sizes.txt" />

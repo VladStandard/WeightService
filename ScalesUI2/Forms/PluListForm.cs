@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using WeightCore.Db;
-using UICommon;
+using WeightCore.Gui;
 
 namespace ScalesUI.Forms
 {
