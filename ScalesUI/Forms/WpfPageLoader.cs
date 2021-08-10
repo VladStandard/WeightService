@@ -1,12 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using ScalesUI.Common;
 using System;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using ScalesUI.Common;
-using ScalesUI.Utils;
+using WeightCore.Utils;
 
 namespace ScalesUI.Forms
 {
@@ -55,9 +55,10 @@ namespace ScalesUI.Forms
                 Left = Owner.Left;
                 Top = Owner.Top;
             }
-            else {
-                Left = Owner.Left + Owner.Width/2 - Width/2;
-                Top = Owner.Top + Owner.Height/2 - Height/2;
+            else
+            {
+                Left = Owner.Left + Owner.Width / 2 - Width / 2;
+                Top = Owner.Top + Owner.Height / 2 - Height / 2;
             }
 
             // WPF element.
@@ -90,7 +91,7 @@ namespace ScalesUI.Forms
 
         private void PluListOnLoaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void SqlSettingsOnLoaded(object sender, RoutedEventArgs e)

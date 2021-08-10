@@ -160,6 +160,8 @@
     <Build Include="Security\db_sscc.sql" />
     <Build Include="Security\db_scales.sql" />
     <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="db_scales\Tables\TASKS_TYPES.sql" />
+    <Build Include="db_scales\Tables\TASKS.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DbScales.Debug.publish.xml" />

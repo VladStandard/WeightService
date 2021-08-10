@@ -7,7 +7,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using ScalesUI.Utils;
+using WeightCore.Utils;
 using System.Runtime.CompilerServices;
 
 // ReSharper disable IdentifierTypo

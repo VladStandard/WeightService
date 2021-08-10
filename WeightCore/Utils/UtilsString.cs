@@ -1,8 +1,9 @@
 ﻿using System;
+using System.IO;
 
 namespace WeightCore.Utils
 {
-    public static class UtilsDt
+    public static class UtilsString
     {
         public static string FormatDtRus(DateTime dt, bool useSeconds)
         {
@@ -67,6 +68,14 @@ namespace WeightCore.Utils
                 default:
                     return '*';
             }
+        }
+
+        public static void StringValueTrim(ref string value, int length, bool isGetFileName = false)
+        {
+            if (isGetFileName)
+                value = Path.GetFileName(value);
+            if (value.Length > length)
+                value = value.Substring(0, length);
         }
     }
 }

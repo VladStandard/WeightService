@@ -1,8 +1,8 @@
 ﻿<Application x:Class="TscBarcode.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:tsc="clr-namespace:Hardware.Print.Tsc;assembly=Hardware"
-             xmlns:print="clr-namespace:Hardware.Print;assembly=Hardware"
+             xmlns:tsc="clr-namespace:WeightCore.Print.Tsc;assembly=Hardware"
+             xmlns:print="clr-namespace:WeightCore.Print;assembly=Hardware"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>

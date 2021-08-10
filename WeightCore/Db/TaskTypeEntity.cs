@@ -3,47 +3,41 @@
 
 using System;
 using System.Data.SqlClient;
-using System.IO;
-using System.Xml.Serialization;
 using WeightCore.Utils;
 
 namespace WeightCore.Db
 {
     [Serializable]
-    public class LogTypeEntity : BaseEntity<LogTypeEntity>
+    public class TaskTypeEntity : BaseEntity<TaskTypeEntity>
     {
         #region Public and private fields and properties
 
         public Guid Uid { get; private set; }
-        public byte Number { get; private set; }
-        public string Icon { get; private set; }
+        public string Name { get; private set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public LogTypeEntity(Guid uid, byte number, string icon)
+        public TaskTypeEntity(Guid uid, string name)
         {
             Uid = uid;
-            Number = number;
-            Icon = icon;
+            Name = name;
         }
 
         #endregion
 
         #region Public and private methods
 
-        public void Save(byte number, string icon)
+        public void Save(string name)
         {
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
-                UtilsString.StringValueTrim(ref icon, 32);
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.AddLogType))
+                using (SqlCommand cmd = new SqlCommand(SqlQueries.AddTaskType))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@number", number);
-                    cmd.Parameters.AddWithValue("@icon", icon);
+                    cmd.Parameters.AddWithValue("@name", name);
                     con.Open();
                     cmd.ExecuteNonQuery();
                 }
@@ -53,7 +47,7 @@ namespace WeightCore.Db
 
         public void Save()
         {
-            Save(Number, Icon);
+            Save(Name);
         }
 
         #endregion

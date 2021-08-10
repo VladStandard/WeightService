@@ -3,7 +3,7 @@
 
 using System;
 
-namespace ScalesUI.Utils
+namespace WeightCore.Utils
 {
     public static class Messages
     {

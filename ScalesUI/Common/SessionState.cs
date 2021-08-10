@@ -1,23 +1,23 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WeightCore.Db;
-using WeightCore.MassaK;
-using WeightCore.Print;
-using WeightCore.Zpl;
-using ScalesUI.Utils;
+using ScalesUI.Forms;
 using System;
+using System.ComponentModel;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 using WeightCore;
+using WeightCore.Db;
 using WeightCore.Gui;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
+using WeightCore.MassaK;
 using WeightCore.Memory;
+using WeightCore.Print;
+using WeightCore.Utils;
 using WeightCore.Zabbix;
-using ScalesUI.Forms;
+using WeightCore.Zpl;
 
 namespace ScalesUI.Common
 {
@@ -225,20 +225,21 @@ namespace ScalesUI.Common
         #endregion
 
         #region PalletSize
-        
+
         public static readonly int PalletSizeMinValue = 1;
         public static readonly int PalletSizeMaxValue = 130;
         public delegate void OnResponseHandlerPalletSize(int palletSize);
         public event OnResponseHandlerPalletSize NotifyPalletSize;
         private int _palletSize;
-        public int PalletSize { 
+        public int PalletSize
+        {
             get => _palletSize;
-            set 
+            set
             {
                 _palletSize = value;
                 CurrentBox = 1;
                 NotifyPalletSize?.Invoke(value);
-            } 
+            }
         }
 
         public void RotatePalletSize(Direction direction)
@@ -264,7 +265,7 @@ namespace ScalesUI.Common
 
         public delegate void OnResponseHandlerCurrentBox(int currentBox);
         public event OnResponseHandlerCurrentBox NotifyCurrentBox;
-        
+
         private int _currentBox;
         public int CurrentBox
         {
@@ -376,7 +377,7 @@ namespace ScalesUI.Common
         #endregion
 
         #region PluEntity
-        
+
         public delegate void OnResponseHandlerPlu(PluEntity plu);
         public event OnResponseHandlerPlu NotifyPlu;
         private PluEntity _currentPlu;
@@ -573,7 +574,7 @@ namespace ScalesUI.Common
                 MassaManager.WeightNet - CurrentPlu.GoodsTareWeight,
                 CurrentPlu.GoodsTareWeight
             );
-            
+
             // Указан номинальный вес.
             var isCheck = false;
             if (CurrentPlu.NominalWeight > 0)
@@ -604,7 +605,7 @@ namespace ScalesUI.Common
 
             var xmlInput = CurrentWeighingFact.SerializeObject();
             var printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
-            
+
             // Подменить картинки ZPL.
             PrintCmdReplacePics(ref printCmd);
             // Отправить задание в очередь печати.

@@ -1,10 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WeightCore.Zpl;
 using log4net;
 using ScalesUI.Common;
-using ScalesUI.Utils;
 using System;
 using System.Data.SqlClient;
 using System.IO.Ports;
@@ -12,6 +10,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
+using WeightCore.Utils;
+using WeightCore.Zpl;
 
 namespace ScalesUI.Forms
 {
@@ -189,8 +189,8 @@ namespace ScalesUI.Forms
 
         private void btnCalibrate_Click(object sender, EventArgs e)
         {
-            var messageBox = CustomMessageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!", 
-                @"ВНИМАНИЕ!",MessageBoxButtons.RetryCancel);
+            var messageBox = CustomMessageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!",
+                @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
             messageBox.Wait();
             //DialogResult dialogResult = MessageBox.Show(@"Прежде чем продолжить калибровку откройте крышку отделителя!", @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
             if (messageBox.Result == DialogResult.Retry)
@@ -233,12 +233,12 @@ namespace ScalesUI.Forms
                 CustomMessageBox.Show(this, @"Генерация тестовой ошибки!" + Environment.NewLine + msg, Messages.Exception);
             }
         }
-        
+
         private void ButtonGenerateException_Click(object sender, EventArgs e)
         {
             ButtonGenerateException();
         }
-        
+
         #endregion
 
         #region Private methods - Управление принтером

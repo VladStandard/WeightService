@@ -2,10 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using ScalesUI.Common;
-using ScalesUI.Utils;
 using System;
 using System.Windows.Forms;
 using WeightCore.Gui;
+using WeightCore.Utils;
 
 namespace ScalesUI.Forms
 {

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>DbScales-2021-07</Name>
+    <Name>DbScales-2021</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{11aabcf9-7c81-4a30-9889-e7ef0dbfd533}</ProjectGuid>
@@ -26,13 +26,14 @@
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>SCALEDBKEY.pfx</AssemblyOriginatorKeyFile>
     <AssemblyOwner>dbo</AssemblyOwner>
-    <DacApplicationName>ScalesDB</DacApplicationName>
-    <TargetDatabase>DbScales-2021-07</TargetDatabase>
+    <DacApplicationName>DbScales</DacApplicationName>
+    <TargetDatabase>DbScales-2021</TargetDatabase>
     <PermissionSet>UNSAFE</PermissionSet>
     <DefaultCollation>Cyrillic_General_100_CI_AS</DefaultCollation>
     <Recovery>SIMPLE</Recovery>
     <GenerateCreateScript>False</GenerateCreateScript>
     <Trustworthy>True</Trustworthy>
+    <DacVersion>0.5.350.0</DacVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -164,6 +165,7 @@
     <Build Include="Tables\db_scales_LOG_TYPES.sql" />
     <Build Include="Tables\db_scales_Scales_Changed.sql" />
     <Build Include="Tables\db_scales_ACCESS_APPS.sql" />
+    <Build Include="Tables\db_scales_TASKS.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ScalesDB.refactorlog" />

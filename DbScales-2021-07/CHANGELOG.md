@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.350] - 2021-08-10
+### Added
+- Tables\db_scales_TASKS.sql
+
 ## [0.5.300] - 2021-07-27
 ### Added
 - Security\db_scales_LOG_TYPES.sql

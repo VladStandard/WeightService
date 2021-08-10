@@ -1,24 +1,22 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WeightCore.Db;
-using WeightCore;
-using WeightCore.MassaK;
-using WeightCore.Print;
 using log4net;
 using ScalesUI.Common;
 using System;
 using System.Drawing;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WeightCore.Memory;
-using ScalesUI.Utils;
+using WeightCore;
+using WeightCore.Db;
 using WeightCore.Gui;
-using WeightCore.WinForms.Utils;
-using System.Runtime.CompilerServices;
-using ScalesUI.Helpers;
+using WeightCore.MassaK;
+using WeightCore.Memory;
+using WeightCore.Print;
 using WeightCore.Utils;
+using WeightCore.WinForms.Utils;
 
 namespace ScalesUI.Forms
 {
@@ -52,6 +50,8 @@ namespace ScalesUI.Forms
 
         private void ActionFormLoad([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
+            _sqlHelper.SetupTasks(_ws.CurrentScale.Description);
+
             if (_ws.CurrentScale != null)
             {
                 // _ws.CurrentScale.Load(_app.GuidToString());
@@ -96,24 +96,24 @@ namespace ScalesUI.Forms
                 }
 
                 Text = _ws.AppVersion;
-                if (Equals(_sqlHelper.TypePublish, EnumTypePublish.Debug))
+                if (Equals(_sqlHelper.PublishType, EnumPublishType.Debug))
                 {
-                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: Тестовый сервер.";
+                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_sqlHelper.PublishDescription}.";
                     fieldTitle.BackColor = Color.Yellow;
                 }
-                else if (Equals(_sqlHelper.TypePublish, EnumTypePublish.Dev))
+                else if (Equals(_sqlHelper.PublishType, EnumPublishType.Dev))
                 {
-                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: Сервер разработки.";
+                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_sqlHelper.PublishDescription}.";
                     fieldTitle.BackColor = Color.Yellow;
                 }
-                else if (Equals(_sqlHelper.TypePublish, EnumTypePublish.Release))
+                else if (Equals(_sqlHelper.PublishType, EnumPublishType.Release))
                 {
                     fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}.";
                     fieldTitle.BackColor = Color.LightGreen;
                 }
                 else
                 {
-                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_sqlHelper.SqlInstance}";
+                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_sqlHelper.PublishDescription}.";
                     fieldTitle.BackColor = Color.DarkRed;
                 }
 
@@ -194,8 +194,8 @@ namespace ScalesUI.Forms
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            char ch = UtilsDt.GetProgressChar(_ws.MemoryManagerProgressChar);
-            await AsyncControl.Properties.SetText.Async(fieldMemoryManager, 
+            char ch = WeightCore.Utils.UtilsString.GetProgressChar(_ws.MemoryManagerProgressChar);
+            await AsyncControl.Properties.SetText.Async(fieldMemoryManager,
                 $"Использовано памяти: {_ws.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}").ConfigureAwait(false);
             _ws.MemoryManagerProgressChar = ch;
         }
@@ -221,14 +221,14 @@ namespace ScalesUI.Forms
             //    }
             //    //throw new Exception(ex.Message);
             //}
-            
+
             // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
             _ws.CurrentBox = _ws.PrintManager.UserLabelCount < _ws.PalletSize ? _ws.PrintManager.UserLabelCount : _ws.PalletSize;
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
             if (_ws.CurrentBox == 0)
                 _ws.CurrentBox = 1;
 
-            char ch = UtilsDt.GetProgressChar(_ws.PrintManagerProgressChar);
+            char ch = WeightCore.Utils.UtilsString.GetProgressChar(_ws.PrintManagerProgressChar);
             // TSC printers.
             if (_ws.CurrentScale?.ZebraPrinter != null && _ws.IsTscPrinter)
             {
@@ -284,9 +284,9 @@ namespace ScalesUI.Forms
             }
 
             //LedMassa.State = _ws.MassaManager.IsStable == 1;
-            char ch = UtilsDt.GetProgressChar(_ws.MassaManagerProgressChar);
+            char ch = WeightCore.Utils.UtilsString.GetProgressChar(_ws.MassaManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMassaManager, _ws.MassaManager.IsReady || _ws.MassaManager.IsStable == 1
-                ? $"Весы: доступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}" 
+                ? $"Весы: доступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}"
                 : $"Весы: недоступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}").ConfigureAwait(false);
             _ws.MassaManagerProgressChar = ch;
             if (!flag)
@@ -303,108 +303,120 @@ namespace ScalesUI.Forms
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
             // MemoryManager.
-            Task taskMemory = new Task(() =>
+            if (_sqlHelper.IsTaskEnabled("MemoryManager"))
             {
-                try
+                Task taskMemory = new Task(() =>
                 {
-                    //while (!_ws.MemoryManagerIsExit)
+                    try
                     {
-                        if (_ws.MemoryManager == null)
+                        //while (!_ws.MemoryManagerIsExit)
                         {
-                            _ws.MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
+                            if (_ws.MemoryManager == null)
+                            {
+                                _ws.MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
+                            }
+                            _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
                         }
-                        _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
+                        _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MemoryManager is runned");
                     }
-                    _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MemoryManager is runned");
-                }
-                catch (Exception ex)
-                {
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                    if (ex.InnerException != null)
-                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                }
-            });
-            taskMemory.Start();
+                    catch (Exception ex)
+                    {
+                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                        if (ex.InnerException != null)
+                            _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    }
+                });
+                taskMemory.Start();
+            }
 
             // PrintManager.
-            Task taskPrint = new Task(() =>
+            if (_sqlHelper.IsTaskEnabled("PrintManager"))
             {
-                try
+                Task taskPrint = new Task(() =>
                 {
-                    //while (!_ws.PrintManagerIsExit)
+                    try
                     {
-                        if (_ws.PrintManager == null)
+                        //while (!_ws.PrintManagerIsExit)
                         {
-                            _ws.PrintManager = new PrintManagerEntity(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
+                            if (_ws.PrintManager == null)
+                            {
+                                _ws.PrintManager = new PrintManagerEntity(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
+                            }
+                            _ws.PrintManager.Open(_ws.IsTscPrinter, CallbackPrintManagerAsync);
+                            // STOP
+                            //if (_ws.PrintManager.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
+                            //{
+                            //    _ws.PrintManager.PrintControl.Close();
+                            //    _ws.PrintManager.PrintControl = null;
+                            //}
                         }
-                        _ws.PrintManager.Open(_ws.IsTscPrinter, CallbackPrintManagerAsync);
-                        // STOP
-                        //if (_ws.PrintManager.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
-                        //{
-                        //    _ws.PrintManager.PrintControl.Close();
-                        //    _ws.PrintManager.PrintControl = null;
-                        //}
+                        _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "PrintManager is runned");
                     }
-                    _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "PrintManager is runned");
-                }
-                catch (Exception ex)
-                {
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                    if (ex.InnerException != null)
-                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                }
-            });
-            taskPrint.Start();
+                    catch (Exception ex)
+                    {
+                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                        if (ex.InnerException != null)
+                            _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    }
+                });
+                taskPrint.Start();
+            }
 
             // DeviceManager.
-            Task taskDevice = new Task(() =>
+            if (_sqlHelper.IsTaskEnabled("DeviceManager"))
             {
-                try
+                Task taskDevice = new Task(() =>
                 {
-                    //while (!_ws.DeviceManagerIsExit)
+                    try
                     {
-                        if (_ws.DeviceManager == null)
+                        //while (!_ws.DeviceManagerIsExit)
                         {
-                            _ws.DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
+                            if (_ws.DeviceManager == null)
+                            {
+                                _ws.DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
+                            }
+                            _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
                         }
-                        _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
+                        _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "DeviceManager is runned");
                     }
-                    _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "DeviceManager is runned");
-                }
-                catch (Exception ex)
-                {
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                    if (ex.InnerException != null)
-                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                }
-            });
-            taskDevice.Start();
+                    catch (Exception ex)
+                    {
+                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                        if (ex.InnerException != null)
+                            _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    }
+                });
+                taskDevice.Start();
+            }
 
             // MassaManager.
-            Task taskMassa = new Task(() =>
+            if (_sqlHelper.IsTaskEnabled("MassaManager"))
             {
-                try
+                Task taskMassa = new Task(() =>
                 {
-                    //while (!_ws.MassaManagerIsExit)
+                    try
                     {
-                        if (_ws.MassaManager == null)
+                        //while (!_ws.MassaManagerIsExit)
                         {
-                            DeviceSocketRs232 deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
-                            _ws.MassaManager = new MassaManagerEntity(_ws?.Log, deviceSocketRs232, 1_000, 5_000, 5_000);
-                            ButtonSetZero();
+                            if (_ws.MassaManager == null)
+                            {
+                                DeviceSocketRs232 deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
+                                _ws.MassaManager = new MassaManagerEntity(_ws?.Log, deviceSocketRs232, 1_000, 5_000, 5_000);
+                                ButtonSetZero();
+                            }
+                            _ws.MassaManager.Open(CallbackMassaManagerAsync);
                         }
-                        _ws.MassaManager.Open(CallbackMassaManagerAsync);
+                        _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is runned");
                     }
-                    _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is runned");
-                }
-                catch (Exception ex)
-                {
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                    if (ex.InnerException != null)
-                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                }
-            });
-            taskMassa.Start();
+                    catch (Exception ex)
+                    {
+                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                        if (ex.InnerException != null)
+                            _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    }
+                });
+                taskMassa.Start();
+            }
         }
 
         private void StartTaskManager([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -516,7 +528,7 @@ namespace ScalesUI.Forms
         {
             AsyncControl.Properties.SetText.Async(fieldPalletSize, $"{_ws.CurrentBox}/{_ws.PalletSize}");
         }
-        
+
         private void NotifyCurrentBox(int currentBox)
         {
             AsyncControl.Properties.SetText.Async(fieldPalletSize, $"{_ws.CurrentBox}/{_ws.PalletSize}");
@@ -773,7 +785,7 @@ namespace ScalesUI.Forms
             try
             {
                 StopTaskManager();
-                
+
                 using (SetKneadingNumberForm kneadingNumberForm = new SetKneadingNumberForm { Owner = this })
                 {
                     if (kneadingNumberForm.ShowDialog() == DialogResult.OK)
@@ -898,7 +910,7 @@ namespace ScalesUI.Forms
         private void ButtonAddKneading_Click(object sender, EventArgs e)
         {
             //_ws.RotateKneading(Direction.forward);
-            using (NumberInputForm numberInputForm = new NumberInputForm {InputValue = 0})
+            using (NumberInputForm numberInputForm = new NumberInputForm { InputValue = 0 })
             {
                 // _ws.Kneading;
                 if (numberInputForm.ShowDialog() == DialogResult.OK)

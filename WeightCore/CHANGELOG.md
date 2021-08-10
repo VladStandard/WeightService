@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Union EntitiesLib inside WeightCore
 - Union UtilsLib inside WeightCore
 - Union UICommon inside WeightCore
+### Added
+- Db.SqlHelper
 
 ## [0.5.200] - 2021-06-30
 ### Changed

@@ -1,12 +1,12 @@
-﻿using WeightCore.Db;
-using ScalesUI.Utils;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using WeightCore.Utils;
 
-namespace ScalesUI.Helpers
+namespace WeightCore.Db
 {
     public class SqlHelper : INotifyPropertyChanged
     {
@@ -37,34 +37,77 @@ namespace ScalesUI.Helpers
             DataSource = string.Empty;
             DataBase = string.Empty;
             Host = string.Empty;
+            PublishType = EnumPublishType.Default;
+            PublishDescription = "Неизвестный сервер";
 
-            TypePublish = EnumTypePublish.Default;
             SqlInstance = GetSqlInstance();
             if (SqlInstance.Equals("INS1"))
             {
-                TypePublish = EnumTypePublish.Debug;
+                PublishType = EnumPublishType.Debug;
+                PublishDescription = "Тестовый сервер";
             }
             else if (SqlInstance.Equals("SQL2019"))
             {
-                TypePublish = EnumTypePublish.Dev;
+                PublishType = EnumPublishType.Dev;
+                PublishDescription = "Сервер разработки";
             }
             else if (SqlInstance.Equals("LUTON"))
             {
-                TypePublish = EnumTypePublish.Release;
+                PublishType = EnumPublishType.Release;
+                PublishDescription = "Продуктовый сервер";
             }
+
+            TaskNames = new List<string>() {
+                "DeviceManager",
+                "MassaManager",
+                "MemoryManager",
+                "PrintManager",
+            };
+            TaskItems = new List<TaskEntity>();
+        }
+
+        public void SetupTasks(string scaleName)
+        {
+            TaskItems = new List<TaskEntity>();
+            foreach (var name in TaskNames)
+            {
+                TaskItems.Add(new TaskEntity(name, scaleName, true));
+            }
+        }
+
+        public bool IsTaskEnabled(string taskName)
+        {
+            foreach (var item in TaskItems)
+            {
+                if (string.Equals(item.TaskTypeName, taskName, System.StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return item.Enabled;
+                }
+            }
+            return false;
         }
 
         #endregion
 
         #region Public and private fields and properties
 
-        private EnumTypePublish _typePublish;
-        public EnumTypePublish TypePublish
+        private EnumPublishType _publishType;
+        public EnumPublishType PublishType
         {
-            get => _typePublish;
-            set
+            get => _publishType;
+            private set
             {
-                _typePublish = value;
+                _publishType = value;
+                OnPropertyRaised();
+            }
+        }
+        private string _publishDescription;
+        public string PublishDescription
+        {
+            get => _publishDescription;
+            private set
+            {
+                _publishDescription = value;
                 OnPropertyRaised();
             }
         }
@@ -72,7 +115,7 @@ namespace ScalesUI.Helpers
         public string SqlInstance
         {
             get => _sqlInstance;
-            set
+            private set
             {
                 _sqlInstance = value;
                 OnPropertyRaised();
@@ -82,7 +125,7 @@ namespace ScalesUI.Helpers
         public string DataSource
         {
             get => _dataSource;
-            set
+            private set
             {
                 _dataSource = value;
                 OnPropertyRaised();
@@ -92,7 +135,7 @@ namespace ScalesUI.Helpers
         public string DataBase
         {
             get => _dataBase;
-            set
+            private set
             {
                 _dataBase = value;
                 OnPropertyRaised();
@@ -102,9 +145,29 @@ namespace ScalesUI.Helpers
         public string Host
         {
             get => _host;
-            set
+            private set
             {
                 _host = value;
+                OnPropertyRaised();
+            }
+        }
+        private List<TaskEntity> taskItems;
+        public List<TaskEntity> TaskItems
+        {
+            get => taskItems;
+            private set
+            {
+                taskItems = value;
+                OnPropertyRaised();
+            }
+        }
+        private List<string> _taskNames;
+        public List<string> TaskNames
+        {
+            get => _taskNames;
+            private set
+            {
+                _taskNames = value;
                 OnPropertyRaised();
             }
         }
@@ -113,9 +176,8 @@ namespace ScalesUI.Helpers
 
         #region Public and private methods
 
-        private SqlCommand GetSqlInstanceCmd(SqlConnection con)
+        public SqlCommand GetCmd(SqlConnection con, string query)
         {
-            string query = @"select serverproperty('InstanceName') [InstanceName]";
             SqlCommand cmd = new SqlCommand(query, con) { CommandType = CommandType.Text };
             cmd.Prepare();
             return cmd;
@@ -127,7 +189,7 @@ namespace ScalesUI.Helpers
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                SqlCommand cmd = GetSqlInstanceCmd(con);
+                SqlCommand cmd = GetCmd(con, SqlQueries.GetInstance);
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
