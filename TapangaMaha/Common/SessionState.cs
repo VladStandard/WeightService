@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using WeightCore.Db;
+using WeightCore.DAL;
 using WeightCore.Print.Zebra;
 using WeightCore.Zpl;
 using log4net;

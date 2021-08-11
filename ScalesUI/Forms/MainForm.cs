@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeightCore;
-using WeightCore.Db;
+using WeightCore.DAL.TableModels;
 using WeightCore.Gui;
 using WeightCore.MassaK;
 using WeightCore.Memory;
@@ -31,7 +31,6 @@ namespace ScalesUI.Forms
         // Помощник мыши.
         //private readonly MouseHookHelper _mouse = MouseHookHelper.Instance;
         public Task TaskManager { get; set; }
-        private SqlHelper _sqlHelper = SqlHelper.Instance;
 
         #endregion
 
@@ -50,8 +49,6 @@ namespace ScalesUI.Forms
 
         private void ActionFormLoad([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            _sqlHelper.SetupTasks(_ws.CurrentScale.Description);
-
             if (_ws.CurrentScale != null)
             {
                 // _ws.CurrentScale.Load(_app.GuidToString());
@@ -96,25 +93,24 @@ namespace ScalesUI.Forms
                 }
 
                 Text = _ws.AppVersion;
-                if (Equals(_sqlHelper.PublishType, EnumPublishType.Debug))
+                switch (_ws.SqlItem.PublishType)
                 {
-                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_sqlHelper.PublishDescription}.";
-                    fieldTitle.BackColor = Color.Yellow;
-                }
-                else if (Equals(_sqlHelper.PublishType, EnumPublishType.Dev))
-                {
-                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_sqlHelper.PublishDescription}.";
-                    fieldTitle.BackColor = Color.Yellow;
-                }
-                else if (Equals(_sqlHelper.PublishType, EnumPublishType.Release))
-                {
-                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}.";
-                    fieldTitle.BackColor = Color.LightGreen;
-                }
-                else
-                {
-                    fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_sqlHelper.PublishDescription}.";
-                    fieldTitle.BackColor = Color.DarkRed;
+                    case EnumPublishType.Debug:
+                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlItem.PublishDescription}.";
+                        fieldTitle.BackColor = Color.Yellow;
+                        break;
+                    case EnumPublishType.Dev:
+                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlItem.PublishDescription}.";
+                        fieldTitle.BackColor = Color.Yellow;
+                        break;
+                    case EnumPublishType.Release:
+                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}.";
+                        fieldTitle.BackColor = Color.LightGreen;
+                        break;
+                    default:
+                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlItem.PublishDescription}.";
+                        fieldTitle.BackColor = Color.DarkRed;
+                        break;
                 }
 
                 fieldKneading.Text = string.Empty;
@@ -194,7 +190,7 @@ namespace ScalesUI.Forms
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            char ch = WeightCore.Utils.UtilsString.GetProgressChar(_ws.MemoryManagerProgressChar);
+            char ch = WeightCore.Utils.StringUtils.GetProgressChar(_ws.MemoryManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMemoryManager,
                 $"Использовано памяти: {_ws.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}").ConfigureAwait(false);
             _ws.MemoryManagerProgressChar = ch;
@@ -228,7 +224,7 @@ namespace ScalesUI.Forms
             if (_ws.CurrentBox == 0)
                 _ws.CurrentBox = 1;
 
-            char ch = WeightCore.Utils.UtilsString.GetProgressChar(_ws.PrintManagerProgressChar);
+            char ch = WeightCore.Utils.StringUtils.GetProgressChar(_ws.PrintManagerProgressChar);
             // TSC printers.
             if (_ws.CurrentScale?.ZebraPrinter != null && _ws.IsTscPrinter)
             {
@@ -284,7 +280,7 @@ namespace ScalesUI.Forms
             }
 
             //LedMassa.State = _ws.MassaManager.IsStable == 1;
-            char ch = WeightCore.Utils.UtilsString.GetProgressChar(_ws.MassaManagerProgressChar);
+            char ch = WeightCore.Utils.StringUtils.GetProgressChar(_ws.MassaManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMassaManager, _ws.MassaManager.IsReady || _ws.MassaManager.IsStable == 1
                 ? $"Весы: доступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}"
                 : $"Весы: недоступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}").ConfigureAwait(false);
@@ -303,7 +299,7 @@ namespace ScalesUI.Forms
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
             // MemoryManager.
-            if (_sqlHelper.IsTaskEnabled("MemoryManager"))
+            if (_ws.SqlItem.IsTaskEnabled("MemoryManager"))
             {
                 Task taskMemory = new Task(() =>
                 {
@@ -330,7 +326,7 @@ namespace ScalesUI.Forms
             }
 
             // PrintManager.
-            if (_sqlHelper.IsTaskEnabled("PrintManager"))
+            if (_ws.SqlItem.IsTaskEnabled("PrintManager"))
             {
                 Task taskPrint = new Task(() =>
                 {
@@ -363,7 +359,7 @@ namespace ScalesUI.Forms
             }
 
             // DeviceManager.
-            if (_sqlHelper.IsTaskEnabled("DeviceManager"))
+            if (_ws.SqlItem.IsTaskEnabled("DeviceManager"))
             {
                 Task taskDevice = new Task(() =>
                 {
@@ -390,7 +386,7 @@ namespace ScalesUI.Forms
             }
 
             // MassaManager.
-            if (_sqlHelper.IsTaskEnabled("MassaManager"))
+            if (_ws.SqlItem.IsTaskEnabled("MassaManager"))
             {
                 Task taskMassa = new Task(() =>
                 {

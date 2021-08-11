@@ -1,3 +1,3 @@
-﻿ALTER DATABASE [$(DatabaseName)]
-    ADD FILEGROUP [ScalesFileGroupLargeData];
-
+﻿
+ALTER DATABASE [$(DatabaseName)]
+	ADD FILEGROUP [ScalesFileGroupLargeData]

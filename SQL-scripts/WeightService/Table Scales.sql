@@ -13,6 +13,7 @@ select
 	,[s].[DeviceComPort]
 	,[s].[ZebraIP]
 	,[s].[ZebraPort]
+	,[s].[ZebraPrinterId]
 	,[s].[UseOrder]
 	,[s].[VerScalesUI]
 	,[s].[DeviceNumber]

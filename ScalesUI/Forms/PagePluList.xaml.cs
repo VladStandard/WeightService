@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WeightCore.Db;
 using ScalesUI.Common;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
+using WeightCore.DAL.TableModels;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace ScalesUI.Forms
@@ -18,7 +18,6 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly SessionState _ws = SessionState.Instance;
-        //private List<PluEntity> _orderList;
         private readonly List<PluEntity> _pluList;
         public int RowCount { get; } = 5;
         public int ColumnCount { get; } = 4;
@@ -32,7 +31,7 @@ namespace ScalesUI.Forms
         public PagePluList()
         {
             InitializeComponent();
-            
+
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
             _pluList = PluEntity.GetPluList(_ws.CurrentScale);
         }
@@ -140,7 +139,7 @@ namespace ScalesUI.Forms
         public void ButtonClose_OnClick(object sender, RoutedEventArgs e)
         {
             Result = DialogResult.Cancel;
-        //    //Close();
+            //    //Close();
         }
 
         //private void ButtonPlu_Click(object sender, EventArgs e)
@@ -188,7 +187,7 @@ namespace ScalesUI.Forms
 
         //    //_ws.CurrentPage.Text = $@"Cтр. {CurrentPage}";
         //}
-        
+
         #endregion
     }
 }

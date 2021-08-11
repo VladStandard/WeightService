@@ -1,7 +1,7 @@
 ﻿using ScalesUI.Common;
-using System.Windows;
 using System.Windows.Forms;
-using WeightCore.Db;
+using WeightCore.DAL.TableModels;
+using WeightCore.DAL.Utils;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace ScalesUI.Forms
@@ -14,7 +14,6 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         public SessionState _ws { get; private set; } = SessionState.Instance;
-        public SqlHelper _sqlHelper { get; private set; } = SqlHelper.Instance;
         public int RowCount { get; } = 5;
         public int ColumnCount { get; } = 4;
         public int PageSize { get; } = 20;
@@ -28,59 +27,95 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            var context = FindResource("ViewModelSqlHelper");
-            if (context is SqlHelper sqlHelper)
-            {
-                _sqlHelper = sqlHelper;
-            }
+            //var context = FindResource("ViewModelSqlHelper");
+            //if (context is SqlHelper sqlHelper)
+            //{
+            //    _ws.SqlItem = sqlHelper;
+            //}
         }
 
         #endregion
 
         #region Public and private methods
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            _sqlHelper.SetupTasks(_ws.CurrentScale.Description);
-
             System.Windows.Controls.Grid gridTasks = new System.Windows.Controls.Grid();
+            // Columns.
             for (int col = 0; col < 2; col++)
             {
-                System.Windows.Controls.ColumnDefinition column = new System.Windows.Controls.ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) };
+                System.Windows.Controls.ColumnDefinition column = new System.Windows.Controls.ColumnDefinition()
+                {
+                    Width = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)
+                };
                 gridTasks.ColumnDefinitions.Add(column);
             }
-            for (int row = 0; row < _sqlHelper.TaskItems.Count; row++)
+            // Rows.
+            for (int row = 0; row < _ws.SqlItem.Tasks.Count; row++)
             {
-                System.Windows.Controls.RowDefinition rows = new System.Windows.Controls.RowDefinition() { Height = new GridLength(1, GridUnitType.Star) };
+                // Row.
+                System.Windows.Controls.RowDefinition rows = new System.Windows.Controls.RowDefinition()
+                {
+                    Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star)
+                };
                 gridTasks.RowDefinitions.Add(rows);
-                System.Windows.Controls.Label labelTaskCaption = new System.Windows.Controls.Label { 
-                    Content = _sqlHelper.TaskItems[row].TaskTypeName,
+                // Task caption.
+                System.Windows.Controls.Label labelTaskCaption = new System.Windows.Controls.Label
+                {
+                    Content = _ws.SqlItem.Tasks[row].TaskType,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalAlignment = System.Windows.VerticalAlignment.Center,
                 };
                 System.Windows.Controls.Grid.SetColumn(labelTaskCaption, 0);
                 System.Windows.Controls.Grid.SetRow(labelTaskCaption, row);
-                System.Windows.Controls.Label labelTaskEnabled = new System.Windows.Controls.Label { 
-                    Content = _sqlHelper.TaskItems[row].Enabled,
-                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
-                    VerticalAlignment = System.Windows.VerticalAlignment.Center,
-                };
-                System.Windows.Controls.Grid.SetColumn(labelTaskEnabled, 1);
-                System.Windows.Controls.Grid.SetRow(labelTaskEnabled, row);
                 gridTasks.Children.Add(labelTaskCaption);
-                gridTasks.Children.Add(labelTaskEnabled);
+                // Task enabled.
+                System.Windows.Controls.ComboBox comboBoxTaskEnabled = new System.Windows.Controls.ComboBox()
+                {
+                    Width = 100,
+                    Height = 30,
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalContentAlignment = System.Windows.VerticalAlignment.Center,
+                    Tag = _ws.SqlItem.Tasks[row]
+                };
+                System.Windows.Controls.ComboBoxItem itemTrue = new System.Windows.Controls.ComboBoxItem() { Content = "True" };
+                comboBoxTaskEnabled.Items.Add(itemTrue);
+                System.Windows.Controls.ComboBoxItem itemFalse = new System.Windows.Controls.ComboBoxItem() { Content = "False" };
+                comboBoxTaskEnabled.Items.Add(itemFalse);
+                comboBoxTaskEnabled.SelectedItem = _ws.SqlItem.Tasks[row].Enabled ? itemTrue : itemFalse;
+                System.Windows.Controls.Grid.SetColumn(comboBoxTaskEnabled, 1);
+                System.Windows.Controls.Grid.SetRow(comboBoxTaskEnabled, row);
+                gridTasks.Children.Add(comboBoxTaskEnabled);
             }
-
+            // Fill tab.
             tabTasks.Content = gridTasks;
         }
 
-        public void ButtonOk_OnClick(object sender, RoutedEventArgs e)
+        public void ButtonOk_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (tabTasks.Content is System.Windows.Controls.Grid gridTasks)
+            {
+                foreach (object item in gridTasks.Children)
+                {
+                    if (item is System.Windows.Controls.ComboBox comboBoxTaskEnabled)
+                    {
+                        if (comboBoxTaskEnabled.Tag is TaskEntity taskItem)
+                        {
+                            if (comboBoxTaskEnabled.SelectedItem is System.Windows.Controls.ComboBoxItem itemSelected)
+                            {
+                                TasksUtils.SaveTask(taskItem.TaskType.Uid, taskItem.Scale.Id,
+                                    string.Equals(itemSelected.Content.ToString(), "True", System.StringComparison.InvariantCultureIgnoreCase));
+                            }
+                        }
+                    }
+                }
+            }
+
             Result = DialogResult.OK;
             _ws.IsWpfPageLoaderClose = true;
         }
 
-        public void ButtonClose_OnClick(object sender, RoutedEventArgs e)
+        public void ButtonClose_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Result = DialogResult.Cancel;
             _ws.IsWpfPageLoaderClose = true;

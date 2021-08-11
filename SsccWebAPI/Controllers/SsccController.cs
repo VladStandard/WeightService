@@ -30,27 +30,23 @@ namespace SsccWebAPI.Controllers
         // GET: /api/Sscc/?GLN=460710023&UnitType=1&RowCount=10
         public HttpResponseMessage Get(Int32 GLN = 460710023, Int32 UnitType = 1, Int32 RowCount = 10)
         {
-
             errors.Clear();
             XDocument doc = new XDocument(new XElement("response"));
-
-            using (SqlConnection conn = new SqlConnection(dbConnString))
+            using (SqlConnection con = new SqlConnection(dbConnString))
             {
-                conn.Open();
+                con.Open();
                 using (SqlCommand cmd = new SqlCommand(
                     "DECLARE @xmldata xml;"+
                     "EXECUTE [db_sscc].[GetSSCCxml] @GLN, @UnitType, @Count, @xmldata OUTPUT;"+
-                    "SELECT @xmldata ", conn))
+                    "SELECT @xmldata ", con))
                 {
                     try
                     {
-
                         cmd.Parameters.Add(new SqlParameter($"@GLN", GLN));
                         cmd.Parameters.Add(new SqlParameter($"@UnitType", UnitType));
                         cmd.Parameters.Add(new SqlParameter($"@Count", RowCount));
                         using (XmlReader xmlReader = cmd.ExecuteXmlReader())
                         {
-
                             if (xmlReader.MoveToContent() != XmlNodeType.None)
                             {
                                 XElement someElement = XElement.Load(xmlReader.ReadSubtree());
@@ -60,12 +56,8 @@ namespace SsccWebAPI.Controllers
                             {
                                 errors.Add("No objects.");
                             }
-
                         }
-
                         doc.Root.Add(errors.GetXElement());
-                        return GetResponse(doc);
-
                     }
                     catch (Exception ex)
                     {
@@ -73,13 +65,11 @@ namespace SsccWebAPI.Controllers
                         doc.Root.Add(errors.GetXElement());
                         return GetResponse(doc);
                     }
-
                 }
-
+                con.Close();
             }
-
+            return GetResponse(doc);
         }
-
     }
 
 }

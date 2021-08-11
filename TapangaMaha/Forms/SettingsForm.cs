@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using WeightCore.Db;
+using WeightCore.DAL;
 using WeightCore.Zpl;
 using TapangaMaha.Common;
 

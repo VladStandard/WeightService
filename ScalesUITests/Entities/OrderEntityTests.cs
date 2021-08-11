@@ -4,7 +4,7 @@
 //using System.Threading;
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 //using ScalesUI.Common;
-//using WeightCore.Db;
+//using WeightCore.DAL;
 
 //namespace ScalesUITests.Entities
 //{

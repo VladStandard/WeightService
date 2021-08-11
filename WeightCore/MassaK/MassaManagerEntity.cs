@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using WeightCore.Db;
+using WeightCore.DAL.TableModels;
 using WeightCore.Gui;
 
 namespace WeightCore.MassaK
@@ -59,7 +59,7 @@ namespace WeightCore.MassaK
             IsExecute = false;
         }
 
-        public MassaManagerEntity(LogEntity log, DeviceSocket deviceSocket, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds) : 
+        public MassaManagerEntity(LogEntity log, DeviceSocket deviceSocket, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds) :
             this(waitWhileMiliSeconds, waitExceptionMiliSeconds, waitCloseMiliSeconds)
         {
             DeviceSocket = deviceSocket;
@@ -163,12 +163,12 @@ namespace WeightCore.MassaK
                                     //Int32 Weight
                                     //4 байта
                                     //Текущая масса нетто со знаком
-                                    WeightNet = (decimal) askGetMassa.Weight / (decimal) ScaleFactor;
+                                    WeightNet = (decimal)askGetMassa.Weight / (decimal)ScaleFactor;
 
                                     //Int32 Tare
                                     //4 байта
                                     //* Текущая масса тары со знаком
-                                    weightTare = (decimal) askGetMassa.Tare / (decimal) ScaleFactor;
+                                    weightTare = (decimal)askGetMassa.Tare / (decimal)ScaleFactor;
 
                                     //Int32 Tare
                                     //4 байта
@@ -282,7 +282,7 @@ namespace WeightCore.MassaK
 
         public void SetTareWeight(int weightTare)
         {
-            CmdSetTare cmdSetTare = new CmdSetTare {ScaleFactor = 1000, WeightTare = weightTare};
+            CmdSetTare cmdSetTare = new CmdSetTare { ScaleFactor = 1000, WeightTare = weightTare };
             AddRequest(cmdSetTare);
         }
 

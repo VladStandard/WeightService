@@ -123,7 +123,7 @@ namespace ScalesCore.Helpers
                 userId = string.Empty;
                 password = string.Empty;
                 integratedSecurity = false;
-                var arr = Settings.Default.ConnectionString.Split(';');
+                string[] arr = Settings.Default.ConnectionString.Split(';');
                 if (arr.Length > 3)
                 {
                     server = arr[0].Contains("Server=") ? arr[0].Substring(7, arr[0].Length - 7) : arr[0];
@@ -137,14 +137,14 @@ namespace ScalesCore.Helpers
 
         public void SetConnectionString()
         {
-            var workstation = !string.IsNullOrEmpty(WorkstationId) ? $@"Workstation ID={WorkstationId}" : $@"Workstation ID={System.Net.Dns.GetHostName()}";
+            string workstation = !string.IsNullOrEmpty(WorkstationId) ? $@"Workstation ID={WorkstationId}" : $@"Workstation ID={System.Net.Dns.GetHostName()}";
             ConnectionString = $@"Application Name={ApplicationName}; {Authentication}; Connect Timeout={ConnectTimeout}; Packet Size={PacketSize}; {workstation};";
             Console.WriteLine($@"ConnectionString=""{ConnectionString}""");
         }
 
         private void SetParameters(DbCommand cmd, Collection<SqlParam> parameters)
         {
-            foreach (var parameter in parameters)
+            foreach (SqlParam parameter in parameters)
             {
                 cmd.Parameters.Add(new SqlParameter(parameter.Name, parameter.Value));
             }
@@ -152,11 +152,11 @@ namespace ScalesCore.Helpers
 
         public Collection<Collection<object>> SelectData(string query, Collection<string> fieldNames, Collection<SqlParam> parameters = null)
         {
-            var result = new Collection<Collection<object>>();
+            Collection<Collection<object>> result = new Collection<Collection<object>>();
             if (ProviderFactory == null || string.IsNullOrEmpty(query) || Connection == null || Connection.State != ConnectionState.Open)
                 return result;
 
-            using (var cmd = ProviderFactory.CreateCommand())
+            using (DbCommand cmd = ProviderFactory.CreateCommand())
             {
                 if (cmd != null)
                 {
@@ -167,20 +167,21 @@ namespace ScalesCore.Helpers
                     //cmd.CommandTimeout = 180;
                     if (cmd.Connection.State == ConnectionState.Open)
                     {
-                        using (var reader = cmd.ExecuteReader())
+                        using (DbDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.HasRows)
                             {
                                 while (reader.Read())
                                 {
-                                    var record = new Collection<object>();
-                                    foreach (var field in fieldNames)
+                                    Collection<object> record = new Collection<object>();
+                                    foreach (string field in fieldNames)
                                     {
                                         record.Add(reader.GetFieldValue<object>(reader.GetOrdinal(field)));
                                     }
                                     result.Add(record);
                                 }
                             }
+                            reader.Close();
                         }                                
                     }
                     else
@@ -246,8 +247,8 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public SqlTableField<T> GetValueField<T>(SqlTableField<T> field, SqlDataReader reader) where T : IConvertible
         {
-            var value = default(T);
-            var ordinal = -1;
+            T value = default(T);
+            int ordinal = -1;
             try
             {
                 if (field != null && reader != null)
@@ -280,8 +281,8 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public T GetValue<T>(string name, SqlDataReader reader, string description = null) where T : IConvertible
         {
-            var value = default(T);
-            var ordinal = -1;
+            T value = default(T);
+            int ordinal = -1;
             try
             {
                 if (reader != null)

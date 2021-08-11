@@ -6,11 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.350] - 2021-08-10
+## [0.5.360] - 2021-08-11
 ### Changed
 - Union EntitiesLib inside WeightCore
 - Union UtilsLib inside WeightCore
 - Union UICommon inside WeightCore
+- Fixed SqlConnection queries
 ### Added
 - Db.SqlHelper
 

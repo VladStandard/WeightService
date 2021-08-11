@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Table Errors.sql = WeightService\Table Errors.sql
 		WeightService\Table Hosts. Busy.sql = WeightService\Table Hosts. Busy.sql
 		WeightService\Table Hosts. Free.sql = WeightService\Table Hosts. Free.sql
+		WeightService\Table Hosts. Set IsDebug.sql = WeightService\Table Hosts. Set IsDebug.sql
 		WeightService\Table Hosts.sql = WeightService\Table Hosts.sql
 		WeightService\Table Labels.sql = WeightService\Table Labels.sql
 		WeightService\Table LOG_TYPES.sql = WeightService\Table LOG_TYPES.sql
@@ -39,6 +40,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Table Scales. Заполнить данные.sql = WeightService\Table Scales. Заполнить данные.sql
 		WeightService\Table Scales. Поиск GUID.sql = WeightService\Table Scales. Поиск GUID.sql
 		WeightService\Table Scales.sql = WeightService\Table Scales.sql
+		WeightService\Table TASKS. Actions.sql = WeightService\Table TASKS. Actions.sql
+		WeightService\Table TASKS.sql = WeightService\Table TASKS.sql
+		WeightService\Table TASKS_TYPES.sql = WeightService\Table TASKS_TYPES.sql
 		WeightService\Table TemplateResourceRef.sql = WeightService\Table TemplateResourceRef.sql
 		WeightService\Table TemplateResources.sql = WeightService\Table TemplateResources.sql
 		WeightService\Table Templates. Заполнить данные.sql = WeightService\Table Templates. Заполнить данные.sql
@@ -75,7 +79,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4DE54476-5D42-45DB-9072-BEA77675B93F}.Default|Default.ActiveCfg = Default
+		{B379FBFD-8D6F-4D5A-B141-AD3FD9ECDC2E}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

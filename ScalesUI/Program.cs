@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WeightCore.Db;
+using WeightCore.DAL;
 using ScalesUI.Forms;
 using System;
 using System.IO;
@@ -9,6 +9,8 @@ using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Utils;
 using System.Runtime.CompilerServices;
+using WeightCore.DAL.TableModels;
+using WeightCore.DAL.Utils;
 
 // ReSharper disable IdentifierTypo
 
@@ -30,11 +32,11 @@ namespace ScalesUI
             }
 
             // если нужного файла с токеном не нашлось и не задана строка подключения к БД - то софтина не запускается
-            if (!HostEntity.TokenExist())
+            if (!HostsUtils.TokenExist())
             {
                 try
                 {
-                    Guid uuid = HostEntity.TokenWrite(conectionString);
+                    Guid uuid = HostsUtils.TokenWrite(conectionString);
                     CustomMessageBox messageBox = CustomMessageBox.Show(null,
                         "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
                         $"{uuid}" + Environment.NewLine +
@@ -61,9 +63,8 @@ namespace ScalesUI
                 return;
             }
 
-            HostEntity host = new HostEntity();
             //var memory = new MemorySizeEntity();
-            host.TokenRead();
+            HostEntity host = HostsUtils.TokenRead();
             if (host.CurrentScaleId == 0)
             {
                 CustomMessageBox messageBox = CustomMessageBox.Show(null,

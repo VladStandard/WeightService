@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using WeightCore.Db;
+using WeightCore.DAL.TableModels;
 using WeightCore.Gui;
 
 namespace ScalesUI.Forms
@@ -91,7 +91,7 @@ namespace ScalesUI.Forms
                 Location = new Point(0, 0),
                 UseVisualStyleBackColor = true,
                 BackColor = SystemColors.Control,
-                TabIndex = i + pageNumber* PageSize,
+                TabIndex = i + pageNumber * PageSize,
             };
             button.Click += buttonPlu_Click;
 
@@ -104,12 +104,12 @@ namespace ScalesUI.Forms
                 Text = plu.PLU.ToString(),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Parent = button,
-                Size = new Size((int)(PluListGrid.Height * mashtabW), (int) (PluListGrid.Height * mashtabH)),
+                Size = new Size((int)(PluListGrid.Height * mashtabW), (int)(PluListGrid.Height * mashtabH)),
                 Dock = DockStyle.None,
                 Left = 3,
                 Top = 3,
-                BackColor = plu.CheckWeight == false 
-                    ? Color.FromArgb(255, 255, 92,  92) 
+                BackColor = plu.CheckWeight == false
+                    ? Color.FromArgb(255, 255, 92, 92)
                     : Color.FromArgb(255, 92, 255, 92),
                 BorderStyle = BorderStyle.FixedSingle,
                 TabIndex = i + pageNumber * PageSize,
@@ -127,7 +127,7 @@ namespace ScalesUI.Forms
                 Text = plu.CheckWeight == false ? @"шт" : @"вес",
                 TextAlign = ContentAlignment.MiddleCenter,
                 Parent = button,
-                Size = new Size((int) (PluListGrid.Height * mashtabW), (int) (PluListGrid.Height * mashtabH)),
+                Size = new Size((int)(PluListGrid.Height * mashtabW), (int)(PluListGrid.Height * mashtabH)),
                 Dock = DockStyle.None,
                 Left = label.Width + 15,
                 Top = 3,

@@ -4,7 +4,8 @@
 using ScalesUI.Common;
 using System;
 using System.Windows.Forms;
-using WeightCore.Db;
+using WeightCore.DAL;
+using WeightCore.Utils;
 
 namespace ScalesUI.Forms
 {

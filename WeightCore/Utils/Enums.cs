@@ -58,4 +58,13 @@ namespace WeightCore.Utils
         Debug,
         Release
     }
+
+    public enum OrderStatus
+    {
+        New = 0,
+        InProgress = 1,
+        Paused = 2,
+        Performed = 3,
+        Canceled = 4
+    }
 }

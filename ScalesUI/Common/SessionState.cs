@@ -10,7 +10,9 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using WeightCore;
-using WeightCore.Db;
+using WeightCore.DAL;
+using WeightCore.DAL.TableModels;
+using WeightCore.DAL.Utils;
 using WeightCore.Gui;
 using WeightCore.MassaK;
 using WeightCore.Memory;
@@ -43,6 +45,7 @@ namespace ScalesUI.Common
 
         #region Public and private fields and properties
 
+        public SqlHelper SqlItem { get; set; } = SqlHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         public string AppVersion => UtilsAppVersion.GetMainFormText(Assembly.GetExecutingAssembly());
         public ProductSeriesEntity ProductSeries { get; private set; }
@@ -66,7 +69,18 @@ namespace ScalesUI.Common
         public int CurrentScaleId { get; }
         public OrderEntity CurrentOrder { get; set; }
         [XmlElement(IsNullable = true)]
-        public ScaleEntity CurrentScale { get; set; }
+        private ScaleEntity _currentScale;
+        public ScaleEntity CurrentScale
+        {
+            get => _currentScale;
+            set
+            {
+                _currentScale = value;
+                SqlItem.SetupTasks(Host?.CurrentScaleId);
+                OnPropertyRaised();
+            }
+        }
+
         public bool IsTscPrinter => CurrentScale != null && CurrentScale.ZebraPrinter.PrinterType.Contains("TSC ");
         [XmlElement(IsNullable = true)]
         public WeighingFactEntity CurrentWeighingFact { get; set; }
@@ -136,10 +150,8 @@ namespace ScalesUI.Common
             ProductDate = DateTime.Now;
 
             // Load ID host from file.
-            Host = new HostEntity();
-            Host.TokenRead();
-            CurrentScale = new ScaleEntity(Host.CurrentScaleId);
-            CurrentScale.Load();
+            Host = HostsUtils.TokenRead();
+            CurrentScale = ScalesUtils.GetScale(Host.CurrentScaleId);
 
             string app = null;
             string version = null;
@@ -155,7 +167,10 @@ namespace ScalesUI.Common
             //<---
 
             // Запустить http-прослушиватель.
-            StartHttpListener();
+            if (SqlItem.IsTaskEnabled("ZabbixManager"))
+            {
+                StartHttpListener();
+            }
 
             Kneading = KneadingMinValue;
             ProductDate = DateTime.Now;
@@ -440,9 +455,9 @@ namespace ScalesUI.Common
             // Подменить картинки ZPL.
             if (IsTscPrinter)
             {
-                var templateEac = new TemplateEntity("EAC_107x109_090");
-                var templateFish = new TemplateEntity("FISH_94x115_000");
-                var templateTemp6 = new TemplateEntity("TEMP6_116x113_090");
+                TemplateEntity templateEac = new TemplateEntity("EAC_107x109_090");
+                TemplateEntity templateFish = new TemplateEntity("FISH_94x115_000");
+                TemplateEntity templateTemp6 = new TemplateEntity("TEMP6_116x113_090");
                 value = value.Replace("[EAC_107x109_090]", templateEac.XslContent);
                 value = value.Replace("[FISH_94x115_000]", templateFish.XslContent);
                 value = value.Replace("[TEMP6_116x113_090]", templateTemp6.XslContent);
@@ -456,7 +471,7 @@ namespace ScalesUI.Common
         /// <param name="labelId"></param>
         public void PrintSaveLabel(ref string printCmd, int labelId)
         {
-            var zplLabel = new ZplLabel
+            ZplLabel zplLabel = new ZplLabel
             {
                 Content = printCmd,
                 WeighingFactId = labelId,
@@ -468,7 +483,7 @@ namespace ScalesUI.Common
         private void PrintCountLabelOld(TemplateEntity template)
         {
             // Вывести серию этикеток по заданному размеру паллеты.
-            for (var i = CurrentBox; i <= PalletSize; i++)
+            for (int i = CurrentBox; i <= PalletSize; i++)
             {
                 CurrentWeighingFact = WeighingFactEntity.New(
                     CurrentScale,
@@ -497,7 +512,7 @@ namespace ScalesUI.Common
                 CurrentPlu.Scale.ScaleFactor, CurrentPlu.NominalWeight, CurrentPlu.GoodsTareWeight);
 
             // Указан номинальный вес.
-            var isCheck = false;
+            bool isCheck = false;
             if (CurrentPlu.NominalWeight > 0)
             {
                 CurrentWeighingFact.NetWeight = MassaManager.WeightNet - CurrentPlu.GoodsTareWeight;
@@ -512,7 +527,7 @@ namespace ScalesUI.Common
 
             if (!isCheck)
             {
-                var messageBox = CustomMessageBox.Show(owner, Messages.WeightControl + Environment.NewLine +
+                CustomMessageBox messageBox = CustomMessageBox.Show(owner, Messages.WeightControl + Environment.NewLine +
                     $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
                     $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
                     $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
@@ -537,7 +552,7 @@ namespace ScalesUI.Common
             // Шаблон без указания кол-ва.
             else
             {
-                for (var i = CurrentBox; i <= PalletSize; i++)
+                for (int i = CurrentBox; i <= PalletSize; i++)
                 {
                     // Печать этикетки.
                     PrintLabel(template);
@@ -576,7 +591,7 @@ namespace ScalesUI.Common
             );
 
             // Указан номинальный вес.
-            var isCheck = false;
+            bool isCheck = false;
             if (CurrentPlu.NominalWeight > 0)
             {
                 if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
@@ -603,8 +618,8 @@ namespace ScalesUI.Common
             // Сохранить запись в таблице [WeithingFact].
             CurrentWeighingFact.Save();
 
-            var xmlInput = CurrentWeighingFact.SerializeObject();
-            var printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
+            string xmlInput = CurrentWeighingFact.SerializeObject();
+            string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
 
             // Подменить картинки ZPL.
             PrintCmdReplacePics(ref printCmd);
@@ -620,11 +635,11 @@ namespace ScalesUI.Common
 
         private void StartHttpListener([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            _log.Info("Запистить http-listener. начало.");
+            _log.Info("Запустить http-listener. начало.");
             _log.Info("http://localhost:18086/status");
             try
             {
-                var cancelTokenSource = new CancellationTokenSource();
+                CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
                 _token = cancelTokenSource.Token;
                 _threadChecker = new ThreadChecker(_token, 2_500);
                 // Подписка на событие.

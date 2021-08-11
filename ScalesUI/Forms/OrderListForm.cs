@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using WeightCore.Db;
+using WeightCore.DAL;
+using WeightCore.DAL.TableModels;
 
 namespace ScalesUI.Forms
 {

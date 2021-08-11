@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
+using WeightCore.DAL.Utils;
 using WeightCore.Utils;
 using WeightCore.Zpl;
 
@@ -42,7 +43,8 @@ namespace ScalesUI.Forms
                 TopMost = !_ws.IsDebug;
 
             // Загружить при кажом открытии формы.
-            _ws?.CurrentScale?.Load();
+            if (_ws != null)
+                _ws.CurrentScale = ScalesUtils.GetScale(_ws?.Host?.CurrentScaleId);
 
             // Определить COM-порт.
             DefaultComPortName();
@@ -118,8 +120,7 @@ namespace ScalesUI.Forms
                 _ws.CurrentScale.DeviceComPort = fieldComPort.Text;
                 _ws.CurrentScale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
                 _ws.CurrentScale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
-                _ws.CurrentScale.Save();
-
+                ScalesUtils.Save(_ws.CurrentScale);
 
                 // Properties.Settings.Default.ConnectionString = fieldSqlConnectionString.Text;
                 Properties.Settings.Default.Save();
@@ -310,9 +311,9 @@ namespace ScalesUI.Forms
         {
             using (SqlConnection con = new SqlConnection(fieldSqlConnectionString.Text))
             {
+                con.Open();
                 try
                 {
-                    con.Open();
                     //Properties.Settings.Default.ConnectionString = fieldSqlConnectionString.Text;
                     labelSqlStatus.Text = @"Подключение выполнено.";
                 }
@@ -321,6 +322,7 @@ namespace ScalesUI.Forms
                     labelSqlStatus.Text = $@"Ошибка подключения! {ex.Message}";
                     log.Error(ex.Message);
                 }
+                con.Close();
             }
         }
 
