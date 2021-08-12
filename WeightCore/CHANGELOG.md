@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.370] - 2021-08-12
+## [0.5.371] - 2021-08-12
 ### Changed
 - Union EntitiesLib inside WeightCore
 - Union UtilsLib inside WeightCore
@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed SqlConnection queries
 ### Added
 - Db.SqlHelper
+- Task settings
 
 ## [0.5.200] - 2021-06-30
 ### Changed

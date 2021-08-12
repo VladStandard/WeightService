@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.350] - 2021-08-10
+## [0.5.371] - 2021-08-12
 ### Added
 - Tables\db_scales_TASKS.sql
+- Task settings
 
 ## [0.5.300] - 2021-07-27
 ### Added
