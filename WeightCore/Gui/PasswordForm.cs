@@ -11,11 +11,12 @@ namespace WeightCore.Gui
     {
         #region Private fields and properties
 
-        private int ePin { get; set; }
-        private int uPin { get; set; }
+        private int UnlockPinCode { get => DateTime.Now.Hour * 100 + DateTime.Now.Minute; }
+        private int UserPinCode { get; set; }
+        private bool CheckPin { get => UserPinCode == UnlockPinCode; }
 
         #endregion
-        
+
         #region Constructor and destructor
 
         public PasswordForm()
@@ -34,7 +35,6 @@ namespace WeightCore.Gui
         /// <param name="e"></param>
         private void PasswordForm_Load(object sender, EventArgs e)
         {
-            ePin = DateTime.Now.Hour * 100 + DateTime.Now.Minute;
             ShowPin();
         }
 
@@ -92,22 +92,22 @@ namespace WeightCore.Gui
         private void btnNum_Click(object sender, EventArgs e)
         {
             var num = (string)(sender as Control)?.Tag;
-            uPin = int.Parse(uPin + num);
-            if (CheckPin())
+            UserPinCode = int.Parse(UserPinCode + num);
+            if (CheckPin)
             {
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            if (uPin.ToString().Length > 3)
+            if (UserPinCode.ToString().Length > 3)
             {
-                uPin = 0;
+                UserPinCode = 0;
             }
             ShowPin();
         }
 
         private void ShowPin()
         {
-            if (uPin == 0)
+            if (UserPinCode == 0)
             {
                 lbPIn.Text = "....";
                 return;
@@ -116,7 +116,7 @@ namespace WeightCore.Gui
             string x = string.Empty;
             string y = string.Empty;
 
-            x = uPin.ToString();
+            x = UserPinCode.ToString();
             y = Regex.Replace(x, "[0-9]", "*");
             lbPIn.Text = y;
 
@@ -124,25 +124,13 @@ namespace WeightCore.Gui
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            uPin = 0;
+            UserPinCode = 0;
             ShowPin();
-        }
-
-        private bool CheckPin()
-        {
-            if (uPin == ePin)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            DialogResult = CheckPin() ? DialogResult.OK : DialogResult.Cancel;
+            DialogResult = CheckPin ? DialogResult.OK : DialogResult.Cancel;
             Close();
         }
 

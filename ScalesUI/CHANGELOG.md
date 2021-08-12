@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.360] - 2021-08-11
+## [0.5.370] - 2021-08-12
 ### Changed
 - Downgrade .NET Framework to v.4.7.2
 - Fixed SqlConnection queries

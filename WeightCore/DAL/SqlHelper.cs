@@ -81,10 +81,10 @@ namespace WeightCore.DAL
                 TaskEntity task = TasksUtils.GetTask(taskType.Uid, (int)scaleId);
                 if (task == null)
                 {
-                    Guid taskUid = TasksUtils.SaveTask(taskType.Uid, (int)scaleId, true);
-                    task = TasksUtils.GetTask(taskUid);
-                    Tasks.Add(task);
+                    TasksUtils.SaveTask(task, taskType, (int)scaleId, true);
+                    task = TasksUtils.GetTask(taskType.Uid, (int)scaleId);
                 }
+                Tasks.Add(task);
             }
         }
 

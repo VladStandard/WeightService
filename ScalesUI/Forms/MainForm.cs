@@ -657,13 +657,16 @@ namespace ScalesUI.Forms
                 StopTaskManager();
 
                 // Weight check.
-                if (_ws.MassaManager.WeightNet > Messages.MassaThreshold || _ws.MassaManager.WeightNet < -Messages.MassaThreshold)
+                if (_ws.MassaManager != null)
                 {
-                    CustomMessageBox messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    messageBox.Wait();
-                    if (messageBox.Result != DialogResult.Yes)
-                        return;
+                    if (_ws.MassaManager.WeightNet > Messages.MassaThreshold || _ws.MassaManager.WeightNet < -Messages.MassaThreshold)
+                    {
+                        CustomMessageBox messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        messageBox.Wait();
+                        if (messageBox.Result != DialogResult.Yes)
+                            return;
+                    }
                 }
 
                 // PLU form.

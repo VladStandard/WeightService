@@ -12,67 +12,36 @@ namespace WeightCore.DAL.Utils
     {
         #region Public and private methods
 
-        public static Guid SaveTask(Guid taskTypeUid, int scaleId, bool enabled)
+        public static void SaveTask(TaskEntity task, TaskTypeEntity taskType, int scaleId, bool enabled)
         {
-            Guid result = Guid.Empty;
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                // Get task UID.
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.GetTaskByTypeAndScale))
+                if (task == null)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@task_type_uid", taskTypeUid);
-                    cmd.Parameters.AddWithValue("@scale_id", scaleId);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            if (reader.Read())
-                            {
-                                result = SqlConnectFactory.GetValue<Guid>(reader, "TASK_UID");
-                            }
-                        }
-                        reader.Close();
-                    }
-                }
-                // Task is not exists.
-                if (Equals(result, Guid.Empty))
-                {
-                    using (SqlCommand cmd = new SqlCommand(SqlQueries.AddTask))
+                    using (SqlCommand cmd = new SqlCommand(SqlQueries.InsertTask))
                     {
                         cmd.Connection = con;
                         cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@task_type_uid", taskTypeUid);
+                        cmd.Parameters.AddWithValue("@task_type_uid", taskType.Uid);
                         cmd.Parameters.AddWithValue("@scale_id", scaleId);
                         cmd.Parameters.AddWithValue("@enabled", enabled);
                         cmd.ExecuteNonQuery();
                     }
                 }
-                // Get task UID.
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.GetTaskByTypeAndScale))
+                else
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@task_type_uid", taskTypeUid);
-                    cmd.Parameters.AddWithValue("@scale_id", scaleId);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand(SqlQueries.UpdateTask))
                     {
-                        if (reader.HasRows)
-                        {
-                            if (reader.Read())
-                            {
-                                result = SqlConnectFactory.GetValue<Guid>(reader, "TASK_UID");
-                            }
-                        }
-                        reader.Close();
+                        cmd.Connection = con;
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@uid", task.Uid);
+                        cmd.Parameters.AddWithValue("@enabled", enabled);
+                        cmd.ExecuteNonQuery();
                     }
                 }
-                // Close.
                 con.Close();
             }
-            return result;
         }
 
         public static Guid GetTaskUid(string taskName)

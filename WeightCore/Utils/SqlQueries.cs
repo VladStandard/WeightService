@@ -203,9 +203,22 @@ where [tasks].[UID]=@task_uid
 order by [SCALE], [TASK]
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t').Replace(Environment.NewLine, " ");
 
-        public static string AddTask => @"
+        public static string InsertOrUpdateTask => @"
+if exists(select 1 from [db_scales].[TASKS] where [UID]=@uid) begin
+	update [db_scales].[TASKS] set [ENABLED]=@enabled where [UID]=@uid
+end else begin
+	insert into [db_scales].[TASKS]([TASK_UID],[SCALE_ID],[ENABLED])
+	values(@task_type_uid,@scale_id,@enabled)
+end
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t').Replace(Environment.NewLine, " ");
+
+        public static string InsertTask => @"
 insert into [db_scales].[TASKS]([TASK_UID],[SCALE_ID],[ENABLED])
 values(@task_type_uid,@scale_id,@enabled)
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t').Replace(Environment.NewLine, " ");
+
+        public static string UpdateTask => @"
+update [db_scales].[TASKS] set [ENABLED]=@enabled where [UID]=@uid
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t').Replace(Environment.NewLine, " ");
 
         #endregion

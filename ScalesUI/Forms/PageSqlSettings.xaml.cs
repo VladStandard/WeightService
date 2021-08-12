@@ -40,6 +40,8 @@ namespace ScalesUI.Forms
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            _ws.SqlItem.SetupTasks(_ws.Host?.CurrentScaleId);
+
             System.Windows.Controls.Grid gridTasks = new System.Windows.Controls.Grid();
             // Columns.
             for (int col = 0; col < 2; col++)
@@ -62,7 +64,7 @@ namespace ScalesUI.Forms
                 // Task caption.
                 System.Windows.Controls.Label labelTaskCaption = new System.Windows.Controls.Label
                 {
-                    Content = _ws.SqlItem.Tasks[row].TaskType,
+                    Content = _ws.SqlItem.Tasks[row].TaskType.Name,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalAlignment = System.Windows.VerticalAlignment.Center,
                 };
@@ -103,7 +105,7 @@ namespace ScalesUI.Forms
                         {
                             if (comboBoxTaskEnabled.SelectedItem is System.Windows.Controls.ComboBoxItem itemSelected)
                             {
-                                TasksUtils.SaveTask(taskItem.TaskType.Uid, taskItem.Scale.Id,
+                                TasksUtils.SaveTask(taskItem, taskItem.TaskType, taskItem.Scale.Id,
                                     string.Equals(itemSelected.Content.ToString(), "True", System.StringComparison.InvariantCultureIgnoreCase));
                             }
                         }

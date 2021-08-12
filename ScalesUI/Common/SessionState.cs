@@ -515,7 +515,10 @@ namespace ScalesUI.Common
             bool isCheck = false;
             if (CurrentPlu.NominalWeight > 0)
             {
-                CurrentWeighingFact.NetWeight = MassaManager.WeightNet - CurrentPlu.GoodsTareWeight;
+                if (MassaManager != null)
+                    CurrentWeighingFact.NetWeight = MassaManager.WeightNet - CurrentPlu.GoodsTareWeight;
+                else
+                    CurrentWeighingFact.NetWeight -= CurrentPlu.GoodsTareWeight;
                 if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
                     CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
                 {
@@ -665,7 +668,7 @@ namespace ScalesUI.Common
                 HttpListener?.Stop();
                 _token.ThrowIfCancellationRequested();
                 _tokenHttpListener.ThrowIfCancellationRequested();
-                _threadChecker.Stop();
+                _threadChecker?.Stop();
             }
             catch (Exception ex)
             {
