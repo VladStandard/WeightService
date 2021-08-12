@@ -72,7 +72,7 @@
                 <TabItem Width="150" Name="tabTasks" >
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Менеджеры потоков" Foreground="Blue" />
+                            <TextBlock Text="Менеджер задач" Foreground="Blue" />
                         </StackPanel>
                     </TabItem.Header>
                 </TabItem>

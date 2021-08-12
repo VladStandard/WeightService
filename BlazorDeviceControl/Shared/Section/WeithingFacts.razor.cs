@@ -30,8 +30,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         #region Public and private methods
 
-        public override async Task GetDataAsync()
+        public override async Task SetParametersAsync(ParameterView parameters)
         {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+
             await GetDataAsync(new Task(delegate
             {
                 Objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetWeithingFacts, string.Empty, 0, string.Empty);
@@ -50,14 +52,7 @@ namespace BlazorDeviceControl.Shared.Section
                         });
                     }
                 }
-            }));
-        }
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            await GetDataAsync().ConfigureAwait(true);
+            }), false).ConfigureAwait(false);
         }
         
         private string GetHeader()
@@ -113,7 +108,7 @@ namespace BlazorDeviceControl.Shared.Section
         {
             // Backup
             //await AppSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
-            //await GetDataAsync().ConfigureAwait(false);
+            //await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
 
             Task task = null;
             string title = LocalizationStrings.DeviceControl.GetItemTitle(table);
@@ -128,37 +123,37 @@ namespace BlazorDeviceControl.Shared.Section
                     break;
                 default:
                     await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
-                    await GetDataAsync().ConfigureAwait(false);
+                    await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
                     break;
             }
-            await RunTasks(title, "", LocalizationStrings.Share.DialogResultFail, "",
+            await RunTasksAsync(title, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     task,
-                }, GuiRefreshAsync).ConfigureAwait(false);
+                }, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
         private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task OnChange(object value, string name)
@@ -173,7 +168,7 @@ namespace BlazorDeviceControl.Shared.Section
                     break;
             }
             StateHasChanged();
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         #endregion

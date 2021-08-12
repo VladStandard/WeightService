@@ -48,7 +48,6 @@ namespace BlazorCore.Models
                 Console.WriteLine($"{nameof(DataAccess.CoreSettings)}: {DataAccess.CoreSettings}");
                 Console.WriteLine($"{nameof(DataAccess)}: {DataAccess}");
                 Console.WriteLine($"{nameof(DataSource)}: {DataSource}");
-                Console.WriteLine($"{nameof(stateProvider)}: {stateProvider}");
                 Console.WriteLine("--------------------------------------------------------------------------------");
             }
         }
@@ -66,14 +65,14 @@ namespace BlazorCore.Models
         public HotKeysContext HotKeysContextItem { get; set; }
         public MemoryEntity Memory { get; set; }
 
-        public bool IsDebug => JsonAppSettings.IsDebug;
+        public bool IsDebug => JsonAppSettings != null && JsonAppSettings.IsDebug;
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
         public int Delay => 5_000;
         public string MemoryInfo => Memory != null
             ? $"{LocalizationStrings.DeviceControl.MemoryUsed}: {Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
             : $"{LocalizationStrings.DeviceControl.MemoryUsed}: - MB";
-        public string IdentityMessage { get; private set; }
+        public string IdentityName { get; private set; }
         public bool IsChartSmooth { get; set; }
 
         public string SqlServerDescription => JsonAppSettings is { Server: { } }
@@ -107,8 +106,8 @@ namespace BlazorCore.Models
             {
                 AuthenticationState authenticationState = stateProvider.GetAuthenticationStateAsync().Result;
                 IIdentity identity = authenticationState?.User?.Identity;
-                IdentityMessage = identity != null ? identity.Name : LocalizationStrings.Share.IdentityError;
-                SetUserAccessLevel(identity?.Name);
+                IdentityName = identity != null ? identity.Name : LocalizationStrings.Share.IdentityError;
+                SetUserAccessLevel(IdentityName);
             }
         }
 

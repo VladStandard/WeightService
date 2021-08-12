@@ -26,66 +26,61 @@ namespace BlazorDeviceControl.Shared.Section
 
         #region Public and private methods
 
-        public override async Task GetDataAsync()
+        public override async Task SetParametersAsync(ParameterView parameters)
         {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+
             await GetDataAsync(new Task(delegate
             {
                 Items = AppSettings.DataAccess.ScalesCrud.GetEntities(
                     new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                     new FieldOrderEntity(EnumField.Description, EnumOrderDirection.Asc));
-            }));
-        }
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            await GetDataAsync().ConfigureAwait(true);
+            }), false).ConfigureAwait(false);
         }
 
         private async Task ItemSelectAsync(BaseIdEntity entity)
         {
-            await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
+            await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new Task(delegate
                     {
                         Item = entity;
                     })
-                }, GuiRefreshAsync).ConfigureAwait(false);
+                }, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
         private async Task ItemEditAsync()
         {
-            await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
+            await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> { new Task(delegate {
                         //ActionAsync(EnumTable.Scales, EnumTableAction.Edit, Item, null).ConfigureAwait(true);
                         ActionAsync(EnumTable.Scales, EnumTableAction.Edit, Item, LocalizationStrings.DeviceControl.UriRouteItemScale, false)
                             .ConfigureAwait(true);
-                })}, GuiRefreshAsync).ConfigureAwait(false);
+                })}, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
         private async Task ItemAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ItemCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ItemDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ItemMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         #endregion

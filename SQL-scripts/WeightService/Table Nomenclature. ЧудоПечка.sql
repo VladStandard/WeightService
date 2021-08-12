@@ -1,4 +1,4 @@
--- Table Nomenclature
+-- Table Nomenclature. ЧудоПечка
 select
 	 [Id]
 	,[CreateDate]
@@ -8,4 +8,5 @@ select
 	,[Name]
 	,[SerializedRepresentationObject]
 from [db_scales].[Nomenclature]
+where name like '%Чудо печка%'
 order by [Nomenclature].[Id]

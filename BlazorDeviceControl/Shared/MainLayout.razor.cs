@@ -23,11 +23,11 @@ namespace BlazorDeviceControl.Shared
 
         #region Public and private methods
 
-        protected override async Task OnInitializedAsync()
+        public override async Task SetParametersAsync(ParameterView parameters)
         {
-            await base.OnInitializedAsync().ConfigureAwait(true);
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
-            await RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     //new Task(delegate {
                     new(() => {
@@ -36,9 +36,9 @@ namespace BlazorDeviceControl.Shared
                             AppSettings.HotKeysContextItem = AppSettings.HotKeysItem.CreateContext()
                                 .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
                     }),
-                }, GuiRefreshAsync).ConfigureAwait(false);
+                }, GuiRefreshAsync, false);
 
-            await RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
+            await RunTasksAsync(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(() => {
                         AppSettings.MemoryOpen(GuiRefreshAsync);

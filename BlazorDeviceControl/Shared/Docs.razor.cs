@@ -28,8 +28,10 @@ namespace BlazorDeviceControl.Shared
 
         #region Public and private methods
 
-        public override async Task GetDataAsync()
+        public override async Task SetParametersAsync(ParameterView parameters)
         {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+
             await GetDataAsync(new Task(delegate
             {
                 TemplateLanguages = LocalizationStrings.Lang switch
@@ -39,17 +41,10 @@ namespace BlazorDeviceControl.Shared
                     _ => new List<TypeEntity<string>>()
                 };
                 TemplateIsDebug = AppSettings.DataSource.GetTemplateIsDebug();
-            }));
+            }), false).ConfigureAwait(false);
         }
 
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            await GetDataAsync().ConfigureAwait(false);
-        }
-
-        private void OnChange(object value, string name)
+        private async Task OnChange(object value, string name)
         {
             switch (name)
             {
@@ -61,7 +56,7 @@ namespace BlazorDeviceControl.Shared
                     }
                     break;
             }
-            StateHasChanged();
+            await GuiRefreshAsync().ConfigureAwait(true);
         }
 
         #endregion

@@ -38,8 +38,10 @@ namespace BlazorDeviceControl.Shared.Record
 
         #region Public and private methods
 
-        public override async Task GetDataAsync()
+        public override async Task SetParametersAsync(ParameterView parameters)
         {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+
             await GetDataAsync(new Task(delegate
             {
                 Item = AppSettings?.DataAccess?.ScalesCrud?.GetEntity(new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), ItemId } }), null);
@@ -72,14 +74,7 @@ namespace BlazorDeviceControl.Shared.Record
                     new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                     null).ToList();
                 HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(Item.Host?.Id);
-            }));
-        }
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            await GetDataAsync().ConfigureAwait(true);
+            }), false).ConfigureAwait(false);
         }
 
         private async Task RowSelectAsync(BaseIdEntity entity,
@@ -119,7 +114,7 @@ namespace BlazorDeviceControl.Shared.Record
                     PluItem = pluEntity;
                     //await EntityActions.ActionEditAsync(EnumTable.Plu, PluItem, Item).ConfigureAwait(true);
                     await ActionAsync<BaseRazorEntity>(EnumTable.Plu, EnumTableAction.Edit, PluItem, Item).ConfigureAwait(true);
-                    await GetDataAsync().ConfigureAwait(false);
+                    await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
                 }
             }
             catch (Exception ex)

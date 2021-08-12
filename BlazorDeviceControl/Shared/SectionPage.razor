@@ -10,7 +10,7 @@
     @* Header *@
     <h2 style="font-size: @AppSettings.FontSizeHeader;">
         @GetHeader()
-        <RadzenButton Click=@(args => GetDataAsync())
+        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
                       ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
                       class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
     </h2>

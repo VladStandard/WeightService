@@ -39,8 +39,12 @@ namespace BlazorDeviceControl.Shared
 
         #region Public and private methods
 
-        public override async Task GetDataAsync()
+        public override async Task SetParametersAsync(ParameterView parameters)
         {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+
+            if (parameters.TryGetValue("Table", out EnumTable table)) { Table = table; }
+
             await GetDataAsync(new Task(delegate
             {
                 Entities = null;
@@ -107,16 +111,7 @@ namespace BlazorDeviceControl.Shared
                 NomenclaturesChartCreated = GetNomenclaturesChartEntities(EnumField.CreateDate);
                 // ChartDataModified.
                 NomenclaturesChartModified = GetNomenclaturesChartEntities(EnumField.ModifiedDate);
-            }));
-        }
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            if (parameters.TryGetValue("Table", out EnumTable table)) { Table = table; }
-
-            await GetDataAsync().ConfigureAwait(true);
+            }), false).ConfigureAwait(false);
         }
 
         private string GetHeader()
@@ -195,7 +190,7 @@ namespace BlazorDeviceControl.Shared
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
@@ -204,7 +199,7 @@ namespace BlazorDeviceControl.Shared
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
@@ -213,7 +208,7 @@ namespace BlazorDeviceControl.Shared
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
@@ -222,7 +217,7 @@ namespace BlazorDeviceControl.Shared
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
@@ -231,7 +226,7 @@ namespace BlazorDeviceControl.Shared
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task OnChange(object value, string name)
@@ -246,7 +241,7 @@ namespace BlazorDeviceControl.Shared
                     break;
             }
             StateHasChanged();
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         #endregion

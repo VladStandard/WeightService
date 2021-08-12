@@ -30,25 +30,25 @@ namespace BlazorDeviceControl.Shared
         private async Task ActionEditAsync(EnumTable table, BaseEntity item, BaseEntity parentItem)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, item, parentItem).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionAddAsync(EnumTable table, BaseEntity item, BaseEntity parentItem)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, item, parentItem).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionCopyAsync(EnumTable table, BaseEntity item, BaseEntity parentItem)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, item, parentItem).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionMarkedAsync(EnumTable table, BaseEntity item, BaseEntity parentItem)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, item, parentItem).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         #endregion

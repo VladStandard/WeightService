@@ -1,7 +1,7 @@
 -- Table [TASKS]. Update
-declare @uid uniqueidentifier = 'A8C800E2-869D-4735-890B-0F8DDED28FFC'
-declare @enabled bit = 1
-declare @update bit = 0
+declare @uid uniqueidentifier = '37FBEAC5-CE54-4E1E-9419-1DAF81160B45'
+declare @enabled bit = 0
+declare @update bit = 1
 --
 if (@update=1) begin
 	update [db_scales].[TASKS] set [ENABLED]=@enabled where [UID]=@uid

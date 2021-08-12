@@ -2,6 +2,7 @@
 using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Utils;
+using FluentNHibernate.Testing.Values;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
@@ -56,35 +57,22 @@ namespace BlazorCore.Models
 
         public async Task GuiRefreshAsync() => await InvokeAsync(StateHasChanged).ConfigureAwait(false);
 
-        public virtual async Task GetDataAsync()
+        public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        }
-
-        public async Task GetDataAsync(Task task)
-        {
-            await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
-                new List<Task> {
-                    task
-                }, GuiRefreshAsync).ConfigureAwait(false);
+            await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> { task }, GuiRefreshAsync, continueOnCapturedContext).ConfigureAwait(false);
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
-
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            //await RunTasks(LocalizationStrings.MethodOnInitializedAsync, "", LocalizationStrings.DialogResultFail, "",
-            //    new List<Task> { new(() => {
-            //            GetDataAsync().ConfigureAwait(true);
-            //    })}, null).ConfigureAwait(true);
         }
 
         public async Task ActionAsync<T>(EnumTable table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem) where T : BaseRazorEntity
         {
-            await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
+            await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> { new Task(delegate {
                     Console.WriteLine($"ActionAsync. table: {table}. tableAction: {tableAction}. item: {item}");
                     string title = string.Empty;
@@ -192,12 +180,12 @@ namespace BlazorCore.Models
                             }
                             break;
                     }
-                })}, GuiRefreshAsync).ConfigureAwait(false);
+                })}, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
         public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow)
         {
-            await RunTasks(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
+            await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> { new Task(delegate {
                     if (table == EnumTable.Default)
                         return;
@@ -287,13 +275,10 @@ namespace BlazorCore.Models
                             }
                             break;
                     }
-                })}, GuiRefreshAsync).ConfigureAwait(false);
+                })}, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
-        public string ChartDataFormat(object value)
-        {
-            return ((int)value).ToString("####", CultureInfo.InvariantCulture);
-        }
+        public string ChartDataFormat(object value) => ((int)value).ToString("####", CultureInfo.InvariantCulture);
 
         public ChartCountEntity[] GetContragentsChartEntities(EnumField field)
         {
@@ -416,12 +401,19 @@ namespace BlazorCore.Models
                 CancelButtonText = LocalizationStrings.Share.DialogButtonCancel,
             };
 
-        public async Task RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
-            DelegateGuiRefresh callRefresh, bool isWait = true,
+        public async Task RunTasksAsync(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
+            DelegateGuiRefresh callRefresh, bool continueOnCapturedContext,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
+            RunTasks(title, detailSuccess, detailFail, detailCancel, tasks, callRefresh, continueOnCapturedContext, filePath, lineNumber, memberName);
+        }
+
+        public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
+            DelegateGuiRefresh callRefresh, bool continueOnCapturedContext,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
             try
             {
                 if (tasks != null)
@@ -431,8 +423,7 @@ namespace BlazorCore.Models
                         if (task != null)
                         {
                             task.Start();
-                            if (isWait)
-                                task.Wait();
+                            task.ConfigureAwait(continueOnCapturedContext);
                         }
                     }
                     // Debug log.
@@ -460,7 +451,7 @@ namespace BlazorCore.Models
                 if (AppSettings.IsDebug)
                 {
                     Console.WriteLine("--------------------------------------------------------------------------------");
-                    Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasks)} - Catch the Exception (for Debug mode) ---------- ");
+                    Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasksAsync)} - Catch the Exception (for Debug mode) ---------- ");
                     Console.WriteLine($"filePath: {filePath}");
                     Console.WriteLine($"memberName: {memberName} | lineNumber: {lineNumber}");
                     Console.WriteLine($"Exception: {ex.Message}");
@@ -491,7 +482,7 @@ namespace BlazorCore.Models
             {
                 if (callRefresh != null)
                 {
-                    await callRefresh().ConfigureAwait(false);
+                    callRefresh().ConfigureAwait(false);
                 }
             }
         }
@@ -571,7 +562,7 @@ namespace BlazorCore.Models
 
         public async Task ItemCancelAsync(BaseEntity item, string page)
         {
-            await RunTasks(LocalizationStrings.Share.TableRecordCancel,
+            await RunTasksAsync(LocalizationStrings.Share.TableRecordCancel,
                 LocalizationStrings.Share.DialogResultSuccess, LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel,
                 new List<Task> { new Task(delegate {
                     if (item == null)
@@ -581,7 +572,7 @@ namespace BlazorCore.Models
                     if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
                         return;
                     Navigation.NavigateTo(page);
-                })}, GuiRefreshAsync).ConfigureAwait(false);
+                })}, GuiRefreshAsync, false).ConfigureAwait(false);
         }
 
         public async Task ItemSaveAsync(BaseEntity item, bool continueOnCapturedContext = true)

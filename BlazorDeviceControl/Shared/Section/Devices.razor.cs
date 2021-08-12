@@ -23,19 +23,14 @@ namespace BlazorDeviceControl.Shared.Section
 
         #region Public and private methods
 
-        public override async Task GetDataAsync()
-        {
-            await GetDataAsync(new Task(delegate
-            {
-                Entities = AppSettings.DataAccess.DeviceCrud.GetEntities(null, null).ToList();
-            }));
-        }
-
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
-            await GetDataAsync().ConfigureAwait(true);
+            await GetDataAsync(new Task(delegate
+            {
+                Entities = AppSettings.DataAccess.DeviceCrud.GetEntities(null, null).ToList();
+            }), false).ConfigureAwait(false);
         }
 
         private async Task RowSelectAsync(DeviceEntity entity)

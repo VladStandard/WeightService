@@ -10,11 +10,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MudBlazor.Services;
 using Radzen;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
-using MudBlazor.Services;
-using System.Net.Http;
-using System;
 
 namespace BlazorDeviceControl
 {

@@ -30,8 +30,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         #region Public and private methods
 
-        public override async Task GetDataAsync()
+        public override async Task SetParametersAsync(ParameterView parameters)
         {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+
             await GetDataAsync(new Task(delegate
             {
                 Objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetLogs, string.Empty, 0, string.Empty);
@@ -59,14 +61,7 @@ namespace BlazorDeviceControl.Shared.Section
                         }
                     }
                 }
-            }));
-        }
-
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            await GetDataAsync().ConfigureAwait(true);
+            }), false).ConfigureAwait(false);
         }
 
         private string GetHeader()
@@ -78,19 +73,19 @@ namespace BlazorDeviceControl.Shared.Section
         {
             //var title = LocalizationStrings.GetItemTitle(EnumTable.Logs);
             await ActionAsync<BaseRazorEntity>(EnumTable.Logs, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionAddAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionCopyAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionDeleteAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
@@ -98,13 +93,13 @@ namespace BlazorDeviceControl.Shared.Section
             LogEntity logEntity = AppSettings.DataAccess.LogCrud.GetEntity(new FieldListEntity(
             new Dictionary<string, object> { { EnumField.Uid.ToString(), entity.Uid } }), null);
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, logEntity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task ActionMarkedAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
-            await GetDataAsync().ConfigureAwait(false);
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         private async Task RowSelectAsync(LogSummaryEntity entity,

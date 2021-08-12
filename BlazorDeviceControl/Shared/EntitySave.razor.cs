@@ -31,6 +31,7 @@ namespace BlazorDeviceControl.Shared
 
         public async Task ItemSaveAsync1(DialogOptions options)
         {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Console.WriteLine("ItemSaveAsync 1");
             DialogService.Show<MudDialogExample>("Custom Options Dialog", options);
 
