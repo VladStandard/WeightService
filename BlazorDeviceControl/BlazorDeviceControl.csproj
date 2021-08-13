@@ -80,6 +80,10 @@
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
 
   <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
     <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

@@ -5,7 +5,7 @@
 @using BlazorCore.DAL.TableModels
 @inherits BlazorCore.Models.BaseRazorEntity
 
-@if (AppSettings.IdentityAccessLevel is true or false)
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
     @* Header *@
     <h2 style="font-size: @AppSettings.FontSizeHeader;">
@@ -277,7 +277,7 @@
                 </div>
                 @* Actions *@
                 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
-                    @if (AppSettings.IdentityAccessLevel == true)
+                    @if (AppSettings.IdentityItem.AccessLevel == true)
                     {
                         <RadzenButton Click=@(args => ActionAddAsync(Table, Entity, null))
                                       ButtonStyle="ButtonStyle.Secondary"

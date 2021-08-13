@@ -80,7 +80,7 @@
         </RadzenGrid>
     }
     <div style="margin-top: 5px">
-        @if (AppSettings.IdentityAccessLevel == true)
+        @if (AppSettings.IdentityItem.AccessLevel == true)
         {
             <RadzenButton Click=@(args => ActionAddAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
                           ButtonStyle="ButtonStyle.Secondary"

@@ -186,7 +186,7 @@ namespace BlazorDeviceControl.Shared
 
         private async Task ActionEditAsync(EnumTable table, BaseIdEntity item, BaseIdEntity parentEntity)
         {
-            if (AppSettings.IdentityAccessLevel != true)
+            if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
@@ -195,7 +195,7 @@ namespace BlazorDeviceControl.Shared
 
         private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            if (AppSettings.IdentityAccessLevel != true)
+            if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
@@ -204,7 +204,7 @@ namespace BlazorDeviceControl.Shared
 
         private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            if (AppSettings.IdentityAccessLevel != true)
+            if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
@@ -213,7 +213,7 @@ namespace BlazorDeviceControl.Shared
 
         private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            if (AppSettings.IdentityAccessLevel != true)
+            if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
@@ -222,7 +222,7 @@ namespace BlazorDeviceControl.Shared
 
         private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            if (AppSettings.IdentityAccessLevel != true)
+            if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
 
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);

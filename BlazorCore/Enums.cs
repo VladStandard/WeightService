@@ -2,8 +2,8 @@
 {
     public enum EnumLang
     { 
-        Eng,
-        Rus
+        English,
+        Russian
     }
 
     public enum EnumTable

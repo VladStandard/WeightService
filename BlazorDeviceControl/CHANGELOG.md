@@ -6,10 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.380] - 2021-08-12
+## [0.5.380] - 2021-08-13
 ### Changed
 - Refactoring
 - Docs.razor
+- Memory optimization
+### Added
+- Language switch between English and Russian
 
 ## [0.2.320] - 2021-07-28
 ### Changed

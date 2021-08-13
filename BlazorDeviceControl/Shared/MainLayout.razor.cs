@@ -36,14 +36,14 @@ namespace BlazorDeviceControl.Shared
                             AppSettings.HotKeysContextItem = AppSettings.HotKeysItem.CreateContext()
                                 .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
                     }),
-                }, GuiRefreshAsync, false);
+                }, GuiRefreshAsync, true);
 
             await RunTasksAsync(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(() => {
                         AppSettings.MemoryOpen(GuiRefreshAsync);
                     }),
-                }, null, false).ConfigureAwait(false);
+                }, null, true).ConfigureAwait(false);
         }
 
         #endregion

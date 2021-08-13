@@ -4,7 +4,7 @@
 @using Microsoft.VisualBasic.CompilerServices
 @inherits BlazorCore.Models.BaseRazorEntity
 
-@if (AppSettings.IdentityAccessLevel is true or false)
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
     <h2>
         @LocalizationStrings.DeviceControl.DevicesTitle
@@ -35,7 +35,7 @@
     <p>
         @* Actions *@
         <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
-            @if (AppSettings.IdentityAccessLevel == true)
+            @if (AppSettings.IdentityItem.AccessLevel == true)
             {
                 <span>@LocalizationStrings.DeviceControl.TableActions</span>
                 <br style="margin-top: 50px" />

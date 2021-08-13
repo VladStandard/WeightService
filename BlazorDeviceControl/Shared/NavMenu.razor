@@ -11,6 +11,11 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
+            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteInfo>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.Share.MenuInfo
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
             <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteTableScales>
                 <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.TableTitleScalesShort
             </NavLink>

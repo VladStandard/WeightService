@@ -1,27 +1,3 @@
-        <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Shared.MainLayout)" />
-        </Found>
-        <NotFound>
-            <LayoutView Layout="@typeof(Shared.MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
-            </LayoutView>
-        </NotFound>
-
-<RadzenLabel Style="width: 35%;" Value=@HostName />
-<br />
-<RadzenLabel Value= />
-<br />
-<RadzenLabel Value=@LocalizationStrings.Share.DebugMode />
-<br />
-<RadzenLabel Value=@SqlServer />
-<br />
-<RadzenLabel Value=@SqlDb />
-<br />
-<RadzenLabel Value=@SqlUser />
-<br />
-
-<RadzenDropDown TValue="string" />
-
 <RadzenPanel AllowCollapse="true" Style="width:600px;margin-bottom: 20px; height:500px;"
                 Expand=@(() => Change("Panel expanded")) Collapse=@(() => Change("Panel collapsed"))>
     <HeaderTemplate>

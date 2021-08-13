@@ -1,5 +1,8 @@
 ﻿@attribute [Authorize]
 @page "/"
+@using BlazorCore.Utils
 @inherits BlazorCore.Models.BaseRazorEntity
 
-<BlazorDeviceControl.Shared.Docs />
+<MudElement HtmlTag="h3" Style="width: 100%;">@LocalizationStrings.DeviceControl.Index</MudElement>
+
+<MudElement HtmlTag="body" Style="width: 100%;">@LocalizationStrings.DeviceControl.IndexContinue</MudElement>

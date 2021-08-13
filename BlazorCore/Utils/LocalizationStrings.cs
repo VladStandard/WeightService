@@ -1,139 +1,149 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.Versioning;
 
 namespace BlazorCore.Utils
 {
     public static class LocalizationStrings
     {
-        public static EnumLang Lang = EnumLang.Rus;
+        public static EnumLang Lang { get; set; } = EnumLang.Russian;
 
         public static class Share
         {
             #region Main
-            public static string Company => Lang == EnumLang.Eng ? @"Vladimir Standard" : @"Владимирский стандарт";
-            public static string Index => Lang == EnumLang.Eng ? @"Inside resources" : @"Внутренние ресурсы";
-            public static string IndexDescription => Lang == EnumLang.Eng ?
+            public static string Company => Lang == EnumLang.English ? @"Vladimir Standard" : @"Владимирский стандарт";
+            public static string Index => Lang == EnumLang.English ? @"Inside resources" : @"Внутренние ресурсы";
+            public static string IndexDescription => Lang == EnumLang.English ?
                 @"The site was created to help you navigate through the company's internal resources" :
                 @"Сайт создан для помощи в навигации по внутренним ресурсам компании";
-            public static string CallbackTitle => Lang == EnumLang.Eng ? @"Feedback" : @"Обратная связь";
-            public static string DataLoading => Lang == EnumLang.Eng ? @"Loading data..." : @"Загрузка данных...";
-            public static string IdentityError => Lang == EnumLang.Eng ? @"User error!" : @"Ошибка пользователя";
-            public static string NotLoad => Lang == EnumLang.Eng ? @"Not load!" : @"Не загружено";
-            public static string DebugMode => Lang == EnumLang.Eng ? @"Debug mode" : @"Режим отладки";
-            public static string ServerDevelop => Lang == EnumLang.Eng ? @"Debug server" : @"Сервер разработки";
-            public static string ServerRelease => Lang == EnumLang.Eng ? @"Debug release" : @"Промышленный сервер";
-            public static string Authorization => Lang == EnumLang.Eng ? @"Authorization" : @"Авторизация";
-            public static string Doc => Lang == EnumLang.Eng ? @"Documentation" : @"Документация";
-            public static string ProgramVer => Lang == EnumLang.Eng ? @"Program version" : @"Версия программы";
-            public static string HostName => Lang == EnumLang.Eng ? @"Host name" : @"Имя хоста";
-            public static string Language => Lang == EnumLang.Eng ? @"Language" : @"Язык";
-            public static string LanguageDetect => Lang == EnumLang.Eng ? @"English" : @"Русский";
-            public static string IsYes (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
-            public static string IsEnableIt (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
-            public static string IsEnableShe (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
-            public static string IsEnableHe (bool isTrue) => Lang == EnumLang.Eng ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
+            public static string CallbackTitle => Lang == EnumLang.English ? @"Feedback" : @"Обратная связь";
+            public static string DataLoading => Lang == EnumLang.English ? @"Loading data..." : @"Загрузка данных...";
+            public static string IdentityError => Lang == EnumLang.English ? @"User error!" : @"Ошибка пользователя";
+            public static string NotLoad => Lang == EnumLang.English ? @"Not load!" : @"Не загружено";
+            public static string DebugMode => Lang == EnumLang.English ? @"Debug mode" : @"Режим отладки";
+            public static string ServerDevelop => Lang == EnumLang.English ? @"Debug server" : @"Сервер разработки";
+            public static string ServerRelease => Lang == EnumLang.English ? @"Debug release" : @"Промышленный сервер";
+            public static string Authorization => Lang == EnumLang.English ? @"Authorization" : @"Авторизация";
+            public static string Doc => Lang == EnumLang.English ? @"Documentation" : @"Документация";
+            public static string ProgramVer => Lang == EnumLang.English ? @"Program version" : @"Версия программы";
+            public static string AppSettings => Lang == EnumLang.English ? @"App settings" : @"Настройки приложения";
+            public static string UserSettings => Lang == EnumLang.English ? @"User settings" : @"Пользовательские настройки";
+            public static string SettingName => Lang == EnumLang.English ? @"Setting name" : @"Название настройки";
+            public static string SettingValue => Lang == EnumLang.English ? @"Setting value" : @"Значение настройки";
+            public static string HostName => Lang == EnumLang.English ? @"Host name" : @"Имя хоста";
+            public static string Language => Lang == EnumLang.English ? @"Language" : @"Язык";
+            public static string LanguageDetect => Lang == EnumLang.English ? @"English" : @"Русский";
+            public static string IsYes (bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
+            public static string IsEnableIt (bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
+            public static string IsEnableShe (bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
+            public static string IsEnableHe (bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
             #endregion
             #region Menu
-            public static string MenuReferences => Lang == EnumLang.Eng ? @"References" : @"Справочники";
-            public static string FileChoose => Lang == EnumLang.Eng ? @"Select a file" : @"Выбрать файл";
-            public static string FileUpload => Lang == EnumLang.Eng ? @"Upload a file" : @"Загрузить файл";
-            public static string FileDownload => Lang == EnumLang.Eng ? @"Download a file" : @"Скачать файл";
-            public static string FileDialog => Lang == EnumLang.Eng ? @"File dialog" : @"Файловый диалог";
-            public static string FileSaveDialog => Lang == EnumLang.Eng ? @"Specify the file name to save" : @"Указать имя файла для сохранения";
-            public static string ServerResponse => Lang == EnumLang.Eng ? @"Server response" : @"Ответ сервера";
-            public static string MenuSecurity => Lang == EnumLang.Eng ? @"Security" : @"Безопасность";
-            public static string MenuLogin => Lang == EnumLang.Eng ? @"Login" : @"Логин";
-            public static string MenuAccess => Lang == EnumLang.Eng ? @"Access" : @"Доступ";
-            public static string MenuAccessDeny => Lang == EnumLang.Eng ? @"Access deny" : @"Доступ запрещён";
-            public static string MenuAccessAllow => Lang == EnumLang.Eng ? @"Access allow" : @"Доступ разрешён";
+            public static string MenuReferences => Lang == EnumLang.English ? @"References" : @"Справочники";
+            public static string FileChoose => Lang == EnumLang.English ? @"Select a file" : @"Выбрать файл";
+            public static string FileUpload => Lang == EnumLang.English ? @"Upload a file" : @"Загрузить файл";
+            public static string FileDownload => Lang == EnumLang.English ? @"Download a file" : @"Скачать файл";
+            public static string FileDialog => Lang == EnumLang.English ? @"File dialog" : @"Файловый диалог";
+            public static string FileSaveDialog => Lang == EnumLang.English ? @"Specify the file name to save" : @"Указать имя файла для сохранения";
+            public static string ServerResponse => Lang == EnumLang.English ? @"Server response" : @"Ответ сервера";
+            public static string MenuSecurity => Lang == EnumLang.English ? @"Security" : @"Безопасность";
+            public static string MenuLogin => Lang == EnumLang.English ? @"Login" : @"Логин";
+            public static string MenuAccess => Lang == EnumLang.English ? @"Access" : @"Доступ";
+            public static string MenuAccessDeny => Lang == EnumLang.English ? @"Access deny" : @"Доступ запрещён";
+            public static string MenuAccessAllow => Lang == EnumLang.English ? @"Access allow" : @"Доступ разрешён";
+            public static string MenuInfo => Lang == EnumLang.English ? @"Info" : @"Информация";
             #endregion
             #region Chart
-            public static string Chart => Lang == EnumLang.Eng ? @"Chart" : @"Диаграмма";
-            public static string ChartSmooth => Lang == EnumLang.Eng ? @"Chart smooth" : @"Скруглить";
+            public static string Chart => Lang == EnumLang.English ? @"Chart" : @"Диаграмма";
+            public static string ChartSmooth => Lang == EnumLang.English ? @"Chart smooth" : @"Скруглить";
             #endregion
             #region Table
-            public static string TableTab => Lang == EnumLang.Eng ? @"Switch between panels" : @"Переключиться между панелями";
-            public static string TableRead => Lang == EnumLang.Eng ? @"Read data" : @"Прочитать данные";
-            public static string TableReadCancel => Lang == EnumLang.Eng ? @"Cancel data reading" : @"Отмена чтения данных";
-            public static string TableEdit => Lang == EnumLang.Eng ? @"Edit record" : @"Редактировать запись";
-            public static string TableClear => Lang == EnumLang.Eng ? @"Deactivate active record" : @"Деактивировать активную запись";
-            public static string TableCreate => Lang == EnumLang.Eng ? @"Create record" : @"Создать запись";
-            public static string TableDelete => Lang == EnumLang.Eng ? @"Delete record" : @"Удалить запись";
-            public static string TableSelect => Lang == EnumLang.Eng ? @"Highlight record" : @"Выделить запись";
-            public static string TableIncludes => Lang == EnumLang.Eng ? @"Included records" : @"Вложенные записи";
-            public static string TableRecordSave => Lang == EnumLang.Eng ? @"Save record" : @"Сохранить запись";
-            public static string TableRecordCancel => Lang == EnumLang.Eng ? @"Close record" : @"Закрыть запись";
+            public static string TableTab => Lang == EnumLang.English ? @"Switch between panels" : @"Переключиться между панелями";
+            public static string TableRead => Lang == EnumLang.English ? @"Read data" : @"Прочитать данные";
+            public static string TableReadCancel => Lang == EnumLang.English ? @"Cancel data reading" : @"Отмена чтения данных";
+            public static string TableEdit => Lang == EnumLang.English ? @"Edit record" : @"Редактировать запись";
+            public static string TableClear => Lang == EnumLang.English ? @"Deactivate active record" : @"Деактивировать активную запись";
+            public static string TableCreate => Lang == EnumLang.English ? @"Create record" : @"Создать запись";
+            public static string TableDelete => Lang == EnumLang.English ? @"Delete record" : @"Удалить запись";
+            public static string TableSelect => Lang == EnumLang.English ? @"Highlight record" : @"Выделить запись";
+            public static string TableIncludes => Lang == EnumLang.English ? @"Included records" : @"Вложенные записи";
+            public static string TableRecordSave => Lang == EnumLang.English ? @"Save record" : @"Сохранить запись";
+            public static string TableRecordCancel => Lang == EnumLang.English ? @"Close record" : @"Закрыть запись";
             #endregion
             #region Table fields
-            public static string FieldCount => Lang == EnumLang.Eng ? @"Count" : @"Количество";
-            public static string FieldCreated => Lang == EnumLang.Eng ? @"Created" : @"Создано";
-            public static string FieldModified => Lang == EnumLang.Eng ? @"Modified" : @"Изменено";
+            public static string FieldCount => Lang == EnumLang.English ? @"Count" : @"Количество";
+            public static string FieldCreated => Lang == EnumLang.English ? @"Created" : @"Создано";
+            public static string FieldModified => Lang == EnumLang.English ? @"Modified" : @"Изменено";
             #endregion
             #region Dialog
-            public static string DialogQuestion => Lang == EnumLang.Eng ? @"Perform the operation?" : @"Выполнить операцию?";
-            public static string DialogButtonYes => Lang == EnumLang.Eng ? @"Yes" : @"Да";
-            public static string DialogButtonCancel => Lang == EnumLang.Eng ? @"Cancel" : @"Отмена";
-            public static string DialogButtonNo => Lang == EnumLang.Eng ? @"No" : @"Нет";
-            public static string DialogResultSuccess => Lang == EnumLang.Eng ? @"The operation was performed successfully." : @"Операция выполнена успешно.";
-            public static string DialogResultCancel => Lang == EnumLang.Eng ? 
+            public static string DialogQuestion => Lang == EnumLang.English ? @"Perform the operation?" : @"Выполнить операцию?";
+            public static string DialogButtonYes => Lang == EnumLang.English ? @"Yes" : @"Да";
+            public static string DialogButtonCancel => Lang == EnumLang.English ? @"Cancel" : @"Отмена";
+            public static string DialogButtonNo => Lang == EnumLang.English ? @"No" : @"Нет";
+            public static string DialogResultSuccess => Lang == EnumLang.English ? @"The operation was performed successfully." : @"Операция выполнена успешно.";
+            public static string DialogResultCancel => Lang == EnumLang.English ? 
                 @"Cancel operation. The necessary conditions may not have been met." : 
                 @"Отмена операции. Возможно, не выполнены необходимые условия.";
-            public static string DialogResultFail => Lang == EnumLang.Eng ? @"Operation error!" : @"Ошибка выполнения операции!";
+            public static string DialogResultFail => Lang == EnumLang.English ? @"Operation error!" : @"Ошибка выполнения операции!";
             #endregion
             #region SQL
-            public static string SqlServer => Lang == EnumLang.Eng ? @"SQL-server" : @"SQL-сервер";
-            public static string SqlDb => Lang == EnumLang.Eng ? @"DB" : @"БД";
+            public static string SqlServer => Lang == EnumLang.English ? @"SQL-server" : @"SQL-сервер";
+            public static string SqlDb => Lang == EnumLang.English ? @"SQL-DB" : @"SQL-БД";
+            public static string SqlUser => Lang == EnumLang.English ? @"SQL-user" : @"SQL-пользователь";
+            #endregion
+            #region Windows
+            public static string WindowsUser => Lang == EnumLang.English ? @"Windows-user" : @"Windows-пользователь";
             #endregion
         }
 
         public static class Resources
         {
             #region Main
-            public static string AppTitle => Lang == EnumLang.Eng ? @"Resources VS" : @"Ресурсы ВС";
-            public static string CallbackEmail => Lang == EnumLang.Eng ?
-                @"mailto:morozov_dv@kolbasa-vs.ru?cc=ivakin_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local" :
-                @"mailto:morozov_dv@kolbasa-vs.ru?cc=ivakin_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local";
-            public static string SysAdmin => Lang == EnumLang.Eng ? @"Administration" : @"Администрирование";
+            public static string AppTitle => Lang == EnumLang.English ? @"Resources VS" : @"Ресурсы ВС";
+            public static string CallbackEmail => Lang == EnumLang.English ?
+                @"mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local" :
+                @"mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local";
+            public static string SysAdmin => Lang == EnumLang.English ? @"Administration" : @"Администрирование";
             public static string SupportCreatio =>
-                Lang == EnumLang.Eng
+                Lang == EnumLang.English
                     ? @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/"
                     : @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/"; 
             #endregion
             #region Support
-            public static string SupportTitle => Lang == EnumLang.Eng ? @"Support service" : @"Служба поддержки";
-            public static string SupportLinkCreatioText => Lang == EnumLang.Eng ? @"Creatio appeals" : @"Creatio обращения";
-            public static string SupportLinkHelpText => Lang == EnumLang.Eng ? @"Write a letter" : @"Написать письмо";
+            public static string SupportTitle => Lang == EnumLang.English ? @"Support service" : @"Служба поддержки";
+            public static string SupportLinkCreatioText => Lang == EnumLang.English ? @"Creatio appeals" : @"Creatio обращения";
+            public static string SupportLinkHelpText => Lang == EnumLang.English ? @"Write a letter" : @"Написать письмо";
 
             public static string SupportLinkHelpPath =>
-                Lang == EnumLang.Eng
+                Lang == EnumLang.English
                     ? @"mailto:helpdesk@kolbasa-vs.ru?subject=Appeal"
                     : @"mailto:helpdesk@kolbasa-vs.ru?subject=Обращение";
 
             #endregion
             #region Contacts
-            public static string ContactsTitle => Lang == EnumLang.Eng ? @"Contacts" : @"Контакты";
-            public static string ContactsPhoneText => Lang == EnumLang.Eng ? @"Phone directory" : @"Телефонный справочник";
+            public static string ContactsTitle => Lang == EnumLang.English ? @"Contacts" : @"Контакты";
+            public static string ContactsPhoneText => Lang == EnumLang.English ? @"Phone directory" : @"Телефонный справочник";
 
             public static string ContactsPhonePath =>
-                Lang == EnumLang.Eng
+                Lang == EnumLang.English
                     ? @"http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP"
                     : @"http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP";
 
-            public static string ContactsCreatioText => Lang == EnumLang.Eng ? @"Creatio contacts" : @"Creatio контакты";
+            public static string ContactsCreatioText => Lang == EnumLang.English ? @"Creatio contacts" : @"Creatio контакты";
 
             public static string ContactsCreatioPath =>
-                Lang == EnumLang.Eng
+                Lang == EnumLang.English
                     ? @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/"
                     : @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/";
 
             #endregion
             #region IT department
-            public static string DepartmentItTitle => Lang == EnumLang.Eng ? @"IT department" : @"ИТ отдел";
+            public static string DepartmentItTitle => Lang == EnumLang.English ? @"IT department" : @"ИТ отдел";
 
             #endregion
             #region Redmine
-            public static string RedmineTitle => Lang == EnumLang.Eng ? @"Redmine" : @"Redmine";
-            public static string RedmineWikiText => Lang == EnumLang.Eng ? @"Wiki" : @"Wiki";
+            public static string RedmineTitle => Lang == EnumLang.English ? @"Redmine" : @"Redmine";
+            public static string RedmineWikiText => Lang == EnumLang.English ? @"Wiki" : @"Wiki";
             public const string RedmineWikiPath = @"http://192.168.0.50/projects/resources_it/wiki/Wiki";
             public const string RedmineProjectsText = @"проекты";
             public const string RedmineProjectsPath = @"http://192.168.0.50/projects";
@@ -141,25 +151,25 @@ namespace BlazorCore.Utils
             public const string RedmineGooglePath = @"http://192.168.0.50/projects/resources_it/wiki/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%B3%D1%83%D0%B3%D0%BB_%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B";
             #endregion
             #region Zabbix
-            public static string ZabbixTitle => Lang == EnumLang.Eng ? @"Zabbix" : @"Zabbix";
-            public static string ZabbixKolbasaText => Lang == EnumLang.Eng ? @"kolbasa-vs-terrasoft" : @"kolbasa-vs-terrasoft";
+            public static string ZabbixTitle => Lang == EnumLang.English ? @"Zabbix" : @"Zabbix";
+            public static string ZabbixKolbasaText => Lang == EnumLang.English ? @"kolbasa-vs-terrasoft" : @"kolbasa-vs-terrasoft";
 
             public static string ZabbixKolbasaPath =>
-                Lang == EnumLang.Eng
+                Lang == EnumLang.English
                     ? @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7"
                     : @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
 
-            public static string ZabbixGlobalText => Lang == EnumLang.Eng ? @"Global view" : @"Глобальное представление";
+            public static string ZabbixGlobalText => Lang == EnumLang.English ? @"Global view" : @"Глобальное представление";
 
             public static string ZabbixGlobalPath =>
-                Lang == EnumLang.Eng
+                Lang == EnumLang.English
                     ? @"http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view"
                     : @"http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view";
 
-            public static string ZabbixWebText => Lang == EnumLang.Eng ? @"Web monitoring" : @"Веб-мониторинг";
+            public static string ZabbixWebText => Lang == EnumLang.English ? @"Web monitoring" : @"Веб-мониторинг";
 
             public static string ZabbixWebPath =>
-                Lang == EnumLang.Eng
+                Lang == EnumLang.English
                     ? @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7"
                     : @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
 
@@ -243,15 +253,19 @@ namespace BlazorCore.Utils
         {
             #region Main
 
+            public static string Index => Lang == EnumLang.English ? @"DeviceControl" : @"Управление устройствами";
+            public static string IndexContinue => Lang == EnumLang.English 
+                ? @"To continue, click on the desired section on the left pane."
+                : @"Для продолжения работы кликните по нужному разделу на левой панели.";
             public static string SqlServerDebug => "CREATIO";
             public static string SqlServerRelease => "PALYCH";
-            public static string CallbackEmail => Lang == EnumLang.Eng ?
-                    @"mailto:morozov_dv@kolbasa-vs.ru?cc=ivakin_dv@kolbasa-vs.ru&subject=device-control.kolbasa-vs.local" :
-                    @"mailto:morozov_dv@kolbasa-vs.ru?cc=ivakin_dv@kolbasa-vs.ru&subject=device-control.kolbasa-vs.local";
+            public static string CallbackEmail => Lang == EnumLang.English ?
+                    @"mailto:morozov_dv@kolbasa-vs.ru&subject=device-control.kolbasa-vs.local" :
+                    @"mailto:morozov_dv@kolbasa-vs.ru&subject=device-control.kolbasa-vs.local";
             public const string DataRecords = @"записей";
             #endregion
             #region Methods
-            public static string MethodOnInitializedAsync => Lang == EnumLang.Eng ? @"Method OnInitializedAsync" : @"Метод OnInitializedAsync";
+            public static string MethodOnInitializedAsync => Lang == EnumLang.English ? @"Method OnInitializedAsync" : @"Метод OnInitializedAsync";
 
             #endregion
             #region Memory
@@ -273,6 +287,8 @@ namespace BlazorCore.Utils
             #endregion
             #region URI
             public const string UriRouteRoot = "/";
+            public const string UriRouteInfo = "/info";
+            public const string UriRouteDocs = "/docs";
             public const string UriRouteTableScales = "/scales";
             public const string UriRouteTableHosts = "/hosts";
             public const string UriRouteTableDevices = "/devices";
@@ -501,13 +517,14 @@ namespace BlazorCore.Utils
             
         }
 
+        [SupportedOSPlatform(@"windows")]
         public static string GetAppVersion(System.Reflection.Assembly executingAssembly)
         {
             FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
-            string ver = fieVersionInfo.FileVersion;
-            if (!string.IsNullOrEmpty(ver) && ver.EndsWith(".0"))
-                ver = ver.Substring(0, ver.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase));
-            return ver;
+            string result = fieVersionInfo.FileVersion;
+            if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
+                result = result.Substring(0, result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase));
+            return result;
         }
     }
 }

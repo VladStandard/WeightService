@@ -2,9 +2,7 @@
 using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Utils;
-using FluentNHibernate.Testing.Values;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using Radzen;
 using System;
@@ -35,6 +33,7 @@ namespace BlazorCore.Models
             Dialog?.Dispose();
             Tooltip?.Dispose();
             AppSettings.HotKeysContextItem?.Dispose();
+            GC.Collect();
         }
 
         #endregion
@@ -43,7 +42,6 @@ namespace BlazorCore.Models
 
         public AppSettingsEntity AppSettings = AppSettingsEntity.Instance;
         public delegate Task DelegateGuiRefresh();
-        //public BaseEntity BaseItem { get; private set; }
 
         #endregion
 
@@ -65,6 +63,7 @@ namespace BlazorCore.Models
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
+            //GC.Collect();
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
@@ -154,9 +153,9 @@ namespace BlazorCore.Models
                         case EnumTableAction.Add:
                         case EnumTableAction.Edit:
                         case EnumTableAction.Copy:
-                            if (AppSettings.IdentityAccessLevel == true)
+                            if (AppSettings.IdentityItem.AccessLevel == true)
                             {
-                                Console.WriteLine($"ActionAsync. AppSettings.IdentityAccessLevel: {AppSettings.IdentityAccessLevel}");
+                                Console.WriteLine($"ActionAsync. AppSettings.IdentityItem.AccessLevel: {AppSettings.IdentityItem.AccessLevel}");
                                 Dialog.OpenAsync<T>(title,
                                     new Dictionary<string, object>
                                     {
@@ -168,13 +167,13 @@ namespace BlazorCore.Models
                             }
                             break;
                         case EnumTableAction.Delete:
-                            if (AppSettings.IdentityAccessLevel == true)
+                            if (AppSettings.IdentityItem.AccessLevel == true)
                             {
                                 AppSettings.DataAccess.ActionDeleteEntity(item);
                             }
                             break;
                         case EnumTableAction.Marked:
-                            if (AppSettings.IdentityAccessLevel == true)
+                            if (AppSettings.IdentityItem.AccessLevel == true)
                             {
                                 AppSettings.DataAccess.ActionMarkedEntity(item);
                             }
@@ -211,13 +210,13 @@ namespace BlazorCore.Models
                         if (idItem != null)
                         {
                             Console.WriteLine($"{nameof(idItem)}: {idItem}");
-                            if (AppSettings.IdentityAccessLevel == true)
+                            if (AppSettings.IdentityItem.AccessLevel == true)
                                 Console.WriteLine($"Open page {page}/{idItem.Id}");
                         }
                         else if (uidItem != null)
                         {
                             Console.WriteLine($"{nameof(uidItem)}: {uidItem}");
-                            if (AppSettings.IdentityAccessLevel == true)
+                            if (AppSettings.IdentityItem.AccessLevel == true)
                                 Console.WriteLine($"Open page {page}/{uidItem.Uid}");
                         }
                         Console.WriteLine("--------------------------------------------------------------------------------");
@@ -228,7 +227,7 @@ namespace BlazorCore.Models
                         case EnumTableAction.Add:
                         case EnumTableAction.Edit:
                         case EnumTableAction.Copy:
-                            if (AppSettings.IdentityAccessLevel == true)
+                            if (AppSettings.IdentityItem.AccessLevel == true)
                             {
                                 switch (table)
                                 {
@@ -263,13 +262,13 @@ namespace BlazorCore.Models
                             }
                             break;
                         case EnumTableAction.Delete:
-                            if (AppSettings.IdentityAccessLevel == true)
+                            if (AppSettings.IdentityItem.AccessLevel == true)
                             {
                                 AppSettings.DataAccess.ActionDeleteEntity(item);
                             }
                             break;
                         case EnumTableAction.Marked:
-                            if (AppSettings.IdentityAccessLevel == true)
+                            if (AppSettings.IdentityItem.AccessLevel == true)
                             {
                                 AppSettings.DataAccess.ActionMarkedEntity(item);
                             }

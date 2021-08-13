@@ -2,7 +2,7 @@
 @using BlazorCore.Utils
 @inherits BlazorCore.Models.BaseRazorEntity
 
-@if (AppSettings.IdentityAccessLevel is true or false)
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
     <p>The current authenticated user:</p>
     <div id="jsonRender"></div>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,12 +42,12 @@ namespace BlazorCore.DAL
 
         public virtual async Task<byte[]> GetBytes(Stream stream, bool useBase64)
         {
-            var memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new MemoryStream();
             await stream.CopyToAsync(memoryStream);
 
             if (useBase64)
             {
-                var base64String = Convert.ToBase64String(memoryStream.ToArray(), Base64FormattingOptions.None);
+                string base64String = Convert.ToBase64String(memoryStream.ToArray(), Base64FormattingOptions.None);
                 return Encoding.Default.GetBytes(base64String);
             }
             return memoryStream.ToArray();
@@ -55,7 +56,7 @@ namespace BlazorCore.DAL
         public virtual Image GetImage(byte[] bytes, bool useBase64)
         {
 
-            var ms = new MemoryStream(bytes, 0, bytes.Length);
+            MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length);
             ms.Write(useBase64 ? Convert.FromBase64String(bytes.ToString()) : bytes, 0, bytes.Length);
             return Image.FromStream(ms, true);
         }

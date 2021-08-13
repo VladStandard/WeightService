@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,14 +37,22 @@ namespace BlazorCore
 
         #region Public and private methods
 
-        public void Open(DelegateGuiRefresh callRefresh, 
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        [SupportedOSPlatform("windows")]
+        public void Open(DelegateGuiRefresh callRefresh)
         {
             IsExecute = true;
             while (IsExecute)
             {
-                MemorySize.Physical.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
-                MemorySize.Virtual.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
+                Process proc = Process.GetCurrentProcess();
+                if (proc != null)
+                {
+                    MemorySize.Physical.Bytes = (ulong)proc.WorkingSet64;
+                    MemorySize.Virtual.Bytes = (ulong)proc.PrivateMemorySize64;
+                }
+                else {
+                    MemorySize.Physical.Bytes = 0;
+                    MemorySize.Virtual.Bytes = 0;
+                }
                 callRefresh?.Invoke().ConfigureAwait(false);
                 Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
             }

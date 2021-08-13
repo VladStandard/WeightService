@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.380] - 2021-08-13
+### Changed
+- Memory optimization
+### Added
+- Shared.DataLoad.razor
+
 ## [0.2.320] - 2021-07-28
 ### Changed
 - Logs section

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.Utils;
 using System.Collections.Generic;
 
 namespace BlazorCore.Models
@@ -34,21 +35,31 @@ namespace BlazorCore.Models
             };
         }
 
-        public List<TypeEntity<string>> GetTemplateLanguagesEng()
+        public List<TypeEntity<EnumLang>> GetTemplateLanguages()
         {
-            return new()
+            return LocalizationStrings.Lang switch
             {
-                new TypeEntity<string>("English", "English"),
-                new TypeEntity<string>("Russian", "Russian"),
+                EnumLang.English => GetTemplateLanguagesEng(),
+                EnumLang.Russian => GetTemplateLanguagesRus(),
+                _ => new List<TypeEntity<EnumLang>>()
             };
         }
 
-        public List<TypeEntity<string>> GetTemplateLanguagesRus()
+        private List<TypeEntity<EnumLang>> GetTemplateLanguagesEng()
         {
             return new()
             {
-                new TypeEntity<string>("English", "Английский"),
-                new TypeEntity<string>("Russian", "Русский"),
+                new TypeEntity<EnumLang>("English", EnumLang.English),
+                new TypeEntity<EnumLang>("Russian", EnumLang.Russian),
+            };
+        }
+
+        private List<TypeEntity<EnumLang>> GetTemplateLanguagesRus()
+        {
+            return new()
+            {
+                new TypeEntity<EnumLang>("Английский", EnumLang.English),
+                new TypeEntity<EnumLang>("Русский", EnumLang.Russian),
             };
         }
 
