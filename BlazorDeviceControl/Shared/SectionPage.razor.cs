@@ -118,21 +118,19 @@ namespace BlazorDeviceControl.Shared
         {
             return Table switch
             {
-                EnumTable.BarCodeTypes => LocalizationStrings.DeviceControl.TableTitleBarCodeTypesShort,
-                EnumTable.Contragents => LocalizationStrings.DeviceControl.TableTitleContragentsShort,
-                EnumTable.Nomenclature => LocalizationStrings.DeviceControl.TableTitleNomenclatureShort,
-                EnumTable.Orders => LocalizationStrings.DeviceControl.TableTitleOrderStatusShort,
-                EnumTable.OrderStatus => LocalizationStrings.DeviceControl.TableTitleOrderStatusShort,
-                EnumTable.OrderTypes => LocalizationStrings.DeviceControl.TableTitleOrderTypesShort,
-                EnumTable.Plu => LocalizationStrings.DeviceControl.TableTitlePluShort,
-                EnumTable.ProductionFacility => LocalizationStrings.DeviceControl.TableTitleProductionFacilityShort,
-                EnumTable.ProductSeries => LocalizationStrings.DeviceControl.TableTitleProductSeriesShort,
-                EnumTable.Scales => LocalizationStrings.DeviceControl.TableTitleScalesShort,
-                EnumTable.SsccStorage => LocalizationStrings.DeviceControl.TableTitleSsccStorageShort,
-                EnumTable.TemplateResources => LocalizationStrings.DeviceControl.TableTitleTemplateResourcesShort,
-                EnumTable.Templates => LocalizationStrings.DeviceControl.TableTitleTemplatesShort,
-                EnumTable.WeithingFact => LocalizationStrings.DeviceControl.TableTitleWeithingFactShort,
-                EnumTable.WorkShop => LocalizationStrings.DeviceControl.TableTitleWorkShopShort,
+                EnumTable.BarCodeTypes => LocalizationStrings.DeviceControl.SectionBarCodeTypes,
+                EnumTable.Contragents => LocalizationStrings.DeviceControl.SectionContragents,
+                EnumTable.Orders => LocalizationStrings.DeviceControl.SectionOrderStatuses,
+                EnumTable.OrderStatus => LocalizationStrings.DeviceControl.SectionOrderStatuses,
+                EnumTable.OrderTypes => LocalizationStrings.DeviceControl.SectionOrderTypes,
+                EnumTable.Plu => LocalizationStrings.DeviceControl.SectionPlus,
+                EnumTable.ProductionFacility => LocalizationStrings.DeviceControl.SectionProductionFacilities,
+                EnumTable.ProductSeries => LocalizationStrings.DeviceControl.SectionProductSeries,
+                EnumTable.Scales => LocalizationStrings.DeviceControl.SectionScales,
+                EnumTable.TemplateResources => LocalizationStrings.DeviceControl.SectionTemplateResources,
+                EnumTable.Templates => LocalizationStrings.DeviceControl.SectionTemplates,
+                EnumTable.WeithingFact => LocalizationStrings.DeviceControl.SectionWeithingFacts,
+                EnumTable.WorkShop => LocalizationStrings.DeviceControl.SectionWorkShops,
                 _ => string.Empty
             };
         }
@@ -152,7 +150,7 @@ namespace BlazorDeviceControl.Shared
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{memberName}]!",
                     Detail = ex.Message,
-                    Duration = AppSettings.Delay
+                    Duration = AppSettingsEntity.Delay
                 };
                 Notification.Notify(msg);
                 Console.WriteLine(msg.Detail);
@@ -176,7 +174,7 @@ namespace BlazorDeviceControl.Shared
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{memberName}]!",
                     Detail = ex.Message,
-                    Duration = AppSettings.Delay
+                    Duration = AppSettingsEntity.Delay
                 };
                 Notification.Notify(msg);
                 Console.WriteLine(msg.Detail);
@@ -225,7 +223,7 @@ namespace BlazorDeviceControl.Shared
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
 
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Mark, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 

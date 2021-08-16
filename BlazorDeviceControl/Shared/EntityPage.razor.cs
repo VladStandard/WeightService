@@ -135,7 +135,7 @@ namespace BlazorDeviceControl.Shared
                     Severity = NotificationSeverity.Warning,
                     Summary = "Контроль данных",
                     Detail = $"Необходимо заполнить поле [{field}]!",
-                    Duration = AppSettings.Delay
+                    Duration = BlazorCore.Models.AppSettingsEntity.Delay
                 };
                 Notification.Notify(msg);
                 return false;
@@ -212,7 +212,7 @@ namespace BlazorDeviceControl.Shared
                                     Severity = NotificationSeverity.Warning,
                                     Summary = "Контроль данных",
                                     Detail = $"Таблица PLU уже имеет такой номер [{plu.Plu}]!",
-                                    Duration = AppSettings.Delay
+                                    Duration = BlazorCore.Models.AppSettingsEntity.Delay
                                 };
                                 Notification.Notify(msg);
                             }
@@ -267,8 +267,6 @@ namespace BlazorDeviceControl.Shared
                             }
                         }
                         break;
-                    case EnumTable.SsccStorage:
-                        break;
                     case EnumTable.TemplateResources:
                         TemplateResourcesEntity templateResourcesEntity = (TemplateResourcesEntity)Item;
                         templateResourcesEntity.CreateDate ??= DateTime.Now;
@@ -288,7 +286,7 @@ namespace BlazorDeviceControl.Shared
                                 Severity = NotificationSeverity.Warning,
                                 Summary = "Контроль данных",
                                 Detail = "Необходимо заполнить поле [Категория]!",
-                                Duration = AppSettings.Delay
+                                Duration = BlazorCore.Models.AppSettingsEntity.Delay
                             };
                             Notification.Notify(msg);
                         }
@@ -380,7 +378,7 @@ namespace BlazorDeviceControl.Shared
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{memberName}]!",
                     Detail = ex.Message,
-                    Duration = AppSettings.Delay
+                    Duration = BlazorCore.Models.AppSettingsEntity.Delay
                 };
                 Notification.Notify(msg);
                 Console.WriteLine(ex.Message);

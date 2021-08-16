@@ -64,7 +64,7 @@ namespace BlazorDeviceControl.Shared.Section
                 Severity = NotificationSeverity.Info,
                 Summary = "Действие",
                 Detail = "Добавить" + Environment.NewLine + "В разработке",
-                Duration = AppSettings.Delay
+                Duration = BlazorCore.Models.AppSettingsEntity.Delay
             };
             Notification.Notify(message);
         }
@@ -77,7 +77,7 @@ namespace BlazorDeviceControl.Shared.Section
                 Severity = NotificationSeverity.Info,
                 Summary = "Действие",
                 Detail = "Скопировать" + Environment.NewLine + "В разработке",
-                Duration = AppSettings.Delay
+                Duration = BlazorCore.Models.AppSettingsEntity.Delay
             };
             Notification.Notify(message);
         }
@@ -90,7 +90,7 @@ namespace BlazorDeviceControl.Shared.Section
                 Severity = NotificationSeverity.Info,
                 Summary = "Действие",
                 Detail = "Удалить" + Environment.NewLine + "В разработке",
-                Duration = AppSettings.Delay
+                Duration = BlazorCore.Models.AppSettingsEntity.Delay
             };
             Notification.Notify(message);
         }

@@ -1,6 +1,5 @@
 ﻿using BlazorCore.DAL;
 using BlazorCore.Utils;
-using FluentNHibernate.Automapping.Steps;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
@@ -45,18 +44,18 @@ namespace BlazorCore.Models
                     IdentityOpen(stateProvider);
 
                 // Debug log.
-                if (IsDebug)
-                {
-                    Console.WriteLine("--------------------------------------------------------------------------------");
-                    Console.WriteLine($"---------- {nameof(AppSettingsEntity)}.{memberName} (for Debug mode) ---------- ");
-                    Console.WriteLine($"{nameof(Memory)}: {Memory}");
-                    Console.WriteLine($"{nameof(HotKeysItem)}: {HotKeysItem}");
-                    Console.WriteLine($"{nameof(JsonAppSettings)}: {JsonAppSettings}");
-                    Console.WriteLine($"{nameof(DataAccess.CoreSettings)}: {DataAccess.CoreSettings}");
-                    Console.WriteLine($"{nameof(DataAccess)}: {DataAccess}");
-                    Console.WriteLine($"{nameof(DataSource)}: {DataSource}");
-                    Console.WriteLine("--------------------------------------------------------------------------------");
-                }
+                //if (IsDebug)
+                //{
+                //    Console.WriteLine("--------------------------------------------------------------------------------");
+                //    Console.WriteLine($"---------- {nameof(AppSettingsEntity)}.{memberName} (for Debug mode) ---------- ");
+                //    Console.WriteLine($"{nameof(Memory)}: {Memory}");
+                //    Console.WriteLine($"{nameof(HotKeysItem)}: {HotKeysItem}");
+                //    Console.WriteLine($"{nameof(JsonAppSettings)}: {JsonAppSettings}");
+                //    Console.WriteLine($"{nameof(DataAccess.CoreSettings)}: {DataAccess.CoreSettings}");
+                //    Console.WriteLine($"{nameof(DataAccess)}: {DataAccess}");
+                //    Console.WriteLine($"{nameof(DataSource)}: {DataSource}");
+                //    Console.WriteLine("--------------------------------------------------------------------------------");
+                //}
             }
         }
 
@@ -77,11 +76,11 @@ namespace BlazorCore.Models
         public bool IsDebug => JsonAppSettings != null && JsonAppSettings.IsDebug;
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
-        public int Delay => 5_000;
+        public static int Delay => 5_000;
         public string MemoryInfo => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.Physical != null 
-            ? $"{LocalizationStrings.DeviceControl.MemoryUsed}: {Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
-            : $"{LocalizationStrings.DeviceControl.MemoryUsed}: - MB";
+            ? $"{LocalizationStrings.Share.MemoryUsed}: {Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
+            : $"{LocalizationStrings.Share.MemoryUsed}: - MB";
         public bool IsChartSmooth { get; set; }
 
         public string SqlServerDescription => JsonAppSettings is { Server: { } }
@@ -95,14 +94,14 @@ namespace BlazorCore.Models
 
         #region Public and private methods - Memory manager
 
-        public void MemoryOpen(MemoryEntity.DelegateGuiRefresh callRefresh)
+        public void MemoryOpen(MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)
         {
             if (Memory != null)
             {
                 Memory.Close();
             }
             Memory = new MemoryEntity(1_000, 5_000);
-            Memory.Open(callRefresh);
+            Memory.Open(callRefreshAsync);
         }
 
         #endregion

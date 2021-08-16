@@ -1,3 +1,36 @@
+@inherits BlazorCore.Models.BaseRazorEntity
+
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        
+        <MudElement HtmlTag="h3" Class="ma-0">@LocalizationStrings.Share.AppSettings</MudElement>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
+    </div>
+}
+else
+{
+    <DataLoad IsShowDiv=true DataLoadItem=BlazorCore.EnumDataLoad.Loading/>
+}
+
+<DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/>
+
+// Template SetParametersAsync.
+public override async Task SetParametersAsync(ParameterView parameters)
+{
+    await base.SetParametersAsync(parameters).ConfigureAwait(true);
+
+    RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
+        new List<Task> {
+            new(async() => {
+            //new Task(delegate {
+            // type here
+            await GuiRefreshAsync(false).ConfigureAwait(false);
+          }),
+      }, true);
+}
+
+
 <RadzenPanel AllowCollapse="true" Style="width:600px;margin-bottom: 20px; height:500px;"
                 Expand=@(() => Change("Panel expanded")) Collapse=@(() => Change("Panel collapsed"))>
     <HeaderTemplate>

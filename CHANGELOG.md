@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.380] - 2021-08-12
+## [0.5.390] - 2021-08-16
+### Changed
+- BlazorDeviceControl v.0.5.390
+- BlazorCore v.0.5.390
+
+## [0.5.380] - 2021-08-13
 ### Changed
 - DbScales v.0.5.350
 - ScalesUI v.0.5.372

@@ -1,0 +1,16 @@
+﻿@page "/item/printertype"
+@using BlazorCore.Utils
+@inherits BlazorCore.Models.BaseRazorEntity
+
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldId />
+        <RadzenNumeric Style="width: 63%; text-align: center" Disabled="true" TValue="int" @bind-Value=@Item.Id />
+        <br />
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
+        <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Name />
+        <br />
+    </div>
+</div>

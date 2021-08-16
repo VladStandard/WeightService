@@ -11,6 +11,7 @@ namespace BlazorCore.Utils
         public static class Share
         {
             #region Main
+            public static string PageError => Lang == EnumLang.English ? @"Sorry, there's nothing at this address." : @"Извините, по этому адресу ничего нет.";
             public static string Company => Lang == EnumLang.English ? @"Vladimir Standard" : @"Владимирский стандарт";
             public static string Index => Lang == EnumLang.English ? @"Inside resources" : @"Внутренние ресурсы";
             public static string IndexDescription => Lang == EnumLang.English ?
@@ -18,6 +19,8 @@ namespace BlazorCore.Utils
                 @"Сайт создан для помощи в навигации по внутренним ресурсам компании";
             public static string CallbackTitle => Lang == EnumLang.English ? @"Feedback" : @"Обратная связь";
             public static string DataLoading => Lang == EnumLang.English ? @"Loading data..." : @"Загрузка данных...";
+            public static string DataLoadComplete => Lang == EnumLang.English ? @"Data downloaded successfully." : @"Данные загружены успешно.";
+            public static string DataLoadError => Lang == EnumLang.English ? @"Error loading data!" : @"Ошибка загрузки данных!";
             public static string IdentityError => Lang == EnumLang.English ? @"User error!" : @"Ошибка пользователя";
             public static string NotLoad => Lang == EnumLang.English ? @"Not load!" : @"Не загружено";
             public static string DebugMode => Lang == EnumLang.English ? @"Debug mode" : @"Режим отладки";
@@ -26,6 +29,7 @@ namespace BlazorCore.Utils
             public static string Authorization => Lang == EnumLang.English ? @"Authorization" : @"Авторизация";
             public static string Doc => Lang == EnumLang.English ? @"Documentation" : @"Документация";
             public static string ProgramVer => Lang == EnumLang.English ? @"Program version" : @"Версия программы";
+            public static string CoreVer => Lang == EnumLang.English ? @"Core version" : @"Версия ядра";
             public static string AppSettings => Lang == EnumLang.English ? @"App settings" : @"Настройки приложения";
             public static string UserSettings => Lang == EnumLang.English ? @"User settings" : @"Пользовательские настройки";
             public static string SettingName => Lang == EnumLang.English ? @"Setting name" : @"Название настройки";
@@ -56,6 +60,11 @@ namespace BlazorCore.Utils
             #region Chart
             public static string Chart => Lang == EnumLang.English ? @"Chart" : @"Диаграмма";
             public static string ChartSmooth => Lang == EnumLang.English ? @"Chart smooth" : @"Скруглить";
+            #endregion
+            #region System
+            public static string SysAccess => Lang == EnumLang.English ? @"Access" : @"Доступ";
+            public static string SysInfo => Lang == EnumLang.English ? @"Info" : @"Информация";
+            public static string SysLogs => Lang == EnumLang.English ? @"Logs" : @"Логи";
             #endregion
             #region Table
             public static string TableTab => Lang == EnumLang.English ? @"Switch between panels" : @"Переключиться между панелями";
@@ -93,6 +102,32 @@ namespace BlazorCore.Utils
             #endregion
             #region Windows
             public static string WindowsUser => Lang == EnumLang.English ? @"Windows-user" : @"Windows-пользователь";
+            #endregion
+            #region URI
+            public const string UriRouteRoot = "/";
+            public const string UriRouteSectionLogs = "/system/logs";
+            public const string UriRouteSystemAccess = "/system/access";
+            public const string UriRouteSystemDocs = "/system/docs";
+            public const string UriRouteSystemInfo = "/system/info";
+            public const string UriRouteSystemLogin = "/system/login";
+            public const string UriRouteSystemSecurity = "/system/security";
+            #endregion
+            #region Input control
+            public const string InputControlMuchZero = @"Значение должно быть больше 0";
+            #endregion
+            #region Memory
+            public static string MemoryTitle => Lang == EnumLang.English ? @"Application memory manager" : @"Менеджер памяти приложения";
+            public static string MemoryLimit => Lang == EnumLang.English ? @"Memory limit" : @"Лимит памяти";
+            public static string MemoryLimitNotSet => Lang == EnumLang.English ? @"Memory limit not set!" : @"Лимит памяти не задан!";
+            public static string MemoryUsed => Lang == EnumLang.English ? @"Occupied memory" : @"Занимаемая память";
+            public static string MemoryPhysical => Lang == EnumLang.English ? @"Physical memory" : @"Физическая память";
+            public static string MemoryVirtual => Lang == EnumLang.English ? @"Virtual memory" : @"Виртуальная память";
+            public static string MemoryIsExecute => Lang == EnumLang.English ? @"Application memory manager at work." : @"Менеджер памяти приложения в работе.";
+            public static string MemoryIsNotExecute => Lang == EnumLang.English ? @"The application memory manager is not running!" : @"Менеджер памяти приложения не выполняется!";
+            public static string MemoryResult => Lang == EnumLang.English ? @"Результат" : @"Результат";
+            public static string MemoryException => Lang == EnumLang.English ? @"Memory manager error" : @"Ошибка менеджера памяти";
+            public static string MemoryActionStart => Lang == EnumLang.English ? @"Run the memory manager" : @"Запустить менеджер памяти";
+            public static string MemoryActionStop => Lang == EnumLang.English ? @"Stop the memory manager" : @"Остановить менеджер памяти";
             #endregion
         }
 
@@ -268,47 +303,50 @@ namespace BlazorCore.Utils
             public static string MethodOnInitializedAsync => Lang == EnumLang.English ? @"Method OnInitializedAsync" : @"Метод OnInitializedAsync";
 
             #endregion
-            #region Memory
-            public const string MemoryTitle = @"Менеджер памяти приложения";
-            public const string MemoryLimit = @"Лимит памяти";
-            public const string MemoryLimitNotSet = @"Лимит памяти не задан!";
-            public const string MemoryUsed = @"Занимаемая память";
-            public const string MemoryPhysical = @"Физическая память";
-            public const string MemoryVirtual = @"Виртуальная память";
-            public const string MemoryIsExecute = @"Менеджер памяти приложения в работе.";
-            public const string MemoryIsNotExecute = @"Менеджер памяти приложения не выполняется!";
-            public const string MemoryResult = @"Результат";
-            public const string MemoryException = @"Ошибка менеджера памяти";
-            public const string MemoryActionStart = @"Запустить менеджер памяти";
-            public const string MemoryActionStop = @"Остановить менеджер памяти";
-            #endregion
             #region Комплексы промышленных устройств
-            public const string DevicesTitle = @"Комплексы промышленных устройств";
+            public static string DevicesTitle => Lang == EnumLang.English ? @"Complexes of industrial devices" : @"Комплексы промышленных устройств";
             #endregion
             #region URI
-            public const string UriRouteRoot = "/";
-            public const string UriRouteInfo = "/info";
-            public const string UriRouteDocs = "/docs";
-            public const string UriRouteTableScales = "/scales";
-            public const string UriRouteTableHosts = "/hosts";
-            public const string UriRouteTableDevices = "/devices";
-            public const string UriRouteTablePrinters = "/printers";
-            public const string UriRouteTablePrinterTypes = "/printertypes";
-            public const string UriRouteTableContragents = "/contragents";
-            public const string UriRouteTableNomenclature = "/nomenclature";
-            public const string UriRouteTableProductionFacilities = "/productionfacilities";
-            public const string UriRouteTableTemplates = "/templates";
-            public const string UriRouteTableTemplateResources = "/templateresources";
-            public const string UriRouteTableWeithingFacts = "/weithingfacts";
-            public const string UriRouteTableWorkshops = "/workshops";
-            public const string UriRouteItemPrinter = "/printer";
-            public const string UriRouteItemScale = "/scale";
-            public const string UriRouteTableLogs = "/logs";
-            public const string UriRouteSecurity = "/security";
-            public const string UriRouteLogin = "/login";
-            public const string UriRouteAccess = "/access";
+            public const string UriRouteItemPrinter = "/item/printer";
+            public const string UriRouteItemScale = "/item/scale";
+            public const string UriRouteSectionContragents = "/section/contragents";
+            public const string UriRouteSectionDevices = "/section/devices";
+            public const string UriRouteSectionHosts = "/section/hosts";
+            public const string UriRouteSectionNomenclatures = "/section/nomenclatures";
+            public const string UriRouteSectionPrinterTypes = "/section/printertypes";
+            public const string UriRouteSectionPrinters = "/section/printers";
+            public const string UriRouteSectionProductionFacilities = "/section/productionfacilities";
+            public const string UriRouteSectionScales = "/section/scales";
+            public const string UriRouteSectionTemplateResources = "/section/templateresources";
+            public const string UriRouteSectionTemplates = "/section/templates";
+            public const string UriRouteSectionWeithingFacts = "/section/weithingfacts";
+            public const string UriRouteSectionWorkshops = "/section/workshops";
             #endregion
-            #region Таблицы
+            #region Sections
+            public static string SectionFonts => Lang == EnumLang.English ? @"Fonts" : @"Шрифты";
+            public static string SectionLogos => Lang == EnumLang.English ? @"Logos" : @"Логотипы";
+            public static string SectionBarcodes => Lang == EnumLang.English ? @"Barcodes" : @"Штрихкоды";
+            public static string SectionBarCodeTypes => Lang == EnumLang.English ? @"Barcodes types" : @"Типы штрихкодов";
+            public static string SectionContragents => Lang == EnumLang.English ? @"Counterparties" : @"Контрагенты";
+            public static string SectionNomenclatureUnits => Lang == EnumLang.English ? @"Packages" : @"Упаковки";
+            public static string SectionOrders => Lang == EnumLang.English ? @"Orders" : @"Заказы";
+            public static string SectionOrderStatuses => Lang == EnumLang.English ? @"Order statuses" : @"Статусы заказов";
+            public static string SectionOrderTypes => Lang == EnumLang.English ? @"Order types" : @"Типы заказов";
+            public static string SectionPlus => Lang == EnumLang.English ? @"PLU" : @"ПЛУ";
+            public static string SectionProductionFacilities => Lang == EnumLang.English ? @"Prod. facilities" : @"Произв. площадки";
+            public static string SectionProductSeries => Lang == EnumLang.English ? @"Product series" : @"Серии продуктов";
+            public static string SectionPrinters => Lang == EnumLang.English ? @"Printers" : @"Принтеры";
+            public static string SectionPrinterTypes => Lang == EnumLang.English ? @"Printer types" : @"Типы принтеров";
+            public static string SectionHosts => Lang == EnumLang.English ? @"Hosts" : @"Хосты";
+            public static string SectionScales => Lang == EnumLang.English ? @"Devices" : @"Устройства";
+            public static string SectionResources => Lang == EnumLang.English ? @"Resources" : @"Ресурсы";
+            public static string SectionTemplateResources => Lang == EnumLang.English ? @"Template resources" : @"Ресурсы шаблонов";
+            public static string SectionTemplates => Lang == EnumLang.English ? @"Templates" : @"Шаблоны";
+            public static string SectionWeithingFacts => Lang == EnumLang.English ? @"Weithing facts" : @"Взвешивания";
+            public static string SectionNomenclatures => Lang == EnumLang.English ? @"Nomenclatures" : @"Номенклатура";
+            public static string SectionWorkShops => Lang == EnumLang.English ? @"Workshops" : @"Цеха";
+            #endregion
+            #region Tables
             public const string Table = @"Таблица";
             public const string TableReadData = @"Прочитать данные";
             public const string TableActions = @"Действия";
@@ -316,37 +354,13 @@ namespace BlazorCore.Utils
             public const string TableActionEdit = @"Редактировать";
             public const string TableActionFill = @"Заполнить";
             public const string TableActionAdd = @"Добавить";
+            public const string TableActionNew = @"Новый";
             public const string TableActionClear = @"Очистить";
-            public const string TableActionDelete = @"Удалить";
-            public const string TableActionDeleteForever = @"Удалить навсегда";
+            public const string TableActionMarked = @"Пометить на удаление";
+            public const string TableActionDelete = @"Удалить навсегда";
             public const string TableActionCopy = @"Копировать";
             public const string TableActionCancel = @"Отмена";
             public const string TableActionSave = @"Сохранить";
-            public const string TableTitleFonts = @"Шрифты";
-            public const string TableTitleLabels = @"Логотипы";
-            public const string TableTitleBarCodesShort = @"Штрихкоды";
-            public const string TableTitleBarCodeTypesShort = @"Типы ШК";
-            public const string TableTitleContragentsShort = @"Контрагенты";
-            public const string TableTitleNomenclatureShort = @"Номенклатура";
-            public const string TableTitleNomenclatureUnitsShort = @"Упаковки";
-            public const string TableTitleOrdersShort = @"Заказы";
-            public const string TableTitleOrderStatusShort = @"Статусы заказов";
-            public const string TableTitleOrderTypesShort = @"Типы заказов";
-            public const string TableTitlePluShort = @"PLU";
-            public const string TableTitleProductionFacilityShort = @"Произв. площадки";
-            public const string TableTitleProductSeriesShort = @"Серии продуктов";
-            public const string TableTitlePrinters = @"Принтеры";
-            public const string TableTitlePrinterTypes = @"Типы принтеров";
-            public const string TableTitleHostsShort = @"Хосты";
-            public const string TableTitleScalesShort = @"Устройства";
-            public const string TableTitleSsccStorageShort = @"SSCCStorage";
-            public const string TableTitleResources = @"Ресурсы шаблонов";
-            public const string TableTitleTemplateResourcesShort = @"Ресурсы шаблонов";
-            public const string TableTitleTemplatesShort = @"Шаблоны";
-            public const string TableTitleWeithingFactShort = @"Взвешивания";
-            public const string TableTitleAccess = @"Доступ";
-            public const string TableTitleLogs = @"Логи";
-            public const string TableTitleWorkShopShort = @"Цеха";
             public const string TableFieldId = @"ID";
             public const string TableFieldName = @"Наименование";
             public const string TableFieldLine = @"Линия";
@@ -478,10 +492,6 @@ namespace BlazorCore.Utils
             public const string ItemTitlePrinterType = @"Тип принтера";
             public const string ItemTitleLog = @"Лог";
             #endregion
-            #region Контроль ввода
-            public const string InputControlMuchZero = @"Значение должно быть больше 0";
-
-            #endregion
             public static string GetItemTitle(EnumTable table)
             {
                 return table switch
@@ -499,7 +509,6 @@ namespace BlazorCore.Utils
                     EnumTable.ProductionFacility => ItemTitleProductionFacility,
                     EnumTable.ProductSeries => ItemTitleProductSeries,
                     EnumTable.Scales => ItemTitleScales,
-                    EnumTable.SsccStorage => ItemTitleSsccStorage,
                     EnumTable.TemplateResources => ItemTitleTemplateResources,
                     EnumTable.Templates => ItemTitleTemplates,
                     EnumTable.WeithingFact => ItemTitleWeithingFact,
@@ -521,6 +530,16 @@ namespace BlazorCore.Utils
         public static string GetAppVersion(System.Reflection.Assembly executingAssembly)
         {
             FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
+            string result = fieVersionInfo.FileVersion;
+            if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
+                result = result.Substring(0, result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase));
+            return result;
+        }
+
+        [SupportedOSPlatform(@"windows")]
+        public static string GetCoreVersion()
+        {
+            FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string result = fieVersionInfo.FileVersion;
             if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
                 result = result.Substring(0, result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase));

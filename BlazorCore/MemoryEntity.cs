@@ -18,7 +18,8 @@ namespace BlazorCore
         public int WaitCloseMiliSeconds { get; private set; }
         public MemorySizeEntity MemorySize { get; private set; }
         public string ExceptionMsg { get; private set; }
-        public delegate Task DelegateGuiRefresh();
+        public delegate Task DelegateGuiRefreshAsync(bool continueOnCapturedContext);
+        public delegate void DelegateGuiRefresh();
         public bool IsExecute { get; set; }
 
         #endregion
@@ -38,7 +39,7 @@ namespace BlazorCore
         #region Public and private methods
 
         [SupportedOSPlatform("windows")]
-        public void Open(DelegateGuiRefresh callRefresh)
+        public void Open(DelegateGuiRefreshAsync callRefreshAsync)
         {
             IsExecute = true;
             while (IsExecute)
@@ -53,7 +54,7 @@ namespace BlazorCore
                     MemorySize.Physical.Bytes = 0;
                     MemorySize.Virtual.Bytes = 0;
                 }
-                callRefresh?.Invoke().ConfigureAwait(false);
+                callRefreshAsync?.Invoke(true).ConfigureAwait(false);
                 Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
             }
         }

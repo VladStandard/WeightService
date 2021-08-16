@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BlazorCore.DAL.TableModels
+﻿namespace BlazorCore.DAL.TableModels
 {
     public class AppEntity : BaseUidEntity
     {

@@ -9,7 +9,7 @@
 <div class="page">
     @if (AppSettings == null)
     {
-        <BlazorDeviceControl.Shared.DataLoad IsInsideDiv=true IsShowLabel=true />
+        <BlazorDeviceControl.Shared.DataLoad IsInsideDiv=true DataLoadItem=BlazorCore.EnumDataLoad.Loading />
     }
     else
     {

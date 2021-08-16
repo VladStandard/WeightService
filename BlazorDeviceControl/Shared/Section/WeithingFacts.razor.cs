@@ -55,11 +55,6 @@ namespace BlazorDeviceControl.Shared.Section
             }), false).ConfigureAwait(false);
         }
         
-        private string GetHeader()
-        {
-            return LocalizationStrings.DeviceControl.TableTitleWeithingFactShort;
-        }
-
         private async Task RowSelectAsync(BaseIdEntity entity, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -74,7 +69,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{memberName}]!",
                     Detail = ex.Message,
-                    Duration = AppSettings.Delay
+                    Duration = AppSettingsEntity.Delay
                 };
                 Notification.Notify(msg);
                 AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
@@ -97,7 +92,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{memberName}]!",
                     Detail = ex.Message,
-                    Duration = AppSettings.Delay
+                    Duration = AppSettingsEntity.Delay
                 };
                 Notification.Notify(msg);
                 AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
@@ -152,7 +147,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Mark, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 

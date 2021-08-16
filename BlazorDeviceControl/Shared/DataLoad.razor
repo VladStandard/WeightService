@@ -1,24 +1,45 @@
 ﻿@page "/data_load"
 @using BlazorCore
-@using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
 @inherits BlazorCore.Models.BaseRazorEntity
 
 @if (IsShowDiv == true)
 {
     <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 25px;">
-        @if (IsShowLabel)
+        @switch (DataLoadItem)
         {
-            <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
+            case EnumDataLoad.Loading:
+                <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
+                break;
+            case EnumDataLoad.Success:
+                <RadzenLabel Text=@LocalizationStrings.Share.DataLoadComplete Style="width: 20%" />
+                break;
+            case EnumDataLoad.Error:
+                <RadzenLabel Text=@LocalizationStrings.Share.DataLoadError Style="width: 20%" />
+                break;
         }
+        if (IsShowProgress)
+        {
         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+        }
     </div>
 }
 else
 {
-    @if (IsShowLabel)
+    @switch (DataLoadItem)
     {
-        <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
+        case EnumDataLoad.Loading:
+            <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
+            break;
+        case EnumDataLoad.Success:
+            <RadzenLabel Text=@LocalizationStrings.Share.DataLoadComplete Style="width: 20%" />
+            break;
+        case EnumDataLoad.Error:
+            <RadzenLabel Text=@LocalizationStrings.Share.DataLoadError Style="width: 20%" />
+            break;
     }
-    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    if (IsShowProgress)
+    {
+        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    }
 }

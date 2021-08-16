@@ -695,7 +695,7 @@ namespace BlazorCore.DAL
                 EnumTableAction.Edit => (T)entity,
                 EnumTableAction.Copy => (T)((T)entity).Clone(),
                 EnumTableAction.Delete => (T)entity,
-                EnumTableAction.Marked => (T)entity,
+                EnumTableAction.Mark => (T)entity,
                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
             };
             if (tableAction == EnumTableAction.Add || tableAction == EnumTableAction.Copy)
@@ -790,7 +790,7 @@ namespace BlazorCore.DAL
                 EnumTableAction.Edit => (T)entity,
                 EnumTableAction.Copy => (T)((T)entity).Clone(),
                 EnumTableAction.Delete => (T)entity,
-                EnumTableAction.Marked => (T)entity,
+                EnumTableAction.Mark => (T)entity,
                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
             };
             if (tableAction == EnumTableAction.Add || tableAction == EnumTableAction.Copy)

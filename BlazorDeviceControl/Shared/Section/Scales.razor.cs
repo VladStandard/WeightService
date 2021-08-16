@@ -79,7 +79,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         private async Task ItemMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Mark, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 

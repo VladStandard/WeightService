@@ -21,7 +21,6 @@
         ProductionFacility,
         ProductSeries,
         Scales,
-        SsccStorage,
         TemplateResources,
         Templates,
         WeithingFact,
@@ -41,11 +40,12 @@
 
     public enum EnumTableAction
     {
+        New,
         Add,
         Edit,
         Copy,
+        Mark,
         Delete,
-        Marked,
     }
 
     public enum EnumMemoryLimitAction
@@ -67,5 +67,13 @@
         NormilizedFull = 1,
         NormilizedPart = 2,
         NotSubjectNormalization = 3,
+    }
+
+    public enum EnumDataLoad
+    {
+        None,
+        Loading,
+        Success,
+        Error,
     }
 }

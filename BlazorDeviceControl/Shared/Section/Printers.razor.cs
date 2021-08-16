@@ -42,8 +42,6 @@ namespace BlazorDeviceControl.Shared.Section
             }), false).ConfigureAwait(false);
         }
 
-        private string GetHeader() => LocalizationStrings.DeviceControl.TableTitlePrinters;
-
         private async Task RowSelectAsync(BaseIdEntity entity,
         [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
@@ -59,7 +57,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{memberName}]!",
                     Detail = ex.Message,
-                    Duration = AppSettings.Delay
+                    Duration = AppSettingsEntity.Delay
                 };
                 Notification.Notify(msg);
                 Console.WriteLine(msg.Detail);
@@ -83,7 +81,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{memberName}]!",
                     Detail = ex.Message,
-                    Duration = AppSettings.Delay
+                    Duration = AppSettingsEntity.Delay
                 };
                 Notification.Notify(msg);
                 Console.WriteLine(msg.Detail);
@@ -137,7 +135,7 @@ namespace BlazorDeviceControl.Shared.Section
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
 
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Marked, entity, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Mark, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 

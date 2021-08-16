@@ -2,8 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>0.5.380</Version>
+    <Version>0.5.390</Version>
     <Platforms>AnyCPU;x64</Platforms>
+    <AssemblyVersion>0.5.390.0</AssemblyVersion>
+    <FileVersion>0.5.390.0</FileVersion>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

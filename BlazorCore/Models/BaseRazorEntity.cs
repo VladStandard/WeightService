@@ -41,7 +41,8 @@ namespace BlazorCore.Models
         #region Public and private fields and properties
 
         public AppSettingsEntity AppSettings = AppSettingsEntity.Instance;
-        public delegate Task DelegateGuiRefresh();
+        public delegate Task DelegateGuiRefreshAsync(bool continueOnCapturedContext);
+        public delegate void DelegateGuiRefresh();
 
         #endregion
 
@@ -53,7 +54,8 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public async Task GuiRefreshAsync() => await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+        public async Task GuiRefreshAsync(bool continueOnCapturedContext) => await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
+        public void GuiRefresh() => StateHasChanged();
 
         public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
         {
@@ -63,7 +65,11 @@ namespace BlazorCore.Models
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
-            //GC.Collect();
+            if (parameters.Equals(new ParameterView()))
+            {
+                return;
+            }
+            
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
@@ -172,7 +178,7 @@ namespace BlazorCore.Models
                                 AppSettings.DataAccess.ActionDeleteEntity(item);
                             }
                             break;
-                        case EnumTableAction.Marked:
+                        case EnumTableAction.Mark:
                             if (AppSettings.IdentityItem.AccessLevel == true)
                             {
                                 AppSettings.DataAccess.ActionMarkedEntity(item);
@@ -267,7 +273,7 @@ namespace BlazorCore.Models
                                 AppSettings.DataAccess.ActionDeleteEntity(item);
                             }
                             break;
-                        case EnumTableAction.Marked:
+                        case EnumTableAction.Mark:
                             if (AppSettings.IdentityItem.AccessLevel == true)
                             {
                                 AppSettings.DataAccess.ActionMarkedEntity(item);
@@ -376,7 +382,7 @@ namespace BlazorCore.Models
         public async Task HotKeysMenuRoot()
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Navigation.NavigateTo($"{LocalizationStrings.DeviceControl.UriRouteRoot}");
+            Navigation.NavigateTo(LocalizationStrings.Share.UriRouteRoot);
         }
 
         public ConfirmOptions GetConfirmOptions() =>
@@ -401,7 +407,7 @@ namespace BlazorCore.Models
             };
 
         public async Task RunTasksAsync(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
-            DelegateGuiRefresh callRefresh, bool continueOnCapturedContext,
+            DelegateGuiRefreshAsync callRefresh, bool continueOnCapturedContext,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -410,84 +416,126 @@ namespace BlazorCore.Models
         }
 
         public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
+            bool continueOnCapturedContext,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            try
+            {
+                RunTasksCore(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext);
+            }
+            catch (Exception ex)
+            {
+                RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
+            }
+        }
+
+        public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
+            DelegateGuiRefreshAsync callRefreshAsync, bool continueOnCapturedContext,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            try
+            {
+                RunTasksCore(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext);
+            }
+            catch (Exception ex)
+            {
+                RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
+            }
+            finally
+            {
+                callRefreshAsync?.Invoke(true).ConfigureAwait(false);
+            }
+        }
+
+        public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
             DelegateGuiRefresh callRefresh, bool continueOnCapturedContext,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
-                if (tasks != null)
-                {
-                    foreach (Task task in tasks)
-                    {
-                        if (task != null)
-                        {
-                            task.Start();
-                            task.ConfigureAwait(continueOnCapturedContext);
-                        }
-                    }
-                    // Debug log.
-                    if (AppSettings.IsDebug)
-                    {
-                        //Console.WriteLine("--------------------------------------------------------------------------------");
-                        //Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasks)} (for Debug mode) ---------- ");
-                        //Console.WriteLine($"filePath: {filePath}");
-                        //Console.WriteLine($"memberName: {memberName} | lineNumber: {lineNumber}");
-                        //Console.WriteLine($"tasks.Count: {tasks.Count}");
-                        //Console.WriteLine("--------------------------------------------------------------------------------");
-                    }
-                }
-                if (!string.IsNullOrEmpty(detailSuccess))
-                    Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettings.Delay);
-                else
-                {
-                    if (!string.IsNullOrEmpty(detailCancel))
-                        Notification.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettings.Delay);
-                }
+                RunTasksCore(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext);
             }
             catch (Exception ex)
             {
-                // Debug log.
-                if (AppSettings.IsDebug)
-                {
-                    Console.WriteLine("--------------------------------------------------------------------------------");
-                    Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasksAsync)} - Catch the Exception (for Debug mode) ---------- ");
-                    Console.WriteLine($"filePath: {filePath}");
-                    Console.WriteLine($"memberName: {memberName} | lineNumber: {lineNumber}");
-                    Console.WriteLine($"Exception: {ex.Message}");
-                    if (ex.InnerException != null)
-                        Console.WriteLine($"InnerException: {ex.InnerException.Message}");
-                    Console.WriteLine("--------------------------------------------------------------------------------");
-                }
-                // User log.
-                string msg = ex.Message;
-                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                if (!string.IsNullOrEmpty(detailFail))
-                {
-                    if (!string.IsNullOrEmpty(msg))
-                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettings.Delay);
-                    else
-                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettings.Delay);
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(msg))
-                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettings.Delay);
-                }
-                // SQL log.
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+                RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
             }
             finally
             {
                 if (callRefresh != null)
                 {
-                    callRefresh().ConfigureAwait(false);
+                    callRefresh();
                 }
             }
         }
 
+        private void RunTasksCore(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks, bool continueOnCapturedContext)
+        {
+            if (tasks != null)
+            {
+                foreach (Task task in tasks)
+                {
+                    if (task != null)
+                    {
+                        task.Start();
+                        task.ConfigureAwait(continueOnCapturedContext);
+                    }
+                }
+                // Debug log.
+                if (AppSettings.IsDebug)
+                {
+                    //Console.WriteLine("--------------------------------------------------------------------------------");
+                    //Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasks)} (for Debug mode) ---------- ");
+                    //Console.WriteLine($"filePath: {filePath}");
+                    //Console.WriteLine($"memberName: {memberName} | lineNumber: {lineNumber}");
+                    //Console.WriteLine($"tasks.Count: {tasks.Count}");
+                    //Console.WriteLine("--------------------------------------------------------------------------------");
+                }
+            }
+            if (!string.IsNullOrEmpty(detailSuccess))
+                Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsEntity.Delay);
+            else
+            {
+                if (!string.IsNullOrEmpty(detailCancel))
+                    Notification.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsEntity.Delay);
+            }
+        }
+
+        private void RunTasksCatch(Exception ex, string title, string detailFail, string filePath, int lineNumber, string memberName)
+        {
+            // Debug log.
+            if (AppSettings.IsDebug)
+            {
+                Console.WriteLine("--------------------------------------------------------------------------------");
+                Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasksAsync)} - Catch the Exception (for Debug mode) ---------- ");
+                Console.WriteLine($"filePath: {filePath}");
+                Console.WriteLine($"memberName: {memberName} | lineNumber: {lineNumber}");
+                Console.WriteLine($"Exception: {ex.Message}");
+                if (ex.InnerException != null)
+                    Console.WriteLine($"InnerException: {ex.InnerException.Message}");
+                Console.WriteLine("--------------------------------------------------------------------------------");
+            }
+            // User log.
+            string msg = ex.Message;
+            if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+                msg += Environment.NewLine + ex.InnerException.Message;
+            if (!string.IsNullOrEmpty(detailFail))
+            {
+                if (!string.IsNullOrEmpty(msg))
+                    Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettingsEntity.Delay);
+                else
+                    Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettingsEntity.Delay);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(msg))
+                    Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsEntity.Delay);
+            }
+            // SQL log.
+            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+        }
+
         public async Task RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel,
-            List<Task> tasks, DelegateGuiRefresh callRefresh, string questionAdd = "", bool isWait = true,
+            List<Task> tasks, DelegateGuiRefreshAsync callRefresh, string questionAdd = "", bool isWait = true,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             //await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -519,12 +567,12 @@ namespace BlazorCore.Models
                         }
                     }
                     if (!string.IsNullOrEmpty(detailSuccess))
-                        Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettings.Delay);
+                        Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsEntity.Delay);
                 }
                 else
                 {
                     if (!string.IsNullOrEmpty(detailCancel))
-                        Notification.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettings.Delay);
+                        Notification.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsEntity.Delay);
                 }
             }
             catch (Exception ex)
@@ -535,14 +583,14 @@ namespace BlazorCore.Models
                 if (!string.IsNullOrEmpty(detailFail))
                 {
                     if (!string.IsNullOrEmpty(msg))
-                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettings.Delay);
+                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettingsEntity.Delay);
                     else
-                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettings.Delay);
+                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettingsEntity.Delay);
                 }
                 else
                 {
                     if (!string.IsNullOrEmpty(msg))
-                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettings.Delay);
+                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsEntity.Delay);
                 }
 
                 Console.WriteLine(msg);
@@ -551,7 +599,7 @@ namespace BlazorCore.Models
             finally
             {
                 if (callRefresh != null)
-                    await callRefresh().ConfigureAwait(false);
+                    await callRefresh(true).ConfigureAwait(false);
             }
         }
 
@@ -603,7 +651,7 @@ namespace BlazorCore.Models
                                 AppSettings.DataAccess.ScalesCrud.UpdateEntity(scaleItem);
                         }
                    }
-                    Navigation.NavigateTo($"{LocalizationStrings.DeviceControl.UriRouteTablePrinters}");
+                    Navigation.NavigateTo($"{LocalizationStrings.DeviceControl.UriRouteSectionPrinters}");
                 })}, GuiRefreshAsync).ConfigureAwait(continueOnCapturedContext);
         }
 

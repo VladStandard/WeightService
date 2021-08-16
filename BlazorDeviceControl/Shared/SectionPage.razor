@@ -163,8 +163,6 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.SsccStorage:
-                                break;
                             case EnumTable.TemplateResources:
                                 List<TemplateResourcesEntity> templateResourcesEntities = new List<TemplateResourcesEntity>();
                                 foreach (BaseIdEntity entity in Entities)
@@ -300,7 +298,7 @@
                             <RadzenButton Click=@(args => ActionDeleteAsync(Table, Entity, null))
                                           ButtonStyle="ButtonStyle.Secondary"
                                           Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                          Text=@LocalizationStrings.DeviceControl.TableActionDeleteForever Disabled=@AppSettings.DataAccess.IsDisabled />
+                                          Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
                         }
                     }
                     else

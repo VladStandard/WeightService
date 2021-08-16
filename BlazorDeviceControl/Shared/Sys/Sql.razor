@@ -1,0 +1,17 @@
+﻿@page "/system/sql"
+@using BlazorCore.Utils
+@inherits BlazorCore.Models.BaseRazorEntity
+
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <h2>Настройки SQL</h2>
+
+    <br style="margin-top: 20px" />
+    <span>Статус подключения: </span>
+    <RadzenCheckBox @bind-Value=@IsDisabled TValue="bool" Disabled="true" />
+    <RadzenTextBox Style="width: 15%" Disabled=true Value=@AppSettings.DataAccess.IsDisabled.ToString() Change=@(args => Change(args, "State")) />
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
+}

@@ -1,11 +1,13 @@
-﻿<CascadingAuthenticationState>
+﻿@using BlazorCore.Utils
+
+<CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Shared.MainLayout)" />
         </Found>
         <NotFound>
             <LayoutView Layout="@typeof(Shared.MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
+                <MudElement HtmlTag="h3" Class="ma-0">@LocalizationStrings.Share.PageError</MudElement>
             </LayoutView>
         </NotFound>
     </Router>
