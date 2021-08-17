@@ -3,9 +3,24 @@
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
     <div class="col-sm-12 col-md-12 col-lg-12">
-        
-        <MudElement HtmlTag="h3" Class="ma-0">@LocalizationStrings.Share.AppSettings</MudElement>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton>
+
+        <MudElement HtmlTag="h3" Class="ma-0">
+            @LocalizationStrings.Share.SysLogs
+            <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
+                          ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
+                          class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
+                          MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
+        </MudElement>
+
+        @if (Items == null)
+        {
+            <DataLoad IsShowDiv=false DataLoadItem=EnumDataLoad.Loading />
+        }
+        else
+        {
+            <DataLoad IsShowDiv=false DataLoadItem=EnumDataLoad.Success IsShowProgress=false />
+          
+        }
     </div>
 }
 else
@@ -15,20 +30,19 @@ else
 
 <DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/>
 
-// Template SetParametersAsync.
-public override async Task SetParametersAsync(ParameterView parameters)
-{
-    await base.SetParametersAsync(parameters).ConfigureAwait(true);
+        public override async Task SetParametersAsync(ParameterView parameters)
+        {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+            
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        //
+                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                    }),
+                }, true);
+        }
 
-    RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
-        new List<Task> {
-            new(async() => {
-            //new Task(delegate {
-            // type here
-            await GuiRefreshAsync(false).ConfigureAwait(false);
-          }),
-      }, true);
-}
 
 
 <RadzenPanel AllowCollapse="true" Style="width:600px;margin-bottom: 20px; height:500px;"

@@ -113,7 +113,7 @@ namespace BlazorDeviceControl.Shared.Item
                 {
                     PluItem = pluEntity;
                     //await EntityActions.ActionEditAsync(EnumTable.Plu, PluItem, Item).ConfigureAwait(true);
-                    await ActionAsync<BaseRazorEntity>(EnumTable.Plu, EnumTableAction.Edit, PluItem, Item).ConfigureAwait(true);
+                    await ActionAsync<BaseRazorEntity>(EnumTableScales.Plu, EnumTableAction.Edit, PluItem, Item).ConfigureAwait(true);
                     await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
                 }
             }

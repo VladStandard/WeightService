@@ -81,15 +81,15 @@
     <div style="margin-top: 5px">
         @if (AppSettings.IdentityItem.AccessLevel == true)
         {
-            <RadzenButton Click=@(args => ActionAddAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
+            <RadzenButton Click=@(args => ActionAddAsync(EnumTableScales.PrinterResourceRef, ItemResource, Item))
                           ButtonStyle="ButtonStyle.Secondary"
                           Style="margin-left: 30px; margin-top: 5px; width: 150px; height: 30px; font-size: 12px;"
                           Text=@LocalizationStrings.DeviceControl.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
-            <RadzenButton Click=@(args => ActionEditAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
+            <RadzenButton Click=@(args => ActionEditAsync(EnumTableScales.PrinterResourceRef, ItemResource, Item))
                           ButtonStyle="ButtonStyle.Secondary"
                           Style="margin-left: 30px; margin-top: 5px; width: 150px; height: 30px; font-size: 12px;"
                           Text=@LocalizationStrings.DeviceControl.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
-            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.PrinterResourceRef, ItemResource, Item))
+            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTableScales.PrinterResourceRef, ItemResource, Item))
                           ButtonStyle="ButtonStyle.Secondary"
                           Style="margin-left: 30px; margin-top: 5px; width: 150px; height: 30px; font-size: 12px;"
                           Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />

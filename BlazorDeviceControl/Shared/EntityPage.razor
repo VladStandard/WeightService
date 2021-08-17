@@ -11,31 +11,31 @@
         <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
             @switch (Table)
             {
-                case EnumTable.BarCodeTypes:
+                case EnumTableScales.BarcodeTypes:
                     break;
-                case EnumTable.Contragents:
+                case EnumTableScales.Contragents:
                     break;
-                case EnumTable.Hosts:
+                case EnumTableScales.Hosts:
                     HostsEntity host = (HostsEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Host Item=@host />
                     break;
-                case EnumTable.Nomenclature:
+                case EnumTableScales.Nomenclature:
                     break;
-                case EnumTable.Orders:
+                case EnumTableScales.Orders:
                     break;
-                case EnumTable.OrderStatus:
+                case EnumTableScales.OrderStatus:
                     break;
-                case EnumTable.OrderTypes:
+                case EnumTableScales.OrderTypes:
                     break;
-                case EnumTable.Plu:
+                case EnumTableScales.Plu:
                     PluEntity plu = (PluEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Plu Item=@plu />
                     break;
-                case EnumTable.ProductionFacility:
+                case EnumTableScales.ProductionFacility:
                     ProductionFacilityEntity productionFacility = (ProductionFacilityEntity)Item;
                     <BlazorDeviceControl.Shared.Item.ProductionFacility Item=@productionFacility />
                     break;
-                case EnumTable.ProductSeries:
+                case EnumTableScales.ProductSeries:
                     @*
                         var productSeries = (ProductSeriesEntity)Item;
                         <span Style="align-self: start; width: 15%; height: 25px; ">@LocalizationStrings.DeviceControl.TableFieldId</span>
@@ -60,41 +60,41 @@
                             <RadzenTextBox Disabled="false" @bind-Value=@productSeries.Sscc />
                         </div>*@
                     break;
-                case EnumTable.Scales:
+                case EnumTableScales.Scales:
                     ScalesEntity scales = (ScalesEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Scale Item=@scales />
                     break;
-                case EnumTable.TemplateResources:
+                case EnumTableScales.TemplateResources:
                     TemplateResourcesEntity templateResources = (TemplateResourcesEntity)Item;
                     <BlazorDeviceControl.Shared.Item.TemplateResource Item=@templateResources />
                     break;
-                case EnumTable.Templates:
+                case EnumTableScales.Templates:
                     TemplatesEntity templates = (TemplatesEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Template Item=@templates />
                     break;
-                case EnumTable.WeithingFact:
+                case EnumTableScales.WeithingFact:
                     break;
-                case EnumTable.WorkShop:
+                case EnumTableScales.WorkShop:
                     WorkshopEntity workshop = (WorkshopEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Workshop Item=@workshop />
                     break;
-                case EnumTable.Printer:
+                case EnumTableScales.Printer:
                     ZebraPrinterEntity printer = (ZebraPrinterEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Printer Item=@printer />
                     break;
-                case EnumTable.PrinterResourceRef:
+                case EnumTableScales.PrinterResourceRef:
                     ZebraPrinterResourceRefEntity printerResourceRef = (ZebraPrinterResourceRefEntity)Item;
                     <BlazorDeviceControl.Shared.Item.PrinterResourceRef Item=@printerResourceRef />
                     break;
-                case EnumTable.PrinterType:
+                case EnumTableScales.PrinterType:
                     ZebraPrinterTypeEntity printerType = (ZebraPrinterTypeEntity)Item;
                     <BlazorDeviceControl.Shared.Item.PrinterType Item=@printerType />
                     break;
-                case EnumTable.Default:
+                case EnumTableScales.Default:
                     break;
-                case EnumTable.Labels:
+                case EnumTableScales.Labels:
                     break;
-                case EnumTable.Logs:
+                case EnumTableScales.Logs:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

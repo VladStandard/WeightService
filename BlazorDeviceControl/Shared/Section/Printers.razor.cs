@@ -19,8 +19,6 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) =>
-            Tooltip.Open(elementReference, LocalizationStrings.DeviceControl.TableReadData, options);
         public BaseIdEntity Entity { get; set; }
         public BaseIdEntity[] Entities { get; set; }
         private List<TypeEntity<string>> TemplateCategories { get; set; }
@@ -72,7 +70,7 @@ namespace BlazorDeviceControl.Shared.Section
             try
             {
                 Entity = entity;
-                await ActionEditAsync(EnumTable.Printer, Entity, null).ConfigureAwait(true);
+                await ActionEditAsync(EnumTableScales.Printer, Entity, null).ConfigureAwait(true);
             }
             catch (Exception ex)
             {
@@ -89,7 +87,7 @@ namespace BlazorDeviceControl.Shared.Section
             }
         }
 
-        private async Task ActionEditAsync(EnumTable table, BaseIdEntity item, BaseIdEntity parentEntity)
+        private async Task ActionEditAsync(EnumTableScales table, BaseIdEntity item, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
@@ -103,7 +101,7 @@ namespace BlazorDeviceControl.Shared.Section
                 }, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
-        private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionAddAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
@@ -112,7 +110,7 @@ namespace BlazorDeviceControl.Shared.Section
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionCopyAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
@@ -121,7 +119,7 @@ namespace BlazorDeviceControl.Shared.Section
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionDeleteAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
@@ -130,7 +128,7 @@ namespace BlazorDeviceControl.Shared.Section
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionMarkedAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;

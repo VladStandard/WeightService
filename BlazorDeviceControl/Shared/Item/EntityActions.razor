@@ -1,53 +1,53 @@
 ﻿@page "/item/actions"
+@using BlazorCore
 @using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorActionsEntity
 
 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px">
     @if (ParentItem == null)
     {
-        <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+        <RadzenLabel Text=@LocalizationStrings.Share.ItemAccessNone />
     }
     else
     {
-        @if (AppSettings.IdentityItem.AccessLevel == true)
+        @if (AppSettings.IdentityItem.AccessLevel is true or false)
         {
-            if (IsShowNew)
+            @if (IsShowNew)
             {
                 <RadzenButton Click=@(args => ActionNewAsync(Table, ChildItem, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionNew Disabled=@AppSettings.DataAccess.IsDisabled />
             }
-            if (IsShowAdd)
+            @if (IsShowAdd)
             {
                 <RadzenButton Click=@(args => ActionAddAsync(Table, ChildItem, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
             }
-            if (IsShowEdit)
+            @if (IsShowEdit)
             {
-                <RadzenButton Click=@(args => ActionEditAsync(Table, ChildItem, ParentItem))
+                <RadzenButton Click=@(args => ActionEditAsync(Table, ChildItem, Page, false, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
             }
-            if (IsShowCopy)
+            @if (IsShowCopy)
             {
                 <RadzenButton Click=@(args => ActionCopyAsync(Table, ChildItem, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
             }
-            if (IsShowMark)
+            @if (IsShowMark)
             {
                 <RadzenButton Click=@(args => ActionMarkAsync(Table, ChildItem, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionMarked Disabled=@AppSettings.DataAccess.IsDisabled />
             }
-            if (IsShowDelete)
+            @if (IsShowDelete)
             {
                 <RadzenButton Click=@(args => ActionDeleteAsync(Table, ChildItem, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
@@ -57,7 +57,7 @@
         }
         else
         {
-            <RadzenLabel Text=@LocalizationStrings.DeviceControl.TableActionsIsDeny />
+            <RadzenLabel Text=@LocalizationStrings.Share.ItemAccessDeny />
         }
     }
 </div>

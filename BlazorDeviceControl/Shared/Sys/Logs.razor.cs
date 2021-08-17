@@ -18,11 +18,9 @@ namespace BlazorDeviceControl.Shared.Sys
     {
         #region Public and private fields and properties
 
-        private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) =>
-            Tooltip.Open(elementReference, LocalizationStrings.DeviceControl.TableReadData, options);
-        public BaseUidEntity Item { get; set; }
-        public List<LogSummaryEntity> Items { get; set; }
-        public object[] Objects { get; set; }
+        private BaseUidEntity Item { get; set; }
+        private List<LogSummaryEntity> Items { get; set; }
+        private object[] Objects { get; set; }
 
         #endregion
 
@@ -36,6 +34,7 @@ namespace BlazorDeviceControl.Shared.Sys
                 new List<Task> {
                     new(async() => {
                         Objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetLogs, string.Empty, 0, string.Empty);
+                        Item = null;
                         Items = new List<LogSummaryEntity>();
                         foreach (object obj in Objects)
                         {

@@ -6,29 +6,29 @@
         Russian
     }
 
-    public enum EnumTable
+    public enum EnumTableScales
     {
-        Default,
-        BarCodeTypes,
+        BarcodeTypes,
         Contragents,
+        Default,
         Hosts,
         Labels,
+        Logs,
         Nomenclature,
-        Orders,
         OrderStatus,
         OrderTypes,
+        Orders,
         Plu,
-        ProductionFacility,
+        Printer,
+        PrinterResourceRef,
+        PrinterType,
         ProductSeries,
+        ProductionFacility,
         Scales,
         TemplateResources,
         Templates,
         WeithingFact,
         WorkShop,
-        Printer,
-        PrinterResourceRef,
-        PrinterType,
-        Logs,
     }
 
     public enum EnumAccessRights

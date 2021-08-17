@@ -20,8 +20,6 @@ namespace BlazorDeviceControl.Shared.Sys
     {
         #region Public and private fields and properties
 
-        private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) =>
-            Tooltip.Open(elementReference, LocalizationStrings.DeviceControl.TableReadData, options);
         public BaseUidEntity Item { get; set; }
         public List<AccessEntity> Items { get; set; }
         public object[] Objects { get; set; }
@@ -32,51 +30,56 @@ namespace BlazorDeviceControl.Shared.Sys
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
-            await base.SetParametersAsync(parameters).ConfigureAwait(false);
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
-            await GetDataAsync(new Task(delegate
-            {
-                Objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetAccess, string.Empty, 0, string.Empty);
-                Items = new List<AccessEntity>();
-                foreach (object obj in Objects)
-                {
-                    if (obj is object[] { Length: 5 } item)
-                    {
-                        if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+            RunTasks(LocalizationStrings.DeviceControl.MethodSetParametersAsync, "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        Objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetAccess, string.Empty, 0, string.Empty);
+                        Item = null;
+                        Items = new List<AccessEntity>();
+                        foreach (object obj in Objects)
                         {
-                            Items.Add(new AccessEntity()
+                            if (obj is object[] { Length: 5 } item)
                             {
-                                Uid = uid,
-                                CreateDt = Convert.ToDateTime(item[1]),
-                                ChangeDt = Convert.ToDateTime(item[2]),
-                                User = Convert.ToString(item[3]),
-                                Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
-                            });
+                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                                {
+                                    Items.Add(new AccessEntity()
+                                    {
+                                        Uid = uid,
+                                        CreateDt = Convert.ToDateTime(item[1]),
+                                        ChangeDt = Convert.ToDateTime(item[2]),
+                                        User = Convert.ToString(item[3]),
+                                        Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
+                                    });
+                                }
+                            }
                         }
-                    }
-                }
-            }), false).ConfigureAwait(false);
+                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                      }),
+                  }, true);
+
         }
 
         private async Task ActionEditAsync(BaseUidEntity item, BaseUidEntity parentEntity)
         {
-            await ActionAsync<BaseRazorEntity>(EnumTable.Logs, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
+            await ActionAsync<BaseRazorEntity>(EnumTableScales.Logs, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionAddAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
+        private async Task ActionAddAsync(EnumTableScales table, BaseUidEntity entity, BaseUidEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionCopyAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
+        private async Task ActionCopyAsync(EnumTableScales table, BaseUidEntity entity, BaseUidEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionDeleteAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
+        private async Task ActionDeleteAsync(EnumTableScales table, BaseUidEntity entity, BaseUidEntity parentEntity)
         {
             LogEntity logEntity = AppSettings.DataAccess.LogCrud.GetEntity(new FieldListEntity(
             new Dictionary<string, object> { { EnumField.Uid.ToString(), entity.Uid } }), null);
@@ -84,7 +87,7 @@ namespace BlazorDeviceControl.Shared.Sys
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionMarkedAsync(EnumTable table, BaseUidEntity entity, BaseUidEntity parentEntity)
+        private async Task ActionMarkedAsync(EnumTableScales table, BaseUidEntity entity, BaseUidEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Mark, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);

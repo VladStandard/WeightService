@@ -24,6 +24,8 @@ namespace BlazorCore.Utils
             public static string IdentityError => Lang == EnumLang.English ? @"User error!" : @"Ошибка пользователя";
             public static string NotLoad => Lang == EnumLang.English ? @"Not load!" : @"Не загружено";
             public static string DebugMode => Lang == EnumLang.English ? @"Debug mode" : @"Режим отладки";
+            public static string SectionRowCount => Lang == EnumLang.English ? @"Rows count of the section table" : @"Количество строк таблицы раздела";
+            public static string ItemRowCount => Lang == EnumLang.English ? @"Rows count of the item table" : @"Количество строк таблицы элемента";
             public static string ServerDevelop => Lang == EnumLang.English ? @"Debug server" : @"Сервер разработки";
             public static string ServerRelease => Lang == EnumLang.English ? @"Debug release" : @"Промышленный сервер";
             public static string Authorization => Lang == EnumLang.English ? @"Authorization" : @"Авторизация";
@@ -37,10 +39,10 @@ namespace BlazorCore.Utils
             public static string HostName => Lang == EnumLang.English ? @"Host name" : @"Имя хоста";
             public static string Language => Lang == EnumLang.English ? @"Language" : @"Язык";
             public static string LanguageDetect => Lang == EnumLang.English ? @"English" : @"Русский";
-            public static string IsYes (bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
-            public static string IsEnableIt (bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
-            public static string IsEnableShe (bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
-            public static string IsEnableHe (bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
+            public static string IsYes(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
+            public static string IsEnableIt(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
+            public static string IsEnableShe(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
+            public static string IsEnableHe(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
             #endregion
             #region Menu
             public static string MenuReferences => Lang == EnumLang.English ? @"References" : @"Справочники";
@@ -51,11 +53,26 @@ namespace BlazorCore.Utils
             public static string FileSaveDialog => Lang == EnumLang.English ? @"Specify the file name to save" : @"Указать имя файла для сохранения";
             public static string ServerResponse => Lang == EnumLang.English ? @"Server response" : @"Ответ сервера";
             public static string MenuSecurity => Lang == EnumLang.English ? @"Security" : @"Безопасность";
-            public static string MenuLogin => Lang == EnumLang.English ? @"Login" : @"Логин";
-            public static string MenuAccess => Lang == EnumLang.English ? @"Access" : @"Доступ";
-            public static string MenuAccessDeny => Lang == EnumLang.English ? @"Access deny" : @"Доступ запрещён";
-            public static string MenuAccessAllow => Lang == EnumLang.English ? @"Access allow" : @"Доступ разрешён";
+            public static string Login => Lang == EnumLang.English ? @"Login" : @"Логин";
+            public static string MenuAccess => Lang == EnumLang.English ? @"Menu access" : @"Доступ к меню";
+            public static string MenuAccessDeny => Lang == EnumLang.English ? @"Menu access denied" : @"Доступ к меню запрещён";
+            public static string MenuAccessAllow => Lang == EnumLang.English ? @"Menu access allowed" : @"Доступ к меню разрешён";
             public static string MenuInfo => Lang == EnumLang.English ? @"Info" : @"Информация";
+            #endregion
+            #region Action
+            public static string ActionAccessNone => Lang == EnumLang.English ? @"No access to the actions" : @"Доступ к действиям не предусмотрен";
+            public static string ActionAccessDeny => Lang == EnumLang.English ? @"Access to actions denied" : @"Доступ к действиям запрещён";
+            public static string ActionAccessAllow => Lang == EnumLang.English ? @"Access to actions allowed" : @"Доступ к действиям разрешён";
+            #endregion
+            #region Section
+            public static string SectionAccessNone => Lang == EnumLang.English ? @"No access to the section" : @"Доступ к разделу не предусмотрен";
+            public static string SectionAccessDeny => Lang == EnumLang.English ? @"Section access denied" : @"Доступ к разделу запрещён";
+            public static string SectionAccessAllow => Lang == EnumLang.English ? @"Section access allowed" : @"Доступ к разделу разрешён";
+            #endregion
+            #region Item
+            public static string ItemAccessNone => Lang == EnumLang.English ? @"No access to the item" : @"Доступ к разделу не предусмотрен";
+            public static string ItemAccessDeny => Lang == EnumLang.English ? @"Item access denied" : @"Доступ к элементу запрещён";
+            public static string ItemAccessAllow => Lang == EnumLang.English ? @"Item access allowed" : @"Доступ к элементу разрешён";
             #endregion
             #region Chart
             public static string Chart => Lang == EnumLang.English ? @"Chart" : @"Диаграмма";
@@ -90,8 +107,8 @@ namespace BlazorCore.Utils
             public static string DialogButtonCancel => Lang == EnumLang.English ? @"Cancel" : @"Отмена";
             public static string DialogButtonNo => Lang == EnumLang.English ? @"No" : @"Нет";
             public static string DialogResultSuccess => Lang == EnumLang.English ? @"The operation was performed successfully." : @"Операция выполнена успешно.";
-            public static string DialogResultCancel => Lang == EnumLang.English ? 
-                @"Cancel operation. The necessary conditions may not have been met." : 
+            public static string DialogResultCancel => Lang == EnumLang.English ?
+                @"Cancel operation. The necessary conditions may not have been met." :
                 @"Отмена операции. Возможно, не выполнены необходимые условия.";
             public static string DialogResultFail => Lang == EnumLang.English ? @"Operation error!" : @"Ошибка выполнения операции!";
             #endregion
@@ -142,7 +159,7 @@ namespace BlazorCore.Utils
             public static string SupportCreatio =>
                 Lang == EnumLang.English
                     ? @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/"
-                    : @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/"; 
+                    : @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/";
             #endregion
             #region Support
             public static string SupportTitle => Lang == EnumLang.English ? @"Support service" : @"Служба поддержки";
@@ -289,9 +306,9 @@ namespace BlazorCore.Utils
             #region Main
 
             public static string Index => Lang == EnumLang.English ? @"DeviceControl" : @"Управление устройствами";
-            public static string IndexContinue => Lang == EnumLang.English 
-                ? @"To continue, click on the desired section on the left pane."
-                : @"Для продолжения работы кликните по нужному разделу на левой панели.";
+            public static string IndexContinue => Lang == EnumLang.English
+                ? @"Click on a section in the panel to continue."
+                : @"Для продолжения работы кликните по разделу на панели.";
             public static string SqlServerDebug => "CREATIO";
             public static string SqlServerRelease => "PALYCH";
             public static string CallbackEmail => Lang == EnumLang.English ?
@@ -301,7 +318,9 @@ namespace BlazorCore.Utils
             #endregion
             #region Methods
             public static string MethodOnInitializedAsync => Lang == EnumLang.English ? @"Method OnInitializedAsync" : @"Метод OnInitializedAsync";
-
+            public static string MethodSetParametersAsync => Lang == EnumLang.English ? @"Method SetParametersAsync" : @"Метод SetParametersAsync";
+            public static string MethodItemSelectAsync => Lang == EnumLang.English ? @"Method ItemSelectAsync" : @"Метод ItemSelectAsync";
+            public static string Method => Lang == EnumLang.English ? @"Method" : @"Метод";
             #endregion
             #region Комплексы промышленных устройств
             public static string DevicesTitle => Lang == EnumLang.English ? @"Complexes of industrial devices" : @"Комплексы промышленных устройств";
@@ -338,6 +357,7 @@ namespace BlazorCore.Utils
             public static string SectionPrinters => Lang == EnumLang.English ? @"Printers" : @"Принтеры";
             public static string SectionPrinterTypes => Lang == EnumLang.English ? @"Printer types" : @"Типы принтеров";
             public static string SectionHosts => Lang == EnumLang.English ? @"Hosts" : @"Хосты";
+            public static string SectionLabels => Lang == EnumLang.English ? @"Labels" : @"Этикетки";
             public static string SectionScales => Lang == EnumLang.English ? @"Devices" : @"Устройства";
             public static string SectionResources => Lang == EnumLang.English ? @"Resources" : @"Ресурсы";
             public static string SectionTemplateResources => Lang == EnumLang.English ? @"Template resources" : @"Ресурсы шаблонов";
@@ -345,185 +365,260 @@ namespace BlazorCore.Utils
             public static string SectionWeithingFacts => Lang == EnumLang.English ? @"Weithing facts" : @"Взвешивания";
             public static string SectionNomenclatures => Lang == EnumLang.English ? @"Nomenclatures" : @"Номенклатура";
             public static string SectionWorkShops => Lang == EnumLang.English ? @"Workshops" : @"Цеха";
+            public static string SectionPrinterResourceRef => Lang == EnumLang.English ? @"Printer resources" : @"Ресурсы принтера";
+            public static string SectionLogs => Lang == EnumLang.English ? @"Logs" : @"Логи";
             #endregion
             #region Tables
-            public const string Table = @"Таблица";
-            public const string TableReadData = @"Прочитать данные";
-            public const string TableActions = @"Действия";
-            public const string TableActionsIsDeny = @"Действия недоступны";
+            public const string TableActionAdd = @"Добавить";
+            public const string TableActionCancel = @"Отмена";
+            public const string TableActionClear = @"Очистить";
+            public const string TableActionCopy = @"Копировать";
+            public const string TableActionDelete = @"Удалить навсегда";
             public const string TableActionEdit = @"Редактировать";
             public const string TableActionFill = @"Заполнить";
-            public const string TableActionAdd = @"Добавить";
-            public const string TableActionNew = @"Новый";
-            public const string TableActionClear = @"Очистить";
             public const string TableActionMarked = @"Пометить на удаление";
-            public const string TableActionDelete = @"Удалить навсегда";
-            public const string TableActionCopy = @"Копировать";
-            public const string TableActionCancel = @"Отмена";
+            public const string TableActionNew = @"Новый";
             public const string TableActionSave = @"Сохранить";
-            public const string TableFieldId = @"ID";
-            public const string TableFieldName = @"Наименование";
-            public const string TableFieldLine = @"Линия";
-            public const string TableFieldRow = @"Строка";
-            public const string TableFieldFile = @"Файл";
-            public const string TableFieldMember = @"Метод";
-            public const string TableFieldIcon = @"Иконка";
-            public const string TableFieldMessage = @"Сообщение";
-            public const string TableFieldPluDescription = @"Для переноса строки используйте символ `|`";
-            public const string TableFieldType = @"Тип";
-            public const string TableFieldTitle = @"Заголовок";
+            public const string TableActions = @"Действия";
+            public const string TableActionsIsDeny = @"Действия недоступны";
+            public const string TableFieldAccessLevel = @"Уровень доступа";
+            public const string TableFieldActive = @"Активно";
+            public const string TableFieldApp = @"Программа";
+            public const string TableFieldBarCodeTypeId = @"ID типа ШК";
+            public const string TableFieldBrand = @"Brand";
             public const string TableFieldCategoryId = @"ID категории";
             public const string TableFieldCategoryName = @"Категория";
+            public const string TableFieldChangeDt = @"Дата измнения";
+            public const string TableFieldCheckGtin = @"v";
+            public const string TableFieldCheckWeight = @"Весовая продукция";
+            public const string TableFieldCode = @"Код";
+            public const string TableFieldComment = @"Комментарий";
+            public const string TableFieldConsumerName = @"ConsumerName";
+            public const string TableFieldContragentId = @"ID контрагента";
+            public const string TableFieldCount = @"Количество";
+            public const string TableFieldCreateDt = @"Дата создания";
+            public const string TableFieldDayOfWeek = @"День недели";
+            public const string TableFieldDescription = @"Описание";
+            public const string TableFieldDeviceComPort = @"COM-порт";
+            public const string TableFieldDeviceIp = @"IP устройства";
+            public const string TableFieldDeviceMac = @"MAC устройства";
+            public const string TableFieldDeviceNumber = @"Номер устройства";
+            public const string TableFieldDevicePort = @"Порт устройства";
+            public const string TableFieldDeviceReceiveTimeout = @"Таймаут приёма";
+            public const string TableFieldDeviceSendTimeout = @"Таймаут отправки";
+            public const string TableFieldEan13 = @"EAN13";
+            public const string TableFieldFile = @"Файл";
+            public const string TableFieldGln = @"Gln";
+            public const string TableFieldGoodsBoxQuantly = @"Вложений в короб";
+            public const string TableFieldGoodsBruttoWeight = @"Вес брутто";
+            public const string TableFieldGoodsDescription = @"Описание товара";
+            public const string TableFieldGoodsFullName = @"Полное наименование";
+            public const string TableFieldGoodsName = @"Товар";
+            public const string TableFieldGoodsTareWeight = @"Тара";
+            public const string TableFieldGtin = @"GTIN";
+            public const string TableFieldGuidMercury = @"GUID Mercury";
+            public const string TableFieldHost = @"Хост";
+            public const string TableFieldIcon = @"Иконка";
+            public const string TableFieldId = @"ID";
+            public const string TableFieldIdRRef = @"ID 1C";
+            public const string TableFieldIdRref = @"ID 1C";
             public const string TableFieldImageData = @"ImageData";
             public const string TableFieldImageDataInfo = @"Информация";
+            public const string TableFieldIsClose = @"IsClose";
+            public const string TableFieldItf14 = @"ITF14";
+            public const string TableFieldKneding = @"Взвешено";
+            public const string TableFieldLevel = @"Уровень";
+            public const string TableFieldLine = @"Линия";
+            public const string TableFieldLowerWeightThreshold = @"Нижнее значение веса короба";
+            public const string TableFieldMarked = @"В архиве";
+            public const string TableFieldMember = @"Метод";
+            public const string TableFieldMessage = @"Сообщение";
+            public const string TableFieldModifiedDate = @"Дата редактирования";
+            public const string TableFieldName = @"Наименование";
+            public const string TableFieldNameFull = @"Полное наименование";
+            public const string TableFieldNetWeight = @"Вес нетто";
+            public const string TableFieldNomenclatureId = @"ID номенклатуры";
+            public const string TableFieldNomenclatureName = @"Номенклатура";
+            public const string TableFieldNomenclatureType = @"Тип номенклатуры";
+            public const string TableFieldNomenclatureUnitId = @"ID юнита номенклатуры";
+            public const string TableFieldNominalWeight = @"Номинальный вес короба";
+            public const string TableFieldPackQuantly = @"PackQuantly";
+            public const string TableFieldPackTypeId = @"PackTypeId";
+            public const string TableFieldPackWeight = @"PackWeight";
+            public const string TableFieldPlu = @"PLU";
+            public const string TableFieldPluDescription = @"Для переноса строки используйте символ `|`";
+            public const string TableFieldProductDate = @"Дата продукции";
             public const string TableFieldProductionFacilityName = @"Площадка";
-            public const string TableFieldDeviceIp = @"IP устройства";
-            public const string TableFieldIdRref = @"ID 1C";
-            public const string TableFieldDevicePort = @"Порт устройства";
-            public const string TableFieldDeviceMac = @"MAC устройства";
-            public const string TableFieldDeviceSendTimeout = @"Таймаут отправки";
-            public const string TableFieldDeviceReceiveTimeout = @"Таймаут приёма";
-            public const string TableFieldDeviceComPort = @"COM-порт";
-            public const string TableFieldDeviceNumber = @"Номер устройства";
-            public const string TableFieldUseOrder = @"Использовать заказ";
+            public const string TableFieldRegNum = @"#";
+            public const string TableFieldResource = @"Ресурс";
+            public const string TableFieldRow = @"Строка";
+            public const string TableFieldScale = @"Устройство";
+            public const string TableFieldScaleFactor = @"Scale factor";
+            public const string TableFieldScaleId = @"ID весов";
+            public const string TableFieldSettingsFile = @"Файл настроек";
+            public const string TableFieldShelfLifeDays = @"Срок годности (суток)";
+            public const string TableFieldSscc = @"SSCC";
+            public const string TableFieldState = @"Статус";
+            public const string TableFieldStorage = @"Склад";
+            public const string TableFieldTareWeight = @"Вес тары";
+            public const string TableFieldTemplate = @"Шаблон";
+            public const string TableFieldTemplateDefault = @"Шаблон по-умолчанию";
+            public const string TableFieldTemplateId = @"ID шаблона";
             public const string TableFieldTemplateIdDefault = @"ID шаблона";
             public const string TableFieldTemplateIdSeries = @"ID серии";
             public const string TableFieldTemplateSeries = @"Шаблон суммарной этикетки";
-            public const string TableFieldTemplateDefault = @"Шаблон по-умолчанию";
+            public const string TableFieldTitle = @"Заголовок";
+            public const string TableFieldType = @"Тип";
+            public const string TableFieldUid = @"UUID";
+            public const string TableFieldUpperWeightThreshold = @"Верхнее значение веса короба";
+            public const string TableFieldUseOrder = @"Использовать заказ";
+            public const string TableFieldUser = @"Пользователь";
+            public const string TableFieldValue = @"Значение";
+            public const string TableFieldVatRate = @"Ставка НДС";
+            public const string TableFieldVersion = @"Версия";
+            public const string TableFieldWeithingDate = @"Дата взвешивания";
             public const string TableFieldWorkShopId = @"ID цеха";
             public const string TableFieldWorkShopName = @"Цех";
-            public const string TableFieldScaleFactor = @"Scale factor";
-            public const string TableFieldNameFull = @"Полное наименование";
-            public const string TableFieldDescription = @"Описание";
-            public const string TableFieldComment = @"Комментарий";
             public const string TableFieldXml = @"XML";
-            public const string TableFieldBrand = @"Brand";
-            public const string TableFieldGuidMercury = @"GUID Mercury";
-            public const string TableFieldNomenclatureType = @"Тип номенклатуры";
-            public const string TableFieldVatRate = @"Ставка НДС";
-            public const string TableFieldCode = @"Код";
-            public const string TableFieldModifiedDate = @"Дата редактирования";
-            public const string TableFieldIdRRef = @"ID 1C";
-            public const string TableFieldStorage = @"Склад";
-            public const string TableFieldState = @"Статус";
-            public const string TableFieldScale = @"Устройство";
-            public const string TableFieldScaleId = @"ID весов";
-            public const string TableFieldUid = @"UUID";
-            public const string TableFieldIsClose = @"IsClose";
-            public const string TableFieldSscc = @"SSCC";
-            public const string TableFieldValue = @"Значение";
-            public const string TableFieldMarked = @"В архиве";
-            public const string TableFieldSettingsFile = @"Файл настроек";
-            public const string TableFieldPackWeight = @"PackWeight";
-            public const string TableFieldPackQuantly = @"PackQuantly";
-            public const string TableFieldPackTypeId = @"PackTypeId";
-            public const string TableFieldBarCodeTypeId = @"ID типа ШК";
-            public const string TableFieldNomenclatureId = @"ID номенклатуры";
-            public const string TableFieldNomenclatureName = @"Номенклатура";
-            public const string TableFieldNomenclatureUnitId = @"ID юнита номенклатуры";
-            public const string TableFieldContragentId = @"ID контрагента";
-            public const string TableFieldGoodsName = @"Товар";
-            public const string TableFieldGoodsFullName = @"Полное наименование";
-            public const string TableFieldGoodsDescription = @"Описание товара";
-            public const string TableFieldTemplateId = @"ID шаблона";
-            public const string TableFieldTemplate = @"Шаблон";
-            public const string TableFieldResource = @"Ресурс";
-            public const string TableFieldGtin = @"GTIN";
-            public const string TableFieldEan13 = @"EAN13";
-            public const string TableFieldItf14 = @"ITF14";
-            public const string TableFieldShelfLifeDays = @"Срок годности (суток)";
-            public const string TableFieldGoodsTareWeight = @"Тара";
-            public const string TableFieldGoodsBruttoWeight = @"Вес брутто";
-            public const string TableFieldGoodsBoxQuantly = @"Вложений в короб";
-            public const string TableFieldConsumerName = @"ConsumerName";
-            public const string TableFieldGln = @"Gln";
-            public const string TableFieldPlu = @"PLU";
-            public const string TableFieldActive = @"Активно";
             public const string TableFieldZebraPrinter = @"Принтер";
-            public const string TableFieldZebraPrinterIp = @"IP-адрес";
-            public const string TableFieldZebraPrinterPort = @"Порт принтера";
-            public const string TableFieldZebraPrinterMac = @"MAC-адрес";
-            public const string TableFieldZebraPrinterPeelOffSet = @"Смещение";
             public const string TableFieldZebraPrinterDarknessLevel = @"Уровень темноты";
-            public const string TableFieldZebraPrinterType = @"Тип принтера";
+            public const string TableFieldZebraPrinterIp = @"IP-адрес";
+            public const string TableFieldZebraPrinterMac = @"MAC-адрес";
             public const string TableFieldZebraPrinterPassword = @"Пароль принтера";
-            public const string TableFieldUpperWeightThreshold = @"Верхнее значение веса короба";
-            public const string TableFieldNominalWeight = @"Номинальный вес короба";
-            public const string TableFieldLowerWeightThreshold = @"Нижнее значение веса короба";
-            public const string TableFieldCheckWeight = @"Весовая продукция";
-            public const string TableFieldCheckGtin = @"v";
-            public const string TableFieldHost = @"Хост";
-            public const string TableFieldWeithingDate = @"Дата взвешивания";
-            public const string TableFieldCreateDt = @"Дата создания";
-            public const string TableFieldChangeDt = @"Дата измнения";
-            public const string TableFieldProductDate = @"Дата продукции";
-            public const string TableFieldNetWeight = @"Вес нетто";
-            public const string TableFieldTareWeight = @"Вес тары";
-            public const string TableFieldRegNum = @"#";
-            public const string TableFieldKneding = @"Взвешено";
-            public const string TableFieldCount = @"Количество";
-            public const string TableFieldDayOfWeek = @"День недели";
-            public const string TableFieldApp = @"Программа";
-            public const string TableFieldVersion = @"Версия";
-            public const string TableFieldUser = @"Пользователь";
-            public const string TableFieldLevel = @"Уровень";
-            public const string TableFieldAccessLevel = @"Уровень доступа";
+            public const string TableFieldZebraPrinterPeelOffSet = @"Смещение";
+            public const string TableFieldZebraPrinterPort = @"Порт принтера";
+            public const string TableFieldZebraPrinterType = @"Тип принтера";
+            public const string TableReadData = @"Прочитать данные";
+            public const string Table = @"Таблица";
             #endregion
             #region Item
-            public const string ItemTitlePrinter = @"Принтер";
-            public const string ItemTitleBarCodeType = @"Тип ШК";
-            public const string ItemTitleContragents = @"Контрагент";
-            public const string ItemTitleHosts = @"Хост";
-            public const string ItemTitleLabels = @"Этикетка";
-            public const string ItemTitleNomenclature = @"Номенклатура";
-            public const string ItemTitleOrders = @"Заказ";
-            public const string ItemTitleOrderStatus = @"Статус заказа";
-            public const string ItemTitleOrderTypes = @"Тип заказа";
-            public const string ItemTitlePlu = @"ПЛУ";
-            public const string ItemTitleProductionFacility = @"ProductionFacility";
-            public const string ItemTitleProductSeries = @"ProductSeries";
-            public const string ItemTitleScales = @"Устройство";
-            public const string ItemTitleSsccStorage = @"SsccStorage";
-            public const string ItemTitleTemplateResources = @"Ресурс шаблона";
-            public const string ItemTitleTemplates = @"Шаблон";
-            public const string ItemTitleWeithingFact = @"Взвешивание";
-            public const string ItemTitleWorkShop = @"WorkShop";
-            public const string ItemTitlePrinterResourceRef = @"Ресурс принтера";
-            public const string ItemTitlePrinterType = @"Тип принтера";
-            public const string ItemTitleLog = @"Лог";
+            public static string ItemTitleBarcode => Lang == EnumLang.English ? @"Barcode" : @"Штрих-код";
+            public static string ItemTitleBarcodeType => Lang == EnumLang.English ? @"Barcode type" : @"Тип штрих-кода";
+            public static string ItemTitleContragent => Lang == EnumLang.English ? @"Counterparty" : @"Контрагент";
+            public static string ItemTitleHost => Lang == EnumLang.English ? @"Host" : @"Хост";
+            public static string ItemTitleLabel => Lang == EnumLang.English ? @"Label" : @"Этикетка";
+            public static string ItemTitleLog => Lang == EnumLang.English ? @"Log" : @"Тип Лог";
+            public static string ItemTitleNomenclature => Lang == EnumLang.English ? @"Nomenclature" : @"Номенклатура";
+            public static string ItemTitleOrderStatus => Lang == EnumLang.English ? @"Order status" : @"Статус заказа";
+            public static string ItemTitleOrderTypes => Lang == EnumLang.English ? @"Order type" : @"Тип заказа";
+            public static string ItemTitleOrders => Lang == EnumLang.English ? @"Order" : @"Заказ";
+            public static string ItemTitlePlu => Lang == EnumLang.English ? @"PLU" : @"Тип ПЛУ";
+            public static string ItemTitlePrinter => Lang == EnumLang.English ? @"Printer" : @"Принтер";
+            public static string ItemTitlePrinterResourceRef => Lang == EnumLang.English ? @"Printer resource" : @"Ресурс принтера";
+            public static string ItemTitlePrinterType => Lang == EnumLang.English ? @"Printer type" : @"Тип принтера";
+            public static string ItemTitleProductSeries => Lang == EnumLang.English ? @"Product Series" : @"Серия продукта";
+            public static string ItemTitleProductionFacility => Lang == EnumLang.English ? @"ProductionFacility" : @"Производственный комплекс";
+            public static string ItemTitleScales => Lang == EnumLang.English ? @"Weighing device" : @"Весовое устройство";
+            public static string ItemTitleTemplate => Lang == EnumLang.English ? @"Template" : @"Шаблон";
+            public static string ItemTitleTemplateResource => Lang == EnumLang.English ? @"Template resource" : @"Ресурс шаблона";
+            public static string ItemTitleWeithingFact => Lang == EnumLang.English ? @"Weighing" : @"Взвешивание";
+            public static string ItemTitleWorkShop => Lang == EnumLang.English ? @"Workshop" : @"Организация";
             #endregion
-            public static string GetItemTitle(EnumTable table)
+            public static string GetSectionTitle(EnumTableScales table) => table switch
             {
-                return table switch
-                {
-                    EnumTable.Printer => ItemTitlePrinter,
-                    EnumTable.BarCodeTypes => ItemTitleBarCodeType,
-                    EnumTable.Contragents => ItemTitleContragents,
-                    EnumTable.Hosts => ItemTitleHosts,
-                    EnumTable.Labels => ItemTitleLabels,
-                    EnumTable.Nomenclature => ItemTitleNomenclature,
-                    EnumTable.Orders => ItemTitleOrders,
-                    EnumTable.OrderStatus => ItemTitleOrderStatus,
-                    EnumTable.OrderTypes => ItemTitleOrderTypes,
-                    EnumTable.Plu => ItemTitlePlu,
-                    EnumTable.ProductionFacility => ItemTitleProductionFacility,
-                    EnumTable.ProductSeries => ItemTitleProductSeries,
-                    EnumTable.Scales => ItemTitleScales,
-                    EnumTable.TemplateResources => ItemTitleTemplateResources,
-                    EnumTable.Templates => ItemTitleTemplates,
-                    EnumTable.WeithingFact => ItemTitleWeithingFact,
-                    EnumTable.WorkShop => ItemTitleWorkShop,
-                    EnumTable.PrinterResourceRef => ItemTitlePrinterResourceRef,
-                    EnumTable.PrinterType => ItemTitlePrinterType,
-                    EnumTable.Logs => ItemTitleLog,
-                    _ => string.Empty,
-                };
-            }
+                EnumTableScales.BarcodeTypes => SectionBarcodes,
+                EnumTableScales.Contragents => SectionContragents,
+                EnumTableScales.Hosts => SectionHosts,
+                EnumTableScales.Labels => SectionLabels,
+                EnumTableScales.Logs => SectionLogs,
+                EnumTableScales.Nomenclature => SectionNomenclatures,
+                EnumTableScales.OrderStatus => SectionOrderStatuses,
+                EnumTableScales.OrderTypes => SectionOrderTypes,
+                EnumTableScales.Orders => SectionOrders,
+                EnumTableScales.Plu => SectionPlus,
+                EnumTableScales.Printer => SectionPrinters,
+                EnumTableScales.PrinterResourceRef => SectionPrinterResourceRef,
+                EnumTableScales.PrinterType => SectionPrinterTypes,
+                EnumTableScales.ProductSeries => SectionProductSeries,
+                EnumTableScales.ProductionFacility => SectionProductionFacilities,
+                EnumTableScales.Scales => SectionScales,
+                EnumTableScales.TemplateResources => SectionTemplateResources,
+                EnumTableScales.Templates => SectionTemplates,
+                EnumTableScales.WeithingFact => SectionWeithingFacts,
+                EnumTableScales.WorkShop => SectionWorkShops,
+                EnumTableScales.Default => throw new NotImplementedException(),
+                _ => string.Empty,
+            };
+            public static string GetItemTitle(EnumTableScales table) => table switch
+            {
+                EnumTableScales.BarcodeTypes => ItemTitleBarcodeType,
+                EnumTableScales.Contragents => ItemTitleContragent,
+                EnumTableScales.Hosts => ItemTitleHost,
+                EnumTableScales.Labels => ItemTitleLabel,
+                EnumTableScales.Logs => ItemTitleLog,
+                EnumTableScales.Nomenclature => ItemTitleNomenclature,
+                EnumTableScales.OrderStatus => ItemTitleOrderStatus,
+                EnumTableScales.OrderTypes => ItemTitleOrderTypes,
+                EnumTableScales.Orders => ItemTitleOrders,
+                EnumTableScales.Plu => ItemTitlePlu,
+                EnumTableScales.Printer => ItemTitlePrinter,
+                EnumTableScales.PrinterResourceRef => ItemTitlePrinterResourceRef,
+                EnumTableScales.PrinterType => ItemTitlePrinterType,
+                EnumTableScales.ProductSeries => ItemTitleProductSeries,
+                EnumTableScales.ProductionFacility => ItemTitleProductionFacility,
+                EnumTableScales.Scales => ItemTitleScales,
+                EnumTableScales.TemplateResources => ItemTitleTemplateResource,
+                EnumTableScales.Templates => ItemTitleTemplate,
+                EnumTableScales.WeithingFact => ItemTitleWeithingFact,
+                EnumTableScales.WorkShop => ItemTitleWorkShop,
+                EnumTableScales.Default => throw new NotImplementedException(),
+                _ => string.Empty,
+            };
+            public static string GetItemTitle(EnumTableScales table, int itemId) => table switch
+            {
+                EnumTableScales.BarcodeTypes => $"{ItemTitleBarcodeType}. ID {itemId}",
+                EnumTableScales.Contragents => $"{ItemTitleContragent}. ID {itemId}",
+                EnumTableScales.Hosts => $"{ItemTitleHost}. ID {itemId}",
+                EnumTableScales.Labels => $"{ItemTitleLabel}. ID {itemId}",
+                EnumTableScales.Logs => $"{ItemTitleLog}. ID {itemId}",
+                EnumTableScales.Nomenclature => $"{ItemTitleNomenclature}. ID {itemId}",
+                EnumTableScales.OrderStatus => $"{ItemTitleOrderStatus}. ID {itemId}",
+                EnumTableScales.OrderTypes => $"{ItemTitleOrderTypes}. ID {itemId}",
+                EnumTableScales.Orders => $"{ItemTitleOrders}. ID {itemId}",
+                EnumTableScales.Plu => $"{ItemTitlePlu}. ID {itemId}",
+                EnumTableScales.Printer => $"{ItemTitlePrinter}. ID {itemId}",
+                EnumTableScales.PrinterResourceRef => $"{ItemTitlePrinterResourceRef}. ID {itemId}",
+                EnumTableScales.PrinterType => $"{ItemTitlePrinterType}. ID {itemId}",
+                EnumTableScales.ProductSeries => $"{ItemTitleProductSeries}. ID {itemId}",
+                EnumTableScales.ProductionFacility => $"{ItemTitleProductionFacility}. ID {itemId}",
+                EnumTableScales.Scales => $"{ItemTitleScales}. ID {itemId}",
+                EnumTableScales.TemplateResources => $"{ItemTitleTemplateResource}. ID {itemId}",
+                EnumTableScales.Templates => $"{ItemTitleTemplate}. ID {itemId}",
+                EnumTableScales.WeithingFact => $"{ItemTitleWeithingFact}. ID {itemId}",
+                EnumTableScales.WorkShop => $"{ItemTitleWorkShop}. ID {itemId}",
+                EnumTableScales.Default => throw new NotImplementedException(),
+                _ => string.Empty,
+            };
+            public static string GetItemTitle(EnumTableScales table, Guid itemUid) => table switch
+            {
+                EnumTableScales.BarcodeTypes => $"{ItemTitleBarcodeType}. UID {itemUid}",
+                EnumTableScales.Contragents => $"{ItemTitleContragent}. UID {itemUid}",
+                EnumTableScales.Hosts => $"{ItemTitleHost}. UID {itemUid}",
+                EnumTableScales.Labels => $"{ItemTitleLabel}. UID {itemUid}",
+                EnumTableScales.Logs => $"{ItemTitleLog}. UID {itemUid}",
+                EnumTableScales.Nomenclature => $"{ItemTitleNomenclature}. UID {itemUid}",
+                EnumTableScales.OrderStatus => $"{ItemTitleOrderStatus}. UID {itemUid}",
+                EnumTableScales.OrderTypes => $"{ItemTitleOrderTypes}. UID {itemUid}",
+                EnumTableScales.Orders => $"{ItemTitleOrders}. UID {itemUid}",
+                EnumTableScales.Plu => $"{ItemTitlePlu}. UID {itemUid}",
+                EnumTableScales.Printer => $"{ItemTitlePrinter}. UID {itemUid}",
+                EnumTableScales.PrinterResourceRef => $"{ItemTitlePrinterResourceRef}. UID {itemUid}",
+                EnumTableScales.PrinterType => $"{ItemTitlePrinterType}. UID {itemUid}",
+                EnumTableScales.ProductSeries => $"{ItemTitleProductSeries}. UID {itemUid}",
+                EnumTableScales.ProductionFacility => $"{ItemTitleProductionFacility}. UID {itemUid}",
+                EnumTableScales.Scales => $"{ItemTitleScales}. UID {itemUid}",
+                EnumTableScales.TemplateResources => $"{ItemTitleTemplateResource}. UID {itemUid}",
+                EnumTableScales.Templates => $"{ItemTitleTemplate}. UID {itemUid}",
+                EnumTableScales.WeithingFact => $"{ItemTitleWeithingFact}. UID {itemUid}",
+                EnumTableScales.WorkShop => $"{ItemTitleWorkShop}. UID {itemUid}",
+                EnumTableScales.Default => throw new NotImplementedException(),
+                _ => string.Empty,
+            };
         }
 
         public static class MdmControl
         {
-            
+
         }
 
         [SupportedOSPlatform(@"windows")]

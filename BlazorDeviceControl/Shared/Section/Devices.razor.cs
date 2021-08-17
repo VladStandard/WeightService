@@ -15,7 +15,6 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) => Tooltip.Open(elementReference, "Прочитать данные", options);
         public List<DeviceEntity> Entities { get; set; }
         public DeviceEntity Entity { get; set; }
 

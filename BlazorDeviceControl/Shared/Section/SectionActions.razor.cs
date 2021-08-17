@@ -4,14 +4,13 @@
 using BlazorCore.DAL;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazorDeviceControl.Shared.Item
+namespace BlazorDeviceControl.Shared.Section
 {
-    public partial class EntityActions
+    public partial class SectionActions
     {
         #region Public and private fields and properties
 
-        [Parameter] public BaseEntity ParentItem { get; set; }
-        [Parameter] public BaseEntity ChildItem { get; set; }
+        [Parameter] public BaseEntity Item { get; set; }
 
         #endregion
     }

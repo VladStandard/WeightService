@@ -43,6 +43,7 @@ namespace BlazorCore.Models
         public AppSettingsEntity AppSettings = AppSettingsEntity.Instance;
         public delegate Task DelegateGuiRefreshAsync(bool continueOnCapturedContext);
         public delegate void DelegateGuiRefresh();
+        public string Page { get; set; }
 
         #endregion
 
@@ -75,7 +76,99 @@ namespace BlazorCore.Models
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
         }
 
-        public async Task ActionAsync<T>(EnumTable table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem) where T : BaseRazorEntity
+        //public void Action<T>(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem = null) where T : BaseRazorEntity
+        //{
+        //    RunTasks(LocalizationStrings.DeviceControl.MethodSetParametersAsync, "", LocalizationStrings.Share.DialogResultFail, "",
+        //        new List<Task> {
+        //            new(() => {
+        //                Console.WriteLine($"ActionAsync. table: {table}. tableAction: {tableAction}. item: {item}");
+        //                string title = string.Empty;
+        //                if (item is BaseIdEntity idEntity)
+        //                {
+        //                    idEntity = table switch
+        //                    {
+        //                        EnumTableScales.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity<BarCodeTypesEntity>(idEntity, tableAction),
+        //                        EnumTableScales.Contragents => AppSettings.DataAccess.ActionGetIdEntity<ContragentsEntity>(idEntity, tableAction),
+        //                        EnumTableScales.Hosts => AppSettings.DataAccess.ActionGetIdEntity<HostsEntity>(idEntity, tableAction),
+        //                        EnumTableScales.Nomenclature => AppSettings.DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
+        //                        EnumTableScales.OrderStatus => AppSettings.DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
+        //                        EnumTableScales.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity<OrderTypesEntity>(idEntity, tableAction),
+        //                        EnumTableScales.Plu => AppSettings.DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
+        //                        EnumTableScales.ProductionFacility => AppSettings.DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
+        //                        EnumTableScales.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
+        //                        EnumTableScales.Scales => AppSettings.DataAccess.ActionGetIdEntity<ScalesEntity>(idEntity, tableAction),
+        //                        EnumTableScales.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity<TemplateResourcesEntity>(idEntity, tableAction),
+        //                        EnumTableScales.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplatesEntity>(idEntity, tableAction),
+        //                        EnumTableScales.WorkShop => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
+        //                        EnumTableScales.WeithingFact => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
+        //                        EnumTableScales.Printer => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
+        //                        EnumTableScales.PrinterResourceRef => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceRefEntity>(idEntity, tableAction),
+        //                        EnumTableScales.PrinterType => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
+        //                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+        //                    };
+        //                    title = LocalizationStrings.DeviceControl.GetItemTitle(table, idEntity.Id);
+        //                }
+        //                else if (item is BaseUidEntity uidEntity)
+        //                {
+        //                    uidEntity = table switch
+        //                    {
+        //                        EnumTableScales.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
+        //                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+        //                    };
+        //                    title = LocalizationStrings.DeviceControl.GetItemTitle(table, uidEntity.Uid);
+        //                }
+
+        //                // Printer from ZebraPrinter.razor.
+        //                if (item is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
+        //                {
+        //                    zebraPrinterResourceRefEntity.Printer = (ZebraPrinterEntity)parentItem;
+        //                }
+
+        //                if (tableAction == EnumTableAction.Add)
+        //                {
+        //                    if (item is PluEntity pluEntity)
+        //                    {
+        //                        pluEntity.Scale = (ScalesEntity)parentItem;
+        //                    }
+        //                }
+
+        //                switch (tableAction)
+        //                {
+        //                    case EnumTableAction.Add:
+        //                    case EnumTableAction.Edit:
+        //                    case EnumTableAction.Copy:
+        //                        if (AppSettings.IdentityItem.AccessLevel == true)
+        //                        {
+        //                            Console.WriteLine($"ActionAsync. AppSettings.IdentityItem.AccessLevel: {AppSettings.IdentityItem.AccessLevel}");
+        //                            Dialog.OpenAsync<T>(title,
+        //                                new Dictionary<string, object>
+        //                                {
+        //                                    {"Item", item},
+        //                                    {"Table", table},
+        //                                    {"TableAction", tableAction},
+        //                                },
+        //                                new DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
+        //                        }
+        //                        break;
+        //                    case EnumTableAction.Delete:
+        //                        if (AppSettings.IdentityItem.AccessLevel == true)
+        //                        {
+        //                            AppSettings.DataAccess.ActionDeleteEntity(item);
+        //                        }
+        //                        break;
+        //                    case EnumTableAction.Mark:
+        //                        if (AppSettings.IdentityItem.AccessLevel == true)
+        //                        {
+        //                            AppSettings.DataAccess.ActionMarkedEntity(item);
+        //                        }
+        //                        break;
+        //                }
+        //              }),
+        //          }, true);
+        //}
+
+        [Obsolete(@"Deprecated method")]
+        public async Task ActionAsync<T>(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem = null) where T : BaseRazorEntity
         {
             await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> { new Task(delegate {
@@ -85,59 +178,35 @@ namespace BlazorCore.Models
                     {
                         idEntity = table switch
                         {
-                            EnumTable.BarCodeTypes => AppSettings.DataAccess.ActionGetIdEntity<BarCodeTypesEntity>(idEntity, tableAction),
-                            EnumTable.Contragents => AppSettings.DataAccess.ActionGetIdEntity<ContragentsEntity>(idEntity, tableAction),
-                            EnumTable.Hosts => AppSettings.DataAccess.ActionGetIdEntity<HostsEntity>(idEntity, tableAction),
-                            EnumTable.Nomenclature => AppSettings.DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
-                            EnumTable.OrderStatus => AppSettings.DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
-                            EnumTable.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity<OrderTypesEntity>(idEntity, tableAction),
-                            EnumTable.Plu => AppSettings.DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
-                            EnumTable.ProductionFacility => AppSettings.DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
-                            EnumTable.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
-                            EnumTable.Scales => AppSettings.DataAccess.ActionGetIdEntity<ScalesEntity>(idEntity, tableAction),
-                            EnumTable.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity<TemplateResourcesEntity>(idEntity, tableAction),
-                            EnumTable.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplatesEntity>(idEntity, tableAction),
-                            EnumTable.WorkShop => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
-                            EnumTable.WeithingFact => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
-                            EnumTable.Printer => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
-                            EnumTable.PrinterResourceRef => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceRefEntity>(idEntity, tableAction),
-                            EnumTable.PrinterType => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
+                            EnumTableScales.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity<BarCodeTypesEntity>(idEntity, tableAction),
+                            EnumTableScales.Contragents => AppSettings.DataAccess.ActionGetIdEntity<ContragentsEntity>(idEntity, tableAction),
+                            EnumTableScales.Hosts => AppSettings.DataAccess.ActionGetIdEntity<HostsEntity>(idEntity, tableAction),
+                            EnumTableScales.Nomenclature => AppSettings.DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
+                            EnumTableScales.OrderStatus => AppSettings.DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
+                            EnumTableScales.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity<OrderTypesEntity>(idEntity, tableAction),
+                            EnumTableScales.Plu => AppSettings.DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
+                            EnumTableScales.ProductionFacility => AppSettings.DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
+                            EnumTableScales.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
+                            EnumTableScales.Scales => AppSettings.DataAccess.ActionGetIdEntity<ScalesEntity>(idEntity, tableAction),
+                            EnumTableScales.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity<TemplateResourcesEntity>(idEntity, tableAction),
+                            EnumTableScales.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplatesEntity>(idEntity, tableAction),
+                            EnumTableScales.WorkShop => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
+                            EnumTableScales.WeithingFact => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
+                            EnumTableScales.Printer => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
+                            EnumTableScales.PrinterResourceRef => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceRefEntity>(idEntity, tableAction),
+                            EnumTableScales.PrinterType => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
                             _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
                         };
-                        title = table switch
-                        {
-                            EnumTable.BarCodeTypes => $"Штрих-код. ID {idEntity.Id}",
-                            EnumTable.Contragents => $"Контрагент. ID {idEntity.Id}",
-                            EnumTable.Hosts => $"Хост. ID {idEntity.Id}",
-                            EnumTable.Nomenclature => $"Номенклатура. ID {idEntity.Id}",
-                            EnumTable.OrderStatus => $"Статус заказа. ID {idEntity.Id}",
-                            EnumTable.OrderTypes => $"Тип заказа. ID {idEntity.Id}",
-                            EnumTable.Plu => $"PLU. ID {idEntity.Id}",
-                            EnumTable.ProductionFacility => $"Производственная площадка. ID {idEntity.Id}",
-                            EnumTable.ProductSeries => $"Серия продукта. ID {idEntity.Id}",
-                            EnumTable.Scales => $"Устройство. ID {idEntity.Id}",
-                            EnumTable.TemplateResources => $"Ресурс шаблона. ID {idEntity.Id}",
-                            EnumTable.Templates => $"Шаблон. ID {idEntity.Id}",
-                            EnumTable.WorkShop => $"Цех. ID {idEntity.Id}",
-                            EnumTable.WeithingFact => $"Взвешивание. ID {idEntity.Id}",
-                            EnumTable.Printer => $"Принтер Zebra. ID {idEntity.Id}",
-                            EnumTable.PrinterResourceRef => $"Ресурс принтера. ID {idEntity.Id}",
-                            EnumTable.PrinterType => $"Тип принтера. ID {idEntity.Id}",
-                            _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                        };
+                        title = LocalizationStrings.DeviceControl.GetItemTitle(table, idEntity.Id);
                     }
                     else if (item is BaseUidEntity uidEntity)
                     {
                         uidEntity = table switch
                         {
-                            EnumTable.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
+                            EnumTableScales.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
                             _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
                         };
-                        title = table switch
-                        {
-                            EnumTable.Logs => $"Лог. UID {uidEntity.Uid}",
-                            _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                        };
+                        title = LocalizationStrings.DeviceControl.GetItemTitle(table, uidEntity.Uid);
                     }
 
                     // Printer from ZebraPrinter.razor.
@@ -188,11 +257,12 @@ namespace BlazorCore.Models
                 })}, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
-        public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow)
+        [Obsolete(@"Deprecated method")]
+        public async Task ActionAsync(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow)
         {
             await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> { new Task(delegate {
-                    if (table == EnumTable.Default)
+                    if (table == EnumTableScales.Default)
                         return;
                     //if (item == null || item.EqualsDefault())
                     //    return;
@@ -237,8 +307,8 @@ namespace BlazorCore.Models
                             {
                                 switch (table)
                                 {
-                                    case EnumTable.Scales:
-                                    case EnumTable.Printer:
+                                    case EnumTableScales.Scales:
+                                    case EnumTableScales.Printer:
                                         if (!isNewWindow)
                                         {
                                             if (idItem != null)
@@ -281,6 +351,105 @@ namespace BlazorCore.Models
                             break;
                     }
                 })}, GuiRefreshAsync, true).ConfigureAwait(false);
+        }
+
+        public void Action(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow,
+            BaseEntity parentItem = null)
+        {
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(Action)}", "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        if (table == EnumTableScales.Default)
+                            return;
+                        //if (item == null || item.EqualsDefault())
+                        //    return;
+                        BaseIdEntity idItem = null;
+                        BaseUidEntity uidItem = null;
+                        switch (item)
+                        {
+                            case BaseIdEntity baseIdEntity:
+                                idItem = baseIdEntity;
+                                break;
+                            case BaseUidEntity baseUidEntity:
+                                uidItem = baseUidEntity;
+                                break;
+                        }
+                        // Debug log.
+                        if (AppSettings.IsDebug)
+                        {
+                            Console.WriteLine("--------------------------------------------------------------------------------");
+                            Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(ActionAsync)} (for Debug mode) ---------- ");
+                            Console.WriteLine($"{nameof(ActionAsync)}. {nameof(table)}: {table}. {nameof(tableAction)}: {tableAction}. {nameof(page)}: {page}. ");
+                            if (idItem != null)
+                            {
+                                Console.WriteLine($"{nameof(idItem)}: {idItem}");
+                                if (AppSettings.IdentityItem.AccessLevel == true)
+                                    Console.WriteLine($"Open page {page}/{idItem.Id}");
+                            }
+                            else if (uidItem != null)
+                            {
+                                Console.WriteLine($"{nameof(uidItem)}: {uidItem}");
+                                if (AppSettings.IdentityItem.AccessLevel == true)
+                                    Console.WriteLine($"Open page {page}/{uidItem.Uid}");
+                            }
+                            Console.WriteLine("--------------------------------------------------------------------------------");
+                        }
+
+                        switch (tableAction)
+                        {
+                            case EnumTableAction.Add:
+                            case EnumTableAction.Edit:
+                            case EnumTableAction.Copy:
+                                if (AppSettings.IdentityItem.AccessLevel == true)
+                                {
+                                    switch (table)
+                                    {
+                                        case EnumTableScales.Scales:
+                                        case EnumTableScales.Printer:
+                                            if (!isNewWindow)
+                                            {
+                                                if (idItem != null)
+                                                {
+                                                    Navigation.NavigateTo($"{page}/{idItem.Id}");
+                                                }
+                                                else if (uidItem != null)
+                                                {
+                                                    Navigation.NavigateTo($"{page}/{uidItem.Uid}");
+                                                }
+                                                else
+                                                {
+                                                    Navigation.NavigateTo("{page}");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (idItem != null)
+                                                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
+                                                else if (uidItem != null)
+                                                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
+                                                else
+                                                    await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                                            }
+                                            break;
+                                    }
+                                }
+                                break;
+                            case EnumTableAction.Delete:
+                                if (AppSettings.IdentityItem.AccessLevel == true)
+                                {
+                                    AppSettings.DataAccess.ActionDeleteEntity(item);
+                                }
+                                break;
+                            case EnumTableAction.Mark:
+                                if (AppSettings.IdentityItem.AccessLevel == true)
+                                {
+                                    AppSettings.DataAccess.ActionMarkedEntity(item);
+                                }
+                                break;
+                        }
+                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                    }),
+                }, true);
         }
 
         public string ChartDataFormat(object value) => ((int)value).ToString("####", CultureInfo.InvariantCulture);

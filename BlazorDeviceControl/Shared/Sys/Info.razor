@@ -20,7 +20,7 @@
                     <td>@LocalizationStrings.Share.ProgramVer</td>
                     @if (string.IsNullOrEmpty(ProgramVer))
                     {
-                        <td><DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/></td>
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
                     }
                     else
                     {
@@ -31,7 +31,7 @@
                     <td>@LocalizationStrings.Share.CoreVer</td>
                     @if (string.IsNullOrEmpty(CoreVer))
                     {
-                        <td><DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/></td>
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
                     }
                     else
                     {
@@ -42,7 +42,7 @@
                     <td>@LocalizationStrings.Share.HostName</td>
                     @if (string.IsNullOrEmpty(Environment.MachineName))
                     {
-                        <td><DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/></td>
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
                     }
                     else
                     {
@@ -53,7 +53,7 @@
                     <td>@LocalizationStrings.Share.SqlServer</td>
                     @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Server))
                     {
-                        <td><DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/></td>
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
                     }
                     else
                     {
@@ -64,7 +64,7 @@
                     <td>@LocalizationStrings.Share.SqlDb</td>
                     @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Db))
                     {
-                        <td><DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/></td>
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
                     }
                     else
                     {
@@ -82,7 +82,7 @@
                     }
                     @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Username))
                     {
-                        <td><DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/></td>
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
                     }
                     else
                     {
@@ -106,7 +106,7 @@
                     <td>@LocalizationStrings.Share.Language</td>
                     @if (TemplateLanguages == null)
                     {
-                        <td><DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/></td>
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
                     }
                     else
                     {
@@ -123,7 +123,7 @@
                     <td>@LocalizationStrings.Share.DebugMode</td>
                     @if (TemplateIsDebug == null)
                     {
-                        <td><DataLoad IsShowDiv=false DataLoadItem=BlazorCore.EnumDataLoad.None/></td>
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
                     }
                     else
                     {
@@ -136,11 +136,41 @@
                         </td>
                     }
                 </tr>
+                <tr>
+                    <td>@LocalizationStrings.Share.SectionRowCount</td>
+                    @if (AppSettings.JsonAppSettings == null)
+                    {
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
+                    }
+                    else
+                    {
+                        <td>
+                            <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.JsonAppSettings.SectionRowCount 
+                                Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.SectionRowCount)))
+                            />
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.Share.ItemRowCount</td>
+                    @if (AppSettings.JsonAppSettings == null)
+                    {
+                        <td><DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true /></td>
+                    }
+                    else
+                    {
+                        <td>
+                            <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.JsonAppSettings.ItemRowCount 
+                                Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ItemRowCount)))
+                            />
+                        </td>
+                    }
+                </tr>
             </tbody>
         </MudSimpleTable>
     </div>
 }
 else
 {
-    <DataLoad IsShowDiv=true DataLoadItem=EnumDataLoad.Loading/>
+    <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
 }

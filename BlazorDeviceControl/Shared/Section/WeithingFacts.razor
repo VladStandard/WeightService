@@ -9,9 +9,10 @@
     @* Header *@
     <h2 style="font-size: @AppSettings.FontSizeHeader;">
         @LocalizationStrings.DeviceControl.SectionWeithingFacts
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                      ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
-                      class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
+            <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
+                          ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
+                          class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
+                          MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
     </h2>
 
     <RadzenTabs>
@@ -55,25 +56,25 @@
                 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
                     @if (AppSettings.IdentityItem.AccessLevel == true)
                     {
-                        <RadzenButton Click=@(args => ActionAddAsync(EnumTable.WeithingFact, Item, null))
+                        <RadzenButton Click=@(args => ActionAddAsync(EnumTableScales.WeithingFact, Item, null))
                                       ButtonStyle="ButtonStyle.Secondary"
                                       Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
                                       Text=@LocalizationStrings.DeviceControl.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
-                        <RadzenButton Click=@(args => ActionEditAsync(EnumTable.WeithingFact, Item, null))
+                        <RadzenButton Click=@(args => ActionEditAsync(EnumTableScales.WeithingFact, Item, null))
                                       ButtonStyle="ButtonStyle.Secondary"
                                       Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                       Text=@LocalizationStrings.DeviceControl.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
-                        <RadzenButton Click=@(args => ActionMarkedAsync(EnumTable.WeithingFact, Item, null))
+                        <RadzenButton Click=@(args => ActionMarkedAsync(EnumTableScales.WeithingFact, Item, null))
                                       ButtonStyle="ButtonStyle.Secondary"
                                       Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                       Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
                         @if (AppSettings.IsDebug)
                         {
-                            <RadzenButton Click=@(args => ActionCopyAsync(EnumTable.WeithingFact, Item, null))
+                            <RadzenButton Click=@(args => ActionCopyAsync(EnumTableScales.WeithingFact, Item, null))
                                           ButtonStyle="ButtonStyle.Secondary"
                                           Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                           Text=@LocalizationStrings.DeviceControl.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
-                            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTable.WeithingFact, Item, null))
+                            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTableScales.WeithingFact, Item, null))
                                           ButtonStyle="ButtonStyle.Secondary"
                                           Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
                                           Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />

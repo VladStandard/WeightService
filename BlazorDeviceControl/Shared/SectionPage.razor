@@ -10,9 +10,10 @@
     @* Header *@
     <h2 style="font-size: @AppSettings.FontSizeHeader;">
         @GetHeader()
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                      ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
-                      class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
+            <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
+                          ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
+                          class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
+                          MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
     </h2>
 
     <RadzenTabs>
@@ -29,7 +30,7 @@
                     {
                         switch (Table)
                         {
-                            case EnumTable.BarCodeTypes:
+                            case EnumTableScales.BarcodeTypes:
                                 List<BarCodeTypesEntity> barCodeTypesEntities = new List<BarCodeTypesEntity>();
                                 foreach (BaseIdEntity entity in Entities)
                                 {
@@ -48,7 +49,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.Contragents:
+                            case EnumTableScales.Contragents:
                                 List<ContragentsEntity> contragentsEntities = new List<ContragentsEntity>();
                                 foreach (BaseIdEntity entity in Entities)
                                 {
@@ -67,7 +68,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.Hosts:
+                            case EnumTableScales.Hosts:
                                 List<HostsEntity> hostsEntities = new List<HostsEntity>();
                                 foreach (BaseIdEntity entity in Entities)
                                 {
@@ -92,7 +93,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.Nomenclature:
+                            case EnumTableScales.Nomenclature:
                                 List<NomenclatureEntity> nomenclatureEntities = new List<NomenclatureEntity>();
                                 foreach (BaseIdEntity entity in Entities)
                                 {
@@ -117,7 +118,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.ProductionFacility:
+                            case EnumTableScales.ProductionFacility:
                                 List<ProductionFacilityEntity> productionFacilityEntities = new List<ProductionFacilityEntity>();
                                 foreach (BaseIdEntity entity in Entities)
                                 {
@@ -138,7 +139,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.ProductSeries:
+                            case EnumTableScales.ProductSeries:
                                 List<ProductSeriesEntity> productSeries = new List<ProductSeriesEntity>();
                                 foreach (BaseIdEntity entity in Entities)
                                 {
@@ -163,7 +164,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.TemplateResources:
+                            case EnumTableScales.TemplateResources:
                                 List<TemplateResourcesEntity> templateResourcesEntities = new List<TemplateResourcesEntity>();
                                 foreach (BaseIdEntity entity in Entities)
                                 {
@@ -189,7 +190,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.Templates:
+                            case EnumTableScales.Templates:
                                 if (TemplateCategories == null)
                                 {
                                     <RadzenTextBox Style="width: 70%;" Disabled="true" TValue="string" Value="" />
@@ -225,7 +226,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.WorkShop:
+                            case EnumTableScales.WorkShop:
                                 List<WorkshopEntity> workshopEntities = new List<WorkshopEntity>();
                                 foreach (BaseIdEntity entity in Entities)
                                 {
@@ -249,7 +250,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTable.PrinterType:
+                            case EnumTableScales.PrinterType:
                                 List<ZebraPrinterTypeEntity> zebraPrinterTypeEntities = new List<ZebraPrinterTypeEntity>();
                                 foreach (BaseIdEntity entity in Entities)
                                 {
@@ -310,7 +311,7 @@
             <RadzenTabsItem Text=@LocalizationStrings.Share.Chart>
                 @switch (Table)
                 {
-                    case EnumTable.Contragents:
+                    case EnumTableScales.Contragents:
                         @if (ContragentsChartCreated == null || ContragentsChartCreated.Length == 0 ||
                     ContragentsChartModified == null || ContragentsChartModified.Length == 0)
                         {
@@ -342,7 +343,7 @@
                             </RadzenChart>
                         }
                         break;
-                    case EnumTable.Nomenclature:
+                    case EnumTableScales.Nomenclature:
                         @if (NomenclaturesChartCreated == null || NomenclaturesChartCreated.Length == 0 ||
                     NomenclaturesChartModified == null || NomenclaturesChartModified.Length == 0)
                         {
@@ -374,15 +375,15 @@
                             </RadzenChart>
                         }
                         break;
-                    case EnumTable.ProductionFacility:
+                    case EnumTableScales.ProductionFacility:
                         break;
-                    case EnumTable.TemplateResources:
+                    case EnumTableScales.TemplateResources:
                         break;
-                    case EnumTable.Templates:
+                    case EnumTableScales.Templates:
                         break;
-                    case EnumTable.WorkShop:
+                    case EnumTableScales.WorkShop:
                         break;
-                    case EnumTable.PrinterType:
+                    case EnumTableScales.PrinterType:
                         break;
                 }
             </RadzenTabsItem>

@@ -19,8 +19,6 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) =>
-            Tooltip.Open(elementReference, LocalizationStrings.DeviceControl.TableReadData, options);
         public BaseIdEntity Item { get; set; }
         public List<WeithingFactSummaryEntity> Items { get; set; }
         public object[] Objects { get; set; }
@@ -83,7 +81,7 @@ namespace BlazorDeviceControl.Shared.Section
             try
             {
                 Item = entity;
-                await ActionEditAsync(EnumTable.WeithingFact, Item, null).ConfigureAwait(true);
+                await ActionEditAsync(EnumTableScales.WeithingFact, Item, null).ConfigureAwait(true);
             }
             catch (Exception ex)
             {
@@ -99,7 +97,7 @@ namespace BlazorDeviceControl.Shared.Section
             }
         }
 
-        private async Task ActionEditAsync(EnumTable table, BaseIdEntity item, BaseIdEntity parentEntity)
+        private async Task ActionEditAsync(EnumTableScales table, BaseIdEntity item, BaseIdEntity parentEntity)
         {
             // Backup
             //await AppSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
@@ -109,7 +107,7 @@ namespace BlazorDeviceControl.Shared.Section
             string title = LocalizationStrings.DeviceControl.GetItemTitle(table);
             switch (table)
             {
-                case EnumTable.Printer:
+                case EnumTableScales.Printer:
                     task = new Task(() =>
                     {
                         ActionAsync(table, EnumTableAction.Edit, item, LocalizationStrings.DeviceControl.UriRouteItemPrinter, false)
@@ -127,25 +125,25 @@ namespace BlazorDeviceControl.Shared.Section
                 }, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
-        private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionAddAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionCopyAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionDeleteAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionMarkedAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Mark, entity, parentEntity).ConfigureAwait(true);
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);

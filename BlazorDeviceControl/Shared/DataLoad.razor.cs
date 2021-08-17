@@ -11,9 +11,8 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        [Parameter] public bool IsShowDiv { get; set; }
+        [Parameter] public bool IsShowProgress { get; set; }
         [Parameter] public EnumDataLoad DataLoadItem { get; set; }
-        [Parameter] public bool IsShowProgress { get; set; } = true;
 
         #endregion
 
@@ -23,12 +22,6 @@ namespace BlazorDeviceControl.Shared
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
-            //RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
-            //    new List<Task> {
-            //        new(() => {
-            //            //
-            //        }),
-            //    }, GuiRefreshAsync, false);
             await GuiRefreshAsync(false).ConfigureAwait(false);
         }
 

@@ -20,7 +20,7 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        [Parameter] public EnumTable Table { get; set; }
+        [Parameter] public EnumTableScales Table { get; set; }
         [Parameter] public BaseIdEntity Item { get; set; }
         [Parameter] public EnumTableAction TableAction { get; set; }
         [Parameter] public EventCallback CallbackActionSaveAsync { get; set; }
@@ -152,9 +152,9 @@ namespace BlazorDeviceControl.Shared
             {
                 switch (Table)
                 {
-                    case EnumTable.BarCodeTypes:
+                    case EnumTableScales.BarcodeTypes:
                         break;
-                    case EnumTable.Hosts:
+                    case EnumTableScales.Hosts:
                         HostsEntity hosts = (HostsEntity)Item;
                         hosts.CreateDate ??= DateTime.Now;
                         hosts.ModifiedDate = DateTime.Now;
@@ -163,7 +163,7 @@ namespace BlazorDeviceControl.Shared
                         else
                             AppSettings.DataAccess.HostsCrud.UpdateEntity(hosts);
                         break;
-                    case EnumTable.Contragents:
+                    case EnumTableScales.Contragents:
                         ContragentsEntity contragents = (ContragentsEntity)Item;
                         contragents.CreateDate ??= DateTime.Now;
                         contragents.ModifiedDate = DateTime.Now;
@@ -172,7 +172,7 @@ namespace BlazorDeviceControl.Shared
                         else
                             AppSettings.DataAccess.ContragentsCrud.UpdateEntity(contragents);
                         break;
-                    case EnumTable.Nomenclature:
+                    case EnumTableScales.Nomenclature:
                         NomenclatureEntity nomenclature = (NomenclatureEntity)Item;
                         nomenclature.CreateDate ??= DateTime.Now;
                         nomenclature.ModifiedDate = DateTime.Now;
@@ -181,13 +181,13 @@ namespace BlazorDeviceControl.Shared
                         else
                             AppSettings.DataAccess.NomenclatureCrud.UpdateEntity(nomenclature);
                         break;
-                    case EnumTable.Orders:
+                    case EnumTableScales.Orders:
                         break;
-                    case EnumTable.OrderStatus:
+                    case EnumTableScales.OrderStatus:
                         break;
-                    case EnumTable.OrderTypes:
+                    case EnumTableScales.OrderTypes:
                         break;
-                    case EnumTable.Plu:
+                    case EnumTableScales.Plu:
                         PluEntity plu = (PluEntity)Item;
                         plu.ModifiedDate = DateTime.Now;
                         success = FieldControlDeny(plu.Scale, "Устройство");
@@ -225,7 +225,7 @@ namespace BlazorDeviceControl.Shared
                             }
                         }
                         break;
-                    case EnumTable.ProductionFacility:
+                    case EnumTableScales.ProductionFacility:
                         ProductionFacilityEntity productionFacility = (ProductionFacilityEntity)Item;
                         productionFacility.CreateDate ??= DateTime.Now;
                         productionFacility.ModifiedDate = DateTime.Now;
@@ -234,7 +234,7 @@ namespace BlazorDeviceControl.Shared
                         else
                             AppSettings.DataAccess.ProductionFacilityCrud.UpdateEntity(productionFacility);
                         break;
-                    case EnumTable.ProductSeries:
+                    case EnumTableScales.ProductSeries:
                         ProductSeriesEntity productSeries = (ProductSeriesEntity)Item;
                         productSeries.CreateDate ??= DateTime.Now;
                         if (TableAction == EnumTableAction.Add)
@@ -242,7 +242,7 @@ namespace BlazorDeviceControl.Shared
                         else
                             AppSettings.DataAccess.ProductSeriesCrud.UpdateEntity(productSeries);
                         break;
-                    case EnumTable.Scales:
+                    case EnumTableScales.Scales:
                         ScalesEntity scalesEntity = (ScalesEntity)Item;
                         scalesEntity.CreateDate = DateTime.Now;
                         scalesEntity.ModifiedDate = DateTime.Now;
@@ -267,7 +267,7 @@ namespace BlazorDeviceControl.Shared
                             }
                         }
                         break;
-                    case EnumTable.TemplateResources:
+                    case EnumTableScales.TemplateResources:
                         TemplateResourcesEntity templateResourcesEntity = (TemplateResourcesEntity)Item;
                         templateResourcesEntity.CreateDate ??= DateTime.Now;
                         templateResourcesEntity.ModifiedDate = DateTime.Now;
@@ -276,7 +276,7 @@ namespace BlazorDeviceControl.Shared
                         else
                             AppSettings.DataAccess.TemplateResourcesCrud.UpdateEntity(templateResourcesEntity);
                         break;
-                    case EnumTable.Templates:
+                    case EnumTableScales.Templates:
                         TemplatesEntity templateEntity = (TemplatesEntity)Item;
                         if (string.IsNullOrEmpty(templateEntity.CategoryId))
                         {
@@ -304,9 +304,9 @@ namespace BlazorDeviceControl.Shared
                             }
                         }
                         break;
-                    case EnumTable.WeithingFact:
+                    case EnumTableScales.WeithingFact:
                         break;
-                    case EnumTable.WorkShop:
+                    case EnumTableScales.WorkShop:
                         WorkshopEntity workshopEntity = (WorkshopEntity)Item;
                         workshopEntity.CreateDate ??= DateTime.Now;
                         workshopEntity.ModifiedDate = DateTime.Now;
@@ -315,7 +315,7 @@ namespace BlazorDeviceControl.Shared
                         else
                             AppSettings.DataAccess.WorkshopCrud.UpdateEntity(workshopEntity);
                         break;
-                    case EnumTable.Printer:
+                    case EnumTableScales.Printer:
                         ZebraPrinterEntity zebraPrinter = (ZebraPrinterEntity)Item;
                         zebraPrinter.CreateDate = DateTime.Now;
                         zebraPrinter.ModifiedDate = DateTime.Now;
@@ -328,7 +328,7 @@ namespace BlazorDeviceControl.Shared
                                 AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(zebraPrinter);
                         }
                         break;
-                    case EnumTable.PrinterResourceRef:
+                    case EnumTableScales.PrinterResourceRef:
                         ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity = (ZebraPrinterResourceRefEntity)Item;
                         zebraPrinterResourceRefEntity.CreateDate = DateTime.Now;
                         zebraPrinterResourceRefEntity.ModifiedDate = DateTime.Now;
@@ -357,7 +357,7 @@ namespace BlazorDeviceControl.Shared
                             }
                         }
                         break;
-                    case EnumTable.PrinterType:
+                    case EnumTableScales.PrinterType:
                         ZebraPrinterTypeEntity printerTypeEntity = (ZebraPrinterTypeEntity)Item;
                         if (TableAction == EnumTableAction.Add)
                         {

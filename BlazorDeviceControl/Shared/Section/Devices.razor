@@ -8,8 +8,10 @@
 {
     <h2>
         @LocalizationStrings.DeviceControl.DevicesTitle
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView())) ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 100px; margin-left: 0px"
-                      class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
+            <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
+                          ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
+                          class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
+                          MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
     </h2>
 
     <br style="margin-top: 50px" />

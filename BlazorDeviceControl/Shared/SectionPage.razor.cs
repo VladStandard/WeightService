@@ -20,14 +20,12 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        private void ShowTooltipGetData(ElementReference elementReference, TooltipOptions options = null) =>
-        Tooltip.Open(elementReference, LocalizationStrings.DeviceControl.TableReadData, options);
         ChartCountEntity[] ContragentsChartCreated { get; set; }
         ChartCountEntity[] ContragentsChartModified { get; set; }
         ChartCountEntity[] NomenclaturesChartCreated { get; set; }
         ChartCountEntity[] NomenclaturesChartModified { get; set; }
         [Parameter]
-        public EnumTable Table { get; set; }
+        public EnumTableScales Table { get; set; }
         [Parameter]
         public BaseIdEntity Entity { get; set; }
         [Parameter]
@@ -43,34 +41,34 @@ namespace BlazorDeviceControl.Shared
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
-            if (parameters.TryGetValue("Table", out EnumTable table)) { Table = table; }
+            if (parameters.TryGetValue("Table", out EnumTableScales table)) { Table = table; }
 
             await GetDataAsync(new Task(delegate
             {
                 Entities = null;
                 switch (Table)
                 {
-                    case EnumTable.Hosts:
+                    case EnumTableScales.Hosts:
                         Entities = AppSettings.DataAccess.HostsCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
                         break;
-                    case EnumTable.Plu:
+                    case EnumTableScales.Plu:
                         Entities = AppSettings.DataAccess.PluCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
                         break;
-                    case EnumTable.ProductionFacility:
+                    case EnumTableScales.ProductionFacility:
                         Entities = AppSettings.DataAccess.ProductionFacilityCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
                         break;
-                    case EnumTable.TemplateResources:
+                    case EnumTableScales.TemplateResources:
                         Entities = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
                         break;
-                    case EnumTable.Templates:
+                    case EnumTableScales.Templates:
                         if (TemplateCategories == null || TemplateCategories.Count == 0)
                             TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
                         if (string.IsNullOrEmpty(TemplateCategory))
@@ -91,12 +89,12 @@ namespace BlazorDeviceControl.Shared
                                 new FieldOrderEntity(EnumField.Title, EnumOrderDirection.Asc));
                         }
                         break;
-                    case EnumTable.WorkShop:
+                    case EnumTableScales.WorkShop:
                         Entities = AppSettings.DataAccess.WorkshopCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
                         break;
-                    case EnumTable.PrinterType:
+                    case EnumTableScales.PrinterType:
                         Entities = AppSettings.DataAccess.ZebraPrinterTypeCrud.GetEntities(null,
                         new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc));
                         break;
@@ -118,19 +116,19 @@ namespace BlazorDeviceControl.Shared
         {
             return Table switch
             {
-                EnumTable.BarCodeTypes => LocalizationStrings.DeviceControl.SectionBarCodeTypes,
-                EnumTable.Contragents => LocalizationStrings.DeviceControl.SectionContragents,
-                EnumTable.Orders => LocalizationStrings.DeviceControl.SectionOrderStatuses,
-                EnumTable.OrderStatus => LocalizationStrings.DeviceControl.SectionOrderStatuses,
-                EnumTable.OrderTypes => LocalizationStrings.DeviceControl.SectionOrderTypes,
-                EnumTable.Plu => LocalizationStrings.DeviceControl.SectionPlus,
-                EnumTable.ProductionFacility => LocalizationStrings.DeviceControl.SectionProductionFacilities,
-                EnumTable.ProductSeries => LocalizationStrings.DeviceControl.SectionProductSeries,
-                EnumTable.Scales => LocalizationStrings.DeviceControl.SectionScales,
-                EnumTable.TemplateResources => LocalizationStrings.DeviceControl.SectionTemplateResources,
-                EnumTable.Templates => LocalizationStrings.DeviceControl.SectionTemplates,
-                EnumTable.WeithingFact => LocalizationStrings.DeviceControl.SectionWeithingFacts,
-                EnumTable.WorkShop => LocalizationStrings.DeviceControl.SectionWorkShops,
+                EnumTableScales.BarcodeTypes => LocalizationStrings.DeviceControl.SectionBarCodeTypes,
+                EnumTableScales.Contragents => LocalizationStrings.DeviceControl.SectionContragents,
+                EnumTableScales.Orders => LocalizationStrings.DeviceControl.SectionOrderStatuses,
+                EnumTableScales.OrderStatus => LocalizationStrings.DeviceControl.SectionOrderStatuses,
+                EnumTableScales.OrderTypes => LocalizationStrings.DeviceControl.SectionOrderTypes,
+                EnumTableScales.Plu => LocalizationStrings.DeviceControl.SectionPlus,
+                EnumTableScales.ProductionFacility => LocalizationStrings.DeviceControl.SectionProductionFacilities,
+                EnumTableScales.ProductSeries => LocalizationStrings.DeviceControl.SectionProductSeries,
+                EnumTableScales.Scales => LocalizationStrings.DeviceControl.SectionScales,
+                EnumTableScales.TemplateResources => LocalizationStrings.DeviceControl.SectionTemplateResources,
+                EnumTableScales.Templates => LocalizationStrings.DeviceControl.SectionTemplates,
+                EnumTableScales.WeithingFact => LocalizationStrings.DeviceControl.SectionWeithingFacts,
+                EnumTableScales.WorkShop => LocalizationStrings.DeviceControl.SectionWorkShops,
                 _ => string.Empty
             };
         }
@@ -182,7 +180,7 @@ namespace BlazorDeviceControl.Shared
             }
         }
 
-        private async Task ActionEditAsync(EnumTable table, BaseIdEntity item, BaseIdEntity parentEntity)
+        private async Task ActionEditAsync(EnumTableScales table, BaseIdEntity item, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
@@ -191,7 +189,7 @@ namespace BlazorDeviceControl.Shared
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionAddAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionAddAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
@@ -200,7 +198,7 @@ namespace BlazorDeviceControl.Shared
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionCopyAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionCopyAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
@@ -209,7 +207,7 @@ namespace BlazorDeviceControl.Shared
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionDeleteAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionDeleteAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
@@ -218,7 +216,7 @@ namespace BlazorDeviceControl.Shared
             await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
-        private async Task ActionMarkedAsync(EnumTable table, BaseIdEntity entity, BaseIdEntity parentEntity)
+        private async Task ActionMarkedAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
         {
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;

@@ -2,6 +2,8 @@
 @using BlazorCore
 @using BlazorCore.DAL.DataModels
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Item
+@using BlazorDeviceControl.Shared.Section
 @inherits BlazorCore.Models.BaseRazorEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
@@ -12,22 +14,22 @@
             @LocalizationStrings.Share.SysLogs
             <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
                           ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
-                          class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled MouseEnter="@(args => ShowTooltipGetData(args))" />
+                          class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
+                          MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
         </MudElement>
 
         @if (Items == null)
         {
-            <DataLoad IsShowDiv=false DataLoadItem=EnumDataLoad.Loading />
+            <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
         }
         else
         {
-            <DataLoad IsShowDiv=false DataLoadItem=EnumDataLoad.Success IsShowProgress=false />
+            <DataLoad DataLoadItem=EnumDataLoad.Success IsShowProgress=false />
 
-            <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
             <RadzenGrid Data=@Items TItem="LogSummaryEntity"
                         RowSelect=@(args => RowSelectAsync(args))
                         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                        AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
+                        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
                 <Columns>
                     <RadzenGridColumn TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
                                       Title=@LocalizationStrings.DeviceControl.TableFieldCreateDt Type="date" Width="15%">
@@ -70,5 +72,5 @@
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
 }

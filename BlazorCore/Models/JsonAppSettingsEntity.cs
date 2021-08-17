@@ -22,6 +22,16 @@ namespace BlazorCore.Models
             get => Convert.ToBoolean(Configuration["IsDebug"]);
             set => Configuration["IsDebug"] = value.ToString();
         }
+        public int SectionRowCount
+        {
+            get => Convert.ToInt32(Configuration["SectionRowCount"]);
+            set => Configuration["SectionRowCount"] = value.ToString();
+        }
+        public int ItemRowCount
+        {
+            get => Convert.ToInt32(Configuration["ItemRowCount"]);
+            set => Configuration["ItemRowCount"] = value.ToString();
+        }
 
         public JsonAppSettingsEntity(IConfiguration configuration)
         {
@@ -34,7 +44,9 @@ namespace BlazorCore.Models
             return $"{nameof(Server)}: {Server}. " + 
                    $"{nameof(Db)}: {Db}. " + 
                    $"{strTrusted} " + 
-                   $"{nameof(IsDebug)}: {IsDebug}";
+                   $"{nameof(IsDebug)}: {IsDebug}. " + 
+                   $"{nameof(SectionRowCount)}: {SectionRowCount}. " + 
+                   $"{nameof(ItemRowCount)}: {ItemRowCount}. ";
         }
     }
 }

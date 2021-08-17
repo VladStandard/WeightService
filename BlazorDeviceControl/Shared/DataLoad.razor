@@ -3,43 +3,20 @@
 @using BlazorCore.Utils
 @inherits BlazorCore.Models.BaseRazorEntity
 
-@if (IsShowDiv == true)
+@switch (DataLoadItem)
 {
-    <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 25px;">
-        @switch (DataLoadItem)
-        {
-            case EnumDataLoad.Loading:
-                <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-                break;
-            case EnumDataLoad.Success:
-                <RadzenLabel Text=@LocalizationStrings.Share.DataLoadComplete Style="width: 20%" />
-                break;
-            case EnumDataLoad.Error:
-                <RadzenLabel Text=@LocalizationStrings.Share.DataLoadError Style="width: 20%" />
-                break;
-        }
-        if (IsShowProgress)
-        {
-        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-        }
-    </div>
+    case EnumDataLoad.Loading:
+        <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
+        break;
+    case EnumDataLoad.Success:
+        <RadzenLabel Text=@LocalizationStrings.Share.DataLoadComplete Style="width: 20%" />
+        break;
+    case EnumDataLoad.Error:
+        <RadzenLabel Text=@LocalizationStrings.Share.DataLoadError Style="width: 20%" />
+        break;
 }
-else
+
+@if (IsShowProgress)
 {
-    @switch (DataLoadItem)
-    {
-        case EnumDataLoad.Loading:
-            <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-            break;
-        case EnumDataLoad.Success:
-            <RadzenLabel Text=@LocalizationStrings.Share.DataLoadComplete Style="width: 20%" />
-            break;
-        case EnumDataLoad.Error:
-            <RadzenLabel Text=@LocalizationStrings.Share.DataLoadError Style="width: 20%" />
-            break;
-    }
-    if (IsShowProgress)
-    {
-        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-    }
+    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
 }

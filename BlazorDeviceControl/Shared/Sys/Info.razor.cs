@@ -28,14 +28,14 @@ namespace BlazorDeviceControl.Shared.Sys
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             
-            RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks(LocalizationStrings.DeviceControl.MethodSetParametersAsync, "", LocalizationStrings.Share.DialogResultFail, "",
             new List<Task> {
                 new(async() => {
-                        TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
-                        TemplateIsDebug = AppSettings.DataSource.GetTemplateIsDebug();
-                await GuiRefreshAsync(false).ConfigureAwait(false);
-              }),
-          }, true);
+                    TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
+                    TemplateIsDebug = AppSettings.DataSource.GetTemplateIsDebug();
+                    await GuiRefreshAsync(false).ConfigureAwait(false);
+                }),
+            }, true);
         }
 
         private void OnChange(object value, string name)
@@ -47,6 +47,7 @@ namespace BlazorDeviceControl.Shared.Sys
                     {
                         LocalizationStrings.Lang = lang;
                     }
+                    TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
                     break;
                 case nameof(TemplateIsDebug):
                     if (value is bool isDebug)
@@ -54,8 +55,19 @@ namespace BlazorDeviceControl.Shared.Sys
                         AppSettings.JsonAppSettings.IsDebug = isDebug;
                     }
                     break;
+                case nameof(AppSettings.JsonAppSettings.SectionRowCount):
+                    if (value is int sectionRowCount)
+                    {
+                        AppSettings.JsonAppSettings.SectionRowCount = sectionRowCount;
+                    }
+                    break;
+                case nameof(AppSettings.JsonAppSettings.ItemRowCount):
+                    if (value is int itemRowCount)
+                    {
+                        AppSettings.JsonAppSettings.ItemRowCount = itemRowCount;
+                    }
+                    break;
             }
-            TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
         }
 
         #endregion
