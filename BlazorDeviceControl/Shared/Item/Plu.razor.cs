@@ -82,52 +82,6 @@ namespace BlazorDeviceControl.Shared.Item
             }), false).ConfigureAwait(false);
         }
 
-        private async Task RowSelectAsync(BaseIdEntity entity,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                //
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-        }
-
-        private async Task RowDoubleClickAsync(BaseIdEntity entity,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                //
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-        }
-
         private void OnChange(object value, string name,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {

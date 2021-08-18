@@ -32,7 +32,7 @@ namespace BlazorDeviceControl.Shared.Section
                         Items = AppSettings.DataAccess.ScalesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             new FieldOrderEntity(EnumField.Description, EnumOrderDirection.Asc))
-                        .OrderBy(x => x.Description).ToList();
+                            .ToList();
                         await GuiRefreshAsync(false).ConfigureAwait(false);
                     }),
             }, true);

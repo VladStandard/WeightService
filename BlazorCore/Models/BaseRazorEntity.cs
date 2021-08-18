@@ -102,7 +102,7 @@ namespace BlazorCore.Models
                             EnumTableScales.WorkShop => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
                             EnumTableScales.WeithingFact => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
                             EnumTableScales.Printer => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
-                            EnumTableScales.PrinterResourceRef => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceRefEntity>(idEntity, tableAction),
+                            EnumTableScales.PrinterResource => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceEntity>(idEntity, tableAction),
                             EnumTableScales.PrinterType => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
                             _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
                         };
@@ -119,7 +119,7 @@ namespace BlazorCore.Models
                     }
 
                     // Printer from ZebraPrinter.razor.
-                    if (item is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
+                    if (item is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
                     {
                         zebraPrinterResourceRefEntity.Printer = (ZebraPrinterEntity)parentItem;
                     }
@@ -147,7 +147,7 @@ namespace BlazorCore.Models
                                         {"Table", table},
                                         {"TableAction", tableAction},
                                     },
-                                    new DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
+                                    new Radzen.DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
                             }
                             break;
                         case EnumTableAction.Delete:
@@ -166,7 +166,7 @@ namespace BlazorCore.Models
                 })}, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
-        public void Action(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow = false, BaseEntity parentItem = null)
+        public void Action(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, bool isNewWindow, BaseEntity parentItem = null)
         {
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(Action)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
@@ -186,27 +186,6 @@ namespace BlazorCore.Models
                                 uidItem = baseUidEntity;
                                 break;
                         }
-                        // Debug log.
-                        if (AppSettings.IsDebug)
-                        {
-                            Console.WriteLine("--------------------------------------------------------------------------------");
-                            Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(Action)} (for Debug mode) ---------- ");
-                            Console.WriteLine($"{nameof(Action)}. {nameof(table)}: {table}. {nameof(tableAction)}: {tableAction}. {nameof(page)}: {page}. ");
-                            if (idItem != null)
-                            {
-                                Console.WriteLine($"{nameof(idItem)}: {idItem}");
-                                if (AppSettings.IdentityItem.AccessLevel == true)
-                                    Console.WriteLine($"Open page {page}/{idItem.Id}");
-                            }
-                            else if (uidItem != null)
-                            {
-                                Console.WriteLine($"{nameof(uidItem)}: {uidItem}");
-                                if (AppSettings.IdentityItem.AccessLevel == true)
-                                    Console.WriteLine($"Open page {page}/{uidItem.Uid}");
-                            }
-                            Console.WriteLine("--------------------------------------------------------------------------------");
-                        }
-
                         switch (tableAction)
                         {
                             case EnumTableAction.Add:
@@ -218,30 +197,7 @@ namespace BlazorCore.Models
                                     {
                                         case EnumTableScales.Scales:
                                         case EnumTableScales.Printer:
-                                            if (!isNewWindow)
-                                            {
-                                                if (idItem != null)
-                                                {
-                                                    Navigation.NavigateTo($"{page}/{idItem.Id}");
-                                                }
-                                                else if (uidItem != null)
-                                                {
-                                                    Navigation.NavigateTo($"{page}/{uidItem.Uid}");
-                                                }
-                                                else
-                                                {
-                                                    Navigation.NavigateTo("{page}");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (idItem != null)
-                                                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
-                                                else if (uidItem != null)
-                                                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
-                                                else
-                                                    await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
-                                            }
+                                            RouteItemNavigate(item, isNewWindow);
                                             break;
                                     }
                                 }
@@ -493,7 +449,87 @@ namespace BlazorCore.Models
 
         #region Public and private methods - Actions
 
-        public async Task ItemCancelAsync(BaseEntity item, string page)
+        public void RouteItemNavigate(BaseEntity item, bool isNewWindow)
+        {
+            string page = string.Empty;
+            if (item is ZebraPrinterEntity)
+            {
+                page = LocalizationStrings.DeviceControl.UriRouteItemPrinter;
+            }
+            else if (item is ZebraPrinterTypeEntity)
+            {
+                page = LocalizationStrings.DeviceControl.UriRouteItemPrinterType;
+            }
+            else if (item is ScalesEntity)
+            {
+                page = LocalizationStrings.DeviceControl.UriRouteItemScale;
+            }
+
+            if (string.IsNullOrEmpty(page))
+                return;
+
+            if (!isNewWindow)
+            {
+                if (item is BaseIdEntity idItem)
+                {
+                    Navigation.NavigateTo($"{page}/{idItem.Id}");
+                }
+                else if (item is BaseUidEntity uidItem)
+                {
+                    Navigation.NavigateTo($"{page}/{uidItem.Uid}");
+                }
+                else
+                {
+                    Navigation.NavigateTo(page);
+                }
+            }
+            else
+            {
+                if (item is BaseIdEntity idItem)
+                {
+                    JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
+                }
+                else if (item is BaseUidEntity uidItem)
+                {
+                    JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
+                }
+                else
+                {
+                    JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                }
+            }
+        }
+
+        public void RouteSectionNavigate(BaseEntity item, bool isNewWindow)
+        {
+            string page = string.Empty;
+            if (item is ZebraPrinterEntity)
+            {
+                page = LocalizationStrings.DeviceControl.UriRouteSectionPrinters;
+            }
+            else if (item is ZebraPrinterTypeEntity)
+            {
+                page = LocalizationStrings.DeviceControl.UriRouteSectionPrinterTypes;
+            }
+            else if (item is ScalesEntity)
+            {
+                page = LocalizationStrings.DeviceControl.UriRouteSectionScales;
+            }
+
+            if (string.IsNullOrEmpty(page))
+                return;
+
+            if (!isNewWindow)
+            {
+                Navigation.NavigateTo(page);
+            }
+            else
+            {
+                JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+            }
+        }
+
+        public async Task ItemCancelAsync(BaseEntity item, bool isNewWindow)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(ItemCancelAsync)}", LocalizationStrings.Share.DialogResultSuccess,
@@ -506,41 +542,49 @@ namespace BlazorCore.Models
                             return;
                         if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
                             return;
-                        Navigation.NavigateTo(page);
+                        RouteSectionNavigate(item, isNewWindow);
                     })}, false);
         }
 
-        public async Task ItemSaveAsync(BaseEntity item, string pageSection, bool continueOnCapturedContext)
+        public async Task ItemSaveAsync(BaseEntity item, bool continueOnCapturedContext, bool isNewWindow)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasksWithQeustion(LocalizationStrings.Share.TableRecordSave, LocalizationStrings.Share.DialogResultSuccess,
                 LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel, "",
-                new List<Task> { new Task(delegate {
-                    if (item == null)
-                        return;
-                    if (item is BaseIdEntity idItem && idItem.EqualsDefault())
-                        return;
-                    if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
-                        return;
-                    if (item is BaseIdEntity idItem2)
-                    {
-                        if (idItem2 is ZebraPrinterEntity printerItem)
+                new List<Task> {
+                    new(() => {
+                        if (item == null)
+                            return;
+                        if (item is BaseIdEntity idItem && idItem.EqualsDefault())
+                            return;
+                        if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+                            return;
+                        if (item is BaseIdEntity idItem2)
                         {
-                            if (printerItem.Id == 0)
-                                AppSettings.DataAccess.ZebraPrinterCrud.SaveEntity(printerItem);
-                            else
-                                AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(printerItem);
+                            if (idItem2 is ZebraPrinterEntity printerItem)
+                            {
+                                if (printerItem.Id == 0)
+                                    AppSettings.DataAccess.ZebraPrinterCrud.SaveEntity(printerItem);
+                                else
+                                    AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(printerItem);
+                            }
+                            else if (idItem2 is ZebraPrinterTypeEntity printerTypeEntity)
+                            {
+                                if (printerTypeEntity.Id == 0)
+                                    AppSettings.DataAccess.ZebraPrinterTypeCrud.SaveEntity(printerTypeEntity);
+                                else
+                                    AppSettings.DataAccess.ZebraPrinterTypeCrud.UpdateEntity(printerTypeEntity);
+                            }
+                            else if (idItem2 is ScalesEntity scaleItem)
+                            {
+                                if (scaleItem.Id == 0)
+                                    AppSettings.DataAccess.ScalesCrud.SaveEntity(scaleItem);
+                                else
+                                    AppSettings.DataAccess.ScalesCrud.UpdateEntity(scaleItem);
+                            }
                         }
-                        else if (idItem2 is ScalesEntity scaleItem)
-                        {
-                            if (scaleItem.Id == 0)
-                                AppSettings.DataAccess.ScalesCrud.SaveEntity(scaleItem);
-                            else
-                                AppSettings.DataAccess.ScalesCrud.UpdateEntity(scaleItem);
-                        }
-                    }
-                    Navigation.NavigateTo(pageSection);
-                })}, continueOnCapturedContext);
+                        RouteSectionNavigate(item, isNewWindow);
+                    })}, continueOnCapturedContext);
         }
 
         #endregion

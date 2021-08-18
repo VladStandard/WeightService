@@ -212,9 +212,9 @@ namespace BlazorCore.DAL
                         zebraPrinterEntity.PrinterType = DataAccess.ZebraPrinterTypeCrud.GetEntity(zebraPrinterEntity.PrinterType.Id);
                 }
             }
-            else if (typeof(T) == typeof(ZebraPrinterResourceRefEntity))
+            else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
             {
-                var zebraPrinterResourceRefEntity = (ZebraPrinterResourceRefEntity)(object)entity;
+                var zebraPrinterResourceRefEntity = (ZebraPrinterResourceEntity)(object)entity;
                 if (!zebraPrinterResourceRefEntity.EqualsEmpty())
                 {
                     if (zebraPrinterResourceRefEntity.Printer != null)
@@ -416,9 +416,9 @@ namespace BlazorCore.DAL
             {
                 ((ZebraPrinterEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(ZebraPrinterResourceRefEntity))
+            else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
             {
-                ((ZebraPrinterResourceRefEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((ZebraPrinterResourceEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
             else if (typeof(T) == typeof(ZebraPrinterTypeEntity))
             {
@@ -521,7 +521,7 @@ namespace BlazorCore.DAL
             {
                 ((ZebraPrinterEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(ZebraPrinterResourceRefEntity))
+            else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
             {
                 //
             }

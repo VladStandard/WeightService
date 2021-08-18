@@ -16,14 +16,14 @@ using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
 {
-    public partial class PrinterResourceRef
+    public partial class PrinterResource
     {
         #region Public and private fields and properties
 
         public List<ZebraPrinterEntity> PrinterItems { get; set; } = null;
         public List<TemplateResourcesEntity> ResourceItems { get; set; } = null;
         [Parameter]
-        public ZebraPrinterResourceRefEntity Item { get; set; }
+        public ZebraPrinterResourceEntity Item { get; set; }
 
         #endregion
 

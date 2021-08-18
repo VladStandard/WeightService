@@ -16,7 +16,12 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Public and private methods
 
-        //
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            //RadzenButton buttonSave = Page.;
+        }
 
         #endregion
     }

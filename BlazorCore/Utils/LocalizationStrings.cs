@@ -26,6 +26,8 @@ namespace BlazorCore.Utils
             public static string DebugMode => Lang == EnumLang.English ? @"Debug mode" : @"Режим отладки";
             public static string SectionRowCount => Lang == EnumLang.English ? @"Rows count of the section table" : @"Количество строк таблицы раздела";
             public static string ItemRowCount => Lang == EnumLang.English ? @"Rows count of the item table" : @"Количество строк таблицы элемента";
+            public static string ButtonWidth => Lang == EnumLang.English ? @"Buttons width" : @"Ширина кнопок";
+            public static string ButtonHeight => Lang == EnumLang.English ? @"Buttons height" : @"Высота кнопок";
             public static string ServerDevelop => Lang == EnumLang.English ? @"Debug server" : @"Сервер разработки";
             public static string ServerRelease => Lang == EnumLang.English ? @"Debug release" : @"Промышленный сервер";
             public static string Authorization => Lang == EnumLang.English ? @"Authorization" : @"Авторизация";
@@ -322,10 +324,23 @@ namespace BlazorCore.Utils
             #region Комплексы промышленных устройств
             public static string DevicesTitle => Lang == EnumLang.English ? @"Complexes of industrial devices" : @"Комплексы промышленных устройств";
             #endregion
-            #region URI
-            public const string UriRouteItemPrinter = "/item/printer";
-            public const string UriRouteItemScale = "/item/scale";
+            #region URI route item
+            public const string UriRouteItemContragent = "/item/contragent";
+            public const string UriRouteItemDevice = "/item/device";
+            public const string UriRouteItemHost = "/item/host";
+            public const string UriRouteItemNomenclature = "/item/nomenclature";
             public const string UriRouteItemPlu = "/item/plu";
+            public const string UriRouteItemPrinter = "/item/printer";
+            public const string UriRouteItemPrinterResource = "/item/printerresource";
+            public const string UriRouteItemPrinterType = "/item/printertype";
+            public const string UriRouteItemProductionFacility = "/item/productionfacily";
+            public const string UriRouteItemScale = "/item/scale";
+            public const string UriRouteItemTemplate = "/item/template";
+            public const string UriRouteItemTemplateResource = "/item/templateresource";
+            public const string UriRouteItemWeithingFact = "/item/weithingfact";
+            public const string UriRouteItemWorkshop = "/item/workshop";
+            #endregion
+            #region URI route section
             public const string UriRouteSectionContragents = "/section/contragents";
             public const string UriRouteSectionDevices = "/section/devices";
             public const string UriRouteSectionHosts = "/section/hosts";
@@ -339,32 +354,159 @@ namespace BlazorCore.Utils
             public const string UriRouteSectionWeithingFacts = "/section/weithingfacts";
             public const string UriRouteSectionWorkshops = "/section/workshops";
             #endregion
+            #region Items
+            public static string ItemBarCodeType => Lang == EnumLang.English ? @"Barcodes type" : @"Тип штрихкода";
+            public static string ItemBarcode => Lang == EnumLang.English ? @"Barcode" : @"Штрихкод";
+            public static string ItemContragent => Lang == EnumLang.English ? @"Counterparty" : @"Контрагент";
+            public static string ItemFont => Lang == EnumLang.English ? @"Font" : @"Шрифт";
+            public static string ItemHost => Lang == EnumLang.English ? @"Host" : @"Хост";
+            public static string ItemLabel => Lang == EnumLang.English ? @"Label" : @"Этикетка";
+            public static string ItemLogo => Lang == EnumLang.English ? @"Logo" : @"Логотип";
+            public static string ItemLog => Lang == EnumLang.English ? @"Log" : @"Лог";
+            public static string ItemNomenclatureUnit => Lang == EnumLang.English ? @"Package" : @"Упаковка";
+            public static string ItemNomenclature => Lang == EnumLang.English ? @"Nomenclature" : @"Номенклатура";
+            public static string ItemOrderStatus => Lang == EnumLang.English ? @"Order status" : @"Статус заказа";
+            public static string ItemOrderType => Lang == EnumLang.English ? @"Order type" : @"Типы заказа";
+            public static string ItemOrder => Lang == EnumLang.English ? @"Order" : @"Заказ";
+            public static string ItemPlu => Lang == EnumLang.English ? @"PLU" : @"ПЛУ";
+            public static string ItemPrinterResource => Lang == EnumLang.English ? @"Printer resource" : @"Ресурс принтера";
+            public static string ItemPrinterType => Lang == EnumLang.English ? @"Printer type" : @"Тип принтера";
+            public static string ItemPrinter => Lang == EnumLang.English ? @"Printer" : @"Принтер";
+            public static string ItemProductSeries => Lang == EnumLang.English ? @"Product series" : @"Серия продукта";
+            public static string ItemProductionFacility => Lang == EnumLang.English ? @"Prod. facility" : @"Произв. площадка";
+            public static string ItemResource => Lang == EnumLang.English ? @"Resource" : @"Ресурс";
+            public static string ItemScale => Lang == EnumLang.English ? @"Device" : @"Устройство";
+            public static string ItemTemplateResource => Lang == EnumLang.English ? @"Template resource" : @"Ресурс шаблона";
+            public static string ItemTemplate => Lang == EnumLang.English ? @"Template" : @"Шаблон";
+            public static string ItemWeithingFact => Lang == EnumLang.English ? @"Weithing fact" : @"Взвешивание";
+            public static string ItemWorkshop => Lang == EnumLang.English ? @"Workshop" : @"Цех";
+            public static string GetItemTitle(EnumTableScales table) => table switch
+            {
+                EnumTableScales.BarcodeTypes => ItemBarCodeType,
+                EnumTableScales.Contragents => ItemContragent,
+                EnumTableScales.Hosts => ItemHost,
+                EnumTableScales.Labels => ItemLabel,
+                EnumTableScales.Logs => ItemLog,
+                EnumTableScales.Nomenclature => ItemNomenclature,
+                EnumTableScales.OrderStatus => ItemOrderStatus,
+                EnumTableScales.OrderTypes => ItemOrderType,
+                EnumTableScales.Orders => ItemOrder,
+                EnumTableScales.Plu => ItemPlu,
+                EnumTableScales.Printer => ItemPrinter,
+                EnumTableScales.PrinterResource => ItemPrinterResource,
+                EnumTableScales.PrinterType => ItemPrinterType,
+                EnumTableScales.ProductSeries => ItemProductSeries,
+                EnumTableScales.ProductionFacility => ItemProductionFacility,
+                EnumTableScales.Scales => ItemScale,
+                EnumTableScales.TemplateResources => ItemTemplateResource,
+                EnumTableScales.Templates => ItemTemplate,
+                EnumTableScales.WeithingFact => ItemWeithingFact,
+                EnumTableScales.WorkShop => ItemWorkshop,
+                EnumTableScales.Default => throw new NotImplementedException(),
+                _ => string.Empty,
+            };
+            public static string GetItemTitle(EnumTableScales table, int itemId) => table switch
+            {
+                EnumTableScales.BarcodeTypes => $"{ItemBarCodeType}. ID {itemId}",
+                EnumTableScales.Contragents => $"{ItemContragent}. ID {itemId}",
+                EnumTableScales.Hosts => $"{ItemHost}. ID {itemId}",
+                EnumTableScales.Labels => $"{ItemLabel}. ID {itemId}",
+                EnumTableScales.Logs => $"{ItemLog}. ID {itemId}",
+                EnumTableScales.Nomenclature => $"{ItemNomenclature}. ID {itemId}",
+                EnumTableScales.OrderStatus => $"{ItemOrderStatus}. ID {itemId}",
+                EnumTableScales.OrderTypes => $"{ItemOrderType}. ID {itemId}",
+                EnumTableScales.Orders => $"{ItemOrder}. ID {itemId}",
+                EnumTableScales.Plu => $"{ItemPlu}. ID {itemId}",
+                EnumTableScales.Printer => $"{ItemPrinter}. ID {itemId}",
+                EnumTableScales.PrinterResource => $"{ItemPrinterResource}. ID {itemId}",
+                EnumTableScales.PrinterType => $"{ItemPrinterType}. ID {itemId}",
+                EnumTableScales.ProductSeries => $"{ItemProductSeries}. ID {itemId}",
+                EnumTableScales.ProductionFacility => $"{ItemProductionFacility}. ID {itemId}",
+                EnumTableScales.Scales => $"{ItemScale}. ID {itemId}",
+                EnumTableScales.TemplateResources => $"{ItemTemplateResource}. ID {itemId}",
+                EnumTableScales.Templates => $"{ItemTemplate}. ID {itemId}",
+                EnumTableScales.WeithingFact => $"{ItemWeithingFact}. ID {itemId}",
+                EnumTableScales.WorkShop => $"{ItemWorkshop}. ID {itemId}",
+                EnumTableScales.Default => throw new NotImplementedException(),
+                _ => string.Empty,
+            };
+            public static string GetItemTitle(EnumTableScales table, Guid itemUid) => table switch
+            {
+                EnumTableScales.BarcodeTypes => $"{ItemBarCodeType}. UID {itemUid}",
+                EnumTableScales.Contragents => $"{ItemContragent}. UID {itemUid}",
+                EnumTableScales.Hosts => $"{ItemHost}. UID {itemUid}",
+                EnumTableScales.Labels => $"{ItemLabel}. UID {itemUid}",
+                EnumTableScales.Logs => $"{ItemLog}. UID {itemUid}",
+                EnumTableScales.Nomenclature => $"{ItemNomenclature}. UID {itemUid}",
+                EnumTableScales.OrderStatus => $"{ItemOrderStatus}. UID {itemUid}",
+                EnumTableScales.OrderTypes => $"{ItemOrderType}. UID {itemUid}",
+                EnumTableScales.Orders => $"{ItemOrder}. UID {itemUid}",
+                EnumTableScales.Plu => $"{ItemPlu}. UID {itemUid}",
+                EnumTableScales.Printer => $"{ItemPrinter}. UID {itemUid}",
+                EnumTableScales.PrinterResource => $"{ItemPrinterResource}. UID {itemUid}",
+                EnumTableScales.PrinterType => $"{ItemPrinterType}. UID {itemUid}",
+                EnumTableScales.ProductSeries => $"{ItemProductSeries}. UID {itemUid}",
+                EnumTableScales.ProductionFacility => $"{ItemProductionFacility}. UID {itemUid}",
+                EnumTableScales.Scales => $"{ItemScale}. UID {itemUid}",
+                EnumTableScales.TemplateResources => $"{ItemTemplateResource}. UID {itemUid}",
+                EnumTableScales.Templates => $"{ItemTemplate}. UID {itemUid}",
+                EnumTableScales.WeithingFact => $"{ItemWeithingFact}. UID {itemUid}",
+                EnumTableScales.WorkShop => $"{ItemWorkshop}. UID {itemUid}",
+                EnumTableScales.Default => throw new NotImplementedException(),
+                _ => string.Empty,
+            };
+            #endregion
             #region Sections
-            public static string SectionFonts => Lang == EnumLang.English ? @"Fonts" : @"Шрифты";
-            public static string SectionLogos => Lang == EnumLang.English ? @"Logos" : @"Логотипы";
-            public static string SectionBarcodes => Lang == EnumLang.English ? @"Barcodes" : @"Штрихкоды";
             public static string SectionBarCodeTypes => Lang == EnumLang.English ? @"Barcodes types" : @"Типы штрихкодов";
+            public static string SectionBarcodes => Lang == EnumLang.English ? @"Barcodes" : @"Штрихкоды";
             public static string SectionContragents => Lang == EnumLang.English ? @"Counterparties" : @"Контрагенты";
-            public static string SectionNomenclatureUnits => Lang == EnumLang.English ? @"Packages" : @"Упаковки";
-            public static string SectionOrders => Lang == EnumLang.English ? @"Orders" : @"Заказы";
-            public static string SectionOrderStatuses => Lang == EnumLang.English ? @"Order statuses" : @"Статусы заказов";
-            public static string SectionOrderTypes => Lang == EnumLang.English ? @"Order types" : @"Типы заказов";
-            public static string SectionPlus => Lang == EnumLang.English ? @"PLU" : @"ПЛУ";
-            public static string SectionProductionFacilities => Lang == EnumLang.English ? @"Prod. facilities" : @"Произв. площадки";
-            public static string SectionProductSeries => Lang == EnumLang.English ? @"Product series" : @"Серии продуктов";
-            public static string SectionPrinters => Lang == EnumLang.English ? @"Printers" : @"Принтеры";
-            public static string SectionPrinterTypes => Lang == EnumLang.English ? @"Printer types" : @"Типы принтеров";
+            public static string SectionFonts => Lang == EnumLang.English ? @"Fonts" : @"Шрифты";
             public static string SectionHosts => Lang == EnumLang.English ? @"Hosts" : @"Хосты";
             public static string SectionLabels => Lang == EnumLang.English ? @"Labels" : @"Этикетки";
-            public static string SectionScales => Lang == EnumLang.English ? @"Devices" : @"Устройства";
+            public static string SectionLogos => Lang == EnumLang.English ? @"Logos" : @"Логотипы";
+            public static string SectionLogs => Lang == EnumLang.English ? @"Logs" : @"Логи";
+            public static string SectionNomenclatureUnits => Lang == EnumLang.English ? @"Packages" : @"Упаковки";
+            public static string SectionNomenclatures => Lang == EnumLang.English ? @"Nomenclatures" : @"Номенклатура";
+            public static string SectionOrderStatuses => Lang == EnumLang.English ? @"Order statuses" : @"Статусы заказов";
+            public static string SectionOrderTypes => Lang == EnumLang.English ? @"Order types" : @"Типы заказов";
+            public static string SectionOrders => Lang == EnumLang.English ? @"Orders" : @"Заказы";
+            public static string SectionPlus => Lang == EnumLang.English ? @"PLU" : @"ПЛУ";
+            public static string SectionPrinterResources => Lang == EnumLang.English ? @"Printer resources" : @"Ресурсы принтера";
+            public static string SectionPrinterTypes => Lang == EnumLang.English ? @"Printer types" : @"Типы принтеров";
+            public static string SectionPrinters => Lang == EnumLang.English ? @"Printers" : @"Принтеры";
+            public static string SectionProductSeries => Lang == EnumLang.English ? @"Product series" : @"Серии продуктов";
+            public static string SectionProductionFacilities => Lang == EnumLang.English ? @"Prod. facilities" : @"Произв. площадки";
             public static string SectionResources => Lang == EnumLang.English ? @"Resources" : @"Ресурсы";
+            public static string SectionScales => Lang == EnumLang.English ? @"Devices" : @"Устройства";
             public static string SectionTemplateResources => Lang == EnumLang.English ? @"Template resources" : @"Ресурсы шаблонов";
             public static string SectionTemplates => Lang == EnumLang.English ? @"Templates" : @"Шаблоны";
             public static string SectionWeithingFacts => Lang == EnumLang.English ? @"Weithing facts" : @"Взвешивания";
-            public static string SectionNomenclatures => Lang == EnumLang.English ? @"Nomenclatures" : @"Номенклатура";
-            public static string SectionWorkShops => Lang == EnumLang.English ? @"Workshops" : @"Цеха";
-            public static string SectionPrinterResourceRef => Lang == EnumLang.English ? @"Printer resources" : @"Ресурсы принтера";
-            public static string SectionLogs => Lang == EnumLang.English ? @"Logs" : @"Логи";
+            public static string SectionWorkshops => Lang == EnumLang.English ? @"Workshops" : @"Цеха";
+            public static string GetSectionTitle(EnumTableScales table) => table switch
+            {
+                EnumTableScales.BarcodeTypes => SectionBarcodes,
+                EnumTableScales.Contragents => SectionContragents,
+                EnumTableScales.Hosts => SectionHosts,
+                EnumTableScales.Labels => SectionLabels,
+                EnumTableScales.Logs => SectionLogs,
+                EnumTableScales.Nomenclature => SectionNomenclatures,
+                EnumTableScales.OrderStatus => SectionOrderStatuses,
+                EnumTableScales.OrderTypes => SectionOrderTypes,
+                EnumTableScales.Orders => SectionOrders,
+                EnumTableScales.Plu => SectionPlus,
+                EnumTableScales.Printer => SectionPrinters,
+                EnumTableScales.PrinterResource => SectionPrinterResources,
+                EnumTableScales.PrinterType => SectionPrinterTypes,
+                EnumTableScales.ProductSeries => SectionProductSeries,
+                EnumTableScales.ProductionFacility => SectionProductionFacilities,
+                EnumTableScales.Scales => SectionScales,
+                EnumTableScales.TemplateResources => SectionTemplateResources,
+                EnumTableScales.Templates => SectionTemplates,
+                EnumTableScales.WeithingFact => SectionWeithingFacts,
+                EnumTableScales.WorkShop => SectionWorkshops,
+                EnumTableScales.Default => throw new NotImplementedException(),
+                _ => string.Empty,
+            };
             #endregion
             #region Tables
             public const string TableActionAdd = @"Добавить";
@@ -489,129 +631,6 @@ namespace BlazorCore.Utils
             public const string TableReadData = @"Прочитать данные";
             public const string Table = @"Таблица";
             #endregion
-            #region Item
-            public static string ItemTitleBarcode => Lang == EnumLang.English ? @"Barcode" : @"Штрих-код";
-            public static string ItemTitleBarcodeType => Lang == EnumLang.English ? @"Barcode type" : @"Тип штрих-кода";
-            public static string ItemTitleContragent => Lang == EnumLang.English ? @"Counterparty" : @"Контрагент";
-            public static string ItemTitleHost => Lang == EnumLang.English ? @"Host" : @"Хост";
-            public static string ItemTitleLabel => Lang == EnumLang.English ? @"Label" : @"Этикетка";
-            public static string ItemTitleLog => Lang == EnumLang.English ? @"Log" : @"Тип Лог";
-            public static string ItemTitleNomenclature => Lang == EnumLang.English ? @"Nomenclature" : @"Номенклатура";
-            public static string ItemTitleOrderStatus => Lang == EnumLang.English ? @"Order status" : @"Статус заказа";
-            public static string ItemTitleOrderTypes => Lang == EnumLang.English ? @"Order type" : @"Тип заказа";
-            public static string ItemTitleOrders => Lang == EnumLang.English ? @"Order" : @"Заказ";
-            public static string ItemTitlePlu => Lang == EnumLang.English ? @"PLU" : @"Тип ПЛУ";
-            public static string ItemTitlePrinter => Lang == EnumLang.English ? @"Printer" : @"Принтер";
-            public static string ItemTitlePrinterResourceRef => Lang == EnumLang.English ? @"Printer resource" : @"Ресурс принтера";
-            public static string ItemTitlePrinterType => Lang == EnumLang.English ? @"Printer type" : @"Тип принтера";
-            public static string ItemTitleProductSeries => Lang == EnumLang.English ? @"Product Series" : @"Серия продукта";
-            public static string ItemTitleProductionFacility => Lang == EnumLang.English ? @"ProductionFacility" : @"Производственный комплекс";
-            public static string ItemTitleScales => Lang == EnumLang.English ? @"Weighing device" : @"Весовое устройство";
-            public static string ItemTitleTemplate => Lang == EnumLang.English ? @"Template" : @"Шаблон";
-            public static string ItemTitleTemplateResource => Lang == EnumLang.English ? @"Template resource" : @"Ресурс шаблона";
-            public static string ItemTitleWeithingFact => Lang == EnumLang.English ? @"Weighing" : @"Взвешивание";
-            public static string ItemTitleWorkShop => Lang == EnumLang.English ? @"Workshop" : @"Организация";
-            #endregion
-            public static string GetSectionTitle(EnumTableScales table) => table switch
-            {
-                EnumTableScales.BarcodeTypes => SectionBarcodes,
-                EnumTableScales.Contragents => SectionContragents,
-                EnumTableScales.Hosts => SectionHosts,
-                EnumTableScales.Labels => SectionLabels,
-                EnumTableScales.Logs => SectionLogs,
-                EnumTableScales.Nomenclature => SectionNomenclatures,
-                EnumTableScales.OrderStatus => SectionOrderStatuses,
-                EnumTableScales.OrderTypes => SectionOrderTypes,
-                EnumTableScales.Orders => SectionOrders,
-                EnumTableScales.Plu => SectionPlus,
-                EnumTableScales.Printer => SectionPrinters,
-                EnumTableScales.PrinterResourceRef => SectionPrinterResourceRef,
-                EnumTableScales.PrinterType => SectionPrinterTypes,
-                EnumTableScales.ProductSeries => SectionProductSeries,
-                EnumTableScales.ProductionFacility => SectionProductionFacilities,
-                EnumTableScales.Scales => SectionScales,
-                EnumTableScales.TemplateResources => SectionTemplateResources,
-                EnumTableScales.Templates => SectionTemplates,
-                EnumTableScales.WeithingFact => SectionWeithingFacts,
-                EnumTableScales.WorkShop => SectionWorkShops,
-                EnumTableScales.Default => throw new NotImplementedException(),
-                _ => string.Empty,
-            };
-            public static string GetItemTitle(EnumTableScales table) => table switch
-            {
-                EnumTableScales.BarcodeTypes => ItemTitleBarcodeType,
-                EnumTableScales.Contragents => ItemTitleContragent,
-                EnumTableScales.Hosts => ItemTitleHost,
-                EnumTableScales.Labels => ItemTitleLabel,
-                EnumTableScales.Logs => ItemTitleLog,
-                EnumTableScales.Nomenclature => ItemTitleNomenclature,
-                EnumTableScales.OrderStatus => ItemTitleOrderStatus,
-                EnumTableScales.OrderTypes => ItemTitleOrderTypes,
-                EnumTableScales.Orders => ItemTitleOrders,
-                EnumTableScales.Plu => ItemTitlePlu,
-                EnumTableScales.Printer => ItemTitlePrinter,
-                EnumTableScales.PrinterResourceRef => ItemTitlePrinterResourceRef,
-                EnumTableScales.PrinterType => ItemTitlePrinterType,
-                EnumTableScales.ProductSeries => ItemTitleProductSeries,
-                EnumTableScales.ProductionFacility => ItemTitleProductionFacility,
-                EnumTableScales.Scales => ItemTitleScales,
-                EnumTableScales.TemplateResources => ItemTitleTemplateResource,
-                EnumTableScales.Templates => ItemTitleTemplate,
-                EnumTableScales.WeithingFact => ItemTitleWeithingFact,
-                EnumTableScales.WorkShop => ItemTitleWorkShop,
-                EnumTableScales.Default => throw new NotImplementedException(),
-                _ => string.Empty,
-            };
-            public static string GetItemTitle(EnumTableScales table, int itemId) => table switch
-            {
-                EnumTableScales.BarcodeTypes => $"{ItemTitleBarcodeType}. ID {itemId}",
-                EnumTableScales.Contragents => $"{ItemTitleContragent}. ID {itemId}",
-                EnumTableScales.Hosts => $"{ItemTitleHost}. ID {itemId}",
-                EnumTableScales.Labels => $"{ItemTitleLabel}. ID {itemId}",
-                EnumTableScales.Logs => $"{ItemTitleLog}. ID {itemId}",
-                EnumTableScales.Nomenclature => $"{ItemTitleNomenclature}. ID {itemId}",
-                EnumTableScales.OrderStatus => $"{ItemTitleOrderStatus}. ID {itemId}",
-                EnumTableScales.OrderTypes => $"{ItemTitleOrderTypes}. ID {itemId}",
-                EnumTableScales.Orders => $"{ItemTitleOrders}. ID {itemId}",
-                EnumTableScales.Plu => $"{ItemTitlePlu}. ID {itemId}",
-                EnumTableScales.Printer => $"{ItemTitlePrinter}. ID {itemId}",
-                EnumTableScales.PrinterResourceRef => $"{ItemTitlePrinterResourceRef}. ID {itemId}",
-                EnumTableScales.PrinterType => $"{ItemTitlePrinterType}. ID {itemId}",
-                EnumTableScales.ProductSeries => $"{ItemTitleProductSeries}. ID {itemId}",
-                EnumTableScales.ProductionFacility => $"{ItemTitleProductionFacility}. ID {itemId}",
-                EnumTableScales.Scales => $"{ItemTitleScales}. ID {itemId}",
-                EnumTableScales.TemplateResources => $"{ItemTitleTemplateResource}. ID {itemId}",
-                EnumTableScales.Templates => $"{ItemTitleTemplate}. ID {itemId}",
-                EnumTableScales.WeithingFact => $"{ItemTitleWeithingFact}. ID {itemId}",
-                EnumTableScales.WorkShop => $"{ItemTitleWorkShop}. ID {itemId}",
-                EnumTableScales.Default => throw new NotImplementedException(),
-                _ => string.Empty,
-            };
-            public static string GetItemTitle(EnumTableScales table, Guid itemUid) => table switch
-            {
-                EnumTableScales.BarcodeTypes => $"{ItemTitleBarcodeType}. UID {itemUid}",
-                EnumTableScales.Contragents => $"{ItemTitleContragent}. UID {itemUid}",
-                EnumTableScales.Hosts => $"{ItemTitleHost}. UID {itemUid}",
-                EnumTableScales.Labels => $"{ItemTitleLabel}. UID {itemUid}",
-                EnumTableScales.Logs => $"{ItemTitleLog}. UID {itemUid}",
-                EnumTableScales.Nomenclature => $"{ItemTitleNomenclature}. UID {itemUid}",
-                EnumTableScales.OrderStatus => $"{ItemTitleOrderStatus}. UID {itemUid}",
-                EnumTableScales.OrderTypes => $"{ItemTitleOrderTypes}. UID {itemUid}",
-                EnumTableScales.Orders => $"{ItemTitleOrders}. UID {itemUid}",
-                EnumTableScales.Plu => $"{ItemTitlePlu}. UID {itemUid}",
-                EnumTableScales.Printer => $"{ItemTitlePrinter}. UID {itemUid}",
-                EnumTableScales.PrinterResourceRef => $"{ItemTitlePrinterResourceRef}. UID {itemUid}",
-                EnumTableScales.PrinterType => $"{ItemTitlePrinterType}. UID {itemUid}",
-                EnumTableScales.ProductSeries => $"{ItemTitleProductSeries}. UID {itemUid}",
-                EnumTableScales.ProductionFacility => $"{ItemTitleProductionFacility}. UID {itemUid}",
-                EnumTableScales.Scales => $"{ItemTitleScales}. UID {itemUid}",
-                EnumTableScales.TemplateResources => $"{ItemTitleTemplateResource}. UID {itemUid}",
-                EnumTableScales.Templates => $"{ItemTitleTemplate}. UID {itemUid}",
-                EnumTableScales.WeithingFact => $"{ItemTitleWeithingFact}. UID {itemUid}",
-                EnumTableScales.WorkShop => $"{ItemTitleWorkShop}. UID {itemUid}",
-                EnumTableScales.Default => throw new NotImplementedException(),
-                _ => string.Empty,
-            };
         }
 
         public static class MdmControl

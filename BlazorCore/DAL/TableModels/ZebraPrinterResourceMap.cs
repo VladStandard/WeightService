@@ -2,9 +2,9 @@
 
 namespace BlazorCore.DAL.TableModels
 {
-    public class ZebraPrinterResourceRefMap : ClassMap<ZebraPrinterResourceRefEntity>
+    public class ZebraPrinterResourceMap : ClassMap<ZebraPrinterResourceEntity>
     {
-        public ZebraPrinterResourceRefMap()
+        public ZebraPrinterResourceMap()
         {
             Table("[db_scales].[ZebraPrinterResourceRef]");
             LazyLoad();

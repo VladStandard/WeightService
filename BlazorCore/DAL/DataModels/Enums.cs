@@ -15,6 +15,7 @@
         Description,
         ScaleId,
         CategoryId,
+        PrinterId,
         Title,
         CreateDate,
         ModifiedDate,

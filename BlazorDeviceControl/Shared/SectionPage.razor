@@ -250,27 +250,6 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTableScales.PrinterType:
-                                List<ZebraPrinterTypeEntity> zebraPrinterTypeEntities = new List<ZebraPrinterTypeEntity>();
-                                foreach (BaseIdEntity entity in Entities)
-                                {
-                                    zebraPrinterTypeEntities.Add((ZebraPrinterTypeEntity)entity);
-                                }
-                                // Sorting by [Name].
-                                zebraPrinterTypeEntities = zebraPrinterTypeEntities.OrderBy(x => x.Name).ToList();
-                                <RadzenGrid Data=@zebraPrinterTypeEntities TItem="ZebraPrinterTypeEntity"
-                                            RowSelect=@(args => RowSelectAsync(args)) RowDoubleClick=@(args => RowDoubleClickAsync(args))
-                                            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                                            AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
-                                    <Columns>
-                                        <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Id" TextAlign="TextAlign.Center"
-                                                          Title=@LocalizationStrings.DeviceControl.TableFieldId
-                                                          Type="int" Width="7.5%" />
-                                        <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter
-                                                          Type="string" Width="60%" />
-                                    </Columns>
-                                </RadzenGrid>
-                                break;
                         }
                     }
                 </div>
@@ -374,16 +353,6 @@
                                 </RadzenValueAxis>
                             </RadzenChart>
                         }
-                        break;
-                    case EnumTableScales.ProductionFacility:
-                        break;
-                    case EnumTableScales.TemplateResources:
-                        break;
-                    case EnumTableScales.Templates:
-                        break;
-                    case EnumTableScales.WorkShop:
-                        break;
-                    case EnumTableScales.PrinterType:
                         break;
                 }
             </RadzenTabsItem>

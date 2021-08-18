@@ -32,11 +32,12 @@
 <br Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; " />
 <div class="row">
     <div class="col-md-6" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
-        <RadzenButton Click="@SaveAsync" Text="Сохранить" Style="margin-bottom: 10px; width: 150px"
+        <RadzenButton Click=@SaveAsync Text="Сохранить" Style="margin-bottom: 10px; width: 150px"
                       Disabled=@AppSettings.DataAccess.IsDisabled />
     </div>
     <div class="col-md-6" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
-        <RadzenButton Click=@(args => ItemCancelAsync(Item, $"{LocalizationStrings.DeviceControl.UriRouteSectionDevices}")) ButtonStyle="ButtonStyle.Secondary" Text="Закрыть" Style="margin-bottom: 10px; width: 150px"
-                      Disabled=@AppSettings.DataAccess.IsDisabled />
+        <RadzenButton Click=@(args => ItemCancelAsync(Item, false))
+            ButtonStyle="ButtonStyle.Secondary" Text="Закрыть" Style="margin-bottom: 10px; width: 150px"
+                Disabled=@AppSettings.DataAccess.IsDisabled />
     </div>
 </div>

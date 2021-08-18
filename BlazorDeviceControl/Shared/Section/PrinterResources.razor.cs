@@ -1,8 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.DAL;
 using BlazorCore.DAL.DataModels;
+using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Section
 {
-    public partial class Plus
+    public partial class PrinterResources
     {
         #region Public and private fields and properties
 
-        [Parameter] public int ScaleId { get; set; }
-        private List<PluEntity> Items { get; set; }
+        [Parameter] public int PrinterId { get; set; }
+        private List<ZebraPrinterResourceEntity> Items { get; set; }
 
         #endregion
 
@@ -30,13 +30,9 @@ namespace BlazorDeviceControl.Shared.Section
                 new List<Task> {
                     new(async() => {
                         Item = null;
-                        Items = AppSettings.DataAccess.PluCrud.GetEntities(
-                            new FieldListEntity(
-                                new Dictionary<string, object> { 
-                                    { "Scale.Id", ScaleId },
-                                    { EnumField.Marked.ToString(), false },
-                            }),
-                            new FieldOrderEntity(EnumField.GoodsName, EnumOrderDirection.Asc))
+                        Items = AppSettings.DataAccess.ZebraPrinterResourcesCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
+                            new FieldOrderEntity(EnumField.Description, EnumOrderDirection.Asc))
                             .ToList();
                         await GuiRefreshAsync(false).ConfigureAwait(false);
                     }),

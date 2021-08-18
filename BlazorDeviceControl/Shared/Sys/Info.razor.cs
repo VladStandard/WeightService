@@ -41,6 +41,36 @@ namespace BlazorDeviceControl.Shared.Sys
         {
             switch (name)
             {
+                case nameof(AppSettings.JsonAppSettings.Server):
+                    if (value is string server)
+                    {
+                        AppSettings.JsonAppSettings.Server = server;
+                    }
+                    break;
+                case nameof(AppSettings.JsonAppSettings.Db):
+                    if (value is string db)
+                    {
+                        AppSettings.JsonAppSettings.Db = db;
+                    }
+                    break;
+                case nameof(AppSettings.JsonAppSettings.Trusted):
+                    if (value is bool trusted)
+                    {
+                        AppSettings.JsonAppSettings.Trusted = trusted;
+                    }
+                    break;
+                case nameof(AppSettings.JsonAppSettings.Username):
+                    if (value is string username)
+                    {
+                        AppSettings.JsonAppSettings.Username = username;
+                    }
+                    break;
+                case nameof(AppSettings.JsonAppSettings.Password):
+                    if (value is string password)
+                    {
+                        AppSettings.JsonAppSettings.Password = password;
+                    }
+                    break;
                 case nameof(TemplateLanguages):
                     if (value is EnumLang lang)
                     {
@@ -64,6 +94,18 @@ namespace BlazorDeviceControl.Shared.Sys
                     if (value is int itemRowCount)
                     {
                         AppSettings.JsonAppSettings.ItemRowCount = itemRowCount;
+                    }
+                    break;
+                case nameof(AppSettings.JsonAppSettings.ButtonWidth):
+                    if (value is string buttonWidth)
+                    {
+                        AppSettings.JsonAppSettings.ButtonWidth = buttonWidth;
+                    }
+                    break;
+                case nameof(AppSettings.JsonAppSettings.ButtonHeight):
+                    if (value is string buttonHeight)
+                    {
+                        AppSettings.JsonAppSettings.ButtonHeight = buttonHeight;
                     }
                     break;
             }

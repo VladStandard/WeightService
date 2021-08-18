@@ -118,7 +118,7 @@ namespace BlazorDeviceControl.Shared
                 if (zebraPrinterEntity.EqualsDefault())
                     result = false;
             }
-            else if (entity is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
+            else if (entity is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
             {
                 if (zebraPrinterResourceRefEntity.EqualsDefault())
                     result = false;
@@ -328,32 +328,32 @@ namespace BlazorDeviceControl.Shared
                                 AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(zebraPrinter);
                         }
                         break;
-                    case EnumTableScales.PrinterResourceRef:
-                        ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity = (ZebraPrinterResourceRefEntity)Item;
+                    case EnumTableScales.PrinterResource:
+                        ZebraPrinterResourceEntity zebraPrinterResourceRefEntity = (ZebraPrinterResourceEntity)Item;
                         zebraPrinterResourceRefEntity.CreateDate = DateTime.Now;
                         zebraPrinterResourceRefEntity.ModifiedDate = DateTime.Now;
                         if (TableAction == EnumTableAction.Add)
                         {
-                            AppSettings.DataAccess.ZebraPrinterResourceRefCrud.SaveEntity(zebraPrinterResourceRefEntity);
+                            AppSettings.DataAccess.ZebraPrinterResourcesCrud.SaveEntity(zebraPrinterResourceRefEntity);
                         }
                         else
                         {
-                            bool existsEntity = AppSettings.DataAccess.ZebraPrinterResourceRefCrud.ExistsEntity(
+                            bool existsEntity = AppSettings.DataAccess.ZebraPrinterResourcesCrud.ExistsEntity(
                                 new FieldListEntity(new Dictionary<string, object>
                                 {{EnumField.Id.ToString(), zebraPrinterResourceRefEntity.Id}}),
                                 new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
                             if (existsEntity)
                             {
-                                int idLast = AppSettings.DataAccess.ZebraPrinterResourceRefCrud.GetEntity(
+                                int idLast = AppSettings.DataAccess.ZebraPrinterResourcesCrud.GetEntity(
                                     new FieldListEntity(new Dictionary<string, object>
                                     { { "Printer.Id", zebraPrinterResourceRefEntity.Printer.Id }}),
                                     new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                                 //zebraPrinterResourceRefEntity.Id = idLast + 1;
-                                AppSettings.DataAccess.ZebraPrinterResourceRefCrud.UpdateEntity(zebraPrinterResourceRefEntity);
+                                AppSettings.DataAccess.ZebraPrinterResourcesCrud.UpdateEntity(zebraPrinterResourceRefEntity);
                             }
                             else
                             {
-                                AppSettings.DataAccess.ZebraPrinterResourceRefCrud.UpdateEntity(zebraPrinterResourceRefEntity);
+                                AppSettings.DataAccess.ZebraPrinterResourcesCrud.UpdateEntity(zebraPrinterResourceRefEntity);
                             }
                         }
                         break;

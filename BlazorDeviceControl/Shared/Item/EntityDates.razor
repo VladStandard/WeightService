@@ -4,17 +4,23 @@
 @using BlazorCore.Utils
 @inherits BlazorCore.Models.BaseRazorEntity
 
-<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
-    @if (Item == null)
-    {
-        <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-    }
-    else
-    {
-        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldCreateDt />
-        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@DtCreate />
-        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldModifiedDate />
-        <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@DtModify />
-    }
-</div>
+<MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
+    <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
+        @if (Item == null)
+        {
+            <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
+            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+        }
+        else
+        {
+            <RadzenLabel Style="margin-top: 3px; text-align: center; width: 24%; height: 25px; font-size: 12px; "
+                Text=@LocalizationStrings.DeviceControl.TableFieldCreateDt />
+            <RadzenLabel Style="margin-top: 3px; text-align: left; width: 24%; height: 25px; font-size: 12px; "
+                Text=@DtCreate />
+            <RadzenLabel Style="margin-top: 3px; text-align: center; width: 24%; height: 25px; font-size: 12px; "
+                Text=@LocalizationStrings.DeviceControl.TableFieldModifiedDate />
+            <RadzenLabel Style="margin-top: 3px; text-align: left; width: 24%; height: 25px; font-size: 12px; "
+                Text=@DtModify />
+        }
+    </div>
+</MudPaper>

@@ -20,7 +20,7 @@
         Orders,
         Plu,
         Printer,
-        PrinterResourceRef,
+        PrinterResource,
         PrinterType,
         ProductSeries,
         ProductionFacility,

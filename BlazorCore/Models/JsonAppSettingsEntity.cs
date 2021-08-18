@@ -12,11 +12,31 @@ namespace BlazorCore.Models
     public class JsonAppSettingsEntity
     {
         public IConfiguration Configuration { get; }
-        public string Server => Configuration["Sql:Server"];
-        public string Db => Configuration["Sql:Db"];
-        public bool Trusted => Convert.ToBoolean(Configuration["Sql:Trusted"]);
-        public string Username => Configuration["Sql:Username"];
-        public string Password => Configuration["Sql:Password"];
+        public string Server
+        {
+            get => Configuration["Sql:Server"];
+            set => Configuration["Sql:Server"] = value;
+        }
+        public string Db
+        {
+            get => Configuration["Sql:Db"];
+            set => Configuration["Sql:Db"] = value;
+        }
+        public bool Trusted
+        {
+            get => Convert.ToBoolean(Configuration["Sql:Trusted"]);
+            set => Configuration["Sql:Trusted"] = value.ToString();
+        }
+        public string Username
+        {
+            get => Configuration["Sql:Username"];
+            set => Configuration["Sql:Username"] = value;
+        }
+        public string Password
+        {
+            get => Configuration["Sql:Password"];
+            set => Configuration["Sql:Password"] = value;
+        }
         public bool IsDebug
         {
             get => Convert.ToBoolean(Configuration["IsDebug"]);
@@ -31,6 +51,16 @@ namespace BlazorCore.Models
         {
             get => Convert.ToInt32(Configuration["ItemRowCount"]);
             set => Configuration["ItemRowCount"] = value.ToString();
+        }
+        public string ButtonWidth
+        {
+            get => Configuration["ButtonWidth"];
+            set => Configuration["ButtonWidth"] = value;
+        }
+        public string ButtonHeight
+        {
+            get => Configuration["ButtonHeight"];
+            set => Configuration["ButtonHeight"] = value;
         }
 
         public JsonAppSettingsEntity(IConfiguration configuration)

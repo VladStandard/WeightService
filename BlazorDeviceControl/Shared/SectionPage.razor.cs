@@ -128,7 +128,7 @@ namespace BlazorDeviceControl.Shared
                 EnumTableScales.TemplateResources => LocalizationStrings.DeviceControl.SectionTemplateResources,
                 EnumTableScales.Templates => LocalizationStrings.DeviceControl.SectionTemplates,
                 EnumTableScales.WeithingFact => LocalizationStrings.DeviceControl.SectionWeithingFacts,
-                EnumTableScales.WorkShop => LocalizationStrings.DeviceControl.SectionWorkShops,
+                EnumTableScales.WorkShop => LocalizationStrings.DeviceControl.SectionWorkshops,
                 _ => string.Empty
             };
         }

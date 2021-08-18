@@ -1,0 +1,48 @@
+﻿@page "/section/printerresources"
+@page "/section/printerresources/{PrinterId:int}"
+@using BlazorCore
+@using BlazorCore.DAL.TableModels
+@using BlazorCore.Utils
+@inherits BlazorCore.Models.BaseRazorIdEntity
+@inject IDialogService DialogService
+
+<div class="col-sm-12 col-md-12 col-lg-12">
+    @if (AppSettings.IdentityItem.AccessLevel is true or false)
+    {
+        <MudElement HtmlTag="h3" Class="ma-0">
+            @LocalizationStrings.DeviceControl.SectionPrinterResources
+            <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
+                    ButtonStyle="ButtonStyle.Primary"
+                    Style="margin-top: 3px; margin-left: 30px; width: 100px; height: 25px; font-size: 12px; "
+                    class="oi oi-reload"
+                    Disabled=@AppSettings.DataAccess.IsDisabled 
+                    MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
+        </MudElement>
+        @if (Items == null)
+        {
+            <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+        }
+        else
+        {
+            <RadzenGrid Data=@Items TItem="ZebraPrinterResourceEntity"
+                        RowSelect=@(args => ItemSelectAsync(args)) 
+                        RowDoubleClick=@(args => Action(EnumTableScales.Scales, EnumTableAction.Edit, Item, false))
+                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
+                <Columns>
+                    <RadzenGridColumn TItem="ZebraPrinterResourceEntity" Property="Id"
+                                      Title=@LocalizationStrings.DeviceControl.TableFieldId Type="int" Width="10%" />
+                    <RadzenGridColumn TItem="ZebraPrinterResourceEntity" Property="Description"
+                                      Title=@LocalizationStrings.DeviceControl.TableFieldDescription Type="string" Width="30%" />
+                    <RadzenGridColumn TItem="ZebraPrinterResourceEntity" Property="Resource.Name"
+                                      Title=@LocalizationStrings.DeviceControl.TableFieldResource Type="string" Width="30%" />
+                </Columns>
+            </RadzenGrid>
+            <SectionActions Table=@EnumTableScales.PrinterResource Item=@Item IsShowAdd=true IsShowEdit=true />
+        }
+    }
+    else
+    {
+        <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+    }
+</div>

@@ -31,13 +31,13 @@ namespace BlazorCore.Models
                     new(async() => {
                         Item = item;
                         // Debug log.
-                        if (AppSettings.IsDebug)
-                        {
-                            Console.WriteLine("--------------------------------------------------------------------------------");
-                            Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
-                            Console.WriteLine($"Item: {Item}");
-                            Console.WriteLine("--------------------------------------------------------------------------------");
-                        }
+                        //if (AppSettings.IsDebug)
+                        //{
+                        //    Console.WriteLine("--------------------------------------------------------------------------------");
+                        //    Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
+                        //    Console.WriteLine($"Item: {Item}");
+                        //    Console.WriteLine("--------------------------------------------------------------------------------");
+                        //}
                         await GuiRefreshAsync(false).ConfigureAwait(false);
                     }),
                 }, true);

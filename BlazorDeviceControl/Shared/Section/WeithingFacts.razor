@@ -1,97 +1,53 @@
 ﻿@page "/section/weithingfacts"
-@using BlazorCore.Utils
 @using BlazorCore
 @using BlazorCore.DAL.DataModels
-@inherits BlazorCore.Models.BaseRazorEntity
+@using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Item
+@using BlazorDeviceControl.Shared.Section
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    @* Header *@
-    <h2 style="font-size: @AppSettings.FontSizeHeader;">
+    <MudElement HtmlTag="h3" Class="ma-0">
         @LocalizationStrings.DeviceControl.SectionWeithingFacts
-            <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                          ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
-                          class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
-                          MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
-    </h2>
-
-    <RadzenTabs>
-        <Tabs>
-            <RadzenTabsItem Text=@LocalizationStrings.DeviceControl.Table>
-                @* RadzenGrid *@
-                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px;">
-                    @if (Items == null)
-                    {
-                        <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-                        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-                    }
-                    else
-                    {
-                        // Sorting by [WeithingDate].
-                        <RadzenGrid Data=@Items TItem="WeithingFactSummaryEntity"
-                                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                                    AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
-                            <Columns>
-                                <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign="TextAlign.Center"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldWeithingDate
-                                                  Type="date" Width="15%">
-                                    <Template Context="weithingFactItem">
-                                        <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled="true" DateFormat="d" />
-                                    </Template>
-                                </RadzenGridColumn>
-                                <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldDayOfWeek
-                                                  Type="string" Width="15%" />
-                                <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldCount
-                                                  Type="int" Width="10%" />
-                                <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldScale
-                                                  Type="string" Width="60%" />
-                            </Columns>
-                        </RadzenGrid>
-                    }
-                </div>
-                @* Actions *@
-                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
-                    @if (AppSettings.IdentityItem.AccessLevel == true)
-                    {
-                        <RadzenButton Click=@(args => ActionAddAsync(EnumTableScales.WeithingFact, Item, null))
-                                      ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
-                                      Text=@LocalizationStrings.DeviceControl.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
-                        <RadzenButton Click=@(args => ActionEditAsync(EnumTableScales.WeithingFact, Item, null))
-                                      ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                      Text=@LocalizationStrings.DeviceControl.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
-                        <RadzenButton Click=@(args => ActionMarkedAsync(EnumTableScales.WeithingFact, Item, null))
-                                      ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                      Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
-                        @if (AppSettings.IsDebug)
-                        {
-                            <RadzenButton Click=@(args => ActionCopyAsync(EnumTableScales.WeithingFact, Item, null))
-                                          ButtonStyle="ButtonStyle.Secondary"
-                                          Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                          Text=@LocalizationStrings.DeviceControl.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
-                            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTableScales.WeithingFact, Item, null))
-                                          ButtonStyle="ButtonStyle.Secondary"
-                                          Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px; "
-                                          Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
-                        }
-                    }
-                    else
-                    {
-                        <span>@LocalizationStrings.DeviceControl.TableActionsIsDeny</span>
-                    }
-                </div>
-            </RadzenTabsItem>
-            <RadzenTabsItem Text=@LocalizationStrings.Share.Chart>
-            </RadzenTabsItem>
-        </Tabs>
-    </RadzenTabs>
+        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
+                ButtonStyle="ButtonStyle.Primary"
+                Style="margin-top: 3px; margin-left: 30px; width: 100px; height: 25px; font-size: 12px; "
+                class="oi oi-reload"
+                Disabled=@AppSettings.DataAccess.IsDisabled 
+                MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
+    </MudElement>
+    @if (Items == null)
+    {
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <RadzenGrid Data=@Items TItem="WeithingFactSummaryEntity"
+                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                    AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
+            <Columns>
+                    <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign="TextAlign.Center"
+                        Title=@LocalizationStrings.DeviceControl.TableFieldWeithingDate
+                        Type="date" Width="15%">
+                        <Template Context="weithingFactItem">
+                            <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled="true" DateFormat="d" />
+                        </Template>
+                    </RadzenGridColumn>
+                    <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
+                                        Title=@LocalizationStrings.DeviceControl.TableFieldDayOfWeek
+                                        Type="string" Width="15%" />
+                    <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
+                                        Title=@LocalizationStrings.DeviceControl.TableFieldCount
+                                        Type="int" Width="10%" />
+                    <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
+                                        Title=@LocalizationStrings.DeviceControl.TableFieldScale
+                                        Type="string" Width="60%" />
+            </Columns>
+        </RadzenGrid>
+    }
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
 }

@@ -54,13 +54,13 @@ namespace BlazorCore.DAL
                             .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
                             .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
                             .Mappings(m => m.FluentMappings.Add<ScalesMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceRefMap>())
+                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>())
                             .Mappings(m => m.FluentMappings.Add<TemplateResourcesMap>())
                             .Mappings(m => m.FluentMappings.Add<TemplatesMap>())
                             .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
                             .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceRefMap>())
+                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>());
                         configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
                         _sessionFactory = configuration.BuildSessionFactory();
@@ -92,7 +92,7 @@ namespace BlazorCore.DAL
                             .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
                             .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
                             .Mappings(m => m.FluentMappings.Add<ScalesMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceRefMap>())
+                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>())
                             .Mappings(m => m.FluentMappings.Add<TemplateResourcesMap>())
                             .Mappings(m => m.FluentMappings.Add<TemplatesMap>())
                             .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
@@ -100,7 +100,7 @@ namespace BlazorCore.DAL
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceRefMap>());
+                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>());
                         configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
                         _sessionFactory = configuration.BuildSessionFactory();
                     }
@@ -129,7 +129,7 @@ namespace BlazorCore.DAL
         public BaseCrud<ProductSeriesEntity> ProductSeriesCrud;
         public BaseCrud<TemplatesEntity> TemplatesCrud;
         public TemplateResourcesCrud TemplateResourcesCrud;
-        public BaseCrud<ZebraPrinterResourceRefEntity> ZebraPrinterResourceRefCrud;
+        public BaseCrud<ZebraPrinterResourceEntity> ZebraPrinterResourcesCrud;
         public BaseCrud<WeithingFactEntity> WeithingFactCrud;
         public BaseCrud<WorkshopEntity> WorkshopCrud;
         public BaseCrud<ZebraPrinterTypeEntity> ZebraPrinterTypeCrud;
@@ -177,7 +177,7 @@ namespace BlazorCore.DAL
             ProductSeriesCrud = new BaseCrud<ProductSeriesEntity>(this);
             TemplatesCrud = new BaseCrud<TemplatesEntity>(this);
             TemplateResourcesCrud = new TemplateResourcesCrud(this);
-            ZebraPrinterResourceRefCrud = new BaseCrud<ZebraPrinterResourceRefEntity>(this);
+            ZebraPrinterResourcesCrud = new BaseCrud<ZebraPrinterResourceEntity>(this);
             WeithingFactCrud = new BaseCrud<WeithingFactEntity>(this);
             WorkshopCrud = new BaseCrud<WorkshopEntity>(this);
             ZebraPrinterTypeCrud = new BaseCrud<ZebraPrinterTypeEntity>(this);
@@ -769,9 +769,9 @@ namespace BlazorCore.DAL
                 {
                     nextId = ZebraPrinterCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(ZebraPrinterResourceRefEntity))
+                else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
                 {
-                    nextId = ZebraPrinterResourceRefCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = ZebraPrinterResourcesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ZebraPrinterTypeEntity))
                 {
@@ -874,8 +874,8 @@ namespace BlazorCore.DAL
                 ZebraPrinterCrud.DeleteEntity(zebraPrinterEntity);
             else if (entity is ZebraPrinterTypeEntity zebraPrinterTypeEntity)
                 ZebraPrinterTypeCrud.MarkedEntity(zebraPrinterTypeEntity);
-            else if (entity is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
-                ZebraPrinterResourceRefCrud.DeleteEntity(zebraPrinterResourceRefEntity);
+            else if (entity is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
+                ZebraPrinterResourcesCrud.DeleteEntity(zebraPrinterResourceRefEntity);
         }
 
         public void ActionMarkedEntity<T>(T entity) where T : BaseEntity
@@ -928,8 +928,8 @@ namespace BlazorCore.DAL
                 ZebraPrinterCrud.MarkedEntity(zebraPrinterEntity);
             else if (entity is ZebraPrinterTypeEntity zebraPrinterTypeEntity)
                 ZebraPrinterTypeCrud.MarkedEntity(zebraPrinterTypeEntity);
-            else if (entity is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
-                ZebraPrinterResourceRefCrud.MarkedEntity(zebraPrinterResourceRefEntity);
+            else if (entity is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
+                ZebraPrinterResourcesCrud.MarkedEntity(zebraPrinterResourceRefEntity);
         }
 
         #endregion
