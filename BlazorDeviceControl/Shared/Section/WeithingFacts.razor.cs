@@ -110,12 +110,11 @@ namespace BlazorDeviceControl.Shared.Section
                 case EnumTableScales.Printer:
                     task = new Task(() =>
                     {
-                        ActionAsync(table, EnumTableAction.Edit, item, LocalizationStrings.DeviceControl.UriRouteItemPrinter, false)
-                            .ConfigureAwait(true);
+                        Action(table, EnumTableAction.Edit, item, LocalizationStrings.DeviceControl.UriRouteItemPrinter, false);
                     });
                     break;
                 default:
-                    await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, item, parentEntity).ConfigureAwait(true);
+                    Action(table, EnumTableAction.Edit, item, LocalizationStrings.DeviceControl.UriRouteItemPrinter, false, parentEntity);
                     await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
                     break;
             }

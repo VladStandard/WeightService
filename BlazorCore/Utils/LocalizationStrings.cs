@@ -317,9 +317,6 @@ namespace BlazorCore.Utils
             public const string DataRecords = @"записей";
             #endregion
             #region Methods
-            public static string MethodOnInitializedAsync => Lang == EnumLang.English ? @"Method OnInitializedAsync" : @"Метод OnInitializedAsync";
-            public static string MethodSetParametersAsync => Lang == EnumLang.English ? @"Method SetParametersAsync" : @"Метод SetParametersAsync";
-            public static string MethodItemSelectAsync => Lang == EnumLang.English ? @"Method ItemSelectAsync" : @"Метод ItemSelectAsync";
             public static string Method => Lang == EnumLang.English ? @"Method" : @"Метод";
             #endregion
             #region Комплексы промышленных устройств
@@ -328,6 +325,7 @@ namespace BlazorCore.Utils
             #region URI
             public const string UriRouteItemPrinter = "/item/printer";
             public const string UriRouteItemScale = "/item/scale";
+            public const string UriRouteItemPlu = "/item/plu";
             public const string UriRouteSectionContragents = "/section/contragents";
             public const string UriRouteSectionDevices = "/section/devices";
             public const string UriRouteSectionHosts = "/section/hosts";

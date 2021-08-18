@@ -26,8 +26,7 @@ namespace BlazorDeviceControl.Shared
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            RunTasks(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     //new Task(delegate {
                     new(() => {
@@ -36,14 +35,13 @@ namespace BlazorDeviceControl.Shared
                             AppSettings.HotKeysContextItem = AppSettings.HotKeysItem.CreateContext()
                                 .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
                     }),
-                }, GuiRefreshAsync, true);
-
-            await RunTasksAsync(LocalizationStrings.DeviceControl.MethodOnInitializedAsync, "", LocalizationStrings.Share.DialogResultFail, "",
+                }, true);
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(() => {
                         AppSettings.MemoryOpen(GuiRefreshAsync);
                     }),
-                }, null, true).ConfigureAwait(false);
+                }, true);
         }
 
         #endregion

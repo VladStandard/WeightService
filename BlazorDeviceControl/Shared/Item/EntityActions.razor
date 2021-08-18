@@ -14,14 +14,14 @@
         {
             @if (IsShowNew)
             {
-                <RadzenButton Click=@(args => ActionNewAsync(Table, ChildItem, ParentItem))
+                <RadzenButton Click=@(args => ActionNewAsync(Table, ChildItem, Page, false, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionNew Disabled=@AppSettings.DataAccess.IsDisabled />
             }
             @if (IsShowAdd)
             {
-                <RadzenButton Click=@(args => ActionAddAsync(Table, ChildItem, ParentItem))
+                <RadzenButton Click=@(args => ActionAddAsync(Table, ChildItem, Page, false, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
@@ -35,21 +35,21 @@
             }
             @if (IsShowCopy)
             {
-                <RadzenButton Click=@(args => ActionCopyAsync(Table, ChildItem, ParentItem))
+                <RadzenButton Click=@(args => ActionCopyAsync(Table, ChildItem, Page, false, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
             }
             @if (IsShowMark)
             {
-                <RadzenButton Click=@(args => ActionMarkAsync(Table, ChildItem, ParentItem))
+                <RadzenButton Click=@(args => ActionMarkAsync(Table, ChildItem, Page, false, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionMarked Disabled=@AppSettings.DataAccess.IsDisabled />
             }
             @if (IsShowDelete)
             {
-                <RadzenButton Click=@(args => ActionDeleteAsync(Table, ChildItem, ParentItem))
+                <RadzenButton Click=@(args => ActionDeleteAsync(Table, ChildItem, Page, false, ParentItem))
                               ButtonStyle="ButtonStyle.Secondary"
                               Style="margin-left: 30px; margin-top: 5px; width: 250px; height: 30px; font-size: 12px;"
                               Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />

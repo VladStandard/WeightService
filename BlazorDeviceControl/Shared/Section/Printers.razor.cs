@@ -89,52 +89,16 @@ namespace BlazorDeviceControl.Shared.Section
 
         private async Task ActionEditAsync(EnumTableScales table, BaseIdEntity item, BaseIdEntity parentEntity)
         {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             if (AppSettings.IdentityItem.AccessLevel != true)
                 return;
-
-            await RunTasksAsync(LocalizationStrings.DeviceControl.GetItemTitle(table), "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks(LocalizationStrings.DeviceControl.GetItemTitle(table), "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
-                    new(() => {
-                        ActionAsync(table, EnumTableAction.Edit, item, LocalizationStrings.DeviceControl.UriRouteItemPrinter, false)
-                            .ConfigureAwait(true);
+                    new(async() => {
+                        Action(table, EnumTableAction.Edit, item, LocalizationStrings.DeviceControl.UriRouteItemPrinter, false);
+                        await GuiRefreshAsync(false).ConfigureAwait(false);
                     }),
-                }, GuiRefreshAsync, true).ConfigureAwait(false);
-        }
-
-        private async Task ActionAddAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            if (AppSettings.IdentityItem.AccessLevel != true)
-                return;
-
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionCopyAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            if (AppSettings.IdentityItem.AccessLevel != true)
-                return;
-
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionDeleteAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            if (AppSettings.IdentityItem.AccessLevel != true)
-                return;
-
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionMarkedAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            if (AppSettings.IdentityItem.AccessLevel != true)
-                return;
-
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Mark, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
+                }, true);
         }
 
         private async Task OnChange(object value, string name)

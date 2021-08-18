@@ -6,10 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.400] - 2021-08-17
+## [0.5.410] - 2021-08-18
 ### Changed
-- BlazorDeviceControl v.0.5.400
-- BlazorCore v.0.5.400
+- BlazorCore v.0.5.410
+- BlazorDeviceControl v.0.5.410
 
 ## [0.5.380] - 2021-08-13
 ### Changed

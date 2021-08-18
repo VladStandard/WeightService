@@ -40,10 +40,10 @@ namespace BlazorCore.Models
 
         #region Public and private fields and properties
 
+        public string Page { get; set; }
         public AppSettingsEntity AppSettings = AppSettingsEntity.Instance;
         public delegate Task DelegateGuiRefreshAsync(bool continueOnCapturedContext);
         public delegate void DelegateGuiRefresh();
-        public string Page { get; set; }
 
         #endregion
 
@@ -70,104 +70,13 @@ namespace BlazorCore.Models
             {
                 return;
             }
-            
+
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
         }
 
-        //public void Action<T>(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem = null) where T : BaseRazorEntity
-        //{
-        //    RunTasks(LocalizationStrings.DeviceControl.MethodSetParametersAsync, "", LocalizationStrings.Share.DialogResultFail, "",
-        //        new List<Task> {
-        //            new(() => {
-        //                Console.WriteLine($"ActionAsync. table: {table}. tableAction: {tableAction}. item: {item}");
-        //                string title = string.Empty;
-        //                if (item is BaseIdEntity idEntity)
-        //                {
-        //                    idEntity = table switch
-        //                    {
-        //                        EnumTableScales.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity<BarCodeTypesEntity>(idEntity, tableAction),
-        //                        EnumTableScales.Contragents => AppSettings.DataAccess.ActionGetIdEntity<ContragentsEntity>(idEntity, tableAction),
-        //                        EnumTableScales.Hosts => AppSettings.DataAccess.ActionGetIdEntity<HostsEntity>(idEntity, tableAction),
-        //                        EnumTableScales.Nomenclature => AppSettings.DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
-        //                        EnumTableScales.OrderStatus => AppSettings.DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
-        //                        EnumTableScales.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity<OrderTypesEntity>(idEntity, tableAction),
-        //                        EnumTableScales.Plu => AppSettings.DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
-        //                        EnumTableScales.ProductionFacility => AppSettings.DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
-        //                        EnumTableScales.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
-        //                        EnumTableScales.Scales => AppSettings.DataAccess.ActionGetIdEntity<ScalesEntity>(idEntity, tableAction),
-        //                        EnumTableScales.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity<TemplateResourcesEntity>(idEntity, tableAction),
-        //                        EnumTableScales.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplatesEntity>(idEntity, tableAction),
-        //                        EnumTableScales.WorkShop => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
-        //                        EnumTableScales.WeithingFact => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
-        //                        EnumTableScales.Printer => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
-        //                        EnumTableScales.PrinterResourceRef => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceRefEntity>(idEntity, tableAction),
-        //                        EnumTableScales.PrinterType => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
-        //                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-        //                    };
-        //                    title = LocalizationStrings.DeviceControl.GetItemTitle(table, idEntity.Id);
-        //                }
-        //                else if (item is BaseUidEntity uidEntity)
-        //                {
-        //                    uidEntity = table switch
-        //                    {
-        //                        EnumTableScales.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
-        //                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-        //                    };
-        //                    title = LocalizationStrings.DeviceControl.GetItemTitle(table, uidEntity.Uid);
-        //                }
-
-        //                // Printer from ZebraPrinter.razor.
-        //                if (item is ZebraPrinterResourceRefEntity zebraPrinterResourceRefEntity)
-        //                {
-        //                    zebraPrinterResourceRefEntity.Printer = (ZebraPrinterEntity)parentItem;
-        //                }
-
-        //                if (tableAction == EnumTableAction.Add)
-        //                {
-        //                    if (item is PluEntity pluEntity)
-        //                    {
-        //                        pluEntity.Scale = (ScalesEntity)parentItem;
-        //                    }
-        //                }
-
-        //                switch (tableAction)
-        //                {
-        //                    case EnumTableAction.Add:
-        //                    case EnumTableAction.Edit:
-        //                    case EnumTableAction.Copy:
-        //                        if (AppSettings.IdentityItem.AccessLevel == true)
-        //                        {
-        //                            Console.WriteLine($"ActionAsync. AppSettings.IdentityItem.AccessLevel: {AppSettings.IdentityItem.AccessLevel}");
-        //                            Dialog.OpenAsync<T>(title,
-        //                                new Dictionary<string, object>
-        //                                {
-        //                                    {"Item", item},
-        //                                    {"Table", table},
-        //                                    {"TableAction", tableAction},
-        //                                },
-        //                                new DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
-        //                        }
-        //                        break;
-        //                    case EnumTableAction.Delete:
-        //                        if (AppSettings.IdentityItem.AccessLevel == true)
-        //                        {
-        //                            AppSettings.DataAccess.ActionDeleteEntity(item);
-        //                        }
-        //                        break;
-        //                    case EnumTableAction.Mark:
-        //                        if (AppSettings.IdentityItem.AccessLevel == true)
-        //                        {
-        //                            AppSettings.DataAccess.ActionMarkedEntity(item);
-        //                        }
-        //                        break;
-        //                }
-        //              }),
-        //          }, true);
-        //}
-
-        [Obsolete(@"Deprecated method")]
+        [Obsolete(@"Deprecated method. Use Action method.")]
         public async Task ActionAsync<T>(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem = null) where T : BaseRazorEntity
         {
             await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
@@ -257,104 +166,7 @@ namespace BlazorCore.Models
                 })}, GuiRefreshAsync, true).ConfigureAwait(false);
         }
 
-        [Obsolete(@"Deprecated method")]
-        public async Task ActionAsync(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow)
-        {
-            await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
-                new List<Task> { new Task(delegate {
-                    if (table == EnumTableScales.Default)
-                        return;
-                    //if (item == null || item.EqualsDefault())
-                    //    return;
-                    BaseIdEntity idItem = null;
-                    BaseUidEntity uidItem = null;
-                    switch (item)
-                    {
-                        case BaseIdEntity baseIdEntity:
-                            idItem = baseIdEntity;
-                            break;
-                        case BaseUidEntity baseUidEntity:
-                            uidItem = baseUidEntity;
-                            break;
-                    }
-                    // Debug log.
-                    if (AppSettings.IsDebug)
-                    {
-                        Console.WriteLine("--------------------------------------------------------------------------------");
-                        Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(ActionAsync)} (for Debug mode) ---------- ");
-                        Console.WriteLine($"{nameof(ActionAsync)}. {nameof(table)}: {table}. {nameof(tableAction)}: {tableAction}. {nameof(page)}: {page}. ");
-                        if (idItem != null)
-                        {
-                            Console.WriteLine($"{nameof(idItem)}: {idItem}");
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                                Console.WriteLine($"Open page {page}/{idItem.Id}");
-                        }
-                        else if (uidItem != null)
-                        {
-                            Console.WriteLine($"{nameof(uidItem)}: {uidItem}");
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                                Console.WriteLine($"Open page {page}/{uidItem.Uid}");
-                        }
-                        Console.WriteLine("--------------------------------------------------------------------------------");
-                    }
-
-                    switch (tableAction)
-                    {
-                        case EnumTableAction.Add:
-                        case EnumTableAction.Edit:
-                        case EnumTableAction.Copy:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                            {
-                                switch (table)
-                                {
-                                    case EnumTableScales.Scales:
-                                    case EnumTableScales.Printer:
-                                        if (!isNewWindow)
-                                        {
-                                            if (idItem != null)
-                                            {
-                                                Navigation.NavigateTo($"{page}/{idItem.Id}");
-                                            }
-                                            else if (uidItem != null)
-                                            {
-                                                Navigation.NavigateTo($"{page}/{uidItem.Uid}");
-                                            }
-                                            else
-                                            {
-                                                Navigation.NavigateTo("{page}");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (idItem != null)
-                                                JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
-                                            else if (uidItem != null)
-                                                JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
-                                            else
-                                                JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
-                                        }
-                                        break;
-                                }
-                            }
-                            break;
-                        case EnumTableAction.Delete:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                            {
-                                AppSettings.DataAccess.ActionDeleteEntity(item);
-                            }
-                            break;
-                        case EnumTableAction.Mark:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                            {
-                                AppSettings.DataAccess.ActionMarkedEntity(item);
-                            }
-                            break;
-                    }
-                })}, GuiRefreshAsync, true).ConfigureAwait(false);
-        }
-
-        public void Action(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow,
-            BaseEntity parentItem = null)
+        public void Action(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, string page, bool isNewWindow = false, BaseEntity parentItem = null)
         {
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(Action)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
@@ -378,8 +190,8 @@ namespace BlazorCore.Models
                         if (AppSettings.IsDebug)
                         {
                             Console.WriteLine("--------------------------------------------------------------------------------");
-                            Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(ActionAsync)} (for Debug mode) ---------- ");
-                            Console.WriteLine($"{nameof(ActionAsync)}. {nameof(table)}: {table}. {nameof(tableAction)}: {tableAction}. {nameof(page)}: {page}. ");
+                            Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(Action)} (for Debug mode) ---------- ");
+                            Console.WriteLine($"{nameof(Action)}. {nameof(table)}: {table}. {nameof(tableAction)}: {tableAction}. {nameof(page)}: {page}. ");
                             if (idItem != null)
                             {
                                 Console.WriteLine($"{nameof(idItem)}: {idItem}");
@@ -554,13 +366,12 @@ namespace BlazorCore.Models
             Navigation.NavigateTo(LocalizationStrings.Share.UriRouteRoot);
         }
 
-        public ConfirmOptions GetConfirmOptions() =>
-            //return new()
-            //{
+        public ConfirmOptions GetConfirmOptions() => new ConfirmOptions()
+        {
+            OkButtonText = LocalizationStrings.Share.DialogButtonYes,
+            CancelButtonText = LocalizationStrings.Share.DialogButtonCancel,
             //    ShowTitle = true,
             //    ShowClose = true,
-            //    OkButtonText = LocalizationStrings.Share.DialogButtonYes,
-            //    CancelButtonText = LocalizationStrings.Share.DialogButtonCancel,
             //    Bottom = null,
             //    ChildContent = null,
             //    Height = null,
@@ -568,12 +379,7 @@ namespace BlazorCore.Models
             //    Style = null,
             //    Top = null,
             //    Width = null,
-            //};
-            new ConfirmOptions()
-            {
-                OkButtonText = LocalizationStrings.Share.DialogButtonYes,
-                CancelButtonText = LocalizationStrings.Share.DialogButtonCancel,
-            };
+        };
 
         public async Task RunTasksAsync(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
             DelegateGuiRefreshAsync callRefresh, bool continueOnCapturedContext,
@@ -581,11 +387,10 @@ namespace BlazorCore.Models
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            RunTasks(title, detailSuccess, detailFail, detailCancel, tasks, callRefresh, continueOnCapturedContext, filePath, lineNumber, memberName);
+            RunTasks(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext, filePath, lineNumber, memberName);
         }
 
-        public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
-            bool continueOnCapturedContext,
+        public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks, bool continueOnCapturedContext,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
@@ -595,45 +400,6 @@ namespace BlazorCore.Models
             catch (Exception ex)
             {
                 RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
-            }
-        }
-
-        public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
-            DelegateGuiRefreshAsync callRefreshAsync, bool continueOnCapturedContext,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                RunTasksCore(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext);
-            }
-            catch (Exception ex)
-            {
-                RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
-            }
-            finally
-            {
-                callRefreshAsync?.Invoke(true).ConfigureAwait(false);
-            }
-        }
-
-        public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
-            DelegateGuiRefresh callRefresh, bool continueOnCapturedContext,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                RunTasksCore(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext);
-            }
-            catch (Exception ex)
-            {
-                RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
-            }
-            finally
-            {
-                if (callRefresh != null)
-                {
-                    callRefresh();
-                }
             }
         }
 
@@ -703,72 +469,23 @@ namespace BlazorCore.Models
             AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
 
-        public async Task RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel,
-            List<Task> tasks, DelegateGuiRefreshAsync callRefresh, string questionAdd = "", bool isWait = true,
+        public void RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel, string questionAdd,
+            List<Task> tasks, bool continueOnCapturedContext,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            //await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             try
             {
                 string question = string.IsNullOrEmpty(questionAdd) ? LocalizationStrings.Share.DialogQuestion : questionAdd;
-                Console.WriteLine($"RunTasksWithQeustion. Dialog: {Dialog}");
-                Console.WriteLine($"RunTasksWithQeustion. question: {question}");
-                Console.WriteLine($"RunTasksWithQeustion. title: {title}");
-                Console.WriteLine($"RunTasksWithQeustion. Dialog: {Dialog}");
-                //bool? result = Dialog.Confirm(question, title, confirmOptions).Result;
                 Task<bool?> dialog = Dialog.Confirm(question, title, GetConfirmOptions());
-                Console.WriteLine("RunTasksWithQeustion 2");
-                dialog.Start();
-                Console.WriteLine("RunTasksWithQeustion 3");
                 bool? result = dialog.Result;
-                Console.WriteLine("RunTasksWithQeustion 4");
                 if (result == true)
                 {
-                    Console.WriteLine("RunTasksWithQeustion 3");
-                    if (tasks != null)
-                    {
-                        //Task.WaitAll(tasks.ToArray());
-                        foreach (Task task in tasks)
-                        {
-                            task.Start();
-                            if (isWait)
-                                task.Wait();
-                        }
-                    }
-                    if (!string.IsNullOrEmpty(detailSuccess))
-                        Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsEntity.Delay);
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(detailCancel))
-                        Notification.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsEntity.Delay);
+                    RunTasksCore(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext);
                 }
             }
             catch (Exception ex)
             {
-                string msg = ex.Message;
-                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                if (!string.IsNullOrEmpty(detailFail))
-                {
-                    if (!string.IsNullOrEmpty(msg))
-                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettingsEntity.Delay);
-                    else
-                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettingsEntity.Delay);
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(msg))
-                        Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsEntity.Delay);
-                }
-
-                Console.WriteLine(msg);
-                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-            }
-            finally
-            {
-                if (callRefresh != null)
-                    await callRefresh(true).ConfigureAwait(false);
+                RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
             }
         }
 
@@ -778,23 +495,26 @@ namespace BlazorCore.Models
 
         public async Task ItemCancelAsync(BaseEntity item, string page)
         {
-            await RunTasksAsync(LocalizationStrings.Share.TableRecordCancel,
-                LocalizationStrings.Share.DialogResultSuccess, LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel,
-                new List<Task> { new Task(delegate {
-                    if (item == null)
-                        return;
-                    if (item is BaseIdEntity idItem && idItem.EqualsDefault())
-                        return;
-                    if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
-                        return;
-                    Navigation.NavigateTo(page);
-                })}, GuiRefreshAsync, false).ConfigureAwait(false);
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(ItemCancelAsync)}", LocalizationStrings.Share.DialogResultSuccess,
+                LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel,
+                new List<Task> {
+                    new(() => {
+                        if (item == null)
+                            return;
+                        if (item is BaseIdEntity idItem && idItem.EqualsDefault())
+                            return;
+                        if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+                            return;
+                        Navigation.NavigateTo(page);
+                    })}, false);
         }
 
-        public async Task ItemSaveAsync(BaseEntity item, bool continueOnCapturedContext = true)
+        public async Task ItemSaveAsync(BaseEntity item, string pageSection, bool continueOnCapturedContext)
         {
-            await RunTasksWithQeustion(LocalizationStrings.Share.TableRecordSave,
-                LocalizationStrings.Share.DialogResultSuccess, LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel,
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            RunTasksWithQeustion(LocalizationStrings.Share.TableRecordSave, LocalizationStrings.Share.DialogResultSuccess,
+                LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel, "",
                 new List<Task> { new Task(delegate {
                     if (item == null)
                         return;
@@ -802,7 +522,6 @@ namespace BlazorCore.Models
                         return;
                     if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
                         return;
-                    //if (ItemId == 0)
                     if (item is BaseIdEntity idItem2)
                     {
                         if (idItem2 is ZebraPrinterEntity printerItem)
@@ -819,9 +538,9 @@ namespace BlazorCore.Models
                             else
                                 AppSettings.DataAccess.ScalesCrud.UpdateEntity(scaleItem);
                         }
-                   }
-                    Navigation.NavigateTo($"{LocalizationStrings.DeviceControl.UriRouteSectionPrinters}");
-                })}, GuiRefreshAsync).ConfigureAwait(continueOnCapturedContext);
+                    }
+                    Navigation.NavigateTo(pageSection);
+                })}, continueOnCapturedContext);
         }
 
         #endregion

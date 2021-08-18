@@ -1,5 +1,4 @@
 ﻿using BlazorCore.DAL;
-using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
@@ -28,43 +27,40 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public async Task ActionNewAsync(EnumTableScales table, BaseEntity item, BaseEntity parentItem = null)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.New, item, parentItem).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        public async Task ActionAddAsync(EnumTableScales table, BaseEntity item, BaseEntity parentItem = null)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, item, parentItem).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        public async Task ActionEditAsync(EnumTableScales table, BaseEntity item, string page, bool isNewWindow, 
-            BaseEntity parentItem = null)
+        public async Task ActionNewAsync(EnumTableScales table, BaseEntity item, string page, bool isNewWindow = false, BaseEntity parentItem = null)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(table, EnumTableAction.New, item, page, isNewWindow, parentItem);
+        }
 
-            //Action<BaseRazorEntity>(table, EnumTableAction.Edit, item, parentItem);
+        public async Task ActionAddAsync(EnumTableScales table, BaseEntity item, string page, bool isNewWindow = false, BaseEntity parentItem = null)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(table, EnumTableAction.Add, item, page, isNewWindow, parentItem);
+        }
+
+        public async Task ActionEditAsync(EnumTableScales table, BaseEntity item, string page, bool isNewWindow = false, BaseEntity parentItem = null)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Action(table, EnumTableAction.Edit, item, page, isNewWindow, parentItem);
         }
 
-        public async Task ActionCopyAsync(EnumTableScales table, BaseEntity item, BaseEntity parentItem = null)
+        public async Task ActionCopyAsync(EnumTableScales table, BaseEntity item, string page, bool isNewWindow = false, BaseEntity parentItem = null)
         {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, item, parentItem).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(table, EnumTableAction.Copy, item, page, isNewWindow, parentItem);
         }
 
-        public async Task ActionMarkAsync(EnumTableScales table, BaseEntity item, BaseEntity parentItem = null)
+        public async Task ActionMarkAsync(EnumTableScales table, BaseEntity item, string page, bool isNewWindow = false, BaseEntity parentItem = null)
         {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Mark, item, parentItem).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(table, EnumTableAction.Mark, item, page, isNewWindow, parentItem);
         }
 
-        public async Task ActionDeleteAsync(EnumTableScales table, BaseEntity item, BaseEntity parentItem = null)
+        public async Task ActionDeleteAsync(EnumTableScales table, BaseEntity item, string page, bool isNewWindow = false, BaseEntity parentItem = null)
         {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, item, parentItem).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(table, EnumTableAction.Delete, item, page, isNewWindow, parentItem);
         }
 
         #endregion

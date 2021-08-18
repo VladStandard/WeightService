@@ -20,13 +20,13 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
+        private PluEntity PluItem { get { if (PluItem is PluEntity pluEntity) return pluEntity; return null; } }
+        [Parameter] public int Id { get => PluItem == null ? 0 : PluItem.Id; set => _ = value; }
         public List<ScalesEntity> ScalesEntities { get; set; } = null;
         public List<TemplatesEntity> TemplatesEntities { get; set; } = null;
         public List<NomenclatureEntity> NomenclatureEntities { get; set; } = null;
         public readonly ProductHelper Product = ProductHelper.Instance;
         private readonly BarcodeHelper _barcode = BarcodeHelper.Instance;
-        [Parameter]
-        public PluEntity Item { get; set; }
 
         #endregion
 
@@ -63,20 +63,20 @@ namespace BlazorDeviceControl.Shared.Item
                 }
 
                 // Проверка шаблона.
-                if ((Item.Templates == null || Item.Templates.EqualsDefault()) && Item.Scale.TemplateDefault != null)
+                if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
                 {
-                    Item.Templates = (TemplatesEntity)Item.Scale.TemplateDefault.Clone();
+                    PluItem.Templates = (TemplatesEntity)PluItem.Scale.TemplateDefault.Clone();
                 }
 
                 // Номер PLU.
-                if (Item.Plu == 0)
+                if (PluItem.Plu == 0)
                 {
                     PluEntity pluEntity = AppSettings.DataAccess.PluCrud.GetEntity(
-                        new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", Item.Scale.Id } }),
+                        new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", PluItem.Scale.Id } }),
                         new FieldOrderEntity { Direction = EnumOrderDirection.Desc, Name = EnumField.Plu, Use = true });
                     if (pluEntity != null && !pluEntity.EqualsDefault())
                     {
-                        Item.Plu = pluEntity.Plu + 1;
+                        PluItem.Plu = pluEntity.Plu + 1;
                     }
                 }
             }), false).ConfigureAwait(false);
@@ -138,7 +138,7 @@ namespace BlazorDeviceControl.Shared.Item
                     case "Scale":
                         if (value is int idScale)
                         {
-                            Item.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
+                            PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idScale } }),
                                 null);
                         }
@@ -146,7 +146,7 @@ namespace BlazorDeviceControl.Shared.Item
                     case "Nomenclature":
                         if (value is int idNomenclature)
                         {
-                            Item.Nomenclature = AppSettings.DataAccess.NomenclatureCrud.GetEntity(
+                            PluItem.Nomenclature = AppSettings.DataAccess.NomenclatureCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idNomenclature } }),
                                 null);
                             OnClickFieldsFill("Entity");
@@ -156,10 +156,10 @@ namespace BlazorDeviceControl.Shared.Item
                         if (value is int idTemplate)
                         {
                             if (idTemplate <= 0)
-                                Item.Templates = null;
+                                PluItem.Templates = null;
                             else
                             {
-                                Item.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                                PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
                                     new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idTemplate } }),
                                     null);
                             }
@@ -191,80 +191,80 @@ namespace BlazorDeviceControl.Shared.Item
         {
             try
             {
-                if (Item.Nomenclature == null)
+                if (PluItem.Nomenclature == null)
                     return;
                 if (name.Equals("clear", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    Item.Nomenclature = null;
-                    Item.GoodsName = string.Empty;
-                    Item.GoodsFullName = string.Empty;
-                    Item.GoodsDescription = string.Empty;
-                    Item.GoodsShelfLifeDays = 0;
-                    Item.Gtin = string.Empty;
-                    Item.Ean13 = string.Empty;
-                    Item.Itf14 = string.Empty;
-                    Item.GoodsBoxQuantly = 0;
-                    Item.GoodsTareWeight = 0;
+                    PluItem.Nomenclature = null;
+                    PluItem.GoodsName = string.Empty;
+                    PluItem.GoodsFullName = string.Empty;
+                    PluItem.GoodsDescription = string.Empty;
+                    PluItem.GoodsShelfLifeDays = 0;
+                    PluItem.Gtin = string.Empty;
+                    PluItem.Ean13 = string.Empty;
+                    PluItem.Itf14 = string.Empty;
+                    PluItem.GoodsBoxQuantly = 0;
+                    PluItem.GoodsTareWeight = 0;
                 }
 
-                ProductEntity productEntity = Product.GetProductEntity(Item.Nomenclature?.SerializedRepresentationObject);
+                ProductEntity productEntity = Product.GetProductEntity(PluItem.Nomenclature?.SerializedRepresentationObject);
                 if (productEntity != null && !productEntity.EqualsNew())
                 {
                     if (name.Equals("Entity", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (string.IsNullOrEmpty(Item.GoodsName))
-                            Item.GoodsName = Item.XmlGoodsName;
-                        if (string.IsNullOrEmpty(Item.GoodsFullName))
-                            Item.GoodsFullName = Item.XmlGoodsFullName;
-                        if (string.IsNullOrEmpty(Item.GoodsDescription))
-                            Item.GoodsDescription = Item.XmlGoodsDescription;
-                        if (Item.GoodsShelfLifeDays == 0)
-                            Item.GoodsShelfLifeDays = Item.XmlGoodsShelfLifeDays;
-                        if (string.IsNullOrEmpty(Item.Gtin))
-                            Item.Gtin = Item.XmlGtin;
-                        if (string.IsNullOrEmpty(Item.Ean13))
-                            Item.Ean13 = Item.XmlEan13;
-                        if (string.IsNullOrEmpty(Item.Itf14))
-                            Item.Itf14 = Item.XmlItf14;
-                        if (Item.GoodsBoxQuantly == 0)
-                            Item.GoodsBoxQuantly = Item.XmlGoodsBoxQuantly;
-                        if (Item.GoodsTareWeight == 0)
-                            Item.GoodsTareWeight = Item.CalcGoodsTareWeight();
+                        if (string.IsNullOrEmpty(PluItem.GoodsName))
+                            PluItem.GoodsName = PluItem.XmlGoodsName;
+                        if (string.IsNullOrEmpty(PluItem.GoodsFullName))
+                            PluItem.GoodsFullName = PluItem.XmlGoodsFullName;
+                        if (string.IsNullOrEmpty(PluItem.GoodsDescription))
+                            PluItem.GoodsDescription = PluItem.XmlGoodsDescription;
+                        if (PluItem.GoodsShelfLifeDays == 0)
+                            PluItem.GoodsShelfLifeDays = PluItem.XmlGoodsShelfLifeDays;
+                        if (string.IsNullOrEmpty(PluItem.Gtin))
+                            PluItem.Gtin = PluItem.XmlGtin;
+                        if (string.IsNullOrEmpty(PluItem.Ean13))
+                            PluItem.Ean13 = PluItem.XmlEan13;
+                        if (string.IsNullOrEmpty(PluItem.Itf14))
+                            PluItem.Itf14 = PluItem.XmlItf14;
+                        if (PluItem.GoodsBoxQuantly == 0)
+                            PluItem.GoodsBoxQuantly = PluItem.XmlGoodsBoxQuantly;
+                        if (PluItem.GoodsTareWeight == 0)
+                            PluItem.GoodsTareWeight = PluItem.CalcGoodsTareWeight();
                     }
                     else
                     {
                         switch (name.ToLower())
                         {
                             case "goodsname":
-                                Item.GoodsName = Item.XmlGoodsName;
+                                PluItem.GoodsName = PluItem.XmlGoodsName;
                                 break;
                             case "goodsfullname":
-                                Item.GoodsFullName = Item.XmlGoodsFullName;
+                                PluItem.GoodsFullName = PluItem.XmlGoodsFullName;
                                 break;
                             case "goodsdescription":
-                                Item.GoodsDescription = Item.XmlGoodsDescription;
+                                PluItem.GoodsDescription = PluItem.XmlGoodsDescription;
                                 break;
                             case "goodsshelflifedays":
-                                Item.GoodsShelfLifeDays = Item.XmlGoodsShelfLifeDays;
+                                PluItem.GoodsShelfLifeDays = PluItem.XmlGoodsShelfLifeDays;
                                 break;
                             case "gtin":
-                                Item.Gtin = Item.XmlGtin;
+                                PluItem.Gtin = PluItem.XmlGtin;
                                 break;
                             case "getgtin":
-                                if (Item.Gtin.Length > 12)
-                                    Item.Gtin = _barcode.GetGtin(Item.Gtin.Substring(0, 13));
+                                if (PluItem.Gtin.Length > 12)
+                                    PluItem.Gtin = _barcode.GetGtin(PluItem.Gtin.Substring(0, 13));
                                 break;
                             case "ean13":
-                                Item.Ean13 = Item.XmlEan13;
+                                PluItem.Ean13 = PluItem.XmlEan13;
                                 break;
                             case "itf14":
-                                Item.Itf14 = Item.XmlItf14;
+                                PluItem.Itf14 = PluItem.XmlItf14;
                                 break;
                             case "goodsboxquantly":
-                                Item.GoodsBoxQuantly = Item.XmlGoodsBoxQuantly;
+                                PluItem.GoodsBoxQuantly = PluItem.XmlGoodsBoxQuantly;
                                 break;
                             case "goodstareweight":
-                                Item.GoodsTareWeight = Item.CalcGoodsTareWeight();
+                                PluItem.GoodsTareWeight = PluItem.CalcGoodsTareWeight();
                                 break;
                         }
                     }

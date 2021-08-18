@@ -26,6 +26,11 @@ namespace BlazorDeviceControl.Shared.Item
                     DtCreate = scalesItem.CreateDate.ToString();
                     DtModify = scalesItem.ModifiedDate.ToString();
                 }
+                else if (_item != null && _item is PluEntity pluEntity)
+                {
+                    DtCreate = pluEntity.CreateDate.ToString();
+                    DtModify = pluEntity.ModifiedDate.ToString();
+                }
                 else if (_item != null && _item is ZebraPrinterEntity printerItem)
                 {
                     DtCreate = printerItem.CreateDate.ToString();

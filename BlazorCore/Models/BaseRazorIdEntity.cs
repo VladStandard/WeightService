@@ -1,8 +1,9 @@
 ﻿using BlazorCore.DAL;
 using BlazorCore.Utils;
+using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
 
 namespace BlazorCore.Models
 {
@@ -10,7 +11,7 @@ namespace BlazorCore.Models
     {
         #region Public and private fields and properties
 
-        public BaseIdEntity IdItem { get; set; }
+        [Parameter] public BaseIdEntity Item { get; set; }
 
         #endregion
 
@@ -25,16 +26,16 @@ namespace BlazorCore.Models
         public async Task ItemSelectAsync(BaseIdEntity item)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks(LocalizationStrings.DeviceControl.MethodItemSelectAsync, "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(ItemSelectAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        IdItem = item;
+                        Item = item;
                         // Debug log.
                         if (AppSettings.IsDebug)
                         {
                             Console.WriteLine("--------------------------------------------------------------------------------");
                             Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
-                            Console.WriteLine($"Item: {IdItem}");
+                            Console.WriteLine($"Item: {Item}");
                             Console.WriteLine("--------------------------------------------------------------------------------");
                         }
                         await GuiRefreshAsync(false).ConfigureAwait(false);

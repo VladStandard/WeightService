@@ -1,13 +1,13 @@
 ﻿@page "/item/scale"
-@page "/item/scale/{ItemId:int}"
+@page "/item/scale/{Id:int}"
 @using BlazorCore
 @using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorIdEntity
 @inject IDialogService DialogService
 
 <div class="row col-sm-12 col-md-12 col-lg-12">
-    @if (Item == null)
+    @if (ScalesItem == null)
     {
         <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
@@ -16,13 +16,13 @@
     {
         <div class="col-sm-6 col-md-6 col-lg-6">
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldDescription />
-            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Description />
+            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@ScalesItem.Description />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldDeviceSendTimeout />
-            <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="short?" @bind-Value=@Item.DeviceSendTimeout />
+            <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="short?" @bind-Value=@ScalesItem.DeviceSendTimeout />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldDeviceReceiveTimeout />
-            <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="short?" @bind-Value=@Item.DeviceReceiveTimeout />
+            <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="short?" @bind-Value=@ScalesItem.DeviceReceiveTimeout />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldDeviceComPort />
             @if (ComPorts == null)
@@ -35,7 +35,7 @@
                 <RadzenDropDown Style="width: 63%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                 Data=@ComPorts PageSize="5" TextProperty="Name" ValueProperty="Value"
-                                Value=@Item.DeviceComPort Change=@(args => OnChange(args, "DeviceComPort")) />
+                                Value=@ScalesItem.DeviceComPort Change=@(args => OnChange(args, "DeviceComPort")) />
             }
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter />
@@ -50,7 +50,7 @@
                                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                         Data=@PrinterItems PageSize="5"
                                         TextProperty="Name" ValueProperty="Id"
-                                        Value=@Item.Printer?.Id
+                                        Value=@ScalesItem.Printer?.Id
                                         Change=@(args => OnChange(args, "Printers")) />
             }
             <br />
@@ -66,7 +66,7 @@
                                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                         Data=@HostItems PageSize="5"
                                         TextProperty="Name" ValueProperty="Id"
-                                        Value=@Item.Host?.Id
+                                        Value=@ScalesItem.Host?.Id
                                         Change=@(args => OnChange(args, "Hosts"))>
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldName Width="30%" />
@@ -79,12 +79,12 @@
         <div class="col-sm-6 col-md-6 col-lg-6">
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldDeviceNumber />
             <RadzenNumeric Style="width: 62.0%; text-align: center;" Disabled="false" TValue="int?"
-                            Name="fieldDeviceNumber" @bind-Value=@Item.DeviceNumber />
+                            Name="fieldDeviceNumber" @bind-Value=@ScalesItem.DeviceNumber />
             <RadzenNumericRangeValidator Component="fieldDeviceNumber" Min="0"
                                             Text=@LocalizationStrings.Share.InputControlMuchZero Popup=true Style="position: absolute;" />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldUseOrder />
-            <RadzenCheckBox Disabled="false" TValue="bool?" @bind-Value=@Item.UseOrder />
+            <RadzenCheckBox Disabled="false" TValue="bool?" @bind-Value=@ScalesItem.UseOrder />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldTemplateDefault />
             @if (TemplatesDefaultItems == null)
@@ -98,7 +98,7 @@
                                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                         Data=@TemplatesDefaultItems PageSize="5"
                                         TextProperty="Title" ValueProperty="Id"
-                                        Value=@Item.TemplateDefault?.Id
+                                        Value=@ScalesItem.TemplateDefault?.Id
                                         Change=@(args => OnChange(args, "TemplatesDefault")) />
             }
             <br />
@@ -114,7 +114,7 @@
                                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                         Data=@TemplatesSeriesItems PageSize="5"
                                         TextProperty="Title" ValueProperty="Id"
-                                        Value=@Item.TemplateSeries?.Id
+                                        Value=@ScalesItem.TemplateSeries?.Id
                                         Change=@(args => OnChange(args, "TemplatesSeries")) />
             }
             <br />
@@ -130,12 +130,12 @@
                                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                         Data=@WorkshopItems PageSize="5"
                                         TextProperty="Name" ValueProperty="Id"
-                                        Value=@Item.WorkShop?.Id
+                                        Value=@ScalesItem.WorkShop?.Id
                                         Change=@(args => OnChange(args, "WorkShops")) />
             }
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldScaleFactor />
-            <RadzenNumeric Style="width: 62.0%; text-align: center;" Disabled="false" TValue="int?" @bind-Value=@Item.ScaleFactor />
+            <RadzenNumeric Style="width: 62.0%; text-align: center;" Disabled="false" TValue="int?" @bind-Value=@ScalesItem.ScaleFactor />
             <br />
         </div>
     }
@@ -204,8 +204,8 @@
     }
 </div>
 
-<EntityActions Table=@EnumTableScales.Plu ParentItem=@Item ChildItem=@PluItem IsShowAdd=true IsShowEdit=true IsShowMark=true />
+<EntityActions Table=@EnumTableScales.Plu ParentItem=@ScalesItem ChildItem=@PluItem IsShowAdd=true IsShowEdit=true IsShowMark=true />
 
-<EntityDates Item=@Item />
+<EntityDates Item=@ScalesItem />
 
-<EntitySave Item=@Item />
+<EntitySave Item=@ScalesItem />

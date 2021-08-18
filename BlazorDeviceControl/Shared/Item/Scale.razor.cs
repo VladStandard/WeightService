@@ -21,9 +21,8 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        [Parameter]
-        public int ItemId { get; set; }
-        public ScalesEntity Item { get; set; }
+        [Parameter] public int Id { get; set; }
+        private ScalesEntity ScalesItem { get; set; }
         public string PluTitle { get; set; }
         public PluEntity PluItem { get; set; }
         public List<PluEntity> PluItems { get; set; } = null;
@@ -42,39 +41,46 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
-            await GetDataAsync(new Task(delegate
-            {
-                Item = AppSettings?.DataAccess?.ScalesCrud?.GetEntity(new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), ItemId } }), null);
-
-                ComPorts = new List<TypeEntity<string>>();
-                for (int i = 1; i < 256; i++)
-                {
-                    ComPorts.Add(new TypeEntity<string>($"COM{i}", $"COM{i}"));
-                }
-
-                // ScaleFactor
-                Item.ScaleFactor ??= 1000;
-                PluTitle = $"{LocalizationStrings.DeviceControl.SectionPlus}  [{LocalizationStrings.Share.DataLoading}]";
-                PluItems = AppSettings.DataAccess.PluCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
-                    { EnumField.Marked.ToString(), false },
-                    { "Scale.Id", Item.Id },
-                }), new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
-
-                PluTitle = $"{LocalizationStrings.DeviceControl.SectionPlus}  [{PluItems.Count} {LocalizationStrings.DeviceControl.DataRecords}]";
-                TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                    new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
-                    null).ToList();
-                TemplatesSeriesItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                    new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
-                    null).ToList();
-                WorkshopItems = AppSettings.DataAccess.WorkshopCrud.GetEntities(
-                    new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
-                    null).ToList();
-                PrinterItems = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(
-                    new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
-                    null).ToList();
-                HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(Item.Host?.Id);
-            }), false).ConfigureAwait(false);
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        Item = null;
+                        ScalesItem = null;
+                        ScalesItem = AppSettings.DataAccess.ScalesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object> {
+                            { EnumField.Id.ToString(), Id },
+                        }), null);
+                        // ComPorts
+                        ComPorts = new List<TypeEntity<string>>();
+                        for (int i = 1; i < 256; i++)
+                        {
+                            ComPorts.Add(new TypeEntity<string>($"COM{i}", $"COM{i}"));
+                        }
+                        // ScaleFactor
+                        ScalesItem.ScaleFactor ??= 1000;
+                        // PLU.
+                        PluTitle = $"{LocalizationStrings.DeviceControl.SectionPlus}  [{LocalizationStrings.Share.DataLoading}]";
+                        PluItems = AppSettings.DataAccess.PluCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
+                            { EnumField.Marked.ToString(), false },
+                            { "Scale.Id", ScalesItem.Id },
+                        }), new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
+                        PluTitle = $"{LocalizationStrings.DeviceControl.SectionPlus}  [{PluItems.Count} {LocalizationStrings.DeviceControl.DataRecords}]";
+                        // Other.
+                        TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                            null).ToList();
+                        TemplatesSeriesItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                            null).ToList();
+                        WorkshopItems = AppSettings.DataAccess.WorkshopCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                            null).ToList();
+                        PrinterItems = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                            null).ToList();
+                        HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(ScalesItem.Host?.Id);
+                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                    }),
+                }, true);
         }
 
         private async Task RowSelectAsync(BaseIdEntity entity,
@@ -112,8 +118,8 @@ namespace BlazorDeviceControl.Shared.Item
                 if (entity is PluEntity pluEntity)
                 {
                     PluItem = pluEntity;
-                    //await EntityActions.ActionEditAsync(EnumTable.Plu, PluItem, Item).ConfigureAwait(true);
-                    await ActionAsync<BaseRazorEntity>(EnumTableScales.Plu, EnumTableAction.Edit, PluItem, Item).ConfigureAwait(true);
+                    //await EntityActions.ActionEditAsync(EnumTable.Plu, PluItem, ScalesItem).ConfigureAwait(true);
+                    Action(EnumTableScales.Plu, EnumTableAction.Edit, (BaseEntity)ScalesItem, LocalizationStrings.DeviceControl.UriRouteItemScale, false, (BaseEntity)PluItem);
                     await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
                 }
             }
@@ -139,17 +145,17 @@ namespace BlazorDeviceControl.Shared.Item
                 case "DeviceComPort":
                     if (value is string strValue)
                     {
-                        Item.DeviceComPort = strValue;
+                        ScalesItem.DeviceComPort = strValue;
                     }
                     break;
                 case "TemplatesDefault":
                     if (value is int idDefault)
                     {
                         if (idDefault <= 0)
-                            Item.TemplateDefault = null;
+                            ScalesItem.TemplateDefault = null;
                         else
                         {
-                            Item.TemplateDefault = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                            ScalesItem.TemplateDefault = AppSettings.DataAccess.TemplatesCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idDefault } }),
                                 null);
                         }
@@ -159,10 +165,10 @@ namespace BlazorDeviceControl.Shared.Item
                     if (value is int idSeries)
                     {
                         if (idSeries <= 0)
-                            Item.TemplateSeries = null;
+                            ScalesItem.TemplateSeries = null;
                         else
                         {
-                            Item.TemplateSeries = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                            ScalesItem.TemplateSeries = AppSettings.DataAccess.TemplatesCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idSeries } }),
                                 null);
                         }
@@ -172,10 +178,10 @@ namespace BlazorDeviceControl.Shared.Item
                     if (value is int idWorkShop)
                     {
                         if (idWorkShop <= 0)
-                            Item.WorkShop = null;
+                            ScalesItem.WorkShop = null;
                         else
                         {
-                            Item.WorkShop = AppSettings.DataAccess.WorkshopCrud.GetEntity(
+                            ScalesItem.WorkShop = AppSettings.DataAccess.WorkshopCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idWorkShop } }),
                                 null);
                         }
@@ -185,10 +191,10 @@ namespace BlazorDeviceControl.Shared.Item
                     if (value is int idPrinter)
                     {
                         if (idPrinter <= 0)
-                            Item.Printer = null;
+                            ScalesItem.Printer = null;
                         else
                         {
-                            Item.Printer = AppSettings.DataAccess.ZebraPrinterCrud.GetEntity(
+                            ScalesItem.Printer = AppSettings.DataAccess.ZebraPrinterCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idPrinter } }),
                                 null);
                         }
@@ -198,10 +204,10 @@ namespace BlazorDeviceControl.Shared.Item
                     if (value is int idHost)
                     {
                         if (idHost <= 0)
-                            Item.Host = null;
+                            ScalesItem.Host = null;
                         else
                         {
-                            Item.Host = AppSettings.DataAccess.HostsCrud.GetEntity(
+                            ScalesItem.Host = AppSettings.DataAccess.HostsCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idHost } }),
                                 null);
                         }
