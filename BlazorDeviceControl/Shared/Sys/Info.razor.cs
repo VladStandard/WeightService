@@ -32,7 +32,7 @@ namespace BlazorDeviceControl.Shared.Sys
                 new(async() => {
                     TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
                     TemplateIsDebug = AppSettings.DataSource.GetTemplateIsDebug();
-                    await GuiRefreshAsync(false).ConfigureAwait(false);
+                    await GuiRefreshWithWaitAsync();
                 }),
             }, true);
         }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using BlazorCore.Models;
+using System;
 using System.Diagnostics;
 using System.Runtime.Versioning;
 
@@ -75,6 +79,14 @@ namespace BlazorCore.Utils
             public static string ItemAccessNone => Lang == EnumLang.English ? @"No access to the item" : @"Доступ к разделу не предусмотрен";
             public static string ItemAccessDeny => Lang == EnumLang.English ? @"Item access denied" : @"Доступ к элементу запрещён";
             public static string ItemAccessAllow => Lang == EnumLang.English ? @"Item access allowed" : @"Доступ к элементу разрешён";
+            #region Items
+            public static string ItemAccess => Lang == EnumLang.English ? @"Access" : @"Доступ";
+            public static string ItemLog => Lang == EnumLang.English ? @"Log" : @"Лог";
+            #endregion
+            #region Sections
+            public static string SectionAccess => Lang == EnumLang.English ? @"Access" : @"Доступ";
+            public static string SectionLog => Lang == EnumLang.English ? @"Log" : @"Лог";
+            #endregion
             #endregion
             #region Chart
             public static string Chart => Lang == EnumLang.English ? @"Chart" : @"Диаграмма";
@@ -122,9 +134,9 @@ namespace BlazorCore.Utils
             #region Windows
             public static string WindowsUser => Lang == EnumLang.English ? @"Windows-user" : @"Windows-пользователь";
             #endregion
-            #region URI
+            #region URI system
             public const string UriRouteRoot = "/";
-            public const string UriRouteSectionLogs = "/system/logs";
+            public const string UriRouteSystemLogs = "/system/logs";
             public const string UriRouteSystemAccess = "/system/access";
             public const string UriRouteSystemDocs = "/system/docs";
             public const string UriRouteSystemInfo = "/system/info";
@@ -309,8 +321,8 @@ namespace BlazorCore.Utils
 
             public static string Index => Lang == EnumLang.English ? @"DeviceControl" : @"Управление устройствами";
             public static string IndexContinue => Lang == EnumLang.English
-                ? @"Click on a section in the panel to continue."
-                : @"Для продолжения работы кликните по разделу на панели.";
+                ? @"Click on a menu section to continue."
+                : @"Нажмите на раздел меню, чтобы продолжить.";
             public static string SqlServerDebug => "CREATIO";
             public static string SqlServerRelease => "PALYCH";
             public static string CallbackEmail => Lang == EnumLang.English ?
@@ -344,6 +356,7 @@ namespace BlazorCore.Utils
             public const string UriRouteSectionContragents = "/section/contragents";
             public const string UriRouteSectionDevices = "/section/devices";
             public const string UriRouteSectionHosts = "/section/hosts";
+            public const string UriRouteSectionBarCodeTypes = "/section/barcodetypes";
             public const string UriRouteSectionNomenclatures = "/section/nomenclatures";
             public const string UriRouteSectionPrinterTypes = "/section/printertypes";
             public const string UriRouteSectionPrinters = "/section/printers";
@@ -354,7 +367,7 @@ namespace BlazorCore.Utils
             public const string UriRouteSectionWeithingFacts = "/section/weithingfacts";
             public const string UriRouteSectionWorkshops = "/section/workshops";
             #endregion
-            #region Items
+            #region Items scales
             public static string ItemBarCodeType => Lang == EnumLang.English ? @"Barcodes type" : @"Тип штрихкода";
             public static string ItemBarcode => Lang == EnumLang.English ? @"Barcode" : @"Штрихкод";
             public static string ItemContragent => Lang == EnumLang.English ? @"Counterparty" : @"Контрагент";
@@ -362,7 +375,6 @@ namespace BlazorCore.Utils
             public static string ItemHost => Lang == EnumLang.English ? @"Host" : @"Хост";
             public static string ItemLabel => Lang == EnumLang.English ? @"Label" : @"Этикетка";
             public static string ItemLogo => Lang == EnumLang.English ? @"Logo" : @"Логотип";
-            public static string ItemLog => Lang == EnumLang.English ? @"Log" : @"Лог";
             public static string ItemNomenclatureUnit => Lang == EnumLang.English ? @"Package" : @"Упаковка";
             public static string ItemNomenclature => Lang == EnumLang.English ? @"Nomenclature" : @"Номенклатура";
             public static string ItemOrderStatus => Lang == EnumLang.English ? @"Order status" : @"Статус заказа";
@@ -380,81 +392,6 @@ namespace BlazorCore.Utils
             public static string ItemTemplate => Lang == EnumLang.English ? @"Template" : @"Шаблон";
             public static string ItemWeithingFact => Lang == EnumLang.English ? @"Weithing fact" : @"Взвешивание";
             public static string ItemWorkshop => Lang == EnumLang.English ? @"Workshop" : @"Цех";
-            public static string GetItemTitle(EnumTableScales table) => table switch
-            {
-                EnumTableScales.BarcodeTypes => ItemBarCodeType,
-                EnumTableScales.Contragents => ItemContragent,
-                EnumTableScales.Hosts => ItemHost,
-                EnumTableScales.Labels => ItemLabel,
-                EnumTableScales.Logs => ItemLog,
-                EnumTableScales.Nomenclature => ItemNomenclature,
-                EnumTableScales.OrderStatus => ItemOrderStatus,
-                EnumTableScales.OrderTypes => ItemOrderType,
-                EnumTableScales.Orders => ItemOrder,
-                EnumTableScales.Plu => ItemPlu,
-                EnumTableScales.Printer => ItemPrinter,
-                EnumTableScales.PrinterResource => ItemPrinterResource,
-                EnumTableScales.PrinterType => ItemPrinterType,
-                EnumTableScales.ProductSeries => ItemProductSeries,
-                EnumTableScales.ProductionFacility => ItemProductionFacility,
-                EnumTableScales.Scales => ItemScale,
-                EnumTableScales.TemplateResources => ItemTemplateResource,
-                EnumTableScales.Templates => ItemTemplate,
-                EnumTableScales.WeithingFact => ItemWeithingFact,
-                EnumTableScales.WorkShop => ItemWorkshop,
-                EnumTableScales.Default => throw new NotImplementedException(),
-                _ => string.Empty,
-            };
-            public static string GetItemTitle(EnumTableScales table, int itemId) => table switch
-            {
-                EnumTableScales.BarcodeTypes => $"{ItemBarCodeType}. ID {itemId}",
-                EnumTableScales.Contragents => $"{ItemContragent}. ID {itemId}",
-                EnumTableScales.Hosts => $"{ItemHost}. ID {itemId}",
-                EnumTableScales.Labels => $"{ItemLabel}. ID {itemId}",
-                EnumTableScales.Logs => $"{ItemLog}. ID {itemId}",
-                EnumTableScales.Nomenclature => $"{ItemNomenclature}. ID {itemId}",
-                EnumTableScales.OrderStatus => $"{ItemOrderStatus}. ID {itemId}",
-                EnumTableScales.OrderTypes => $"{ItemOrderType}. ID {itemId}",
-                EnumTableScales.Orders => $"{ItemOrder}. ID {itemId}",
-                EnumTableScales.Plu => $"{ItemPlu}. ID {itemId}",
-                EnumTableScales.Printer => $"{ItemPrinter}. ID {itemId}",
-                EnumTableScales.PrinterResource => $"{ItemPrinterResource}. ID {itemId}",
-                EnumTableScales.PrinterType => $"{ItemPrinterType}. ID {itemId}",
-                EnumTableScales.ProductSeries => $"{ItemProductSeries}. ID {itemId}",
-                EnumTableScales.ProductionFacility => $"{ItemProductionFacility}. ID {itemId}",
-                EnumTableScales.Scales => $"{ItemScale}. ID {itemId}",
-                EnumTableScales.TemplateResources => $"{ItemTemplateResource}. ID {itemId}",
-                EnumTableScales.Templates => $"{ItemTemplate}. ID {itemId}",
-                EnumTableScales.WeithingFact => $"{ItemWeithingFact}. ID {itemId}",
-                EnumTableScales.WorkShop => $"{ItemWorkshop}. ID {itemId}",
-                EnumTableScales.Default => throw new NotImplementedException(),
-                _ => string.Empty,
-            };
-            public static string GetItemTitle(EnumTableScales table, Guid itemUid) => table switch
-            {
-                EnumTableScales.BarcodeTypes => $"{ItemBarCodeType}. UID {itemUid}",
-                EnumTableScales.Contragents => $"{ItemContragent}. UID {itemUid}",
-                EnumTableScales.Hosts => $"{ItemHost}. UID {itemUid}",
-                EnumTableScales.Labels => $"{ItemLabel}. UID {itemUid}",
-                EnumTableScales.Logs => $"{ItemLog}. UID {itemUid}",
-                EnumTableScales.Nomenclature => $"{ItemNomenclature}. UID {itemUid}",
-                EnumTableScales.OrderStatus => $"{ItemOrderStatus}. UID {itemUid}",
-                EnumTableScales.OrderTypes => $"{ItemOrderType}. UID {itemUid}",
-                EnumTableScales.Orders => $"{ItemOrder}. UID {itemUid}",
-                EnumTableScales.Plu => $"{ItemPlu}. UID {itemUid}",
-                EnumTableScales.Printer => $"{ItemPrinter}. UID {itemUid}",
-                EnumTableScales.PrinterResource => $"{ItemPrinterResource}. UID {itemUid}",
-                EnumTableScales.PrinterType => $"{ItemPrinterType}. UID {itemUid}",
-                EnumTableScales.ProductSeries => $"{ItemProductSeries}. UID {itemUid}",
-                EnumTableScales.ProductionFacility => $"{ItemProductionFacility}. UID {itemUid}",
-                EnumTableScales.Scales => $"{ItemScale}. UID {itemUid}",
-                EnumTableScales.TemplateResources => $"{ItemTemplateResource}. UID {itemUid}",
-                EnumTableScales.Templates => $"{ItemTemplate}. UID {itemUid}",
-                EnumTableScales.WeithingFact => $"{ItemWeithingFact}. UID {itemUid}",
-                EnumTableScales.WorkShop => $"{ItemWorkshop}. UID {itemUid}",
-                EnumTableScales.Default => throw new NotImplementedException(),
-                _ => string.Empty,
-            };
             #endregion
             #region Sections
             public static string SectionBarCodeTypes => Lang == EnumLang.English ? @"Barcodes types" : @"Типы штрихкодов";
@@ -482,31 +419,6 @@ namespace BlazorCore.Utils
             public static string SectionTemplates => Lang == EnumLang.English ? @"Templates" : @"Шаблоны";
             public static string SectionWeithingFacts => Lang == EnumLang.English ? @"Weithing facts" : @"Взвешивания";
             public static string SectionWorkshops => Lang == EnumLang.English ? @"Workshops" : @"Цеха";
-            public static string GetSectionTitle(EnumTableScales table) => table switch
-            {
-                EnumTableScales.BarcodeTypes => SectionBarcodes,
-                EnumTableScales.Contragents => SectionContragents,
-                EnumTableScales.Hosts => SectionHosts,
-                EnumTableScales.Labels => SectionLabels,
-                EnumTableScales.Logs => SectionLogs,
-                EnumTableScales.Nomenclature => SectionNomenclatures,
-                EnumTableScales.OrderStatus => SectionOrderStatuses,
-                EnumTableScales.OrderTypes => SectionOrderTypes,
-                EnumTableScales.Orders => SectionOrders,
-                EnumTableScales.Plu => SectionPlus,
-                EnumTableScales.Printer => SectionPrinters,
-                EnumTableScales.PrinterResource => SectionPrinterResources,
-                EnumTableScales.PrinterType => SectionPrinterTypes,
-                EnumTableScales.ProductSeries => SectionProductSeries,
-                EnumTableScales.ProductionFacility => SectionProductionFacilities,
-                EnumTableScales.Scales => SectionScales,
-                EnumTableScales.TemplateResources => SectionTemplateResources,
-                EnumTableScales.Templates => SectionTemplates,
-                EnumTableScales.WeithingFact => SectionWeithingFacts,
-                EnumTableScales.WorkShop => SectionWorkshops,
-                EnumTableScales.Default => throw new NotImplementedException(),
-                _ => string.Empty,
-            };
             #endregion
             #region Tables
             public const string TableActionAdd = @"Добавить";
@@ -655,6 +567,178 @@ namespace BlazorCore.Utils
             string result = fieVersionInfo.FileVersion;
             if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
                 result = result.Substring(0, result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase));
+            return result;
+        }
+
+        public static string GetItemTitle(ITableEntity table)
+        {
+            string result = string.Empty;
+            if (table is TableSystemEntity tableSystem)
+            {
+                switch (tableSystem.Value)
+                {
+                    case EnumTableSystem.Accesses:
+                        result = Share.ItemAccess;
+                        break;
+                    case EnumTableSystem.Logs:
+                        result = Share.ItemLog;
+                        break;
+                }
+            }
+            if (table is TableScalesEntity tableScales)
+            {
+                switch (tableScales.Value)
+                {
+                    case EnumTableScale.BarcodeTypes:
+                        result = DeviceControl.ItemBarCodeType;
+                        break;
+                    case EnumTableScale.Contragents:
+                        result = DeviceControl.ItemContragent;
+                        break;
+                    case EnumTableScale.Hosts:
+                        result = DeviceControl.ItemHost;
+                        break;
+                    case EnumTableScale.Labels:
+                        result = DeviceControl.ItemLabel;
+                        break;
+                    case EnumTableScale.Nomenclatures:
+                        result = DeviceControl.ItemNomenclature;
+                        break;
+                    case EnumTableScale.OrderStatuses:
+                        result = DeviceControl.ItemOrderStatus;
+                        break;
+                    case EnumTableScale.OrderTypes:
+                        result = DeviceControl.ItemOrderType;
+                        break;
+                    case EnumTableScale.Orders:
+                        result = DeviceControl.ItemOrder;
+                        break;
+                    case EnumTableScale.Plus:
+                        result = DeviceControl.ItemPlu;
+                        break;
+                    case EnumTableScale.Printers:
+                        result = DeviceControl.ItemPrinter;
+                        break;
+                    case EnumTableScale.PrinterResources:
+                        result = DeviceControl.ItemPrinterResource;
+                        break;
+                    case EnumTableScale.PrinterTypes:
+                        result = DeviceControl.ItemPrinterType;
+                        break;
+                    case EnumTableScale.ProductSeries:
+                        result = DeviceControl.ItemProductSeries;
+                        break;
+                    case EnumTableScale.ProductionFacilities:
+                        result = DeviceControl.ItemProductionFacility;
+                        break;
+                    case EnumTableScale.Scales:
+                        result = DeviceControl.ItemScale;
+                        break;
+                    case EnumTableScale.TemplateResources:
+                        result = DeviceControl.ItemTemplateResource;
+                        break;
+                    case EnumTableScale.Templates:
+                        result = DeviceControl.ItemTemplate;
+                        break;
+                    case EnumTableScale.WeithingFacts:
+                        result = DeviceControl.ItemWeithingFact;
+                        break;
+                    case EnumTableScale.Workshops:
+                        result = DeviceControl.ItemWorkshop;
+                        break;
+                }
+            }
+            return result;
+        }
+        
+        public static string GetItemTitle(ITableEntity table, int itemId)
+        {
+            return $"{GetItemTitle(table)}. ID: {itemId}";
+        }
+        
+        public static string GetItemTitle(ITableEntity table, Guid itemUid)
+        {
+            return $"{GetItemTitle(table)}. UID: {itemUid}";
+        }
+
+        public static string GetSectionTitle(ITableEntity table)
+        {
+            string result = string.Empty;
+            if (table is TableSystemEntity tableSystem)
+            {
+                switch (tableSystem.Value)
+                {
+                    case EnumTableSystem.Accesses:
+                        result = Share.SectionAccess;
+                        break;
+                    case EnumTableSystem.Logs:
+                        result = Share.SectionLog;
+                        break;
+                }
+            }
+            if (table is TableScalesEntity tableScales)
+            {
+                switch (tableScales.Value)
+                {
+                    case EnumTableScale.BarcodeTypes:
+                        result = DeviceControl.SectionBarcodes;
+                        break;
+                    case EnumTableScale.Contragents:
+                        result = DeviceControl.SectionContragents;
+                        break;
+                    case EnumTableScale.Hosts:
+                        result = DeviceControl.SectionHosts;
+                        break;
+                    case EnumTableScale.Labels:
+                        result = DeviceControl.SectionLabels;
+                        break;
+                    case EnumTableScale.Nomenclatures:
+                        result = DeviceControl.SectionNomenclatures;
+                        break;
+                    case EnumTableScale.OrderStatuses:
+                        result = DeviceControl.SectionOrderStatuses;
+                        break;
+                    case EnumTableScale.OrderTypes:
+                        result = DeviceControl.SectionOrderTypes;
+                        break;
+                    case EnumTableScale.Orders:
+                        result = DeviceControl.SectionOrders;
+                        break;
+                    case EnumTableScale.Plus:
+                        result = DeviceControl.SectionPlus;
+                        break;
+                    case EnumTableScale.Printers:
+                        result = DeviceControl.SectionPrinters;
+                        break;
+                    case EnumTableScale.PrinterResources:
+                        result = DeviceControl.SectionPrinterResources;
+                        break;
+                    case EnumTableScale.PrinterTypes:
+                        result = DeviceControl.SectionPrinterTypes;
+                        break;
+                    case EnumTableScale.ProductSeries:
+                        result = DeviceControl.SectionProductSeries;
+                        break;
+                    case EnumTableScale.ProductionFacilities:
+                        result = DeviceControl.SectionProductionFacilities;
+                        break;
+                    case EnumTableScale.Scales:
+                        result = DeviceControl.SectionScales;
+                        break;
+                    case EnumTableScale.TemplateResources:
+                        result = DeviceControl.SectionTemplateResources;
+                        break;
+                    case EnumTableScale.Templates:
+                        result = DeviceControl.SectionTemplates;
+                        break;
+                    case EnumTableScale.WeithingFacts:
+                        result = DeviceControl.SectionWeithingFacts;
+                        break;
+                    case EnumTableScale.Workshops:
+                        result = DeviceControl.SectionWorkshops;
+                        break;
+                }
+            }
             return result;
         }
     }

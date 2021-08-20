@@ -1,4 +1,7 @@
-﻿namespace BlazorCore
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+namespace BlazorCore
 {
     public enum EnumLang
     { 
@@ -6,29 +9,33 @@
         Russian
     }
 
-    public enum EnumTableScales
+    public enum EnumTableSystem
+    {
+        Accesses,
+        Logs,
+    }
+
+    public enum EnumTableScale
     {
         BarcodeTypes,
         Contragents,
-        Default,
         Hosts,
         Labels,
-        Logs,
-        Nomenclature,
-        OrderStatus,
+        Nomenclatures,
+        OrderStatuses,
         OrderTypes,
         Orders,
-        Plu,
-        Printer,
-        PrinterResource,
-        PrinterType,
+        Plus,
+        Printers,
+        PrinterResources,
+        PrinterTypes,
         ProductSeries,
-        ProductionFacility,
+        ProductionFacilities,
         Scales,
         TemplateResources,
         Templates,
-        WeithingFact,
-        WorkShop,
+        WeithingFacts,
+        Workshops,
     }
 
     public enum EnumAccessRights
@@ -75,5 +82,37 @@
         Loading,
         Success,
         Error,
+    }
+
+    public enum EnumDb
+    {
+        Debug,
+        Release,
+    }
+
+    public enum EnumField
+    {
+        Uid,
+        Id,
+        Name,
+        Value,
+        Description,
+        ScaleId,
+        CategoryId,
+        PrinterId,
+        Title,
+        CreateDate,
+        ModifiedDate,
+        Type,
+        Plu,
+        Marked,
+        GoodsName,
+        WeithingDate
+    }
+
+    public enum EnumOrderDirection
+    {
+        Asc,
+        Desc
     }
 }

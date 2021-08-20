@@ -1,4 +1,44 @@
 ﻿@page "/section/templates"
-@inherits BlazorCore.Models.BaseRazorEntity
+@using BlazorCore
+@using BlazorCore.DAL
+@using BlazorCore.DAL.DataModels
+@using BlazorCore.DAL.TableModels
+@using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
-<SectionPage Table=BlazorCore.EnumTableScales.Templates />
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionTemplates SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@Items TItem="TemplateEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionEditAsync(Item))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn 
+                TItem="TemplateEntity" Property="Id" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldId Width="7.5%" />
+            <RadzenGridColumn 
+                TItem="TemplateEntity" Property="CategoryId" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldCategoryName Width="10%" />
+            <RadzenGridColumn 
+                TItem="TemplateEntity" Property="Title" 
+                Title=@LocalizationStrings.DeviceControl.TableFieldTitle Width="82.5%" />
+        </Columns>
+    </RadzenGrid>
+    @if (Items == null)
+    {
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <SectionActions Table=@Table Item=@Item IsShowAdd=true IsShowEdit=true IsShowMark=true />
+    }
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+}

@@ -15,7 +15,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new ScalesEntity();
+                var entityNew = new ScaleEntity();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
                 var entityCopy = entityNew.Clone();
@@ -28,15 +28,15 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var b in EnumValues.GetBool())
                 foreach (var dt in EnumValues.GetDateTime())
                 {
-                    var entity = new ScalesEntity
+                    var entity = new ScaleEntity
                     {
                         Id = i,
                         CreateDate = dt,
                         ModifiedDate = dt,
-                        TemplateDefault = new TemplatesEntity(),
-                        TemplateSeries = new TemplatesEntity(),
+                        TemplateDefault = new TemplateEntity(),
+                        TemplateSeries = new TemplateEntity(),
                         WorkShop = new WorkshopEntity(),
-                        Host = new HostsEntity(),
+                        Host = new HostEntity(),
                         Description = s,
                         IdRRef = guid,
                         DeviceIp = s,

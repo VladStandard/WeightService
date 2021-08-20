@@ -3,21 +3,14 @@
 @using BlazorCore
 @using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
 @inherits BlazorCore.Models.BaseRazorIdEntity
 @inject IDialogService DialogService
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <MudElement HtmlTag="h3" Class="ma-0">
-        @LocalizationStrings.DeviceControl.ItemPrinter
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 100px; height: 25px; font-size: 12px; "
-                class="oi oi-reload"
-                Disabled=@AppSettings.DataAccess.IsDisabled 
-                MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
-    </MudElement>
+    <DataReload Title=@LocalizationStrings.DeviceControl.ItemPrinter SetParameters=@SetParametersAsync />
     @if (PrinterItem == null)
     {
         <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
@@ -29,7 +22,7 @@
             <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterItem.Name />
             <br />
             <RadzenLink Style="width: 12%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter
-                        Target="_blank" Path=@PrinterItem.Link />
+                    Target="_blank" Path=@PrinterItem.Link />
             <RadzenLabel Style="width: 23.5%; margin-left: 2.3%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterIp />
             <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterItem.Ip />
             <br />
@@ -53,17 +46,17 @@
             else
             {
                 <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                        AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                                        Data=@PrinterTypeItems PageSize="10"
-                                        TextProperty="Name" ValueProperty="Id"
-                                        Value=@PrinterItem.PrinterType?.Id
-                                        Change=@(args => OnChange(args, "ZebraPrinterTypeItems")) />
+                                    AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                    Data=@PrinterTypeItems PageSize="10"
+                                    TextProperty="Name" ValueProperty="Id"
+                                    Value=@PrinterItem.PrinterType?.Id
+                                    Change=@(args => OnChange(args, "ZebraPrinterTypeItems")) />
             }
             <br />
         </div>
         <PrinterResources PrinterId=@Id />
-        <EntitySave Item=@PrinterItem />
-        <EntityDates Item=@PrinterItem />
+        <ItemSave Item=@PrinterItem />
+        <ItemDates Item=@PrinterItem />
     }
 }
 else

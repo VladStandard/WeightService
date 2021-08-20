@@ -1,13 +1,14 @@
 ﻿@page "/item/contragent"
+@page "/item/contragent/{Id:int}"
 @using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
         <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
         <RadzenLabel Style="width: 20%; height: 35px;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
         <RadzenTextBox Style="height: 35px; width: 77%;" Disabled="false" TValue="string"
-                       @bind-value=@Item.Name />
+                       @bind-value=@ContragentItem.Name />
         <br />
     </div>
     <br />
@@ -15,14 +16,7 @@
         <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
         <RadzenLabel Style="width: 20%; height: 25px;" Text=@LocalizationStrings.DeviceControl.TableFieldMarked />
         <RadzenCheckBox Style="height: 35px; " Disabled="false" TValue="bool"
-                        @bind-Value=@Item.MarkedGui />
+                        @bind-Value=@ContragentItem.MarkedGui />
         <br />
     </div>
-</div>
-
-<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldCreateDt />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString() />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldModifiedDate />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString() />
 </div>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 
 namespace BlazorCore.DAL.TableModels
 {
@@ -7,7 +10,7 @@ namespace BlazorCore.DAL.TableModels
         #region Public and private fields and properties
 
         public virtual DateTime? CreateDate { get; set; }
-        public virtual ScalesEntity Scale { get; set; } = new ScalesEntity();
+        public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
         public virtual Guid? Uid { get; set; }
         public virtual string UidGui
         {
@@ -94,7 +97,7 @@ namespace BlazorCore.DAL.TableModels
             {
                 Id = Id,
                 CreateDate = CreateDate,
-                Scale = (ScalesEntity)Scale?.Clone(),
+                Scale = (ScaleEntity)Scale?.Clone(),
                 Uid = Uid,
                 IsClose = IsClose,
                 Sscc = Sscc,

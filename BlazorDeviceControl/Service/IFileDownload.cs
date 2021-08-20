@@ -9,6 +9,6 @@ namespace BlazorDeviceControl.Service
 {
     public interface IFileDownload
     {
-        Task DownloadAsync(IBlazorDownloadFileService blazorDownloadFileService, TemplateResourcesEntity entity);
+        Task DownloadAsync(IBlazorDownloadFileService blazorDownloadFileService, TemplateResourceEntity entity);
     }
 }

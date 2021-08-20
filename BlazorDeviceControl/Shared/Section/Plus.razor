@@ -3,83 +3,75 @@
 @using BlazorCore
 @using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
 @inherits BlazorCore.Models.BaseRazorIdEntity
 @inject IDialogService DialogService
 
-<div class="col-sm-12 col-md-12 col-lg-12">
-    @if (AppSettings.IdentityItem.AccessLevel is true or false)
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionPlus SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@Items TItem="PluEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionEditAsync(Item))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn TItem="PluEntity" Property="Id" Title=@LocalizationStrings.DeviceControl.TableFieldId Width="6%" TextAlign="TextAlign.Center" />
+            <RadzenGridColumn TItem="PluEntity" Property="Plu" Title=@LocalizationStrings.DeviceControl.TableFieldPlu Width="6%" TextAlign="TextAlign.Center" />
+            <RadzenGridColumn TItem="PluEntity" Property="Active" Title=@LocalizationStrings.DeviceControl.TableFieldActive Width="4%" TextAlign="TextAlign.Center">
+                <Template Context="pluEntity">
+                    <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.Active Disabled="true" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Title=@LocalizationStrings.DeviceControl.TableFieldCheckWeight Width="4%" TextAlign="TextAlign.Center">
+                <Template Context="pluEntity">
+                    <RadzenCheckBox TValue="bool?" @bind-Value="@pluEntity.CheckWeight" Disabled="true" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PluEntity" Title=@LocalizationStrings.DeviceControl.TableFieldGoodsName Width="16%">
+                <Template Context="pluEntity">
+                    <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.GoodsName></RadzenLabel>
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PluEntity" Title=@LocalizationStrings.DeviceControl.TableFieldTemplate Width="15%">
+                <Template Context="pluEntity">
+                    <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Templates.Title></RadzenLabel>
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PluEntity" Property="Gtin" Title=@LocalizationStrings.DeviceControl.TableFieldGtin Width="10%" />
+            <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Title="" Width="3%" TextAlign="TextAlign.Center">
+                <Template Context="pluEntity">
+                    @if (pluEntity.GtinCheck())
+                    {
+                        <RadzenIcon Icon="" Disabled="true" />
+                    }
+                    else
+                    {
+                        <RadzenIcon Icon="announcement" Disabled="true" />
+                    }
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PluEntity" Title=@LocalizationStrings.DeviceControl.TableFieldNomenclatureName Width="15%">
+                <Template Context="pluEntity">
+                    <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Nomenclature.Name></RadzenLabel>
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Title=@LocalizationStrings.DeviceControl.TableFieldShelfLifeDays Width="5%" />
+            <RadzenGridColumn TItem="PluEntity" Property="GoodsTareWeight" Title=@LocalizationStrings.DeviceControl.TableFieldGoodsTareWeight Width="5%" />
+            <RadzenGridColumn TItem="PluEntity" Property="GoodsBoxQuantly" Title=@LocalizationStrings.DeviceControl.TableFieldGoodsBoxQuantly Width="5%" />
+        </Columns>
+    </RadzenGrid>
+    @if (Items == null)
     {
-        <MudElement HtmlTag="h3" Class="ma-0">
-            @LocalizationStrings.DeviceControl.SectionPlus
-            <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                    ButtonStyle="ButtonStyle.Primary"
-                    Style="margin-top: 3px; margin-left: 30px; width: 100px; height: 25px; font-size: 12px; "
-                    class="oi oi-reload"
-                    Disabled=@AppSettings.DataAccess.IsDisabled 
-                    MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
-        </MudElement>
-        @if (Items == null)
-        {
-            <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
-        }
-        else
-        {
-            <RadzenGrid Data=@Items TItem="PluEntity"
-                        RowSelect=@(args => ItemSelectAsync(args)) 
-                        RowDoubleClick=@(args => Action(EnumTableScales.Scales, EnumTableAction.Edit, Item, false))
-                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
-                <Columns>
-                    <RadzenGridColumn TItem="PluEntity" Property="Id" Title=@LocalizationStrings.DeviceControl.TableFieldId Width="6%" TextAlign="TextAlign.Center" />
-                    <RadzenGridColumn TItem="PluEntity" Property="Plu" Title=@LocalizationStrings.DeviceControl.TableFieldPlu Width="6%" TextAlign="TextAlign.Center" />
-                    <RadzenGridColumn TItem="PluEntity" Property="Active" Title=@LocalizationStrings.DeviceControl.TableFieldActive Width="4%" TextAlign="TextAlign.Center">
-                        <Template Context="pluEntity">
-                            <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.Active Disabled="true" />
-                        </Template>
-                    </RadzenGridColumn>
-                    <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Title=@LocalizationStrings.DeviceControl.TableFieldCheckWeight Width="4%" TextAlign="TextAlign.Center">
-                        <Template Context="pluEntity">
-                            <RadzenCheckBox TValue="bool?" @bind-Value="@pluEntity.CheckWeight" Disabled="true" />
-                        </Template>
-                    </RadzenGridColumn>
-                    <RadzenGridColumn TItem="PluEntity" Title=@LocalizationStrings.DeviceControl.TableFieldGoodsName Width="16%">
-                        <Template Context="pluEntity">
-                            <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.GoodsName></RadzenLabel>
-                        </Template>
-                    </RadzenGridColumn>
-                    <RadzenGridColumn TItem="PluEntity" Title=@LocalizationStrings.DeviceControl.TableFieldTemplate Width="15%">
-                        <Template Context="pluEntity">
-                            <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Templates.Title></RadzenLabel>
-                        </Template>
-                    </RadzenGridColumn>
-                    <RadzenGridColumn TItem="PluEntity" Property="Gtin" Title=@LocalizationStrings.DeviceControl.TableFieldGtin Width="10%" />
-                    <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Title="" Width="3%" TextAlign="TextAlign.Center">
-                        <Template Context="pluEntity">
-                            @if (pluEntity.GtinCheck())
-                            {
-                                <RadzenIcon Icon="" Disabled="true" />
-                            }
-                            else
-                            {
-                                <RadzenIcon Icon="announcement" Disabled="true" />
-                            }
-                        </Template>
-                    </RadzenGridColumn>
-                    <RadzenGridColumn TItem="PluEntity" Title=@LocalizationStrings.DeviceControl.TableFieldNomenclatureName Width="15%">
-                        <Template Context="pluEntity">
-                            <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Nomenclature.Name></RadzenLabel>
-                        </Template>
-                    </RadzenGridColumn>
-                    <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Title=@LocalizationStrings.DeviceControl.TableFieldShelfLifeDays Width="5%" />
-                    <RadzenGridColumn TItem="PluEntity" Property="GoodsTareWeight" Title=@LocalizationStrings.DeviceControl.TableFieldGoodsTareWeight Width="5%" />
-                    <RadzenGridColumn TItem="PluEntity" Property="GoodsBoxQuantly" Title=@LocalizationStrings.DeviceControl.TableFieldGoodsBoxQuantly Width="5%" />
-                </Columns>
-            </RadzenGrid>
-            <SectionActions Table=@EnumTableScales.PrinterResource Item=@Item IsShowAdd=true IsShowEdit=true />
-        }
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
     }
     else
     {
-        <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+        <SectionActions Table=@Table Item=@Item IsShowAdd=true IsShowEdit=true />
     }
-</div>
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+}

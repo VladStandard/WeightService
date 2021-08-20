@@ -29,7 +29,7 @@ namespace BlazorCoreTests.DAL
             Assert.DoesNotThrow(() =>
             {
                 Assert.AreEqual(false, false);
-                var entities = DataAccessUtils.DataAccess.GetEntitiesNativeMapping<ScalesEntity>(@"
+                var entities = DataAccessUtils.DataAccess.GetEntitiesNativeMapping<ScaleEntity>(@"
 select *
 from [db_scales].[Scales]
 where Id > 4

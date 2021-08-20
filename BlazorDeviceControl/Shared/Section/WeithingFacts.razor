@@ -2,49 +2,44 @@
 @using BlazorCore
 @using BlazorCore.DAL.DataModels
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
 @inherits BlazorCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <MudElement HtmlTag="h3" Class="ma-0">
-        @LocalizationStrings.DeviceControl.SectionWeithingFacts
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 100px; height: 25px; font-size: 12px; "
-                class="oi oi-reload"
-                Disabled=@AppSettings.DataAccess.IsDisabled 
-                MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
-    </MudElement>
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@Items TItem="WeithingFactSummaryEntity"
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+                <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign="TextAlign.Center"
+                    Title=@LocalizationStrings.DeviceControl.TableFieldWeithingDate
+                    Type="date" Width="15%">
+                    <Template Context="weithingFactItem">
+                        <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled="true" DateFormat="d" />
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
+                                    Title=@LocalizationStrings.DeviceControl.TableFieldDayOfWeek
+                                    Type="string" Width="15%" />
+                <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
+                                    Title=@LocalizationStrings.DeviceControl.TableFieldCount
+                                    Type="int" Width="10%" />
+                <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
+                                    Title=@LocalizationStrings.DeviceControl.TableFieldScale
+                                    Type="string" Width="60%" />
+        </Columns>
+    </RadzenGrid>
     @if (Items == null)
     {
         <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
     }
     else
     {
-        <RadzenGrid Data=@Items TItem="WeithingFactSummaryEntity"
-                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
-            <Columns>
-                    <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign="TextAlign.Center"
-                        Title=@LocalizationStrings.DeviceControl.TableFieldWeithingDate
-                        Type="date" Width="15%">
-                        <Template Context="weithingFactItem">
-                            <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled="true" DateFormat="d" />
-                        </Template>
-                    </RadzenGridColumn>
-                    <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
-                                        Title=@LocalizationStrings.DeviceControl.TableFieldDayOfWeek
-                                        Type="string" Width="15%" />
-                    <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
-                                        Title=@LocalizationStrings.DeviceControl.TableFieldCount
-                                        Type="int" Width="10%" />
-                    <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
-                                        Title=@LocalizationStrings.DeviceControl.TableFieldScale
-                                        Type="string" Width="60%" />
-            </Columns>
-        </RadzenGrid>
+        <SectionActions Table=@Table Item=@Item />
     }
 }
 else

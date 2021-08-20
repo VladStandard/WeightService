@@ -15,6 +15,5 @@ namespace BlazorDeviceControl.Shared
         }
 
         #endregion
-
     }
 }

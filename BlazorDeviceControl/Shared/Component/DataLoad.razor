@@ -1,0 +1,50 @@
+﻿@page "/component/load"
+@using BlazorCore
+@using BlazorCore.Utils
+@inherits BlazorCore.Models.BaseRazorEntity
+
+<MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
+    <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
+        @if (DataLoadItem == EnumDataLoad.None)
+        {
+            @if (IsShowProgress)
+            {
+                <RadzenProgressBar 
+                    Style="margin-top: 4px; margin-left: 5%; width: 100%; height: 22px; "
+                    Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate"
+                />
+            }
+        }
+        else
+        {
+            @switch (DataLoadItem)
+            {
+                case EnumDataLoad.Loading:
+                    <RadzenLabel 
+                        Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 16px; "
+                        Text=@LocalizationStrings.Share.DataLoading 
+                    />
+                    break;
+                case EnumDataLoad.Success:
+                    <RadzenLabel 
+                        Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 16px; "
+                        Text=@LocalizationStrings.Share.DataLoadComplete 
+                    />
+                    break;
+                case EnumDataLoad.Error:
+                    <RadzenLabel 
+                        Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 16px; "
+                        Text=@LocalizationStrings.Share.DataLoadError 
+                    />
+                    break;
+            }
+            @if (IsShowProgress)
+            {
+                <RadzenProgressBar 
+                    Style="margin-top: 3px; margin-left: 2%; width: 85%; height: 22px; "
+                    Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate"
+                />
+            }
+        }
+    </div>
+</MudPaper>

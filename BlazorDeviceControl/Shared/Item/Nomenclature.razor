@@ -1,21 +1,22 @@
 ﻿@page "/item/nomenclature"
+@page "/item/nomenclature/{Id:int}"
 @using BlazorCore.Utils
 @using Microsoft.VisualBasic.CompilerServices
-@inherits BlazorCore.Models.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
         <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
-        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Name />
+        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@NomenclatureItem.Name />
         <br />
         <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldCode />
-        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Code />
+        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@NomenclatureItem.Code />
         <br />
     </div>
     <br />
     <div class="col-sm-6 col-md-6 col-lg-6">
         <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldXml />
-        <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.SerializedRepresentationObject />
+        <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@NomenclatureItem.SerializedRepresentationObject />
         <br />
     </div>
 </div>
@@ -94,11 +95,4 @@
                 </RadzenGrid>
             }*@
     </div>
-</div>
-
-<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldCreateDt />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString() />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldModifiedDate />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString() />
 </div>

@@ -10,7 +10,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        [Parameter] public ZebraPrinterTypeEntity Item { get; set; }
+        private ZebraPrinterTypeEntity PrinterTypeItem => IdItem is ZebraPrinterTypeEntity idItem ? idItem : null;
 
         #endregion
 

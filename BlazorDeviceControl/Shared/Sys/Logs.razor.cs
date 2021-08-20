@@ -21,7 +21,6 @@ namespace BlazorDeviceControl.Shared.Sys
         private BaseUidEntity Item { get; set; }
         private List<LogSummaryEntity> Items { get; set; }
         private object[] Objects { get; set; }
-
         #endregion
 
         #region Public and private methods
@@ -32,10 +31,13 @@ namespace BlazorDeviceControl.Shared.Sys
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetLogs, string.Empty, 0, string.Empty);
                         Item = null;
+                        Items = null;
+                        await GuiRefreshWithWaitAsync();
+
+                        object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetLogs, string.Empty, 0, string.Empty);
                         Items = new List<LogSummaryEntity>();
-                        foreach (object obj in Objects)
+                        foreach (object obj in objects)
                         {
                             if (obj is object[] { Length: 11 } item)
                             {
@@ -58,7 +60,7 @@ namespace BlazorDeviceControl.Shared.Sys
                                 }
                             }
                         }
-                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                        await GuiRefreshWithWaitAsync();
                     }),
             }, true);
         }

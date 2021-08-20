@@ -10,7 +10,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        [Parameter] public ProductionFacilityEntity Item { get; set; }
+        private ProductionFacilityEntity ProductionFacilityItem => IdItem is ProductionFacilityEntity idItem ? idItem : null;
 
         #endregion
 

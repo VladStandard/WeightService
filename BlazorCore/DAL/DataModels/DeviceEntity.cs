@@ -6,7 +6,7 @@ namespace BlazorCore.DAL.DataModels
     {
         #region Public and private fields and properties
 
-        public virtual ScalesEntity Scales { get; set; } = new ScalesEntity();
+        public virtual ScaleEntity Scales { get; set; } = new ScaleEntity();
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace BlazorCore.DAL.DataModels
             return new DeviceEntity()
             {
                 Id = Id,
-                Scales = (ScalesEntity)Scales?.Clone(),
+                Scales = (ScaleEntity)Scales?.Clone(),
             };
         }
 

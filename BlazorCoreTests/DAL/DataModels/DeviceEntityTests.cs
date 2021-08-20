@@ -25,7 +25,7 @@ namespace BlazorCoreTests.DAL.DataModels
                     var entity = new DeviceEntity
                     {
                         Id = i,
-                        Scales = new ScalesEntity(),
+                        Scales = new ScaleEntity(),
                     };
                     _ = entity.ToString();
                     Assert.AreEqual(false, entityNew.Equals(entity));

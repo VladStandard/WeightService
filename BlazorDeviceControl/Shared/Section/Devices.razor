@@ -2,7 +2,7 @@
 @using BlazorCore.DAL.DataModels
 @using BlazorCore.Utils
 @using Microsoft.VisualBasic.CompilerServices
-@inherits BlazorCore.Models.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
@@ -16,8 +16,7 @@
 
     <br style="margin-top: 50px" />
     <p>
-        <RadzenGrid Data=@Entities TItem="DeviceEntity" Value=@Entity
-                    RowSelect=@(RowSelectAsync) RowDoubleClick=@(RowDoubleClickAsync)
+        <RadzenGrid Data=@Items TItem="DeviceEntity" Value=@Entity
                     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
                     AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
             <Columns>
@@ -31,31 +30,6 @@
                                   Type="bool" Width="35%" />
             </Columns>
         </RadzenGrid>
-    </p>
-
-    <br style="margin-top: 50px" />
-    <p>
-        @* Actions *@
-        <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
-            @if (AppSettings.IdentityItem.AccessLevel == true)
-            {
-                <span>@LocalizationStrings.DeviceControl.TableActions</span>
-                <br style="margin-top: 50px" />
-                <RadzenButton Click="ActionAddAsync" ButtonStyle="ButtonStyle.Secondary" Style="margin-top: 20px; width: 200px; margin-left: 30px"
-                              Text=@LocalizationStrings.DeviceControl.TableActionAdd
-                              Disabled=@AppSettings.DataAccess.IsDisabled />
-                <RadzenButton Click="ActionCopyAsync" ButtonStyle="ButtonStyle.Secondary" Style="margin-top: 20px; width: 200px; margin-left: 30px"
-                              Text=@LocalizationStrings.DeviceControl.TableActionCopy
-                              Disabled=@AppSettings.DataAccess.IsDisabled />
-                <RadzenButton Click="ActionDeleteAsync" ButtonStyle="ButtonStyle.Secondary" Style="margin-top: 20px; width: 200px; margin-left: 30px"
-                              Text=@LocalizationStrings.DeviceControl.TableActionDelete
-                              Disabled=@AppSettings.DataAccess.IsDisabled />
-            }
-            else
-            {
-                <span>@LocalizationStrings.DeviceControl.TableActionsIsDeny</span>
-            }
-        </div>
     </p>
 }
 else

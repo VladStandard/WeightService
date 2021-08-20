@@ -1,4 +1,7 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 
 namespace BlazorCore.DAL.TableModels
 {
@@ -7,7 +10,7 @@ namespace BlazorCore.DAL.TableModels
         #region Public and private fields and properties
 
         public virtual ZebraPrinterEntity Printer { get; set; } = new ZebraPrinterEntity();
-        public virtual TemplateResourcesEntity Resource { get; set; } = new TemplateResourcesEntity();
+        public virtual TemplateResourceEntity Resource { get; set; } = new TemplateResourceEntity();
         public virtual string Description { get; set; }
         public virtual DateTime CreateDate { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
@@ -74,7 +77,7 @@ namespace BlazorCore.DAL.TableModels
             {
                 Id = Id,
                 Printer = (ZebraPrinterEntity)Printer.Clone(),
-                Resource = (TemplateResourcesEntity)Resource.Clone(),
+                Resource = (TemplateResourceEntity)Resource.Clone(),
                 Description = Description,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,

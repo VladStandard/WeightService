@@ -4,40 +4,34 @@
 @using BlazorCore.DAL.DataModels
 @using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @inherits BlazorCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <MudElement HtmlTag="h3" Class="ma-0">
-        @LocalizationStrings.DeviceControl.SectionPrinterTypes
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 100px; height: 25px; font-size: 12px; "
-                class="oi oi-reload"
-                Disabled=@AppSettings.DataAccess.IsDisabled 
-                MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
-    </MudElement>
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionPrinterTypes SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@Items TItem="ZebraPrinterTypeEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionEditAsync(Item))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Id" TextAlign="TextAlign.Center"
+                                Title=@LocalizationStrings.DeviceControl.TableFieldId
+                                Type="int" Width="7.5%" />
+            <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter
+                                Type="string" Width="60%" />
+        </Columns>
+    </RadzenGrid>
     @if (Items == null)
     {
         <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
     }
     else
     {
-        <RadzenGrid Data=@Items TItem="ZebraPrinterTypeEntity"
-                    RowSelect=@(args => ItemSelectAsync(args)) 
-                    RowDoubleClick=@(args => Action(EnumTableScales.PrinterType, EnumTableAction.Edit, Item, false))
-                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
-            <Columns>
-                <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Id" TextAlign="TextAlign.Center"
-                                    Title=@LocalizationStrings.DeviceControl.TableFieldId
-                                    Type="int" Width="7.5%" />
-                <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter
-                                    Type="string" Width="60%" />
-            </Columns>
-        </RadzenGrid>
-        <SectionActions Table=@EnumTableScales.PrinterType Item=@Item IsShowEdit=true />
+        <SectionActions Table=@Table Item=@Item IsShowEdit=true />
     }
 }
 else

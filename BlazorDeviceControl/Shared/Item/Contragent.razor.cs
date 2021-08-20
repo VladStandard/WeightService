@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.DAL.TableModels;
-using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -10,11 +9,13 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        [Parameter] public ContragentsEntity Item { get; set; }
+        private ContragentEntity ContragentItem => IdItem is ContragentEntity idItem ? idItem : null;
 
         #endregion
 
         #region Public and private methods
+
+        //
 
         #endregion
     }

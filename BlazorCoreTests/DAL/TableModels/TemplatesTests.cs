@@ -15,7 +15,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new TemplatesEntity();
+                var entityNew = new TemplateEntity();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
                 var entityCopy = entityNew.Clone();
@@ -27,7 +27,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var s in EnumValues.GetString())
                 foreach (var bytes in EnumValues.GetBytes())
                 {
-                    var entity = new TemplatesEntity
+                    var entity = new TemplateEntity
                     {
                         Id = i,
                         CreateDate = dt,
@@ -55,7 +55,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     var title = "TemplatesEntity test";
                     var titleChange = "TemplatesEntity test change";
                     // SaveEntity
-                    var entity = new TemplatesEntity
+                    var entity = new TemplateEntity
                     {
                         CreateDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,

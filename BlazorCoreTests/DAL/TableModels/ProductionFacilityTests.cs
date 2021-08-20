@@ -54,8 +54,8 @@ namespace BlazorCoreTests.DAL.TableModels
                 ModifiedDate = DateTime.Now,
                 IdRRef = Guid.Empty
             };
-            DataAccessUtils.DataAccess.ProductionFacilityCrud.SaveEntity(entity);
-            return DataAccessUtils.DataAccess.ProductionFacilityCrud.GetEntity(
+            DataAccessUtils.DataAccess.ProductionFacilitiesCrud.SaveEntity(entity);
+            return DataAccessUtils.DataAccess.ProductionFacilitiesCrud.GetEntity(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Name.ToString(), name } }),
                 new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
         }
@@ -71,16 +71,16 @@ namespace BlazorCoreTests.DAL.TableModels
                 var entityNew = EntityCreate(name);
                 // UpdateEntity
                 entityNew.Name = "Modify name";
-                DataAccessUtils.DataAccess.ProductionFacilityCrud.UpdateEntity(entityNew);
+                DataAccessUtils.DataAccess.ProductionFacilitiesCrud.UpdateEntity(entityNew);
                 // GetEntities
-                var entities = DataAccessUtils.DataAccess.ProductionFacilityCrud.GetEntities(null, null);
+                var entities = DataAccessUtils.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null);
                 Assert.AreEqual(true, entities.Length > 0);
                 foreach (var entity in entities)
                 {
                     if (entity.Name.Equals(entityNew.Name) || entity.Name.Equals(name))
                     {
                         // DeleteEntity
-                        DataAccessUtils.DataAccess.ProductionFacilityCrud.DeleteEntity(entity);
+                        DataAccessUtils.DataAccess.ProductionFacilitiesCrud.DeleteEntity(entity);
                     }
                 }
             }

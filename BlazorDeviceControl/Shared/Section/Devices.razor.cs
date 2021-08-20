@@ -3,8 +3,6 @@
 
 using BlazorCore.DAL.DataModels;
 using Microsoft.AspNetCore.Components;
-using Radzen;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        public List<DeviceEntity> Entities { get; set; }
+        public List<DeviceEntity> Items { get; set; }
         public DeviceEntity Entity { get; set; }
 
         #endregion
@@ -28,70 +26,8 @@ namespace BlazorDeviceControl.Shared.Section
 
             await GetDataAsync(new Task(delegate
             {
-                Entities = AppSettings.DataAccess.DeviceCrud.GetEntities(null, null).ToList();
+                Items = AppSettings.DataAccess.DeviceCrud.GetEntities(null, null).ToList();
             }), false).ConfigureAwait(false);
-        }
-
-        private async Task RowSelectAsync(DeviceEntity entity)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Entity = entity;
-        }
-
-        private async Task RowDoubleClickAsync(DeviceEntity entity)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Entity = entity;
-
-            //await Dialog.OpenAsync<DevicePage>($"Весовой пост: {entity.Scales.Description}",
-            //    new Dictionary<string, object>()
-            //    {
-            //        { "Device", entity },
-            //    },
-            //    new DialogOptions() { Width = "1024px", Height = "768px" }).ConfigureAwait(false);
-        }
-
-        #endregion
-
-        #region Public and private methods - Действия с таблицей устройств
-
-        private async Task ActionAddAsync()
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            NotificationMessage message = new()
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Действие",
-                Detail = "Добавить" + Environment.NewLine + "В разработке",
-                Duration = BlazorCore.Models.AppSettingsEntity.Delay
-            };
-            Notification.Notify(message);
-        }
-
-        private async Task ActionCopyAsync()
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            NotificationMessage message = new()
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Действие",
-                Detail = "Скопировать" + Environment.NewLine + "В разработке",
-                Duration = BlazorCore.Models.AppSettingsEntity.Delay
-            };
-            Notification.Notify(message);
-        }
-
-        private async Task ActionDeleteAsync()
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            NotificationMessage message = new()
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = "Действие",
-                Detail = "Удалить" + Environment.NewLine + "В разработке",
-                Duration = BlazorCore.Models.AppSettingsEntity.Delay
-            };
-            Notification.Notify(message);
         }
 
         #endregion

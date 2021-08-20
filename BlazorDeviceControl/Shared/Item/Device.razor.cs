@@ -3,9 +3,7 @@
 
 using BlazorCore.DAL.DataModels;
 using Microsoft.AspNetCore.Components;
-using Radzen;
 using System;
-using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -13,7 +11,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        [Parameter] public DeviceEntity Item { get; set; }
+        private DeviceEntity DeviceItem => IdItem is DeviceEntity idItem ? idItem : null;
         [Parameter] public EventCallback CallbackActionSaveAsync { get; set; }
         [Parameter] public EventCallback CallbackActionCancelAsync { get; set; }
 
@@ -22,30 +20,6 @@ namespace BlazorDeviceControl.Shared.Item
         #endregion
 
         #region Public and private methods
-
-        private async Task SaveAsync()
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            bool result = false;
-            // ...
-            Dialog.Close(true);
-            NotificationMessage message = result
-                ? new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Info,
-                    Summary = $"Устройство {Item.Scales.Description}",
-                    Detail = "Сохранено успешно",
-                    Duration = BlazorCore.Models.AppSettingsEntity.Delay
-                }
-                : new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Устройство {Item.Scales.Description}",
-                    Detail = "Ошибка сохранения!",
-                    Duration = BlazorCore.Models.AppSettingsEntity.Delay
-                };
-            Notification.Notify(message);
-        }
 
         private void Change<T>(T value, string name) where T : class
         {

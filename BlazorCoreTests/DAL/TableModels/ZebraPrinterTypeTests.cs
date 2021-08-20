@@ -52,7 +52,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     Id = -1,
                     Name = name,
                 };
-                DataAccessUtils.DataAccess.ZebraPrinterTypeCrud.SaveEntity(zebraPrinterType);
+                DataAccessUtils.DataAccess.PrinterTypesCrud.SaveEntity(zebraPrinterType);
             });
 
             Utils.MethodComplete();
@@ -68,24 +68,24 @@ namespace BlazorCoreTests.DAL.TableModels
                     const string name = "ZebraPrinterType test";
                     const string name2 = "ZebraPrinterType test 2";
                     // GetEntities
-                    foreach (var entity in DataAccessUtils.DataAccess.ZebraPrinterTypeCrud.GetEntities(null,
+                    foreach (var entity in DataAccessUtils.DataAccess.PrinterTypesCrud.GetEntities(null,
                         new FieldOrderEntity { Use = true, Name = EnumField.Name, Direction = EnumOrderDirection.Asc }))
                     {
                         if (entity.Name.Equals(name))
                         {
                             // UpdateEntity
                             entity.Name = name2;
-                            DataAccessUtils.DataAccess.ZebraPrinterTypeCrud.UpdateEntity(entity);
+                            DataAccessUtils.DataAccess.PrinterTypesCrud.UpdateEntity(entity);
                         }
                     }
                     // GetEntities
-                    foreach (var entity in DataAccessUtils.DataAccess.ZebraPrinterTypeCrud.GetEntities(null,
+                    foreach (var entity in DataAccessUtils.DataAccess.PrinterTypesCrud.GetEntities(null,
                         new FieldOrderEntity { Use = true, Name = EnumField.Name, Direction = EnumOrderDirection.Asc }))
                     {
                         if (entity.Name.Equals(name2))
                         {
                             // DeleteEntity
-                            DataAccessUtils.DataAccess.ZebraPrinterTypeCrud.DeleteEntity(entity);
+                            DataAccessUtils.DataAccess.PrinterTypesCrud.DeleteEntity(entity);
                         }
                     }
                 }

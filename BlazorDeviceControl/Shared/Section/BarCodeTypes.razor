@@ -1,4 +1,43 @@
 ﻿@page "/section/barcodetypes"
-@inherits BlazorCore.Models.BaseRazorEntity
+@using BlazorCore
+@using BlazorCore.DAL
+@using BlazorCore.DAL.DataModels
+@using BlazorCore.DAL.TableModels
+@using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
-<SectionPage Table=BlazorCore.EnumTableScales.BarcodeTypes />
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionBarCodeTypes SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@Items TItem="BarcodeTypeEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionEditAsync(Item))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn 
+                TItem="BarcodeTypeEntity" Property="Id" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldId
+                Type="int" Width="7.5%" />
+            <RadzenGridColumn 
+                TItem="BarcodeTypeEntity" Property="Name" TextAlign="TextAlign.Left"
+                Title=@LocalizationStrings.DeviceControl.TableFieldName
+                Type="string" Width="92.5%" />
+        </Columns>
+    </RadzenGrid>
+    @if (Items == null)
+    {
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <SectionActions Table=@Table Item=@Item />
+    }
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+}

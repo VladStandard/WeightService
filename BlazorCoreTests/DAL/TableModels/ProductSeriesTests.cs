@@ -30,7 +30,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     {
                         Id = i,
                         //ScaleId = scaleId,
-                        Scale = new ScalesEntity(),
+                        Scale = new ScaleEntity(),
                         CreateDate = dt,
                         Uid = duid,
                         IsClose = b,
@@ -61,7 +61,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     var entity = new ProductSeriesEntity()
                     {
                         //ScaleId = i.ToString(),
-                        Scale = new ScalesEntity(),
+                        Scale = new ScaleEntity(),
                         CreateDate = DateTime.Now,
                         Uid = Guid.Empty,
                         IsClose = false,

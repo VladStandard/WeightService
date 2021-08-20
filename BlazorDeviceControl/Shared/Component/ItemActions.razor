@@ -1,0 +1,65 @@
+﻿@page "/component/actions"
+@using BlazorCore
+@using BlazorCore.Utils
+@inherits BlazorCore.Models.BaseRazorEntity
+
+<MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
+    <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
+        @if (ParentItem == null)
+        {
+            <RadzenLabel Text=@LocalizationStrings.Share.ItemAccessNone />
+        }
+        else
+        {
+            @if (AppSettings.IdentityItem.AccessLevel is true or false)
+            {
+                @if (IsShowNew)
+                {
+                    <RadzenButton Click=@(args => ActionNewAsync(Item, false, ParentItem))
+                        ButtonStyle="ButtonStyle.Primary"
+                        Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 12px; "
+                        Text=@LocalizationStrings.DeviceControl.TableActionNew Disabled=@AppSettings.DataAccess.IsDisabled />
+                }
+                @if (IsShowAdd)
+                {
+                    <RadzenButton Click=@(args => ActionAddAsync(Item, false, ParentItem))
+                        ButtonStyle="ButtonStyle.Primary"
+                        Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 12px; "
+                        Text=@LocalizationStrings.DeviceControl.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
+                }
+                @if (IsShowEdit)
+                {
+                    <RadzenButton Click=@(args => ActionEditAsync(Item, false, ParentItem))
+                        ButtonStyle="ButtonStyle.Primary"
+                        Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 12px; "
+                        Text=@LocalizationStrings.DeviceControl.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
+                }
+                @if (IsShowCopy)
+                {
+                    <RadzenButton Click=@(args => ActionCopyAsync(Item, false, ParentItem))
+                        ButtonStyle="ButtonStyle.Primary"
+                        Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 12px; "
+                        Text=@LocalizationStrings.DeviceControl.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
+                }
+                @if (IsShowMark)
+                {
+                    <RadzenButton Click=@(args => ActionMarkAsync(Item, false, ParentItem))
+                        ButtonStyle="ButtonStyle.Primary"
+                        Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 12px; "
+                        Text=@LocalizationStrings.DeviceControl.TableActionMarked Disabled=@AppSettings.DataAccess.IsDisabled />
+                }
+                @if (IsShowDelete)
+                {
+                    <RadzenButton Click=@(args => ActionDeleteAsync(Item, false, ParentItem))
+                        ButtonStyle="ButtonStyle.Primary"
+                        Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 12px; "
+                        Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
+                }
+            }
+            else
+            {
+                <RadzenLabel Text=@LocalizationStrings.Share.ItemAccessDeny />
+            }
+        }
+    </div>
+</MudPaper>

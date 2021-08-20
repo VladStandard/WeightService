@@ -1,6 +1,9 @@
-﻿using BlazorCore.DAL;
-using BlazorCore.DAL.DataModels;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
+using BlazorCore.DAL.TableSystemModels;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -26,6 +29,26 @@ namespace BlazorCore.Models
 
         #endregion
 
+        #region Public and private fields and properties - Parameter
+
+        public IBaseEntity Item { get; private set; }
+        public IBaseEntity ParentItem { get; private set; }
+        public ITableEntity Table { get; private set; }
+        [Parameter] public bool IsShowAdd { get; set; }
+        [Parameter] public bool IsShowEdit { get; set; }
+        [Parameter] public bool IsShowCopy { get; set; }
+        [Parameter] public bool IsShowNew { get; set; }
+        [Parameter] public bool IsShowMark { get; set; }
+        [Parameter] public bool IsShowDelete { get; set; }
+
+        #endregion
+
+        #region Public and private fields and properties
+
+        public AppSettingsEntity AppSettings = AppSettingsEntity.Instance;
+
+        #endregion
+
         #region IDisposable
 
         public void Dispose()
@@ -38,30 +61,69 @@ namespace BlazorCore.Models
 
         #endregion
 
-        #region Public and private fields and properties
-
-        public string Page { get; set; }
-        public AppSettingsEntity AppSettings = AppSettingsEntity.Instance;
-        public delegate Task DelegateGuiRefreshAsync(bool continueOnCapturedContext);
-        public delegate void DelegateGuiRefresh();
-
-        #endregion
-
         #region Constructor and destructor
 
         public BaseRazorEntity() { }
 
         #endregion
 
+        #region Public and private methods - Item, ParentItem, Table
+
+        public void SetItem(IBaseEntity item)
+        {
+            Item = item;
+        }
+
+        public void SetItem(IBaseIdEntity item)
+        {
+            Item = (IBaseEntity)item;
+        }
+
+        public void SetItem(IBaseUidEntity item)
+        {
+            Item = (IBaseEntity)item;
+        }
+
+        public void SetParentItem(IBaseEntity parentItem)
+        {
+            ParentItem = parentItem;
+        }
+
+        public void SetParentItem(IBaseIdEntity parentItem)
+        {
+            ParentItem = (IBaseEntity)parentItem;
+        }
+
+        public void SetParentItem(IBaseUidEntity parentItem)
+        {
+            ParentItem = (IBaseEntity)parentItem;
+        }
+
+        public void SetTable(ITableEntity table)
+        {
+            Table = table;
+        }
+
+        #endregion
+
         #region Public and private methods
 
-        public async Task GuiRefreshAsync(bool continueOnCapturedContext) => await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
-        public void GuiRefresh() => StateHasChanged();
+        public async Task GuiRefreshAsync(bool continueOnCapturedContext)
+        {
+            await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
+            await Task.Delay(TimeSpan.FromMilliseconds(1000)).ConfigureAwait(true);
+        }
+
+        public async Task GuiRefreshWithWaitAsync(bool continueOnCapturedContext = true, int millisecondsTimeout = 1000)
+        {
+            await InvokeAsync(StateHasChanged).ConfigureAwait(continueOnCapturedContext);
+            await Task.Delay(TimeSpan.FromMilliseconds(millisecondsTimeout)).ConfigureAwait(continueOnCapturedContext);
+        }
 
         public async Task GetDataAsync(Task task, bool continueOnCapturedContext)
         {
             await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
-                new List<Task> { task }, GuiRefreshAsync, continueOnCapturedContext).ConfigureAwait(false);
+                new List<Task> { task }, continueOnCapturedContext).ConfigureAwait(false);
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -76,163 +138,19 @@ namespace BlazorCore.Models
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
         }
 
-        [Obsolete(@"Deprecated method. Use Action method.")]
-        public async Task ActionAsync<T>(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, BaseEntity parentItem = null) where T : BaseRazorEntity
-        {
-            await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
-                new List<Task> { new Task(delegate {
-                    Console.WriteLine($"ActionAsync. table: {table}. tableAction: {tableAction}. item: {item}");
-                    string title = string.Empty;
-                    if (item is BaseIdEntity idEntity)
-                    {
-                        idEntity = table switch
-                        {
-                            EnumTableScales.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity<BarCodeTypesEntity>(idEntity, tableAction),
-                            EnumTableScales.Contragents => AppSettings.DataAccess.ActionGetIdEntity<ContragentsEntity>(idEntity, tableAction),
-                            EnumTableScales.Hosts => AppSettings.DataAccess.ActionGetIdEntity<HostsEntity>(idEntity, tableAction),
-                            EnumTableScales.Nomenclature => AppSettings.DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
-                            EnumTableScales.OrderStatus => AppSettings.DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
-                            EnumTableScales.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity<OrderTypesEntity>(idEntity, tableAction),
-                            EnumTableScales.Plu => AppSettings.DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
-                            EnumTableScales.ProductionFacility => AppSettings.DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
-                            EnumTableScales.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
-                            EnumTableScales.Scales => AppSettings.DataAccess.ActionGetIdEntity<ScalesEntity>(idEntity, tableAction),
-                            EnumTableScales.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity<TemplateResourcesEntity>(idEntity, tableAction),
-                            EnumTableScales.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplatesEntity>(idEntity, tableAction),
-                            EnumTableScales.WorkShop => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
-                            EnumTableScales.WeithingFact => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
-                            EnumTableScales.Printer => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
-                            EnumTableScales.PrinterResource => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceEntity>(idEntity, tableAction),
-                            EnumTableScales.PrinterType => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
-                            _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                        };
-                        title = LocalizationStrings.DeviceControl.GetItemTitle(table, idEntity.Id);
-                    }
-                    else if (item is BaseUidEntity uidEntity)
-                    {
-                        uidEntity = table switch
-                        {
-                            EnumTableScales.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
-                            _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                        };
-                        title = LocalizationStrings.DeviceControl.GetItemTitle(table, uidEntity.Uid);
-                    }
-
-                    // Printer from ZebraPrinter.razor.
-                    if (item is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
-                    {
-                        zebraPrinterResourceRefEntity.Printer = (ZebraPrinterEntity)parentItem;
-                    }
-
-                    if (tableAction == EnumTableAction.Add)
-                    {
-                        if (item is PluEntity pluEntity)
-                        {
-                            pluEntity.Scale = (ScalesEntity)parentItem;
-                        }
-                    }
-
-                    switch (tableAction)
-                    {
-                        case EnumTableAction.Add:
-                        case EnumTableAction.Edit:
-                        case EnumTableAction.Copy:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                            {
-                                Console.WriteLine($"ActionAsync. AppSettings.IdentityItem.AccessLevel: {AppSettings.IdentityItem.AccessLevel}");
-                                Dialog.OpenAsync<T>(title,
-                                    new Dictionary<string, object>
-                                    {
-                                        {"Item", item},
-                                        {"Table", table},
-                                        {"TableAction", tableAction},
-                                    },
-                                    new Radzen.DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
-                            }
-                            break;
-                        case EnumTableAction.Delete:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                            {
-                                AppSettings.DataAccess.ActionDeleteEntity(item);
-                            }
-                            break;
-                        case EnumTableAction.Mark:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                            {
-                                AppSettings.DataAccess.ActionMarkedEntity(item);
-                            }
-                            break;
-                    }
-                })}, GuiRefreshAsync, true).ConfigureAwait(false);
-        }
-
-        public void Action(EnumTableScales table, EnumTableAction tableAction, BaseEntity item, bool isNewWindow, BaseEntity parentItem = null)
-        {
-            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(Action)}", "", LocalizationStrings.Share.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        if (table == EnumTableScales.Default)
-                            return;
-                        //if (item == null || item.EqualsDefault())
-                        //    return;
-                        BaseIdEntity idItem = null;
-                        BaseUidEntity uidItem = null;
-                        switch (item)
-                        {
-                            case BaseIdEntity baseIdEntity:
-                                idItem = baseIdEntity;
-                                break;
-                            case BaseUidEntity baseUidEntity:
-                                uidItem = baseUidEntity;
-                                break;
-                        }
-                        switch (tableAction)
-                        {
-                            case EnumTableAction.Add:
-                            case EnumTableAction.Edit:
-                            case EnumTableAction.Copy:
-                                if (AppSettings.IdentityItem.AccessLevel == true)
-                                {
-                                    switch (table)
-                                    {
-                                        case EnumTableScales.Scales:
-                                        case EnumTableScales.Printer:
-                                            RouteItemNavigate(item, isNewWindow);
-                                            break;
-                                    }
-                                }
-                                break;
-                            case EnumTableAction.Delete:
-                                if (AppSettings.IdentityItem.AccessLevel == true)
-                                {
-                                    AppSettings.DataAccess.ActionDeleteEntity(item);
-                                }
-                                break;
-                            case EnumTableAction.Mark:
-                                if (AppSettings.IdentityItem.AccessLevel == true)
-                                {
-                                    AppSettings.DataAccess.ActionMarkedEntity(item);
-                                }
-                                break;
-                        }
-                        await GuiRefreshAsync(false).ConfigureAwait(false);
-                    }),
-                }, true);
-        }
-
         public string ChartDataFormat(object value) => ((int)value).ToString("####", CultureInfo.InvariantCulture);
 
         public ChartCountEntity[] GetContragentsChartEntities(EnumField field)
         {
             ChartCountEntity[] result = new ChartCountEntity[0];
-            ContragentsEntity[] entities = AppSettings.DataAccess.ContragentsCrud.GetEntities(null,
+            ContragentEntity[] entities = AppSettings.DataAccess.ContragentsCrud.GetEntities(null,
                 new FieldOrderEntity(EnumField.CreateDate, EnumOrderDirection.Asc));
             int i = 0;
             switch (field)
             {
                 case EnumField.CreateDate:
                     List<ChartCountEntity> entitiesDateCreated = new();
-                    foreach (ContragentsEntity entity in entities)
+                    foreach (ContragentEntity entity in entities)
                     {
                         if (entity.CreateDate != null)
                             entitiesDateCreated.Add(new ChartCountEntity(((DateTime)entity.CreateDate).Date, 1));
@@ -249,7 +167,7 @@ namespace BlazorCore.Models
                     break;
                 case EnumField.ModifiedDate:
                     List<ChartCountEntity> entitiesDateModified = new();
-                    foreach (ContragentsEntity entity in entities)
+                    foreach (ContragentEntity entity in entities)
                     {
                         if (entity.ModifiedDate != null)
                             entitiesDateModified.Add(new ChartCountEntity(((DateTime)entity.ModifiedDate).Date, 1));
@@ -271,7 +189,7 @@ namespace BlazorCore.Models
         public ChartCountEntity[] GetNomenclaturesChartEntities(EnumField field)
         {
             ChartCountEntity[] result = new ChartCountEntity[0];
-            NomenclatureEntity[] entities = AppSettings.DataAccess.NomenclatureCrud.GetEntities(null,
+            NomenclatureEntity[] entities = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(null,
                 new FieldOrderEntity(EnumField.CreateDate, EnumOrderDirection.Asc));
             int i = 0;
             switch (field)
@@ -322,7 +240,7 @@ namespace BlazorCore.Models
             Navigation.NavigateTo(LocalizationStrings.Share.UriRouteRoot);
         }
 
-        public ConfirmOptions GetConfirmOptions() => new ConfirmOptions()
+        public static ConfirmOptions GetConfirmOptions() => new()
         {
             OkButtonText = LocalizationStrings.Share.DialogButtonYes,
             CancelButtonText = LocalizationStrings.Share.DialogButtonCancel,
@@ -338,7 +256,7 @@ namespace BlazorCore.Models
         };
 
         public async Task RunTasksAsync(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks,
-            DelegateGuiRefreshAsync callRefresh, bool continueOnCapturedContext,
+            bool continueOnCapturedContext,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -351,7 +269,7 @@ namespace BlazorCore.Models
         {
             try
             {
-                RunTasksCore(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext);
+                RunTasksCore(title, detailSuccess, detailCancel, tasks, continueOnCapturedContext);
             }
             catch (Exception ex)
             {
@@ -359,7 +277,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void RunTasksCore(string title, string detailSuccess, string detailFail, string detailCancel, List<Task> tasks, bool continueOnCapturedContext)
+        private void RunTasksCore(string title, string detailSuccess, string detailCancel, List<Task> tasks, bool continueOnCapturedContext)
         {
             if (tasks != null)
             {
@@ -436,7 +354,7 @@ namespace BlazorCore.Models
                 bool? result = dialog.Result;
                 if (result == true)
                 {
-                    RunTasksCore(title, detailSuccess, detailFail, detailCancel, tasks, continueOnCapturedContext);
+                    RunTasksCore(title, detailSuccess, detailCancel, tasks, continueOnCapturedContext);
                 }
             }
             catch (Exception ex)
@@ -449,7 +367,7 @@ namespace BlazorCore.Models
 
         #region Public and private methods - Actions
 
-        public void RouteItemNavigate(BaseEntity item, bool isNewWindow)
+        public void RouteItemNavigate(IBaseEntity item, bool isNewWindow)
         {
             string page = string.Empty;
             if (item is ZebraPrinterEntity)
@@ -460,7 +378,7 @@ namespace BlazorCore.Models
             {
                 page = LocalizationStrings.DeviceControl.UriRouteItemPrinterType;
             }
-            else if (item is ScalesEntity)
+            else if (item is ScaleEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteItemScale;
             }
@@ -487,20 +405,20 @@ namespace BlazorCore.Models
             {
                 if (item is BaseIdEntity idItem)
                 {
-                    JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
+                    _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
                 }
                 else if (item is BaseUidEntity uidItem)
                 {
-                    JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
+                    _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
                 }
                 else
                 {
-                    JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                    _ = JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
                 }
             }
         }
 
-        public void RouteSectionNavigate(BaseEntity item, bool isNewWindow)
+        public void RouteSectionNavigate(IBaseEntity item, bool isNewWindow)
         {
             string page = string.Empty;
             if (item is ZebraPrinterEntity)
@@ -511,7 +429,7 @@ namespace BlazorCore.Models
             {
                 page = LocalizationStrings.DeviceControl.UriRouteSectionPrinterTypes;
             }
-            else if (item is ScalesEntity)
+            else if (item is ScaleEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteSectionScales;
             }
@@ -525,11 +443,11 @@ namespace BlazorCore.Models
             }
             else
             {
-                JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                _ = JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
             }
         }
 
-        public async Task ItemCancelAsync(BaseEntity item, bool isNewWindow)
+        public async Task ItemCancelAsync(IBaseEntity item, bool isNewWindow)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(ItemCancelAsync)}", LocalizationStrings.Share.DialogResultSuccess,
@@ -546,7 +464,7 @@ namespace BlazorCore.Models
                     })}, false);
         }
 
-        public async Task ItemSaveAsync(BaseEntity item, bool continueOnCapturedContext, bool isNewWindow)
+        public async Task ItemSaveAsync(IBaseEntity item, bool continueOnCapturedContext, bool isNewWindow)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasksWithQeustion(LocalizationStrings.Share.TableRecordSave, LocalizationStrings.Share.DialogResultSuccess,
@@ -564,18 +482,18 @@ namespace BlazorCore.Models
                             if (idItem2 is ZebraPrinterEntity printerItem)
                             {
                                 if (printerItem.Id == 0)
-                                    AppSettings.DataAccess.ZebraPrinterCrud.SaveEntity(printerItem);
+                                    AppSettings.DataAccess.PrintersCrud.SaveEntity(printerItem);
                                 else
-                                    AppSettings.DataAccess.ZebraPrinterCrud.UpdateEntity(printerItem);
+                                    AppSettings.DataAccess.PrintersCrud.UpdateEntity(printerItem);
                             }
                             else if (idItem2 is ZebraPrinterTypeEntity printerTypeEntity)
                             {
                                 if (printerTypeEntity.Id == 0)
-                                    AppSettings.DataAccess.ZebraPrinterTypeCrud.SaveEntity(printerTypeEntity);
+                                    AppSettings.DataAccess.PrinterTypesCrud.SaveEntity(printerTypeEntity);
                                 else
-                                    AppSettings.DataAccess.ZebraPrinterTypeCrud.UpdateEntity(printerTypeEntity);
+                                    AppSettings.DataAccess.PrinterTypesCrud.UpdateEntity(printerTypeEntity);
                             }
-                            else if (idItem2 is ScalesEntity scaleItem)
+                            else if (idItem2 is ScaleEntity scaleItem)
                             {
                                 if (scaleItem.Id == 0)
                                     AppSettings.DataAccess.ScalesCrud.SaveEntity(scaleItem);
@@ -585,6 +503,195 @@ namespace BlazorCore.Models
                         }
                         RouteSectionNavigate(item, isNewWindow);
                     })}, continueOnCapturedContext);
+        }
+
+        [Obsolete(@"Deprecated method. Use Action method.")]
+        private async Task ActionAsync<T>(ITableEntity table, EnumTableAction tableAction, IBaseEntity item, IBaseEntity parentItem = null) 
+            where T : BaseRazorEntity
+        {
+            await RunTasksAsync(LocalizationStrings.Share.TableRead, "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> { new Task(delegate {
+                    Console.WriteLine($"ActionAsync. table: {table}. tableAction: {tableAction}. item: {item}");
+                    string title = string.Empty;
+                    if (item is BaseIdEntity idEntity)
+                    {
+                        if (table is TableScalesEntity tableScales)
+                        {
+                            idEntity = tableScales.Value switch
+                            {
+                                EnumTableScale.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity<BarcodeTypeEntity>(idEntity, tableAction),
+                                EnumTableScale.Contragents => AppSettings.DataAccess.ActionGetIdEntity<ContragentEntity>(idEntity, tableAction),
+                                EnumTableScale.Hosts => AppSettings.DataAccess.ActionGetIdEntity<HostEntity>(idEntity, tableAction),
+                                EnumTableScale.Nomenclatures => AppSettings.DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
+                                EnumTableScale.OrderStatuses => AppSettings.DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
+                                EnumTableScale.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity<OrderTypeEntity>(idEntity, tableAction),
+                                EnumTableScale.Plus => AppSettings.DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
+                                EnumTableScale.ProductionFacilities => AppSettings.DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
+                                EnumTableScale.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
+                                EnumTableScale.Scales => AppSettings.DataAccess.ActionGetIdEntity<ScaleEntity>(idEntity, tableAction),
+                                EnumTableScale.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity<TemplateResourceEntity>(idEntity, tableAction),
+                                EnumTableScale.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplateEntity>(idEntity, tableAction),
+                                EnumTableScale.Workshops => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
+                                EnumTableScale.WeithingFacts => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
+                                EnumTableScale.Printers => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
+                                EnumTableScale.PrinterResources => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceEntity>(idEntity, tableAction),
+                                EnumTableScale.PrinterTypes => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
+                                _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                            };
+                        }
+                        title = LocalizationStrings.GetItemTitle(table, idEntity.Id);
+                    }
+                    else if (item is BaseUidEntity uidEntity)
+                    {
+                        if (table is TableSystemEntity tableSystem)
+                        {
+                            uidEntity = tableSystem.Value switch
+                            {
+                                EnumTableSystem.Accesses => AppSettings.DataAccess.ActionGetUidEntity<AccessEntity>(uidEntity, tableAction),
+                                EnumTableSystem.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
+                                _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+                            };
+                            title = LocalizationStrings.GetItemTitle(table, uidEntity.Uid);
+                        }
+                    }
+
+                    // Printer from ZebraPrinter.razor.
+                    if (item is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
+                    {
+                        zebraPrinterResourceRefEntity.Printer = (ZebraPrinterEntity)parentItem;
+                    }
+
+                    if (tableAction == EnumTableAction.Add)
+                    {
+                        if (item is PluEntity pluEntity)
+                        {
+                            pluEntity.Scale = (ScaleEntity)parentItem;
+                        }
+                    }
+
+                    switch (tableAction)
+                    {
+                        case EnumTableAction.Add:
+                        case EnumTableAction.Edit:
+                        case EnumTableAction.Copy:
+                            if (AppSettings.IdentityItem.AccessLevel == true)
+                            {
+                                Console.WriteLine($"ActionAsync. AppSettings.IdentityItem.AccessLevel: {AppSettings.IdentityItem.AccessLevel}");
+                                Dialog.OpenAsync<T>(title,
+                                    new Dictionary<string, object>
+                                    {
+                                        {"Item", item},
+                                        {"Table", table},
+                                        {"TableAction", tableAction},
+                                    },
+                                    new Radzen.DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
+                            }
+                            break;
+                        case EnumTableAction.Delete:
+                            if (AppSettings.IdentityItem.AccessLevel == true)
+                            {
+                                AppSettings.DataAccess.ActionDeleteEntity(item);
+                            }
+                            break;
+                        case EnumTableAction.Mark:
+                            if (AppSettings.IdentityItem.AccessLevel == true)
+                            {
+                                AppSettings.DataAccess.ActionMarkedEntity(item);
+                            }
+                            break;
+                    }
+                })}, true).ConfigureAwait(false);
+        }
+
+        private void Action(EnumTableAction tableAction, IBaseEntity item, bool isNewWindow, IBaseEntity parentItem = null)
+        {
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(Action)}", "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        //if (item == null || item.EqualsDefault())
+                        //    return;
+                        BaseIdEntity idItem = null;
+                        BaseUidEntity uidItem = null;
+                        switch (item)
+                        {
+                            case BaseIdEntity baseIdEntity:
+                                idItem = baseIdEntity;
+                                break;
+                            case BaseUidEntity baseUidEntity:
+                                uidItem = baseUidEntity;
+                                break;
+                        }
+                        switch (tableAction)
+                        {
+                            case EnumTableAction.Add:
+                            case EnumTableAction.Edit:
+                            case EnumTableAction.Copy:
+                                if (AppSettings.IdentityItem.AccessLevel == true)
+                                {
+                                    if (Table is TableScalesEntity tableScales)
+                                    {
+                                        switch (tableScales.Value)
+                                        {
+                                            case EnumTableScale.Scales:
+                                            case EnumTableScale.Printers:
+                                                RouteItemNavigate(item, isNewWindow);
+                                                break;
+                                        }
+                                    }
+                                }
+                                break;
+                            case EnumTableAction.Delete:
+                                if (AppSettings.IdentityItem.AccessLevel == true)
+                                {
+                                    AppSettings.DataAccess.ActionDeleteEntity(item);
+                                }
+                                break;
+                            case EnumTableAction.Mark:
+                                if (AppSettings.IdentityItem.AccessLevel == true)
+                                {
+                                    AppSettings.DataAccess.ActionMarkedEntity(item);
+                                }
+                                break;
+                        }
+                        await GuiRefreshWithWaitAsync();
+                    }),
+                }, true);
+        }
+
+        public async Task ActionNewAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(EnumTableAction.New, item, isNewWindow, parentItem);
+        }
+
+        public async Task ActionAddAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(EnumTableAction.Add, item, isNewWindow, parentItem);
+        }
+
+        public async Task ActionEditAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(EnumTableAction.Edit, item, isNewWindow, parentItem);
+        }
+
+        public async Task ActionCopyAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(EnumTableAction.Copy, item, isNewWindow, parentItem);
+        }
+
+        public async Task ActionMarkAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(EnumTableAction.Mark, item, isNewWindow, parentItem);
+        }
+
+        public async Task ActionDeleteAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            Action(EnumTableAction.Delete, item, isNewWindow, parentItem);
         }
 
         #endregion

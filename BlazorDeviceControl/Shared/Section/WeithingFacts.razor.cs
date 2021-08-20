@@ -15,7 +15,6 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         public List<WeithingFactSummaryEntity> Items { get; set; }
-        public object[] Objects { get; set; }
         private string TemplateCategory { get; set; }
 
         #endregion
@@ -28,10 +27,13 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Item = null;
-                        Objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetWeithingFacts, string.Empty, 0, string.Empty);
+                        IdItem = null;
+                        Items = null;
+                        await GuiRefreshWithWaitAsync();
+
+                        object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetWeithingFacts, string.Empty, 0, string.Empty);
                         Items = new List<WeithingFactSummaryEntity>();
-                        foreach (object obj in Objects)
+                        foreach (object obj in objects)
                         {
                             if (obj is object[] { Length: 5 } item)
                             {
@@ -45,7 +47,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 });
                             }
                         }
-                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                        await GuiRefreshWithWaitAsync();
                     }),
             }, true);
         }

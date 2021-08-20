@@ -3,7 +3,6 @@
 
 using BlazorCore;
 using BlazorCore.DAL;
-using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Models;
 using Microsoft.AspNetCore.Components;
@@ -20,9 +19,8 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
+        private WorkshopEntity WorkshopItem => IdItem is WorkshopEntity idItem ? idItem : null;
         public List<ProductionFacilityEntity> ProductionFacilityEntities { get; set; } = null;
-        [Parameter]
-        public WorkshopEntity Item { get; set; }
 
         #endregion
 
@@ -34,7 +32,7 @@ namespace BlazorDeviceControl.Shared.Item
 
             await GetDataAsync(new Task(delegate
             {
-                ProductionFacilityEntities = AppSettings.DataAccess.ProductionFacilityCrud.GetEntities(null, null).ToList();
+                ProductionFacilityEntities = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null).ToList();
             }), false).ConfigureAwait(false);
         }
         
@@ -92,10 +90,10 @@ namespace BlazorDeviceControl.Shared.Item
                     if (value is int id)
                     {
                         if (id <= 0)
-                            Item.ProductionFacility = null;
+                            WorkshopItem.ProductionFacility = null;
                         else
                         {
-                            Item.ProductionFacility = AppSettings.DataAccess.ProductionFacilityCrud.GetEntity(
+                            WorkshopItem.ProductionFacility = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), id } }),
                             null);
                         }
@@ -103,30 +101,6 @@ namespace BlazorDeviceControl.Shared.Item
                     break;
             }
             StateHasChanged();
-        }
-
-        private async Task ActionEditAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionAddAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionCopyAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionDeleteAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         #endregion

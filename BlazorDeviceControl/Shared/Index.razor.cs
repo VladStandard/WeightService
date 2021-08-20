@@ -7,6 +7,7 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private methods
 
+        //
 
         #endregion
     }

@@ -1,8 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore;
 using BlazorCore.DAL;
-using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
@@ -29,8 +29,11 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Item = null;
-                        Items = AppSettings.DataAccess.PluCrud.GetEntities(
+                        IdItem = null;
+                        Items = null;
+                        await GuiRefreshWithWaitAsync();
+
+                        Items = AppSettings.DataAccess.PlusCrud.GetEntities(
                             new FieldListEntity(
                                 new Dictionary<string, object> { 
                                     { "Scale.Id", ScaleId },
@@ -38,7 +41,7 @@ namespace BlazorDeviceControl.Shared.Section
                             }),
                             new FieldOrderEntity(EnumField.GoodsName, EnumOrderDirection.Asc))
                             .ToList();
-                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                        await GuiRefreshWithWaitAsync();
                     }),
             }, true);
         }

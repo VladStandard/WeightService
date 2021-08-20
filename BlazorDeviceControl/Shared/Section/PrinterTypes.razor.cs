@@ -26,10 +26,13 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Item = null;
-                        Items = AppSettings.DataAccess.ZebraPrinterTypeCrud.GetEntities(null, null)
+                        IdItem = null;
+                        Items = null;
+                        await GuiRefreshWithWaitAsync();
+
+                        Items = AppSettings.DataAccess.PrinterTypesCrud.GetEntities(null, null)
                             .OrderBy(x => x.Name).ToList();
-                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                        await GuiRefreshWithWaitAsync();
                     }),
             }, true);
         }

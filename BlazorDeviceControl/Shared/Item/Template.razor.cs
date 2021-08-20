@@ -1,15 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore;
-using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Models;
 using Microsoft.AspNetCore.Components;
-using Radzen;
-using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -18,9 +13,8 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
+        private TemplateEntity TemplateItem => IdItem is TemplateEntity idItem ? idItem : null;
         public List<TypeEntity<string>> TemplateCategories { get; set; }
-        [Parameter]
-        public TemplatesEntity Item { get; set; }
 
         #endregion
 
@@ -36,52 +30,6 @@ namespace BlazorDeviceControl.Shared.Item
             }), false).ConfigureAwait(false);
         }
 
-        private async Task RowSelectAsync(BaseIdEntity entity,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                //
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-        }
-
-        private async Task RowDoubleClickAsync(BaseIdEntity entity, string table,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                //
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-        }
-
         private void OnChange(object value, string name)
         {
             switch (name)
@@ -89,35 +37,11 @@ namespace BlazorDeviceControl.Shared.Item
                 case "TemlateCategories":
                     if (value is string strValue)
                     {
-                        Item.CategoryId = strValue;
+                        TemplateItem.CategoryId = strValue;
                     }
                     break;
             }
             StateHasChanged();
-        }
-
-        private async Task ActionEditAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionAddAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionCopyAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionDeleteAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         }
 
         #endregion

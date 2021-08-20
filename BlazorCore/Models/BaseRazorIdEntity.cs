@@ -1,4 +1,7 @@
-﻿using BlazorCore.DAL;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using BlazorCore.DAL;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -11,7 +14,8 @@ namespace BlazorCore.Models
     {
         #region Public and private fields and properties
 
-        [Parameter] public BaseIdEntity Item { get; set; }
+        [Parameter] public IBaseIdEntity IdItem { get => (BaseIdEntity)Item; set => SetItem(value); }
+        [Parameter] public int Id { get => IdItem == null ? 0 : IdItem.Id; set => _ = value; }
 
         #endregion
 
@@ -29,7 +33,7 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(ItemSelectAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Item = item;
+                        IdItem = item;
                         // Debug log.
                         //if (AppSettings.IsDebug)
                         //{
@@ -38,7 +42,7 @@ namespace BlazorCore.Models
                         //    Console.WriteLine($"Item: {Item}");
                         //    Console.WriteLine("--------------------------------------------------------------------------------");
                         //}
-                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                        await GuiRefreshWithWaitAsync();
                     }),
                 }, true);
         }

@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.DAL.DataModels;
+using BlazorCore;
 using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Utils;
@@ -29,12 +29,15 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Item = null;
-                        Items = AppSettings.DataAccess.ZebraPrinterResourcesCrud.GetEntities(
+                        IdItem = null;
+                        Items = null;
+                        await GuiRefreshWithWaitAsync();
+
+                        Items = AppSettings.DataAccess.PrinterResourcesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
                             new FieldOrderEntity(EnumField.Description, EnumOrderDirection.Asc))
                             .ToList();
-                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                        await GuiRefreshWithWaitAsync();
                     }),
             }, true);
         }

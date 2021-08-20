@@ -60,7 +60,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     Name = "NomenclatureEntity test",
                     SerializedRepresentationObject = default,
                 };
-                DataAccessUtils.DataAccess.NomenclatureCrud.SaveEntity(entity);
+                DataAccessUtils.DataAccess.NomenclaturesCrud.SaveEntity(entity);
             });
 
             Utils.MethodComplete();
@@ -74,20 +74,20 @@ namespace BlazorCoreTests.DAL.TableModels
             Assert.DoesNotThrow(() =>
             {
                 var name = "NomenclatureEntity test";
-                var entityExists = DataAccessUtils.DataAccess.NomenclatureCrud.GetEntity(new FieldListEntity(
+                var entityExists = DataAccessUtils.DataAccess.NomenclaturesCrud.GetEntity(new FieldListEntity(
                     new Dictionary<string, object> { { EnumField.Name.ToString(), name } }), null);
                 if (entityExists.EqualsDefault())
                     return;
                 // UpdateEntity
                 entityExists.Code = "code test";
-                DataAccessUtils.DataAccess.NomenclatureCrud.UpdateEntity(entityExists);
+                DataAccessUtils.DataAccess.NomenclaturesCrud.UpdateEntity(entityExists);
             });
 
             Assert.DoesNotThrow(() =>
             {
                 var name = "NomenclatureEntity test";
                 // GetEntities
-                var entities = DataAccessUtils.DataAccess.NomenclatureCrud.GetEntities(null, null);
+                var entities = DataAccessUtils.DataAccess.NomenclaturesCrud.GetEntities(null, null);
                 Assert.AreEqual(true, entities.Length > 0);
                 foreach (var entity in entities)
                 {

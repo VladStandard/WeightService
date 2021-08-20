@@ -15,7 +15,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new HostsEntity();
+                var entityNew = new HostEntity();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
                 var entityCopy = entityNew.Clone();
@@ -28,7 +28,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var b in EnumValues.GetBool())
                 foreach (var bytes in EnumValues.GetBytes())
                 {
-                    var entity = new HostsEntity
+                    var entity = new HostEntity
                     {
                         Id = i,
                         CreateDate = dt,

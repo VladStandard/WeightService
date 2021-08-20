@@ -1,4 +1,7 @@
-﻿using BlazorCore.Models.XML;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using BlazorCore.Models.XML;
 using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -12,8 +15,8 @@ namespace BlazorCore.DAL.TableModels
 
         public virtual DateTime? CreateDate { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
-        public virtual TemplatesEntity Templates { get; set; } = new TemplatesEntity();
-        public virtual ScalesEntity Scale { get; set; } = new ScalesEntity();
+        public virtual TemplateEntity Templates { get; set; } = new TemplateEntity();
+        public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
         public virtual NomenclatureEntity Nomenclature { get; set; } = new NomenclatureEntity();
         public virtual string GoodsName { get; set; }
         public virtual string GoodsFullName { get; set; }
@@ -299,8 +302,8 @@ namespace BlazorCore.DAL.TableModels
                 Id = Id,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,
-                Templates = (TemplatesEntity)Templates?.Clone(),
-                Scale = (ScalesEntity)Scale?.Clone(),
+                Templates = (TemplateEntity)Templates?.Clone(),
+                Scale = (ScaleEntity)Scale?.Clone(),
                 Nomenclature = (NomenclatureEntity)Nomenclature?.Clone(),
                 GoodsName = GoodsName,
                 GoodsFullName = GoodsFullName,

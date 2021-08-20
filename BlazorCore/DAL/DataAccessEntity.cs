@@ -1,5 +1,9 @@
-﻿using BlazorCore.DAL.DataModels;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
+using BlazorCore.DAL.TableSystemModels;
 using BlazorCore.Models;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -40,23 +44,23 @@ namespace BlazorCore.DAL
                             ))
                             .Mappings(m => m.FluentMappings.Add<AccessMap>())
                             .Mappings(m => m.FluentMappings.Add<AppMap>())
-                            .Mappings(m => m.FluentMappings.Add<BarCodeTypesMap>())
-                            .Mappings(m => m.FluentMappings.Add<ContragentsMap>())
-                            .Mappings(m => m.FluentMappings.Add<ErrorsMap>())
-                            .Mappings(m => m.FluentMappings.Add<HostsMap>())
-                            .Mappings(m => m.FluentMappings.Add<LabelsMap>())
+                            .Mappings(m => m.FluentMappings.Add<BarcodeTypeMap>())
+                            .Mappings(m => m.FluentMappings.Add<ContragentMap>())
+                            .Mappings(m => m.FluentMappings.Add<ErrorMap>())
+                            .Mappings(m => m.FluentMappings.Add<HostMap>())
+                            .Mappings(m => m.FluentMappings.Add<LabelMap>())
                             .Mappings(m => m.FluentMappings.Add<LogMap>())
                             .Mappings(m => m.FluentMappings.Add<LogTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
-                            .Mappings(m => m.FluentMappings.Add<OrdersMap>())
-                            .Mappings(m => m.FluentMappings.Add<OrderTypesMap>())
+                            .Mappings(m => m.FluentMappings.Add<OrderMap>())
+                            .Mappings(m => m.FluentMappings.Add<OrderTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<PluMap>())
                             .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
                             .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
-                            .Mappings(m => m.FluentMappings.Add<ScalesMap>())
+                            .Mappings(m => m.FluentMappings.Add<ScaleMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>())
-                            .Mappings(m => m.FluentMappings.Add<TemplateResourcesMap>())
-                            .Mappings(m => m.FluentMappings.Add<TemplatesMap>())
+                            .Mappings(m => m.FluentMappings.Add<TemplateResourceMap>())
+                            .Mappings(m => m.FluentMappings.Add<TemplateMap>())
                             .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
                             .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterMap>())
@@ -78,23 +82,23 @@ namespace BlazorCore.DAL
                             ))
                             .Mappings(m => m.FluentMappings.Add<AccessMap>())
                             .Mappings(m => m.FluentMappings.Add<AppMap>())
-                            .Mappings(m => m.FluentMappings.Add<BarCodeTypesMap>())
-                            .Mappings(m => m.FluentMappings.Add<ContragentsMap>())
-                            .Mappings(m => m.FluentMappings.Add<ErrorsMap>())
-                            .Mappings(m => m.FluentMappings.Add<HostsMap>())
-                            .Mappings(m => m.FluentMappings.Add<LabelsMap>())
+                            .Mappings(m => m.FluentMappings.Add<BarcodeTypeMap>())
+                            .Mappings(m => m.FluentMappings.Add<ContragentMap>())
+                            .Mappings(m => m.FluentMappings.Add<ErrorMap>())
+                            .Mappings(m => m.FluentMappings.Add<HostMap>())
+                            .Mappings(m => m.FluentMappings.Add<LabelMap>())
                             .Mappings(m => m.FluentMappings.Add<LogMap>())
                             .Mappings(m => m.FluentMappings.Add<LogTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
-                            .Mappings(m => m.FluentMappings.Add<OrdersMap>())
-                            .Mappings(m => m.FluentMappings.Add<OrderTypesMap>())
+                            .Mappings(m => m.FluentMappings.Add<OrderMap>())
+                            .Mappings(m => m.FluentMappings.Add<OrderTypeMap>())
                             .Mappings(m => m.FluentMappings.Add<PluMap>())
                             .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
                             .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
-                            .Mappings(m => m.FluentMappings.Add<ScalesMap>())
+                            .Mappings(m => m.FluentMappings.Add<ScaleMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>())
-                            .Mappings(m => m.FluentMappings.Add<TemplateResourcesMap>())
-                            .Mappings(m => m.FluentMappings.Add<TemplatesMap>())
+                            .Mappings(m => m.FluentMappings.Add<TemplateResourceMap>())
+                            .Mappings(m => m.FluentMappings.Add<TemplateMap>())
                             .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
                             .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
                             .Mappings(m => m.FluentMappings.Add<ZebraPrinterMap>())
@@ -110,30 +114,30 @@ namespace BlazorCore.DAL
         }
 
         // Tables CRUD.
-        public BaseCrud<AccessEntity> AccessCrud;
-        public BaseCrud<AppEntity> AppCrud;
-        public BaseCrud<BarCodeTypesEntity> BarCodeTypesCrud;
-        public BaseCrud<ContragentsEntity> ContragentsCrud;
-        public BaseCrud<ErrorsEntity> ErrorsCrud;
-        public HostsCrud HostsCrud;
-        public BaseCrud<LabelsEntity> LabelsCrud;
-        public BaseCrud<LogEntity> LogCrud;
-        public BaseCrud<LogTypeEntity> LogTypeCrud;
-        public BaseCrud<NomenclatureEntity> NomenclatureCrud;
-        public BaseCrud<ScalesEntity> ScalesCrud;
-        public BaseCrud<OrdersEntity> OrdersCrud;
-        public BaseCrud<OrderStatusEntity> OrderStatusCrud;
-        public BaseCrud<OrderTypesEntity> OrderTypesCrud;
-        public BaseCrud<PluEntity> PluCrud;
-        public BaseCrud<ProductionFacilityEntity> ProductionFacilityCrud;
+        public BaseCrud<AccessEntity> AccessesCrud;
+        public BaseCrud<AppEntity> AppsCrud;
+        public BaseCrud<BarcodeTypeEntity> BarcodeTypesCrud;
+        public BaseCrud<ContragentEntity> ContragentsCrud;
+        public BaseCrud<ErrorEntity> ErrorsCrud;
+        public BaseCrud<LabelEntity> LabelsCrud;
+        public BaseCrud<LogEntity> LogsCrud;
+        public BaseCrud<LogTypeEntity> LogTypesCrud;
+        public BaseCrud<NomenclatureEntity> NomenclaturesCrud;
+        public BaseCrud<OrderEntity> OrdersCrud;
+        public BaseCrud<OrderStatusEntity> OrderStatusesCrud;
+        public BaseCrud<OrderTypeEntity> OrderTypesCrud;
+        public BaseCrud<PluEntity> PlusCrud;
         public BaseCrud<ProductSeriesEntity> ProductSeriesCrud;
-        public BaseCrud<TemplatesEntity> TemplatesCrud;
-        public TemplateResourcesCrud TemplateResourcesCrud;
-        public BaseCrud<ZebraPrinterResourceEntity> ZebraPrinterResourcesCrud;
-        public BaseCrud<WeithingFactEntity> WeithingFactCrud;
-        public BaseCrud<WorkshopEntity> WorkshopCrud;
-        public BaseCrud<ZebraPrinterTypeEntity> ZebraPrinterTypeCrud;
-        public BaseCrud<ZebraPrinterEntity> ZebraPrinterCrud;
+        public BaseCrud<ProductionFacilityEntity> ProductionFacilitiesCrud;
+        public BaseCrud<ScaleEntity> ScalesCrud;
+        public BaseCrud<TemplateEntity> TemplatesCrud;
+        public BaseCrud<WeithingFactEntity> WeithingFactsCrud;
+        public BaseCrud<WorkshopEntity> WorkshopsCrud;
+        public BaseCrud<ZebraPrinterEntity> PrintersCrud;
+        public BaseCrud<ZebraPrinterResourceEntity> PrinterResourcesCrud;
+        public BaseCrud<ZebraPrinterTypeEntity> PrinterTypesCrud;
+        public HostCrud HostsCrud;
+        public TemplateResourceCrud TemplateResourcesCrud;
         // Datas CRUD.
         public BaseCrud<DeviceEntity> DeviceCrud;
         public BaseCrud<LogSummaryEntity> LogSummaryCrud;
@@ -158,30 +162,30 @@ namespace BlazorCore.DAL
             CoreSettings = appSettings;
             DataConfig = new DataConfigurationEntity();
             // Tables CRUD.
-            AccessCrud = new BaseCrud<AccessEntity>(this);
-            AppCrud = new BaseCrud<AppEntity>(this);
-            BarCodeTypesCrud = new BaseCrud<BarCodeTypesEntity>(this);
-            ContragentsCrud = new BaseCrud<ContragentsEntity>(this);
-            ErrorsCrud = new BaseCrud<ErrorsEntity>(this);
-            HostsCrud = new HostsCrud(this);
-            LabelsCrud = new BaseCrud<LabelsEntity>(this);
-            LogCrud = new BaseCrud<LogEntity>(this);
-            LogTypeCrud = new BaseCrud<LogTypeEntity>(this);
-            NomenclatureCrud = new BaseCrud<NomenclatureEntity>(this);
-            ScalesCrud = new BaseCrud<ScalesEntity>(this);
-            OrdersCrud = new BaseCrud<OrdersEntity>(this);
-            OrderStatusCrud = new BaseCrud<OrderStatusEntity>(this);
-            OrderTypesCrud = new BaseCrud<OrderTypesEntity>(this);
-            PluCrud = new BaseCrud<PluEntity>(this);
-            ProductionFacilityCrud = new BaseCrud<ProductionFacilityEntity>(this);
+            AccessesCrud = new BaseCrud<AccessEntity>(this);
+            AppsCrud = new BaseCrud<AppEntity>(this);
+            BarcodeTypesCrud = new BaseCrud<BarcodeTypeEntity>(this);
+            ContragentsCrud = new BaseCrud<ContragentEntity>(this);
+            ErrorsCrud = new BaseCrud<ErrorEntity>(this);
+            HostsCrud = new HostCrud(this);
+            LabelsCrud = new BaseCrud<LabelEntity>(this);
+            LogsCrud = new BaseCrud<LogEntity>(this);
+            LogTypesCrud = new BaseCrud<LogTypeEntity>(this);
+            NomenclaturesCrud = new BaseCrud<NomenclatureEntity>(this);
+            ScalesCrud = new BaseCrud<ScaleEntity>(this);
+            OrdersCrud = new BaseCrud<OrderEntity>(this);
+            OrderStatusesCrud = new BaseCrud<OrderStatusEntity>(this);
+            OrderTypesCrud = new BaseCrud<OrderTypeEntity>(this);
+            PlusCrud = new BaseCrud<PluEntity>(this);
+            ProductionFacilitiesCrud = new BaseCrud<ProductionFacilityEntity>(this);
             ProductSeriesCrud = new BaseCrud<ProductSeriesEntity>(this);
-            TemplatesCrud = new BaseCrud<TemplatesEntity>(this);
-            TemplateResourcesCrud = new TemplateResourcesCrud(this);
-            ZebraPrinterResourcesCrud = new BaseCrud<ZebraPrinterResourceEntity>(this);
-            WeithingFactCrud = new BaseCrud<WeithingFactEntity>(this);
-            WorkshopCrud = new BaseCrud<WorkshopEntity>(this);
-            ZebraPrinterTypeCrud = new BaseCrud<ZebraPrinterTypeEntity>(this);
-            ZebraPrinterCrud = new BaseCrud<ZebraPrinterEntity>(this);
+            TemplatesCrud = new BaseCrud<TemplateEntity>(this);
+            TemplateResourcesCrud = new TemplateResourceCrud(this);
+            PrinterResourcesCrud = new BaseCrud<ZebraPrinterResourceEntity>(this);
+            WeithingFactsCrud = new BaseCrud<WeithingFactEntity>(this);
+            WorkshopsCrud = new BaseCrud<WorkshopEntity>(this);
+            PrinterTypesCrud = new BaseCrud<ZebraPrinterTypeEntity>(this);
+            PrintersCrud = new BaseCrud<ZebraPrinterEntity>(this);
             // Datas CRUD.
             DeviceCrud = new BaseCrud<DeviceEntity>(this);
             LogSummaryCrud = new BaseCrud<LogSummaryEntity>(this);
@@ -216,7 +220,7 @@ namespace BlazorCore.DAL
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
             var idLast = ErrorsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
-            var error = new ErrorsEntity
+            var error = new ErrorEntity
             {
                 Id = idLast + 1,
                 CreatedDate = DateTime.Now,
@@ -234,7 +238,7 @@ namespace BlazorCore.DAL
 
         #region Public and private methods - CRUD share
 
-        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity
+        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             var result = new T[0];
             using var session = GetSession();
@@ -296,7 +300,7 @@ namespace BlazorCore.DAL
             return criteria;
         }
 
-        public T GetEntity<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
+        public T GetEntity<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
             var result = new T();
             using var session = GetSession();
@@ -307,7 +311,7 @@ namespace BlazorCore.DAL
                 {
                     ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
                     var list = criteria?.List<T>();
-                    result = list?.FirstOrDefault() ?? new T();
+                    result = list.FirstOrDefault() ?? new T();
                     session.Flush();
                     transaction.Commit();
                 }
@@ -555,7 +559,7 @@ namespace BlazorCore.DAL
             return result;
         }
 
-        public void SaveEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : BaseEntity
+        public void SaveEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             if (entity.EqualsEmpty()) return;
             using var session = GetSession();
@@ -581,7 +585,7 @@ namespace BlazorCore.DAL
             }
         }
 
-        public void UpdateEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : BaseEntity
+        public void UpdateEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             if (entity.EqualsEmpty()) return;
             using var session = GetSession();
@@ -607,7 +611,7 @@ namespace BlazorCore.DAL
             }
         }
 
-        public void DeleteEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : BaseEntity
+        public void DeleteEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             if (entity.EqualsEmpty()) return;
             using var session = GetSession();
@@ -701,81 +705,81 @@ namespace BlazorCore.DAL
             if (tableAction == EnumTableAction.Add || tableAction == EnumTableAction.Copy)
             {
                 var nextId = 0;
-                if (typeof(T) == typeof(BarCodeTypesEntity))
+                if (typeof(T) == typeof(BarcodeTypeEntity))
                 {
-                    nextId = BarCodeTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = BarcodeTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(ContragentsEntity))
+                else if (typeof(T) == typeof(ContragentEntity))
                 {
                     nextId = ContragentsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(HostsEntity))
+                else if (typeof(T) == typeof(HostEntity))
                 {
                     nextId = HostsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(LabelsEntity))
+                else if (typeof(T) == typeof(LabelEntity))
                 {
                     nextId = LabelsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(NomenclatureEntity))
                 {
-                    nextId = NomenclatureCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = NomenclaturesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(OrdersEntity))
+                else if (typeof(T) == typeof(OrderEntity))
                 {
                     nextId = OrdersCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(OrderStatusEntity))
                 {
-                    nextId = OrderStatusCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = OrderStatusesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(OrderTypesEntity))
+                else if (typeof(T) == typeof(OrderTypeEntity))
                 {
                     nextId = OrderTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(PluEntity))
                 {
-                    nextId = PluCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = PlusCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ProductionFacilityEntity))
                 {
-                    nextId = ProductionFacilityCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = ProductionFacilitiesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ProductSeriesEntity))
                 {
                     nextId = ProductSeriesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(ScalesEntity))
+                else if (typeof(T) == typeof(ScaleEntity))
                 {
                     nextId = ScalesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(TemplateResourcesEntity))
+                else if (typeof(T) == typeof(TemplateResourceEntity))
                 {
                     nextId = TemplateResourcesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(TemplatesEntity))
+                else if (typeof(T) == typeof(TemplateEntity))
                 {
                     nextId = TemplatesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(WeithingFactEntity))
                 {
-                    nextId = WeithingFactCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = WeithingFactsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(WorkshopEntity))
                 {
-                    nextId = WorkshopCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = WorkshopsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ZebraPrinterEntity))
                 {
-                    nextId = ZebraPrinterCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = PrintersCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
                 {
-                    nextId = ZebraPrinterResourcesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = PrinterResourcesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ZebraPrinterTypeEntity))
                 {
-                    nextId = ZebraPrinterTypeCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = PrinterTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
                 result.Id = nextId + 1;
             }
@@ -797,19 +801,19 @@ namespace BlazorCore.DAL
             {
                 if (typeof(T) == typeof(AccessEntity))
                 {
-                    _ = AccessCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                    _ = AccessesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(AppEntity))
                 {
-                    _ = AppCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                    _ = AppsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(LogEntity))
                 {
-                    _ = LogCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                    _ = LogsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(LogTypeEntity))
                 {
-                    _ = LogTypeCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                    _ = LogTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(LogSummaryEntity))
                 {
@@ -824,112 +828,112 @@ namespace BlazorCore.DAL
             return result;
         }
 
-        public void ActionDeleteEntity<T>(T entity) where T : BaseEntity
+        public void ActionDeleteEntity<T>(T entity) where T : IBaseEntity
         {
             if (entity is AccessEntity accessEntity)
-                AccessCrud.DeleteEntity(accessEntity);
+                AccessesCrud.DeleteEntity(accessEntity);
             else if (entity is AppEntity appEntity)
-                AppCrud.DeleteEntity(appEntity);
-            else if (entity is BarCodeTypesEntity barCodeTypesEntity)
-                BarCodeTypesCrud.DeleteEntity(barCodeTypesEntity);
-            else if (entity is ContragentsEntity contragentsEntity)
+                AppsCrud.DeleteEntity(appEntity);
+            else if (entity is BarcodeTypeEntity barCodeTypesEntity)
+                BarcodeTypesCrud.DeleteEntity(barCodeTypesEntity);
+            else if (entity is ContragentEntity contragentsEntity)
                 ContragentsCrud.DeleteEntity(contragentsEntity);
-            else if (entity is HostsEntity hostsEntity)
+            else if (entity is HostEntity hostsEntity)
                 HostsCrud.DeleteEntity(hostsEntity);
-            else if (entity is LabelsEntity labelsEntity)
+            else if (entity is LabelEntity labelsEntity)
                 LabelsCrud.DeleteEntity(labelsEntity);
             else if (entity is LogEntity logEntity)
-                LogCrud.DeleteEntity(logEntity);
+                LogsCrud.DeleteEntity(logEntity);
             else if (entity is LogTypeEntity logTypeEntity)
-                LogTypeCrud.DeleteEntity(logTypeEntity);
+                LogTypesCrud.DeleteEntity(logTypeEntity);
             else if (entity is LogSummaryEntity logSummaryEntity)
                 LogSummaryCrud.DeleteEntity(logSummaryEntity);
             else if (entity is NomenclatureEntity nomenclatureEntity)
-                NomenclatureCrud.DeleteEntity(nomenclatureEntity);
-            else if (entity is OrdersEntity ordersEntity)
+                NomenclaturesCrud.DeleteEntity(nomenclatureEntity);
+            else if (entity is OrderEntity ordersEntity)
                 OrdersCrud.DeleteEntity(ordersEntity);
             else if (entity is OrderStatusEntity orderStatusEntity)
-                OrderStatusCrud.DeleteEntity(orderStatusEntity);
-            else if (entity is OrderTypesEntity orderTypesEntity)
+                OrderStatusesCrud.DeleteEntity(orderStatusEntity);
+            else if (entity is OrderTypeEntity orderTypesEntity)
                 OrderTypesCrud.DeleteEntity(orderTypesEntity);
             else if (entity is PluEntity pluEntity)
-                PluCrud.DeleteEntity(pluEntity);
+                PlusCrud.DeleteEntity(pluEntity);
             else if (entity is ProductionFacilityEntity productionFacilityEntity)
-                ProductionFacilityCrud.DeleteEntity(productionFacilityEntity);
+                ProductionFacilitiesCrud.DeleteEntity(productionFacilityEntity);
             else if (entity is ProductSeriesEntity productSeriesEntity)
                 ProductSeriesCrud.DeleteEntity(productSeriesEntity);
-            else if (entity is ScalesEntity scalesEntity)
+            else if (entity is ScaleEntity scalesEntity)
                 ScalesCrud.DeleteEntity(scalesEntity);
-            else if (entity is TemplatesEntity templatesEntity)
+            else if (entity is TemplateEntity templatesEntity)
                 TemplatesCrud.DeleteEntity(templatesEntity);
-            else if (entity is TemplateResourcesEntity templateResourcesEntity)
+            else if (entity is TemplateResourceEntity templateResourcesEntity)
                 TemplateResourcesCrud.DeleteEntity(templateResourcesEntity);
             else if (entity is WeithingFactEntity weithingFactEntity)
-                WeithingFactCrud.DeleteEntity(weithingFactEntity);
+                WeithingFactsCrud.DeleteEntity(weithingFactEntity);
             else if (entity is WeithingFactSummaryEntity weithingFactSummaryEntity)
                 WeithingFactSummaryCrud.DeleteEntity(weithingFactSummaryEntity);
             else if (entity is WorkshopEntity workshopEntity)
-                WorkshopCrud.DeleteEntity(workshopEntity);
+                WorkshopsCrud.DeleteEntity(workshopEntity);
             else if (entity is ZebraPrinterEntity zebraPrinterEntity)
-                ZebraPrinterCrud.DeleteEntity(zebraPrinterEntity);
+                PrintersCrud.DeleteEntity(zebraPrinterEntity);
             else if (entity is ZebraPrinterTypeEntity zebraPrinterTypeEntity)
-                ZebraPrinterTypeCrud.MarkedEntity(zebraPrinterTypeEntity);
+                PrinterTypesCrud.MarkedEntity(zebraPrinterTypeEntity);
             else if (entity is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
-                ZebraPrinterResourcesCrud.DeleteEntity(zebraPrinterResourceRefEntity);
+                PrinterResourcesCrud.DeleteEntity(zebraPrinterResourceRefEntity);
         }
 
-        public void ActionMarkedEntity<T>(T entity) where T : BaseEntity
+        public void ActionMarkedEntity<T>(T entity) where T : IBaseEntity
         {
             if (entity is AccessEntity accessEntity)
-                AccessCrud.MarkedEntity(accessEntity);
+                AccessesCrud.MarkedEntity(accessEntity);
             else if (entity is AppEntity appEntity)
-                AppCrud.MarkedEntity(appEntity);
-            else if (entity is BarCodeTypesEntity barCodeTypesEntity)
-                BarCodeTypesCrud.MarkedEntity(barCodeTypesEntity);
-            else if (entity is ContragentsEntity contragentsEntity)
+                AppsCrud.MarkedEntity(appEntity);
+            else if (entity is BarcodeTypeEntity barCodeTypesEntity)
+                BarcodeTypesCrud.MarkedEntity(barCodeTypesEntity);
+            else if (entity is ContragentEntity contragentsEntity)
                 ContragentsCrud.MarkedEntity(contragentsEntity);
-            else if (entity is HostsEntity hostsEntity)
+            else if (entity is HostEntity hostsEntity)
                 HostsCrud.MarkedEntity(hostsEntity);
-            else if (entity is LabelsEntity labelsEntity)
+            else if (entity is LabelEntity labelsEntity)
                 LabelsCrud.MarkedEntity(labelsEntity);
             else if (entity is LogEntity logEntity)
-                LogCrud.MarkedEntity(logEntity);
+                LogsCrud.MarkedEntity(logEntity);
             else if (entity is LogTypeEntity logTypeEntity)
-                LogTypeCrud.MarkedEntity(logTypeEntity);
+                LogTypesCrud.MarkedEntity(logTypeEntity);
             else if (entity is LogSummaryEntity logSummaryEntity)
                 LogSummaryCrud.MarkedEntity(logSummaryEntity);
             else if (entity is NomenclatureEntity nomenclatureEntity)
-                NomenclatureCrud.MarkedEntity(nomenclatureEntity);
-            else if (entity is OrdersEntity ordersEntity)
+                NomenclaturesCrud.MarkedEntity(nomenclatureEntity);
+            else if (entity is OrderEntity ordersEntity)
                 OrdersCrud.MarkedEntity(ordersEntity);
             else if (entity is OrderStatusEntity orderStatusEntity)
-                OrderStatusCrud.MarkedEntity(orderStatusEntity);
-            else if (entity is OrderTypesEntity orderTypesEntity)
+                OrderStatusesCrud.MarkedEntity(orderStatusEntity);
+            else if (entity is OrderTypeEntity orderTypesEntity)
                 OrderTypesCrud.MarkedEntity(orderTypesEntity);
             else if (entity is PluEntity pluEntity)
-                PluCrud.MarkedEntity(pluEntity);
+                PlusCrud.MarkedEntity(pluEntity);
             else if (entity is ProductionFacilityEntity productionFacilityEntity)
-                ProductionFacilityCrud.MarkedEntity(productionFacilityEntity);
+                ProductionFacilitiesCrud.MarkedEntity(productionFacilityEntity);
             else if (entity is ProductSeriesEntity productSeriesEntity)
                 ProductSeriesCrud.MarkedEntity(productSeriesEntity);
-            else if (entity is ScalesEntity scalesEntity)
+            else if (entity is ScaleEntity scalesEntity)
                 ScalesCrud.MarkedEntity(scalesEntity);
-            else if (entity is TemplatesEntity templatesEntity)
+            else if (entity is TemplateEntity templatesEntity)
                 TemplatesCrud.MarkedEntity(templatesEntity);
-            else if (entity is TemplateResourcesEntity templateResourcesEntity)
+            else if (entity is TemplateResourceEntity templateResourcesEntity)
                 TemplateResourcesCrud.MarkedEntity(templateResourcesEntity);
             else if (entity is WeithingFactEntity weithingFactEntity)
-                WeithingFactCrud.MarkedEntity(weithingFactEntity);
+                WeithingFactsCrud.MarkedEntity(weithingFactEntity);
             else if (entity is WeithingFactSummaryEntity weithingFactSummaryEntity)
                 WeithingFactSummaryCrud.MarkedEntity(weithingFactSummaryEntity);
             else if (entity is WorkshopEntity workshopEntity)
-                WorkshopCrud.MarkedEntity(workshopEntity);
+                WorkshopsCrud.MarkedEntity(workshopEntity);
             else if (entity is ZebraPrinterEntity zebraPrinterEntity)
-                ZebraPrinterCrud.MarkedEntity(zebraPrinterEntity);
+                PrintersCrud.MarkedEntity(zebraPrinterEntity);
             else if (entity is ZebraPrinterTypeEntity zebraPrinterTypeEntity)
-                ZebraPrinterTypeCrud.MarkedEntity(zebraPrinterTypeEntity);
+                PrinterTypesCrud.MarkedEntity(zebraPrinterTypeEntity);
             else if (entity is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
-                ZebraPrinterResourcesCrud.MarkedEntity(zebraPrinterResourceRefEntity);
+                PrinterResourcesCrud.MarkedEntity(zebraPrinterResourceRefEntity);
         }
 
         #endregion

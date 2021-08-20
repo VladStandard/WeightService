@@ -59,7 +59,7 @@ namespace BlazorCoreTests.DAL.TableModels
             {
                 const string name = "ZebraPrinterEntity test";
                 const string name2 = "ZebraPrinterEntity test 2";
-                foreach (var zebraPrinterTypeEntity in DataAccessUtils.DataAccess.ZebraPrinterTypeCrud.GetEntities(null, null))
+                foreach (var zebraPrinterTypeEntity in DataAccessUtils.DataAccess.PrinterTypesCrud.GetEntities(null, null))
                 {
                     // SaveEntity
                     var zebraPrinterType = new ZebraPrinterEntity
@@ -76,27 +76,27 @@ namespace BlazorCoreTests.DAL.TableModels
                         PeelOffSet = default,
                         DarknessLevel = default,
                     };
-                    DataAccessUtils.DataAccess.ZebraPrinterCrud.SaveEntity(zebraPrinterType);
+                    DataAccessUtils.DataAccess.PrintersCrud.SaveEntity(zebraPrinterType);
                 }
                 // GetEntities
-                foreach (var entity in DataAccessUtils.DataAccess.ZebraPrinterCrud.GetEntities(null,
+                foreach (var entity in DataAccessUtils.DataAccess.PrintersCrud.GetEntities(null,
                     new FieldOrderEntity { Use = true, Name = EnumField.Name, Direction = EnumOrderDirection.Asc }))
                 {
                     if (entity.Name.Equals(name))
                     {
                         // UpdateEntity
                         entity.Name = name2;
-                        DataAccessUtils.DataAccess.ZebraPrinterCrud.UpdateEntity(entity);
+                        DataAccessUtils.DataAccess.PrintersCrud.UpdateEntity(entity);
                     }
                 }
                 // GetEntities
-                foreach (var entity in DataAccessUtils.DataAccess.ZebraPrinterCrud.GetEntities(null,
+                foreach (var entity in DataAccessUtils.DataAccess.PrintersCrud.GetEntities(null,
                     new FieldOrderEntity { Use = true, Name = EnumField.Name, Direction = EnumOrderDirection.Asc }))
                 {
                     if (entity.Name.Equals(name2))
                     {
                         // DeleteEntity
-                        DataAccessUtils.DataAccess.ZebraPrinterCrud.DeleteEntity(entity);
+                        DataAccessUtils.DataAccess.PrintersCrud.DeleteEntity(entity);
                     }
                 }
             }

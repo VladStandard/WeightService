@@ -1,4 +1,52 @@
 ﻿@page "/section/hosts"
-@inherits BlazorCore.Models.BaseRazorEntity
+@using BlazorCore
+@using BlazorCore.DAL
+@using BlazorCore.DAL.DataModels
+@using BlazorCore.DAL.TableModels
+@using BlazorCore.DAL.TableSystemModels
+@using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
-<SectionPage Table=BlazorCore.EnumTableScales.Hosts />
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionHosts SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@Items TItem="HostEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionEditAsync(Item))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn 
+                TItem="HostEntity" Property="Id" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldId
+                Type="int" Width="7.5%" />
+            <RadzenGridColumn 
+                TItem="HostEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldName
+                Type="string" Width="20%" />
+            <RadzenGridColumn 
+                TItem="HostEntity" Property="Ip" Title=@LocalizationStrings.DeviceControl.TableFieldDeviceIp
+                Type="string" Width="20%" />
+            <RadzenGridColumn 
+                TItem="HostEntity" Property="IdRRef" Title=@LocalizationStrings.DeviceControl.TableFieldIdRref
+                Type="string" Width="20%" />
+            <RadzenGridColumn 
+                TItem="HostEntity" Property="Mac" Title=@LocalizationStrings.DeviceControl.TableFieldDeviceMac
+                Type="string" Width="20%" />
+        </Columns>
+    </RadzenGrid>
+    @if (Items == null)
+    {
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <SectionActions Table=@Table Item=@Item IsShowAdd=true IsShowEdit=true IsShowMark=true />
+    }
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+}

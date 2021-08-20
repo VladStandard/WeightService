@@ -1,4 +1,55 @@
 ﻿@page "/section/templateresources"
-@inherits BlazorCore.Models.BaseRazorEntity
+@using BlazorCore
+@using BlazorCore.DAL
+@using BlazorCore.DAL.DataModels
+@using BlazorCore.DAL.TableModels
+@using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
-<SectionPage Table=BlazorCore.EnumTableScales.TemplateResources />
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px;" 
+        Data=@Items TItem="TemplateResourceEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionEditAsync(Item))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="TemplateResourceEntity" Property="Id" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldId 
+                Type="int" Width="7.5%" />
+            <RadzenGridColumn 
+                TItem="TemplateResourceEntity" Property="Type" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldType 
+                Type="string" Width="10%" />
+            <RadzenGridColumn 
+                TItem="TemplateResourceEntity" Property="Name"
+                Title=@LocalizationStrings.DeviceControl.TableFieldName 
+                Type="string" Width="30%" />
+            <RadzenGridColumn 
+                TItem="TemplateResourceEntity" Property="Description"
+                Title=@LocalizationStrings.DeviceControl.TableFieldDescription 
+                Type="string" Width="28%" />
+            <RadzenGridColumn 
+                TItem="TemplateResourceEntity" Property="ImageDataInfo"
+                Title=@LocalizationStrings.DeviceControl.TableFieldImageDataInfo 
+                Type="string" Width="22.5%" />
+        </Columns>
+    </RadzenGrid>
+    @if (Items == null)
+    {
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <SectionActions Table=@Table Item=@Item IsShowAdd=true IsShowEdit=true IsShowMark=true />
+    }
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+}

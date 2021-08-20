@@ -1,5 +1,5 @@
 ﻿@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
 <RadzenDialog />
 <MudThemeProvider/>
@@ -9,7 +9,7 @@
 <div class="page">
     @if (AppSettings == null)
     {
-        <BlazorDeviceControl.Shared.DataLoad IsInsideDiv=true DataLoadItem=BlazorCore.EnumDataLoad.Loading />
+        <DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true />
     }
     else
     {
@@ -37,10 +37,12 @@
                     <RadzenLabel Text=@AppSettings.SqlServerDescription Style="text-align: left;" />
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3">
-                    @if (AppSettings.IdentityItem == null || !AppSettings.IdentityItem.IsAccess) {
-                        <BlazorDeviceControl.Shared.DataLoad />
+                    @if (AppSettings.IdentityItem == null || !AppSettings.IdentityItem.IsAccess)
+                    {
+                        <DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true />
                     }
-                    else {
+                    else 
+                    {
                         <RadzenLabel Text=@AppSettings.IdentityItem.Name Style="text-align: center; margin-left: 50px; height: 10px;" />
                     }
                 </div>

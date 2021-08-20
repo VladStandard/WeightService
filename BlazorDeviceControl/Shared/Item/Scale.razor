@@ -3,21 +3,14 @@
 @using BlazorCore
 @using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
 @inherits BlazorCore.Models.BaseRazorIdEntity
 @inject IDialogService DialogService
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <MudElement HtmlTag="h3" Class="ma-0">
-        @LocalizationStrings.DeviceControl.ItemScale
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 100px; height: 25px; font-size: 12px; "
-                class="oi oi-reload"
-                Disabled=@AppSettings.DataAccess.IsDisabled 
-                MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
-    </MudElement>
+    <DataReload Title=@LocalizationStrings.DeviceControl.ItemScale SetParameters=@SetParametersAsync />
     @if (ScaleItem == null)
     {
         <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
@@ -143,8 +136,8 @@
             <br />
         </div>
         <Plus ScaleId=@Id />
-        <EntitySave Item=@ScaleItem />
-        <EntityDates Item=@ScaleItem />
+        <ItemSave Item=@ScaleItem />
+        <ItemDates Item=@ScaleItem />
     }
 }
 else

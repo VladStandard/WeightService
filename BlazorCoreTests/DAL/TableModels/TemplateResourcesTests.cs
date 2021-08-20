@@ -17,7 +17,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new TemplateResourcesEntity();
+                var entityNew = new TemplateResourceEntity();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
                 var entityCopy = entityNew.Clone();
@@ -30,7 +30,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var bytes in EnumValues.GetBytes())
                 foreach (var b in EnumValues.GetBool())
                 {
-                    var entity = new TemplateResourcesEntity
+                    var entity = new TemplateResourceEntity
                     {
                         Id = i,
                         CreateDate = dt,
@@ -60,7 +60,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     var id = DataAccessUtils.DataAccess.TemplateResourcesCrud.GetEntity(
                         null,
                         new FieldOrderEntity{Use = true, Name = EnumField.Id, Direction = EnumOrderDirection.Desc}).Id;
-                    var entity = new TemplateResourcesEntity
+                    var entity = new TemplateResourceEntity
                     {
                         Id = id + 1,
                         Name = "TemplateResourcesEntity name",

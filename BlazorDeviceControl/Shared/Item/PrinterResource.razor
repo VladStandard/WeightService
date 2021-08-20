@@ -1,7 +1,9 @@
-﻿@page "/item/printerresourceref"
+﻿@page "/item/printerresource"
+@page "/item/printerresource/{Id:int}"
 @using System.Globalization
+@using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter />
@@ -16,12 +18,12 @@
                                 AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                 Data=@PrinterItems PageSize="10"
                                 TextProperty="Name" ValueProperty="Id"
-                                Value=@Item.Printer?.Id Disabled="true"
-                                Change=@(args => OnChange(args, "ZebraPrinter")) />
+                                Value=@PrinterResourceItem.Printer?.Id Disabled="true"
+                                Change=@(args => OnChange(args, nameof(ZebraPrinterEntity))) />
     }
     <br />
     <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldDescription />
-    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@Item.Description />
+    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterResourceItem.Description />
     <br />
 </div>
 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -37,16 +39,9 @@
                                 AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                 Data=@ResourceItems PageSize="5"
                                 TextProperty="Name" ValueProperty="Id"
-                                Value=@Item.Resource?.Id
-                                Change=@(args => OnChange(args, "TemplateResource")) />
+                                Value=@PrinterResourceItem.Resource?.Id
+                                Change=@(args => OnChange(args, nameof(TemplateResourceEntity))) />
     }
     <br />
     <br />
-</div>
-
-<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldCreateDt />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString(CultureInfo.InvariantCulture) />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldModifiedDate />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString(CultureInfo.InvariantCulture) />
 </div>

@@ -1,105 +1,69 @@
 ﻿@page "/system/access"
 @using BlazorCore
+@using BlazorCore.DAL.DataModels
 @using BlazorCore.DAL.TableModels
+@using BlazorCore.DAL.TableSystemModels
 @using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using BlazorDeviceControl.Shared.Section
+@inherits BlazorCore.Models.BaseRazorUidEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <h2 style="font-size: @AppSettings.FontSizeHeader;">
-        @LocalizationStrings.Share.SysAccess
-            <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                    ButtonStyle="ButtonStyle.Primary"
-                    Style="margin-top: 3px; margin-left: 30px; width: 100px; height: 25px; font-size: 12px; "
-                    class="oi oi-reload"
-                    Disabled=@AppSettings.DataAccess.IsDisabled 
-                    MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
-    </h2>
-    <RadzenTabs>
-        <Tabs>
-            <RadzenTabsItem Text=@LocalizationStrings.DeviceControl.Table>
-                @* RadzenGrid *@
-                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px;">
-                    @if (Items == null)
+    <DataReload Title=@LocalizationStrings.Share.SysAccess SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px; "
+        Data=@Items TItem="AccessEntity"
+        
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="AccessEntity" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldCreateDt Type="date" Width="13%">
+                <Template Context="logItem">
+                    <RadzenDatePicker 
+                        Style="height: 80%; width=80%; " 
+                        TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
+                                Title=@LocalizationStrings.DeviceControl.TableFieldChangeDt Type="date" Width="13%">
+                <Template Context="logItem">
+                    <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
+                                Title=@LocalizationStrings.DeviceControl.TableFieldUser Type="string" Width="40%" />
+            <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
+                                Title=@LocalizationStrings.DeviceControl.TableFieldAccessLevel Type="string" Width="34%">
+                <Template Context="accessItem">
+                    @if (accessItem.Level == null)
                     {
-                        <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-                        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+                        <RadzenLabel Text="Нет доступа" Disabled="true" />
                     }
-                    else
+                    else if (accessItem.Level == false)
                     {
-                        // Sorting by [WeithingDate].
-                        <RadzenGrid Data=@Items TItem="AccessEntity"
-                                    RowSelect=@(args => RowSelectAsync(args))
-                                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                                    AllowPaging="true" PageSize="100" AllowSorting="true" ColumnWidth="200px">
-                            <Columns>
-                                <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldCreateDt Type="date" Width="13%">
-                                    <Template Context="logItem">
-                                        <RadzenDatePicker TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
-                                    </Template>
-                                </RadzenGridColumn>
-                                <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldChangeDt Type="date" Width="13%">
-                                    <Template Context="logItem">
-                                        <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
-                                    </Template>
-                                </RadzenGridColumn>
-                                <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldUser Type="string" Width="40%" />
-                                <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
-                                                  Title=@LocalizationStrings.DeviceControl.TableFieldAccessLevel Type="string" Width="34%">
-                                    <Template Context="accessItem">
-                                        @if (accessItem.Level == null)
-                                        {
-                                            <RadzenLabel Text="Нет доступа" Disabled="true" />
-                                        }
-                                        else if (accessItem.Level == false)
-                                        {
-                                            <RadzenLabel Text="Доступ на чтение" Disabled="true" />
-                                        }
-                                        else if (accessItem.Level == true)
-                                        {
-                                            <RadzenLabel Text="Доступ на запись" Disabled="true" />
-                                        }
-                                    </Template>
-                                </RadzenGridColumn>
-                            </Columns>
-                        </RadzenGrid>
+                        <RadzenLabel Text="Доступ на чтение" Disabled="true" />
                     }
-                </div>
-                @* Actions *@
-                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 50px;">
-                    @if (AppSettings.IdentityItem.AccessLevel == true)
+                    else if (accessItem.Level == true)
                     {
-                        <RadzenButton Click=@(args => ActionAddAsync(EnumTableScales.Logs, Item, null))
-                                      ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
-                                      Text=@LocalizationStrings.DeviceControl.TableActionAdd Disabled=@AppSettings.DataAccess.IsDisabled />
-                        <RadzenButton Click=@(args => ActionEditAsync(Item, null))
-                                      ButtonStyle="ButtonStyle.Secondary"
-                                      Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
-                                      Text=@LocalizationStrings.DeviceControl.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
-                        @if (AppSettings.IsDebug)
-                        {
-                            <RadzenButton Click=@(args => ActionDeleteAsync(EnumTableScales.Logs, Item, null))
-                                          ButtonStyle="ButtonStyle.Secondary"
-                                          Style="margin-left: 30px; width: 200px; height: 30px; font-size: 12px;"
-                                          Text=@LocalizationStrings.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
-                        }
+                        <RadzenLabel Text="Доступ на запись" Disabled="true" />
                     }
-                    else
-                    {
-                        <span>@LocalizationStrings.DeviceControl.TableActionsIsDeny</span>
-                    }
-                </div>
-            </RadzenTabsItem>
-            <RadzenTabsItem Text=@LocalizationStrings.Share.Chart>
-            </RadzenTabsItem>
-        </Tabs>
-    </RadzenTabs>
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+    @if (Items == null)
+    {
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <SectionActions Table=@Table Item=@Item />
+    }
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
 }

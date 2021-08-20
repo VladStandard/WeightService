@@ -3,16 +3,13 @@
 
 using BlazorCore;
 using BlazorCore.DAL;
-using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
+using BlazorCore.DAL.TableSystemModels;
 using BlazorCore.Models;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
-using Radzen;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -21,17 +18,16 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        [Parameter] public int Id { get; set; }
-        private ScalesEntity ScaleItem { get; set; }
+        private ScaleEntity ScaleItem => IdItem is ScaleEntity idItem ? idItem : null;
         public string PluTitle { get; set; }
         public PluEntity PluItem { get; set; }
         public List<PluEntity> PluItems { get; set; } = null;
         public List<ZebraPrinterEntity> PrinterItems { get; set; } = null;
-        public List<TemplatesEntity> TemplatesDefaultItems { get; set; } = null;
-        public List<TemplatesEntity> TemplatesSeriesItems { get; set; } = null;
+        public List<TemplateEntity> TemplatesDefaultItems { get; set; } = null;
+        public List<TemplateEntity> TemplatesSeriesItems { get; set; } = null;
         public List<WorkshopEntity> WorkshopItems { get; set; } = null;
         public List<TypeEntity<string>> ComPorts { get; set; }
-        public List<HostsEntity> HostItems { get; set; } = null;
+        public List<HostEntity> HostItems { get; set; } = null;
 
         #endregion
 
@@ -43,9 +39,17 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Item = null;
-                        ScaleItem = null;
-                        ScaleItem = AppSettings.DataAccess.ScalesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object> {
+                        IdItem = null;
+                        ComPorts = null;
+                        PluItems = null;
+                        TemplatesDefaultItems = null;
+                        TemplatesSeriesItems = null;
+                        WorkshopItems = null;
+                        PrinterItems = null;
+                        HostItems = null;
+                        await GuiRefreshWithWaitAsync();
+
+                        IdItem = AppSettings.DataAccess.ScalesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object> {
                             { EnumField.Id.ToString(), Id },
                         }), null);
                         // ComPorts
@@ -58,7 +62,7 @@ namespace BlazorDeviceControl.Shared.Item
                         ScaleItem.ScaleFactor ??= 1000;
                         // PLU.
                         PluTitle = $"{LocalizationStrings.DeviceControl.SectionPlus}  [{LocalizationStrings.Share.DataLoading}]";
-                        PluItems = AppSettings.DataAccess.PluCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
+                        PluItems = AppSettings.DataAccess.PlusCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
                             { EnumField.Marked.ToString(), false },
                             { "Scale.Id", ScaleItem.Id },
                         }), new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
@@ -70,72 +74,46 @@ namespace BlazorDeviceControl.Shared.Item
                         TemplatesSeriesItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             null).ToList();
-                        WorkshopItems = AppSettings.DataAccess.WorkshopCrud.GetEntities(
+                        WorkshopItems = AppSettings.DataAccess.WorkshopsCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             null).ToList();
-                        PrinterItems = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(
+                        PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             null).ToList();
                         HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(ScaleItem.Host?.Id);
-                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                        await GuiRefreshWithWaitAsync();
                     }),
                 }, true);
         }
 
-        private async Task RowSelectAsync(BaseIdEntity entity,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                if (entity is PluEntity pluEntity)
-                {
-                    PluItem = pluEntity;
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-        }
-
-        private async Task RowDoubleClickAsync(BaseIdEntity entity,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                if (entity is PluEntity pluEntity)
-                {
-                    PluItem = pluEntity;
-                    //await EntityActions.ActionEditAsync(EnumTable.Plu, PluItem, ScaleItem).ConfigureAwait(true);
-                    Action(EnumTableScales.Plu, EnumTableAction.Edit, ScaleItem, false, PluItem);
-                    await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-        }
+        //private async Task RowDoubleClickAsync(BaseIdEntity entity,
+        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        //{
+        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        //    try
+        //    {
+        //        if (entity is PluEntity pluEntity)
+        //        {
+        //            PluItem = pluEntity;
+        //            //await EntityActions.ActionEditAsync(EnumTable.Plu, PluItem, ScaleItem).ConfigureAwait(true);
+        //            Action(EnumTableScales.Plu, EnumTableAction.Edit, ScaleItem, false, PluItem);
+        //            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        NotificationMessage msg = new()
+        //        {
+        //            Severity = NotificationSeverity.Error,
+        //            Summary = $"Ошибка метода [{memberName}]!",
+        //            Detail = ex.Message,
+        //            Duration = AppSettingsEntity.Delay
+        //        };
+        //        Notification.Notify(msg);
+        //        Console.WriteLine(msg.Detail);
+        //        AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+        //    }
+        //}
 
         private void OnChange(object value, string name)
         {
@@ -180,7 +158,7 @@ namespace BlazorDeviceControl.Shared.Item
                             ScaleItem.WorkShop = null;
                         else
                         {
-                            ScaleItem.WorkShop = AppSettings.DataAccess.WorkshopCrud.GetEntity(
+                            ScaleItem.WorkShop = AppSettings.DataAccess.WorkshopsCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idWorkShop } }),
                                 null);
                         }
@@ -193,7 +171,7 @@ namespace BlazorDeviceControl.Shared.Item
                             ScaleItem.Printer = null;
                         else
                         {
-                            ScaleItem.Printer = AppSettings.DataAccess.ZebraPrinterCrud.GetEntity(
+                            ScaleItem.Printer = AppSettings.DataAccess.PrintersCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idPrinter } }),
                                 null);
                         }

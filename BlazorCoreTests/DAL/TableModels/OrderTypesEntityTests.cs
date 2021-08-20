@@ -16,7 +16,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new OrderTypesEntity();
+                var entityNew = new OrderTypeEntity();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
                 var entityCopy = entityNew.Clone();
@@ -25,7 +25,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var i in EnumValues.GetInt())
                 foreach (var s in EnumValues.GetString())
                 {
-                    var entity = new OrderTypesEntity
+                    var entity = new OrderTypeEntity
                     {
                         Id = i,
                         Description = s
@@ -38,12 +38,12 @@ namespace BlazorCoreTests.DAL.TableModels
             Utils.MethodComplete();
         }
 
-        public OrderTypesEntity EntityCreate(string description)
+        public OrderTypeEntity EntityCreate(string description)
         {
             if (!DataAccessUtils.DataAccess.OrderTypesCrud.ExistsEntity(new FieldListEntity(
                 new Dictionary<string, object> { { EnumField.Description.ToString(), description } }), null))
             {
-                OrderTypesEntity entity = new OrderTypesEntity
+                OrderTypeEntity entity = new OrderTypeEntity
                 {
                     Id = -1,
                     Description = description

@@ -4,59 +4,69 @@
 @using BlazorCore.DAL.DataModels
 @using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @inherits BlazorCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <MudElement HtmlTag="h3" Class="ma-0">
-        @LocalizationStrings.DeviceControl.SectionScales
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 100px; height: 25px; font-size: 12px; "
-                class="oi oi-reload"
-                Disabled=@AppSettings.DataAccess.IsDisabled 
-                MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
-    </MudElement>
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionScales SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px;" 
+        Data=@Items TItem="ScaleEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionEditAsync(Item))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=15 AllowSorting="true" ColumnWidth="200px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="ScaleEntity" Property="Id" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldId 
+                Type="int" Width="7.5%" />
+            <RadzenGridColumn 
+                TItem="ScaleEntity" Property="Description" TextAlign="TextAlign.Left"
+                Title=@LocalizationStrings.DeviceControl.TableFieldDescription 
+                Type="string" Width="12%" />
+            <RadzenGridColumn 
+                TItem="ScaleEntity" Property="Host.Name" TextAlign="TextAlign.Left"
+                Title=@LocalizationStrings.DeviceControl.TableFieldHost 
+                Type="string" Width="12%" />
+            <RadzenGridColumn 
+                TItem="ScaleEntity" Property="Host.Ip" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldDeviceIp 
+                Type="string" Width="8%" />
+            <RadzenGridColumn 
+                TItem="ScaleEntity" TextAlign="TextAlign.Left"
+                Title=@LocalizationStrings.DeviceControl.TableFieldIdRref 
+                Type="string" Width="20%">
+                <Template Context="item">
+                    <RadzenLabel Text=@item.Host?.IdRRef.ToString() Disabled="true" Style="white-space: pre-wrap;" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="ScaleEntity" Property="Printer.Name" TextAlign="TextAlign.Left"
+                Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter 
+                Type="string" Width="13%" />
+            <RadzenGridColumn 
+                TItem="ScaleEntity" Property="WorkShop.Name" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldWorkShopName 
+                Type="string" Width="7.5%" />
+            <RadzenGridColumn 
+                TItem="ScaleEntity" Property="TemplateDefault.Title" TextAlign="TextAlign.Left"
+                Title=@LocalizationStrings.DeviceControl.TableFieldTemplateDefault 
+                Type="string" Width="20%">
+                <Template Context="item">
+                    <RadzenLabel Text=@item.TemplateDefault.Title Disabled="true" Style="white-space: pre-wrap;" />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
     @if (Items == null)
     {
         <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
     }
     else
     {
-        <RadzenGrid Data=@Items TItem="ScalesEntity"
-                    RowSelect=@(args => ItemSelectAsync(args)) 
-                    RowDoubleClick=@(args => Action(EnumTableScales.Scales, EnumTableAction.Edit, Item, false))
-                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
-            <Columns>
-                <RadzenGridColumn TItem="ScalesEntity" Property="Id" TextAlign="TextAlign.Center"
-                                    Title=@LocalizationStrings.DeviceControl.TableFieldId Width="7.5%" />
-                <RadzenGridColumn TItem="ScalesEntity" Property="Description" TextAlign="TextAlign.Left"
-                                    Title=@LocalizationStrings.DeviceControl.TableFieldDescription Width="12%" />
-                <RadzenGridColumn TItem="ScalesEntity" Property="Host.Name" TextAlign="TextAlign.Left"
-                                    Title=@LocalizationStrings.DeviceControl.TableFieldHost Width="12%" />
-                <RadzenGridColumn TItem="ScalesEntity" Property="Host.Ip" TextAlign="TextAlign.Center"
-                                    Title=@LocalizationStrings.DeviceControl.TableFieldDeviceIp Width="8%" />
-                <RadzenGridColumn TItem="ScalesEntity" TextAlign="TextAlign.Left"
-                                    Title=@LocalizationStrings.DeviceControl.TableFieldIdRref Width="20%">
-                    <Template Context="item">
-                        <RadzenLabel Text=@item.Host?.IdRRef.ToString() Disabled="true" Style="white-space: pre-wrap;" />
-                    </Template>
-                </RadzenGridColumn>
-                <RadzenGridColumn TItem="ScalesEntity" Property="Printer.Name" TextAlign="TextAlign.Left"
-                                    Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter Width="13%" />
-                <RadzenGridColumn TItem="ScalesEntity" Property="WorkShop.Name" TextAlign="TextAlign.Center"
-                                    Title=@LocalizationStrings.DeviceControl.TableFieldWorkShopName Width="7.5%" />
-                <RadzenGridColumn TItem="ScalesEntity" Property="TemplateDefault.Title" TextAlign="TextAlign.Left"
-                                    Title=@LocalizationStrings.DeviceControl.TableFieldTemplateDefault Width="20%">
-                    <Template Context="item">
-                        <RadzenLabel Text=@item.TemplateDefault.Title Disabled="true" Style="white-space: pre-wrap;" />
-                    </Template>
-                </RadzenGridColumn>
-            </Columns>
-        </RadzenGrid>
-        <SectionActions Table=@EnumTableScales.Scales Item=@Item IsShowAdd=true IsShowEdit=true IsShowMark=true />
+        <SectionActions Table=@Table Item=@Item IsShowAdd=true IsShowEdit=true IsShowMark=true />
     }
 }
 else

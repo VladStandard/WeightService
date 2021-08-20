@@ -1,10 +1,11 @@
 ﻿@page "/item/template"
+@page "/item/template/{Id:int}"
 @using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 27%;" Text=@LocalizationStrings.DeviceControl.TableFieldTitle />
-    <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@Item.Title />
+    <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@TemplateItem.Title />
     <br />
     <RadzenLabel Style="width: 27%; " Text=@LocalizationStrings.DeviceControl.TableFieldImageData />
     <br />
@@ -22,19 +23,12 @@
         <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                         Data=@TemplateCategories PageSize="5" TextProperty="Name" ValueProperty="Value"
-                        Value=@Item.CategoryId Change=@(args => OnChange(args, "TemlateCategories")) />
+                        Value=@TemplateItem.CategoryId Change=@(args => OnChange(args, "TemlateCategories")) />
     }
     <br />
 </div>
 
 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 0px; height: 550px;">
     <RadzenTextArea Style="width: 100%; height: 100%; font-size: 13px; line-height: 18px;"
-                    ReadOnly="false" TValue="string" @bind-value=@Item.ImageDataStringUnicode />
-</div>
-
-<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldCreateDt />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString() />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@LocalizationStrings.DeviceControl.TableFieldModifiedDate />
-    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString() />
+                    ReadOnly="false" TValue="string" @bind-value=@TemplateItem.ImageDataStringUnicode />
 </div>

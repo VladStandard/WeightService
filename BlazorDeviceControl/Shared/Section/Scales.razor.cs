@@ -1,8 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore;
 using BlazorCore.DAL;
-using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<ScalesEntity> Items { get; set; }
+        private List<ScaleEntity> Items { get; set; }
 
         #endregion
 
@@ -28,12 +28,15 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Item = null;
+                        IdItem = null;
+                        Items = null;
+                        await GuiRefreshWithWaitAsync();
+
                         Items = AppSettings.DataAccess.ScalesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             new FieldOrderEntity(EnumField.Description, EnumOrderDirection.Asc))
                             .ToList();
-                        await GuiRefreshAsync(false).ConfigureAwait(false);
+                        await GuiRefreshWithWaitAsync();
                     }),
             }, true);
         }

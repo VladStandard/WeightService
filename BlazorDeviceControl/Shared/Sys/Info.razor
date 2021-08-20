@@ -1,7 +1,8 @@
 ﻿@page "/system/info"
 @using BlazorCore
 @using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@using BlazorDeviceControl.Shared.Component
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
@@ -134,6 +135,7 @@
                     </td>
                 }
             </tr>
+@*            
             <tr>
                 <td>@LocalizationStrings.Share.SectionRowCount</td>
                 @if (AppSettings.JsonAppSettings == null)
@@ -194,6 +196,7 @@
                     </td>
                 }
             </tr>
+*@
         </tbody>
     </MudSimpleTable>
 }

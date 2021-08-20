@@ -63,8 +63,8 @@ namespace BlazorCoreTests.DAL.TableModels
                     ModifiedDate = DateTime.Now,
                     IdRRef = Guid.Empty,
                 };
-                DataAccessUtils.DataAccess.ProductionFacilityCrud.SaveEntity(facility);
-                facility = DataAccessUtils.DataAccess.ProductionFacilityCrud.GetEntities(null, null).ToList().FirstOrDefault();
+                DataAccessUtils.DataAccess.ProductionFacilitiesCrud.SaveEntity(facility);
+                facility = DataAccessUtils.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null).ToList().FirstOrDefault();
                 for (var i = iStart; i < iEnd; i++)
                 {
                     var entity = new WorkshopEntity()
@@ -75,32 +75,32 @@ namespace BlazorCoreTests.DAL.TableModels
                         ModifiedDate = DateTime.Now,
                         IdRRef = Guid.Empty,
                     };
-                    DataAccessUtils.DataAccess.WorkshopCrud.SaveEntity(entity);
+                    DataAccessUtils.DataAccess.WorkshopsCrud.SaveEntity(entity);
                 }
                 // GetEntities
-                foreach (var entity in DataAccessUtils.DataAccess.WorkshopCrud.GetEntities(null, null))
+                foreach (var entity in DataAccessUtils.DataAccess.WorkshopsCrud.GetEntities(null, null))
                 {
                     if (entity.ProductionFacility.Name.Equals(nameFafility))
                     {
                         // UpdateEntity
                         entity.Name = nameWorkshop2;
-                        DataAccessUtils.DataAccess.WorkshopCrud.UpdateEntity(entity);
+                        DataAccessUtils.DataAccess.WorkshopsCrud.UpdateEntity(entity);
                     }
                 }
                 // GetEntities
-                foreach (var entity in DataAccessUtils.DataAccess.WorkshopCrud.GetEntities(null, null))
+                foreach (var entity in DataAccessUtils.DataAccess.WorkshopsCrud.GetEntities(null, null))
                 {
                     if (entity.Name.Equals(nameWorkshop1) || entity.Name.Equals(nameWorkshop2))
                     {
                         // DeleteEntity
-                        DataAccessUtils.DataAccess.WorkshopCrud.DeleteEntity(entity);
+                        DataAccessUtils.DataAccess.WorkshopsCrud.DeleteEntity(entity);
                     }
                 }
                 // DeleteEntity
-                foreach (var facilityEntity in DataAccessUtils.DataAccess.ProductionFacilityCrud.GetEntities(null, null))
+                foreach (var facilityEntity in DataAccessUtils.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null))
                 {
                     if (facilityEntity.Name.Equals(nameFafility))
-                        DataAccessUtils.DataAccess.ProductionFacilityCrud.DeleteEntity(facilityEntity);
+                        DataAccessUtils.DataAccess.ProductionFacilitiesCrud.DeleteEntity(facilityEntity);
                 }
             }
             );

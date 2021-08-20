@@ -2,40 +2,40 @@
 @using BlazorCore
 @using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
-@if (AppSettings.IdentityItem.AccessLevel is true or false)
+@*
+if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    @* RadzenCard *@
     <RadzenCard Style="margin-bottom: 0; font-size: 13px; ">
         <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
             @switch (Table)
             {
-                case EnumTableScales.BarcodeTypes:
+                case EnumTableScale.BarcodeTypes:
                     break;
-                case EnumTableScales.Contragents:
+                case EnumTableScale.Contragents:
                     break;
-                case EnumTableScales.Hosts:
-                    HostsEntity host = (HostsEntity)Item;
+                case EnumTableScale.Hosts:
+                    HostEntity host = (HostEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Host Item=@host />
                     break;
-                case EnumTableScales.Nomenclature:
+                case EnumTableScale.Nomenclatures:
                     break;
-                case EnumTableScales.Orders:
+                case EnumTableScale.Orders:
                     break;
-                case EnumTableScales.OrderStatus:
+                case EnumTableScale.OrderStatuses:
                     break;
-                case EnumTableScales.OrderTypes:
+                case EnumTableScale.OrderTypes:
                     break;
-                case EnumTableScales.Plu:
+                case EnumTableScale.Plus:
                     PluEntity plu = (PluEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Plu Item=@plu />
                     break;
-                case EnumTableScales.ProductionFacility:
+                case EnumTableScale.ProductionFacilities:
                     ProductionFacilityEntity productionFacility = (ProductionFacilityEntity)Item;
                     <BlazorDeviceControl.Shared.Item.ProductionFacility Item=@productionFacility />
                     break;
-                case EnumTableScales.ProductSeries:
+                case EnumTableScale.ProductSeries:
                     @*
                         var productSeries = (ProductSeriesEntity)Item;
                         <span Style="align-self: start; width: 15%; height: 25px; ">@LocalizationStrings.DeviceControl.TableFieldId</span>
@@ -58,62 +58,52 @@
                             <br Style="margin-top: 5px; margin-left: 0; margin-right: 0; " />
                             <span Style="align-self: start; width: 38%; height: 25px; ">@LocalizationStrings.DeviceControl.TableFieldSscc</span>
                             <RadzenTextBox Disabled="false" @bind-Value=@productSeries.Sscc />
-                        </div>*@
+                        </div>
                     break;
-                case EnumTableScales.Scales:
-                    ScalesEntity scales = (ScalesEntity)Item;
+                case EnumTableScale.Scales:
+                    ScaleEntity scales = (ScaleEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Scale Item=@scales />
                     break;
-                case EnumTableScales.TemplateResources:
-                    TemplateResourcesEntity templateResources = (TemplateResourcesEntity)Item;
+                case EnumTableScale.TemplateResources:
+                    TemplateResourceEntity templateResources = (TemplateResourceEntity)Item;
                     <BlazorDeviceControl.Shared.Item.TemplateResource Item=@templateResources />
                     break;
-                case EnumTableScales.Templates:
-                    TemplatesEntity templates = (TemplatesEntity)Item;
+                case EnumTableScale.Templates:
+                    TemplateEntity templates = (TemplateEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Template Item=@templates />
                     break;
-                case EnumTableScales.WeithingFact:
+                case EnumTableScale.WeithingFacts:
                     break;
-                case EnumTableScales.WorkShop:
+                case EnumTableScale.Workshops:
                     WorkshopEntity workshop = (WorkshopEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Workshop Item=@workshop />
                     break;
-                case EnumTableScales.Printer:
+                case EnumTableScale.Printers:
                     ZebraPrinterEntity printer = (ZebraPrinterEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Printer Item=@printer />
                     break;
-                case EnumTableScales.PrinterResource:
+                case EnumTableScale.PrinterResources:
                     ZebraPrinterResourceEntity printerResourceRef = (ZebraPrinterResourceEntity)Item;
                     <BlazorDeviceControl.Shared.Item.PrinterResourceRef Item=@printerResourceRef />
                     break;
-                case EnumTableScales.PrinterType:
+                case EnumTableScale.PrinterTypes:
                     ZebraPrinterTypeEntity printerType = (ZebraPrinterTypeEntity)Item;
                     <BlazorDeviceControl.Shared.Item.PrinterType Item=@printerType />
                     break;
-                case EnumTableScales.Default:
+                case EnumTableScale.Default:
                     break;
-                case EnumTableScales.Labels:
+                case EnumTableScale.Labels:
                     break;
-                case EnumTableScales.Logs:
+                case EnumTableScale.Logs:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         </div>
     </RadzenCard>
-
-    @* Actions *@
-    <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 20px;">
-        <RadzenButton Click=@(args => SaveAsync(args))
-                      Text=@LocalizationStrings.DeviceControl.TableActionSave
-                      Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
-        <RadzenButton ButtonStyle="ButtonStyle.Secondary"
-                      Click=@(args => CancelAsync(args))
-                      Text=@LocalizationStrings.DeviceControl.TableActionCancel
-                      Style="margin-left: 30px; width: 250px; height: 30px; font-size: 12px;" />
-    </div>
 }
 else
 {
     <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
 }
+*@

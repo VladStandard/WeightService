@@ -1,20 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+using BlazorCore.DAL.TableModels;
+using BlazorCore.Models;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
 using BlazorInputFile;
-using BlazorCore;
-using BlazorCore.DAL;
-using BlazorCore.DAL.TableModels;
-using BlazorCore.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Radzen;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -22,6 +18,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
+        private TemplateResourceEntity TemplateResourcesItem => IdItem is TemplateResourceEntity idItem ? idItem : null;
         [Inject] private IFileUpload FileUpload { get; set; }
         [Inject] private IFileDownload FileDownload { get; set; }
         [Inject] private IBlazorDownloadFileService DownloadFileService { get; set; }
@@ -31,8 +28,6 @@ namespace BlazorDeviceControl.Shared.Item
         public string FileComplete { get; set; }
         private int ProgressValue { get; set; }
         public IFileListEntry File { get; private set; }
-        [Parameter]
-        public TemplateResourcesEntity Item { get; set; }
 
         #endregion
 
@@ -42,55 +37,10 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
-            await GetDataAsync(new Task(delegate {
+            await GetDataAsync(new Task(delegate
+            {
                 ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
             }), false).ConfigureAwait(false);
-        }
-
-        private async Task RowSelectAsync(BaseIdEntity entity,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                //
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-        }
-
-        private async Task RowDoubleClickAsync(BaseIdEntity entity,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                //
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
         }
 
         private void OnChange(object value, string name)
@@ -100,7 +50,7 @@ namespace BlazorDeviceControl.Shared.Item
                 case "ResourceTypes":
                     if (value is string strValue)
                     {
-                        Item.Type = strValue;
+                        TemplateResourcesItem.Type = strValue;
                     }
                     StateHasChanged();
                     break;
@@ -119,49 +69,18 @@ namespace BlazorDeviceControl.Shared.Item
             Notification.Notify(msg);
         }
 
-        private void OnValueChanged(object value, string name)
-        {
-            Console.WriteLine();
-            Console.WriteLine($"OnValueChanged: value: {value}");
-            Console.WriteLine($"OnValueChanged: name: {name}");
-        }
-
-        private async Task ActionEditAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionAddAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionCopyAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
-        private async Task ActionDeleteAsync(EnumTableScales table, BaseIdEntity entity, BaseIdEntity parentEntity)
-        {
-            await ActionAsync<BaseRazorEntity>(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
-            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        }
-
         private async Task OnFileUpload(InputFileChangeEventArgs e)
         {
             foreach (IBrowserFile file in e.GetMultipleFiles(e.FileCount))
             {
-                await FileUpload.UploadAsync(AppSettings.DataAccess, Item, file.OpenReadStream(10_000_000));
+                await FileUpload.UploadAsync(AppSettings.DataAccess, TemplateResourcesItem, file.OpenReadStream(10_000_000));
             }
             await InvokeAsync(StateHasChanged);
         }
 
         private async Task OnFileDownload()
         {
-            await FileDownload.DownloadAsync(DownloadFileService, Item);
+            await FileDownload.DownloadAsync(DownloadFileService, TemplateResourcesItem);
 
             await InvokeAsync(StateHasChanged);
         }

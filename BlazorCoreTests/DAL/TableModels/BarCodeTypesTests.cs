@@ -16,7 +16,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new BarCodeTypesEntity();
+                var entityNew = new BarcodeTypeEntity();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
                 var entityCopy = entityNew.Clone();
@@ -25,7 +25,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var i in EnumValues.GetInt())
                 foreach (var s in EnumValues.GetString())
                 {
-                    var entity = new BarCodeTypesEntity()
+                    var entity = new BarcodeTypeEntity()
                     {
                         Id = i,
                         Name = s
@@ -38,7 +38,7 @@ namespace BlazorCoreTests.DAL.TableModels
             Utils.MethodComplete();
         }
 
-        public BarCodeTypesEntity EntityCreate(string name)
+        public BarcodeTypeEntity EntityCreate(string name)
         {
             //var entity = new BarCodeTypesEntity
             //{
@@ -47,7 +47,7 @@ namespace BlazorCoreTests.DAL.TableModels
             //};
             //// Не сохранять.
             //DataAccessUtils.DataAccess.BarCodeTypesCrud.SaveEntity(entity);
-            return DataAccessUtils.DataAccess.BarCodeTypesCrud.GetEntity(
+            return DataAccessUtils.DataAccess.BarcodeTypesCrud.GetEntity(
                 new FieldListEntity(new Dictionary<string, object> { { EnumField.Name.ToString(), name } }),
                 new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
         }
@@ -65,7 +65,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 //entityNew.Name += " changed";
                 //DataAccessUtils.DataAccess.BarCodeTypesCrud.UpdateEntity(entityNew);
                 // GetEntities
-                var entities = DataAccessUtils.DataAccess.BarCodeTypesCrud.GetEntities(null, null);
+                var entities = DataAccessUtils.DataAccess.BarcodeTypesCrud.GetEntities(null, null);
                 Assert.AreEqual(true, entities.Length > 0);
                 foreach (var entity in entities)
                 {

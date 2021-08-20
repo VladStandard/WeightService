@@ -1,4 +1,47 @@
 ﻿@page "/section/workshops"
-@inherits BlazorCore.Models.BaseRazorEntity
+@using BlazorCore
+@using BlazorCore.DAL
+@using BlazorCore.DAL.DataModels
+@using BlazorCore.DAL.TableModels
+@using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@inherits BlazorCore.Models.BaseRazorIdEntity
 
-<SectionPage Table=BlazorCore.EnumTableScales.WorkShop />
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionWorkshops SetParameters=@SetParametersAsync />
+    <RadzenGrid Style="margin-top: 5px;" 
+        Data=@Items TItem="WorkshopEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionEditAsync(Item))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="WorkshopEntity" Property="Id" TextAlign="TextAlign.Center"
+                Title=@LocalizationStrings.DeviceControl.TableFieldId 
+                Type="int" Width="7.5%" />
+            <RadzenGridColumn 
+                TItem="WorkshopEntity" Property="Name" 
+                Title=@LocalizationStrings.DeviceControl.TableFieldWorkShopName
+                Type="string" Width="52.5%" />
+            <RadzenGridColumn 
+                TItem="WorkshopEntity" Property="ProductionFacility.Name"
+                Title=@LocalizationStrings.DeviceControl.TableFieldProductionFacilityName
+                Type="int" Width="45%" />
+        </Columns>
+    </RadzenGrid>
+    @if (Items == null)
+    {
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <SectionActions Table=@Table Item=@Item IsShowAdd=true IsShowEdit=true IsShowMark=true />
+    }
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+}

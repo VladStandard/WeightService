@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Service
             _environment = environment;
         }
 
-        public async Task DownloadAsync(IBlazorDownloadFileService blazorDownloadFileService, TemplateResourcesEntity entity)
+        public async Task DownloadAsync(IBlazorDownloadFileService blazorDownloadFileService, TemplateResourceEntity entity)
         {
             if (entity == null || entity.ImageData == null || entity.ImageData.Length == 0)
                 return;

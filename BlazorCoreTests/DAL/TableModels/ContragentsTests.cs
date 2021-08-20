@@ -17,7 +17,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new ContragentsEntity();
+                var entityNew = new ContragentEntity();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
                 var entityCopy = entityNew.Clone();
@@ -28,7 +28,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var b in EnumValues.GetBool())
                 foreach (var s in EnumValues.GetString())
                 {
-                    var entity = new ContragentsEntity
+                    var entity = new ContragentEntity
                     {
                         Id = i,
                         CreateDate = dt,
@@ -52,7 +52,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.Throws<Exception>(() =>
             {
-                var entity = new ContragentsEntity
+                var entity = new ContragentEntity
                 {
                     Id = -1,
                     CreateDate = DateTime.Now,

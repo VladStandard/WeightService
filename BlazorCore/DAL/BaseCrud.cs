@@ -1,5 +1,9 @@
-﻿using BlazorCore.DAL.DataModels;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using BlazorCore.DAL.DataModels;
 using BlazorCore.DAL.TableModels;
+using BlazorCore.DAL.TableSystemModels;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -42,29 +46,29 @@ namespace BlazorCore.DAL
             {
                 //
             }
-            else if (typeof(T) == typeof(BarCodeTypesEntity))
+            else if (typeof(T) == typeof(BarcodeTypeEntity))
             {
-                var barCodeTypesEntity = (BarCodeTypesEntity)(object)entity;
+                var barCodeTypesEntity = (BarcodeTypeEntity)(object)entity;
                 if (!barCodeTypesEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(ContragentsEntity))
+            else if (typeof(T) == typeof(ContragentEntity))
             {
-                var contragentsEntity = (ContragentsEntity)(object)entity;
+                var contragentsEntity = (ContragentEntity)(object)entity;
                 if (!contragentsEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(LabelsEntity))
+            else if (typeof(T) == typeof(LabelEntity))
             {
-                var labelsEntity = (LabelsEntity)(object)entity;
+                var labelsEntity = (LabelEntity)(object)entity;
                 if (!labelsEntity.EqualsEmpty())
                 {
                     if (labelsEntity.WeithingFact != null)
-                        labelsEntity.WeithingFact = DataAccess.WeithingFactCrud.GetEntity(labelsEntity.WeithingFact.Id);
+                        labelsEntity.WeithingFact = DataAccess.WeithingFactsCrud.GetEntity(labelsEntity.WeithingFact.Id);
                 }
             }
             else if (typeof(T) == typeof(LogEntity))
@@ -73,7 +77,7 @@ namespace BlazorCore.DAL
                 if (!logEntity.EqualsEmpty())
                 {
                     if (logEntity.App != null)
-                        logEntity.App = DataAccess.AppCrud.GetEntity(logEntity.App.Uid);
+                        logEntity.App = DataAccess.AppsCrud.GetEntity(logEntity.App.Uid);
                     if (logEntity.Host != null)
                         logEntity.Host = DataAccess.HostsCrud.GetEntity(logEntity.Host.Id);
                 }
@@ -86,9 +90,9 @@ namespace BlazorCore.DAL
                     //
                 }
             }
-            else if (typeof(T) == typeof(OrdersEntity))
+            else if (typeof(T) == typeof(OrderEntity))
             {
-                var ordersEntity = (OrdersEntity)(object)entity;
+                var ordersEntity = (OrderEntity)(object)entity;
                 if (!ordersEntity.EqualsEmpty())
                 {
                     if (ordersEntity.OrderTypes != null)
@@ -96,7 +100,7 @@ namespace BlazorCore.DAL
                     if (ordersEntity.Scales != null)
                         ordersEntity.Scales = DataAccess.ScalesCrud.GetEntity(ordersEntity.Scales.Id);
                     if (ordersEntity.Plu != null)
-                        ordersEntity.Plu = DataAccess.PluCrud.GetEntity(ordersEntity.Plu.Id);
+                        ordersEntity.Plu = DataAccess.PlusCrud.GetEntity(ordersEntity.Plu.Id);
                     if (ordersEntity.Templates != null)
                         ordersEntity.Templates = DataAccess.TemplatesCrud.GetEntity(ordersEntity.Templates.Id);
                 }
@@ -109,9 +113,9 @@ namespace BlazorCore.DAL
                     //
                 }
             }
-            else if (typeof(T) == typeof(OrderTypesEntity))
+            else if (typeof(T) == typeof(OrderTypeEntity))
             {
-                var orderTypesEntity = (OrderTypesEntity)(object)entity;
+                var orderTypesEntity = (OrderTypeEntity)(object)entity;
                 if (!orderTypesEntity.EqualsEmpty())
                 {
                     //
@@ -127,7 +131,7 @@ namespace BlazorCore.DAL
                     if (pluEntity.Scale != null)
                         pluEntity.Scale = DataAccess.ScalesCrud.GetEntity(pluEntity.Scale.Id);
                     if (pluEntity.Nomenclature != null)
-                        pluEntity.Nomenclature = DataAccess.NomenclatureCrud.GetEntity(pluEntity.Nomenclature.Id);
+                        pluEntity.Nomenclature = DataAccess.NomenclaturesCrud.GetEntity(pluEntity.Nomenclature.Id);
                 }
             }
             else if (typeof(T) == typeof(ProductionFacilityEntity))
@@ -146,9 +150,9 @@ namespace BlazorCore.DAL
                     //
                 }
             }
-            else if (typeof(T) == typeof(ScalesEntity))
+            else if (typeof(T) == typeof(ScaleEntity))
             {
-                var scalesEntity = (ScalesEntity)(object)entity;
+                var scalesEntity = (ScaleEntity)(object)entity;
                 if (!scalesEntity.EqualsEmpty())
                 {
                     if (scalesEntity.TemplateDefault != null)
@@ -156,24 +160,24 @@ namespace BlazorCore.DAL
                     if (scalesEntity.TemplateSeries != null)
                         scalesEntity.TemplateSeries = DataAccess.TemplatesCrud.GetEntity(scalesEntity.TemplateSeries.Id);
                     if (scalesEntity.WorkShop != null)
-                        scalesEntity.WorkShop = DataAccess.WorkshopCrud.GetEntity(scalesEntity.WorkShop.Id);
+                        scalesEntity.WorkShop = DataAccess.WorkshopsCrud.GetEntity(scalesEntity.WorkShop.Id);
                     if (scalesEntity.Printer != null)
-                        scalesEntity.Printer = DataAccess.ZebraPrinterCrud.GetEntity(scalesEntity.Printer.Id);
+                        scalesEntity.Printer = DataAccess.PrintersCrud.GetEntity(scalesEntity.Printer.Id);
                     if (scalesEntity.Host != null)
                         scalesEntity.Host = DataAccess.HostsCrud.GetEntity(scalesEntity.Host.Id);
                 }
             }
-            else if (typeof(T) == typeof(TemplateResourcesEntity))
+            else if (typeof(T) == typeof(TemplateResourceEntity))
             {
-                var templateResourcesEntity = (TemplateResourcesEntity)(object)entity;
+                var templateResourcesEntity = (TemplateResourceEntity)(object)entity;
                 if (!templateResourcesEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TemplatesEntity))
+            else if (typeof(T) == typeof(TemplateEntity))
             {
-                var templatesEntity = (TemplatesEntity)(object)entity;
+                var templatesEntity = (TemplateEntity)(object)entity;
                 if (!templatesEntity.EqualsEmpty())
                 {
                     //
@@ -185,7 +189,7 @@ namespace BlazorCore.DAL
                 if (!weithingFactEntity.EqualsEmpty())
                 {
                     if (weithingFactEntity.Plu != null)
-                        weithingFactEntity.Plu = DataAccess.PluCrud.GetEntity(weithingFactEntity.Plu.Id);
+                        weithingFactEntity.Plu = DataAccess.PlusCrud.GetEntity(weithingFactEntity.Plu.Id);
                     if (weithingFactEntity.Scales != null)
                         weithingFactEntity.Scales = DataAccess.ScalesCrud.GetEntity(weithingFactEntity.Scales.Id);
                     if (weithingFactEntity.Series != null)
@@ -200,7 +204,7 @@ namespace BlazorCore.DAL
                 if (!workshopEntity.EqualsEmpty())
                 {
                     if (workshopEntity.ProductionFacility != null)
-                        workshopEntity.ProductionFacility = DataAccess.ProductionFacilityCrud.GetEntity(workshopEntity.ProductionFacility.Id);
+                        workshopEntity.ProductionFacility = DataAccess.ProductionFacilitiesCrud.GetEntity(workshopEntity.ProductionFacility.Id);
                 }
             }
             else if (typeof(T) == typeof(ZebraPrinterEntity))
@@ -209,7 +213,7 @@ namespace BlazorCore.DAL
                 if (!zebraPrinterEntity.EqualsEmpty())
                 {
                     if (zebraPrinterEntity.PrinterType != null)
-                        zebraPrinterEntity.PrinterType = DataAccess.ZebraPrinterTypeCrud.GetEntity(zebraPrinterEntity.PrinterType.Id);
+                        zebraPrinterEntity.PrinterType = DataAccess.PrinterTypesCrud.GetEntity(zebraPrinterEntity.PrinterType.Id);
                 }
             }
             else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
@@ -219,7 +223,7 @@ namespace BlazorCore.DAL
                 {
                     if (zebraPrinterResourceRefEntity.Printer != null)
                         zebraPrinterResourceRefEntity.Printer =
-                            DataAccess.ZebraPrinterCrud.GetEntity(zebraPrinterResourceRefEntity.Printer.Id);
+                            DataAccess.PrintersCrud.GetEntity(zebraPrinterResourceRefEntity.Printer.Id);
                     if (zebraPrinterResourceRefEntity.Resource != null)
                         zebraPrinterResourceRefEntity.Resource =
                             DataAccess.TemplateResourcesCrud.GetEntity(zebraPrinterResourceRefEntity.Resource.Id);
@@ -300,7 +304,7 @@ namespace BlazorCore.DAL
             {
                 if (!entity.Equals(GetEntity(idEntity.Id)))
                 {
-                    if (typeof(T) == typeof(ContragentsEntity))
+                    if (typeof(T) == typeof(ContragentEntity))
                     {
                         throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
                     }
@@ -321,7 +325,7 @@ namespace BlazorCore.DAL
                 {
                     if (!entity.Equals(GetEntity(uidEntity.Uid)))
                     {
-                        if (typeof(T) == typeof(ContragentsEntity))
+                        if (typeof(T) == typeof(ContragentEntity))
                         {
                             throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
                         }
@@ -348,19 +352,19 @@ namespace BlazorCore.DAL
             {
                 //
             }
-            else if (typeof(T) == typeof(BarCodeTypesEntity))
+            else if (typeof(T) == typeof(BarcodeTypeEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(ContragentsEntity))
+            else if (typeof(T) == typeof(ContragentEntity))
             {
-                ((ContragentsEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((ContragentEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(HostsEntity))
+            else if (typeof(T) == typeof(HostEntity))
             {
-                ((HostsEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((HostEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(LabelsEntity))
+            else if (typeof(T) == typeof(LabelEntity))
             {
                 //
             }
@@ -368,15 +372,15 @@ namespace BlazorCore.DAL
             {
                 //
             }
-            else if (typeof(T) == typeof(OrdersEntity))
+            else if (typeof(T) == typeof(OrderEntity))
             {
-                ((OrdersEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((OrderEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
             else if (typeof(T) == typeof(OrderStatusEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(OrderTypesEntity))
+            else if (typeof(T) == typeof(OrderTypeEntity))
             {
                 //
             }
@@ -392,17 +396,17 @@ namespace BlazorCore.DAL
             {
                 //
             }
-            else if (typeof(T) == typeof(ScalesEntity))
+            else if (typeof(T) == typeof(ScaleEntity))
             {
-                ((ScalesEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((ScaleEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(TemplateResourcesEntity))
+            else if (typeof(T) == typeof(TemplateResourceEntity))
             {
-                ((TemplateResourcesEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((TemplateResourceEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(TemplatesEntity))
+            else if (typeof(T) == typeof(TemplateEntity))
             {
-                ((TemplatesEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((TemplateEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
             else if (typeof(T) == typeof(WeithingFactEntity))
             {
@@ -453,19 +457,19 @@ namespace BlazorCore.DAL
             {
                 //
             }
-            else if (typeof(T) == typeof(BarCodeTypesEntity))
+            else if (typeof(T) == typeof(BarcodeTypeEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(ContragentsEntity))
+            else if (typeof(T) == typeof(ContragentEntity))
             {
-                ((ContragentsEntity)(object)entity).Marked = true;
+                ((ContragentEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(HostsEntity))
+            else if (typeof(T) == typeof(HostEntity))
             {
-                ((HostsEntity)(object)entity).Marked = true;
+                ((HostEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(LabelsEntity))
+            else if (typeof(T) == typeof(LabelEntity))
             {
                 //
             }
@@ -473,7 +477,7 @@ namespace BlazorCore.DAL
             {
                 //
             }
-            else if (typeof(T) == typeof(OrdersEntity))
+            else if (typeof(T) == typeof(OrderEntity))
             {
                 //
             }
@@ -481,7 +485,7 @@ namespace BlazorCore.DAL
             {
                 //
             }
-            else if (typeof(T) == typeof(OrderTypesEntity))
+            else if (typeof(T) == typeof(OrderTypeEntity))
             {
                 //
             }
@@ -497,17 +501,17 @@ namespace BlazorCore.DAL
             {
                 //
             }
-            else if (typeof(T) == typeof(ScalesEntity))
+            else if (typeof(T) == typeof(ScaleEntity))
             {
-                ((ScalesEntity)(object)entity).Marked = true;
+                ((ScaleEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(TemplateResourcesEntity))
+            else if (typeof(T) == typeof(TemplateResourceEntity))
             {
-                ((TemplateResourcesEntity)(object)entity).Marked = true;
+                ((TemplateResourceEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(TemplatesEntity))
+            else if (typeof(T) == typeof(TemplateEntity))
             {
-                ((TemplatesEntity)(object)entity).Marked = true;
+                ((TemplateEntity)(object)entity).Marked = true;
             }
             else if (typeof(T) == typeof(WeithingFactEntity))
             {

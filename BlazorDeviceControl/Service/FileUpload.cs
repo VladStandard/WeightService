@@ -41,7 +41,7 @@ namespace BlazorDeviceControl.Service
             ms.WriteTo(file);
         }
 
-        public async Task UploadAsync(DataAccessEntity dataAccess, TemplateResourcesEntity entity, Stream stream)
+        public async Task UploadAsync(DataAccessEntity dataAccess, TemplateResourceEntity entity, Stream stream)
         {
             if (dataAccess == null || entity == null)
                 return;
