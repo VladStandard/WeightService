@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.440] - 2021-08-23
+### Changed
+- SsccWebAPI v.0.5.440
+- BlazorCore v.0.5.440
+- BlazorDeviceControl v.0.5.440
+
 ## [0.5.430] - 2021-08-20
 ### Changed
 - BlazorCore v.0.5.430
