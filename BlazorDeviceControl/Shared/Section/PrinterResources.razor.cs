@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         [Parameter] public int PrinterId { get; set; }
-        private List<ZebraPrinterResourceEntity> Items { get; set; }
+        private List<PrinterResourceEntity> Items { get; set; }
 
         #endregion
 
@@ -31,12 +31,14 @@ namespace BlazorDeviceControl.Shared.Section
                     new(async() => {
                         IdItem = null;
                         Items = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         Items = AppSettings.DataAccess.PrinterResourcesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
                             new FieldOrderEntity(EnumField.Description, EnumOrderDirection.Asc))
                             .ToList();
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                     }),
             }, true);

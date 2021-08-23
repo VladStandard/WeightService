@@ -27,7 +27,7 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public async Task ItemSelectAsync(BaseIdEntity item)
+        public async Task ItemSelectAsync(IBaseIdEntity item)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(ItemSelectAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",

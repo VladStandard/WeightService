@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.DAL.DataModels;
+using BlazorCore.Models;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -15,7 +16,6 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         public List<WeithingFactSummaryEntity> Items { get; set; }
-        private string TemplateCategory { get; set; }
 
         #endregion
 
@@ -27,8 +27,10 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        IdItem = null;
+                        SetTable(new TableScaleEntity(BlazorCore.EnumTableScale.WeithingFacts));
+                        SetItem();
                         Items = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetWeithingFacts, string.Empty, 0, string.Empty);
@@ -47,37 +49,11 @@ namespace BlazorDeviceControl.Shared.Section
                                 });
                             }
                         }
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                     }),
             }, true);
         }
-
-        //private async Task ActionEditAsync(EnumTableScales table, BaseIdEntity item, BaseIdEntity parentEntity)
-        //{
-        //    // Backup
-        //    //await AppSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
-        //    //await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-
-        //    Task task = null;
-        //    string title = LocalizationStrings.DeviceControl.GetItemTitle(table);
-        //    switch (table)
-        //    {
-        //        case EnumTableScales.Printer:
-        //            task = new Task(() =>
-        //            {
-        //                Action(table, EnumTableAction.Edit, item, LocalizationStrings.DeviceControl.UriRouteItemPrinter, false);
-        //            });
-        //            break;
-        //        default:
-        //            Action(table, EnumTableAction.Edit, item, LocalizationStrings.DeviceControl.UriRouteItemPrinter, false, parentEntity);
-        //            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        //            break;
-        //    }
-        //    await RunTasksAsync(title, "", LocalizationStrings.Share.DialogResultFail, "",
-        //        new List<Task> {
-        //            task,
-        //        }, GuiRefreshAsync, true).ConfigureAwait(false);
-        //}
 
         #endregion
     }

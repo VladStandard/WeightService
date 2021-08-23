@@ -9,19 +9,20 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionPrinterResources SetParameters=@SetParametersAsync />
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionPrinterResources SetParameters=@SetParametersAsync IsShowItemsCount=true 
+        ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@Items TItem="ZebraPrinterResourceEntity"
+        Data=@Items TItem="PrinterResourceEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
         RowDoubleClick=@(args => ActionEditAsync(Item))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns>
-            <RadzenGridColumn TItem="ZebraPrinterResourceEntity" Property="Id"
+            <RadzenGridColumn TItem="PrinterResourceEntity" Property="Id"
                                 Title=@LocalizationStrings.DeviceControl.TableFieldId Type="int" Width="10%" />
-            <RadzenGridColumn TItem="ZebraPrinterResourceEntity" Property="Description"
+            <RadzenGridColumn TItem="PrinterResourceEntity" Property="Description"
                                 Title=@LocalizationStrings.DeviceControl.TableFieldDescription Type="string" Width="30%" />
-            <RadzenGridColumn TItem="ZebraPrinterResourceEntity" Property="Resource.Name"
+            <RadzenGridColumn TItem="PrinterResourceEntity" Property="Resource.Name"
                                 Title=@LocalizationStrings.DeviceControl.TableFieldResource Type="string" Width="30%" />
         </Columns>
     </RadzenGrid>
@@ -31,7 +32,7 @@
     }
     else
     {
-        <SectionActions Table=@Table Item=@Item IsShowAdd=true IsShowEdit=true />
+        <SectionActions IsShowNew=true IsShowAdd=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
     }
 }
 else

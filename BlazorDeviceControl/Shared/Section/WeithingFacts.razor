@@ -5,13 +5,15 @@
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@inherits BlazorCore.Models.BaseRazorEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync />
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true 
+        ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;"
         Data=@Items TItem="WeithingFactSummaryEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns>
@@ -39,7 +41,7 @@
     }
     else
     {
-        <SectionActions Table=@Table Item=@Item />
+        <SectionActions IsShowNew=true IsShowAdd=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
     }
 }
 else

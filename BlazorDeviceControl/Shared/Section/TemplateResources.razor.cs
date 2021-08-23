@@ -30,12 +30,14 @@ namespace BlazorDeviceControl.Shared.Section
                     new(async() => {
                         IdItem = null;
                         Items = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         Items = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             new FieldOrderEntity(EnumField.Type, EnumOrderDirection.Asc))
                             .ToList();
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                     }),
             }, true);

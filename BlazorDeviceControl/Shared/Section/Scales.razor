@@ -10,7 +10,8 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionScales SetParameters=@SetParametersAsync />
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionScales SetParameters=@SetParametersAsync IsShowItemsCount=true 
+        ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@Items TItem="ScaleEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
@@ -66,7 +67,7 @@
     }
     else
     {
-        <SectionActions Table=@Table Item=@Item IsShowAdd=true IsShowEdit=true IsShowMark=true />
+        <SectionActions IsShowNew=true IsShowAdd=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
     }
 }
 else

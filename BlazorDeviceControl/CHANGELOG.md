@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.430] - 2021-08-20
+## [0.5.440] - 2021-08-23
 ### Changed
 - BlazorCore.Utils.LocalizationStrings
 - BlazorDeviceControl.Shared.Sys.Info

@@ -3,11 +3,11 @@
 
 namespace BlazorCore.Models
 {
-    public class TableScalesEntity : ITableEntity
+    public class TableScaleEntity : ITableEntity
     {
         public EnumTableScale Value { get; set; }
 
-        public TableScalesEntity(EnumTableScale value)
+        public TableScaleEntity(EnumTableScale value)
         {
             Value = value;
         }

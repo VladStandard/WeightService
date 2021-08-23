@@ -25,7 +25,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var i in EnumValues.GetInt())
                 foreach (var s in EnumValues.GetString())
                 {
-                    var entity = new ZebraPrinterTypeEntity()
+                    var entity = new PrinterTypeEntity()
                     {
                         Id = i,
                         Name = s,
@@ -47,7 +47,7 @@ namespace BlazorCoreTests.DAL.TableModels
             {
                 const string name = "ZebraPrinterType test";
                 // SaveEntity
-                var zebraPrinterType = new ZebraPrinterTypeEntity
+                var zebraPrinterType = new PrinterTypeEntity
                 {
                     Id = -1,
                     Name = name,

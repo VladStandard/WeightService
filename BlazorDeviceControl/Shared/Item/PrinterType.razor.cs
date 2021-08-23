@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.DAL.TableModels;
-using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -10,7 +9,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private ZebraPrinterTypeEntity PrinterTypeItem => IdItem is ZebraPrinterTypeEntity idItem ? idItem : null;
+        private PrinterTypeEntity PrinterTypeItem => IdItem is PrinterTypeEntity idItem ? idItem : null;
 
         #endregion
 

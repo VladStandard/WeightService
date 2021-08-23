@@ -28,8 +28,7 @@ namespace BlazorCore.Utils
             public static string IdentityError => Lang == EnumLang.English ? @"User error!" : @"Ошибка пользователя";
             public static string NotLoad => Lang == EnumLang.English ? @"Not load!" : @"Не загружено";
             public static string DebugMode => Lang == EnumLang.English ? @"Debug mode" : @"Режим отладки";
-            public static string SectionRowCount => Lang == EnumLang.English ? @"Rows count of the section table" : @"Количество строк таблицы раздела";
-            public static string ItemRowCount => Lang == EnumLang.English ? @"Rows count of the item table" : @"Количество строк таблицы элемента";
+            public static string ItemsCount => Lang == EnumLang.English ? @"Count of records" : @"Количество записей";
             public static string ButtonWidth => Lang == EnumLang.English ? @"Buttons width" : @"Ширина кнопок";
             public static string ButtonHeight => Lang == EnumLang.English ? @"Buttons height" : @"Высота кнопок";
             public static string ServerDevelop => Lang == EnumLang.English ? @"Debug server" : @"Сервер разработки";
@@ -359,6 +358,7 @@ namespace BlazorCore.Utils
             public const string UriRouteSectionBarCodeTypes = "/section/barcodetypes";
             public const string UriRouteSectionNomenclatures = "/section/nomenclatures";
             public const string UriRouteSectionPrinterTypes = "/section/printertypes";
+            public const string UriRouteSectionPrinterResources = "/section/printerresources";
             public const string UriRouteSectionPrinters = "/section/printers";
             public const string UriRouteSectionProductionFacilities = "/section/productionfacilities";
             public const string UriRouteSectionScales = "/section/scales";
@@ -585,7 +585,7 @@ namespace BlazorCore.Utils
                         break;
                 }
             }
-            if (table is TableScalesEntity tableScales)
+            if (table is TableScaleEntity tableScales)
             {
                 switch (tableScales.Value)
                 {
@@ -676,7 +676,7 @@ namespace BlazorCore.Utils
                         break;
                 }
             }
-            if (table is TableScalesEntity tableScales)
+            if (table is TableScaleEntity tableScales)
             {
                 switch (tableScales.Value)
                 {

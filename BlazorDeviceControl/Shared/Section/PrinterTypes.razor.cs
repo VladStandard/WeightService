@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.DAL.TableModels;
+using BlazorCore.Models;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<ZebraPrinterTypeEntity> Items { get; set; }
+        private List<PrinterTypeEntity> Items { get; set; }
 
         #endregion
 
@@ -26,12 +27,15 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
+                        SetTable(new TableScaleEntity(BlazorCore.EnumTableScale.PrinterTypes));
                         IdItem = null;
                         Items = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         Items = AppSettings.DataAccess.PrinterTypesCrud.GetEntities(null, null)
                             .OrderBy(x => x.Name).ToList();
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                     }),
             }, true);

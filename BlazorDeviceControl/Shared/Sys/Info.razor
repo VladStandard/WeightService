@@ -6,6 +6,8 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
+    <DataReload Title=@LocalizationStrings.Share.SysInfo SetParameters=@SetParametersAsync />
+    <br />
     <MudElement HtmlTag="h3" Class="ma-0">@LocalizationStrings.Share.AppSettings</MudElement>
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>

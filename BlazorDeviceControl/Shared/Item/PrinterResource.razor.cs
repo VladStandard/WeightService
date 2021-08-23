@@ -4,8 +4,11 @@
 using BlazorCore;
 using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
+using BlazorCore.Models;
+using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -14,8 +17,8 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private ZebraPrinterResourceEntity PrinterResourceItem => IdItem is ZebraPrinterResourceEntity idItem ? idItem : null;
-        public List<ZebraPrinterEntity> PrinterItems { get; set; } = null;
+        private PrinterResourceEntity PrinterResourceItem => IdItem is PrinterResourceEntity idItem ? idItem : null;
+        public List<PrinterEntity> PrinterItems { get; set; } = null;
         public List<TemplateResourceEntity> ResourceItems { get; set; } = null;
 
         #endregion
@@ -24,20 +27,28 @@ namespace BlazorDeviceControl.Shared.Item
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
-            //await base.SetParametersAsync(parameters).ConfigureAwait(true);
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        SetTable(new TableScaleEntity(BlazorCore.EnumTableScale.Printers));
+                        IdItem = null;
+                        PrinterItems = null;
+                        ResourceItems = null;
+                        await GuiRefreshWithWaitAsync();
 
-            //await GetDataAsync(new Task(delegate
-            //{
-            //    PrinterItems = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(null, null).ToList();
-            //    ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(null, null).ToList();
-            //}), false).ConfigureAwait(false);
+                        PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities(null, null).ToList();
+                        ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(null, null).ToList();
+                        await GuiRefreshWithWaitAsync();
+                    }),
+            }, true);
         }
 
         private void OnChange(object value, string name)
         {
             switch (name)
             {
-                case nameof(ZebraPrinterEntity):
+                case nameof(PrinterEntity):
                     if (value is int idZebraPrinter)
                     {
                         if (idZebraPrinter <= 0)

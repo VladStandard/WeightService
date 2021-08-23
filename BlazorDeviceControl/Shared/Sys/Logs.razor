@@ -9,10 +9,11 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.Share.SysLogs SetParameters=@SetParametersAsync />
+    <DataReload Title=@LocalizationStrings.Share.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true 
+        ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px; "
         Data=@Items TItem="LogSummaryEntity"
-        RowSelect=@(args => RowSelectAsync(args))
+        RowSelect=@(args => ItemSelectAsync(args))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns >
@@ -75,7 +76,7 @@
     }
     else
     {
-        <SectionActions Table=@Table Item=@Item />
+        <SectionActions />
     }
 }
 else

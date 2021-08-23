@@ -1,4 +1,4 @@
-﻿@page "/component/save"
+﻿@page "/component/itemsave"
 @using BlazorCore
 @using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
@@ -15,12 +15,12 @@
         {
             <RadzenButton Click=@(args => ItemSaveAsync(Item, true, false)) id="buttonSave"
                 ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 12px; "
+                Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 14px; "
                 Text=@LocalizationStrings.DeviceControl.TableActionSave 
             />
             <RadzenButton Click=@(args => ItemCancelAsync(Item, false))
                 ButtonStyle="ButtonStyle.Secondary"
-                Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 12px; "
+                Style="margin-top: 3px; margin-left: 30px; width: 200px; height: 25px; font-size: 14px; "
                 Text=@LocalizationStrings.DeviceControl.TableActionCancel 
             />
         }

@@ -3,7 +3,7 @@
 
 namespace BlazorCore.DAL.TableModels
 {
-    public class ZebraPrinterTypeEntity : BaseIdEntity
+    public class PrinterTypeEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 
@@ -19,7 +19,7 @@ namespace BlazorCore.DAL.TableModels
                    $"{nameof(Name)}: {Name}. ";
         }
 
-        public virtual bool Equals(ZebraPrinterTypeEntity entity)
+        public virtual bool Equals(PrinterTypeEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
@@ -32,7 +32,7 @@ namespace BlazorCore.DAL.TableModels
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((ZebraPrinterTypeEntity) obj);
+            return Equals((PrinterTypeEntity) obj);
         }
 
         public override int GetHashCode()
@@ -42,7 +42,7 @@ namespace BlazorCore.DAL.TableModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new ZebraPrinterTypeEntity());
+            return Equals(new PrinterTypeEntity());
         }
 
         public new virtual bool EqualsDefault()
@@ -53,7 +53,7 @@ namespace BlazorCore.DAL.TableModels
 
         public override object Clone()
         {
-            return new ZebraPrinterTypeEntity
+            return new PrinterTypeEntity
             {
                 Id = Id,
                 Name = Name

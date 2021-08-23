@@ -40,6 +40,7 @@ namespace BlazorCore.Models
         [Parameter] public bool IsShowNew { get; set; }
         [Parameter] public bool IsShowMark { get; set; }
         [Parameter] public bool IsShowDelete { get; set; }
+        [Parameter] public int ItemsCount { get; set; }
 
         #endregion
 
@@ -68,6 +69,11 @@ namespace BlazorCore.Models
         #endregion
 
         #region Public and private methods - Item, ParentItem, Table
+
+        public void SetItem()
+        {
+            Item = null;
+        }
 
         public void SetItem(IBaseEntity item)
         {
@@ -104,6 +110,84 @@ namespace BlazorCore.Models
             Table = table;
         }
 
+        public void OnChange(object value, string name, IBaseEntity item)
+        {
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(Action)}", "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        switch (name)
+                        {
+                            case nameof(PrinterTypeEntity):
+                                if (item is PrinterEntity printerItem)
+                                {
+                                    if (value is int id)
+                                    {
+                                        if (id <= 0)
+                                            printerItem.PrinterType = null;
+                                        else
+                                        {
+                                            printerItem.PrinterType = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(
+                                                new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), id } }),
+                                            null);
+                                        }
+                                    }
+                                }
+                                break;
+                            case nameof(ScaleEntity):
+                                if (value is int idScale)
+                                {
+                                    //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
+                                    //    new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idScale } }),
+                                    //    null);
+                                }
+                                break;
+                            case nameof(NomenclatureEntity):
+                                if (value is int idNomenclature)
+                                {
+                                    //PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
+                                    //    new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idNomenclature } }),
+                                    //    null);
+                                }
+                                break;
+                            case nameof(TemplateEntity):
+                                if (value is int idTemplate)
+                                {
+                                    //if (idTemplate <= 0)
+                                    //    PluItem.Templates = null;
+                                    //else
+                                    //{
+                                    //    PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                                    //        new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idTemplate } }),
+                                    //        null);
+                                    //}
+                                }
+                                break;
+                        }
+                        await GuiRefreshWithWaitAsync();
+                    }),
+                }, true);
+        }
+
+        public async Task ItemSelectAsync(IBaseEntity item)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(ItemSelectAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        Item = item;
+                        // Debug log.
+                        //if (AppSettings.IsDebug)
+                        //{
+                        //    Console.WriteLine("--------------------------------------------------------------------------------");
+                        //    Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
+                        //    Console.WriteLine($"Item: {Item}");
+                        //    Console.WriteLine("--------------------------------------------------------------------------------");
+                        //}
+                        await GuiRefreshWithWaitAsync();
+                    }),
+                }, true);
+        }
+        
         #endregion
 
         #region Public and private methods
@@ -370,11 +454,11 @@ namespace BlazorCore.Models
         public void RouteItemNavigate(IBaseEntity item, bool isNewWindow)
         {
             string page = string.Empty;
-            if (item is ZebraPrinterEntity)
+            if (item is PrinterEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteItemPrinter;
             }
-            else if (item is ZebraPrinterTypeEntity)
+            else if (item is PrinterTypeEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteItemPrinterType;
             }
@@ -421,11 +505,11 @@ namespace BlazorCore.Models
         public void RouteSectionNavigate(IBaseEntity item, bool isNewWindow)
         {
             string page = string.Empty;
-            if (item is ZebraPrinterEntity)
+            if (item is PrinterEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteSectionPrinters;
             }
-            else if (item is ZebraPrinterTypeEntity)
+            else if (item is PrinterTypeEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteSectionPrinterTypes;
             }
@@ -479,14 +563,14 @@ namespace BlazorCore.Models
                             return;
                         if (item is BaseIdEntity idItem2)
                         {
-                            if (idItem2 is ZebraPrinterEntity printerItem)
+                            if (idItem2 is PrinterEntity printerItem)
                             {
                                 if (printerItem.Id == 0)
                                     AppSettings.DataAccess.PrintersCrud.SaveEntity(printerItem);
                                 else
                                     AppSettings.DataAccess.PrintersCrud.UpdateEntity(printerItem);
                             }
-                            else if (idItem2 is ZebraPrinterTypeEntity printerTypeEntity)
+                            else if (idItem2 is PrinterTypeEntity printerTypeEntity)
                             {
                                 if (printerTypeEntity.Id == 0)
                                     AppSettings.DataAccess.PrinterTypesCrud.SaveEntity(printerTypeEntity);
@@ -515,7 +599,7 @@ namespace BlazorCore.Models
                     string title = string.Empty;
                     if (item is BaseIdEntity idEntity)
                     {
-                        if (table is TableScalesEntity tableScales)
+                        if (table is TableScaleEntity tableScales)
                         {
                             idEntity = tableScales.Value switch
                             {
@@ -533,9 +617,9 @@ namespace BlazorCore.Models
                                 EnumTableScale.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplateEntity>(idEntity, tableAction),
                                 EnumTableScale.Workshops => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
                                 EnumTableScale.WeithingFacts => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
-                                EnumTableScale.Printers => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterEntity>(idEntity, tableAction),
-                                EnumTableScale.PrinterResources => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterResourceEntity>(idEntity, tableAction),
-                                EnumTableScale.PrinterTypes => AppSettings.DataAccess.ActionGetIdEntity<ZebraPrinterTypeEntity>(idEntity, tableAction),
+                                EnumTableScale.Printers => AppSettings.DataAccess.ActionGetIdEntity<PrinterEntity>(idEntity, tableAction),
+                                EnumTableScale.PrinterResources => AppSettings.DataAccess.ActionGetIdEntity<PrinterResourceEntity>(idEntity, tableAction),
+                                EnumTableScale.PrinterTypes => AppSettings.DataAccess.ActionGetIdEntity<PrinterTypeEntity>(idEntity, tableAction),
                                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
                             };
                         }
@@ -556,9 +640,9 @@ namespace BlazorCore.Models
                     }
 
                     // Printer from ZebraPrinter.razor.
-                    if (item is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
+                    if (item is PrinterResourceEntity zebraPrinterResourceRefEntity)
                     {
-                        zebraPrinterResourceRefEntity.Printer = (ZebraPrinterEntity)parentItem;
+                        zebraPrinterResourceRefEntity.Printer = (PrinterEntity)parentItem;
                     }
 
                     if (tableAction == EnumTableAction.Add)
@@ -628,7 +712,7 @@ namespace BlazorCore.Models
                             case EnumTableAction.Copy:
                                 if (AppSettings.IdentityItem.AccessLevel == true)
                                 {
-                                    if (Table is TableScalesEntity tableScales)
+                                    if (Table is TableScaleEntity tableScales)
                                     {
                                         switch (tableScales.Value)
                                         {

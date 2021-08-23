@@ -28,7 +28,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var sh in EnumValues.GetShort())
                 foreach (var b in EnumValues.GetBool())
                 {
-                    var entity = new ZebraPrinterEntity
+                    var entity = new PrinterEntity
                     {
                         Id = i,
                         CreateDate = dt,
@@ -37,7 +37,7 @@ namespace BlazorCoreTests.DAL.TableModels
                         Ip = s,
                         Port = sh,
                         Password = s,
-                        PrinterType = new ZebraPrinterTypeEntity(),
+                        PrinterType = new PrinterTypeEntity(),
                         Mac = s,
                         PeelOffSet = b,
                         DarknessLevel = sh,
@@ -62,7 +62,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 foreach (var zebraPrinterTypeEntity in DataAccessUtils.DataAccess.PrinterTypesCrud.GetEntities(null, null))
                 {
                     // SaveEntity
-                    var zebraPrinterType = new ZebraPrinterEntity
+                    var zebraPrinterType = new PrinterEntity
                     {
                         Id = -1,
                         CreateDate = DateTime.Now,

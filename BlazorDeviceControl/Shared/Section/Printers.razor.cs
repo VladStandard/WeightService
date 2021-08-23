@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<ZebraPrinterEntity> Items { get; set; }
+        private List<PrinterEntity> Items { get; set; }
         private List<TypeEntity<string>> TemplateCategories { get; set; }
         private string TemplateCategory { get; set; }
 
@@ -31,15 +31,18 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
+                        SetTable(new TableScaleEntity(BlazorCore.EnumTableScale.Printers));
                         IdItem = null;
                         Items = null;
                         TemplateCategories = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         Items = AppSettings.DataAccess.PrintersCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
                             new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc))
                             .ToList();
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                     }),
             }, true);

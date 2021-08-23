@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.DAL.TableSystemModels;
+using BlazorCore.Models;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -26,8 +27,10 @@ namespace BlazorDeviceControl.Shared.Sys
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
+                        SetTable(new TableSystemEntity(BlazorCore.EnumTableSystem.Accesses));
                         UidItem = null;
                         Items = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetAccess, string.Empty, 0, string.Empty);
@@ -49,6 +52,7 @@ namespace BlazorDeviceControl.Shared.Sys
                                 }
                             }
                         }
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                       }),
                   }, true);

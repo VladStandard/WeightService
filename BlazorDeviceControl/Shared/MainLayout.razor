@@ -1,4 +1,6 @@
-﻿@using BlazorCore.Utils
+﻿@using BlazorCore
+@using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
 @inherits BlazorCore.Models.BaseRazorIdEntity
 
 <RadzenDialog />
@@ -9,7 +11,7 @@
 <div class="page">
     @if (AppSettings == null)
     {
-        <DataLoad DataLoadItem=BlazorCore.EnumDataLoad.None IsShowProgress=true />
+        <DataLoad DataLoadItem=EnumDataLoad.None IsShowProgress=true />
     }
     else
     {

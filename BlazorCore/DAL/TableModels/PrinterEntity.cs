@@ -5,7 +5,7 @@ using System;
 
 namespace BlazorCore.DAL.TableModels
 {
-    public class ZebraPrinterEntity : BaseIdEntity
+    public class PrinterEntity : BaseIdEntity
     {
         #region Public and private fields and properties
 
@@ -16,7 +16,7 @@ namespace BlazorCore.DAL.TableModels
         public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
         public virtual short Port { get; set; }
         public virtual string Password { get; set; }
-        public virtual ZebraPrinterTypeEntity PrinterType { get; set; } = new ZebraPrinterTypeEntity();
+        public virtual PrinterTypeEntity PrinterType { get; set; } = new PrinterTypeEntity();
         public virtual string Mac { get; set; }
         public virtual bool PeelOffSet { get; set; }
         public virtual short DarknessLevel { get; set; }
@@ -43,7 +43,7 @@ namespace BlazorCore.DAL.TableModels
                    $"{nameof(Marked)}: {Marked}. ";
         }
 
-        public virtual bool Equals(ZebraPrinterEntity entity)
+        public virtual bool Equals(PrinterEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
@@ -66,7 +66,7 @@ namespace BlazorCore.DAL.TableModels
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((ZebraPrinterEntity)obj);
+            return Equals((PrinterEntity)obj);
         }
 
         public override int GetHashCode()
@@ -76,7 +76,7 @@ namespace BlazorCore.DAL.TableModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new ZebraPrinterEntity());
+            return Equals(new PrinterEntity());
         }
 
         public new virtual bool EqualsDefault()
@@ -98,7 +98,7 @@ namespace BlazorCore.DAL.TableModels
 
         public override object Clone()
         {
-            return new ZebraPrinterEntity
+            return new PrinterEntity
             {
                 Id = Id,
                 CreateDate = CreateDate,
@@ -107,7 +107,7 @@ namespace BlazorCore.DAL.TableModels
                 Ip = Ip,
                 Port = Port,
                 Password = Password,
-                PrinterType = (ZebraPrinterTypeEntity)PrinterType?.Clone(),
+                PrinterType = (PrinterTypeEntity)PrinterType?.Clone(),
                 Mac = Mac,
                 PeelOffSet = PeelOffSet,
                 DarknessLevel = DarknessLevel,

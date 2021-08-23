@@ -7,7 +7,6 @@ using BlazorCore.DAL.TableModels;
 using BlazorCore.Models;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,9 +31,11 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
+                        SetTable(new TableScaleEntity(BlazorCore.EnumTableScale.Templates));
                         IdItem = null;
                         Items = null;
                         TemplateCategories = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
                         
                         // Filter.
@@ -50,31 +51,19 @@ namespace BlazorDeviceControl.Shared.Section
                         else
                         {
                             Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                                new FieldListEntity(new Dictionary<string, object> { 
+                                new FieldListEntity(new Dictionary<string, object> {
                                     { EnumField.Marked.ToString(), false },
                                     { EnumField.CategoryId.ToString(), TemplateCategory },
                                 }),
                                 new FieldOrderEntity(EnumField.CategoryId, EnumOrderDirection.Asc))
                                 .ToList();
                         }
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                     }),
             }, true);
         }
 
-        private async Task OnChange(object value, string name)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            switch (name)
-            {
-                case nameof(TemplateCategory):
-                    if (value is string templateCategory)
-                    {
-                        TemplateCategory = templateCategory;
-                    }
-                    break;
-            }
-        }
 
         #endregion
     }

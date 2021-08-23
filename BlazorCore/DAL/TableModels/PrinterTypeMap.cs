@@ -5,9 +5,9 @@ using FluentNHibernate.Mapping;
 
 namespace BlazorCore.DAL.TableModels
 {
-    public class ZebraPrinterTypeMap : ClassMap<ZebraPrinterTypeEntity>
+    public class PrinterTypeMap : ClassMap<PrinterTypeEntity>
     {
-        public ZebraPrinterTypeMap()
+        public PrinterTypeMap()
         {
             Table("[db_scales].[ZebraPrinterType]");
             LazyLoad();

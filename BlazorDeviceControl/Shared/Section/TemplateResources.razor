@@ -10,13 +10,14 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync />
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true 
+        ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@Items TItem="TemplateResourceEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
         RowDoubleClick=@(args => ActionEditAsync(Item))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Id" TextAlign="TextAlign.Center"
@@ -46,7 +47,7 @@
     }
     else
     {
-        <SectionActions Table=@Table Item=@Item IsShowAdd=true IsShowEdit=true IsShowMark=true />
+        <SectionActions IsShowNew=true IsShowAdd=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
     }
 }
 else

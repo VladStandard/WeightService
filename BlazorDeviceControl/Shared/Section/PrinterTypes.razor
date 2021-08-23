@@ -10,18 +10,19 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionPrinterTypes SetParameters=@SetParametersAsync />
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionPrinterTypes SetParameters=@SetParametersAsync IsShowItemsCount=true 
+        ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@Items TItem="ZebraPrinterTypeEntity"
+        Data=@Items TItem="PrinterTypeEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
         RowDoubleClick=@(args => ActionEditAsync(Item))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
         <Columns>
-            <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Id" TextAlign="TextAlign.Center"
+            <RadzenGridColumn TItem="PrinterTypeEntity" Property="Id" TextAlign="TextAlign.Center"
                                 Title=@LocalizationStrings.DeviceControl.TableFieldId
                                 Type="int" Width="7.5%" />
-            <RadzenGridColumn TItem="ZebraPrinterTypeEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter
+            <RadzenGridColumn TItem="PrinterTypeEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter
                                 Type="string" Width="60%" />
         </Columns>
     </RadzenGrid>
@@ -31,7 +32,7 @@
     }
     else
     {
-        <SectionActions Table=@Table Item=@Item IsShowEdit=true />
+        <SectionActions IsShowNew=true IsShowAdd=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
     }
 }
 else

@@ -33,7 +33,7 @@ namespace BlazorDeviceControl.Shared.Component
                     DtCreate = pluEntity.CreateDate.ToString();
                     DtModify = pluEntity.ModifiedDate.ToString();
                 }
-                else if (_dtItem != null && _dtItem is ZebraPrinterEntity printerItem)
+                else if (_dtItem != null && _dtItem is PrinterEntity printerItem)
                 {
                     DtCreate = printerItem.CreateDate.ToString();
                     DtModify = printerItem.ModifiedDate.ToString();

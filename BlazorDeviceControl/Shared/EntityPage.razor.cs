@@ -109,17 +109,17 @@ namespace BlazorDeviceControl.Shared
                 if (workshopEntity.EqualsDefault())
                     result = false;
             }
-            else if (item is ZebraPrinterEntity zebraPrinterEntity)
+            else if (item is PrinterEntity zebraPrinterEntity)
             {
                 if (zebraPrinterEntity.EqualsDefault())
                     result = false;
             }
-            else if (item is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
+            else if (item is PrinterResourceEntity zebraPrinterResourceRefEntity)
             {
                 if (zebraPrinterResourceRefEntity.EqualsDefault())
                     result = false;
             }
-            else if (item is ZebraPrinterTypeEntity zebraPrinterTypeEntity)
+            else if (item is PrinterTypeEntity zebraPrinterTypeEntity)
             {
                 if (zebraPrinterTypeEntity.EqualsDefault())
                     result = false;

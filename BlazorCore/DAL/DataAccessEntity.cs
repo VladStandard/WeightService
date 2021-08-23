@@ -58,14 +58,14 @@ namespace BlazorCore.DAL
                             .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
                             .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
                             .Mappings(m => m.FluentMappings.Add<ScaleMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>())
+                            .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>())
                             .Mappings(m => m.FluentMappings.Add<TemplateResourceMap>())
                             .Mappings(m => m.FluentMappings.Add<TemplateMap>())
                             .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
                             .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>());
+                            .Mappings(m => m.FluentMappings.Add<PrinterMap>())
+                            .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>())
+                            .Mappings(m => m.FluentMappings.Add<PrinterTypeMap>());
                         configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
                         _sessionFactory = configuration.BuildSessionFactory();
                     }
@@ -96,15 +96,15 @@ namespace BlazorCore.DAL
                             .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
                             .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
                             .Mappings(m => m.FluentMappings.Add<ScaleMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>())
+                            .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>())
                             .Mappings(m => m.FluentMappings.Add<TemplateResourceMap>())
                             .Mappings(m => m.FluentMappings.Add<TemplateMap>())
                             .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
                             .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<ZebraPrinterResourceMap>());
+                            .Mappings(m => m.FluentMappings.Add<PrinterMap>())
+                            .Mappings(m => m.FluentMappings.Add<PrinterTypeMap>())
+                            .Mappings(m => m.FluentMappings.Add<PrinterTypeMap>())
+                            .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>());
                         configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
                         _sessionFactory = configuration.BuildSessionFactory();
                     }
@@ -133,9 +133,9 @@ namespace BlazorCore.DAL
         public BaseCrud<TemplateEntity> TemplatesCrud;
         public BaseCrud<WeithingFactEntity> WeithingFactsCrud;
         public BaseCrud<WorkshopEntity> WorkshopsCrud;
-        public BaseCrud<ZebraPrinterEntity> PrintersCrud;
-        public BaseCrud<ZebraPrinterResourceEntity> PrinterResourcesCrud;
-        public BaseCrud<ZebraPrinterTypeEntity> PrinterTypesCrud;
+        public BaseCrud<PrinterEntity> PrintersCrud;
+        public BaseCrud<PrinterResourceEntity> PrinterResourcesCrud;
+        public BaseCrud<PrinterTypeEntity> PrinterTypesCrud;
         public HostCrud HostsCrud;
         public TemplateResourceCrud TemplateResourcesCrud;
         // Datas CRUD.
@@ -181,11 +181,11 @@ namespace BlazorCore.DAL
             ProductSeriesCrud = new BaseCrud<ProductSeriesEntity>(this);
             TemplatesCrud = new BaseCrud<TemplateEntity>(this);
             TemplateResourcesCrud = new TemplateResourceCrud(this);
-            PrinterResourcesCrud = new BaseCrud<ZebraPrinterResourceEntity>(this);
+            PrinterResourcesCrud = new BaseCrud<PrinterResourceEntity>(this);
             WeithingFactsCrud = new BaseCrud<WeithingFactEntity>(this);
             WorkshopsCrud = new BaseCrud<WorkshopEntity>(this);
-            PrinterTypesCrud = new BaseCrud<ZebraPrinterTypeEntity>(this);
-            PrintersCrud = new BaseCrud<ZebraPrinterEntity>(this);
+            PrinterTypesCrud = new BaseCrud<PrinterTypeEntity>(this);
+            PrintersCrud = new BaseCrud<PrinterEntity>(this);
             // Datas CRUD.
             DeviceCrud = new BaseCrud<DeviceEntity>(this);
             LogSummaryCrud = new BaseCrud<LogSummaryEntity>(this);
@@ -769,15 +769,15 @@ namespace BlazorCore.DAL
                 {
                     nextId = WorkshopsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(ZebraPrinterEntity))
+                else if (typeof(T) == typeof(PrinterEntity))
                 {
                     nextId = PrintersCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
+                else if (typeof(T) == typeof(PrinterResourceEntity))
                 {
                     nextId = PrinterResourcesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
-                else if (typeof(T) == typeof(ZebraPrinterTypeEntity))
+                else if (typeof(T) == typeof(PrinterTypeEntity))
                 {
                     nextId = PrinterTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
                 }
@@ -874,11 +874,11 @@ namespace BlazorCore.DAL
                 WeithingFactSummaryCrud.DeleteEntity(weithingFactSummaryEntity);
             else if (entity is WorkshopEntity workshopEntity)
                 WorkshopsCrud.DeleteEntity(workshopEntity);
-            else if (entity is ZebraPrinterEntity zebraPrinterEntity)
+            else if (entity is PrinterEntity zebraPrinterEntity)
                 PrintersCrud.DeleteEntity(zebraPrinterEntity);
-            else if (entity is ZebraPrinterTypeEntity zebraPrinterTypeEntity)
+            else if (entity is PrinterTypeEntity zebraPrinterTypeEntity)
                 PrinterTypesCrud.MarkedEntity(zebraPrinterTypeEntity);
-            else if (entity is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
+            else if (entity is PrinterResourceEntity zebraPrinterResourceRefEntity)
                 PrinterResourcesCrud.DeleteEntity(zebraPrinterResourceRefEntity);
         }
 
@@ -928,11 +928,11 @@ namespace BlazorCore.DAL
                 WeithingFactSummaryCrud.MarkedEntity(weithingFactSummaryEntity);
             else if (entity is WorkshopEntity workshopEntity)
                 WorkshopsCrud.MarkedEntity(workshopEntity);
-            else if (entity is ZebraPrinterEntity zebraPrinterEntity)
+            else if (entity is PrinterEntity zebraPrinterEntity)
                 PrintersCrud.MarkedEntity(zebraPrinterEntity);
-            else if (entity is ZebraPrinterTypeEntity zebraPrinterTypeEntity)
+            else if (entity is PrinterTypeEntity zebraPrinterTypeEntity)
                 PrinterTypesCrud.MarkedEntity(zebraPrinterTypeEntity);
-            else if (entity is ZebraPrinterResourceEntity zebraPrinterResourceRefEntity)
+            else if (entity is PrinterResourceEntity zebraPrinterResourceRefEntity)
                 PrinterResourcesCrud.MarkedEntity(zebraPrinterResourceRefEntity);
         }
 

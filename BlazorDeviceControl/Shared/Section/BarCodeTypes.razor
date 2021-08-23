@@ -10,17 +10,18 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionBarCodeTypes SetParameters=@SetParametersAsync />
-    <RadzenGrid Style="margin-top: 5px;"
+    <DataReload Title=@LocalizationStrings.DeviceControl.SectionBarCodeTypes SetParameters=@SetParametersAsync IsShowItemsCount=true 
+        ItemsCount=@ItemsCount />
+    <RadzenGrid Style="margin-top: 5px;" 
         Data=@Items TItem="BarcodeTypeEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
         RowDoubleClick=@(args => ActionEditAsync(Item))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
-        <Columns>
+        AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="200px">
+        <Columns >
             <RadzenGridColumn 
                 TItem="BarcodeTypeEntity" Property="Id" TextAlign="TextAlign.Center"
-                Title=@LocalizationStrings.DeviceControl.TableFieldId
+                Title=@LocalizationStrings.DeviceControl.TableFieldId 
                 Type="int" Width="7.5%" />
             <RadzenGridColumn 
                 TItem="BarcodeTypeEntity" Property="Name" TextAlign="TextAlign.Left"
@@ -34,7 +35,7 @@
     }
     else
     {
-        <SectionActions Table=@Table Item=@Item />
+        <SectionActions IsShowNew=true IsShowAdd=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
     }
 }
 else

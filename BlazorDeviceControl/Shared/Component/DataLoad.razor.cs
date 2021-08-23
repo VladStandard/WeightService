@@ -10,19 +10,14 @@ namespace BlazorDeviceControl.Shared.Component
     {
         #region Public and private fields and properties
 
-        [Parameter] public bool IsShowProgress { get; set; }
         [Parameter] public EnumDataLoad DataLoadItem { get; set; }
+        [Parameter] public bool IsShowProgress { get; set; }
 
         #endregion
 
         #region Public and private methods
 
-        //public override async Task SetParametersAsync(ParameterView parameters)
-        //{
-        //    await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-        //    await GuiRefreshWithWaitAsync();
-        //}
+        //
 
         #endregion
     }

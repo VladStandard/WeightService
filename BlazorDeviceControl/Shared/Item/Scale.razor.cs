@@ -22,7 +22,7 @@ namespace BlazorDeviceControl.Shared.Item
         public string PluTitle { get; set; }
         public PluEntity PluItem { get; set; }
         public List<PluEntity> PluItems { get; set; } = null;
-        public List<ZebraPrinterEntity> PrinterItems { get; set; } = null;
+        public List<PrinterEntity> PrinterItems { get; set; } = null;
         public List<TemplateEntity> TemplatesDefaultItems { get; set; } = null;
         public List<TemplateEntity> TemplatesSeriesItems { get; set; } = null;
         public List<WorkshopEntity> WorkshopItems { get; set; } = null;

@@ -16,8 +16,8 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private ZebraPrinterEntity PrinterItem => IdItem is ZebraPrinterEntity idItem ? idItem : null;
-        public List<ZebraPrinterTypeEntity> PrinterTypeItems { get; set; } = null;
+        private PrinterEntity PrinterItem => IdItem is PrinterEntity idItem ? idItem : null;
+        public List<PrinterTypeEntity> PrinterTypeItems { get; set; } = null;
 
         #endregion
 
@@ -39,27 +39,6 @@ namespace BlazorDeviceControl.Shared.Item
                         await GuiRefreshWithWaitAsync();
                     }),
                 }, true);
-        }
-
-        private void OnChange(object value, string name)
-        {
-            switch (name)
-            {
-                case "ZebraPrinterTypeItems":
-                    if (value is int id)
-                    {
-                        if (id <= 0)
-                            PrinterItem.PrinterType = null;
-                        else
-                        {
-                            PrinterItem.PrinterType = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(
-                                new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), id } }),
-                            null);
-                        }
-                    }
-                    break;
-            }
-            StateHasChanged();
         }
 
         #endregion

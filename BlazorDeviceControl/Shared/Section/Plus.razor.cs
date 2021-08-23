@@ -31,6 +31,7 @@ namespace BlazorDeviceControl.Shared.Section
                     new(async() => {
                         IdItem = null;
                         Items = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         Items = AppSettings.DataAccess.PlusCrud.GetEntities(
@@ -41,6 +42,7 @@ namespace BlazorDeviceControl.Shared.Section
                             }),
                             new FieldOrderEntity(EnumField.GoodsName, EnumOrderDirection.Asc))
                             .ToList();
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                     }),
             }, true);

@@ -50,7 +50,7 @@
                                     Data=@PrinterTypeItems PageSize="10"
                                     TextProperty="Name" ValueProperty="Id"
                                     Value=@PrinterItem.PrinterType?.Id
-                                    Change=@(args => OnChange(args, "ZebraPrinterTypeItems")) />
+                                    Change=@(args => OnChange(args, nameof(PrinterTypeEntity), PrinterItem)) />
             }
             <br />
         </div>

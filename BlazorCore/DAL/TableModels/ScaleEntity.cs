@@ -15,7 +15,7 @@ namespace BlazorCore.DAL.TableModels
         public virtual TemplateEntity TemplateDefault { get; set; } = new TemplateEntity();
         public virtual TemplateEntity TemplateSeries { get; set; } = new TemplateEntity();
         public virtual WorkshopEntity WorkShop { get; set; } = new WorkshopEntity();
-        public virtual ZebraPrinterEntity Printer { get; set; } = new ZebraPrinterEntity();
+        public virtual PrinterEntity Printer { get; set; } = new PrinterEntity();
         public virtual HostEntity Host { get; set; } = new HostEntity();
         public virtual string Description { get; set; }
         public virtual Guid? IdRRef { get; set; }
@@ -161,7 +161,7 @@ namespace BlazorCore.DAL.TableModels
                 TemplateDefault = (TemplateEntity)TemplateDefault?.Clone(),
                 TemplateSeries = (TemplateEntity)TemplateSeries?.Clone(),
                 WorkShop = (WorkshopEntity)WorkShop?.Clone(),
-                Printer = (ZebraPrinterEntity)Printer?.Clone(),
+                Printer = (PrinterEntity)Printer?.Clone(),
                 Host = (HostEntity)Host?.Clone(),
                 Description = Description,
                 IdRRef = IdRRef,

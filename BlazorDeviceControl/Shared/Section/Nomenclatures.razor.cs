@@ -4,6 +4,7 @@
 using BlazorCore;
 using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
+using BlazorCore.Models;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -28,8 +29,10 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
+                        SetTable(new TableScaleEntity(BlazorCore.EnumTableScale.Printers));
                         IdItem = null;
                         Items = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         Items = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(
@@ -37,6 +40,7 @@ namespace BlazorDeviceControl.Shared.Section
                             null,
                             new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc))
                             .ToList();
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                     }),
             }, true);

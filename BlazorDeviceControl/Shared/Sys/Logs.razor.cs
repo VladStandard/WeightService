@@ -1,15 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.DAL;
 using BlazorCore.DAL.DataModels;
 using BlazorCore.Models;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
-using Radzen;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Sys
@@ -18,9 +15,7 @@ namespace BlazorDeviceControl.Shared.Sys
     {
         #region Public and private fields and properties
 
-        private BaseUidEntity Item { get; set; }
         private List<LogSummaryEntity> Items { get; set; }
-        private object[] Objects { get; set; }
         #endregion
 
         #region Public and private methods
@@ -31,8 +26,10 @@ namespace BlazorDeviceControl.Shared.Sys
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Item = null;
+                        SetTable(new TableSystemEntity(BlazorCore.EnumTableSystem.Logs));
+                        UidItem = null;
                         Items = null;
+                        ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetLogs, string.Empty, 0, string.Empty);
@@ -60,31 +57,10 @@ namespace BlazorDeviceControl.Shared.Sys
                                 }
                             }
                         }
+                        ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();
                     }),
             }, true);
-        }
-
-        private async Task RowSelectAsync(LogSummaryEntity entity,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                Item = entity;
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
         }
 
         #endregion

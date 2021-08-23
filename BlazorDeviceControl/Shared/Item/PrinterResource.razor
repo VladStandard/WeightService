@@ -19,7 +19,7 @@
                                 Data=@PrinterItems PageSize="10"
                                 TextProperty="Name" ValueProperty="Id"
                                 Value=@PrinterResourceItem.Printer?.Id Disabled="true"
-                                Change=@(args => OnChange(args, nameof(ZebraPrinterEntity))) />
+                                Change=@(args => OnChange(args, nameof(PrinterEntity))) />
     }
     <br />
     <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldDescription />

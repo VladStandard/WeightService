@@ -207,18 +207,18 @@ namespace BlazorCore.DAL
                         workshopEntity.ProductionFacility = DataAccess.ProductionFacilitiesCrud.GetEntity(workshopEntity.ProductionFacility.Id);
                 }
             }
-            else if (typeof(T) == typeof(ZebraPrinterEntity))
+            else if (typeof(T) == typeof(PrinterEntity))
             {
-                var zebraPrinterEntity = (ZebraPrinterEntity)(object)entity;
+                var zebraPrinterEntity = (PrinterEntity)(object)entity;
                 if (!zebraPrinterEntity.EqualsEmpty())
                 {
                     if (zebraPrinterEntity.PrinterType != null)
                         zebraPrinterEntity.PrinterType = DataAccess.PrinterTypesCrud.GetEntity(zebraPrinterEntity.PrinterType.Id);
                 }
             }
-            else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
+            else if (typeof(T) == typeof(PrinterResourceEntity))
             {
-                var zebraPrinterResourceRefEntity = (ZebraPrinterResourceEntity)(object)entity;
+                var zebraPrinterResourceRefEntity = (PrinterResourceEntity)(object)entity;
                 if (!zebraPrinterResourceRefEntity.EqualsEmpty())
                 {
                     if (zebraPrinterResourceRefEntity.Printer != null)
@@ -229,9 +229,9 @@ namespace BlazorCore.DAL
                             DataAccess.TemplateResourcesCrud.GetEntity(zebraPrinterResourceRefEntity.Resource.Id);
                 }
             }
-            else if (typeof(T) == typeof(ZebraPrinterTypeEntity))
+            else if (typeof(T) == typeof(PrinterTypeEntity))
             {
-                var zebraPrinterTypeEntity = (ZebraPrinterTypeEntity)(object)entity;
+                var zebraPrinterTypeEntity = (PrinterTypeEntity)(object)entity;
                 if (!zebraPrinterTypeEntity.EqualsEmpty())
                 {
                     //
@@ -312,7 +312,7 @@ namespace BlazorCore.DAL
                     {
                         throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
                     }
-                    if (typeof(T) == typeof(ZebraPrinterTypeEntity))
+                    if (typeof(T) == typeof(PrinterTypeEntity))
                     {
                         Console.WriteLine($"SaveEntity: {entity}");
                     }
@@ -333,7 +333,7 @@ namespace BlazorCore.DAL
                         {
                             throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
                         }
-                        if (typeof(T) == typeof(ZebraPrinterTypeEntity))
+                        if (typeof(T) == typeof(PrinterTypeEntity))
                         {
                             Console.WriteLine($"SaveEntity: {entity}");
                         }
@@ -416,15 +416,15 @@ namespace BlazorCore.DAL
             {
                 ((WorkshopEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(ZebraPrinterEntity))
+            else if (typeof(T) == typeof(PrinterEntity))
             {
-                ((ZebraPrinterEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((PrinterEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
+            else if (typeof(T) == typeof(PrinterResourceEntity))
             {
-                ((ZebraPrinterResourceEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((PrinterResourceEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(ZebraPrinterTypeEntity))
+            else if (typeof(T) == typeof(PrinterTypeEntity))
             {
                 //
             }
@@ -521,17 +521,17 @@ namespace BlazorCore.DAL
             {
                 ((WorkshopEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(ZebraPrinterEntity))
+            else if (typeof(T) == typeof(PrinterEntity))
             {
-                ((ZebraPrinterEntity)(object)entity).Marked = true;
+                ((PrinterEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(ZebraPrinterResourceEntity))
+            else if (typeof(T) == typeof(PrinterResourceEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(ZebraPrinterTypeEntity))
+            else if (typeof(T) == typeof(PrinterTypeEntity))
             {
-                ((ZebraPrinterEntity)(object)entity).Marked = true;
+                ((PrinterEntity)(object)entity).Marked = true;
             }
             
             DataAccess.UpdateEntity(entity, filePath, lineNumber, memberName);
