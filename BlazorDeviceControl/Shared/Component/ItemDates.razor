@@ -8,8 +8,7 @@
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
         @if (Item == null)
         {
-            <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+            <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
         }
         else
         {

@@ -18,7 +18,8 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private ScaleEntity ScaleItem => IdItem is ScaleEntity idItem ? idItem : null;
+        public ScaleEntity ScaleItem { get => (ScaleEntity)IdItem; set => SetItem(value); }
+
         public string PluTitle { get; set; }
         public PluEntity PluItem { get; set; }
         public List<PluEntity> PluItems { get; set; } = null;
@@ -39,6 +40,7 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
+                        Table = new TableScaleEntity(EnumTableScale.Scales);
                         IdItem = null;
                         ComPorts = null;
                         PluItems = null;

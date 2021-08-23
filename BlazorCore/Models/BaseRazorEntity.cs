@@ -33,7 +33,7 @@ namespace BlazorCore.Models
 
         public IBaseEntity Item { get; private set; }
         public IBaseEntity ParentItem { get; private set; }
-        public ITableEntity Table { get; private set; }
+        [Parameter] public ITableEntity Table { get; set; }
         [Parameter] public bool IsShowAdd { get; set; }
         [Parameter] public bool IsShowEdit { get; set; }
         [Parameter] public bool IsShowCopy { get; set; }
@@ -80,34 +80,9 @@ namespace BlazorCore.Models
             Item = item;
         }
 
-        public void SetItem(IBaseIdEntity item)
-        {
-            Item = (IBaseEntity)item;
-        }
-
-        public void SetItem(IBaseUidEntity item)
-        {
-            Item = (IBaseEntity)item;
-        }
-
         public void SetParentItem(IBaseEntity parentItem)
         {
             ParentItem = parentItem;
-        }
-
-        public void SetParentItem(IBaseIdEntity parentItem)
-        {
-            ParentItem = (IBaseEntity)parentItem;
-        }
-
-        public void SetParentItem(IBaseUidEntity parentItem)
-        {
-            ParentItem = (IBaseEntity)parentItem;
-        }
-
-        public void SetTable(ITableEntity table)
-        {
-            Table = table;
         }
 
         public void OnChange(object value, string name, IBaseEntity item)
@@ -220,6 +195,61 @@ namespace BlazorCore.Models
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
+
+            if (Table is TableScaleEntity tableScale)
+            {
+                switch (tableScale.Value)
+                {
+                    case EnumTableScale.BarcodeTypes:
+                        break;
+                    case EnumTableScale.Contragents:
+                        break;
+                    case EnumTableScale.Hosts:
+                        break;
+                    case EnumTableScale.Labels:
+                        break;
+                    case EnumTableScale.Nomenclatures:
+                        break;
+                    case EnumTableScale.OrderStatuses:
+                        break;
+                    case EnumTableScale.OrderTypes:
+                        break;
+                    case EnumTableScale.Orders:
+                        break;
+                    case EnumTableScale.Plus:
+                        break;
+                    case EnumTableScale.Printers:
+                        break;
+                    case EnumTableScale.PrinterResources:
+                        break;
+                    case EnumTableScale.PrinterTypes:
+                        break;
+                    case EnumTableScale.ProductSeries:
+                        break;
+                    case EnumTableScale.ProductionFacilities:
+                        break;
+                    case EnumTableScale.Scales:
+                        if (parameters.TryGetValue("Id", out int id))
+                        {
+                            ScaleEntity scaleEntity = AppSettings.DataAccess.ScalesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), id },
+                                }), null);
+                            SetItem(scaleEntity);
+                        }
+                        break;
+                    case EnumTableScale.TemplateResources:
+                        break;
+                    case EnumTableScale.Templates:
+                        break;
+                    case EnumTableScale.WeithingFacts:
+                        break;
+                    case EnumTableScale.Workshops:
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         public string ChartDataFormat(object value) => ((int)value).ToString("####", CultureInfo.InvariantCulture);
@@ -451,18 +481,18 @@ namespace BlazorCore.Models
 
         #region Public and private methods - Actions
 
-        public void RouteItemNavigate(IBaseEntity item, bool isNewWindow)
+        public void RouteItemNavigate(bool isNewWindow)
         {
             string page = string.Empty;
-            if (item is PrinterEntity)
+            if (Item is PrinterEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteItemPrinter;
             }
-            else if (item is PrinterTypeEntity)
+            else if (Item is PrinterTypeEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteItemPrinterType;
             }
-            else if (item is ScaleEntity)
+            else if (Item is ScaleEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteItemScale;
             }
@@ -472,11 +502,11 @@ namespace BlazorCore.Models
 
             if (!isNewWindow)
             {
-                if (item is BaseIdEntity idItem)
+                if (Item is BaseIdEntity idItem)
                 {
                     Navigation.NavigateTo($"{page}/{idItem.Id}");
                 }
-                else if (item is BaseUidEntity uidItem)
+                else if (Item is BaseUidEntity uidItem)
                 {
                     Navigation.NavigateTo($"{page}/{uidItem.Uid}");
                 }
@@ -487,11 +517,11 @@ namespace BlazorCore.Models
             }
             else
             {
-                if (item is BaseIdEntity idItem)
+                if (Item is BaseIdEntity idItem)
                 {
                     _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
                 }
-                else if (item is BaseUidEntity uidItem)
+                else if (Item is BaseUidEntity uidItem)
                 {
                     _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
                 }
@@ -502,18 +532,18 @@ namespace BlazorCore.Models
             }
         }
 
-        public void RouteSectionNavigate(IBaseEntity item, bool isNewWindow)
+        public void RouteSectionNavigate(bool isNewWindow)
         {
             string page = string.Empty;
-            if (item is PrinterEntity)
+            if (Item is PrinterEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteSectionPrinters;
             }
-            else if (item is PrinterTypeEntity)
+            else if (Item is PrinterTypeEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteSectionPrinterTypes;
             }
-            else if (item is ScaleEntity)
+            else if (Item is ScaleEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteSectionScales;
             }
@@ -531,37 +561,37 @@ namespace BlazorCore.Models
             }
         }
 
-        public async Task ItemCancelAsync(IBaseEntity item, bool isNewWindow)
+        public async Task ItemCancelAsync(bool isNewWindow)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(ItemCancelAsync)}", LocalizationStrings.Share.DialogResultSuccess,
                 LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel,
                 new List<Task> {
                     new(() => {
-                        if (item == null)
+                        if (Item == null)
                             return;
-                        if (item is BaseIdEntity idItem && idItem.EqualsDefault())
+                        if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
                             return;
-                        if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+                        if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
                             return;
-                        RouteSectionNavigate(item, isNewWindow);
+                        RouteSectionNavigate(isNewWindow);
                     })}, false);
         }
 
-        public async Task ItemSaveAsync(IBaseEntity item, bool continueOnCapturedContext, bool isNewWindow)
+        public async Task ItemSaveAsync(bool continueOnCapturedContext, bool isNewWindow)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasksWithQeustion(LocalizationStrings.Share.TableRecordSave, LocalizationStrings.Share.DialogResultSuccess,
                 LocalizationStrings.Share.DialogResultFail, LocalizationStrings.Share.DialogResultCancel, "",
                 new List<Task> {
                     new(() => {
-                        if (item == null)
+                        if (Item == null)
                             return;
-                        if (item is BaseIdEntity idItem && idItem.EqualsDefault())
+                        if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
                             return;
-                        if (item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+                        if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
                             return;
-                        if (item is BaseIdEntity idItem2)
+                        if (Item is BaseIdEntity idItem2)
                         {
                             if (idItem2 is PrinterEntity printerItem)
                             {
@@ -585,7 +615,7 @@ namespace BlazorCore.Models
                                     AppSettings.DataAccess.ScalesCrud.UpdateEntity(scaleItem);
                             }
                         }
-                        RouteSectionNavigate(item, isNewWindow);
+                        RouteSectionNavigate(isNewWindow);
                     })}, continueOnCapturedContext);
         }
 
@@ -687,7 +717,7 @@ namespace BlazorCore.Models
                 })}, true).ConfigureAwait(false);
         }
 
-        private void Action(EnumTableAction tableAction, IBaseEntity item, bool isNewWindow, IBaseEntity parentItem = null)
+        private void Action(EnumTableAction tableAction, bool isNewWindow)
         {
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(Action)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
@@ -696,7 +726,7 @@ namespace BlazorCore.Models
                         //    return;
                         BaseIdEntity idItem = null;
                         BaseUidEntity uidItem = null;
-                        switch (item)
+                        switch (Item)
                         {
                             case BaseIdEntity baseIdEntity:
                                 idItem = baseIdEntity;
@@ -718,7 +748,7 @@ namespace BlazorCore.Models
                                         {
                                             case EnumTableScale.Scales:
                                             case EnumTableScale.Printers:
-                                                RouteItemNavigate(item, isNewWindow);
+                                                RouteItemNavigate(isNewWindow);
                                                 break;
                                         }
                                     }
@@ -727,13 +757,13 @@ namespace BlazorCore.Models
                             case EnumTableAction.Delete:
                                 if (AppSettings.IdentityItem.AccessLevel == true)
                                 {
-                                    AppSettings.DataAccess.ActionDeleteEntity(item);
+                                    AppSettings.DataAccess.ActionDeleteEntity(Item);
                                 }
                                 break;
                             case EnumTableAction.Mark:
                                 if (AppSettings.IdentityItem.AccessLevel == true)
                                 {
-                                    AppSettings.DataAccess.ActionMarkedEntity(item);
+                                    AppSettings.DataAccess.ActionMarkedEntity(Item);
                                 }
                                 break;
                         }
@@ -742,40 +772,40 @@ namespace BlazorCore.Models
                 }, true);
         }
 
-        public async Task ActionNewAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        public async Task ActionNewAsync(bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(EnumTableAction.New, item, isNewWindow, parentItem);
+            Action(EnumTableAction.New, isNewWindow);
         }
 
-        public async Task ActionAddAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        public async Task ActionAddAsync(bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(EnumTableAction.Add, item, isNewWindow, parentItem);
+            Action(EnumTableAction.Add, isNewWindow);
         }
 
-        public async Task ActionEditAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        public async Task ActionEditAsync(bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(EnumTableAction.Edit, item, isNewWindow, parentItem);
+            Action(EnumTableAction.Edit, isNewWindow);
         }
 
-        public async Task ActionCopyAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        public async Task ActionCopyAsync(bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(EnumTableAction.Copy, item, isNewWindow, parentItem);
+            Action(EnumTableAction.Copy, isNewWindow);
         }
 
-        public async Task ActionMarkAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        public async Task ActionMarkAsync(bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(EnumTableAction.Mark, item, isNewWindow, parentItem);
+            Action(EnumTableAction.Mark, isNewWindow);
         }
 
-        public async Task ActionDeleteAsync(IBaseEntity item, bool isNewWindow = false, IBaseEntity parentItem = null)
+        public async Task ActionDeleteAsync(bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(EnumTableAction.Delete, item, isNewWindow, parentItem);
+            Action(EnumTableAction.Delete, isNewWindow);
         }
 
         #endregion

@@ -14,7 +14,7 @@
     <RadzenGrid Style="margin-top: 5px;"
         Data=@Items TItem="PluEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionEditAsync(Item))
+        RowDoubleClick=@(args => ActionEditAsync())
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns>

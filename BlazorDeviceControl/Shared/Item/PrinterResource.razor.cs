@@ -31,7 +31,7 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        SetTable(new TableScaleEntity(BlazorCore.EnumTableScale.Printers));
+                        Table = new TableScaleEntity(EnumTableScale.Printers);
                         IdItem = null;
                         PrinterItems = null;
                         ResourceItems = null;

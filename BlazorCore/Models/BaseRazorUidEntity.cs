@@ -14,8 +14,8 @@ namespace BlazorCore.Models
     {
         #region Public and private fields and properties
 
-        [Parameter] public IBaseUidEntity UidItem { get => (BaseUidEntity)Item; set => SetItem(value); }
-        [Parameter] public Guid Uid { get => UidItem == null ? Guid.Empty : UidItem.Uid; set => _ = value; }
+        [Parameter] public Guid Uid { get; set; }
+        public IBaseUidEntity UidItem { get => (BaseUidEntity)Item; set => SetItem(value); }
 
         #endregion
 
@@ -26,6 +26,16 @@ namespace BlazorCore.Models
         #endregion
 
         #region Public and private methods
+
+        public void SetItem(IBaseUidEntity item)
+        {
+            SetItem((IBaseEntity)item);
+        }
+
+        public void SetParentItem(IBaseUidEntity parentItem)
+        {
+            SetParentItem((IBaseEntity)parentItem);
+        }
 
         public async Task ItemSelectAsync(IBaseUidEntity item)
         {

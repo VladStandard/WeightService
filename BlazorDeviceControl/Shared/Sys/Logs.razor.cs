@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore;
 using BlazorCore.DAL.DataModels;
 using BlazorCore.Models;
 using BlazorCore.Utils;
@@ -26,7 +27,7 @@ namespace BlazorDeviceControl.Shared.Sys
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        SetTable(new TableSystemEntity(BlazorCore.EnumTableSystem.Logs));
+                        Table = new TableSystemEntity(EnumTableSystem.Logs);
                         UidItem = null;
                         Items = null;
                         ItemsCount = 0;

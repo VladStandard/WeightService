@@ -15,7 +15,7 @@
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@Items TItem="NomenclatureEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionEditAsync(Item))
+        RowDoubleClick=@(args => ActionEditAsync())
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
         <Columns >

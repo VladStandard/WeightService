@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.440] - 2021-08-23
 ### Changed
 - BlazorCore.Utils.LocalizationStrings
+- BlazorDeviceControl.Shared.Item.Scale
 - BlazorDeviceControl.Shared.Sys.Info
 - BlazorDeviceControl.Shared.Sys.Logs
 - BlazorDeviceControl.Shared.Section.Scales

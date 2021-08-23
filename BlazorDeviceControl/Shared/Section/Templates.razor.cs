@@ -31,7 +31,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        SetTable(new TableScaleEntity(BlazorCore.EnumTableScale.Templates));
+                        Table = new TableScaleEntity(EnumTableScale.Templates);
                         IdItem = null;
                         Items = null;
                         TemplateCategories = null;

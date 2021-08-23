@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Models;
 using BlazorCore.Utils;
@@ -27,7 +28,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        SetTable(new TableScaleEntity(BlazorCore.EnumTableScale.PrinterTypes));
+                        Table = new TableScaleEntity(EnumTableScale.PrinterTypes);
                         IdItem = null;
                         Items = null;
                         ItemsCount = 0;

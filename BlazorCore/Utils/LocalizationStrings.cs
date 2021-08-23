@@ -41,6 +41,8 @@ namespace BlazorCore.Utils
             public static string UserSettings => Lang == EnumLang.English ? @"User settings" : @"Пользовательские настройки";
             public static string SettingName => Lang == EnumLang.English ? @"Setting name" : @"Название настройки";
             public static string SettingValue => Lang == EnumLang.English ? @"Setting value" : @"Значение настройки";
+            public static string RecordName => Lang == EnumLang.English ? @"Setting name" : @"Название записи";
+            public static string RecordValue => Lang == EnumLang.English ? @"Setting value" : @"Значение записи";
             public static string HostName => Lang == EnumLang.English ? @"Host name" : @"Имя хоста";
             public static string Language => Lang == EnumLang.English ? @"Language" : @"Язык";
             public static string LanguageDetect => Lang == EnumLang.English ? @"English" : @"Русский";
@@ -421,16 +423,17 @@ namespace BlazorCore.Utils
             public static string SectionWorkshops => Lang == EnumLang.English ? @"Workshops" : @"Цеха";
             #endregion
             #region Tables
-            public const string TableActionAdd = @"Добавить";
-            public const string TableActionCancel = @"Отмена";
-            public const string TableActionClear = @"Очистить";
-            public const string TableActionCopy = @"Копировать";
-            public const string TableActionDelete = @"Удалить навсегда";
-            public const string TableActionEdit = @"Редактировать";
-            public const string TableActionFill = @"Заполнить";
-            public const string TableActionMarked = @"Пометить на удаление";
-            public const string TableActionNew = @"Новый";
-            public const string TableActionSave = @"Сохранить";
+            public static string TableActionAdd => Lang == EnumLang.English ? @"Add" : @"Добавить";
+            public static string TableActionCancel => Lang == EnumLang.English ? @"Cancel" : @"Отмена";
+            public static string TableActionClear => Lang == EnumLang.English ? @"Clear" : @"Очистить";
+            public static string TableActionCopy => Lang == EnumLang.English ? @"Copy" : @"Копировать";
+            public static string TableActionDelete => Lang == EnumLang.English ? @"Delete" : @"Удалить навсегда";
+            public static string TableActionEdit => Lang == EnumLang.English ? @"Edit" : @"Редактировать";
+            public static string TableActionMark => Lang == EnumLang.English ? @"Mark" : @"Пом. на удаление";
+            public static string TableActionNew => Lang == EnumLang.English ? @"New" : @"Новый";
+            public static string TableActionFill => Lang == EnumLang.English ? @"Fill" : @"Заполнить";
+            public static string TableActionSave => Lang == EnumLang.English ? @"Save" : @"Сохранить";
+
             public const string TableActions = @"Действия";
             public const string TableActionsIsDeny = @"Действия недоступны";
             public const string TableFieldAccessLevel = @"Уровень доступа";
