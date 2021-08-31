@@ -695,14 +695,14 @@ namespace BlazorCore.DAL
         {
             T result = tableAction switch
             {
-                EnumTableAction.Add => new T(),
+                EnumTableAction.New => new T(),
                 EnumTableAction.Edit => (T)entity,
                 EnumTableAction.Copy => (T)((T)entity).Clone(),
                 EnumTableAction.Delete => (T)entity,
                 EnumTableAction.Mark => (T)entity,
                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
             };
-            if (tableAction == EnumTableAction.Add || tableAction == EnumTableAction.Copy)
+            if (tableAction == EnumTableAction.New || tableAction == EnumTableAction.Copy)
             {
                 var nextId = 0;
                 if (typeof(T) == typeof(BarcodeTypeEntity))
@@ -790,14 +790,14 @@ namespace BlazorCore.DAL
         {
             var result = tableAction switch
             {
-                EnumTableAction.Add => new T(),
+                EnumTableAction.New => new T(),
                 EnumTableAction.Edit => (T)entity,
                 EnumTableAction.Copy => (T)((T)entity).Clone(),
                 EnumTableAction.Delete => (T)entity,
                 EnumTableAction.Mark => (T)entity,
                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
             };
-            if (tableAction == EnumTableAction.Add || tableAction == EnumTableAction.Copy)
+            if (tableAction == EnumTableAction.New || tableAction == EnumTableAction.Copy)
             {
                 if (typeof(T) == typeof(AccessEntity))
                 {

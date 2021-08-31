@@ -5,6 +5,7 @@ using BlazorCore;
 using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Models;
+using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -19,7 +20,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private WorkshopEntity WorkshopItem => IdItem is WorkshopEntity idItem ? idItem : null;
+        public WorkshopEntity WorkshopItem { get => (WorkshopEntity)IdItem; set => SetItem(value); }
         public List<ProductionFacilityEntity> ProductionFacilityEntities { get; set; } = null;
 
         #endregion
@@ -29,11 +30,20 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        Table = new TableScaleEntity(EnumTableScale.Printers);
+                        WorkshopItem = null;
+                        ProductionFacilityEntities = null;
+                        await GuiRefreshWithWaitAsync();
 
-            await GetDataAsync(new Task(delegate
-            {
-                ProductionFacilityEntities = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null).ToList();
-            }), false).ConfigureAwait(false);
+                        WorkshopItem = AppSettings.DataAccess.WorkshopsCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                            { { EnumField.Id.ToString(), Id } }), null);
+                        ProductionFacilityEntities = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null).ToList();
+                        await GuiRefreshWithWaitAsync();
+                    }),
+                }, true);
         }
         
         private async Task RowSelectAsync(BaseIdEntity entity,

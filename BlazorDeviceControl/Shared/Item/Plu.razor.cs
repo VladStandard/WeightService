@@ -20,11 +20,11 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private PluEntity PluItem => IdItem is PluEntity idItem ? idItem : null;
-        public List<ScaleEntity> ScalesEntities { get; set; } = null;
-        public List<TemplateEntity> TemplatesEntities { get; set; } = null;
-        public List<NomenclatureEntity> NomenclatureEntities { get; set; } = null;
-        public readonly ProductHelper Product = ProductHelper.Instance;
+        public PluEntity PluItem { get => (PluEntity)IdItem; set => SetItem(value); }
+        public List<ScaleEntity> ScaleItems { get; set; } = null;
+        public List<TemplateEntity> TemplateItems { get; set; } = null;
+        public List<NomenclatureEntity> NomenclatureItems { get; set; } = null;
+        private readonly ProductHelper _product = ProductHelper.Instance;
         private readonly BarcodeHelper _barcode = BarcodeHelper.Instance;
 
         #endregion
@@ -37,50 +37,51 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
+                        Table = new TableScaleEntity(EnumTableScale.Plus);
                         IdItem = null;
-                        ScalesEntities = null;
-                        TemplatesEntities = null;
-                        NomenclatureEntities = null;
+                        ScaleItems = null;
+                        TemplateItems = null;
+                        NomenclatureItems = null;
                         await GuiRefreshWithWaitAsync();
 
-                        ScaleEntity[] scalesEntities = AppSettings.DataAccess.ScalesCrud.GetEntities(null, null);
-                        ScalesEntities = new List<ScaleEntity>();
-                        foreach (ScaleEntity scalesEntity in scalesEntities)
-                        {
-                            ScalesEntities.Add(scalesEntity);
-                        }
+                        //ScaleEntity[] scalesEntities = AppSettings.DataAccess.ScalesCrud.GetEntities(null, null);
+                        //ScaleItems = new List<ScaleEntity>();
+                        //foreach (ScaleEntity scalesEntity in scalesEntities)
+                        //{
+                        //    ScaleItems.Add(scalesEntity);
+                        //}
 
-                        TemplateEntity[] templatesEntities = AppSettings.DataAccess.TemplatesCrud.GetEntities(null, null);
-                        TemplatesEntities = new List<TemplateEntity>();
-                        foreach (TemplateEntity templatesEntity in templatesEntities)
-                        {
-                            TemplatesEntities.Add(templatesEntity);
-                        }
+                        //TemplateEntity[] templatesEntities = AppSettings.DataAccess.TemplatesCrud.GetEntities(null, null);
+                        //TemplateItems = new List<TemplateEntity>();
+                        //foreach (TemplateEntity templatesEntity in templatesEntities)
+                        //{
+                        //    TemplateItems.Add(templatesEntity);
+                        //}
 
-                        NomenclatureEntity[] nomenclatureEntities = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(null, null);
-                        NomenclatureEntities = new List<NomenclatureEntity>();
-                        foreach (NomenclatureEntity templatesEntity in nomenclatureEntities)
-                        {
-                            NomenclatureEntities.Add(templatesEntity);
-                        }
+                        //NomenclatureEntity[] nomenclatureEntities = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(null, null);
+                        //NomenclatureItems = new List<NomenclatureEntity>();
+                        //foreach (NomenclatureEntity templatesEntity in nomenclatureEntities)
+                        //{
+                        //    NomenclatureItems.Add(templatesEntity);
+                        //}
 
-                        // Проверка шаблона.
-                        if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
-                        {
-                            PluItem.Templates = (TemplateEntity)PluItem.Scale.TemplateDefault.Clone();
-                        }
+                        //// Проверка шаблона.
+                        //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
+                        //{
+                        //    PluItem.Templates = (TemplateEntity)PluItem.Scale.TemplateDefault.Clone();
+                        //}
 
-                        // Номер PLU.
-                        if (PluItem.Plu == 0)
-                        {
-                            PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
-                                new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", PluItem.Scale.Id } }),
-                                new FieldOrderEntity { Direction = EnumOrderDirection.Desc, Name = EnumField.Plu, Use = true });
-                            if (pluEntity != null && !pluEntity.EqualsDefault())
-                            {
-                                PluItem.Plu = pluEntity.Plu + 1;
-                            }
-                        }
+                        //// Номер PLU.
+                        //if (PluItem.Plu == 0)
+                        //{
+                        //    PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
+                        //        new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", PluItem.Scale.Id } }),
+                        //        new FieldOrderEntity { Direction = EnumOrderDirection.Desc, Name = EnumField.Plu, Use = true });
+                        //    if (pluEntity != null && !pluEntity.EqualsDefault())
+                        //    {
+                        //        PluItem.Plu = pluEntity.Plu + 1;
+                        //    }
+                        //}
                         await GuiRefreshWithWaitAsync();
                     }),
                 }, true);
@@ -165,7 +166,7 @@ namespace BlazorDeviceControl.Shared.Item
                     PluItem.GoodsTareWeight = 0;
                 }
 
-                ProductEntity productEntity = Product.GetProductEntity(PluItem.Nomenclature?.SerializedRepresentationObject);
+                ProductEntity productEntity = _product.GetProductEntity(PluItem.Nomenclature?.SerializedRepresentationObject);
                 if (productEntity != null && !productEntity.EqualsNew())
                 {
                     if (name.Equals("Entity", StringComparison.InvariantCultureIgnoreCase))

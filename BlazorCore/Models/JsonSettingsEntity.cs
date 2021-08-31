@@ -9,7 +9,7 @@ namespace BlazorCore.Models
     /// <summary>
     /// appsettings.json
     /// </summary>
-    public class JsonAppSettingsEntity
+    public class JsonSettingsEntity
     {
         public IConfiguration Configuration { get; }
         public string Server
@@ -63,7 +63,7 @@ namespace BlazorCore.Models
             set => Configuration["ButtonHeight"] = value;
         }
 
-        public JsonAppSettingsEntity(IConfiguration configuration)
+        public JsonSettingsEntity(IConfiguration configuration)
         {
             Configuration = configuration;
         }

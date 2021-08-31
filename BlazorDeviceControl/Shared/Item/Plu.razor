@@ -3,162 +3,242 @@
 @using BlazorCore
 @using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Section
 @inherits BlazorCore.Models.BaseRazorIdEntity
 @inject IDialogService DialogService
 
-@if (PluItem == null)
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    <DataReload Title=@LocalizationStrings.DeviceControl.ItemPlu SetParameters=@SetParametersAsync />
+    @if (Item == null)
+    {
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+            <thead>
+                <tr>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordValue</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordValue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldLine</td>
+                    <td>
+                        @if (ScaleItems == null)
+                        {
+                            <DataLoad DataLoadItem=EnumDataLoad.None IsShowProgress=true />
+                        }
+                        else
+                        {
+                            <RadzenDropDownDataGrid 
+                                Style="width: 100%; height: 35px;" TValue="int" 
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                Data=@ScaleItems PageSize="5"
+                                TextProperty="Description" ValueProperty="Id"
+                                Value=@PluItem.Scale?.Id Disabled="true"
+                                Change=@(args => OnChange(args, nameof(ScaleEntity))) />
+                        }
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldTemplate</td>
+                    <td>
+                        @if (TemplateItems == null)
+                        {
+                            <DataLoad DataLoadItem=EnumDataLoad.None IsShowProgress=true />
+                        }
+                        else
+                        {
+                            <RadzenDropDownDataGrid 
+                                Style="width: 100%; height: 35px;" TValue="int" 
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                Data=@TemplateItems PageSize="5"
+                                TextProperty="Title" ValueProperty="Id"
+                                Value=@PluItem.Templates?.Id
+                                Change=@(args => OnChange(args, nameof(TemplateEntity))) />
+                        }
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldNomenclatureName</td>
+                    <td>
+                        @if (NomenclatureItems == null)
+                        {
+                            <DataLoad DataLoadItem=EnumDataLoad.None IsShowProgress=true />
+                        }
+                        else
+                        {
+                            <RadzenDropDownDataGrid 
+                                Style="width: 100%; height: 35px;" TValue="int" 
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                Data=@NomenclatureItems PageSize="5"
+                                TextProperty="Name" ValueProperty="Id"
+                                Value=@PluItem.Nomenclature?.Id
+                                Change=@(args => OnChange(args, nameof(NomenclatureEntity))) />
+                        }
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldActive</td>
+                        <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value=@PluItem.Active />
+                    <td>
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldUpperWeightThreshold</td>
+                    <td>
+                        <RadzenNumeric Style="width: 68%; text-align: center;" Disabled="false" 
+                            TValue="decimal?" @bind-Value=@PluItem.UpperWeightThreshold />
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldNominalWeight</td>
+                    <td>
+                        <RadzenNumeric Style="width: 68%; text-align: center;" Disabled="false" 
+                            TValue="decimal?" @bind-Value=@PluItem.NominalWeight />
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldLowerWeightThreshold</td>
+                    <td>
+                        <RadzenNumeric Style="width: 68%; text-align: center;" Disabled="false" 
+                            TValue="decimal?" @bind-Value=@PluItem.LowerWeightThreshold />
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldCheckWeight</td>
+                    <td>
+                        <RadzenCheckBox Disabled="false" TValue="bool?" @bind-Value=@PluItem.CheckWeight />
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldPlu</td>
+                    <td>
+                        <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="int" @bind-Value=@PluItem.Plu />
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldShelfLifeDays</td>
+                    <td>
+                        <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled="false" Icon="autorenew"
+                            Click=@(args => OnClickFieldsFill("GoodsShelfLifeDays")) />
+                        <RadzenNumeric Style="width: 70%; text-align: center;" Disabled="false" 
+                            TValue="short" @bind-Value=@PluItem.GoodsShelfLifeDays />
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldGoodsTareWeight</td>
+                        <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled="false" Icon="autorenew"
+                            Click=@(args => OnClickFieldsFill("GoodsTareWeight")) />
+                        <RadzenNumeric Style="width: 70%; text-align: center;" Disabled="false" 
+                            TValue="decimal" @bind-Value=@PluItem.GoodsTareWeight />
+                    <td>
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldGoodsBoxQuantly</td>
+                        <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled="false" Icon="autorenew"
+                            Click=@(args => OnClickFieldsFill("GoodsBoxQuantly")) />
+                        <RadzenNumeric Style="width: 70%; text-align: center;" Disabled="false" 
+                            TValue="int" @bind-Value=@PluItem.GoodsBoxQuantly />
+                    <td>
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldEan13</td>
+                        <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled="false" Icon="autorenew"
+                            Click=@(args => OnClickFieldsFill("EAN13")) />
+                        <RadzenTextBox Style="width: 60%; text-align: center;" Disabled="false" 
+                            TValue="string" @bind-Value=@PluItem.Ean13 />
+                        @if (PluItem?.Ean13 == null)
+                        {
+                            <RadzenLabel Style="width: 10%; text-align: center; " Text="0" />
+                        }
+                        else
+                        {
+                            <RadzenLabel Style="width: 10%; text-align: center; " Text=@PluItem.Ean13.Length.ToString() />
+                        }
+                    <td>
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldGtin</td>
+                        <RadzenButton Style="width: 15%; margin-right: 0.75%;" Disabled="false" Icon="aspect_ratio"
+                            ButtonStyle="ButtonStyle.Secondary" Click=@(args => OnClickFieldsFill("getgtin")) />
+                        <RadzenButton Style="width: 15%; margin-right: 0.75%;" Disabled="false" Icon="autorenew"
+                            Click=@(args => OnClickFieldsFill("GTIN")) />
+                        <RadzenTextBox Style="width: 60%; text-align: center;" Disabled="false" 
+                            TValue="string" @bind-Value=@PluItem.Gtin />
+                        @if (PluItem?.Gtin == null)
+                        {
+                            <RadzenLabel Style="width: 10%; text-align: center; " Text="0" />
+                        }
+                        else
+                        {
+                            <RadzenLabel Style="width: 10%; text-align: center; " Text=@PluItem.Gtin.Length.ToString() />
+                        }
+                    <td>
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldItf14</td>
+                        <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled="false" Icon="autorenew"
+                            Click=@(args => OnClickFieldsFill("ITF14")) />
+                        <RadzenTextBox Style="width: 60%; text-align: center;" Disabled="false" 
+                            TValue="string" @bind-Value=@PluItem.Itf14 />
+                        @if (PluItem?.Itf14 == null)
+                        {
+                            <RadzenLabel Style="width: 10%; text-align: center; " Text="0" />
+                        }
+                        else
+                        {
+                            <RadzenLabel Style="width: 10%; text-align: center; " Text=@PluItem.Itf14.Length.ToString() />
+                        }
+                    <td>
+				    </td>
+                    <td></td>
+                    <td>
+                        <RadzenButton Style="width: 50%; " Disabled="false" Icon="autorenew" 
+                            Text=@LocalizationStrings.DeviceControl.TableActionFill
+                            Click=@(args => OnClickFieldsFill("Entity")) />
+                        <RadzenButton Style="width: 50%; " Disabled="false" Icon="clear" 
+                            Text=@LocalizationStrings.DeviceControl.TableActionClear
+                            Click=@(args => OnClickFieldsFill("Clear")) />
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldName</td>
+                    <td>
+                        <RadzenButton Style="width: 30%; margin-right: 0.5%;" Disabled="false" Icon="autorenew" 
+                            Click=@(args => OnClickFieldsFill("GoodsName")) />
+                        <RadzenTextArea Style="width: 70%; height: 30px;" Disabled="false" 
+                            TValue="string" @bind-value=@PluItem.GoodsName />
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldGoodsFullName</td>
+                    <td>
+                        <RadzenButton Style="width: 30%; margin-right: 0.5%;" Disabled="false" Icon="autorenew" 
+                            Click=@(args => OnClickFieldsFill("GoodsFullName")) />
+                        <RadzenTextArea Style="width: 70%; height: 60px;" Disabled="false" 
+                            TValue="string" @bind-value=@PluItem.GoodsFullName />
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldGoodsDescription</td>
+                    <td>
+                        <RadzenButton Style="width: 30%; margin-right: 0.5%;" Disabled="false" Icon="autorenew" 
+                            Click=@(args => OnClickFieldsFill("GoodsDescription")) />
+                        <RadzenTextArea Style="width: 70%; height: 60px;" Disabled="false" 
+                            TValue="string" @bind-value=@PluItem.GoodsDescription />
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldPluDescription</td>
+                    <td>
+                        <RadzenTextBox Style="width: 60%; text-align: center;" Disabled="false" 
+                            TValue="string" @bind-Value=@PluItem.GoodsDescription />
+				    </td>
+                </tr>
+            </tbody>
+        </MudSimpleTable>
+        <PrinterResources Table=@Table PrinterId=@Id />
+        <ItemSave Table=@Table Id=@Id />
+        <ItemDates Table=@Table Id=@Id />
+    }
 }
 else
 {
-    <div class="col-sm-7 col-md-7 col-lg-7">
-        <RadzenLabel Style="width: 30%;" Text=@LocalizationStrings.DeviceControl.TableFieldLine />
-        @if (ScalesEntities == null)
-        {
-            <RadzenTextBox Style="width: 68%; height: 35px;" Disabled="true" TValue="string" Value="" />
-            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-        }
-        else
-        {
-            <RadzenDropDownDataGrid Style="width: 68%; height: 35px;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                    AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                                    Data=@ScalesEntities PageSize="5"
-                                    TextProperty="Description" ValueProperty="Id"
-                                    Value=@PluItem.Scale?.Id Disabled="true"
-                                    Change=@(args => OnChange(args, "Scale")) />
-        }
-        <br />
-        <RadzenLabel Style="width: 30%;" Text=@LocalizationStrings.DeviceControl.TableFieldTemplate />
-        @if (TemplatesEntities == null)
-        {
-            <RadzenTextBox Style="width: 68%; height: 35px;" Disabled="true" TValue="string" Value="" />
-            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-        }
-        else
-        {
-            <RadzenDropDownDataGrid Style="width: 68%; height: 35px;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                    AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                                    Data=@TemplatesEntities PageSize="5"
-                                    TextProperty="Title" ValueProperty="Id"
-                                    Value=@PluItem.Templates?.Id
-                                    Change=@(args => OnChange(args, "Templates")) />
-        }
-        <br />
-        <RadzenLabel Style="width: 30%;" Text=@LocalizationStrings.DeviceControl.TableFieldNomenclatureName />
-        @if (NomenclatureEntities == null)
-        {
-            <RadzenTextBox Style="width: 68%; height: 35px;" Disabled="true" TValue="string" Value="" />
-            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-        }
-        else
-        {
-            <RadzenDropDownDataGrid Style="width: 68%; height: 35px;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                    AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                                    Data=@NomenclatureEntities PageSize="5"
-                                    TextProperty="Name" ValueProperty="Id"
-                                    Value=@PluItem.Nomenclature?.Id
-                                    Change=@(args => OnChange(args, "Nomenclature")) />
-        }
-        <br />
-        <RadzenLabel Style="width: 30%;" Text=@LocalizationStrings.DeviceControl.TableFieldActive />
-        <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value=@PluItem.Active />
-        <br />
-        <RadzenLabel Style="width: 30%;" Text=@LocalizationStrings.DeviceControl.TableFieldUpperWeightThreshold />
-        <RadzenNumeric Style="width: 68%; text-align: center;" Disabled="false" TValue="decimal?" @bind-Value=@PluItem.UpperWeightThreshold />
-        <br />
-        <RadzenLabel Style="width: 30%;" Text=@LocalizationStrings.DeviceControl.TableFieldNominalWeight />
-        <RadzenNumeric Style="width: 68%; text-align: center;" Disabled="false" TValue="decimal?" @bind-Value=@PluItem.NominalWeight />
-        <br />
-        <RadzenLabel Style="width: 30%;" Text=@LocalizationStrings.DeviceControl.TableFieldLowerWeightThreshold />
-        <RadzenNumeric Style="width: 68%; text-align: center;" Disabled="false" TValue="decimal?" @bind-Value=@PluItem.LowerWeightThreshold />
-        <br />
-        <RadzenLabel Style="width: 30%;" Text=@LocalizationStrings.DeviceControl.TableFieldCheckWeight />
-        <RadzenCheckBox Disabled="false" TValue="bool?" @bind-Value=@PluItem.CheckWeight />
-        <br />
-    </div>
-    <div class="col-sm-5 col-md-5 col-lg-5">
-        <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldPlu />
-        <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="int" @bind-Value=@PluItem.Plu />
-        <br />
-        <RadzenLabel Style="width: 26.5%;" Text=@LocalizationStrings.DeviceControl.TableFieldShelfLifeDays />
-        <RadzenButton Style="width: 7%; margin-right: 1%;" Disabled="false" Icon="autorenew"
-                        Click=@(args => OnClickFieldsFill("GoodsShelfLifeDays")) />
-        <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="short" @bind-Value=@PluItem.GoodsShelfLifeDays />
-        <br />
-        <RadzenLabel Style="width: 26.5%;" Text=@LocalizationStrings.DeviceControl.TableFieldGoodsTareWeight />
-        <RadzenButton Style="width: 7%; margin-right: 1%;" Disabled="false" Icon="autorenew"
-                        Click=@(args => OnClickFieldsFill("GoodsTareWeight")) />
-        <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="decimal" @bind-Value=@PluItem.GoodsTareWeight />
-        <br />
-        <RadzenLabel Style="width: 26.5%;" Text=@LocalizationStrings.DeviceControl.TableFieldGoodsBoxQuantly />
-        <RadzenButton Style="width: 7%; margin-right: 1%;" Disabled="false" Icon="autorenew"
-                        Click=@(args => OnClickFieldsFill("GoodsBoxQuantly")) />
-        <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="int" @bind-Value=@PluItem.GoodsBoxQuantly />
-        <br />
-        <RadzenLabel Style="width: 26.5%;" Text=@LocalizationStrings.DeviceControl.TableFieldEan13 />
-        <RadzenButton Style="width: 7%; margin-right: 1%;" Disabled="false" Icon="autorenew"
-                        Click=@(args => OnClickFieldsFill("EAN13")) />
-        <RadzenTextBox Style="width: 50%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PluItem.Ean13 />
-        @if (PluItem?.Ean13 == null)
-        {
-            <RadzenLabel Style="width: 10.0%; text-align: center; " Text="0" />
-        }
-        else
-        {
-            <RadzenLabel Style="width: 10.0%; text-align: center; " Text=@PluItem.Ean13.Length.ToString() />
-        }
-        <br />
-        <RadzenLabel Style="width: 18.0%; margin-top: 20px;" Text=@LocalizationStrings.DeviceControl.TableFieldGtin />
-        <RadzenButton Style="width: 7%; margin-right: 0.75%;" Disabled="false" Icon="aspect_ratio"
-                        ButtonStyle="ButtonStyle.Secondary"
-                        Click=@(args => OnClickFieldsFill("getgtin")) />
-        <RadzenButton Style="width: 7%; margin-right: 0.75%;" Disabled="false" Icon="autorenew"
-                        Click=@(args => OnClickFieldsFill("GTIN")) />
-        <RadzenTextBox Style="width: 50%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PluItem.Gtin />
-        @if (PluItem?.Gtin == null)
-        {
-            <RadzenLabel Style="width: 10.0%; text-align: center; " Text="0" />
-        }
-        else
-        {
-            <RadzenLabel Style="width: 10.0%; text-align: center; " Text=@PluItem.Gtin.Length.ToString() />
-        }
-        <br />
-        <RadzenLabel Style="width: 26.5%;" Text=@LocalizationStrings.DeviceControl.TableFieldItf14 />
-        <RadzenButton Style="width: 7%; margin-right: 1%;" Disabled="false" Icon="autorenew"
-                        Click=@(args => OnClickFieldsFill("ITF14")) />
-        <RadzenTextBox Style="width: 50%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PluItem.Itf14 />
-        @if (PluItem?.Itf14 == null)
-        {
-            <RadzenLabel Style="width: 10.0%; text-align: center; " Text="0" />
-        }
-        else
-        {
-            <RadzenLabel Style="width: 10.0%; text-align: center; " Text=@PluItem.Itf14.Length.ToString() />
-        }
-        <br />
-        <RadzenButton Style="width: 48%; " Disabled="false" Icon="autorenew" Text=@LocalizationStrings.DeviceControl.TableActionFill
-                        Click=@(args => OnClickFieldsFill("Entity")) />
-        <RadzenButton Style="width: 48%; " Disabled="false" Icon="clear" Text=@LocalizationStrings.DeviceControl.TableActionClear
-                        Click=@(args => OnClickFieldsFill("Clear")) />
-        <br />
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px; border-color: grey; border-width: 1px; border-style: solid;">
-        <RadzenLabel Style="width: 13.5%;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
-        <RadzenButton Style="width: 3%; margin-right: 0.5%;" Disabled="false" Icon="autorenew" Click=@(args => OnClickFieldsFill("GoodsName")) />
-        <RadzenTextArea Style="width: 82%; height: 30px;" Disabled="false" TValue="string" @bind-value=@PluItem.GoodsName />
-        <br />
-        <RadzenLabel Style="width: 13.5%;" Text=@LocalizationStrings.DeviceControl.TableFieldGoodsFullName />
-        <RadzenButton Style="width: 3%; margin-right: 0.5%;" Disabled="false" Icon="autorenew" Click=@(args => OnClickFieldsFill("GoodsFullName")) />
-        <RadzenTextArea Style="width: 82%; height: 60px;" Disabled="false" TValue="string" @bind-value=@PluItem.GoodsFullName />
-        <br />
-        <RadzenLabel Style="width: 13.5%;" Text=@LocalizationStrings.DeviceControl.TableFieldGoodsDescription />
-        <RadzenButton Style="width: 3%; margin-right: 0.5%;" Disabled="false" Icon="autorenew" Click=@(args => OnClickFieldsFill("GoodsDescription")) />
-        <RadzenTextArea Style="width: 82%; height: 60px;" Disabled="false" TValue="string" @bind-value=@PluItem.GoodsDescription />
-        <br />
-        <RadzenLabel Style="width: 95%; text-align: center" Text=@LocalizationStrings.DeviceControl.TableFieldPluDescription />
-        <br />
-    </div>
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
 }

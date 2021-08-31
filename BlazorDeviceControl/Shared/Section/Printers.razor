@@ -22,16 +22,16 @@
             <RadzenGridColumn TItem="PrinterEntity" Property="Id" TextAlign="TextAlign.Center"
                                 Title=@LocalizationStrings.DeviceControl.TableFieldId
                                 Type="int" Width="7.5%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter
+            <RadzenGridColumn TItem="PrinterEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldPrinter
                                 Type="string" Width="17%" />
             <RadzenGridColumn TItem="PrinterEntity" Property="PrinterType.Name"
-                                Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterType
+                                Title=@LocalizationStrings.DeviceControl.TableFieldPrinterType
                                 Type="string" Width="16.5%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="Ip" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterIp
+            <RadzenGridColumn TItem="PrinterEntity" Property="Ip" Title=@LocalizationStrings.DeviceControl.TableFieldPrinterIp
                                 Type="string" Width="20%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="Port" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterPort
+            <RadzenGridColumn TItem="PrinterEntity" Property="Port" Title=@LocalizationStrings.DeviceControl.TableFieldPrinterPort
                                 Type="string" Width="20%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="Mac" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterMac
+            <RadzenGridColumn TItem="PrinterEntity" Property="Mac" Title=@LocalizationStrings.DeviceControl.TableFieldPrinterMac
                                 Type="string" Width="20%" />
         </Columns>
     </RadzenGrid>
@@ -41,7 +41,7 @@
     }
     else
     {
-        <SectionActions IsShowNew=true IsShowAdd=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
+        <SectionActions IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
     }
 }
 else

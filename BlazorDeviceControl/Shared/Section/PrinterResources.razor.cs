@@ -4,6 +4,7 @@
 using BlazorCore;
 using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
+using BlazorCore.Models;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
+                        Table = new TableScaleEntity(EnumTableScale.PrinterResources);
                         IdItem = null;
                         Items = null;
                         ItemsCount = 0;

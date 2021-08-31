@@ -22,7 +22,7 @@
             <RadzenGridColumn TItem="PrinterTypeEntity" Property="Id" TextAlign="TextAlign.Center"
                                 Title=@LocalizationStrings.DeviceControl.TableFieldId
                                 Type="int" Width="7.5%" />
-            <RadzenGridColumn TItem="PrinterTypeEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter
+            <RadzenGridColumn TItem="PrinterTypeEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldPrinter
                                 Type="string" Width="60%" />
         </Columns>
     </RadzenGrid>
@@ -32,7 +32,7 @@
     }
     else
     {
-        <SectionActions IsShowNew=true IsShowAdd=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
+        <SectionActions IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
     }
 }
 else

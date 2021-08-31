@@ -34,10 +34,9 @@ namespace BlazorCore.Models
         public IBaseEntity Item { get; private set; }
         public IBaseEntity ParentItem { get; private set; }
         [Parameter] public ITableEntity Table { get; set; }
-        [Parameter] public bool IsShowAdd { get; set; }
+        [Parameter] public bool IsShowNew { get; set; }
         [Parameter] public bool IsShowEdit { get; set; }
         [Parameter] public bool IsShowCopy { get; set; }
-        [Parameter] public bool IsShowNew { get; set; }
         [Parameter] public bool IsShowMark { get; set; }
         [Parameter] public bool IsShowDelete { get; set; }
         [Parameter] public int ItemsCount { get; set; }
@@ -201,50 +200,222 @@ namespace BlazorCore.Models
                 switch (tableScale.Value)
                 {
                     case EnumTableScale.BarcodeTypes:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idBarcodeType))
+                        {
+                            BarcodeTypeEntity barcodeTypeEntity = AppSettings.DataAccess.BarcodeTypesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idBarcodeType },
+                                }), null);
+                            SetItem(barcodeTypeEntity);
+                        }
                         break;
                     case EnumTableScale.Contragents:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idContragent))
+                        {
+                            ContragentEntity contragentEntity = AppSettings.DataAccess.ContragentsCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idContragent },
+                                }), null);
+                            SetItem(contragentEntity);
+                        }
                         break;
                     case EnumTableScale.Hosts:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idHost))
+                        {
+                            HostEntity hostEntity = AppSettings.DataAccess.HostsCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idHost },
+                                }), null);
+                            SetItem(hostEntity);
+                        }
                         break;
                     case EnumTableScale.Labels:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idLabel))
+                        {
+                            LabelEntity labelEntity = AppSettings.DataAccess.LabelsCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idLabel },
+                                }), null);
+                            SetItem(labelEntity);
+                        }
                         break;
                     case EnumTableScale.Nomenclatures:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idNomenclature))
+                        {
+                            NomenclatureEntity nomenclatureEntity = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idNomenclature },
+                                }), null);
+                            SetItem(nomenclatureEntity);
+                        }
                         break;
                     case EnumTableScale.OrderStatuses:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idOrderStatus))
+                        {
+                            OrderStatusEntity orderStatusEntity = AppSettings.DataAccess.OrderStatusesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idOrderStatus },
+                                }), null);
+                            SetItem(orderStatusEntity);
+                        }
                         break;
                     case EnumTableScale.OrderTypes:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idOrderType))
+                        {
+                            OrderTypeEntity orderTypeEntity = AppSettings.DataAccess.OrderTypesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idOrderType },
+                                }), null);
+                            SetItem(orderTypeEntity);
+                        }
                         break;
                     case EnumTableScale.Orders:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idOrder))
+                        {
+                            OrderEntity orderEntity = AppSettings.DataAccess.OrdersCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idOrder },
+                                }), null);
+                            SetItem(orderEntity);
+                        }
                         break;
                     case EnumTableScale.Plus:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idPlu))
+                        {
+                            PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idPlu },
+                                }), null);
+                            SetItem(pluEntity);
+                        }
                         break;
                     case EnumTableScale.Printers:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idPrinter))
+                        {
+                            PrinterEntity printerEntity = AppSettings.DataAccess.PrintersCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idPrinter },
+                                }), null);
+                            SetItem(printerEntity);
+                        }
                         break;
                     case EnumTableScale.PrinterResources:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idPrinterResource))
+                        {
+                            PrinterResourceEntity printerResourceEntity = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idPrinterResource },
+                                }), null);
+                            SetItem(printerResourceEntity);
+                        }
                         break;
                     case EnumTableScale.PrinterTypes:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idPrinterType))
+                        {
+                            PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idPrinterType },
+                                }), null);
+                            SetItem(printerTypeEntity);
+                        }
                         break;
                     case EnumTableScale.ProductSeries:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idProductSeries))
+                        {
+                            ProductSeriesEntity productSeriesEntity = AppSettings.DataAccess.ProductSeriesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idProductSeries },
+                                }), null);
+                            SetItem(productSeriesEntity);
+                        }
                         break;
                     case EnumTableScale.ProductionFacilities:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idProductionFacility))
+                        {
+                            ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idProductionFacility },
+                                }), null);
+                            SetItem(productionFacilityEntity);
+                        }
                         break;
                     case EnumTableScale.Scales:
-                        if (parameters.TryGetValue("Id", out int id))
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idScale))
                         {
                             ScaleEntity scaleEntity = AppSettings.DataAccess.ScalesCrud.GetEntity(
                                 new FieldListEntity(new Dictionary<string, object> {
-                                    { EnumField.Id.ToString(), id },
+                                    { EnumField.Id.ToString(), idScale },
                                 }), null);
                             SetItem(scaleEntity);
                         }
                         break;
                     case EnumTableScale.TemplateResources:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idTemplateResource))
+                        {
+                            TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idTemplateResource },
+                                }), null);
+                            SetItem(templateResourceEntity);
+                        }
                         break;
                     case EnumTableScale.Templates:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idTemplate))
+                        {
+                            TemplateEntity templateEntity = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idTemplate },
+                                }), null);
+                            SetItem(templateEntity);
+                        }
                         break;
                     case EnumTableScale.WeithingFacts:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idWeithingFact))
+                        {
+                            WeithingFactEntity weithingFactEntity = AppSettings.DataAccess.WeithingFactsCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idWeithingFact },
+                                }), null);
+                            SetItem(weithingFactEntity);
+                        }
                         break;
                     case EnumTableScale.Workshops:
+                        if (parameters.TryGetValue(EnumField.Id.ToString(), out int idWorkshop))
+                        {
+                            WorkshopEntity workshopEntity = AppSettings.DataAccess.WorkshopsCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Id.ToString(), idWorkshop },
+                                }), null);
+                            SetItem(workshopEntity);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (Table is TableSystemEntity tableSystem)
+            {
+                switch (tableSystem.Value)
+                {
+                    case EnumTableSystem.Accesses:
+                        if (parameters.TryGetValue(EnumField.Uid.ToString(), out Guid uidAccess))
+                        {
+                            AccessEntity accessEntity = AppSettings.DataAccess.AccessesCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Uid.ToString(), uidAccess },
+                                }), null);
+                            SetItem(accessEntity);
+                        }
+                        break;
+                    case EnumTableSystem.Logs:
+                        if (parameters.TryGetValue(EnumField.Uid.ToString(), out Guid uidLog))
+                        {
+                            LogEntity logEntity = AppSettings.DataAccess.LogsCrud.GetEntity(
+                                new FieldListEntity(new Dictionary<string, object> {
+                                    { EnumField.Uid.ToString(), uidLog },
+                                }), null);
+                            SetItem(logEntity);
+                        }
                         break;
                     default:
                         break;
@@ -492,6 +663,10 @@ namespace BlazorCore.Models
             {
                 page = LocalizationStrings.DeviceControl.UriRouteItemPrinterType;
             }
+            else if (Item is PluEntity)
+            {
+                page = LocalizationStrings.DeviceControl.UriRouteItemPlu;
+            }
             else if (Item is ScaleEntity)
             {
                 page = LocalizationStrings.DeviceControl.UriRouteItemScale;
@@ -675,7 +850,7 @@ namespace BlazorCore.Models
                         zebraPrinterResourceRefEntity.Printer = (PrinterEntity)parentItem;
                     }
 
-                    if (tableAction == EnumTableAction.Add)
+                    if (tableAction == EnumTableAction.New)
                     {
                         if (item is PluEntity pluEntity)
                         {
@@ -685,7 +860,7 @@ namespace BlazorCore.Models
 
                     switch (tableAction)
                     {
-                        case EnumTableAction.Add:
+                        case EnumTableAction.New:
                         case EnumTableAction.Edit:
                         case EnumTableAction.Copy:
                             if (AppSettings.IdentityItem.AccessLevel == true)
@@ -737,17 +912,19 @@ namespace BlazorCore.Models
                         }
                         switch (tableAction)
                         {
-                            case EnumTableAction.Add:
+                            case EnumTableAction.New:
                             case EnumTableAction.Edit:
                             case EnumTableAction.Copy:
                                 if (AppSettings.IdentityItem.AccessLevel == true)
                                 {
-                                    if (Table is TableScaleEntity tableScales)
+                                    if (Table is TableScaleEntity tableScale)
                                     {
-                                        switch (tableScales.Value)
+                                        switch (tableScale.Value)
                                         {
                                             case EnumTableScale.Scales:
+                                            case EnumTableScale.Plus:
                                             case EnumTableScale.Printers:
+                                            case EnumTableScale.PrinterTypes:
                                                 RouteItemNavigate(isNewWindow);
                                                 break;
                                         }
@@ -776,12 +953,6 @@ namespace BlazorCore.Models
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Action(EnumTableAction.New, isNewWindow);
-        }
-
-        public async Task ActionAddAsync(bool isNewWindow = false)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(EnumTableAction.Add, isNewWindow);
         }
 
         public async Task ActionEditAsync(bool isNewWindow = false)

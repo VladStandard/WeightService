@@ -11,52 +11,84 @@
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationStrings.DeviceControl.ItemPrinter SetParameters=@SetParametersAsync />
-    @if (PrinterItem == null)
+    @if (Item == null)
     {
         <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
     }
     else
     {
-        <div class="col-sm-6 col-md-6 col-lg-6">
-            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
-            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterItem.Name />
-            <br />
-            <RadzenLink Style="width: 12%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinter
-                    Target="_blank" Path=@PrinterItem.Link />
-            <RadzenLabel Style="width: 23.5%; margin-left: 2.3%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterIp />
-            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterItem.Ip />
-            <br />
-            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterPort />
-            <RadzenNumeric Style="width: 63%; text-align: center;" Disabled="false" TValue="short" @bind-Value=@PrinterItem.Port />
-            <br />
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6">
-            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterMac />
-            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterItem.Mac />
-            <br />
-            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterPassword />
-            <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterItem.Password />
-            <br />
-            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldZebraPrinterType />
-            @if (PrinterTypeItems == null)
-            {
-                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
-                <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-            }
-            else
-            {
-                <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                    AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                                    Data=@PrinterTypeItems PageSize="10"
-                                    TextProperty="Name" ValueProperty="Id"
-                                    Value=@PrinterItem.PrinterType?.Id
-                                    Change=@(args => OnChange(args, nameof(PrinterTypeEntity), PrinterItem)) />
-            }
-            <br />
-        </div>
-        <PrinterResources PrinterId=@Id />
-        <ItemSave Item=@PrinterItem />
-        <ItemDates Item=@PrinterItem />
+        <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+            <thead>
+                <tr>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordValue</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordValue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldName</td>
+                    <td>
+                        <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
+                            TValue="string" @bind-Value=@PrinterItem.Name />
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldPrinterMac</td>
+                    <td>
+                        <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
+                            TValue="string" @bind-Value=@PrinterItem.Mac />
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldPrinter</td>
+                    <td>
+                        <RadzenLink Style="width: 100%; text-align: center; margin-left: 5px; " Disabled="false" 
+                            TValue="string" Target="_blank" Path=@PrinterItem.Link 
+                            Text=@LocalizationStrings.DeviceControl.TableFieldPrinterControlPanel />
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldPrinterPort</td>
+                    <td>
+                        <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="false" 
+                            TValue="short" @bind-Value=@PrinterItem.Port />
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldPrinterPassword</td>
+                    <td>
+                        <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                            TValue="string" @bind-Value=@PrinterItem.Password />
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldPrinterIp</td>
+                    <td>
+                        <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                            TValue="string" @bind-Value=@PrinterItem.Ip />
+				    </td>
+                </tr>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldPrinterType</td>
+                    <td>
+                        @if (PrinterTypeItems == null)
+                        {
+                            <DataLoad DataLoadItem=EnumDataLoad.None IsShowProgress=true />
+                        }
+                        else
+                        {
+                            <RadzenDropDownDataGrid 
+                                Style="width: 100%;" TValue="int"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                Data=@PrinterTypeItems PageSize="10"
+                                TextProperty="Name" ValueProperty="Id"
+                                Value=@PrinterItem.PrinterType?.Id
+                                Change=@(args => OnChange(args, nameof(PrinterTypeEntity), PrinterItem)) />
+                        }
+				    </td>
+                </tr>
+            </tbody>
+        </MudSimpleTable>
+        <PrinterResources Table=@Table PrinterId=@Id />
+        <ItemSave Table=@Table Id=@Id />
+        <ItemDates Table=@Table Id=@Id />
     }
 }
 else

@@ -1,10 +1,10 @@
 -- Таблица Contragents
-select 
-	 [Id]
-	,[CreateDate]
-	,[ModifiedDate]
-	,[Name]
-	,[Marked]
-	,[SerializedRepresentationObject]
-from [db_scales].[Contragents]
-order by [Id]
+SELECT
+	[Id]
+   ,[CreateDate]
+   ,[ModifiedDate]
+   ,[Name]
+   ,[Marked]
+   ,[SerializedRepresentationObject]
+FROM [db_scales].[Contragents]
+ORDER BY [Name]

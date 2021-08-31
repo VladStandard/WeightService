@@ -1,8 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore;
+using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
 using BlazorCore.Models;
+using BlazorCore.Utils;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
 using BlazorInputFile;
@@ -18,11 +21,11 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private TemplateResourceEntity TemplateResourcesItem => IdItem is TemplateResourceEntity idItem ? idItem : null;
+        public TemplateResourceEntity TemplateResourcesItem { get => (TemplateResourceEntity)IdItem; set => SetItem(value); }
+        public List<TypeEntity<string>> ResourceTypes { get; set; }
         [Inject] private IFileUpload FileUpload { get; set; }
         [Inject] private IFileDownload FileDownload { get; set; }
         [Inject] private IBlazorDownloadFileService DownloadFileService { get; set; }
-        public List<TypeEntity<string>> ResourceTypes { get; set; }
         public string FileInfo { get; set; }
         public double FileProgress { get; set; }
         public string FileComplete { get; set; }
@@ -36,11 +39,20 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
+            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+                new List<Task> {
+                    new(async() => {
+                        Table = new TableScaleEntity(EnumTableScale.TemplateResources);
+                        TemplateResourcesItem = null;
+                        ResourceTypes = null;
+                        await GuiRefreshWithWaitAsync();
 
-            await GetDataAsync(new Task(delegate
-            {
-                ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
-            }), false).ConfigureAwait(false);
+                        TemplateResourcesItem = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                            { { EnumField.Id.ToString(), Id } }), null);
+                        ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
+                        await GuiRefreshWithWaitAsync();
+                    }),
+                }, true);
         }
 
         private void OnChange(object value, string name)

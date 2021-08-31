@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private PrinterResourceEntity PrinterResourceItem => IdItem is PrinterResourceEntity idItem ? idItem : null;
+        public PrinterResourceEntity PrinterResourceItem { get => (PrinterResourceEntity)IdItem; set => SetItem(value); }
         public List<PrinterEntity> PrinterItems { get; set; } = null;
         public List<TemplateResourceEntity> ResourceItems { get; set; } = null;
 
@@ -32,11 +32,13 @@ namespace BlazorDeviceControl.Shared.Item
                 new List<Task> {
                     new(async() => {
                         Table = new TableScaleEntity(EnumTableScale.Printers);
-                        IdItem = null;
+                        PrinterResourceItem = null;
                         PrinterItems = null;
                         ResourceItems = null;
                         await GuiRefreshWithWaitAsync();
 
+                        PrinterResourceItem = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                            { { EnumField.Id.ToString(), Id } }), null);
                         PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities(null, null).ToList();
                         ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(null, null).ToList();
                         await GuiRefreshWithWaitAsync();

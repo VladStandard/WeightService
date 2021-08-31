@@ -1,10 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore;
-using BlazorCore.DAL;
 using BlazorCore.DAL.TableModels;
-using BlazorCore.Models;
 using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -32,10 +29,16 @@ namespace BlazorDeviceControl.Shared.Component
             RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        if (Item is ScaleEntity scaleEntity)
+                        switch (Item)
                         {
-                            DtCreate = scaleEntity.CreateDate.ToString();
-                            DtModify = scaleEntity.ModifiedDate.ToString();
+                            case ScaleEntity scaleEntity:
+                                DtCreate = scaleEntity.CreateDate.ToString();
+                                DtModify = scaleEntity.ModifiedDate.ToString();
+                                break;
+                            case PrinterEntity printerEntity:
+                                DtCreate = printerEntity.CreateDate.ToString();
+                                DtModify = printerEntity.ModifiedDate.ToString();
+                            break;
                         }
                         await GuiRefreshWithWaitAsync();
                     }),

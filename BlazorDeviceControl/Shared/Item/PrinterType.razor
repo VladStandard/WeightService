@@ -1,15 +1,51 @@
 ﻿@page "/item/printertype"
 @page "/item/printertype/{Id:int}"
+@using BlazorCore
+@using BlazorCore.DAL.TableModels
 @using BlazorCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Section
 @inherits BlazorCore.Models.BaseRazorIdEntity
+@inject IDialogService DialogService
 
-<div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldId />
-    <RadzenNumeric Style="width: 63%; text-align: center" Disabled="true" TValue="int" @bind-Value=@PrinterTypeItem.Id />
-    <br />
-</div>
-<div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
-    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterTypeItem.Name />
-    <br />
-</div>
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <DataReload Title=@LocalizationStrings.DeviceControl.ItemPrinterType SetParameters=@SetParametersAsync />
+    @if (Item == null)
+    {
+        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+            <thead>
+                <tr>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordValue</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordValue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldId</td>
+                    <td>
+                        <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
+                            TValue="int" @bind-Value=@PrinterTypeItem.Id />
+				    </td>
+                    <td>@LocalizationStrings.DeviceControl.TableFieldName</td>
+                    <td>
+                        <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" 
+                            TValue="string" @bind-Value=@PrinterTypeItem.Name />
+				    </td>
+                </tr>
+            </tbody>
+        </MudSimpleTable>
+        <ItemSave Table=@Table Id=@Id />
+        <ItemDates Table=@Table Id=@Id />
+    }
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+}

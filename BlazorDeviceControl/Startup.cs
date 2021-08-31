@@ -33,7 +33,7 @@ namespace BlazorDeviceControl
             services.AddServerSideBlazor();
             // Inject.
             services.AddHotKeys();
-            services.AddSingleton<JsonAppSettingsEntity>();
+            services.AddSingleton<JsonSettingsEntity>();
             services.AddScoped<ContextMenuService>();
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();

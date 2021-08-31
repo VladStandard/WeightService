@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared
         #region Public and private fields and properties - Inject
 
         [Inject] public AuthenticationStateProvider AuthenticationState { get; private set; }
-        [Inject] public JsonAppSettingsEntity JsonAppSettings { get; private set; }
+        [Inject] public JsonSettingsEntity JsonAppSettings { get; private set; }
         [Inject] public HotKeys HotKeysItem { get; private set; }
 
         #endregion

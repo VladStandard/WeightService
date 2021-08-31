@@ -151,7 +151,7 @@ namespace BlazorCore.Utils
             public static string MemoryTitle => Lang == EnumLang.English ? @"Application memory manager" : @"Менеджер памяти приложения";
             public static string MemoryLimit => Lang == EnumLang.English ? @"Memory limit" : @"Лимит памяти";
             public static string MemoryLimitNotSet => Lang == EnumLang.English ? @"Memory limit not set!" : @"Лимит памяти не задан!";
-            public static string MemoryUsed => Lang == EnumLang.English ? @"Occupied memory" : @"Занимаемая память";
+            public static string MemoryUsed => Lang == EnumLang.English ? @"Memory" : @"Память";
             public static string MemoryPhysical => Lang == EnumLang.English ? @"Physical memory" : @"Физическая память";
             public static string MemoryVirtual => Lang == EnumLang.English ? @"Virtual memory" : @"Виртуальная память";
             public static string MemoryIsExecute => Lang == EnumLang.English ? @"Application memory manager at work." : @"Менеджер памяти приложения в работе.";
@@ -427,9 +427,9 @@ namespace BlazorCore.Utils
             public static string TableActionCancel => Lang == EnumLang.English ? @"Cancel" : @"Отмена";
             public static string TableActionClear => Lang == EnumLang.English ? @"Clear" : @"Очистить";
             public static string TableActionCopy => Lang == EnumLang.English ? @"Copy" : @"Копировать";
-            public static string TableActionDelete => Lang == EnumLang.English ? @"Delete" : @"Удалить навсегда";
+            public static string TableActionDelete => Lang == EnumLang.English ? @"Delete" : @"Удалить";
             public static string TableActionEdit => Lang == EnumLang.English ? @"Edit" : @"Редактировать";
-            public static string TableActionMark => Lang == EnumLang.English ? @"Mark" : @"Пом. на удаление";
+            public static string TableActionMark => Lang == EnumLang.English ? @"Mark" : @"Пометить";
             public static string TableActionNew => Lang == EnumLang.English ? @"New" : @"Новый";
             public static string TableActionFill => Lang == EnumLang.English ? @"Fill" : @"Заполнить";
             public static string TableActionSave => Lang == EnumLang.English ? @"Save" : @"Сохранить";
@@ -535,16 +535,17 @@ namespace BlazorCore.Utils
             public const string TableFieldWorkShopId = @"ID цеха";
             public const string TableFieldWorkShopName = @"Цех";
             public const string TableFieldXml = @"XML";
-            public const string TableFieldZebraPrinter = @"Принтер";
-            public const string TableFieldZebraPrinterDarknessLevel = @"Уровень темноты";
-            public const string TableFieldZebraPrinterIp = @"IP-адрес";
-            public const string TableFieldZebraPrinterMac = @"MAC-адрес";
-            public const string TableFieldZebraPrinterPassword = @"Пароль принтера";
-            public const string TableFieldZebraPrinterPeelOffSet = @"Смещение";
-            public const string TableFieldZebraPrinterPort = @"Порт принтера";
-            public const string TableFieldZebraPrinterType = @"Тип принтера";
-            public const string TableReadData = @"Прочитать данные";
-            public const string Table = @"Таблица";
+            public static string TableFieldPrinter => Lang == EnumLang.English ? @"Printer" : @"Принтер";
+            public static string TableFieldPrinterControlPanel => Lang == EnumLang.English ? @"Printer control panel" : @"Панель управления принтером";
+            public static string TableFieldPrinterDarknessLevel => Lang == EnumLang.English ? @"Level of darkness" : @"Уровень темноты";
+            public static string TableFieldPrinterIp => Lang == EnumLang.English ? @"IP-address" : @"IP-адрес";
+            public static string TableFieldPrinterMac => Lang == EnumLang.English ? @"MAC-address" : @"MAC-адрес";
+            public static string TableFieldPrinterPassword => Lang == EnumLang.English ? @"Printer password" : @"Пароль принтера";
+            public static string TableFieldPrinterPeelOffSet => Lang == EnumLang.English ? @"Offset" : @"Смещение";
+            public static string TableFieldPrinterPort => Lang == EnumLang.English ? @"Printer port" : @"Порт принтера";
+            public static string TableFieldPrinterType => Lang == EnumLang.English ? @"Printer type" : @"Тип принтера";
+            public static string TableReadData => Lang == EnumLang.English ? @"Read data" : @"Прочитать данные";
+            public static string Table => Lang == EnumLang.English ? @"Table" : @"Таблица";
             #endregion
         }
 

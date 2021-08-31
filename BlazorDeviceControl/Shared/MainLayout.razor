@@ -17,19 +17,19 @@
     {
         @if (AppSettings.IsSqlServerRelease)
         {
-            <div class="sidebar">
+            <div class="sidebarRelease">
                 <NavMenu />
             </div>
         }
         else if (AppSettings.IsSqlServerDebug)
         {
-            <div class="sidebar" style="background: Green">
+            <div class="sidebarDebug">
                 <NavMenu />
             </div>
         }
         else
         {
-            <div class="sidebar" style="background: Red">
+            <div class="sidebarUnknown">
                 <NavMenu />
             </div>
         }

@@ -26,7 +26,7 @@ namespace BlazorCore.Models
 
         public AppSettingsEntity() { }
 
-        public void Setup(AuthenticationStateProvider stateProvider, JsonAppSettingsEntity jsonAppSettings, HotKeys hotKeys,
+        public void Setup(AuthenticationStateProvider stateProvider, JsonSettingsEntity jsonAppSettings, HotKeys hotKeys,
             [CallerMemberName] string memberName = "")
         {
             lock (Locker)
@@ -71,7 +71,7 @@ namespace BlazorCore.Models
         public IdentityEntity IdentityItem { get; private set; }
         public DataAccessEntity DataAccess { get; private set; }
         public DataSourceEntity DataSource { get; private init; } = new();
-        public JsonAppSettingsEntity JsonAppSettings { get; private set; }
+        public JsonSettingsEntity JsonAppSettings { get; private set; }
         public HotKeys HotKeysItem { get; private set; }
         public HotKeysContext HotKeysContextItem { get; set; }
         public MemoryEntity Memory { get; set; }

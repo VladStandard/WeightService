@@ -19,7 +19,6 @@ namespace BlazorDeviceControl.Shared.Section
 
         private List<PrinterEntity> Items { get; set; }
         private List<TypeEntity<string>> TemplateCategories { get; set; }
-        private string TemplateCategory { get; set; }
 
         #endregion
 

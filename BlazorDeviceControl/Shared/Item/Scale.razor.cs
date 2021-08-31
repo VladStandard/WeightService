@@ -19,7 +19,6 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public ScaleEntity ScaleItem { get => (ScaleEntity)IdItem; set => SetItem(value); }
-
         public string PluTitle { get; set; }
         public PluEntity PluItem { get; set; }
         public List<PluEntity> PluItems { get; set; } = null;
@@ -41,7 +40,7 @@ namespace BlazorDeviceControl.Shared.Item
                 new List<Task> {
                     new(async() => {
                         Table = new TableScaleEntity(EnumTableScale.Scales);
-                        IdItem = null;
+                        ScaleItem = null;
                         ComPorts = null;
                         PluItems = null;
                         TemplatesDefaultItems = null;
@@ -51,7 +50,7 @@ namespace BlazorDeviceControl.Shared.Item
                         HostItems = null;
                         await GuiRefreshWithWaitAsync();
 
-                        IdItem = AppSettings.DataAccess.ScalesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object> {
+                        ScaleItem = AppSettings.DataAccess.ScalesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object> {
                             { EnumField.Id.ToString(), Id },
                         }), null);
                         // ComPorts

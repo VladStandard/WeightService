@@ -10,7 +10,7 @@
 </div>
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldProductionFacilityName />
-    @if (ProductionFacilityEntities == null)
+    @if (Item == null)
     {
         <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />

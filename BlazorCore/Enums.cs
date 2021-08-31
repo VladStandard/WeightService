@@ -48,7 +48,6 @@ namespace BlazorCore
     public enum EnumTableAction
     {
         New,
-        Add,
         Edit,
         Copy,
         Mark,

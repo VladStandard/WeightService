@@ -11,6 +11,15 @@
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
 }
+.sidebarRelease {
+    background-image: linear-gradient(90deg, blue 1%, blue);
+}
+.sidebarDebug {
+    background-image: linear-gradient(90deg, green 1%, green);
+}
+.sidebarUnknown {
+    background-image: linear-gradient(90deg, red 1%, red);
+}
 
 .top-row {
     background-color: #f7f7f7;

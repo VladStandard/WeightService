@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.450] - 2021-08-31
+### Changed
+- BlazorCore.Models.BaseRazorEntity
+
 ## [0.5.440] - 2021-08-23
 ### Changed
 - BlazorCore.Models.BaseRazorEntity
