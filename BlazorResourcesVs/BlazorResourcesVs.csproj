@@ -28,4 +28,9 @@
     <PackageReference Include="Radzen.Blazor" Version="3.8.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
+    <ProjectReference Include="..\DataCore\DataCore.csproj" />
+  </ItemGroup>
+
 </Project>

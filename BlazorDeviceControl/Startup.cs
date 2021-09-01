@@ -4,6 +4,7 @@
 using BlazorCore.Models;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
+using DataCore.Models;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

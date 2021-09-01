@@ -1,7 +1,8 @@
 ﻿@page "/component/datareload"
 @using BlazorCore
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@using DataCore
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorEntity
 
 <MudElement HtmlTag="h3" Class="ma-0">
     @Title
@@ -11,7 +12,7 @@
         ButtonStyle="ButtonStyle.Primary"
         Disabled=@AppSettings.DataAccess.IsDisabled 
         Click=@(args => SetParameters.InvokeAsync())
-        MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))"
+        MouseEnter="@(args => Tooltip.Open(args, LocalizationData.DeviceControl.TableReadData))"
     />
     @if (IsShowItemsCount)
     {

@@ -1,16 +1,17 @@
 ﻿@page "/section/printers"
 @using BlazorCore
-@using BlazorCore.DAL
-@using BlazorCore.DAL.DataModels
-@using BlazorCore.DAL.TableModels
-@using BlazorCore.Utils
+@using DataCore
+@using DataCore.DAL
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@inherits DataCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true 
+    <DataReload Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;"
         Data=@Items TItem="PrinterEntity"
@@ -20,18 +21,18 @@
         AllowPaging="true" PageSize=15 AllowSorting="true" ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn TItem="PrinterEntity" Property="Id" TextAlign="TextAlign.Center"
-                                Title=@LocalizationStrings.DeviceControl.TableFieldId
+                                Title=@LocalizationData.DeviceControl.TableFieldId
                                 Type="int" Width="7.5%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldPrinter
+            <RadzenGridColumn TItem="PrinterEntity" Property="Name" Title=@LocalizationData.DeviceControl.TableFieldPrinter
                                 Type="string" Width="17%" />
             <RadzenGridColumn TItem="PrinterEntity" Property="PrinterType.Name"
-                                Title=@LocalizationStrings.DeviceControl.TableFieldPrinterType
+                                Title=@LocalizationData.DeviceControl.TableFieldPrinterType
                                 Type="string" Width="16.5%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="Ip" Title=@LocalizationStrings.DeviceControl.TableFieldPrinterIp
+            <RadzenGridColumn TItem="PrinterEntity" Property="Ip" Title=@LocalizationData.DeviceControl.TableFieldPrinterIp
                                 Type="string" Width="20%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="Port" Title=@LocalizationStrings.DeviceControl.TableFieldPrinterPort
+            <RadzenGridColumn TItem="PrinterEntity" Property="Port" Title=@LocalizationData.DeviceControl.TableFieldPrinterPort
                                 Type="string" Width="20%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="Mac" Title=@LocalizationStrings.DeviceControl.TableFieldPrinterMac
+            <RadzenGridColumn TItem="PrinterEntity" Property="Mac" Title=@LocalizationData.DeviceControl.TableFieldPrinterMac
                                 Type="string" Width="20%" />
         </Columns>
     </RadzenGrid>
@@ -46,5 +47,5 @@
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
 }

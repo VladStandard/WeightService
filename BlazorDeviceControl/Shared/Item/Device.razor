@@ -1,11 +1,12 @@
 ﻿@page "/item/device"
 @page "/item/device/{Id:int}"
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@using DataCore
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorIdEntity
 
 <RadzenCard Style="margin-bottom: 0px;">
     <div class="row" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
-        <span Style="align-self: start; width: 15%; height: 25px; ">@LocalizationStrings.DeviceControl.TableActions</span>
+        <span Style="align-self: start; width: 15%; height: 25px; ">@LocalizationData.DeviceControl.TableActions</span>
         <RadzenTextBox Style="align-self: end; width: 85%; height: 25px; " Disabled=@AppSettings.DataAccess.IsDisabled TValue="string"
                        @bind-value=@DeviceItem.Scales.Description
                        Change=@(args => Change<string>(args, "Description")) />

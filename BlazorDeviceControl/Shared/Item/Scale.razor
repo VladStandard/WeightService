@@ -1,16 +1,17 @@
 ﻿@page "/item/scale"
 @page "/item/scale/{Id:int}"
 @using BlazorCore
-@using BlazorCore.DAL.TableModels
-@using BlazorCore.Utils
+@using DataCore
+@using DataCore.DAL.TableModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@inherits DataCore.Models.BaseRazorIdEntity
 @inject IDialogService DialogService
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.ItemScale SetParameters=@SetParametersAsync />
+    <DataReload Title=@LocalizationData.DeviceControl.ItemScale SetParameters=@SetParametersAsync />
     @if (Item == null)
     {
         <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
@@ -20,27 +21,27 @@
         <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
             <thead>
                 <tr>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordName</th>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordValue</th>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordName</th>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationStrings.Share.RecordValue</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.RecordValue</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.RecordValue</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldDescription</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldDescription</td>
                     <td>
                         <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
                             TValue="string" @bind-Value=@ScaleItem.Description />
 				    </td>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldDeviceSendTimeout</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldDeviceSendTimeout</td>
                     <td>
                         <RadzenNumeric Style="width: 100%; text-align: center; " Disabled="false" 
                             TValue="short?" @bind-Value=@ScaleItem.DeviceSendTimeout />
 				    </td>
                 </tr>
                 <tr>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldDeviceComPort</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldDeviceComPort</td>
                     <td>
                         @if (ComPorts == null)
                         {
@@ -54,14 +55,14 @@
                                 Value=@ScaleItem.DeviceComPort Change=@(args => OnChange(args, "DeviceComPort")) />
                         }
 				    </td>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldDeviceReceiveTimeout</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldDeviceReceiveTimeout</td>
                     <td>
                         <RadzenNumeric Style="width: 100%; text-align: center;" 
                             Disabled="false" TValue="short?" @bind-Value=@ScaleItem.DeviceReceiveTimeout />
 				    </td>
                 </tr>
                 <tr>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldPrinter</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldPrinter</td>
                     <td>
                         @if (PrinterItems == null)
                         {
@@ -77,7 +78,7 @@
                                 Change=@(args => OnChange(args, "Printers")) />
                         }
 				    </td>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldHost</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldHost</td>
                     <td>
                         @if (HostItems == null)
                         {
@@ -92,29 +93,29 @@
                                 Value=@ScaleItem.Host?.Id
                                 Change=@(args => OnChange(args, "Hosts"))>
                                 <Columns>
-                                    <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldName Width="30%" />
-                                    <RadzenDropDownDataGridColumn Property="IdRRef" Title=@LocalizationStrings.DeviceControl.TableFieldIdRRef Width="70%" />
+                                    <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="30%" />
+                                    <RadzenDropDownDataGridColumn Property="IdRRef" Title=@LocalizationData.DeviceControl.TableFieldIdRRef Width="70%" />
                                 </Columns>
                             </RadzenDropDownDataGrid>
                         }
 				    </td>
                 </tr>
                 <tr>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldDeviceNumber</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldDeviceNumber</td>
                     <td>
                         <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="false" 
                             TValue="int?" Name="fieldDeviceNumber" @bind-Value=@ScaleItem.DeviceNumber />
                         <RadzenNumericRangeValidator 
                             Component="fieldDeviceNumber" Min="0"
-                            Text=@LocalizationStrings.Share.InputControlMuchZero Popup=true Style="position: absolute;" />
+                            Text=@LocalizationCore.Strings.InputControlMuchZero Popup=true Style="position: absolute;" />
 				    </td>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldUseOrder</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldUseOrder</td>
                     <td>
                         <RadzenCheckBox Disabled="false" TValue="bool?" @bind-Value=@ScaleItem.UseOrder />
 				    </td>
                 </tr>
                 <tr>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldTemplateDefault</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldTemplateDefault</td>
                     <td>
                         @if (TemplatesDefaultItems == null)
                         {
@@ -130,7 +131,7 @@
                                 Change=@(args => OnChange(args, "TemplatesDefault")) />
                         }
 				    </td>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldTemplateSeries</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldTemplateSeries</td>
                     <td>
                         @if (TemplatesSeriesItems == null)
                         {
@@ -148,7 +149,7 @@
 				    </td>
                 </tr>
                 <tr>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldWorkShopName</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldWorkShopName</td>
                     <td>
                         @if (WorkshopItems == null)
                         {
@@ -164,7 +165,7 @@
                                 Change=@(args => OnChange(args, "WorkShops")) />
                         }
 				    </td>
-                    <td>@LocalizationStrings.DeviceControl.TableFieldScaleFactor</td>
+                    <td>@LocalizationData.DeviceControl.TableFieldScaleFactor</td>
                     <td>
                         <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="false" 
                             TValue="int?" @bind-Value=@ScaleItem.ScaleFactor />
@@ -179,5 +180,5 @@
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
 }

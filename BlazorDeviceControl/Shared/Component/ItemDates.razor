@@ -1,8 +1,9 @@
 ﻿@page "/component/itemdates"
 @using BlazorCore
-@using BlazorCore.DAL.TableModels
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@using DataCore.DAL.TableModels
+@using DataCore
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorEntity
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
@@ -13,11 +14,11 @@
         else
         {
             <RadzenLabel Style="margin-top: 3px; text-align: center; width: 24%; height: 25px; font-size: 14px; "
-                Text=@LocalizationStrings.DeviceControl.TableFieldCreateDt />
+                Text=@LocalizationData.DeviceControl.TableFieldCreateDt />
             <RadzenLabel Style="margin-top: 3px; text-align: left; width: 24%; height: 25px; font-size: 14px; "
                 Text=@DtCreate />
             <RadzenLabel Style="margin-top: 3px; text-align: center; width: 24%; height: 25px; font-size: 14px; "
-                Text=@LocalizationStrings.DeviceControl.TableFieldModifiedDate />
+                Text=@LocalizationData.DeviceControl.TableFieldModifiedDate />
             <RadzenLabel Style="margin-top: 3px; text-align: left; width: 24%; height: 25px; font-size: 14px; "
                 Text=@DtModify />
         }

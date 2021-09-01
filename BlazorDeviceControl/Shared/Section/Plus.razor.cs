@@ -2,10 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore;
-using BlazorCore.DAL;
-using BlazorCore.DAL.TableModels;
-using BlazorCore.Models;
-using BlazorCore.Utils;
+using DataCore.DAL;
+using DataCore.DAL.TableModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Section
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
                         Table = new TableScaleEntity(EnumTableScale.Plus);
@@ -38,7 +37,7 @@ namespace BlazorDeviceControl.Shared.Section
 
                         Items = AppSettings.DataAccess.PlusCrud.GetEntities(
                             new FieldListEntity(
-                                new Dictionary<string, object> { 
+                                new Dictionary<string, object> {
                                     { "Scale.Id", ScaleId },
                                     { EnumField.Marked.ToString(), false },
                             }),

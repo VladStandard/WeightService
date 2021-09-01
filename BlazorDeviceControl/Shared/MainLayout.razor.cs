@@ -1,8 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Models;
-using BlazorCore.Utils;
+using BlazorCore;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     //new Task(delegate {
                     new(() => {
@@ -36,7 +36,7 @@ namespace BlazorDeviceControl.Shared
                                 .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
                     }),
                 }, true);
-            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(() => {
                         AppSettings.MemoryOpen(GuiRefreshAsync);

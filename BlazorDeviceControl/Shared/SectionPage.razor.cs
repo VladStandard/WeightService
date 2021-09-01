@@ -3,7 +3,7 @@
 
 using BlazorCore;
 using BlazorCore.DAL;
-using BlazorCore.Models;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 

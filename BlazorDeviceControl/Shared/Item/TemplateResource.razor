@@ -1,29 +1,31 @@
 ﻿@page "/item/templateresource"
 @page "/item/templateresource/{Id:int}"
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@using BlazorCore
+@using DataCore
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorIdEntity
 
 <div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 27%;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
+    <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldName />
     <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@TemplateResourcesItem.Name />
     <br />
-    <RadzenLabel Style="width: 27%;" Text=@LocalizationStrings.DeviceControl.TableFieldDescription />
+    <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldDescription />
     <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@TemplateResourcesItem.Description />
     <br />
     <RadzenLabel Style="width: 97%;" Text=@FileInfo />
     <br />
     <RadzenLabel Style="width: 97%;" Text=@FileComplete />
     <br />
-    <RadzenLabel Style="width: 27%; " Text=@LocalizationStrings.Share.FileUpload />
+    <RadzenLabel Style="width: 27%; " Text=@LocalizationCore.Strings.FileUpload />
     <Microsoft.AspNetCore.Components.Forms.InputFile style="width: 50%; " OnChange=@OnFileUpload />
     <br />
-    <RadzenLabel Style="width: 27%; " Text=@LocalizationStrings.Share.FileDownload />
+    <RadzenLabel Style="width: 27%; " Text=@LocalizationCore.Strings.FileDownload />
     <RadzenButton Style="width: 50%; height: 30px; text-align: center; "
-                    Click=@OnFileDownload Text=@LocalizationStrings.Share.FileDownload />
+                    Click=@OnFileDownload Text=@LocalizationCore.Strings.FileDownload />
     <br />
 </div>
 <div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 27%;" Text=@LocalizationStrings.DeviceControl.TableFieldType />
+    <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldType />
     @if (ResourceTypes == null)
     {
         <RadzenTextBox Style="width: 70%;" Disabled="true" TValue="string" Value="" />
@@ -38,7 +40,7 @@
                         Value=@TemplateResourcesItem.Type Change=@(args => OnChange(args, "ResourceTypes")) />
     }
     <br />
-    <RadzenLabel Style="width: 27%;" Text=@LocalizationStrings.DeviceControl.TableFieldImageData />
+    <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldImageData />
     <RadzenTextBox Style="width: 70%; text-align: center;" ReadOnly="true" TValue="string" @bind-value=@TemplateResourcesItem.ImageDataInfo />
     <br />
 </div>

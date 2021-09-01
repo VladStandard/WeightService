@@ -1,12 +1,13 @@
 ﻿@page "/item/contragent"
 @page "/item/contragent/{Id:int}"
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@using DataCore
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorIdEntity
 
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
         <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
-        <RadzenLabel Style="width: 20%; height: 35px;" Text=@LocalizationStrings.DeviceControl.TableFieldName />
+        <RadzenLabel Style="width: 20%; height: 35px;" Text=@LocalizationData.DeviceControl.TableFieldName />
         <RadzenTextBox Style="height: 35px; width: 77%;" Disabled="false" TValue="string"
                        @bind-value=@ContragentItem.Name />
         <br />
@@ -14,7 +15,7 @@
     <br />
     <div class="col-sm-6 col-md-6 col-lg-6">
         <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
-        <RadzenLabel Style="width: 20%; height: 25px;" Text=@LocalizationStrings.DeviceControl.TableFieldMarked />
+        <RadzenLabel Style="width: 20%; height: 25px;" Text=@LocalizationData.DeviceControl.TableFieldMarked />
         <RadzenCheckBox Style="height: 35px; " Disabled="false" TValue="bool"
                         @bind-Value=@ContragentItem.MarkedGui />
         <br />

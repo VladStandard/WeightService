@@ -1,12 +1,13 @@
 ﻿@page "/item/printerresource"
 @page "/item/printerresource/{Id:int}"
 @using System.Globalization
-@using BlazorCore.DAL.TableModels
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@using DataCore
+@using DataCore.DAL.TableModels
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorIdEntity
 
 <div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldPrinter />
+    <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldPrinter />
     @if (PrinterItems == null)
     {
         <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
@@ -22,12 +23,12 @@
                                 Change=@(args => OnChange(args, nameof(PrinterEntity))) />
     }
     <br />
-    <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldDescription />
+    <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldDescription />
     <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterResourceItem.Description />
     <br />
 </div>
 <div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.DeviceControl.TableFieldResource />
+    <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldResource />
     @if (ResourceItems == null)
     {
         <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />

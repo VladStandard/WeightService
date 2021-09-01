@@ -1,16 +1,17 @@
 ﻿@page "/section/templates"
 @using BlazorCore
-@using BlazorCore.DAL
-@using BlazorCore.DAL.DataModels
-@using BlazorCore.DAL.TableModels
-@using BlazorCore.Utils
+@using DataCore
+@using DataCore.DAL
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@inherits DataCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionTemplates SetParameters=@SetParametersAsync IsShowItemsCount=true 
+    <DataReload Title=@LocalizationData.DeviceControl.SectionTemplates SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;"
         Data=@Items TItem="TemplateEntity"
@@ -21,13 +22,13 @@
         <Columns>
             <RadzenGridColumn 
                 TItem="TemplateEntity" Property="Id" TextAlign="TextAlign.Center"
-                Title=@LocalizationStrings.DeviceControl.TableFieldId Width="7.5%" />
+                Title=@LocalizationData.DeviceControl.TableFieldId Width="7.5%" />
             <RadzenGridColumn 
                 TItem="TemplateEntity" Property="CategoryId" TextAlign="TextAlign.Center"
-                Title=@LocalizationStrings.DeviceControl.TableFieldCategoryName Width="10%" />
+                Title=@LocalizationData.DeviceControl.TableFieldCategoryName Width="10%" />
             <RadzenGridColumn 
                 TItem="TemplateEntity" Property="Title" 
-                Title=@LocalizationStrings.DeviceControl.TableFieldTitle Width="82.5%" />
+                Title=@LocalizationData.DeviceControl.TableFieldTitle Width="82.5%" />
         </Columns>
     </RadzenGrid>
     @if (Items == null)
@@ -41,5 +42,5 @@
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
 }

@@ -31,7 +31,7 @@ namespace BlazorCore.DAL
         {
             return bytes == null ? "Объём данных: 0 байт" :
                 Encoding.Default.GetString(bytes).Length > 1024
-                    ? $"Объём данных: {(float)(Encoding.Default.GetString(bytes).Length) / 1024:### ###.###} Кбайт"
+                    ? $"Объём данных: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} Кбайт"
                     : $"Объём данных: {Encoding.Default.GetString(bytes).Length:### ###} байт";
         }
 
@@ -44,7 +44,7 @@ namespace BlazorCore.DAL
 
         public virtual async Task<byte[]> GetBytes(Stream stream, bool useBase64)
         {
-            MemoryStream memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new();
             await stream.CopyToAsync(memoryStream);
 
             if (useBase64)
@@ -58,7 +58,7 @@ namespace BlazorCore.DAL
         public virtual Image GetImage(byte[] bytes, bool useBase64)
         {
 
-            MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length);
+            MemoryStream ms = new(bytes, 0, bytes.Length);
             ms.Write(useBase64 ? Convert.FromBase64String(bytes.ToString()) : bytes, 0, bytes.Length);
             return Image.FromStream(ms, true);
         }

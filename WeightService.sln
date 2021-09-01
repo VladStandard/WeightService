@@ -185,6 +185,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalesUITests", "ScalesUITe
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DbScales", "DbScales\DbScales.sqlproj", "{11AABCF9-7C81-4A30-9889-E7EF0DBFD533}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCore", "DataCore\DataCore.csproj", "{017E4D8E-7361-4A72-A08B-EBEE787D3504}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -708,6 +710,24 @@ Global
 		{11AABCF9-7C81-4A30-9889-E7EF0DBFD533}.Release|x86.ActiveCfg = Release|Any CPU
 		{11AABCF9-7C81-4A30-9889-E7EF0DBFD533}.Release|x86.Build.0 = Release|Any CPU
 		{11AABCF9-7C81-4A30-9889-E7EF0DBFD533}.Release|x86.Deploy.0 = Release|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Debug|x64.Build.0 = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Debug|x86.Build.0 = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Dev|x64.ActiveCfg = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Dev|x64.Build.0 = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Dev|x86.ActiveCfg = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Dev|x86.Build.0 = Debug|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Release|x64.ActiveCfg = Release|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Release|x64.Build.0 = Release|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Release|x86.ActiveCfg = Release|Any CPU
+		{017E4D8E-7361-4A72-A08B-EBEE787D3504}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -724,7 +744,7 @@ Global
 		{6244AF63-32F6-44CD-B2F0-5FED7B98E55F} = {91A97E4B-FC8E-44C1-B0BF-4F91EE4BAE27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

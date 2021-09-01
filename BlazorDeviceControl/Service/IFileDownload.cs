@@ -3,7 +3,7 @@
 
 using System.Threading.Tasks;
 using BlazorDownloadFile;
-using BlazorCore.DAL.TableModels;
+using DataCore.DAL.TableModels;
 
 namespace BlazorDeviceControl.Service
 {

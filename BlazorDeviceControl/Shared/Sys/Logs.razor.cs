@@ -3,8 +3,8 @@
 
 using BlazorCore;
 using BlazorCore.DAL.DataModels;
-using BlazorCore.Models;
-using BlazorCore.Utils;
+using DataCore.Models;
+using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace BlazorDeviceControl.Shared.Sys
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
                         Table = new TableSystemEntity(EnumTableSystem.Logs);

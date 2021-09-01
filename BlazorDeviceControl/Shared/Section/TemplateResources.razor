@@ -1,16 +1,17 @@
 ﻿@page "/section/templateresources"
 @using BlazorCore
-@using BlazorCore.DAL
-@using BlazorCore.DAL.DataModels
-@using BlazorCore.DAL.TableModels
-@using BlazorCore.Utils
+@using DataCore
+@using DataCore.DAL
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@inherits DataCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true 
+    <DataReload Title=@LocalizationData.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@Items TItem="TemplateResourceEntity"
@@ -21,23 +22,23 @@
         <Columns >
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Id" TextAlign="TextAlign.Center"
-                Title=@LocalizationStrings.DeviceControl.TableFieldId 
+                Title=@LocalizationData.DeviceControl.TableFieldId 
                 Type="int" Width="7.5%" />
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Type" TextAlign="TextAlign.Center"
-                Title=@LocalizationStrings.DeviceControl.TableFieldType 
+                Title=@LocalizationData.DeviceControl.TableFieldType 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Name"
-                Title=@LocalizationStrings.DeviceControl.TableFieldName 
+                Title=@LocalizationData.DeviceControl.TableFieldName 
                 Type="string" Width="30%" />
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Description"
-                Title=@LocalizationStrings.DeviceControl.TableFieldDescription 
+                Title=@LocalizationData.DeviceControl.TableFieldDescription 
                 Type="string" Width="28%" />
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="ImageDataInfo"
-                Title=@LocalizationStrings.DeviceControl.TableFieldImageDataInfo 
+                Title=@LocalizationData.DeviceControl.TableFieldImageDataInfo 
                 Type="string" Width="22.5%" />
         </Columns>
     </RadzenGrid>
@@ -52,5 +53,5 @@
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
 }

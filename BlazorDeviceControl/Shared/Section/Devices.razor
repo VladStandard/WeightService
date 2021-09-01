@@ -1,17 +1,19 @@
 ﻿@page "/section/devices"
-@using BlazorCore.DAL.DataModels
-@using BlazorCore.Utils
+@using BlazorCore
+@using DataCore
+@using DataCore.DAL.DataModels
+@using DataCore.Utils
 @using Microsoft.VisualBasic.CompilerServices
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@inherits DataCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
     <h2>
-        @LocalizationStrings.DeviceControl.DevicesTitle
+        @LocalizationData.DeviceControl.DevicesTitle
             <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
                           ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
                           class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
-                          MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
+                          MouseEnter="@(args => Tooltip.Open(args, LocalizationData.DeviceControl.TableReadData))" />
     </h2>
 
     <br style="margin-top: 50px" />
@@ -20,13 +22,13 @@
                     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
                     AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
             <Columns>
-                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Description" Title=@LocalizationStrings.DeviceControl.TableFieldName
+                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Description" Title=@LocalizationData.DeviceControl.TableFieldName
                                   Type="string" Width="20%" />
-                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Id" Title=@LocalizationStrings.DeviceControl.TableFieldId
+                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Id" Title=@LocalizationData.DeviceControl.TableFieldId
                                   Type="System.Guid" Width="10%" />
-                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Storage" Title=@LocalizationStrings.DeviceControl.TableFieldStorage
+                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Storage" Title=@LocalizationData.DeviceControl.TableFieldStorage
                                   Type="string" Width="35%" />
-                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.State" Title=@LocalizationStrings.DeviceControl.TableFieldState
+                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.State" Title=@LocalizationData.DeviceControl.TableFieldState
                                   Type="bool" Width="35%" />
             </Columns>
         </RadzenGrid>
@@ -34,5 +36,5 @@
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationCore.Strings.MenuAccessDeny></RadzenLabel>
 }

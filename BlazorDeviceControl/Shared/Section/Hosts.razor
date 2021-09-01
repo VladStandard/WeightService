@@ -1,17 +1,18 @@
 ﻿@page "/section/hosts"
 @using BlazorCore
-@using BlazorCore.DAL
-@using BlazorCore.DAL.DataModels
-@using BlazorCore.DAL.TableModels
-@using BlazorCore.DAL.TableSystemModels
-@using BlazorCore.Utils
+@using DataCore
+@using DataCore.DAL
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableModels
+@using DataCore.DAL.TableSystemModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@inherits DataCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.DeviceControl.SectionHosts SetParameters=@SetParametersAsync IsShowItemsCount=true 
+    <DataReload Title=@LocalizationData.DeviceControl.SectionHosts SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;"
         Data=@Items TItem="HostEntity"
@@ -22,19 +23,19 @@
         <Columns>
             <RadzenGridColumn 
                 TItem="HostEntity" Property="Id" TextAlign="TextAlign.Center"
-                Title=@LocalizationStrings.DeviceControl.TableFieldId
+                Title=@LocalizationData.DeviceControl.TableFieldId
                 Type="int" Width="7.5%" />
             <RadzenGridColumn 
-                TItem="HostEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldName
+                TItem="HostEntity" Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName
                 Type="string" Width="20%" />
             <RadzenGridColumn 
-                TItem="HostEntity" Property="Ip" Title=@LocalizationStrings.DeviceControl.TableFieldDeviceIp
+                TItem="HostEntity" Property="Ip" Title=@LocalizationData.DeviceControl.TableFieldDeviceIp
                 Type="string" Width="20%" />
             <RadzenGridColumn 
-                TItem="HostEntity" Property="IdRRef" Title=@LocalizationStrings.DeviceControl.TableFieldIdRref
+                TItem="HostEntity" Property="IdRRef" Title=@LocalizationData.DeviceControl.TableFieldIdRref
                 Type="string" Width="20%" />
             <RadzenGridColumn 
-                TItem="HostEntity" Property="Mac" Title=@LocalizationStrings.DeviceControl.TableFieldDeviceMac
+                TItem="HostEntity" Property="Mac" Title=@LocalizationData.DeviceControl.TableFieldDeviceMac
                 Type="string" Width="20%" />
         </Columns>
     </RadzenGrid>
@@ -49,5 +50,5 @@
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
 }

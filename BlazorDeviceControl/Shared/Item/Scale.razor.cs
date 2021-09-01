@@ -2,11 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore;
-using BlazorCore.DAL;
-using BlazorCore.DAL.TableModels;
-using BlazorCore.DAL.TableSystemModels;
 using BlazorCore.Models;
-using BlazorCore.Utils;
+using DataCore;
+using DataCore.DAL;
+using DataCore.DAL.TableModels;
+using DataCore.DAL.TableSystemModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
                         Table = new TableScaleEntity(EnumTableScale.Scales);
@@ -62,12 +63,12 @@ namespace BlazorDeviceControl.Shared.Item
                         // ScaleFactor
                         ScaleItem.ScaleFactor ??= 1000;
                         // PLU.
-                        PluTitle = $"{LocalizationStrings.DeviceControl.SectionPlus}  [{LocalizationStrings.Share.DataLoading}]";
+                        PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{LocalizationCore.Strings.DataLoading}]";
                         PluItems = AppSettings.DataAccess.PlusCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
                             { EnumField.Marked.ToString(), false },
                             { "Scale.Id", ScaleItem.Id },
                         }), new FieldOrderEntity(EnumField.Plu, EnumOrderDirection.Asc)).ToList();
-                        PluTitle = $"{LocalizationStrings.DeviceControl.SectionPlus}  [{PluItems.Count} {LocalizationStrings.DeviceControl.DataRecords}]";
+                        PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{PluItems.Count} {LocalizationData.DeviceControl.DataRecords}]";
                         // Other.
                         TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),

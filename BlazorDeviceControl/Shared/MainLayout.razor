@@ -1,7 +1,8 @@
 ﻿@using BlazorCore
-@using BlazorCore.Utils
+@using DataCore
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@inherits DataCore.Models.BaseRazorIdEntity
 
 <RadzenDialog />
 <MudThemeProvider/>
@@ -52,9 +53,9 @@
                     <RadzenLabel Text=@AppSettings.MemoryInfo Style="text-align: center; margin-left: 50px; height: 10px;" />
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2">
-                    <MudLink Icon="email" Typo="Typo.subtitle1" Href=@LocalizationStrings.DeviceControl.CallbackEmail 
+                    <MudLink Icon="email" Typo="Typo.subtitle1" Href=@LocalizationData.DeviceControl.CallbackEmail 
                         Style="text-align: right" rel="noopener noreferrer"
-                        >@LocalizationStrings.Share.CallbackTitle </MudLink>
+                        >@LocalizationCore.Strings.CallbackTitle </MudLink>
                 </div>
             </div>
             <div class="content px-4">

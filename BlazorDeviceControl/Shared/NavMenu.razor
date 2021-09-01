@@ -1,4 +1,6 @@
-﻿@using BlazorCore.Utils
+﻿@using BlazorCore
+@using BlazorCore.Utils
+@using DataCore
 @using Microsoft.VisualBasic.CompilerServices
 
 <div class="top-row pl-4 navbar navbar-dark">
@@ -11,73 +13,73 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.Share.UriRouteSystemInfo>
-                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationStrings.Share.MenuInfo
+            <NavLink class="nav-link" href=@LocalizationCore.Strings.UriRouteSystemInfo>
+                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.MenuInfo
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.Share.UriRouteSystemLogs>
-                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationStrings.Share.SysLogs
+            <NavLink class="nav-link" href=@LocalizationCore.Strings.UriRouteSystemLogs>
+                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.SysLogs
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.Share.UriRouteSystemAccess>
-                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationStrings.Share.SysAccess
+            <NavLink class="nav-link" href=@LocalizationCore.Strings.UriRouteSystemAccess>
+                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.SysAccess
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionScales>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionScales
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionScales>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionScales
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionPrinters>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionPrinters
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionPrinters>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionPrinters
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionPrinterTypes>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionPrinterTypes
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionPrinterTypes>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionPrinterTypes
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionHosts>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionHosts
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionHosts>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionHosts
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionTemplates>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionTemplates
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionTemplates>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionTemplates
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionTemplateResources>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionTemplateResources
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionTemplateResources>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionTemplateResources
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionProductionFacilities>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionProductionFacilities
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionProductionFacilities>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionProductionFacilities
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionWorkshops>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionWorkshops
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionWorkshops>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionWorkshops
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionWeithingFacts>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionWeithingFacts
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionWeithingFacts>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionWeithingFacts
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionBarCodeTypes>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionBarCodeTypes
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionBarCodeTypes>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionBarCodeTypes
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationStrings.DeviceControl.UriRouteSectionNomenclatures>
-                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.DeviceControl.SectionNomenclatures
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSectionNomenclatures>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionNomenclatures
             </NavLink>
         </li>
     </ul>

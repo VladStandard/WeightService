@@ -1,4 +1,5 @@
-﻿@using BlazorCore.Utils
+﻿@using BlazorCore
+@using BlazorCore.Utils
 
 <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
@@ -7,7 +8,7 @@
         </Found>
         <NotFound>
             <LayoutView Layout="@typeof(Shared.MainLayout)">
-                <MudElement HtmlTag="h3" Class="ma-0">@LocalizationStrings.Share.PageError</MudElement>
+                <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.PageError</MudElement>
             </LayoutView>
         </NotFound>
     </Router>

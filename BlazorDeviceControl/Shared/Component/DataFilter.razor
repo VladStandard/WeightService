@@ -1,7 +1,8 @@
 ﻿@page "/component/datafilter"
 @using BlazorCore
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@using DataCore
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorEntity
 
 <MudElement HtmlTag="h3" Class="ma-0">
     @if (Items == null)
@@ -10,7 +11,7 @@
     }
     else
     {
-        <RadzenLabel Style="" TValue="string" Text=@LocalizationStrings.DeviceControl.TableFieldCategoryName />
+        <RadzenLabel Style="" TValue="string" Text=@LocalizationData.DeviceControl.TableFieldCategoryName />
         <RadzenDropDown Style="margin-left: 10px; margin-top: -10px; width: 200px;"
                         TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"

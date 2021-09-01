@@ -1,8 +1,9 @@
 ﻿@page "/component/itemsave"
 @using BlazorCore
-@using BlazorCore.DAL.TableModels
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@using DataCore
+@using DataCore.DAL.TableModels
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorEntity
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
@@ -15,12 +16,12 @@
             <RadzenButton Click=@(args => ItemSaveAsync(true, false)) 
                 ButtonStyle="ButtonStyle.Primary"
                 Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
-                Text=@LocalizationStrings.DeviceControl.TableActionSave 
+                Text=@LocalizationData.DeviceControl.TableActionSave 
             />
             <RadzenButton Click=@(args => ItemCancelAsync(false))
                 ButtonStyle="ButtonStyle.Secondary"
                 Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
-                Text=@LocalizationStrings.DeviceControl.TableActionCancel 
+                Text=@LocalizationData.DeviceControl.TableActionCancel 
             />
         }
     </div>

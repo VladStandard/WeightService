@@ -1,18 +1,19 @@
 ﻿@page "/item/template"
 @page "/item/template/{Id:int}"
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@using DataCore
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorIdEntity
 
 <div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 27%;" Text=@LocalizationStrings.DeviceControl.TableFieldTitle />
+    <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldTitle />
     <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@TemplateItem.Title />
     <br />
-    <RadzenLabel Style="width: 27%; " Text=@LocalizationStrings.DeviceControl.TableFieldImageData />
+    <RadzenLabel Style="width: 27%; " Text=@LocalizationData.DeviceControl.TableFieldImageData />
     <br />
 </div>
 <br />
 <div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 27%;" Text=@LocalizationStrings.DeviceControl.TableFieldCategoryName />
+    <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldCategoryName />
     @if (TemplateCategories == null)
     {
         <RadzenTextBox Style="width: 70%;" Disabled="true" TValue="string" Value="" />

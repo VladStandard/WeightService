@@ -2,9 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore;
-using BlazorCore.DAL.DataModels;
-using BlazorCore.Models;
-using BlazorCore.Utils;
+using DataCore.DAL.DataModels;
+using DataCore.Models;
+using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace BlazorDeviceControl.Shared.Section
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
                         Table = new TableScaleEntity(EnumTableScale.WeithingFacts);

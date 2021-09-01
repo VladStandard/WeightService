@@ -3,9 +3,9 @@
 
 using BlazorCore;
 using BlazorCore.DAL;
-using BlazorCore.DAL.TableModels;
-using BlazorCore.Models;
-using BlazorCore.Utils;
+using DataCore.DAL;
+using DataCore.DAL.TableModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -30,7 +30,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
                         Table = new TableScaleEntity(EnumTableScale.Printers);
@@ -45,7 +45,7 @@ namespace BlazorDeviceControl.Shared.Item
                     }),
                 }, true);
         }
-        
+
         private async Task RowSelectAsync(BaseIdEntity entity,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {

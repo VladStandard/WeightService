@@ -3,7 +3,6 @@
 
 using BlazorCore;
 using BlazorCore.Models;
-using BlazorCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,9 +13,9 @@ namespace BlazorDeviceControl.Shared.Sys
     {
         #region Public and private fields and properties
 
-        public string ProgramVer => LocalizationStrings.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
-        public string CoreVer => LocalizationStrings.GetCoreVersion();
-        public string IsDebug => $@"{LocalizationStrings.Share.IsEnableHe(AppSettings.IsDebug)}";
+        public string ProgramVer => LocalizationCore.Methods.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
+        public string CoreVer => LocalizationCore.Methods.GetCoreVersion();
+        public string IsDebug => $@"{LocalizationCore.Strings.IsEnableHe(AppSettings.IsDebug)}";
         public List<TypeEntity<EnumLang>> TemplateLanguages { get; set; }
         public List<TypeEntity<bool>> TemplateIsDebug { get; set; }
 
@@ -27,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Sys
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocalizationStrings.DeviceControl.Method} {nameof(SetParametersAsync)}", "", LocalizationStrings.Share.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
             new List<Task> {
                 new(async() => {
                     TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
@@ -74,7 +73,7 @@ namespace BlazorDeviceControl.Shared.Sys
                 case nameof(TemplateLanguages):
                     if (value is EnumLang lang)
                     {
-                        LocalizationStrings.Lang = lang;
+                        LocalizationCore.Lang = lang;
                     }
                     TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
                     break;

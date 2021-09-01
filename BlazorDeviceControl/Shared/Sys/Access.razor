@@ -1,17 +1,18 @@
 ﻿@page "/system/access"
 @using BlazorCore
-@using BlazorCore.DAL.DataModels
-@using BlazorCore.DAL.TableModels
-@using BlazorCore.DAL.TableSystemModels
-@using BlazorCore.Utils
+@using DataCore
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableModels
+@using DataCore.DAL.TableSystemModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
-@inherits BlazorCore.Models.BaseRazorUidEntity
+@inherits DataCore.Models.BaseRazorUidEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationStrings.Share.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true 
+    <DataReload Title=@BlazorCore.LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px; "
         Data=@Items TItem="AccessEntity"
@@ -21,7 +22,7 @@
         <Columns >
             <RadzenGridColumn 
                 TItem="AccessEntity" TextAlign="TextAlign.Center"
-                Title=@LocalizationStrings.DeviceControl.TableFieldCreateDt Type="date" Width="13%">
+                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="13%">
                 <Template Context="logItem">
                     <RadzenDatePicker 
                         Style="height: 80%; width=80%; " 
@@ -29,15 +30,15 @@
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
-                                Title=@LocalizationStrings.DeviceControl.TableFieldChangeDt Type="date" Width="13%">
+                                Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="13%">
                 <Template Context="logItem">
                     <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
-                                Title=@LocalizationStrings.DeviceControl.TableFieldUser Type="string" Width="40%" />
+                                Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="40%" />
             <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
-                                Title=@LocalizationStrings.DeviceControl.TableFieldAccessLevel Type="string" Width="34%">
+                                Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="34%">
                 <Template Context="accessItem">
                     @if (accessItem.Level == null)
                     {
@@ -66,5 +67,5 @@
 }
 else
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.SectionAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@BlazorCore.LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
 }

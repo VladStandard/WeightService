@@ -1,7 +1,7 @@
 ﻿@page "/component/dataload"
 @using BlazorCore
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorEntity
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorEntity
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
@@ -22,19 +22,19 @@
                 case EnumDataLoad.Loading:
                     <RadzenLabel 
                         Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
-                        Text=@LocalizationStrings.Share.DataLoading 
+                        Text=@LocalizationCore.Strings.DataLoading 
                     />
                     break;
                 case EnumDataLoad.Success:
                     <RadzenLabel 
                         Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
-                        Text=@LocalizationStrings.Share.DataLoadComplete 
+                        Text=@LocalizationCore.Strings.DataLoadComplete 
                     />
                     break;
                 case EnumDataLoad.Error:
                     <RadzenLabel 
                         Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
-                        Text=@LocalizationStrings.Share.DataLoadError 
+                        Text=@LocalizationCore.Strings.DataLoadError 
                     />
                     break;
             }

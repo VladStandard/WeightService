@@ -5,8 +5,8 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using BlazorInputFile;
-using BlazorCore.DAL;
-using BlazorCore.DAL.TableModels;
+using DataCore.DAL;
+using DataCore.DAL.TableModels;
 using Microsoft.AspNetCore.Hosting;
 
 namespace BlazorDeviceControl.Service

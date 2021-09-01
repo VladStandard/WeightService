@@ -1,8 +1,9 @@
 ﻿@attribute [Authorize]
 @page "/"
-@using BlazorCore.Utils
-@inherits BlazorCore.Models.BaseRazorIdEntity
+@using DataCore
+@using DataCore.Utils
+@inherits DataCore.Models.BaseRazorIdEntity
 
-<MudElement HtmlTag="h3" Style="width: 100%;">@LocalizationStrings.DeviceControl.Index</MudElement>
+<MudElement HtmlTag="h3" Style="width: 100%;">@LocalizationData.DeviceControl.Index</MudElement>
 
-<MudElement HtmlTag="body" Style="width: 100%;">@LocalizationStrings.DeviceControl.IndexContinue</MudElement>
+<MudElement HtmlTag="body" Style="width: 100%;">@LocalizationData.DeviceControl.IndexContinue</MudElement>

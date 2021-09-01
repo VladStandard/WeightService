@@ -3,8 +3,8 @@
 
 using BlazorCore;
 using BlazorCore.DAL;
-using BlazorCore.DAL.TableModels;
-using BlazorCore.DAL.TableSystemModels;
+using DataCore.DAL.TableModels;
+using DataCore.DAL.TableSystemModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Radzen;
@@ -25,119 +25,6 @@ namespace BlazorDeviceControl.Shared
         #endregion
 
         #region Public and private methods
-
-        private bool FieldControlDeny(BaseIdEntity item, string field)
-        {
-            bool result = item != null;
-            if (item is BarcodeTypeEntity barCodeTypesEntity)
-            {
-                if (barCodeTypesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is ContragentEntity contragentsEntity)
-            {
-                if (contragentsEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is HostEntity hostsEntity)
-            {
-                if (hostsEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is LabelEntity labelsEntity)
-            {
-                if (labelsEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is NomenclatureEntity nomenclatureEntity)
-            {
-                if (nomenclatureEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is OrderEntity ordersEntity)
-            {
-                if (ordersEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is OrderStatusEntity orderStatusEntity)
-            {
-                if (orderStatusEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is OrderTypeEntity orderTypesEntity)
-            {
-                if (orderTypesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is PluEntity pluEntity)
-            {
-                if (pluEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is ProductionFacilityEntity productionFacilityEntity)
-            {
-                if (productionFacilityEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is ProductSeriesEntity productSeriesEntity)
-            {
-                if (productSeriesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is ScaleEntity scalesEntity)
-            {
-                if (scalesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is TemplateResourceEntity templateResourcesEntity)
-            {
-                if (templateResourcesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is TemplateEntity templatesEntity)
-            {
-                if (templatesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is WeithingFactEntity weithingFactEntity)
-            {
-                if (weithingFactEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is WorkshopEntity workshopEntity)
-            {
-                if (workshopEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is PrinterEntity zebraPrinterEntity)
-            {
-                if (zebraPrinterEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is PrinterResourceEntity zebraPrinterResourceRefEntity)
-            {
-                if (zebraPrinterResourceRefEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is PrinterTypeEntity zebraPrinterTypeEntity)
-            {
-                if (zebraPrinterTypeEntity.EqualsDefault())
-                    result = false;
-            }
-            if (!result)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Warning,
-                    Summary = "Контроль данных",
-                    Detail = $"Необходимо заполнить поле [{field}]!",
-                    Duration = BlazorCore.Models.AppSettingsEntity.Delay
-                };
-                Notification.Notify(msg);
-                return false;
-            }
-            return true;
-        }
 
         private async Task SaveAsync(MouseEventArgs args,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -172,12 +59,6 @@ namespace BlazorDeviceControl.Shared
             //                AppSettings.DataAccess.NomenclaturesCrud.SaveEntity(nomenclature);
             //            else
             //                AppSettings.DataAccess.NomenclaturesCrud.UpdateEntity(nomenclature);
-            //            break;
-            //        case EnumTableScale.Orders:
-            //            break;
-            //        case EnumTableScale.OrderStatuses:
-            //            break;
-            //        case EnumTableScale.OrderTypes:
             //            break;
             //        case EnumTableScale.Plus:
             //            PluEntity plu = (PluEntity)Item;
@@ -234,31 +115,6 @@ namespace BlazorDeviceControl.Shared
             //            else
             //                AppSettings.DataAccess.ProductSeriesCrud.UpdateEntity(productSeries);
             //            break;
-            //        case EnumTableScale.Scales:
-            //            ScaleEntity scalesEntity = (ScaleEntity)Item;
-            //            scalesEntity.CreateDate = DateTime.Now;
-            //            scalesEntity.ModifiedDate = DateTime.Now;
-            //            success = FieldControlDeny(scalesEntity.Printer, "Принтер");
-            //            if (success)
-            //                success = FieldControlDeny(scalesEntity.Host, "Хост");
-            //            if (success)
-            //                success = FieldControlDeny(scalesEntity.TemplateDefault, "Шаблон по-умолчанию");
-            //            if (success)
-            //                success = FieldControlDeny(scalesEntity.WorkShop, "Цех");
-            //            if (success)
-            //            {
-            //                if (TableAction == EnumTableAction.Add)
-            //                {
-            //                    if (scalesEntity.TemplateSeries != null && scalesEntity.TemplateSeries.EqualsDefault())
-            //                        scalesEntity.TemplateSeries = null;
-            //                    AppSettings.DataAccess.ScalesCrud.SaveEntity(scalesEntity);
-            //                }
-            //                else
-            //                {
-            //                    AppSettings.DataAccess.ScalesCrud.UpdateEntity(scalesEntity);
-            //                }
-            //            }
-            //            break;
             //        case EnumTableScale.TemplateResources:
             //            TemplateResourceEntity templateResourcesEntity = (TemplateResourceEntity)Item;
             //            templateResourcesEntity.CreateDate ??= DateTime.Now;
@@ -307,19 +163,6 @@ namespace BlazorDeviceControl.Shared
             //            else
             //                AppSettings.DataAccess.WorkshopsCrud.UpdateEntity(workshopEntity);
             //            break;
-            //        case EnumTableScale.Printers:
-            //            ZebraPrinterEntity zebraPrinter = (ZebraPrinterEntity)Item;
-            //            zebraPrinter.CreateDate = DateTime.Now;
-            //            zebraPrinter.ModifiedDate = DateTime.Now;
-            //            success = FieldControlDeny(zebraPrinter.PrinterType, "Тип принтера");
-            //            if (success)
-            //            {
-            //                if (TableAction == EnumTableAction.Add)
-            //                    AppSettings.DataAccess.PrintersCrud.SaveEntity(zebraPrinter);
-            //                else
-            //                    AppSettings.DataAccess.PrintersCrud.UpdateEntity(zebraPrinter);
-            //            }
-            //            break;
             //        case EnumTableScale.PrinterResources:
             //            ZebraPrinterResourceEntity zebraPrinterResourceRefEntity = (ZebraPrinterResourceEntity)Item;
             //            zebraPrinterResourceRefEntity.CreateDate = DateTime.Now;
@@ -348,18 +191,6 @@ namespace BlazorDeviceControl.Shared
             //                    AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(zebraPrinterResourceRefEntity);
             //                }
             //            }
-            //            break;
-            //        case EnumTableScale.PrinterTypes:
-            //            ZebraPrinterTypeEntity printerTypeEntity = (ZebraPrinterTypeEntity)Item;
-            //            if (TableAction == EnumTableAction.Add)
-            //            {
-            //                int idLast = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(null,
-            //                    new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
-            //                printerTypeEntity.Id = idLast + 1;
-            //                AppSettings.DataAccess.PrinterTypesCrud.SaveEntity(printerTypeEntity);
-            //            }
-            //            else
-            //                AppSettings.DataAccess.PrinterTypesCrud.UpdateEntity(printerTypeEntity);
             //            break;
             //    }
             Dialog.Close(true);
