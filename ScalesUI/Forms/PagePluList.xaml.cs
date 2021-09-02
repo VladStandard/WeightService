@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataBaseCore.DAL.TableModels;
 using ScalesUI.Common;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
-using WeightCore.DAL.TableModels;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace ScalesUI.Forms

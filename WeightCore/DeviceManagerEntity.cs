@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Gui;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using WeightCore.Gui;
 
 namespace WeightCore
 {
@@ -92,7 +92,7 @@ namespace WeightCore
         }
 
         #endregion
-        
+
         #region Public and private methods
 
         public void OpenJob()

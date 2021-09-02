@@ -1,0 +1,4 @@
+﻿CREATE SCHEMA [IIS]
+ AUTHORIZATION [OwnerUser];
+
+ GO

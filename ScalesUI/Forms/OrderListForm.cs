@@ -1,14 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataBaseCore.DAL.TableModels;
 using ScalesUI.Common;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using WeightCore.DAL;
-using WeightCore.DAL.TableModels;
 
 namespace ScalesUI.Forms
 {
@@ -122,7 +121,7 @@ namespace ScalesUI.Forms
         {
             DropButtons(panel);
             var i = 0;
-            
+
             var page = _ordList.GetRange(offset * rowCount,
                 ((offset * rowCount + rowCount) < _ordList.Count()) ? (rowCount) : (_ordList.Count() - offset * rowCount));
 

@@ -1,7 +1,7 @@
-﻿using ScalesUI.Common;
+﻿using DataBaseCore.DAL.TableModels;
+using DataBaseCore.DAL.Utils;
+using ScalesUI.Common;
 using System.Windows.Forms;
-using WeightCore.DAL.TableModels;
-using WeightCore.DAL.Utils;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace ScalesUI.Forms

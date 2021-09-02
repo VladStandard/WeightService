@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.500] - 2021-09-02
+### Added
+- Stored procedure [db_scales].[UpdateScale]
+### Deprecated
+- Stored procedure [db_scales].[SetNewScale]
+
 ## [0.5.371] - 2021-08-12
 ### Added
 - Tables\db_scales_TASKS.sql

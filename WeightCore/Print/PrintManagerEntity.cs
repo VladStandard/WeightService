@@ -1,14 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WeightCore.Print.Tsc;
+using DataShareCore.Gui;
 using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using WeightCore.Gui;
+using WeightCore.Print.Tsc;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 
@@ -40,6 +40,8 @@ namespace WeightCore.Print
         private readonly object _locker = new object();
         public PrintControlEntity PrintControl { get; set; }
         private readonly LogHelper _log = LogHelper.Instance;
+        private ZebraPrinter _zebraPrinter;
+        public ZebraPrinter ZebraPrinter => _zebraPrinter ?? (_zebraPrinter = ZebraPrinterFactory.GetInstance(Con));
 
         #endregion
 
@@ -147,26 +149,25 @@ namespace WeightCore.Print
 
         public void OpenZebra()
         {
-            var printerDevice = ZebraPrinterFactory.GetInstance(Con);
             lock (_locker)
             {
                 try
                 {
                     if (!PrintCmdQueue.IsEmpty)
                     {
-                        CurrentStatus = printerDevice.GetCurrentStatus();
-                        UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", printerDevice.Connection));
+                        CurrentStatus = ZebraPrinter.GetCurrentStatus();
+                        UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", ZebraPrinter.Connection));
                         if (CurrentStatus.isReadyToPrint)
                         {
-                            Peeler = SGD.GET("sensor.peeler", printerDevice.Connection);
+                            Peeler = SGD.GET("sensor.peeler", ZebraPrinter.Connection);
                             if (Peeler == "clear")
                             {
-                                if (PrintCmdQueue.TryDequeue(out var request))
+                                if (PrintCmdQueue.TryDequeue(out string request))
                                 {
                                     request = request.Replace("|", "\\&");
                                     //Console.WriteLine(request);
                                     //MessageBox.Show(request);
-                                    printerDevice.SendCommand(request);
+                                    ZebraPrinter.SendCommand(request);
                                 }
                             }
                         }
@@ -197,7 +198,7 @@ namespace WeightCore.Print
                 {
                     if (!PrintCmdQueue.IsEmpty)
                     {
-                        if (PrintCmdQueue.TryDequeue(out var request))
+                        if (PrintCmdQueue.TryDequeue(out string request))
                         {
                             request = request.Replace("|", "\\&");
                             if (!request.Equals("^XA~JA^XZ") && !request.Contains("odometer.user_label_count"))

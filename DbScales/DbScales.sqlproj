@@ -12,12 +12,12 @@
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>ScalesDB</RootNamespace>
-    <AssemblyName>ScalesDB</AssemblyName>
+    <RootNamespace>DbScales</RootNamespace>
+    <AssemblyName>DbScales</AssemblyName>
     <ModelCollation>1049,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SqlServerVerification>False</SqlServerVerification>
@@ -34,6 +34,7 @@
     <GenerateCreateScript>False</GenerateCreateScript>
     <Trustworthy>True</Trustworthy>
     <DacVersion>0.5.350.0</DacVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -166,6 +167,7 @@
     <Build Include="Tables\db_scales_Scales_Changed.sql" />
     <Build Include="Tables\db_scales_ACCESS_APPS.sql" />
     <Build Include="Tables\db_scales_TASKS.sql" />
+    <Build Include="SP\db_scales_UpdateScale.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ScalesDB.refactorlog" />

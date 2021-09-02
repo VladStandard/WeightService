@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>DbDwh</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{ccb13807-73c3-44aa-bc52-44319e2fd0ea}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath />
+    <RootNamespace>CDWHDB</RootNamespace>
+    <AssemblyName>CDWHDB</AssemblyName>
+    <ModelCollation>1049,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Cyrillic_General_CI_AI</DefaultCollation>
+    <IncludeSchemaNameInFileName>False</IncludeSchemaNameInFileName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="ETL" />
+    <Folder Include="STG" />
+    <Folder Include="Storage" />
+    <Folder Include="Security" />
+    <Folder Include="DW" />
+    <Folder Include="DW\Functions" />
+    <Folder Include="DW\StoredProcedures" />
+    <Folder Include="DW\Tables" />
+    <Folder Include="DW\Views" />
+    <Folder Include="ETL\Tables" />
+    <Folder Include="ETL\StoredProcedures" />
+    <Folder Include="ETL\Functions" />
+    <Folder Include="ETL\Views" />
+    <Folder Include="Security\Schemas" />
+    <Folder Include="IIS" />
+    <Folder Include="IIS\Functions" />
+    <Folder Include="IIS\StoredProcedures" />
+    <Folder Include="IIS\Tables" />
+    <Folder Include="IIS\Views" />
+    <Folder Include="SCSL" />
+    <Folder Include="SCSL\StoredProcedures" />
+    <Folder Include="SCSL\Functions" />
+    <Folder Include="SCSL\Tables" />
+    <Folder Include="SCSL\Views" />
+    <Folder Include="SCSL\Scripts" />
+    <Folder Include="MDM" />
+    <Folder Include="DW\Scripts" />
+    <Folder Include="MDM\SP" />
+    <Folder Include="MDM\Security" />
+    <Folder Include="MDM\TEST" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Security\_OwnerUser.sql" />
+    <Build Include="DW\Tables\DimCalendar.sql" />
+    <Build Include="DW\StoredProcedures\spPopulateDateDimension.sql" />
+    <Build Include="Security\_RenterRole.sql" />
+    <Build Include="DW\Functions\fnGetBinary1C.sql" />
+    <Build Include="DW\Functions\fnGetGuid1C.sql" />
+    <Build Include="DW\Tables\DimOrganizations.sql" />
+    <Build Include="ETL\Tables\Statuses.sql" />
+    <Build Include="ETL\Tables\ObjectStatuses.sql" />
+    <Build Include="ETL\Tables\ErrorLevels.sql" />
+    <Build Include="ETL\Tables\ExchangeLog.sql" />
+    <Build Include="ETL\Tables\InformationSystems.sql" />
+    <Build Include="DW\Tables\DimEmployees.sql" />
+    <Build Include="DW\Tables\DimContragents.sql" />
+    <Build Include="DW\Tables\DimNomenclatures.sql" />
+    <Build Include="DW\Tables\DimRegions.sql" />
+    <Build Include="DW\StoredProcedures\spFillRegionDimension.sql" />
+    <Build Include="ETL\Functions\fnGetActiveInformationSystems.sql" />
+    <Build Include="ETL\StoredProcedures\SetObjectStatus.sql" />
+    <Build Include="DW\Tables\DimNomenclatureGroups.sql" />
+    <Build Include="DW\StoredProcedures\spFillNomenclatureGroups.sql" />
+    <Build Include="DW\StoredProcedures\spFillOrganizations.sql" />
+    <Build Include="DW\Tables\DimDepartments.sql" />
+    <Build Include="DW\StoredProcedures\spFillDepartments.sql" />
+    <Build Include="DW\StoredProcedures\spFillEmployees.sql" />
+    <Build Include="DW\Tables\DimTypesOfNomenclature.sql" />
+    <Build Include="DW\StoredProcedures\spFillTypesOfNomenclature.sql" />
+    <Build Include="DW\Tables\DimExpenditures.sql" />
+    <Build Include="DW\StoredProcedures\spFillExpenditures.sql" />
+    <Build Include="DW\Tables\DimBrands.sql" />
+    <Build Include="DW\StoredProcedures\spFillBrands.sql" />
+    <Build Include="DW\StoredProcedures\spFillNomenclatures.sql" />
+    <Build Include="DW\Tables\DimDeliveryPlaces.sql" />
+    <Build Include="DW\StoredProcedures\spDeliveryPlaces.sql" />
+    <Build Include="DW\Tables\DimStorages.sql" />
+    <Build Include="DW\StoredProcedures\spFillStorages.sql" />
+    <Build Include="DW\Tables\FactOrdersOfGoods.sql" />
+    <Build Include="DW\Tables\DocJournal.sql" />
+    <Build Include="DW\Tables\FactSalesOfGoods.sql" />
+    <Build Include="DW\Tables\FactReceiptOfGoods.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactOrders.sql" />
+    <Build Include="DW\StoredProcedures\spFillDocJournal.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactSalesOfGoods.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactReceiptOfGoods.sql" />
+    <Build Include="DW\Tables\DimPriceTypes.sql" />
+    <Build Include="DW\StoredProcedures\spFillDimPriceTypes.sql" />
+    <Build Include="DW\Tables\FactPrices.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactPrices.sql" />
+    <Build Include="ETL\Functions\fnGetLastVarID.sql" />
+    <Build Include="DW\Tables\FactBalance.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactBalance.sql" />
+    <Build Include="ETL\Functions\fnGetLastDateID.sql" />
+    <Build Include="ETL\StoredProcedures\spSetLastDateID.sql" />
+    <Build Include="ETL\Functions\fnGetLastDate.sql" />
+    <Build Include="ETL\StoredProcedures\spSetLastDate.sql" />
+    <Build Include="Security\_OLAPReaderRole.sql" />
+    <Build Include="Security\LoginsAndUsers.sql" />
+    <Build Include="Security\Schemas\DW.sql" />
+    <Build Include="Security\Schemas\ETL.sql" />
+    <Build Include="Security\Schemas\STG.sql" />
+    <Build Include="Storage\DIMFileGroup.sql" />
+    <Build Include="Storage\ETLFileGroup.sql" />
+    <Build Include="Storage\FACTFileGrooup.sql" />
+    <Build Include="DW\Tables\DimConsolidateContragents.sql" />
+    <Build Include="IIS\Functions\fnGetContragentChangesList.sql" />
+    <Build Include="Security\_TerraSoftRole.sql" />
+    <Build Include="Security\Schemas\IIS.sql" />
+    <Build Include="IIS\Functions\fnGetNomenclatureChangesList.sql" />
+    <Build Include="IIS\Functions\fnGetShipmentChangesList.sql" />
+    <Build Include="IIS\Functions\fnGetContragentByID.sql" />
+    <Build Include="IIS\Functions\fnGetNomenclatureByID.sql" />
+    <Build Include="IIS\Functions\fnGetShipmentByID.sql" />
+    <Build Include="DW\Tables\FactAccountsReceivable.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactAccountsReceivable.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactAccountsReceivableXML.sql" />
+    <Build Include="DW\Tables\FactInstallationDiscountsNomenclatures.sql" />
+    <Build Include="DW\StoredProcedures\spFillInstallationDiscountsNomenclatures.sql" />
+    <Build Include="IIS\Functions\fnGetContragentDiscounts.sql" />
+    <Build Include="IIS\Functions\fnGetPrices.sql" />
+    <Build Include="DW\Functions\fnDateTimeToInt.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactAccountsReceivable2.sql" />
+    <Build Include="IIS\Functions\fnGetSummaryList.sql" />
+    <Build Include="DW\Tables\DimTerritorialUnits.sql" />
+    <Build Include="DW\Tables\DimCommercialNetwork.sql" />
+    <Build Include="DW\StoredProcedures\spFillCommercialNetwork.sql" />
+    <Build Include="DW\StoredProcedures\spFillContragents.sql" />
+    <Build Include="DW\Functions\fnCalcINN.sql" />
+    <Build Include="DW\Functions\fnCheckINN.sql" />
+    <Build Include="DW\StoredProcedures\spConsolidateContragentsRebuild.sql" />
+    <Build Include="IIS\Functions\fnGetSipmentListByDocDate.sql" />
+    <Build Include="IIS\Functions\fnGetSipmentListByShippingDate.sql" />
+    <Build Include="Security\Schemas\SCSL.sql" />
+    <Build Include="SCSL\scsl_datareader.sql" />
+    <Build Include="SCSL\scsl_datawriter.sql" />
+    <Build Include="Storage\SCSLFileGroup.sql" />
+    <Build Include="SCSL\Tables\DimDistrAgents.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillDimDistrAgents.sql" />
+    <Build Include="SCSL\Tables\DimDistrContragents.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillDimDistrContragents.sql" />
+    <Build Include="SCSL\Tables\DimDistrNomenclatures.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillDimDistrNomenclatures.sql" />
+    <Build Include="SCSL\Tables\DimDistrTradePoints.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillDimDistrTradePoints.sql" />
+    <Build Include="SCSL\Tables\DimNormAgents.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillDimNormAgents.sql" />
+    <Build Include="SCSL\Tables\DimNormContragents.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillDimNormContragents.sql" />
+    <Build Include="SCSL\Tables\DimNormNomenclatures.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillDimNormNomenclatures.sql" />
+    <Build Include="SCSL\Tables\DimNormTradePoints.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillDimNormTradePoints.sql" />
+    <Build Include="SCSL\Tables\DimSubdivisions.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillDimSubdivisions.sql" />
+    <Build Include="SCSL\Tables\FactSales.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillFactSales.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillFactReturns.sql" />
+    <Build Include="SCSL\StoredProcedures\spFillFactOrders.sql" />
+    <Build Include="ETL\StoredProcedures\SetTCVarID.sql" />
+    <Build Include="ETL\StoredProcedures\GetTCVarID.sql" />
+    <Build Include="DW\Tables\FactReturns.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactReturns.sql" />
+    <Build Include="SCSL\StoredProcedures\DeactivateAnyPoints.sql" />
+    <Build Include="DW\Tables\MineBaseSalesOfGoods.sql" />
+    <Build Include="SCSL\Tables\FactReturns.sql" />
+    <Build Include="SCSL\Tables\FactOrders.sql" />
+    <Build Include="DW\StoredProcedures\spMIneBaseSalesOfGoodsAsInterpolate.sql" />
+    <Build Include="DW\StoredProcedures\spMineBaseSalesOfGoodsAsMedian.sql" />
+    <Build Include="DW\StoredProcedures\spMineBaseSalesOfGoodsAsMode.sql" />
+    <Build Include="DW\StoredProcedures\spMineBaseSalesOfGoodsAsPyMedian.sql" />
+    <Build Include="Storage\MDMFileGroup.sql" />
+    <Build Include="Security\Schemas\MDM.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactProductionOutput.sql" />
+    <Build Include="DW\Tables\FactProductionOutput.sql" />
+    <Build Include="IIS\StoredProcedures\GetShipments.sql" />
+    <Build Include="IIS\Functions\GetRefShipmentByDLM.sql" />
+    <Build Include="IIS\Functions\GetRefShipmentsById.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactTechnicalSpecification.sql" />
+    <Build Include="DW\Tables\FactTechnicalSpecification.sql" />
+    <Build Include="DW\Tables\FactProdApplications.sql" />
+    <Build Include="DW\StoredProcedures\spFillFactProdApplications.sql" />
+    <Build Include="IIS\Views\vwDimContragents.sql" />
+    <Build Include="IIS\Views\vwDimNomenclatures.sql" />
+    <Build Include="DW\Tables\FactShipmentToWarehouse.sql" />
+    <Build Include="STG\StgFactProdApplications.sql" />
+    <Build Include="STG\StgFactTechnicalSpecification.sql" />
+    <Build Include="STG\StgShipmentToWarehouse.sql" />
+    <Build Include="DW\Tables\FactPlannedCost.sql" />
+    <Build Include="DW\Views\vwCurrentPlannedCost.sql" />
+    <Build Include="MDM\SP\NomenclatureMasterRowMake.sql" />
+    <Build Include="MDM\SP\NomenclatureUnderRowInclude.sql" />
+    <Build Include="MDM\SP\NomenclatureSetNotRelevance.sql" />
+    <Build Include="MDM\Security\MDMReader.sql" />
+    <Build Include="MDM\Security\MDMWriter.sql" />
+    <Build Include="MDM\SP\ContragentMasterRowMake.sql" />
+    <Build Include="MDM\SP\ContragentSetNotRelevance.sql" />
+    <Build Include="MDM\SP\ContragentUnderRowInclude.sql" />
+    <Build Include="MDM\SP\ContragentMasterRowRemove.sql" />
+    <Build Include="MDM\SP\NomenclatureMasterRowRemove.sql" />
+    <Build Include="MDM\SP\NomenclatureUpdateRelevance.sql" />
+    <Build Include="IIS\Functions\GetRefShipmentsByDocDate.sql" />
+    <Build Include="IIS\Functions\fnGetNomenclatureList.sql" />
+    <Build Include="IIS\Functions\fnGetNomenclatureByCode.sql" />
+    <Build Include="IIS\Functions\fnGetIdInfoSys.sql" />
+    <Build Include="IIS\Functions\fnGetDeprecated.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VSDWH.publish.publish.xml" />
+    <None Include="SCSL\Scripts\AgentPlus!ActionScript_NotInBuild.sql" />
+    <None Include="SCSL\Scripts\AgentPlus!CoverItUp_NotInBuild.sql" />
+    <None Include="SCSL\Scripts\ChangeTrackingRepair.sql" />
+    <None Include="DW\Scripts\MigrateToTestContur.sql" />
+    <None Include="MDM\TEST\NomenclatureTest.sql" />
+    <None Include="MDM\TEST\ContragentTest.sql" />
+    <None Include="CHANGELOG.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="CDWHDB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+</Project>

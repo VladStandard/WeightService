@@ -1,0 +1,4 @@
+﻿CREATE SCHEMA [MDM]
+AUTHORIZATION [OwnerUser];
+
+GO

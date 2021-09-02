@@ -152,46 +152,6 @@ namespace BlazorDeviceControl.Shared
             //                }
             //            }
             //            break;
-            //        case EnumTableScale.WeithingFacts:
-            //            break;
-            //        case EnumTableScale.Workshops:
-            //            WorkshopEntity workshopEntity = (WorkshopEntity)Item;
-            //            workshopEntity.CreateDate ??= DateTime.Now;
-            //            workshopEntity.ModifiedDate = DateTime.Now;
-            //            if (TableAction == EnumTableAction.Add)
-            //                AppSettings.DataAccess.WorkshopsCrud.SaveEntity(workshopEntity);
-            //            else
-            //                AppSettings.DataAccess.WorkshopsCrud.UpdateEntity(workshopEntity);
-            //            break;
-            //        case EnumTableScale.PrinterResources:
-            //            ZebraPrinterResourceEntity zebraPrinterResourceRefEntity = (ZebraPrinterResourceEntity)Item;
-            //            zebraPrinterResourceRefEntity.CreateDate = DateTime.Now;
-            //            zebraPrinterResourceRefEntity.ModifiedDate = DateTime.Now;
-            //            if (TableAction == EnumTableAction.Add)
-            //            {
-            //                AppSettings.DataAccess.PrinterResourcesCrud.SaveEntity(zebraPrinterResourceRefEntity);
-            //            }
-            //            else
-            //            {
-            //                bool existsEntity = AppSettings.DataAccess.PrinterResourcesCrud.ExistsEntity(
-            //                    new FieldListEntity(new Dictionary<string, object>
-            //                    {{EnumField.Id.ToString(), zebraPrinterResourceRefEntity.Id}}),
-            //                    new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
-            //                if (existsEntity)
-            //                {
-            //                    int idLast = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(
-            //                        new FieldListEntity(new Dictionary<string, object>
-            //                        { { "Printer.Id", zebraPrinterResourceRefEntity.Printer.Id }}),
-            //                        new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
-            //                    //zebraPrinterResourceRefEntity.Id = idLast + 1;
-            //                    AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(zebraPrinterResourceRefEntity);
-            //                }
-            //                else
-            //                {
-            //                    AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(zebraPrinterResourceRefEntity);
-            //                }
-            //            }
-            //            break;
             //    }
             Dialog.Close(true);
         }

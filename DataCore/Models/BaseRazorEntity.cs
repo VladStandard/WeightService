@@ -867,56 +867,122 @@ namespace DataCore.Models
             return true;
         }
 
-        public void ItemSaveCheckPrinter(PrinterEntity printerItem)
+        public void ItemSaveCheckPrinter(PrinterEntity item)
         {
-            printerItem.CreateDate = DateTime.Now;
-            printerItem.ModifiedDate = DateTime.Now;
-            bool success = FieldControlDeny(printerItem.PrinterType, "Тип принтера");
+            item.CreateDate = DateTime.Now;
+            item.ModifiedDate = DateTime.Now;
+            bool success = FieldControlDeny(item.PrinterType, "Тип принтера");
             if (success)
             {
-                if (printerItem.Id == 0)
-                    AppSettings.DataAccess.PrintersCrud.SaveEntity(printerItem);
+                if (item.Id == 0)
+                    AppSettings.DataAccess.PrintersCrud.SaveEntity(item);
                 else
-                    AppSettings.DataAccess.PrintersCrud.UpdateEntity(printerItem);
+                    AppSettings.DataAccess.PrintersCrud.UpdateEntity(item);
             }
         }
 
-        public void ItemSaveCheckPrinterType(PrinterTypeEntity printerTypeItem)
+        public void ItemSaveCheckPrinterType(PrinterTypeEntity item)
         {
             bool success = true;
             if (success)
             {
                 int idLast = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
-                printerTypeItem.Id = idLast + 1;
-                if (printerTypeItem.Id == 0)
-                    AppSettings.DataAccess.PrinterTypesCrud.SaveEntity(printerTypeItem);
+                item.Id = idLast + 1;
+                if (item.Id == 0)
+                    AppSettings.DataAccess.PrinterTypesCrud.SaveEntity(item);
                 else
-                    AppSettings.DataAccess.PrinterTypesCrud.UpdateEntity(printerTypeItem);
+                    AppSettings.DataAccess.PrinterTypesCrud.UpdateEntity(item);
             }
         }
 
-        public void ItemSaveCheckScale(ScaleEntity scaleItem)
+        public void ItemSaveCheckPrinterResource(PrinterResourceEntity item)
         {
-            scaleItem.CreateDate = DateTime.Now;
-            scaleItem.ModifiedDate = DateTime.Now;
-            bool success = FieldControlDeny(scaleItem.Printer, "Принтер");
-            if (success)
-                success = FieldControlDeny(scaleItem.Host, "Хост");
-            if (success)
-                success = FieldControlDeny(scaleItem.TemplateDefault, "Шаблон по-умолчанию");
-            if (success)
-                success = FieldControlDeny(scaleItem.WorkShop, "Цех");
+            bool success = true;
+            item.CreateDate = DateTime.Now;
+            item.ModifiedDate = DateTime.Now;
             if (success)
             {
-                if (scaleItem.Id == 0)
-                { 
-                    if (scaleItem.TemplateSeries != null && scaleItem.TemplateSeries.EqualsDefault())
-                        scaleItem.TemplateSeries = null;
-                    AppSettings.DataAccess.ScalesCrud.SaveEntity(scaleItem);
+                if (item.Id == 0)
+                {
+                    AppSettings.DataAccess.PrinterResourcesCrud.SaveEntity(item);
                 }
                 else
-                    AppSettings.DataAccess.ScalesCrud.UpdateEntity(scaleItem);
+                {
+                    bool existsEntity = AppSettings.DataAccess.PrinterResourcesCrud.ExistsEntity(
+                        new FieldListEntity(new Dictionary<string, object>
+                            {{EnumField.Id.ToString(), item.Id}}),
+                        new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
+                    if (existsEntity)
+                    {
+                        //int idLast = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(
+                        //    new FieldListEntity(new Dictionary<string, object>
+                        //        { { "Printer.Id", printerResourceItem.Printer.Id }}),
+                        //    new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                        //printerResourceItem.Id = idLast + 1;
+                        AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(item);
+                    }
+                    else
+                    {
+                        AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(item);
+                    }
+                }
             }
+        }
+
+        public void ItemSaveCheckScale(ScaleEntity item)
+        {
+            item.CreateDate = DateTime.Now;
+            item.ModifiedDate = DateTime.Now;
+            bool success = FieldControlDeny(item.Printer, "Принтер");
+            if (success)
+                success = FieldControlDeny(item.Host, "Хост");
+            if (success)
+                success = FieldControlDeny(item.TemplateDefault, "Шаблон по-умолчанию");
+            if (success)
+                success = FieldControlDeny(item.WorkShop, "Цех");
+            if (success)
+            {
+                if (item.Id == 0)
+                { 
+                    if (item.TemplateSeries != null && item.TemplateSeries.EqualsDefault())
+                        item.TemplateSeries = null;
+                    AppSettings.DataAccess.ScalesCrud.SaveEntity(item);
+                }
+                else
+                    AppSettings.DataAccess.ScalesCrud.UpdateEntity(item);
+            }
+        }
+
+        public void ItemSaveCheck(BaseEntity item)
+        {
+            bool success = true;
+            switch (item)
+            {
+                case TemplateEntity templateItem:
+                    if (success)
+                    {
+                        if (templateItem.Id == 0)
+                            AppSettings.DataAccess.TemplatesCrud.SaveEntity(templateItem);
+                        else
+                            AppSettings.DataAccess.TemplatesCrud.UpdateEntity(templateItem);
+                    }
+                    break;
+                case WorkshopEntity workshopItem:
+                    workshopItem.CreateDate ??= DateTime.Now;
+                    workshopItem.ModifiedDate = DateTime.Now;
+                    if (success)
+                    {
+                        if (workshopItem.Id == 0)
+                            AppSettings.DataAccess.WorkshopsCrud.SaveEntity(workshopItem);
+                        else
+                            AppSettings.DataAccess.WorkshopsCrud.UpdateEntity(workshopItem);
+                    }
+                    break;
+            }
+        }
+
+        public void ItemSaveCheckWorkshop(WorkshopEntity item)
+        {
         }
 
         public async Task ItemSaveAsync(bool continueOnCapturedContext, bool isNewWindow)
@@ -934,17 +1000,20 @@ namespace DataCore.Models
                             return;
                         if (Item is BaseIdEntity idItem2)
                         {
-                            if (idItem2 is PrinterEntity printerItem)
-                            {
-                                ItemSaveCheckPrinter(printerItem);
-                            }
-                            else if (idItem2 is PrinterTypeEntity printerTypeItem)
-                            {
-                                ItemSaveCheckPrinterType(printerTypeItem);
-                            }
-                            else if (idItem2 is ScaleEntity scaleItem)
-                            {
-                                ItemSaveCheckScale(scaleItem);
+                            switch (idItem2)
+                            { 
+                                case PrinterEntity printerItem: ItemSaveCheckPrinter(printerItem);
+                                    break; 
+                                case PrinterTypeEntity printerTypeItem: ItemSaveCheckPrinterType(printerTypeItem);
+                                    break; 
+                                case PrinterResourceEntity printerResourceItem: ItemSaveCheckPrinterResource(printerResourceItem);
+                                    break; 
+                                case ScaleEntity scaleItem: ItemSaveCheckScale(scaleItem);
+                                    break; 
+                                case WorkshopEntity workshopItem: ItemSaveCheckWorkshop(workshopItem);
+                                    break; 
+                                default: ItemSaveCheck(idItem2);
+                                    break; 
                             }
                         }
                         RouteSectionNavigate(isNewWindow);

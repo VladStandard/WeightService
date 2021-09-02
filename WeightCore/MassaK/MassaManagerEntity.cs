@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataBaseCore.DAL.TableModels;
+using DataShareCore.Gui;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -10,8 +12,6 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using WeightCore.DAL.TableModels;
-using WeightCore.Gui;
 
 namespace WeightCore.MassaK
 {

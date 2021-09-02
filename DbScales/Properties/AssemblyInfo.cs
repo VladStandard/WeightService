@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EntitiesLib")]
+[assembly: AssemblyTitle("DbScales")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Владимирский стандарт")]
-[assembly: AssemblyProduct("EntitiesLib")]
+[assembly: AssemblyProduct("WeightService")]
 [assembly: AssemblyCopyright("Copyright © 2020  - 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.5.371.0")]
-[assembly: AssemblyFileVersion("0.5.371.0")]
+[assembly: AssemblyVersion("0.5.500.0")]
+[assembly: AssemblyFileVersion("0.5.500.0")]

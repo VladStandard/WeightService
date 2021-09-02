@@ -4,14 +4,14 @@
 namespace ScalesCore.Utils
 {
     /// <summary>
-    /// Утилиты SQL.
+    /// SQL utils.
     /// </summary>
     public static class SqlUtils
     {
         #region Public properties
 
         /// <summary>
-        /// SQL-запрос поиска GUID.
+        /// SQL-query search GUID.
         /// </summary>
         public static string QueryFindGuid
         {

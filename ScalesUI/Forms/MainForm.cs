@@ -1,6 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataBaseCore;
+using DataBaseCore.DAL.TableModels;
+using DataBaseCore.Utils;
 using log4net;
 using ScalesUI.Common;
 using System;
@@ -10,12 +13,10 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeightCore;
-using WeightCore.DAL.TableModels;
 using WeightCore.Gui;
 using WeightCore.MassaK;
 using WeightCore.Memory;
 using WeightCore.Print;
-using WeightCore.Utils;
 using WeightCore.WinForms.Utils;
 
 namespace ScalesUI.Forms
@@ -52,7 +53,7 @@ namespace ScalesUI.Forms
             if (_ws.CurrentScale != null)
             {
                 // _ws.CurrentScale.Load(_app.GuidToString());
-                buttonSelectOrder.Visible = !(buttonSelectPlu.Visible = !_ws.CurrentScale.UseOrder);
+                buttonSelectOrder.Visible = !(buttonSelectPlu.Visible = !(_ws.CurrentScale.UseOrder==true));
             }
 
             //_mouse.Init(progressBarCountBox);
@@ -190,7 +191,7 @@ namespace ScalesUI.Forms
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            char ch = WeightCore.Utils.StringUtils.GetProgressChar(_ws.MemoryManagerProgressChar);
+            char ch = StringUtils.GetProgressChar(_ws.MemoryManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMemoryManager,
                 $"Использовано памяти: {_ws.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}").ConfigureAwait(false);
             _ws.MemoryManagerProgressChar = ch;
@@ -224,7 +225,7 @@ namespace ScalesUI.Forms
             if (_ws.CurrentBox == 0)
                 _ws.CurrentBox = 1;
 
-            char ch = WeightCore.Utils.StringUtils.GetProgressChar(_ws.PrintManagerProgressChar);
+            char ch = StringUtils.GetProgressChar(_ws.PrintManagerProgressChar);
             // TSC printers.
             if (_ws.CurrentScale?.ZebraPrinter != null && _ws.IsTscPrinter)
             {
@@ -280,7 +281,7 @@ namespace ScalesUI.Forms
             }
 
             //LedMassa.State = _ws.MassaManager.IsStable == 1;
-            char ch = WeightCore.Utils.StringUtils.GetProgressChar(_ws.MassaManagerProgressChar);
+            char ch = StringUtils.GetProgressChar(_ws.MassaManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMassaManager, _ws.MassaManager.IsReady || _ws.MassaManager.IsStable == 1
                 ? $"Весы: доступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}"
                 : $"Весы: недоступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}").ConfigureAwait(false);

@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.480] - 2021-09-02
+### Fixed
+- Redmine 1588. ScalesUI. Ошибка запуска окна настроек
+
+## [0.5.470] - 2021-09-01
+### Fixed
+- HotFix SR00018265: ScalesUI ЧудоПечка печатать этикеток без данных
+
 ## [0.5.371] - 2021-08-12
 ### Changed
 - Downgrade .NET Framework to v.4.7.2

@@ -1,6 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataBaseCore;
+using DataBaseCore.DAL;
+using DataBaseCore.DAL.TableModels;
+using DataBaseCore.DAL.Utils;
+using DataBaseCore.Utils;
+using DataShareCore.Gui;
 using ScalesUI.Forms;
 using System;
 using System.ComponentModel;
@@ -10,14 +16,10 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using WeightCore;
-using WeightCore.DAL;
-using WeightCore.DAL.TableModels;
-using WeightCore.DAL.Utils;
 using WeightCore.Gui;
 using WeightCore.MassaK;
 using WeightCore.Memory;
 using WeightCore.Print;
-using WeightCore.Utils;
 using WeightCore.Zabbix;
 using WeightCore.Zpl;
 
@@ -419,12 +421,12 @@ namespace ScalesUI.Common
         {
             CurrentWeighingFact = null;
             TemplateEntity template = null;
-            if (CurrentOrder != null && CurrentScale != null && CurrentScale.UseOrder)
+            if (CurrentOrder != null && CurrentScale != null && CurrentScale.UseOrder == true)
             {
                 template = CurrentOrder.Template;
                 CurrentOrder.FactBoxCount++;
             }
-            else if (CurrentPlu != null && CurrentScale != null && !CurrentScale.UseOrder)
+            else if (CurrentPlu != null && CurrentScale != null && CurrentScale.UseOrder != true)
             {
                 template = CurrentPlu.Template;
             }

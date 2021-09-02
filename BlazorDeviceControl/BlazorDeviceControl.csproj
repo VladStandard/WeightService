@@ -8,9 +8,9 @@
     <StartupObject>BlazorDeviceControl.Program</StartupObject>
     <AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
-    <AssemblyVersion>0.5.460</AssemblyVersion>
+    <AssemblyVersion>0.5.470</AssemblyVersion>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-    <FileVersion>0.5.460</FileVersion>
+    <FileVersion>0.5.470</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020  - 2021</Copyright>
@@ -78,8 +78,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
-    <ProjectReference Include="..\DataCore\DataCore.csproj" />
+    <ProjectReference Include="..\BlazorCore\BlazorShareCore.csproj" />
+    <ProjectReference Include="..\DataBaseCore\DataBaseCore.csproj" />
+    <ProjectReference Include="..\DataCore\BlazorBaseCore.csproj" />
   </ItemGroup>
   
   <ItemGroup>

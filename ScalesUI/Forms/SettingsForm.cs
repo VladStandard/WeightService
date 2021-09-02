@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataBaseCore.DAL.Utils;
+using DataBaseCore.Utils;
 using log4net;
 using ScalesUI.Common;
 using System;
@@ -10,8 +12,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
-using WeightCore.DAL.Utils;
-using WeightCore.Utils;
 using WeightCore.Zpl;
 
 namespace ScalesUI.Forms
@@ -31,8 +31,9 @@ namespace ScalesUI.Forms
         public SettingsForm()
         {
             InitializeComponent();
-            _ws.MassaManager.GetScalePar();
 
+            if (_ws.MassaManager != null)
+                _ws.MassaManager.GetScalePar();
         }
 
         private void ScaleOptionsForm_Load(object sender, EventArgs e)
@@ -120,7 +121,8 @@ namespace ScalesUI.Forms
                 _ws.CurrentScale.DeviceComPort = fieldComPort.Text;
                 _ws.CurrentScale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
                 _ws.CurrentScale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
-                ScalesUtils.Save(_ws.CurrentScale);
+                _ws.CurrentScale.VerScalesUI = _ws.AppVersion;
+                ScalesUtils.Update(_ws.CurrentScale);
 
                 // Properties.Settings.Default.ConnectionString = fieldSqlConnectionString.Text;
                 Properties.Settings.Default.Save();
@@ -151,7 +153,7 @@ namespace ScalesUI.Forms
                 ZplConverterHelper zp = new ZplConverterHelper();
                 zp.LogoClear(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port);
                 zp.FontsClear(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port);
-                if (_ws.CurrentScale.UseOrder)
+                if (_ws.CurrentScale.UseOrder == true)
                 {
                     if (_ws.CurrentOrder == null)
                     {
@@ -328,19 +330,23 @@ namespace ScalesUI.Forms
 
         private void ButtonMassaParam_Click(object sender, EventArgs e)
         {
-            _ws.MassaManager.GetScalePar();
-            Thread.Sleep(350);
-
             fieldCurrentMKProp.Clear();
 
-            if (_ws.MassaManager.DeviceParameters != null)
+            if (_ws.MassaManager != null)
             {
-                fieldCurrentMKProp.Text = _ws.MassaManager.DeviceParameters.GetMessage();
-            }
+                _ws.MassaManager.GetScalePar();
+                Thread.Sleep(10);
+                Application.DoEvents();
 
-            if (_ws.MassaManager.DeviceError != null)
-            {
-                fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_ws.MassaManager.DeviceError.GetMessage()}";
+                if (_ws.MassaManager.DeviceParameters != null)
+                {
+                    fieldCurrentMKProp.Text = _ws.MassaManager.DeviceParameters.GetMessage();
+                }
+
+                if (_ws.MassaManager.DeviceError != null)
+                {
+                    fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_ws.MassaManager.DeviceError.GetMessage()}";
+                }
             }
         }
 

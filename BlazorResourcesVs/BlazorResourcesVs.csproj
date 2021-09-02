@@ -29,8 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
-    <ProjectReference Include="..\DataCore\DataCore.csproj" />
+    <ProjectReference Include="..\BlazorCore\BlazorShareCore.csproj" />
+    <ProjectReference Include="..\DataCore\BlazorBaseCore.csproj" />
   </ItemGroup>
 
 </Project>

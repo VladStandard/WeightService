@@ -12,7 +12,7 @@ namespace ScalesUI.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.2.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,8 +25,8 @@ namespace ScalesUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PALYCH\\LUTON;Initial Catalog=ScalesDB;Persist Security Info=True;User" +
-            " ID=scale01;Password=scale01")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CREATIO\\INS1;Initial Catalog=Scales;Persist Security Info=True;User I" +
+            "D=scale01;Password=scale01")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

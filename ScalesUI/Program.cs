@@ -1,16 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using WeightCore.DAL;
+using DataBaseCore.DAL;
+using DataBaseCore.DAL.TableModels;
+using DataBaseCore.DAL.Utils;
+using DataBaseCore.Utils;
 using ScalesUI.Forms;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
-using WeightCore.Utils;
-using System.Runtime.CompilerServices;
-using WeightCore.DAL.TableModels;
-using WeightCore.DAL.Utils;
 
 // ReSharper disable IdentifierTypo
 
@@ -52,7 +52,7 @@ namespace ScalesUI
                 catch (Exception ex)
                 {
                     filePath = Path.GetFileName(filePath);
-                    string message = $"Файл: {filePath}" + Environment.NewLine + 
+                    string message = $"Файл: {filePath}" + Environment.NewLine +
                                      $"Метод: {memberName}. Строка: {lineNumber}" + Environment.NewLine + Environment.NewLine +
                                      ex.Message;
                     if (ex.InnerException != null)
@@ -80,7 +80,7 @@ namespace ScalesUI
                 Application.Exit();
                 return;
             }
-            
+
             _ = new Mutex(true, Application.ProductName, out bool first);
             if (first != true)
             {

@@ -106,7 +106,6 @@
     <Compile Include="Models\SqlParam.cs" />
     <Compile Include="Models\SqlTableField.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
-    <Compile Include="Utils\SqlExtensions.cs" />
     <Compile Include="Utils\SqlUtils.cs" />
     <Compile Include="Win\Registry\Entities\Enums.cs" />
     <Compile Include="Win\Registry\Entities\Record.cs" />
