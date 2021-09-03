@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>0.5.410</Version>
+    <Version>$(VersionPrefix)</Version>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
-    <Copyright>Copyright © 2020  - 2021</Copyright>
-    <AssemblyVersion>0.5.410.0</AssemblyVersion>
+    <Copyright>Copyright © 2020 - 2021</Copyright>
+    <AssemblyVersion>0.5.510</AssemblyVersion>
     <AssemblyName>BlazorCoreTests</AssemblyName>
     <RootNamespace>BlazorCoreTests</RootNamespace>
     <Configurations>Debug;Release;Dev</Configurations>
@@ -27,5 +27,9 @@
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorShareCore.csproj" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
 
 </Project>

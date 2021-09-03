@@ -1,11 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataBaseCore;
-using DataBaseCore.DAL.TableModels;
-using DataBaseCore.Utils;
+using DataProjectsCore;
+using DataProjectsCore.DAL.TableModels;
+using DataProjectsCore.Utils;
 using log4net;
-using ScalesUI.Common;
 using System;
 using System.Drawing;
 using System.Reflection;
@@ -16,6 +15,7 @@ using WeightCore;
 using WeightCore.Gui;
 using WeightCore.MassaK;
 using WeightCore.Memory;
+using WeightCore.Models;
 using WeightCore.Print;
 using WeightCore.WinForms.Utils;
 
@@ -85,11 +85,11 @@ namespace ScalesUI.Forms
         {
             try
             {
-                System.Resources.ResourceManager resourceManager = new System.Resources.ResourceManager("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
+                System.Resources.ResourceManager resourceManager = new("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
                 object exit = resourceManager.GetObject("exit_2");
                 if (exit != null)
                 {
-                    Bitmap bmpExit = new Bitmap((Bitmap)exit);
+                    Bitmap bmpExit = new((Bitmap)exit);
                     pictureBoxClose.Image = bmpExit;
                 }
 
@@ -151,11 +151,9 @@ namespace ScalesUI.Forms
                 }
                 else
                 {
-                    using (PasswordForm pinForm = new PasswordForm() { TopMost = !_ws.IsDebug })
-                    {
-                        isClose = pinForm.ShowDialog() == DialogResult.OK;
-                        pinForm.Close();
-                    }
+                    using PasswordForm pinForm = new() { TopMost = !_ws.IsDebug };
+                    isClose = pinForm.ShowDialog() == DialogResult.OK;
+                    pinForm.Close();
                 }
                 Application.DoEvents();
                 if (isClose)
@@ -302,7 +300,7 @@ namespace ScalesUI.Forms
             // MemoryManager.
             if (_ws.SqlItem.IsTaskEnabled("MemoryManager"))
             {
-                Task taskMemory = new Task(() =>
+                Task taskMemory = new(() =>
                 {
                     try
                     {
@@ -329,7 +327,7 @@ namespace ScalesUI.Forms
             // PrintManager.
             if (_ws.SqlItem.IsTaskEnabled("PrintManager"))
             {
-                Task taskPrint = new Task(() =>
+                Task taskPrint = new(() =>
                 {
                     try
                     {
@@ -362,7 +360,7 @@ namespace ScalesUI.Forms
             // DeviceManager.
             if (_ws.SqlItem.IsTaskEnabled("DeviceManager"))
             {
-                Task taskDevice = new Task(() =>
+                Task taskDevice = new(() =>
                 {
                     try
                     {
@@ -389,7 +387,7 @@ namespace ScalesUI.Forms
             // MassaManager.
             if (_ws.SqlItem.IsTaskEnabled("MassaManager"))
             {
-                Task taskMassa = new Task(() =>
+                Task taskMassa = new(() =>
                 {
                     try
                     {
@@ -397,7 +395,7 @@ namespace ScalesUI.Forms
                         {
                             if (_ws.MassaManager == null)
                             {
-                                DeviceSocketRs232 deviceSocketRs232 = new DeviceSocketRs232(_ws.CurrentScale.DeviceComPort);
+                                DeviceSocketRs232 deviceSocketRs232 = new(_ws.CurrentScale.DeviceComPort);
                                 _ws.MassaManager = new MassaManagerEntity(_ws?.Log, deviceSocketRs232, 1_000, 5_000, 5_000);
                                 ButtonSetZero();
                             }
@@ -531,7 +529,7 @@ namespace ScalesUI.Forms
             AsyncControl.Properties.SetText.Async(fieldPalletSize, $"{_ws.CurrentBox}/{_ws.PalletSize}");
         }
 
-        private void NotifyPlu(PluEntity plu)
+        private void NotifyPlu(PluDirect plu)
         {
             string strCheckWeight = plu?.CheckWeight == true ? "вес" : "шт";
             AsyncControl.Properties.SetText.Async(fieldPlu, plu != null
@@ -574,7 +572,7 @@ namespace ScalesUI.Forms
                 }
                 else
                 {
-                    PasswordForm pinForm = new PasswordForm();
+                    PasswordForm pinForm = new();
                     if (pinForm.ShowDialog() == DialogResult.OK)
                     {
                         OpenFormSettings();
@@ -606,11 +604,9 @@ namespace ScalesUI.Forms
 
         private void OpenFormSettings()
         {
-            using (SettingsForm settingsForm = new SettingsForm())
+            using SettingsForm settingsForm = new();
+            if (settingsForm.ShowDialog() == DialogResult.OK)
             {
-                if (settingsForm.ShowDialog() == DialogResult.OK)
-                {
-                }
             }
         }
 
@@ -671,24 +667,22 @@ namespace ScalesUI.Forms
                 }
 
                 // PLU form.
-                using (PluListForm pluListForm = new PluListForm() { Owner = this })
+                using PluListForm pluListForm = new() { Owner = this };
+                // Commented from 2021-03-05.
+                //buttonSetZero_Click(sender, e);
+                if (pluListForm.ShowDialog() == DialogResult.OK)
                 {
-                    // Commented from 2021-03-05.
-                    //buttonSetZero_Click(sender, e);
-                    if (pluListForm.ShowDialog() == DialogResult.OK)
-                    {
-                        _ws.Kneading = 1;
-                        _ws.ProductDate = DateTime.Now;
-                        _ws.NewPallet();
-                        //_mkDevice.SetTareWeight((int) (_ws.CurrentPLU.GoodsTareWeight * _ws.CurrentPLU.Scale.ScaleFactor));
+                    _ws.Kneading = 1;
+                    _ws.ProductDate = DateTime.Now;
+                    _ws.NewPallet();
+                    //_mkDevice.SetTareWeight((int) (_ws.CurrentPLU.GoodsTareWeight * _ws.CurrentPLU.Scale.ScaleFactor));
 
-                        // сразу перейдем к форме с замесами, размерами паллет и прочее
-                        ButtonSetKneading();
-                    }
-                    else if (_ws.CurrentPlu != null)
-                    {
-                        _ws.CurrentPlu = null;
-                    }
+                    // сразу перейдем к форме с замесами, размерами паллет и прочее
+                    ButtonSetKneading();
+                }
+                else if (_ws.CurrentPlu != null)
+                {
+                    _ws.CurrentPlu = null;
                 }
             }
             catch (Exception ex)
@@ -721,34 +715,30 @@ namespace ScalesUI.Forms
 
                 if (_ws.CurrentOrder == null)
                 {
-                    using (OrderListForm settingsForm = new OrderListForm())
+                    using OrderListForm settingsForm = new();
+                    if (settingsForm.ShowDialog() == DialogResult.OK)
                     {
-                        if (settingsForm.ShowDialog() == DialogResult.OK)
-                        {
 
-                        }
                     }
                 }
                 else
                 {
-                    using (OrderDetailForm settingsForm = new OrderDetailForm())
+                    using OrderDetailForm settingsForm = new();
+                    DialogResult dialogResult = settingsForm.ShowDialog();
+
+                    if (dialogResult == DialogResult.Retry)
                     {
-                        DialogResult dialogResult = settingsForm.ShowDialog();
+                        _ws.CurrentOrder = null;
+                    }
 
-                        if (dialogResult == DialogResult.Retry)
-                        {
-                            _ws.CurrentOrder = null;
-                        }
+                    if (dialogResult == DialogResult.OK)
+                    {
+                        //ws.Kneading = (int)settingsForm.currentKneading;
+                    }
 
-                        if (dialogResult == DialogResult.OK)
-                        {
-                            //ws.Kneading = (int)settingsForm.currentKneading;
-                        }
-
-                        if (dialogResult == DialogResult.Cancel)
-                        {
-                            //ws.Kneading = (int)settingsForm.currentKneading;
-                        }
+                    if (dialogResult == DialogResult.Cancel)
+                    {
+                        //ws.Kneading = (int)settingsForm.currentKneading;
                     }
                 }
                 if (_ws.CurrentOrder != null)
@@ -786,13 +776,12 @@ namespace ScalesUI.Forms
             {
                 StopTaskManager();
 
-                using (SetKneadingNumberForm kneadingNumberForm = new SetKneadingNumberForm { Owner = this })
+                using SetKneadingNumberForm kneadingNumberForm = new()
+                { Owner = this };
+                if (kneadingNumberForm.ShowDialog() == DialogResult.OK)
                 {
-                    if (kneadingNumberForm.ShowDialog() == DialogResult.OK)
-                    {
-                        //_ws.Kneading = settingsForm.CurrentKneading;
-                        //_ws.ProductDate = settingsForm.CurrentProductDate;
-                    }
+                    //_ws.Kneading = settingsForm.CurrentKneading;
+                    //_ws.ProductDate = settingsForm.CurrentProductDate;
                 }
             }
             catch (Exception ex)
@@ -910,13 +899,12 @@ namespace ScalesUI.Forms
         private void ButtonAddKneading_Click(object sender, EventArgs e)
         {
             //_ws.RotateKneading(Direction.forward);
-            using (NumberInputForm numberInputForm = new NumberInputForm { InputValue = 0 })
+            using NumberInputForm numberInputForm = new()
+            { InputValue = 0 };
+            // _ws.Kneading;
+            if (numberInputForm.ShowDialog() == DialogResult.OK)
             {
-                // _ws.Kneading;
-                if (numberInputForm.ShowDialog() == DialogResult.OK)
-                {
-                    _ws.Kneading = numberInputForm.InputValue;
-                }
+                _ws.Kneading = numberInputForm.InputValue;
             }
         }
 
@@ -927,12 +915,10 @@ namespace ScalesUI.Forms
 
         private void fieldTitle_DoubleClick(object sender, EventArgs e)
         {
-            using (WpfPageLoader wpfPageLoader = new WpfPageLoader(EnumPage.SqlSettings, false) { Width = 400, Height = 400 })
+            using WpfPageLoader wpfPageLoader = new(EnumPage.SqlSettings, false) { Width = 400, Height = 400 };
+            if (wpfPageLoader.ShowDialog(this) == DialogResult.OK)
             {
-                if (wpfPageLoader.ShowDialog(this) == DialogResult.OK)
-                {
-                    //
-                }
+                //
             }
         }
 

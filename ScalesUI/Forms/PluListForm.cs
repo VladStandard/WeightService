@@ -1,14 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataBaseCore.DAL.TableModels;
-using ScalesUI.Common;
+using DataProjectsCore.DAL.TableModels;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using WeightCore.Gui;
+using WeightCore.Models;
 
 namespace ScalesUI.Forms
 {
@@ -17,8 +17,8 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly SessionState _ws = SessionState.Instance;
-        private List<PluEntity> _orderList;
-        private readonly List<PluEntity> _pluList;
+        private List<PluDirect> _orderList;
+        private readonly List<PluDirect> _pluList;
         public int RowCount { get; } = 5;
         public int ColumnCount { get; } = 4;
         public int PageSize { get; } = 20;
@@ -32,7 +32,7 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            _pluList = PluEntity.GetPluList(_ws.CurrentScale);
+            _pluList = PluDirect.GetPluList(_ws.CurrentScale);
         }
 
         #endregion
@@ -48,24 +48,24 @@ namespace ScalesUI.Forms
             Top = Owner.Top;
             //StartPosition = FormStartPosition.CenterParent;
 
-            _orderList = PluEntity.GetPluList(_ws.CurrentScale);
+            _orderList = PluDirect.GetPluList(_ws.CurrentScale);
 
-            var pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-            var controls = CreateControls(pluEntities, ColumnCount, RowCount);
+            PluDirect[] pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+            Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
             GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
             labelCurrentPage.Text = $@"Cтр. {CurrentPage}";
         }
 
-        private Control[,] CreateControls(IReadOnlyList<PluEntity> pluEntities, int x, int y)
+        private Control[,] CreateControls(IReadOnlyList<PluDirect> pluEntities, int x, int y)
         {
-            var controls = new Control[x, y];
+            Control[,] controls = new Control[x, y];
             for (int j = 0, k = 0; j < y; ++j)
             {
-                for (var i = 0; i < x; ++i)
+                for (int i = 0; i < x; ++i)
                 {
                     if (k >= pluEntities.Count) break;
-                    var control = CreateNewControl(pluEntities[k], CurrentPage, k);
+                    Control control = CreateNewControl(pluEntities[k], CurrentPage, k);
                     controls[i, j] = control;
                     k++;
                 }
@@ -73,12 +73,12 @@ namespace ScalesUI.Forms
             return controls;
         }
 
-        private Control CreateNewControl(PluEntity plu, int pageNumber, int i)
+        private Control CreateNewControl(PluDirect plu, int pageNumber, int i)
         {
-            var buttonWidth = 150;
-            var buttonHeight = 30;
+            int buttonWidth = 150;
+            int buttonHeight = 30;
 
-            var button = new Button()
+            Button button = new()
             {
                 Font = new Font("Arial", 18, FontStyle.Bold),
                 Text = Environment.NewLine + plu.GoodsName,
@@ -96,9 +96,9 @@ namespace ScalesUI.Forms
             button.Click += buttonPlu_Click;
 
             // PLU number label.
-            var mashtabW = 0.19M;
-            var mashtabH = 0.05M;
-            var label = new Label()
+            decimal mashtabW = 0.19M;
+            decimal mashtabH = 0.05M;
+            Label label = new()
             {
                 Font = new Font("Arial", 20, FontStyle.Bold),
                 Text = plu.PLU.ToString(),
@@ -121,7 +121,7 @@ namespace ScalesUI.Forms
 
             // Weight label.
             mashtabW = 0.11M;
-            var labelCount = new Label()
+            Label labelCount = new()
             {
                 Font = new Font("Arial", 20, FontStyle.Bold),
                 Text = plu.CheckWeight == false ? @"шт" : @"вес",
@@ -154,7 +154,7 @@ namespace ScalesUI.Forms
         private void buttonPlu_Click(object sender, EventArgs e)
         {
             _ws.CurrentOrder = null;
-            var tabIndex = 0;
+            int tabIndex = 0;
             if (sender is Control control)
                 tabIndex = control.TabIndex;
             if (_orderList?.Count >= tabIndex)
@@ -170,13 +170,13 @@ namespace ScalesUI.Forms
 
         private void buttonLeftRoll_Click(object sender, EventArgs e)
         {
-            var saveCurrentPage = CurrentPage;
+            int saveCurrentPage = CurrentPage;
             CurrentPage = CurrentPage > 0 ? CurrentPage - 1 : 0;
             if (CurrentPage == saveCurrentPage)
                 return;
 
-            var pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-            var controls = CreateControls(pluEntities, ColumnCount, RowCount);
+            PluDirect[] pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+            Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
             GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
             labelCurrentPage.Text = $@"Cтр. {CurrentPage}";
@@ -184,14 +184,14 @@ namespace ScalesUI.Forms
 
         private void buttonRightRoll_Click(object sender, EventArgs e)
         {
-            var saveCurrentPage = CurrentPage;
-            var countPage = _pluList.Count / PageSize;
+            int saveCurrentPage = CurrentPage;
+            int countPage = _pluList.Count / PageSize;
             CurrentPage = CurrentPage < countPage ? CurrentPage + 1 : countPage;
             if (CurrentPage == saveCurrentPage)
                 return;
 
-            var pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
-            var controls = CreateControls(pluEntities, ColumnCount, RowCount);
+            PluDirect[] pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+            Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
             GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
             labelCurrentPage.Text = $@"Cтр. {CurrentPage}";

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MvvmHelpers;
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -8,19 +9,8 @@ using System.Runtime.CompilerServices;
 
 namespace WeightCore.Print.Tsc
 {
-    public class PrintSetupEntity : INotifyPropertyChanged
+    public class PrintSetupEntity : BaseViewModel
     {
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
         #region Public and private fields and properties
 
         public string WidthDefault => "80";
@@ -32,12 +22,9 @@ namespace WeightCore.Print.Tsc
             {
                 if (double.TryParse(value, out double temp))
                 {
-                    if (temp >= 0 && temp <= 1000)
-                        _width = temp;
-                    else
-                        _width = double.Parse(WidthDefault);
+                    _width = temp >= 0 && temp <= 1000 ? temp : double.Parse(WidthDefault);
                 }
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -55,7 +42,7 @@ namespace WeightCore.Print.Tsc
                     else
                         _height = double.Parse(HeightDefault);
                 }
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -73,7 +60,7 @@ namespace WeightCore.Print.Tsc
                     else
                         _speed = (PrintSpeed)int.Parse(SpeedDefault);
                 }
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -91,7 +78,7 @@ namespace WeightCore.Print.Tsc
                     else
                         _density = (PrintDensity)int.Parse(DensityDefault);
                 }
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -109,7 +96,7 @@ namespace WeightCore.Print.Tsc
                     else
                         _sensor = (PrintSensor)int.Parse(SensorDefault);
                 }
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -127,7 +114,7 @@ namespace WeightCore.Print.Tsc
                     else
                         _vertical = int.Parse(VerticalDefault);
                 }
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -145,7 +132,7 @@ namespace WeightCore.Print.Tsc
                     else
                         _offset = int.Parse(VerticalDefault);
                 }
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 

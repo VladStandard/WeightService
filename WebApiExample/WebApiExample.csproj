@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>f052c1e6-84de-494b-92b6-ee881fd2cadd</UserSecretsId>
-    <Version>0.1.300</Version>
+    <Version>$(VersionPrefix)</Version>
     <Company>Владимирский стандарт</Company>
-    <Product>MdmControl</Product>
-    <Copyright>Copyright © 2020  - 2021</Copyright>
+    <Product>WeightService</Product>
+    <Copyright>Copyright © 2020 - 2021</Copyright>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 

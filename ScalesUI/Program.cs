@@ -1,16 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataBaseCore.DAL;
-using DataBaseCore.DAL.TableModels;
-using DataBaseCore.DAL.Utils;
-using DataBaseCore.Utils;
+using DataProjectsCore.DAL;
+using DataProjectsCore.DAL.TableModels;
+using DataProjectsCore.DAL.Utils;
+using DataProjectsCore.Utils;
 using ScalesUI.Forms;
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
+using WeightCore.Gui;
 
 // ReSharper disable IdentifierTypo
 
@@ -64,7 +65,7 @@ namespace ScalesUI
             }
 
             //var memory = new MemorySizeEntity();
-            HostEntity host = HostsUtils.TokenRead();
+            HostDirect host = HostsUtils.TokenRead();
             if (host.CurrentScaleId == 0)
             {
                 CustomMessageBox messageBox = CustomMessageBox.Show(null,

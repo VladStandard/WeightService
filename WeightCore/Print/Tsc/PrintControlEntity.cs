@@ -1,25 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MvvmHelpers;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace WeightCore.Print.Tsc
 {
-    public class PrintControlEntity : INotifyPropertyChanged
+    public class PrintControlEntity : BaseViewModel
     {
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
         #region Public properties
 
         private PrintInterface _interface;
@@ -29,7 +19,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _interface = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private PrintCmdEntity _cmd;
@@ -39,7 +29,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _cmd = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private string _ipAddress;
@@ -49,7 +39,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _ipAddress = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private int _port;
@@ -59,7 +49,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _port = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private PrintLabelSize _size;
@@ -69,7 +59,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _size = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private PrintDpi _dpi;
@@ -79,7 +69,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _dpi = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private ushort _feedMm;
@@ -89,7 +79,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _feedMm = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private TSCSDK.ethernet _tscEthernet;
@@ -99,7 +89,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _tscEthernet = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private PrintSetupEntity _printerSetup;
@@ -109,7 +99,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _printerSetup = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private bool _isOpen;
@@ -119,7 +109,7 @@ namespace WeightCore.Print.Tsc
             private set
             {
                 _isOpen = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         
@@ -130,7 +120,7 @@ namespace WeightCore.Print.Tsc
             private set
             {
                 _isStatusNormal = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private int _cutterValue;
@@ -140,7 +130,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _cutterValue = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private bool _isClearBuffer;
@@ -150,7 +140,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _isClearBuffer = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private Exception _exception;
@@ -160,7 +150,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _exception = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 

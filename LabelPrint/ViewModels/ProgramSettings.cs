@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using MvvmHelpers;
 // ReSharper disable CommentTypo
 // ReSharper disable StringLiteralTypo
 
@@ -20,19 +21,8 @@ namespace LabelPrint.ViewModels
     /// <summary>
     /// Программные настройки.
     /// </summary>
-    public class ProgramSettings : INotifyPropertyChanged
+    public class ProgramSettings : BaseViewModel
     {
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
         #region Constructor
 
         public ProgramSettings()
@@ -64,7 +54,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _width = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -78,7 +68,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _minWidth = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -92,7 +82,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _maxWidth = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -106,7 +96,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _height = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -120,7 +110,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _minHeight = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -134,7 +124,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _maxHeight = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -148,7 +138,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _fontSize = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -169,7 +159,7 @@ namespace LabelPrint.ViewModels
                 // Задать новые размеры.
                 SetSize((EnumWindowResolution)value);
                 _selectedResolution = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -202,7 +192,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _programFrame = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -293,7 +283,7 @@ namespace LabelPrint.ViewModels
                         break;
                 }
                 _activePage = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -307,7 +297,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _menuHeader = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -321,7 +311,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _programHeader = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -335,7 +325,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 _pinCode = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MvvmHelpers;
 using ScalesCore.Models;
 using ScalesCore.Properties;
 using ScalesCore.Utils;
@@ -17,7 +18,7 @@ namespace ScalesCore.Helpers
     /// <summary>
     /// Помощник SQL.
     /// </summary>
-    public sealed class SqlHelper : INotifyPropertyChanged
+    public sealed class SqlHelper : BaseViewModel
     {
         #region Design pattern "Singleton"
 
@@ -26,17 +27,6 @@ namespace ScalesCore.Helpers
         private SqlHelper()
         {
             Open(EnumSettingsStorage.UseConfig);
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
 
         #endregion
@@ -68,7 +58,7 @@ namespace ScalesCore.Helpers
             set
             {
                 _status = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 

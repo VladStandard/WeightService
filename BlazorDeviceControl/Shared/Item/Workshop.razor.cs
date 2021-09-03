@@ -1,11 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore;
-using BlazorCore.DAL;
-using DataCore.DAL;
-using DataCore.DAL.TableModels;
-using DataCore.Models;
+using BlazorProjectsCore.Models;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataProjectsCore.Models;
+using DataShareCore;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;

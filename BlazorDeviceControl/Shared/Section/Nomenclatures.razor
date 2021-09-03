@@ -1,13 +1,13 @@
 ﻿@page "/section/nomenclatures"
-@using BlazorCore
-@using DataCore
-@using DataCore.DAL
-@using DataCore.DAL.DataModels
-@using DataCore.DAL.TableModels
-@using DataCore.Utils
+@using BlazorProjectsCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL
+@using DataProjectsCore.DAL.DataModels
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
-@inherits DataCore.Models.BaseRazorIdEntity
+@inherits BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
@@ -15,8 +15,14 @@
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@Items TItem="NomenclatureEntity"
-        RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionEditAsync())
+        RowSelect=@((object
+#nullable restore
+#line 18 "c:/DevSource/Kolbasa-Git/WeightService/BlazorDeviceControl/Shared/Section/Nomenclatures.razor"
+                    args) => ItemSelectAsync(args)) 
+        RowDoubleClick=@((object
+#nullable restore
+#line 19 "c:/DevSource/Kolbasa-Git/WeightService/BlazorDeviceControl/Shared/Section/Nomenclatures.razor"
+                         args) => ActionEditAsync())
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=19 AllowSorting="true" ColumnWidth="100px">
         <Columns >

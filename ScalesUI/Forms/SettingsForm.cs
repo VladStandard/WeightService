@@ -1,17 +1,19 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataBaseCore.DAL.Utils;
-using DataBaseCore.Utils;
+using DataProjectsCore.DAL.Utils;
+using DataProjectsCore.Utils;
 using log4net;
-using ScalesUI.Common;
 using System;
 using System.Data.SqlClient;
 using System.IO.Ports;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
+using WeightCore.Gui;
+using WeightCore.Models;
 using WeightCore.Zpl;
 
 namespace ScalesUI.Forms
@@ -111,35 +113,38 @@ namespace ScalesUI.Forms
 
         private void ButtonSaveOption_Click(object sender, EventArgs e)
         {
+            bool result = true;
             try
             {
+                // GUI.
                 UseWaitCursor = true;
                 Thread.Sleep(10);
                 Application.DoEvents();
-
-                // Состояние устройства.
+                // Data.
                 _ws.CurrentScale.DeviceComPort = fieldComPort.Text;
                 _ws.CurrentScale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
                 _ws.CurrentScale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
-                _ws.CurrentScale.VerScalesUI = _ws.AppVersion;
+                _ws.CurrentScale.VerScalesUI = UtilsAppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), EnumVerCountDigits.Use3);
                 ScalesUtils.Update(_ws.CurrentScale);
-
-                // Properties.Settings.Default.ConnectionString = fieldSqlConnectionString.Text;
+                // Settings.
                 Properties.Settings.Default.Save();
             }
             catch (Exception ex)
             {
-
+                result = false;
                 log.Error(ex.Message);
                 MessageBox.Show(@"Ошибка сохранения настроек!" + Environment.NewLine + ex.Message);
             }
             finally
             {
+                // GUI.
                 UseWaitCursor = false;
+                Thread.Sleep(10);
+                Application.DoEvents();
             }
-
-            // Закрыть форму.
-            ButtonClose_Click(sender, e);
+            // GUI.
+            if (result)
+                ButtonClose_Click(sender, e);
         }
 
         private void ButtonUploadResources_Click(object sender, EventArgs e)

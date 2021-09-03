@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore;
-using DataCore.DAL;
-using DataCore.DAL.TableModels;
-using DataCore.Models;
-using DataCore.Models.XML;
+using BlazorProjectsCore.Models;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataProjectsCore.Models;
+using DataShareCore;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -23,7 +23,7 @@ namespace BlazorDeviceControl.Shared.Item
         public List<ScaleEntity> ScaleItems { get; set; } = null;
         public List<TemplateEntity> TemplateItems { get; set; } = null;
         public List<NomenclatureEntity> NomenclatureItems { get; set; } = null;
-        private readonly ProductHelper _product = ProductHelper.Instance;
+        private readonly XmlProductHelper _product = XmlProductHelper.Instance;
         private readonly BarcodeHelper _barcode = BarcodeHelper.Instance;
 
         #endregion
@@ -165,7 +165,7 @@ namespace BlazorDeviceControl.Shared.Item
                     PluItem.GoodsTareWeight = 0;
                 }
 
-                ProductEntity productEntity = _product.GetProductEntity(PluItem.Nomenclature?.SerializedRepresentationObject);
+                XmlProductEntity productEntity = _product.GetProductEntity(PluItem.Nomenclature?.SerializedRepresentationObject);
                 if (productEntity != null && !productEntity.EqualsNew())
                 {
                     if (name.Equals("Entity", StringComparison.InvariantCultureIgnoreCase))

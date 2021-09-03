@@ -1,13 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataBaseCore.DAL.TableModels;
-using ScalesUI.Common;
+using DataProjectsCore.DAL.TableModels;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using WeightCore.Models;
 
 namespace ScalesUI.Forms
 {
@@ -16,7 +16,7 @@ namespace ScalesUI.Forms
         #region Private helpers
 
         private readonly SessionState _ws = SessionState.Instance;
-        private List<OrderEntity> _ordList = null;
+        private List<OrderDirect> _ordList = null;
         private int _numPage = 0;
         private readonly int offset = 9;
 
@@ -31,7 +31,7 @@ namespace ScalesUI.Forms
         {
             TopMost = !_ws.IsDebug;
 
-            _ordList = OrderEntity.GetOrderList(_ws.CurrentScale);
+            _ordList = OrderDirect.GetOrderList(_ws.CurrentScale);
             if (_ordList.Count < offset)
             {
                 btnLeftRoll.Visible = false;
@@ -80,7 +80,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void NewButton(TableLayoutPanel panel, int offset, int i, OrderEntity order)
+        private void NewButton(TableLayoutPanel panel, int offset, int i, OrderDirect order)
         {
             var btn = new Button
             {

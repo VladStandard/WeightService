@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MvvmHelpers;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,19 +9,8 @@ using System.Text.RegularExpressions;
 
 namespace LabelPrint.Models
 {
-    public class PinCode : INotifyPropertyChanged
+    public class PinCode : BaseViewModel
     {
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
         #region Constructor
 
         public PinCode()
@@ -42,7 +32,7 @@ namespace LabelPrint.Models
             set
             {
                 _printValue = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -78,7 +68,7 @@ namespace LabelPrint.Models
                 //    FrameMain.Navigate(_pageSettings);
                 //// Перед загрузкой.
                 //_pageSettings.BeforeLoaded();
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -93,7 +83,7 @@ namespace LabelPrint.Models
             private set
             {
                 _accessGranted = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 

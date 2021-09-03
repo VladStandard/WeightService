@@ -1,17 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore;
-using BlazorCore.DAL;
-using DataCore.DAL.TableModels;
-using DataCore.DAL.TableSystemModels;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Radzen;
-using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-
 namespace BlazorDeviceControl.Shared
 {
     public partial class EntityPage

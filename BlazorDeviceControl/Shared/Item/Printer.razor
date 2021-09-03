@@ -1,12 +1,12 @@
 ﻿@page "/item/printer"
 @page "/item/printer/{Id:int}"
-@using BlazorCore
-@using DataCore
-@using DataCore.DAL.TableModels
-@using DataCore.Utils
+@using BlazorProjectsCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
-@inherits DataCore.Models.BaseRazorIdEntity
+@inherits BaseRazorIdEntity
 @inject IDialogService DialogService
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.Win32;
+using MvvmHelpers;
 using ScalesCore.Models;
 using ScalesCore.Properties;
 using ScalesCore.Utils;
@@ -20,7 +21,7 @@ namespace ScalesCore.Helpers
     /// <summary>
     /// Помощник приложения.
     /// </summary>
-    public sealed class AppHelper : INotifyPropertyChanged
+    public sealed class AppHelper : BaseViewModel
     {
         #region Design pattern "Singleton"
 
@@ -30,17 +31,6 @@ namespace ScalesCore.Helpers
         {
             // Заполнить GUID из реестра.
             GuidSetValue(_reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUI, "GUID"));
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
 
         #endregion
@@ -69,7 +59,7 @@ namespace ScalesCore.Helpers
             set
             {
                 _guidValue = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -83,7 +73,7 @@ namespace ScalesCore.Helpers
             set
             {
                 _guidStatus = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -101,7 +91,7 @@ namespace ScalesCore.Helpers
             set
             {
                 _status = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 

@@ -1,13 +1,13 @@
 ﻿@page "/section/barcodetypes"
-@using BlazorCore
-@using DataCore
-@using DataCore.DAL
-@using DataCore.DAL.DataModels
-@using DataCore.DAL.TableModels
-@using DataCore.Utils
+@using BlazorProjectsCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL
+@using DataProjectsCore.DAL.DataModels
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
-@inherits DataCore.Models.BaseRazorIdEntity
+@inherits BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {

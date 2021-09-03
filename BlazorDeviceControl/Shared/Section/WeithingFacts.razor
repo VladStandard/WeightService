@@ -1,12 +1,12 @@
 ﻿@page "/section/weithingfacts"
-@using BlazorCore
-@using DataCore
-@using DataCore.DAL.DataModels
-@using DataCore.Utils
+@using BlazorProjectsCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL.DataModels
+@using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
-@inherits DataCore.Models.BaseRazorEntity
+@inherits             BaseRazorEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {

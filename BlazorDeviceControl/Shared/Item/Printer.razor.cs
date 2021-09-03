@@ -1,14 +1,5 @@
 ﻿// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore;
-using DataCore.DAL;
-using DataCore.DAL.TableModels;
-using DataCore.Models;
-using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace BlazorDeviceControl.Shared.Item
 {
     public partial class Printer

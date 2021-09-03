@@ -12,43 +12,44 @@ namespace DataShareCore
 
         public static class Strings
         {
-            #region Main
-            public static string PageError => Lang == EnumLang.English ? @"Sorry, there's nothing at this address." : @"Извините, по этому адресу ничего нет.";
-            public static string Company => Lang == EnumLang.English ? @"Vladimir Standard" : @"Владимирский стандарт";
-            public static string Index => Lang == EnumLang.English ? @"Inside resources" : @"Внутренние ресурсы";
-            public static string IndexDescription => Lang == EnumLang.English ?
-                @"The site was created to help you navigate through the company's internal resources" :
-                @"Сайт создан для помощи в навигации по внутренним ресурсам компании";
-            public static string CallbackTitle => Lang == EnumLang.English ? @"Feedback" : @"Обратная связь";
-            public static string DataLoading => Lang == EnumLang.English ? @"Loading data..." : @"Загрузка данных...";
-            public static string DataLoadComplete => Lang == EnumLang.English ? @"Data downloaded successfully." : @"Данные загружены успешно.";
-            public static string DataLoadError => Lang == EnumLang.English ? @"Error loading data!" : @"Ошибка загрузки данных!";
-            public static string IdentityError => Lang == EnumLang.English ? @"User error!" : @"Ошибка пользователя";
-            public static string NotLoad => Lang == EnumLang.English ? @"Not load!" : @"Не загружено";
-            public static string DebugMode => Lang == EnumLang.English ? @"Debug mode" : @"Режим отладки";
-            public static string ItemsCount => Lang == EnumLang.English ? @"Count of records" : @"Количество записей";
-            public static string ButtonWidth => Lang == EnumLang.English ? @"Buttons width" : @"Ширина кнопок";
-            public static string ButtonHeight => Lang == EnumLang.English ? @"Buttons height" : @"Высота кнопок";
-            public static string ServerDevelop => Lang == EnumLang.English ? @"Debug server" : @"Сервер разработки";
-            public static string ServerRelease => Lang == EnumLang.English ? @"Debug release" : @"Промышленный сервер";
-            public static string Authorization => Lang == EnumLang.English ? @"Authorization" : @"Авторизация";
-            public static string Doc => Lang == EnumLang.English ? @"Documentation" : @"Документация";
-            public static string ProgramVer => Lang == EnumLang.English ? @"Program version" : @"Версия программы";
-            public static string CoreVer => Lang == EnumLang.English ? @"Core version" : @"Версия ядра";
-            public static string AppSettings => Lang == EnumLang.English ? @"App settings" : @"Настройки приложения";
-            public static string UserSettings => Lang == EnumLang.English ? @"User settings" : @"Пользовательские настройки";
-            public static string SettingName => Lang == EnumLang.English ? @"Setting name" : @"Название настройки";
-            public static string SettingValue => Lang == EnumLang.English ? @"Setting value" : @"Значение настройки";
-            public static string RecordName => Lang == EnumLang.English ? @"Setting name" : @"Название записи";
-            public static string RecordValue => Lang == EnumLang.English ? @"Setting value" : @"Значение записи";
-            public static string HostName => Lang == EnumLang.English ? @"Host name" : @"Имя хоста";
-            public static string Language => Lang == EnumLang.English ? @"Language" : @"Язык";
-            public static string LanguageDetect => Lang == EnumLang.English ? @"English" : @"Русский";
-            public static string IsYes(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
-            public static string IsEnableIt(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
-            public static string IsEnableShe(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
-            public static string IsEnableHe(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
-            #endregion
+            public static class Main
+            {
+                public static string PageError => Lang == EnumLang.English ? @"Sorry, there's nothing at this address." : @"Извините, по этому адресу ничего нет.";
+                public static string Company => Lang == EnumLang.English ? @"Vladimir Standard" : @"Владимирский стандарт";
+                public static string Index => Lang == EnumLang.English ? @"Inside resources" : @"Внутренние ресурсы";
+                public static string IndexDescription => Lang == EnumLang.English ?
+                    @"The site was created to help you navigate through the company's internal resources" :
+                    @"Сайт создан для помощи в навигации по внутренним ресурсам компании";
+                public static string CallbackTitle => Lang == EnumLang.English ? @"Feedback" : @"Обратная связь";
+                public static string DataLoading => Lang == EnumLang.English ? @"Loading data..." : @"Загрузка данных...";
+                public static string DataLoadComplete => Lang == EnumLang.English ? @"Data downloaded successfully." : @"Данные загружены успешно.";
+                public static string DataLoadError => Lang == EnumLang.English ? @"Error loading data!" : @"Ошибка загрузки данных!";
+                public static string IdentityError => Lang == EnumLang.English ? @"User error!" : @"Ошибка пользователя";
+                public static string NotLoad => Lang == EnumLang.English ? @"Not load!" : @"Не загружено";
+                public static string DebugMode => Lang == EnumLang.English ? @"Debug mode" : @"Режим отладки";
+                public static string ItemsCount => Lang == EnumLang.English ? @"Count of records" : @"Количество записей";
+                public static string ButtonWidth => Lang == EnumLang.English ? @"Buttons width" : @"Ширина кнопок";
+                public static string ButtonHeight => Lang == EnumLang.English ? @"Buttons height" : @"Высота кнопок";
+                public static string ServerDevelop => Lang == EnumLang.English ? @"Debug server" : @"Сервер разработки";
+                public static string ServerRelease => Lang == EnumLang.English ? @"Debug release" : @"Промышленный сервер";
+                public static string Authorization => Lang == EnumLang.English ? @"Authorization" : @"Авторизация";
+                public static string Doc => Lang == EnumLang.English ? @"Documentation" : @"Документация";
+                public static string ProgramVer => Lang == EnumLang.English ? @"Program version" : @"Версия программы";
+                public static string CoreVer => Lang == EnumLang.English ? @"Core version" : @"Версия ядра";
+                public static string AppSettings => Lang == EnumLang.English ? @"App settings" : @"Настройки приложения";
+                public static string UserSettings => Lang == EnumLang.English ? @"User settings" : @"Пользовательские настройки";
+                public static string SettingName => Lang == EnumLang.English ? @"Setting name" : @"Название настройки";
+                public static string SettingValue => Lang == EnumLang.English ? @"Setting value" : @"Значение настройки";
+                public static string RecordName => Lang == EnumLang.English ? @"Setting name" : @"Название записи";
+                public static string RecordValue => Lang == EnumLang.English ? @"Setting value" : @"Значение записи";
+                public static string HostName => Lang == EnumLang.English ? @"Host name" : @"Имя хоста";
+                public static string Language => Lang == EnumLang.English ? @"Language" : @"Язык";
+                public static string LanguageDetect => Lang == EnumLang.English ? @"English" : @"Русский";
+                public static string IsYes(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
+                public static string IsEnableIt(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
+                public static string IsEnableShe(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
+                public static string IsEnableHe(bool isTrue) => Lang == EnumLang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
+            }
             #region Menu
             public static string MenuReferences => Lang == EnumLang.English ? @"References" : @"Справочники";
             public static string FileChoose => Lang == EnumLang.English ? @"Select a file" : @"Выбрать файл";
@@ -157,7 +158,7 @@ namespace DataShareCore
             public static string MemoryVirtual => Lang == EnumLang.English ? @"Virtual memory" : @"Виртуальная память";
             public static string MemoryIsExecute => Lang == EnumLang.English ? @"Application memory manager at work." : @"Менеджер памяти приложения в работе.";
             public static string MemoryIsNotExecute => Lang == EnumLang.English ? @"The application memory manager is not running!" : @"Менеджер памяти приложения не выполняется!";
-            public static string MemoryResult => Lang == EnumLang.English ? @"Результат" : @"Результат";
+            public static string MemoryResult => Lang == EnumLang.English ? @"Result" : @"Результат";
             public static string MemoryException => Lang == EnumLang.English ? @"Memory manager error" : @"Ошибка менеджера памяти";
             public static string MemoryActionStart => Lang == EnumLang.English ? @"Run the memory manager" : @"Запустить менеджер памяти";
             public static string MemoryActionStop => Lang == EnumLang.English ? @"Stop the memory manager" : @"Остановить менеджер памяти";

@@ -1,12 +1,13 @@
 ﻿@page "/item/plu"
 @page "/item/plu/{Id:int}"
-@using BlazorCore
-@using DataCore
-@using DataCore.DAL.TableModels
-@using DataCore.Utils
+@using BlazorProjectsCore
+@using BlazorProjectsCore.Models
+@using DataProjectsCore
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
-@inherits DataCore.Models.BaseRazorIdEntity
+@inherits BaseRazorIdEntity
 @inject IDialogService DialogService
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
@@ -44,7 +45,7 @@
                                 Data=@ScaleItems PageSize="5"
                                 TextProperty="Description" ValueProperty="Id"
                                 Value=@PluItem.Scale?.Id Disabled="true"
-                                Change=@(args => OnChange(args, nameof(ScaleEntity))) />
+                                Change=@(args => OnChange(args, nameof(ScaleDirect))) />
                         }
 				    </td>
                     <td>@LocalizationData.DeviceControl.TableFieldTemplate</td>
@@ -62,7 +63,7 @@
                                 Data=@TemplateItems PageSize="5"
                                 TextProperty="Title" ValueProperty="Id"
                                 Value=@PluItem.Templates?.Id
-                                Change=@(args => OnChange(args, nameof(TemplateEntity))) />
+                                Change=@(args => OnChange(args, nameof(TemplateDirect))) />
                         }
 				    </td>
                 </tr>
@@ -82,7 +83,7 @@
                                 Data=@NomenclatureItems PageSize="5"
                                 TextProperty="Name" ValueProperty="Id"
                                 Value=@PluItem.Nomenclature?.Id
-                                Change=@(args => OnChange(args, nameof(NomenclatureEntity))) />
+                                Change=@(args => OnChange(args, nameof(Nomenclature))) />
                         }
 				    </td>
                     <td>@LocalizationData.DeviceControl.TableFieldActive</td>

@@ -1,14 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore;
-using DataCore.Models;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Toolbelt.Blazor.HotKeys;
-
 namespace BlazorDeviceControl.Shared
 {
     public partial class MainLayout

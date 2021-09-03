@@ -1,13 +1,13 @@
 ﻿@page "/system/logs"
-@using BlazorCore
-@using BlazorCore.DAL.DataModels
-@using DataCore
-@using DataCore.DAL.DataModels
-@using DataCore.Utils
+@using BlazorProjectsCore
+@using BlazorProjectsCore.DAL.DataModels
+@using DataProjectsCore
+@using DataProjectsCore.DAL.DataModels
+@using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
-@inherits DataCore.Models.BaseRazorUidEntity
+@inherits             BaseRazorUidEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {

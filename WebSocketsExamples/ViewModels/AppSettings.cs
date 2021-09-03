@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MvvmHelpers;
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -14,19 +15,8 @@ namespace WebSocketsExamples.ViewModels
     /// <summary>
     /// Программные настройки.
     /// </summary>
-    public class AppSettings : INotifyPropertyChanged
+    public class AppSettings : BaseViewModel
     {
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
         #region Constructor
 
         public AppSettings()
@@ -54,7 +44,7 @@ namespace WebSocketsExamples.ViewModels
             set
             {
                 _programHeader = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 

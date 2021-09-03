@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore;
-using BlazorCore.Models;
-using DataCore.DAL;
-using DataCore.DAL.TableModels;
-using DataCore.Models;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableModels;
+using DataProjectsCore.Models;
+using DataShareCore;
+using DataShareCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public TemplateEntity TemplateItem { get => (TemplateEntity)IdItem; set => SetItem(value); }
+        public TemplateDirect TemplateItem { get => (TemplateDirect)IdItem; set => SetItem(value); }
         public List<TypeEntity<string>> TemplateCategories { get; set; }
 
         #endregion

@@ -6,12 +6,12 @@
     <AssemblyName>Terra</AssemblyName>
     <RootNamespace>Terra</RootNamespace>
     <Company>Владимирский стандарт</Company>
-    <Product>MdmControl</Product>
-    <Copyright>Copyright © 2020  - 2021</Copyright>
+    <Product>WeightService</Product>
+    <Copyright>Copyright © 2020 - 2021</Copyright>
     <Authors />
-    <Version>0.1.500</Version>
-    <AssemblyVersion>0.1.500.0</AssemblyVersion>
-    <FileVersion>0.1.500.0</FileVersion>
+    <Version>$(VersionPrefix)</Version>
+    <AssemblyVersion>0.5.510</AssemblyVersion>
+    <FileVersion>0.5.510</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 

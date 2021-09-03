@@ -1,43 +1,43 @@
 ﻿@page "/section/scales"
-@using BlazorCore
-@using DataCore
-@using DataCore.DAL
-@using DataCore.DAL.DataModels
-@using DataCore.DAL.TableModels
-@using DataCore.Utils
+@using BlazorProjectsCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL
+@using DataProjectsCore.DAL.DataModels
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
-@inherits DataCore.Models.BaseRazorIdEntity
+@inherits BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationData.DeviceControl.SectionScales SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@Items TItem="ScaleEntity"
+        Data=@Items TItem="ScaleDirect"
         RowSelect=@(args => ItemSelectAsync(args)) 
         RowDoubleClick=@(args => ActionEditAsync())
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=15 AllowSorting="true" ColumnWidth="200px">
         <Columns >
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="Id" TextAlign="TextAlign.Center"
+                TItem="ScaleDirect" Property="Id" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldId 
                 Type="int" Width="7.5%" />
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="Description" TextAlign="TextAlign.Left"
+                TItem="ScaleDirect" Property="Description" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldDescription 
                 Type="string" Width="12%" />
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="Host.Name" TextAlign="TextAlign.Left"
+                TItem="ScaleDirect" Property="Host.Name" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldHost 
                 Type="string" Width="12%" />
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="Host.Ip" TextAlign="TextAlign.Center"
+                TItem="ScaleDirect" Property="Host.Ip" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldDeviceIp 
                 Type="string" Width="8%" />
             <RadzenGridColumn 
-                TItem="ScaleEntity" TextAlign="TextAlign.Left"
+                TItem="ScaleDirect" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldIdRref 
                 Type="string" Width="20%">
                 <Template Context="item">
@@ -45,15 +45,15 @@
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="Printer.Name" TextAlign="TextAlign.Left"
+                TItem="ScaleDirect" Property="Printer.Name" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldPrinter 
                 Type="string" Width="13%" />
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="WorkShop.Name" TextAlign="TextAlign.Center"
+                TItem="ScaleDirect" Property="WorkShop.Name" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldWorkShopName 
                 Type="string" Width="7.5%" />
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="TemplateDefault.Title" TextAlign="TextAlign.Left"
+                TItem="ScaleDirect" Property="TemplateDefault.Title" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldTemplateDefault 
                 Type="string" Width="20%">
                 <Template Context="item">

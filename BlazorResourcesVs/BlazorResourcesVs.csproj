@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
-    <Version>0.5.390</Version>
+    <Version>$(VersionPrefix)</Version>
     <UserSecretsId>49c9fcd1-72a7-49db-8a2c-3ef041b6be9e</UserSecretsId>
     <Platforms>AnyCPU;x64</Platforms>
     <NeutralLanguage>en</NeutralLanguage>
@@ -26,11 +26,6 @@
 
   <ItemGroup>
     <PackageReference Include="Radzen.Blazor" Version="3.8.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BlazorCore\BlazorShareCore.csproj" />
-    <ProjectReference Include="..\DataCore\BlazorBaseCore.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MvvmHelpers;
 using ScalesMsi.Models;
 using ScalesMsi.Properties;
 using ScalesMsi.Utils;
@@ -20,7 +21,7 @@ namespace ScalesMsi.Helpers
     /// <summary>
     /// Помощник SQL.
     /// </summary>
-    internal class SqlHelper : INotifyPropertyChanged
+    internal class SqlHelper : BaseViewModel
     {
         #region Design pattern "Lazy Singleton"
 
@@ -36,17 +37,6 @@ namespace ScalesMsi.Helpers
         public void SetupDefault()
         {
             Open(EnumSettingsStorage.UseConfig);
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
 
         #endregion
@@ -78,7 +68,7 @@ namespace ScalesMsi.Helpers
             set
             {
                 _status = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 

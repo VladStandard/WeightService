@@ -1,14 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore;
-using BlazorCore.Models;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableModels;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataProjectsCore.Models;
 using DataCore;
-using DataCore.DAL;
-using DataCore.DAL.TableModels;
-using DataCore.DAL.TableSystemModels;
-using DataCore.Models;
-using Microsoft.AspNetCore.Components;
+using DataShareCore;
+using DataShareCore.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +27,7 @@ namespace BlazorDeviceControl.Shared.Item
         public List<TemplateEntity> TemplatesSeriesItems { get; set; } = null;
         public List<WorkshopEntity> WorkshopItems { get; set; } = null;
         public List<TypeEntity<string>> ComPorts { get; set; }
-        public List<HostEntity> HostItems { get; set; } = null;
+        public List<HostDirect> HostItems { get; set; } = null;
 
         #endregion
 

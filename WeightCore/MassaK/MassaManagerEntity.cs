@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataBaseCore.DAL.TableModels;
+using DataProjectsCore.DAL.TableModels;
 using DataShareCore.Gui;
 using System;
 using System.Collections.Concurrent;
@@ -44,7 +44,7 @@ namespace WeightCore.MassaK
         private static readonly object Locker = new object();
         private readonly LogHelper _log = LogHelper.Instance;
         private readonly ConcurrentQueue<Cmd> _requestQueue = new ConcurrentQueue<Cmd>();
-        public LogEntity Log { get; }
+        public LogDirect Log { get; }
 
         #endregion
 
@@ -59,7 +59,7 @@ namespace WeightCore.MassaK
             IsExecute = false;
         }
 
-        public MassaManagerEntity(LogEntity log, DeviceSocket deviceSocket, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds) :
+        public MassaManagerEntity(LogDirect log, DeviceSocket deviceSocket, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds) :
             this(waitWhileMiliSeconds, waitExceptionMiliSeconds, waitCloseMiliSeconds)
         {
             DeviceSocket = deviceSocket;

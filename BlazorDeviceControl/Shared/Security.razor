@@ -1,7 +1,6 @@
 ﻿@page "/security"
-@using BlazorCore
 @using DataCore.Utils
-@inherits DataCore.Models.BaseRazorIdEntity
+@inherits BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {

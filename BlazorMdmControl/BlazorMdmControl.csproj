@@ -3,13 +3,13 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <StartupObject>MdmControlBlazor.Program</StartupObject>
-    <Version>0.1.430</Version>
+    <Version>$(VersionPrefix)</Version>
     <UserSecretsId>3563a665-3c2d-469d-ba4c-f85bb5c0c1af</UserSecretsId>
     <Company>Владимирский стандарт</Company>
-    <Product>MdmControl</Product>
-    <Copyright>Copyright © 2020  - 2021</Copyright>
-    <AssemblyVersion>0.1.430.0</AssemblyVersion>
-    <FileVersion>0.1.430.0</FileVersion>
+    <Product>WeightService</Product>
+    <Copyright>Copyright © 2020 - 2021</Copyright>
+    <AssemblyVersion>0.5.510</AssemblyVersion>
+    <FileVersion>0.5.510</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 

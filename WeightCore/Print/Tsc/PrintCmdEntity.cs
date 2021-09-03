@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MvvmHelpers;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,19 +9,8 @@ using WeightCore.Zpl;
 
 namespace WeightCore.Print.Tsc
 {
-    public class PrintCmdEntity : INotifyPropertyChanged
+    public class PrintCmdEntity : BaseViewModel
     {
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
-        }
-
-        #endregion
-
         #region Public properties
 
         private string _textPrepare;
@@ -30,7 +20,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _textPrepare = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private string _text;
@@ -40,7 +30,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _text = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
         private PrintControlEntity PrintControl { get; set; }
@@ -51,7 +41,7 @@ namespace WeightCore.Print.Tsc
             set
             {
                 _exception = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 

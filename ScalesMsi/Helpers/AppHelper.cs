@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MvvmHelpers;
 using ScalesMsi.Models;
 using ScalesMsi.Utils;
 using System;
@@ -23,7 +24,7 @@ namespace ScalesMsi.Helpers
     /// <summary>
     /// Помощник приложения.
     /// </summary>
-    internal class AppHelper : INotifyPropertyChanged
+    internal class AppHelper : BaseViewModel
     {
         #region Design pattern "Lazy Singleton"
 
@@ -48,17 +49,6 @@ namespace ScalesMsi.Helpers
                 MessageBox.Show((CurrentLocalization == EnumLocalization.English ? @"ID default error!" : "Ошибка назначения ID по-умолчанию!") +
                                 Environment.NewLine + ex.Message);
             }
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyRaised([CallerMemberName] string caller = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
         }
 
         #endregion
@@ -101,7 +91,7 @@ namespace ScalesMsi.Helpers
             set
             {
                 _idValue = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -115,7 +105,7 @@ namespace ScalesMsi.Helpers
             set
             {
                 _idStatus = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
@@ -134,7 +124,7 @@ namespace ScalesMsi.Helpers
             set
             {
                 _status = value;
-                OnPropertyRaised();
+                OnPropertyChanged();
             }
         }
 
