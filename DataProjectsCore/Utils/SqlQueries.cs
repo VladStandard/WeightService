@@ -177,9 +177,10 @@ where [DESCRIPTION]=@scale
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 					public static string GetScaleDescription => @"
-select [DESCRIPTION]
-from [db_scales].[SCALES]
-where [ID]=@scale_id
+SELECT
+	[DESCRIPTION]
+FROM [db_scales].[Scales]
+WHERE [id] = @scale_id
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 					public static string GetScaleById => @"

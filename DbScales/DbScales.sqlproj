@@ -182,6 +182,7 @@
     <None Include="ScalesDB_1.publish.xml" />
     <None Include="ScalesDB_LUTON.publish.xml" />
     <None Include="CHANGELOG.md" />
+    <None Include="DiagramScales.dbd" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />

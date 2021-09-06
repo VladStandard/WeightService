@@ -138,7 +138,7 @@ namespace DataProjectsCore.DAL.Utils
                 new SqlParameter("@VerScalesUI", System.Data.SqlDbType.VarChar, 30) { Value = StringUtils.GetStringNullValueTrim(scale.VerScalesUI, 30) },
                 new SqlParameter("@ScaleFactor", System.Data.SqlDbType.Int) { Value = scale.ScaleFactor },
             };
-            SqlConnectFactory.Execute(SqlQueries.DbScales.Tables.Scales.UpdateScaleDirect, parameters);
+            SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbScales.Tables.Scales.UpdateScaleDirect, parameters);
         }
 
         #endregion

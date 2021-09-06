@@ -58,7 +58,32 @@ namespace DataProjectsCore.DAL
                 default(T) : (T)Convert.ChangeType(value, t);
         }
 
-        public static void Execute(string query, SqlParameter[] parameters, CommandType commandType = CommandType.Text)
+
+        public delegate void DelegateMethod(SqlDataReader reader);
+        public static void ExecuteReader(string query, SqlParameter[] parameters, DelegateMethod delegateMethod)
+        {
+            using SqlConnection con = GetConnection();
+            con.Open();
+            using (SqlCommand cmd = new(query))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddRange(parameters);
+                //cmd.CommandType = CommandType.TableDirect;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        delegateMethod(reader);
+                    }
+                    reader.Close();
+                }
+                cmd.ExecuteNonQuery();
+            }
+            con.Close();
+        }
+
+        public static void ExecuteNonQuery(string query, SqlParameter[] parameters, CommandType commandType = CommandType.Text)
         {
             using SqlConnection con = GetConnection();
             con.Open();
