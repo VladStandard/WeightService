@@ -27,9 +27,9 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         public override string ToString()
         {
-            var strHost = Host != null ? Host.Id.ToString() : "null";
-            var strApp = App != null ? App.Uid.ToString() : "null";
-            var strLogType = LogType != null ? LogType.Uid.ToString() : "null";
+            string? strHost = Host != null ? Host.Id.ToString() : "null";
+            string? strApp = App != null ? App.Uid.ToString() : "null";
+            string? strLogType = LogType != null ? LogType.Uid.ToString() : "null";
             return base.ToString() +
                    $"{nameof(CreateDt)}: {CreateDt}. " +
                    $"{nameof(Scale)}: {Scale}. " +

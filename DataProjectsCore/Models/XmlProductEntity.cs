@@ -29,7 +29,7 @@ namespace DataProjectsCore.Models
                     ProductShelfLife.EndsWith(" сут,", StringComparison.InvariantCultureIgnoreCase))
                 {
                     //short.TryParse(ProductShelfLife[0..^5], out var value);
-                    short.TryParse(ProductShelfLife.AsSpan()[0..^5].ToString(), out var value);
+                    short.TryParse(ProductShelfLife.AsSpan()[0..^5].ToString(), out short value);
                     return value;
                 }
                 return 0;
@@ -46,38 +46,38 @@ namespace DataProjectsCore.Models
 
         public override string ToString()
         {
-            var strUnits = "null. ";
+            string? strUnits = "null. ";
             if (Units != null)
             {
                 strUnits = $"{Units.Count}. ";
-                foreach (var unit in Units)
+                foreach (ProductUnitEntity? unit in Units)
                 {
                     strUnits += $"{unit}. ";
                 }
             }
-            var strBarcodes = "null. ";
+            string? strBarcodes = "null. ";
             if (Barcodes != null)
             {
                 strBarcodes = $"{Barcodes.Count}. ";
-                foreach (var barcode in Barcodes)
+                foreach (ProductBarcodeEntity? barcode in Barcodes)
                 {
                     strBarcodes += $"{barcode}. ";
                 }
             }
-            var strBoxes = "null. ";
+            string? strBoxes = "null. ";
             if (Boxes != null)
             {
                 strBoxes = $"{Boxes.Count}. ";
-                foreach (var box in Boxes)
+                foreach (ProductBoxEntity? box in Boxes)
                 {
                     strBoxes += $"{box}. ";
                 }
             }
-            var strPacks = "null. ";
+            string? strPacks = "null. ";
             if (Packs != null)
             {
                 strPacks = $"{Packs.Count}. ";
-                foreach (var pack in Packs)
+                foreach (ProductBoxEntity? pack in Packs)
                 {
                     strPacks += $"{pack}. ";
                 }
@@ -109,7 +109,7 @@ namespace DataProjectsCore.Models
             {
                 if (Units.Count != entity.Units.Count)
                     return false;
-                for (var i = 0; i < Units.Count; i++)
+                for (int i = 0; i < Units.Count; i++)
                 {
                     if (!Units[i].Equals(entity.Units[i]))
                         return false;

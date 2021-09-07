@@ -1,40 +1,49 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataShareCore.Gui;
+using DataProjectsCore.Utils;
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using WeightCore.Memory;
 
-namespace WeightCore
+namespace WeightCore.Managers
 {
     /// <summary>
     /// Task memory.
     /// </summary>
-    public class DeviceManagerEntity
+    public class MemoryManagerEntity
     {
         #region Public and private fields and properties - Manager
 
         public int WaitWhileMiliSeconds { get; private set; }
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
-        public string ExceptionMsg { get; private set; }
+        public string ExceptionMsg { get; private set; } = string.Empty;
         public delegate Task CallbackAsync(int wait);
-        public bool IsExecute { get; set; }
-        private readonly LogHelper _log = LogHelper.Instance;
+        public bool IsExecute { get; set; } = false;
+
+        #endregion
+
+        #region Public and private fields and properties
+
+        public MemorySizeEntity MemorySize { get; private set; }
+        private LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
         #region Constructor and destructor
 
-        public DeviceManagerEntity(int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds)
+        public MemoryManagerEntity(int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds)
         {
             // Manager.
             WaitWhileMiliSeconds = waitWhileMiliSeconds;
             WaitExceptionMiliSeconds = waitExceptionMiliSeconds;
             WaitCloseMiliSeconds = waitCloseMiliSeconds;
-            IsExecute = false;
+            // Other.
+            MemorySize = new MemorySizeEntity();
         }
 
         #endregion
@@ -48,7 +57,7 @@ namespace WeightCore
             {
                 try
                 {
-                    OpenJob();
+                    MakeJob();
                     callback(WaitWhileMiliSeconds).ConfigureAwait(true);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
@@ -60,15 +69,13 @@ namespace WeightCore
                 catch (Exception ex)
                 {
                     ExceptionMsg = ex.Message;
-                    if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+                    if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
                         ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                    Console.WriteLine(ExceptionMsg);
-                    Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-                    _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
+                    _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                     throw;
                 }
-                System.Windows.Forms.Application.DoEvents();
+                //System.Windows.Forms.Application.DoEvents();
             }
         }
 
@@ -78,16 +85,16 @@ namespace WeightCore
             {
                 IsExecute = false;
                 //Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
-                CloseJob();
+                MakeJob();
             }
             catch (Exception ex)
             {
                 ExceptionMsg = ex.Message;
-                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
+                if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
                     ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                Console.WriteLine(ExceptionMsg);
-                Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-                //Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
+                Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                throw;
             }
         }
 
@@ -95,14 +102,10 @@ namespace WeightCore
 
         #region Public and private methods
 
-        public void OpenJob()
+        public void MakeJob()
         {
-            //
-        }
-
-        public void CloseJob()
-        {
-            //
+            MemorySize.Physical.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
+            MemorySize.Virtual.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
         }
 
         #endregion

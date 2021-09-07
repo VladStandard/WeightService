@@ -19,7 +19,7 @@ namespace WeightCore.MassaK
             for (ushort i = 0; i < Table.Length; ++i)
             {
                 ushort value = 0;
-                var temp = i;
+                ushort temp = i;
                 for (byte j = 0; j < 8; ++j)
                 {
                     if (((value ^ temp) & 0x0001) != 0)
@@ -43,9 +43,9 @@ namespace WeightCore.MassaK
         public static ushort ComputeChecksum(byte[] bytes)
         {
             ushort crc = 0;
-            foreach (var t in bytes)
+            foreach (byte t in bytes)
             {
-                var index = (byte)(crc ^ t);
+                byte index = (byte)(crc ^ t);
                 crc = (ushort)((crc >> 8) ^ Table[index]);
             }
             return crc;

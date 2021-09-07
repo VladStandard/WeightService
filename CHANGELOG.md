@@ -6,10 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.520] - 2021-09-06
+## [0.5.540] - 2021-09-07
 ### Changed
+- ScalesUI v.0.5.540
+- WeightCore v.0.5.540
+- TscBarcode v.0.5.540
 ### Added
-- DataProjectsCoreTests 0.5.520
+- DataProjectsCoreTests v.0.5.540
+
+## [0.5.530] - 2021-09-06
+### Changed
+- Projects v.0.5.530
+- ScalesUI v.0.5.530
+### Added
+- DataProjectsCoreTests v.0.5.530
 
 ## [0.5.520] - 2021-09-03
 ### Changed

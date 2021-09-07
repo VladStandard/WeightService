@@ -14,7 +14,7 @@ namespace WeightCore
 
         public ushort ComputeChecksum(byte[] bytes)
         {
-            ushort crc = this.initialValue;
+            ushort crc = initialValue;
             for (int i = 0; i < bytes.Length; ++i)
             {
                 crc = (ushort)((crc << 8) ^ table[((crc >> 8) ^ (0xff & bytes[i]))]);

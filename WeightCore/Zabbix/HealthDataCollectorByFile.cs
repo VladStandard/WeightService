@@ -44,7 +44,7 @@ namespace WeightCore.Zabbix
 
         public StringBuilder Response()
         {
-            var result = new StringBuilder();
+            StringBuilder result = new StringBuilder();
             foreach (KeyValuePair<string, string> v in Dict)
             {
                 result.AppendLine($"{v.Key}={v.Value}");
@@ -61,15 +61,15 @@ namespace WeightCore.Zabbix
             Dict.Clear();
             if (File.Exists(SettingFileName))
             {
-                var settingdata = File.ReadAllLines(SettingFileName);
-                for (var i = 0; i < settingdata.Length; i++)
+                string[] settingdata = File.ReadAllLines(SettingFileName);
+                for (int i = 0; i < settingdata.Length; i++)
                 {
-                    var setting = settingdata[i];
-                    var sidx = setting.IndexOf("=");
+                    string setting = settingdata[i];
+                    int sidx = setting.IndexOf("=");
                     if (sidx >= 0)
                     {
-                        var skey = setting.Substring(0, sidx);
-                        var svalue = setting.Substring(sidx + 1);
+                        string skey = setting.Substring(0, sidx);
+                        string svalue = setting.Substring(sidx + 1);
                         //if (Dict.ContainsKey(skey))
                         //{
                         //    Dict.Remove(skey);

@@ -5,6 +5,7 @@ using DataProjectsCore.Utils;
 using DataShareCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
+using static DataProjectsCore.Utils.LogEnums;
 
 namespace DataProjectsCore.DAL.TableModels
 {
@@ -38,110 +39,87 @@ namespace DataProjectsCore.DAL.TableModels
 
         #region Public and private methods
 
-        public void Save(string file, int line, string member, LogType logType, string message)
+        private void Save(string message, LogType logType, string filePath, string memberName, int lineNumber)
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            StringUtils.SetStringValueTrim(ref filePath, 32, true);
+            StringUtils.SetStringValueTrim(ref memberName, 32);
+            byte logNumber = (byte)logType;
+            StringUtils.SetStringValueTrim(ref message, 1024);
+            SqlParameter[] parameters = new SqlParameter[] {
+                new SqlParameter("@hostId", System.Data.SqlDbType.Int) { Value = HostId },
+                new SqlParameter("@appUid", System.Data.SqlDbType.UniqueIdentifier) { Value = AppUid },
+                new SqlParameter("@version", System.Data.SqlDbType.NVarChar, 12) { Value = Version },
+                new SqlParameter("@file", System.Data.SqlDbType.NVarChar, 32) { Value = filePath },
+                new SqlParameter("@line", System.Data.SqlDbType.Int) { Value = lineNumber },
+                new SqlParameter("@member", System.Data.SqlDbType.NVarChar, 32) { Value = memberName },
+                new SqlParameter("@logNumber", System.Data.SqlDbType.TinyInt) { Value = logNumber },
+                new SqlParameter("@message", System.Data.SqlDbType.NVarChar, 1024) { Value = message },
+            };
+            SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbServiceManaging.Tables.Logs.AddLog, parameters);
+        }
+
+        public void SaveInformation(string message, string filePath, string memberName, int lineNumber)
+        {
+            Save(message, LogType.Information, filePath, memberName, lineNumber);
+        }
+
+        public void SaveError(string message, string filePath, string memberName, int lineNumber)
+        {
+            Save(message, LogType.Error, filePath, memberName, lineNumber);
+        }
+
+        public void SaveStop(string message, string filePath, string memberName, int lineNumber)
+        {
+            Save(message, LogType.Stop, filePath, memberName, lineNumber);
+        }
+
+        public void SaveWarning(string message, string filePath, string memberName, int lineNumber)
+        {
+            Save(message, LogType.Warning, filePath, memberName, lineNumber);
+        }
+
+        public void SaveQuestion(string message, string filePath, string memberName, int lineNumber)
+        {
+            Save(message, LogType.Question, filePath, memberName, lineNumber);
+        }
+
+        public static Guid? SaveAppReader(SqlDataReader reader)
+        {
+            Guid? result = default;
+            if (reader.Read())
             {
-                con.Open();
-                StringUtils.SetStringValueTrim(ref file, 32, true);
-                StringUtils.SetStringValueTrim(ref member, 32);
-                byte logNumber = (byte)logType;
-                StringUtils.SetStringValueTrim(ref message, 1024);
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbServiceManaging.Tables.Logs.AddLog))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@hostId", HostId);
-                    cmd.Parameters.AddWithValue("@appUid", AppUid);
-                    cmd.Parameters.AddWithValue("@version", Version);
-                    cmd.Parameters.AddWithValue("@file", file);
-                    cmd.Parameters.AddWithValue("@line", line);
-                    cmd.Parameters.AddWithValue("@member", member);
-                    cmd.Parameters.AddWithValue("@logNumber", logNumber);
-                    cmd.Parameters.AddWithValue("@message", message);
-                    cmd.ExecuteNonQuery();
-                }
-                con.Close();
+                result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
             }
-        }
-
-        public void SaveInfo(string file, int line, string member, string message)
-        {
-            Save(file, line, member, LogType.Information, message);
-        }
-
-        public void SaveError(string file, int line, string member, string message)
-        {
-            Save(file, line, member, LogType.Error, message);
-        }
-
-        public void SaveWarning(string file, int line, string member, string message)
-        {
-            Save(file, line, member, LogType.Warning, message);
-        }
-
-        public void SaveQuestion(string file, int line, string member, string message)
-        {
-            Save(file, line, member, LogType.Question, message);
+            return result;
         }
 
         public Guid? SaveApp(string app)
         {
-            Guid? result = null;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            StringUtils.SetStringValueTrim(ref app, 32);
+            SqlParameter[] parameters = new SqlParameter[] {
+                new SqlParameter("@app", System.Data.SqlDbType.NVarChar, 32) { Value = app },
+            };
+            return SqlConnectFactory.ExecuteReader(SqlQueries.DbServiceManaging.Tables.Apps.AddApp, parameters, SaveAppReader);
+        }
+
+        public static int? GetHostIdReader(SqlDataReader reader)
+        {
+            int? result = default;
+            if (reader.Read())
             {
-                con.Open();
-                StringUtils.SetStringValueTrim(ref app, 32);
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbServiceManaging.Tables.Apps.AddApp))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@app", app);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            if (reader.Read())
-                            {
-                                result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
-                            }
-                        }
-                        reader.Close();
-                    }
-                }
-                con.Close();
+                result = SqlConnectFactory.GetValue<int>(reader, "ID");
             }
             return result;
         }
 
         public int? GetHostId(string host, Guid idRref)
         {
-            int? result = null;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                StringUtils.SetStringValueTrim(ref host, 150);
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.Hosts.GetHostId))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@host", host);
-                    cmd.Parameters.AddWithValue("@idrref", idRref);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            if (reader.Read())
-                            {
-                                result = SqlConnectFactory.GetValue<int>(reader, "ID");
-                            }
-                        }
-                        reader.Close();
-                    }
-                }
-                con.Close();
-            }
-            return result;
+            StringUtils.SetStringValueTrim(ref host, 150);
+            SqlParameter[] parameters = new SqlParameter[] {
+                new SqlParameter("@host", System.Data.SqlDbType.NVarChar, 150) { Value = host },
+                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idRref },
+            };
+            return SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostId, parameters, GetHostIdReader);
         }
 
         #endregion

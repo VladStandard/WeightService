@@ -22,8 +22,8 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            var strPrinter = Printer != null ? Printer.Id.ToString() : "null";
-            var strResource = Resource != null ? Resource.Id.ToString() : "null";
+            string? strPrinter = Printer != null ? Printer.Id.ToString() : "null";
+            string? strResource = Resource != null ? Resource.Id.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Printer)}: {strPrinter}. " +
                    $"{nameof(Resource)}: {strResource}. " +

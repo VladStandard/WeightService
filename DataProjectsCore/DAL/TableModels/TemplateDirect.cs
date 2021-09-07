@@ -73,7 +73,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.Append($"{CategoryId}/{Title}");
             return sb.ToString();
         }
@@ -111,30 +111,26 @@ namespace DataProjectsCore.DAL.TableModels
 
         private void GetTemplateObjFromDb()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = "SELECT TOP(1) CategoryID,Title,XslContent FROM [db_scales].[GetTemplatesObjByID] (@TemplateID);";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query = "SELECT TOP(1) CategoryID,Title,XslContent FROM [db_scales].[GetTemplatesObjByID] (@TemplateID);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@TemplateID", TemplateId);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@TemplateID", TemplateId);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                CategoryId = reader.GetString(0);
-                                Title = reader.GetString(1);
-                                XslContent = reader.GetString(2);
-                            }
-                        }
-                        reader.Close();
+                        CategoryId = reader.GetString(0);
+                        Title = reader.GetString(1);
+                        XslContent = reader.GetString(2);
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
 
             // Ресурсы принадлежат весам и должны загружатся 
             // оттуда. Из программы управления устройствами 
@@ -182,53 +178,47 @@ namespace DataProjectsCore.DAL.TableModels
 
         private void GetTemplateObjFromDb(string title)
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                string query = @"
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = @"
 select top (1) [Id], [CategoryId], convert(nvarchar(max),[ImageData],0) [XslContent]
 from [db_scales].[Templates]
 where [Title] = @Title
                     ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-                using (SqlCommand cmd = new SqlCommand(query))
+            using (SqlCommand cmd = new(query))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Title", title);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Title", title);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            if (reader.Read())
-                            {
-                                TemplateId = reader.GetInt32(0);
-                                CategoryId = reader.GetString(1);
-                                XslContent = reader.GetString(2);
-                                Title = title;
-                            }
-                        }
-                        reader.Close();
+                        TemplateId = reader.GetInt32(0);
+                        CategoryId = reader.GetString(1);
+                        XslContent = reader.GetString(2);
+                        Title = title;
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         [Obsolete(@"Deprecated method")]
         private void GetTemplateFromDb(string templateId)
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = "SELECT [db_scales].[GetTemplateByID] ( @ID )";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query = "SELECT [db_scales].[GetTemplateByID] ( @ID )";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ID", templateId);
-                    //var buf = (byte[])cmd.ExecuteScalar();
-                    //var tmplate = Encoding.UTF8.GetString(buf, 0, buf.Length);
-                }
-                con.Close();
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ID", templateId);
+                //var buf = (byte[])cmd.ExecuteScalar();
+                //var tmplate = Encoding.UTF8.GetString(buf, 0, buf.Length);
             }
+            con.Close();
         }
 
         #endregion

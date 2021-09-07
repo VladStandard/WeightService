@@ -86,7 +86,7 @@ namespace DataProjectsCore.DAL.TableModels
         {
             IDictionary<string, object> dict = ObjectToDictionary<PluDirect>(this);
 
-            XDocument doc = new XDocument(
+            XDocument doc = new(
                 new XElement("XMLScript", new XAttribute("Version", "2.0"),
                 new XElement("Command",
                 new XElement("Print",
@@ -130,7 +130,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.Append($"({PLU})");
             sb.Append($" {GoodsName}");
             //sb.Append($"GoodsDescription : {this.GoodsDescription};\n");
@@ -184,7 +184,7 @@ select
 
 from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
                     ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-            SqlCommand cmd = new SqlCommand(query, con);
+            SqlCommand cmd = new(query, con);
             cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.Int) { Value = Scale.Id });
             cmd.Parameters.Add(new SqlParameter("@PLU", SqlDbType.Int) { Value = PLU });
             cmd.Prepare();
@@ -193,42 +193,38 @@ from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
 
         public void Load()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            SqlCommand cmd = GetLoadCmd(con);
+            if (cmd != null)
             {
-                con.Open();
-                SqlCommand cmd = GetLoadCmd(con);
-                if (cmd != null)
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "Id");
-                                GoodsName = SqlConnectFactory.GetValue<string>(reader, "GoodsName");
-                                GoodsFullName = SqlConnectFactory.GetValue<string>(reader, "GoodsFullName");
-                                GoodsDescription = SqlConnectFactory.GetValue<string>(reader, "GoodsDescription");
-                                TemplateID = SqlConnectFactory.GetValue<int>(reader, "TemplateID");
-                                GTIN = SqlConnectFactory.GetValue<string>(reader, "GTIN");
-                                EAN13 = SqlConnectFactory.GetValue<string>(reader, "EAN13");
-                                ITF14 = SqlConnectFactory.GetValue<string>(reader, "ITF14");
-                                GoodsShelfLifeDays = SqlConnectFactory.GetValue<byte>(reader, "GoodsShelfLifeDays");
-                                GoodsTareWeight = SqlConnectFactory.GetValue<decimal>(reader, "GoodsTareWeight");
-                                GoodsBoxQuantly = SqlConnectFactory.GetValue<int>(reader, "GoodsBoxQuantly");
-                                //RRefGoods = SqlConnectFactory.GetValue<string>(reader, "RRefGoods");
-                                //PLU = SqlConnectFactory.GetValue<int>(reader, "PLU");
-                                UpperWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "UpperWeightThreshold");
-                                NominalWeight = SqlConnectFactory.GetValue<decimal>(reader, "NominalWeight");
-                                LowerWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "LowerWeightThreshold");
-                                CheckWeight = SqlConnectFactory.GetValue<bool>(reader, "CheckWeight");
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "Id");
+                        GoodsName = SqlConnectFactory.GetValue<string>(reader, "GoodsName");
+                        GoodsFullName = SqlConnectFactory.GetValue<string>(reader, "GoodsFullName");
+                        GoodsDescription = SqlConnectFactory.GetValue<string>(reader, "GoodsDescription");
+                        TemplateID = SqlConnectFactory.GetValue<int>(reader, "TemplateID");
+                        GTIN = SqlConnectFactory.GetValue<string>(reader, "GTIN");
+                        EAN13 = SqlConnectFactory.GetValue<string>(reader, "EAN13");
+                        ITF14 = SqlConnectFactory.GetValue<string>(reader, "ITF14");
+                        GoodsShelfLifeDays = SqlConnectFactory.GetValue<byte>(reader, "GoodsShelfLifeDays");
+                        GoodsTareWeight = SqlConnectFactory.GetValue<decimal>(reader, "GoodsTareWeight");
+                        GoodsBoxQuantly = SqlConnectFactory.GetValue<int>(reader, "GoodsBoxQuantly");
+                        //RRefGoods = SqlConnectFactory.GetValue<string>(reader, "RRefGoods");
+                        //PLU = SqlConnectFactory.GetValue<int>(reader, "PLU");
+                        UpperWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "UpperWeightThreshold");
+                        NominalWeight = SqlConnectFactory.GetValue<decimal>(reader, "NominalWeight");
+                        LowerWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "LowerWeightThreshold");
+                        CheckWeight = SqlConnectFactory.GetValue<bool>(reader, "CheckWeight");
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public static SqlCommand GetPluListCmd(SqlConnection con, int scaleId)
@@ -257,7 +253,7 @@ select
 from [db_scales].[GetPLU] (@ScaleID)
 order by [PLU]
                     ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-            SqlCommand cmd = new SqlCommand(query, con);
+            SqlCommand cmd = new(query, con);
             cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.Int) { Value = scaleId });
             cmd.Prepare();
             return cmd;
@@ -265,7 +261,7 @@ order by [PLU]
 
         public static List<PluDirect> GetPluList(ScaleDirect scale)
         {
-            List<PluDirect> result = new List<PluDirect>();
+            List<PluDirect> result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
@@ -274,39 +270,37 @@ order by [PLU]
                     SqlCommand cmd = GetPluListCmd(con, scale.Id);
                     if (cmd != null)
                     {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        using SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.HasRows)
                         {
-                            if (reader.HasRows)
+                            while (reader.Read())
                             {
-                                while (reader.Read())
+                                PluDirect pluEntity = new()
                                 {
-                                    PluDirect pluEntity = new PluDirect()
-                                    {
-                                        Scale = scale,
-                                        //ScaleId = SqlConnectFactory.GetValue<string>(reader, "GoodsName");
-                                        Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                        GoodsName = SqlConnectFactory.GetValue<string>(reader, "GoodsName"),
-                                        GoodsFullName = SqlConnectFactory.GetValue<string>(reader, "GoodsFullName"),
-                                        GoodsDescription = SqlConnectFactory.GetValue<string>(reader, "GoodsDescription"),
-                                        TemplateID = SqlConnectFactory.GetValue<int>(reader, "TemplateID"),
-                                        GTIN = SqlConnectFactory.GetValue<string>(reader, "GTIN"),
-                                        EAN13 = SqlConnectFactory.GetValue<string>(reader, "EAN13"),
-                                        ITF14 = SqlConnectFactory.GetValue<string>(reader, "ITF14"),
-                                        GoodsShelfLifeDays = SqlConnectFactory.GetValue<byte>(reader, "GoodsShelfLifeDays"),
-                                        GoodsTareWeight = SqlConnectFactory.GetValue<decimal>(reader, "GoodsTareWeight"),
-                                        GoodsBoxQuantly = SqlConnectFactory.GetValue<int>(reader, "GoodsBoxQuantly"),
-                                        //RRefGoods = SqlConnectFactory.GetValue<string>(reader, "RRefGoods"),
-                                        PLU = SqlConnectFactory.GetValue<int>(reader, "PLU"),
-                                        UpperWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "UpperWeightThreshold"),
-                                        NominalWeight = SqlConnectFactory.GetValue<decimal>(reader, "NominalWeight"),
-                                        LowerWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "LowerWeightThreshold"),
-                                        CheckWeight = SqlConnectFactory.GetValue<bool>(reader, "CheckWeight")
-                                    };
-                                    result.Add(pluEntity);
-                                }
+                                    Scale = scale,
+                                    //ScaleId = SqlConnectFactory.GetValue<string>(reader, "GoodsName");
+                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                    GoodsName = SqlConnectFactory.GetValue<string>(reader, "GoodsName"),
+                                    GoodsFullName = SqlConnectFactory.GetValue<string>(reader, "GoodsFullName"),
+                                    GoodsDescription = SqlConnectFactory.GetValue<string>(reader, "GoodsDescription"),
+                                    TemplateID = SqlConnectFactory.GetValue<int>(reader, "TemplateID"),
+                                    GTIN = SqlConnectFactory.GetValue<string>(reader, "GTIN"),
+                                    EAN13 = SqlConnectFactory.GetValue<string>(reader, "EAN13"),
+                                    ITF14 = SqlConnectFactory.GetValue<string>(reader, "ITF14"),
+                                    GoodsShelfLifeDays = SqlConnectFactory.GetValue<byte>(reader, "GoodsShelfLifeDays"),
+                                    GoodsTareWeight = SqlConnectFactory.GetValue<decimal>(reader, "GoodsTareWeight"),
+                                    GoodsBoxQuantly = SqlConnectFactory.GetValue<int>(reader, "GoodsBoxQuantly"),
+                                    //RRefGoods = SqlConnectFactory.GetValue<string>(reader, "RRefGoods"),
+                                    PLU = SqlConnectFactory.GetValue<int>(reader, "PLU"),
+                                    UpperWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "UpperWeightThreshold"),
+                                    NominalWeight = SqlConnectFactory.GetValue<decimal>(reader, "NominalWeight"),
+                                    LowerWeightThreshold = SqlConnectFactory.GetValue<decimal>(reader, "LowerWeightThreshold"),
+                                    CheckWeight = SqlConnectFactory.GetValue<bool>(reader, "CheckWeight")
+                                };
+                                result.Add(pluEntity);
                             }
-                            reader.Close();
                         }
+                        reader.Close();
                     }
                 }
                 con.Close();

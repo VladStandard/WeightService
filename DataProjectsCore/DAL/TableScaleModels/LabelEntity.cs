@@ -26,7 +26,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            var strWeithingFact = WeithingFact != null ? WeithingFact.Id.ToString() : "null";
+            string? strWeithingFact = WeithingFact != null ? WeithingFact.Id.ToString() : "null";
             return base.ToString() +
                    $"{nameof(WeithingFact)}: {strWeithingFact}. " +
                    $"{nameof(Label)}: {LabelString}. " +

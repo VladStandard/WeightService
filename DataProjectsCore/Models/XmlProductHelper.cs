@@ -13,7 +13,7 @@ namespace DataProjectsCore.Models
         #region Design pattern "Lazy Singleton"
 
         // ReSharper disable once InconsistentNaming
-        private static readonly Lazy<XmlProductHelper> _instance = new Lazy<XmlProductHelper>(() => new XmlProductHelper());
+        private static readonly Lazy<XmlProductHelper> _instance = new(() => new XmlProductHelper());
         public static XmlProductHelper Instance => _instance.Value;
 
         #endregion
@@ -33,9 +33,9 @@ namespace DataProjectsCore.Models
 
         public string GetXmlWrapp(string value)
         {
-            var xmlBegin = @"<?xml version=""1.0"" encoding=""utf-8""?>";
-            var xmlRootBegin = "<root>";
-            var xmlRootEnd = "</root>";
+            string? xmlBegin = @"<?xml version=""1.0"" encoding=""utf-8""?>";
+            string? xmlRootBegin = "<root>";
+            string? xmlRootEnd = "</root>";
             if (!value.StartsWith(xmlRootBegin) && !value.EndsWith(xmlRootEnd))
             {
                 value = xmlRootBegin + Environment.NewLine + value + Environment.NewLine + xmlRootEnd;
@@ -49,18 +49,18 @@ namespace DataProjectsCore.Models
 
         public List<ProductUnitEntity> GetProductUnitEntities(XElement xmlElement, string nameSection, string nameElement)
         {
-            var entities = new List<ProductUnitEntity>();
-            var xmlEntities = xmlElement.Elements(nameSection).ToList();
+            List<ProductUnitEntity>? entities = new List<ProductUnitEntity>();
+            List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
             if (xmlEntities.Any())
             {
-                foreach (var xmlEntity in xmlEntities)
+                foreach (XElement? xmlEntity in xmlEntities)
                 {
-                    var xmlChilds = xmlEntity.Elements(nameElement).ToList();
+                    List<XElement>? xmlChilds = xmlEntity.Elements(nameElement).ToList();
                     if (xmlChilds.Any())
                     {
-                        foreach (var xmlChild in xmlChilds)
+                        foreach (XElement? xmlChild in xmlChilds)
                         {
-                            var entity = new ProductUnitEntity
+                            ProductUnitEntity? entity = new ProductUnitEntity
                             {
                                 Heft = GetAttribute<decimal>(xmlChild, "Heft"),
                                 Capacity = GetAttribute<decimal>(xmlChild, "Capacity"),
@@ -79,18 +79,18 @@ namespace DataProjectsCore.Models
 
         public List<ProductBarcodeEntity> GetProductBarcodeEntities(XElement xmlElement, string nameSection, string nameElement)
         {
-            var entities = new List<ProductBarcodeEntity>();
-            var xmlEntities = xmlElement.Elements(nameSection).ToList();
+            List<ProductBarcodeEntity>? entities = new List<ProductBarcodeEntity>();
+            List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
             if (xmlEntities.Any())
             {
-                foreach (var xmlEntity in xmlEntities)
+                foreach (XElement? xmlEntity in xmlEntities)
                 {
-                    var xmlChilds = xmlEntity.Elements(nameElement).ToList();
+                    List<XElement>? xmlChilds = xmlEntity.Elements(nameElement).ToList();
                     if (xmlChilds.Any())
                     {
-                        foreach (var xmlChild in xmlChilds)
+                        foreach (XElement? xmlChild in xmlChilds)
                         {
-                            var entity = new ProductBarcodeEntity
+                            ProductBarcodeEntity? entity = new ProductBarcodeEntity
                             {
                                 Type = GetAttribute<string>(xmlChild, "Type"),
                                 Barcode = GetAttribute<string>(xmlChild, "Barcode"),
@@ -105,18 +105,18 @@ namespace DataProjectsCore.Models
 
         public List<ProductBoxEntity> GetProductBoxEntities(XElement xmlElement, string nameSection, string nameElement)
         {
-            var entities = new List<ProductBoxEntity>();
-            var xmlEntities = xmlElement.Elements(nameSection).ToList();
+            List<ProductBoxEntity>? entities = new List<ProductBoxEntity>();
+            List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
             if (xmlEntities.Any())
             {
-                foreach (var xmlEntity in xmlEntities)
+                foreach (XElement? xmlEntity in xmlEntities)
                 {
-                    var xmlChilds = xmlEntity.Elements(nameElement).ToList();
+                    List<XElement>? xmlChilds = xmlEntity.Elements(nameElement).ToList();
                     if (xmlChilds.Any())
                     {
-                        foreach (var xmlChild in xmlChilds)
+                        foreach (XElement? xmlChild in xmlChilds)
                         {
-                            var entity = new ProductBoxEntity
+                            ProductBoxEntity? entity = new ProductBoxEntity
                             {
                                 Description = GetAttribute<string>(xmlChild, "Description"),
                                 Heft = GetAttribute<decimal>(xmlChild, "Heft"),
@@ -136,13 +136,13 @@ namespace DataProjectsCore.Models
 
         public XmlProductEntity GetProductEntity(string value)
         {
-            var productEntity = new XmlProductEntity();
+            XmlProductEntity? productEntity = new XmlProductEntity();
             if (string.IsNullOrEmpty(value))
                 return productEntity;
 
-            var xmlDoc = XDocument.Parse(GetXmlWrapp(value));
-            var xmlRoot = xmlDoc.Element("root");
-            var xmlProduct = xmlRoot?.Element("Product");
+            XDocument? xmlDoc = XDocument.Parse(GetXmlWrapp(value));
+            XElement? xmlRoot = xmlDoc.Element("root");
+            XElement? xmlProduct = xmlRoot?.Element("Product");
             if (xmlProduct != null)
             {
                 if (xmlProduct.HasAttributes)
@@ -183,21 +183,21 @@ namespace DataProjectsCore.Models
                     }
                     if (typeof(T) == typeof(decimal))
                     {
-                        if (decimal.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (decimal.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out decimal value))
                         {
                             return (T)Convert.ChangeType(value, typeof(decimal));
                         }
                     }
                     if (typeof(T) == typeof(int))
                     {
-                        if (int.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (int.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out int value))
                         {
                             return (T)Convert.ChangeType(value, typeof(int));
                         }
                     }
                     if (typeof(T) == typeof(Guid))
                     {
-                        if (Guid.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (Guid.TryParse(xmlElement.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out Guid value))
                         {
                             return (T)Convert.ChangeType(value, typeof(Guid));
                         }
@@ -215,21 +215,21 @@ namespace DataProjectsCore.Models
                     }
                     if (typeof(T) == typeof(decimal))
                     {
-                        if (decimal.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (decimal.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out decimal value))
                         {
                             return (T)Convert.ChangeType(value, typeof(decimal));
                         }
                     }
                     if (typeof(T) == typeof(int))
                     {
-                        if (int.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (int.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out int value))
                         {
                             return (T)Convert.ChangeType(value, typeof(int));
                         }
                     }
                     if (typeof(T) == typeof(Guid))
                     {
-                        if (Guid.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out var value))
+                        if (Guid.TryParse(xmlAttribute.Value.TrimStart(' ').TrimEnd(' ').Replace(".", ","), out Guid value))
                         {
                             return (T)Convert.ChangeType(value, typeof(Guid));
                         }
@@ -241,11 +241,11 @@ namespace DataProjectsCore.Models
 
         public List<T> GetElementValue<T>(XElement xmlElement, string nameElement)
         {
-            var entities = new List<T>();
-            var xmlEntities = xmlElement.Elements(nameElement).ToList();
+            List<T>? entities = new List<T>();
+            List<XElement>? xmlEntities = xmlElement.Elements(nameElement).ToList();
             if (xmlEntities.Any())
             {
-                foreach (var xmlEntity in xmlEntities)
+                foreach (XElement? xmlEntity in xmlEntities)
                 {
                     entities.Add(GetAttribute<T>(xmlEntity, null));
                 }

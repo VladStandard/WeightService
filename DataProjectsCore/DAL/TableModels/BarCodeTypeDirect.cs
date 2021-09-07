@@ -25,29 +25,25 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = "SELECT * FROM [db_scales].[GetBarCodeType](@Id);";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query = "SELECT * FROM [db_scales].[GetBarCodeType](@Id);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Id", Id);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Id", Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                                Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
     }
 }

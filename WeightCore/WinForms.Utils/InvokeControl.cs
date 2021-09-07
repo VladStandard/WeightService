@@ -278,7 +278,7 @@ namespace WeightCore.WinForms.Utils
             {
                 if (control != null && child != null)
                 {
-                    if (control.InvokeRequired || control.InvokeRequired)
+                    if (control.InvokeRequired)
                     {
                         control.Invoke(new MethodInvoker(() => Work(control, child)));
                     }

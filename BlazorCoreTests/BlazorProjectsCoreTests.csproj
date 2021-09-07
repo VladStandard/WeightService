@@ -7,7 +7,7 @@
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2021</Copyright>
-    <AssemblyVersion>0.5.520</AssemblyVersion>
+    <AssemblyVersion>0.5.540</AssemblyVersion>
     <AssemblyName>BlazorCoreTests</AssemblyName>
     <RootNamespace>BlazorCoreTests</RootNamespace>
     <Configurations>Debug;Release;Dev</Configurations>
@@ -21,11 +21,11 @@
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0-release-20210626-04" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorCore\BlazorShareCore.csproj" />
+    <ProjectReference Include="..\BlazorProjectsCore\BlazorProjectsCore.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

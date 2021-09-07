@@ -21,19 +21,17 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Save()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = "INSERT INTO [db_scales].[Labels] ([WeithingFactId],[Label]) VALUES (@ID, CONVERT(VARBINARY(MAX), @LABEL)) ";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query = "INSERT INTO [db_scales].[Labels] ([WeithingFactId],[Label]) VALUES (@ID, CONVERT(VARBINARY(MAX), @LABEL)) ";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ID", WeighingFactId);
-                    cmd.Parameters.AddWithValue("@LABEL", Content);
-                    cmd.ExecuteNonQuery();
-                }
-                con.Close();
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ID", WeighingFactId);
+                cmd.Parameters.AddWithValue("@LABEL", Content);
+                cmd.ExecuteNonQuery();
             }
+            con.Close();
         }
 
         #endregion

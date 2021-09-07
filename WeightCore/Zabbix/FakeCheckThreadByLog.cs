@@ -13,7 +13,7 @@ namespace WeightCore.Zabbix
 
         private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Thread _listenerThread;
-        private readonly object _locker = new object();
+        private readonly object _locker = new();
         private CancellationToken _token;
         private readonly int _threadTimeOut;
         private readonly Action _reloadValuesFunc = null;

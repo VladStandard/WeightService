@@ -42,7 +42,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            var strScale = Scale != null ? Scale.Id.ToString() : "null";
+            string? strScale = Scale != null ? Scale.Id.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Scale)}: {strScale}. " +
                    $"{nameof(CreateDate)}: {CreateDate}. " +

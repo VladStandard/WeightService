@@ -14,34 +14,28 @@ namespace DataProjectsCore.DAL.Utils
 
         public static void SaveTask(TaskDirect task, TaskTypeDirect taskType, int scaleId, bool enabled)
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            if (task == null)
             {
-                con.Open();
-                if (task == null)
-                {
-                    using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.Tasks.InsertTask))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@task_type_uid", taskType.Uid);
-                        cmd.Parameters.AddWithValue("@scale_id", scaleId);
-                        cmd.Parameters.AddWithValue("@enabled", enabled);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                else
-                {
-                    using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.Tasks.UpdateTask))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@uid", task.Uid);
-                        cmd.Parameters.AddWithValue("@enabled", enabled);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                con.Close();
+                using SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.InsertTask);
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@task_type_uid", taskType.Uid);
+                cmd.Parameters.AddWithValue("@scale_id", scaleId);
+                cmd.Parameters.AddWithValue("@enabled", enabled);
+                cmd.ExecuteNonQuery();
             }
+            else
+            {
+                using SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.UpdateTask);
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@uid", task.Uid);
+                cmd.Parameters.AddWithValue("@enabled", enabled);
+                cmd.ExecuteNonQuery();
+            }
+            con.Close();
         }
 
         public static Guid GetTaskUid(string taskName)
@@ -51,22 +45,20 @@ namespace DataProjectsCore.DAL.Utils
             {
                 con.Open();
                 StringUtils.SetStringValueTrim(ref taskName, 32);
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.Tasks.GetTaskUid))
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskUid))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@task_type", taskName);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
-                            }
+                            result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -79,29 +71,27 @@ namespace DataProjectsCore.DAL.Utils
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.Tasks.GetTaskByTypeAndScale))
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskByTypeAndScale))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@task_type_uid", taskTypeUid);
                     cmd.Parameters.AddWithValue("@scale_id", scaleId);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            result = new TaskDirect
                             {
-                                result = new TaskDirect
-                                {
-                                    Uid = SqlConnectFactory.GetValue<Guid>(reader, "TASK_UID"),
-                                    TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValue<Guid>(reader, "TASK_TYPE_UID")),
-                                    Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValue<int>(reader, "SCALE_ID")),
-                                    Enabled = SqlConnectFactory.GetValue<bool>(reader, "ENABLED")
-                                };
-                            }
+                                Uid = SqlConnectFactory.GetValue<Guid>(reader, "TASK_UID"),
+                                TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValue<Guid>(reader, "TASK_TYPE_UID")),
+                                Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValue<int>(reader, "SCALE_ID")),
+                                Enabled = SqlConnectFactory.GetValue<bool>(reader, "ENABLED")
+                            };
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -114,28 +104,26 @@ namespace DataProjectsCore.DAL.Utils
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.Tasks.GetTaskByUid))
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskByUid))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@task_uid", taskUid);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            if (reader.Read())
+                            result = new TaskDirect
                             {
-                                result = new TaskDirect
-                                {
-                                    Uid = SqlConnectFactory.GetValue<Guid>(reader, "TASK_UID"),
-                                    TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValue<Guid>(reader, "TASK_TYPE_UID")),
-                                    Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValue<int>(reader, "SCALE_ID")),
-                                    Enabled = SqlConnectFactory.GetValue<bool>(reader, "ENABLED")
-                                };
-                            }
+                                Uid = SqlConnectFactory.GetValue<Guid>(reader, "TASK_UID"),
+                                TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValue<Guid>(reader, "TASK_TYPE_UID")),
+                                Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValue<int>(reader, "SCALE_ID")),
+                                Enabled = SqlConnectFactory.GetValue<bool>(reader, "ENABLED")
+                            };
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }

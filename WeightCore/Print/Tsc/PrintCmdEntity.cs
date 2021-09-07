@@ -3,8 +3,6 @@
 
 using MvvmHelpers;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using WeightCore.Zpl;
 
 namespace WeightCore.Print.Tsc
@@ -106,8 +104,8 @@ namespace WeightCore.Print.Tsc
 
         public void SetGap(bool isClose, bool isClearBuffer, double gapSize = 3.5, double gapOffset = 0.0)
         {
-            var strGapSize = $"{gapSize}".Replace(',', '.');
-            var strGapOffset = $"{gapOffset}".Replace(',', '.');
+            string strGapSize = $"{gapSize}".Replace(',', '.');
+            string strGapOffset = $"{gapOffset}".Replace(',', '.');
             SendCustom(isClose, $"GAP {strGapSize} mm, {strGapOffset} mm", isClearBuffer);
         }
 

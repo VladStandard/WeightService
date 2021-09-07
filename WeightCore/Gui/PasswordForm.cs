@@ -91,7 +91,7 @@ namespace WeightCore.Gui
 
         private void btnNum_Click(object sender, EventArgs e)
         {
-            var num = (string)(sender as Control)?.Tag;
+            string num = (string)(sender as Control)?.Tag;
             UserPinCode = int.Parse(UserPinCode + num);
             if (CheckPin)
             {

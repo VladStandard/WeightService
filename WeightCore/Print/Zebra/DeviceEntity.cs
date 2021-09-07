@@ -5,19 +5,19 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
-using WeightCore.Print.Native;
 using WeightCore.Zpl;
 using log4net;
+using WeightCore.Print.Native;
 
 namespace WeightCore.Print.Zebra
 {
     public class DeviceEntity
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public StateEntity ZebraCurrentState = new StateEntity();
+        public StateEntity ZebraCurrentState = new();
 
 
-        ConcurrentQueue<string> requestQueue = new ConcurrentQueue<string>();
+        ConcurrentQueue<string> requestQueue = new();
         Thread SharingSessionThread = null;
 
         public delegate void OnResponseHandler(StateEntity state);
@@ -27,7 +27,7 @@ namespace WeightCore.Print.Zebra
 
         private IDeviceSocket DeviceSocket { get; }
         public static readonly int CommandThreadTimeOut = 100;
-        static object locker = new object();
+        static object locker = new();
 
         public Guid ID { get; private set; }
         public string Name { get; private set; }
@@ -40,7 +40,7 @@ namespace WeightCore.Print.Zebra
             Name = name;
             // Уведомитель состояния.
             DataCollector = new StatusDataCollector();
-            StateEntity ZebraCurrentState = new StateEntity();
+            StateEntity ZebraCurrentState = new();
         }
 
 
@@ -49,23 +49,24 @@ namespace WeightCore.Print.Zebra
             // если очередь не пустая
             // очищаем
             // запускаем команду очистки очереди печати
-            while (!requestQueue.IsEmpty) {
-                var msg = string.Empty;
+            while (!requestQueue.IsEmpty)
+            {
+                string msg = string.Empty;
                 requestQueue.TryDequeue(out msg);
             }
-            var zplContent = ZplPipeUtils.ZplClearPrintBuffer();
+            string zplContent = ZplPipeUtils.ZplClearPrintBuffer();
             requestQueue.Enqueue(zplContent);
         }
 
         public void SetOdometorUserLabel(int value)
         {
-            var zplContent = ZplPipeUtils.ZplSetOdometerUserLabel(value);
+            string zplContent = ZplPipeUtils.ZplSetOdometerUserLabel(value);
             requestQueue.Enqueue(zplContent);
         }
 
         public void GetOdometorUserLabel()
         {
-            var zplContent = ZplPipeUtils.ZplGetOdometerUserLabel();
+            string zplContent = ZplPipeUtils.ZplGetOdometerUserLabel();
             requestQueue.Enqueue(zplContent);
         }
 
@@ -75,13 +76,13 @@ namespace WeightCore.Print.Zebra
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             try
             {
-                var zplContent = ZplPipeUtils.XsltTransformationPipe(template, content);
+                string zplContent = ZplPipeUtils.XsltTransformationPipe(template, content, true);
                 requestQueue.Enqueue(zplContent);
                 log.Debug($"{Name} - send content:\n{content}");
             }
             catch (Exception ex)
             {
-                log.Debug($"{this.Name}\n{ex.Message}");
+                log.Debug($"{Name}\n{ex.Message}");
             }
 
         }
@@ -92,11 +93,11 @@ namespace WeightCore.Print.Zebra
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             try
             {
-               requestQueue.Enqueue(content);
+                requestQueue.Enqueue(content);
             }
             catch (Exception ex)
             {
-                log.Debug($"{this.Name}\n{ex.Message}");
+                log.Debug($"{Name}\n{ex.Message}");
             }
         }
 
@@ -108,14 +109,14 @@ namespace WeightCore.Print.Zebra
             {
                 while (_workthread)
                 {
-                    if (requestQueue.TryDequeue(out var request))
+                    if (requestQueue.TryDequeue(out string request))
                     {
                         lock (locker)
                         {
-                            var msg = string.Empty;
+                            string msg = string.Empty;
                             try
                             {
-                                msg = this.DeviceSocket.SendStringToPrinter(request);
+                                msg = DeviceSocket.SendStringToPrinter(request);
                             }
                             // Опросили принтер и получили такой ответ.
                             catch (System.Net.Sockets.SocketException ex)
@@ -179,7 +180,7 @@ namespace WeightCore.Print.Zebra
 
         public DeviceSocketRaw(string _PrinterName)
         {
-            this.PrinterName = _PrinterName;
+            PrinterName = _PrinterName;
         }
         public override string SendStringToPrinter(string szString)
         {
@@ -207,14 +208,14 @@ namespace WeightCore.Print.Zebra
 
         public DeviceSocketTcp(string _DeviceIP, int _DevicePort)
         {
-            this.DeviceIP = _DeviceIP;
-            this.DevicePort = _DevicePort;
+            DeviceIP = _DeviceIP;
+            DevicePort = _DevicePort;
         }
 
         public override string SendStringToPrinter(string szString)
         {
-            string _errorMessage = String.Empty;
-            string info = ZplPipeUtils.InterplayToPrinter(this.DeviceIP, this.DevicePort, szString.Split('\n'), out _errorMessage);
+            string _errorMessage = string.Empty;
+            string info = ZplPipeUtils.InterplayToPrinter(DeviceIP, DevicePort, szString.Split('\n'), out _errorMessage);
             if (_errorMessage.Length > 0)
             {
                 log.Error(_errorMessage);

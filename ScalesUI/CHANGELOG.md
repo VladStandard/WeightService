@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.540] - 2021-09-06
+### Fixed
+- Redmine 1591. Рефакторинг, объединение проектов
+- Redmine 1588. ScalesUI. Ошибка запуска окна настроек
+- Redmine 1597. ScalesUI. Некорректные данные на этикетке
+
 ## [0.5.480] - 2021-09-02
 ### Fixed
 - Redmine 1588. ScalesUI. Ошибка запуска окна настроек

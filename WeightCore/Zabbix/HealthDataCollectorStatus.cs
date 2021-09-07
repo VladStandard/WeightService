@@ -37,15 +37,15 @@ namespace WeightCore.Zabbix
 
         public StringBuilder Response()
         {
-            var result = new StringBuilder();
-            foreach (var v in Dict)
+            StringBuilder result = new StringBuilder();
+            foreach (KeyValuePair<string, string> v in Dict)
             {
                 result.AppendLine($"{v.Key}={v.Value};");
             }
 
-            var dt = DateTime.Now;
+            DateTime dt = DateTime.Now;
             result.AppendLine($"CurrentTime={dt.Year}-{dt.Month}-{dt.Day} {dt.Hour}:{dt.Minute}:{dt.Second};");
-            var interval = DateTime.Now - StartDateTime;
+            TimeSpan interval = DateTime.Now - StartDateTime;
             result.AppendLine($"TimePassed={interval};");
             result.AppendLine($"RequestCount={++RequestCount};");
             return result;

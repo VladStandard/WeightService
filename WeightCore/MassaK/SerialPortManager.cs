@@ -221,7 +221,7 @@ namespace WeightCore.MassaK
                 {
                     try
                     {
-                        using (var ms = new MemoryStream())
+                        using (MemoryStream ms = new MemoryStream())
                         {
                             int bytes = SerialPort.BytesToRead;
                             byte[] buffer = new byte[bytes];
@@ -243,7 +243,7 @@ namespace WeightCore.MassaK
                 }
                 else
                 {
-                    var waitTime = new TimeSpan(0, 0, 0, 0, 50);
+                    TimeSpan waitTime = new TimeSpan(0, 0, 0, 0, 50);
                     Thread.Sleep(waitTime);
                 }
             }

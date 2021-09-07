@@ -3,7 +3,6 @@
 
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
-using DataProjectsCore.Utils;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
 using System.Collections.Generic;
@@ -11,18 +10,18 @@ using System.Threading;
 
 namespace DataProjectsCore.DAL
 {
-    public class SqlViewModel : BaseViewModel
+    public class SqlViewModelEntity : BaseViewModel
     {
         #region Design pattern "Lazy Singleton"
 
-        private static SqlViewModel _instance;
-        public static SqlViewModel Instance => LazyInitializer.EnsureInitialized(ref _instance);
+        private static SqlViewModelEntity _instance;
+        public static SqlViewModelEntity Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Constructor and destructor
 
-        public SqlViewModel() { SetupDefault(); }
+        public SqlViewModelEntity() { SetupDefault(); }
 
         public void SetupDefault()
         {
@@ -73,7 +72,7 @@ namespace DataProjectsCore.DAL
             }
         }
 
-        public bool IsTaskEnabled(string taskName)
+        public bool IsTaskEnabled(ScalesEnums.TaskType taskType)
         {
             if (Tasks == null)
                 return false;
@@ -83,7 +82,7 @@ namespace DataProjectsCore.DAL
 
             foreach (TaskDirect task in Tasks)
             {
-                if (string.Equals(task.TaskType.Name, taskName, System.StringComparison.InvariantCultureIgnoreCase))
+                if (string.Equals(task.TaskType.Name, taskType.ToString(), System.StringComparison.InvariantCultureIgnoreCase))
                 {
                     return task.Enabled;
                 }
@@ -186,7 +185,7 @@ namespace DataProjectsCore.DAL
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbSystem.Properties.GetInstance))
+                using (SqlCommand cmd = new(SqlQueries.DbSystem.Properties.GetInstance))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();

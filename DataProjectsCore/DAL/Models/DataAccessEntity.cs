@@ -218,8 +218,8 @@ namespace DataProjectsCore.DAL.Models
 
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
-            var idLast = ErrorsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
-            var error = new ErrorEntity
+            int idLast = ErrorsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+            ErrorEntity? error = new ErrorEntity
             {
                 Id = idLast + 1,
                 CreatedDate = DateTime.Now,
@@ -239,11 +239,11 @@ namespace DataProjectsCore.DAL.Models
 
         public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
-            var result = new T[0];
-            using var session = GetSession();
+            T[]? result = new T[0];
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
                     if (DataConfig != null)
@@ -301,15 +301,15 @@ namespace DataProjectsCore.DAL.Models
 
         public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
-            var result = new T();
-            using var session = GetSession();
+            T? result = new T();
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
                     ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
-                    var list = criteria?.List<T>();
+                    IList<T>? list = criteria?.List<T>();
                     result = list.FirstOrDefault() ?? new T();
                     session.Flush();
                     transaction.Commit();
@@ -373,11 +373,11 @@ namespace DataProjectsCore.DAL.Models
 
         public T[] GetEntities<T>(FieldListEntity fieldList, FieldOrderEntity order, int maxResults, string filePath, int lineNumber, string memberName)
         {
-            var result = new T[0];
-            using var session = GetSession();
+            T[]? result = new T[0];
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
                     result = GetCriteria<T>(session, fieldList, order, maxResults).List<T>().ToArray();
@@ -439,20 +439,20 @@ namespace DataProjectsCore.DAL.Models
 
         public T[] GetEntitiesNativeMapping<T>(string query, string filePath, int lineNumber, string memberName)
         {
-            var result = new T[0];
-            using var session = GetSession();
+            T[]? result = new T[0];
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
-                    var sqlQuery = GetSqlQuery(session, query);
+                    ISQLQuery? sqlQuery = GetSqlQuery(session, query);
                     if (sqlQuery != null)
                     {
                         sqlQuery.AddEntity(typeof(T));
-                        var listEntities = sqlQuery.List();
+                        System.Collections.IList? listEntities = sqlQuery.List();
                         result = new T[listEntities.Count];
-                        for (var i = 0; i < result.Length; i++)
+                        for (int i = 0; i < result.Length; i++)
                         {
                             result[i] = (T)listEntities[i];
                         }
@@ -477,19 +477,19 @@ namespace DataProjectsCore.DAL.Models
 
         public object[] GetEntitiesNativeObject(string query, string filePath, int lineNumber, string memberName)
         {
-            var result = new object[0];
-            using var session = GetSession();
+            object[]? result = new object[0];
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
-                    var sqlQuery = GetSqlQuery(session, query);
+                    ISQLQuery? sqlQuery = GetSqlQuery(session, query);
                     if (sqlQuery != null)
                     {
-                        var listEntities = sqlQuery.List();
+                        System.Collections.IList? listEntities = sqlQuery.List();
                         result = new object[listEntities.Count];
-                        for (var i = 0; i < result.Length; i++)
+                        for (int i = 0; i < result.Length; i++)
                         {
                             if (listEntities[i] is object[] records)
                                 result[i] = records;
@@ -517,17 +517,17 @@ namespace DataProjectsCore.DAL.Models
 
         public int ExecQueryNative(string query, Dictionary<string, object> parameters, string filePath, int lineNumber, string memberName)
         {
-            var result = 0;
-            using var session = GetSession();
+            int result = 0;
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
-                    var sqlQuery = GetSqlQuery(session, query);
+                    ISQLQuery? sqlQuery = GetSqlQuery(session, query);
                     if (sqlQuery != null && parameters != null)
                     {
-                        foreach (var parameter in parameters)
+                        foreach (KeyValuePair<string, object> parameter in parameters)
                         {
                             if (parameter.Value is byte[] imagedata)
                                 sqlQuery.SetParameter(parameter.Key, imagedata);
@@ -556,10 +556,10 @@ namespace DataProjectsCore.DAL.Models
         public void SaveEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             if (entity.EqualsEmpty()) return;
-            using var session = GetSession();
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
                     session.Save(entity);
@@ -582,10 +582,10 @@ namespace DataProjectsCore.DAL.Models
         public void UpdateEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             if (entity.EqualsEmpty()) return;
-            using var session = GetSession();
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
                     session.SaveOrUpdate(entity);
@@ -608,10 +608,10 @@ namespace DataProjectsCore.DAL.Models
         public void DeleteEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             if (entity.EqualsEmpty()) return;
-            using var session = GetSession();
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
                     session.Delete(entity);
@@ -633,11 +633,11 @@ namespace DataProjectsCore.DAL.Models
 
         public bool ExistsEntity<T>(T entity, string filePath, int lineNumber, string memberName)
         {
-            var result = false;
-            using var session = GetSession();
+            bool result = false;
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
                     result = session.Query<T>().Any(x => x.IsAny(entity));
@@ -660,11 +660,11 @@ namespace DataProjectsCore.DAL.Models
 
         public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName)
         {
-            var result = false;
-            using var session = GetSession();
+            bool result = false;
+            using ISession? session = GetSession();
             if (session != null)
             {
-                using var transaction = session.BeginTransaction();
+                using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
                     result = GetCriteria<T>(session, fieldList, order, 1).List<T>().Count > 0;
@@ -698,7 +698,7 @@ namespace DataProjectsCore.DAL.Models
             };
             if (tableAction == EnumTableAction.New || tableAction == EnumTableAction.Copy)
             {
-                var nextId = 0;
+                int nextId = 0;
                 if (typeof(T) == typeof(BarcodeTypeEntity))
                 {
                     nextId = BarcodeTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
@@ -782,7 +782,7 @@ namespace DataProjectsCore.DAL.Models
 
         public T ActionGetUidEntity<T>(BaseUidEntity entity, EnumTableAction tableAction) where T : BaseUidEntity, new()
         {
-            var result = tableAction switch
+            T? result = tableAction switch
             {
                 EnumTableAction.New => new T(),
                 EnumTableAction.Edit => (T)entity,

@@ -6,19 +6,16 @@ using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
 using DataProjectsCore.Utils;
-using DataShareCore.Gui;
+using DataShareCore.Utils;
 using MvvmHelpers;
 using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using WeightCore.Gui;
-using WeightCore.MassaK;
-using WeightCore.Memory;
-using WeightCore.Print;
+using WeightCore.Managers;
 using WeightCore.Zabbix;
 using WeightCore.Zpl;
 
@@ -35,9 +32,9 @@ namespace WeightCore.Models
 
         #region Public and private fields and properties
 
-        public SqlViewModel SqlItem { get; set; } = SqlViewModel.Instance;
-        private readonly LogHelper _log = LogHelper.Instance;
-        public string AppVersion => UtilsAppVersion.GetMainFormText(Assembly.GetExecutingAssembly());
+        private TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
+        public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
+        public string AppVersion => AppVersionUtils.GetMainFormText(Assembly.GetExecutingAssembly());
         public ProductSeriesDirect ProductSeries { get; private set; }
         public bool IsDebug
         {
@@ -66,7 +63,7 @@ namespace WeightCore.Models
             set
             {
                 _currentScale = value;
-                SqlItem.SetupTasks(Host?.CurrentScaleId);
+                SqlViewModel.SetupTasks(Host?.CurrentScaleId);
                 OnPropertyChanged();
             }
         }
@@ -94,7 +91,7 @@ namespace WeightCore.Models
         /// </summary>
         public string CurrentPageAsString => $"Текущая страница: {_currentPage}";
 
-        public LogDirect Log { get; }
+        private LogUtils _logUtils = LogUtils.Instance;
         private bool _isWpfPageLoaderClose;
         /// <summary>
         /// Close WpfPageLoader form.
@@ -113,26 +110,6 @@ namespace WeightCore.Models
 
         #endregion
 
-        #region Public and private fields and properties - Tasks managers
-
-        public DeviceManagerEntity DeviceManager { get; set; }
-        public bool DeviceManagerIsExit { get; set; }
-        public char DeviceManagerProgressChar { get; set; }
-
-        public MemoryManagerEntity MemoryManager { get; set; }
-        public bool MemoryManagerIsExit { get; set; }
-        public char MemoryManagerProgressChar { get; set; }
-
-        public PrintManagerEntity PrintManager { get; set; }
-        public bool PrintManagerIsExit { get; set; }
-        public char PrintManagerProgressChar { get; set; }
-
-        public MassaManagerEntity MassaManager { get; set; }
-        public bool MassaManagerIsExit { get; set; }
-        public char MassaManagerProgressChar { get; set; }
-
-        #endregion
-
         #region Constructor and destructor
 
         public SessionState()
@@ -143,24 +120,9 @@ namespace WeightCore.Models
             Host = HostsUtils.TokenRead();
             CurrentScale = ScalesUtils.GetScale(Host.CurrentScaleId);
 
-            string app = null;
-            string version = null;
-            if (AppVersion.Split(' ').Length > 1)
-            {
-                app = AppVersion.Split(' ')[0];
-                version = AppVersion.Split(' ')[1];
-            }
-            Log = new LogDirect(Host.Name, Host.IdRRef, app, version);
-
             //this.CurrentScaleId = Properties.Settings.Default.CurrentScaleId;
             //this.CurrentScale = new ScaleEntity(this.CurrentScaleId);
             //<---
-
-            // Запустить http-прослушиватель.
-            if (SqlItem.IsTaskEnabled("ZabbixManager"))
-            {
-                StartHttpListener();
-            }
 
             Kneading = KneadingMinValue;
             ProductDate = DateTime.Now;
@@ -221,10 +183,7 @@ namespace WeightCore.Models
 
         ~SessionState()
         {
-            StopHttpListener();
             ZplCommander?.Close();
-            DeviceManager?.Close();
-            MemoryManager?.Close();
         }
 
         #endregion
@@ -286,11 +245,11 @@ namespace WeightCore.Models
         {
             CurrentBox = 1;
             //если новая паллета - чистим очередь печати
-            if (PrintManager != null)
+            if (_taskManager.PrintManager != null)
             {
-                PrintManager.ClearPrintBuffer(IsTscPrinter);
+                _taskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
                 if (!IsTscPrinter)
-                    PrintManager.SetOdometorUserLabel(1);
+                    _taskManager.PrintManager.SetOdometorUserLabel(1);
                 ProductSeries.New();
             }
         }
@@ -311,11 +270,11 @@ namespace WeightCore.Models
             set
             {
                 // если замес изменился - чистим очередь печати
-                if (PrintManager != null)
+                if (_taskManager.PrintManager != null)
                 {
-                    PrintManager.ClearPrintBuffer(IsTscPrinter);
+                    _taskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
                     if (!IsTscPrinter)
-                        PrintManager.SetOdometorUserLabel(CurrentBox);
+                        _taskManager.PrintManager.SetOdometorUserLabel(CurrentBox);
                 }
                 _kneading = value;
                 NotifyKneading?.Invoke(value);
@@ -356,8 +315,8 @@ namespace WeightCore.Models
             set
             {
                 //если дата изменилась - чистим очередь печати
-                if (PrintManager != null)
-                    PrintManager.ClearPrintBuffer(IsTscPrinter);
+                if (_taskManager.PrintManager != null)
+                    _taskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
                 _productDate = value;
                 NotifyProductDate?.Invoke(value);
             }
@@ -393,8 +352,8 @@ namespace WeightCore.Models
             set
             {
                 // если ПЛУ изменился - чистим очередь печати
-                PrintManager?.ClearPrintBuffer(IsTscPrinter);
-                PrintManager?.SetOdometorUserLabel(1);
+                _taskManager.PrintManager?.ClearPrintBuffer(IsTscPrinter);
+                _taskManager.PrintManager?.SetOdometorUserLabel(1);
                 _currentPlu = value;
                 CurrentBox = 1;
                 NotifyPlu?.Invoke(value);
@@ -445,9 +404,9 @@ namespace WeightCore.Models
             // Подменить картинки ZPL.
             if (IsTscPrinter)
             {
-                TemplateDirect templateEac = new TemplateDirect("EAC_107x109_090");
-                TemplateDirect templateFish = new TemplateDirect("FISH_94x115_000");
-                TemplateDirect templateTemp6 = new TemplateDirect("TEMP6_116x113_090");
+                TemplateDirect templateEac = new("EAC_107x109_090");
+                TemplateDirect templateFish = new("FISH_94x115_000");
+                TemplateDirect templateTemp6 = new("TEMP6_116x113_090");
                 value = value.Replace("[EAC_107x109_090]", templateEac.XslContent);
                 value = value.Replace("[FISH_94x115_000]", templateFish.XslContent);
                 value = value.Replace("[TEMP6_116x113_090]", templateTemp6.XslContent);
@@ -461,7 +420,7 @@ namespace WeightCore.Models
         /// <param name="labelId"></param>
         public void PrintSaveLabel(ref string printCmd, int labelId)
         {
-            ZplLabelDirect zplLabel = new ZplLabelDirect
+            ZplLabelDirect zplLabel = new()
             {
                 Content = printCmd,
                 WeighingFactId = labelId,
@@ -505,8 +464,8 @@ namespace WeightCore.Models
             bool isCheck = false;
             if (CurrentPlu.NominalWeight > 0)
             {
-                if (MassaManager != null)
-                    CurrentWeighingFact.NetWeight = MassaManager.WeightNet - CurrentPlu.GoodsTareWeight;
+                if (_taskManager.MassaManager != null)
+                    CurrentWeighingFact.NetWeight = _taskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight;
                 else
                     CurrentWeighingFact.NetWeight -= CurrentPlu.GoodsTareWeight;
                 if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
@@ -561,15 +520,15 @@ namespace WeightCore.Models
         private void PrintWeightLabel(IWin32Window owner, TemplateDirect template)
         {
             // Проверка наличия устройства весов.
-            if (MassaManager == null)
+            if (_taskManager.MassaManager == null)
             {
-                _log.Info(@"Устройство весов не обнаружено!");
+                _logUtils.Information(@"Устройство весов не обнаружено!");
                 return;
             }
             // Проверка товара на весах.
-            if (MassaManager.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
+            if (_taskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
             {
-                _log.Info($@"Вес товара: {MassaManager.WeightNet} кг, печать этикетки невозможна!");
+                _logUtils.Information($@"Вес товара: {_taskManager.MassaManager.WeightNet} кг, печать этикетки невозможна!");
                 return;
             }
 
@@ -579,7 +538,7 @@ namespace WeightCore.Models
                 ProductDate,
                 Kneading,
                 CurrentPlu.Scale.ScaleFactor,
-                MassaManager.WeightNet - CurrentPlu.GoodsTareWeight,
+                _taskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight,
                 CurrentPlu.GoodsTareWeight
             );
 
@@ -612,62 +571,14 @@ namespace WeightCore.Models
             CurrentWeighingFact.Save();
 
             string xmlInput = CurrentWeighingFact.SerializeObject();
-            string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput);
+            string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput, true);
 
             // Подменить картинки ZPL.
             PrintCmdReplacePics(ref printCmd);
             // Отправить задание в очередь печати.
-            PrintManager.SendAsync(printCmd);
+            _taskManager.PrintManager.SendAsync(printCmd);
             // Сохранить ZPL-запрос в таблицу [Labels].
             PrintSaveLabel(ref printCmd, CurrentWeighingFact.Id);
-        }
-
-        #endregion
-
-        #region Public and private methods - Http listener
-
-        private void StartHttpListener([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            _log.Info("Запустить http-listener. начало.");
-            _log.Info("http://localhost:18086/status");
-            try
-            {
-                CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-                _token = cancelTokenSource.Token;
-                _threadChecker = new ThreadChecker(_token, 2_500);
-                // Подписка на событие.
-                //_threadChecker.EventReloadValues += EventHttpListenerReloadValues;
-                _tokenHttpListener = cancelTokenSource.Token;
-                HttpListener = new ZabbixHttpListener(_tokenHttpListener, 10);
-            }
-            catch (Exception ex)
-            {
-                Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                if (ex.InnerException != null)
-                    Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                _log.Error(ex.Message);
-            }
-            _log.Info("Запистить http-listener. Финиш.");
-        }
-
-        private void StopHttpListener([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                _log?.Info("Остановить http-listener. Начало.");
-                HttpListener?.Stop();
-                _token.ThrowIfCancellationRequested();
-                _tokenHttpListener.ThrowIfCancellationRequested();
-                _threadChecker?.Stop();
-            }
-            catch (Exception ex)
-            {
-                Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                if (ex.InnerException != null)
-                    Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                _log?.Error(ex.Message);
-            }
-            _log?.Info("Остановить http-listener. Финиш.");
         }
 
         #endregion

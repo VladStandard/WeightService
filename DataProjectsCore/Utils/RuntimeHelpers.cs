@@ -28,7 +28,7 @@ namespace DataProjectsCore.Utils
                     return Array.Empty<T>();
                 }
 
-                var dest = new T[length];
+                T[]? dest = new T[length];
                 Array.Copy(array, offset, dest, 0, length);
                 return dest;
             }

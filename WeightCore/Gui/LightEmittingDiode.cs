@@ -41,14 +41,15 @@ namespace WeightCore.Gui
             set
             {
                 _state = value;
-                if (_state)
-                {
-                    LedDraw();
-                }
-                else
-                {
-                    LedDraw();
-                }
+                //if (_state)
+                //{
+                //    LedDraw();
+                //}
+                //else
+                //{
+                //    LedDraw();
+                //}
+                LedDraw();
                 StartCheckChangesTask();
             }
         }
@@ -64,11 +65,11 @@ namespace WeightCore.Gui
             _colorOff = _owner.BackColor;
         }
 
-        public LightEmittingDiode(Control owner, Color colorOn)
-        {
-            ColorOn = colorOn;
-            State = false;
-        }
+        //public LightEmittingDiode(Control owner, Color colorOn)
+        //{
+        //    ColorOn = colorOn;
+        //    State = false;
+        //}
 
         #endregion
 
@@ -168,17 +169,17 @@ namespace WeightCore.Gui
         {
             if (_owner == null) return;
             Graphics graphics = _owner.CreateGraphics();
-            var center = GetCenter();
-            var radius = GetRadius();
-            var alpha = GetAlpha(radius);
-            var circle = GetCircle(center, radius);
+            Point center = GetCenter();
+            float radius = GetRadius();
+            //var alpha = GetAlpha(radius);
+            RectangleF circle = GetCircle(center, radius);
 
             // выключаем LED полюбасу 
-            SolidBrush penBack = new SolidBrush(_owner.BackColor);
+            SolidBrush penBack = new(_owner.BackColor);
             graphics.FillEllipse(penBack, circle);
 
             // рисуем крестик полосками "Х"
-            Pen p = new Pen(Color.Red);
+            Pen p = new(Color.Red);
             int radiusCorrect = 6;
             radius = radius - radiusCorrect;
             p.Width = 9;
@@ -186,7 +187,7 @@ namespace WeightCore.Gui
             graphics.DrawLine(p, center.X - radius, center.Y - radius, center.X + radius, center.Y + radius);
 
             // окантовка LED
-            Pen pRound = new Pen(DarkerColor(_owner.BackColor, 75));
+            Pen pRound = new(DarkerColor(_owner.BackColor, 75));
             pRound.Width = 4;
             graphics.DrawEllipse(pRound, circle);
 
@@ -205,82 +206,68 @@ namespace WeightCore.Gui
             }
 
             Graphics graphics = _owner.CreateGraphics();
-            var center = GetCenter();
-            var radius = GetRadius();
-            var alpha = GetAlpha(radius);
-            var circle = GetCircle(center, radius);
+            Point center = GetCenter();
+            float radius = GetRadius();
+            //var alpha = GetAlpha(radius);
+            RectangleF circle = GetCircle(center, radius);
 
             // выключаем LED полюбасу 
-            SolidBrush penBack = new SolidBrush(_owner.BackColor);
+            SolidBrush penBack = new(_owner.BackColor);
             graphics.FillEllipse(penBack, circle);
 
             // включаем LED если надо
-            Pen p = new Pen(color);
+            Pen p = new(color);
             graphics.DrawEllipse(p, circle);
-            SolidBrush sb = new SolidBrush(color);
+            SolidBrush sb = new(color);
             graphics.FillEllipse(sb, circle);
 
             // окантовка LED
-            Pen pRound = new Pen(DarkerColor(color, 75));
+            Pen pRound = new(DarkerColor(color, 75));
             pRound.Width = 4;
             graphics.DrawEllipse(pRound, circle);
 
             DrawTxt(graphics);
             DrawBorder(graphics);
-
         }
 
         private void DrawTxt(Graphics graphics)
         {
             // вывести текст
-            SolidBrush penBack = new SolidBrush(_owner.BackColor);
-            using (Font font1 = new Font("Arial", 8, FontStyle.Bold, GraphicsUnit.Point))
-            {
-                Rectangle drawRect1 = new Rectangle(3, 3, _owner.Width - 6, 22);
+            SolidBrush penBack = new(_owner.BackColor);
+            using Font font1 = new("Arial", 8, FontStyle.Bold, GraphicsUnit.Point);
+            Rectangle drawRect1 = new(3, 3, _owner.Width - 6, 22);
 
-                // Create a StringFormat object with the each line of text, and the block
-                // of text centered on the page.
-                StringFormat stringFormat = new StringFormat();
-                stringFormat.Alignment = StringAlignment.Center;
-                stringFormat.LineAlignment = StringAlignment.Center;
+            // Create a StringFormat object with the each line of text, and the block
+            // of text centered on the page.
+            StringFormat stringFormat = new();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
 
-                // Draw the text and the surrounding rectangle.
-                graphics.FillRectangle(penBack, drawRect1);
-                graphics.DrawString(Description, font1, Brushes.Black, drawRect1, stringFormat);
-            }
-
+            // Draw the text and the surrounding rectangle.
+            graphics.FillRectangle(penBack, drawRect1);
+            graphics.DrawString(Description, font1, Brushes.Black, drawRect1, stringFormat);
         }
 
         private void DrawBorder(Graphics graphics)
         {
-            Pen p0 = new Pen(DarkerColor(_owner.BackColor, 65));
+            Pen p0 = new(DarkerColor(_owner.BackColor, 65));
             p0.Width = 2;
-            Rectangle drawRect2 = new Rectangle(3, 3, _owner.Width - 6, _owner.Height - 6);
+            Rectangle drawRect2 = new(3, 3, _owner.Width - 6, _owner.Height - 6);
             graphics.DrawRectangle(p0, drawRect2);
-
         }
 
-        private Point GetCenter()
-        {
-            return new Point((int)(_owner.Width * 0.5), (int)(_owner.Height * 0.5 + 9));
-        }
+        private Point GetCenter() => new((int)(_owner.Width * 0.5), (int)(_owner.Height * 0.5 + 9));
 
-        private float GetRadius()
-        {
-            return (float)(Math.Min(_owner.Width, _owner.Height) * 0.25);
-        }
-        
-        private float GetAlpha(float radius)
-        {
-            const float cutOutLen = 0;
-            return (float)(Math.Asin(1f * (radius - cutOutLen) / radius) / Math.PI * 180);
-        }
-        
-        private RectangleF GetCircle(Point center, float radius)
-        {
+        private float GetRadius() => (float)(Math.Min(_owner.Width, _owner.Height) * 0.25);
 
-            return new RectangleF(center.X - radius, center.Y - radius, radius * 2, radius * 2);
-        }
+        //private float GetAlpha(float radius)
+        //{
+        //    const float cutOutLen = 0;
+        //    return (float)(Math.Asin(1f * (radius - cutOutLen) / radius) / Math.PI * 180);
+        //}
+
+        private RectangleF GetCircle(Point center, float radius) =>
+            new(center.X - radius, center.Y - radius, radius * 2, radius * 2);
 
         #endregion
     }

@@ -14,17 +14,12 @@ namespace DataShareCore.DAL.Models
     {
         #region Public and private methods
 
-        public virtual bool EqualsEmpty()
-        {
-            if (Equals(default) || Equals(null))
-                return true;
-            return false;
-        }
+        public virtual bool EqualsEmpty() => Equals(default);
 
         public virtual byte[] CloneBytes(byte[] bytes)
         {
-            byte[] result = bytes != null ? new byte[(int)bytes?.Length] : null;
-            bytes?.CopyTo(result, 0);
+            byte[] result = new byte[bytes.Length];
+            bytes.CopyTo(result, 0);
             return result;
         }
 
@@ -36,7 +31,7 @@ namespace DataShareCore.DAL.Models
                     : $"Объём данных: {Encoding.Default.GetString(bytes).Length:### ###} байт";
         }
 
-        public virtual object GetDefaultValue(Type t)
+        public virtual object? GetDefaultValue(Type t)
         {
             if (t.IsValueType)
                 return Activator.CreateInstance(t);

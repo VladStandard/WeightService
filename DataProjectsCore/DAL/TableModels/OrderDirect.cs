@@ -57,7 +57,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.Append($"({ProductDate})");
             sb.Append($"{PLU}");
             return sb.ToString();
@@ -97,23 +97,21 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void SetStatus(OrderStatus orderStatus)
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query =
+                "DECLARE @Status tinyint;" +
+                "EXECUTE [db_scales].[SetOrderStatus] @OrderId, @StatusName, @Status OUTPUT" +
+                "";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query =
-                    "DECLARE @Status tinyint;" +
-                    "EXECUTE [db_scales].[SetOrderStatus] @OrderId, @StatusName, @Status OUTPUT" +
-                    "";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@OrderId", RRefID);
-                    cmd.Parameters.AddWithValue("@StatusName", orderStatus.ToString());
-                    cmd.ExecuteNonQuery();
-                    Status = orderStatus;
-                }
-                con.Close();
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@OrderId", RRefID);
+                cmd.Parameters.AddWithValue("@StatusName", orderStatus.ToString());
+                cmd.ExecuteNonQuery();
+                Status = orderStatus;
             }
+            con.Close();
         }
 
         public OrderStatus GetStatus()
@@ -122,7 +120,7 @@ namespace DataProjectsCore.DAL.TableModels
             {
                 con.Open();
                 string query = "SELECT [db_scales].[GetOrderStatus](@OrderId, DEFAULT);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@OrderId", RRefID);
@@ -141,7 +139,7 @@ namespace DataProjectsCore.DAL.TableModels
             {
                 con.Open();
                 string query = "SELECT [db_scales].[GetOrderPercentCompletion] (@OrderID)";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@OrderId", order.RRefID);
@@ -154,7 +152,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public static List<OrderDirect> GetOrderList(ScaleDirect scale)
         {
-            List<OrderDirect> res = new List<OrderDirect>();
+            List<OrderDirect> res = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
@@ -175,52 +173,50 @@ namespace DataProjectsCore.DAL.TableModels
                             "[CurrentStatus] " +                    //12
                             "FROM [db_scales].[GetOrderListByScale] (@ScaleId, @StartDate, @EndDate); " +
                             "";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@ScaleId", scale.Id);
                     cmd.Parameters.AddWithValue("@StartDate", DateTime.Now.AddDays(-2));
                     cmd.Parameters.AddWithValue("@EndDate", DateTime.Now);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            OrderStatus enm = OrderStatus.New;
+                            int number = reader.GetByte(12);
+                            if (Enum.IsDefined(typeof(OrderStatus), number))
                             {
-                                OrderStatus enm = OrderStatus.New;
-                                int number = reader.GetByte(12);
-                                if (Enum.IsDefined(typeof(OrderStatus), number))
-                                {
-                                    enm = (OrderStatus)number; // преобразование 
-                                                               // или CustomEnum enm = (CustomEnum)Enum.ToObject(typeof(CustomEnum), number);
-                                }
-                                int pluCode = reader.GetInt32(2);
-                                //PluEntity PLU = new PluEntity(SqlConnectFactory.GetValue<int>(reader, "PLU"), pluCode);
-                                PluDirect PLU = new PluDirect(scale, pluCode);
-                                PLU.Load();
-                                OrderDirect order = new OrderDirect
-                                {
-                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                    //RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID"),
-                                    PlaneBoxCount = SqlConnectFactory.GetValue<int>(reader, "PlaneBoxCount"),
-                                    PlanePalletCount = SqlConnectFactory.GetValue<int>(reader, "PlanePalletCount"),
-                                    PlanePackingOperationBeginDate = SqlConnectFactory.GetValue<DateTime>(reader, "PlanePackingOperationBeginDate"),
-                                    PlanePackingOperationEndDate = SqlConnectFactory.GetValue<DateTime>(reader, "PlanePackingOperationEndDate"),
-                                    ProductDate = SqlConnectFactory.GetValue<DateTime>(reader, "ProductDate"),
-                                    TemplateID = SqlConnectFactory.GetValue<int>(reader, "TemplateID"),
-                                    CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                    OrderType = SqlConnectFactory.GetValue<int>(reader, "OrderType"),
-                                    Scale = scale,
-                                    Status = enm,
-                                    PLU = PLU
-                                    //MyEnum myEnum = (MyEnum)myInt;
-                                    //MyEnum myEnum = (MyEnum)Enum.Parse(typeof(MyEnum), myString);
-                                };
-                                res.Add(order);
+                                enm = (OrderStatus)number; // преобразование 
+                                                           // или CustomEnum enm = (CustomEnum)Enum.ToObject(typeof(CustomEnum), number);
                             }
+                            int pluCode = reader.GetInt32(2);
+                            //PluEntity PLU = new PluEntity(SqlConnectFactory.GetValue<int>(reader, "PLU"), pluCode);
+                            PluDirect PLU = new(scale, pluCode);
+                            PLU.Load();
+                            OrderDirect order = new()
+                            {
+                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                //RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID"),
+                                PlaneBoxCount = SqlConnectFactory.GetValue<int>(reader, "PlaneBoxCount"),
+                                PlanePalletCount = SqlConnectFactory.GetValue<int>(reader, "PlanePalletCount"),
+                                PlanePackingOperationBeginDate = SqlConnectFactory.GetValue<DateTime>(reader, "PlanePackingOperationBeginDate"),
+                                PlanePackingOperationEndDate = SqlConnectFactory.GetValue<DateTime>(reader, "PlanePackingOperationEndDate"),
+                                ProductDate = SqlConnectFactory.GetValue<DateTime>(reader, "ProductDate"),
+                                TemplateID = SqlConnectFactory.GetValue<int>(reader, "TemplateID"),
+                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
+                                OrderType = SqlConnectFactory.GetValue<int>(reader, "OrderType"),
+                                Scale = scale,
+                                Status = enm,
+                                PLU = PLU
+                                //MyEnum myEnum = (MyEnum)myInt;
+                                //MyEnum myEnum = (MyEnum)Enum.Parse(typeof(MyEnum), myString);
+                            };
+                            res.Add(order);
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -229,7 +225,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public static List<OrderDirect> GetOrderList(ScaleDirect scale, DateTime startDate, DateTime endDate)
         {
-            List<OrderDirect> res = new List<OrderDirect>();
+            List<OrderDirect> res = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
@@ -250,51 +246,49 @@ namespace DataProjectsCore.DAL.TableModels
                             "[CurrentStatus] " +                    //12
                             "FROM [db_scales].[GetOrderListByScale] (@ScaleId, @StartDate, @EndDate); " +
                             "";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@ScaleId", scale.Id);
                     cmd.Parameters.AddWithValue("@StartDate", startDate);
                     cmd.Parameters.AddWithValue("@EndDate", endDate);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            OrderStatus enm = OrderStatus.New;
+                            int number = reader.GetByte(12);
+                            if (Enum.IsDefined(typeof(OrderStatus), number))
                             {
-                                OrderStatus enm = OrderStatus.New;
-                                int number = reader.GetByte(12);
-                                if (Enum.IsDefined(typeof(OrderStatus), number))
-                                {
-                                    enm = (OrderStatus)number; // преобразование 
-                                                               // или CustomEnum enm = (CustomEnum)Enum.ToObject(typeof(CustomEnum), number);
-                                }
-                                int pluCode = reader.GetInt32(2);
-                                PluDirect PLU = new PluDirect(scale, pluCode);
-                                PLU.Load();
-                                OrderDirect order = new OrderDirect
-                                {
-                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                    RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID"),
-                                    PlaneBoxCount = SqlConnectFactory.GetValue<int>(reader, "PlaneBoxCount"),
-                                    PlanePalletCount = SqlConnectFactory.GetValue<int>(reader, "PlanePalletCount"),
-                                    PlanePackingOperationBeginDate = SqlConnectFactory.GetValue<DateTime>(reader, "PlanePackingOperationBeginDate"),
-                                    PlanePackingOperationEndDate = SqlConnectFactory.GetValue<DateTime>(reader, "PlanePackingOperationEndDate"),
-                                    ProductDate = SqlConnectFactory.GetValue<DateTime>(reader, "ProductDate"),
-                                    TemplateID = SqlConnectFactory.GetValue<int>(reader, "TemplateID"),
-                                    CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                    OrderType = SqlConnectFactory.GetValue<int>(reader, "OrderType"),
-                                    Scale = scale,
-                                    Status = enm,
-                                    PLU = PLU
-                                    //MyEnum myEnum = (MyEnum)myInt;
-                                    //MyEnum myEnum = (MyEnum)Enum.Parse(typeof(MyEnum), myString);
-                                };
-                                res.Add(order);
+                                enm = (OrderStatus)number; // преобразование 
+                                                           // или CustomEnum enm = (CustomEnum)Enum.ToObject(typeof(CustomEnum), number);
                             }
+                            int pluCode = reader.GetInt32(2);
+                            PluDirect PLU = new(scale, pluCode);
+                            PLU.Load();
+                            OrderDirect order = new()
+                            {
+                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID"),
+                                PlaneBoxCount = SqlConnectFactory.GetValue<int>(reader, "PlaneBoxCount"),
+                                PlanePalletCount = SqlConnectFactory.GetValue<int>(reader, "PlanePalletCount"),
+                                PlanePackingOperationBeginDate = SqlConnectFactory.GetValue<DateTime>(reader, "PlanePackingOperationBeginDate"),
+                                PlanePackingOperationEndDate = SqlConnectFactory.GetValue<DateTime>(reader, "PlanePackingOperationEndDate"),
+                                ProductDate = SqlConnectFactory.GetValue<DateTime>(reader, "ProductDate"),
+                                TemplateID = SqlConnectFactory.GetValue<int>(reader, "TemplateID"),
+                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
+                                OrderType = SqlConnectFactory.GetValue<int>(reader, "OrderType"),
+                                Scale = scale,
+                                Status = enm,
+                                PLU = PLU
+                                //MyEnum myEnum = (MyEnum)myInt;
+                                //MyEnum myEnum = (MyEnum)Enum.Parse(typeof(MyEnum), myString);
+                            };
+                            res.Add(order);
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }

@@ -44,13 +44,13 @@ namespace WeightCore.Zabbix
 
         public StringBuilder Response()
         {
-            var result = new StringBuilder();
-            foreach (var v in Dict)
+            StringBuilder result = new StringBuilder();
+            foreach (KeyValuePair<string, string> v in Dict)
             {
                 result.AppendLine($"{v.Key}={v.Value};");
             }
             result.AppendLine($"CurrentTime={DateTime.Now.ToString(CultureInfo.InvariantCulture)};");
-            var interval = DateTime.Now - StartDateTime;
+            TimeSpan interval = DateTime.Now - StartDateTime;
             result.AppendLine($"TimePassed={interval};");
             result.AppendLine($"RequestCount={++RequestCount};");
             return result;

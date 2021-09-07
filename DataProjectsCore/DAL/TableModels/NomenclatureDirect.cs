@@ -53,50 +53,45 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = "SELECT * FROM [db_scales].[GetNomenclature] (@Id);";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query = "SELECT * FROM [db_scales].[GetNomenclature] (@Id);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Id", Id);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Id", Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                                Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
-                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
-                                RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID");
-                                Code = SqlConnectFactory.GetValue<string>(reader, "Code");
-                                Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked");
-                                NameFull = SqlConnectFactory.GetValue<string>(reader, "NameFull");
-                                Description = SqlConnectFactory.GetValue<string>(reader, "Description");
-                                Comment = SqlConnectFactory.GetValue<string>(reader, "Comment");
-                                Brand = SqlConnectFactory.GetValue<string>(reader, "Brand");
-                                GUID_Mercury = SqlConnectFactory.GetValue<string>(reader, "GUID_Mercury");
-                                NomenclatureType = SqlConnectFactory.GetValue<string>(reader, "NomenclatureType");
-                                VATRate = SqlConnectFactory.GetValue<string>(reader, "VATRate");
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
+                        CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID");
+                        Code = SqlConnectFactory.GetValue<string>(reader, "Code");
+                        Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked");
+                        NameFull = SqlConnectFactory.GetValue<string>(reader, "NameFull");
+                        Description = SqlConnectFactory.GetValue<string>(reader, "Description");
+                        Comment = SqlConnectFactory.GetValue<string>(reader, "Comment");
+                        Brand = SqlConnectFactory.GetValue<string>(reader, "Brand");
+                        GUID_Mercury = SqlConnectFactory.GetValue<string>(reader, "GUID_Mercury");
+                        NomenclatureType = SqlConnectFactory.GetValue<string>(reader, "NomenclatureType");
+                        VATRate = SqlConnectFactory.GetValue<string>(reader, "VATRate");
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public void Save()
         {
 
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                string query = @"
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = @"
                     DECLARE @ID int; 
                     
                     EXECUTE  [db_scales].[SetNomenclature] 
@@ -113,75 +108,70 @@ namespace DataProjectsCore.DAL.TableModels
                       ,@VATRate
                       ,@ID OUTPUT
                     SELECT @ID as ID";
-                using (SqlCommand cmd = new SqlCommand(query))
+            using (SqlCommand cmd = new(query))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
+                cmd.Parameters.AddWithValue($"@Code ", Code ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
+                cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@NameFull", NameFull ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@Description", Description ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@Comment", Comment ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@Brand", Brand ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@GUID_Mercury", GUID_Mercury ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@NomenclatureType", NomenclatureType ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@VATRate", VATRate ?? (object)DBNull.Value);  // 
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
-                    cmd.Parameters.AddWithValue($"@Code ", Code ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
-                    cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@NameFull", NameFull ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Description", Description ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Comment", Comment ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Brand", Brand ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@GUID_Mercury", GUID_Mercury ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@NomenclatureType", NomenclatureType ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@VATRate", VATRate ?? (object)DBNull.Value);  // 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public static List<NomenclatureDirect> GetList()
         {
-            List<NomenclatureDirect> result = new List<NomenclatureDirect>();
+            List<NomenclatureDirect> result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetNomenclature] (default);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            NomenclatureDirect nomenclature = new()
                             {
-                                NomenclatureDirect nomenclature = new NomenclatureDirect()
-                                {
-                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                    Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                    CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                    ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                    RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID"),
-                                    Code = SqlConnectFactory.GetValue<string>(reader, "Code"),
-                                    Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked"),
-                                    NameFull = SqlConnectFactory.GetValue<string>(reader, "NameFull"),
-                                    Description = SqlConnectFactory.GetValue<string>(reader, "Description"),
-                                    Comment = SqlConnectFactory.GetValue<string>(reader, "Comment"),
-                                    Brand = SqlConnectFactory.GetValue<string>(reader, "Brand"),
-                                    GUID_Mercury = SqlConnectFactory.GetValue<string>(reader, "GUID_Mercury"),
-                                    NomenclatureType = SqlConnectFactory.GetValue<string>(reader, "NomenclatureType"),
-                                    VATRate = SqlConnectFactory.GetValue<string>(reader, "VATRate")
-                                };
-                                result.Add(nomenclature);
-                            }
+                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID"),
+                                Code = SqlConnectFactory.GetValue<string>(reader, "Code"),
+                                Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked"),
+                                NameFull = SqlConnectFactory.GetValue<string>(reader, "NameFull"),
+                                Description = SqlConnectFactory.GetValue<string>(reader, "Description"),
+                                Comment = SqlConnectFactory.GetValue<string>(reader, "Comment"),
+                                Brand = SqlConnectFactory.GetValue<string>(reader, "Brand"),
+                                GUID_Mercury = SqlConnectFactory.GetValue<string>(reader, "GUID_Mercury"),
+                                NomenclatureType = SqlConnectFactory.GetValue<string>(reader, "NomenclatureType"),
+                                VATRate = SqlConnectFactory.GetValue<string>(reader, "VATRate")
+                            };
+                            result.Add(nomenclature);
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }

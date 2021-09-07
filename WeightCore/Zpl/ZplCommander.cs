@@ -1,15 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using log4net;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Print.Zebra;
-using log4net;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
-using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
-using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 
 namespace WeightCore.Zpl
 {
@@ -19,7 +17,7 @@ namespace WeightCore.Zpl
 
         private static readonly int CommandThreadTimeOut = 10_000;
         private static readonly int CommandCountPackage = 1;
-        private static readonly object locker = new object();
+        private static readonly object locker = new();
         private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Thread _commandThread;
         private bool _commandThreadExit;
@@ -66,7 +64,7 @@ namespace WeightCore.Zpl
             _commandThreadExit = true;
         }
 
-        private string GetDescription(ZebraPrinterStatus status)
+        private string GetDescription(PrinterStatus status)
         {
             if (status.isReadyToPrint)
                 return @"Готов к печати";
@@ -98,7 +96,7 @@ namespace WeightCore.Zpl
             _taskExit = false;
             _task = Task.Run(async () =>
             {
-                var isFirst = true;
+                bool isFirst = true;
                 while (!_taskExit)
                 {
                     try
@@ -108,8 +106,8 @@ namespace WeightCore.Zpl
                         {
                             if (_connection.GetType().Name.Contains("Status"))
                             {
-                                var printer = ZebraPrinterFactory.GetLinkOsPrinter(_connection);
-                                var status = printer?.GetCurrentStatus();
+                                ZebraPrinterLinkOs printer = ZebraPrinterFactory.GetLinkOsPrinter(_connection);
+                                PrinterStatus status = printer?.GetCurrentStatus();
                                 if (status != null)
                                 {
                                     // Готов к печати
@@ -159,7 +157,9 @@ namespace WeightCore.Zpl
         {
             if (_connection == null)
             {
-                _connection = ZebraConnectionBuilder.Build($"TCP_STATUS:{address}");
+                //_connection = ZebraConnectionBuilder.Build($"TCP_STATUS:{address}");
+                //_connection = Zebra.Sdk.Comm.ConnectionBuilder.Build($"TCP_STATUS:{address}");
+                _connection = ConnectionBuilder.Build($"TCP_STATUS:{address}");
             }
             if (_connection != null)
                 if (!_connection.Connected)
@@ -174,9 +174,9 @@ namespace WeightCore.Zpl
                 {
                     _connection.Close();
                 }
-                catch (ConnectionException ex)
+                catch (Exception)
                 {
-                    throw ex;
+                    throw;
                 }
                 finally
                 {

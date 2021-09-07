@@ -3,11 +3,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:dal="clr-namespace:DataProjectsCore.DAL;assembly=DataProjectsCore"
     mc:Ignorable="d" 
     d:DesignHeight="400" d:DesignWidth="400" 
     Loaded="UserControl_Loaded">
 
-    <Grid DataContext="{StaticResource ViewModel}" >
+    <UserControl.Resources>
+        <dal:SqlViewModelEntity x:Key="SqlViewModel" />
+    </UserControl.Resources>
+
+    <Grid DataContext="{StaticResource SqlViewModel}" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>

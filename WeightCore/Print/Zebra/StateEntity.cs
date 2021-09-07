@@ -12,7 +12,7 @@ namespace WeightCore.Print.Zebra
         public bool IsAlive { get; set; } = false;
         public int OdometerUserLabel { get; private set; }
         public string Peeled { get; private set; }
-        
+
         public StateEntity()
         {
             //
@@ -21,14 +21,14 @@ namespace WeightCore.Print.Zebra
         public void LoadResponse(string request, string msg)
         {
             Message = msg;
-            var noErrors = false;
-            var noWarnings = false;
+            bool noErrors = false;
+            bool noWarnings = false;
 
             if (request == ZplPipeUtils.ZplHostStatusReturn())
             {
                 if (msg.Contains("PRINTER STATUS"))
                 {
-                    foreach (var item in msg.Split(new string[] { "\r\n" }, StringSplitOptions.None))
+                    foreach (string item in msg.Split(new string[] { "\r\n" }, StringSplitOptions.None))
                     {
                         if (item.Contains("ERRORS:") && item.Contains("0 00000000 00000000"))
                         {
@@ -46,7 +46,7 @@ namespace WeightCore.Print.Zebra
             {
                 try
                 {
-                    OdometerUserLabel = Int32.Parse(msg);
+                    OdometerUserLabel = int.Parse(msg);
                 }
                 catch
                 {

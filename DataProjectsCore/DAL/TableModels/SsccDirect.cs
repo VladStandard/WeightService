@@ -45,7 +45,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.Append($"{SynonymSSCC}");
             return sb.ToString();
         }

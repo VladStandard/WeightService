@@ -3,8 +3,6 @@
 
 using MvvmHelpers;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace WeightCore.Print.Tsc
 {
@@ -195,7 +193,7 @@ namespace WeightCore.Print.Tsc
                         {
                             TscEthernet.openport(IpAddress, Port);
                             IsOpen = true;
-                            IsStatusNormal = TscEthernet != null && Equals(GetStatusAsStringEng(), "Normal");
+                            IsStatusNormal = Equals(GetStatusAsStringEng(), "Normal");
                         }
                         break;
                     default:
@@ -431,7 +429,7 @@ namespace WeightCore.Print.Tsc
         {
             if (TscEthernet != null)
             {
-                var st = TscEthernet.printerstatus();
+                byte st = TscEthernet.printerstatus();
                 return GetStatusAsStringEng(st);
             }
             return GetStatusAsStringEng((byte)PrintStatus.HundredTwentyEight);

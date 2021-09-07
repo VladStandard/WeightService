@@ -1,8 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.DAL.TableModels;
-using DataShareCore.Gui;
+using DataProjectsCore.Utils;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -12,8 +11,9 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using WeightCore.MassaK;
 
-namespace WeightCore.MassaK
+namespace WeightCore.Managers
 {
     public class MassaManagerEntity
     {
@@ -41,10 +41,9 @@ namespace WeightCore.MassaK
         public int CurrentError { get; private set; }
         public AskScalePar DeviceParameters { get; private set; }
         public AskError DeviceError { get; private set; }
-        private static readonly object Locker = new object();
-        private readonly LogHelper _log = LogHelper.Instance;
-        private readonly ConcurrentQueue<Cmd> _requestQueue = new ConcurrentQueue<Cmd>();
-        public LogDirect Log { get; }
+        private static readonly object Locker = new();
+        private readonly ConcurrentQueue<Cmd> _requestQueue = new();
+        private LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
@@ -59,11 +58,10 @@ namespace WeightCore.MassaK
             IsExecute = false;
         }
 
-        public MassaManagerEntity(LogDirect log, DeviceSocket deviceSocket, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds) :
+        public MassaManagerEntity(DeviceSocket deviceSocket, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds) :
             this(waitWhileMiliSeconds, waitExceptionMiliSeconds, waitCloseMiliSeconds)
         {
             DeviceSocket = deviceSocket;
-            Log = log;
         }
 
         #endregion
@@ -91,10 +89,7 @@ namespace WeightCore.MassaK
                     ExceptionMsg = ex.Message;
                     if (!string.IsNullOrEmpty(ex.InnerException?.Message))
                         ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                    Console.WriteLine(ExceptionMsg);
-                    Console.WriteLine($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-                    _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
-                    Log.SaveError(filePath, lineNumber, memberName, ExceptionMsg);
+                    _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                     throw;
                 }
@@ -143,7 +138,7 @@ namespace WeightCore.MassaK
                     if (ask == null)
                     {
                         //state = EnumControlState.Down;
-                        _log.Error("Нет ответа");
+                        _logUtils.Error("Нет ответа");
                     }
                     else
                     {
@@ -163,12 +158,12 @@ namespace WeightCore.MassaK
                                     //Int32 Weight
                                     //4 байта
                                     //Текущая масса нетто со знаком
-                                    WeightNet = (decimal)askGetMassa.Weight / (decimal)ScaleFactor;
+                                    WeightNet = askGetMassa.Weight / (decimal)ScaleFactor;
 
                                     //Int32 Tare
                                     //4 байта
                                     //* Текущая масса тары со знаком
-                                    weightTare = (decimal)askGetMassa.Tare / (decimal)ScaleFactor;
+                                    weightTare = askGetMassa.Tare / (decimal)ScaleFactor;
 
                                     //Int32 Tare
                                     //4 байта
@@ -196,7 +191,7 @@ namespace WeightCore.MassaK
                                     break;
                                 case AskError askError:
                                     DeviceError = askError;
-                                    _log.Error(askError.GetMessage());
+                                    _logUtils.Error(askError.GetMessage());
                                     // state = EnumControlState.Down;
                                     break;
                             }
@@ -206,17 +201,16 @@ namespace WeightCore.MassaK
                             switch (ask)
                             {
                                 case AskSetZero askSetZero:
-                                    _log.Info(askSetZero.GetMessage());
+                                    _logUtils.Information(askSetZero.GetMessage());
                                     IsReady = true;
                                     break;
                                 case AskError askError:
                                     DeviceError = askError;
-                                    _log.Error(askError.GetMessage());
-                                    Log.SaveError(filePath, lineNumber, memberName, askError.GetMessage());
-                                    Log.SaveError(filePath, lineNumber, memberName, $"ErrorCode: {askError.ErrorCode}");
-                                    Log.SaveError(filePath, lineNumber, memberName, $"Command: {askError.Command}");
-                                    Log.SaveError(filePath, lineNumber, memberName, $"Data: {askError.Data}");
-                                    Log.SaveError(filePath, lineNumber, memberName, $"IsValid: {askError.IsValid}");
+                                    _logUtils.Error(askError.GetMessage(), filePath, memberName, lineNumber);
+                                    _logUtils.Error(askError.ErrorCode.ToString(), filePath, memberName, lineNumber);
+                                    _logUtils.Error(askError.Command.ToString(), filePath, memberName, lineNumber);
+                                    _logUtils.Error(askError.Data.ToString(), filePath, memberName, lineNumber);
+                                    _logUtils.Error(askError.IsValid.ToString(), filePath, memberName, lineNumber);
                                     //state = EnumControlState.Down;
                                     break;
                             }
@@ -228,16 +222,16 @@ namespace WeightCore.MassaK
                                 case AskSetTare askSetTare:
                                     //weightTare = ((CmdSetTare) request).WeightTare;
                                     //scaleFactor = ((CmdSetTare) request).ScaleFactor;
-                                    _log.Info(askSetTare.GetMessage());
+                                    _logUtils.Information(askSetTare.GetMessage());
                                     IsReady = true;
                                     break;
                                 case AskNackTare askNackTare:
-                                    _log.Info(askNackTare.GetMessage());
+                                    _logUtils.Information(askNackTare.GetMessage());
                                     IsReady = true;
                                     break;
                                 case AskError askError:
                                     DeviceError = askError;
-                                    _log.Info(askError.GetMessage());
+                                    _logUtils.Information(askError.GetMessage());
                                     // state = EnumControlState.Down;
                                     break;
                             }
@@ -249,12 +243,12 @@ namespace WeightCore.MassaK
                                 case AskScalePar askScalePar:
                                     IsReady = true;
                                     DeviceParameters = askScalePar;
-                                    //_log.Info(ask.GetMessage());
+                                    //_logUtils.Information(ask.GetMessage());
                                     break;
                                 case AskError askError:
                                     //state = EnumControlState.Down;
                                     DeviceError = askError;
-                                    _log.Error(askError.GetMessage());
+                                    _logUtils.Error(askError.GetMessage());
                                     break;
                             }
                         }
@@ -276,19 +270,19 @@ namespace WeightCore.MassaK
 
         public void SetZero()
         {
-            CmdSetZero x = new CmdSetZero();
+            CmdSetZero x = new();
             AddRequest(x);
         }
 
         public void SetTareWeight(int weightTare)
         {
-            CmdSetTare cmdSetTare = new CmdSetTare { ScaleFactor = 1000, WeightTare = weightTare };
+            CmdSetTare cmdSetTare = new() { ScaleFactor = 1000, WeightTare = weightTare };
             AddRequest(cmdSetTare);
         }
 
         public void GetScalePar()
         {
-            CmdGetScalePar x = new CmdGetScalePar();
+            CmdGetScalePar x = new();
             AddRequest(x);
         }
 
@@ -298,13 +292,13 @@ namespace WeightCore.MassaK
     public abstract class DeviceSocket
     {
         //protected static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public readonly LogHelper Log = LogHelper.Instance;
         public abstract byte[] SharingSession(byte[] request);
     }
 
     public class DeviceSocketRs232 : DeviceSocket
     {
         public SerialPort SerialPort { get; private set; }
+        private LogUtils _logUtils = LogUtils.Instance;
 
         public DeviceSocketRs232(string portName = "COM1", int baudRate = 9600, Parity parity = Parity.None, int dataBits = 8,
             StopBits stopBits = StopBits.One, Handshake handshake = Handshake.None, int readTimeout = 50, int writeTimeout = 50)
@@ -353,7 +347,7 @@ namespace WeightCore.MassaK
             }
             catch (Exception ex)
             {
-                Log.Error(nameof(DeviceSocketRs232), nameof(SharingSession), ex.Message);
+                _logUtils.Error(nameof(DeviceSocketRs232), nameof(SharingSession), ex.Message);
             }
             return result;
         }
@@ -366,6 +360,7 @@ namespace WeightCore.MassaK
         public int DeviceSendTimeout { get; set; }
         public int DeviceReceiveTimeout { get; set; }
         public TcpClient TcpClient { get; private set; }
+        private LogUtils _logUtils = LogUtils.Instance;
 
         public DeviceSocketTcp(string ip, int port)
         {
@@ -388,7 +383,7 @@ namespace WeightCore.MassaK
                 NetworkStream stream = TcpClient.GetStream();
                 stream.Write(request, 0, request.Length);
 
-                using (MemoryStream ms = new MemoryStream())
+                using (MemoryStream ms = new())
                 {
                     byte[] readingData = new byte[256];
                     int numberOfBytesRead = 0;
@@ -409,11 +404,11 @@ namespace WeightCore.MassaK
             }
             catch (ArgumentNullException ex)
             {
-                Log.Error(nameof(DeviceSocket), nameof(SharingSession), ex.Message);
+                _logUtils.Error(nameof(DeviceSocket), nameof(SharingSession), ex.Message);
             }
             catch (SocketException ex)
             {
-                Log.Error(nameof(DeviceSocket), nameof(SharingSession), ex.Message);
+                _logUtils.Error(nameof(DeviceSocket), nameof(SharingSession), ex.Message);
             }
             return result;
         }
@@ -514,7 +509,7 @@ namespace WeightCore.MassaK
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
             ushort crc = Crc16.ComputeChecksum(selected);
-            IsValid = (short)Crc == (short)crc && (Command == 0x28);
+            IsValid = Crc == (short)crc && Command == 0x28;
         }
 
         public override string GetMessage()
@@ -628,7 +623,7 @@ namespace WeightCore.MassaK
             ushort crc = Crc16.ComputeChecksum(selected);
             //var crc2 = Utils.Crc16.ComputeCRC16CCITT(0, selected, 1);
 
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
             data[data.Length - 1] = (byte)(crc & 0xFF);
 
             return data;
@@ -651,7 +646,7 @@ namespace WeightCore.MassaK
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
             ushort crc = Crc16.ComputeChecksum(selected);
-            IsValid = (short)Crc == (short)crc;
+            IsValid = Crc == (short)crc;
 
         }
 
@@ -678,7 +673,7 @@ namespace WeightCore.MassaK
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
             ushort crc = Crc16.ComputeChecksum(selected);
-            IsValid = (short)Crc == (short)crc;
+            IsValid = Crc == (short)crc;
 
         }
 
@@ -716,7 +711,7 @@ namespace WeightCore.MassaK
             _ = selected.Reverse();
             ushort crc = Crc16.ComputeChecksum(selected);
 
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
             data[data.Length - 1] = (byte)(crc & 0xFF);
 
             return data;
@@ -737,7 +732,7 @@ namespace WeightCore.MassaK
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
             ushort crc = Crc16.ComputeChecksum(selected);
-            IsValid = (short)Crc == (short)crc;
+            IsValid = Crc == (short)crc;
 
         }
 
@@ -768,7 +763,7 @@ namespace WeightCore.MassaK
             _ = selected.Reverse();
             ushort crc = Crc16.ComputeChecksum(selected);
 
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
             data[data.Length - 1] = (byte)(crc & 0xFF);
 
             return data;
@@ -832,7 +827,7 @@ namespace WeightCore.MassaK
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
             ushort crc = Crc16.ComputeChecksum(selected);
-            IsValid = ((short)Crc == (short)crc) && (Command == 0x24);
+            IsValid = Crc == (short)crc && Command == 0x24;
 
         }
 
@@ -870,7 +865,7 @@ namespace WeightCore.MassaK
             _ = selected.Reverse();
             ushort crc = Crc16.ComputeChecksum(selected);
 
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
             data[data.Length - 1] = (byte)(crc & 0xFF);
 
             return data;
@@ -898,7 +893,7 @@ namespace WeightCore.MassaK
 
         public AskScalePar(byte[] data)
         {
-            System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+            System.Text.ASCIIEncoding enc = new();
             Header0 = data[0];
             Header1 = data[1];
             Header2 = data[2];
@@ -911,83 +906,80 @@ namespace WeightCore.MassaK
 
             // сюда надо вставить логику
             int i = 6;
-            using (MemoryStream memStream = new MemoryStream())
+            using MemoryStream memStream = new();
+            while (data[i] != 0x0D)
             {
-                while (data[i] != 0x0D)
-                {
-                    memStream.WriteByte(data[i++]);
-                }
-
-                P_Max = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-
-                i++; // пропустим 0x0D
-                i++; // пропустим 0x0A
-                memStream.SetLength(0);
-
-                while (data[i] != 0x0D)
-                {
-                    memStream.WriteByte(data[i++]);
-                }
-                P_Min = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-                i++; // пропустим 0x0D
-                i++; // пропустим 0x0A
-                memStream.SetLength(0);
-
-                while (data[i] != 0x0D)
-                {
-                    memStream.WriteByte(data[i++]);
-                }
-                P_e = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-                i++; // пропустим 0x0D
-                i++; // пропустим 0x0A
-                memStream.SetLength(0);
-
-                while (data[i] != 0x0D)
-                {
-                    memStream.WriteByte(data[i++]);
-                }
-                P_T = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-                i++; // пропустим 0x0D
-                i++; // пропустим 0x0A
-                memStream.SetLength(0);
-
-                while (data[i] != 0x0D)
-                {
-                    memStream.WriteByte(data[i++]);
-                }
-                Fix = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-                i++; // пропустим 0x0D
-                i++; // пропустим 0x0A
-                memStream.SetLength(0);
-
-                while (data[i] != 0x0D)
-                {
-                    memStream.WriteByte(data[i++]);
-                }
-                Calcode = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-                i++; // пропустим 0x0D
-                i++; // пропустим 0x0A
-                memStream.SetLength(0);
-
-                while (data[i] != 0x0D)
-                {
-                    memStream.WriteByte(data[i++]);
-                }
-                PO_Ver = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-                i++; // пропустим 0x0D
-                i++; // пропустим 0x0A
-                memStream.SetLength(0);
-
-                while (data[i] != 0x0D)
-                {
-                    memStream.WriteByte(data[i++]);
-                }
-                PO_Summ = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-                i++; // пропустим 0x0D
-                i++; // пропустим 0x0A
-                memStream.SetLength(0);
-
+                memStream.WriteByte(data[i++]);
             }
+
+            P_Max = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
+
+            i++; // пропустим 0x0D
+            i++; // пропустим 0x0A
+            memStream.SetLength(0);
+
+            while (data[i] != 0x0D)
+            {
+                memStream.WriteByte(data[i++]);
+            }
+            P_Min = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
+            i++; // пропустим 0x0D
+            i++; // пропустим 0x0A
+            memStream.SetLength(0);
+
+            while (data[i] != 0x0D)
+            {
+                memStream.WriteByte(data[i++]);
+            }
+            P_e = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
+            i++; // пропустим 0x0D
+            i++; // пропустим 0x0A
+            memStream.SetLength(0);
+
+            while (data[i] != 0x0D)
+            {
+                memStream.WriteByte(data[i++]);
+            }
+            P_T = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
+            i++; // пропустим 0x0D
+            i++; // пропустим 0x0A
+            memStream.SetLength(0);
+
+            while (data[i] != 0x0D)
+            {
+                memStream.WriteByte(data[i++]);
+            }
+            Fix = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
+            i++; // пропустим 0x0D
+            i++; // пропустим 0x0A
+            memStream.SetLength(0);
+
+            while (data[i] != 0x0D)
+            {
+                memStream.WriteByte(data[i++]);
+            }
+            Calcode = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
+            i++; // пропустим 0x0D
+            i++; // пропустим 0x0A
+            memStream.SetLength(0);
+
+            while (data[i] != 0x0D)
+            {
+                memStream.WriteByte(data[i++]);
+            }
+            PO_Ver = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
+            i++; // пропустим 0x0D
+            i++; // пропустим 0x0A
+            memStream.SetLength(0);
+
+            while (data[i] != 0x0D)
+            {
+                memStream.WriteByte(data[i++]);
+            }
+            PO_Summ = enc.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
+            i++; // пропустим 0x0D
+            i++; // пропустим 0x0A
+            memStream.SetLength(0);
 
             //IsValid = (Int16)CRC == (Int16)crc;
         }

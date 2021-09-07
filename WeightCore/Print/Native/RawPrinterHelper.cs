@@ -48,8 +48,8 @@ namespace WeightCore.Print.Native
         // Returns true on success, false on failure.
         public static bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, int dwCount)
         {
-            IntPtr hPrinter = new IntPtr(0);
-            DOCINFOA di = new DOCINFOA();
+            IntPtr hPrinter = new(0);
+            DOCINFOA di = new();
             bool bSuccess = false; // Assume failure unless you specifically succeed.
 
             di.pDocName = "My C#.NET RAW Document";
@@ -83,14 +83,14 @@ namespace WeightCore.Print.Native
         public static bool SendFileToPrinter(string szPrinterName, string szFileName)
         {
             // Open the file.
-            FileStream fs = new FileStream(szFileName, FileMode.Open);
+            FileStream fs = new(szFileName, FileMode.Open);
             // Create a BinaryReader on the file.
-            BinaryReader br = new BinaryReader(fs);
+            BinaryReader br = new(fs);
             // Dim an array of bytes big enough to hold the file's contents.
             byte[] bytes = new byte[fs.Length];
             bool bSuccess = false;
             // Your unmanaged pointer.
-            IntPtr pUnmanagedBytes = new IntPtr(0);
+            IntPtr pUnmanagedBytes = new(0);
             int nLength;
 
             nLength = Convert.ToInt32(fs.Length);

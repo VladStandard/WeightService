@@ -24,17 +24,15 @@ namespace DataProjectsCore.DAL.Utils
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@scale", scaleName);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                result = SqlConnectFactory.GetValue<int>(reader, "ID");
-                            }
+                            result = SqlConnectFactory.GetValue<int>(reader, "ID");
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -54,29 +52,27 @@ namespace DataProjectsCore.DAL.Utils
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@id", scaleId);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                                result.Description = SqlConnectFactory.GetValue<string>(reader, "Description");
-                                result.DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
-                                result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
-                                result.DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
-                                result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
-                                result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
-                                result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
-                                result.ZebraPrinter = new ZebraPrinterDirect(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
-                                result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
-                                result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
-                                result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
-                                result.ScaleFactor = SqlConnectFactory.GetValue<int?>(reader, "ScaleFactor");
-                            }
+                            result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                            result.Description = SqlConnectFactory.GetValue<string>(reader, "Description");
+                            result.DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
+                            result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
+                            result.DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
+                            result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
+                            result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
+                            result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
+                            result.ZebraPrinter = new ZebraPrinterDirect(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
+                            result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
+                            result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
+                            result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
+                            result.ScaleFactor = SqlConnectFactory.GetValue<int?>(reader, "ScaleFactor");
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -94,29 +90,27 @@ namespace DataProjectsCore.DAL.Utils
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@ScaleID", scaleId);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                                result.Description = SqlConnectFactory.GetValue<string>(reader, "Description");
-                                result.DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
-                                result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
-                                result.DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
-                                result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
-                                result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
-                                result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
-                                result.ZebraPrinter = new ZebraPrinterDirect(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
-                                result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
-                                result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
-                                result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
-                                result.ScaleFactor = SqlConnectFactory.GetValue<int?>(reader, "ScaleFactor");
-                            }
+                            result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                            result.Description = SqlConnectFactory.GetValue<string>(reader, "Description");
+                            result.DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
+                            result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
+                            result.DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
+                            result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
+                            result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
+                            result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
+                            result.ZebraPrinter = new ZebraPrinterDirect(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
+                            result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
+                            result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
+                            result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
+                            result.ScaleFactor = SqlConnectFactory.GetValue<int?>(reader, "ScaleFactor");
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }

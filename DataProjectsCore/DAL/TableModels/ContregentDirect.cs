@@ -31,41 +31,36 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = "SELECT * FROM [db_scales].[GetContragent](@Id);";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query = "SELECT * FROM [db_scales].[GetContragent](@Id);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Id", Id);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Id", Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                                Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
-                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
-                                RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID");
-                                Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked");
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
+                        CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID");
+                        Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked");
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public void Save()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                string query = @"
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = @"
                     DECLARE @ID int; 
                     EXECUTE [db_scales].[SetProductionFacility]
                        @1CRRefID,
@@ -73,59 +68,54 @@ namespace DataProjectsCore.DAL.TableModels
                       ,@Marked
                       ,@ID OUTPUT;
                     SELECT @ID";
-                using (SqlCommand cmd = new SqlCommand(query))
+            using (SqlCommand cmd = new(query))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
+                cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
-                    cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "Id");
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "Id");
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public static List<ContregentDirect> GetList()
         {
-            List<ContregentDirect> result = new List<ContregentDirect>();
+            List<ContregentDirect> result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetContragent] (default);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            ContregentDirect contregent = new()
                             {
-                                ContregentDirect contregent = new ContregentDirect()
-                                {
-                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                    Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                    CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                    ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                    RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID"),
-                                    Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked")
-                                };
-                                result.Add(contregent);
-                            }
+                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID"),
+                                Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked")
+                            };
+                            result.Add(contregent);
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }

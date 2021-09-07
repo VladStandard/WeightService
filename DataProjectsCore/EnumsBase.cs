@@ -3,14 +3,16 @@
 
 namespace DataProjectsCore
 {
-    public enum LogType
+    public class ScalesEnums
     {
-        None = 0,
-        Error = 1,
-        Stop = 2,
-        Question = 3,
-        Warning = 4,
-        Information = 5,
+        public enum TaskType
+        {
+            DeviceManager,
+            MassaManager,
+            MemoryManager,
+            PrintManager,
+            ZabbixManager,
+        }
     }
 
     /// <summary>

@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore.DAL.Models;
-using DataProjectsCore.Utils;
 using DataShareCore;
 using System;
 using System.Collections.Generic;
@@ -25,9 +24,9 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         public List<HostEntity> GetFreeHosts(int? id)
         {
-            var entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts);
-            var items = new List<HostEntity>();
-            foreach (var entity in entities)
+            object[]? entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts);
+            List<HostEntity>? items = new List<HostEntity>();
+            foreach (object? entity in entities)
             {
                 if (entity is object[] { Length: 9 } ent)
                 {
@@ -55,9 +54,9 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         public List<HostEntity> GetBusyHosts()
         {
-            var entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts);
-            var items = new List<HostEntity>();
-            foreach (var entity in entities)
+            object[]? entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts);
+            List<HostEntity>? items = new List<HostEntity>();
+            foreach (object? entity in entities)
             {
                 if (entity is object[] { Length: 9 } ent)
                 {

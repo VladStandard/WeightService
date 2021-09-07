@@ -49,45 +49,40 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = "SELECT * FROM [db_scales].[GetNomenclatureUnit] (@Id);";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query = "SELECT * FROM [db_scales].[GetNomenclatureUnit] (@Id);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Id", Id);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Id", Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                                Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
-                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
-                                RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID");
-                                Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked");
-                                PackWeight = SqlConnectFactory.GetValue<decimal>(reader, "PackWeight");
-                                PackQuantly = SqlConnectFactory.GetValue<int>(reader, "PackQuantly");
-                                PackType = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "PackTypeId"));
-                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId"));
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
+                        CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID");
+                        Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked");
+                        PackWeight = SqlConnectFactory.GetValue<decimal>(reader, "PackWeight");
+                        PackQuantly = SqlConnectFactory.GetValue<int>(reader, "PackQuantly");
+                        PackType = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "PackTypeId"));
+                        Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId"));
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public void Save()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                string query = @"
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = @"
                     DECLARE @ID int; 
                     EXECUTE [db_scales].[SetNomenclatureUnit]
                        @1CRRefID,
@@ -99,67 +94,62 @@ namespace DataProjectsCore.DAL.TableModels
                        @PackTypeId      ,
                        @ID OUTPUT;
                     SELECT @ID";
-                using (SqlCommand cmd = new SqlCommand(query))
+            using (SqlCommand cmd = new(query))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
+                cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@NomenclatureId", Nomenclature.Id);  // 
+                cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
+                cmd.Parameters.AddWithValue($"@PackWeight", PackWeight);  // 
+                cmd.Parameters.AddWithValue($"@PackQuantly", PackQuantly);  // 
+                cmd.Parameters.AddWithValue($"@PackTypeId", PackType == null ? PackType.Id : (object)DBNull.Value);  // 
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
-                    cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@NomenclatureId", Nomenclature.Id);  // 
-                    cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
-                    cmd.Parameters.AddWithValue($"@PackWeight", PackWeight);  // 
-                    cmd.Parameters.AddWithValue($"@PackQuantly", PackQuantly);  // 
-                    cmd.Parameters.AddWithValue($"@PackTypeId", PackType == null ? PackType.Id : (object)DBNull.Value);  // 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            if (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "Id");
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "Id");
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public static List<NomenclatureUnitDirect> GetList()
         {
-            List<NomenclatureUnitDirect> result = new List<NomenclatureUnitDirect>();
+            List<NomenclatureUnitDirect> result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetNomenclatureUnit] (default);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            NomenclatureUnitDirect pFacility = new()
                             {
-                                NomenclatureUnitDirect pFacility = new NomenclatureUnitDirect()
-                                {
-                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                    Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                    CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                    ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                    RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID"),
-                                    Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked"),
-                                    PackWeight = SqlConnectFactory.GetValue<decimal>(reader, "PackWeight"),
-                                    PackQuantly = SqlConnectFactory.GetValue<int>(reader, "PackQuantly"),
-                                    PackType = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "PackTypeId")),
-                                    Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
-                                };
-                                result.Add(pFacility);
-                            }
+                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID"),
+                                Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked"),
+                                PackWeight = SqlConnectFactory.GetValue<decimal>(reader, "PackWeight"),
+                                PackQuantly = SqlConnectFactory.GetValue<int>(reader, "PackQuantly"),
+                                PackType = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "PackTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
+                            };
+                            result.Add(pFacility);
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }

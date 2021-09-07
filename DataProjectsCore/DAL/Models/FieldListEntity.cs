@@ -33,9 +33,9 @@ namespace DataProjectsCore.DAL.Models
 
         public override string ToString()
         {
-            var strFields = string.Empty;
-            var i = 0;
-            foreach (var field in Fields)
+            string? strFields = string.Empty;
+            int i = 0;
+            foreach (KeyValuePair<string, object> field in Fields)
             {
                 strFields += $"Field[{i}]: {field.Key} = {field.Value}. ";
                 i++;

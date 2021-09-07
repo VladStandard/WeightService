@@ -16,7 +16,7 @@ namespace WeightCore.Zabbix
         #region Public/Private fields and properties
 
         private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly object _locker = new object();
+        private readonly object _locker = new();
         private CancellationToken _token;
         private readonly int _threadTimeOut;
         private HttpListener _listener;
@@ -87,9 +87,9 @@ namespace WeightCore.Zabbix
                                 {
                                     try
                                     {
-                                        var context = _listener.GetContext();
-                                        var request = context.Request;
-                                        var methodName = request.Url.Segments[1].Replace("/", "");
+                                        HttpListenerContext context = _listener.GetContext();
+                                        HttpListenerRequest request = context.Request;
+                                        string methodName = request.Url.Segments[1].Replace("/", "");
                                         StartCommented();
                                         SetResponse(context, methodName);
                                     }
@@ -162,8 +162,8 @@ namespace WeightCore.Zabbix
         /// <returns></returns>
         private string GetHttpSubString(StringBuilder response)
         {
-            var result = string.Empty;
-            foreach (var item in response.ToString().Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.None))
+            string result = string.Empty;
+            foreach (string item in response.ToString().Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.None))
             {
                 if (!string.IsNullOrEmpty(item))
                     result += $@"        <div>{item}</div>" + Environment.NewLine;
@@ -178,7 +178,7 @@ namespace WeightCore.Zabbix
         /// <returns></returns>
         private string GetHttpString(string methodName)
         {
-            var result = "<html><head><meta charset='utf8'></head><body>Ошибка запроса!</body></html>";
+            string result = "<html><head><meta charset='utf8'></head><body>Ошибка запроса!</body></html>";
             switch (methodName)
             {
                 case @"status":
@@ -236,13 +236,13 @@ namespace WeightCore.Zabbix
         /// <param name="methodName"></param>
         private void SetResponse(HttpListenerContext context, string methodName)
         {
-            var httpString = GetHttpString(methodName);
-            var response = context.Response;
+            string httpString = GetHttpString(methodName);
+            HttpListenerResponse response = context.Response;
             response.StatusCode = 200;
             //response.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             //response.AddHeader("Content-Type", "text/csv");
             response.AddHeader("Content-Type", "text/html");
-            var buffer = Encoding.UTF8.GetBytes(httpString);
+            byte[] buffer = Encoding.UTF8.GetBytes(httpString);
             response.ContentLength64 = buffer.Length;
             //var output = response.OutputStream;
             //output.Write(buffer, 0, buffer.Length);
@@ -296,7 +296,7 @@ namespace WeightCore.Zabbix
 
             if (_sbAccessUrl == null || _sbAccessUrl.Length == 0)
             {
-                using (var process = new Process
+                using Process process = new Process
                 {
                     //StartInfo = new ProcessStartInfo(@"netsh", $@"http show urlacl ""{url}""")
                     StartInfo = new ProcessStartInfo(@"netsh", $@"http show urlacl")
@@ -305,18 +305,16 @@ namespace WeightCore.Zabbix
                         RedirectStandardOutput = true,
                         CreateNoWindow = true,
                     },
-                })
+                };
+                process.Start();
+                _sbAccessUrl = new StringBuilder();
+                while (!process.StandardOutput.EndOfStream)
                 {
-                    process.Start();
-                    _sbAccessUrl = new StringBuilder();
-                    while (!process.StandardOutput.EndOfStream)
-                    {
-                        _sbAccessUrl.AppendLine(process.StandardOutput.ReadLine());
-                    }
-                    process.WaitForExit(3_0000);
+                    _sbAccessUrl.AppendLine(process.StandardOutput.ReadLine());
                 }
+                process.WaitForExit(3_0000);
             }
-            foreach (var str in _sbAccessUrl.ToString().Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.None))
+            foreach (string str in _sbAccessUrl.ToString().Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.None))
             {
                 if (str.Contains(url))
                 {
@@ -363,7 +361,7 @@ namespace WeightCore.Zabbix
         /// <returns></returns>
         public bool CheckHttpAccessAll(HttpListener listener)
         {
-            var result = CheckHttpAccess(listener, EnumCheckHttpAccess.Status);
+            bool result = CheckHttpAccess(listener, EnumCheckHttpAccess.Status);
             if (CheckHttpAccess(listener, EnumCheckHttpAccess.Zebra))
                 result = true;
             if (CheckHttpAccess(listener, EnumCheckHttpAccess.Massa))

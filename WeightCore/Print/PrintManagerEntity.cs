@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataShareCore.Gui;
+using DataProjectsCore.Utils;
 using log4net;
 using System;
 using System.Collections.Concurrent;
@@ -37,9 +37,9 @@ namespace WeightCore.Print
         private readonly ILog _ilog = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public Connection Con { get; }
         public ConcurrentQueue<string> PrintCmdQueue { get; } = new ConcurrentQueue<string>();
-        private readonly object _locker = new object();
+        private readonly object _locker = new();
         public PrintControlEntity PrintControl { get; set; }
-        private readonly LogHelper _log = LogHelper.Instance;
+        private LogUtils _logUtils = LogUtils.Instance;
         private ZebraPrinter _zebraPrinter;
         public ZebraPrinter ZebraPrinter => _zebraPrinter ?? (_zebraPrinter = ZebraPrinterFactory.GetInstance(Con));
 
@@ -74,7 +74,8 @@ namespace WeightCore.Print
 
         #region Public and private methods - Manager
 
-        public void Open(bool isTscPrinter, CallbackAsync callback, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Open(bool isTscPrinter, CallbackAsync callbackPrintManagerAsync, [CallerFilePath] string filePath = "", 
+            [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             IsExecute = true;
             while (IsExecute)
@@ -82,7 +83,7 @@ namespace WeightCore.Print
                 try
                 {
                     OpenJob(isTscPrinter);
-                    callback(WaitWhileMiliSeconds).ConfigureAwait(true);
+                    callbackPrintManagerAsync(WaitWhileMiliSeconds).ConfigureAwait(true);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
@@ -95,9 +96,7 @@ namespace WeightCore.Print
                     ExceptionMsg = ex.Message;
                     if (!string.IsNullOrEmpty(ex.InnerException?.Message))
                         ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                    Console.WriteLine(ExceptionMsg);
-                    Console.WriteLine($@"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-                    _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
+                    _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                     throw;
                 }
@@ -118,9 +117,9 @@ namespace WeightCore.Print
                 ExceptionMsg = ex.Message;
                 if (!string.IsNullOrEmpty(ex.InnerException?.Message))
                     ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                Console.WriteLine(ExceptionMsg);
-                Console.WriteLine($@"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
-                //Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
+                Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                throw;
             }
         }
 

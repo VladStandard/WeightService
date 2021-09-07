@@ -48,80 +48,72 @@ namespace DataProjectsCore.DAL.TableModels
                 throw new Exception("Equipment instance not identified. Set [Scale].");
             }
 
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query =
+                "DECLARE @SSCC varchar(50);\n" +
+                "DECLARE @WeithingDate datetime;\n" +
+                "DECLARE @xmldata xml;\n" +
+                "EXECUTE [db_scales].[NewProductSeries] @ScaleID, @SSCC OUTPUT, @xmldata OUTPUT;\n " +
+                "SELECT Id, CreateDate, UUID, SSCC,CountUnit,TotalNetWeight, TotalTareWeight " +
+                " FROM [db_scales].[GetCurrentProductSeries](@ScaleId);";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query =
-                    "DECLARE @SSCC varchar(50);\n" +
-                    "DECLARE @WeithingDate datetime;\n" +
-                    "DECLARE @xmldata xml;\n" +
-                    "EXECUTE [db_scales].[NewProductSeries] @ScaleID, @SSCC OUTPUT, @xmldata OUTPUT;\n " +
-                    "SELECT Id, CreateDate, UUID, SSCC,CountUnit,TotalNetWeight, TotalTareWeight " +
-                    " FROM [db_scales].[GetCurrentProductSeries](@ScaleId);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ScaleID", Scale.Id);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ScaleID", Scale.Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = reader.GetInt32(0);
-                                CreateDate = reader.GetDateTime(1);
-                                UUID = reader.GetGuid(2);
-                                CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
-                                TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
-                                TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
-                                Sscc = new SsccDirect(reader.GetString(3));
-                            }
-                        }
-                        reader.Close();
+                        Id = reader.GetInt32(0);
+                        CreateDate = reader.GetDateTime(1);
+                        UUID = reader.GetGuid(2);
+                        CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
+                        TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
+                        TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
+                        Sscc = new SsccDirect(reader.GetString(3));
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public void Load()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query =
+                "SELECT Id, CreateDate, UUID, SSCC, CountUnit,TotalNetWeight, TotalTareWeight " +
+                " FROM [db_scales].[GetCurrentProductSeries](@ScaleId);";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query =
-                    "SELECT Id, CreateDate, UUID, SSCC, CountUnit,TotalNetWeight, TotalTareWeight " +
-                    " FROM [db_scales].[GetCurrentProductSeries](@ScaleId);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ScaleID", Scale.Id);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ScaleID", Scale.Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = reader.GetInt32(0);
-                                CreateDate = reader.GetDateTime(1);
-                                UUID = reader.GetGuid(2);
-                                CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
-                                TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
-                                TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
-                                Sscc = new SsccDirect(reader.GetString(3));
-                            }
-                        }
-                        reader.Close();
+                        Id = reader.GetInt32(0);
+                        CreateDate = reader.GetDateTime(1);
+                        UUID = reader.GetGuid(2);
+                        CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
+                        TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
+                        TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
+                        Sscc = new SsccDirect(reader.GetString(3));
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public new string SerializeObject()
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProductSeriesDirect));
-            XmlWriterSettings settings = new XmlWriterSettings();
+            XmlSerializer xmlSerializer = new(typeof(ProductSeriesDirect));
+            XmlWriterSettings settings = new();
             settings.ConformanceLevel = ConformanceLevel.Document;
             settings.OmitXmlDeclaration = false;    // не подавлять xml заголовок
 
@@ -133,17 +125,15 @@ namespace DataProjectsCore.DAL.TableModels
             settings.Indent = true;                // добавлять отступы
             settings.IndentChars = "\t";           // сиволы отступа
 
-            XmlSerializerNamespaces dummyNSs = new XmlSerializerNamespaces();
+            XmlSerializerNamespaces dummyNSs = new();
             dummyNSs.Add(string.Empty, string.Empty);
 
-            using (StringWriter textWriter = new StringWriter())
+            using StringWriter textWriter = new();
+            using (XmlWriter xw = XmlWriter.Create(textWriter, settings))
             {
-                using (XmlWriter xw = XmlWriter.Create(textWriter, settings))
-                {
-                    xmlSerializer.Serialize(xw, this, dummyNSs);
-                }
-                return textWriter.ToString();
+                xmlSerializer.Serialize(xw, this, dummyNSs);
             }
+            return textWriter.ToString();
         }
     }
 }

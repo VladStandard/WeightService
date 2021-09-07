@@ -9,12 +9,11 @@ namespace DataProjectsCore.DAL
 {
     public class SqlConnectFactory
     {
-
         private static SqlConnectFactory _instance;
 
         public string ConnectionString { get; }
 
-        private static readonly object Locker = new object();
+        private static readonly object Locker = new();
 
         protected SqlConnectFactory(string connectionString)
         {
@@ -47,20 +46,19 @@ namespace DataProjectsCore.DAL
             return _instance.GetSqlConnection();
         }
 
-        public static T GetValue<T>(IDataReader reader, string fieldName)
+        public static T? GetValue<T>(IDataReader reader, string fieldName)
         {
             object value = reader[fieldName];
-
             Type t = typeof(T);
             t = Nullable.GetUnderlyingType(t) ?? t;
-
-            return (value == null || DBNull.Value.Equals(value)) ?
-                default(T) : (T)Convert.ChangeType(value, t);
+            return (value == null || DBNull.Value.Equals(value)) ? default : (T)Convert.ChangeType(value, t);
         }
 
+        #region Public and private methods - Wrappers execute
 
-        public delegate void DelegateMethod(SqlDataReader reader);
-        public static void ExecuteReader(string query, SqlParameter[] parameters, DelegateMethod delegateMethod)
+        public delegate void ExecuteReaderInside(SqlDataReader reader);
+
+        public static void ExecuteReader(string query, SqlParameter[] parameters, ExecuteReaderInside methodInside)
         {
             using SqlConnection con = GetConnection();
             con.Open();
@@ -74,7 +72,7 @@ namespace DataProjectsCore.DAL
                 {
                     if (reader.HasRows)
                     {
-                        delegateMethod(reader);
+                        methodInside(reader);
                     }
                     reader.Close();
                 }
@@ -83,7 +81,34 @@ namespace DataProjectsCore.DAL
             con.Close();
         }
 
-        public static void ExecuteNonQuery(string query, SqlParameter[] parameters, CommandType commandType = CommandType.Text)
+        public delegate T? ExecuteReaderInside<T>(SqlDataReader reader);
+
+        public static T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderInside<T> methodInside)
+        {
+            T? result = default;
+            using SqlConnection con = GetConnection();
+            con.Open();
+            using (SqlCommand cmd = new(query))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddRange(parameters);
+                //cmd.CommandType = CommandType.TableDirect;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        result = methodInside(reader);
+                    }
+                    reader.Close();
+                }
+                cmd.ExecuteNonQuery();
+            }
+            con.Close();
+            return result;
+        }
+
+        public static void ExecuteNonQuery(string query, SqlParameter[] parameters)
         {
             using SqlConnection con = GetConnection();
             con.Open();
@@ -92,10 +117,12 @@ namespace DataProjectsCore.DAL
                 cmd.Connection = con;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddRange(parameters);
-                cmd.CommandType = commandType;
+                //cmd.CommandType = CommandType.StoredProcedure;
                 cmd.ExecuteNonQuery();
             }
             con.Close();
         }
+
+        #endregion
     }
 }

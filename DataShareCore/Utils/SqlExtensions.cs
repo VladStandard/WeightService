@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.Data;
 
 namespace DataShareCore.Utils
 {
@@ -19,7 +18,7 @@ namespace DataShareCore.Utils
         /// <param name="dr"></param>
         /// <param name="field"></param>
         /// <returns></returns>
-        public static bool ExistsField(this IDataRecord dr, string field)
+        public static bool ExistsField(this Microsoft.Data.SqlClient.SqlDataReader dr, string field)
         {
             for (int i = 0; i < dr.FieldCount; i++)
             {

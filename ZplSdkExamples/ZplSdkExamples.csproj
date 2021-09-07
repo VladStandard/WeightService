@@ -234,6 +234,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WeightCore\WeightCore.csproj">
+      <Project>{51C1AA1F-3104-4438-93EA-9E348F18EAD7}</Project>
+      <Name>WeightCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

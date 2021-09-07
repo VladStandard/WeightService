@@ -4,35 +4,30 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-// ReSharper disable UnusedMember.Global
-// ReSharper disable CheckNamespace
-// ReSharper disable CommentTypo
+using static DataShareCore.Utils.AppVersionEnums;
 
-namespace WeightCore.Gui
+namespace DataShareCore.Utils
 {
-    /// <summary>
-    /// Строковый формат.
-    /// </summary>
-    public enum EnumStringFormat
+    public class AppVersionEnums
     {
-        AsString,
-        Use1,
-        Use2,
-        Use3,
-        Use4,
+        public enum StringFormat
+        {
+            AsString,
+            Use1,
+            Use2,
+            Use3,
+            Use4,
+        }
+
+        public enum VerCountDigits
+        {
+            Use1,
+            Use2,
+            Use3,
+        }
     }
 
-    /// <summary>
-    /// Количество символов для строки версии ПО.
-    /// </summary>
-    public enum EnumVerCountDigits
-    {
-        Use1,
-        Use2,
-        Use3,
-    }
-
-    public static class UtilsAppVersion
+    public static class AppVersionUtils
     {
         /// <summary>
         /// Текущая версия.
@@ -42,17 +37,17 @@ namespace WeightCore.Gui
         /// <param name="stringFormats"></param>
         /// <param name="version"></param>
         /// <returns></returns>
-        public static string GetCurrentVersion(Assembly assembly, EnumVerCountDigits countDigits, List<EnumStringFormat> stringFormats = null, Version version = null)
+        public static string GetCurrentVersion(Assembly assembly, VerCountDigits countDigits, List<StringFormat> stringFormats = null, Version version = null)
         {
             if (version == null)
                 version = assembly.GetName().Version;
             if (stringFormats == null || stringFormats.Count == 0)
-                stringFormats = new List<EnumStringFormat>() { EnumStringFormat.Use1, EnumStringFormat.Use2, EnumStringFormat.Use2 };
+                stringFormats = new List<StringFormat>() { StringFormat.Use1, StringFormat.Use2, StringFormat.Use2 };
 
-            var formatMajor = stringFormats[0];
-            var formatMinor = EnumStringFormat.AsString;
-            var formatBuild = EnumStringFormat.AsString;
-            var formatRevision = EnumStringFormat.AsString;
+            StringFormat formatMajor = stringFormats[0];
+            StringFormat formatMinor = StringFormat.AsString;
+            StringFormat formatBuild = StringFormat.AsString;
+            StringFormat formatRevision = StringFormat.AsString;
             if (stringFormats.Count > 1)
                 formatMinor = stringFormats[1];
             if (stringFormats.Count > 2)
@@ -60,18 +55,18 @@ namespace WeightCore.Gui
             if (stringFormats.Count > 3)
                 formatRevision = stringFormats[3];
 
-            var major = GetCurrentVersionFormat(version.Major, formatMajor);
-            var minor = GetCurrentVersionFormat(version.Minor, formatMinor);
-            var build = GetCurrentVersionFormat(version.Build, formatBuild);
-            var revision = GetCurrentVersionFormat(version.Revision, formatRevision);
-            var version4 = $"{major}.{minor}.{build}.{revision}";
-            var version3 = $"{major}.{minor}.{build}";
-            var version2 = $"{major}.{minor}";
-            var version1 = $"{major}";
+            string major = GetCurrentVersionFormat(version.Major, formatMajor);
+            string minor = GetCurrentVersionFormat(version.Minor, formatMinor);
+            string build = GetCurrentVersionFormat(version.Build, formatBuild);
+            string revision = GetCurrentVersionFormat(version.Revision, formatRevision);
+            string version4 = $"{major}.{minor}.{build}.{revision}";
+            string version3 = $"{major}.{minor}.{build}";
+            string version2 = $"{major}.{minor}";
+            string version1 = $"{major}";
 
-            return countDigits == EnumVerCountDigits.Use1
-                ? version1 : countDigits == EnumVerCountDigits.Use2
-                ? version2 : countDigits == EnumVerCountDigits.Use3
+            return countDigits == VerCountDigits.Use1
+                ? version1 : countDigits == VerCountDigits.Use2
+                ? version2 : countDigits == VerCountDigits.Use3
                 ? version3 : version4;
         }
 
@@ -82,7 +77,7 @@ namespace WeightCore.Gui
         /// <returns></returns>
         public static string GetCurrentVersionSubString(string input)
         {
-            var result = string.Empty;
+            string result = string.Empty;
             int idx = input.LastIndexOf('.');
             if (idx >= 0)
                 result = input.Substring(0, idx);
@@ -95,17 +90,17 @@ namespace WeightCore.Gui
         /// <param name="input"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-        public static string GetCurrentVersionFormat(int input, EnumStringFormat format)
+        public static string GetCurrentVersionFormat(int input, StringFormat format)
         {
             switch (format)
             {
-                case EnumStringFormat.Use1:
+                case StringFormat.Use1:
                     return $"{input:D1}";
-                case EnumStringFormat.Use2:
+                case StringFormat.Use2:
                     return $"{input:D2}";
-                case EnumStringFormat.Use3:
+                case StringFormat.Use3:
                     return $"{input:D3}";
-                case EnumStringFormat.Use4:
+                case StringFormat.Use4:
                     return $"{input:D4}";
             }
             return $"{input:D}";
@@ -117,8 +112,8 @@ namespace WeightCore.Gui
         /// <returns></returns>
         public static string GetDescription(Assembly assembly)
         {
-            var result = string.Empty;
-            var attributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+            string result = string.Empty;
+            object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
             if (attributes.Length > 0)
             {
                 if (attributes[0] is AssemblyDescriptionAttribute attribute)
@@ -133,8 +128,8 @@ namespace WeightCore.Gui
         /// <returns></returns>
         public static string GetTitle(Assembly assembly)
         {
-            var result = string.Empty;
-            var attributes = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            string result = string.Empty;
+            object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
             if (attributes.Length > 0)
             {
                 if (attributes[0] is AssemblyTitleAttribute attribute)
@@ -151,7 +146,7 @@ namespace WeightCore.Gui
         /// <returns></returns>
         public static string GetMainFormText(Assembly assembly, Version version = null)
         {
-            return $@"{GetTitle(assembly)} {GetCurrentVersion(assembly, EnumVerCountDigits.Use3, null, version)}";
+            return $@"{GetTitle(assembly)} {GetCurrentVersion(assembly, VerCountDigits.Use3, null, version)}";
         }
     }
 }

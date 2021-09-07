@@ -3,6 +3,7 @@
 
 using DataProjectsCore.DAL.Utils;
 using DataProjectsCore.Utils;
+using DataShareCore.Utils;
 using log4net;
 using System;
 using System.Data.SqlClient;
@@ -13,8 +14,10 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
+using WeightCore.Managers;
 using WeightCore.Models;
 using WeightCore.Zpl;
+using static DataShareCore.Utils.AppVersionEnums;
 
 namespace ScalesUI.Forms
 {
@@ -25,6 +28,8 @@ namespace ScalesUI.Forms
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly SessionState _ws = SessionState.Instance;
+        private TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
+        private LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
@@ -34,8 +39,8 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            if (_ws.MassaManager != null)
-                _ws.MassaManager.GetScalePar();
+            if (_taskManager.MassaManager != null)
+                _taskManager.MassaManager.GetScalePar();
         }
 
         private void ScaleOptionsForm_Load(object sender, EventArgs e)
@@ -124,7 +129,7 @@ namespace ScalesUI.Forms
                 _ws.CurrentScale.DeviceComPort = fieldComPort.Text;
                 _ws.CurrentScale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
                 _ws.CurrentScale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
-                _ws.CurrentScale.VerScalesUI = UtilsAppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), EnumVerCountDigits.Use3);
+                _ws.CurrentScale.VerScalesUI = AppVersionUtils.GetCurrentVersion(Assembly.GetExecutingAssembly(), VerCountDigits.Use3);
                 ScalesUtils.Update(_ws.CurrentScale);
                 // Settings.
                 Properties.Settings.Default.Save();
@@ -232,9 +237,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 var msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -253,7 +258,7 @@ namespace ScalesUI.Forms
 
         private void ButtonPrint_Click(object sender, EventArgs e)
         {
-            _ws.PrintManager.SendAsync(ZplPipeUtils.ZplPowerOnReset());
+            _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplPowerOnReset());
         }
 
         /// <summary>
@@ -264,14 +269,14 @@ namespace ScalesUI.Forms
         private void ButtonPrintCalibrate_Click(object sender, EventArgs e)
         {
             if (_ws.IsTscPrinter)
-                _ws.PrintManager.PrintControl.Cmd.Calibrate(true, true);
+                _taskManager.PrintManager.PrintControl.Cmd.Calibrate(true, true);
             else
-                _ws.PrintManager.SendAsync(ZplPipeUtils.ZplCalibration());
+                _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplCalibration());
         }
 
         private void ButtonPrintOptions_Click(object sender, EventArgs e)
         {
-            _ws.PrintManager.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel());
+            _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel());
         }
 
         #endregion
@@ -337,27 +342,27 @@ namespace ScalesUI.Forms
         {
             fieldCurrentMKProp.Clear();
 
-            if (_ws.MassaManager != null)
+            if (_taskManager.MassaManager != null)
             {
-                _ws.MassaManager.GetScalePar();
+                _taskManager.MassaManager.GetScalePar();
                 Thread.Sleep(10);
                 Application.DoEvents();
 
-                if (_ws.MassaManager.DeviceParameters != null)
+                if (_taskManager.MassaManager.DeviceParameters != null)
                 {
-                    fieldCurrentMKProp.Text = _ws.MassaManager.DeviceParameters.GetMessage();
+                    fieldCurrentMKProp.Text = _taskManager.MassaManager.DeviceParameters.GetMessage();
                 }
 
-                if (_ws.MassaManager.DeviceError != null)
+                if (_taskManager.MassaManager.DeviceError != null)
                 {
-                    fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_ws.MassaManager.DeviceError.GetMessage()}";
+                    fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.DeviceError.GetMessage()}";
                 }
             }
         }
 
         private void ButtonPrintCancelAll_Click(object sender, EventArgs e)
         {
-            _ws.PrintManager.SendAsync(ZplPipeUtils.ZplClearPrintBuffer());
+            _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplClearPrintBuffer());
         }
 
         #endregion

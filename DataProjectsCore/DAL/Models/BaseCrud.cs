@@ -36,7 +36,7 @@ namespace DataProjectsCore.DAL.Models
             // Datas.
             if (typeof(T) == typeof(DeviceEntity))
             {
-                var deviceEntity = (DeviceEntity)(object)entity;
+                DeviceEntity? deviceEntity = (DeviceEntity)(object)entity;
                 if (!deviceEntity.EqualsEmpty())
                 {
                     if (deviceEntity.Scales != null)
@@ -50,7 +50,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(BarcodeTypeEntity))
             {
-                var barCodeTypesEntity = (BarcodeTypeEntity)(object)entity;
+                BarcodeTypeEntity? barCodeTypesEntity = (BarcodeTypeEntity)(object)entity;
                 if (!barCodeTypesEntity.EqualsEmpty())
                 {
                     //
@@ -58,7 +58,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(ContragentEntity))
             {
-                var contragentsEntity = (ContragentEntity)(object)entity;
+                ContragentEntity? contragentsEntity = (ContragentEntity)(object)entity;
                 if (!contragentsEntity.EqualsEmpty())
                 {
                     //
@@ -66,7 +66,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(LabelEntity))
             {
-                var labelsEntity = (LabelEntity)(object)entity;
+                LabelEntity? labelsEntity = (LabelEntity)(object)entity;
                 if (!labelsEntity.EqualsEmpty())
                 {
                     if (labelsEntity.WeithingFact != null)
@@ -75,7 +75,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(LogEntity))
             {
-                var logEntity = (LogEntity)(object)entity;
+                LogEntity? logEntity = (LogEntity)(object)entity;
                 if (!logEntity.EqualsEmpty())
                 {
                     if (logEntity.App != null)
@@ -86,7 +86,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(NomenclatureEntity))
             {
-                var nomenclatureEntity = (NomenclatureEntity)(object)entity;
+                NomenclatureEntity? nomenclatureEntity = (NomenclatureEntity)(object)entity;
                 if (!nomenclatureEntity.EqualsEmpty())
                 {
                     //
@@ -94,7 +94,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(OrderEntity))
             {
-                var ordersEntity = (OrderEntity)(object)entity;
+                OrderEntity? ordersEntity = (OrderEntity)(object)entity;
                 if (!ordersEntity.EqualsEmpty())
                 {
                     if (ordersEntity.OrderTypes != null)
@@ -109,7 +109,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(OrderStatusEntity))
             {
-                var orderStatusEntity = (OrderStatusEntity)(object)entity;
+                OrderStatusEntity? orderStatusEntity = (OrderStatusEntity)(object)entity;
                 if (!orderStatusEntity.EqualsEmpty())
                 {
                     //
@@ -117,7 +117,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(OrderTypeEntity))
             {
-                var orderTypesEntity = (OrderTypeEntity)(object)entity;
+                OrderTypeEntity? orderTypesEntity = (OrderTypeEntity)(object)entity;
                 if (!orderTypesEntity.EqualsEmpty())
                 {
                     //
@@ -125,7 +125,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(PluEntity))
             {
-                var pluEntity = (PluEntity)(object)entity;
+                PluEntity? pluEntity = (PluEntity)(object)entity;
                 if (!pluEntity.EqualsEmpty())
                 {
                     if (pluEntity.Templates != null)
@@ -138,7 +138,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(ProductionFacilityEntity))
             {
-                var productionFacilityEntity = (ProductionFacilityEntity)(object)entity;
+                ProductionFacilityEntity? productionFacilityEntity = (ProductionFacilityEntity)(object)entity;
                 if (!productionFacilityEntity.EqualsEmpty())
                 {
                     //
@@ -146,7 +146,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(ProductSeriesEntity))
             {
-                var productSeriesEntity = (ProductSeriesEntity)(object)entity;
+                ProductSeriesEntity? productSeriesEntity = (ProductSeriesEntity)(object)entity;
                 if (!productSeriesEntity.EqualsEmpty())
                 {
                     //
@@ -154,7 +154,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(ScaleEntity))
             {
-                var scalesEntity = (ScaleEntity)(object)entity;
+                ScaleEntity? scalesEntity = (ScaleEntity)(object)entity;
                 if (!scalesEntity.EqualsEmpty())
                 {
                     if (scalesEntity.TemplateDefault != null)
@@ -171,7 +171,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(TemplateResourceEntity))
             {
-                var templateResourcesEntity = (TemplateResourceEntity)(object)entity;
+                TemplateResourceEntity? templateResourcesEntity = (TemplateResourceEntity)(object)entity;
                 if (!templateResourcesEntity.EqualsEmpty())
                 {
                     //
@@ -179,7 +179,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(TemplateEntity))
             {
-                var templatesEntity = (TemplateEntity)(object)entity;
+                TemplateEntity? templatesEntity = (TemplateEntity)(object)entity;
                 if (!templatesEntity.EqualsEmpty())
                 {
                     //
@@ -187,7 +187,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(WeithingFactEntity))
             {
-                var weithingFactEntity = (WeithingFactEntity)(object)entity;
+                WeithingFactEntity? weithingFactEntity = (WeithingFactEntity)(object)entity;
                 if (!weithingFactEntity.EqualsEmpty())
                 {
                     if (weithingFactEntity.Plu != null)
@@ -202,7 +202,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(WorkshopEntity))
             {
-                var workshopEntity = (WorkshopEntity)(object)entity;
+                WorkshopEntity? workshopEntity = (WorkshopEntity)(object)entity;
                 if (!workshopEntity.EqualsEmpty())
                 {
                     if (workshopEntity.ProductionFacility != null)
@@ -211,7 +211,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(PrinterEntity))
             {
-                var zebraPrinterEntity = (PrinterEntity)(object)entity;
+                PrinterEntity? zebraPrinterEntity = (PrinterEntity)(object)entity;
                 if (!zebraPrinterEntity.EqualsEmpty())
                 {
                     if (zebraPrinterEntity.PrinterType != null)
@@ -220,7 +220,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(PrinterResourceEntity))
             {
-                var zebraPrinterResourceRefEntity = (PrinterResourceEntity)(object)entity;
+                PrinterResourceEntity? zebraPrinterResourceRefEntity = (PrinterResourceEntity)(object)entity;
                 if (!zebraPrinterResourceRefEntity.EqualsEmpty())
                 {
                     if (zebraPrinterResourceRefEntity.Printer != null)
@@ -233,7 +233,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (typeof(T) == typeof(PrinterTypeEntity))
             {
-                var zebraPrinterTypeEntity = (PrinterTypeEntity)(object)entity;
+                PrinterTypeEntity? zebraPrinterTypeEntity = (PrinterTypeEntity)(object)entity;
                 if (!zebraPrinterTypeEntity.EqualsEmpty())
                 {
                     //
@@ -266,8 +266,8 @@ namespace DataProjectsCore.DAL.Models
         public T[] GetEntities(FieldListEntity fieldList, FieldOrderEntity order, int maxResults = 0,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            var entities = DataAccess.GetEntities<T>(fieldList, order, maxResults, filePath, lineNumber, memberName);
-            foreach (var entity in entities)
+            T[]? entities = DataAccess.GetEntities<T>(fieldList, order, maxResults, filePath, lineNumber, memberName);
+            foreach (T? entity in entities)
             {
                 FillReferences(entity);
             }

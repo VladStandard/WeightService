@@ -11,12 +11,9 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WeightCore;
 using WeightCore.Gui;
-using WeightCore.MassaK;
-using WeightCore.Memory;
+using WeightCore.Managers;
 using WeightCore.Models;
-using WeightCore.Print;
 using WeightCore.WinForms.Utils;
 
 namespace ScalesUI.Forms
@@ -26,12 +23,9 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        // Состояние устройства.
         private readonly SessionState _ws = SessionState.Instance;
-        // Помощник мыши.
-        //private readonly MouseHookHelper _mouse = MouseHookHelper.Instance;
-        public Task TaskManager { get; set; }
+        private TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
+        private LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
@@ -73,7 +67,7 @@ namespace ScalesUI.Forms
             // Manager tasks.
             StartTaskManager();
 
-            _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "The program is runned");
+            _logUtils.Information("The program is runned", filePath, memberName, lineNumber);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -94,14 +88,14 @@ namespace ScalesUI.Forms
                 }
 
                 Text = _ws.AppVersion;
-                switch (_ws.SqlItem.PublishType)
+                switch (_ws.SqlViewModel.PublishType)
                 {
                     case EnumPublishType.Debug:
-                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlItem.PublishDescription}.";
+                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
                         fieldTitle.BackColor = Color.Yellow;
                         break;
                     case EnumPublishType.Dev:
-                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlItem.PublishDescription}.";
+                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
                         fieldTitle.BackColor = Color.Yellow;
                         break;
                     case EnumPublishType.Release:
@@ -109,7 +103,7 @@ namespace ScalesUI.Forms
                         fieldTitle.BackColor = Color.LightGreen;
                         break;
                     default:
-                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlItem.PublishDescription}.";
+                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
                         fieldTitle.BackColor = Color.DarkRed;
                         break;
                 }
@@ -119,9 +113,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -166,13 +160,13 @@ namespace ScalesUI.Forms
                 {
                     e.Cancel = true;
                 }
-                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "The program is closed");
+                _logUtils.Information("The program is closed", filePath, memberName, lineNumber);
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
             }
         }
 
@@ -189,10 +183,10 @@ namespace ScalesUI.Forms
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            char ch = StringUtils.GetProgressChar(_ws.MemoryManagerProgressChar);
+            char ch = StringUtils.GetProgressChar(_taskManager.MemoryManagerProgressChar);
             await AsyncControl.Properties.SetText.Async(fieldMemoryManager,
-                $"Использовано памяти: {_ws.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}").ConfigureAwait(false);
-            _ws.MemoryManagerProgressChar = ch;
+                $"Использовано памяти: {_taskManager.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}").ConfigureAwait(false);
+            _taskManager.MemoryManagerProgressChar = ch;
         }
 
         private async Task CallbackDeviceManagerAsync(int wait)
@@ -218,31 +212,31 @@ namespace ScalesUI.Forms
             //}
 
             // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-            _ws.CurrentBox = _ws.PrintManager.UserLabelCount < _ws.PalletSize ? _ws.PrintManager.UserLabelCount : _ws.PalletSize;
+            _ws.CurrentBox = _taskManager.PrintManager.UserLabelCount < _ws.PalletSize ? _taskManager.PrintManager.UserLabelCount : _ws.PalletSize;
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
             if (_ws.CurrentBox == 0)
                 _ws.CurrentBox = 1;
 
-            char ch = StringUtils.GetProgressChar(_ws.PrintManagerProgressChar);
+            char ch = StringUtils.GetProgressChar(_taskManager.PrintManagerProgressChar);
             // TSC printers.
             if (_ws.CurrentScale?.ZebraPrinter != null && _ws.IsTscPrinter)
             {
                 //if (_ws.PrintManager.PrintControl != null && !_ws.PrintManager.PrintControl.IsOpen)
                 //    await AsyncControl.Properties.SetBackColor.Async(buttonPrint, _ws.PrintManager.PrintControl.IsOpen
                 //        ? Color.FromArgb(192, 255, 192) : Color.Transparent).ConfigureAwait(false);
-                if (_ws.PrintManager.PrintControl != null)
+                if (_taskManager.PrintManager.PrintControl != null)
                 {
                     //LedPrint.State = _ws.PrintManager.PrintControl.IsOpen;
-                    await AsyncControl.Properties.SetText.Async(fieldPrintManager, _ws.PrintManager.PrintControl.IsStatusNormal
+                    await AsyncControl.Properties.SetText.Async(fieldPrintManager, _taskManager.PrintManager.PrintControl.IsStatusNormal
                         ? $"Принтер: доступен | {ch}" : $"Принтер: недоступен | {ch}").ConfigureAwait(false);
                 }
             }
             // Zebra printers.
             else
             {
-                Zebra.Sdk.Printer.PrinterStatus state = _ws.PrintManager.CurrentStatus;
+                Zebra.Sdk.Printer.PrinterStatus state = _taskManager.PrintManager.CurrentStatus;
                 // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-                _ws.CurrentBox = _ws.PrintManager.UserLabelCount < _ws.PalletSize ? _ws.PrintManager.UserLabelCount : _ws.PalletSize;
+                _ws.CurrentBox = _taskManager.PrintManager.UserLabelCount < _ws.PalletSize ? _taskManager.PrintManager.UserLabelCount : _ws.PalletSize;
                 // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
                 if (_ws.CurrentBox == 0)
                     _ws.CurrentBox = 1;
@@ -253,10 +247,10 @@ namespace ScalesUI.Forms
                 {
                     //LedPrint.State = state.isReadyToPrint;
                     await AsyncControl.Properties.SetText.Async(fieldPrintManager, state.isReadyToPrint
-                        ? $"Принтер: доступен | {_ws.PrintManager.PrintControl.IpAddress} | {ch}" : $"Принтер: недоступен | {ch}").ConfigureAwait(false);
+                        ? $"Принтер: доступен | {_taskManager.PrintManager.PrintControl.IpAddress} | {ch}" : $"Принтер: недоступен | {ch}").ConfigureAwait(false);
                 }
             }
-            _ws.PrintManagerProgressChar = ch;
+            _taskManager.PrintManagerProgressChar = ch;
         }
 
         private async Task CallbackMassaManagerAsync(int wait)
@@ -270,7 +264,7 @@ namespace ScalesUI.Forms
                 await AsyncControl.Properties.SetText.Async(labelPlu, _ws.CurrentPlu.CheckWeight == false
                     ? $"PLU (шт): {_ws.CurrentPlu.PLU}"
                     : $"PLU (вес): {_ws.CurrentPlu.PLU}").ConfigureAwait(false);
-                decimal weight = _ws.MassaManager.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
+                decimal weight = _taskManager.MassaManager.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
                 await AsyncControl.Properties.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг").ConfigureAwait(false);
                 //await AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto,
                 //    _ws.MassaManager.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent).ConfigureAwait(false);
@@ -279,11 +273,11 @@ namespace ScalesUI.Forms
             }
 
             //LedMassa.State = _ws.MassaManager.IsStable == 1;
-            char ch = StringUtils.GetProgressChar(_ws.MassaManagerProgressChar);
-            await AsyncControl.Properties.SetText.Async(fieldMassaManager, _ws.MassaManager.IsReady || _ws.MassaManager.IsStable == 1
-                ? $"Весы: доступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}"
-                : $"Весы: недоступны | Вес брутто: { _ws.MassaManager.WeightNet:0.000} кг | {ch}").ConfigureAwait(false);
-            _ws.MassaManagerProgressChar = ch;
+            char ch = StringUtils.GetProgressChar(_taskManager.MassaManagerProgressChar);
+            await AsyncControl.Properties.SetText.Async(fieldMassaManager, _taskManager.MassaManager.IsReady || _taskManager.MassaManager.IsStable == 1
+                ? $"Весы: доступны | Вес брутто: { _taskManager.MassaManager.WeightNet:0.000} кг | {ch}"
+                : $"Весы: недоступны | Вес брутто: { _taskManager.MassaManager.WeightNet:0.000} кг | {ch}").ConfigureAwait(false);
+            _taskManager.MassaManagerProgressChar = ch;
             if (!flag)
             {
                 await AsyncControl.Properties.SetText.Async(labelPlu, "PLU").ConfigureAwait(false);
@@ -292,150 +286,46 @@ namespace ScalesUI.Forms
             }
         }
 
-        private async Task TaskDeviceManagerAsync(
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-            // MemoryManager.
-            if (_ws.SqlItem.IsTaskEnabled("MemoryManager"))
-            {
-                Task taskMemory = new(() =>
-                {
-                    try
-                    {
-                        //while (!_ws.MemoryManagerIsExit)
-                        {
-                            if (_ws.MemoryManager == null)
-                            {
-                                _ws.MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
-                            }
-                            _ws.MemoryManager.Open(CallbackMemoryManagerAsync);
-                        }
-                        _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MemoryManager is runned");
-                    }
-                    catch (Exception ex)
-                    {
-                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                        if (ex.InnerException != null)
-                            _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                    }
-                });
-                taskMemory.Start();
-            }
-
-            // PrintManager.
-            if (_ws.SqlItem.IsTaskEnabled("PrintManager"))
-            {
-                Task taskPrint = new(() =>
-                {
-                    try
-                    {
-                        //while (!_ws.PrintManagerIsExit)
-                        {
-                            if (_ws.PrintManager == null)
-                            {
-                                _ws.PrintManager = new PrintManagerEntity(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
-                            }
-                            _ws.PrintManager.Open(_ws.IsTscPrinter, CallbackPrintManagerAsync);
-                            // STOP
-                            //if (_ws.PrintManager.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
-                            //{
-                            //    _ws.PrintManager.PrintControl.Close();
-                            //    _ws.PrintManager.PrintControl = null;
-                            //}
-                        }
-                        _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "PrintManager is runned");
-                    }
-                    catch (Exception ex)
-                    {
-                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                        if (ex.InnerException != null)
-                            _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                    }
-                });
-                taskPrint.Start();
-            }
-
-            // DeviceManager.
-            if (_ws.SqlItem.IsTaskEnabled("DeviceManager"))
-            {
-                Task taskDevice = new(() =>
-                {
-                    try
-                    {
-                        //while (!_ws.DeviceManagerIsExit)
-                        {
-                            if (_ws.DeviceManager == null)
-                            {
-                                _ws.DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
-                            }
-                            _ws.DeviceManager.Open(CallbackDeviceManagerAsync);
-                        }
-                        _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "DeviceManager is runned");
-                    }
-                    catch (Exception ex)
-                    {
-                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                        if (ex.InnerException != null)
-                            _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                    }
-                });
-                taskDevice.Start();
-            }
-
-            // MassaManager.
-            if (_ws.SqlItem.IsTaskEnabled("MassaManager"))
-            {
-                Task taskMassa = new(() =>
-                {
-                    try
-                    {
-                        //while (!_ws.MassaManagerIsExit)
-                        {
-                            if (_ws.MassaManager == null)
-                            {
-                                DeviceSocketRs232 deviceSocketRs232 = new(_ws.CurrentScale.DeviceComPort);
-                                _ws.MassaManager = new MassaManagerEntity(_ws?.Log, deviceSocketRs232, 1_000, 5_000, 5_000);
-                                ButtonSetZero();
-                            }
-                            _ws.MassaManager.Open(CallbackMassaManagerAsync);
-                        }
-                        _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is runned");
-                    }
-                    catch (Exception ex)
-                    {
-                        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-                        if (ex.InnerException != null)
-                            _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-                    }
-                });
-                taskMassa.Start();
-            }
-        }
-
         private void StartTaskManager([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             Application.DoEvents();
             try
             {
-                if (TaskManager == null)
+                //if (_taskManager.TaskManager == null)
                 {
-                    _ws.MemoryManagerIsExit = false;
-                    _ws.DeviceManagerIsExit = false;
-                    _ws.PrintManagerIsExit = false;
-                    _ws.MassaManagerIsExit = false;
+                    _taskManager.MemoryManagerIsExit = false;
+                    _taskManager.DeviceManagerIsExit = false;
+                    _taskManager.PrintManagerIsExit = false;
+                    _taskManager.MassaManagerIsExit = false;
 
-                    TaskManager = new Task(async () => { await TaskDeviceManagerAsync().ConfigureAwait(false); });
-                    TaskManager.ConfigureAwait(false);
-                    TaskManager.Start();
+                    //_taskManager.TaskManager = new Task(async () => { 
+                    Task.Run(async () => {
+                        await _taskManager.TaskRunMemoryManagerAsync(CallbackMemoryManagerAsync, _ws.SqlViewModel)
+                            .ConfigureAwait(false); 
+                    });
+                    Task.Run(async () => {
+                        await _taskManager.TaskRunPrintManagerAsync(CallbackPrintManagerAsync, _ws.SqlViewModel, 
+                            _ws.IsTscPrinter, _ws.CurrentScale)
+                        .ConfigureAwait(false);
+                    });
+                    Task.Run(async () => {
+                        await _taskManager.TaskRunDeviceManagerAsync(CallbackDeviceManagerAsync, _ws.SqlViewModel)
+                        .ConfigureAwait(false);
+                    });
+                    Task.Run(async () => {
+                        await _taskManager.TaskRunMassaManagerAsync(CallbackMassaManagerAsync, ButtonSetZero, _ws.SqlViewModel, 
+                            _ws.IsTscPrinter, _ws.CurrentScale)
+                        .ConfigureAwait(false);
+                    });
+                    //_taskManager.TaskManager.ConfigureAwait(false);
+                    //_taskManager.TaskManager.Start();
                 }
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
             }
         }
 
@@ -443,34 +333,34 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.MemoryManagerIsExit = true;
-                _ws.DeviceManagerIsExit = true;
-                _ws.PrintManagerIsExit = true;
-                _ws.MassaManagerIsExit = true;
+                _taskManager.MemoryManagerIsExit = true;
+                _taskManager.DeviceManagerIsExit = true;
+                _taskManager.PrintManagerIsExit = true;
+                _taskManager.MassaManagerIsExit = true;
 
-                _ws.MemoryManager?.Close();
-                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is closed");
-                _ws.DeviceManager?.Close();
-                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is closed");
-                _ws.MassaManager?.Close();
-                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is closed");
-                _ws.PrintManager?.Close();
-                _ws?.Log.SaveInfo(filePath, lineNumber, memberName, "MassaManager is closed");
+                _taskManager.MemoryManager?.Close();
+                _logUtils.Information("MassaManager is closed", filePath, memberName, lineNumber);
+                _taskManager.DeviceManager?.Close();
+                _logUtils.Information("MassaManager is closed", filePath, memberName, lineNumber);
+                _taskManager.MassaManager?.Close();
+                _logUtils.Information("MassaManager is closed", filePath, memberName, lineNumber);
+                _taskManager.PrintManager?.Close();
+                _logUtils.Information("MassaManager is closed", filePath, memberName, lineNumber);
 
-                if (_ws.PrintManager?.PrintControl != null && _ws.IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
+                if (_taskManager.PrintManager?.PrintControl != null && _ws.IsTscPrinter && !_taskManager.PrintManager.PrintControl.IsStatusNormal)
                 {
-                    _ws.PrintManager.PrintControl.Close();
+                    _taskManager.PrintManager.PrintControl.Close();
                     //_ws.PrintManager.PrintControl = null;
                 }
 
-                TaskManager?.Dispose();
-                TaskManager = null;
+                //_taskManager.TaskManager?.Dispose();
+                //_taskManager.TaskManager = null;
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
             }
 
             Application.DoEvents();
@@ -582,9 +472,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -610,11 +500,12 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonSetZero([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ButtonSetZero(
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
-                if (_ws.MassaManager.WeightNet > Messages.MassaThreshold || _ws.MassaManager.WeightNet < -Messages.MassaThreshold)
+                if (_taskManager.MassaManager.WeightNet > Messages.MassaThreshold || _taskManager.MassaManager.WeightNet < -Messages.MassaThreshold)
                 {
                     CustomMessageBox messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -623,14 +514,14 @@ namespace ScalesUI.Forms
                         return;
                 }
 
-                _ws.MassaManager.SetZero();
+                _taskManager.MassaManager.SetZero();
                 _ws.CurrentPlu = null;
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -654,9 +545,9 @@ namespace ScalesUI.Forms
                 StopTaskManager();
 
                 // Weight check.
-                if (_ws.MassaManager != null)
+                if (_taskManager.MassaManager != null)
                 {
-                    if (_ws.MassaManager.WeightNet > Messages.MassaThreshold || _ws.MassaManager.WeightNet < -Messages.MassaThreshold)
+                    if (_taskManager.MassaManager.WeightNet > Messages.MassaThreshold || _taskManager.MassaManager.WeightNet < -Messages.MassaThreshold)
                     {
                         CustomMessageBox messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -687,9 +578,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -750,9 +641,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -786,9 +677,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -814,9 +705,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
@@ -868,9 +759,9 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;

@@ -20,22 +20,20 @@ namespace DataProjectsCore.DAL.Utils
             {
                 con.Open();
                 StringUtils.SetStringValueTrim(ref taskTypeName, 32);
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.TaskTypes.GetTaskTypeUid))
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTaskTypeUid))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@task_type", taskTypeName);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
-                            }
+                            result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -44,27 +42,25 @@ namespace DataProjectsCore.DAL.Utils
 
         public static TaskTypeDirect GetTaskType(string name)
         {
-            TaskTypeDirect result = new TaskTypeDirect();
+            TaskTypeDirect result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByName))
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByName))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@task_name", name);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                result.Uid = SqlConnectFactory.GetValue<Guid>(reader, "UID");
-                                result.Name = SqlConnectFactory.GetValue<string>(reader, "NAME");
-                            }
+                            result.Uid = SqlConnectFactory.GetValue<Guid>(reader, "UID");
+                            result.Name = SqlConnectFactory.GetValue<string>(reader, "NAME");
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -73,27 +69,25 @@ namespace DataProjectsCore.DAL.Utils
 
         public static TaskTypeDirect GetTaskType(Guid uid)
         {
-            TaskTypeDirect result = new TaskTypeDirect();
+            TaskTypeDirect result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByUid))
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByUid))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@task_uid", uid);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                result.Uid = SqlConnectFactory.GetValue<Guid>(reader, "UID");
-                                result.Name = SqlConnectFactory.GetValue<string>(reader, "NAME");
-                            }
+                            result.Uid = SqlConnectFactory.GetValue<Guid>(reader, "UID");
+                            result.Name = SqlConnectFactory.GetValue<string>(reader, "NAME");
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -102,26 +96,24 @@ namespace DataProjectsCore.DAL.Utils
 
         public static List<TaskTypeDirect> GetTasksTypes()
         {
-            List<TaskTypeDirect> result = new List<TaskTypeDirect>();
+            List<TaskTypeDirect> result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes))
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                result.Add(new TaskTypeDirect(
-                                    SqlConnectFactory.GetValue<Guid>(reader, "UID"), SqlConnectFactory.GetValue<string>(reader, "NAME")));
-                            }
+                            result.Add(new TaskTypeDirect(
+                                SqlConnectFactory.GetValue<Guid>(reader, "UID"), SqlConnectFactory.GetValue<string>(reader, "NAME")));
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }

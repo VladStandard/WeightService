@@ -1,17 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Utils;
 using MvvmHelpers;
 using ScalesCore.Models;
 using ScalesCore.Properties;
-using ScalesCore.Utils;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Runtime.CompilerServices;
 
 namespace ScalesCore.Helpers
 {
@@ -269,7 +267,7 @@ namespace ScalesCore.Helpers
         /// <param name="reader"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        public T GetValue<T>(string name, SqlDataReader reader, string description = null) where T : IConvertible
+        public T GetValue<T>(string name, Microsoft.Data.SqlClient.SqlDataReader reader, string description = null) where T : IConvertible
         {
             T value = default(T);
             int ordinal = -1;

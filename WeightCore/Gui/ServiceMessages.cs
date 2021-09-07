@@ -17,12 +17,12 @@ namespace WeightCore.Gui
     {
 
         public static string NameForm = "A8D1BD59-2634-4F9E-BB2A-7EEA0086F33C";
-        private static readonly Font Font = new Font("Microsoft Sans Serif", 8.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
-        private static readonly Size ButtonSize = new Size(100, 23);
+        private static readonly Font Font = new("Microsoft Sans Serif", 8.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
+        private static readonly Size ButtonSize = new(100, 23);
 
         private static Button GetButtonCopy(TextBox fieldMessages)
         {
-            var btnCopy = new Button
+            Button btnCopy = new Button
             {
                 Font = Font,
                 Location = new Point(3, 3),
@@ -42,7 +42,7 @@ namespace WeightCore.Gui
 
         private static Button GetButtonClear(TextBox fieldMessages)
         {
-            var btnClear = new Button
+            Button btnClear = new Button
             {
                 Font = Font,
                 Location = new Point(140, 3),
@@ -61,7 +61,7 @@ namespace WeightCore.Gui
 
         private static Button GetButtonClose(Form form)
         {
-            var btnClose = new Button
+            Button btnClose = new Button
             {
                 Font = Font,
                 Location = new Point(180, 3),
@@ -80,7 +80,7 @@ namespace WeightCore.Gui
 
         private static TextBox GetFieldMessages(Form form, Control flowLayoutPanel)
         {
-            var fieldMessages = new TextBox
+            TextBox fieldMessages = new TextBox
             {
                 Font = Font,
                 Dock = DockStyle.Fill,
@@ -99,7 +99,7 @@ namespace WeightCore.Gui
             if (owner is null)
                 return null;
 
-            var assyGuid = Assembly.GetExecutingAssembly().GetCustomAttribute<GuidAttribute>().Value.ToUpper();
+            string assyGuid = Assembly.GetExecutingAssembly().GetCustomAttribute<GuidAttribute>().Value.ToUpper();
             foreach (Form itemForm in Application.OpenForms)
             {
                 if (itemForm.Name == assyGuid + NameForm)
@@ -110,9 +110,9 @@ namespace WeightCore.Gui
                 }
             }
 
-            var form = new Form();
-            var flowLayoutPanel = new FlowLayoutPanel();
-            var fieldMessages = GetFieldMessages(form, flowLayoutPanel);
+            Form form = new Form();
+            FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
+            TextBox fieldMessages = GetFieldMessages(form, flowLayoutPanel);
             flowLayoutPanel.SuspendLayout();
             form.SuspendLayout();
 
@@ -130,9 +130,9 @@ namespace WeightCore.Gui
             };
             form.MinimumSize = form.ClientSize = new Size((int)(owner.Width * 0.5), (int)(owner.Height * 0.25));
 
-            var btnCopy = GetButtonCopy(fieldMessages);
-            var btnClear = GetButtonClear(fieldMessages);
-            var btnClose = GetButtonClose(form);
+            Button btnCopy = GetButtonCopy(fieldMessages);
+            Button btnClear = GetButtonClear(fieldMessages);
+            Button btnClose = GetButtonClose(form);
 
             flowLayoutPanel.Controls.Add(btnCopy);
             flowLayoutPanel.Controls.Add(btnClear);
@@ -166,11 +166,11 @@ namespace WeightCore.Gui
     public class TextBoxAppender : IAppender
     {
         private TextBox _textBox;
-        private readonly object _lockObj = new object();
+        private readonly object _lockObj = new();
 
         public TextBoxAppender(TextBox textBox)
         {
-            var frm = textBox.FindForm();
+            Form frm = textBox.FindForm();
             if (frm == null)
                 return;
 
@@ -184,8 +184,8 @@ namespace WeightCore.Gui
 
         public static void ConfigureTextBoxAppender(TextBox textBox)
         {
-            var hierarchy = (Hierarchy)LogManager.GetRepository();
-            var appender = new TextBoxAppender(textBox);
+            Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
+            TextBoxAppender appender = new TextBoxAppender(textBox);
             hierarchy.Root.AddAppender(appender);
         }
 
@@ -201,7 +201,7 @@ namespace WeightCore.Gui
                     _textBox = null;
                 }
 
-                var hierarchy = (Hierarchy)LogManager.GetRepository();
+                Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
                 hierarchy.Root.RemoveAppender(this);
             }
             catch
@@ -230,7 +230,7 @@ namespace WeightCore.Gui
                 // decide to add information to the displayed message 
                 // (e.g. log level) or implement something a little more 
                 // dynamic.
-                var msg = string.Concat(loggingEvent.RenderedMessage, "\r\n");
+                string msg = string.Concat(loggingEvent.RenderedMessage, "\r\n");
 
                 lock (_lockObj)
                 {
@@ -243,7 +243,7 @@ namespace WeightCore.Gui
                     // the GUI, the control's "BeginInvoke" method has to be
                     // leveraged in order to append the message. Otherwise, a 
                     // threading exception will be thrown. 
-                    var del = new Action<string>(s => _textBox.AppendText(s));
+                    Action<string> del = new Action<string>(s => _textBox.AppendText(s));
                     _textBox.BeginInvoke(del, msg);
                 }
             }

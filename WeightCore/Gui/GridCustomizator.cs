@@ -22,8 +22,8 @@ namespace WeightCore.Gui
         private static void AddColumns(TableLayoutPanel panel, int columnCount)
         {
             //var width = (float)(100 / columnCount);
-            var width = 100 / columnCount;
-            for (var i = 0; i < columnCount; i++)
+            int width = 100 / columnCount;
+            for (int i = 0; i < columnCount; i++)
             {
                 panel.ColumnCount += 1;
                 panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, width));
@@ -33,8 +33,8 @@ namespace WeightCore.Gui
         private static void AddRows(TableLayoutPanel panel, int rowCount)
         {
             //var height = (float)(100 / rowCount);
-            var height = 100 / rowCount;
-            for (var i = 0; i < rowCount; i++)
+            int height = 100 / rowCount;
+            for (int i = 0; i < rowCount; i++)
             {
                 panel.RowCount += 1;
                 panel.RowStyles.Add(new RowStyle(SizeType.Percent, height));
@@ -51,9 +51,9 @@ namespace WeightCore.Gui
             DropChildsControl(panel);
             GridCustomizator(panel, controls.GetUpperBound(0) + 1, controls.GetUpperBound(1) + 1);
 
-            for (var x = 0; x <= controls.GetUpperBound(0); x++)
+            for (int x = 0; x <= controls.GetUpperBound(0); x++)
             {
-                for (var y = 0; y <= controls.GetUpperBound(1); y++)
+                for (int y = 0; y <= controls.GetUpperBound(1); y++)
                 {
                     if (controls[x, y] != null)
                         panel.Controls.Add(controls[x, y], x, y);

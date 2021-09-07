@@ -14,7 +14,7 @@ namespace DataShareCore.DAL.Interfaces
         bool EqualsEmpty();
         Task<byte[]> GetBytes(Stream stream, bool useBase64);
         string GetBytesLength(byte[] bytes);
-        object GetDefaultValue(Type t);
+        object? GetDefaultValue(Type t);
         Image GetImage(byte[] bytes, bool useBase64);
     }
 }

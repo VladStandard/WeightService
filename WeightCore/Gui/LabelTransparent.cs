@@ -19,7 +19,7 @@ namespace WeightCore.Gui
         {
             get
             {
-                var parms = base.CreateParams;
+                CreateParams parms = base.CreateParams;
                 parms.ExStyle |= 0x20;  // Turn on WS_EX_TRANSPARENT
                 return parms;
             }

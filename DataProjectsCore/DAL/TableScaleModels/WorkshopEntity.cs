@@ -23,7 +23,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            var strProductionFacility = ProductionFacility != null ? ProductionFacility.Id.ToString() : "null";
+            string? strProductionFacility = ProductionFacility != null ? ProductionFacility.Id.ToString() : "null";
             return base.ToString() +
                    $"{nameof(ProductionFacility)}: {strProductionFacility}. " +
                    $"{nameof(Name)}: {Name}. " +

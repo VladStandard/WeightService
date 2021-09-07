@@ -41,13 +41,13 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            var strCreateDate = CreateDate != null ? CreateDate.ToString() : "null";
-            var strModifiedDate = ModifiedDate != null ? ModifiedDate.ToString() : "null";
-            var strTemplateDefault = TemplateDefault != null ? TemplateDefault.Id.ToString() : "null";
-            var strTemplateSeries = TemplateSeries != null ? TemplateSeries.Id.ToString() : "null";
-            var strWorkShop = WorkShop != null ? WorkShop.Id.ToString() : "null";
-            var strPrinter = Printer != null ? Printer.Id.ToString() : "null";
-            var strHost = Host != null ? Host.Id.ToString() : "null";
+            string? strCreateDate = CreateDate != null ? CreateDate.ToString() : "null";
+            string? strModifiedDate = ModifiedDate != null ? ModifiedDate.ToString() : "null";
+            string? strTemplateDefault = TemplateDefault != null ? TemplateDefault.Id.ToString() : "null";
+            string? strTemplateSeries = TemplateSeries != null ? TemplateSeries.Id.ToString() : "null";
+            string? strWorkShop = WorkShop != null ? WorkShop.Id.ToString() : "null";
+            string? strPrinter = Printer != null ? Printer.Id.ToString() : "null";
+            string? strHost = Host != null ? Host.Id.ToString() : "null";
             return base.ToString() +
                    $"{nameof(CreateDate)}: {strCreateDate}. " +
                    $"{nameof(ModifiedDate)}: {strModifiedDate}. " +

@@ -29,10 +29,10 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            var strOrderTypes = OrderTypes != null ? OrderTypes.Id.ToString() : "null";
-            var strScales = Scales != null ? Scales.Id.ToString() : "null";
-            var strPlu = Plu != null ? Plu.Id.ToString() : "null";
-            var strTemplates = Templates != null ? Templates.Id.ToString() : "null";
+            string? strOrderTypes = OrderTypes != null ? OrderTypes.Id.ToString() : "null";
+            string? strScales = Scales != null ? Scales.Id.ToString() : "null";
+            string? strPlu = Plu != null ? Plu.Id.ToString() : "null";
+            string? strTemplates = Templates != null ? Templates.Id.ToString() : "null";
             return base.ToString() +
                    $"{nameof(OrderTypes)}: {strOrderTypes}. " +
                    $"{nameof(ProductDate)}: {ProductDate}. " +

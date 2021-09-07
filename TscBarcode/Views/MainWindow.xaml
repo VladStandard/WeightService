@@ -3,15 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:tsc="clr-namespace:WeightCore.Print.Tsc;assembly=Hardware"
+        xmlns:tsc="clr-namespace:WeightCore.Print.Tsc;assembly=WeightCore"
         mc:Ignorable="d"
         Title="TSC BarCode print examples" Width="800" Height="600" Closed="Window_Closed" >
 
-    <Window.DataContext>
-        <tsc:PrintControlEntity />
-    </Window.DataContext>
-
-    <Grid DataContext="{StaticResource ViewModelProgramSettings}">
+    <Grid DataContext="{StaticResource PrintControlEntityViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
@@ -29,10 +25,10 @@
 
         <Label Margin="2" Grid.Row="0" Grid.Column="0" Content="Ethernet" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox Margin="2" Grid.Row="0" Grid.Column="1" TextAlignment="Center" VerticalContentAlignment="Center" 
-                 DataContext="{StaticResource ViewModelProgramSettings}"
+                 DataContext="{StaticResource PrintControlEntityViewModel}"
                  Text="{Binding Path=IpAddress, Mode=TwoWay, IsAsync=True }"/>
         <TextBox Margin="2" Grid.Row="0" Grid.Column="2" TextAlignment="Center" VerticalContentAlignment="Center" 
-                 DataContext="{StaticResource ViewModelProgramSettings}"
+                 DataContext="{StaticResource PrintControlEntityViewModel}"
                  Text="{Binding Path=Port, Mode=TwoWay, IsAsync=True }"/>
 
         <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3">
@@ -114,43 +110,43 @@
                    Content="Width" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="0" Margin="2" 
                      TextAlignment="Center" VerticalContentAlignment="Center" 
-                     DataContext="{StaticResource ViewModelProgramSettings}"
+                     DataContext="{StaticResource PrintControlEntityViewModel}"
                      Text="{Binding Path=PrinterSetup.Width, Mode=TwoWay, IsAsync=True }"/>
             <Label Grid.Row="0" Grid.Column="1" Margin="2" 
                    Content="Height" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="2" 
                      TextAlignment="Center" VerticalContentAlignment="Center" 
-                     DataContext="{StaticResource ViewModelProgramSettings}"
+                     DataContext="{StaticResource PrintControlEntityViewModel}"
                      Text="{Binding Path=PrinterSetup.Height, Mode=TwoWay, IsAsync=True }"/>
             <Label Grid.Row="0" Grid.Column="2" Margin="2" 
                    Content="Speed" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="2" Margin="2" 
                      TextAlignment="Center" VerticalContentAlignment="Center" 
-                     DataContext="{StaticResource ViewModelProgramSettings}"
+                     DataContext="{StaticResource PrintControlEntityViewModel}"
                      Text="{Binding Path=PrinterSetup.Speed, Mode=TwoWay, IsAsync=True }"/>
             <Label Grid.Row="0" Grid.Column="3" Margin="2" 
                    Content="Density" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="3" Margin="2" 
                      TextAlignment="Center" VerticalContentAlignment="Center" 
-                     DataContext="{StaticResource ViewModelProgramSettings}"
+                     DataContext="{StaticResource PrintControlEntityViewModel}"
                      Text="{Binding Path=PrinterSetup.Density, Mode=TwoWay, IsAsync=True }"/>
             <Label Grid.Row="0" Grid.Column="4" Margin="2" 
                    Content="Sensor" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="4" Margin="2" 
                      TextAlignment="Center" VerticalContentAlignment="Center" 
-                     DataContext="{StaticResource ViewModelProgramSettings}"
+                     DataContext="{StaticResource PrintControlEntityViewModel}"
                      Text="{Binding Path=PrinterSetup.Sensor, Mode=TwoWay, IsAsync=True }"/>
             <Label Grid.Row="0" Grid.Column="5" Margin="2" 
                    Content="Vertical" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="5" Margin="2" 
                      TextAlignment="Center" VerticalContentAlignment="Center" 
-                     DataContext="{StaticResource ViewModelProgramSettings}"
+                     DataContext="{StaticResource PrintControlEntityViewModel}"
                      Text="{Binding Path=PrinterSetup.Vertical, Mode=TwoWay, IsAsync=True }"/>
             <Label Grid.Row="0" Grid.Column="6" Margin="2" 
                    Content="Offset" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="6" Margin="2" 
                      TextAlignment="Center" VerticalContentAlignment="Center" 
-                     DataContext="{StaticResource ViewModelProgramSettings}"
+                     DataContext="{StaticResource PrintControlEntityViewModel}"
                      Text="{Binding Path=PrinterSetup.Offset, Mode=TwoWay, IsAsync=True }"/>
 
             <Button Margin="2" Grid.Row="2" Grid.Column="0" Content="Setup reset" 

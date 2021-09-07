@@ -37,7 +37,7 @@ namespace WeightCore.Gui
         public static CustomMessageBox Show(IWin32Window owner, string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
             MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, int selectButton = 0)
         {
-            CustomMessageBox messageBox = new CustomMessageBox
+            CustomMessageBox messageBox = new()
             {
                 Owner = owner is Form form ? form : null,
                 fieldMessage = { Text = label },
@@ -91,8 +91,8 @@ namespace WeightCore.Gui
                     }
             }
 
-            var i = -1;
-            foreach (var button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
+            int i = -1;
+            foreach (Button button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
             {
                 if (button.Visible)
                     i++;
@@ -100,8 +100,8 @@ namespace WeightCore.Gui
                     button.Select();
             }
 
-            var f = new Font("Arial", 16, FontStyle.Bold);
-            foreach (var button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
+            Font f = new Font("Arial", 16, FontStyle.Bold);
+            foreach (Button button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
             {
                 button.Height = 80;
                 button.Width = 140;
@@ -192,7 +192,7 @@ namespace WeightCore.Gui
         {
             if (Owner != null)
             {
-                var offset = Owner.OwnedForms.Length * 38;
+                int offset = Owner.OwnedForms.Length * 38;
                 Location = new Point(
                     Owner.Left + Owner.Width / 2 - Width / 2 + offset, 
                     Owner.Top + Owner.Height / 2 - Height / 2 + offset);

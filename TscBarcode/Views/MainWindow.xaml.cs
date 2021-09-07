@@ -16,7 +16,7 @@ namespace TscBarcode.Views
     {
         #region Public and private fields and properties
 
-        private PrintControlEntity PrintControl { get; set; }
+        public PrintControlEntity PrintControl { get; set; }
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace TscBarcode.Views
         {
             InitializeComponent();
 
-            var context = FindResource("ViewModelProgramSettings");
+            object context = FindResource("PrintControlEntityViewModel");
             if (context is PrintControlEntity printControl)
             {
                 PrintControl = printControl;

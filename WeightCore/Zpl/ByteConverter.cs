@@ -36,7 +36,7 @@ namespace WeightCore.Zpl
              **************************************************************/
 
             // Storage for the UTF8 string
-            string utf8String = String.Empty;
+            string utf8String = string.Empty;
 
             // Get UTF16 bytes and convert UTF16 bytes to UTF8 bytes
             byte[] utf16Bytes = Encoding.Unicode.GetBytes(utf16String);
@@ -56,13 +56,13 @@ namespace WeightCore.Zpl
 
         public static string ByteArrayToString(byte[] ba)
         {
-            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            StringBuilder hex = new(ba.Length * 2);
             foreach (byte b in ba)
                 hex.AppendFormat("{0:x2}", b);
             return hex.ToString();
         }
 
-        public static byte[] StringToByteArray(String hex)
+        public static byte[] StringToByteArray(string hex)
         {
             int NumberChars = hex.Length;
             byte[] bytes = new byte[NumberChars / 2];
@@ -74,13 +74,13 @@ namespace WeightCore.Zpl
         public static string AnsiToUtf8(string text)
         {
             // encode the string as an ASCII byte array
-            byte[] myASCIIBytes = ASCIIEncoding.ASCII.GetBytes(text);
+            byte[] myASCIIBytes = Encoding.ASCII.GetBytes(text);
 
             // convert the ASCII byte array to a UTF-8 byte array
-            byte[] myUTF8Bytes = ASCIIEncoding.Convert(ASCIIEncoding.ASCII, UTF8Encoding.UTF8, myASCIIBytes);
+            byte[] myUTF8Bytes = Encoding.Convert(Encoding.ASCII, Encoding.UTF8, myASCIIBytes);
 
             // reconstitute a string from the UTF-8 byte array 
-            return UTF8Encoding.UTF8.GetString(myUTF8Bytes);
+            return Encoding.UTF8.GetString(myUTF8Bytes);
         }
     }
 }

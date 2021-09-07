@@ -79,7 +79,7 @@ namespace WeightCore.Gui
 
         private void btnNum_Click(object sender, EventArgs e)
         {
-            var num = (string)(sender as Control)?.Tag;
+            string num = (string)(sender as Control)?.Tag;
             _InputValueShadow = int.Parse(_InputValueShadow + num);
             ShowPin(_InputValueShadow);
         }

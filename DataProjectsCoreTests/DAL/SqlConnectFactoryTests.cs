@@ -6,10 +6,10 @@ using DataProjectsCore.DAL.TableModels;
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace DataProjectsCoreTests.DAL.TableModels
+namespace DataProjectsCoreTests.DAL
 {
     [TestFixture]
-    internal class _TemplateSqlExecuteTests
+    internal class SqlConnectFactoryTests
     {
         public void SqlPrepare()
         {
@@ -17,32 +17,22 @@ namespace DataProjectsCoreTests.DAL.TableModels
             TestContext.WriteLine($"{nameof(SqlConnectFactory)}: {SqlConnectFactory.GetConnection().ConnectionString}");
         }
 
-        private void ExecuteReaderTemplate()
-        {
-            SqlPrepare();
-            TestContext.WriteLine($"[db_scales].[Scales]");
-            for (int id = 0; id < 10; id++)
-            {
-                _TemplateSqlExecute.ExecuteReaderTemplate(id);
-                TestContext.WriteLine($"SCALE. ID: {id}. Description: {_TemplateSqlExecute.Result}");
-            }
-        }
-
         [Test]
-        public void ExecuteReaderTemplate_DoesNotThrow()
+        public void ExecuteReader_DoesNotThrow()
         {
             Utils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
-                ExecuteReaderTemplate();
+                SqlPrepare();
+                TestContext.WriteLine($"[db_scales].[Scales]");
+                for (int id = 0; id < 10; id++)
+                {
+                    SqlConnectFactoryTemplate.ExecuteReaderTemplate(id);
+                    TestContext.WriteLine($"SCALE. ID: {id}. Description: {SqlConnectFactoryTemplate.Result}");
+                }
             });
             TestContext.WriteLine();
-
-            Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
-            {
-                ExecuteReaderTemplate();
-            }));
 
             Utils.MethodComplete();
         }

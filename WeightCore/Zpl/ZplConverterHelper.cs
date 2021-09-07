@@ -24,7 +24,7 @@ namespace WeightCore.Zpl
         private int _widthBytes;
         private bool _compressHex;
 
-        private static readonly Dictionary<int, string> MapCode = new Dictionary<int, string>()
+        private static readonly Dictionary<int, string> MapCode = new()
         {
             {1, "G"},
             {2, "H"},
@@ -75,18 +75,18 @@ namespace WeightCore.Zpl
         /// <returns>^GF[A] command input string</returns>
         public string ConvertFromImage(Bitmap image, bool addHeaderFooter = true)
         {
-            var hexAscii = CreateBody(image);
+            string hexAscii = CreateBody(image);
             if (_compressHex)
             {
                 hexAscii = EncodeHexAscii(hexAscii);
             }
 
-            var zplCode = "^GFA," + _total + "," + _total + "," + _widthBytes + ", " + hexAscii;
+            string zplCode = "^GFA," + _total + "," + _total + "," + _widthBytes + ", " + hexAscii;
 
             if (addHeaderFooter)
             {
-                var header = "^XA " + "^FO0,0^GFA," + _total + "," + _total + "," + _widthBytes + ", ";
-                var footer = "^FS" + "^XZ";
+                string header = "^XA " + "^FO0,0^GFA," + _total + "," + _total + "," + _widthBytes + ", ";
+                string footer = "^FS" + "^XZ";
                 zplCode = header + zplCode + footer;
             }
             return zplCode;
@@ -124,7 +124,7 @@ namespace WeightCore.Zpl
                 }
             }
 
-            var zplCode = $"~DGE:{imageName.ToUpper().Replace(".BMP", "")}.GRF,{width * y},{width}," + sb;
+            string zplCode = $"~DGE:{imageName.ToUpper().Replace(".BMP", "")}.GRF,{width * y},{width}," + sb;
 
             if (addHeaderFooter)
             {
@@ -141,11 +141,11 @@ namespace WeightCore.Zpl
         /// <returns></returns>
         private string CreateBody(Bitmap bitmapImage)
         {
-            var sb = new StringBuilder();
-            var height = bitmapImage.Height;
-            var width = bitmapImage.Width;
+            StringBuilder sb = new StringBuilder();
+            int height = bitmapImage.Height;
+            int width = bitmapImage.Width;
             int rgb, red, green, blue, index = 0;
-            var auxBinaryChar = new char[] { '0', '0', '0', '0', '0', '0', '0', '0' };
+            char[] auxBinaryChar = new char[] { '0', '0', '0', '0', '0', '0', '0', '0' };
             _widthBytes = width / 8;
             if (width % 8 > 0)
             {
@@ -210,8 +210,8 @@ namespace WeightCore.Zpl
         private string EncodeHexAscii(string code)
         {
             int maxlinea = _widthBytes * 2;
-            StringBuilder sbCode = new StringBuilder();
-            StringBuilder sbLinea = new StringBuilder();
+            StringBuilder sbCode = new();
+            StringBuilder sbLinea = new();
             string previousLine = null;
             int counter = 1;
             char aux = code.ElementAt(0);
@@ -309,11 +309,11 @@ namespace WeightCore.Zpl
         public void SendToPrinter(string ipAddress, int port, string[] ZPLCommand)
         {
 
-            var client = new TcpClient();
+            TcpClient client = new TcpClient();
             client.Connect(ipAddress, port);
-            var stream = client.GetStream();
+            NetworkStream stream = client.GetStream();
 
-            foreach (var commandLine in ZPLCommand)
+            foreach (string commandLine in ZPLCommand)
             {
                 stream.Write(ASCIIEncoding.ASCII.GetBytes(commandLine), 0, commandLine.Length);
                 stream.Flush();
@@ -325,7 +325,7 @@ namespace WeightCore.Zpl
 
         public void FontsClear(string ZebraIP, int ZebraPort)
         {
-            var zplCommand = "^XA^IDE:*.TTF^FS^XZ";
+            string zplCommand = "^XA^IDE:*.TTF^FS^XZ";
             SendToPrinter(ZebraIP, ZebraPort, zplCommand.Split('\n'));
         }
 
@@ -339,34 +339,32 @@ namespace WeightCore.Zpl
         {
             foreach (KeyValuePair<string, string> fnt in Fonts)
             {
-                var zplImageData = string.Empty;
-                var binaryData = Convert.FromBase64String(fnt.Value);
-                var namettf = fnt.Key;
+                string zplImageData = string.Empty;
+                byte[] binaryData = Convert.FromBase64String(fnt.Value);
+                string namettf = fnt.Key;
 
-                using (var client = new TcpClient())
+                using TcpClient client = new TcpClient();
+                client.Connect(ZebraIP, ZebraPort);
+                using (NetworkStream stream = client.GetStream())
                 {
-                    client.Connect(ZebraIP, ZebraPort);
-                    using (var stream = client.GetStream())
-                    {
-                        var ZPLCommand = $"^XA^MNN^LL500~DYE:{namettf}.TTF,B,T," + binaryData.Length + ",,";
-                        stream.Write(ASCIIEncoding.ASCII.GetBytes(ZPLCommand), 0, ZPLCommand.Length);
-                        stream.Flush();
-                        stream.Write(binaryData, 0, binaryData.Length);
-                        stream.Flush();
-                        ZPLCommand = "^XZ";
-                        stream.Write(ASCIIEncoding.ASCII.GetBytes(ZPLCommand), 0, ZPLCommand.Length);
-                        stream.Flush();
-                        stream.Close();
-                    }
-                    client.Close();
+                    string ZPLCommand = $"^XA^MNN^LL500~DYE:{namettf}.TTF,B,T," + binaryData.Length + ",,";
+                    stream.Write(ASCIIEncoding.ASCII.GetBytes(ZPLCommand), 0, ZPLCommand.Length);
+                    stream.Flush();
+                    stream.Write(binaryData, 0, binaryData.Length);
+                    stream.Flush();
+                    ZPLCommand = "^XZ";
+                    stream.Write(ASCIIEncoding.ASCII.GetBytes(ZPLCommand), 0, ZPLCommand.Length);
+                    stream.Flush();
+                    stream.Close();
                 }
+                client.Close();
             }
         }
 
 
         public string FixBase64ForImage(string Image)
         {
-            var sbText = new StringBuilder(Image, Image.Length);
+            StringBuilder sbText = new StringBuilder(Image, Image.Length);
             sbText.Replace("\r\n", string.Empty); sbText.Replace(" ", string.Empty);
             return sbText.ToString();
         }
@@ -376,31 +374,29 @@ namespace WeightCore.Zpl
             foreach (KeyValuePair<string, string> fnt in Logo)
             {
                 byte[] bitmapData = Convert.FromBase64String(FixBase64ForImage(fnt.Value));
-                using (System.IO.MemoryStream bmpStream = new System.IO.MemoryStream(bitmapData))
-                {
-                    //
-                    //"~DYR:2033.PNG,p,p,2312,40,:B64:iVBO
-                    //Rw0KGgoAAAANSUhEUgAA
-                    //AUAAAACeAQMAAAB5HUEC
-                    //AAAABlBMVEUAAAD"
-                    //
-                    //^XA^FO20,20^XGR:2033.PNG^XZ
-                    //
-                    var image = Image.FromStream(bmpStream);
-                    var bitmap = new Bitmap(image);
-                    var zp = new ZplConverterHelper();
-                    //String zplCommand = zp.ConvertFromImage(bitmap);
+                using System.IO.MemoryStream bmpStream = new(bitmapData);
+                //
+                //"~DYR:2033.PNG,p,p,2312,40,:B64:iVBO
+                //Rw0KGgoAAAANSUhEUgAA
+                //AUAAAACeAQMAAAB5HUEC
+                //AAAABlBMVEUAAAD"
+                //
+                //^XA^FO20,20^XGR:2033.PNG^XZ
+                //
+                Image image = Image.FromStream(bmpStream);
+                Bitmap bitmap = new Bitmap(image);
+                ZplConverterHelper zp = new ZplConverterHelper();
+                //String zplCommand = zp.ConvertFromImage(bitmap);
 
-                    var nameimage = fnt.Key;
-                    var zplCommand = zp.CreateGRF(bitmap, nameimage);
-                    SendToPrinter(ZebraIP, ZebraPort, zplCommand.Split('\n'));
-                }
+                string nameimage = fnt.Key;
+                string zplCommand = zp.CreateGRF(bitmap, nameimage);
+                SendToPrinter(ZebraIP, ZebraPort, zplCommand.Split('\n'));
             }
         }
 
         public void Сalibration(string zebraIP, int zebraPort)
         {
-            var zplCommand = 
+            string zplCommand = 
                 "! U1 setvar \"media.type\" \"label\"" +
                 "! U1 setvar \"media.sense_mode\" \"gap\"" +
                 "~JC^XA^JUS^XZ";

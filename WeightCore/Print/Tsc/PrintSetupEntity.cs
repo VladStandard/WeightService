@@ -3,9 +3,7 @@
 
 using MvvmHelpers;
 using System;
-using System.ComponentModel;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 
 namespace WeightCore.Print.Tsc
 {

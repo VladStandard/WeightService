@@ -23,32 +23,30 @@ namespace DataProjectsCore.DAL.Utils
 
         public static HostDirect Load(Guid idrref)
         {
-            HostDirect result = new HostDirect();
+            HostDirect result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbScales.Tables.Hosts.GetHostByUid))
+                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Hosts.GetHostByUid))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@idrref", idrref);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        if (reader.Read())
                         {
-                            if (reader.Read())
-                            {
-                                result.IdRRef = idrref;
-                                result.Name = SqlConnectFactory.GetValue<string>(reader, "NAME");
-                                result.IP = SqlConnectFactory.GetValue<string>(reader, "IP");
-                                result.MAC = SqlConnectFactory.GetValue<string>(reader, "MAC");
-                                result.Marked = SqlConnectFactory.GetValue<bool>(reader, "MARKED");
-                                result.SettingsFile = XDocument.Parse(SqlConnectFactory.GetValue<string>(reader, "SETTINGSFILE"));
-                                result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                                result.CurrentScaleId = SqlConnectFactory.GetValue<int>(reader, "SCALE_ID");
-                            }
+                            result.IdRRef = idrref;
+                            result.Name = SqlConnectFactory.GetValue<string>(reader, "NAME");
+                            result.IP = SqlConnectFactory.GetValue<string>(reader, "IP");
+                            result.MAC = SqlConnectFactory.GetValue<string>(reader, "MAC");
+                            result.Marked = SqlConnectFactory.GetValue<bool>(reader, "MARKED");
+                            result.SettingsFile = XDocument.Parse(SqlConnectFactory.GetValue<string>(reader, "SETTINGSFILE"));
+                            result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                            result.CurrentScaleId = SqlConnectFactory.GetValue<int>(reader, "SCALE_ID");
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -71,8 +69,8 @@ namespace DataProjectsCore.DAL.Utils
         public static Guid TokenWrite(string connectionString)
         {
             Guid tokenSalt = Guid.NewGuid();
-            XDocument doc = new XDocument();
-            XElement root = new XElement("root");
+            XDocument doc = new();
+            XElement root = new("root");
             root.Add(
                 new XElement("ID", tokenSalt),
                 new XElement("EncryptConnectionString", new XCData(EncryptDecryptUtils.Encrypt(connectionString)))
@@ -86,10 +84,10 @@ namespace DataProjectsCore.DAL.Utils
 
             string sqlExpression = $"INSERT INTO [db_scales].[HOSTS](IdRRef, NAME, MAC, IP,SettingsFile) VALUES ( '{uuid}','{name}', '{mac}', '{ip}','{doc.ToString()}')";
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = new(connectionString))
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(sqlExpression, con))
+                using (SqlCommand cmd = new(sqlExpression, con))
                 {
                     int n = cmd.ExecuteNonQuery();
                 }
@@ -118,21 +116,19 @@ namespace DataProjectsCore.DAL.Utils
             {
                 con.Open();
                 string query = "SELECT COUNT(*) as CNT FROM [db_scales].[Hosts] WHERE [IdRRef] = @ID ";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@ID", IdRRef);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                countRow = SqlConnectFactory.GetValue<int>(reader, "CNT");
-                            }
+                            countRow = SqlConnectFactory.GetValue<int>(reader, "CNT");
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }

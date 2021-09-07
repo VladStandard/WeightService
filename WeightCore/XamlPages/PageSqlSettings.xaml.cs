@@ -14,7 +14,7 @@ namespace WeightCore.XamlPages
         #region Private fields and properties
 
         public SessionState _ws { get; private set; } = SessionState.Instance;
-        public SqlViewModel ViewModel { get; set; }
+        public SqlViewModelEntity SqlViewModel { get; set; }
         public int RowCount { get; } = 5;
         public int ColumnCount { get; } = 4;
         public int PageSize { get; } = 20;
@@ -28,12 +28,12 @@ namespace WeightCore.XamlPages
         {
             InitializeComponent();
 
-            //var context = FindResource("ViewModelSqlHelper");
-            //if (context is SqlHelper sqlHelper)
-            //{
-            //    _ws.SqlItem = sqlHelper;
-            //}
-            ViewModel = _ws.SqlItem;
+            object context = FindResource("SqlViewModel");
+            if (context is SqlViewModelEntity sqlViewModel)
+            {
+                SqlViewModel = sqlViewModel;
+            }
+            SqlViewModel = _ws.SqlViewModel;
         }
 
         #endregion
@@ -42,7 +42,7 @@ namespace WeightCore.XamlPages
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            _ws.SqlItem.SetupTasks(_ws.Host?.CurrentScaleId);
+            _ws.SqlViewModel.SetupTasks(_ws.Host?.CurrentScaleId);
 
             System.Windows.Controls.Grid gridTasks = new();
             // Columns.
@@ -55,7 +55,7 @@ namespace WeightCore.XamlPages
                 gridTasks.ColumnDefinitions.Add(column);
             }
             // Rows.
-            for (int row = 0; row < _ws.SqlItem.Tasks.Count; row++)
+            for (int row = 0; row < _ws.SqlViewModel.Tasks.Count; row++)
             {
                 // Row.
                 System.Windows.Controls.RowDefinition rows = new()
@@ -66,7 +66,7 @@ namespace WeightCore.XamlPages
                 // Task caption.
                 System.Windows.Controls.Label labelTaskCaption = new()
                 {
-                    Content = _ws.SqlItem.Tasks[row].TaskType.Name,
+                    Content = _ws.SqlViewModel.Tasks[row].TaskType.Name,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalAlignment = System.Windows.VerticalAlignment.Center,
                 };
@@ -80,13 +80,13 @@ namespace WeightCore.XamlPages
                     Height = 30,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalContentAlignment = System.Windows.VerticalAlignment.Center,
-                    Tag = _ws.SqlItem.Tasks[row]
+                    Tag = _ws.SqlViewModel.Tasks[row]
                 };
                 System.Windows.Controls.ComboBoxItem itemTrue = new() { Content = "True" };
                 comboBoxTaskEnabled.Items.Add(itemTrue);
                 System.Windows.Controls.ComboBoxItem itemFalse = new() { Content = "False" };
                 comboBoxTaskEnabled.Items.Add(itemFalse);
-                comboBoxTaskEnabled.SelectedItem = _ws.SqlItem.Tasks[row].Enabled ? itemTrue : itemFalse;
+                comboBoxTaskEnabled.SelectedItem = _ws.SqlViewModel.Tasks[row].Enabled ? itemTrue : itemFalse;
                 System.Windows.Controls.Grid.SetColumn(comboBoxTaskEnabled, 1);
                 System.Windows.Controls.Grid.SetRow(comboBoxTaskEnabled, row);
                 gridTasks.Children.Add(comboBoxTaskEnabled);

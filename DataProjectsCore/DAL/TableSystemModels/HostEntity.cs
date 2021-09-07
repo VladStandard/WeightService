@@ -31,9 +31,9 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         public override string ToString()
         {
-            var strCreateDate = CreateDate != null ? CreateDate.ToString() : "null";
-            var strModifiedDate = ModifiedDate != null ? ModifiedDate.ToString() : "null";
-            var strSettingsFileString = SettingsFile != null ? SettingsFile.Length.ToString() : "null";
+            string? strCreateDate = CreateDate != null ? CreateDate.ToString() : "null";
+            string? strModifiedDate = ModifiedDate != null ? ModifiedDate.ToString() : "null";
+            string? strSettingsFileString = SettingsFile != null ? SettingsFile.Length.ToString() : "null";
             return base.ToString() +
                    $"{nameof(CreateDate)}: {strCreateDate}. " +
                    $"{nameof(ModifiedDate)}: {strModifiedDate}. " +

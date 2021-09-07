@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore.DAL.TableModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,29 +36,44 @@ namespace WeightCore.Zpl
 
         public static string FakePipe(string zplCommand) => zplCommand;
 
-        public static string XsltTransformationPipe(string xslInput, string xmlInput)
+        public static void XmlReplace(ref string xmlInput)
         {
+            xmlInput = xmlInput.Replace(nameof(BarCodeDirect), "BarCodeEntity");
+            xmlInput = xmlInput.Replace(nameof(ContregentDirect), "ContregentEntity");
+            xmlInput = xmlInput.Replace(nameof(HostDirect), "HostEntity");
+            xmlInput = xmlInput.Replace(nameof(LogDirect), "LogEntity");
+            xmlInput = xmlInput.Replace(nameof(NomenclatureDirect), "NomenclatureEntity");
+            xmlInput = xmlInput.Replace(nameof(OrderDirect), "OrderEntity");
+            xmlInput = xmlInput.Replace(nameof(PluDirect), "PluEntity");
+            xmlInput = xmlInput.Replace(nameof(ProductionFacilityDirect), "ProductionFacilityEntity");
+            xmlInput = xmlInput.Replace(nameof(ProductSeriesDirect), "ProductSeriesEntity");
+            xmlInput = xmlInput.Replace(nameof(ScaleDirect), "ScaleEntity");
+            xmlInput = xmlInput.Replace(nameof(SsccDirect), "SsccEntity");
+            xmlInput = xmlInput.Replace(nameof(TaskDirect), "TaskEntity");
+            xmlInput = xmlInput.Replace(nameof(TemplateDirect), "TemplateEntity");
+            xmlInput = xmlInput.Replace(nameof(WeighingFactDirect), "WeighingFactEntity");
+            xmlInput = xmlInput.Replace(nameof(WorkShopDirect), "WorkShopEntity");
+            xmlInput = xmlInput.Replace(nameof(ZebraPrinterDirect), "ZebraPrinterEntity");
+            xmlInput = xmlInput.Replace(nameof(ZplLabelDirect), "ZplLabelEntity");
+        }
+
+        public static string XsltTransformationPipe(string xslInput, string xmlInput, bool useEntityReplace)
+        {
+            if (useEntityReplace)
+                XmlReplace(ref xmlInput);
             string result;
-            using (var stringReaderXslt = new StringReader(xslInput.Trim())) // xslInput is a string that contains xsl
+            using (StringReader stringReaderXslt = new(xslInput.Trim())) // xslInput is a string that contains xsl
             {
-                using (var stringReaderXml = new StringReader(xmlInput.Trim())) // xmlInput is a string that contains xml
-                {
-                    using (var xmlReaderXslt = XmlReader.Create(stringReaderXslt))
-                    {
-                        using (var xmlReaderXml = XmlReader.Create(stringReaderXml))
-                        {
-                            var xslt = new XslCompiledTransform();
-                            xslt.Load(xmlReaderXslt);
-                            using (var stringWriter = new StringWriter())
-                            using (var xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings)) // use OutputSettings of xsl, so it can be output as HTML
-                            {
-                                xslt.Transform(xmlReaderXml, xmlWriter);
-                                result = stringWriter.ToString();
-                                result = ToCodePoints(result);
-                            }
-                        }
-                    }
-                }
+                using StringReader stringReaderXml = new(xmlInput.Trim()); // xmlInput is a string that contains xml
+                using XmlReader xmlReaderXslt = XmlReader.Create(stringReaderXslt);
+                using XmlReader xmlReaderXml = XmlReader.Create(stringReaderXml);
+                XslCompiledTransform xslt = new();
+                xslt.Load(xmlReaderXslt);
+                using StringWriter stringWriter = new();
+                using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings); // use OutputSettings of xsl, so it can be output as HTML
+                xslt.Transform(xmlReaderXml, xmlWriter);
+                result = stringWriter.ToString();
+                result = ToCodePoints(result);
             }
             return result;
         }
@@ -84,12 +100,12 @@ namespace WeightCore.Zpl
 
         public static string ZplCommandPipeByIp(string ip, int port, string zplCommand)
         {
-            var outMsg = new StringBuilder();
+            StringBuilder outMsg = new();
             try
             {
 
-                var zpl = ToCodePoints(zplCommand);
-                var info = InterplayToPrinter(ip, port, zpl.Split('\n'), out var errorMessage);
+                string zpl = ToCodePoints(zplCommand);
+                string info = InterplayToPrinter(ip, port, zpl.Split('\n'), out string errorMessage);
                 outMsg.AppendLine(info);
                 outMsg.AppendLine(errorMessage);
             }
@@ -103,10 +119,10 @@ namespace WeightCore.Zpl
 
         public static string ZplCommandPipeByRaw(string lptName, string zplCommand)
         {
-            var outMsg = new StringBuilder();
+            StringBuilder outMsg = new();
             try
             {
-                var zpl = ToCodePoints(zplCommand);
+                string zpl = ToCodePoints(zplCommand);
                 RawPrinterHelper.SendStringToPrinter(lptName, zpl);
             }
             catch (Exception ex)
@@ -151,10 +167,10 @@ namespace WeightCore.Zpl
 
         public static string ZplFontDownloadCommand(string ttfName, byte[] b, bool addHeaderFooter = true)
         {
-            var converted = ByteConverter.ByteArrayToString(b);
+            string converted = ByteConverter.ByteArrayToString(b);
             // так чейт по сети не работает
             //string zplCode = $"~DUE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,{b.Length},{converted}";
-            var zplCode = $"~DYE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,B,T,{b.Length},,{converted}";
+            string zplCode = $"~DYE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,B,T,{b.Length},,{converted}";
             if (addHeaderFooter)
             {
                 zplCode = "^XA " + zplCode + "^XZ";
@@ -166,10 +182,10 @@ namespace WeightCore.Zpl
         {
             //var binaryData = Convert.FromBase64String(Value);
             //return ZplFontDownloadCommand(ttfName, binaryData);
-            var b = Convert.FromBase64String(Value);
-            var converted = ByteConverter.ByteArrayToString(b);
+            byte[] b = Convert.FromBase64String(Value);
+            string converted = ByteConverter.ByteArrayToString(b);
             //string zplCode = $"~DUE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,{b.Length},{converted}";
-            var zplCode = $"~DYE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,B,T,{b.Length},,{converted}";
+            string zplCode = $"~DYE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,B,T,{b.Length},,{converted}";
             if (addHeaderFooter)
             {
                 zplCode = "^XA " + zplCode + "^XZ";
@@ -179,13 +195,11 @@ namespace WeightCore.Zpl
 
         public static string ZplLogoDownloadCommand(string imageName, string image, bool addHeaderFooter = true)
         {
-            var b = Convert.FromBase64String(FixBase64ForImage(image));
-            using (var bmpStream = new MemoryStream(b))
-            {
-                var img = System.Drawing.Image.FromStream(bmpStream);
-                var bitmapData = new System.Drawing.Bitmap(img);
-                return ZplLogoDownloadCommand(imageName, bitmapData, addHeaderFooter);
-            }
+            byte[] b = Convert.FromBase64String(FixBase64ForImage(image));
+            using MemoryStream bmpStream = new(b);
+            System.Drawing.Image img = System.Drawing.Image.FromStream(bmpStream);
+            System.Drawing.Bitmap bitmapData = new(img);
+            return ZplLogoDownloadCommand(imageName, bitmapData, addHeaderFooter);
         }
 
         public static string ZplLogoDownloadCommand(string imageName, System.Drawing.Bitmap image, bool addHeaderFooter = true)
@@ -225,7 +239,7 @@ namespace WeightCore.Zpl
                 }
             }
 
-            var zplCode = $"~DGE:{imageName.ToUpper().Replace(".BMP", "")}.GRF,{width * y},{width}," + sb;
+            string zplCode = $"~DGE:{imageName.ToUpper().Replace(".BMP", "")}.GRF,{width * y},{width}," + sb;
             if (addHeaderFooter)
             {
                 zplCode = "^XA " + zplCode + "^XZ";
@@ -236,9 +250,9 @@ namespace WeightCore.Zpl
         public static string ZplContentAsBase64(string base64String)
         {
             //с наскока не сработало
-            var b = Encoding.ASCII.GetBytes(base64String);
-            var crc = new Crc16Ccitt(PrintInitialCrcValue.Zeros);
-            var c = crc.ComputeChecksumBytes(b);
+            byte[] b = Encoding.ASCII.GetBytes(base64String);
+            Crc16Ccitt crc = new(PrintInitialCrcValue.Zeros);
+            byte[] c = crc.ComputeChecksumBytes(b);
             //Encode the compressed data into Base64. No whitespace or line breaks allowed.
             //Convert the Base64 string to a byte array according to ASCII encoding().
             //Calculate the CRC over that byte array. The Initial CRC Value must be zero.
@@ -247,7 +261,7 @@ namespace WeightCore.Zpl
 
         private static string FixBase64ForImage(string image)
         {
-            var sbText = new StringBuilder(image, image.Length);
+            StringBuilder sbText = new(image, image.Length);
             sbText.Replace("\r\n", string.Empty);
             sbText.Replace(" ", string.Empty);
             return sbText.ToString();
@@ -261,52 +275,46 @@ namespace WeightCore.Zpl
             out string errorMessage, int receiveTimeout = 1000, int sendTimeout = 100)
         {
             errorMessage = @"";
-            var response = new StringBuilder();
+            StringBuilder response = new();
 
-            using (var client = new TcpClient())
+            using (TcpClient client = new())
             {
                 //client.NoDelay = true;
                 client.ReceiveTimeout = receiveTimeout;
                 client.SendTimeout = sendTimeout;
 
                 client.Connect(ipAddress, port);
-                using (var stream = client.GetStream())
+                using NetworkStream stream = client.GetStream();
+                using StreamWriter writer = new(stream);
+                writer.AutoFlush = true;
+                using StreamReader reader = new(stream);
+                try
                 {
-                    using (var writer = new StreamWriter(stream))
+                    foreach (string commandLine in zplCommand)
                     {
-                        writer.AutoFlush = true;
-                        using (var reader = new StreamReader(stream))
-                        {
-                            try
-                            {
-                                foreach (var commandLine in zplCommand)
-                                {
-                                    writer.Write(Encoding.ASCII.GetChars(Encoding.ASCII.GetBytes(commandLine)), 0, commandLine.Length);
-                                    writer.Flush();
-                                }
-                                var data = new byte[256];
-                                var bytes = 0;
-                                do
-                                {
-                                    bytes = stream.Read(data, 0, data.Length);
+                        writer.Write(Encoding.ASCII.GetChars(Encoding.ASCII.GetBytes(commandLine)), 0, commandLine.Length);
+                        writer.Flush();
+                    }
+                    byte[] data = new byte[256];
+                    int bytes = 0;
+                    do
+                    {
+                        bytes = stream.Read(data, 0, data.Length);
 
-                                    if (bytes > 0)
-                                    {
-                                        response.Append(Encoding.UTF8.GetString(data, 0, bytes));
-                                    }
-                                }
-                                while (stream.DataAvailable);
-                            }
-                            catch (Exception ex)
-                            {
-                                if (ex.InnerException is SocketException sockEx)
-                                {
-                                    errorMessage = @"(" + sockEx.NativeErrorCode + ") Exception = " + ex.Message;
-                                }
-                                throw;
-                            }
+                        if (bytes > 0)
+                        {
+                            response.Append(Encoding.UTF8.GetString(data, 0, bytes));
                         }
                     }
+                    while (stream.DataAvailable);
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException is SocketException sockEx)
+                    {
+                        errorMessage = @"(" + sockEx.NativeErrorCode + ") Exception = " + ex.Message;
+                    }
+                    throw;
                 }
             }
             return response.ToString();
@@ -314,7 +322,7 @@ namespace WeightCore.Zpl
 
         public static bool IsCyrillic(char value)
         {
-            var cyrillic = Enumerable
+            char[] cyrillic = Enumerable
                 .Range(UnicodeRanges.Cyrillic.FirstCodePoint, UnicodeRanges.Cyrillic.Length)
                 .Select(ch => (char)ch)
                 .ToArray();
@@ -336,17 +344,17 @@ namespace WeightCore.Zpl
         [Obsolete(@"Use ToCodePoints")]
         public static string ToCodePointsOld(string zplInput)
         {
-            var result = new StringBuilder();
-            var unicodeCharacterList = new Dictionary<char, string>();
-            foreach (var ch in zplInput)
+            StringBuilder result = new();
+            Dictionary<char, string> unicodeCharacterList = new();
+            foreach (char ch in zplInput)
             {
                 if (!unicodeCharacterList.ContainsKey(ch))
                 {
-                    var bytes = Encoding.UTF8.GetBytes(ch.ToString());
+                    byte[] bytes = Encoding.UTF8.GetBytes(ch.ToString());
                     if (bytes.Length > 1)
                     {
-                        var hexCode = string.Empty;
-                        foreach (var b in bytes)
+                        string hexCode = string.Empty;
+                        foreach (byte b in bytes)
                         {
                             hexCode += $"_{BitConverter.ToString(new byte[] { b }).ToLower()}";
                         }
@@ -367,19 +375,19 @@ namespace WeightCore.Zpl
 
         public static string ToCodePoints(string zplInput)
         {
-            var result = new StringBuilder();
-            var unicodeCharacterList = new Dictionary<char, string>();
+            StringBuilder result = new();
+            Dictionary<char, string> unicodeCharacterList = new();
             // Поиск подстроки [^FH^FD].
-            var isFieldData = 0;
-            var isDataStart = false;
-            var isDataEnd = false;
-            foreach (var ch in zplInput)
+            int isFieldData = 0;
+            bool isDataStart = false;
+            bool isDataEnd = false;
+            foreach (char ch in zplInput)
             {
                 if (isFieldData == 6)
                 {
-                    var bytes = Encoding.UTF8.GetBytes(ch.ToString());
-                    var hexCode = string.Empty;
-                    foreach (var b in bytes)
+                    byte[] bytes = Encoding.UTF8.GetBytes(ch.ToString());
+                    string hexCode = string.Empty;
+                    foreach (byte b in bytes)
                     {
                         hexCode += $"_{BitConverter.ToString(new byte[] {b}).ToUpper()}";
                     }

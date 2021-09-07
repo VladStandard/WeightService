@@ -45,13 +45,13 @@ namespace WeightCore.Zabbix
 
         public StringBuilder Response()
         {
-            var result = new StringBuilder();
-            foreach (var v in Dict)
+            StringBuilder result = new StringBuilder();
+            foreach (KeyValuePair<string, string> v in Dict)
             {
                 result.AppendLine($"{v.Key}={v.Value};");
             }
             result.AppendLine($"CurrentTime={DateTime.Now.ToString(CultureInfo.InvariantCulture)};");
-            var interval = DateTime.Now - StartDateTime;
+            TimeSpan interval = DateTime.Now - StartDateTime;
             result.AppendLine($"TimePassed={interval};");
             result.AppendLine($"RequestCount={++_requestCount};");
             return result;
@@ -60,23 +60,23 @@ namespace WeightCore.Zabbix
         public void LoadValues()
         {
             Dict.Clear();
-            var result = string.Empty;
-            var random = new Random();
-            for (var i = 0; i < 100; i++)
+            string result = string.Empty;
+            Random random = new Random();
+            for (int i = 0; i < 100; i++)
             {
-                var prob = random.Next(100);
+                int prob = random.Next(100);
                 result = (prob <= 50) ? "OK" : "ERROR";
             }
             Dict.Add("Printer", result);
-            for (var i = 0; i < 100; i++)
+            for (int i = 0; i < 100; i++)
             {
-                var prob = random.Next(100);
+                int prob = random.Next(100);
                 result = (prob <= 80) ? "OK" : "ERROR";
             }
             Dict.Add("DataBase", result);
-            for (var i = 0; i < 100; i++)
+            for (int i = 0; i < 100; i++)
             {
-                var prob = random.Next(100);
+                int prob = random.Next(100);
                 result = (prob <= 20) ? "OK" : "ERROR";
             }
             Dict.Add("Platform", result);

@@ -46,44 +46,39 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = "SELECT * FROM [db_scales].[GetBarCode] (default,default,default,default,@Id);";
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query = "SELECT * FROM [db_scales].[GetBarCode] (default,default,default,default,@Id);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Id", Id);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@Id", Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                                Value = SqlConnectFactory.GetValue<string>(reader, "Value");
-                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
-                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
-                                BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId"));
-                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId"));
-                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId"));
-                                Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId"));
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                        Value = SqlConnectFactory.GetValue<string>(reader, "Value");
+                        CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
+                        BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId"));
+                        Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId"));
+                        NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId"));
+                        Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId"));
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public void Save()
         {
 
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                string query = @"
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = @"
                     DECLARE @ID int; 
                     
                     EXECUTE [db_scales].[SetBarCode] 
@@ -96,64 +91,59 @@ namespace DataProjectsCore.DAL.TableModels
                       ,@ID OUTPUT
 
                     SELECT @ID as ID";
-                using (SqlCommand cmd = new SqlCommand(query))
+            using (SqlCommand cmd = new(query))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue($"@BarCodeTypeId", BarCodeType != null ? BarCodeType.Id : (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@NomenclatureId", Nomenclature != null ? Nomenclature.Id : (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@NomenclatureUnitId", NomenclatureUnit != null ? NomenclatureUnit.Id : (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@ContragentId", Contragent != null ? Contragent.Id : (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@Value", Value ?? (object)DBNull.Value);  // 
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue($"@BarCodeTypeId", BarCodeType != null ? BarCodeType.Id : (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@NomenclatureId", Nomenclature != null ? Nomenclature.Id : (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@NomenclatureUnitId", NomenclatureUnit != null ? NomenclatureUnit.Id : (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@ContragentId", Contragent != null ? Contragent.Id : (object)DBNull.Value);  // 
-                    cmd.Parameters.AddWithValue($"@Value", Value ?? (object)DBNull.Value);  // 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                            }
-                        }
-                        reader.Close();
+                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
                     }
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
         public static List<BarCodeDirect> GetList(NomenclatureDirect nomenclature)
         {
-            List<BarCodeDirect> result = new List<BarCodeDirect>();
+            List<BarCodeDirect> result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetBarCode] (@NomenclatureId,default,default,default,default);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@NomenclatureId", nomenclature.Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            BarCodeDirect barCode = new()
                             {
-                                BarCodeDirect barCode = new BarCodeDirect()
-                                {
-                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                    Value = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                    CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                    ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                    BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId")),
-                                    Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
-                                    NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId")),
-                                    Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId")),
-                                };
-                                result.Add(barCode);
-                            }
+                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                Value = SqlConnectFactory.GetValue<string>(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
+                                BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
+                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId")),
+                                Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId")),
+                            };
+                            result.Add(barCode);
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -162,38 +152,36 @@ namespace DataProjectsCore.DAL.TableModels
 
         public static List<BarCodeDirect> GetList(NomenclatureDirect nomenclature, BarCodeTypeDirect barCodeType)
         {
-            List<BarCodeDirect> result = new List<BarCodeDirect>();
+            List<BarCodeDirect> result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetBarCode] (@NomenclatureId,@BarCodeTypeId,default,default,default);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@NomenclatureId", nomenclature.Id);
                     cmd.Parameters.AddWithValue("@BarCodeTypeId", barCodeType.Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            BarCodeDirect barCode = new()
                             {
-                                BarCodeDirect barCode = new BarCodeDirect()
-                                {
-                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                    Value = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                    CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                    ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                    BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId")),
-                                    Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
-                                    NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId")),
-                                    Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId")),
-                                };
-                                result.Add(barCode);
-                            }
+                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                Value = SqlConnectFactory.GetValue<string>(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
+                                BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
+                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId")),
+                                Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId")),
+                            };
+                            result.Add(barCode);
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -202,39 +190,37 @@ namespace DataProjectsCore.DAL.TableModels
 
         public static List<BarCodeDirect> GetList(NomenclatureDirect nomenclature, BarCodeTypeDirect barCodeType, NomenclatureUnitDirect nomenclatureUnit)
         {
-            List<BarCodeDirect> result = new List<BarCodeDirect>();
+            List<BarCodeDirect> result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetBarCode] (@NomenclatureId,@BarCodeTypeId,@NomenclatureUnitId,default,default);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@NomenclatureId", nomenclature.Id);
                     cmd.Parameters.AddWithValue("@BarCodeTypeId", barCodeType.Id);
                     cmd.Parameters.AddWithValue("@NomenclatureUnitId", nomenclatureUnit.Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            BarCodeDirect barCode = new()
                             {
-                                BarCodeDirect barCode = new BarCodeDirect()
-                                {
-                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                    Value = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                    CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                    ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                    BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId")),
-                                    Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
-                                    NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId")),
-                                    Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId")),
-                                };
-                                result.Add(barCode);
-                            }
+                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                Value = SqlConnectFactory.GetValue<string>(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
+                                BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
+                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId")),
+                                Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId")),
+                            };
+                            result.Add(barCode);
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }
@@ -243,38 +229,36 @@ namespace DataProjectsCore.DAL.TableModels
 
         public static List<BarCodeDirect> GetList(NomenclatureDirect nomenclature, ContregentDirect contregent)
         {
-            List<BarCodeDirect> result = new List<BarCodeDirect>();
+            List<BarCodeDirect> result = new();
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetBarCode] (@NomenclatureId,default,default,@ContragentId,default);";
-                using (SqlCommand cmd = new SqlCommand(query))
+                using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@NomenclatureId", nomenclature.Id);
                     cmd.Parameters.AddWithValue("@BarCodeTypeId", contregent.Id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            BarCodeDirect barCode = new()
                             {
-                                BarCodeDirect barCode = new BarCodeDirect()
-                                {
-                                    Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                    Value = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                    CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                    ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                    BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId")),
-                                    Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
-                                    NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId")),
-                                    Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId")),
-                                };
-                                result.Add(barCode);
-                            }
+                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
+                                Value = SqlConnectFactory.GetValue<string>(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
+                                BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValue<int>(reader, "BarCodeTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
+                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureUnitId")),
+                                Contragent = new ContregentDirect(SqlConnectFactory.GetValue<int>(reader, "ContragentId")),
+                            };
+                            result.Add(barCode);
                         }
-                        reader.Close();
                     }
+                    reader.Close();
                 }
                 con.Close();
             }

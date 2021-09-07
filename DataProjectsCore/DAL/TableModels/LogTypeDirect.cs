@@ -39,20 +39,18 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Save(byte number, string icon)
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            StringUtils.SetStringValueTrim(ref icon, 32);
+            using (SqlCommand cmd = new(SqlQueries.DbServiceManaging.Tables.Logs.AddLogType))
             {
-                con.Open();
-                StringUtils.SetStringValueTrim(ref icon, 32);
-                using (SqlCommand cmd = new SqlCommand(SqlQueries.DbServiceManaging.Tables.Logs.AddLogType))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("@number", number);
-                    cmd.Parameters.AddWithValue("@icon", icon);
-                    cmd.ExecuteNonQuery();
-                }
-                con.Close();
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@number", number);
+                cmd.Parameters.AddWithValue("@icon", icon);
+                cmd.ExecuteNonQuery();
             }
+            con.Close();
         }
 
         public void Save()
