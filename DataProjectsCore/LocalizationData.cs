@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.Interfaces;
@@ -11,25 +12,22 @@ namespace DataCore
 {
     public static class LocalizationData
     {
-        public static EnumLang Lang { get; set; } = EnumLang.Russian;
+        public static ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
 
         public static class DeviceControl
         {
             #region Main
 
-            public static string Index => Lang == EnumLang.English ? @"DeviceControl" : @"Управление устройствами";
-            public static string IndexContinue => Lang == EnumLang.English
-                ? @"Click on a menu section to continue."
-                : @"Нажмите на раздел меню, чтобы продолжить.";
+            public static string Index => Lang == ShareEnums.Lang.English ? @"DeviceControl" : @"Управление устройствами";
+            public static string IndexContinue => Lang == ShareEnums.Lang.English
+                ? @"Click on a menu section to continue." : @"Нажмите на раздел меню, чтобы продолжить.";
             public static string SqlServerDebug => "CREATIO";
             public static string SqlServerRelease => "PALYCH";
-            public static string CallbackEmail => Lang == EnumLang.English ?
-                    @"mailto:morozov_dv@kolbasa-vs.ru&subject=device-control.kolbasa-vs.local" :
-                    @"mailto:morozov_dv@kolbasa-vs.ru&subject=device-control.kolbasa-vs.local";
-            public const string DataRecords = @"записей";
+            public static string CallbackEmail => @"mailto:morozov_dv@kolbasa-vs.ru&subject=device-control.kolbasa-vs.local";
+            public static string DataRecords => Lang == ShareEnums.Lang.English ? "records" : "записей";
             #endregion
             #region Комплексы промышленных устройств
-            public static string DevicesTitle => Lang == EnumLang.English ? @"Complexes of industrial devices" : @"Комплексы промышленных устройств";
+            public static string DevicesTitle => Lang == ShareEnums.Lang.English ? @"Complexes of industrial devices" : @"Комплексы промышленных устройств";
             #endregion
             #region URI route item
             public const string UriRouteItemContragent = "/item/contragent";
@@ -64,69 +62,69 @@ namespace DataCore
             public const string UriRouteSectionWorkshops = "/section/workshops";
             #endregion
             #region Items scales
-            public static string ItemBarCodeType => Lang == EnumLang.English ? @"Barcodes type" : @"Тип штрихкода";
-            public static string ItemBarcode => Lang == EnumLang.English ? @"Barcode" : @"Штрихкод";
-            public static string ItemContragent => Lang == EnumLang.English ? @"Counterparty" : @"Контрагент";
-            public static string ItemFont => Lang == EnumLang.English ? @"Font" : @"Шрифт";
-            public static string ItemHost => Lang == EnumLang.English ? @"Host" : @"Хост";
-            public static string ItemLabel => Lang == EnumLang.English ? @"Label" : @"Этикетка";
-            public static string ItemLogo => Lang == EnumLang.English ? @"Logo" : @"Логотип";
-            public static string ItemNomenclatureUnit => Lang == EnumLang.English ? @"Package" : @"Упаковка";
-            public static string ItemNomenclature => Lang == EnumLang.English ? @"Nomenclature" : @"Номенклатура";
-            public static string ItemOrderStatus => Lang == EnumLang.English ? @"Order status" : @"Статус заказа";
-            public static string ItemOrderType => Lang == EnumLang.English ? @"Order type" : @"Типы заказа";
-            public static string ItemOrder => Lang == EnumLang.English ? @"Order" : @"Заказ";
-            public static string ItemPlu => Lang == EnumLang.English ? @"PLU" : @"ПЛУ";
-            public static string ItemPrinterResource => Lang == EnumLang.English ? @"Printer resource" : @"Ресурс принтера";
-            public static string ItemPrinterType => Lang == EnumLang.English ? @"Printer type" : @"Тип принтера";
-            public static string ItemPrinter => Lang == EnumLang.English ? @"Printer" : @"Принтер";
-            public static string ItemProductSeries => Lang == EnumLang.English ? @"Product series" : @"Серия продукта";
-            public static string ItemProductionFacility => Lang == EnumLang.English ? @"Prod. facility" : @"Произв. площадка";
-            public static string ItemResource => Lang == EnumLang.English ? @"Resource" : @"Ресурс";
-            public static string ItemScale => Lang == EnumLang.English ? @"Device" : @"Устройство";
-            public static string ItemTemplateResource => Lang == EnumLang.English ? @"Template resource" : @"Ресурс шаблона";
-            public static string ItemTemplate => Lang == EnumLang.English ? @"Template" : @"Шаблон";
-            public static string ItemWeithingFact => Lang == EnumLang.English ? @"Weithing fact" : @"Взвешивание";
-            public static string ItemWorkshop => Lang == EnumLang.English ? @"Workshop" : @"Цех";
+            public static string ItemBarCodeType => Lang == ShareEnums.Lang.English ? @"Barcodes type" : @"Тип штрихкода";
+            public static string ItemBarcode => Lang == ShareEnums.Lang.English ? @"Barcode" : @"Штрихкод";
+            public static string ItemContragent => Lang == ShareEnums.Lang.English ? @"Counterparty" : @"Контрагент";
+            public static string ItemFont => Lang == ShareEnums.Lang.English ? @"Font" : @"Шрифт";
+            public static string ItemHost => Lang == ShareEnums.Lang.English ? @"Host" : @"Хост";
+            public static string ItemLabel => Lang == ShareEnums.Lang.English ? @"Label" : @"Этикетка";
+            public static string ItemLogo => Lang == ShareEnums.Lang.English ? @"Logo" : @"Логотип";
+            public static string ItemNomenclatureUnit => Lang == ShareEnums.Lang.English ? @"Package" : @"Упаковка";
+            public static string ItemNomenclature => Lang == ShareEnums.Lang.English ? @"Nomenclature" : @"Номенклатура";
+            public static string ItemOrderStatus => Lang == ShareEnums.Lang.English ? @"Order status" : @"Статус заказа";
+            public static string ItemOrderType => Lang == ShareEnums.Lang.English ? @"Order type" : @"Типы заказа";
+            public static string ItemOrder => Lang == ShareEnums.Lang.English ? @"Order" : @"Заказ";
+            public static string ItemPlu => Lang == ShareEnums.Lang.English ? @"PLU" : @"ПЛУ";
+            public static string ItemPrinterResource => Lang == ShareEnums.Lang.English ? @"Printer resource" : @"Ресурс принтера";
+            public static string ItemPrinterType => Lang == ShareEnums.Lang.English ? @"Printer type" : @"Тип принтера";
+            public static string ItemPrinter => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
+            public static string ItemProductSeries => Lang == ShareEnums.Lang.English ? @"Product series" : @"Серия продукта";
+            public static string ItemProductionFacility => Lang == ShareEnums.Lang.English ? @"Prod. facility" : @"Произв. площадка";
+            public static string ItemResource => Lang == ShareEnums.Lang.English ? @"Resource" : @"Ресурс";
+            public static string ItemScale => Lang == ShareEnums.Lang.English ? @"Device" : @"Устройство";
+            public static string ItemTemplateResource => Lang == ShareEnums.Lang.English ? @"Template resource" : @"Ресурс шаблона";
+            public static string ItemTemplate => Lang == ShareEnums.Lang.English ? @"Template" : @"Шаблон";
+            public static string ItemWeithingFact => Lang == ShareEnums.Lang.English ? @"Weithing fact" : @"Взвешивание";
+            public static string ItemWorkshop => Lang == ShareEnums.Lang.English ? @"Workshop" : @"Цех";
             #endregion
             #region Sections
-            public static string SectionBarCodeTypes => Lang == EnumLang.English ? @"Barcodes types" : @"Типы штрихкодов";
-            public static string SectionBarcodes => Lang == EnumLang.English ? @"Barcodes" : @"Штрихкоды";
-            public static string SectionContragents => Lang == EnumLang.English ? @"Counterparties" : @"Контрагенты";
-            public static string SectionFonts => Lang == EnumLang.English ? @"Fonts" : @"Шрифты";
-            public static string SectionHosts => Lang == EnumLang.English ? @"Hosts" : @"Хосты";
-            public static string SectionLabels => Lang == EnumLang.English ? @"Labels" : @"Этикетки";
-            public static string SectionLogos => Lang == EnumLang.English ? @"Logos" : @"Логотипы";
-            public static string SectionLogs => Lang == EnumLang.English ? @"Logs" : @"Логи";
-            public static string SectionNomenclatureUnits => Lang == EnumLang.English ? @"Packages" : @"Упаковки";
-            public static string SectionNomenclatures => Lang == EnumLang.English ? @"Nomenclatures" : @"Номенклатура";
-            public static string SectionOrderStatuses => Lang == EnumLang.English ? @"Order statuses" : @"Статусы заказов";
-            public static string SectionOrderTypes => Lang == EnumLang.English ? @"Order types" : @"Типы заказов";
-            public static string SectionOrders => Lang == EnumLang.English ? @"Orders" : @"Заказы";
-            public static string SectionPlus => Lang == EnumLang.English ? @"PLU" : @"ПЛУ";
-            public static string SectionPrinterResources => Lang == EnumLang.English ? @"Printer resources" : @"Ресурсы принтера";
-            public static string SectionPrinterTypes => Lang == EnumLang.English ? @"Printer types" : @"Типы принтеров";
-            public static string SectionPrinters => Lang == EnumLang.English ? @"Printers" : @"Принтеры";
-            public static string SectionProductSeries => Lang == EnumLang.English ? @"Product series" : @"Серии продуктов";
-            public static string SectionProductionFacilities => Lang == EnumLang.English ? @"Prod. facilities" : @"Произв. площадки";
-            public static string SectionResources => Lang == EnumLang.English ? @"Resources" : @"Ресурсы";
-            public static string SectionScales => Lang == EnumLang.English ? @"Devices" : @"Устройства";
-            public static string SectionTemplateResources => Lang == EnumLang.English ? @"Template resources" : @"Ресурсы шаблонов";
-            public static string SectionTemplates => Lang == EnumLang.English ? @"Templates" : @"Шаблоны";
-            public static string SectionWeithingFacts => Lang == EnumLang.English ? @"Weithing facts" : @"Взвешивания";
-            public static string SectionWorkshops => Lang == EnumLang.English ? @"Workshops" : @"Цеха";
+            public static string SectionBarCodeTypes => Lang == ShareEnums.Lang.English ? @"Barcodes types" : @"Типы штрихкодов";
+            public static string SectionBarcodes => Lang == ShareEnums.Lang.English ? @"Barcodes" : @"Штрихкоды";
+            public static string SectionContragents => Lang == ShareEnums.Lang.English ? @"Counterparties" : @"Контрагенты";
+            public static string SectionFonts => Lang == ShareEnums.Lang.English ? @"Fonts" : @"Шрифты";
+            public static string SectionHosts => Lang == ShareEnums.Lang.English ? @"Hosts" : @"Хосты";
+            public static string SectionLabels => Lang == ShareEnums.Lang.English ? @"Labels" : @"Этикетки";
+            public static string SectionLogos => Lang == ShareEnums.Lang.English ? @"Logos" : @"Логотипы";
+            public static string SectionLogs => Lang == ShareEnums.Lang.English ? @"Logs" : @"Логи";
+            public static string SectionNomenclatureUnits => Lang == ShareEnums.Lang.English ? @"Packages" : @"Упаковки";
+            public static string SectionNomenclatures => Lang == ShareEnums.Lang.English ? @"Nomenclatures" : @"Номенклатура";
+            public static string SectionOrderStatuses => Lang == ShareEnums.Lang.English ? @"Order statuses" : @"Статусы заказов";
+            public static string SectionOrderTypes => Lang == ShareEnums.Lang.English ? @"Order types" : @"Типы заказов";
+            public static string SectionOrders => Lang == ShareEnums.Lang.English ? @"Orders" : @"Заказы";
+            public static string SectionPlus => Lang == ShareEnums.Lang.English ? @"PLU" : @"ПЛУ";
+            public static string SectionPrinterResources => Lang == ShareEnums.Lang.English ? @"Printer resources" : @"Ресурсы принтера";
+            public static string SectionPrinterTypes => Lang == ShareEnums.Lang.English ? @"Printer types" : @"Типы принтеров";
+            public static string SectionPrinters => Lang == ShareEnums.Lang.English ? @"Printers" : @"Принтеры";
+            public static string SectionProductSeries => Lang == ShareEnums.Lang.English ? @"Product series" : @"Серии продуктов";
+            public static string SectionProductionFacilities => Lang == ShareEnums.Lang.English ? @"Prod. facilities" : @"Произв. площадки";
+            public static string SectionResources => Lang == ShareEnums.Lang.English ? @"Resources" : @"Ресурсы";
+            public static string SectionScales => Lang == ShareEnums.Lang.English ? @"Devices" : @"Устройства";
+            public static string SectionTemplateResources => Lang == ShareEnums.Lang.English ? @"Template resources" : @"Ресурсы шаблонов";
+            public static string SectionTemplates => Lang == ShareEnums.Lang.English ? @"Templates" : @"Шаблоны";
+            public static string SectionWeithingFacts => Lang == ShareEnums.Lang.English ? @"Weithing facts" : @"Взвешивания";
+            public static string SectionWorkshops => Lang == ShareEnums.Lang.English ? @"Workshops" : @"Цеха";
             #endregion
             #region Tables
-            public static string TableActionAdd => Lang == EnumLang.English ? @"Add" : @"Добавить";
-            public static string TableActionCancel => Lang == EnumLang.English ? @"Cancel" : @"Отмена";
-            public static string TableActionClear => Lang == EnumLang.English ? @"Clear" : @"Очистить";
-            public static string TableActionCopy => Lang == EnumLang.English ? @"Copy" : @"Копировать";
-            public static string TableActionDelete => Lang == EnumLang.English ? @"Delete" : @"Удалить";
-            public static string TableActionEdit => Lang == EnumLang.English ? @"Edit" : @"Редактировать";
-            public static string TableActionMark => Lang == EnumLang.English ? @"Mark" : @"Пометить";
-            public static string TableActionNew => Lang == EnumLang.English ? @"New" : @"Новый";
-            public static string TableActionFill => Lang == EnumLang.English ? @"Fill" : @"Заполнить";
-            public static string TableActionSave => Lang == EnumLang.English ? @"Save" : @"Сохранить";
+            public static string TableActionAdd => Lang == ShareEnums.Lang.English ? @"Add" : @"Добавить";
+            public static string TableActionCancel => Lang == ShareEnums.Lang.English ? @"Cancel" : @"Отмена";
+            public static string TableActionClear => Lang == ShareEnums.Lang.English ? @"Clear" : @"Очистить";
+            public static string TableActionCopy => Lang == ShareEnums.Lang.English ? @"Copy" : @"Копировать";
+            public static string TableActionDelete => Lang == ShareEnums.Lang.English ? @"Delete" : @"Удалить";
+            public static string TableActionEdit => Lang == ShareEnums.Lang.English ? @"Edit" : @"Редактировать";
+            public static string TableActionMark => Lang == ShareEnums.Lang.English ? @"Mark" : @"Пометить";
+            public static string TableActionNew => Lang == ShareEnums.Lang.English ? @"New" : @"Новый";
+            public static string TableActionFill => Lang == ShareEnums.Lang.English ? @"Fill" : @"Заполнить";
+            public static string TableActionSave => Lang == ShareEnums.Lang.English ? @"Save" : @"Сохранить";
 
             public const string TableActions = @"Действия";
             public const string TableActionsIsDeny = @"Действия недоступны";
@@ -229,17 +227,17 @@ namespace DataCore
             public const string TableFieldWorkShopId = @"ID цеха";
             public const string TableFieldWorkShopName = @"Цех";
             public const string TableFieldXml = @"XML";
-            public static string TableFieldPrinter => Lang == EnumLang.English ? @"Printer" : @"Принтер";
-            public static string TableFieldPrinterControlPanel => Lang == EnumLang.English ? @"Printer control panel" : @"Панель управления принтером";
-            public static string TableFieldPrinterDarknessLevel => Lang == EnumLang.English ? @"Level of darkness" : @"Уровень темноты";
-            public static string TableFieldPrinterIp => Lang == EnumLang.English ? @"IP-address" : @"IP-адрес";
-            public static string TableFieldPrinterMac => Lang == EnumLang.English ? @"MAC-address" : @"MAC-адрес";
-            public static string TableFieldPrinterPassword => Lang == EnumLang.English ? @"Printer password" : @"Пароль принтера";
-            public static string TableFieldPrinterPeelOffSet => Lang == EnumLang.English ? @"Offset" : @"Смещение";
-            public static string TableFieldPrinterPort => Lang == EnumLang.English ? @"Printer port" : @"Порт принтера";
-            public static string TableFieldPrinterType => Lang == EnumLang.English ? @"Printer type" : @"Тип принтера";
-            public static string TableReadData => Lang == EnumLang.English ? @"Read data" : @"Прочитать данные";
-            public static string Table => Lang == EnumLang.English ? @"Table" : @"Таблица";
+            public static string TableFieldPrinter => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
+            public static string TableFieldPrinterControlPanel => Lang == ShareEnums.Lang.English ? @"Printer control panel" : @"Панель управления принтером";
+            public static string TableFieldPrinterDarknessLevel => Lang == ShareEnums.Lang.English ? @"Level of darkness" : @"Уровень темноты";
+            public static string TableFieldPrinterIp => Lang == ShareEnums.Lang.English ? @"IP-address" : @"IP-адрес";
+            public static string TableFieldPrinterMac => Lang == ShareEnums.Lang.English ? @"MAC-address" : @"MAC-адрес";
+            public static string TableFieldPrinterPassword => Lang == ShareEnums.Lang.English ? @"Printer password" : @"Пароль принтера";
+            public static string TableFieldPrinterPeelOffSet => Lang == ShareEnums.Lang.English ? @"Offset" : @"Смещение";
+            public static string TableFieldPrinterPort => Lang == ShareEnums.Lang.English ? @"Printer port" : @"Порт принтера";
+            public static string TableFieldPrinterType => Lang == ShareEnums.Lang.English ? @"Printer type" : @"Тип принтера";
+            public static string TableReadData => Lang == ShareEnums.Lang.English ? @"Read data" : @"Прочитать данные";
+            public static string Table => Lang == ShareEnums.Lang.English ? @"Table" : @"Таблица";
             #endregion
         }
 
@@ -251,51 +249,51 @@ namespace DataCore
         public static class Resources
         {
             #region Main
-            public static string AppTitle => Lang == EnumLang.English ? @"Resources VS" : @"Ресурсы ВС";
-            public static string CallbackEmail => Lang == EnumLang.English ?
+            public static string AppTitle => Lang == ShareEnums.Lang.English ? @"Resources VS" : @"Ресурсы ВС";
+            public static string CallbackEmail => Lang == ShareEnums.Lang.English ?
                 @"mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local" :
                 @"mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local";
-            public static string SysAdmin => Lang == EnumLang.English ? @"Administration" : @"Администрирование";
+            public static string SysAdmin => Lang == ShareEnums.Lang.English ? @"Administration" : @"Администрирование";
             public static string SupportCreatio =>
-                Lang == EnumLang.English
+                Lang == ShareEnums.Lang.English
                     ? @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/"
                     : @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/";
             #endregion
             #region Support
-            public static string SupportTitle => Lang == EnumLang.English ? @"Support service" : @"Служба поддержки";
-            public static string SupportLinkCreatioText => Lang == EnumLang.English ? @"Creatio appeals" : @"Creatio обращения";
-            public static string SupportLinkHelpText => Lang == EnumLang.English ? @"Write a letter" : @"Написать письмо";
+            public static string SupportTitle => Lang == ShareEnums.Lang.English ? @"Support service" : @"Служба поддержки";
+            public static string SupportLinkCreatioText => Lang == ShareEnums.Lang.English ? @"Creatio appeals" : @"Creatio обращения";
+            public static string SupportLinkHelpText => Lang == ShareEnums.Lang.English ? @"Write a letter" : @"Написать письмо";
 
             public static string SupportLinkHelpPath =>
-                Lang == EnumLang.English
+                Lang == ShareEnums.Lang.English
                     ? @"mailto:helpdesk@kolbasa-vs.ru?subject=Appeal"
                     : @"mailto:helpdesk@kolbasa-vs.ru?subject=Обращение";
 
             #endregion
             #region Contacts
-            public static string ContactsTitle => Lang == EnumLang.English ? @"Contacts" : @"Контакты";
-            public static string ContactsPhoneText => Lang == EnumLang.English ? @"Phone directory" : @"Телефонный справочник";
+            public static string ContactsTitle => Lang == ShareEnums.Lang.English ? @"Contacts" : @"Контакты";
+            public static string ContactsPhoneText => Lang == ShareEnums.Lang.English ? @"Phone directory" : @"Телефонный справочник";
 
             public static string ContactsPhonePath =>
-                Lang == EnumLang.English
+                Lang == ShareEnums.Lang.English
                     ? @"http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP"
                     : @"http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP";
 
-            public static string ContactsCreatioText => Lang == EnumLang.English ? @"Creatio contacts" : @"Creatio контакты";
+            public static string ContactsCreatioText => Lang == ShareEnums.Lang.English ? @"Creatio contacts" : @"Creatio контакты";
 
             public static string ContactsCreatioPath =>
-                Lang == EnumLang.English
+                Lang == ShareEnums.Lang.English
                     ? @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/"
                     : @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/";
 
             #endregion
             #region IT department
-            public static string DepartmentItTitle => Lang == EnumLang.English ? @"IT department" : @"ИТ отдел";
+            public static string DepartmentItTitle => Lang == ShareEnums.Lang.English ? @"IT department" : @"ИТ отдел";
 
             #endregion
             #region Redmine
-            public static string RedmineTitle => Lang == EnumLang.English ? @"Redmine" : @"Redmine";
-            public static string RedmineWikiText => Lang == EnumLang.English ? @"Wiki" : @"Wiki";
+            public static string RedmineTitle => Lang == ShareEnums.Lang.English ? @"Redmine" : @"Redmine";
+            public static string RedmineWikiText => Lang == ShareEnums.Lang.English ? @"Wiki" : @"Wiki";
             public const string RedmineWikiPath = @"http://192.168.0.50/projects/resources_it/wiki/Wiki";
             public const string RedmineProjectsText = @"проекты";
             public const string RedmineProjectsPath = @"http://192.168.0.50/projects";
@@ -303,78 +301,78 @@ namespace DataCore
             public const string RedmineGooglePath = @"http://192.168.0.50/projects/resources_it/wiki/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%B3%D1%83%D0%B3%D0%BB_%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B";
             #endregion
             #region Zabbix
-            public static string ZabbixTitle => Lang == EnumLang.English ? @"Zabbix" : @"Zabbix";
-            public static string ZabbixKolbasaText => Lang == EnumLang.English ? @"kolbasa-vs-terrasoft" : @"kolbasa-vs-terrasoft";
+            public static string ZabbixTitle => Lang == ShareEnums.Lang.English ? @"Zabbix" : @"Zabbix";
+            public static string ZabbixKolbasaText => Lang == ShareEnums.Lang.English ? @"kolbasa-vs-terrasoft" : @"kolbasa-vs-terrasoft";
 
             public static string ZabbixKolbasaPath =>
-                Lang == EnumLang.English
+                Lang == ShareEnums.Lang.English
                     ? @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7"
                     : @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
 
-            public static string ZabbixGlobalText => Lang == EnumLang.English ? @"Global view" : @"Глобальное представление";
+            public static string ZabbixGlobalText => Lang == ShareEnums.Lang.English ? @"Global view" : @"Глобальное представление";
 
             public static string ZabbixGlobalPath =>
-                Lang == EnumLang.English
+                Lang == ShareEnums.Lang.English
                     ? @"http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view"
                     : @"http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view";
 
-            public static string ZabbixWebText => Lang == EnumLang.English ? @"Web monitoring" : @"Веб-мониторинг";
+            public static string ZabbixWebText => Lang == ShareEnums.Lang.English ? @"Web monitoring" : @"Веб-мониторинг";
 
             public static string ZabbixWebPath =>
-                Lang == EnumLang.English
+                Lang == ShareEnums.Lang.English
                     ? @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7"
                     : @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
 
             #endregion
             #region Creatio
-            public static string CreatioTitle => Lang == EnumLang.English ? @"Creatio-server" : @"Creatio-сервер";
-            public static string CreatioWebinarsText => Lang == EnumLang.English ? @"Webinars" : @"Вебинары";
+            public static string CreatioTitle => Lang == ShareEnums.Lang.English ? @"Creatio-server" : @"Creatio-сервер";
+            public static string CreatioWebinarsText => Lang == ShareEnums.Lang.English ? @"Webinars" : @"Вебинары";
             public const string CreatioWebinarsPath = @"\\isexcd02\Webinars\";
-            public static string CreatioOfficialTitle => Lang == EnumLang.English ? @"The official sites of Terrasoft Creatio" : @"Официальные сайты Terrasoft Creatio";
-            public static string CreatioAcademyText => Lang == EnumLang.English ? @"Academy" : @"Академия";
+            public static string CreatioOfficialTitle => Lang == ShareEnums.Lang.English ? @"The official sites of Terrasoft Creatio" : @"Официальные сайты Terrasoft Creatio";
+            public static string CreatioAcademyText => Lang == ShareEnums.Lang.English ? @"Academy" : @"Академия";
             public const string CreatioAcademyPath = @"https://academy.terrasoft.ru/";
-            public static string CreatioMarketplaceText => Lang == EnumLang.English ? @"Marketplace" : @"Маркетплейс";
+            public static string CreatioMarketplaceText => Lang == ShareEnums.Lang.English ? @"Marketplace" : @"Маркетплейс";
             public const string CreatioMarketplacePath = @"https://marketplace.terrasoft.ru/";
-            public static string CreatioCommunityText => Lang == EnumLang.English ? @"Community" : @"Сообщество";
+            public static string CreatioCommunityText => Lang == ShareEnums.Lang.English ? @"Community" : @"Сообщество";
             public const string CreatioCommunityPath = @"https://community.terrasoft.ru/";
-            public static string CreatioTableTitle => Lang == EnumLang.English ? @"Локальные сайты" : @"Локальные сайты";
-            public static string CreatioTableFieldName => Lang == EnumLang.English ? @"Site" : @"Сайт";
-            public static string CreatioTableFieldLink => Lang == EnumLang.English ? @"Link" : @"Ссылка";
-            public static string CreatioTableFieldDev => Lang == EnumLang.English ? @"Configuration" : @"Конфигурация";
-            public static string CreatioCreDevDmName => Lang == EnumLang.English ? @"Website development Morozov D.V." : @"Сайт разработки Морозов Д.В.";
+            public static string CreatioTableTitle => Lang == ShareEnums.Lang.English ? @"Локальные сайты" : @"Локальные сайты";
+            public static string CreatioTableFieldName => Lang == ShareEnums.Lang.English ? @"Site" : @"Сайт";
+            public static string CreatioTableFieldLink => Lang == ShareEnums.Lang.English ? @"Link" : @"Ссылка";
+            public static string CreatioTableFieldDev => Lang == ShareEnums.Lang.English ? @"Configuration" : @"Конфигурация";
+            public static string CreatioCreDevDmName => Lang == ShareEnums.Lang.English ? @"Website development Morozov D.V." : @"Сайт разработки Морозов Д.В.";
             public const string CreatioCreDevDmLink = @"http://cre-dev-dm.kolbasa-vs.local/";
             public const string CreatioCreDevDmDev = @"http://cre-dev-dm.kolbasa-vs.local/0/dev";
-            public static string CreatioCreDevIaName => Lang == EnumLang.English ? @"Website development Andreev I.A." : @"Сайт разработки Андреев И.А.";
+            public static string CreatioCreDevIaName => Lang == ShareEnums.Lang.English ? @"Website development Andreev I.A." : @"Сайт разработки Андреев И.А.";
             public const string CreatioCreDevIaLink = @"http://cre-dev-ia.kolbasa-vs.local/";
             public const string CreatioCreDevIaDev = @"http://cre-dev-ia.kolbasa-vs.local/0/dev";
-            public static string CreatioCreTestName => Lang == EnumLang.English ? @"Website testing" : @"Сайт тестирования";
+            public static string CreatioCreTestName => Lang == ShareEnums.Lang.English ? @"Website testing" : @"Сайт тестирования";
             public const string CreatioCreTestLink = @"http://cre-test.kolbasa-vs.local/";
             public const string CreatioCreTestDev = @"http://cre-test.kolbasa-vs.local/0/dev";
-            public static string CreatioCreStudyText => Lang == EnumLang.English ? @"cre-study | Training site" : @"cre-study | Сайт обучения";
+            public static string CreatioCreStudyText => Lang == ShareEnums.Lang.English ? @"cre-study | Training site" : @"cre-study | Сайт обучения";
             public const string CreatioCreStudyPath = @"http://cre-study.kolbasa-vs.local/";
-            public static string CreatioCreStudyDevText => Lang == EnumLang.English ? @"cre-study | Training Configuration" : @"cre-study | Конфигурация обучения";
+            public static string CreatioCreStudyDevText => Lang == ShareEnums.Lang.English ? @"cre-study | Training Configuration" : @"cre-study | Конфигурация обучения";
             public const string CreatioCreStudyDevPath = @"http://cre-study.kolbasa-vs.local/0/dev";
-            public static string CreatioCreUpgradeText => Lang == EnumLang.English ? @"Cre-upgrade | update site" : @"cre-upgrade | Сайт обновления";
+            public static string CreatioCreUpgradeText => Lang == ShareEnums.Lang.English ? @"Cre-upgrade | update site" : @"cre-upgrade | Сайт обновления";
             public const string CreatioCreUpgradePath = @"http://cre-upgrade.kolbasa-vs.local/";
-            public static string CreatioCreUpgradeDevText => Lang == EnumLang.English ? @"Cre-upgrade | Upgrade Configuration" : @"cre-upgrade | Конфигурация обновления";
+            public static string CreatioCreUpgradeDevText => Lang == ShareEnums.Lang.English ? @"Cre-upgrade | Upgrade Configuration" : @"cre-upgrade | Конфигурация обновления";
             public const string CreatioCreUpgradeDevPath = @"http://cre-upgrade.kolbasa-vs.local/0/dev";
-            public static string CreatioRemoteTitle => Lang == EnumLang.English ? @"Public sites" : @"Публичные сайты";
-            public static string CreatioTerrasoftPreText => Lang == EnumLang.English
+            public static string CreatioRemoteTitle => Lang == ShareEnums.Lang.English ? @"Public sites" : @"Публичные сайты";
+            public static string CreatioTerrasoftPreText => Lang == ShareEnums.Lang.English
                 ? @"dev-kolbasa-vs.terrasoft.ru | Site pre-prod 1" : @"dev-kolbasa-vs.terrasoft.ru | Сайт пре-прод 1";
             public const string CreatioTerrasoftPrePath = @"https://dev-kolbasa-vs.terrasoft.ru/";
-            public static string CreatioTerrasoftPreDevText => Lang == EnumLang.English
+            public static string CreatioTerrasoftPreDevText => Lang == ShareEnums.Lang.English
                 ? @"dev-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : @"dev-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
             public const string CreatioTerrasoftPreDevPath = @"https://dev-kolbasa-vs.terrasoft.ru/0/dev";
-            public static string CreatioTerrasoftPre2Text => Lang == EnumLang.English
+            public static string CreatioTerrasoftPre2Text => Lang == ShareEnums.Lang.English
                 ? @"dev2-kolbasa-vs.terrasoft.ru | Pre-prod 2 website" : @"dev2-kolbasa-vs.terrasoft.ru | Сайт пре-прод 2";
             public const string CreatioTerrasoftPre2Path = @"https://dev2-kolbasa-vs.terrasoft.ru/";
-            public static string CreatioTerrasoftPre2DevText => Lang == EnumLang.English
+            public static string CreatioTerrasoftPre2DevText => Lang == ShareEnums.Lang.English
                 ? @"dev2-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : @"dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
             public const string CreatioTerrasoftPre2DevPath = @"https://dev2-kolbasa-vs.terrasoft.ru/0/dev";
-            public static string CreatioTerrasoftText => Lang == EnumLang.English
+            public static string CreatioTerrasoftText => Lang == ShareEnums.Lang.English
                 ? @"kolbasa-vs.terrasoft.ru | Product environment" : @"dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
             public const string CreatioTerrasoftPath = @"https://kolbasa-vs.terrasoft.ru/";
-            public static string CreatioTerrasoftDevText => Lang == EnumLang.English
+            public static string CreatioTerrasoftDevText => Lang == ShareEnums.Lang.English
                 ? @"kolbasa-vs.terrasoft.ru | Configuration of the product environment" : @"kolbasa-vs.terrasoft.ru | Конфигурация продуктовой среды";
             public const string CreatioTerrasoftDevPath = @"https://kolbasa-vs.terrasoft.ru/0/dev";
             #endregion
@@ -417,10 +415,10 @@ namespace DataCore
                 {
                     switch (tableSystem.Value)
                     {
-                        case EnumTableSystem.Accesses:
+                        case ProjectsEnums.TableSystem.Accesses:
                             result = Strings.ItemAccess;
                             break;
-                        case EnumTableSystem.Logs:
+                        case ProjectsEnums.TableSystem.Logs:
                             result = Strings.ItemLog;
                             break;
                     }
@@ -429,61 +427,61 @@ namespace DataCore
                 {
                     switch (tableScales.Value)
                     {
-                        case EnumTableScale.BarcodeTypes:
+                        case ProjectsEnums.TableScale.BarcodeTypes:
                             result = DeviceControl.ItemBarCodeType;
                             break;
-                        case EnumTableScale.Contragents:
+                        case ProjectsEnums.TableScale.Contragents:
                             result = DeviceControl.ItemContragent;
                             break;
-                        case EnumTableScale.Hosts:
+                        case ProjectsEnums.TableScale.Hosts:
                             result = DeviceControl.ItemHost;
                             break;
-                        case EnumTableScale.Labels:
+                        case ProjectsEnums.TableScale.Labels:
                             result = DeviceControl.ItemLabel;
                             break;
-                        case EnumTableScale.Nomenclatures:
+                        case ProjectsEnums.TableScale.Nomenclatures:
                             result = DeviceControl.ItemNomenclature;
                             break;
-                        case EnumTableScale.OrderStatuses:
+                        case ProjectsEnums.TableScale.OrderStatuses:
                             result = DeviceControl.ItemOrderStatus;
                             break;
-                        case EnumTableScale.OrderTypes:
+                        case ProjectsEnums.TableScale.OrderTypes:
                             result = DeviceControl.ItemOrderType;
                             break;
-                        case EnumTableScale.Orders:
+                        case ProjectsEnums.TableScale.Orders:
                             result = DeviceControl.ItemOrder;
                             break;
-                        case EnumTableScale.Plus:
+                        case ProjectsEnums.TableScale.Plus:
                             result = DeviceControl.ItemPlu;
                             break;
-                        case EnumTableScale.Printers:
+                        case ProjectsEnums.TableScale.Printers:
                             result = DeviceControl.ItemPrinter;
                             break;
-                        case EnumTableScale.PrinterResources:
+                        case ProjectsEnums.TableScale.PrinterResources:
                             result = DeviceControl.ItemPrinterResource;
                             break;
-                        case EnumTableScale.PrinterTypes:
+                        case ProjectsEnums.TableScale.PrinterTypes:
                             result = DeviceControl.ItemPrinterType;
                             break;
-                        case EnumTableScale.ProductSeries:
+                        case ProjectsEnums.TableScale.ProductSeries:
                             result = DeviceControl.ItemProductSeries;
                             break;
-                        case EnumTableScale.ProductionFacilities:
+                        case ProjectsEnums.TableScale.ProductionFacilities:
                             result = DeviceControl.ItemProductionFacility;
                             break;
-                        case EnumTableScale.Scales:
+                        case ProjectsEnums.TableScale.Scales:
                             result = DeviceControl.ItemScale;
                             break;
-                        case EnumTableScale.TemplateResources:
+                        case ProjectsEnums.TableScale.TemplateResources:
                             result = DeviceControl.ItemTemplateResource;
                             break;
-                        case EnumTableScale.Templates:
+                        case ProjectsEnums.TableScale.Templates:
                             result = DeviceControl.ItemTemplate;
                             break;
-                        case EnumTableScale.WeithingFacts:
+                        case ProjectsEnums.TableScale.WeithingFacts:
                             result = DeviceControl.ItemWeithingFact;
                             break;
-                        case EnumTableScale.Workshops:
+                        case ProjectsEnums.TableScale.Workshops:
                             result = DeviceControl.ItemWorkshop;
                             break;
                     }
@@ -508,10 +506,10 @@ namespace DataCore
                 {
                     switch (tableSystem.Value)
                     {
-                        case EnumTableSystem.Accesses:
+                        case ProjectsEnums.TableSystem.Accesses:
                             result = Strings.SectionAccess;
                             break;
-                        case EnumTableSystem.Logs:
+                        case ProjectsEnums.TableSystem.Logs:
                             result = Strings.SectionLog;
                             break;
                     }
@@ -520,61 +518,61 @@ namespace DataCore
                 {
                     switch (tableScales.Value)
                     {
-                        case EnumTableScale.BarcodeTypes:
+                        case ProjectsEnums.TableScale.BarcodeTypes:
                             result = DeviceControl.SectionBarcodes;
                             break;
-                        case EnumTableScale.Contragents:
+                        case ProjectsEnums.TableScale.Contragents:
                             result = DeviceControl.SectionContragents;
                             break;
-                        case EnumTableScale.Hosts:
+                        case ProjectsEnums.TableScale.Hosts:
                             result = DeviceControl.SectionHosts;
                             break;
-                        case EnumTableScale.Labels:
+                        case ProjectsEnums.TableScale.Labels:
                             result = DeviceControl.SectionLabels;
                             break;
-                        case EnumTableScale.Nomenclatures:
+                        case ProjectsEnums.TableScale.Nomenclatures:
                             result = DeviceControl.SectionNomenclatures;
                             break;
-                        case EnumTableScale.OrderStatuses:
+                        case ProjectsEnums.TableScale.OrderStatuses:
                             result = DeviceControl.SectionOrderStatuses;
                             break;
-                        case EnumTableScale.OrderTypes:
+                        case ProjectsEnums.TableScale.OrderTypes:
                             result = DeviceControl.SectionOrderTypes;
                             break;
-                        case EnumTableScale.Orders:
+                        case ProjectsEnums.TableScale.Orders:
                             result = DeviceControl.SectionOrders;
                             break;
-                        case EnumTableScale.Plus:
+                        case ProjectsEnums.TableScale.Plus:
                             result = DeviceControl.SectionPlus;
                             break;
-                        case EnumTableScale.Printers:
+                        case ProjectsEnums.TableScale.Printers:
                             result = DeviceControl.SectionPrinters;
                             break;
-                        case EnumTableScale.PrinterResources:
+                        case ProjectsEnums.TableScale.PrinterResources:
                             result = DeviceControl.SectionPrinterResources;
                             break;
-                        case EnumTableScale.PrinterTypes:
+                        case ProjectsEnums.TableScale.PrinterTypes:
                             result = DeviceControl.SectionPrinterTypes;
                             break;
-                        case EnumTableScale.ProductSeries:
+                        case ProjectsEnums.TableScale.ProductSeries:
                             result = DeviceControl.SectionProductSeries;
                             break;
-                        case EnumTableScale.ProductionFacilities:
+                        case ProjectsEnums.TableScale.ProductionFacilities:
                             result = DeviceControl.SectionProductionFacilities;
                             break;
-                        case EnumTableScale.Scales:
+                        case ProjectsEnums.TableScale.Scales:
                             result = DeviceControl.SectionScales;
                             break;
-                        case EnumTableScale.TemplateResources:
+                        case ProjectsEnums.TableScale.TemplateResources:
                             result = DeviceControl.SectionTemplateResources;
                             break;
-                        case EnumTableScale.Templates:
+                        case ProjectsEnums.TableScale.Templates:
                             result = DeviceControl.SectionTemplates;
                             break;
-                        case EnumTableScale.WeithingFacts:
+                        case ProjectsEnums.TableScale.WeithingFacts:
                             result = DeviceControl.SectionWeithingFacts;
                             break;
-                        case EnumTableScale.Workshops:
+                        case ProjectsEnums.TableScale.Workshops:
                             result = DeviceControl.SectionWorkshops;
                             break;
                     }

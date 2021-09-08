@@ -82,7 +82,7 @@ namespace ScalesUI.Forms
 
         private void NewButton(TableLayoutPanel panel, int offset, int i, OrderDirect order)
         {
-            var btn = new Button
+            Button btn = new Button
             {
                 Font = new Font("Arial", 16, FontStyle.Bold),
                 Text = order.ToString(),
@@ -120,9 +120,9 @@ namespace ScalesUI.Forms
         private void GetPage(TableLayoutPanel panel, int offset = 0, int rowCount = 10)
         {
             DropButtons(panel);
-            var i = 0;
+            int i = 0;
 
-            var page = _ordList.GetRange(offset * rowCount,
+            List<OrderDirect> page = _ordList.GetRange(offset * rowCount,
                 ((offset * rowCount + rowCount) < _ordList.Count()) ? (rowCount) : (_ordList.Count() - offset * rowCount));
 
             if (!page.Any())
@@ -131,7 +131,7 @@ namespace ScalesUI.Forms
                 ((offset * rowCount + rowCount) < _ordList.Count()) ? (rowCount) : (_ordList.Count() - offset * rowCount));
             }
 
-            foreach (var order in page)
+            foreach (OrderDirect order in page)
             {
                 panel.Size = new Size(200, tableLayoutPanel1.Size.Height + 100);
                 AddRow(panel, i);

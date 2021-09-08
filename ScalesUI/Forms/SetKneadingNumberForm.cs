@@ -13,7 +13,6 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
-        // Состояние устройства.
         private readonly SessionState _ws = SessionState.Instance;
         private int OldKneading { get; }
         private int OldPalletSize { get; }
@@ -29,7 +28,7 @@ namespace ScalesUI.Forms
             // WindowState = FormWindowState.Maximized;
             OldKneading = _ws.Kneading;
             OldProductDate = _ws.ProductDate;
-            OldPalletSize = _ws.PalletSize;
+            OldPalletSize = _ws.LabelsCount;
             buttonOk.Select();
         }
 
@@ -63,7 +62,7 @@ namespace ScalesUI.Forms
         {
             //_ws.RotateKneading(Direction.back);
 
-            var numberInputForm = new NumberInputForm();
+            NumberInputForm numberInputForm = new NumberInputForm();
             numberInputForm.InputValue = 0;// _ws.Kneading;
             if (numberInputForm.ShowDialog() == DialogResult.OK)
             {
@@ -84,7 +83,7 @@ namespace ScalesUI.Forms
             DialogResult = DialogResult.Cancel;
             _ws.Kneading = OldKneading;
             _ws.ProductDate = OldProductDate;
-            _ws.PalletSize = OldPalletSize;
+            _ws.LabelsCount = OldPalletSize;
             Close();
         }
 
@@ -96,66 +95,66 @@ namespace ScalesUI.Forms
 
         private void buttonDtRight_Click(object sender, EventArgs e)
         {
-            _ws.RotateProductDate(Direction.Forward);
+            _ws.RotateProductDate(ProjectsEnums.Direction.Forward);
             ShowProductDate();
         }
 
         private void buttonDtLeft_Click(object sender, EventArgs e)
         {
-            _ws.RotateProductDate(Direction.Back);
+            _ws.RotateProductDate(ProjectsEnums.Direction.Back);
             ShowProductDate();
         }
 
         private void buttonPalletSize10_Click(object sender, EventArgs e)
         {
-            var n = _ws.PalletSize == 1 ? 9 : 10;
-            for (var i = 0; i < n; i++)
+            int n = _ws.LabelsCount == 1 ? 9 : 10;
+            for (int i = 0; i < n; i++)
             {
-                _ws.RotatePalletSize(Direction.Forward);
+                _ws.RotatePalletSize(ProjectsEnums.Direction.Forward);
                 ShowPalletSize();
             }
         }
 
         private void ShowPalletSize()
         {
-            fieldPalletSize.Text = _ws.PalletSize.ToString();
+            fieldPalletSize.Text = _ws.LabelsCount.ToString();
         }
 
         private void buttonPalletSizeNext_Click(object sender, EventArgs e)
         {
-            _ws.RotatePalletSize(Direction.Forward);
+            _ws.RotatePalletSize(ProjectsEnums.Direction.Forward);
             ShowPalletSize();
         }
 
         private void buttonPalletSizePrev_Click(object sender, EventArgs e)
         {
-            _ws.RotatePalletSize(Direction.Back);
+            _ws.RotatePalletSize(ProjectsEnums.Direction.Back);
             ShowPalletSize();
         }
 
         private void buttonSet40_Click(object sender, EventArgs e)
         {
-            _ws.PalletSize = 40;
+            _ws.LabelsCount = 40;
             ShowPalletSize();
         }
 
         private void buttonSet60_Click(object sender, EventArgs e)
         {
-            _ws.PalletSize = 60;
+            _ws.LabelsCount = 60;
             ShowPalletSize();
 
         }
 
         private void buttonSet120_Click(object sender, EventArgs e)
         {
-            _ws.PalletSize = 120;
+            _ws.LabelsCount = 120;
             ShowPalletSize();
 
         }
 
         private void buttonSet1_Click(object sender, EventArgs e)
         {
-            _ws.PalletSize = 1;
+            _ws.LabelsCount = 1;
             ShowPalletSize();
         }
 

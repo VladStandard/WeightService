@@ -8,8 +8,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.550] - 2021-09-08
 ### Changed
-- ShareEnums
-
-## [0.5.500] - 2021-09-02
-### Added
-- DataShareCore project
+- ProjectsEnums

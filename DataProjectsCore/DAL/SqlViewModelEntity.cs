@@ -3,6 +3,7 @@
 
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
+using DataShareCore;
 using Microsoft.Data.SqlClient;
 using MvvmHelpers;
 using System.Collections.Generic;
@@ -28,23 +29,23 @@ namespace DataProjectsCore.DAL
             DataSource = string.Empty;
             DataBase = string.Empty;
             Host = string.Empty;
-            PublishType = EnumPublishType.Default;
+            PublishType = ShareEnums.PublishType.Default;
             PublishDescription = "Неизвестный сервер";
 
             SqlInstance = GetInstance();
             if (SqlInstance.Equals("INS1"))
             {
-                PublishType = EnumPublishType.Debug;
+                PublishType = ShareEnums.PublishType.Debug;
                 PublishDescription = "Тестовый сервер";
             }
             else if (SqlInstance.Equals("SQL2019"))
             {
-                PublishType = EnumPublishType.Dev;
+                PublishType = ShareEnums.PublishType.Dev;
                 PublishDescription = "Сервер разработки";
             }
             else if (SqlInstance.Equals("LUTON"))
             {
-                PublishType = EnumPublishType.Release;
+                PublishType = ShareEnums.PublishType.Release;
                 PublishDescription = "Продуктовый сервер";
             }
 
@@ -72,7 +73,7 @@ namespace DataProjectsCore.DAL
             }
         }
 
-        public bool IsTaskEnabled(ScalesEnums.TaskType taskType)
+        public bool IsTaskEnabled(ProjectsEnums.TaskType taskType)
         {
             if (Tasks == null)
                 return false;
@@ -94,8 +95,8 @@ namespace DataProjectsCore.DAL
 
         #region Public and private fields and properties
 
-        private EnumPublishType _publishType;
-        public EnumPublishType PublishType
+        private ShareEnums.PublishType _publishType;
+        public ShareEnums.PublishType PublishType
         {
             get => _publishType;
             private set

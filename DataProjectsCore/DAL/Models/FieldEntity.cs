@@ -9,14 +9,14 @@ namespace DataProjectsCore.DAL.Models
     {
         #region Public and private fields and properties
 
-        public EnumField Name { get; set; }
+        public ShareEnums.DbField Name { get; set; }
         public object Value { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public FieldEntity(EnumField name, object value)
+        public FieldEntity(ShareEnums.DbField name, object value)
         {
             Name = name;
             Value = value;

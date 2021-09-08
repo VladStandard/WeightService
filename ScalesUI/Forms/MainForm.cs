@@ -4,6 +4,7 @@
 using DataProjectsCore;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.Utils;
+using DataShareCore;
 using log4net;
 using System;
 using System.Drawing;
@@ -58,7 +59,7 @@ namespace ScalesUI.Forms
             // Подписка.
             _ws.NotifyProductDate += NotifyProductDate;
             _ws.NotifyPlu += NotifyPlu;
-            _ws.NotifyPalletSize += NotifyPalletSize;
+            _ws.NotifyLabelsCount += NotifyLabelsCount;
             _ws.NotifyCurrentBox += NotifyCurrentBox;
             _ws.NotifyKneading += NotifyKneading;
 
@@ -90,18 +91,16 @@ namespace ScalesUI.Forms
                 Text = _ws.AppVersion;
                 switch (_ws.SqlViewModel.PublishType)
                 {
-                    case EnumPublishType.Debug:
+                    case ShareEnums.PublishType.Debug:
+                    case ShareEnums.PublishType.Dev:
                         fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
                         fieldTitle.BackColor = Color.Yellow;
                         break;
-                    case EnumPublishType.Dev:
-                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
-                        fieldTitle.BackColor = Color.Yellow;
-                        break;
-                    case EnumPublishType.Release:
+                    case ShareEnums.PublishType.Release:
                         fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}.";
                         fieldTitle.BackColor = Color.LightGreen;
                         break;
+                    case ShareEnums.PublishType.Default:
                     default:
                         fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
                         fieldTitle.BackColor = Color.DarkRed;
@@ -212,7 +211,7 @@ namespace ScalesUI.Forms
             //}
 
             // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-            _ws.CurrentBox = _taskManager.PrintManager.UserLabelCount < _ws.PalletSize ? _taskManager.PrintManager.UserLabelCount : _ws.PalletSize;
+            _ws.CurrentBox = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
             if (_ws.CurrentBox == 0)
                 _ws.CurrentBox = 1;
@@ -236,7 +235,7 @@ namespace ScalesUI.Forms
             {
                 Zebra.Sdk.Printer.PrinterStatus state = _taskManager.PrintManager.CurrentStatus;
                 // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-                _ws.CurrentBox = _taskManager.PrintManager.UserLabelCount < _ws.PalletSize ? _taskManager.PrintManager.UserLabelCount : _ws.PalletSize;
+                _ws.CurrentBox = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
                 // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
                 if (_ws.CurrentBox == 0)
                     _ws.CurrentBox = 1;
@@ -409,14 +408,14 @@ namespace ScalesUI.Forms
             AsyncControl.Properties.SetText.Async(fieldKneading, $"{kneading}");
         }
 
-        private void NotifyPalletSize(int palletSize)
+        private void NotifyLabelsCount(int palletSize)
         {
-            AsyncControl.Properties.SetText.Async(fieldPalletSize, $"{_ws.CurrentBox}/{_ws.PalletSize}");
+            AsyncControl.Properties.SetText.Async(fieldLabelsCount, $"{_ws.CurrentBox}/{_ws.LabelsCount}");
         }
 
         private void NotifyCurrentBox(int currentBox)
         {
-            AsyncControl.Properties.SetText.Async(fieldPalletSize, $"{_ws.CurrentBox}/{_ws.PalletSize}");
+            AsyncControl.Properties.SetText.Async(fieldLabelsCount, $"{_ws.CurrentBox}/{_ws.LabelsCount}");
         }
 
         private void NotifyPlu(PluDirect plu)
@@ -806,7 +805,7 @@ namespace ScalesUI.Forms
 
         private void fieldTitle_DoubleClick(object sender, EventArgs e)
         {
-            using WpfPageLoader wpfPageLoader = new(EnumPage.SqlSettings, false) { Width = 400, Height = 400 };
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
             if (wpfPageLoader.ShowDialog(this) == DialogResult.OK)
             {
                 //

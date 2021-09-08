@@ -44,7 +44,7 @@
             this.lbProductDate = new System.Windows.Forms.Label();
             this.fieldProductDate = new System.Windows.Forms.Label();
             this.fieldKneading = new System.Windows.Forms.Label();
-            this.fieldPalletSize = new System.Windows.Forms.Label();
+            this.fieldLabelsCount = new System.Windows.Forms.Label();
             this.fieldTitle = new System.Windows.Forms.Label();
             this.fieldPlu = new System.Windows.Forms.Label();
             this.labelPlu = new System.Windows.Forms.Label();
@@ -57,6 +57,7 @@
             this.btNewPallet = new System.Windows.Forms.Button();
             this.buttonSetZero = new System.Windows.Forms.Button();
             this.buttonSelectOrder = new System.Windows.Forms.Button();
+            this.labelLabelsTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -116,11 +117,12 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0563F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00938F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.000938F));
+            this.tableLayoutPanelMain.Controls.Add(this.labelLabelsTitle, 3, 9);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaManager, 1, 11);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPrintManager, 1, 10);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryManager, 1, 9);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldCountBox, 3, 10);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldResolution, 3, 8);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldCountBox, 3, 11);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldResolution, 3, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldCurrentTime, 1, 1);
             this.tableLayoutPanelMain.Controls.Add(this.pictureBoxClose, 3, 2);
             this.tableLayoutPanelMain.Controls.Add(this.labelWeightTare, 1, 3);
@@ -131,7 +133,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.lbProductDate, 1, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldProductDate, 2, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldKneading, 2, 5);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldPalletSize, 3, 9);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldLabelsCount, 3, 10);
             this.tableLayoutPanelMain.Controls.Add(this.fieldTitle, 0, 0);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPlu, 2, 1);
             this.tableLayoutPanelMain.Controls.Add(this.labelPlu, 0, 5);
@@ -205,7 +207,7 @@
             // fieldCountBox
             // 
             this.fieldCountBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fieldCountBox.Location = new System.Drawing.Point(1051, 467);
+            this.fieldCountBox.Location = new System.Drawing.Point(1051, 498);
             this.fieldCountBox.Name = "fieldCountBox";
             this.fieldCountBox.Size = new System.Drawing.Size(112, 21);
             this.fieldCountBox.TabIndex = 30;
@@ -221,7 +223,7 @@
             "1024х768",
             "1366х768",
             "1920х1080"});
-            this.fieldResolution.Location = new System.Drawing.Point(1051, 405);
+            this.fieldResolution.Location = new System.Drawing.Point(1051, 374);
             this.fieldResolution.Name = "fieldResolution";
             this.fieldResolution.Size = new System.Drawing.Size(112, 21);
             this.fieldResolution.TabIndex = 29;
@@ -335,19 +337,19 @@
             this.fieldKneading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // fieldPalletSize
+            // fieldLabelsCount
             // 
-            this.fieldPalletSize.AutoSize = true;
-            this.fieldPalletSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldPalletSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPalletSize.Location = new System.Drawing.Point(1051, 436);
-            this.fieldPalletSize.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldPalletSize.Name = "fieldPalletSize";
-            this.fieldPalletSize.Size = new System.Drawing.Size(112, 25);
-            this.fieldPalletSize.TabIndex = 37;
-            this.fieldPalletSize.Text = "1 / 12";
-            this.fieldPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldPalletSize.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.fieldLabelsCount.AutoSize = true;
+            this.fieldLabelsCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldLabelsCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldLabelsCount.Location = new System.Drawing.Point(1051, 467);
+            this.fieldLabelsCount.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldLabelsCount.Name = "fieldLabelsCount";
+            this.fieldLabelsCount.Size = new System.Drawing.Size(112, 25);
+            this.fieldLabelsCount.TabIndex = 37;
+            this.fieldLabelsCount.Text = "0 / 0";
+            this.fieldLabelsCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldLabelsCount.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldTitle
             // 
@@ -525,6 +527,19 @@
             this.buttonSelectOrder.Click += new System.EventHandler(this.ButtonSelectOrder_Click);
             this.buttonSelectOrder.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
+            // labelLabelsTitle
+            // 
+            this.labelLabelsTitle.AutoSize = true;
+            this.labelLabelsTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelLabelsTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelLabelsTitle.Location = new System.Drawing.Point(1051, 436);
+            this.labelLabelsTitle.Margin = new System.Windows.Forms.Padding(3);
+            this.labelLabelsTitle.Name = "labelLabelsTitle";
+            this.labelLabelsTitle.Size = new System.Drawing.Size(112, 25);
+            this.labelLabelsTitle.TabIndex = 45;
+            this.labelLabelsTitle.Text = "Этикетки";
+            this.labelLabelsTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -579,10 +594,11 @@
         private System.Windows.Forms.Label labelPlu;
         private System.Windows.Forms.Button btAddKneading;
         private System.Windows.Forms.Button btNewPallet;
-        private System.Windows.Forms.Label fieldPalletSize;
+        private System.Windows.Forms.Label fieldLabelsCount;
         private System.Windows.Forms.Label fieldMassaManager;
         private System.Windows.Forms.Label fieldPrintManager;
         private System.Windows.Forms.Label fieldMemoryManager;
+        private System.Windows.Forms.Label labelLabelsTitle;
     }
 }
 

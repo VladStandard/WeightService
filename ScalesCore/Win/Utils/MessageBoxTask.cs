@@ -44,7 +44,7 @@ namespace ScalesCore.Win.Utils
         {
             CheckIfDisposed();
 
-            var hOwner = IntPtr.Zero;
+            IntPtr hOwner = IntPtr.Zero;
             if (owner != null) hOwner = owner.Handle;
 
             // Задача на отслеживание MessageBox и изменение таймера
@@ -109,9 +109,9 @@ namespace ScalesCore.Win.Utils
             try
             {
                 // Размер MessageBox
-                var rectChild = new Win32.Rect();
-                var widthChild = 0;
-                var heightChild = 0;
+                Win32.Rect rectChild = new Win32.Rect();
+                int widthChild = 0;
+                int heightChild = 0;
                 if (hMessageBox != IntPtr.Zero)
                 {
                     Win32.GetWindowRect(hMessageBox, ref rectChild);
@@ -121,9 +121,9 @@ namespace ScalesCore.Win.Utils
                 }
 
                 // Получить размер и позицию формы
-                var rectParent = new Win32.Rect();
-                var widthParent = 0;
-                var heightParent = 0;
+                Win32.Rect rectParent = new Win32.Rect();
+                int widthParent = 0;
+                int heightParent = 0;
                 if (hOwner != IntPtr.Zero)
                 {
                     Win32.GetWindowRect(hOwner, ref rectParent);
@@ -132,8 +132,8 @@ namespace ScalesCore.Win.Utils
                 }
 
                 // Центровка MessageBox на форме
-                var left = rectParent.left + (widthParent - widthChild) / 2;
-                var top = rectParent.top + (heightParent - heightChild) / 2;
+                int left = rectParent.left + (widthParent - widthChild) / 2;
+                int top = rectParent.top + (heightParent - heightChild) / 2;
                 Win32.SetWindowPos(hMessageBox, Win32.SetWindowPosConst.HWND_TOPMOST, left, top, 0, 0,
                     Win32.SetWindowPosConst.SWP_NOSIZE |
                     Win32.SetWindowPosConst.SWP_NOOWNERZORDER |

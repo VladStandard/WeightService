@@ -43,13 +43,13 @@ namespace DataShareCore.Utils
             };
         }
 
-        public static EnumRelevanceStatus GetEnumRelevanceStatusEng(short? value)
+        public static ShareEnums.RelevanceStatus GetEnumRelevanceStatusEng(short? value)
         {
             return value switch
             {
-                1 => EnumRelevanceStatus.Actual,
-                2 => EnumRelevanceStatus.NoActual,
-                _ => EnumRelevanceStatus.Unknown
+                1 => ShareEnums.RelevanceStatus.Actual,
+                2 => ShareEnums.RelevanceStatus.NoActual,
+                _ => ShareEnums.RelevanceStatus.Unknown
             };
         }
 
@@ -63,14 +63,14 @@ namespace DataShareCore.Utils
             };
         }
 
-        public static EnumNormilizationStatus GetEnumNormalizationStatusEng(short? value)
+        public static ShareEnums.NormilizationStatus GetEnumNormalizationStatusEng(short? value)
         {
             return value switch
             {
-                1 => EnumNormilizationStatus.NormilizedFull,
-                2 => EnumNormilizationStatus.NormilizedPart,
-                3 => EnumNormilizationStatus.NotSubjectNormalization,
-                _ => EnumNormilizationStatus.NotNormilized
+                1 => ShareEnums.NormilizationStatus.NormilizedFull,
+                2 => ShareEnums.NormilizationStatus.NormilizedPart,
+                3 => ShareEnums.NormilizationStatus.NotSubjectNormalization,
+                _ => ShareEnums.NormilizationStatus.NotNormilized
             };
         }
 
@@ -85,9 +85,9 @@ namespace DataShareCore.Utils
             };
         }
 
-        public static IEnumerable<EnumRelevanceStatus> GetEnumRelevenaceStatusesEng()
+        public static IEnumerable<ShareEnums.RelevanceStatus> GetEnumRelevenaceStatusesEng()
         {
-            return (EnumRelevanceStatus[])Enum.GetValues(typeof(EnumRelevanceStatus));
+            return (ShareEnums.RelevanceStatus[])Enum.GetValues(typeof(ShareEnums.RelevanceStatus));
         }
 
         public static IEnumerable<TypeEntity<short>> GetEnumRelevenaceStatusesRus()
@@ -101,9 +101,9 @@ namespace DataShareCore.Utils
             return result;
         }
 
-        public static IEnumerable<EnumNormilizationStatus> GetEnumNormilizationStatusesEng()
+        public static IEnumerable<ShareEnums.NormilizationStatus> GetEnumNormilizationStatusesEng()
         {
-            return (EnumNormilizationStatus[])Enum.GetValues(typeof(EnumNormilizationStatus));
+            return (ShareEnums.NormilizationStatus[])Enum.GetValues(typeof(ShareEnums.NormilizationStatus));
         }
 
         public static IEnumerable<TypeEntity<short>> GetEnumNormilizationStatusesRus()

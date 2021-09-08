@@ -8,18 +8,13 @@ namespace DataProjectsCore.Models
 {
     public class TableScaleEntity : ITableEntity
     {
-        public EnumTableScale Value { get; set; }
+        public ProjectsEnums.TableScale Value { get; set; }
 
-        public TableScaleEntity(EnumTableScale value)
+        public TableScaleEntity(ProjectsEnums.TableScale value)
         {
             Value = value;
         }
 
-        public override string ToString()
-        {
-
-            return
-                $"{nameof(Value)}: {Value}. ";
-        }
+        public override string ToString() => $"{nameof(Value)}: {Value}. ";
     }
 }

@@ -37,31 +37,31 @@ namespace DataProjectsCore.Models
             };
         }
 
-        public List<TypeEntity<EnumLang>> GetTemplateLanguages()
+        public List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguages()
         {
             return LocalizationData.Lang switch
             {
-                EnumLang.English => GetTemplateLanguagesEng(),
-                EnumLang.Russian => GetTemplateLanguagesRus(),
-                _ => new List<TypeEntity<EnumLang>>()
+                ShareEnums.Lang.English => GetTemplateLanguagesEng(),
+                ShareEnums.Lang.Russian => GetTemplateLanguagesRus(),
+                _ => new List<TypeEntity<ShareEnums.Lang>>()
             };
         }
 
-        private List<TypeEntity<EnumLang>> GetTemplateLanguagesEng()
+        private List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguagesEng()
         {
             return new()
             {
-                new TypeEntity<EnumLang>("English", EnumLang.English),
-                new TypeEntity<EnumLang>("Russian", EnumLang.Russian),
+                new TypeEntity<ShareEnums.Lang>("English", ShareEnums.Lang.English),
+                new TypeEntity<ShareEnums.Lang>("Russian", ShareEnums.Lang.Russian),
             };
         }
 
-        private List<TypeEntity<EnumLang>> GetTemplateLanguagesRus()
+        private List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguagesRus()
         {
             return new()
             {
-                new TypeEntity<EnumLang>("Английский", EnumLang.English),
-                new TypeEntity<EnumLang>("Русский", EnumLang.Russian),
+                new TypeEntity<ShareEnums.Lang>("Английский", ShareEnums.Lang.English),
+                new TypeEntity<ShareEnums.Lang>("Русский", ShareEnums.Lang.Russian),
             };
         }
 

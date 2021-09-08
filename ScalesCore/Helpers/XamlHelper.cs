@@ -34,20 +34,20 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public DataTemplate GetElementAsTemplate(FrameworkElement element)
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             builder.AppendFormat(
                 "<DataTemplate xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">{0}</DataTemplate>",
                 System.Windows.Markup.XamlWriter.Save(element));
 
-            using (var stream = new MemoryStream())
+            using (MemoryStream stream = new MemoryStream())
             {
-                using (var writer = new StreamWriter(stream))
+                using (StreamWriter writer = new StreamWriter(stream))
                 {
                     writer.Write(builder.ToString());
                     writer.Flush();
 
                     stream.Position = 0;
-                    var template = (DataTemplate)System.Windows.Markup.XamlReader.Load(stream);
+                    DataTemplate template = (DataTemplate)System.Windows.Markup.XamlReader.Load(stream);
                     return template;
                 }
             }
@@ -59,8 +59,8 @@ namespace ScalesCore.Helpers
         /// <param name="window">Окно</param>
         public void CenterWindowOnScreen(Window window)
         {
-            var screenWidth = SystemParameters.PrimaryScreenWidth;
-            var screenHeight = SystemParameters.PrimaryScreenHeight;
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
             window.Left = (screenWidth / 2) - (window.Width / 2);
             window.Top = (screenHeight / 2) - (window.Height / 2);
         }
@@ -83,7 +83,7 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public Canvas GetCanvasCopy(Canvas canvas)
         {
-            var result = new Canvas
+            Canvas result = new Canvas
             {
                 Width = canvas.ActualWidth,
                 Height = canvas.ActualHeight,
@@ -91,7 +91,7 @@ namespace ScalesCore.Helpers
             };
             foreach (UIElement child in canvas.Children)
             {
-                var xaml = System.Windows.Markup.XamlWriter.Save(child);
+                string xaml = System.Windows.Markup.XamlWriter.Save(child);
                 if (System.Windows.Markup.XamlReader.Parse(xaml) is UIElement deepCopy)
                     result.Children.Add(deepCopy);
             }
@@ -117,22 +117,22 @@ namespace ScalesCore.Helpers
             }
 
             //var children = canvas.Children.Cast<UIElement>().ToArray();
-            var canvasPrint = GetCanvasCopy(canvas);
+            Canvas canvasPrint = GetCanvasCopy(canvas);
 
             // Получить PrintTicket по умолчанию с принтера.
-            var localPrintServer = new System.Printing.LocalPrintServer();
+            System.Printing.LocalPrintServer localPrintServer = new System.Printing.LocalPrintServer();
             // Получение коллекции локального принтера на компьютере пользователя.
-            var localPrinterCollection = localPrintServer.GetPrintQueues();
+            System.Printing.PrintQueueCollection localPrinterCollection = localPrintServer.GetPrintQueues();
             System.Collections.IEnumerator localPrinterEnumerator = localPrinterCollection.GetEnumerator();
             if (localPrinterEnumerator.MoveNext())
             {
                 // Получить PrintQueue с первого доступного принтера.
-                var printQueue = (System.Printing.PrintQueue)localPrinterEnumerator.Current;
+                System.Printing.PrintQueue printQueue = (System.Printing.PrintQueue)localPrinterEnumerator.Current;
                 // Получить PrintTicket по умолчанию с принтера.
                 if (printQueue != null)
                 {
-                    var printTicket = printQueue.DefaultPrintTicket;
-                    var pageMediaSize = new System.Printing.PageMediaSize(canvasPrint.Width, canvasPrint.Height);
+                    System.Printing.PrintTicket printTicket = printQueue.DefaultPrintTicket;
+                    System.Printing.PageMediaSize pageMediaSize = new System.Printing.PageMediaSize(canvasPrint.Width, canvasPrint.Height);
                     printTicket.PageMediaSize = pageMediaSize;
                     //printTicket.PageMediaType = System.Printing.PageMediaType.Unknown;
                     //var printCapabilites = printQueue.GetPrintCapabilities();
@@ -143,7 +143,7 @@ namespace ScalesCore.Helpers
                     //    printTicket.Duplexing = System.Printing.Duplexing.TwoSidedLongEdge;
                     //if (printCapabilites.StaplingCapability.Contains(System.Printing.Stapling.StapleDualLeft))
                     //    printTicket.Stapling = System.Printing.Stapling.StapleDualLeft;
-                    var printDialog = new PrintDialog
+                    PrintDialog printDialog = new PrintDialog
                     {
                         //PrintQueue = printQueue,
                         PrintTicket = printTicket,

@@ -84,8 +84,8 @@ namespace ScalesCore.Win.Registry.Helpers
         {
             if (!string.IsNullOrEmpty(key))
             {
-                var rk = GetRegistryKey(regRoot);
-                var subKey = rk?.OpenSubKey(key, true);
+                RegistryKey rk = GetRegistryKey(regRoot);
+                RegistryKey subKey = rk?.OpenSubKey(key, true);
                 if (subKey != null)
                 {
                     return true;
@@ -105,11 +105,11 @@ namespace ScalesCore.Win.Registry.Helpers
         {
             if (!string.IsNullOrEmpty(key))
             {
-                var rk = GetRegistryKey(regRoot);
-                var subKey = rk?.OpenSubKey(key, true);
+                RegistryKey rk = GetRegistryKey(regRoot);
+                RegistryKey subKey = rk?.OpenSubKey(key, true);
                 if (subKey != null)
                 {
-                    foreach (var item in subKey.GetValueNames())
+                    foreach (string item in subKey.GetValueNames())
                     {
                         if (item.Equals(parameter, StringComparison.InvariantCultureIgnoreCase))
                             return true;
@@ -132,11 +132,11 @@ namespace ScalesCore.Win.Registry.Helpers
             //log.Debug(key +":"+ parameter);
             if (!string.IsNullOrEmpty(key))
             {
-                var rk = GetRegistryKey(regRoot);
-                var subKey = rk?.OpenSubKey(key, true);
+                RegistryKey rk = GetRegistryKey(regRoot);
+                RegistryKey subKey = rk?.OpenSubKey(key, true);
                 if (subKey != null)
                 {
-                    foreach (var item in subKey.GetValueNames())
+                    foreach (string item in subKey.GetValueNames())
                     {
                         if (item.Equals(parameter, StringComparison.InvariantCultureIgnoreCase))
                             //result = (T)subKey.GetValue(parameter).ToString();
@@ -159,8 +159,8 @@ namespace ScalesCore.Win.Registry.Helpers
         {
             if (!string.IsNullOrEmpty(key))
             {
-                var rk = GetRegistryKey(regRoot);
-                var subKey = rk?.OpenSubKey(key, true);
+                RegistryKey rk = GetRegistryKey(regRoot);
+                RegistryKey subKey = rk?.OpenSubKey(key, true);
                 if (subKey != null)
                 {
                     subKey.SetValue(parameter, value, valueKind);
@@ -181,8 +181,8 @@ namespace ScalesCore.Win.Registry.Helpers
         {
             if (!string.IsNullOrEmpty(key))
             {
-                var rk = GetRegistryKey(regRoot);
-                var subKey = rk?.CreateSubKey(key, RegistryKeyPermissionCheck.ReadWriteSubTree);
+                RegistryKey rk = GetRegistryKey(regRoot);
+                RegistryKey subKey = rk?.CreateSubKey(key, RegistryKeyPermissionCheck.ReadWriteSubTree);
                 if (subKey == null)
                 {
                     return true;
@@ -203,8 +203,8 @@ namespace ScalesCore.Win.Registry.Helpers
         {
             if (!string.IsNullOrEmpty(key))
             {
-                var rk = GetRegistryKey(regRoot);
-                var subKey = rk?.CreateSubKey(key, RegistryKeyPermissionCheck.ReadWriteSubTree);
+                RegistryKey rk = GetRegistryKey(regRoot);
+                RegistryKey subKey = rk?.CreateSubKey(key, RegistryKeyPermissionCheck.ReadWriteSubTree);
                 if (subKey != null)
                 {
                     if (!subKey.GetValueNames().Contains(parameter))
@@ -219,14 +219,14 @@ namespace ScalesCore.Win.Registry.Helpers
 
         public List<string> GetSubKeys(EnumRegRoot regRoot, string key, RegistryView registryView)
         {
-            var result = new List<string>();
+            List<string> result = new List<string>();
 
             if (!string.IsNullOrEmpty(key))
             {
-                var rk = GetRegistryKey(regRoot);
+                RegistryKey rk = GetRegistryKey(regRoot);
                 if (rk != null)
                 {
-                    var subKey = RegistryKey.OpenBaseKey(GetRegistryHive(regRoot), registryView).OpenSubKey(key, true);
+                    RegistryKey subKey = RegistryKey.OpenBaseKey(GetRegistryHive(regRoot), registryView).OpenSubKey(key, true);
                     if (subKey != null)
                     {
                         result = rk.GetSubKeyNames().ToList();

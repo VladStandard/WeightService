@@ -1,4 +1,4 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Reflection;
@@ -18,5 +18,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("71e932d3-0722-4f8d-ad80-4276c61854da")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.03.20.0")]
-[assembly: AssemblyFileVersion("0.03.20.0")]
+[assembly: AssemblyVersion("0.5.550.0")]
+[assembly: AssemblyFileVersion("0.5.550.0")]

@@ -10,14 +10,14 @@ namespace DataProjectsCore.DAL.Models
         #region Public and private fields and properties
 
         public bool Use { get; set; }
-        public EnumField Name { get; set; }
-        public EnumOrderDirection Direction { get; set; }
+        public ShareEnums.DbField Name { get; set; }
+        public ShareEnums.DbOrderDirection Direction { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public FieldOrderEntity(EnumField name, EnumOrderDirection direction)
+        public FieldOrderEntity(ShareEnums.DbField name, ShareEnums.DbOrderDirection direction)
         {
             Use = true;
             Name = name;

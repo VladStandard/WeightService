@@ -28,7 +28,7 @@ namespace DataProjectsCore.DAL.TableModels
         public ScaleDirect Scale { get; set; }
         public DateTime ProductDate { get; set; }
         public DateTime? CreateDate { get; set; }
-        public OrderStatus Status { get; set; }
+        public ProjectsEnums.OrderStatus Status { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -95,7 +95,7 @@ namespace DataProjectsCore.DAL.TableModels
             Template = new TemplateDirect(TemplateID);
         }
 
-        public void SetStatus(OrderStatus orderStatus)
+        public void SetStatus(ProjectsEnums.OrderStatus orderStatus)
         {
             using SqlConnection con = SqlConnectFactory.GetConnection();
             con.Open();
@@ -114,7 +114,7 @@ namespace DataProjectsCore.DAL.TableModels
             con.Close();
         }
 
-        public OrderStatus GetStatus()
+        public ProjectsEnums.OrderStatus GetStatus()
         {
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
@@ -125,7 +125,7 @@ namespace DataProjectsCore.DAL.TableModels
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@OrderId", RRefID);
                     string reader = Convert.ToString(cmd.ExecuteScalar());
-                    Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), reader);
+                    Status = (ProjectsEnums.OrderStatus)Enum.Parse(typeof(ProjectsEnums.OrderStatus), reader);
                 }
                 con.Close();
             }
@@ -184,11 +184,11 @@ namespace DataProjectsCore.DAL.TableModels
                     {
                         while (reader.Read())
                         {
-                            OrderStatus enm = OrderStatus.New;
+                            ProjectsEnums.OrderStatus enm = ProjectsEnums.OrderStatus.New;
                             int number = reader.GetByte(12);
-                            if (Enum.IsDefined(typeof(OrderStatus), number))
+                            if (Enum.IsDefined(typeof(ProjectsEnums.OrderStatus), number))
                             {
-                                enm = (OrderStatus)number; // преобразование 
+                                enm = (ProjectsEnums.OrderStatus)number; // преобразование 
                                                            // или CustomEnum enm = (CustomEnum)Enum.ToObject(typeof(CustomEnum), number);
                             }
                             int pluCode = reader.GetInt32(2);
@@ -257,11 +257,11 @@ namespace DataProjectsCore.DAL.TableModels
                     {
                         while (reader.Read())
                         {
-                            OrderStatus enm = OrderStatus.New;
+                            ProjectsEnums.OrderStatus orderStatus = ProjectsEnums.OrderStatus.New;
                             int number = reader.GetByte(12);
-                            if (Enum.IsDefined(typeof(OrderStatus), number))
+                            if (Enum.IsDefined(typeof(ProjectsEnums.OrderStatus), number))
                             {
-                                enm = (OrderStatus)number; // преобразование 
+                                orderStatus = (ProjectsEnums.OrderStatus)number; // преобразование 
                                                            // или CustomEnum enm = (CustomEnum)Enum.ToObject(typeof(CustomEnum), number);
                             }
                             int pluCode = reader.GetInt32(2);
@@ -280,7 +280,7 @@ namespace DataProjectsCore.DAL.TableModels
                                 CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
                                 OrderType = SqlConnectFactory.GetValue<int>(reader, "OrderType"),
                                 Scale = scale,
-                                Status = enm,
+                                Status = orderStatus,
                                 PLU = PLU
                                 //MyEnum myEnum = (MyEnum)myInt;
                                 //MyEnum myEnum = (MyEnum)Enum.Parse(typeof(MyEnum), myString);

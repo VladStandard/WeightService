@@ -43,15 +43,15 @@ namespace ScalesCore.Helpers
                 if (_edition != null)
                     return _edition;
 
-                var edition = string.Empty;
-                var osVersion = Environment.OSVersion;
-                var osVersionInfo = new OSVERSIONINFOEX {dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))};
+                string edition = string.Empty;
+                OperatingSystem osVersion = Environment.OSVersion;
+                OSVERSIONINFOEX osVersionInfo = new OSVERSIONINFOEX {dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))};
                 if (GetVersionEx(ref osVersionInfo))
                 {
-                    var majorVersion = osVersion.Version.Major;
-                    var minorVersion = osVersion.Version.Minor;
-                    var productType = osVersionInfo.wProductType;
-                    var suiteMask = osVersionInfo.wSuiteMask;
+                    int majorVersion = osVersion.Version.Major;
+                    int minorVersion = osVersion.Version.Minor;
+                    byte productType = osVersionInfo.wProductType;
+                    short suiteMask = osVersionInfo.wSuiteMask;
 
                     #region VERSION 4
                     if (majorVersion == 4)
@@ -127,7 +127,7 @@ namespace ScalesCore.Helpers
                     {
                         if (GetProductInfo(majorVersion, minorVersion,
                             osVersionInfo.wServicePackMajor, osVersionInfo.wServicePackMinor,
-                            out var ed))
+                            out int ed))
                         {
                             switch (ed)
                             {
@@ -269,18 +269,18 @@ namespace ScalesCore.Helpers
                 if (s_Name != null)
                     return s_Name;  //***** RETURN *****//
 
-                var name = "unknown";
+                string name = "unknown";
 
-                var osVersion = Environment.OSVersion;
-                var osVersionInfo = new OSVERSIONINFOEX
+                OperatingSystem osVersion = Environment.OSVersion;
+                OSVERSIONINFOEX osVersionInfo = new OSVERSIONINFOEX
                 {
                     dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))
                 };
 
                 if (GetVersionEx(ref osVersionInfo))
                 {
-                    var majorVersion = osVersion.Version.Major;
-                    var minorVersion = osVersion.Version.Minor;
+                    int majorVersion = osVersion.Version.Major;
+                    int minorVersion = osVersion.Version.Minor;
 
                     switch (osVersion.Platform)
                     {
@@ -480,7 +480,7 @@ namespace ScalesCore.Helpers
         {
             get
             {
-                var servicePack = string.Empty;
+                string servicePack = string.Empty;
                 OSVERSIONINFOEX osVersionInfo = new OSVERSIONINFOEX
                 {
                     dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))

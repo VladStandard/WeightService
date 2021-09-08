@@ -49,7 +49,7 @@ namespace ScalesCore.Win.Utils
         private static void OnTimerElapsed(object state)
         {
             // #32770 - код Messageox
-            var hWnd = Win32.FindWindow("#32770", _caption);
+            IntPtr hWnd = Win32.FindWindow("#32770", _caption);
             if (hWnd != IntPtr.Zero)
             {
                 Win32.SendMessage(hWnd, Win32.MsgConst.WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
@@ -69,12 +69,12 @@ namespace ScalesCore.Win.Utils
 
         private static int HookCallback(int code, IntPtr wParam, IntPtr lParam)
         {
-            var hHook = _hHook;
+            int hHook = _hHook;
 
-            var cls = Win32.GetClassName(wParam);
+            string cls = Win32.GetClassName(wParam);
             if (cls == "#32770")
             {
-                var caption = Win32.GetWindowText(wParam);
+                string caption = Win32.GetWindowText(wParam);
                 //var text = Win32.GetDlgItemText(wParam, 0xFFFF);  // -1 aka IDC_STATIC
                 if (caption == _caption)
                 {
@@ -116,24 +116,24 @@ namespace ScalesCore.Win.Utils
 
             #endregion
 
-            var rcChild = new Win32.Rect();
+            Win32.Rect rcChild = new Win32.Rect();
             Win32.GetWindowRect(hChildWnd, ref rcChild);
-            var cxChild = rcChild.right - rcChild.left;
-            var cyChild = rcChild.bottom - rcChild.top;
+            int cxChild = rcChild.right - rcChild.left;
+            int cyChild = rcChild.bottom - rcChild.top;
 
-            var screenNumber = 0;
-            var targetScreen = Screen.FromPoint(Cursor.Position);
-            for (var i = 0; i < Screen.AllScreens.Length; i++)
+            int screenNumber = 0;
+            Screen targetScreen = Screen.FromPoint(Cursor.Position);
+            for (int i = 0; i < Screen.AllScreens.Length; i++)
             {
                 if (!Equals(targetScreen, Screen.AllScreens[i]))
                     continue;
                 screenNumber = i;
                 break;
             }
-            var cxParent = Screen.AllScreens[screenNumber].Bounds.Right - Screen.AllScreens[screenNumber].Bounds.Left;
-            var cyParent = Screen.AllScreens[screenNumber].Bounds.Bottom - Screen.AllScreens[screenNumber].Bounds.Top;
-            var x = Screen.AllScreens[screenNumber].Bounds.Left + (cxParent - cxChild) / 2;
-            var y = Screen.AllScreens[screenNumber].Bounds.Top + (cyParent - cyChild) / 2;
+            int cxParent = Screen.AllScreens[screenNumber].Bounds.Right - Screen.AllScreens[screenNumber].Bounds.Left;
+            int cyParent = Screen.AllScreens[screenNumber].Bounds.Bottom - Screen.AllScreens[screenNumber].Bounds.Top;
+            int x = Screen.AllScreens[screenNumber].Bounds.Left + (cxParent - cxChild) / 2;
+            int y = Screen.AllScreens[screenNumber].Bounds.Top + (cyParent - cyChild) / 2;
 
             Win32.SetWindowPos(hChildWnd, Win32.SetWindowPosConst.HWND_TOPMOST, x, y, 0, 0,
                 Win32.SetWindowPosConst.SWP_NOSIZE | Win32.SetWindowPosConst.SWP_SHOWWINDOW);

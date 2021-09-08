@@ -252,15 +252,15 @@ namespace DataProjectsCore.DAL.Models
         public T GetEntity(int id)
         {
             return GetEntity(
-                new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), id } }),
-                new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc));
+                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
+                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
         }
 
         public T GetEntity(Guid uid)
         {
             return GetEntity(
-                new FieldListEntity(new Dictionary<string, object> { { EnumField.Uid.ToString(), uid } }),
-                new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc));
+                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Uid.ToString(), uid } }),
+                new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc));
         }
 
         public T[] GetEntities(FieldListEntity fieldList, FieldOrderEntity order, int maxResults = 0,

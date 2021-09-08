@@ -1,4 +1,8 @@
--- Таблица Labels
-select top 1000 *, convert(nvarchar(max),[Label],0) [Label_Str]
-from [db_scales].[Labels]
-order by [CreateDate] desc
+-- Table [db_scales].[Labels]
+SELECT 
+	[Id]
+   ,[WeithingFactId]
+   ,[CreateDate]
+   ,CONVERT(NVARCHAR(MAX), [Label], 0) [Label_Str]
+FROM [db_scales].[Labels]
+ORDER BY [CreateDate] DESC

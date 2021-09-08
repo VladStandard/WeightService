@@ -34,7 +34,7 @@ namespace ScalesCore.Win.Proc.Helpers
         /// </summary>
         public void Run(string procName, string args, bool runAs, ProcessWindowStyle windowStyle, bool useShellExecute)
         {
-            var process = new Process
+            Process process = new Process
             {
                 StartInfo = new ProcessStartInfo(procName, args)
                 {

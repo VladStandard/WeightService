@@ -56,21 +56,15 @@ namespace DataProjectsCore.Utils
 
         public static char GetProgressChar(char ch)
         {
-            switch (ch)
+            return ch switch
             {
-                case '*':
-                    return '/';
-                case '/':
-                    return '|';
-                case '|':
-                    return '\\';
-                case '\\':
-                    return '-';
-                case '-':
-                    return '/';
-                default:
-                    return '*';
-            }
+                '*' => '/',
+                '/' => '|',
+                '|' => '\\',
+                '\\' => '-',
+                '-' => '/',
+                _ => '*',
+            };
         }
 
         public static string GetStringValueTrim(string value, int length)

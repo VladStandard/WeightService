@@ -31,7 +31,7 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>5</ApplicationRevision>
-    <ApplicationVersion>0.5.372.%2a</ApplicationVersion>
+    <ApplicationVersion>0.5.550.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

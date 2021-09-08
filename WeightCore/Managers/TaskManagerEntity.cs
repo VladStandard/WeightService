@@ -28,7 +28,7 @@ namespace WeightCore.Managers
         public TaskManagerEntity()
         {
             // Запустить http-прослушиватель.
-            if (SqlViewModel.IsTaskEnabled(ScalesEnums.TaskType.ZabbixManager))
+            if (SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.ZabbixManager))
             {
                 StartHttpListener();
             }
@@ -153,7 +153,7 @@ namespace WeightCore.Managers
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
             // MemoryManager.
-            if (sqlViewModel.IsTaskEnabled(ScalesEnums.TaskType.MemoryManager))
+            if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
                 Task taskMemory = new(() =>
                 {
@@ -180,7 +180,7 @@ namespace WeightCore.Managers
             }
 
             // PrintManager.
-            if (sqlViewModel.IsTaskEnabled(ScalesEnums.TaskType.PrintManager))
+            if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager))
             {
                 Task taskPrint = new(() =>
                 {
@@ -213,7 +213,7 @@ namespace WeightCore.Managers
             }
 
             // DeviceManager.
-            if (sqlViewModel.IsTaskEnabled(ScalesEnums.TaskType.DeviceManager))
+            if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager))
             {
                 Task taskDevice = new(() =>
                 {
@@ -240,7 +240,7 @@ namespace WeightCore.Managers
             }
 
             // MassaManager.
-            if (sqlViewModel.IsTaskEnabled(ScalesEnums.TaskType.MassaManager))
+            if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager))
             {
                 Task taskMassa = new(() =>
                 {
@@ -279,7 +279,7 @@ namespace WeightCore.Managers
                 await Task.Delay(TimeSpan.FromSeconds(1));
             
                 // MemoryManager.
-                if (sqlViewModel.IsTaskEnabled(ScalesEnums.TaskType.MemoryManager))
+                if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
                 {
                     try
                     {
@@ -312,7 +312,7 @@ namespace WeightCore.Managers
                 await Task.Delay(TimeSpan.FromSeconds(1));
 
                 // PrintManager.
-                if (sqlViewModel.IsTaskEnabled(ScalesEnums.TaskType.PrintManager))
+                if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager))
                 {
                     try
                     {
@@ -351,7 +351,7 @@ namespace WeightCore.Managers
                 await Task.Delay(TimeSpan.FromSeconds(1));
 
                 // DeviceManager.
-                if (sqlViewModel.IsTaskEnabled(ScalesEnums.TaskType.DeviceManager))
+                if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager))
                 {
                     try
                     {
@@ -385,7 +385,7 @@ namespace WeightCore.Managers
                 await Task.Delay(TimeSpan.FromSeconds(1));
 
                 // MassaManager.
-                if (sqlViewModel.IsTaskEnabled(ScalesEnums.TaskType.MassaManager))
+                if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager))
                 {
                     try
                     {

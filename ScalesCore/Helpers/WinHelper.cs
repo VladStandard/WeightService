@@ -31,9 +31,9 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public bool IsAdministrator()
         {
-            using (var identity = WindowsIdentity.GetCurrent())
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
             {
-                var principal = new WindowsPrincipal(identity);
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
                 return principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
             //return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
@@ -45,14 +45,14 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public Dictionary<string, string> GetInfo()
         {
-            var result = new Dictionary<string, string>();
-            var query = new SelectQuery(@"Select Caption,OSArchitecture,SerialNumber from Win32_OperatingSystem");
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            SelectQuery query = new SelectQuery(@"Select Caption,OSArchitecture,SerialNumber from Win32_OperatingSystem");
 
-            using (var searcher = new ManagementObjectSearcher(query))
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
             {
                 try
                 {
-                    foreach (var process in searcher.Get())
+                    foreach (ManagementBaseObject process in searcher.Get())
                     {
                         ((ManagementObject)process).Get();
                         result.Add("SerialNumber", process["SerialNumber"].ToString());
@@ -82,23 +82,23 @@ namespace ScalesCore.Helpers
             try
             {
                 // gwmi -Class Win32_Product | select identifyingnumber, name, vendor, version, caption | where {$_.name -like "*Visual C++ Library*" }
-                var query = new SelectQuery(
+                SelectQuery query = new SelectQuery(
                     @"SELECT IDENTIFYINGNUMBER, NAME, VENDOR, VERSION, LANGUAGE FROM WIN32_PRODUCT")
                 {
                     Condition = $"Name LIKE '*{search}*'",
                 };
-                var searcher = new ManagementObjectSearcher(query);
-                var items = searcher.Get();
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+                ManagementObjectCollection items = searcher.Get();
                 if (items.Count > 0)
                 {
-                    foreach (var item in items)
+                    foreach (ManagementBaseObject item in items)
                     {
-                        var guid = string.Empty;
-                        var name = string.Empty;
-                        var vendor = string.Empty;
-                        var version = string.Empty;
-                        var language = string.Empty;
-                        foreach (var prop in item.Properties)
+                        string guid = string.Empty;
+                        string name = string.Empty;
+                        string vendor = string.Empty;
+                        string version = string.Empty;
+                        string language = string.Empty;
+                        foreach (PropertyData prop in item.Properties)
                         {
                             if (prop.Name.Equals("IDENTIFYINGNUMBER", StringComparison.InvariantCultureIgnoreCase))
                                 language = prop.Value.ToString();
@@ -132,18 +132,18 @@ namespace ScalesCore.Helpers
         {
             try
             {
-                var reg64 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-                var reg32 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
-                var keyPrograms = Registry.LocalMachine.OpenSubKey(Environment.Is64BitOperatingSystem ? reg64 : reg32);
+                string reg64 = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+                string reg32 = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+                RegistryKey keyPrograms = Registry.LocalMachine.OpenSubKey(Environment.Is64BitOperatingSystem ? reg64 : reg32);
                 if (keyPrograms != null)
                 {
-                    foreach (var guid in keyPrograms.GetSubKeyNames())
+                    foreach (string guid in keyPrograms.GetSubKeyNames())
                     {
-                        var key = keyPrograms.OpenSubKey(guid);
+                        RegistryKey key = keyPrograms.OpenSubKey(guid);
                         if (key?.GetValue("DisplayName") != null)
                         {
-                            var isFind = false;
-                            var name = key.GetValue("DisplayName") as string;
+                            bool isFind = false;
+                            string name = key.GetValue("DisplayName") as string;
                             if (!string.IsNullOrEmpty(name))
                             {
                                 switch (template)
@@ -168,9 +168,9 @@ namespace ScalesCore.Helpers
                             }
                             if (isFind)
                             {
-                                var vendor = key.GetValue("Publisher") as string;
-                                var version = key.GetValue("DisplayVersion") as string;
-                                var language = key.GetValue("Language") as string;
+                                string vendor = key.GetValue("Publisher") as string;
+                                string version = key.GetValue("DisplayVersion") as string;
+                                string language = key.GetValue("Language") as string;
                                 return new ResultWmiSoftware(name, vendor, version, guid, language);
                             }
                         }

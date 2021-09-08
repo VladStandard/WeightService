@@ -127,7 +127,7 @@ namespace WeightCore.Models
             Kneading = KneadingMinValue;
             ProductDate = DateTime.Now;
             CurrentBox = 1;
-            PalletSize = 1;
+            LabelsCount = 1;
 
             // контейнер пока не используем
             // оставим для бурного роста
@@ -193,33 +193,33 @@ namespace WeightCore.Models
         public static readonly int PalletSizeMinValue = 1;
         public static readonly int PalletSizeMaxValue = 130;
         public delegate void OnResponseHandlerPalletSize(int palletSize);
-        public event OnResponseHandlerPalletSize NotifyPalletSize;
-        private int _palletSize;
-        public int PalletSize
+        public event OnResponseHandlerPalletSize NotifyLabelsCount;
+        private int _labelsCount;
+        public int LabelsCount
         {
-            get => _palletSize;
+            get => _labelsCount;
             set
             {
-                _palletSize = value;
+                _labelsCount = value;
                 CurrentBox = 1;
-                NotifyPalletSize?.Invoke(value);
+                NotifyLabelsCount?.Invoke(value);
             }
         }
 
-        public void RotatePalletSize(Direction direction)
+        public void RotatePalletSize(ProjectsEnums.Direction direction)
         {
-            if (direction == Direction.Back)
+            if (direction == ProjectsEnums.Direction.Back)
             {
-                PalletSize--;
-                if (PalletSize < PalletSizeMinValue)
-                    PalletSize = PalletSizeMinValue;
+                LabelsCount--;
+                if (LabelsCount < PalletSizeMinValue)
+                    LabelsCount = PalletSizeMinValue;
 
             }
-            if (direction == Direction.Forward)
+            if (direction == ProjectsEnums.Direction.Forward)
             {
-                PalletSize++;
-                if (PalletSize > PalletSizeMaxValue)
-                    PalletSize = PalletSizeMaxValue;
+                LabelsCount++;
+                if (LabelsCount > PalletSizeMaxValue)
+                    LabelsCount = PalletSizeMaxValue;
             }
         }
 
@@ -281,16 +281,16 @@ namespace WeightCore.Models
             }
         }
 
-        public void RotateKneading(Direction direction)
+        public void RotateKneading(ProjectsEnums.Direction direction)
         {
-            if (direction == Direction.Back)
+            if (direction == ProjectsEnums.Direction.Back)
             {
                 Kneading--;
                 if (Kneading < KneadingMinValue)
                     Kneading = KneadingMinValue;
 
             }
-            if (direction == Direction.Forward)
+            if (direction == ProjectsEnums.Direction.Forward)
             {
                 Kneading++;
                 if (Kneading > KneadingMaxValue)
@@ -322,16 +322,16 @@ namespace WeightCore.Models
             }
         }
 
-        public void RotateProductDate(Direction direction)
+        public void RotateProductDate(ProjectsEnums.Direction direction)
         {
-            if (direction == Direction.Back)
+            if (direction == ProjectsEnums.Direction.Back)
             {
                 ProductDate = ProductDate.AddDays(-1);
                 if (ProductDate < ProductDateMinValue)
                     ProductDate = ProductDateMinValue;
 
             }
-            if (direction == Direction.Forward)
+            if (direction == ProjectsEnums.Direction.Forward)
             {
                 ProductDate = ProductDate.AddDays(1);
                 if (ProductDate > ProductDateMaxValue)
@@ -432,7 +432,7 @@ namespace WeightCore.Models
         private void PrintCountLabelOld(TemplateDirect template)
         {
             // Вывести серию этикеток по заданному размеру паллеты.
-            for (int i = CurrentBox; i <= PalletSize; i++)
+            for (int i = CurrentBox; i <= LabelsCount; i++)
             {
                 CurrentWeighingFact = WeighingFactDirect.New(
                     CurrentScale,
@@ -496,15 +496,15 @@ namespace WeightCore.Models
             if (template.XslContent.Contains("^PQ1"))
             {
                 // Изменить кол-во этикеток.
-                if (PalletSize > 1)
-                    template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{PalletSize}");
+                if (LabelsCount > 1)
+                    template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{LabelsCount}");
                 // Печать этикетки.
                 PrintLabel(template);
             }
             // Шаблон без указания кол-ва.
             else
             {
-                for (int i = CurrentBox; i <= PalletSize; i++)
+                for (int i = CurrentBox; i <= LabelsCount; i++)
                 {
                     // Печать этикетки.
                     PrintLabel(template);

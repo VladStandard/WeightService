@@ -80,8 +80,8 @@ namespace ScalesCore.Helpers
         {
             get
             {
-                var uacKey = Registry.LocalMachine.OpenSubKey(UacRegistryKey, false);
-                var result = uacKey != null && uacKey.GetValue(UacRegistryValue).Equals(1);
+                RegistryKey uacKey = Registry.LocalMachine.OpenSubKey(UacRegistryKey, false);
+                bool result = uacKey != null && uacKey.GetValue(UacRegistryValue).Equals(1);
                 return result;
             }
         }
@@ -92,7 +92,7 @@ namespace ScalesCore.Helpers
             {
                 if (IsUacEnabled)
                 {
-                    if (!OpenProcessToken(Process.GetCurrentProcess().Handle, TOKEN_READ, out var tokenHandle))
+                    if (!OpenProcessToken(Process.GetCurrentProcess().Handle, TOKEN_READ, out IntPtr tokenHandle))
                     {
                         throw new ApplicationException("Could not get process token.  Win32 Error Code: " + Marshal.GetLastWin32Error());
                     }
@@ -116,8 +116,8 @@ namespace ScalesCore.Helpers
                 }
                 else
                 {
-                    var identity = WindowsIdentity.GetCurrent();
-                    var principal = new WindowsPrincipal(identity);
+                    WindowsIdentity identity = WindowsIdentity.GetCurrent();
+                    WindowsPrincipal principal = new WindowsPrincipal(identity);
                     bool result = principal.IsInRole(WindowsBuiltInRole.Administrator);
                     return result;
                 }

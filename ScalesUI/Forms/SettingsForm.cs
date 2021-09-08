@@ -52,7 +52,7 @@ namespace ScalesUI.Forms
 
             // Загружить при кажом открытии формы.
             if (_ws != null)
-                _ws.CurrentScale = ScalesUtils.GetScale(_ws?.Host?.CurrentScaleId);
+                _ws.CurrentScale = ScalesUtils.GetScale(_ws.Host?.CurrentScaleId);
 
             // Определить COM-порт.
             DefaultComPortName();
@@ -80,10 +80,10 @@ namespace ScalesUI.Forms
         private void fieldComPort_SelectedIndexChanged(object sender, EventArgs e)
         {
             fielcComPortFind.Text = @"COM-порт не существует!";
-            var curPort = fieldComPort.Items[fieldComPort.SelectedIndex].ToString();
+            string curPort = fieldComPort.Items[fieldComPort.SelectedIndex].ToString();
             fielcComPortFind.Text = $@"{curPort}-порт не существует!";
 
-            foreach (var portName in SerialPort.GetPortNames())
+            foreach (string portName in SerialPort.GetPortNames())
             {
                 if (portName.Equals(curPort, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -202,7 +202,7 @@ namespace ScalesUI.Forms
 
         private void btnCalibrate_Click(object sender, EventArgs e)
         {
-            var messageBox = CustomMessageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!",
+            CustomMessageBox messageBox = CustomMessageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!",
                 @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
             messageBox.Wait();
             //DialogResult dialogResult = MessageBox.Show(@"Прежде чем продолжить калибровку откройте крышку отделителя!", @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
@@ -240,7 +240,7 @@ namespace ScalesUI.Forms
                 _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
                     _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                var msg = ex.Message;
+                string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;
                 CustomMessageBox.Show(this, @"Генерация тестовой ошибки!" + Environment.NewLine + msg, Messages.Exception);
@@ -288,16 +288,16 @@ namespace ScalesUI.Forms
             fieldComPort.Items.Clear();
 
             // Получить список COM-портов.
-            var listComPorts = SerialPort.GetPortNames().ToList();
+            System.Collections.Generic.List<string> listComPorts = SerialPort.GetPortNames().ToList();
             // Текущий порт из настроек.
-            var curPort = string.Empty;
+            string curPort = string.Empty;
             if (_ws?.CurrentScale?.DeviceComPort != null)
             {
                 curPort = _ws.CurrentScale.DeviceComPort;
                 if (!string.IsNullOrEmpty(curPort))
                 {
-                    var find = false;
-                    foreach (var portName in listComPorts)
+                    bool find = false;
+                    foreach (string portName in listComPorts)
                     {
                         if (portName.Equals(curPort, StringComparison.InvariantCultureIgnoreCase))
                         {
@@ -312,7 +312,7 @@ namespace ScalesUI.Forms
             // Сортировка.
             listComPorts = listComPorts.OrderBy(o => o).ToList();
             // Заполнить список.
-            foreach (var portName in listComPorts)
+            foreach (string portName in listComPorts)
             {
                 fieldComPort.Items.Add(portName);
                 fieldComPort.Text = curPort;

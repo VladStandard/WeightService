@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("ScalesUITests")]
@@ -15,5 +15,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("8268d4f8-0190-49ba-ac78-294a0dec314e")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.5.150.0")]
-[assembly: AssemblyFileVersion("0.5.150.0")]
+[assembly: AssemblyVersion("0.5.550.0")]
+[assembly: AssemblyFileVersion("0.5.550.0")]

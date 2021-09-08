@@ -106,11 +106,11 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public string GetDescription(Assembly assembly)
         {
-            var result = string.Empty;
-            var attributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+            string result = string.Empty;
+            object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
             if (attributes.Length > 0)
             {
-                var descriptionAttribute = (AssemblyDescriptionAttribute)attributes[0];
+                AssemblyDescriptionAttribute descriptionAttribute = (AssemblyDescriptionAttribute)attributes[0];
                 result = descriptionAttribute.Description;
             }
             return result;
@@ -134,10 +134,10 @@ namespace ScalesCore.Helpers
             if (stringFormats == null || stringFormats.Count == 0)
                 stringFormats = new List<EnumStringFormat>() { EnumStringFormat.Use1, EnumStringFormat.Use2, EnumStringFormat.Use2 };
 
-            var formatMajor = stringFormats[0];
-            var formatMinor = EnumStringFormat.AsString;
-            var formatBuild = EnumStringFormat.AsString;
-            var formatRevision = EnumStringFormat.AsString;
+            EnumStringFormat formatMajor = stringFormats[0];
+            EnumStringFormat formatMinor = EnumStringFormat.AsString;
+            EnumStringFormat formatBuild = EnumStringFormat.AsString;
+            EnumStringFormat formatRevision = EnumStringFormat.AsString;
             if (stringFormats.Count > 1)
                 formatMinor = stringFormats[1];
             if (stringFormats.Count > 2)
@@ -145,10 +145,10 @@ namespace ScalesCore.Helpers
             if (stringFormats.Count > 3)
                 formatRevision = stringFormats[3];
 
-            var major = GetCurrentVersionFormat(version.Major, formatMajor);
-            var minor = GetCurrentVersionFormat(version.Minor, formatMinor);
-            var build = GetCurrentVersionFormat(version.Build, formatBuild);
-            var revision = GetCurrentVersionFormat(version.Revision, formatRevision);
+            string major = GetCurrentVersionFormat(version.Major, formatMajor);
+            string minor = GetCurrentVersionFormat(version.Minor, formatMinor);
+            string build = GetCurrentVersionFormat(version.Build, formatBuild);
+            string revision = GetCurrentVersionFormat(version.Revision, formatRevision);
             version4 = $"{major}.{minor}.{build}.{revision}";
             version3 = $"{major}.{minor}.{build}";
             version2 = $"{major}.{minor}";
@@ -167,7 +167,7 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public string GetCurrentVersionSubString(string input)
         {
-            var result = string.Empty;
+            string result = string.Empty;
             int idx = input.LastIndexOf('.');
             if (idx >= 0)
                 result = input.Substring(0, idx);
@@ -216,7 +216,7 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public string GetMainFormText(Assembly assembly, bool useShort, Version version = null, bool useGuid = true)
         {
-            var strGuid = useGuid ? $".GUID: { GuidToString() }" : string.Empty;
+            string strGuid = useGuid ? $".GUID: { GuidToString() }" : string.Empty;
             if (useShort)
                 return $@"{GetDescription(assembly)} {GetCurrentVersion(EnumVerCountDigits.Use3, null, version)}{strGuid}";
             else
@@ -253,7 +253,7 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public bool GuidExists()
         {
-            var defValue = GuidValue.ToString().Equals("00000000-0000-0000-0000-000000000000", StringComparison.InvariantCultureIgnoreCase);
+            bool defValue = GuidValue.ToString().Equals("00000000-0000-0000-0000-000000000000", StringComparison.InvariantCultureIgnoreCase);
             if (GuidValue != null && !defValue)
                 return true;
             return false;
@@ -278,7 +278,7 @@ namespace ScalesCore.Helpers
         {
             try
             {
-                var result = Guid.TryParse(value, out Guid guid);
+                bool result = Guid.TryParse(value, out Guid guid);
                 GuidValue = guid;
                 return result;
             }
@@ -395,11 +395,11 @@ namespace ScalesCore.Helpers
         {
             if (SqlHelp.Connection.State == System.Data.ConnectionState.Open)
             {
-                var records = SqlHelp.SelectData(SqlUtils.QueryFindGuid, new Collection<string>() { "RESULT" }, 
+                Collection<Collection<object>> records = SqlHelp.SelectData(SqlUtils.QueryFindGuid, new Collection<string>() { "RESULT" }, 
                     new Collection<SqlParam>() { new SqlParam("GUID", guid) });
-                foreach (var rec in records)
+                foreach (Collection<object> rec in records)
                 {
-                    foreach (var field in rec)
+                    foreach (object field in rec)
                     {
                         if (field.ToString().Equals("TRUE", StringComparison.InvariantCultureIgnoreCase))
                         {

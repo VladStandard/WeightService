@@ -41,7 +41,7 @@ namespace ScalesUI.Forms
         private void btnOrderReset_Click(object sender, EventArgs e)
         {
             // приостановить
-            _ws.CurrentOrder.SetStatus(OrderStatus.Paused);
+            _ws.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Paused);
             _ws.CurrentOrder = null;
             DialogResult = DialogResult.Retry;
             Close();
@@ -50,7 +50,7 @@ namespace ScalesUI.Forms
         private void btnOrderComplitrd_Click(object sender, EventArgs e)
         {
             // выполнен
-            _ws.CurrentOrder.SetStatus(OrderStatus.Performed);
+            _ws.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Performed);
             _ws.CurrentOrder = null;
             DialogResult = DialogResult.Retry;
             Close();
@@ -58,7 +58,7 @@ namespace ScalesUI.Forms
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            _ws.CurrentOrder.SetStatus(OrderStatus.InProgress);
+            _ws.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.InProgress);
             _ws.CurrentOrder = null;
             DialogResult = DialogResult.OK;
             Close();

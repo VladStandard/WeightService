@@ -37,7 +37,7 @@ namespace DataShareCore.Utils
         /// <param name="stringFormats"></param>
         /// <param name="version"></param>
         /// <returns></returns>
-        public static string GetCurrentVersion(Assembly assembly, VerCountDigits countDigits, List<StringFormat> stringFormats = null, Version version = null)
+        public static string GetCurrentVersion(Assembly assembly, VerCountDigits countDigits, List<StringFormat>? stringFormats = null, Version? version = null)
         {
             if (version == null)
                 version = assembly.GetName().Version;

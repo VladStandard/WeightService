@@ -39,7 +39,7 @@ namespace WeightCore.XamlPages
             object context = FindResource("SqlViewModel");
             if (context is SqlViewModelEntity sqlViewModel)
             {
-                SqlViewModel = sqlViewModel;
+                sqlViewModel = SqlViewModel;
             }
             SqlViewModel = _ws.SqlViewModel;
         }

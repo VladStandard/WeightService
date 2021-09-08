@@ -17,7 +17,7 @@ namespace ScalesUI.Forms
 
         private readonly SessionState _ws = SessionState.Instance;
         public bool UseOwnerSize { get; set; }
-        public EnumPage Page { get; private set; }
+        public ProjectsEnums.Page Page { get; private set; }
         private ElementHost ElementHost { get; set; }
         private PagePluList PluList { get; set; }
         public PageSqlSettings SqlSettings { get; private set; }
@@ -30,11 +30,11 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            Page = EnumPage.Default;
+            Page = ProjectsEnums.Page.Default;
             _ws.IsWpfPageLoaderClose = false;
         }
 
-        public WpfPageLoader(EnumPage page, bool useOwnerSize) : this()
+        public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize) : this()
         {
             Page = page;
             UseOwnerSize = useOwnerSize;
@@ -63,28 +63,28 @@ namespace ScalesUI.Forms
             }
 
             // WPF element.
-            if (Page != EnumPage.Default)
+            if (Page != ProjectsEnums.Page.Default)
             {
                 ElementHost = new ElementHost { Dock = DockStyle.Fill };
                 panelMain.Controls.Add(ElementHost);
             }
             switch (Page)
             {
-                case EnumPage.PluList:
+                case ProjectsEnums.Page.PluList:
                     PluList = new PagePluList();
                     PluList.InitializeComponent();
                     ElementHost.Child = PluList;
                     PluList.Loaded += PluListOnLoaded;
                     _ws.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                     break;
-                case EnumPage.SqlSettings:
+                case ProjectsEnums.Page.SqlSettings:
                     SqlSettings = new PageSqlSettings();
                     SqlSettings.InitializeComponent();
                     ElementHost.Child = SqlSettings;
                     SqlSettings.Loaded += SqlSettingsOnLoaded;
                     _ws.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                     break;
-                case EnumPage.Default:
+                case ProjectsEnums.Page.Default:
                 default:
                     break;
             }
@@ -110,19 +110,19 @@ namespace ScalesUI.Forms
         {
             switch (Page)
             {
-                case EnumPage.PluList:
+                case ProjectsEnums.Page.PluList:
                     if (PluList != null)
                     {
                         DialogResult = PluList.Result;
                     }
                     break;
-                case EnumPage.SqlSettings:
+                case ProjectsEnums.Page.SqlSettings:
                     if (SqlSettings != null)
                     {
                         DialogResult = SqlSettings.Result;
                     }
                     break;
-                case EnumPage.Default:
+                case ProjectsEnums.Page.Default:
                 default:
                     DialogResult = DialogResult.Cancel;
                     break;

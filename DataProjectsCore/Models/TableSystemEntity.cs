@@ -8,18 +8,13 @@ namespace DataProjectsCore.Models
 {
     public class TableSystemEntity : ITableEntity
     {
-        public EnumTableSystem Value { get; set; }
+        public ProjectsEnums.TableSystem Value { get; set; }
 
-        public TableSystemEntity(EnumTableSystem value)
+        public TableSystemEntity(ProjectsEnums.TableSystem value)
         {
             Value = value;
         }
 
-        public override string ToString()
-        {
-
-            return
-                $"{nameof(Value)}: {Value}. ";
-        }
+        public override string ToString() => $"{nameof(Value)}: {Value}. ";
     }
 }

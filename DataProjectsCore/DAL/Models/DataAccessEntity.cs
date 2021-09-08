@@ -36,82 +36,79 @@ namespace DataProjectsCore.DAL.Models
                     return _sessionFactory;
                 if (CoreSettings == null)
                     throw new ArgumentException("CoreSettings is null!");
-                if (_sessionFactory == null)
+                if (CoreSettings.Trusted)
                 {
-                    if (CoreSettings.Trusted)
-                    {
-                        FluentConfiguration configuration = Fluently.Configure()
-                            .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                                .Server(CoreSettings.Server)
-                                .Database(CoreSettings.Db)
-                                .TrustedConnection()
-                            ))
-                            .Mappings(m => m.FluentMappings.Add<AccessMap>())
-                            .Mappings(m => m.FluentMappings.Add<AppMap>())
-                            .Mappings(m => m.FluentMappings.Add<BarcodeTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<ContragentMap>())
-                            .Mappings(m => m.FluentMappings.Add<ErrorMap>())
-                            .Mappings(m => m.FluentMappings.Add<HostMap>())
-                            .Mappings(m => m.FluentMappings.Add<LabelMap>())
-                            .Mappings(m => m.FluentMappings.Add<LogMap>())
-                            .Mappings(m => m.FluentMappings.Add<LogTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
-                            .Mappings(m => m.FluentMappings.Add<OrderMap>())
-                            .Mappings(m => m.FluentMappings.Add<OrderTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<PluMap>())
-                            .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
-                            .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
-                            .Mappings(m => m.FluentMappings.Add<ScaleMap>())
-                            .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>())
-                            .Mappings(m => m.FluentMappings.Add<TemplateResourceMap>())
-                            .Mappings(m => m.FluentMappings.Add<TemplateMap>())
-                            .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
-                            .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
-                            .Mappings(m => m.FluentMappings.Add<PrinterMap>())
-                            .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>())
-                            .Mappings(m => m.FluentMappings.Add<PrinterTypeMap>());
-                        configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
-                        _sessionFactory = configuration.BuildSessionFactory();
-                    }
-                    else
-                    {
-                        if (string.IsNullOrEmpty(CoreSettings.Username) || string.IsNullOrEmpty(CoreSettings.Password))
-                            throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
-                        FluentConfiguration configuration = Fluently.Configure()
-                            .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                                .Server(CoreSettings.Server)
-                                .Database(CoreSettings.Db)
-                                .Username(CoreSettings.Username)
-                                .Password(CoreSettings.Password)
-                            ))
-                            .Mappings(m => m.FluentMappings.Add<AccessMap>())
-                            .Mappings(m => m.FluentMappings.Add<AppMap>())
-                            .Mappings(m => m.FluentMappings.Add<BarcodeTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<ContragentMap>())
-                            .Mappings(m => m.FluentMappings.Add<ErrorMap>())
-                            .Mappings(m => m.FluentMappings.Add<HostMap>())
-                            .Mappings(m => m.FluentMappings.Add<LabelMap>())
-                            .Mappings(m => m.FluentMappings.Add<LogMap>())
-                            .Mappings(m => m.FluentMappings.Add<LogTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
-                            .Mappings(m => m.FluentMappings.Add<OrderMap>())
-                            .Mappings(m => m.FluentMappings.Add<OrderTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<PluMap>())
-                            .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
-                            .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
-                            .Mappings(m => m.FluentMappings.Add<ScaleMap>())
-                            .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>())
-                            .Mappings(m => m.FluentMappings.Add<TemplateResourceMap>())
-                            .Mappings(m => m.FluentMappings.Add<TemplateMap>())
-                            .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
-                            .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
-                            .Mappings(m => m.FluentMappings.Add<PrinterMap>())
-                            .Mappings(m => m.FluentMappings.Add<PrinterTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<PrinterTypeMap>())
-                            .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>());
-                        configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
-                        _sessionFactory = configuration.BuildSessionFactory();
-                    }
+                    FluentConfiguration configuration = Fluently.Configure()
+                        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
+                            .Server(CoreSettings.Server)
+                            .Database(CoreSettings.Db)
+                            .TrustedConnection()
+                        ))
+                        .Mappings(m => m.FluentMappings.Add<AccessMap>())
+                        .Mappings(m => m.FluentMappings.Add<AppMap>())
+                        .Mappings(m => m.FluentMappings.Add<BarcodeTypeMap>())
+                        .Mappings(m => m.FluentMappings.Add<ContragentMap>())
+                        .Mappings(m => m.FluentMappings.Add<ErrorMap>())
+                        .Mappings(m => m.FluentMappings.Add<HostMap>())
+                        .Mappings(m => m.FluentMappings.Add<LabelMap>())
+                        .Mappings(m => m.FluentMappings.Add<LogMap>())
+                        .Mappings(m => m.FluentMappings.Add<LogTypeMap>())
+                        .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
+                        .Mappings(m => m.FluentMappings.Add<OrderMap>())
+                        .Mappings(m => m.FluentMappings.Add<OrderTypeMap>())
+                        .Mappings(m => m.FluentMappings.Add<PluMap>())
+                        .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
+                        .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
+                        .Mappings(m => m.FluentMappings.Add<ScaleMap>())
+                        .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>())
+                        .Mappings(m => m.FluentMappings.Add<TemplateResourceMap>())
+                        .Mappings(m => m.FluentMappings.Add<TemplateMap>())
+                        .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
+                        .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
+                        .Mappings(m => m.FluentMappings.Add<PrinterMap>())
+                        .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>())
+                        .Mappings(m => m.FluentMappings.Add<PrinterTypeMap>());
+                    configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
+                    _sessionFactory = configuration.BuildSessionFactory();
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(CoreSettings.Username) || string.IsNullOrEmpty(CoreSettings.Password))
+                        throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
+                    FluentConfiguration configuration = Fluently.Configure()
+                        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
+                            .Server(CoreSettings.Server)
+                            .Database(CoreSettings.Db)
+                            .Username(CoreSettings.Username)
+                            .Password(CoreSettings.Password)
+                        ))
+                        .Mappings(m => m.FluentMappings.Add<AccessMap>())
+                        .Mappings(m => m.FluentMappings.Add<AppMap>())
+                        .Mappings(m => m.FluentMappings.Add<BarcodeTypeMap>())
+                        .Mappings(m => m.FluentMappings.Add<ContragentMap>())
+                        .Mappings(m => m.FluentMappings.Add<ErrorMap>())
+                        .Mappings(m => m.FluentMappings.Add<HostMap>())
+                        .Mappings(m => m.FluentMappings.Add<LabelMap>())
+                        .Mappings(m => m.FluentMappings.Add<LogMap>())
+                        .Mappings(m => m.FluentMappings.Add<LogTypeMap>())
+                        .Mappings(m => m.FluentMappings.Add<NomenclatureMap>())
+                        .Mappings(m => m.FluentMappings.Add<OrderMap>())
+                        .Mappings(m => m.FluentMappings.Add<OrderTypeMap>())
+                        .Mappings(m => m.FluentMappings.Add<PluMap>())
+                        .Mappings(m => m.FluentMappings.Add<ProductionFacilityMap>())
+                        .Mappings(m => m.FluentMappings.Add<ProductSeriesMap>())
+                        .Mappings(m => m.FluentMappings.Add<ScaleMap>())
+                        .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>())
+                        .Mappings(m => m.FluentMappings.Add<TemplateResourceMap>())
+                        .Mappings(m => m.FluentMappings.Add<TemplateMap>())
+                        .Mappings(m => m.FluentMappings.Add<WeithingFactMap>())
+                        .Mappings(m => m.FluentMappings.Add<WorkshopMap>())
+                        .Mappings(m => m.FluentMappings.Add<PrinterMap>())
+                        .Mappings(m => m.FluentMappings.Add<PrinterTypeMap>())
+                        .Mappings(m => m.FluentMappings.Add<PrinterTypeMap>())
+                        .Mappings(m => m.FluentMappings.Add<PrinterResourceMap>());
+                    configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
+                    _sessionFactory = configuration.BuildSessionFactory();
                 }
                 return _sessionFactory;
             }
@@ -218,7 +215,7 @@ namespace DataProjectsCore.DAL.Models
 
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
-            int idLast = ErrorsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+            int idLast = ErrorsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             ErrorEntity? error = new ErrorEntity
             {
                 Id = idLast + 1,
@@ -293,7 +290,7 @@ namespace DataProjectsCore.DAL.Models
             //if (order != null && order.Use)
             if (order is { Use: true })
             {
-                Order fieldOrder = order.Direction == EnumOrderDirection.Asc ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
+                Order fieldOrder = order.Direction == ShareEnums.DbOrderDirection.Asc ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
                 criteria.AddOrder(fieldOrder);
             }
             return criteria;
@@ -685,133 +682,133 @@ namespace DataProjectsCore.DAL.Models
             return result;
         }
 
-        public T ActionGetIdEntity<T>(BaseIdEntity entity, EnumTableAction tableAction) where T : BaseIdEntity, new()
+        public T ActionGetIdEntity<T>(BaseIdEntity entity, ShareEnums.DbTableAction tableAction) where T : BaseIdEntity, new()
         {
             T result = tableAction switch
             {
-                EnumTableAction.New => new T(),
-                EnumTableAction.Edit => (T)entity,
-                EnumTableAction.Copy => (T)((T)entity).Clone(),
-                EnumTableAction.Delete => (T)entity,
-                EnumTableAction.Mark => (T)entity,
+                ShareEnums.DbTableAction.New => new T(),
+                ShareEnums.DbTableAction.Edit => (T)entity,
+                ShareEnums.DbTableAction.Copy => (T)((T)entity).Clone(),
+                ShareEnums.DbTableAction.Delete => (T)entity,
+                ShareEnums.DbTableAction.Mark => (T)entity,
                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
             };
-            if (tableAction == EnumTableAction.New || tableAction == EnumTableAction.Copy)
+            if (tableAction == ShareEnums.DbTableAction.New || tableAction == ShareEnums.DbTableAction.Copy)
             {
                 int nextId = 0;
                 if (typeof(T) == typeof(BarcodeTypeEntity))
                 {
-                    nextId = BarcodeTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = BarcodeTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ContragentEntity))
                 {
-                    nextId = ContragentsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = ContragentsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(HostEntity))
                 {
-                    nextId = HostsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = HostsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(LabelEntity))
                 {
-                    nextId = LabelsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = LabelsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(NomenclatureEntity))
                 {
-                    nextId = NomenclaturesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = NomenclaturesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(OrderEntity))
                 {
-                    nextId = OrdersCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = OrdersCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(OrderStatusEntity))
                 {
-                    nextId = OrderStatusesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = OrderStatusesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(OrderTypeEntity))
                 {
-                    nextId = OrderTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = OrderTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(PluEntity))
                 {
-                    nextId = PlusCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = PlusCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ProductionFacilityEntity))
                 {
-                    nextId = ProductionFacilitiesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = ProductionFacilitiesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ProductSeriesEntity))
                 {
-                    nextId = ProductSeriesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = ProductSeriesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(ScaleEntity))
                 {
-                    nextId = ScalesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = ScalesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TemplateResourceEntity))
                 {
-                    nextId = TemplateResourcesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = TemplateResourcesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TemplateEntity))
                 {
-                    nextId = TemplatesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = TemplatesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(WeithingFactEntity))
                 {
-                    nextId = WeithingFactsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = WeithingFactsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(WorkshopEntity))
                 {
-                    nextId = WorkshopsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = WorkshopsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(PrinterEntity))
                 {
-                    nextId = PrintersCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = PrintersCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(PrinterResourceEntity))
                 {
-                    nextId = PrinterResourcesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = PrinterResourcesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(PrinterTypeEntity))
                 {
-                    nextId = PrinterTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                    nextId = PrinterTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 result.Id = nextId + 1;
             }
             return result;
         }
 
-        public T ActionGetUidEntity<T>(BaseUidEntity entity, EnumTableAction tableAction) where T : BaseUidEntity, new()
+        public T ActionGetUidEntity<T>(BaseUidEntity entity, ShareEnums.DbTableAction tableAction) where T : BaseUidEntity, new()
         {
             T? result = tableAction switch
             {
-                EnumTableAction.New => new T(),
-                EnumTableAction.Edit => (T)entity,
-                EnumTableAction.Copy => (T)((T)entity).Clone(),
-                EnumTableAction.Delete => (T)entity,
-                EnumTableAction.Mark => (T)entity,
+                ShareEnums.DbTableAction.New => new T(),
+                ShareEnums.DbTableAction.Edit => (T)entity,
+                ShareEnums.DbTableAction.Copy => (T)((T)entity).Clone(),
+                ShareEnums.DbTableAction.Delete => (T)entity,
+                ShareEnums.DbTableAction.Mark => (T)entity,
                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
             };
-            if (tableAction == EnumTableAction.New || tableAction == EnumTableAction.Copy)
+            if (tableAction == ShareEnums.DbTableAction.New || tableAction == ShareEnums.DbTableAction.Copy)
             {
                 if (typeof(T) == typeof(AccessEntity))
                 {
-                    _ = AccessesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                    _ = AccessesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(AppEntity))
                 {
-                    _ = AppsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                    _ = AppsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(LogEntity))
                 {
-                    _ = LogsCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                    _ = LogsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(LogTypeEntity))
                 {
-                    _ = LogTypesCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                    _ = LogTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(LogSummaryEntity))
                 {
-                    _ = LogSummaryCrud.GetEntity(null, new FieldOrderEntity(EnumField.Uid, EnumOrderDirection.Desc)).Uid;
+                    _ = LogSummaryCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(WeithingFactSummaryEntity))
                 {

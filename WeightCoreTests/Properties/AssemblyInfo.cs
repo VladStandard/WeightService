@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("HardwareTests")]
@@ -15,5 +15,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("7bf7ec6a-7f21-4319-8994-87d6763ef524")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.5.350.0")]
-[assembly: AssemblyFileVersion("0.5.350.0")]
+[assembly: AssemblyVersion("0.5.550.0")]
+[assembly: AssemblyFileVersion("0.5.550.0")]

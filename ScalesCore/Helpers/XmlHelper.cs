@@ -38,7 +38,7 @@ namespace ScalesCore.Helpers
             if (string.IsNullOrEmpty(inputUri))
                 throw new ArgumentNullException(inputUri);
 
-            foreach (var elementName in elements)
+            foreach (XmlTag elementName in elements)
             {
                 if (string.IsNullOrEmpty(elementName.ElementName))
                     throw new ArgumentNullException(elementName.ElementName);
@@ -60,12 +60,12 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public ResultXmlRead Read(string inputUri, Collection<XmlTag> elements, string getValueFromName = null)
         {
-            var str = new Collection<string>();
-            var value = string.Empty;
+            Collection<string> str = new Collection<string>();
+            string value = string.Empty;
             // Проверки.
             Checks(inputUri, elements);
 
-            using (var xmlReader = new XmlTextReader(inputUri))
+            using (XmlTextReader xmlReader = new XmlTextReader(inputUri))
             {
                 xmlReader.MoveToContent();
 
@@ -88,10 +88,10 @@ namespace ScalesCore.Helpers
             XmlTag elementCur = null;
             string attr = null;
 
-            var elementsTrim = new Collection<XmlTag>();
+            Collection<XmlTag> elementsTrim = new Collection<XmlTag>();
             if (elements.Count > 0)
             {
-                foreach (var element in elements)
+                foreach (XmlTag element in elements)
                 {
                     if (elementCur == null)
                         elementCur = element;
@@ -191,7 +191,7 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public ResultXmlRead Write(string fileName, Collection<XmlTag> elements, string key, string value)
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             // Проверки.
             Checks(fileName, elements, key);
 

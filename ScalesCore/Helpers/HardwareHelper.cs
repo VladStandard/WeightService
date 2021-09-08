@@ -31,16 +31,16 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public Dictionary<string, string> HardwareInfoSelect(string infoSelect)
         {
-            var systemInfo = new Dictionary<string, string>();
-            var query = new SelectQuery(@"Select * from " + infoSelect);
+            Dictionary<string, string> systemInfo = new Dictionary<string, string>();
+            SelectQuery query = new SelectQuery(@"Select * from " + infoSelect);
 
             //initialize the searcher with the query it is supposed to execute
-            using (var searcher = new ManagementObjectSearcher(query))
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
             {
                 try
                 {
                     // execute the query
-                    foreach (var proc in searcher.Get())
+                    foreach (ManagementBaseObject proc in searcher.Get())
                     {
                         // print system info
                         ((ManagementObject) proc).Get();
@@ -58,10 +58,10 @@ namespace ScalesCore.Helpers
 
             }
 
-            var searcher1 = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
-            var collection = searcher1.Get();
+            ManagementObjectSearcher searcher1 = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
+            ManagementObjectCollection collection = searcher1.Get();
 
-            foreach (var obj in collection)
+            foreach (ManagementBaseObject obj in collection)
             {
                 ((ManagementObject)obj).Get();
                 if (((string[])obj["BIOSVersion"]).Length > 1)
@@ -78,17 +78,17 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public List<string> ProgramPrint()
         {
-            var pr = new Stopwatch();
-            var pr2 = new Stopwatch();
-            var installed_program = new List<string>();
+            Stopwatch pr = new Stopwatch();
+            Stopwatch pr2 = new Stopwatch();
+            List<string> installed_program = new List<string>();
 
-            var registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-            using (var key = Registry.LocalMachine.OpenSubKey(registry_key))
+            string registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
             {
                 if (key != null)
-                    foreach (var subKeyName in key.GetSubKeyNames())
+                    foreach (string subKeyName in key.GetSubKeyNames())
                     {
-                        using (var subKey = key.OpenSubKey(subKeyName))
+                        using (RegistryKey subKey = key.OpenSubKey(subKeyName))
                         {
                             try
                             {

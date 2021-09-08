@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.550] - 2021-09-08
+### Fixed
+- ScalesUI v.0.5.550
+### Changed
+- DataShareCore v.0.5.550
+- DataProjectsCore v.0.5.550
+### Deprecated
+- DeviceControl
+- MdmControl
+- ScalesMsi
+- ScalesMsiTests
+- TapangaMaha
+- TokenWriteRead
+
 ## [0.5.540] - 2021-09-07
 ### Changed
 - ScalesUI v.0.5.540

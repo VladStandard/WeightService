@@ -83,7 +83,7 @@ namespace ScalesCore.Helpers
         {
             get
             {
-                var lang = _reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUI, "Language");
+                string lang = _reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUI, "Language");
                 switch (lang)
                 {
                     case "Russian":
@@ -187,7 +187,7 @@ namespace ScalesCore.Helpers
 
             if (!Directory.Exists(DirMain))
             {
-                var message = language == EnumLanguage.English ? $@"Directory '{DirMain}' not exists!" : $@"Каталог '{DirMain}' не существует!";
+                string message = language == EnumLanguage.English ? $@"Directory '{DirMain}' not exists!" : $@"Каталог '{DirMain}' не существует!";
                 Console.WriteLine(message);
                 if (silentUI == EnumSilentUI.False)
                     MessageBox.Show(message);
@@ -239,7 +239,7 @@ namespace ScalesCore.Helpers
                 Console.WriteLine(@"Directory created.");
             }
 
-            foreach (var file in files)
+            foreach (string file in files)
             {
                 if (File.Exists(DirMain + @"\" + file))
                 {
@@ -254,7 +254,7 @@ namespace ScalesCore.Helpers
         /// </summary>
         public void ExtractDrivers()
         {
-            foreach (var arch in _collections.DriversArchives)
+            foreach (string arch in _collections.DriversArchives)
             {
                 if (arch.EndsWith(".zip"))
                 {
@@ -294,14 +294,11 @@ namespace ScalesCore.Helpers
                 return;
 
             // Запустить установку драйвера.
-            if (!string.IsNullOrEmpty(driverFileName))
+            if (MessageBox.Show(@"Драйвер весов не обнаружен. Установить?", _app.GetDescription(assembly), MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                if (MessageBox.Show(@"Драйвер весов не обнаружен. Установить?", _app.GetDescription(assembly), MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                {
-                    //MessageBox.Show(DirDrivers + @"\" + driverFileName);
-                    _proc.Run(DirDrivers + @"\" + driverFileName, string.Empty, true, ProcessWindowStyle.Normal, true);
-                }
+                //MessageBox.Show(DirDrivers + @"\" + driverFileName);
+                _proc.Run(DirDrivers + @"\" + driverFileName, string.Empty, true, ProcessWindowStyle.Normal, true);
             }
         }
 
@@ -339,11 +336,11 @@ namespace ScalesCore.Helpers
         {
             if (Directory.Exists(dir))
             {
-                foreach (var dirIn in Directory.GetDirectories(dir))
+                foreach (string dirIn in Directory.GetDirectories(dir))
                 {
                     DirClear(dirIn);
                 }
-                foreach (var file in Directory.GetFiles(dir))
+                foreach (string file in Directory.GetFiles(dir))
                 {
                     Console.WriteLine($@"File '{file}' deleted from '{dir}'.");
                     File.Delete(file);
