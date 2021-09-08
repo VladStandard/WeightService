@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.550] - 2021-09-08
+### Changed
+- BaseController
+
 ## [0.1.500] - 2021-08-24
 ### Removed
 - TerraController

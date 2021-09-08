@@ -15,8 +15,8 @@ namespace Terra.Controllers
     {
         #region Public and private fields and properties
 
-        public TaskHelper Task = TaskHelper.Instance;
-        public readonly ILogger<BaseController> Log;
+        public TaskHelper TaskHelper = TaskHelper.Instance;
+        public readonly ILogger<BaseController> Logger;
         public readonly ISessionFactory SessionFactory;
 
         #endregion
@@ -25,7 +25,7 @@ namespace Terra.Controllers
 
         public BaseController(ILogger<BaseController> logger, ISessionFactory sessionFactory)
         {
-            Log = logger;
+            Logger = logger;
             SessionFactory = sessionFactory;
         }
 

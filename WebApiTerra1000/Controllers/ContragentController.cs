@@ -17,7 +17,7 @@ namespace Terra.Controllers
     {
         #region Constructor and destructor
         
-        public ContragentController(ILogger<BaseController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public ContragentController(ILogger<ContragentController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
         }
 
@@ -30,7 +30,7 @@ namespace Terra.Controllers
         [Route("api/contragents-test/")]
         public ContentResult GetContragentsTest()
         {
-            return Task.RunTask(new Task<ContentResult>(() =>
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
                 XDocument response = new(
                     new XElement("Response",
@@ -52,7 +52,7 @@ namespace Terra.Controllers
         [Route("api/contragent/")]
         public ContentResult GetContragent(int id)
         {
-            return Task.RunTask(new Task<ContentResult>(() =>
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
@@ -77,7 +77,7 @@ namespace Terra.Controllers
         [Route("api/contragents/")]
         public ContentResult GetContragents(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10)
         {
-            return Task.RunTask(new Task<ContentResult>(() =>
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();

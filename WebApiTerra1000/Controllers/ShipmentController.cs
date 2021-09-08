@@ -18,7 +18,7 @@ namespace Terra.Controllers
     {
         #region Constructor and destructor
 
-        public ShipmentController(ILogger<BaseController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public ShipmentController(ILogger<ShipmentController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
         }
 
@@ -31,7 +31,7 @@ namespace Terra.Controllers
         [Route("api/shipment/")]
         public ContentResult GetShipment(long id)
         {
-            return Task.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() => {
                 XDocument doc;
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
@@ -100,7 +100,7 @@ namespace Terra.Controllers
         [Route("api/shipments/")]
         public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10)
         {
-            return Task.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() => {
                 XDocument doc;
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();

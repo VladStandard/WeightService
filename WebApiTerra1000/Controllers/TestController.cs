@@ -18,7 +18,7 @@ namespace Terra.Controllers
     {
         #region Constructor and destructor
 
-        public TestController(ILogger<BaseController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public TestController(ILogger<TestController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
         }
 
@@ -32,7 +32,7 @@ namespace Terra.Controllers
         [Route("api/test/")]
         public ContentResult GetTest(string id)
         {
-            return Task.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() => {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
                 const string sql = "SELECT SYSDATETIME() [CURRENT_TIME]";
@@ -65,7 +65,7 @@ namespace Terra.Controllers
         [Route("api/deprecated/")]
         public ContentResult GetDeprecated()
         {
-            return Task.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() => {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
                 const string sql = "SELECT [IIS].[fnGetDeprecated]() [fnGetDeprecated]";

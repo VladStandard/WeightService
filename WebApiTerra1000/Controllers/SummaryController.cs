@@ -16,7 +16,7 @@ namespace Terra.Controllers
     {
         #region Constructor and destructor
 
-        public SummaryController(ILogger<BaseController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public SummaryController(ILogger<SummaryController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
         }
 
@@ -29,7 +29,7 @@ namespace Terra.Controllers
         [Route("api/summary/")]
         public ContentResult GetSummary(DateTime startDate, DateTime endDate)
         {
-            return Task.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() => {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
                 const string sql = "SELECT [IIS].[fnGetSummaryList] (:StartDate, :EndDate)";

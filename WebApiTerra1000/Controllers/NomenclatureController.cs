@@ -16,7 +16,7 @@ namespace Terra.Controllers
     {
         #region Constructor and destructor
 
-        public NomenclatureController(ILogger<BaseController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public NomenclatureController(ILogger<NomenclatureController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
         }
 
@@ -29,7 +29,7 @@ namespace Terra.Controllers
         [Route("api/nomenclature/")]
         public ContentResult GetNomenclature(string code, int id)
         {
-            return Task.RunTask(new Task<ContentResult>(() =>
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
@@ -60,7 +60,7 @@ namespace Terra.Controllers
         [Route("api/nomenclatures/")]
         public ContentResult GetNomenclatures(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10)
         {
-            return Task.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() => {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
                 const string sql = "SELECT [IIS].[fnGetNomenclatureChangesList] (:StartDate, :EndDate, :Offset, :RowCount)";
@@ -87,7 +87,7 @@ namespace Terra.Controllers
         [Route("api/nomenclaturescosts/")]
         public ContentResult GetNomenclaturesCosts(int offset = 0, int rowCount = 10)
         {
-            return Task.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() => {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
                 const string sql = "SELECT [IIS].[fnGetNomenclatureList] (:offset, :rowcount)";
