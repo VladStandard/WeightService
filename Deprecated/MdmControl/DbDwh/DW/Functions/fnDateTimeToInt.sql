@@ -1,0 +1,11 @@
+﻿CREATE FUNCTION [DW].[fnDateTimeToInt]
+(
+	@p datetime
+)
+RETURNS INT
+AS
+BEGIN
+	RETURN  DATEPART(YEAR,@p)*10000 + DATEPART(MONTH,@p)*100 + DATEPART(DAY,@p);
+END
+GO
+

@@ -1,0 +1,16 @@
+﻿@page "/indexInside"
+@using ResourcesVS.Utils
+
+<RadzenPanel AllowCollapse="false" Style="width:100%; margin-bottom: 20px; height:50%;">
+    <HeaderTemplate>
+        <RadzenLabel Text="@LocalizationStrings.IndexTitle" Style="align-self: center; width: 100%; height: 25px; " />
+    </HeaderTemplate>
+    <ChildContent>
+        <span class="text-wrap">
+            @LocalizationStrings.IndexDescription
+        </span>
+    </ChildContent>
+</RadzenPanel>
+
+@code {
+}

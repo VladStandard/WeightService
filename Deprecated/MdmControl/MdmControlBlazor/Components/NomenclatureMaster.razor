@@ -1,0 +1,83 @@
+﻿@page "/nomenclaturemaster"
+@page "/nomenclaturemaster/{ItemId:int}"
+@using MdmControlBlazor.Utils
+@using MdmControlCore.Utils
+@using MdmControlCore.DAL.TableModels
+@inherits MdmControlBlazor.Data.BaseRazorEntity
+
+<MdmControlBlazor.Components.Nomenclature ItemId=@ItemId />
+
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 40px">
+    <div class="row col-sm-4 col-md-4 col-lg-4" style="margin-top: -5px; margin-left: -10px; margin-right: -10px; margin-bottom: -5px; ">
+        <RadzenLabel Style="text-align: center; " Text=@LocalizationStrings.TableIncludes />
+    </div>
+    @* Buttons *@
+    <div class="row col-sm-3 col-md-3 col-lg-3" style="margin-top: -5px; margin-left: -10px; margin-right: -10px; margin-bottom: -5px; ">
+        <RadzenButton Click=@(_ => GetDataAsync())
+                      Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                      Icon="refresh"
+                      ButtonStyle="ButtonStyle.Light"
+                      Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
+                      MouseEnter="@(args => BlazorSettings.ShowTooltipTableRead(args))" />
+        <RadzenButton Click=@(_ => ActionEditAsync(IncludeEntity, false))
+                      Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                      Icon="edit"
+                      ButtonStyle="ButtonStyle.Light"
+                      Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
+                      MouseEnter="@(args => BlazorSettings.ShowTooltipTableEdit(args))" />
+        <RadzenButton Click=@(_ => ExcludeEntityAsync(IncludeEntity))
+                      Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
+                      Icon="delete"
+                      ButtonStyle="ButtonStyle.Light"
+                      Disabled=@BlazorSettings.SqlDataAccess.IsDisabled
+                      MouseEnter="@(args => BlazorSettings.ShowTooltipTableExclude(args))" />
+        <br />
+    </div>
+    <div class="row col-sm-5 col-md-5 col-lg-5" style="margin-top: 5px; margin-left: -10px; margin-right: -10px; margin-bottom: -5px; ">
+        <RadzenLabel Style="text-align: center; " Text=@IncludeEntitiesCount />
+    </div>
+    <br />
+    @if (IncludeEntities == null)
+    {
+        <RadzenLabel Text=@LocalizationStrings.DataLoading />
+        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    }
+    else
+    {
+        <RadzenGrid Style="font-size: 10px; margin-top: 35px; margin-left: 0px; margin-right: -5px; margin-bottom: 0px; position: absolute; "
+                    Data=@IncludeEntities TItem="NomenclatureEntity"
+                    RowSelect=@(args => RowSelectAsync(args))
+                    RowDoubleClick=@(args => RowDoubleClickAsync(args, false))
+                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                    AllowPaging="true" PageSize=@BlazorSettings.GridPageSize AllowSorting="true" ColumnWidth="50px"
+                    AllowColumnResize="true" SelectionMode="DataGridSelectionMode.Single"
+                    @bind-Value=@ObjectIncludeEntity>
+            <Columns>
+                <RadzenGridColumn TItem="NomenclatureEntity" Property="Code" Title=@LocalizationStrings.TableFieldCode
+                                  Type="string" Width="14%" />
+                <RadzenGridColumn TItem="NomenclatureEntity" Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem
+                                  Type="string" Width="14%" />
+                <RadzenGridColumn TItem="NomenclatureEntity" Property="ParentConvert" Title=@LocalizationStrings.TableFieldParent
+                                  Type="string" Width="14%">
+                    <Template Context="nomenclature">
+                        <RadzenLabel Style="height: 10px; " Text=@nomenclature?.ParentConvert?.Parents?[0] />
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="NomenclatureEntity" Property="Name" Title=@LocalizationStrings.TableFieldName
+                                  Type="string" Width="33%" />
+                <RadzenGridColumn TItem="NomenclatureEntity" Property="RelevanceStatus" Title=@LocalizationStrings.TableFieldRelevanceStatus
+                                  Type="string" Width="10%">
+                    <Template Context="nomenclature">
+                        <RadzenLabel Style="height: 10px; " Text=@UtilsEnum.GetEnumRelevanceStatusRus(nomenclature?.RelevanceStatus) />
+                    </Template>
+                </RadzenGridColumn>
+                <RadzenGridColumn TItem="NomenclatureEntity" Property="NormalizationStatus" Title=@LocalizationStrings.TableFieldNormalizationStatus
+                                  Type="string" Width="15%">
+                    <Template Context="nomenclature">
+                        <RadzenLabel Style="height: 10px; " Text=@UtilsEnum.GetEnumNormalizationStatusRus(nomenclature?.NormalizationStatus) />
+                    </Template>
+                </RadzenGridColumn>
+            </Columns>
+        </RadzenGrid>
+    }
+</div>

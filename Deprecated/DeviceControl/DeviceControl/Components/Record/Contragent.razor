@@ -1,0 +1,73 @@
+﻿@page "/ContragentPage"
+@using BlazorDeviceControl.Models
+@using DeviceControl.Core.DAL.TableModels
+@using System.Runtime.CompilerServices
+@inject AppSettings AppSettings
+@inject DataAccessConfig DataAccessConfig
+@inject DialogService Dialog
+@inject NotificationService Notification
+
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
+        <RadzenLabel Style="width: 20%; height: 35px;" Text=@Utils.LocalizationStrings.TableFieldName />
+        <RadzenTextBox Style="height: 35px; width: 77%;" Disabled="false" TValue="string"
+                       @bind-value=@Item.Name />
+        <br />
+    </div>
+    <br />
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
+        <RadzenLabel Style="width: 20%; height: 25px;" Text=@Utils.LocalizationStrings.TableFieldMarked />
+        <RadzenCheckBox Style="height: 35px; " Disabled="false" TValue="bool"
+                        @bind-Value=@Item.MarkedGui />
+        <br />
+    </div>
+</div>
+
+@* Dates *@
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldCreateDate />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString() />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldModifiedDate />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString() />
+</div>
+
+@code {
+    [Parameter]
+    public ContragentsEntity Item { get; set; }
+
+    #region Public and private methods
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(true);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task GetDataAsync(
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            //
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    #endregion
+}

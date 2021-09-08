@@ -1,0 +1,47 @@
+﻿@using BlazorDeviceControl.Utils
+@using BlazorDeviceControl.Models
+@inherits LayoutComponentBase
+@inject DataAccessConfig DataAccessConfig
+@inject NavigationManager NavigationManager
+
+<RadzenDialog />
+<RadzenNotification />
+<RadzenContextMenu />
+<RadzenTooltip />
+
+@if (IsSqlServerProduct)
+{
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+}
+else
+{
+    <div class="sidebar" style="background: Green">
+        <NavMenu />
+    </div>
+}
+
+<div class="main">
+    <div class="top-row px-4">
+        <div class="col-sm-8 col-md-8 col-lg-8">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <RadzenLabel Text=@DbServer Style="text-align: left;" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <RadzenLink Icon="email" Text=@LocalizationStrings.CallbackTitle Path=@LocalizationStrings.CallbackEmail 
+                        Style="text-align: right" />
+        </div>
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+
+@code{
+    private string DbServer => DataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase)
+        ? "Промышленный сервер" : "Сервер разработки";
+    private bool IsSqlServerProduct => DataAccessConfig.Server.Contains(LocalizationStrings.SqlServerProduct, StringComparison.InvariantCultureIgnoreCase);
+}

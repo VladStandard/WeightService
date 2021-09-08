@@ -1,0 +1,16 @@
+﻿@page "/docs"
+@using MdmControlBlazor.Utils
+@inherits MdmControlBlazor.Data.BaseRazorEntity
+
+<h2>@LocalizationStrings.HomeTitle</h2>
+
+@if (BlazorSettings.UserAccessLevel is true or false)
+{
+    <div>
+        <RadzenTextArea Value=@GetDocRus() Style="width: 100%; height: 70%; font-size: 14px; line-height: 20px;" ReadOnly="true" />
+    </div>
+}
+else
+{
+    <RadzenLabel Text=@LocalizationStrings.MenuAccessDeny></RadzenLabel>
+}

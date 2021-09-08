@@ -1,0 +1,4 @@
+﻿CREATE SCHEMA [ETL]
+ AUTHORIZATION [OwnerUser];
+
+ GO

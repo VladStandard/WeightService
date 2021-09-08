@@ -1,0 +1,327 @@
+﻿@page "/nomenclature"
+@page "/nomenclature/{ItemId:int}"
+@using MdmControlBlazor.Utils
+@using MdmControlCore.Utils
+@inherits MdmControlBlazor.Data.BaseRazorEntity
+
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 0px">
+    @if (Item == null)
+    {
+        <RadzenLabel Text=@LocalizationStrings.DataLoading />
+        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    }
+    else
+    {
+        @* Left side *@
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldId />
+            <RadzenNumeric Style="width: 63%; text-align: center; " Disabled="true" TValue="int" Value=@Item.Id />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldCode />
+            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Code />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldMarked />
+            <RadzenCheckBox @bind-Value=@Item.Marked TValue="bool?" Disabled="true" />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldName />
+            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Name />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldNameFull />
+            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.NameFull />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldParent />
+            @if (Item.ParentConvert?.Parents == null)
+            {
+                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+            }
+            else
+            {
+                <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-Value=@Item.ParentConvert.Parents[0] />
+            }
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldArticle />
+            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Article />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldWeighted />
+            <RadzenCheckBox @bind-Value=@Item.Weighted TValue="bool?" Disabled="true" />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldGuidMercury />
+            <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="Guid" @bind-value=@Item.GuidMercury />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldKeepTrackOfCharacteristics />
+            <RadzenCheckBox @bind-Value=@Item.KeepTrackOfCharacteristics TValue="bool?" Disabled="true" />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldComment />
+            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="Guid" @bind-value=@Item.Comment />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldIsService />
+            <RadzenCheckBox @bind-Value=@Item.IsService TValue="bool?" Disabled="true" />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldIsProduct />
+            <RadzenCheckBox @bind-Value=@Item.IsProduct TValue="bool?" Disabled="true" />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldAdditionalDescriptionOfNomenclature />
+            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.AdditionalDescriptionOfNomenclature />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldBoxTypeId />
+            <RadzenTextBox Style="width: 63%; " Disabled="true" TValue="string" Value=@Convert.ToString(Item.BoxTypeId) />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldBoxType />
+            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.BoxTypeName />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldPackTypeId />
+            <RadzenTextBox Style="width: 63%; " Disabled="true" TValue="string" Value=@Convert.ToString(Item.PackTypeId) />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldPackType />
+            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.PackTypeName />
+            <br />
+        </div>
+        <br />
+        @* Right side *@
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldXml />
+            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.SerializedRepresentationObject />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldNomenclatureGroupCost />
+            @if (Item.NomenclatureGroupCost == null)
+            {
+                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+            }
+            else
+            {
+                @if (NomenclatureGroupCostEntities == null)
+                {
+                    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 63%; height: 15px" />
+                }
+                else
+                {
+                    <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                            Data=@NomenclatureGroupCostEntities PageSize="5"
+                                            TextProperty="Name" ValueProperty="Id"
+                                            Value=@Item.NomenclatureGroupCost.Id
+                                            Change=@(args => OnChange(args, "NomenclatureGroupsCost"))>
+                        <Columns>
+                            <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
+                            <RadzenDropDownDataGridColumn Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem Width="50%" />
+                        </Columns>
+                    </RadzenDropDownDataGrid>
+                }
+            }<br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldNomenclatureGroup />
+            @if (Item.NomenclatureGroup == null)
+            {
+                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+            }
+            else
+            {
+                @if (NomenclatureGroupEntities == null)
+                {
+                    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 63%; height: 15px" />
+                }
+                else
+                {
+                    <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                            Data=@NomenclatureGroupEntities PageSize="5"
+                                            TextProperty="Name" ValueProperty="Id"
+                                            Value=@Item.NomenclatureGroup.Id
+                                            Change=@(args => OnChange(args, "NomenclatureGroups"))>
+                        <Columns>
+                            <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
+                            <RadzenDropDownDataGridColumn Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem Width="50%" />
+                        </Columns>
+                    </RadzenDropDownDataGrid>
+                }
+            }
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldArticleCost />
+            <RadzenTextBox Style="width: 63%; " Disabled="true" TValue="string" Value=@Convert.ToString(Item.ArticleCost) />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldBrand />
+            @if (Item.Brand == null)
+            {
+                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+            }
+            else
+            {
+                @if (BrandEntities == null)
+                {
+                    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 63%; height: 15px" />
+                }
+                else
+                {
+                    <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                            Data=@BrandEntities PageSize="5"
+                                            TextProperty="Name" ValueProperty="Id"
+                                            Value=@Item.Brand.Id
+                                            Change=@(args => OnChange(args, "Brands"))>
+                        <Columns>
+                            <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
+                            <RadzenDropDownDataGridColumn Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem Width="50%" />
+                        </Columns>
+                    </RadzenDropDownDataGrid>
+                }
+            }
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldNomenclatureType />
+            @if (Item.NomenclatureType == null)
+            {
+                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+            }
+            else
+            {
+                @if (NomenclatureTypeEntities == null)
+                {
+                    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 63%; height: 15px" />
+                }
+                else
+                {
+                    <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                            Data=@NomenclatureTypeEntities PageSize="5"
+                                            TextProperty="Name" ValueProperty="Id"
+                                            Value=@Item.NomenclatureType.Id
+                                            Change=@(args => OnChange(args, "NomenclatureTypes"))>
+                        <Columns>
+                            <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
+                            <RadzenDropDownDataGridColumn Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem Width="50%" />
+                        </Columns>
+                    </RadzenDropDownDataGrid>
+                }
+            }
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldVatRate />
+            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.VatRate />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldUnit />
+            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.Unit />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldWeight />
+            <RadzenNumeric Style="width: 63%; text-align: center; " Disabled="false" TValue="decimal" @bind-Value=@Item.Weight />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldStatus />
+            @if (Item.Status == null)
+            {
+                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+            }
+            else
+            {
+                @if (StatusEntities == null)
+                {
+                    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 63%; height: 15px" />
+                }
+                else
+                {
+                    <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                            Data=@StatusEntities PageSize="5"
+                                            TextProperty="Name" ValueProperty="Id"
+                                            Value=@Item.Status.Id
+                                            Change=@(args => OnChange(args, "Statuses"))>
+                        <Columns>
+                            <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
+                            <RadzenDropDownDataGridColumn Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem Width="50%" />
+                        </Columns>
+                    </RadzenDropDownDataGrid>
+                }
+            }
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldInformationSystem />
+            @if (Item.InformationSystem == null)
+            {
+                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+            }
+            else
+            {
+                @if (InformationSystemEntities == null)
+                {
+                    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 63%; height: 15px" />
+                }
+                else
+                {
+                    <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                            Data=@InformationSystemEntities PageSize="5"
+                                            TextProperty="Name" ValueProperty="Id"
+                                            Value=@Item.InformationSystem.Id
+                                            Change=@(args => OnChange(args, "InformationSystems"))
+                                            Disabled="true">
+                        <Columns>
+                            <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
+                            <RadzenDropDownDataGridColumn Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem Width="50%" />
+                        </Columns>
+                    </RadzenDropDownDataGrid>
+                }
+            }
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldRelevanceStatus />
+            @if (RelevanceStatuses == null)
+            {
+                <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 63%; height: 15px" />
+            }
+            else
+            {
+                <RadzenDropDownDataGrid Style="width: 63%;" TValue="short" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                        AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                        Data=@RelevanceStatuses PageSize="5"
+                                        TextProperty="Name" ValueProperty="Value"
+                                        Value=@Item.RelevanceStatus
+                                        Change=@(args => OnChange(args, "RelevanceStatuses"))
+                                        Disabled="false">
+                    <Columns>
+                        <RadzenDropDownDataGridColumn Property="RelevanceStatus.Name" Title=@LocalizationStrings.TableFieldRelevanceStatus Width="100%" />
+                    </Columns>
+                </RadzenDropDownDataGrid>
+            }
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldNormalizationStatus />
+            @if (NormilizationStatuses == null)
+            {
+                <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 63%; height: 15px" />
+            }
+            else
+            {
+                <RadzenDropDownDataGrid Style="width: 63%;" TValue="short" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                        AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                        Data=@NormilizationStatuses PageSize="5"
+                                        TextProperty="Name" ValueProperty="Value"
+                                        Value=@Item.NormalizationStatus
+                                        Change=@(args => OnChange(args, "NormilizationStatuses"))
+                                        Disabled="false">
+                    <Columns>
+                        <RadzenDropDownDataGridColumn Property="NormalizationStatus.Name" Title=@LocalizationStrings.TableFieldNormalizationStatus Width="100%" />
+                    </Columns>
+                </RadzenDropDownDataGrid>
+            }
+            <br />
+        </div>
+    }
+</div>
+
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
+    @if (Item == null)
+    {
+        <RadzenLabel Text=@LocalizationStrings.DataLoading />
+        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    }
+    else
+    {
+        <div class="row col-sm-6 col-md-6 col-lg-6" style="margin-top: 5px">
+            <RadzenLabel Style="font-size: 12px; text-align: center;"
+                         Text=@(LocalizationStrings.TableFieldCreateDate + ": " + UtilsDt.FormatDtRus(Item.CreateDate, false)) />
+        </div>
+        <div class="row col-sm-6 col-md-6 col-lg-6" style="margin-top: 5px">
+            <RadzenLabel Style="font-size: 12px; text-align: center;"
+                         Text=@(LocalizationStrings.TableFieldModifiedDate + ": " + UtilsDt.FormatDtRus(Item.Dlm, false)) />
+        </div>
+    }
+</div>
+
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px; height: 25px;">
+    <RadzenButton Click=@(args => SaveAsync())
+                  Text=@LocalizationStrings.TableActionSave Style="margin-left: 30px; width: 250px; " />
+    <RadzenButton Click=@(args => CancelAsync()) ButtonStyle="ButtonStyle.Secondary"
+                  Text=@LocalizationStrings.TableActionCancel Style="margin-left: 30px; width: 250px; " />
+</div>

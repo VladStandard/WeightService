@@ -1,0 +1,64 @@
+﻿@using ResourcesVS.Utils
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">@LocalizationStrings.Company</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        @*<li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> @LocalizationStrings.IndexTitle
+            </NavLink>
+        </li>*@
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="contacts">
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.ContactsTitle
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="redmine">
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.RedmineTitle
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="zabbix">
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.ZabbixTitle
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="creatio">
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.CreatioTitle
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="versioncontrol">
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.VersionControlTitle
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="iis">
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.IisServerTitle
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="support">
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationStrings.SupportTitle
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool _collapseNavMenu = true;
+
+    private string NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        _collapseNavMenu = !_collapseNavMenu;
+    }
+}

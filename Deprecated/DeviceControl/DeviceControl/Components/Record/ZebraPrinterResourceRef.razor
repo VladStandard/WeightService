@@ -1,0 +1,208 @@
+﻿@page "/ZebraPrinterResourceRef"
+@using DeviceControl.Core.DAL
+@using DeviceControl.Core.DAL.TableModels
+@using DeviceControl.Core.Models
+@using System.Runtime.CompilerServices
+@using BlazorDeviceControl.Models
+@using DeviceControl.Core.DAL.DataModels
+@using System.Globalization
+@inject AppSettings AppSettings
+@inject DataAccessConfig DataAccessConfig
+@inject DialogService Dialog
+@inject NotificationService Notification
+
+@* Fields *@
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldZebraPrinter />
+        @if (PrinterItems == null)
+        {
+            <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+        }
+        else
+        {
+            <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                    AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                    Data=@PrinterItems PageSize="10"
+                                    TextProperty="Name" ValueProperty="Id"
+                                    Value=@Item.Printer?.Id Disabled="true"
+                                    Change=@(args => OnChange(args, "ZebraPrinter")) />
+        }
+        <br />
+        <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldDescription />
+        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-Value=@Item.Description />
+        <br />
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+        <RadzenLabel Style="width: 35%;" Text=@Utils.LocalizationStrings.TableFieldResource />
+        @if (ResourceItems == null)
+        {
+            <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+        }
+        else
+        {
+            <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                    AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                    Data=@ResourceItems PageSize="5"
+                                    TextProperty="Name" ValueProperty="Id"
+                                    Value=@Item.Resource?.Id
+                                    Change=@(args => OnChange(args, "TemplateResource")) />
+        }
+        <br />
+        <br />
+    </div>
+</div>
+
+@* Dates *@
+<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 20px">
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldCreateDate />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.CreateDate.ToString(CultureInfo.InvariantCulture) />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: center;" Text=@Utils.LocalizationStrings.TableFieldModifiedDate />
+    <RadzenLabel Style="font-size: 12px; width: 24%; text-align: left;" Text=@Item.ModifiedDate.ToString(CultureInfo.InvariantCulture) />
+</div>
+
+@code {
+    public List<ZebraPrinterEntity> PrinterItems { get; set; } = null;
+    public List<TemplateResourcesEntity> ResourceItems { get; set; } = null;
+    [Parameter]
+    public ZebraPrinterResourceRefEntity Item { get; set; }
+
+    #region Public and private methods
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(true);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task RowSelectAsync(BaseEntity entity, string resourceType,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            //
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    private async Task RowDoubleClickAsync(BaseEntity entity, string table,
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            //
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    private void OnChange(object value, string name)
+    {
+        switch (name)
+        {
+            case "ZebraPrinter":
+                if (value is int idZebraPrinter)
+                {
+                    if (idZebraPrinter <= 0)
+                        Item.Printer = null;
+                    else
+                    {
+                        Item.Printer = AppSettings.DataAccess.ZebraPrinterCrud.GetEntity(
+                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idZebraPrinter } }),
+                        null);
+                    }
+                }
+                break;
+            case "TemplateResource":
+                if (value is int idTemplateResource)
+                {
+                    if (idTemplateResource <= 0)
+                        Item.Printer = null;
+                    else
+                    {
+                        Item.Resource = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(
+                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idTemplateResource } }),
+                        null);
+                    }
+                }
+                break;
+        }
+        StateHasChanged();
+    }
+
+    private async Task GetDataAsync(
+        [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        try
+        {
+            PrinterItems = AppSettings.DataAccess.ZebraPrinterCrud.GetEntities(null, null).ToList();
+            ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(null, null).ToList();
+        }
+        catch (Exception ex)
+        {
+            var msg = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Ошибка метода [{memberName}]!",
+                Detail = ex.Message,
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+            Notification.Notify(msg);
+            Console.WriteLine(msg.Detail);
+        }
+    }
+
+    private async Task ActionEditAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Edit, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionAddAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Add, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionCopyAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Copy, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    private async Task ActionDeleteAsync(EnumTable table, BaseEntity entity, BaseEntity parentEntity)
+    {
+        await AppSettings.ActionAsync(table, EnumTableAction.Delete, entity, parentEntity).ConfigureAwait(true);
+        await GetDataAsync().ConfigureAwait(false);
+    }
+
+    #endregion
+}

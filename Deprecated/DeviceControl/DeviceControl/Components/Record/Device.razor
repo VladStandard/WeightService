@@ -1,0 +1,126 @@
+﻿@page "/DevicePage"
+@using DeviceControl.Core.DAL.DataModels
+@using BlazorDeviceControl.Models
+@inject DialogService Dialog
+@inject NotificationService Notification
+@inject TooltipService Tooltip
+@inject AppSettings AppSettings
+@inject DataAccessConfig DataAccessConfig
+
+<RadzenCard Style="margin-bottom: 0px;">
+    <div class="row" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
+        <span Style="align-self: start; width: 15%; height: 25px; ">@Utils.LocalizationStrings.TableActions</span>
+        <RadzenTextBox Style="align-self: end; width: 85%; height: 25px; " Disabled=@AppSettings.DataAccess.IsDisabled TValue="string"
+                       @bind-value=@Item.Scales.Description
+                       Change=@(args => Change<string>(args, "Description")) />
+        <div class="col-md-6" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
+            <br Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; " />
+            <span Style="align-self: start; width: 25%; height: 25px; ">Склад:</span>
+            @*<RadzenTextBox Style="align-self: end; width: 70%; height: 25px; " Disabled=@DataAccess.IsDisabled @bind-value=@Device.Storage Change=@(args => Change<string>(args, "Storage")) />*@
+            <br Style="margin-top: 5px; margin-left: 0px; margin-right: 0px; " />
+            <span Style="align-self: start; width: 38%; height: 25px; ">Шаблон тип. этикетки:</span>
+            @*<RadzenTextBox Style="align-self: end; width: 60%; height: 25px; " Disabled=@DataAccess.IsDisabled @bind-value=@Device.TemplateDefaultTitle Change=@(args => Change<string>(args, "TemplateDefaultTitle")) />*@
+        </div>
+        <div class="col-md-6" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
+            <br Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; " />
+            <span Style="align-self: start; width: 25%; height: 25px; ">Статус:</span>
+            @*RadzenCheckBox Style="align-self: end; width: 25px; height: 25px; " Disabled=@DataAccess.IsDisabled TValue="bool" @bind-value=@Device.State Change=@(args => Change<bool>(args, "State")) />*@
+            <RadzenLabel Text="@_state" Component="CheckBox1" Style="align-self: end; width: 60%; height: 25px; "
+                         Disabled=@AppSettings.DataAccess.IsDisabled />
+            <br Style="margin-top: 5px; margin-left: 0px; margin-right: 0px; " />
+            <span Style="align-self: start; width: 38%; height: 25px; ">Шаблон сум. этикетки:</span>
+            @*<RadzenTextBox Style="align-self: end; width: 60%; height: 25px; " Disabled=@DataAccess.IsDisabled @bind-value=@Device.TemplateSeriesTitle Change=@(args => Change<string>(args, "TemplateSeriesTitle")) />*@
+        </div>
+    </div>
+</RadzenCard>
+
+<br Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; " />
+<div class="row">
+    <div class="col-md-6" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
+        <RadzenButton Click="@SaveAsync" Text="Сохранить" Style="margin-bottom: 10px; width: 150px"
+                      Disabled=@AppSettings.DataAccess.IsDisabled />
+    </div>
+    <div class="col-md-6" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">
+        <RadzenButton Click="@CancelAsync" ButtonStyle="ButtonStyle.Secondary" Text="Закрыть" Style="margin-bottom: 10px; width: 150px"
+                      Disabled=@AppSettings.DataAccess.IsDisabled />
+    </div>
+</div>
+
+<style>
+    html, body {
+        height: 100%;
+    }
+    .full-height {
+        height: 100%;
+    }
+</style>
+
+@code {
+    #region Public and private fields and properties
+
+    [Parameter]
+    public DeviceEntity Item { get; set; }
+    [Parameter]
+    public EventCallback CallbackActionSaveAsync { get; set; }
+    [Parameter]
+    public EventCallback CallbackActionCancelAsync { get; set; }
+
+    private string _state = @"Отключено";
+
+    #endregion
+
+    #region Public and private methods
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync().ConfigureAwait(true);
+        AppSettings.Setup(DataAccessConfig, Notification, Dialog);
+        if (!AppSettings.DataAccess.IsDisabled)
+        {
+            //await GetDataAsync().ConfigureAwait(false);
+        }
+        //Change<bool>(Device != null && Device.State, "State");
+        //await task.ConfigureAwait(true);
+    }
+
+    private async Task SaveAsync()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        var result = false;
+        // ...
+        Dialog.Close(true);
+        var message = result
+            ? new NotificationMessage
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = $"Устройство {Item.Scales.Description}",
+                Detail = "Сохранено успешно",
+                Duration = Utils.LocalizationStrings.Timeout
+            }
+            : new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = $"Устройство {Item.Scales.Description}",
+                Detail = "Ошибка сохранения!",
+                Duration = Utils.LocalizationStrings.Timeout
+            };
+        Notification.Notify(message);
+    }
+
+    private async Task CancelAsync()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        Dialog.Close(false);
+    }
+
+    #endregion
+
+    private void Change<T>(T value, string name) where T : class
+    {
+        if (name.Equals("State"))
+        {
+            _state = Convert.ToBoolean(value) ? @"Работает" : @"Отключено";
+        }
+        StateHasChanged();
+    }
+}
