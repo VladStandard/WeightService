@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - DataShareCore v.0.5.550
 - DataProjectsCore v.0.5.550
+- WebApiTerra1000 v.0.5.550
 ### Deprecated
 - DeviceControl
 - MdmControl

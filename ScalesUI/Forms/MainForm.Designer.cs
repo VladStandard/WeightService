@@ -32,6 +32,7 @@
             this.fieldWeightTare = new System.Windows.Forms.Label();
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.labelLabelsTitle = new System.Windows.Forms.Label();
             this.fieldMassaManager = new System.Windows.Forms.Label();
             this.fieldPrintManager = new System.Windows.Forms.Label();
             this.fieldMemoryManager = new System.Windows.Forms.Label();
@@ -57,7 +58,6 @@
             this.btNewPallet = new System.Windows.Forms.Button();
             this.buttonSetZero = new System.Windows.Forms.Button();
             this.buttonSelectOrder = new System.Windows.Forms.Button();
-            this.labelLabelsTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -158,6 +158,19 @@
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1180, 622);
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            // 
+            // labelLabelsTitle
+            // 
+            this.labelLabelsTitle.AutoSize = true;
+            this.labelLabelsTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelLabelsTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelLabelsTitle.Location = new System.Drawing.Point(1051, 436);
+            this.labelLabelsTitle.Margin = new System.Windows.Forms.Padding(3);
+            this.labelLabelsTitle.Name = "labelLabelsTitle";
+            this.labelLabelsTitle.Size = new System.Drawing.Size(112, 25);
+            this.labelLabelsTitle.TabIndex = 45;
+            this.labelLabelsTitle.Text = "Этикетки";
+            this.labelLabelsTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fieldMassaManager
             // 
@@ -526,19 +539,6 @@
             this.buttonSelectOrder.UseVisualStyleBackColor = false;
             this.buttonSelectOrder.Click += new System.EventHandler(this.ButtonSelectOrder_Click);
             this.buttonSelectOrder.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
-            // 
-            // labelLabelsTitle
-            // 
-            this.labelLabelsTitle.AutoSize = true;
-            this.labelLabelsTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelLabelsTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelLabelsTitle.Location = new System.Drawing.Point(1051, 436);
-            this.labelLabelsTitle.Margin = new System.Windows.Forms.Padding(3);
-            this.labelLabelsTitle.Name = "labelLabelsTitle";
-            this.labelLabelsTitle.Size = new System.Drawing.Size(112, 25);
-            this.labelLabelsTitle.TabIndex = 45;
-            this.labelLabelsTitle.Text = "Этикетки";
-            this.labelLabelsTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 

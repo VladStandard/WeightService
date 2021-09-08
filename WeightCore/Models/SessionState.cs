@@ -126,7 +126,7 @@ namespace WeightCore.Models
 
             Kneading = KneadingMinValue;
             ProductDate = DateTime.Now;
-            CurrentBox = 1;
+            LabelsCurrent = 1;
             LabelsCount = 1;
 
             // контейнер пока не используем
@@ -201,7 +201,7 @@ namespace WeightCore.Models
             set
             {
                 _labelsCount = value;
-                CurrentBox = 1;
+                LabelsCurrent = 1;
                 NotifyLabelsCount?.Invoke(value);
             }
         }
@@ -227,24 +227,26 @@ namespace WeightCore.Models
 
         #region CurrentBox
 
-        public delegate void OnResponseHandlerCurrentBox(int currentBox);
-        public event OnResponseHandlerCurrentBox NotifyCurrentBox;
+        //public delegate void OnResponseHandlerLabelsCurrent(int currentBox);
+        //public event OnResponseHandlerLabelsCurrent NotifyLabelsCurrent;
+        public delegate void CallbackLabelsCurrent(int labelCurrent);
+        public CallbackLabelsCurrent LabelsCurrentRefresh;
 
-        private int _currentBox;
-        public int CurrentBox
+        private int _labelsCurrent;
+        public int LabelsCurrent
         {
-            get => _currentBox;
+            get => _labelsCurrent;
             set
             {
-                _currentBox = value;
-                NotifyCurrentBox?.Invoke(value);
+                //_labelsCurrent = value;
+                //NotifyLabelsCurrent?.Invoke(value);
+                LabelsCurrentRefresh?.Invoke(_labelsCurrent = value);
             }
         }
 
         public void NewPallet()
         {
-            CurrentBox = 1;
-            //если новая паллета - чистим очередь печати
+            LabelsCurrent = 1;
             if (_taskManager.PrintManager != null)
             {
                 _taskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
@@ -274,7 +276,7 @@ namespace WeightCore.Models
                 {
                     _taskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
                     if (!IsTscPrinter)
-                        _taskManager.PrintManager.SetOdometorUserLabel(CurrentBox);
+                        _taskManager.PrintManager.SetOdometorUserLabel(LabelsCurrent);
                 }
                 _kneading = value;
                 NotifyKneading?.Invoke(value);
@@ -355,7 +357,7 @@ namespace WeightCore.Models
                 _taskManager.PrintManager?.ClearPrintBuffer(IsTscPrinter);
                 _taskManager.PrintManager?.SetOdometorUserLabel(1);
                 _currentPlu = value;
-                CurrentBox = 1;
+                LabelsCurrent = 1;
                 NotifyPlu?.Invoke(value);
             }
         }
@@ -432,7 +434,7 @@ namespace WeightCore.Models
         private void PrintCountLabelOld(TemplateDirect template)
         {
             // Вывести серию этикеток по заданному размеру паллеты.
-            for (int i = CurrentBox; i <= LabelsCount; i++)
+            for (int i = LabelsCurrent; i <= LabelsCount; i++)
             {
                 CurrentWeighingFact = WeighingFactDirect.New(
                     CurrentScale,
@@ -504,7 +506,7 @@ namespace WeightCore.Models
             // Шаблон без указания кол-ва.
             else
             {
-                for (int i = CurrentBox; i <= LabelsCount; i++)
+                for (int i = LabelsCurrent; i <= LabelsCount; i++)
                 {
                     // Печать этикетки.
                     PrintLabel(template);

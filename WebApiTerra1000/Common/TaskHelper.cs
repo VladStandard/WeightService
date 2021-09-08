@@ -44,12 +44,8 @@ namespace Terra.Common
         {
             try
             {
-                Stopwatch sw = Stopwatch.StartNew();
-                string msg = $"Method: {memberName} is started.";
                 task?.Start();
                 ContentResult result = task?.GetAwaiter().GetResult();
-                sw.Stop();
-                msg = $"Method: {memberName} is finished. Elapsed: {sw.Elapsed}.";
                 return result;
             }
             catch (Exception ex)
@@ -61,16 +57,15 @@ namespace Terra.Common
                 }
                 return new ContentResult
                 {
-                    ContentType = "text/html",
-                    StatusCode = (int)HttpStatusCode.OK,
+                    ContentType = "application/html",
+                    StatusCode = (int)HttpStatusCode.InternalServerError,
                     Content = @$"<html><body>{msg}</body></html>"
                 };
             }
-            //finally
-            //{
-            //    // Сборка мусора.
-            //    GC.Collect();
-            //}
+            finally
+            {
+                GC.Collect();
+            }
         }
 
         #endregion

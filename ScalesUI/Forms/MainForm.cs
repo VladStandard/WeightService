@@ -56,11 +56,12 @@ namespace ScalesUI.Forms
             // Загрузить ресурсы.
             LoadResources();
 
-            // Подписка.
+            // Callbacks.
             _ws.NotifyProductDate += NotifyProductDate;
             _ws.NotifyPlu += NotifyPlu;
             _ws.NotifyLabelsCount += NotifyLabelsCount;
-            _ws.NotifyCurrentBox += NotifyCurrentBox;
+            //_ws.NotifyLabelsCurrent += NotifyCurrentBox;
+            _ws.LabelsCurrentRefresh = LabelsCurrentRefresh;
             _ws.NotifyKneading += NotifyKneading;
 
             _ws.NewPallet();
@@ -211,10 +212,10 @@ namespace ScalesUI.Forms
             //}
 
             // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-            _ws.CurrentBox = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
+            _ws.LabelsCurrent = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
-            if (_ws.CurrentBox == 0)
-                _ws.CurrentBox = 1;
+            if (_ws.LabelsCurrent == 0)
+                _ws.LabelsCurrent = 1;
 
             char ch = StringUtils.GetProgressChar(_taskManager.PrintManagerProgressChar);
             // TSC printers.
@@ -235,10 +236,10 @@ namespace ScalesUI.Forms
             {
                 Zebra.Sdk.Printer.PrinterStatus state = _taskManager.PrintManager.CurrentStatus;
                 // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-                _ws.CurrentBox = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
+                _ws.LabelsCurrent = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
                 // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
-                if (_ws.CurrentBox == 0)
-                    _ws.CurrentBox = 1;
+                if (_ws.LabelsCurrent == 0)
+                    _ws.LabelsCurrent = 1;
                 if (state != null && !state.isReadyToPrint)
                     await AsyncControl.Properties.SetBackColor.Async(buttonPrint, state.isReadyToPrint
                         ? Color.FromArgb(192, 255, 192) : Color.Transparent).ConfigureAwait(false);
@@ -410,12 +411,12 @@ namespace ScalesUI.Forms
 
         private void NotifyLabelsCount(int palletSize)
         {
-            AsyncControl.Properties.SetText.Async(fieldLabelsCount, $"{_ws.CurrentBox}/{_ws.LabelsCount}");
+            AsyncControl.Properties.SetText.Async(fieldLabelsCount, $"{_ws.LabelsCurrent}/{_ws.LabelsCount}");
         }
 
-        private void NotifyCurrentBox(int currentBox)
+        private void LabelsCurrentRefresh(int labelCurrent)
         {
-            AsyncControl.Properties.SetText.Async(fieldLabelsCount, $"{_ws.CurrentBox}/{_ws.LabelsCount}");
+            AsyncControl.Properties.SetText.Async(fieldLabelsCount, $"{_ws.LabelsCurrent}/{_ws.LabelsCount}");
         }
 
         private void NotifyPlu(PluDirect plu)

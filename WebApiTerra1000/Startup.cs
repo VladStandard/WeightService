@@ -25,10 +25,9 @@ namespace Terra
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connStr = Configuration.GetConnectionString("DefaultConnection");
-
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
             ISessionFactory sessionFactory = Fluently.Configure()
-                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connStr).ShowSql())
+                .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString).ShowSql())
                 //.Mappings(m => m.FluentMappings.AddFromAssemblyOf<CatMap>())
                 //.Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
                 .BuildSessionFactory();

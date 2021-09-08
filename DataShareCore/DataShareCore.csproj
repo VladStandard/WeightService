@@ -12,13 +12,13 @@
     <Folder Include="DAL\ModelsDwh\" />
     <Folder Include="DAL\TableModels\" />
     <Folder Include="DAL\TableSystemModels\" />
-    <Folder Include="Gui\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.9" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
