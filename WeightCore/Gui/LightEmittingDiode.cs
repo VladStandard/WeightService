@@ -33,7 +33,7 @@ namespace WeightCore.Gui
                 LedDraw();
             }
         }
-        private Control _owner;
+        private readonly Control _owner;
         private bool _state;
         public bool State
         {

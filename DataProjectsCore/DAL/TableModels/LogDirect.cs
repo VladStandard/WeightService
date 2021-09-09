@@ -2,10 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore.Utils;
+using DataShareCore;
 using DataShareCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
-using static DataProjectsCore.Utils.LogEnums;
 
 namespace DataProjectsCore.DAL.TableModels
 {
@@ -24,7 +24,9 @@ namespace DataProjectsCore.DAL.TableModels
 
         public LogDirect()
         {
-
+            HostId = null;
+            AppUid = null;
+            Version = string.Empty;
         }
 
         public LogDirect(string host, Guid idRref, string app, string version) : this()
@@ -39,7 +41,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         #region Public and private methods
 
-        private void Save(string message, LogType logType, string filePath, string memberName, int lineNumber)
+        private void Save(string message, ShareEnums.LogType logType, string filePath, string memberName, int lineNumber)
         {
             StringUtils.SetStringValueTrim(ref filePath, 32, true);
             StringUtils.SetStringValueTrim(ref memberName, 32);
@@ -60,27 +62,27 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void SaveInformation(string message, string filePath, string memberName, int lineNumber)
         {
-            Save(message, LogType.Information, filePath, memberName, lineNumber);
+            Save(message, ShareEnums.LogType.Information, filePath, memberName, lineNumber);
         }
 
         public void SaveError(string message, string filePath, string memberName, int lineNumber)
         {
-            Save(message, LogType.Error, filePath, memberName, lineNumber);
+            Save(message, ShareEnums.LogType.Error, filePath, memberName, lineNumber);
         }
 
         public void SaveStop(string message, string filePath, string memberName, int lineNumber)
         {
-            Save(message, LogType.Stop, filePath, memberName, lineNumber);
+            Save(message, ShareEnums.LogType.Stop, filePath, memberName, lineNumber);
         }
 
         public void SaveWarning(string message, string filePath, string memberName, int lineNumber)
         {
-            Save(message, LogType.Warning, filePath, memberName, lineNumber);
+            Save(message, ShareEnums.LogType.Warning, filePath, memberName, lineNumber);
         }
 
         public void SaveQuestion(string message, string filePath, string memberName, int lineNumber)
         {
-            Save(message, LogType.Question, filePath, memberName, lineNumber);
+            Save(message, ShareEnums.LogType.Question, filePath, memberName, lineNumber);
         }
 
         public static Guid? SaveAppReader(SqlDataReader reader)

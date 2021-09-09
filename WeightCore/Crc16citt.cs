@@ -9,8 +9,8 @@ namespace WeightCore
     public class Crc16Ccitt
     {
         const ushort poly = 4129;
-        ushort[] table = new ushort[256];
-        ushort initialValue = 0;
+        readonly ushort[] table = new ushort[256];
+        readonly ushort initialValue = 0;
 
         public ushort ComputeChecksum(byte[] bytes)
         {

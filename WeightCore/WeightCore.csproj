@@ -256,8 +256,6 @@
     <Compile Include="Print\Tsc\PrintControlEntity.cs" />
     <Compile Include="Print\Tsc\PrintSetupEntity.cs" />
     <Compile Include="Print\PrintManagerEntity.cs" />
-    <Compile Include="WinForms.Utils\Enums.cs" />
-    <Compile Include="WinForms.Utils\InvokeControl.cs" />
     <Compile Include="XamlPages\PagePluList.xaml.cs">
       <DependentUpon>PagePluList.xaml</DependentUpon>
     </Compile>

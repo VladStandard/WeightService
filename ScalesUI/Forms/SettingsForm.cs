@@ -3,7 +3,7 @@
 
 using DataProjectsCore.DAL.Utils;
 using DataProjectsCore.Utils;
-using DataShareCore.Utils;
+using DataShareCore.Helpers;
 using log4net;
 using System;
 using System.Data.SqlClient;
@@ -17,7 +17,7 @@ using WeightCore.Gui;
 using WeightCore.Managers;
 using WeightCore.Models;
 using WeightCore.Zpl;
-using static DataShareCore.Utils.AppVersionEnums;
+using static DataShareCore.ShareEnums;
 
 namespace ScalesUI.Forms
 {
@@ -25,11 +25,10 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
-        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
         private readonly SessionState _ws = SessionState.Instance;
-        private TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
-        private LogUtils _logUtils = LogUtils.Instance;
+        private readonly TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
+        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
@@ -45,10 +44,7 @@ namespace ScalesUI.Forms
 
         private void ScaleOptionsForm_Load(object sender, EventArgs e)
         {
-            if (_ws is null)
-                TopMost = false;
-            else
-                TopMost = !_ws.IsDebug;
+            TopMost = _ws is null ? false : !_ws.IsDebug;
 
             // Загружить при кажом открытии формы.
             if (_ws != null)
@@ -107,7 +103,7 @@ namespace ScalesUI.Forms
             catch (Exception ex)
             {
 
-                log.Error(ex.Message);
+                _logUtils.Error(ex.Message);
                 //MessageBox.Show(@"Ошибка закрытия!" + Environment.NewLine + ex.Message);
             }
             finally
@@ -129,7 +125,7 @@ namespace ScalesUI.Forms
                 _ws.CurrentScale.DeviceComPort = fieldComPort.Text;
                 _ws.CurrentScale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
                 _ws.CurrentScale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
-                _ws.CurrentScale.VerScalesUI = AppVersionUtils.GetCurrentVersion(Assembly.GetExecutingAssembly(), VerCountDigits.Use3);
+                _ws.CurrentScale.VerScalesUI = _appVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
                 ScalesUtils.Update(_ws.CurrentScale);
                 // Settings.
                 Properties.Settings.Default.Save();
@@ -137,7 +133,7 @@ namespace ScalesUI.Forms
             catch (Exception ex)
             {
                 result = false;
-                log.Error(ex.Message);
+                _logUtils.Error(ex.Message);
                 MessageBox.Show(@"Ошибка сохранения настроек!" + Environment.NewLine + ex.Message);
             }
             finally
@@ -191,7 +187,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                log.Error(ex.Message);
+                _logUtils.Error(ex.Message);
                 MessageBox.Show(@"Ошибка выгрузки ресурсов текущего шаблона!" + Environment.NewLine + ex.Message);
             }
             finally
@@ -219,7 +215,7 @@ namespace ScalesUI.Forms
                 }
                 catch (Exception ex)
                 {
-                    log.Error(ex.Message);
+                    _logUtils.Error(ex.Message);
                     MessageBox.Show(@"Ошибка калибровки!" + Environment.NewLine + ex.Message);
                 }
                 finally
@@ -332,7 +328,7 @@ namespace ScalesUI.Forms
                 catch (Exception ex)
                 {
                     labelSqlStatus.Text = $@"Ошибка подключения! {ex.Message}";
-                    log.Error(ex.Message);
+                    _logUtils.Error(ex.Message);
                 }
                 con.Close();
             }

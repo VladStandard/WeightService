@@ -1,5 +1,4 @@
-﻿using BlazorCore.DAL.TableModels;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using NUnit.Framework;
 using System;
 

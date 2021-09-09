@@ -39,7 +39,7 @@ namespace WeightCore.Print
         public ConcurrentQueue<string> PrintCmdQueue { get; } = new ConcurrentQueue<string>();
         private readonly object _locker = new();
         public PrintControlEntity PrintControl { get; set; }
-        private LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogUtils _logUtils = LogUtils.Instance;
         private ZebraPrinter _zebraPrinter;
         public ZebraPrinter ZebraPrinter => _zebraPrinter ?? (_zebraPrinter = ZebraPrinterFactory.GetInstance(Con));
 

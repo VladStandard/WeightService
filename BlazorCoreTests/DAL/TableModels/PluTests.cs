@@ -1,5 +1,4 @@
-﻿using BlazorCore.DAL.TableModels;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
 {

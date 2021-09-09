@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Text;
-using BlazorCore.DAL;
-using BlazorCore.DAL.DataModels;
-using BlazorCore.DAL.TableModels;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels

@@ -5,7 +5,6 @@ using System;
 using System.Threading.Tasks;
 using MdmControlBlazor.Utils;
 using MdmControlCore.Utils;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
 using Toolbelt.Blazor.HotKeys;

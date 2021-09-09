@@ -5,7 +5,7 @@ using DataProjectsCore;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.Utils;
 using DataShareCore;
-using log4net;
+using DataShareCore.Helpers;
 using System;
 using System.Drawing;
 using System.Reflection;
@@ -15,7 +15,6 @@ using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Managers;
 using WeightCore.Models;
-using WeightCore.WinForms.Utils;
 
 namespace ScalesUI.Forms
 {
@@ -23,10 +22,10 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
-        private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
         private readonly SessionState _ws = SessionState.Instance;
-        private TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
-        private LogUtils _logUtils = LogUtils.Instance;
+        private readonly TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
+        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
@@ -40,7 +39,6 @@ namespace ScalesUI.Forms
             TopMost = !_ws.IsDebug;
             fieldResolution.Visible = _ws.IsDebug;
             fieldResolution.SelectedIndex = _ws.IsDebug ? 1 : 0;
-            //_mouse.Owner = this;
         }
 
         private void ActionFormLoad([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -51,23 +49,20 @@ namespace ScalesUI.Forms
                 buttonSelectOrder.Visible = !(buttonSelectPlu.Visible = !(_ws.CurrentScale.UseOrder==true));
             }
 
-            //_mouse.Init(progressBarCountBox);
-
             // Загрузить ресурсы.
             LoadResources();
 
             // Callbacks.
-            _ws.NotifyProductDate += NotifyProductDate;
-            _ws.NotifyPlu += NotifyPlu;
-            _ws.NotifyLabelsCount += NotifyLabelsCount;
-            //_ws.NotifyLabelsCurrent += NotifyCurrentBox;
+            _ws.ProductDateRefresh = ProductDateRefresh;
+            _ws.PluRefresh = PluRefresh;
             _ws.LabelsCurrentRefresh = LabelsCurrentRefresh;
-            _ws.NotifyKneading += NotifyKneading;
+            _ws.KneadingRefresh = KneadingRefresh;
 
             _ws.NewPallet();
 
             // Manager tasks.
-            StartTaskManager();
+            _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
+                ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
 
             _logUtils.Information("The program is runned", filePath, memberName, lineNumber);
         }
@@ -89,21 +84,25 @@ namespace ScalesUI.Forms
                     pictureBoxClose.Image = bmpExit;
                 }
 
-                Text = _ws.AppVersion;
+                // Text = _appVersionHelper.AppTitle;
+                MDSoft.WinFormsUtils.InvokeControl.SetText(this, _appVersion.AppTitle);
                 switch (_ws.SqlViewModel.PublishType)
                 {
                     case ShareEnums.PublishType.Debug:
                     case ShareEnums.PublishType.Dev:
-                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
+                        //fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $@"{_appVersion.AppTitle}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.");
                         fieldTitle.BackColor = Color.Yellow;
                         break;
                     case ShareEnums.PublishType.Release:
-                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}.";
+                        //fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}.";
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $@"{_appVersion.AppTitle}.  {_ws.CurrentScale.Description}.");
                         fieldTitle.BackColor = Color.LightGreen;
                         break;
                     case ShareEnums.PublishType.Default:
                     default:
-                        fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
+                        //fieldTitle.Text = $@"{_ws.AppVersion}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.";
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $@"{_appVersion.AppTitle}.  {_ws.CurrentScale.Description}. SQL: {_ws.SqlViewModel.PublishDescription}.");
                         fieldTitle.BackColor = Color.DarkRed;
                         break;
                 }
@@ -149,10 +148,9 @@ namespace ScalesUI.Forms
                     isClose = pinForm.ShowDialog() == DialogResult.OK;
                     pinForm.Close();
                 }
-                Application.DoEvents();
                 if (isClose)
                 {
-                    StopTaskManager();
+                    _taskManager.Close();
                     //_mouse?.Close();
                     e.Cancel = false;
                 }
@@ -168,6 +166,10 @@ namespace ScalesUI.Forms
                 if (ex.InnerException != null)
                     _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
             }
+            finally
+            {
+                Application.DoEvents();
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -179,37 +181,33 @@ namespace ScalesUI.Forms
 
         #region Public and private methods - Tasks
 
-        private async Task CallbackMemoryManagerAsync(int wait)
+        private async Task CallbackMemoryManagerAsync(int wait, bool isTaskEnabled)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            char ch = StringUtils.GetProgressChar(_taskManager.MemoryManagerProgressChar);
-            await AsyncControl.Properties.SetText.Async(fieldMemoryManager,
-                $"Использовано памяти: {_taskManager.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}").ConfigureAwait(false);
-            _taskManager.MemoryManagerProgressChar = ch;
+            if (isTaskEnabled)
+            {
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(fieldMemoryManager, true);
+                char ch = StringUtils.GetProgressChar(_taskManager.MemoryManagerProgressChar);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
+                    $"Использовано памяти: {_taskManager.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}");
+                _taskManager.MemoryManagerProgressChar = ch;
+            }
+            else {
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(fieldMemoryManager, false);
+            }
         }
 
         private async Task CallbackDeviceManagerAsync(int wait)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            AsyncControl.Properties.SetText.Sync(fieldCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
         }
 
         private async Task CallbackPrintManagerAsync(int wait)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            //try
-            //{
-            //}
-            //catch (Exception ex)
-            //{
-            //    if (CustomMessageBox.Show($"Печатающее устройство недоступно ({_ws.CurrentScale.ZebraPrinter}). {ex.Message}") == DialogResult.OK)
-            //    {
-
-            //    }
-            //    //throw new Exception(ex.Message);
-            //}
 
             // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
             _ws.LabelsCurrent = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
@@ -222,13 +220,13 @@ namespace ScalesUI.Forms
             if (_ws.CurrentScale?.ZebraPrinter != null && _ws.IsTscPrinter)
             {
                 //if (_ws.PrintManager.PrintControl != null && !_ws.PrintManager.PrintControl.IsOpen)
-                //    await AsyncControl.Properties.SetBackColor.Async(buttonPrint, _ws.PrintManager.PrintControl.IsOpen
+                //    await MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(buttonPrint, _ws.PrintManager.PrintControl.IsOpen
                 //        ? Color.FromArgb(192, 255, 192) : Color.Transparent).ConfigureAwait(false);
                 if (_taskManager.PrintManager.PrintControl != null)
                 {
                     //LedPrint.State = _ws.PrintManager.PrintControl.IsOpen;
-                    await AsyncControl.Properties.SetText.Async(fieldPrintManager, _taskManager.PrintManager.PrintControl.IsStatusNormal
-                        ? $"Принтер: доступен | {ch}" : $"Принтер: недоступен | {ch}").ConfigureAwait(false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _taskManager.PrintManager.PrintControl.IsStatusNormal
+                        ? $"Принтер: доступен | {ch}" : $"Принтер: недоступен | {ch}");
                 }
             }
             // Zebra printers.
@@ -241,13 +239,12 @@ namespace ScalesUI.Forms
                 if (_ws.LabelsCurrent == 0)
                     _ws.LabelsCurrent = 1;
                 if (state != null && !state.isReadyToPrint)
-                    await AsyncControl.Properties.SetBackColor.Async(buttonPrint, state.isReadyToPrint
-                        ? Color.FromArgb(192, 255, 192) : Color.Transparent).ConfigureAwait(false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetBackColor(buttonPrint, state.isReadyToPrint
+                        ? Color.FromArgb(192, 255, 192) : Color.Transparent);
                 if (state != null)
                 {
-                    //LedPrint.State = state.isReadyToPrint;
-                    await AsyncControl.Properties.SetText.Async(fieldPrintManager, state.isReadyToPrint
-                        ? $"Принтер: доступен | {_taskManager.PrintManager.PrintControl.IpAddress} | {ch}" : $"Принтер: недоступен | {ch}").ConfigureAwait(false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, state.isReadyToPrint
+                        ? $"Принтер: доступен | {_taskManager.PrintManager.PrintControl.IpAddress} | {ch}" : $"Принтер: недоступен | {ch}");
                 }
             }
             _taskManager.PrintManagerProgressChar = ch;
@@ -261,131 +258,51 @@ namespace ScalesUI.Forms
             if (_ws.CurrentPlu != null)
             {
                 flag = true;
-                await AsyncControl.Properties.SetText.Async(labelPlu, _ws.CurrentPlu.CheckWeight == false
+                MDSoft.WinFormsUtils.InvokeControl.SetText(labelPlu, _ws.CurrentPlu.CheckWeight == false
                     ? $"PLU (шт): {_ws.CurrentPlu.PLU}"
-                    : $"PLU (вес): {_ws.CurrentPlu.PLU}").ConfigureAwait(false);
+                    : $"PLU (вес): {_ws.CurrentPlu.PLU}");
                 decimal weight = _taskManager.MassaManager.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
-                await AsyncControl.Properties.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг").ConfigureAwait(false);
-                //await AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto,
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightNetto, $"{weight:0.000} кг");
+                //await MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto,
                 //    _ws.MassaManager.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent).ConfigureAwait(false);
-                //AsyncControl.Properties.SetText.Async(fieldWeightTare, 
+                //MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldWeightTare, 
                 //    $"{(float)getMassa.Tare / getMassa.ScaleFactor:0.000} кг");
             }
 
             //LedMassa.State = _ws.MassaManager.IsStable == 1;
             char ch = StringUtils.GetProgressChar(_taskManager.MassaManagerProgressChar);
-            await AsyncControl.Properties.SetText.Async(fieldMassaManager, _taskManager.MassaManager.IsReady || _taskManager.MassaManager.IsStable == 1
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _taskManager.MassaManager.IsReady || _taskManager.MassaManager.IsStable == 1
                 ? $"Весы: доступны | Вес брутто: { _taskManager.MassaManager.WeightNet:0.000} кг | {ch}"
-                : $"Весы: недоступны | Вес брутто: { _taskManager.MassaManager.WeightNet:0.000} кг | {ch}").ConfigureAwait(false);
+                : $"Весы: недоступны | Вес брутто: { _taskManager.MassaManager.WeightNet:0.000} кг | {ch}");
             _taskManager.MassaManagerProgressChar = ch;
             if (!flag)
             {
-                await AsyncControl.Properties.SetText.Async(labelPlu, "PLU").ConfigureAwait(false);
-                await AsyncControl.Properties.SetText.Async(fieldWeightNetto, "0,000 кг").ConfigureAwait(false);
-                //await AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto, Color.Transparent).ConfigureAwait(false);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(labelPlu, "PLU");
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightNetto, "0,000 кг");
+                //await MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto, Color.Transparent).ConfigureAwait(false);
             }
-        }
-
-        private void StartTaskManager([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            Application.DoEvents();
-            try
-            {
-                //if (_taskManager.TaskManager == null)
-                {
-                    _taskManager.MemoryManagerIsExit = false;
-                    _taskManager.DeviceManagerIsExit = false;
-                    _taskManager.PrintManagerIsExit = false;
-                    _taskManager.MassaManagerIsExit = false;
-
-                    //_taskManager.TaskManager = new Task(async () => { 
-                    Task.Run(async () => {
-                        await _taskManager.TaskRunMemoryManagerAsync(CallbackMemoryManagerAsync, _ws.SqlViewModel)
-                            .ConfigureAwait(false); 
-                    });
-                    Task.Run(async () => {
-                        await _taskManager.TaskRunPrintManagerAsync(CallbackPrintManagerAsync, _ws.SqlViewModel, 
-                            _ws.IsTscPrinter, _ws.CurrentScale)
-                        .ConfigureAwait(false);
-                    });
-                    Task.Run(async () => {
-                        await _taskManager.TaskRunDeviceManagerAsync(CallbackDeviceManagerAsync, _ws.SqlViewModel)
-                        .ConfigureAwait(false);
-                    });
-                    Task.Run(async () => {
-                        await _taskManager.TaskRunMassaManagerAsync(CallbackMassaManagerAsync, ButtonSetZero, _ws.SqlViewModel, 
-                            _ws.IsTscPrinter, _ws.CurrentScale)
-                        .ConfigureAwait(false);
-                    });
-                    //_taskManager.TaskManager.ConfigureAwait(false);
-                    //_taskManager.TaskManager.Start();
-                }
-            }
-            catch (Exception ex)
-            {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-            }
-        }
-
-        private void StopTaskManager([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                _taskManager.MemoryManagerIsExit = true;
-                _taskManager.DeviceManagerIsExit = true;
-                _taskManager.PrintManagerIsExit = true;
-                _taskManager.MassaManagerIsExit = true;
-
-                _taskManager.MemoryManager?.Close();
-                _logUtils.Information("MassaManager is closed", filePath, memberName, lineNumber);
-                _taskManager.DeviceManager?.Close();
-                _logUtils.Information("MassaManager is closed", filePath, memberName, lineNumber);
-                _taskManager.MassaManager?.Close();
-                _logUtils.Information("MassaManager is closed", filePath, memberName, lineNumber);
-                _taskManager.PrintManager?.Close();
-                _logUtils.Information("MassaManager is closed", filePath, memberName, lineNumber);
-
-                if (_taskManager.PrintManager?.PrintControl != null && _ws.IsTscPrinter && !_taskManager.PrintManager.PrintControl.IsStatusNormal)
-                {
-                    _taskManager.PrintManager.PrintControl.Close();
-                    //_ws.PrintManager.PrintControl = null;
-                }
-
-                //_taskManager.TaskManager?.Dispose();
-                //_taskManager.TaskManager = null;
-            }
-            catch (Exception ex)
-            {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-            }
-
-            Application.DoEvents();
         }
 
         #endregion
 
-        #region Private methods - Notifications
+        #region Private methods - Callbacks
 
         //private void NotifyMassa(MassaManagerEntity message)
         //{
         //    var flag = false;
         //    if (message != null)
         //    {
-        //        AsyncControl.Properties.SetText.Async(fieldGrossWeight, $"Вес брутто: {message.WeightNet:0.000} кг");
+        //        MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldGrossWeight, $"Вес брутто: {message.WeightNet:0.000} кг");
         //        if (_ws.CurrentPlu != null)
         //        {
         //            flag = true;
-        //            AsyncControl.Properties.SetText.Async(labelPlu, _ws.CurrentPlu.CheckWeight == false
+        //            MDSoft.WinFormsUtils.InvokeControl.SetText.Async(labelPlu, _ws.CurrentPlu.CheckWeight == false
         //                ? $"PLU (шт): {_ws.CurrentPlu.PLU}" : $"PLU (вес): {_ws.CurrentPlu.PLU}");
         //            var weight = message.WeightNet - _ws.CurrentPlu.GoodsTareWeight;
-        //            AsyncControl.Properties.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг");
-        //            AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto,
+        //            MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг");
+        //            MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto,
         //                message.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent);
-        //            //AsyncControl.Properties.SetText.Async(fieldWeightTare, 
+        //            //MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldWeightTare, 
         //            //    $"{(float)getMassa.Tare / getMassa.ScaleFactor:0.000} кг");
         //        }
         //        if (message.IsReady)
@@ -393,58 +310,37 @@ namespace ScalesUI.Forms
         //    }
         //    if (!flag)
         //    {
-        //        AsyncControl.Properties.SetText.Async(labelPlu, "PLU");
-        //        AsyncControl.Properties.SetText.Async(fieldWeightNetto, "0,000 кг");
-        //        AsyncControl.Properties.SetBackColor.Async(fieldWeightNetto, Color.Transparent);
+        //        MDSoft.WinFormsUtils.InvokeControl.SetText.Async(labelPlu, "PLU");
+        //        MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldWeightNetto, "0,000 кг");
+        //        MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto, Color.Transparent);
         //    }
         //}
 
-        private void NotifyProductDate(DateTime productDate)
+        private void ProductDateRefresh(DateTime productDate)
         {
-            AsyncControl.Properties.SetText.Async(fieldProductDate, $"{productDate:dd.MM.yyyy}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, $"{productDate:dd.MM.yyyy}");
         }
 
-        private void NotifyKneading(int kneading)
+        private void KneadingRefresh(int kneading)
         {
-            AsyncControl.Properties.SetText.Async(fieldKneading, $"{kneading}");
-        }
-
-        private void NotifyLabelsCount(int palletSize)
-        {
-            AsyncControl.Properties.SetText.Async(fieldLabelsCount, $"{_ws.LabelsCurrent}/{_ws.LabelsCount}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, $"{kneading}");
         }
 
         private void LabelsCurrentRefresh(int labelCurrent)
         {
-            AsyncControl.Properties.SetText.Async(fieldLabelsCount, $"{_ws.LabelsCurrent}/{_ws.LabelsCount}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, $"{_ws.LabelsCurrent}/{_ws.LabelsCount}");
         }
 
-        private void NotifyPlu(PluDirect plu)
+        private void PluRefresh(PluDirect plu)
         {
             string strCheckWeight = plu?.CheckWeight == true ? "вес" : "шт";
-            AsyncControl.Properties.SetText.Async(fieldPlu, plu != null
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, plu != null
                 ? $"{plu.PLU} | {strCheckWeight} | {plu.GoodsName}" : string.Empty);
-            AsyncControl.Properties.SetEnabled.Async(buttonPrint, plu != null);
-            AsyncControl.Properties.SetText.Async(fieldWeightTare, plu != null ? $"{plu.GoodsTareWeight:0.000} кг" : "0,000 кг");
-            _log.Info($"Смена PLU: {plu?.GoodsName}");
-            _log.Debug($"PLU.GoodsTareWeight: {plu?.GoodsTareWeight}");
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, plu != null);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, plu != null ? $"{plu.GoodsTareWeight:0.000} кг" : "0,000 кг");
+            _logUtils.Information($"Смена PLU: {plu?.GoodsName}");
+            _logUtils.Information($"PLU.GoodsTareWeight: {plu?.GoodsTareWeight}");
         }
-
-        //[Obsolete(@"Use NotifyPrint")]
-        //private void NotifyPrintOld(PrintEntity zebraPrinter)
-        //{
-        //    var state = zebraPrinter.CurrentStatus;
-        //    // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-        //    _ws.CurrentBox = _ws.PrintDevice.UserLabelCount < _ws.PalletSize ? _ws.PrintDevice.UserLabelCount : _ws.PalletSize;
-        //    // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
-        //    if (_ws.CurrentBox == 0)
-        //        _ws.CurrentBox = 1;
-        //    if (state != null && !state.isReadyToPrint)  
-        //        AsyncControl.Properties.SetBackColor.Async(buttonPrint, state.isReadyToPrint 
-        //            ? Color.FromArgb(192, 255, 192) : Color.Transparent);
-        //    if (state != null) 
-        //        LedPrint.State = state.isReadyToPrint;
-        //}
 
         #endregion
 
@@ -454,7 +350,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                StopTaskManager();
+                _taskManager.Close();
 
                 if (_ws.IsDebug)
                 {
@@ -482,8 +378,9 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                AsyncControl.Select.Invoke(buttonPrint);
-                StartTaskManager();
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
+                    ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
             }
         }
 
@@ -529,7 +426,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                AsyncControl.Select.Invoke(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
             }
         }
 
@@ -542,7 +439,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                StopTaskManager();
+                _taskManager.Close();
 
                 // Weight check.
                 if (_taskManager.MassaManager != null)
@@ -588,8 +485,9 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                AsyncControl.Select.Invoke(buttonPrint);
-                StartTaskManager();
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
+                    ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
             }
         }
 
@@ -602,7 +500,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                StopTaskManager();
+                _taskManager.Close();
 
                 if (_ws.CurrentOrder == null)
                 {
@@ -651,8 +549,9 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                AsyncControl.Select.Invoke(buttonPrint);
-                StartTaskManager();
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
+                    ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
             }
         }
 
@@ -665,7 +564,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                StopTaskManager();
+                _taskManager.Close();
 
                 using SetKneadingNumberForm kneadingNumberForm = new()
                 { Owner = this };
@@ -687,8 +586,9 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                AsyncControl.Select.Invoke(buttonPrint);
-                StartTaskManager();
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
+                    ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
             }
         }
 
@@ -697,11 +597,12 @@ namespace ScalesUI.Forms
             ButtonSetKneading();
         }
 
-        private void ButtonPrint([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ButtonPrint(
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
-                _ws?.ProcessWeighingResult(Owner);
+                _ws?.PrintLabel(Owner);
             }
             catch (Exception ex)
             {
@@ -715,7 +616,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                AsyncControl.Select.Invoke(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
             }
         }
 

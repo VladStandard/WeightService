@@ -4,7 +4,6 @@
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using NUnit.Framework;
-using System.Threading.Tasks;
 
 namespace DataProjectsCoreTests.DAL
 {

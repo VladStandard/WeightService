@@ -100,7 +100,7 @@ namespace WeightCore.Gui
                     button.Select();
             }
 
-            Font f = new Font("Arial", 16, FontStyle.Bold);
+            Font f = new("Arial", 16, FontStyle.Bold);
             foreach (Button button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
             {
                 button.Height = 80;

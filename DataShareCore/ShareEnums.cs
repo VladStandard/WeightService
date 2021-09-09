@@ -11,6 +11,38 @@ namespace DataShareCore
             Russian
         }
 
+        // https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxicon?view=net-5.0
+        // SELECT * FROM [SCALES].[db_scales].[LOG_TYPES]
+        // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+        public enum LogType
+        {
+            None = 0,
+            Error = 1,
+            Stop = 2,
+            Question = 3,
+            Warning = 4,
+            Information = 5,
+            //Trace,
+            //Debug,
+            //Fatal,
+        }
+
+        public enum AppVerStringFormat
+        {
+            AsString,
+            Use1,
+            Use2,
+            Use3,
+            Use4,
+        }
+
+        public enum AppVerCountDigits
+        {
+            Use1,
+            Use2,
+            Use3,
+        }
+
         public enum PublishType
         {
             Default,

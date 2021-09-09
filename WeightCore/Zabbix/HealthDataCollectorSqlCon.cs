@@ -38,7 +38,7 @@ namespace WeightCore.Zabbix
 
         public StringBuilder Response()
         {
-            StringBuilder result = new StringBuilder();
+            StringBuilder result = new();
             foreach (KeyValuePair<string, string> v in Dict)
             {
                 result.AppendLine($"{v.Key}={v.Value};");

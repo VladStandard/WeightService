@@ -1,6 +1,4 @@
-﻿using BlazorCore.DAL.DataModels;
-using BlazorCore.DAL.TableModels;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.DataModels
 {

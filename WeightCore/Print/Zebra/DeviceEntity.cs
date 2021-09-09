@@ -15,9 +15,7 @@ namespace WeightCore.Print.Zebra
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public StateEntity ZebraCurrentState = new();
-
-
-        ConcurrentQueue<string> requestQueue = new();
+        readonly ConcurrentQueue<string> requestQueue = new();
         Thread SharingSessionThread = null;
 
         public delegate void OnResponseHandler(StateEntity state);
@@ -27,7 +25,7 @@ namespace WeightCore.Print.Zebra
 
         private IDeviceSocket DeviceSocket { get; }
         public static readonly int CommandThreadTimeOut = 100;
-        static object locker = new();
+        static readonly object locker = new();
 
         public Guid ID { get; private set; }
         public string Name { get; private set; }

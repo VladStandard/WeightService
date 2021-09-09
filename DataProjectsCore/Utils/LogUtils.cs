@@ -3,35 +3,15 @@
 
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
-using DataShareCore.Utils;
+using DataShareCore;
+using DataShareCore.Helpers;
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using static DataProjectsCore.Utils.LogEnums;
 
 namespace DataProjectsCore.Utils
 {
-    public class LogEnums
-    {
-        // https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxicon?view=net-5.0
-        // SELECT * FROM [SCALES].[db_scales].[LOG_TYPES]
-        // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-
-        public enum LogType
-        {
-            None = 0,
-            Error = 1,
-            Stop = 2,
-            Question = 3,
-            Warning = 4,
-            Information = 5,
-            //Trace,
-            //Debug,
-            //Fatal,
-        }
-    }
-
     public class LogUtils
     {
         #region Design pattern "Lazy Singleton"
@@ -48,27 +28,21 @@ namespace DataProjectsCore.Utils
         public LogUtils()
         {
             HostDirect host = HostsUtils.TokenRead();
-            string app = string.Empty;
-            string version = string.Empty;
-            string appVersion = AppVersionUtils.GetMainFormText(Assembly.GetExecutingAssembly());
-            if (appVersion.Split(' ').Length > 1)
-            {
-                app = appVersion.Split(' ')[0];
-                version = appVersion.Split(' ')[1];
-            }
-            Log = new LogDirect(host.Name, host.IdRRef, app, version);
+
+            _logDb = new LogDirect(host.Name, host.IdRRef, _appVersion.App, _appVersion.Version);
         }
 
         #endregion
 
         #region Public and private fields and properties
 
-        private LogDirect Log { get; }
+        private readonly LogDirect _logDb;
         private readonly log4net.ILog _log4net = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
 
         #endregion
 
-        private void Message(string message, LogType logType, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
+        private void Log4netSave(string message, ShareEnums.LogType logType, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             DateTime dt = DateTime.Now;
             string? dtStamp = $"[{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}:{dt.Second:D2}]";
@@ -80,18 +54,18 @@ namespace DataProjectsCore.Utils
                 //    _log4net?.Debug(msg);
                 //    isDebug = true;
                 //    break;
-                case LogType.Error:
+                case ShareEnums.LogType.Error:
                     _log4net?.Error(msg);
                     isDebug = true;
                     break;
-                case LogType.Stop:
+                case ShareEnums.LogType.Stop:
                     _log4net?.Fatal(msg);
                     isDebug = true;
                     break;
-                case LogType.Information:
+                case ShareEnums.LogType.Information:
                     _log4net?.Info(msg);
                     break;
-                case LogType.Warning:
+                case ShareEnums.LogType.Warning:
                     _log4net?.Warn(msg);
                     break;
                 default:
@@ -104,41 +78,36 @@ namespace DataProjectsCore.Utils
             }
         }
 
-        //public void Debug(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
-        //{
-        //    Message(message, LogType.Debug, filePath, memberName, lineNumber);
-        //}
-
         public void Error(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", 
             [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, LogType.Error, filePath, memberName, lineNumber);
-            Log.SaveError(message, filePath, memberName, lineNumber);
+            Log4netSave(message, ShareEnums.LogType.Error, filePath, memberName, lineNumber);
+            _logDb.SaveError(message, filePath, memberName, lineNumber);
         }
 
         [Obsolete(@"Deprecated method. Use Stop.")]
         public void Fatal(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, LogType.Stop, filePath, memberName, lineNumber);
-            Log.SaveStop(message, filePath, memberName, lineNumber);
+            Log4netSave(message, ShareEnums.LogType.Stop, filePath, memberName, lineNumber);
+            _logDb.SaveStop(message, filePath, memberName, lineNumber);
         }
 
         public void Stop(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, LogType.Stop, filePath, memberName, lineNumber);
-            Log.SaveStop(message, filePath, memberName, lineNumber);
+            Log4netSave(message, ShareEnums.LogType.Stop, filePath, memberName, lineNumber);
+            _logDb.SaveStop(message, filePath, memberName, lineNumber);
         }
 
         public void Information(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, LogType.Information, filePath, memberName, lineNumber);
-            Log.SaveInformation(message, filePath, memberName, lineNumber);
+            Log4netSave(message, ShareEnums.LogType.Information, filePath, memberName, lineNumber);
+            _logDb.SaveInformation(message, filePath, memberName, lineNumber);
         }
 
         public void Warning(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Message(message, LogType.Warning, filePath, memberName, lineNumber);
-            Log.SaveWarning(message, filePath, memberName, lineNumber);
+            Log4netSave(message, ShareEnums.LogType.Warning, filePath, memberName, lineNumber);
+            _logDb.SaveWarning(message, filePath, memberName, lineNumber);
         }
 
     }

@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System.Threading.Tasks;
-using BlazorCore.Models;
 
 namespace BlazorCoreTests.DAL
 {

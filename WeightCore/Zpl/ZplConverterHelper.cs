@@ -141,7 +141,7 @@ namespace WeightCore.Zpl
         /// <returns></returns>
         private string CreateBody(Bitmap bitmapImage)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             int height = bitmapImage.Height;
             int width = bitmapImage.Width;
             int rgb, red, green, blue, index = 0;
@@ -309,7 +309,7 @@ namespace WeightCore.Zpl
         public void SendToPrinter(string ipAddress, int port, string[] ZPLCommand)
         {
 
-            TcpClient client = new TcpClient();
+            TcpClient client = new();
             client.Connect(ipAddress, port);
             NetworkStream stream = client.GetStream();
 
@@ -343,7 +343,7 @@ namespace WeightCore.Zpl
                 byte[] binaryData = Convert.FromBase64String(fnt.Value);
                 string namettf = fnt.Key;
 
-                using TcpClient client = new TcpClient();
+                using TcpClient client = new();
                 client.Connect(ZebraIP, ZebraPort);
                 using (NetworkStream stream = client.GetStream())
                 {
@@ -364,7 +364,7 @@ namespace WeightCore.Zpl
 
         public string FixBase64ForImage(string Image)
         {
-            StringBuilder sbText = new StringBuilder(Image, Image.Length);
+            StringBuilder sbText = new(Image, Image.Length);
             sbText.Replace("\r\n", string.Empty); sbText.Replace(" ", string.Empty);
             return sbText.ToString();
         }
@@ -384,8 +384,8 @@ namespace WeightCore.Zpl
                 //^XA^FO20,20^XGR:2033.PNG^XZ
                 //
                 Image image = Image.FromStream(bmpStream);
-                Bitmap bitmap = new Bitmap(image);
-                ZplConverterHelper zp = new ZplConverterHelper();
+                Bitmap bitmap = new(image);
+                ZplConverterHelper zp = new();
                 //String zplCommand = zp.ConvertFromImage(bitmap);
 
                 string nameimage = fnt.Key;

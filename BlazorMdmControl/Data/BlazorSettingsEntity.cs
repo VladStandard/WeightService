@@ -17,7 +17,6 @@ using MdmControlBlazor.Utils;
 using MdmControlCore.DAL.TableModels;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
-using Toolbelt.Blazor.HotKeys;
 
 namespace MdmControlBlazor.Data
 {

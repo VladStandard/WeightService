@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using BlazorCore.DAL.TableModels;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels

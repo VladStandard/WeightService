@@ -45,7 +45,7 @@ namespace WeightCore.Zabbix
 
         public StringBuilder Response()
         {
-            StringBuilder result = new StringBuilder();
+            StringBuilder result = new();
             foreach (KeyValuePair<string, string> v in Dict)
             {
                 result.AppendLine($"{v.Key}={v.Value};");
@@ -61,7 +61,7 @@ namespace WeightCore.Zabbix
         {
             Dict.Clear();
             string result = string.Empty;
-            Random random = new Random();
+            Random random = new();
             for (int i = 0; i < 100; i++)
             {
                 int prob = random.Next(100);

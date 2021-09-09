@@ -22,7 +22,7 @@ namespace WeightCore.Gui
 
         private static Button GetButtonCopy(TextBox fieldMessages)
         {
-            Button btnCopy = new Button
+            Button btnCopy = new()
             {
                 Font = Font,
                 Location = new Point(3, 3),
@@ -42,7 +42,7 @@ namespace WeightCore.Gui
 
         private static Button GetButtonClear(TextBox fieldMessages)
         {
-            Button btnClear = new Button
+            Button btnClear = new()
             {
                 Font = Font,
                 Location = new Point(140, 3),
@@ -61,7 +61,7 @@ namespace WeightCore.Gui
 
         private static Button GetButtonClose(Form form)
         {
-            Button btnClose = new Button
+            Button btnClose = new()
             {
                 Font = Font,
                 Location = new Point(180, 3),
@@ -80,7 +80,7 @@ namespace WeightCore.Gui
 
         private static TextBox GetFieldMessages(Form form, Control flowLayoutPanel)
         {
-            TextBox fieldMessages = new TextBox
+            TextBox fieldMessages = new()
             {
                 Font = Font,
                 Dock = DockStyle.Fill,
@@ -110,8 +110,8 @@ namespace WeightCore.Gui
                 }
             }
 
-            Form form = new Form();
-            FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel();
+            Form form = new();
+            FlowLayoutPanel flowLayoutPanel = new();
             TextBox fieldMessages = GetFieldMessages(form, flowLayoutPanel);
             flowLayoutPanel.SuspendLayout();
             form.SuspendLayout();
@@ -185,7 +185,7 @@ namespace WeightCore.Gui
         public static void ConfigureTextBoxAppender(TextBox textBox)
         {
             Hierarchy hierarchy = (Hierarchy)LogManager.GetRepository();
-            TextBoxAppender appender = new TextBoxAppender(textBox);
+            TextBoxAppender appender = new(textBox);
             hierarchy.Root.AddAppender(appender);
         }
 
@@ -243,7 +243,7 @@ namespace WeightCore.Gui
                     // the GUI, the control's "BeginInvoke" method has to be
                     // leveraged in order to append the message. Otherwise, a 
                     // threading exception will be thrown. 
-                    Action<string> del = new Action<string>(s => _textBox.AppendText(s));
+                    Action<string> del = new(s => _textBox.AppendText(s));
                     _textBox.BeginInvoke(del, msg);
                 }
             }

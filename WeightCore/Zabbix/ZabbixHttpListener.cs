@@ -296,7 +296,7 @@ namespace WeightCore.Zabbix
 
             if (_sbAccessUrl == null || _sbAccessUrl.Length == 0)
             {
-                using Process process = new Process
+                using Process process = new()
                 {
                     //StartInfo = new ProcessStartInfo(@"netsh", $@"http show urlacl ""{url}""")
                     StartInfo = new ProcessStartInfo(@"netsh", $@"http show urlacl")

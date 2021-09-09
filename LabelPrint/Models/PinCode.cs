@@ -3,8 +3,6 @@
 
 using MvvmHelpers;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace LabelPrint.Models

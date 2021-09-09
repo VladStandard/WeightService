@@ -1,5 +1,4 @@
-﻿using BlazorCore.Models.XML;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace BlazorCoreTests.Models
 {

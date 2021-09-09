@@ -1,7 +1,4 @@
-﻿using BlazorCore.DAL;
-using BlazorCore.DAL.DataModels;
-using BlazorCore.DAL.TableModels;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 
 namespace BlazorCoreTests.DAL.TableModels

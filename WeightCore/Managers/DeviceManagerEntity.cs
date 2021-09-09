@@ -22,7 +22,7 @@ namespace WeightCore.Managers
         public string ExceptionMsg { get; private set; }
         public delegate Task CallbackAsync(int wait);
         public bool IsExecute { get; set; }
-        private LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 

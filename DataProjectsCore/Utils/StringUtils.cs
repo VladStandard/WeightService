@@ -79,6 +79,8 @@ namespace DataProjectsCore.Utils
 
         public static void SetStringValueTrim(ref string value, int length, bool isGetFileName = false)
         {
+            if (string.IsNullOrEmpty(value))
+                return;
             if (isGetFileName)
                 value = Path.GetFileName(value);
             if (value.Length > length)

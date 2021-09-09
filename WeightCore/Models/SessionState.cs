@@ -6,7 +6,7 @@ using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
 using DataProjectsCore.Utils;
-using DataShareCore.Utils;
+using DataShareCore.Helpers;
 using MvvmHelpers;
 using System;
 using System.Reflection;
@@ -16,7 +16,6 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using WeightCore.Gui;
 using WeightCore.Managers;
-using WeightCore.Zabbix;
 using WeightCore.Zpl;
 
 namespace WeightCore.Models
@@ -32,9 +31,9 @@ namespace WeightCore.Models
 
         #region Public and private fields and properties
 
-        private TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
+        private readonly TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
+        private readonly LogUtils _logUtils = LogUtils.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
-        public string AppVersion => AppVersionUtils.GetMainFormText(Assembly.GetExecutingAssembly());
         public ProductSeriesDirect ProductSeries { get; private set; }
         public bool IsDebug
         {
@@ -49,12 +48,9 @@ namespace WeightCore.Models
         }
         public HostDirect Host { get; private set; }
         public ZplCommander ZplCommander { get; private set; }
-        public ZabbixHttpListener HttpListener { get; private set; }
-        private CancellationToken _token;
-        private CancellationToken _tokenHttpListener;
-        private ThreadChecker _threadChecker;
         public int CurrentScaleId { get; }
         public OrderDirect CurrentOrder { get; set; }
+        
         [XmlElement(IsNullable = true)]
         private ScaleDirect _currentScale;
         public ScaleDirect CurrentScale
@@ -86,12 +82,6 @@ namespace WeightCore.Models
             }
         }
 
-        /// <summary>
-        /// Текущая страница.
-        /// </summary>
-        public string CurrentPageAsString => $"Текущая страница: {_currentPage}";
-
-        private LogUtils _logUtils = LogUtils.Instance;
         private bool _isWpfPageLoaderClose;
         /// <summary>
         /// Close WpfPageLoader form.
@@ -192,8 +182,6 @@ namespace WeightCore.Models
 
         public static readonly int PalletSizeMinValue = 1;
         public static readonly int PalletSizeMaxValue = 130;
-        public delegate void OnResponseHandlerPalletSize(int palletSize);
-        public event OnResponseHandlerPalletSize NotifyLabelsCount;
         private int _labelsCount;
         public int LabelsCount
         {
@@ -201,8 +189,7 @@ namespace WeightCore.Models
             set
             {
                 _labelsCount = value;
-                LabelsCurrent = 1;
-                NotifyLabelsCount?.Invoke(value);
+                LabelsCurrentRefresh?.Invoke(value);
             }
         }
 
@@ -227,8 +214,6 @@ namespace WeightCore.Models
 
         #region CurrentBox
 
-        //public delegate void OnResponseHandlerLabelsCurrent(int currentBox);
-        //public event OnResponseHandlerLabelsCurrent NotifyLabelsCurrent;
         public delegate void CallbackLabelsCurrent(int labelCurrent);
         public CallbackLabelsCurrent LabelsCurrentRefresh;
 
@@ -238,9 +223,8 @@ namespace WeightCore.Models
             get => _labelsCurrent;
             set
             {
-                //_labelsCurrent = value;
-                //NotifyLabelsCurrent?.Invoke(value);
-                LabelsCurrentRefresh?.Invoke(_labelsCurrent = value);
+                _labelsCurrent = value;
+                LabelsCurrentRefresh?.Invoke(_labelsCurrent);
             }
         }
 
@@ -262,8 +246,8 @@ namespace WeightCore.Models
         public static readonly int KneadingMinValue = 1;
         public static readonly int KneadingMaxValue = 140;
 
-        public delegate void OnResponseHandlerKneading(int kneading);
-        public event OnResponseHandlerKneading NotifyKneading;
+        public delegate void CallbackKneading(int kneading);
+        public CallbackKneading KneadingRefresh;
         private int _kneading;
 
         public int Kneading
@@ -279,7 +263,7 @@ namespace WeightCore.Models
                         _taskManager.PrintManager.SetOdometorUserLabel(LabelsCurrent);
                 }
                 _kneading = value;
-                NotifyKneading?.Invoke(value);
+                KneadingRefresh?.Invoke(value);
             }
         }
 
@@ -305,10 +289,10 @@ namespace WeightCore.Models
         #region ProductDate
 
         public static readonly DateTime ProductDateMaxValue = DateTime.Now.AddDays(+7);
-        public static readonly DateTime ProductDateMinValue = DateTime.Now.AddDays(-1);
+        public static readonly DateTime ProductDateMinValue = DateTime.Now.AddDays(-31);
 
-        public delegate void OnResponseHandlerProductDate(DateTime productDate);
-        public event OnResponseHandlerProductDate NotifyProductDate;
+        public delegate void CallbackProductDate(DateTime productDate);
+        public CallbackProductDate ProductDateRefresh;
         private DateTime _productDate;
 
         public DateTime ProductDate
@@ -316,11 +300,10 @@ namespace WeightCore.Models
             get => _productDate;
             set
             {
-                //если дата изменилась - чистим очередь печати
                 if (_taskManager.PrintManager != null)
                     _taskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
                 _productDate = value;
-                NotifyProductDate?.Invoke(value);
+                ProductDateRefresh?.Invoke(value);
             }
         }
 
@@ -340,12 +323,13 @@ namespace WeightCore.Models
                     ProductDate = ProductDateMaxValue;
             }
         }
+        
         #endregion
 
         #region PluEntity
 
-        public delegate void OnResponseHandlerPlu(PluDirect plu);
-        public event OnResponseHandlerPlu NotifyPlu;
+        public delegate void CallbackPlu(PluDirect plu);
+        public CallbackPlu PluRefresh;
         private PluDirect _currentPlu;
         [XmlElement(IsNullable = true)]
         public PluDirect CurrentPlu
@@ -358,7 +342,7 @@ namespace WeightCore.Models
                 _taskManager.PrintManager?.SetOdometorUserLabel(1);
                 _currentPlu = value;
                 LabelsCurrent = 1;
-                NotifyPlu?.Invoke(value);
+                PluRefresh?.Invoke(value);
             }
         }
 
@@ -366,7 +350,7 @@ namespace WeightCore.Models
 
         #region PrintMethods
 
-        public void ProcessWeighingResult(IWin32Window owner)
+        public void PrintLabel(IWin32Window owner)
         {
             CurrentWeighingFact = null;
             TemplateDirect template = null;
@@ -428,27 +412,6 @@ namespace WeightCore.Models
                 WeighingFactId = labelId,
             };
             zplLabel.Save();
-        }
-
-        [Obsolete(@"Use PrintCountLabel")]
-        private void PrintCountLabelOld(TemplateDirect template)
-        {
-            // Вывести серию этикеток по заданному размеру паллеты.
-            for (int i = LabelsCurrent; i <= LabelsCount; i++)
-            {
-                CurrentWeighingFact = WeighingFactDirect.New(
-                    CurrentScale,
-                    CurrentPlu,
-                    ProductDate,
-                    Kneading,
-                    CurrentPlu.Scale.ScaleFactor,
-                    CurrentPlu.NominalWeight,
-                    CurrentPlu.GoodsTareWeight
-                );
-
-                // Печать этикетки.
-                PrintLabel(template);
-            }
         }
 
         /// <summary>

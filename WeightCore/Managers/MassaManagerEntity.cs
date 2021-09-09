@@ -43,7 +43,7 @@ namespace WeightCore.Managers
         public AskError DeviceError { get; private set; }
         private static readonly object Locker = new();
         private readonly ConcurrentQueue<Cmd> _requestQueue = new();
-        private LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
@@ -298,7 +298,7 @@ namespace WeightCore.Managers
     public class DeviceSocketRs232 : DeviceSocket
     {
         public SerialPort SerialPort { get; private set; }
-        private LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         public DeviceSocketRs232(string portName = "COM1", int baudRate = 9600, Parity parity = Parity.None, int dataBits = 8,
             StopBits stopBits = StopBits.One, Handshake handshake = Handshake.None, int readTimeout = 50, int writeTimeout = 50)
@@ -360,7 +360,7 @@ namespace WeightCore.Managers
         public int DeviceSendTimeout { get; set; }
         public int DeviceReceiveTimeout { get; set; }
         public TcpClient TcpClient { get; private set; }
-        private LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         public DeviceSocketTcp(string ip, int port)
         {

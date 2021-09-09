@@ -5,9 +5,11 @@ using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
 using DataProjectsCore.Utils;
+using DataShareCore.Helpers;
 using ScalesUI.Forms;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,8 +21,12 @@ namespace ScalesUI
 {
     internal static class Program
     {
+        private static readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
+
         internal static void MainExec([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
+            _appVersion.Setup(Assembly.GetExecutingAssembly());
+
             string conectionString = Properties.Settings.Default.ConnectionString;
             try
             {

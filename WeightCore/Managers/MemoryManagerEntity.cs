@@ -22,7 +22,7 @@ namespace WeightCore.Managers
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; } = string.Empty;
-        public delegate Task CallbackAsync(int wait);
+        public delegate Task CallbackAsync(int wait, bool isTaskEnabled);
         public bool IsExecute { get; set; } = false;
 
         #endregion
@@ -30,7 +30,7 @@ namespace WeightCore.Managers
         #region Public and private fields and properties
 
         public MemorySizeEntity MemorySize { get; private set; }
-        private LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
@@ -50,7 +50,8 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Manager
 
-        public void Open(CallbackAsync callback, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Open(CallbackAsync callback, bool isTaskEnabled,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             IsExecute = true;
             while (IsExecute)
@@ -58,7 +59,7 @@ namespace WeightCore.Managers
                 try
                 {
                     MakeJob();
-                    callback(WaitWhileMiliSeconds).ConfigureAwait(true);
+                    callback(WaitWhileMiliSeconds, isTaskEnabled).ConfigureAwait(true);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
