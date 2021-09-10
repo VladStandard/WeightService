@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using LabelPrint.Models;
+using LabelPrint.Utils;
 using LabelPrint.ViewModels;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,7 +41,7 @@ namespace LabelPrint.Views
         public void BeforeLoaded()
         {
             // Получить программные настройки.
-            _settings = Utils.GetSettings(this);
+            _settings = WpfUtils.GetSettings(this);
         }
 
         #endregion
@@ -123,7 +123,7 @@ namespace LabelPrint.Views
             //_settings.SqlHelp.Authentication.UserId = fieldSqlUser.Text;
             //_settings.SqlHelp.Authentication.Password = fieldSqlPassword.Text;
             //_settings.SqlHelp.Authentication.IntegratedSecurity = fieldSqlIntegratedSecurity.IsChecked == true;
-            //fieldSqlConnectionString.Text = _settings.SqlHelp.Authentication.AsString(EnumConStringLevel.Middle);
+            //fieldSqlConnectionString.Text = _settings.SqlHelp.Authentication.AsString(ProjectsEnums.ConStringLevel.Middle);
         }
 
         /// <summary>
@@ -133,10 +133,10 @@ namespace LabelPrint.Views
         /// <param name="e"></param>
         private void ButtonSqlLoadConfig_Click(object sender, RoutedEventArgs e)
         {
-            //_settings.SqlHelp.Open(EnumSettingsStorage.UseConfig);
+            //_settings.SqlHelp.Open(ShareEnums.SettingsStorage.UseConfig);
             // Загрузить в интерфейс настройки SQL-подключения.
             SqlLoadGui();
-            //fieldSqlConnectionString.Text = _settings.SqlHelp.Authentication.AsString(EnumConStringLevel.Middle);
+            //fieldSqlConnectionString.Text = _settings.SqlHelp.Authentication.AsString(ProjectsEnums.ConStringLevel.Middle);
         }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace LabelPrint.Views
                 // Задать доступ к GUI SQL.
                 SetGuiSqlEnabled(false);
                 // Проверить SQL-подключение.
-                //if (_settings.AppHelp.SqlConCheck(EnumLanguage.Russian))
+                //if (_settings.AppHelp.SqlConCheck(Lang.Russian))
                 //{
                 //    WPF.Utils.InvokeControl.SetBackground(fieldSqlConnectionString, Brushes.Transparent);
                 //}

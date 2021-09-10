@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
+using DataShareCore;
 using Microsoft.Win32;
-using ScalesCore.Models;
 using ScalesCore.Properties;
-using ScalesCore.Win.Proc.Helpers;
 using ScalesCore.Win.Registry.Helpers;
 using System;
 using System.Collections.ObjectModel;
@@ -17,17 +17,17 @@ using System.Windows.Forms;
 namespace ScalesCore.Helpers
 {
     /// <summary>
-    /// Помощник настроек.
+    /// Settings helper.
     /// </summary>
     public sealed class SettingsHelper
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<SettingsHelper> _instance = new Lazy<SettingsHelper>(() => new SettingsHelper());
+        private static readonly Lazy<SettingsHelper> _instance = new(() => new SettingsHelper());
         public static SettingsHelper Instance => _instance.Value;
         private SettingsHelper()
         {
-            CurrentLanguage = EnumLanguage.Russian;
+            CurrentLanguage = ShareEnums.Lang.Russian;
         }
 
         #endregion
@@ -79,7 +79,7 @@ namespace ScalesCore.Helpers
         /// <summary>
         /// Язык локализации.
         /// </summary>
-        public EnumLanguage CurrentLanguage
+        public ShareEnums.Lang CurrentLanguage
         {
             get
             {
@@ -87,9 +87,9 @@ namespace ScalesCore.Helpers
                 switch (lang)
                 {
                     case "Russian":
-                        return EnumLanguage.Russian;
+                        return ShareEnums.Lang.Russian;
                 }
-                return EnumLanguage.English;
+                return ShareEnums.Lang.English;
             }
             set
             {
@@ -174,7 +174,7 @@ namespace ScalesCore.Helpers
         /// <param name="silentUI"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public bool SetupAndCheckDirs(string installDir, EnumSilentUI silentUI, EnumLanguage language)
+        public bool SetupAndCheckDirs(string installDir, ProjectsEnums.SilentUI silentUI, ShareEnums.Lang language)
         {
             if (string.IsNullOrEmpty(installDir))
                 return false;
@@ -187,9 +187,9 @@ namespace ScalesCore.Helpers
 
             if (!Directory.Exists(DirMain))
             {
-                string message = language == EnumLanguage.English ? $@"Directory '{DirMain}' not exists!" : $@"Каталог '{DirMain}' не существует!";
+                string message = language == ShareEnums.Lang.English ? $@"Directory '{DirMain}' not exists!" : $@"Каталог '{DirMain}' не существует!";
                 Console.WriteLine(message);
-                if (silentUI == EnumSilentUI.False)
+                if (silentUI == ProjectsEnums.SilentUI.False)
                     MessageBox.Show(message);
                 DirMain = string.Empty;
                 return false;
@@ -207,7 +207,7 @@ namespace ScalesCore.Helpers
         /// <summary>
         /// Установить.
         /// </summary>
-        public EnumResult DirCreate()
+        public ShareEnums.Result DirCreate()
         {
             try
             {
@@ -217,13 +217,13 @@ namespace ScalesCore.Helpers
                 DirCreateAndMoveFiles(DirDrivers, _collections.DriversArchives);
 
                 Console.WriteLine(@"Install complete.");
-                return EnumResult.Good;
+                return ShareEnums.Result.Good;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(@"Install error: " + ex.Message);
             }
-            return EnumResult.Error;
+            return ShareEnums.Result.Error;
         }
 
         /// <summary>
@@ -279,17 +279,18 @@ namespace ScalesCore.Helpers
             // Windows 8 - 10.
             if ((_winInfo.MajorVersion == 6 && _winInfo.MinorVersion >= 2) || (_winInfo.MajorVersion > 6))
             {
-                driverFileName = _collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? EnumWinVersion.Win10x64 : EnumWinVersion.Win10x32);
+                driverFileName = _collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? ShareEnums.WinVersion.Win10x64 : ShareEnums.WinVersion.Win10x32);
             }
             // Windows 7.
             //else if (_winInfo.MajorVersion == 6 && _winInfo.MinorVersion == 1)
             else
             {
-                driverFileName = _collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? EnumWinVersion.Win7x64 : EnumWinVersion.Win7x32);
+                driverFileName = _collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? ShareEnums.WinVersion.Win7x64 : ShareEnums.WinVersion.Win7x32);
             }
 
             // Проверить установку драйвера.
-            if (_win.SearchingSoftware(EnumWinProvider.Registry, "Virtual Comport Driver", EnumStringTemplate.Equals).Vendor.
+            if (_win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Virtual Comport Driver",
+                ShareEnums.StringTemplate.Equals).Vendor.
                 Equals("STMicroelectronics", StringComparison.InvariantCultureIgnoreCase))
                 return;
 
@@ -305,7 +306,7 @@ namespace ScalesCore.Helpers
         /// <summary>
         /// Удалить.
         /// </summary>
-        public EnumResult DirClear()
+        public ShareEnums.Result DirClear()
         {
             try
             {
@@ -325,7 +326,7 @@ namespace ScalesCore.Helpers
             {
                 Console.WriteLine(@"Uninstall error: " + ex.Message);
             }
-            return EnumResult.Error;
+            return ShareEnums.Result.Error;
         }
 
         /// <summary>

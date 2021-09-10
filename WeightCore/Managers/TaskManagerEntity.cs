@@ -10,6 +10,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using WeightCore.Helpers;
 using WeightCore.Print;
 
 namespace WeightCore.Managers
@@ -39,6 +40,7 @@ namespace WeightCore.Managers
 
         #region Public and private fields and properties
 
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         private readonly LogUtils _logUtils = LogUtils.Instance;
         private bool IsTscPrinter { get; set; }
@@ -67,8 +69,7 @@ namespace WeightCore.Managers
         private readonly AsyncLock _mutexMassaManager = new();
         private readonly CancellationTokenSource _ctsMassaManager = new(TimeSpan.FromMilliseconds(1_000));
 
-        public delegate void CallbackButtonSetZero(
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "");
+        public delegate void CallbackButtonSetZero(object sender, EventArgs e);
 
         #endregion
 
@@ -133,10 +134,9 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Open(DeviceManagerEntity.CallbackAsync callbackDeviceManager, MemoryManagerEntity.CallbackAsync callbackMemoryManager, 
-            PrintManagerEntity.CallbackAsync callbackPrintManager, MassaManagerEntity.CallbackAsync callbackMassaManager,
-            CallbackButtonSetZero callbackButtonSetZero, SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Open(DeviceManagerEntity.Callback callbackDeviceManager, MemoryManagerEntity.Callback callbackMemoryManager, 
+            PrintManagerEntity.Callback callbackPrintManager, MassaManagerEntity.Callback callbackMassaManager,
+            CallbackButtonSetZero callbackButtonSetZero, SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
             {
@@ -153,14 +153,11 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
+                _exception.Catch(null, ref ex);
             }
         }
 
-        public void Close(
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Close()
         {
             try
             {
@@ -179,10 +176,10 @@ namespace WeightCore.Managers
                 PrintManager?.Close();
                 MassaManager?.Close();
 
-                _logUtils.Information($"{nameof(DeviceManager)} is closed", filePath, memberName, lineNumber);
-                _logUtils.Information($"{nameof(MemoryManager)} is closed", filePath, memberName, lineNumber);
-                _logUtils.Information($"{nameof(PrintManager)} is closed", filePath, memberName, lineNumber);
-                _logUtils.Information($"{nameof(MassaManager)} is closed", filePath, memberName, lineNumber);
+                _logUtils.Information($"{nameof(DeviceManager)} is closed");
+                _logUtils.Information($"{nameof(MemoryManager)} is closed");
+                _logUtils.Information($"{nameof(PrintManager)} is closed");
+                _logUtils.Information($"{nameof(MassaManager)} is closed");
 
                 if (PrintManager?.PrintControl != null && IsTscPrinter && !PrintManager.PrintControl.IsStatusNormal)
                 {
@@ -191,9 +188,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
+                _exception.Catch(null, ref ex);
             }
             finally
             {
@@ -201,94 +196,90 @@ namespace WeightCore.Managers
             }
         }
 
-        private void TaskRunDeviceManager(DeviceManagerEntity.CallbackAsync callbackDeviceManager, SqlViewModelEntity sqlViewModel,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void TaskRunDeviceManager(DeviceManagerEntity.Callback callbackDeviceManager, SqlViewModelEntity sqlViewModel)
         {
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
-                using (await _mutexDeviceManager.LockAsync(_ctsDeviceManager.Token))
+                //using (await _mutexDeviceManager.LockAsync(_ctsDeviceManager.Token))
+                using (await _mutexDeviceManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
                     await Task.Delay(TimeSpan.FromSeconds(1));
 
-                    // DeviceManager.
-                    if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager))
+                    try
                     {
-                        try
+                        // DeviceManager.
+                        if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager))
                         {
                             if (DeviceManager == null)
                             {
                                 DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
                             }
                             DeviceManager.Open(callbackDeviceManager);
-                            _logUtils.Information("DeviceManager is runned", filePath, memberName, lineNumber);
+                            _logUtils.Information("DeviceManager is runned");
                         }
-                        catch (Exception ex)
-                        {
-                            _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                            if (ex.InnerException != null)
-                                _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _exception.Catch(null, ref ex);
                     }
                 }
             });
         }
 
-        public void TaskRunMemoryManager(MemoryManagerEntity.CallbackAsync callbackMemoryManager, SqlViewModelEntity sqlViewModel, 
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void TaskRunMemoryManager(MemoryManagerEntity.Callback callbackMemoryManager, SqlViewModelEntity sqlViewModel)
         {
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
-                using (await _mutexMemoryManager.LockAsync(_ctsMemoryManager.Token))
+                //using (await _mutexMemoryManager.LockAsync(_ctsMemoryManager.Token))
+                using (await _mutexMemoryManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
                     await Task.Delay(TimeSpan.FromSeconds(1));
 
-                    // MemoryManager.
-                    if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
+                    try
                     {
-                        try
+                        // MemoryManager.
+                        if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
                         {
                             if (MemoryManager == null)
                             {
                                 MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
                             }
                             MemoryManager.Open(callbackMemoryManager, true);
-                            _logUtils.Information("MemoryManager is runned", filePath, memberName, lineNumber);
+                            _logUtils.Information("MemoryManager is runned");
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                            if (ex.InnerException != null)
-                                _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
+                            MemoryManager?.Open(callbackMemoryManager, false);
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MemoryManager?.Open(callbackMemoryManager, false);
+                        _exception.Catch(null, ref ex);
                     }
                 }
             });
         }
 
-        public void TaskRunPrintManager(PrintManagerEntity.CallbackAsync callbackPrintManager,
-            SqlViewModelEntity sqlViewModel, ScaleDirect currentScale,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void TaskRunPrintManager(PrintManagerEntity.Callback callbackPrintManager,
+            SqlViewModelEntity sqlViewModel, ScaleDirect currentScale)
         {
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
-                using (await _mutexPrintManager.LockAsync(_ctsPrintManager.Token))
+                //using (await _mutexPrintManager.LockAsync(_ctsPrintManager.Token))
+                using (await _mutexPrintManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
                     await Task.Delay(TimeSpan.FromSeconds(1));
 
-                    // PrintManager.
-                    if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager))
+                    try
                     {
-                        try
+                        // PrintManager.
+                        if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager))
                         {
                             if (PrintManager == null)
                             {
@@ -301,51 +292,48 @@ namespace WeightCore.Managers
                             //    _ws.PrintManager.PrintControl.Close();
                             //    _ws.PrintManager.PrintControl = null;
                             //}
-                            _logUtils.Information("PrintManager is runned", filePath, memberName, lineNumber);
+                            _logUtils.Information("PrintManager is runned");
                         }
-                        catch (Exception ex)
-                        {
-                            _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                            if (ex.InnerException != null)
-                                _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _exception.Catch(null, ref ex);
                     }
                 }
             });
         }
 
-        public void TaskRunMassaManager(MassaManagerEntity.CallbackAsync callbackMassaManager,
+        public void TaskRunMassaManager(MassaManagerEntity.Callback callbackMassaManager,
             CallbackButtonSetZero callbackButtonSetZero, SqlViewModelEntity sqlViewModel, ScaleDirect currentScale,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
-                using (await _mutexMassaManager.LockAsync(_ctsMassaManager.Token))
+                //using (await _mutexMassaManager.LockAsync(_ctsMassaManager.Token))
+                using (await _mutexMassaManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
                     await Task.Delay(TimeSpan.FromSeconds(1));
 
-                    // MassaManager.
-                    if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager))
+                    try
                     {
-                        try
+                        // MassaManager.
+                        if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager))
                         {
                             if (MassaManager == null)
                             {
                                 DeviceSocketRs232 deviceSocketRs232 = new(currentScale.DeviceComPort);
                                 MassaManager = new MassaManagerEntity(deviceSocketRs232, 1_000, 5_000, 5_000);
-                                callbackButtonSetZero();
+                                callbackButtonSetZero(null, null);
                             }
                             MassaManager.Open(callbackMassaManager);
                             _logUtils.Information("MassaManager is runned", filePath, memberName, lineNumber);
                         }
-                        catch (Exception ex)
-                        {
-                            _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                            if (ex.InnerException != null)
-                                _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _exception.Catch(null, ref ex);
                     }
                 }
             });

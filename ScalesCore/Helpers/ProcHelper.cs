@@ -4,16 +4,13 @@
 using System;
 using System.Diagnostics;
 
-namespace ScalesCore.Win.Proc.Helpers
+namespace ScalesCore.Helpers
 {
-    /// <summary>
-    /// Помощник процессов.
-    /// </summary>
     public sealed class ProcHelper
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<ProcHelper> _instance = new Lazy<ProcHelper>(() => new ProcHelper());
+        private static readonly Lazy<ProcHelper> _instance = new(() => new ProcHelper());
         public static ProcHelper Instance => _instance.Value;
         private ProcHelper() { }
 
@@ -34,7 +31,7 @@ namespace ScalesCore.Win.Proc.Helpers
         /// </summary>
         public void Run(string procName, string args, bool runAs, ProcessWindowStyle windowStyle, bool useShellExecute)
         {
-            Process process = new Process
+            Process process = new()
             {
                 StartInfo = new ProcessStartInfo(procName, args)
                 {

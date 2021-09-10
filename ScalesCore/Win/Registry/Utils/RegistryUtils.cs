@@ -6,7 +6,7 @@ using ScalesCore.Win.Registry.Entities;
 
 namespace ScalesCore.Win.Registry.Utils
 {
-    public static class Reg
+    public static class RegistryUtils
     {
         public static bool Win64Platform { get; set; } = Environment.Is64BitOperatingSystem;
 

@@ -5,9 +5,9 @@ using LabelPrint.ViewModels;
 using System.Windows;
 
 
-namespace LabelPrint.Models
+namespace LabelPrint.Utils
 {
-    public static class Utils
+    public static class WpfUtils
     {
         /// <summary>
         /// Получить программные настройки.
@@ -17,7 +17,7 @@ namespace LabelPrint.Models
         /// <returns></returns>
         public static ProgramSettings GetSettings(FrameworkElement element, string resource = "ViewModelProgramSettings")
         {
-            var context = element.FindResource(resource);
+            object context = element.FindResource(resource);
             if (context is ProgramSettings settings)
             {
                 return settings;

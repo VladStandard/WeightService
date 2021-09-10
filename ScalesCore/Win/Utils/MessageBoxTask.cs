@@ -109,7 +109,7 @@ namespace ScalesCore.Win.Utils
             try
             {
                 // Размер MessageBox
-                Win32.Rect rectChild = new Win32.Rect();
+                Win32.Rect rectChild = new();
                 int widthChild = 0;
                 int heightChild = 0;
                 if (hMessageBox != IntPtr.Zero)
@@ -121,7 +121,7 @@ namespace ScalesCore.Win.Utils
                 }
 
                 // Получить размер и позицию формы
-                Win32.Rect rectParent = new Win32.Rect();
+                Win32.Rect rectParent = new();
                 int widthParent = 0;
                 int heightParent = 0;
                 if (hOwner != IntPtr.Zero)

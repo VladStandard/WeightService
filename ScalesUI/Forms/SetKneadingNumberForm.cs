@@ -5,6 +5,7 @@ using DataProjectsCore;
 using System;
 using System.Windows.Forms;
 using WeightCore.Gui;
+using WeightCore.Helpers;
 using WeightCore.Models;
 
 namespace ScalesUI.Forms
@@ -13,6 +14,7 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly SessionState _ws = SessionState.Instance;
         private int OldKneading { get; }
         private int OldPalletSize { get; }
@@ -25,7 +27,7 @@ namespace ScalesUI.Forms
         public SetKneadingNumberForm()
         {
             InitializeComponent();
-            // WindowState = FormWindowState.Maximized;
+
             OldKneading = _ws.Kneading;
             OldProductDate = _ws.ProductDate;
             OldPalletSize = _ws.LabelsCount;
@@ -38,134 +40,236 @@ namespace ScalesUI.Forms
 
         private void SetKneadingNumberForm_Load(object sender, EventArgs e)
         {
-            TopMost = !_ws.IsDebug;
-            Width = Owner.Width;
-            Height = Owner.Height;
-            Left = Owner.Left;
-            Top = Owner.Top;
+            try
+            {
+                TopMost = !_ws.IsDebug;
+                Width = Owner.Width;
+                Height = Owner.Height;
+                Left = Owner.Left;
+                Top = Owner.Top;
 
-            StartPosition = FormStartPosition.CenterScreen;
-            ShowPalletSize();
+                StartPosition = FormStartPosition.CenterScreen;
+                ShowPalletSize();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void ShowProductDate()
         {
-            fieldProdDate.Text = _ws.ProductDate.ToString("dd.MM.yyyy");
+            try
+            {
+                fieldProdDate.Text = _ws.ProductDate.ToString("dd.MM.yyyy");
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void ShowKneading()
         {
-            fieldKneading.Text = _ws.Kneading.ToString();
+            try
+            {
+                fieldKneading.Text = _ws.Kneading.ToString();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void buttonKneadingLeft_Click(object sender, EventArgs e)
         {
-            //_ws.RotateKneading(Direction.back);
-
-            NumberInputForm numberInputForm = new NumberInputForm();
-            numberInputForm.InputValue = 0;// _ws.Kneading;
-            if (numberInputForm.ShowDialog() == DialogResult.OK)
+            try
             {
-                _ws.Kneading = numberInputForm.InputValue;
+                NumberInputForm numberInputForm = new();
+                numberInputForm.InputValue = 0;// _ws.Kneading;
+                if (numberInputForm.ShowDialog() == DialogResult.OK)
+                {
+                    _ws.Kneading = numberInputForm.InputValue;
+                }
+                ShowKneading();
             }
-            ShowKneading();
-
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void SetKneadingNumberForm_Shown(object sender, EventArgs e)
         {
-            ShowKneading();
-            ShowProductDate();
+            try
+            {
+                ShowKneading();
+                ShowProductDate();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
-            _ws.Kneading = OldKneading;
-            _ws.ProductDate = OldProductDate;
-            _ws.LabelsCount = OldPalletSize;
-            Close();
+            try
+            {
+                DialogResult = DialogResult.Cancel;
+                _ws.Kneading = OldKneading;
+                _ws.ProductDate = OldProductDate;
+                _ws.LabelsCount = OldPalletSize;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
-            Close();
+            try
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void buttonDtRight_Click(object sender, EventArgs e)
         {
-            _ws.RotateProductDate(ProjectsEnums.Direction.Forward);
-            ShowProductDate();
+            try
+            {
+                _ws.RotateProductDate(ProjectsEnums.Direction.Forward);
+                ShowProductDate();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void buttonDtLeft_Click(object sender, EventArgs e)
         {
-            _ws.RotateProductDate(ProjectsEnums.Direction.Back);
-            ShowProductDate();
+            try
+            {
+                _ws.RotateProductDate(ProjectsEnums.Direction.Back);
+                ShowProductDate();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void buttonPalletSize10_Click(object sender, EventArgs e)
         {
-            int n = _ws.LabelsCount == 1 ? 9 : 10;
-            for (int i = 0; i < n; i++)
+            try
             {
-                _ws.RotatePalletSize(ProjectsEnums.Direction.Forward);
-                ShowPalletSize();
+                int n = _ws.LabelsCount == 1 ? 9 : 10;
+                for (int i = 0; i < n; i++)
+                {
+                    _ws.RotatePalletSize(ProjectsEnums.Direction.Forward);
+                    ShowPalletSize();
+                }
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
             }
         }
 
         private void ShowPalletSize()
         {
-            fieldPalletSize.Text = _ws.LabelsCount.ToString();
+            try
+            {
+                fieldPalletSize.Text = _ws.LabelsCount.ToString();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void buttonPalletSizeNext_Click(object sender, EventArgs e)
         {
-            _ws.RotatePalletSize(ProjectsEnums.Direction.Forward);
-            ShowPalletSize();
+            try
+            {
+                _ws.RotatePalletSize(ProjectsEnums.Direction.Forward);
+                ShowPalletSize();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void buttonPalletSizePrev_Click(object sender, EventArgs e)
         {
-            _ws.RotatePalletSize(ProjectsEnums.Direction.Back);
-            ShowPalletSize();
+            try
+            {
+                _ws.RotatePalletSize(ProjectsEnums.Direction.Back);
+                ShowPalletSize();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void buttonSet40_Click(object sender, EventArgs e)
         {
-            _ws.LabelsCount = 40;
-            ShowPalletSize();
+            SetLabelsCount(40);
         }
 
         private void buttonSet60_Click(object sender, EventArgs e)
         {
-            _ws.LabelsCount = 60;
-            ShowPalletSize();
-
+            SetLabelsCount(60);
         }
 
         private void buttonSet120_Click(object sender, EventArgs e)
         {
-            _ws.LabelsCount = 120;
-            ShowPalletSize();
-
+            SetLabelsCount(120);
         }
 
         private void buttonSet1_Click(object sender, EventArgs e)
         {
-            _ws.LabelsCount = 1;
-            ShowPalletSize();
+            SetLabelsCount(1);
+        }
+        
+        private void SetLabelsCount(int count)
+        {
+            try
+            {
+                _ws.LabelsCount = count;
+                ShowPalletSize();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+        }
+        
+        private void SetKneadingNumberForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Escape)
+                {
+                    buttonClose_Click(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         #endregion
-
-        private void SetKneadingNumberForm_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                buttonClose_Click(sender, e);
-            }
-        }
     }
 }

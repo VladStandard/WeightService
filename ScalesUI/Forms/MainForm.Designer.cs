@@ -523,6 +523,7 @@
             this.buttonSetZero.TabIndex = 1;
             this.buttonSetZero.Text = ">0<";
             this.buttonSetZero.UseVisualStyleBackColor = false;
+            this.buttonSetZero.Visible = false;
             this.buttonSetZero.Click += new System.EventHandler(this.ButtonSetZero_Click);
             this.buttonSetZero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 

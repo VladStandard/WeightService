@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore;
 using DataProjectsCore;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.Utils;
@@ -9,10 +10,9 @@ using DataShareCore.Helpers;
 using System;
 using System.Drawing;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeightCore.Gui;
+using WeightCore.Helpers;
 using WeightCore.Managers;
 using WeightCore.Models;
 
@@ -23,6 +23,7 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly SessionState _ws = SessionState.Instance;
         private readonly TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
         private readonly LogUtils _logUtils = LogUtils.Instance;
@@ -41,38 +42,37 @@ namespace ScalesUI.Forms
             fieldResolution.SelectedIndex = _ws.IsDebug ? 1 : 0;
         }
 
-        private void ActionFormLoad([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            if (_ws.CurrentScale != null)
-            {
-                // _ws.CurrentScale.Load(_app.GuidToString());
-                buttonSelectOrder.Visible = !(buttonSelectPlu.Visible = !(_ws.CurrentScale.UseOrder==true));
-            }
-
-            // Загрузить ресурсы.
-            LoadResources();
-
-            // Callbacks.
-            _ws.ProductDateRefresh = ProductDateRefresh;
-            _ws.PluRefresh = PluRefresh;
-            _ws.LabelsCurrentRefresh = LabelsCurrentRefresh;
-            _ws.KneadingRefresh = KneadingRefresh;
-
-            _ws.NewPallet();
-
-            // Manager tasks.
-            _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
-                ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
-
-            _logUtils.Information("The program is runned", filePath, memberName, lineNumber);
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
-            ActionFormLoad();
+            try
+            {
+                _taskManager.Close();
+
+                if (_ws.CurrentScale != null)
+                {
+                    // _ws.CurrentScale.Load(_app.GuidToString());
+                    buttonSelectOrder.Visible = !(buttonSelectPlu.Visible = !(_ws.CurrentScale.UseOrder == true));
+                }
+
+                LoadResources();
+
+                _ws.NewPallet();
+
+                _logUtils.Information("The program is runned");
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                    ButtonSetZero_Click, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
+            }
         }
 
-        private void LoadResources([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void LoadResources()
         {
             try
             {
@@ -112,13 +112,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка загрузки ресурсов!" + Environment.NewLine + msg, Messages.Exception);
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
             }
         }
 
@@ -133,7 +131,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ActionFormClosing(FormClosingEventArgs e, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
             {
@@ -151,40 +149,59 @@ namespace ScalesUI.Forms
                 if (isClose)
                 {
                     _taskManager.Close();
-                    //_mouse?.Close();
                     e.Cancel = false;
                 }
                 else
                 {
                     e.Cancel = true;
                 }
-                _logUtils.Information("The program is closed", filePath, memberName, lineNumber);
+                _logUtils.Information("The program is closed");
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
-                Application.DoEvents();
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
             }
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            ActionFormClosing(e);
         }
 
         #endregion
 
-        #region Public and private methods - Tasks
+        #region Public and private methods - Callbacks
 
-        private async Task CallbackMemoryManagerAsync(int wait, bool isTaskEnabled)
+        private void CallbackDeviceManager()
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
 
+            if (_ws.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager))
+            {
+                if (!buttonSetZero.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSetZero, true);
+            }
+            else
+            {
+                if (buttonSetZero.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSetZero, false);
+            }
+
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, $"{_ws.ProductDate:dd.MM.yyyy}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, $"{_ws.Kneading}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, $"{_ws.LabelsCurrent}/{_ws.LabelsCount}");
+
+            string strCheckWeight = _ws.CurrentPlu?.CheckWeight == true ? "вес" : "шт";
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, _ws.CurrentPlu != null
+                ? $"{_ws.CurrentPlu.PLU} | {strCheckWeight} | {_ws.CurrentPlu.GoodsName}" : string.Empty);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _ws.CurrentPlu != null);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, _ws.CurrentPlu != null 
+                ? $"{_ws.CurrentPlu.GoodsTareWeight:0.000} кг" : "0,000 кг");
+            //_logUtils.Information($"Смена PLU: {_ws.CurrentPlu?.GoodsName}");
+            //_logUtils.Information($"PLU.GoodsTareWeight: {_ws.CurrentPlu?.GoodsTareWeight}");
+        }
+
+        private void CallbackMemoryManager(bool isTaskEnabled)
+        {
             if (isTaskEnabled)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(fieldMemoryManager, true);
@@ -198,17 +215,8 @@ namespace ScalesUI.Forms
             }
         }
 
-        private async Task CallbackDeviceManagerAsync(int wait)
+        private void CallbackPrintManager()
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
-        }
-
-        private async Task CallbackPrintManagerAsync(int wait)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
             // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
             _ws.LabelsCurrent = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
@@ -232,28 +240,26 @@ namespace ScalesUI.Forms
             // Zebra printers.
             else
             {
-                Zebra.Sdk.Printer.PrinterStatus state = _taskManager.PrintManager.CurrentStatus;
+                //Zebra.Sdk.Printer.PrinterStatus state = _taskManager.PrintManager.CurrentStatus;
                 // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
                 _ws.LabelsCurrent = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
                 // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
                 if (_ws.LabelsCurrent == 0)
                     _ws.LabelsCurrent = 1;
-                if (state != null && !state.isReadyToPrint)
-                    MDSoft.WinFormsUtils.InvokeControl.SetBackColor(buttonPrint, state.isReadyToPrint
-                        ? Color.FromArgb(192, 255, 192) : Color.Transparent);
-                if (state != null)
+                //MDSoft.WinFormsUtils.InvokeControl.SetBackColor(buttonPrint,
+                //    _taskManager.PrintManager.CurrentStatus != null && _taskManager.PrintManager.CurrentStatus.isReadyToPrint
+                //    ? Color.FromArgb(192, 255, 192) : Color.Transparent);
+                if (_taskManager.PrintManager.CurrentStatus != null)
                 {
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, state.isReadyToPrint
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _taskManager.PrintManager.CurrentStatus.isReadyToPrint
                         ? $"Принтер: доступен | {_taskManager.PrintManager.PrintControl.IpAddress} | {ch}" : $"Принтер: недоступен | {ch}");
                 }
             }
             _taskManager.PrintManagerProgressChar = ch;
         }
 
-        private async Task CallbackMassaManagerAsync(int wait)
+        private void CallbackMassaManager()
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
             bool flag = false;
             if (_ws.CurrentPlu != null)
             {
@@ -282,10 +288,6 @@ namespace ScalesUI.Forms
                 //await MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto, Color.Transparent).ConfigureAwait(false);
             }
         }
-
-        #endregion
-
-        #region Private methods - Callbacks
 
         //private void NotifyMassa(MassaManagerEntity message)
         //{
@@ -316,37 +318,11 @@ namespace ScalesUI.Forms
         //    }
         //}
 
-        private void ProductDateRefresh(DateTime productDate)
-        {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, $"{productDate:dd.MM.yyyy}");
-        }
-
-        private void KneadingRefresh(int kneading)
-        {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, $"{kneading}");
-        }
-
-        private void LabelsCurrentRefresh(int labelCurrent)
-        {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, $"{_ws.LabelsCurrent}/{_ws.LabelsCount}");
-        }
-
-        private void PluRefresh(PluDirect plu)
-        {
-            string strCheckWeight = plu?.CheckWeight == true ? "вес" : "шт";
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, plu != null
-                ? $"{plu.PLU} | {strCheckWeight} | {plu.GoodsName}" : string.Empty);
-            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, plu != null);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, plu != null ? $"{plu.GoodsTareWeight:0.000} кг" : "0,000 кг");
-            _logUtils.Information($"Смена PLU: {plu?.GoodsName}");
-            _logUtils.Information($"PLU.GoodsTareWeight: {plu?.GoodsTareWeight}");
-        }
-
         #endregion
 
         #region Private methods
 
-        private void ButtonSettings([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ButtonSettings_Click(object sender, EventArgs e)
         {
             try
             {
@@ -368,25 +344,14 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка вызова формы настроек!" + Environment.NewLine + msg, Messages.Exception);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
-                    ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
+                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                    ButtonSetZero_Click, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
             }
-        }
-
-        private void ButtonSettings_Click(object sender, EventArgs e)
-        {
-            ButtonSettings();
         }
 
         private void OpenFormSettings()
@@ -397,14 +362,13 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonSetZero(
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ButtonSetZero_Click(object sender, EventArgs e)
         {
             try
             {
-                if (_taskManager.MassaManager.WeightNet > Messages.MassaThreshold || _taskManager.MassaManager.WeightNet < -Messages.MassaThreshold)
+                if (_taskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold || _taskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
                 {
-                    CustomMessageBox messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
+                    CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, LocalizationData.ScalesUI.OperationControl,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     messageBox.Wait();
                     if (messageBox.Result != DialogResult.Yes)
@@ -416,13 +380,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка задания 0!" + Environment.NewLine + msg, Messages.Exception);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
@@ -430,12 +388,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonSetZero_Click(object sender, EventArgs e)
-        {
-            ButtonSetZero();
-        }
-
-        private void ButtonSelectPlu([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ButtonSelectPlu_Click(object sender, EventArgs e)
         {
             try
             {
@@ -444,9 +397,9 @@ namespace ScalesUI.Forms
                 // Weight check.
                 if (_taskManager.MassaManager != null)
                 {
-                    if (_taskManager.MassaManager.WeightNet > Messages.MassaThreshold || _taskManager.MassaManager.WeightNet < -Messages.MassaThreshold)
+                    if (_taskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold || _taskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
                     {
-                        CustomMessageBox messageBox = CustomMessageBox.Show(this, Messages.MassaCheck, Messages.OperationControl,
+                        CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, LocalizationData.ScalesUI.OperationControl,
                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         messageBox.Wait();
                         if (messageBox.Result != DialogResult.Yes)
@@ -466,7 +419,7 @@ namespace ScalesUI.Forms
                     //_mkDevice.SetTareWeight((int) (_ws.CurrentPLU.GoodsTareWeight * _ws.CurrentPLU.Scale.ScaleFactor));
 
                     // сразу перейдем к форме с замесами, размерами паллет и прочее
-                    ButtonSetKneading();
+                    ButtonSetKneading_Click(null, null);
                 }
                 else if (_ws.CurrentPlu != null)
                 {
@@ -475,28 +428,17 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка формы выбора PLU!" + Environment.NewLine + msg, Messages.Exception);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
-                    ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
+                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                    ButtonSetZero_Click, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
             }
         }
 
-        private void ButtonSelectPlu_Click(object sender, EventArgs e)
-        {
-            ButtonSelectPlu();
-        }
-
-        private void ButtonSelectOrder([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ButtonSelectOrder_Click(object sender, EventArgs e)
         {
             try
             {
@@ -539,28 +481,17 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка вызова формы выбора заказа!" + Environment.NewLine + msg, Messages.Exception);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
-                    ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
+                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                    ButtonSetZero_Click, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
             }
         }
 
-        private void ButtonSelectOrder_Click(object sender, EventArgs e)
-        {
-            ButtonSelectOrder();
-        }
-
-        private void ButtonSetKneading([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ButtonSetKneading_Click(object sender, EventArgs e)
         {
             try
             {
@@ -576,29 +507,17 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка формы выбора замеса!" + Environment.NewLine + msg, Messages.Exception);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManagerAsync, CallbackMemoryManagerAsync, CallbackPrintManagerAsync, CallbackMassaManagerAsync,
-                    ButtonSetZero, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
+                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                    ButtonSetZero_Click, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
             }
         }
 
-        private void ButtonSetKneading_Click(object sender, EventArgs e)
-        {
-            ButtonSetKneading();
-        }
-
-        private void ButtonPrint(
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ButtonPrint_Click(object sender, EventArgs e)
         {
             try
             {
@@ -606,13 +525,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка формы печати!" + Environment.NewLine + msg, Messages.Exception);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
@@ -620,17 +533,12 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonPrint_Click(object sender, EventArgs e)
-        {
-            ButtonPrint();
-        }
-
         private void PictureBoxClose_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void FieldResolution_Selected([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -660,19 +568,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Ошибка изменения разрешения формы!" + Environment.NewLine + msg, Messages.Exception);
+                _exception.Catch(this, ref ex);
             }
-        }
-
-        private void FieldResolution_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FieldResolution_Selected();
+            finally
+            {
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+            }
         }
 
         private void FieldDt_DoubleClick(object sender, EventArgs e)
@@ -707,10 +608,46 @@ namespace ScalesUI.Forms
 
         private void fieldTitle_DoubleClick(object sender, EventArgs e)
         {
-            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
-            if (wpfPageLoader.ShowDialog(this) == DialogResult.OK)
+            try
             {
-                //
+                _taskManager.Close();
+
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
+                wpfPageLoader.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                    ButtonSetZero_Click, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
+            }
+        }
+
+        #endregion
+
+        #region Public and private methods - Share
+
+        private void TemplateJobWithTaskManager()
+        {
+            try
+            {
+                _taskManager.Close();
+
+                // .. methods
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                    ButtonSetZero_Click, _ws.SqlViewModel, _ws.IsTscPrinter, _ws.CurrentScale);
             }
         }
 

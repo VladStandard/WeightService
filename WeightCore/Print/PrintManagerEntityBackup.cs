@@ -20,8 +20,6 @@
 //        public int UserLabelCount { get; private set; }
 //        public PrinterStatus CurrentStatus { get; private set; }
 //        public int CommandThreadTimeOut { get; }
-//        public delegate void OnHandler(PrintManagerEntity state);
-//        public event OnHandler Notify;
 //        private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 //        public Connection Con { get; private set; }
 //        public ConcurrentQueue<string> CmdQueue { get; } = new ConcurrentQueue<string>();

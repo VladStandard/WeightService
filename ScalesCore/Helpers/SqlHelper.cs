@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore;
 using DataShareCore.Utils;
 using MvvmHelpers;
 using ScalesCore.Models;
@@ -20,11 +21,11 @@ namespace ScalesCore.Helpers
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<SqlHelper> _instance = new Lazy<SqlHelper>(() => new SqlHelper());
+        private static readonly Lazy<SqlHelper> _instance = new(() => new SqlHelper());
         public static SqlHelper Instance => _instance.Value;
         private SqlHelper()
         {
-            Open(EnumSettingsStorage.UseConfig);
+            Open(ShareEnums.SettingsStorage.UseConfig);
         }
 
         #endregion
@@ -79,12 +80,12 @@ namespace ScalesCore.Helpers
             SetConnectionString();
         }
 
-        public void Open(EnumSettingsStorage settingsStorage, string server = "", string database = "", bool integratedSecurity = false,
+        public void Open(ShareEnums.SettingsStorage settingsStorage, string server = "", string database = "", bool integratedSecurity = false,
             string userId = "", string password = "",
             bool encrypt = false, string applicationName = null,
             string workstationId = null, short connectTimeout = 15, short packetSize = 8192)
         {
-            //if (settingsStorage == EnumSettingsStorage.UseRegistry)
+            //if (settingsStorage == ShareEnums.SettingsStorage.UseRegistry)
             //{
             //    server = string.Empty;
             //    database = string.Empty;
@@ -104,7 +105,7 @@ namespace ScalesCore.Helpers
             //        }
             //    }
             //}
-            if (settingsStorage == EnumSettingsStorage.UseConfig)
+            if (settingsStorage == ShareEnums.SettingsStorage.UseConfig)
             {
                 server = string.Empty;
                 database = string.Empty;
@@ -140,7 +141,7 @@ namespace ScalesCore.Helpers
 
         public Collection<Collection<object>> SelectData(string query, Collection<string> fieldNames, Collection<SqlParam> parameters = null)
         {
-            Collection<Collection<object>> result = new Collection<Collection<object>>();
+            Collection<Collection<object>> result = new();
             if (ProviderFactory == null || string.IsNullOrEmpty(query) || Connection == null || Connection.State != ConnectionState.Open)
                 return result;
 
@@ -155,22 +156,20 @@ namespace ScalesCore.Helpers
                     //cmd.CommandTimeout = 180;
                     if (cmd.Connection.State == ConnectionState.Open)
                     {
-                        using (DbDataReader reader = cmd.ExecuteReader())
+                        using DbDataReader reader = cmd.ExecuteReader();
+                        if (reader.HasRows)
                         {
-                            if (reader.HasRows)
+                            while (reader.Read())
                             {
-                                while (reader.Read())
+                                Collection<object> record = new();
+                                foreach (string field in fieldNames)
                                 {
-                                    Collection<object> record = new Collection<object>();
-                                    foreach (string field in fieldNames)
-                                    {
-                                        record.Add(reader.GetFieldValue<object>(reader.GetOrdinal(field)));
-                                    }
-                                    result.Add(record);
+                                    record.Add(reader.GetFieldValue<object>(reader.GetOrdinal(field)));
                                 }
+                                result.Add(record);
                             }
-                            reader.Close();
-                        }                                
+                        }
+                        reader.Close();
                     }
                     else
                     {
@@ -181,7 +180,7 @@ namespace ScalesCore.Helpers
             return result;
         }
 
-        public void OpenConnection(EnumLanguage language = EnumLanguage.Russian)
+        public void OpenConnection(ShareEnums.Lang language = ShareEnums.Lang.Russian)
         {
             try
             {
@@ -197,12 +196,12 @@ namespace ScalesCore.Helpers
                         Connection.Open();
                     }
                 }
-                Status = language == EnumLanguage.English ?
+                Status = language == ShareEnums.Lang.English ?
                     $@"Connecting to SQL server is open." : $"Открыто подключение к SQL-серверу.";
             }
             catch (Exception ex)
             {
-                Status = language == EnumLanguage.English ?
+                Status = language == ShareEnums.Lang.English ?
                     $@"Error connecting to SQL server! Message: {ex.Message}" : $"Ошибка подключения к SQL-серверу! Сообщение: {ex.Message}";
             }
         }
@@ -210,9 +209,9 @@ namespace ScalesCore.Helpers
         /// <summary>
         /// Закрыть SQL-подключение.
         /// </summary>
-        public void CloseConnection(EnumLanguage language)
+        public void CloseConnection(ShareEnums.Lang language)
         {
-            Status = language == EnumLanguage.English ?
+            Status = language == ShareEnums.Lang.English ?
                 $@"Connecting to SQL server is close." : $"Закрыто подключение к SQL-серверу.";
             Connection?.Close();
         }
@@ -235,7 +234,7 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public SqlTableField<T> GetValueField<T>(SqlTableField<T> field, SqlDataReader reader) where T : IConvertible
         {
-            T value = default(T);
+            T value = default;
             int ordinal = -1;
             try
             {
@@ -269,7 +268,7 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public T GetValue<T>(string name, Microsoft.Data.SqlClient.SqlDataReader reader, string description = null) where T : IConvertible
         {
-            T value = default(T);
+            T value = default;
             int ordinal = -1;
             try
             {

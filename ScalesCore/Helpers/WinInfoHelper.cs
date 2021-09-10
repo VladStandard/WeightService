@@ -15,7 +15,7 @@ namespace ScalesCore.Helpers
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<WinInfoHelper> _instance = new Lazy<WinInfoHelper>(() => new WinInfoHelper());
+        private static readonly Lazy<WinInfoHelper> _instance = new(() => new WinInfoHelper());
         public static WinInfoHelper Instance => _instance.Value;
         private WinInfoHelper() { }
 
@@ -45,7 +45,7 @@ namespace ScalesCore.Helpers
 
                 string edition = string.Empty;
                 OperatingSystem osVersion = Environment.OSVersion;
-                OSVERSIONINFOEX osVersionInfo = new OSVERSIONINFOEX {dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))};
+                OSVERSIONINFOEX osVersionInfo = new() { dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))};
                 if (GetVersionEx(ref osVersionInfo))
                 {
                     int majorVersion = osVersion.Version.Major;
@@ -272,7 +272,7 @@ namespace ScalesCore.Helpers
                 string name = "unknown";
 
                 OperatingSystem osVersion = Environment.OSVersion;
-                OSVERSIONINFOEX osVersionInfo = new OSVERSIONINFOEX
+                OSVERSIONINFOEX osVersionInfo = new()
                 {
                     dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))
                 };
@@ -481,7 +481,7 @@ namespace ScalesCore.Helpers
             get
             {
                 string servicePack = string.Empty;
-                OSVERSIONINFOEX osVersionInfo = new OSVERSIONINFOEX
+                OSVERSIONINFOEX osVersionInfo = new()
                 {
                     dwOSVersionInfoSize = Marshal.SizeOf(typeof(OSVERSIONINFOEX))
                 };

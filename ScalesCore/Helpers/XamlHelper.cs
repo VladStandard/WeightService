@@ -17,7 +17,7 @@ namespace ScalesCore.Helpers
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<XamlHelper> _instance = new Lazy<XamlHelper>(() => new XamlHelper());
+        private static readonly Lazy<XamlHelper> _instance = new(() => new XamlHelper());
         public static XamlHelper Instance => _instance.Value;
 
         private XamlHelper()
@@ -34,23 +34,19 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public DataTemplate GetElementAsTemplate(FrameworkElement element)
         {
-            StringBuilder builder = new StringBuilder();
+            StringBuilder builder = new();
             builder.AppendFormat(
                 "<DataTemplate xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">{0}</DataTemplate>",
                 System.Windows.Markup.XamlWriter.Save(element));
 
-            using (MemoryStream stream = new MemoryStream())
-            {
-                using (StreamWriter writer = new StreamWriter(stream))
-                {
-                    writer.Write(builder.ToString());
-                    writer.Flush();
+            using MemoryStream stream = new();
+            using StreamWriter writer = new(stream);
+            writer.Write(builder.ToString());
+            writer.Flush();
 
-                    stream.Position = 0;
-                    DataTemplate template = (DataTemplate)System.Windows.Markup.XamlReader.Load(stream);
-                    return template;
-                }
-            }
+            stream.Position = 0;
+            DataTemplate template = (DataTemplate)System.Windows.Markup.XamlReader.Load(stream);
+            return template;
         }
 
         /// <summary>
@@ -83,7 +79,7 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public Canvas GetCanvasCopy(Canvas canvas)
         {
-            Canvas result = new Canvas
+            Canvas result = new()
             {
                 Width = canvas.ActualWidth,
                 Height = canvas.ActualHeight,
@@ -120,7 +116,7 @@ namespace ScalesCore.Helpers
             Canvas canvasPrint = GetCanvasCopy(canvas);
 
             // Получить PrintTicket по умолчанию с принтера.
-            System.Printing.LocalPrintServer localPrintServer = new System.Printing.LocalPrintServer();
+            System.Printing.LocalPrintServer localPrintServer = new();
             // Получение коллекции локального принтера на компьютере пользователя.
             System.Printing.PrintQueueCollection localPrinterCollection = localPrintServer.GetPrintQueues();
             System.Collections.IEnumerator localPrinterEnumerator = localPrinterCollection.GetEnumerator();
@@ -132,7 +128,7 @@ namespace ScalesCore.Helpers
                 if (printQueue != null)
                 {
                     System.Printing.PrintTicket printTicket = printQueue.DefaultPrintTicket;
-                    System.Printing.PageMediaSize pageMediaSize = new System.Printing.PageMediaSize(canvasPrint.Width, canvasPrint.Height);
+                    System.Printing.PageMediaSize pageMediaSize = new(canvasPrint.Width, canvasPrint.Height);
                     printTicket.PageMediaSize = pageMediaSize;
                     //printTicket.PageMediaType = System.Printing.PageMediaType.Unknown;
                     //var printCapabilites = printQueue.GetPrintCapabilities();
@@ -143,7 +139,7 @@ namespace ScalesCore.Helpers
                     //    printTicket.Duplexing = System.Printing.Duplexing.TwoSidedLongEdge;
                     //if (printCapabilites.StaplingCapability.Contains(System.Printing.Stapling.StapleDualLeft))
                     //    printTicket.Stapling = System.Printing.Stapling.StapleDualLeft;
-                    PrintDialog printDialog = new PrintDialog
+                    PrintDialog printDialog = new()
                     {
                         //PrintQueue = printQueue,
                         PrintTicket = printTicket,

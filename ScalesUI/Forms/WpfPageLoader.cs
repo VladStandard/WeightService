@@ -6,6 +6,7 @@ using System;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using WeightCore.Helpers;
 using WeightCore.Models;
 using WeightCore.XamlPages;
 
@@ -15,6 +16,7 @@ namespace ScalesUI.Forms
     {
         #region Public and private fields and properties
 
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly SessionState _ws = SessionState.Instance;
         public bool UseOwnerSize { get; set; }
         public ProjectsEnums.Page Page { get; private set; }
@@ -36,8 +38,15 @@ namespace ScalesUI.Forms
 
         public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize) : this()
         {
-            Page = page;
-            UseOwnerSize = useOwnerSize;
+            try
+            {
+                Page = page;
+                UseOwnerSize = useOwnerSize;
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         #endregion
@@ -46,86 +55,119 @@ namespace ScalesUI.Forms
 
         private void WpfPageLoader_Load(object sender, EventArgs e)
         {
-            // Own GUI.
-            TopMost = !_ws.IsDebug;
+            try
+            {
+                // Own GUI.
+                TopMost = !_ws.IsDebug;
 
-            if (UseOwnerSize)
-            {
-                Width = Owner.Width;
-                Height = Owner.Height;
-                Left = Owner.Left;
-                Top = Owner.Top;
-            }
-            else
-            {
-                Left = Owner.Left + Owner.Width / 2 - Width / 2;
-                Top = Owner.Top + Owner.Height / 2 - Height / 2;
-            }
+                if (UseOwnerSize)
+                {
+                    Width = Owner.Width;
+                    Height = Owner.Height;
+                    Left = Owner.Left;
+                    Top = Owner.Top;
+                }
+                else
+                {
+                    Left = Owner.Left + Owner.Width / 2 - Width / 2;
+                    Top = Owner.Top + Owner.Height / 2 - Height / 2;
+                }
 
-            // WPF element.
-            if (Page != ProjectsEnums.Page.Default)
-            {
-                ElementHost = new ElementHost { Dock = DockStyle.Fill };
-                panelMain.Controls.Add(ElementHost);
+                // WPF element.
+                if (Page != ProjectsEnums.Page.Default)
+                {
+                    ElementHost = new ElementHost { Dock = DockStyle.Fill };
+                    panelMain.Controls.Add(ElementHost);
+                }
+                switch (Page)
+                {
+                    case ProjectsEnums.Page.PluList:
+                        PluList = new PagePluList();
+                        PluList.InitializeComponent();
+                        ElementHost.Child = PluList;
+                        PluList.Loaded += PluListOnLoaded;
+                        _ws.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        break;
+                    case ProjectsEnums.Page.SqlSettings:
+                        SqlSettings = new PageSqlSettings();
+                        SqlSettings.InitializeComponent();
+                        ElementHost.Child = SqlSettings;
+                        SqlSettings.Loaded += SqlSettingsOnLoaded;
+                        _ws.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        break;
+                    case ProjectsEnums.Page.Default:
+                    default:
+                        break;
+                }
             }
-            switch (Page)
+            catch (Exception ex)
             {
-                case ProjectsEnums.Page.PluList:
-                    PluList = new PagePluList();
-                    PluList.InitializeComponent();
-                    ElementHost.Child = PluList;
-                    PluList.Loaded += PluListOnLoaded;
-                    _ws.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
-                    break;
-                case ProjectsEnums.Page.SqlSettings:
-                    SqlSettings = new PageSqlSettings();
-                    SqlSettings.InitializeComponent();
-                    ElementHost.Child = SqlSettings;
-                    SqlSettings.Loaded += SqlSettingsOnLoaded;
-                    _ws.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
-                    break;
-                case ProjectsEnums.Page.Default:
-                default:
-                    break;
+                _exception.Catch(this, ref ex);
             }
         }
 
         private void PluListOnLoaded(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void SqlSettingsOnLoaded(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void WpfPageLoader_OnClose(object sender, RoutedEventArgs e)
         {
-            _ws.WpfPageLoader_OnClose -= WpfPageLoader_OnClose;
-            Close();
+            try
+            {
+                _ws.WpfPageLoader_OnClose -= WpfPageLoader_OnClose;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         private void WpfPageLoader_FormClosed(object sender, FormClosedEventArgs e)
         {
-            switch (Page)
+            try
             {
-                case ProjectsEnums.Page.PluList:
-                    if (PluList != null)
-                    {
-                        DialogResult = PluList.Result;
-                    }
-                    break;
-                case ProjectsEnums.Page.SqlSettings:
-                    if (SqlSettings != null)
-                    {
-                        DialogResult = SqlSettings.Result;
-                    }
-                    break;
-                case ProjectsEnums.Page.Default:
-                default:
-                    DialogResult = DialogResult.Cancel;
-                    break;
+                switch (Page)
+                {
+                    case ProjectsEnums.Page.PluList:
+                        if (PluList != null)
+                        {
+                            DialogResult = PluList.Result;
+                        }
+                        break;
+                    case ProjectsEnums.Page.SqlSettings:
+                        if (SqlSettings != null)
+                        {
+                            DialogResult = SqlSettings.Result;
+                        }
+                        break;
+                    case ProjectsEnums.Page.Default:
+                    default:
+                        DialogResult = DialogResult.Cancel;
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
             }
         }
 

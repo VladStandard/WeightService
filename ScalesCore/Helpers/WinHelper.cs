@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore;
 using Microsoft.Win32;
 using ScalesCore.Models;
 using System;
@@ -17,7 +18,7 @@ namespace ScalesCore.Helpers
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<WinHelper> _instance = new Lazy<WinHelper>(() => new WinHelper());
+        private static readonly Lazy<WinHelper> _instance = new(() => new WinHelper());
         public static WinHelper Instance => _instance.Value;
         private WinHelper() { }
 
@@ -31,11 +32,9 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public bool IsAdministrator()
         {
-            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
-            {
-                WindowsPrincipal principal = new WindowsPrincipal(identity);
-                return principal.IsInRole(WindowsBuiltInRole.Administrator);
-            }
+            using WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
             //return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         }
 
@@ -45,10 +44,10 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public Dictionary<string, string> GetInfo()
         {
-            Dictionary<string, string> result = new Dictionary<string, string>();
-            SelectQuery query = new SelectQuery(@"Select Caption,OSArchitecture,SerialNumber from Win32_OperatingSystem");
+            Dictionary<string, string> result = new();
+            SelectQuery query = new(@"Select Caption,OSArchitecture,SerialNumber from Win32_OperatingSystem");
 
-            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+            using (ManagementObjectSearcher searcher = new(query))
             {
                 try
                 {
@@ -82,12 +81,12 @@ namespace ScalesCore.Helpers
             try
             {
                 // gwmi -Class Win32_Product | select identifyingnumber, name, vendor, version, caption | where {$_.name -like "*Visual C++ Library*" }
-                SelectQuery query = new SelectQuery(
+                SelectQuery query = new(
                     @"SELECT IDENTIFYINGNUMBER, NAME, VENDOR, VERSION, LANGUAGE FROM WIN32_PRODUCT")
                 {
                     Condition = $"Name LIKE '*{search}*'",
                 };
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher(query);
+                ManagementObjectSearcher searcher = new(query);
                 ManagementObjectCollection items = searcher.Get();
                 if (items.Count > 0)
                 {
@@ -128,7 +127,7 @@ namespace ScalesCore.Helpers
         /// <param name="search"></param>
         /// <param name="template"></param>
         /// <returns></returns>
-        public ResultWmiSoftware SearchingSoftwareFromRegistry(string search, EnumStringTemplate template)
+        public ResultWmiSoftware SearchingSoftwareFromRegistry(string search, ShareEnums.StringTemplate template)
         {
             try
             {
@@ -148,19 +147,19 @@ namespace ScalesCore.Helpers
                             {
                                 switch (template)
                                 {
-                                    case EnumStringTemplate.Equals:
+                                    case ShareEnums.StringTemplate.Equals:
                                         if (name.Equals(search, StringComparison.InvariantCultureIgnoreCase))
                                             isFind = true;
                                         break;
-                                    case EnumStringTemplate.Contains:
+                                    case ShareEnums.StringTemplate.Contains:
                                         if (name.ToUpper().Contains(search.ToUpper()))
                                             isFind = true;
                                         break;
-                                    case EnumStringTemplate.StartsWith:
+                                    case ShareEnums.StringTemplate.StartsWith:
                                         if (name.ToUpper().StartsWith(search.ToUpper()))
                                             isFind = true;
                                         break;
-                                    case EnumStringTemplate.EndsWith:
+                                    case ShareEnums.StringTemplate.EndsWith:
                                         if (name.ToUpper().EndsWith(search.ToUpper()))
                                             isFind = true;
                                         break;
@@ -191,23 +190,23 @@ namespace ScalesCore.Helpers
         /// <param name="search"></param>
         /// <param name="template"></param>
         /// <returns></returns>
-        public ResultWmiSoftware SearchingSoftware(EnumWinProvider winProvider, string search, EnumStringTemplate template)
+        public ResultWmiSoftware SearchingSoftware(ShareEnums.WinProvider winProvider, string search, ShareEnums.StringTemplate template)
         {
             switch (winProvider)
             {
-                case EnumWinProvider.Registry:
+                case ShareEnums.WinProvider.Registry:
                     return SearchingSoftwareFromRegistry(search, template);
-                case EnumWinProvider.Alias:
+                case ShareEnums.WinProvider.Alias:
                     break;
-                case EnumWinProvider.Environment:
+                case ShareEnums.WinProvider.Environment:
                     break;
-                case EnumWinProvider.FileSystem:
+                case ShareEnums.WinProvider.FileSystem:
                     break;
-                case EnumWinProvider.Function:
+                case ShareEnums.WinProvider.Function:
                     break;
-                case EnumWinProvider.Variable:
+                case ShareEnums.WinProvider.Variable:
                     break;
-                case EnumWinProvider.Wmi:
+                case ShareEnums.WinProvider.Wmi:
                     return SearchingSoftwareFromWmi(search);
             }
             

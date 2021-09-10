@@ -88,7 +88,6 @@ namespace WeightCore.Print.Native
             BinaryReader br = new(fs);
             // Dim an array of bytes big enough to hold the file's contents.
             byte[] bytes = new byte[fs.Length];
-            bool bSuccess = false;
             // Your unmanaged pointer.
             IntPtr pUnmanagedBytes = new(0);
             int nLength;
@@ -101,7 +100,7 @@ namespace WeightCore.Print.Native
             // Copy the managed byte array into the unmanaged array.
             Marshal.Copy(bytes, 0, pUnmanagedBytes, nLength);
             // Send the unmanaged bytes to the printer.
-            bSuccess = SendBytesToPrinter(szPrinterName, pUnmanagedBytes, nLength);
+            bool bSuccess = SendBytesToPrinter(szPrinterName, pUnmanagedBytes, nLength);
             // Free the unmanaged memory that you allocated earlier.
             Marshal.FreeCoTaskMem(pUnmanagedBytes);
             return bSuccess;

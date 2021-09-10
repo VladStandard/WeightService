@@ -113,11 +113,8 @@ namespace WeightCore.Gui
                 return;
             }
 
-            string x = string.Empty;
-            string y = string.Empty;
-
-            x = UserPinCode.ToString();
-            y = Regex.Replace(x, "[0-9]", "*");
+            string x = UserPinCode.ToString();
+            string y = Regex.Replace(x, "[0-9]", "*");
             lbPIn.Text = y;
 
         }

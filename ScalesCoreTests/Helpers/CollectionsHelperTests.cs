@@ -3,7 +3,6 @@
 
 using NUnit.Framework;
 using ScalesCore.Helpers;
-using ScalesCore.Models;
 using System.Diagnostics;
 
 namespace ScalesCoreTests.Helpers
@@ -45,17 +44,17 @@ namespace ScalesCoreTests.Helpers
             TestContext.WriteLine($@"{nameof(GetDriverFileName_AreEqual)} start.");
             var sw = Stopwatch.StartNew();
 
-            var actual = _collHelp.GetDriverFileName(EnumWinVersion.Win10x64);
+            var actual = _collHelp.GetDriverFileName(ShareEnums.WinVersion.Win10x64);
             Assert.AreEqual("VCP_V1.5.0_Setup_W8_x64_64bits.exe", actual);
             TestContext.WriteLine();
 
-            actual = _collHelp.GetDriverFileName(EnumWinVersion.Win10x32);
+            actual = _collHelp.GetDriverFileName(ShareEnums.WinVersion.Win10x32);
             Assert.AreEqual("VCP_V1.5.0_Setup_W8_x86_32bits.exe", actual);
 
-            actual = _collHelp.GetDriverFileName(EnumWinVersion.Win7x64);
+            actual = _collHelp.GetDriverFileName(ShareEnums.WinVersion.Win7x64);
             Assert.AreEqual("VCP_V1.5.0_Setup_W7_x64_64bits.exe", actual);
 
-            actual = _collHelp.GetDriverFileName(EnumWinVersion.Win7x32);
+            actual = _collHelp.GetDriverFileName(ShareEnums.WinVersion.Win7x32);
             Assert.AreEqual("VCP_V1.5.0_Setup_W7_x86_32bits.exe", actual);
 
             sw.Stop();

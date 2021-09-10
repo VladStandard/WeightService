@@ -13,15 +13,13 @@ using ScalesCore.Win.Registry.Utils;
 namespace ScalesCore.Win.Registry.Helpers
 {
     /// <summary>
-    /// Помощник реестра.
+    /// Registry helper.
     /// </summary>
     public sealed class RegistryHelper
     {
         #region Design pattern "Singleton"
 
-       // private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        private static readonly Lazy<RegistryHelper> _instance = new Lazy<RegistryHelper>(() => new RegistryHelper());
+        private static readonly Lazy<RegistryHelper> _instance = new(() => new RegistryHelper());
         public static RegistryHelper Instance => _instance.Value;
         private RegistryHelper() { }
 
@@ -219,7 +217,7 @@ namespace ScalesCore.Win.Registry.Helpers
 
         public List<string> GetSubKeys(EnumRegRoot regRoot, string key, RegistryView registryView)
         {
-            List<string> result = new List<string>();
+            List<string> result = new();
 
             if (!string.IsNullOrEmpty(key))
             {

@@ -28,10 +28,10 @@ namespace LabelPrint.Views
         /// </summary>
         public void BeforeLoaded()
         {
-            var fileName = "CHANGELOG.md";
+            string fileName = "CHANGELOG.md";
             if (File.Exists(fileName))
             {
-                using (var sr = new StreamReader(fileName))
+                using (StreamReader sr = new StreamReader(fileName))
                 {
                     TextBlockMain.Text = sr.ReadToEnd();
                 }

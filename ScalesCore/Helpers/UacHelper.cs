@@ -16,7 +16,7 @@ namespace ScalesCore.Helpers
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<UacHelper> _instance = new Lazy<UacHelper>(() => new UacHelper());
+        private static readonly Lazy<UacHelper> _instance = new(() => new UacHelper());
         public static UacHelper Instance => _instance.Value;
         private UacHelper() { }
 
@@ -117,7 +117,7 @@ namespace ScalesCore.Helpers
                 else
                 {
                     WindowsIdentity identity = WindowsIdentity.GetCurrent();
-                    WindowsPrincipal principal = new WindowsPrincipal(identity);
+                    WindowsPrincipal principal = new(identity);
                     bool result = principal.IsInRole(WindowsBuiltInRole.Administrator);
                     return result;
                 }

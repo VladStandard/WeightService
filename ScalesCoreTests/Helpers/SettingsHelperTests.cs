@@ -1,9 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
+using DataShareCore;
 using NUnit.Framework;
 using ScalesCore.Helpers;
-using ScalesCore.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -47,7 +48,8 @@ namespace ScalesCoreTests.Helpers
             TestContext.WriteLine($@"{nameof(SetupDirs_AreEqual)} start.");
             var sw = Stopwatch.StartNew();
 
-            var actual = _settingsHelp.SetupAndCheckDirs(@"c:\Program Files (x86)\VladimirStandardCorp\ScalesUI", EnumSilentUI.True, EnumLanguage.Russian);
+            var actual = _settingsHelp.SetupAndCheckDirs(@"c:\Program Files (x86)\VladimirStandardCorp\ScalesUI", ProjectsEnums.SilentUI.True, 
+                ShareEnums.Lang.Russian);
             Assert.AreEqual(
                 Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\"), actual);
 

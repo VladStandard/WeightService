@@ -1,15 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore;
 using DataProjectsCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
 using DataProjectsCore.Utils;
-using DataShareCore.Helpers;
 using MvvmHelpers;
 using System;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
@@ -189,7 +188,6 @@ namespace WeightCore.Models
             set
             {
                 _labelsCount = value;
-                LabelsCurrentRefresh?.Invoke(value);
             }
         }
 
@@ -214,8 +212,6 @@ namespace WeightCore.Models
 
         #region CurrentBox
 
-        public delegate void CallbackLabelsCurrent(int labelCurrent);
-        public CallbackLabelsCurrent LabelsCurrentRefresh;
 
         private int _labelsCurrent;
         public int LabelsCurrent
@@ -224,7 +220,6 @@ namespace WeightCore.Models
             set
             {
                 _labelsCurrent = value;
-                LabelsCurrentRefresh?.Invoke(_labelsCurrent);
             }
         }
 
@@ -246,8 +241,6 @@ namespace WeightCore.Models
         public static readonly int KneadingMinValue = 1;
         public static readonly int KneadingMaxValue = 140;
 
-        public delegate void CallbackKneading(int kneading);
-        public CallbackKneading KneadingRefresh;
         private int _kneading;
 
         public int Kneading
@@ -255,6 +248,7 @@ namespace WeightCore.Models
             get => _kneading;
             set
             {
+                _kneading = value;
                 // если замес изменился - чистим очередь печати
                 if (_taskManager.PrintManager != null)
                 {
@@ -262,8 +256,6 @@ namespace WeightCore.Models
                     if (!IsTscPrinter)
                         _taskManager.PrintManager.SetOdometorUserLabel(LabelsCurrent);
                 }
-                _kneading = value;
-                KneadingRefresh?.Invoke(value);
             }
         }
 
@@ -291,8 +283,6 @@ namespace WeightCore.Models
         public static readonly DateTime ProductDateMaxValue = DateTime.Now.AddDays(+7);
         public static readonly DateTime ProductDateMinValue = DateTime.Now.AddDays(-31);
 
-        public delegate void CallbackProductDate(DateTime productDate);
-        public CallbackProductDate ProductDateRefresh;
         private DateTime _productDate;
 
         public DateTime ProductDate
@@ -300,10 +290,9 @@ namespace WeightCore.Models
             get => _productDate;
             set
             {
+                _productDate = value;
                 if (_taskManager.PrintManager != null)
                     _taskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
-                _productDate = value;
-                ProductDateRefresh?.Invoke(value);
             }
         }
 
@@ -328,8 +317,6 @@ namespace WeightCore.Models
 
         #region PluEntity
 
-        public delegate void CallbackPlu(PluDirect plu);
-        public CallbackPlu PluRefresh;
         private PluDirect _currentPlu;
         [XmlElement(IsNullable = true)]
         public PluDirect CurrentPlu
@@ -337,12 +324,11 @@ namespace WeightCore.Models
             get => _currentPlu;
             set
             {
+                _currentPlu = value;
                 // если ПЛУ изменился - чистим очередь печати
                 _taskManager.PrintManager?.ClearPrintBuffer(IsTscPrinter);
                 _taskManager.PrintManager?.SetOdometorUserLabel(1);
-                _currentPlu = value;
                 LabelsCurrent = 1;
-                PluRefresh?.Invoke(value);
             }
         }
 
@@ -371,7 +357,7 @@ namespace WeightCore.Models
                 {
                     case true:
                         // Печать весовых этикеток.
-                        PrintWeightLabel(owner, template);
+                        PrintWeightLabel(template);
                         break;
                     default:
                         // Печать штучных этикеток.
@@ -444,13 +430,13 @@ namespace WeightCore.Models
 
             if (!isCheck)
             {
-                CustomMessageBox messageBox = CustomMessageBox.Show(owner, Messages.WeightControl + Environment.NewLine +
+                CustomMessageBox messageBox = CustomMessageBox.Show(owner, LocalizationData.ScalesUI.WeightControl + Environment.NewLine +
                     $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
                     $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
                     $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
                     $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
                     "Для продолжения печати нажмите Ignore.",
-                    Messages.OperationControl,
+                    LocalizationData.ScalesUI.OperationControl,
                     MessageBoxButtons.AbortRetryIgnore);
                 messageBox.Wait();
                 if (messageBox.Result != DialogResult.Ignore)
@@ -480,9 +466,8 @@ namespace WeightCore.Models
         /// <summary>
         /// Печать весовых этикеток.
         /// </summary>
-        /// <param name="owner"></param>
         /// <param name="template"></param>
-        private void PrintWeightLabel(IWin32Window owner, TemplateDirect template)
+        private void PrintWeightLabel(TemplateDirect template)
         {
             // Проверка наличия устройства весов.
             if (_taskManager.MassaManager == null)

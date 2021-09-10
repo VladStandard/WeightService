@@ -242,10 +242,17 @@ SET [Description] = @Description
 	,[ModifiedDate] = GETDATE()
 	,[ScaleFactor] = @ScaleFactor
 WHERE [Id] = @ID
-			".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-                }
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                public static class Tasks
+					public static string QueryFindGuid => @"
+IF EXISTS (SELECT 1 FROM [DB_SCALES].[SCALES] WHERE [DB_SCALES].[SCALES].[1CRREFID] = @GUID)
+	SELECT 'TRUE' [RESULT]
+ELSE
+	SELECT 'FALSE' [RESULT]
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				}
+
+				public static class Tasks
                 {
                     public static string GetTaskUid => @"
 select [tasks].[UID]

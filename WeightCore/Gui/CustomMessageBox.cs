@@ -29,11 +29,6 @@ namespace WeightCore.Gui
 
         #region Public and private methods - static Show
         
-        //public static DialogResult Show(IWin32Window owner, string label, MessageBoxButtons buttons = MessageBoxButtons.OK)
-        //{
-        //    return Show(owner, label, "", buttons);
-        //}
-
         public static CustomMessageBox Show(IWin32Window owner, string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
             MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, int selectButton = 0)
         {

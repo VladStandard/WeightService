@@ -12,6 +12,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using MvvmHelpers;
+using static DataProjectsCore.ProjectsEnums;
+using DataShareCore;
 // ReSharper disable CommentTypo
 // ReSharper disable StringLiteralTypo
 
@@ -29,7 +31,7 @@ namespace LabelPrint.ViewModels
             // Версия ПО.
             ProgramHeader = GetMainFormText(Assembly.GetExecutingAssembly(), Assembly.GetExecutingAssembly().GetName().Version);
             // ПИН-код.
-            PinCode = new PinCode();
+            PinCode = new PinCodeEntity();
             // Кадр.
             ProgramFrame = new Frame
             {
@@ -144,7 +146,7 @@ namespace LabelPrint.ViewModels
         /// <summary>
         /// Список размеров.
         /// </summary>
-        public ObservableCollection<string> ItemsResolution { get; set; } = new WindowResolution().GetItems();
+        public ObservableCollection<string> ItemsResolution { get; set; } = new WindowResolutionEntity().GetItems();
 
         private int _selectedResolution;
         /// <summary>
@@ -156,7 +158,7 @@ namespace LabelPrint.ViewModels
             set
             {
                 // Задать новые размеры.
-                SetSize((EnumWindowResolution)value);
+                SetSize((ShareEnums.WindowResolution)value);
                 _selectedResolution = value;
                 OnPropertyChanged();
             }
@@ -314,11 +316,11 @@ namespace LabelPrint.ViewModels
             }
         }
 
-        private PinCode _pinCode;
+        private PinCodeEntity _pinCode;
         /// <summary>
         /// Заголовок программы.
         /// </summary>
-        public PinCode PinCode
+        public PinCodeEntity PinCode
         {
             get => _pinCode;
             set
@@ -334,22 +336,23 @@ namespace LabelPrint.ViewModels
 
         private string GetMainFormText(Assembly assembly, System.Version version)
         {
-            return $@"{GetDescription(assembly)} {GetCurrentVersion(EnumVerCountDigits.Use3, null, version)}";
+            return $@"{GetDescription(assembly)} {GetCurrentVersion(ShareEnums.AppVerCountDigits.Use3, null, version)}";
         }
 
         private string GetDescription(Assembly assembly)
         {
-            var result = string.Empty;
-            var attributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+            string result = string.Empty;
+            object[] attributes = assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
             if (attributes.Length > 0)
             {
-                var descriptionAttribute = (AssemblyDescriptionAttribute)attributes[0];
+                AssemblyDescriptionAttribute descriptionAttribute = (AssemblyDescriptionAttribute)attributes[0];
                 result = descriptionAttribute.Description;
             }
             return result;
         }
 
-        public string GetCurrentVersion(EnumVerCountDigits countDigits, List<EnumStringFormat> stringFormats = null, Version version = null)
+        public string GetCurrentVersion(ShareEnums.AppVerCountDigits countDigits, List<ShareEnums.AppVerStringFormat> stringFormats = null, 
+            Version version = null)
         {
             if (version == null)
                 version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -358,12 +361,13 @@ namespace LabelPrint.ViewModels
             string version3;
             string version4;
             if (stringFormats == null || stringFormats.Count == 0)
-                stringFormats = new List<EnumStringFormat>() { EnumStringFormat.Use1, EnumStringFormat.Use2, EnumStringFormat.Use2 };
+                stringFormats = new List<ShareEnums.AppVerStringFormat>() { ShareEnums.AppVerStringFormat.Use1,
+                    ShareEnums.AppVerStringFormat.Use2, ShareEnums.AppVerStringFormat.Use2 };
 
             var formatMajor = stringFormats[0];
-            var formatMinor = EnumStringFormat.AsString;
-            var formatBuild = EnumStringFormat.AsString;
-            var formatRevision = EnumStringFormat.AsString;
+            var formatMinor = ShareEnums.AppVerStringFormat.AsString;
+            var formatBuild = ShareEnums.AppVerStringFormat.AsString;
+            var formatRevision = ShareEnums.AppVerStringFormat.AsString;
             if (stringFormats.Count > 1)
                 formatMinor = stringFormats[1];
             if (stringFormats.Count > 2)
@@ -371,18 +375,18 @@ namespace LabelPrint.ViewModels
             if (stringFormats.Count > 3)
                 formatRevision = stringFormats[3];
 
-            var major = GetCurrentVersionFormat(version.Major, formatMajor);
-            var minor = GetCurrentVersionFormat(version.Minor, formatMinor);
-            var build = GetCurrentVersionFormat(version.Build, formatBuild);
-            var revision = GetCurrentVersionFormat(version.Revision, formatRevision);
+            string major = GetCurrentVersionFormat(version.Major, formatMajor);
+            string minor = GetCurrentVersionFormat(version.Minor, formatMinor);
+            string build = GetCurrentVersionFormat(version.Build, formatBuild);
+            string revision = GetCurrentVersionFormat(version.Revision, formatRevision);
             version4 = $"{major}.{minor}.{build}.{revision}";
             version3 = $"{major}.{minor}.{build}";
             version2 = $"{major}.{minor}";
             version1 = $"{major}";
 
-            return countDigits == EnumVerCountDigits.Use1
-                ? version1 : countDigits == EnumVerCountDigits.Use2
-                ? version2 : countDigits == EnumVerCountDigits.Use3
+            return countDigits == ShareEnums.AppVerCountDigits.Use1
+                ? version1 : countDigits == ShareEnums.AppVerCountDigits.Use2
+                ? version2 : countDigits == ShareEnums.AppVerCountDigits.Use3
                 ? version3 : version4;
         }
 
@@ -392,17 +396,17 @@ namespace LabelPrint.ViewModels
         /// <param name="input"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-        public string GetCurrentVersionFormat(int input, EnumStringFormat format)
+        public string GetCurrentVersionFormat(int input, ShareEnums.AppVerStringFormat format)
         {
             switch (format)
             {
-                case EnumStringFormat.Use1:
+                case ShareEnums.AppVerStringFormat.Use1:
                     return $"{input:D1}";
-                case EnumStringFormat.Use2:
+                case ShareEnums.AppVerStringFormat.Use2:
                     return $"{input:D2}";
-                case EnumStringFormat.Use3:
+                case ShareEnums.AppVerStringFormat.Use3:
                     return $"{input:D3}";
-                case EnumStringFormat.Use4:
+                case ShareEnums.AppVerStringFormat.Use4:
                     return $"{input:D4}";
             }
             return $"{input:D}";
@@ -422,7 +426,7 @@ namespace LabelPrint.ViewModels
         public void DefaultSizes()
         {
             // Выбранное разрешение.
-            SelectedResolution = IsAdmin ? (int)EnumWindowResolution.Res_1024x768 : (int)EnumWindowResolution.Default;
+            SelectedResolution = IsAdmin ? (int)ShareEnums.WindowResolution.Res_1024x768 : (int)ShareEnums.WindowResolution.Default;
             // Размер шрифта.
             FontSize = 20;
         }
@@ -431,38 +435,38 @@ namespace LabelPrint.ViewModels
         /// Задать размеры.
         /// </summary>
         /// <param name="resolution"></param>
-        public void SetSize(EnumWindowResolution resolution)
+        public void SetSize(ShareEnums.WindowResolution resolution)
         {
             if (Application.Current.MainWindow != null)
             {
                 Application.Current.MainWindow.Visibility = Visibility.Hidden;
                 switch (resolution)
                 {
-                    case EnumWindowResolution.Res_800x600:
+                    case ShareEnums.WindowResolution.Res_800x600:
                         // Ширина.
                         MaxWidth = MinWidth = Width = 800;
                         // Высота.
                         MaxHeight = MinHeight = Height = 600;
                         break;
-                    case EnumWindowResolution.Res_1024x768:
+                    case ShareEnums.WindowResolution.Res_1024x768:
                         // Ширина.
                         MaxWidth = MinWidth = Width = 1024;
                         // Высота.
                         MaxHeight = MinHeight = Height = 768;
                         break;
-                    case EnumWindowResolution.Res_1366х768:
+                    case ShareEnums.WindowResolution.Res_1366х768:
                         // Ширина.
                         MaxWidth = MinWidth = Width = 1366;
                         // Высота.
                         MaxHeight = MinHeight = Height = 768;
                         break;
-                    case EnumWindowResolution.Res_1920х1080:
+                    case ShareEnums.WindowResolution.Res_1920х1080:
                         // Ширина.
                         MaxWidth = MinWidth = Width = 1920;
                         // Высота.
                         MaxHeight = MinHeight = Height = 1080;
                         break;
-                    case EnumWindowResolution.Default:
+                    case ShareEnums.WindowResolution.Default:
                         // Ширина.
                         MaxWidth = MinWidth = Width = SystemParameters.PrimaryScreenWidth;
                         // Высота.

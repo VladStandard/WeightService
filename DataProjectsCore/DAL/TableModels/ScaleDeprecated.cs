@@ -96,7 +96,7 @@
 //        //    get => _verScalesUI;
 //        //    set =>
 //        //        _verScalesUI = string.IsNullOrEmpty(value.Value) 
-//        //            ? new TableField<string>(value.Name, _app.GetCurrentVersion(EnumVerCountDigits.Use3)) 
+//        //            ? new TableField<string>(value.Name, _app.GetCurrentVersion(ShareEnums.AppVerCountDigits.Use3)) 
 //        //            : new TableField<string>(value.Name, value.Value);
 //        //}
 //        /// <summary>
@@ -120,7 +120,7 @@
 //            get => _verScalesUI;
 //            set =>
 //                _verScalesUI = string.IsNullOrEmpty(value)
-//                    ? _app.GetCurrentVersion(EnumVerCountDigits.Use3)
+//                    ? _app.GetCurrentVersion(ShareEnums.AppVerCountDigits.Use3)
 //                    : value;
 //        }
 //        //public int DeviceNumber { get; set; }
@@ -233,11 +233,11 @@
 //        /// <param name="guid"></param>
 //        /// <param name="silentUI"></param>
 //        /// <returns></returns>
-//        public void Load(string guid, EnumSilentUI silentUI = EnumSilentUI.True)
+//        public void Load(string guid, ProjectsEnums.SilentUI silentUI = ProjectsEnums.SilentUI.True)
 //        {
 //            try
 //            {
-//                _sql.Open(EnumSettingsStorage.UseRegistry);
+//                _sql.Open(ShareEnums.SettingsStorage.UseRegistry);
 //                using (var con = new SqlConnection(_sql.ConnectionString))
 //                {
 //                    using (var cmd = new SqlCommand(LoadQuery()))

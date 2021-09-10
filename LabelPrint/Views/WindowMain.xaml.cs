@@ -2,7 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Windows;
-using LabelPrint.Models;
+using DataProjectsCore;
+using LabelPrint.Utils;
 using LabelPrint.ViewModels;
 
 // ReSharper disable CommentTypo
@@ -38,7 +39,7 @@ namespace LabelPrint.Views
         private void BeforeLoaded()
         {
             // Получить программные настройки.
-            _settings = Utils.GetSettings(this);
+            _settings = WpfUtils.GetSettings(this);
             if (_settings != null)
             {
                 // Поверх других окон.
@@ -76,7 +77,7 @@ namespace LabelPrint.Views
         /// <param name="e"></param>
         private void ButtonHome_Click(object sender, RoutedEventArgs e)
         {
-            _settings.ActivePage = WpfActivePage.Home;
+            _settings.ActivePage = ProjectsEnums.WpfActivePage.Home;
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace LabelPrint.Views
         /// <param name="e"></param>
         private void ButtonSettings_OnClick(object sender, RoutedEventArgs e)
         {
-            _settings.ActivePage = _settings.IsAdmin ? WpfActivePage.Settings : WpfActivePage.PinCode;
+            _settings.ActivePage = _settings.IsAdmin ? ProjectsEnums.WpfActivePage.Settings : ProjectsEnums.WpfActivePage.PinCode;
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace LabelPrint.Views
         /// <param name="e"></param>
         private void ButtonChangeLog_OnClick(object sender, RoutedEventArgs e)
         {
-            _settings.ActivePage = WpfActivePage.ChangeLog;
+            _settings.ActivePage = ProjectsEnums.WpfActivePage.ChangeLog;
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace LabelPrint.Views
         /// <param name="e"></param>
         private void ButtonAbout_OnClick(object sender, RoutedEventArgs e)
         {
-            _settings.ActivePage = WpfActivePage.About;
+            _settings.ActivePage = ProjectsEnums.WpfActivePage.About;
         }
 
         /// <summary>

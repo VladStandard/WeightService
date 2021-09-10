@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using WeightCore.Helpers;
 using WeightCore.Print.Tsc;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
@@ -18,11 +19,12 @@ namespace WeightCore.Print
     {
         #region Public and private fields and properties - Manager
 
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         public int WaitWhileMiliSeconds { get; }
         public int WaitExceptionMiliSeconds { get; }
         public int WaitCloseMiliSeconds { get; }
         public string ExceptionMsg { get; private set; }
-        public delegate Task CallbackAsync(int wait);
+        public delegate void Callback();
         public bool IsExecute { get; set; }
 
         #endregion
@@ -32,9 +34,6 @@ namespace WeightCore.Print
         public string Peeler { get; private set; }
         public int UserLabelCount { get; private set; }
         public PrinterStatus CurrentStatus { get; private set; }
-        //public delegate void OnHandler(PrintManagerEntity state);
-        //public event OnHandler Notify;
-        private readonly ILog _ilog = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public Connection Con { get; }
         public ConcurrentQueue<string> PrintCmdQueue { get; } = new ConcurrentQueue<string>();
         private readonly object _locker = new();
@@ -74,8 +73,7 @@ namespace WeightCore.Print
 
         #region Public and private methods - Manager
 
-        public void Open(bool isTscPrinter, CallbackAsync callbackPrintManagerAsync, [CallerFilePath] string filePath = "", 
-            [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Open(bool isTscPrinter, Callback callbackPrintManager)
         {
             IsExecute = true;
             while (IsExecute)
@@ -83,7 +81,7 @@ namespace WeightCore.Print
                 try
                 {
                     OpenJob(isTscPrinter);
-                    callbackPrintManagerAsync(WaitWhileMiliSeconds).ConfigureAwait(true);
+                    callbackPrintManager();
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
@@ -93,32 +91,23 @@ namespace WeightCore.Print
                 }
                 catch (Exception ex)
                 {
-                    ExceptionMsg = ex.Message;
-                    if (!string.IsNullOrEmpty(ex.InnerException?.Message))
-                        ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                    _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                    _exception.Catch(null, ref ex);
                     throw;
                 }
                 System.Windows.Forms.Application.DoEvents();
             }
         }
 
-        public void Close([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Close()
         {
             try
             {
                 IsExecute = false;
-                //Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 CloseJob();
             }
             catch (Exception ex)
             {
-                ExceptionMsg = ex.Message;
-                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
-                    ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
-                Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                _exception.Catch(null, ref ex);
                 throw;
             }
         }
@@ -175,15 +164,15 @@ namespace WeightCore.Print
                 }
                 catch (ConnectionException e)
                 {
-                    _ilog.Error(e.ToString());
+                    _logUtils.Error(e.ToString());
                 }
                 catch (ZebraPrinterLanguageUnknownException e)
                 {
-                    _ilog.Error(e.ToString());
+                    _logUtils.Error(e.ToString());
                 }
                 catch (Exception e)
                 {
-                    _ilog.Error(e.ToString());
+                    _logUtils.Error(e.ToString());
                 }
             }
         }
@@ -210,15 +199,15 @@ namespace WeightCore.Print
                 }
                 catch (ConnectionException e)
                 {
-                    _ilog.Error(e.ToString());
+                    _logUtils.Error(e.ToString());
                 }
                 catch (ZebraPrinterLanguageUnknownException e)
                 {
-                    _ilog.Error(e.ToString());
+                    _logUtils.Error(e.ToString());
                 }
                 catch (Exception e)
                 {
-                    _ilog.Error(e.ToString());
+                    _logUtils.Error(e.ToString());
                 }
             }
         }

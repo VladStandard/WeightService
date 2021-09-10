@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using NUnit.Framework;
-using ScalesCore.Data.Utils;
 using ScalesCore.Models;
 using System.Diagnostics;
 
@@ -54,23 +53,23 @@ namespace ScalesCoreTests.Models
             TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
             var sw = Stopwatch.StartNew();
 
-            foreach (var port in EnumValues.GetUshort())
+            foreach (var port in EnumValuesUtils.GetUshort())
             {
-                foreach (var usePort in EnumValues.GetBool())
+                foreach (var usePort in EnumValuesUtils.GetBool())
                 {
-                    foreach (var persistSecurityInfo in EnumValues.GetBool())
+                    foreach (var persistSecurityInfo in EnumValuesUtils.GetBool())
                     {
-                        foreach (var integratedSecurity in EnumValues.GetBool())
+                        foreach (var integratedSecurity in EnumValuesUtils.GetBool())
                         {
-                            foreach (var encrypt in EnumValues.GetBool())
+                            foreach (var encrypt in EnumValuesUtils.GetBool())
                             {
-                                foreach (var userId in EnumValues.GetString())
+                                foreach (var userId in EnumValuesUtils.GetString())
                                 {
-                                    foreach (var password in EnumValues.GetString())
+                                    foreach (var password in EnumValuesUtils.GetString())
                                     {
-                                        foreach (var database in EnumValues.GetString())
+                                        foreach (var database in EnumValuesUtils.GetString())
                                         {
-                                            foreach (var server in EnumValues.GetString())
+                                            foreach (var server in EnumValuesUtils.GetString())
                                             {
                                                 Assert.DoesNotThrow(() => { var sqlAu = new SqlAuthentication(server, database, persistSecurityInfo, integratedSecurity, userId, password, encrypt, usePort, port); });
                                                 TestContext.WriteLine($@"new SqlAuthentication({persistSecurityInfo}, {integratedSecurity}, {userId.AsString()}, {password.AsString()}, {encrypt})");

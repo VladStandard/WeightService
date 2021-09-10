@@ -31,12 +31,12 @@ namespace ScalesCore.Models
 
         public SqlTableField(string name, T value) : this(name, value, value) { }
 
-        public SqlTableField(string name) : this(name, default(T), default(T)) { }
+        public SqlTableField(string name) : this(name, default, default) { }
 
         /// <summary>
         /// Конструктор без параметров нужен для сериализации.
         /// </summary>
-        public SqlTableField() : this(string.Empty, default(T), default(T)) { }
+        public SqlTableField() : this(string.Empty, default, default) { }
 
         /// <summary>
         /// Имя поля.

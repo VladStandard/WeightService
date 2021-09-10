@@ -7,11 +7,11 @@ using System.Text.RegularExpressions;
 
 namespace LabelPrint.Models
 {
-    public class PinCode : BaseViewModel
+    public class PinCodeEntity : BaseViewModel
     {
         #region Constructor
 
-        public PinCode()
+        public PinCodeEntity()
         {
             //
         }

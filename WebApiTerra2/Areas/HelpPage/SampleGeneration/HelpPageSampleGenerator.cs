@@ -96,8 +96,7 @@ namespace terra2.Areas.HelpPage
             string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
             string actionName = api.ActionDescriptor.ActionName;
             IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
-            Collection<MediaTypeFormatter> formatters;
-            Type type = ResolveType(api, controllerName, actionName, parameterNames, sampleDirection, out formatters);
+            Type type = ResolveType(api, controllerName, actionName, parameterNames, sampleDirection, out Collection<MediaTypeFormatter> formatters);
             var samples = new Dictionary<MediaTypeHeaderValue, object>();
 
             // Use the samples provided directly for actions
@@ -148,13 +147,12 @@ namespace terra2.Areas.HelpPage
         /// <returns>The sample that matches the parameters.</returns>
         public virtual object GetActionSample(string controllerName, string actionName, IEnumerable<string> parameterNames, Type type, MediaTypeFormatter formatter, MediaTypeHeaderValue mediaType, SampleDirection sampleDirection)
         {
-            object sample;
 
             // First, try to get the sample provided for the specified mediaType, sampleDirection, controllerName, actionName and parameterNames.
             // If not found, try to get the sample provided for the specified mediaType, sampleDirection, controllerName and actionName regardless of the parameterNames.
             // If still not found, try to get the sample provided for the specified mediaType and type.
             // Finally, try to get the sample provided for the specified mediaType.
-            if (ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, parameterNames), out sample) ||
+            if (ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, parameterNames), out object sample) ||
                 ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, new[] { "*" }), out sample) ||
                 ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, type), out sample) ||
                 ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType), out sample))
@@ -177,9 +175,8 @@ namespace terra2.Areas.HelpPage
             Justification = "Even if all items in SampleObjectFactories throw, problem will be visible as missing sample.")]
         public virtual object GetSampleObject(Type type)
         {
-            object sampleObject;
 
-            if (!SampleObjects.TryGetValue(type, out sampleObject))
+            if (!SampleObjects.TryGetValue(type, out object sampleObject))
             {
                 // No specific object available, try our factories.
                 foreach (Func<HelpPageSampleGenerator, Type, object> factory in SampleObjectFactories)
@@ -217,8 +214,7 @@ namespace terra2.Areas.HelpPage
             string controllerName = api.ActionDescriptor.ControllerDescriptor.ControllerName;
             string actionName = api.ActionDescriptor.ActionName;
             IEnumerable<string> parameterNames = api.ParameterDescriptions.Select(p => p.Name);
-            Collection<MediaTypeFormatter> formatters;
-            return ResolveType(api, controllerName, actionName, parameterNames, SampleDirection.Request, out formatters);
+            return ResolveType(api, controllerName, actionName, parameterNames, SampleDirection.Request, out Collection<MediaTypeFormatter> formatters);
         }
 
         /// <summary>
@@ -241,8 +237,7 @@ namespace terra2.Areas.HelpPage
             {
                 throw new ArgumentNullException("api");
             }
-            Type type;
-            if (ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, parameterNames), out type) ||
+            if (ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, parameterNames), out Type type) ||
                 ActualHttpMessageTypes.TryGetValue(new HelpPageSampleKey(sampleDirection, controllerName, actionName, new[] { "*" }), out type))
             {
                 // Re-compute the supported formatters based on type

@@ -1,11 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore.DAL;
+using DataShareCore;
 using Microsoft.Win32;
 using MvvmHelpers;
 using ScalesCore.Models;
 using ScalesCore.Properties;
-using ScalesCore.Utils;
 using ScalesCore.Win.Registry.Helpers;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace ScalesCore.Helpers
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<AppHelper> _instance = new Lazy<AppHelper>(() => new AppHelper());
+        private static readonly Lazy<AppHelper> _instance = new(() => new AppHelper());
         public static AppHelper Instance => _instance.Value;
         private AppHelper() 
         {
@@ -121,7 +122,7 @@ namespace ScalesCore.Helpers
         /// <param name="stringFormats"></param>
         /// <param name="version"></param>
         /// <returns></returns>
-        public string GetCurrentVersion(EnumVerCountDigits countDigits, List<EnumStringFormat> stringFormats = null, Version version = null)
+        public string GetCurrentVersion(ShareEnums.AppVerCountDigits countDigits, List<ShareEnums.AppVerStringFormat> stringFormats = null, Version version = null)
         {
             if (version == null)
                 version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -130,12 +131,12 @@ namespace ScalesCore.Helpers
             string version3;
             string version4;
             if (stringFormats == null || stringFormats.Count == 0)
-                stringFormats = new List<EnumStringFormat>() { EnumStringFormat.Use1, EnumStringFormat.Use2, EnumStringFormat.Use2 };
+                stringFormats = new List<ShareEnums.AppVerStringFormat>() { ShareEnums.AppVerStringFormat.Use1, ShareEnums.AppVerStringFormat.Use2, ShareEnums.AppVerStringFormat.Use2 };
 
-            EnumStringFormat formatMajor = stringFormats[0];
-            EnumStringFormat formatMinor = EnumStringFormat.AsString;
-            EnumStringFormat formatBuild = EnumStringFormat.AsString;
-            EnumStringFormat formatRevision = EnumStringFormat.AsString;
+            ShareEnums.AppVerStringFormat formatMajor = stringFormats[0];
+            ShareEnums.AppVerStringFormat formatMinor = ShareEnums.AppVerStringFormat.AsString;
+            ShareEnums.AppVerStringFormat formatBuild = ShareEnums.AppVerStringFormat.AsString;
+            ShareEnums.AppVerStringFormat formatRevision = ShareEnums.AppVerStringFormat.AsString;
             if (stringFormats.Count > 1)
                 formatMinor = stringFormats[1];
             if (stringFormats.Count > 2)
@@ -152,9 +153,9 @@ namespace ScalesCore.Helpers
             version2 = $"{major}.{minor}";
             version1 = $"{major}";
 
-            return countDigits == EnumVerCountDigits.Use1
-                ? version1 : countDigits == EnumVerCountDigits.Use2
-                ? version2 : countDigits == EnumVerCountDigits.Use3
+            return countDigits == ShareEnums.AppVerCountDigits.Use1
+                ? version1 : countDigits == ShareEnums.AppVerCountDigits.Use2
+                ? version2 : countDigits == ShareEnums.AppVerCountDigits.Use3
                 ? version3 : version4;
         }
 
@@ -178,17 +179,17 @@ namespace ScalesCore.Helpers
         /// <param name="input"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-        public string GetCurrentVersionFormat(int input, EnumStringFormat format)
+        public string GetCurrentVersionFormat(int input, ShareEnums.AppVerStringFormat format)
         {
             switch (format)
             {
-                case EnumStringFormat.Use1:
+                case ShareEnums.AppVerStringFormat.Use1:
                     return $"{input:D1}";
-                case EnumStringFormat.Use2:
+                case ShareEnums.AppVerStringFormat.Use2:
                     return $"{input:D2}";
-                case EnumStringFormat.Use3:
+                case ShareEnums.AppVerStringFormat.Use3:
                     return $"{input:D3}";
-                case EnumStringFormat.Use4:
+                case ShareEnums.AppVerStringFormat.Use4:
                     return $"{input:D4}";
             }
             return $"{input:D}";
@@ -216,9 +217,9 @@ namespace ScalesCore.Helpers
         {
             string strGuid = useGuid ? $".GUID: { GuidToString() }" : string.Empty;
             if (useShort)
-                return $@"{GetDescription(assembly)} {GetCurrentVersion(EnumVerCountDigits.Use3, null, version)}{strGuid}";
+                return $@"{GetDescription(assembly)} {GetCurrentVersion(ShareEnums.AppVerCountDigits.Use3, null, version)}{strGuid}";
             else
-                return $@"{GetDescription(assembly)}. {Assembly.GetExecutingAssembly().GetName().Name} {GetCurrentVersion(EnumVerCountDigits.Use3, null, version)}{strGuid}";
+                return $@"{GetDescription(assembly)}. {Assembly.GetExecutingAssembly().GetName().Name} {GetCurrentVersion(ShareEnums.AppVerCountDigits.Use3, null, version)}{strGuid}";
         }
 
         /// <summary>
@@ -359,26 +360,26 @@ namespace ScalesCore.Helpers
         /// Проверить SQL-подключение.
         /// </summary>
         /// <returns></returns>
-        public bool SqlConCheck(EnumLanguage language)
+        public bool SqlConCheck(ShareEnums.Lang language)
         {
             if (string.IsNullOrEmpty(SqlHelp.Authentication.Server) || string.IsNullOrEmpty(SqlHelp.Authentication.Database))
             {
-                Status = language == EnumLanguage.English ? @"Error connecting to SQL-server!" : "Ошибка настроек подключения к SQL-серверу!";
+                Status = language == ShareEnums.Lang.English ? @"Error connecting to SQL-server!" : "Ошибка настроек подключения к SQL-серверу!";
                 return false;
             }
 
             if (!SqlHelp.Authentication.IntegratedSecurity && (string.IsNullOrEmpty(SqlHelp.Authentication.UserId) ||
                                                             string.IsNullOrEmpty(SqlHelp.Authentication.Password)))
             {
-                Status = language == EnumLanguage.English ? @"Error connecting to SQL-server!" : "Ошибка настроек подключения к SQL-серверу!";
+                Status = language == ShareEnums.Lang.English ? @"Error connecting to SQL-server!" : "Ошибка настроек подключения к SQL-серверу!";
                 return false;
             }
 
-            SqlHelp.Open(EnumSettingsStorage.UseParams, SqlHelp.Authentication.Server, SqlHelp.Authentication.Database, SqlHelp.Authentication.IntegratedSecurity, SqlHelp.Authentication.UserId, SqlHelp.Authentication.Password);
+            SqlHelp.Open(ShareEnums.SettingsStorage.UseParams, SqlHelp.Authentication.Server, SqlHelp.Authentication.Database, SqlHelp.Authentication.IntegratedSecurity, SqlHelp.Authentication.UserId, SqlHelp.Authentication.Password);
             SqlHelp.OpenConnection(language);
             if (SqlHelp.Connection.State == System.Data.ConnectionState.Open)
             {
-                Status = language == EnumLanguage.English ? @"Connection to SQL server completed successfully." : "Подключение к SQL-серверу выполнено успешно.";
+                Status = language == ShareEnums.Lang.English ? @"Connection to SQL server completed successfully." : "Подключение к SQL-серверу выполнено успешно.";
                 return true;
             }
             return false;
@@ -393,7 +394,8 @@ namespace ScalesCore.Helpers
         {
             if (SqlHelp.Connection.State == System.Data.ConnectionState.Open)
             {
-                Collection<Collection<object>> records = SqlHelp.SelectData(SqlUtils.QueryFindGuid, new Collection<string>() { "RESULT" }, 
+                Collection<Collection<object>> records = SqlHelp.SelectData(SqlQueries.DbScales.Tables.Scales.QueryFindGuid, 
+                    new Collection<string>() { "RESULT" }, 
                     new Collection<SqlParam>() { new SqlParam("GUID", guid) });
                 foreach (Collection<object> rec in records)
                 {

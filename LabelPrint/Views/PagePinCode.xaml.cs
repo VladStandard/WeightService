@@ -5,7 +5,8 @@ using LabelPrint.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using LabelPrint.Models;
+using LabelPrint.Utils;
+using DataProjectsCore;
 // ReSharper disable CommentTypo
 
 namespace LabelPrint.Views
@@ -80,7 +81,7 @@ namespace LabelPrint.Views
         {
             if (_settings.PinCode.AccessGranted)
             {
-                _settings.ActivePage = WpfActivePage.Settings;
+                _settings.ActivePage = ProjectsEnums.WpfActivePage.Settings;
             }
             else
             {
@@ -98,7 +99,7 @@ namespace LabelPrint.Views
         public void BeforeLoaded()
         {
             // Получить программные настройки.
-            _settings = Models.Utils.GetSettings(this);
+            _settings = WpfUtils.GetSettings(this);
         }
 
         #endregion

@@ -21,7 +21,6 @@
 //        public int WaitExceptionMiliSeconds { get; private set; }
 //        public int WaitCloseMiliSeconds { get; private set; }
 //        public string ExceptionMsg { get; private set; }
-//        public delegate Task CallbackAsync(int wait);
 //        public bool IsExecute { get; set; }
 
 //        #endregion

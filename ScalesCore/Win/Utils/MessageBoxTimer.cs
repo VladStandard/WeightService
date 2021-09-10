@@ -116,7 +116,7 @@ namespace ScalesCore.Win.Utils
 
             #endregion
 
-            Win32.Rect rcChild = new Win32.Rect();
+            Win32.Rect rcChild = new();
             Win32.GetWindowRect(hChildWnd, ref rcChild);
             int cxChild = rcChild.right - rcChild.left;
             int cyChild = rcChild.bottom - rcChild.top;

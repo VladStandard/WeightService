@@ -4,16 +4,15 @@
 using DataProjectsCore.DAL.Utils;
 using DataProjectsCore.Utils;
 using DataShareCore.Helpers;
-using log4net;
 using System;
 using System.Data.SqlClient;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
+using WeightCore.Helpers;
 using WeightCore.Managers;
 using WeightCore.Models;
 using WeightCore.Zpl;
@@ -26,13 +25,14 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly SessionState _ws = SessionState.Instance;
         private readonly TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
         private readonly LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
-        #region Form methods
+        #region Constructor and destructor
 
         public SettingsForm()
         {
@@ -44,48 +44,62 @@ namespace ScalesUI.Forms
 
         private void ScaleOptionsForm_Load(object sender, EventArgs e)
         {
-            TopMost = _ws is null ? false : !_ws.IsDebug;
-
-            // Загружить при кажом открытии формы.
-            if (_ws != null)
-                _ws.CurrentScale = ScalesUtils.GetScale(_ws.Host?.CurrentScaleId);
-
-            // Определить COM-порт.
-            DefaultComPortName();
-
-            if (_ws?.CurrentScale != null)
+            try
             {
-                fieldSendTimeout.Text = _ws.CurrentScale.DeviceSendTimeout.ToString();
-                fieldReceiveTimeOut.Text = _ws.CurrentScale.DeviceReceiveTimeout.ToString();
-                fieldZebraTcpAddress.Text = _ws.CurrentScale.ZebraPrinter.Ip;
-                fieldZebraTcpPort.Text = _ws.CurrentScale.ZebraPrinter.Port.ToString();
-                fieldDescription.Text = _ws.CurrentScale.Description;
+                TopMost = _ws is null ? false : !_ws.IsDebug;
+
+                // Загружить при кажом открытии формы.
+                if (_ws != null)
+                    _ws.CurrentScale = ScalesUtils.GetScale(_ws.Host?.CurrentScaleId);
+
+                // Определить COM-порт.
+                DefaultComPortName();
+
+                if (_ws?.CurrentScale != null)
+                {
+                    fieldSendTimeout.Text = _ws.CurrentScale.DeviceSendTimeout.ToString();
+                    fieldReceiveTimeOut.Text = _ws.CurrentScale.DeviceReceiveTimeout.ToString();
+                    fieldZebraTcpAddress.Text = _ws.CurrentScale.ZebraPrinter.Ip;
+                    fieldZebraTcpPort.Text = _ws.CurrentScale.ZebraPrinter.Port.ToString();
+                    fieldDescription.Text = _ws.CurrentScale.Description;
+                }
+
+                if (_ws?.CurrentWeighingFact != null)
+                    fieldCurrentWeightFact.Text = _ws.CurrentWeighingFact.SerializeObject();
+
+                fieldGuid.Text = _ws?.CurrentScaleId.ToString();
+                //fieldSqlConnectionString.Text = Properties.Settings.Default.ConnectionString;
             }
-
-            if (_ws?.CurrentWeighingFact != null)
-                fieldCurrentWeightFact.Text = _ws.CurrentWeighingFact.SerializeObject();
-
-            fieldGuid.Text = _ws?.CurrentScaleId.ToString();
-            //fieldSqlConnectionString.Text = Properties.Settings.Default.ConnectionString;
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
         }
 
         #endregion
 
-        #region Private methods
+        #region Public and private methods
 
         private void fieldComPort_SelectedIndexChanged(object sender, EventArgs e)
         {
-            fielcComPortFind.Text = @"COM-порт не существует!";
-            string curPort = fieldComPort.Items[fieldComPort.SelectedIndex].ToString();
-            fielcComPortFind.Text = $@"{curPort}-порт не существует!";
-
-            foreach (string portName in SerialPort.GetPortNames())
+            try
             {
-                if (portName.Equals(curPort, StringComparison.InvariantCultureIgnoreCase))
+                fielcComPortFind.Text = @"COM-порт не существует!";
+                string curPort = fieldComPort.Items[fieldComPort.SelectedIndex].ToString();
+                fielcComPortFind.Text = $@"{curPort}-порт не существует!";
+
+                foreach (string portName in SerialPort.GetPortNames())
                 {
-                    fielcComPortFind.Text = $@"{curPort}-порт найден.";
-                    break;
+                    if (portName.Equals(curPort, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        fielcComPortFind.Text = $@"{curPort}-порт найден.";
+                        break;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
             }
         }
 
@@ -102,9 +116,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-
-                _logUtils.Error(ex.Message);
-                //MessageBox.Show(@"Ошибка закрытия!" + Environment.NewLine + ex.Message);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
@@ -133,16 +145,13 @@ namespace ScalesUI.Forms
             catch (Exception ex)
             {
                 result = false;
-                _logUtils.Error(ex.Message);
-                MessageBox.Show(@"Ошибка сохранения настроек!" + Environment.NewLine + ex.Message);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
-                // GUI.
                 UseWaitCursor = false;
-                Thread.Sleep(10);
-                Application.DoEvents();
             }
+
             // GUI.
             if (result)
                 ButtonClose_Click(sender, e);
@@ -156,7 +165,7 @@ namespace ScalesUI.Forms
                 Thread.Sleep(10);
                 Application.DoEvents();
 
-                ZplConverterHelper zp = new ZplConverterHelper();
+                ZplConverterHelper zp = new();
                 zp.LogoClear(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port);
                 zp.FontsClear(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port);
                 if (_ws.CurrentScale.UseOrder == true)
@@ -187,8 +196,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message);
-                MessageBox.Show(@"Ошибка выгрузки ресурсов текущего шаблона!" + Environment.NewLine + ex.Message);
+                _exception.Catch(this, ref ex);
             }
             finally
             {
@@ -198,34 +206,33 @@ namespace ScalesUI.Forms
 
         private void btnCalibrate_Click(object sender, EventArgs e)
         {
-            CustomMessageBox messageBox = CustomMessageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!",
-                @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
-            messageBox.Wait();
-            //DialogResult dialogResult = MessageBox.Show(@"Прежде чем продолжить калибровку откройте крышку отделителя!", @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
-            if (messageBox.Result == DialogResult.Retry)
+            try
             {
-                try
+                CustomMessageBox messageBox = CustomMessageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!",
+                    @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
+                messageBox.Wait();
+                //DialogResult dialogResult = MessageBox.Show(@"Прежде чем продолжить калибровку откройте крышку отделителя!", @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
+                if (messageBox.Result == DialogResult.Retry)
                 {
                     UseWaitCursor = true;
                     Thread.Sleep(10);
                     Application.DoEvents();
 
-                    ZplConverterHelper zp = new ZplConverterHelper();
+                    ZplConverterHelper zp = new();
                     zp.Сalibration(_ws.CurrentScale.ZebraPrinter.Ip, _ws.CurrentScale.ZebraPrinter.Port);
                 }
-                catch (Exception ex)
-                {
-                    _logUtils.Error(ex.Message);
-                    MessageBox.Show(@"Ошибка калибровки!" + Environment.NewLine + ex.Message);
-                }
-                finally
-                {
-                    UseWaitCursor = false;
-                }
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                UseWaitCursor = false;
             }
         }
 
-        private void ButtonGenerateException([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private void ButtonGenerateException_Click(object sender, EventArgs e)
         {
             try
             {
@@ -233,19 +240,8 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
-                if (ex.InnerException != null)
-                    _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
-                if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
-                CustomMessageBox.Show(this, @"Генерация тестовой ошибки!" + Environment.NewLine + msg, Messages.Exception);
+                _exception.Catch(this, ref ex);
             }
-        }
-
-        private void ButtonGenerateException_Click(object sender, EventArgs e)
-        {
-            ButtonGenerateException();
         }
 
         #endregion
@@ -254,7 +250,18 @@ namespace ScalesUI.Forms
 
         private void ButtonPrint_Click(object sender, EventArgs e)
         {
-            _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplPowerOnReset());
+            try
+            {
+                _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplPowerOnReset());
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                UseWaitCursor = false;
+            }
         }
 
         /// <summary>
@@ -264,15 +271,37 @@ namespace ScalesUI.Forms
         /// <param name="e"></param>
         private void ButtonPrintCalibrate_Click(object sender, EventArgs e)
         {
-            if (_ws.IsTscPrinter)
-                _taskManager.PrintManager.PrintControl.Cmd.Calibrate(true, true);
-            else
-                _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplCalibration());
+            try
+            {
+                if (_ws.IsTscPrinter)
+                    _taskManager.PrintManager.PrintControl.Cmd.Calibrate(true, true);
+                else
+                    _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplCalibration());
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                UseWaitCursor = false;
+            }
         }
 
         private void ButtonPrintOptions_Click(object sender, EventArgs e)
         {
-            _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel());
+            try
+            {
+                _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel());
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                UseWaitCursor = false;
+            }
         }
 
         #endregion
@@ -281,44 +310,56 @@ namespace ScalesUI.Forms
 
         private void DefaultComPortName()
         {
-            fieldComPort.Items.Clear();
-
-            // Получить список COM-портов.
-            System.Collections.Generic.List<string> listComPorts = SerialPort.GetPortNames().ToList();
-            // Текущий порт из настроек.
-            string curPort = string.Empty;
-            if (_ws?.CurrentScale?.DeviceComPort != null)
+            try
             {
-                curPort = _ws.CurrentScale.DeviceComPort;
-                if (!string.IsNullOrEmpty(curPort))
+                fieldComPort.Items.Clear();
+
+                // Получить список COM-портов.
+                System.Collections.Generic.List<string> listComPorts = SerialPort.GetPortNames().ToList();
+                // Текущий порт из настроек.
+                string curPort = string.Empty;
+                if (_ws?.CurrentScale?.DeviceComPort != null)
                 {
-                    bool find = false;
-                    foreach (string portName in listComPorts)
+                    curPort = _ws.CurrentScale.DeviceComPort;
+                    if (!string.IsNullOrEmpty(curPort))
                     {
-                        if (portName.Equals(curPort, StringComparison.InvariantCultureIgnoreCase))
+                        bool find = false;
+                        foreach (string portName in listComPorts)
                         {
-                            find = true;
-                            break;
+                            if (portName.Equals(curPort, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                find = true;
+                                break;
+                            }
                         }
+                        if (!find)
+                            fieldComPort.Items.Add(curPort);
                     }
-                    if (!find)
-                        fieldComPort.Items.Add(curPort);
+                }
+                // Сортировка.
+                listComPorts = listComPorts.OrderBy(o => o).ToList();
+                // Заполнить список.
+                foreach (string portName in listComPorts)
+                {
+                    fieldComPort.Items.Add(portName);
+                    fieldComPort.Text = curPort;
                 }
             }
-            // Сортировка.
-            listComPorts = listComPorts.OrderBy(o => o).ToList();
-            // Заполнить список.
-            foreach (string portName in listComPorts)
+            catch (Exception ex)
             {
-                fieldComPort.Items.Add(portName);
-                fieldComPort.Text = curPort;
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                UseWaitCursor = false;
             }
         }
 
         private void ButtonSqlCheck_Click(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(fieldSqlConnectionString.Text))
+            try
             {
+                using SqlConnection con = new(fieldSqlConnectionString.Text);
                 con.Open();
                 try
                 {
@@ -332,33 +373,63 @@ namespace ScalesUI.Forms
                 }
                 con.Close();
             }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                UseWaitCursor = false;
+            }
         }
 
         private void ButtonMassaParam_Click(object sender, EventArgs e)
         {
-            fieldCurrentMKProp.Clear();
-
-            if (_taskManager.MassaManager != null)
+            try
             {
-                _taskManager.MassaManager.GetScalePar();
-                Thread.Sleep(10);
-                Application.DoEvents();
+                fieldCurrentMKProp.Clear();
 
-                if (_taskManager.MassaManager.DeviceParameters != null)
+                if (_taskManager.MassaManager != null)
                 {
-                    fieldCurrentMKProp.Text = _taskManager.MassaManager.DeviceParameters.GetMessage();
-                }
+                    _taskManager.MassaManager.GetScalePar();
+                    Thread.Sleep(10);
+                    Application.DoEvents();
 
-                if (_taskManager.MassaManager.DeviceError != null)
-                {
-                    fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.DeviceError.GetMessage()}";
+                    if (_taskManager.MassaManager.DeviceParameters != null)
+                    {
+                        fieldCurrentMKProp.Text = _taskManager.MassaManager.DeviceParameters.GetMessage();
+                    }
+
+                    if (_taskManager.MassaManager.DeviceError != null)
+                    {
+                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.DeviceError.GetMessage()}";
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                UseWaitCursor = false;
             }
         }
 
         private void ButtonPrintCancelAll_Click(object sender, EventArgs e)
         {
-            _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplClearPrintBuffer());
+            try
+            {
+                _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplClearPrintBuffer());
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                UseWaitCursor = false;
+            }
         }
 
         #endregion

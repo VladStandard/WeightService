@@ -4,7 +4,6 @@
 using System;
 using System.Diagnostics;
 using NUnit.Framework;
-using ScalesCore.Data.Utils;
 using ScalesCore.Models;
 
 namespace ScalesCoreTests.Models
@@ -56,7 +55,7 @@ namespace ScalesCoreTests.Models
             var sw = Stopwatch.StartNew();
 
             Assert.Catch<ArgumentException>(() => { var field = new SqlTableField<string>(); });
-            foreach (var name in EnumValues.GetString())
+            foreach (var name in EnumValuesUtils.GetString())
             {
                 Assert.Catch<ArgumentException>(() => { var field = new SqlTableField<string>(name); });
             }
@@ -77,13 +76,13 @@ namespace ScalesCoreTests.Models
             Assert.AreEqual(string.Empty, field.Value);
             Assert.AreEqual(string.Empty, field.Default);
 
-            foreach (var value in EnumValues.GetString())
+            foreach (var value in EnumValuesUtils.GetString())
             {
                 field = new SqlTableField<string>("FieldName", value);
                 Assert.AreEqual("FieldName", field.Name);
                 Assert.AreEqual(string.Empty, field.Value);
                 Assert.AreEqual(string.Empty, field.Default);
-                foreach (var defValue in EnumValues.GetString())
+                foreach (var defValue in EnumValuesUtils.GetString())
                 {
                     field = new SqlTableField<string>("FieldName", value, defValue);
                     Assert.AreEqual("FieldName", field.Name);

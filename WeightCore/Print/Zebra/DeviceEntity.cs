@@ -18,11 +18,9 @@ namespace WeightCore.Print.Zebra
         readonly ConcurrentQueue<string> requestQueue = new();
         Thread SharingSessionThread = null;
 
-        public delegate void OnResponseHandler(StateEntity state);
-        public event OnResponseHandler NotifyStateForMainForm;
+        //public delegate void OnResponseHandler(StateEntity state);
+        //public event OnResponseHandler NotifyStateForMainForm;
         public StatusDataCollector DataCollector { get; set; }
-
-
         private IDeviceSocket DeviceSocket { get; }
         public static readonly int CommandThreadTimeOut = 100;
         static readonly object locker = new();
@@ -38,7 +36,7 @@ namespace WeightCore.Print.Zebra
             Name = name;
             // Уведомитель состояния.
             DataCollector = new StatusDataCollector();
-            StateEntity ZebraCurrentState = new();
+            //StateEntity ZebraCurrentState = new();
         }
 
 
@@ -49,8 +47,7 @@ namespace WeightCore.Print.Zebra
             // запускаем команду очистки очереди печати
             while (!requestQueue.IsEmpty)
             {
-                string msg = string.Empty;
-                requestQueue.TryDequeue(out msg);
+                requestQueue.TryDequeue(out string msg);
             }
             string zplContent = ZplPipeUtils.ZplClearPrintBuffer();
             requestQueue.Enqueue(zplContent);
@@ -99,62 +96,62 @@ namespace WeightCore.Print.Zebra
             }
         }
 
-        bool _workthread = true;
+        //bool _workthread = true;
 
-        public void CheckDeviceStatusOn()
-        {
-            SharingSessionThread = new Thread(t =>
-            {
-                while (_workthread)
-                {
-                    if (requestQueue.TryDequeue(out string request))
-                    {
-                        lock (locker)
-                        {
-                            string msg = string.Empty;
-                            try
-                            {
-                                msg = DeviceSocket.SendStringToPrinter(request);
-                            }
-                            // Опросили принтер и получили такой ответ.
-                            catch (System.Net.Sockets.SocketException ex)
-                            {
-                                log.Error(ex.Message);
-                            }
-                            // Отправили на печать и получили такой ответ.
-                            catch (System.IO.IOException)
-                            {
-                                //
-                            }
-                            // Всё остальное.
-                            catch (Exception ex)
-                            {
-                                log.Error(ex.Message);
-                                throw ex;
-                            }
-                            ZebraCurrentState.LoadResponse(request, msg);
-                            NotifyStateForMainForm?.Invoke(ZebraCurrentState);
-                            //log.Debug(msg);
-                        }
-                        Thread.Sleep(TimeSpan.FromMilliseconds(CommandThreadTimeOut));
-                    }
-                    else
-                    {
-                        Thread.Sleep(TimeSpan.FromSeconds(1));
-                    }
-                }
-            }
-            )
-            { IsBackground = true };
-            SharingSessionThread.Start();
-            Thread.Sleep(100);
-        }
+        //public void CheckDeviceStatusOn()
+        //{
+        //    SharingSessionThread = new Thread(t =>
+        //    {
+        //        while (_workthread)
+        //        {
+        //            if (requestQueue.TryDequeue(out string request))
+        //            {
+        //                lock (locker)
+        //                {
+        //                    string msg = string.Empty;
+        //                    try
+        //                    {
+        //                        msg = DeviceSocket.SendStringToPrinter(request);
+        //                    }
+        //                    // Опросили принтер и получили такой ответ.
+        //                    catch (System.Net.Sockets.SocketException ex)
+        //                    {
+        //                        log.Error(ex.Message);
+        //                    }
+        //                    // Отправили на печать и получили такой ответ.
+        //                    catch (System.IO.IOException)
+        //                    {
+        //                        //
+        //                    }
+        //                    // Всё остальное.
+        //                    catch (Exception ex)
+        //                    {
+        //                        log.Error(ex.Message);
+        //                        throw ex;
+        //                    }
+        //                    ZebraCurrentState.LoadResponse(request, msg);
+        //                    NotifyStateForMainForm?.Invoke(ZebraCurrentState);
+        //                    //log.Debug(msg);
+        //                }
+        //                Thread.Sleep(TimeSpan.FromMilliseconds(CommandThreadTimeOut));
+        //            }
+        //            else
+        //            {
+        //                Thread.Sleep(TimeSpan.FromSeconds(1));
+        //            }
+        //        }
+        //    }
+        //    )
+        //    { IsBackground = true };
+        //    SharingSessionThread.Start();
+        //    Thread.Sleep(100);
+        //}
 
         public void CheckDeviceStatusOff()
         {
             if (SharingSessionThread != null && SharingSessionThread.IsAlive)
             {
-                _workthread = false;
+                //_workthread = false;
                 Thread.Sleep(200);
                 SharingSessionThread.Abort();
                 SharingSessionThread.Join(1000);
@@ -212,8 +209,7 @@ namespace WeightCore.Print.Zebra
 
         public override string SendStringToPrinter(string szString)
         {
-            string _errorMessage = string.Empty;
-            string info = ZplPipeUtils.InterplayToPrinter(DeviceIP, DevicePort, szString.Split('\n'), out _errorMessage);
+            string info = ZplPipeUtils.InterplayToPrinter(DeviceIP, DevicePort, szString.Split('\n'), out string _errorMessage);
             if (_errorMessage.Length > 0)
             {
                 log.Error(_errorMessage);

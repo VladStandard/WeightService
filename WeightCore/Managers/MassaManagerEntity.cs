@@ -23,7 +23,7 @@ namespace WeightCore.Managers
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; }
-        public delegate Task CallbackAsync(int wait);
+        public delegate void Callback();
         public bool IsExecute { get; set; }
 
         #endregion
@@ -68,7 +68,7 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Manager
 
-        public void Open(CallbackAsync callback, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Open(Callback callback, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             IsExecute = true;
             while (IsExecute)
@@ -76,7 +76,7 @@ namespace WeightCore.Managers
                 try
                 {
                     OpenJob();
-                    callback(WaitWhileMiliSeconds).ConfigureAwait(true);
+                    callback();
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)

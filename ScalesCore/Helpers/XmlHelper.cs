@@ -17,7 +17,7 @@ namespace ScalesCore.Helpers
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<XmlHelper> _instance = new Lazy<XmlHelper>(() => new XmlHelper());
+        private static readonly Lazy<XmlHelper> _instance = new(() => new XmlHelper());
         public static XmlHelper Instance => _instance.Value;
         private XmlHelper() { }
 
@@ -60,12 +60,12 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public ResultXmlRead Read(string inputUri, Collection<XmlTag> elements, string getValueFromName = null)
         {
-            Collection<string> str = new Collection<string>();
+            Collection<string> str = new();
             string value = string.Empty;
             // Проверки.
             Checks(inputUri, elements);
 
-            using (XmlTextReader xmlReader = new XmlTextReader(inputUri))
+            using (XmlTextReader xmlReader = new(inputUri))
             {
                 xmlReader.MoveToContent();
 
@@ -88,7 +88,7 @@ namespace ScalesCore.Helpers
             XmlTag elementCur = null;
             string attr = null;
 
-            Collection<XmlTag> elementsTrim = new Collection<XmlTag>();
+            Collection<XmlTag> elementsTrim = new();
             if (elements.Count > 0)
             {
                 foreach (XmlTag element in elements)
@@ -191,7 +191,7 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public ResultXmlRead Write(string fileName, Collection<XmlTag> elements, string key, string value)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             // Проверки.
             Checks(fileName, elements, key);
 

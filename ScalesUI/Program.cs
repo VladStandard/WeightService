@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
-using DataProjectsCore.Utils;
 using DataShareCore.Helpers;
 using ScalesUI.Forms;
 using System;
@@ -34,7 +34,7 @@ namespace ScalesUI
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(null, $"База данных недоступна. {ex.Message}", Messages.Exception);
+                CustomMessageBox.Show(null, $"База данных недоступна. {ex.Message}", LocalizationData.ScalesUI.Exception);
                 throw new Exception(ex.Message);
             }
 
@@ -48,7 +48,7 @@ namespace ScalesUI
                         "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
                         $"{uuid}" + Environment.NewLine +
                         "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
-                        Messages.Registration);
+                        LocalizationData.ScalesUI.Registration);
                     messageBox.Wait();
                     if (messageBox.Result == DialogResult.OK)
                     {
@@ -64,7 +64,7 @@ namespace ScalesUI
                                      ex.Message;
                     if (ex.InnerException != null)
                         message += Environment.NewLine + ex.InnerException;
-                    CustomMessageBox messageBox = CustomMessageBox.Show(null, message, Messages.Exception);
+                    CustomMessageBox messageBox = CustomMessageBox.Show(null, message, LocalizationData.ScalesUI.Exception);
                 }
                 Application.Exit();
                 return;
@@ -78,7 +78,7 @@ namespace ScalesUI
                     "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
                     $"{host.IdRRef}" + Environment.NewLine +
                     "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
-                    Messages.Registration);
+                    LocalizationData.ScalesUI.Registration);
                 messageBox.Wait();
                 if (messageBox.Result == DialogResult.OK)
                 {

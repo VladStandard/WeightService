@@ -25,11 +25,11 @@ namespace ScalesCore.Win.Utils
         {
             try
             {
-                Collection<string> userList = new Collection<string>();
+                Collection<string> userList = new();
 
-                ManagementScope mgmtScope = new ManagementScope("\\\\.\\Root\\CIMv2");
-                ObjectQuery oQuery = new ObjectQuery("SELECT * FROM WIN32_USERACCOUNT");
-                ManagementObjectSearcher mgmtSearch = new ManagementObjectSearcher(mgmtScope, oQuery);
+                ManagementScope mgmtScope = new("\\\\.\\Root\\CIMv2");
+                ObjectQuery oQuery = new("SELECT * FROM WIN32_USERACCOUNT");
+                ManagementObjectSearcher mgmtSearch = new(mgmtScope, oQuery);
                 ManagementObjectCollection objCollection = mgmtSearch.Get();
                 if (objCollection.Count > 0)
                 {
@@ -67,9 +67,9 @@ namespace ScalesCore.Win.Utils
             {
                 if (setUserName == null) setUserName = Environment.UserName;
                 cbList.Items.Clear();
-                ManagementScope mgmtScope = new ManagementScope("\\\\.\\Root\\CIMv2");
-                ObjectQuery oQuery = new ObjectQuery("SELECT * FROM WIN32_USERACCOUNT");
-                ManagementObjectSearcher mgmtSearch = new ManagementObjectSearcher(mgmtScope, oQuery);
+                ManagementScope mgmtScope = new("\\\\.\\Root\\CIMv2");
+                ObjectQuery oQuery = new("SELECT * FROM WIN32_USERACCOUNT");
+                ManagementObjectSearcher mgmtSearch = new(mgmtScope, oQuery);
                 ManagementObjectCollection objCollection = mgmtSearch.Get();
                 int i = 0;
                 int pos = 0;
@@ -119,12 +119,12 @@ namespace ScalesCore.Win.Utils
         // Список пользователей Windows
         public static Collection<string> GetUserList()
         {
-            Collection<string> userList = new Collection<string>();
+            Collection<string> userList = new();
             try
             {
-                ManagementScope mgmtScope = new ManagementScope("\\\\.\\Root\\CIMv2");
-                ObjectQuery oQuery = new ObjectQuery("SELECT * FROM WIN32_USERACCOUNT");
-                ManagementObjectSearcher mgmtSearch = new ManagementObjectSearcher(mgmtScope, oQuery);
+                ManagementScope mgmtScope = new("\\\\.\\Root\\CIMv2");
+                ObjectQuery oQuery = new("SELECT * FROM WIN32_USERACCOUNT");
+                ManagementObjectSearcher mgmtSearch = new(mgmtScope, oQuery);
                 ManagementObjectCollection objCollection = mgmtSearch.Get();
                 if (objCollection.Count != 0)
                     foreach (ManagementBaseObject mgmtObject in objCollection)
@@ -149,10 +149,10 @@ namespace ScalesCore.Win.Utils
             try
             {
                 if (setUserName == null) setUserName = Environment.UserName;
-                ManagementScope mgmtScope = new ManagementScope("\\\\.\\ROOT\\CIMV2");
+                ManagementScope mgmtScope = new("\\\\.\\ROOT\\CIMV2");
                 //var oQuery = new ObjectQuery("SELECT * FROM WIN32_GROUPUSER WHERE (GROUPCOMPONENT = \"WIN32_USERACCOUNT.NAME='" + setUserName + "'\"");
-                ObjectQuery oQuery = new ObjectQuery("SELECT * FROM WIN32_USERACCOUNT");
-                ManagementObjectSearcher mgmtSearch = new ManagementObjectSearcher(mgmtScope, oQuery);
+                ObjectQuery oQuery = new("SELECT * FROM WIN32_USERACCOUNT");
+                ManagementObjectSearcher mgmtSearch = new(mgmtScope, oQuery);
                 ManagementObjectCollection objCollection = mgmtSearch.Get();
                 if (objCollection.Count != 0)
                     foreach (ManagementBaseObject mgmtObject in objCollection)
@@ -177,9 +177,9 @@ namespace ScalesCore.Win.Utils
         {
             try
             {
-                ManagementScope mgmtScope = new ManagementScope("\\\\.\\ROOT\\CIMV2");
-                ObjectQuery oQuery = new ObjectQuery("SELECT * FROM WIN32_USERACCOUNT");
-                ManagementObjectSearcher mgmtSearch = new ManagementObjectSearcher(mgmtScope, oQuery);
+                ManagementScope mgmtScope = new("\\\\.\\ROOT\\CIMV2");
+                ObjectQuery oQuery = new("SELECT * FROM WIN32_USERACCOUNT");
+                ManagementObjectSearcher mgmtSearch = new(mgmtScope, oQuery);
                 ManagementObjectCollection objCollection = mgmtSearch.Get();
                 string[] userNames = new string[0];
                 if (objCollection.Count != 0)
@@ -204,9 +204,9 @@ namespace ScalesCore.Win.Utils
             {
                 if (setGroupName == null) setGroupName = @"Администраторы";
                 cbList.Items.Clear();
-                ManagementScope mgmtScope = new ManagementScope("\\\\.\\Root\\CIMv2");
-                ObjectQuery oQuery = new ObjectQuery("SELECT * FROM WIN32_GROUP");
-                ManagementObjectSearcher mgmtSearch = new ManagementObjectSearcher(mgmtScope, oQuery);
+                ManagementScope mgmtScope = new("\\\\.\\Root\\CIMv2");
+                ObjectQuery oQuery = new("SELECT * FROM WIN32_GROUP");
+                ManagementObjectSearcher mgmtSearch = new(mgmtScope, oQuery);
                 ManagementObjectCollection objCollection = mgmtSearch.Get();
                 int i = 0;
                 int pos = 0;
@@ -251,9 +251,9 @@ namespace ScalesCore.Win.Utils
         {
             try
             {
-                ManagementScope mgmtScope = new ManagementScope("\\\\.\\Root\\CIMv2");
-                ObjectQuery oQuery = new ObjectQuery("SELECT * FROM WIN32_GROUP");
-                ManagementObjectSearcher mgmtSearch = new ManagementObjectSearcher(mgmtScope, oQuery);
+                ManagementScope mgmtScope = new("\\\\.\\Root\\CIMv2");
+                ObjectQuery oQuery = new("SELECT * FROM WIN32_GROUP");
+                ManagementObjectSearcher mgmtSearch = new(mgmtScope, oQuery);
                 ManagementObjectCollection objCollection = mgmtSearch.Get();
                 string[] groupNames = new string[0];
                 foreach (ManagementBaseObject mgmtObject in objCollection)
@@ -285,10 +285,10 @@ namespace ScalesCore.Win.Utils
         // https://msdn.microsoft.com/ru-ru/library/windows/desktop/ms633545(v=vs.85).aspx
         public static class SetWindowPosConst
         {
-            public static IntPtr HWND_NOTOPMOST = new IntPtr(-2);
-            public static IntPtr HWND_TOPMOST = new IntPtr(-1);
-            public static IntPtr HWND_TOP = new IntPtr(0);
-            public static IntPtr HWND_BOTTOM = new IntPtr(1);
+            public static IntPtr HWND_NOTOPMOST = new(-2);
+            public static IntPtr HWND_TOPMOST = new(-1);
+            public static IntPtr HWND_TOP = new(0);
+            public static IntPtr HWND_BOTTOM = new(1);
 
             public const uint SWP_ASYNCWINDOWPOS = 0x4000;
             public const uint SWP_DEFERERASE = 0x2000;
@@ -605,7 +605,7 @@ namespace ScalesCore.Win.Utils
 
         public static string GetClassName(IntPtr hWnd)
         {
-            StringBuilder className = new StringBuilder(100);
+            StringBuilder className = new(100);
             //Get the window class name
             // ReSharper disable once UnusedVariable
             int nRet = GetClassName(hWnd, className, className.Capacity);
@@ -616,7 +616,7 @@ namespace ScalesCore.Win.Utils
         {
             // Allocate correct string length first
             int length = GetWindowTextLength(hWnd);
-            StringBuilder sb = new StringBuilder(length + 1);
+            StringBuilder sb = new(length + 1);
             GetWindowText(hWnd, sb, sb.Capacity);
             return sb.ToString();
         }
@@ -627,7 +627,7 @@ namespace ScalesCore.Win.Utils
             if (hItem == IntPtr.Zero)
                 return null;
             int length = GetWindowTextLength(hItem);
-            StringBuilder sb = new StringBuilder(length + 1);
+            StringBuilder sb = new(length + 1);
             GetWindowText(hItem, sb, sb.Capacity);
             return sb.ToString();
         }

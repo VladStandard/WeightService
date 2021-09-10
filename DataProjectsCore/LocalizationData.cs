@@ -404,6 +404,24 @@ namespace DataCore
             #endregion
         }
 
+        public static class ScalesUI
+        {
+            public static string Exception => Lang == ShareEnums.Lang.English ? @"Exception" : @"Ошибка";
+            public static string Registration => Lang == ShareEnums.Lang.English ? @"Device registration" : @"Регистрация устройства";
+            public static string OperationControl => Lang == ShareEnums.Lang.English ? @"Control of operations" : @"Контроль операций";
+            public static string WeightControl => Lang == ShareEnums.Lang.English ? @"The weight is out of bounds!" : @"Вес выходит за границы!";
+            public static readonly decimal MassaThreshold = 0.05M;
+            public static string MassaCheck => Lang == ShareEnums.Lang.English 
+                ? @"Unload the weight platform!" + Environment.NewLine +
+                $@"Threshold value: {MassaThreshold} kg." + Environment.NewLine + Environment.NewLine +
+                @"  Yes - ignore and continue." + Environment.NewLine +
+                @"  No - suspend and unload."
+                : @"Разгрузите весовую платформу!" + Environment.NewLine +
+                $@"Пороговое значение: {MassaThreshold} кг." + Environment.NewLine + Environment.NewLine +
+                @"  Yes - игнорировать и продолжить." + Environment.NewLine +
+                @"  No - приостановить и разгрузить.";
+        }
+
         public static class Methods
         {
             #region Public and private methods

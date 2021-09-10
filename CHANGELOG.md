@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.570] - 2021-09-10
+### Fixed
+- ScalesUI v.0.5.570
+- DataShareCore v.0.5.570
+- DataProjectsCore v.0.5.570
+- WeightCore v.0.5.570
+
 ## [0.5.560] - 2021-09-09
 ### Fixed
 - ScalesUI v.0.5.560

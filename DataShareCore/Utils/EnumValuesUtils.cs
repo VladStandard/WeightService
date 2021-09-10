@@ -3,12 +3,12 @@
 
 using System.Collections.Generic;
 
-namespace ScalesCore.Data.Utils
+namespace DataShareCore.Utils
 {
     /// <summary>
     /// Утилита занчений перечислений.
     /// </summary>
-    public static class EnumValues
+    public static class EnumValuesUtils
     {
         /// <summary>
         /// Список значений bool.
@@ -18,7 +18,7 @@ namespace ScalesCore.Data.Utils
         {
             return new List<bool>() { false, true };
         }
-        
+
         /// <summary>
         /// Список значений string.
         /// </summary>

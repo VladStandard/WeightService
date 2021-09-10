@@ -16,7 +16,7 @@ namespace ScalesCore.Helpers
     {
         #region Design pattern "Singleton"
 
-        private static readonly Lazy<HardwareHelper> _instance = new Lazy<HardwareHelper>(() => new HardwareHelper());
+        private static readonly Lazy<HardwareHelper> _instance = new(() => new HardwareHelper());
         public static HardwareHelper Instance => _instance.Value;
         private HardwareHelper() { }
 
@@ -31,11 +31,11 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public Dictionary<string, string> HardwareInfoSelect(string infoSelect)
         {
-            Dictionary<string, string> systemInfo = new Dictionary<string, string>();
-            SelectQuery query = new SelectQuery(@"Select * from " + infoSelect);
+            Dictionary<string, string> systemInfo = new();
+            SelectQuery query = new(@"Select * from " + infoSelect);
 
             //initialize the searcher with the query it is supposed to execute
-            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+            using (ManagementObjectSearcher searcher = new(query))
             {
                 try
                 {
@@ -58,7 +58,7 @@ namespace ScalesCore.Helpers
 
             }
 
-            ManagementObjectSearcher searcher1 = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
+            ManagementObjectSearcher searcher1 = new("SELECT * FROM Win32_BIOS");
             ManagementObjectCollection collection = searcher1.Get();
 
             foreach (ManagementBaseObject obj in collection)
@@ -78,9 +78,9 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public List<string> ProgramPrint()
         {
-            Stopwatch pr = new Stopwatch();
-            Stopwatch pr2 = new Stopwatch();
-            List<string> installed_program = new List<string>();
+            Stopwatch pr = new();
+            Stopwatch pr2 = new();
+            List<string> installed_program = new();
 
             string registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
@@ -88,16 +88,14 @@ namespace ScalesCore.Helpers
                 if (key != null)
                     foreach (string subKeyName in key.GetSubKeyNames())
                     {
-                        using (RegistryKey subKey = key.OpenSubKey(subKeyName))
+                        using RegistryKey subKey = key.OpenSubKey(subKeyName);
+                        try
                         {
-                            try
-                            {
-                                if (subKey != null) installed_program.Add(subKey.GetValue("DisplayName").ToString());
-                            }
-                            catch (Exception)
-                            {
-                                //
-                            }
+                            if (subKey != null) installed_program.Add(subKey.GetValue("DisplayName").ToString());
+                        }
+                        catch (Exception)
+                        {
+                            //
                         }
                     }
             }

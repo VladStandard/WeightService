@@ -5,11 +5,11 @@ using System.Collections.ObjectModel;
 
 namespace LabelPrint.Models
 {
-    public class WindowResolution
+    public class WindowResolutionEntity
     {
         #region Constructor
 
-        public WindowResolution()
+        public WindowResolutionEntity()
         {
             //
         }
