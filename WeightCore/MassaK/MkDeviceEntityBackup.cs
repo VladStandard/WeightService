@@ -266,8 +266,6 @@
 
 //    public abstract class DeviceSocket
 //    {
-//        //protected static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-//        public readonly LogHelper Log = LogHelper.Instance;
 //        public abstract byte[] SharingSession(byte[] request);
 //    }
 

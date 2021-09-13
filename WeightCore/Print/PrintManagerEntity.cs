@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.Utils;
+using DataProjectsCore.Helpers;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
@@ -29,6 +29,7 @@ namespace WeightCore.Print
 
         #region Public and private fields and properties
 
+        private readonly LogHelper _log = LogHelper.Instance;
         public string Peeler { get; private set; }
         public int UserLabelCount { get; private set; }
         public PrinterStatus CurrentStatus { get; private set; }
@@ -36,7 +37,6 @@ namespace WeightCore.Print
         public ConcurrentQueue<string> PrintCmdQueue { get; } = new ConcurrentQueue<string>();
         private readonly object _locker = new();
         public PrintControlEntity PrintControl { get; set; }
-        private readonly LogUtils _logUtils = LogUtils.Instance;
         private ZebraPrinter _zebraPrinter;
         public ZebraPrinter ZebraPrinter => _zebraPrinter ?? (_zebraPrinter = ZebraPrinterFactory.GetInstance(Con));
 

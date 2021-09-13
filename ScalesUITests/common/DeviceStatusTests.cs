@@ -9,7 +9,7 @@
 //    {
 //        #region Private fields and properties
 
-//        private readonly DeviceStatus _ws = DeviceStatus.Instance;
+//        private readonly DeviceStatus _sessionState = DeviceStatus.Instance;
 
 //        #endregion
 
@@ -18,7 +18,7 @@
 //        [TestMethod()]
 //        public void SerializeObjectTest()
 //        {
-//            var x = _ws.SerializeObject();
+//            var x = _sessionState.SerializeObject();
 //            Console.WriteLine(x);
 //            Assert.IsNotNull(x);
 //        }

@@ -8,7 +8,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using WeightCore.Helpers;
-using WeightCore.Models;
 
 namespace ScalesUI.Forms
 {
@@ -17,7 +16,7 @@ namespace ScalesUI.Forms
         #region Public and private fields and properties
 
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly SessionState _ws = SessionState.Instance;
+        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private List<OrderDirect> _ordList = null;
         private int _numPage = 0;
         private readonly int offset = 9;
@@ -37,9 +36,9 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_ws.IsDebug;
+                TopMost = !_sessionState.IsDebug;
 
-                _ordList = OrderDirect.GetOrderList(_ws.CurrentScale);
+                _ordList = OrderDirect.GetOrderList(_sessionState.CurrentScale);
                 if (_ordList.Count < offset)
                 {
                     btnLeftRoll.Visible = false;
@@ -128,12 +127,12 @@ namespace ScalesUI.Forms
                 //the names are changed!
                 btn.Click += delegate
                 {
-                    _ws.CurrentOrder = _ordList[btn.TabIndex];
-                    _ws.CurrentOrder.LoadTemplate();
-                    _ws.CurrentPlu = _ws.CurrentOrder.PLU;
+                    _sessionState.CurrentOrder = _ordList[btn.TabIndex];
+                    _sessionState.CurrentOrder.LoadTemplate();
+                    _sessionState.CurrentPlu = _sessionState.CurrentOrder.PLU;
                     //ws.CurrentPLU.LoadTemplate();
-                    //_ws.WeightTare = (int)( _ws.CurrentOrder.PLU.GoodsTareWeight * _ws.CurrentPLU.);
-                    //_ws.WeightReal = 0;
+                    //_sessionState.WeightTare = (int)( _sessionState.CurrentOrder.PLU.GoodsTareWeight * _sessionState.CurrentPLU.);
+                    //_sessionState.WeightReal = 0;
                     DialogResult = DialogResult.OK;
                     Close();
                 };

@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
-using DataProjectsCore.Utils;
+using DataProjectsCore.Helpers;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -28,7 +28,7 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
-        private readonly LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogHelper _log = LogHelper.Instance;
 
         #endregion
 
@@ -37,9 +37,9 @@ namespace WeightCore.Helpers
         public void Catch(IWin32Window owner, ref Exception ex,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            _logUtils.Error(ex.Message, filePath, memberName, lineNumber);
+            _log.Error(ex.Message, filePath, memberName, lineNumber);
             if (ex.InnerException != null)
-                _logUtils.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
+                _log.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
             string msg = ex.Message;
             if (ex.InnerException != null)
                 msg += Environment.NewLine + ex.InnerException.Message;

@@ -23,7 +23,7 @@
 
 //        #region Private fields and properties
 
-//        private readonly SessionState _ws = SessionState.Instance;
+//        private readonly SessionState _sessionState = SessionState.Instance;
 //        //private event EventHandler MiddleMouseEvent = delegate { };
 //        //private LowLevelMouseProc _levelMouseProc;
 //        //private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
@@ -91,7 +91,7 @@
 
 //        public void OnMouseEvent(object sender, EventArgs e)
 //        {
-//            _ws?.ProcessWeighingResult(Owner);
+//            _sessionState?.ProcessWeighingResult(Owner);
 //        }
 
 //        #endregion

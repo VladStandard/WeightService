@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.Utils;
+using DataProjectsCore.Helpers;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
@@ -43,7 +43,7 @@ namespace WeightCore.Managers
         public AskError DeviceError { get; private set; }
         private static readonly object Locker = new();
         private readonly ConcurrentQueue<Cmd> _requestQueue = new();
-        private readonly LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogHelper _log = LogHelper.Instance;
 
         #endregion
 
@@ -89,7 +89,7 @@ namespace WeightCore.Managers
                     ExceptionMsg = ex.Message;
                     if (!string.IsNullOrEmpty(ex.InnerException?.Message))
                         ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                    _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
+                    _log.Error(ExceptionMsg, filePath, memberName, lineNumber);
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                     throw;
                 }
@@ -138,7 +138,7 @@ namespace WeightCore.Managers
                     if (ask == null)
                     {
                         //state = EnumControlState.Down;
-                        _logUtils.Error("Нет ответа");
+                        _log.Error("Нет ответа");
                     }
                     else
                     {
@@ -191,7 +191,7 @@ namespace WeightCore.Managers
                                     break;
                                 case AskError askError:
                                     DeviceError = askError;
-                                    _logUtils.Error(askError.GetMessage());
+                                    _log.Error(askError.GetMessage());
                                     // state = EnumControlState.Down;
                                     break;
                             }
@@ -201,16 +201,16 @@ namespace WeightCore.Managers
                             switch (ask)
                             {
                                 case AskSetZero askSetZero:
-                                    _logUtils.Information(askSetZero.GetMessage());
+                                    _log.Information(askSetZero.GetMessage());
                                     IsReady = true;
                                     break;
                                 case AskError askError:
                                     DeviceError = askError;
-                                    _logUtils.Error(askError.GetMessage(), filePath, memberName, lineNumber);
-                                    _logUtils.Error(askError.ErrorCode.ToString(), filePath, memberName, lineNumber);
-                                    _logUtils.Error(askError.Command.ToString(), filePath, memberName, lineNumber);
-                                    _logUtils.Error(askError.Data.ToString(), filePath, memberName, lineNumber);
-                                    _logUtils.Error(askError.IsValid.ToString(), filePath, memberName, lineNumber);
+                                    _log.Error(askError.GetMessage(), filePath, memberName, lineNumber);
+                                    _log.Error(askError.ErrorCode.ToString(), filePath, memberName, lineNumber);
+                                    _log.Error(askError.Command.ToString(), filePath, memberName, lineNumber);
+                                    _log.Error(askError.Data.ToString(), filePath, memberName, lineNumber);
+                                    _log.Error(askError.IsValid.ToString(), filePath, memberName, lineNumber);
                                     //state = EnumControlState.Down;
                                     break;
                             }
@@ -222,16 +222,16 @@ namespace WeightCore.Managers
                                 case AskSetTare askSetTare:
                                     //weightTare = ((CmdSetTare) request).WeightTare;
                                     //scaleFactor = ((CmdSetTare) request).ScaleFactor;
-                                    _logUtils.Information(askSetTare.GetMessage());
+                                    _log.Information(askSetTare.GetMessage());
                                     IsReady = true;
                                     break;
                                 case AskNackTare askNackTare:
-                                    _logUtils.Information(askNackTare.GetMessage());
+                                    _log.Information(askNackTare.GetMessage());
                                     IsReady = true;
                                     break;
                                 case AskError askError:
                                     DeviceError = askError;
-                                    _logUtils.Information(askError.GetMessage());
+                                    _log.Information(askError.GetMessage());
                                     // state = EnumControlState.Down;
                                     break;
                             }
@@ -248,7 +248,7 @@ namespace WeightCore.Managers
                                 case AskError askError:
                                     //state = EnumControlState.Down;
                                     DeviceError = askError;
-                                    _logUtils.Error(askError.GetMessage());
+                                    _log.Error(askError.GetMessage());
                                     break;
                             }
                         }
@@ -298,7 +298,7 @@ namespace WeightCore.Managers
     public class DeviceSocketRs232 : DeviceSocket
     {
         public SerialPort SerialPort { get; private set; }
-        private readonly LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogHelper _log = LogHelper.Instance;
 
         public DeviceSocketRs232(string portName = "COM1", int baudRate = 9600, Parity parity = Parity.None, int dataBits = 8,
             StopBits stopBits = StopBits.One, Handshake handshake = Handshake.None, int readTimeout = 50, int writeTimeout = 50)
@@ -347,7 +347,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                _logUtils.Error(nameof(DeviceSocketRs232), nameof(SharingSession), ex.Message);
+                _log.Error(nameof(DeviceSocketRs232), nameof(SharingSession), ex.Message);
             }
             return result;
         }
@@ -355,12 +355,12 @@ namespace WeightCore.Managers
 
     public class DeviceSocketTcp : DeviceSocket
     {
+        private readonly LogHelper _log = LogHelper.Instance;
         public string DeviceIP { get; private set; }
         public int DevicePort { get; private set; }
         public int DeviceSendTimeout { get; set; }
         public int DeviceReceiveTimeout { get; set; }
         public TcpClient TcpClient { get; private set; }
-        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         public DeviceSocketTcp(string ip, int port)
         {
@@ -404,11 +404,11 @@ namespace WeightCore.Managers
             }
             catch (ArgumentNullException ex)
             {
-                _logUtils.Error(nameof(DeviceSocket), nameof(SharingSession), ex.Message);
+                _log.Error(nameof(DeviceSocket), nameof(SharingSession), ex.Message);
             }
             catch (SocketException ex)
             {
-                _logUtils.Error(nameof(DeviceSocket), nameof(SharingSession), ex.Message);
+                _log.Error(nameof(DeviceSocket), nameof(SharingSession), ex.Message);
             }
             return result;
         }

@@ -5,7 +5,6 @@ using DataProjectsCore;
 using System;
 using System.Windows.Forms;
 using WeightCore.Helpers;
-using WeightCore.Models;
 
 namespace ScalesUI.Forms
 {
@@ -13,7 +12,7 @@ namespace ScalesUI.Forms
     {
         #region Public and private fields and properties
 
-        private readonly SessionState _ws = SessionState.Instance;
+        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
 
         #endregion
@@ -33,9 +32,9 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_ws.IsDebug;
+                TopMost = !_sessionState.IsDebug;
                 listBox1.Items.Clear();
-                foreach (string prop in _ws.CurrentOrder.ToString().Split('\n'))
+                foreach (string prop in _sessionState.CurrentOrder.ToString().Split('\n'))
                 {
                     listBox1.Items.Add(prop);
                 }
@@ -63,8 +62,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Paused);
-                _ws.CurrentOrder = null;
+                _sessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Paused);
+                _sessionState.CurrentOrder = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
@@ -78,8 +77,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Performed);
-                _ws.CurrentOrder = null;
+                _sessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Performed);
+                _sessionState.CurrentOrder = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
@@ -93,8 +92,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.InProgress);
-                _ws.CurrentOrder = null;
+                _sessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.InProgress);
+                _sessionState.CurrentOrder = null;
                 DialogResult = DialogResult.OK;
                 Close();
             }

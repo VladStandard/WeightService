@@ -6,7 +6,7 @@ using DataProjectsCore.DAL.TableModels;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
-using WeightCore.Models;
+using WeightCore.Helpers;
 
 namespace WeightCore.XamlPages
 {
@@ -17,7 +17,7 @@ namespace WeightCore.XamlPages
     {
         #region Private fields and properties
 
-        public SessionState _ws { get; private set; } = SessionState.Instance;
+        public SessionStateHelper _sessionState { get; private set; } = SessionStateHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; }
         private readonly List<PluDirect> _pluList;
         public int RowCount { get; } = 5;
@@ -34,14 +34,14 @@ namespace WeightCore.XamlPages
             InitializeComponent();
 
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            _pluList = PluDirect.GetPluList(_ws.CurrentScale);
+            _pluList = PluDirect.GetPluList(_sessionState.CurrentScale);
             
             object context = FindResource("SqlViewModel");
             if (context is SqlViewModelEntity sqlViewModel)
             {
                 sqlViewModel = SqlViewModel;
             }
-            SqlViewModel = _ws.SqlViewModel;
+            SqlViewModel = _sessionState.SqlViewModel;
         }
 
         #endregion
@@ -50,9 +50,9 @@ namespace WeightCore.XamlPages
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //_orderList = PluEntity.GetPluList(_ws.CurrentScale);
+            //_orderList = PluEntity.GetPluList(_sessionState.CurrentScale);
 
-            //var pluEntities = _pluList.Skip(_ws.CurrentPage * PageSize).Take(PageSize).ToArray();
+            //var pluEntities = _pluList.Skip(_sessionState.CurrentPage * PageSize).Take(PageSize).ToArray();
             //var controls = CreateControls(pluEntities, ColumnCount, RowCount);
             //GridCustomizatorClass.PageBuilder(PluListGrid, controls);
         }
@@ -65,7 +65,7 @@ namespace WeightCore.XamlPages
         //        for (var i = 0; i < x; ++i)
         //        {
         //            if (k >= pluEntities.Count) break;
-        //            var control = CreateNewControl(pluEntities[k], _ws.CurrentPage, k);
+        //            var control = CreateNewControl(pluEntities[k], _sessionState.CurrentPage, k);
         //            controls[i, j] = control;
         //            k++;
         //        }
@@ -152,16 +152,16 @@ namespace WeightCore.XamlPages
 
         //private void ButtonPlu_Click(object sender, EventArgs e)
         //{
-        //    _ws.CurrentOrder = null;
+        //    _sessionState.CurrentOrder = null;
         //    var tabIndex = 0;
         //    if (sender is Control control)
         //        tabIndex = control.TabIndex;
         //    if (_orderList?.Count >= tabIndex)
         //    {
-        //        _ws.CurrentPlu = _orderList[tabIndex];
-        //        _ws.CurrentPlu.LoadTemplate();
-        //        //_ws.WeightTare = (int)(_ws.CurrentPLU.GoodsTareWeight * _ws.Calibre);
-        //        //_ws.WeightReal = 0;
+        //        _sessionState.CurrentPlu = _orderList[tabIndex];
+        //        _sessionState.CurrentPlu.LoadTemplate();
+        //        //_sessionState.WeightTare = (int)(_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.Calibre);
+        //        //_sessionState.WeightReal = 0;
         //        DialogResult = DialogResult.OK;
         //    }
         //    Close();
@@ -183,17 +183,17 @@ namespace WeightCore.XamlPages
 
         //private void ButtonRightRoll_Click(object sender, EventArgs e)
         //{
-        //    var saveCurrentPage = _ws.CurrentPage;
+        //    var saveCurrentPage = _sessionState.CurrentPage;
         //    var countPage = _pluList.Count / PageSize;
-        //    _ws.CurrentPage = _ws.CurrentPage < countPage ? _ws.CurrentPage + 1 : countPage;
-        //    if (_ws.CurrentPage == saveCurrentPage)
+        //    _sessionState.CurrentPage = _sessionState.CurrentPage < countPage ? _sessionState.CurrentPage + 1 : countPage;
+        //    if (_sessionState.CurrentPage == saveCurrentPage)
         //        return;
 
-        //    var pluEntities = _pluList.Skip(_ws.CurrentPage * PageSize).Take(PageSize).ToArray();
+        //    var pluEntities = _pluList.Skip(_sessionState.CurrentPage * PageSize).Take(PageSize).ToArray();
         //    var controls = CreateControls(pluEntities, ColumnCount, RowCount);
         //    //GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
-        //    //_ws.CurrentPage.Text = $@"Cтр. {CurrentPage}";
+        //    //_sessionState.CurrentPage.Text = $@"Cтр. {CurrentPage}";
         //}
 
         #endregion

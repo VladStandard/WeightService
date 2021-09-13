@@ -4,7 +4,7 @@
 using DataProjectsCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
-using DataProjectsCore.Utils;
+using DataProjectsCore.Helpers;
 using Nito.AsyncEx;
 using System;
 using System.Runtime.CompilerServices;
@@ -42,7 +42,7 @@ namespace WeightCore.Managers
 
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
-        private readonly LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogHelper _log = LogHelper.Instance;
         private bool IsTscPrinter { get; set; }
 
         public DeviceManagerEntity DeviceManager { get; set; }
@@ -91,9 +91,9 @@ namespace WeightCore.Managers
         //    }
         //    catch (Exception ex)
         //    {
-        //    //    _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
+        //    //    _sessionState?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
         //    //    if (ex.InnerException != null)
-        //    //        _ws?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
+        //    //        _sessionState?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
         //    //    string msg = ex.Message;
         //    //    if (ex.InnerException != null)
         //    //        msg += Environment.NewLine + ex.InnerException.Message;
@@ -176,10 +176,10 @@ namespace WeightCore.Managers
                 PrintManager?.Close();
                 MassaManager?.Close();
 
-                _logUtils.Information($"{nameof(DeviceManager)} is closed");
-                _logUtils.Information($"{nameof(MemoryManager)} is closed");
-                _logUtils.Information($"{nameof(PrintManager)} is closed");
-                _logUtils.Information($"{nameof(MassaManager)} is closed");
+                _log.Information($"{nameof(DeviceManager)} is closed");
+                _log.Information($"{nameof(MemoryManager)} is closed");
+                _log.Information($"{nameof(PrintManager)} is closed");
+                _log.Information($"{nameof(MassaManager)} is closed");
 
                 if (PrintManager?.PrintControl != null && IsTscPrinter && !PrintManager.PrintControl.IsStatusNormal)
                 {
@@ -216,9 +216,9 @@ namespace WeightCore.Managers
                             {
                                 DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
                             }
-                            _logUtils.Information($"{nameof(DeviceManager)} is runned");
+                            _log.Information($"{nameof(DeviceManager)} is runned");
                             DeviceManager.Open(callbackDeviceManager);
-                            _logUtils.Information($"{nameof(DeviceManager)} is finished");
+                            _log.Information($"{nameof(DeviceManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -249,9 +249,9 @@ namespace WeightCore.Managers
                             {
                                 MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
                             }
-                            _logUtils.Information($"{nameof(MemoryManager)} is runned");
+                            _log.Information($"{nameof(MemoryManager)} is runned");
                             MemoryManager.Open(callbackMemoryManager);
-                            _logUtils.Information($"{nameof(MemoryManager)} is finished");
+                            _log.Information($"{nameof(MemoryManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -283,9 +283,9 @@ namespace WeightCore.Managers
                             {
                                 PrintManager = new PrintManagerEntity(currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
                             }
-                            _logUtils.Information($"{nameof(PrintManager)} is runned");
+                            _log.Information($"{nameof(PrintManager)} is runned");
                             PrintManager.Open(IsTscPrinter, callbackPrintManager);
-                            _logUtils.Information($"{nameof(PrintManager)} is finished");
+                            _log.Information($"{nameof(PrintManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -320,9 +320,9 @@ namespace WeightCore.Managers
                                 MassaManager = new MassaManagerEntity(deviceSocketRs232, 1_000, 5_000, 5_000);
                                 callbackButtonSetZero(null, null);
                             }
-                            _logUtils.Information($"{nameof(MassaManager)} is runned");
+                            _log.Information($"{nameof(MassaManager)} is runned");
                             MassaManager.Open(callbackMassaManager);
-                            _logUtils.Information($"{nameof(MassaManager)} is finished");
+                            _log.Information($"{nameof(MassaManager)} is finished");
                         }
                     }
                     catch (Exception ex)

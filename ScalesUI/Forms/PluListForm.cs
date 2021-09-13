@@ -9,7 +9,6 @@ using System.Linq;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
-using WeightCore.Models;
 
 namespace ScalesUI.Forms
 {
@@ -18,7 +17,7 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly SessionState _ws = SessionState.Instance;
+        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private List<PluDirect> _orderList;
         private readonly List<PluDirect> _pluList;
         public int RowCount { get; } = 5;
@@ -35,7 +34,7 @@ namespace ScalesUI.Forms
             InitializeComponent();
             
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            _pluList = PluDirect.GetPluList(_ws.CurrentScale);
+            _pluList = PluDirect.GetPluList(_sessionState.CurrentScale);
         }
 
         #endregion
@@ -46,14 +45,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_ws.IsDebug;
+                TopMost = !_sessionState.IsDebug;
                 Width = Owner.Width;
                 Height = Owner.Height;
                 Left = Owner.Left;
                 Top = Owner.Top;
                 //StartPosition = FormStartPosition.CenterParent;
 
-                _orderList = PluDirect.GetPluList(_ws.CurrentScale);
+                _orderList = PluDirect.GetPluList(_sessionState.CurrentScale);
 
                 PluDirect[] pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
                 Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
@@ -186,16 +185,16 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.CurrentOrder = null;
+                _sessionState.CurrentOrder = null;
                 int tabIndex = 0;
                 if (sender is Control control)
                     tabIndex = control.TabIndex;
                 if (_orderList?.Count >= tabIndex)
                 {
-                    _ws.CurrentPlu = _orderList[tabIndex];
-                    _ws.CurrentPlu.LoadTemplate();
-                    //_ws.WeightTare = (int)(_ws.CurrentPLU.GoodsTareWeight * _ws.Calibre);
-                    //_ws.WeightReal = 0;
+                    _sessionState.CurrentPlu = _orderList[tabIndex];
+                    _sessionState.CurrentPlu.LoadTemplate();
+                    //_sessionState.WeightTare = (int)(_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.Calibre);
+                    //_sessionState.WeightReal = 0;
                     DialogResult = DialogResult.OK;
                 }
                 Close();

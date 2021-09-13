@@ -5,7 +5,7 @@ using System;
 
 namespace DataProjectsCore.Utils
 {
-    internal static class RuntimeHelper
+    internal static class RuntimeUtils
     {
         /// <summary>
         /// Slices the specified array using the specified range.

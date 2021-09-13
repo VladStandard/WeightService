@@ -1,18 +1,16 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
-
-using System.Reflection;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("terra2.Tests")]
+[assembly: AssemblyTitle("ConsoleQuartzExample")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Владимирский стандарт")]
-[assembly: AssemblyProduct("MdmControl")]
-[assembly: AssemblyCopyright("Copyright © 2020  - 2021")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ConsoleQuartzExample")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -22,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("89282c41-f3bf-4c2e-bd2a-b62499c26da3")]
+[assembly: Guid("03f82b97-71c5-4e00-aa9e-54dc604089c0")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -31,7 +29,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Revision and Build Numbers
+// You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.5.590.0")]
-[assembly: AssemblyFileVersion("0.5.590.0")]
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

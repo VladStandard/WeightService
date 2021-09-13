@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using WeightCore.Helpers;
-using WeightCore.Models;
 using WeightCore.XamlPages;
 
 namespace WeightCore.Gui
@@ -17,7 +16,7 @@ namespace WeightCore.Gui
         #region Public and private fields and properties
 
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly SessionState _ws = SessionState.Instance;
+        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         public bool UseOwnerSize { get; set; }
         public ProjectsEnums.Page Page { get; private set; }
         private ElementHost ElementHost { get; set; }
@@ -33,7 +32,7 @@ namespace WeightCore.Gui
             InitializeComponent();
 
             Page = ProjectsEnums.Page.Default;
-            _ws.IsWpfPageLoaderClose = false;
+            _sessionState.IsWpfPageLoaderClose = false;
         }
 
         public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize) : this()
@@ -58,7 +57,7 @@ namespace WeightCore.Gui
             try
             {
                 // Own GUI.
-                TopMost = !_ws.IsDebug;
+                TopMost = !_sessionState.IsDebug;
 
                 if (UseOwnerSize)
                 {
@@ -86,14 +85,14 @@ namespace WeightCore.Gui
                         PluList.InitializeComponent();
                         ElementHost.Child = PluList;
                         PluList.Loaded += PluListOnLoaded;
-                        _ws.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        _sessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.SqlSettings:
                         SqlSettings = new PageSqlSettings();
                         SqlSettings.InitializeComponent();
                         ElementHost.Child = SqlSettings;
                         SqlSettings.Loaded += SqlSettingsOnLoaded;
-                        _ws.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        _sessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.Default:
                     default:
@@ -134,7 +133,7 @@ namespace WeightCore.Gui
         {
             try
             {
-                _ws.WpfPageLoader_OnClose -= WpfPageLoader_OnClose;
+                _sessionState.WpfPageLoader_OnClose -= WpfPageLoader_OnClose;
                 Close();
             }
             catch (Exception ex)

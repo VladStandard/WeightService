@@ -6,7 +6,7 @@ using DataProjectsCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
-using DataProjectsCore.Utils;
+using DataProjectsCore.Helpers;
 using MvvmHelpers;
 using System;
 using System.Threading;
@@ -17,21 +17,21 @@ using WeightCore.Gui;
 using WeightCore.Managers;
 using WeightCore.Zpl;
 
-namespace WeightCore.Models
+namespace WeightCore.Helpers
 {
-    public class SessionState : BaseViewModel
+    public class SessionStateHelper : BaseViewModel
     {
         #region Design pattern "Lazy Singleton"
 
-        private static SessionState _instance;
-        public static SessionState Instance => LazyInitializer.EnsureInitialized(ref _instance);
+        private static SessionStateHelper _instance;
+        public static SessionStateHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Public and private fields and properties
 
         private readonly TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
-        private readonly LogUtils _logUtils = LogUtils.Instance;
+        private readonly LogHelper _log = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
         public bool IsDebug
@@ -49,7 +49,7 @@ namespace WeightCore.Models
         public ZplCommander ZplCommander { get; private set; }
         public int CurrentScaleId { get; }
         public OrderDirect CurrentOrder { get; set; }
-        
+
         [XmlElement(IsNullable = true)]
         private ScaleDirect _currentScale;
         public ScaleDirect CurrentScale
@@ -101,10 +101,8 @@ namespace WeightCore.Models
 
         #region Constructor and destructor
 
-        public SessionState()
+        public SessionStateHelper()
         {
-            ProductDate = DateTime.Now;
-
             // Load ID host from file.
             Host = HostsUtils.TokenRead();
             CurrentScale = ScalesUtils.GetScale(Host.CurrentScaleId);
@@ -170,7 +168,7 @@ namespace WeightCore.Models
             ProductSeries.New();
         }
 
-        ~SessionState()
+        ~SessionStateHelper()
         {
             ZplCommander?.Close();
         }
@@ -312,7 +310,7 @@ namespace WeightCore.Models
                     ProductDate = ProductDateMaxValue;
             }
         }
-        
+
         #endregion
 
         #region PluEntity
@@ -471,13 +469,13 @@ namespace WeightCore.Models
             // Проверка наличия устройства весов.
             if (_taskManager.MassaManager == null)
             {
-                _logUtils.Information(@"Устройство весов не обнаружено!");
+                _log.Information(@"Устройство весов не обнаружено!");
                 return;
             }
             // Проверка товара на весах.
             if (_taskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
             {
-                _logUtils.Information($@"Вес товара: {_taskManager.MassaManager.WeightNet} кг, печать этикетки невозможна!");
+                _log.Information($@"Вес товара: {_taskManager.MassaManager.WeightNet} кг, печать этикетки невозможна!");
                 return;
             }
 

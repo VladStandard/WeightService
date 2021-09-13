@@ -1,11 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.Utils;
+using DataProjectsCore.Helpers;
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using WeightCore.Helpers;
 
 namespace WeightCore.Managers
 {
@@ -14,15 +14,16 @@ namespace WeightCore.Managers
     /// </summary>
     public class DeviceManagerEntity
     {
-        #region Public and private fields and properties - Manager
+        #region Public and private fields and properties
 
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
+        private readonly LogHelper _log = LogHelper.Instance;
         public int WaitWhileMiliSeconds { get; private set; }
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; }
         public delegate void Callback();
         public bool IsExecute { get; set; }
-        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
@@ -41,7 +42,7 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Manager
 
-        public void Open(Callback callback, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Open(Callback callback)
         {
             IsExecute = true;
             while (IsExecute)
@@ -59,18 +60,13 @@ namespace WeightCore.Managers
                 }
                 catch (Exception ex)
                 {
-                    ExceptionMsg = ex.Message;
-                    if (!string.IsNullOrEmpty(ex.InnerException?.Message))
-                        ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                    _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
+                    _exception.Catch(null, ref ex);
                     throw;
                 }
-                System.Windows.Forms.Application.DoEvents();
             }
         }
 
-        public void Close([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Close()
         {
             try
             {
@@ -79,10 +75,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                ExceptionMsg = ex.Message;
-                if (!string.IsNullOrEmpty(ex.InnerException?.Message))
-                    ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
+                _exception.Catch(null, ref ex);
             }
         }
 

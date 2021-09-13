@@ -8,8 +8,6 @@ namespace Terra
 {
     public class Program
     {
-        //private static readonly LogHelper LogHelper = LogHelper.Instance;
-
         public static void Main(string[] args)
         {
             try

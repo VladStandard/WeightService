@@ -6,7 +6,6 @@ using System;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
-using WeightCore.Models;
 
 namespace ScalesUI.Forms
 {
@@ -15,7 +14,7 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly SessionState _ws = SessionState.Instance;
+        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private int OldKneading { get; }
         private int OldPalletSize { get; }
         private DateTime OldProductDate { get; }
@@ -28,9 +27,9 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            OldKneading = _ws.Kneading;
-            OldProductDate = _ws.ProductDate;
-            OldPalletSize = _ws.LabelsCount;
+            OldKneading = _sessionState.Kneading;
+            OldProductDate = _sessionState.ProductDate;
+            OldPalletSize = _sessionState.LabelsCount;
             buttonOk.Select();
         }
 
@@ -42,7 +41,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_ws.IsDebug;
+                TopMost = !_sessionState.IsDebug;
                 Width = Owner.Width;
                 Height = Owner.Height;
                 Left = Owner.Left;
@@ -61,7 +60,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                fieldProdDate.Text = _ws.ProductDate.ToString("dd.MM.yyyy");
+                fieldProdDate.Text = _sessionState.ProductDate.ToString("dd.MM.yyyy");
             }
             catch (Exception ex)
             {
@@ -73,7 +72,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                fieldKneading.Text = _ws.Kneading.ToString();
+                fieldKneading.Text = _sessionState.Kneading.ToString();
             }
             catch (Exception ex)
             {
@@ -86,10 +85,10 @@ namespace ScalesUI.Forms
             try
             {
                 NumberInputForm numberInputForm = new();
-                numberInputForm.InputValue = 0;// _ws.Kneading;
+                numberInputForm.InputValue = 0;// _sessionState.Kneading;
                 if (numberInputForm.ShowDialog() == DialogResult.OK)
                 {
-                    _ws.Kneading = numberInputForm.InputValue;
+                    _sessionState.Kneading = numberInputForm.InputValue;
                 }
                 ShowKneading();
             }
@@ -117,9 +116,9 @@ namespace ScalesUI.Forms
             try
             {
                 DialogResult = DialogResult.Cancel;
-                _ws.Kneading = OldKneading;
-                _ws.ProductDate = OldProductDate;
-                _ws.LabelsCount = OldPalletSize;
+                _sessionState.Kneading = OldKneading;
+                _sessionState.ProductDate = OldProductDate;
+                _sessionState.LabelsCount = OldPalletSize;
                 Close();
             }
             catch (Exception ex)
@@ -145,7 +144,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.RotateProductDate(ProjectsEnums.Direction.Forward);
+                _sessionState.RotateProductDate(ProjectsEnums.Direction.Forward);
                 ShowProductDate();
             }
             catch (Exception ex)
@@ -158,7 +157,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.RotateProductDate(ProjectsEnums.Direction.Back);
+                _sessionState.RotateProductDate(ProjectsEnums.Direction.Back);
                 ShowProductDate();
             }
             catch (Exception ex)
@@ -171,10 +170,10 @@ namespace ScalesUI.Forms
         {
             try
             {
-                int n = _ws.LabelsCount == 1 ? 9 : 10;
+                int n = _sessionState.LabelsCount == 1 ? 9 : 10;
                 for (int i = 0; i < n; i++)
                 {
-                    _ws.RotatePalletSize(ProjectsEnums.Direction.Forward);
+                    _sessionState.RotatePalletSize(ProjectsEnums.Direction.Forward);
                     ShowPalletSize();
                 }
             }
@@ -188,7 +187,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                fieldPalletSize.Text = _ws.LabelsCount.ToString();
+                fieldPalletSize.Text = _sessionState.LabelsCount.ToString();
             }
             catch (Exception ex)
             {
@@ -200,7 +199,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.RotatePalletSize(ProjectsEnums.Direction.Forward);
+                _sessionState.RotatePalletSize(ProjectsEnums.Direction.Forward);
                 ShowPalletSize();
             }
             catch (Exception ex)
@@ -213,7 +212,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.RotatePalletSize(ProjectsEnums.Direction.Back);
+                _sessionState.RotatePalletSize(ProjectsEnums.Direction.Back);
                 ShowPalletSize();
             }
             catch (Exception ex)
@@ -246,7 +245,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _ws.LabelsCount = count;
+                _sessionState.LabelsCount = count;
                 ShowPalletSize();
             }
             catch (Exception ex)

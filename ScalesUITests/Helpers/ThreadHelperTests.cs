@@ -17,7 +17,7 @@
 //        /// <summary>
 //        /// Помощник состояния устройства.
 //        /// </summary>
-//        private DeviceStatus _ws = DeviceStatus.Instance;
+//        private DeviceStatus _sessionState = DeviceStatus.Instance;
 
 //        #endregion
 
@@ -76,7 +76,7 @@
 //            TestContext.WriteLine($@"{nameof(UpdatedResourcesComPort_Execute_DoesNotThrow)} start.");
 //            var sw = Stopwatch.StartNew();
 
-//            Assert.DoesNotThrow(() => _thread.UpdatedResourcesComPort(_ws, new Label(), new Button(), new Button(), new Button(), new Button()));
+//            Assert.DoesNotThrow(() => _thread.UpdatedResourcesComPort(_sessionState, new Label(), new Button(), new Button(), new Button(), new Button()));
 
 //            sw.Stop();
 //            TestContext.WriteLine($@"{nameof(UpdatedResourcesComPort_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
@@ -119,7 +119,7 @@
 //            TestContext.WriteLine($@"{nameof(UpdatedResourcesScale_Execute_DoesNotThrow)} start.");
 //            var sw = Stopwatch.StartNew();
 
-//            Assert.DoesNotThrow(() => _thread.UpdatedResourcesScale(_ws, new Label(), new Label(), new Label(), new Label(), new Label(), new Button()));
+//            Assert.DoesNotThrow(() => _thread.UpdatedResourcesScale(_sessionState, new Label(), new Label(), new Label(), new Label(), new Label(), new Button()));
 
 //            sw.Stop();
 //            TestContext.WriteLine($@"{nameof(UpdatedResourcesScale_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");

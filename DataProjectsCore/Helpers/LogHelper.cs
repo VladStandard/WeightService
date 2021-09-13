@@ -10,22 +10,22 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-namespace DataProjectsCore.Utils
+namespace DataProjectsCore.Helpers
 {
-    public class LogUtils
+    public class LogHelper
     {
         #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        private static LogUtils _instance;
+        private static LogHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public static LogUtils Instance => LazyInitializer.EnsureInitialized(ref _instance);
+        public static LogHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Constructor and destructor
 
-        public LogUtils()
+        public LogHelper()
         {
             HostDirect host = HostsUtils.TokenRead();
 
@@ -44,7 +44,7 @@ namespace DataProjectsCore.Utils
 
         #region Public and private methods
 
-        private void Log4netSave(string message, ShareEnums.LogType logType, 
+        private void Log4netSave(string message, ShareEnums.LogType logType,
             [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             DateTime dt = DateTime.Now;
@@ -81,7 +81,7 @@ namespace DataProjectsCore.Utils
             }
         }
 
-        public void Error(string message, [CallerFilePath] string filePath = "", 
+        public void Error(string message, [CallerFilePath] string filePath = "",
             [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0)
         {
@@ -90,28 +90,28 @@ namespace DataProjectsCore.Utils
         }
 
         [Obsolete(@"Deprecated method. Use Stop.")]
-        public void Fatal(string message, 
+        public void Fatal(string message,
             [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             Log4netSave(message, ShareEnums.LogType.Stop, filePath, memberName, lineNumber);
             _logDb.SaveStop(message, filePath, memberName, lineNumber);
         }
 
-        public void Stop(string message, 
+        public void Stop(string message,
             [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             Log4netSave(message, ShareEnums.LogType.Stop, filePath, memberName, lineNumber);
             _logDb.SaveStop(message, filePath, memberName, lineNumber);
         }
 
-        public void Information(string message, 
+        public void Information(string message,
             [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             Log4netSave(message, ShareEnums.LogType.Information, filePath, memberName, lineNumber);
             _logDb.SaveInformation(message, filePath, memberName, lineNumber);
         }
 
-        public void Warning(string message, 
+        public void Warning(string message,
             [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             Log4netSave(message, ShareEnums.LogType.Warning, filePath, memberName, lineNumber);
