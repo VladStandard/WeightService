@@ -4,6 +4,7 @@
 using DataShareCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
+using System.Data;
 
 namespace DataProjectsCore.DAL.TableModels
 {
@@ -13,7 +14,19 @@ namespace DataProjectsCore.DAL.TableModels
         #region Public and private fields and properties
 
         public int WeighingFactId { get; set; }
-        public string Content { get; set; }
+        public string? Label { get; set; }
+        public string? Zpl { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public ZplLabelDirect()
+        {
+            WeighingFactId = default;
+            Label = default;
+            Zpl = default;
+        }
 
         #endregion
 
@@ -21,17 +34,20 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Save()
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
-            con.Open();
-            string query = "INSERT INTO [db_scales].[Labels] ([WeithingFactId],[Label]) VALUES (@ID, CONVERT(VARBINARY(MAX), @LABEL)) ";
-            using (SqlCommand cmd = new(query))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@ID", WeighingFactId);
-                cmd.Parameters.AddWithValue("@LABEL", Content);
-                cmd.ExecuteNonQuery();
-            }
-            con.Close();
+            SqlParameter[] parameters = new SqlParameter[] {
+                new SqlParameter("@ID", SqlDbType.Int) { Value = WeighingFactId },
+                new SqlParameter("@LABEL", SqlDbType.NVarChar) { Value = Label },
+            };
+            SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.Save, parameters);
+        }
+
+        public void SaveZpl()
+        {
+            SqlParameter[] parameters = new SqlParameter[] {
+                new SqlParameter("@ID", SqlDbType.Int) { Value = WeighingFactId },
+                new SqlParameter("@Zpl", SqlDbType.NVarChar) { Value = Zpl },
+            };
+            SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.SaveZpl, parameters);
         }
 
         #endregion

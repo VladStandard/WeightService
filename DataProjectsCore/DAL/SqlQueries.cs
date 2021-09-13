@@ -168,6 +168,19 @@ where [HOSTS].[MARKED]=0 and [HOSTS].[IDRREF]=@idrref
 				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
 
+                public static class Labels
+                {
+                    public static string Save => @"
+INSERT INTO [db_scales].[Labels] ([WeithingFactId], [Label])
+	VALUES (@ID, CONVERT(VARBINARY(MAX), @LABEL))
+            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+                    
+					public static string SaveZpl => @"
+INSERT INTO [db_scales].[Labels] ([WeithingFactId], [ZPL])
+	VALUES (@ID, @ZPL)
+            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+                }
+
                 public static class Scales
                 {
                     public static string GetScaleId => @"
@@ -363,7 +376,7 @@ values(@name)
 
                 }
 
-                public static class WeithingFact
+                public static class WeithingFacts
                 {
                     public static string GetWeithingFacts => @"
 -- Table WeithingFact diagram summary

@@ -350,17 +350,15 @@ namespace WeightCore.Models
                 template = CurrentPlu.Template;
             }
 
-            // Есть шаблон, есть PLU.
-            if (template != null && CurrentPlu != null)
+            // Template exist.
+            if (template != null)
             {
-                switch (CurrentPlu.CheckWeight)
+                switch (CurrentPlu?.CheckWeight)
                 {
                     case true:
-                        // Печать весовых этикеток.
                         PrintWeightLabel(template);
                         break;
                     default:
-                        // Печать штучных этикеток.
                         PrintCountLabel(owner, template);
                         break;
                 }
@@ -389,19 +387,20 @@ namespace WeightCore.Models
         /// Сохранить ZPL-запрос в таблицу [Labels].
         /// </summary>
         /// <param name="printCmd"></param>
-        /// <param name="labelId"></param>
-        public void PrintSaveLabel(ref string printCmd, int labelId)
+        /// <param name="weithingFactId"></param>
+        public void PrintSaveLabel(string printCmd, int weithingFactId)
         {
             ZplLabelDirect zplLabel = new()
             {
-                Content = printCmd,
-                WeighingFactId = labelId,
+                WeighingFactId = weithingFactId,
+                Label = printCmd,
+                Zpl = printCmd,
             };
-            zplLabel.Save();
+            zplLabel.SaveZpl();
         }
 
         /// <summary>
-        /// Печать штучных этикеток.
+        /// Item label printing.
         /// </summary>
         /// <param name="owner"></param>
         /// <param name="template"></param>
@@ -464,7 +463,7 @@ namespace WeightCore.Models
         }
 
         /// <summary>
-        /// Печать весовых этикеток.
+        /// Weight label printing.
         /// </summary>
         /// <param name="template"></param>
         private void PrintWeightLabel(TemplateDirect template)
@@ -517,7 +516,6 @@ namespace WeightCore.Models
         /// <param name="template"></param>
         private void PrintLabel(TemplateDirect template)
         {
-            // Сохранить запись в таблице [WeithingFact].
             CurrentWeighingFact.Save();
 
             string xmlInput = CurrentWeighingFact.SerializeObject();
@@ -528,7 +526,7 @@ namespace WeightCore.Models
             // Отправить задание в очередь печати.
             _taskManager.PrintManager.SendAsync(printCmd);
             // Сохранить ZPL-запрос в таблицу [Labels].
-            PrintSaveLabel(ref printCmd, CurrentWeighingFact.Id);
+            PrintSaveLabel(printCmd, CurrentWeighingFact.Id);
         }
 
         #endregion

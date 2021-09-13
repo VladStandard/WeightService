@@ -1,12 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.Utils;
 using System;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using WeightCore.Helpers;
 using WeightCore.Memory;
 
 namespace WeightCore.Managers
@@ -22,15 +21,15 @@ namespace WeightCore.Managers
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; } = string.Empty;
-        public delegate void Callback(bool isTaskEnabled);
+        public delegate void Callback();
         public bool IsExecute { get; set; } = false;
 
         #endregion
 
         #region Public and private fields and properties
 
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         public MemorySizeEntity MemorySize { get; private set; }
-        private readonly LogUtils _logUtils = LogUtils.Instance;
 
         #endregion
 
@@ -50,8 +49,7 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Manager
 
-        public void Open(Callback callback, bool isTaskEnabled,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Open(Callback callback)
         {
             IsExecute = true;
             while (IsExecute)
@@ -59,7 +57,7 @@ namespace WeightCore.Managers
                 try
                 {
                     MakeJob();
-                    callback(isTaskEnabled);
+                    callback();
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
@@ -69,33 +67,21 @@ namespace WeightCore.Managers
                 }
                 catch (Exception ex)
                 {
-                    ExceptionMsg = ex.Message;
-                    if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
-                        ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                    _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
-                    throw;
+                    _exception.Catch(null, ref ex);
                 }
-                //System.Windows.Forms.Application.DoEvents();
             }
         }
 
-        public void Close([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Close()
         {
             try
             {
                 IsExecute = false;
-                //Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 MakeJob();
             }
             catch (Exception ex)
             {
-                ExceptionMsg = ex.Message;
-                if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
-                    ExceptionMsg += Environment.NewLine + ex.InnerException.Message;
-                _logUtils.Error(ExceptionMsg, filePath, memberName, lineNumber);
-                Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
-                throw;
+                _exception.Catch(null, ref ex);
             }
         }
 

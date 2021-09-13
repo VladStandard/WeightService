@@ -30,8 +30,8 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>6</ApplicationRevision>
-    <ApplicationVersion>0.5.550.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>0.5.580.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -329,12 +329,6 @@
     <Compile Include="Forms\OrderListForm.Designer.cs">
       <DependentUpon>OrderListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\WpfPageLoader.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\WpfPageLoader.Designer.cs">
-      <DependentUpon>WpfPageLoader.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\PluListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -383,9 +377,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OrderListForm.resx">
       <DependentUpon>OrderListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WpfPageLoader.resx">
-      <DependentUpon>WpfPageLoader.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PluListForm.resx">
       <DependentUpon>PluListForm.cs</DependentUpon>

@@ -8,7 +8,6 @@ using System.Data;
 using System.IO;
 using System.Text;
 using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace DataProjectsCore.DAL.TableModels
@@ -89,7 +88,7 @@ namespace DataProjectsCore.DAL.TableModels
         public decimal GrossWeight { get; set; }
         public int? ScaleFactor { get; set; }
         public DateTime RegDate { get; set; }
-        public SsccDirect Sscc { get; set; }
+        //public SsccDirect Sscc { get; set; }
         public WeighingFactDirect()
         {
             ScaleId = 0;
@@ -107,15 +106,15 @@ namespace DataProjectsCore.DAL.TableModels
             {
                 RegDate = reader.GetDateTime(1);
                 Id = reader.GetInt32(3);
-                XDocument xDoc = XDocument.Parse(reader.GetString(2));
-                SsccDirect sscc = new();
-                sscc.SSCC = xDoc.Root.Element("Item").Attribute("SSCC").Value;
-                sscc.GLN = xDoc.Root.Element("Item").Attribute("GLN").Value;
-                sscc.UnitID = int.Parse(xDoc.Root.Element("Item").Attribute("UnitID").Value);
-                sscc.UnitType = byte.Parse(xDoc.Root.Element("Item").Attribute("UnitType").Value);
-                sscc.SynonymSSCC = xDoc.Root.Element("Item").Attribute("SynonymSSCC").Value;
-                sscc.Check = int.Parse(xDoc.Root.Element("Item").Attribute("Check").Value);
-                Sscc = sscc;
+                //XDocument xDoc = XDocument.Parse(reader.GetString(2));
+                //SsccDirect sscc = new();
+                //sscc.SSCC = xDoc.Root.Element("Item").Attribute("SSCC").Value;
+                //sscc.GLN = xDoc.Root.Element("Item").Attribute("GLN").Value;
+                //sscc.UnitID = int.Parse(xDoc.Root.Element("Item").Attribute("UnitID").Value);
+                //sscc.UnitType = byte.Parse(xDoc.Root.Element("Item").Attribute("UnitType").Value);
+                //sscc.SynonymSSCC = xDoc.Root.Element("Item").Attribute("SynonymSSCC").Value;
+                //sscc.Check = int.Parse(xDoc.Root.Element("Item").Attribute("Check").Value);
+                //Sscc = sscc;
             }
         }
 
@@ -130,7 +129,7 @@ namespace DataProjectsCore.DAL.TableModels
                 new SqlParameter("@ProductDate", SqlDbType.Date) { Value = ProductDate },
                 new SqlParameter("@Kneading", SqlDbType.Int) { Value = KneadingNumber },
             };
-            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.WeithingFact.Save, parameters, SaveReader);
+            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.WeithingFacts.Save, parameters, SaveReader);
         }
 
         //public void SaveDeprecated()

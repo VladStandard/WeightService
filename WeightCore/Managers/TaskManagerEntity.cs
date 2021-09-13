@@ -216,8 +216,9 @@ namespace WeightCore.Managers
                             {
                                 DeviceManager = new DeviceManagerEntity(1_000, 5_000, 5_000);
                             }
+                            _logUtils.Information($"{nameof(DeviceManager)} is runned");
                             DeviceManager.Open(callbackDeviceManager);
-                            _logUtils.Information("DeviceManager is runned");
+                            _logUtils.Information($"{nameof(DeviceManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -248,12 +249,9 @@ namespace WeightCore.Managers
                             {
                                 MemoryManager = new MemoryManagerEntity(1_000, 5_000, 5_000);
                             }
-                            MemoryManager.Open(callbackMemoryManager, true);
-                            _logUtils.Information("MemoryManager is runned");
-                        }
-                        else
-                        {
-                            MemoryManager?.Open(callbackMemoryManager, false);
+                            _logUtils.Information($"{nameof(MemoryManager)} is runned");
+                            MemoryManager.Open(callbackMemoryManager);
+                            _logUtils.Information($"{nameof(MemoryManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -285,14 +283,9 @@ namespace WeightCore.Managers
                             {
                                 PrintManager = new PrintManagerEntity(currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
                             }
+                            _logUtils.Information($"{nameof(PrintManager)} is runned");
                             PrintManager.Open(IsTscPrinter, callbackPrintManager);
-                            // STOP
-                            //if (_ws.PrintManager.PrintControl != null && IsTscPrinter && !_ws.PrintManager.PrintControl.IsStatusNormal)
-                            //{
-                            //    _ws.PrintManager.PrintControl.Close();
-                            //    _ws.PrintManager.PrintControl = null;
-                            //}
-                            _logUtils.Information("PrintManager is runned");
+                            _logUtils.Information($"{nameof(PrintManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -327,8 +320,9 @@ namespace WeightCore.Managers
                                 MassaManager = new MassaManagerEntity(deviceSocketRs232, 1_000, 5_000, 5_000);
                                 callbackButtonSetZero(null, null);
                             }
+                            _logUtils.Information($"{nameof(MassaManager)} is runned");
                             MassaManager.Open(callbackMassaManager);
-                            _logUtils.Information("MassaManager is runned", filePath, memberName, lineNumber);
+                            _logUtils.Information($"{nameof(MassaManager)} is finished");
                         }
                     }
                     catch (Exception ex)

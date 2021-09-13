@@ -161,9 +161,9 @@ namespace WeightCore.Print.Tsc
             //
         }
         
-        public PrintControlEntity(PrintInterface @interface, string ipAddress = "", int port = 9100, PrintLabelSize size = PrintLabelSize.Size80x100, PrintDpi dpi = PrintDpi.Dpi300)
+        public PrintControlEntity(PrintInterface @interface, string ip = "", int port = 9100, PrintLabelSize size = PrintLabelSize.Size80x100, PrintDpi dpi = PrintDpi.Dpi300)
         {
-            IpAddress = ipAddress;
+            IpAddress = ip;
             Port = port;
             Interface = @interface;
             Size = size;

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.580] - 2021-09-13
+### Fixed
+- Redmine 1602. Ошибка логирования этикеток
+
 ## [0.5.570] - 2021-09-10
 ### Fixed
 - Redmine 1601. Менеджер задач. Тестирование и отладка

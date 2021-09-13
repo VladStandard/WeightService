@@ -139,7 +139,7 @@
             this.btnRightRoll2.Name = "btnRightRoll2";
             this.btnRightRoll2.Size = new System.Drawing.Size(100, 487);
             this.btnRightRoll2.TabIndex = 4;
-            this.btnRightRoll2.Text = ">>";
+            this.btnRightRoll2.Text = ">";
             this.btnRightRoll2.UseVisualStyleBackColor = false;
             this.btnRightRoll2.Click += new System.EventHandler(this.buttonRightRoll_Click);
             // 
@@ -151,7 +151,7 @@
             this.btnLeftRoll2.Name = "btnLeftRoll2";
             this.btnLeftRoll2.Size = new System.Drawing.Size(100, 487);
             this.btnLeftRoll2.TabIndex = 5;
-            this.btnLeftRoll2.Text = "<<";
+            this.btnLeftRoll2.Text = "<";
             this.btnLeftRoll2.UseVisualStyleBackColor = true;
             this.btnLeftRoll2.Click += new System.EventHandler(this.buttonLeftRoll_Click);
             // 

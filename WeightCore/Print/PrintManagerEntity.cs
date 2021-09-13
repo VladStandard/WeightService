@@ -2,10 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore.Utils;
-using log4net;
 using System;
 using System.Collections.Concurrent;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Helpers;
@@ -48,7 +46,6 @@ namespace WeightCore.Print
 
         public PrintManagerEntity(int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds)
         {
-            // Manager.
             WaitWhileMiliSeconds = waitWhileMiliSeconds;
             WaitExceptionMiliSeconds = waitExceptionMiliSeconds;
             WaitCloseMiliSeconds = waitCloseMiliSeconds;
@@ -116,10 +113,6 @@ namespace WeightCore.Print
 
         #region Public and private methods
 
-        /// <summary>
-        /// Отправить задание в очередь печати.
-        /// </summary>
-        /// <param name="printCmd"></param>
         public async void SendAsync(string printCmd)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -137,9 +130,9 @@ namespace WeightCore.Print
 
         public void OpenZebra()
         {
-            lock (_locker)
+            try
             {
-                try
+                lock (_locker)
                 {
                     if (!PrintCmdQueue.IsEmpty)
                     {
@@ -153,36 +146,25 @@ namespace WeightCore.Print
                                 if (PrintCmdQueue.TryDequeue(out string request))
                                 {
                                     request = request.Replace("|", "\\&");
-                                    //Console.WriteLine(request);
-                                    //MessageBox.Show(request);
                                     ZebraPrinter.SendCommand(request);
                                 }
                             }
                         }
-                        //Notify?.Invoke(this);
                     }
                 }
-                catch (ConnectionException e)
-                {
-                    _logUtils.Error(e.ToString());
-                }
-                catch (ZebraPrinterLanguageUnknownException e)
-                {
-                    _logUtils.Error(e.ToString());
-                }
-                catch (Exception e)
-                {
-                    _logUtils.Error(e.ToString());
-                }
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(null, ref ex);
             }
         }
 
         public void OpenTsc()
         {
             UserLabelCount = 1;
-            lock (_locker)
+            try
             {
-                try
+                lock (_locker)
                 {
                     if (!PrintCmdQueue.IsEmpty)
                     {
@@ -194,21 +176,12 @@ namespace WeightCore.Print
                                 PrintControl?.Cmd?.SendCustom(true, request, true);
                             }
                         }
-                        //Notify?.Invoke(this);
                     }
                 }
-                catch (ConnectionException e)
-                {
-                    _logUtils.Error(e.ToString());
-                }
-                catch (ZebraPrinterLanguageUnknownException e)
-                {
-                    _logUtils.Error(e.ToString());
-                }
-                catch (Exception e)
-                {
-                    _logUtils.Error(e.ToString());
-                }
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(null, ref ex);
             }
         }
 

@@ -112,7 +112,7 @@
             this.buttonPalletSizeNext.Name = "buttonPalletSizeNext";
             this.buttonPalletSizeNext.Size = new System.Drawing.Size(133, 85);
             this.buttonPalletSizeNext.TabIndex = 17;
-            this.buttonPalletSizeNext.Text = ">>";
+            this.buttonPalletSizeNext.Text = ">";
             this.buttonPalletSizeNext.UseVisualStyleBackColor = true;
             this.buttonPalletSizeNext.Click += new System.EventHandler(this.buttonPalletSizeNext_Click);
             this.buttonPalletSizeNext.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
@@ -125,7 +125,7 @@
             this.buttonPalletSizePrev.Name = "buttonPalletSizePrev";
             this.buttonPalletSizePrev.Size = new System.Drawing.Size(132, 85);
             this.buttonPalletSizePrev.TabIndex = 16;
-            this.buttonPalletSizePrev.Text = "<<";
+            this.buttonPalletSizePrev.Text = "<";
             this.buttonPalletSizePrev.UseVisualStyleBackColor = true;
             this.buttonPalletSizePrev.Click += new System.EventHandler(this.buttonPalletSizePrev_Click);
             this.buttonPalletSizePrev.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
@@ -177,7 +177,7 @@
             this.buttonDtRight.Name = "buttonDtRight";
             this.buttonDtRight.Size = new System.Drawing.Size(133, 91);
             this.buttonDtRight.TabIndex = 10;
-            this.buttonDtRight.Text = ">>";
+            this.buttonDtRight.Text = ">";
             this.buttonDtRight.UseVisualStyleBackColor = true;
             this.buttonDtRight.Click += new System.EventHandler(this.buttonDtRight_Click);
             this.buttonDtRight.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
@@ -190,7 +190,7 @@
             this.buttonDtLeft.Name = "buttonDtLeft";
             this.buttonDtLeft.Size = new System.Drawing.Size(132, 91);
             this.buttonDtLeft.TabIndex = 9;
-            this.buttonDtLeft.Text = "<<";
+            this.buttonDtLeft.Text = "<";
             this.buttonDtLeft.UseVisualStyleBackColor = true;
             this.buttonDtLeft.Click += new System.EventHandler(this.buttonDtLeft_Click);
             this.buttonDtLeft.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);

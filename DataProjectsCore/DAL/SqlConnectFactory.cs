@@ -9,7 +9,9 @@ namespace DataProjectsCore.DAL
 {
     public class SqlConnectFactory
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static SqlConnectFactory _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         public string ConnectionString { get; }
 
@@ -76,7 +78,6 @@ namespace DataProjectsCore.DAL
                     }
                     reader.Close();
                 }
-                cmd.ExecuteNonQuery();
             }
             con.Close();
         }
@@ -102,7 +103,6 @@ namespace DataProjectsCore.DAL
                     }
                     reader.Close();
                 }
-                cmd.ExecuteNonQuery();
             }
             con.Close();
             return result;

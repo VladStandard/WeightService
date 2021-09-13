@@ -4,7 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Links]
+- http://192.168.0.50/projects/support_palych/issues
+- http://192.168.0.50/projects/support_palych/roadmap
+
 ## [Unreleased]
+- БД. Добавить поля "Дата последней поверки".
+- Email. Уведомление о датах поверки весов.
+- RFID-считыватель "ФИО оператора весов". Положить в БД.
+- Redmine 1540. ScalesUI. Печать 1 этикетки после серии
+- Redmine 1559. ScalesUI не сбрасывает весы в ноль
+- Redmine 1559. BlazorDeviceControl, Страница редактирования номенклатуры
+- Redmine 1600. Подготовить шаблон инструкции "Действия при ошибках печати"
+- Redmine 1605. ScalesUI. После наступления новых суток, требуется изменить дату производства
+- Redmine 1608. DbScales. Таблица Labels. Удалить поле Label
+
+## [0.5.580] - 2021-09-13
+### Fixed
+- Redmine 1602. ScalesUI. Ошибка логирования этикеток
+- Redmine 1603. ScalesUI. Логирование взвешиваний происходит некорректно
 
 ## [0.5.570] - 2021-09-10
 ### Fixed

@@ -1,11 +1,11 @@
 -- Table Nomenclature
-select
-	 [Id]
-	,[CreateDate]
-	,[ModifiedDate]
-	,[Code]
-	,[IdRRef]
-	,[Name]
-	,[SerializedRepresentationObject]
-from [db_scales].[Nomenclature]
-order by [Nomenclature].[Id]
+SELECT
+	[Id]
+   ,[Code]
+   ,[Name]
+   ,[IdRRef]
+   ,[SerializedRepresentationObject]
+   ,[CreateDate]
+   ,[ModifiedDate]
+FROM [db_scales].[Nomenclature]
+ORDER BY [Nomenclature].[Id]

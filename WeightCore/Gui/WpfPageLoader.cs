@@ -10,7 +10,7 @@ using WeightCore.Helpers;
 using WeightCore.Models;
 using WeightCore.XamlPages;
 
-namespace ScalesUI.Forms
+namespace WeightCore.Gui
 {
     public partial class WpfPageLoader : Form
     {
@@ -110,6 +110,7 @@ namespace ScalesUI.Forms
         {
             try
             {
+                // PLU.
             }
             catch (Exception ex)
             {
@@ -121,6 +122,7 @@ namespace ScalesUI.Forms
         {
             try
             {
+                // SQL.
             }
             catch (Exception ex)
             {

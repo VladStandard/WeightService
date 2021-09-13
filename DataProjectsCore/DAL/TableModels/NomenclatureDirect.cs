@@ -11,29 +11,28 @@ namespace DataProjectsCore.DAL.TableModels
     [Serializable]
     public class NomenclatureDirect : BaseSerializeEntity<NomenclatureDirect>
     {
-
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
-        public string RRefID { get; set; }
-        public string Code { get; set; }
-        public bool Marked { get; set; }
-        public string NameFull { get; set; }
-        public string Description { get; set; }
-        public string Comment { get; set; }
-        public string Brand { get; set; }
-        public string GUID_Mercury { get; set; }
-        public string NomenclatureType { get; set; }
-        public string VATRate { get; set; }
+        public int Id { get; set; } = default;
+        public string? Name { get; set; } = default;
+        public DateTime CreateDate { get; set; } = default;
+        public DateTime ModifiedDate { get; set; } = default;
+        public string? RRefID { get; set; } = default;
+        public string? Code { get; set; } = default;
+        public bool Marked { get; set; } = default;
+        public string NameFull { get; set; } = "";
+        public string Description { get; set; } = default;
+        public string Comment { get; set; } = default;
+        public string Brand { get; set; } = default;
+        public string GUID_Mercury { get; set; } = default;
+        public string NomenclatureType { get; set; } = default;
+        public string VATRate { get; set; } = default;
 
         public NomenclatureDirect()
         {
         }
 
-        public NomenclatureDirect(int _Id)
+        public NomenclatureDirect(int id)
         {
-            Id = _Id;
+            Id = id;
             Load();
         }
 

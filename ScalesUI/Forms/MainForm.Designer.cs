@@ -171,6 +171,7 @@
             this.labelLabelsTitle.TabIndex = 45;
             this.labelLabelsTitle.Text = "Этикетки";
             this.labelLabelsTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelLabelsTitle.Visible = false;
             // 
             // fieldMassaManager
             // 
@@ -185,6 +186,7 @@
             this.fieldMassaManager.TabIndex = 44;
             this.fieldMassaManager.Text = "Менеджер весов";
             this.fieldMassaManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaManager.Visible = false;
             this.fieldMassaManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPrintManager
@@ -200,6 +202,7 @@
             this.fieldPrintManager.TabIndex = 43;
             this.fieldPrintManager.Text = "Менеджер принтера";
             this.fieldPrintManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldPrintManager.Visible = false;
             this.fieldPrintManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMemoryManager
@@ -215,6 +218,7 @@
             this.fieldMemoryManager.TabIndex = 42;
             this.fieldMemoryManager.Text = "Менеджер памяти";
             this.fieldMemoryManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMemoryManager.Visible = false;
             this.fieldMemoryManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldCountBox
@@ -362,6 +366,7 @@
             this.fieldLabelsCount.TabIndex = 37;
             this.fieldLabelsCount.Text = "0 / 0";
             this.fieldLabelsCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldLabelsCount.Visible = false;
             this.fieldLabelsCount.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldTitle

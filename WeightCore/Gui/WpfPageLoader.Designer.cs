@@ -1,4 +1,4 @@
-﻿namespace ScalesUI.Forms
+﻿namespace WeightCore.Gui
 {
     partial class WpfPageLoader
     {

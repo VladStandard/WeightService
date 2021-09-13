@@ -208,6 +208,7 @@
       <HintPath>..\Resources\TscLibNet\2.0.50727\tsclibnet.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="ZebraPrinterSdk, Version=2.15.2634.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Zebra.Printer.SDK.2.15.2634\lib\net471\ZebraPrinterSdk.dll</HintPath>
     </Reference>
@@ -238,6 +239,12 @@
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Gui\ServiceMessages.cs" />
+    <Compile Include="Gui\WpfPageLoader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\WpfPageLoader.Designer.cs">
+      <DependentUpon>WpfPageLoader.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\MouseHookHelper.cs" />
     <Compile Include="Managers\MemoryManagerEntity.cs" />
@@ -304,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gui\PasswordForm.resx">
       <DependentUpon>PasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\WpfPageLoader.resx">
+      <DependentUpon>WpfPageLoader.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

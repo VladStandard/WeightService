@@ -3,7 +3,6 @@
 
 using DataCore;
 using DataProjectsCore;
-using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.Utils;
 using DataShareCore;
 using DataShareCore.Helpers;
@@ -171,52 +170,55 @@ namespace ScalesUI.Forms
 
         #region Public and private methods - Callbacks
 
-        private void CallbackDeviceManager()
+        private void CheckEnabledManager(ProjectsEnums.TaskType taskType, Control fieldManager)
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
-
-            if (_ws.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager))
+            if (_ws.SqlViewModel.IsTaskEnabled(taskType))
             {
-                if (!buttonSetZero.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSetZero, true);
+                if (!fieldManager.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldManager, true);
             }
             else
             {
-                if (buttonSetZero.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSetZero, false);
+                if (fieldManager.Visible)
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldManager, false);
             }
+        }
 
+        private void CallbackDeviceManager()
+        {
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, $"{_ws.ProductDate:dd.MM.yyyy}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, $"{_ws.Kneading}");
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, $"{_ws.LabelsCurrent}/{_ws.LabelsCount}");
+
+            if (!Equals(buttonPrint.Enabled, _ws.CurrentPlu != null))
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _ws.CurrentPlu != null);
 
             string strCheckWeight = _ws.CurrentPlu?.CheckWeight == true ? "вес" : "шт";
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, _ws.CurrentPlu != null
                 ? $"{_ws.CurrentPlu.PLU} | {strCheckWeight} | {_ws.CurrentPlu.GoodsName}" : string.Empty);
-            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _ws.CurrentPlu != null);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, _ws.CurrentPlu != null 
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, _ws.CurrentPlu != null
                 ? $"{_ws.CurrentPlu.GoodsTareWeight:0.000} кг" : "0,000 кг");
-            //_logUtils.Information($"Смена PLU: {_ws.CurrentPlu?.GoodsName}");
-            //_logUtils.Information($"PLU.GoodsTareWeight: {_ws.CurrentPlu?.GoodsTareWeight}");
         }
 
-        private void CallbackMemoryManager(bool isTaskEnabled)
+        private void CallbackMemoryManager()
         {
-            if (isTaskEnabled)
+            CheckEnabledManager(ProjectsEnums.TaskType.MemoryManager, fieldMemoryManager);
+            if (_ws.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(fieldMemoryManager, true);
                 char ch = StringUtils.GetProgressChar(_taskManager.MemoryManagerProgressChar);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
                     $"Использовано памяти: {_taskManager.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}");
                 _taskManager.MemoryManagerProgressChar = ch;
             }
-            else {
-                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(fieldMemoryManager, false);
-            }
         }
 
         private void CallbackPrintManager()
         {
+            CheckEnabledManager(ProjectsEnums.TaskType.PrintManager, fieldPrintManager);
+            CheckEnabledManager(ProjectsEnums.TaskType.PrintManager, labelLabelsTitle);
+            CheckEnabledManager(ProjectsEnums.TaskType.PrintManager, fieldLabelsCount);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, $"{_ws.LabelsCurrent}/{_ws.LabelsCount}");
+
             // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
             _ws.LabelsCurrent = _taskManager.PrintManager.UserLabelCount < _ws.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _ws.LabelsCount;
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
@@ -260,6 +262,8 @@ namespace ScalesUI.Forms
 
         private void CallbackMassaManager()
         {
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaManager);
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, buttonSetZero);
             bool flag = false;
             if (_ws.CurrentPlu != null)
             {

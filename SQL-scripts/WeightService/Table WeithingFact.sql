@@ -1,4 +1,17 @@
 -- Таблица WeithingFact
-select * 
-from [db_scales].[WeithingFact]
-order by [WeithingDate] desc
+SELECT
+	[Id]
+   ,[PluId]
+   ,[ScaleId]
+   ,[SeriesId]
+   ,[OrderId]
+   ,[SSCC]
+   ,[WeithingDate]
+   ,[NetWeight]
+   ,[TareWeight]
+   ,[UUID]
+   ,[ProductDate]
+   ,[RegNum]
+   ,[Kneading]
+FROM [db_scales].[WeithingFact]
+ORDER BY [WeithingDate] DESC
