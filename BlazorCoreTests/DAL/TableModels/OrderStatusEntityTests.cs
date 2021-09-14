@@ -8,7 +8,7 @@ namespace BlazorCoreTests.DAL.TableModels
         [Test]
         public void Entity_Equals_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -18,10 +18,10 @@ namespace BlazorCoreTests.DAL.TableModels
                 var entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in EnumValues.GetInt())
-                foreach (var dt in EnumValues.GetDateTime())
-                foreach (var s in EnumValues.GetString())
-                foreach (var bytes in EnumValues.GetByte())
+                foreach (var i in TestsEnums.GetInt())
+                foreach (var dt in TestsEnums.GetDateTime())
+                foreach (var s in TestsEnums.GetString())
+                foreach (var bytes in TestsEnums.GetByte())
                 {
                     var entity = new OrderStatusEntity
                     {
@@ -35,7 +35,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

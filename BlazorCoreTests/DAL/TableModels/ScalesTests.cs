@@ -8,7 +8,7 @@ namespace BlazorCoreTests.DAL.TableModels
         [Test]
         public void Entity_Equals_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -18,12 +18,12 @@ namespace BlazorCoreTests.DAL.TableModels
                 var entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in EnumValues.GetInt())
-                foreach (var s in EnumValues.GetString())
-                foreach (var guid in EnumValues.GetGuid())
-                foreach (var sh in EnumValues.GetShort())
-                foreach (var b in EnumValues.GetBool())
-                foreach (var dt in EnumValues.GetDateTime())
+                foreach (var i in TestsEnums.GetInt())
+                foreach (var s in TestsEnums.GetString())
+                foreach (var guid in TestsEnums.GetGuid())
+                foreach (var sh in TestsEnums.GetShort())
+                foreach (var b in TestsEnums.GetBool())
+                foreach (var dt in TestsEnums.GetDateTime())
                 {
                     var entity = new ScaleEntity
                     {
@@ -54,13 +54,13 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void Entity_Crud_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() => {
                 // GetEntities.
@@ -72,7 +72,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

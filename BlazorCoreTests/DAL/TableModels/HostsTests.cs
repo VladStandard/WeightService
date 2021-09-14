@@ -8,7 +8,7 @@ namespace BlazorCoreTests.DAL.TableModels
         [Test]
         public void Entity_Equals_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -18,12 +18,12 @@ namespace BlazorCoreTests.DAL.TableModels
                 var entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in EnumValues.GetInt())
-                foreach (var s in EnumValues.GetString())
-                foreach (var dt in EnumValues.GetDateTime())
-                foreach (var guid in EnumValues.GetGuid())
-                foreach (var b in EnumValues.GetBool())
-                foreach (var bytes in EnumValues.GetBytes())
+                foreach (var i in TestsEnums.GetInt())
+                foreach (var s in TestsEnums.GetString())
+                foreach (var dt in TestsEnums.GetDateTime())
+                foreach (var guid in TestsEnums.GetGuid())
+                foreach (var b in TestsEnums.GetBool())
+                foreach (var bytes in TestsEnums.GetBytes())
                 {
                     var entity = new HostEntity
                     {
@@ -42,13 +42,13 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void Entity_Crud_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() => {
                 // GetEntities.
@@ -61,13 +61,13 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void Entity_GetFreeHosts_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() => {
                 // GetEntities.
@@ -79,7 +79,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

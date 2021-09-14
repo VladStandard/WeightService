@@ -138,7 +138,7 @@ namespace BlazorCoreTests.Models
         [Test]
         public void XmlProductEntity_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -150,7 +150,7 @@ namespace BlazorCoreTests.Models
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

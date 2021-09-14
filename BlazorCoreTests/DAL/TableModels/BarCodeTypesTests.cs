@@ -9,7 +9,7 @@ namespace BlazorCoreTests.DAL.TableModels
         [Test]
         public void Entity_Equals_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -19,8 +19,8 @@ namespace BlazorCoreTests.DAL.TableModels
                 var entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in EnumValues.GetInt())
-                foreach (var s in EnumValues.GetString())
+                foreach (var i in TestsEnums.GetInt())
+                foreach (var s in TestsEnums.GetString())
                 {
                     var entity = new BarcodeTypeEntity()
                     {
@@ -32,7 +32,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
 
         public BarcodeTypeEntity EntityCreate(string name)
@@ -52,7 +52,7 @@ namespace BlazorCoreTests.DAL.TableModels
         [Test]
         public void Entity_Crud_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -74,7 +74,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

@@ -216,7 +216,7 @@ namespace DataProjectsCore.DAL.Models
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
             int idLast = ErrorsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-            ErrorEntity? error = new ErrorEntity
+            ErrorEntity? error = new()
             {
                 Id = idLast + 1,
                 CreatedDate = DateTime.Now,
@@ -298,7 +298,7 @@ namespace DataProjectsCore.DAL.Models
 
         public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
-            T? result = new T();
+            T? result = new();
             using ISession? session = GetSession();
             if (session != null)
             {

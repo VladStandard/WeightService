@@ -11,7 +11,7 @@ namespace BlazorCoreTests.Models
         [Test]
         public void BarcodeHelper_GetEanCheckDigit_Throws()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
@@ -23,13 +23,13 @@ namespace BlazorCoreTests.Models
                 _barcode.GetEanCheckDigit("4607100234869");
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
         
         [Test]
         public void BarcodeHelper_GetGtinCheckDigitV1_Throws()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
@@ -55,13 +55,13 @@ namespace BlazorCoreTests.Models
                 _barcode.GetGtinCheckDigitV3("460710023486");
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
         
         [Test]
         public void BarcodeHelper_GetEanCheckDigit_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -73,13 +73,13 @@ namespace BlazorCoreTests.Models
                 Assert.AreEqual(9, _barcode.GetEanCheckDigit("460710023486"));
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
         
         [Test]
         public void BarcodeHelper_GetGtinCheckDigit_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -105,13 +105,13 @@ namespace BlazorCoreTests.Models
                 Assert.AreEqual(0, _barcode.GetGtinCheckDigitV3("4607100234869"));
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
         
         [Test]
         public void BarcodeHelper_GetGtin_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -137,7 +137,7 @@ namespace BlazorCoreTests.Models
                 Assert.AreEqual("46071002348690", _barcode.GetGtin("4607100234869"));
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

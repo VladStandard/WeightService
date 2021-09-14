@@ -205,7 +205,7 @@ namespace WeightCore.Managers
                 using (await _mutexDeviceManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
 
                     try
                     {
@@ -238,7 +238,7 @@ namespace WeightCore.Managers
                 using (await _mutexMemoryManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
 
                     try
                     {
@@ -272,7 +272,7 @@ namespace WeightCore.Managers
                 using (await _mutexPrintManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
 
                     try
                     {
@@ -307,7 +307,7 @@ namespace WeightCore.Managers
                 using (await _mutexMassaManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
 
                     try
                     {

@@ -4,26 +4,26 @@
 using NUnit.Framework;
 using System.Runtime.CompilerServices;
 
-namespace DataProjectsCoreTests
+namespace CoreTests
 {
     /// <summary>
     /// Utilites.
     /// </summary>
-    public static class Utils
+    public static class TestsUtils
     {
-        internal static string ConectionStringDevelop =
+        public static string ConectionStringDevelop =
             @"Data Source=CREATIO\INS1;Initial Catalog=Scales;Persist Security Info=True;User ID=scale01;Password=scale01";
-        internal static string ConectionStringProduct =
+        public static string ConectionStringProduct =
             @"Data Source=PALYCH\LUTON;Initial Catalog=ScalesDB;Persist Security Info=True;User ID=scale01;Password=scale01";
 
-        internal static void MethodStart([CallerMemberName] string memberName = "")
+        public static void MethodStart([CallerMemberName] string memberName = "")
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{memberName} start.");
             TestContext.WriteLine();
         }
 
-        internal static void MethodComplete([CallerMemberName] string memberName = "")
+        public static void MethodComplete([CallerMemberName] string memberName = "")
         {
             TestContext.WriteLine();
             TestContext.WriteLine($@"{memberName} complete.");

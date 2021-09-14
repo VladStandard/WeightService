@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using CoreTests;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using NUnit.Framework;
@@ -12,14 +13,14 @@ namespace DataProjectsCoreTests.DAL
     {
         public void SqlPrepare()
         {
-            _ = SqlConnectFactory.GetConnection(Utils.ConectionStringDevelop);
+            _ = SqlConnectFactory.GetConnection(TestsUtils.ConectionStringDevelop);
             TestContext.WriteLine($"{nameof(SqlConnectFactory)}: {SqlConnectFactory.GetConnection().ConnectionString}");
         }
 
         [Test]
         public void ExecuteReader_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -33,7 +34,7 @@ namespace DataProjectsCoreTests.DAL
             });
             TestContext.WriteLine();
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

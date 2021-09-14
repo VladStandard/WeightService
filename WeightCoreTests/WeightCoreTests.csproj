@@ -100,6 +100,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CoreTests\CoreTests.csproj">
+      <Project>{8ff8622c-2dc9-4f42-a4bc-29389aa4299d}</Project>
+      <Name>CoreTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WeightCore\WeightCore.csproj">
       <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
       <Name>WeightCore</Name>

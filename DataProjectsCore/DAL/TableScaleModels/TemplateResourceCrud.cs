@@ -31,7 +31,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public int LoadResource(int id, string name, string description, string type, byte[] imagedata, bool marked = false)
         {
-            Dictionary<string, object>? parameters = new Dictionary<string, object>()
+            Dictionary<string, object>? parameters = new()
             {
                 { "id", id },
                 { "name", name },

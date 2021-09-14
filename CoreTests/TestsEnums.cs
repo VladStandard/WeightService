@@ -1,15 +1,15 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 using System.Collections.Generic;
 
-// ReSharper disable UnusedMember.Global
-// Last changed 2021-01-28.
-
-namespace BlazorCoreTests
+namespace CoreTests
 {
     /// <summary>
     /// Enumeration of values.
     /// </summary>
-    internal static class EnumValues
+    public static class TestsEnums
     {
         /// <summary>
         /// List of bool values.
@@ -75,15 +75,6 @@ namespace BlazorCoreTests
         }
 
         /// <summary>
-        /// List of decimal values.
-        /// </summary>
-        /// <returns></returns>
-        public static List<decimal> GetDecimal()
-        {
-            return new List<decimal>() { decimal.MinValue, 1, decimal.MaxValue / 2, int.MaxValue };
-        }
-
-        /// <summary>
         /// List of long values.
         /// </summary>
         /// <returns></returns>
@@ -110,7 +101,7 @@ namespace BlazorCoreTests
         {
             return str == null ? "<null>" : str == "" ? "<empty>" : str;
         }
-        
+
         /// <summary>
         /// List of uri values.
         /// </summary>
@@ -133,63 +124,9 @@ namespace BlazorCoreTests
         /// List of bytes.
         /// </summary>
         /// <returns></returns>
-        public static List<byte[]> GetBytes()
+        public static List<int> GetBytes()
         {
-            return new List<byte[]>() { null, new byte[0], new byte[] { Byte.MinValue, 0x00, Byte.MaxValue } };
-        }
-
-        /// <summary>
-        /// List of byte.
-        /// </summary>
-        /// <returns></returns>
-        public static List<byte> GetByte()
-        {
-            return new List<byte>() { Byte.MinValue, 0x00, Byte.MaxValue };
-        }
-
-        /// <summary>
-        /// List of Guid.
-        /// </summary>
-        /// <returns></returns>
-        public static List<Guid> GetGuid()
-        {
-            return new List<Guid>() { Guid.Empty, Guid.NewGuid(), Guid.Parse("108B0D40-1A9A-4A41-B396-E30931FEDA86") };
-        }
-
-        /// <summary>
-        /// List of SQL servers.
-        /// </summary>
-        /// <returns></returns>
-        public static List<string> GetSqlServer()
-        {
-            return new List<string>() { "TEST-SERVER", "TEST-SERVER\\TEST-INSTANCE" };
-        }
-
-        /// <summary>
-        /// List of SQL databases.
-        /// </summary>
-        /// <returns></returns>
-        public static List<string> GetSqlDb()
-        {
-            return new List<string>() { "TEST-DB" };
-        }
-
-        /// <summary>
-        /// List of SQL usernames.
-        /// </summary>
-        /// <returns></returns>
-        public static List<string> GetSqlUsername()
-        {
-            return new List<string>() { "User" };
-        }
-
-        /// <summary>
-        /// List of SQL passwords.
-        /// </summary>
-        /// <returns></returns>
-        public static List<string> GetSqlPassword()
-        {
-            return new List<string>() { "Password" };
+            return new List<int>() { 0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048 };
         }
     }
 }

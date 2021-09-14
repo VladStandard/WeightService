@@ -10,7 +10,7 @@ namespace BlazorCoreTests.DAL.TableModels
         [Test]
         public void Entity_Equals_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -20,9 +20,9 @@ namespace BlazorCoreTests.DAL.TableModels
                 var entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in EnumValues.GetInt())
-                foreach (var dt in EnumValues.GetDateTime())
-                foreach (var s in EnumValues.GetString())
+                foreach (var i in TestsEnums.GetInt())
+                foreach (var dt in TestsEnums.GetDateTime())
+                foreach (var s in TestsEnums.GetString())
                 {
                     var entity = new NomenclatureEntity
                     {
@@ -38,13 +38,13 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void Entity_Crud_Throw()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.Throws<Exception>(() =>
             {
@@ -60,13 +60,13 @@ namespace BlazorCoreTests.DAL.TableModels
                 DataAccessUtils.DataAccess.NomenclaturesCrud.SaveEntity(entity);
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
         
         [Test]
         public void Entity_Crud_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -97,7 +97,7 @@ namespace BlazorCoreTests.DAL.TableModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

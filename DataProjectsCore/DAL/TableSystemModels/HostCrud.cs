@@ -25,7 +25,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
         public List<HostEntity> GetFreeHosts(int? id)
         {
             object[]? entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts);
-            List<HostEntity>? items = new List<HostEntity>();
+            List<HostEntity>? items = new();
             foreach (object? entity in entities)
             {
                 if (entity is object[] { Length: 9 } ent)
@@ -55,7 +55,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
         public List<HostEntity> GetBusyHosts()
         {
             object[]? entities = DataAccess.HostsCrud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts);
-            List<HostEntity>? items = new List<HostEntity>();
+            List<HostEntity>? items = new();
             foreach (object? entity in entities)
             {
                 if (entity is object[] { Length: 9 } ent)

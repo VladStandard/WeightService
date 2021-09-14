@@ -23,7 +23,7 @@ namespace BlazorCoreTests.DAL
         [Test]
         public void Entity_GetEntitiesNativeMapping_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -40,13 +40,13 @@ where Id > 4
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
         
         [Test]
         public void Entity_GetEntitiesNativeObject_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -76,7 +76,7 @@ where Id > 4
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace BlazorCoreTests.DAL.DataModels
         [Test]
         public void Entity_Equals_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -18,7 +18,7 @@ namespace BlazorCoreTests.DAL.DataModels
                 var entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in EnumValues.GetInt())
+                foreach (var i in TestsEnums.GetInt())
                 {
                     var entity = new DeviceEntity
                     {
@@ -30,13 +30,13 @@ namespace BlazorCoreTests.DAL.DataModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
 
         [Test]
         public void Entity_Crud_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
             Assert.DoesNotThrow(() =>
             {
@@ -51,7 +51,7 @@ namespace BlazorCoreTests.DAL.DataModels
                 }
             });
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

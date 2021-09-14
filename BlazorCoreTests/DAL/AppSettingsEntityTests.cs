@@ -9,20 +9,20 @@ namespace BlazorCoreTests.DAL
         [Test]
         public void AppSettingsEntity_CheckProperties_DoesNotThrow()
         {
-            Utils.MethodStart();
+            TestsUtils.MethodStart();
 
-            foreach (var server in EnumValues.GetSqlServer())
+            foreach (var server in TestsEnums.GetSqlServer())
             {
-                foreach (var db in EnumValues.GetSqlDb())
+                foreach (var db in TestsEnums.GetSqlDb())
                 {
                     Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
                     {
                         var appSettings = new CoreSettingsEntity(server, db, true, "username", "password");
                         appSettings.CheckProperties();
                     }));
-                    foreach (var username in EnumValues.GetSqlUsername())
+                    foreach (var username in TestsEnums.GetSqlUsername())
                     {
-                        foreach (var password in EnumValues.GetSqlPassword())
+                        foreach (var password in TestsEnums.GetSqlPassword())
                         {
                             Assert.DoesNotThrowAsync(async () => await Task.Run(() =>
                             {
@@ -34,7 +34,7 @@ namespace BlazorCoreTests.DAL
                 }
             }
 
-            Utils.MethodComplete();
+            TestsUtils.MethodComplete();
         }
     }
 }

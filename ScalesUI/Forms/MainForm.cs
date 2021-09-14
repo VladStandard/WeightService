@@ -4,14 +4,13 @@
 using DataCore;
 using DataProjectsCore;
 using DataProjectsCore.Helpers;
-using DataProjectsCore.Schedulers;
 using DataProjectsCore.Utils;
 using DataShareCore;
 using DataShareCore.Helpers;
+using DataShareCore.Schedulers;
 using System;
 using System.Drawing;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
@@ -62,7 +61,7 @@ namespace ScalesUI.Forms
 
                 _log.Information("The program is runned");
 
-                _quartz.Open();
+                _quartz.AddJob(QuartzUtils.CronExpression.EveryDay(), delegate { ScheduleIsNextDay(); });
             }
             catch (Exception ex)
             {
@@ -170,6 +169,15 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
             }
+        }
+
+        #endregion
+
+        #region Public and private methods - Schedulers
+
+        private void ScheduleIsNextDay()
+        {
+            _log.Information("ScheduleIsNextDay");
         }
 
         #endregion

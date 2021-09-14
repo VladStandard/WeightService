@@ -49,7 +49,7 @@ namespace DataProjectsCore.Models
 
         public List<ProductUnitEntity> GetProductUnitEntities(XElement xmlElement, string nameSection, string nameElement)
         {
-            List<ProductUnitEntity>? entities = new List<ProductUnitEntity>();
+            List<ProductUnitEntity>? entities = new();
             List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
             if (xmlEntities.Any())
             {
@@ -60,7 +60,7 @@ namespace DataProjectsCore.Models
                     {
                         foreach (XElement? xmlChild in xmlChilds)
                         {
-                            ProductUnitEntity? entity = new ProductUnitEntity
+                            ProductUnitEntity? entity = new()
                             {
                                 Heft = GetAttribute<decimal>(xmlChild, "Heft"),
                                 Capacity = GetAttribute<decimal>(xmlChild, "Capacity"),
@@ -79,7 +79,7 @@ namespace DataProjectsCore.Models
 
         public List<ProductBarcodeEntity> GetProductBarcodeEntities(XElement xmlElement, string nameSection, string nameElement)
         {
-            List<ProductBarcodeEntity>? entities = new List<ProductBarcodeEntity>();
+            List<ProductBarcodeEntity>? entities = new();
             List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
             if (xmlEntities.Any())
             {
@@ -90,7 +90,7 @@ namespace DataProjectsCore.Models
                     {
                         foreach (XElement? xmlChild in xmlChilds)
                         {
-                            ProductBarcodeEntity? entity = new ProductBarcodeEntity
+                            ProductBarcodeEntity? entity = new()
                             {
                                 Type = GetAttribute<string>(xmlChild, "Type"),
                                 Barcode = GetAttribute<string>(xmlChild, "Barcode"),
@@ -105,7 +105,7 @@ namespace DataProjectsCore.Models
 
         public List<ProductBoxEntity> GetProductBoxEntities(XElement xmlElement, string nameSection, string nameElement)
         {
-            List<ProductBoxEntity>? entities = new List<ProductBoxEntity>();
+            List<ProductBoxEntity>? entities = new();
             List<XElement>? xmlEntities = xmlElement.Elements(nameSection).ToList();
             if (xmlEntities.Any())
             {
@@ -116,7 +116,7 @@ namespace DataProjectsCore.Models
                     {
                         foreach (XElement? xmlChild in xmlChilds)
                         {
-                            ProductBoxEntity? entity = new ProductBoxEntity
+                            ProductBoxEntity? entity = new()
                             {
                                 Description = GetAttribute<string>(xmlChild, "Description"),
                                 Heft = GetAttribute<decimal>(xmlChild, "Heft"),
@@ -136,7 +136,7 @@ namespace DataProjectsCore.Models
 
         public XmlProductEntity GetProductEntity(string value)
         {
-            XmlProductEntity? productEntity = new XmlProductEntity();
+            XmlProductEntity? productEntity = new();
             if (string.IsNullOrEmpty(value))
                 return productEntity;
 
@@ -241,7 +241,7 @@ namespace DataProjectsCore.Models
 
         public List<T> GetElementValue<T>(XElement xmlElement, string nameElement)
         {
-            List<T>? entities = new List<T>();
+            List<T>? entities = new();
             List<XElement>? xmlEntities = xmlElement.Elements(nameElement).ToList();
             if (xmlEntities.Any())
             {

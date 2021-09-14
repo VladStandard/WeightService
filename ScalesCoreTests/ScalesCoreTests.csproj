@@ -103,6 +103,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\CoreTests\CoreTests.csproj">
+      <Project>{8ff8622c-2dc9-4f42-a4bc-29389aa4299d}</Project>
+      <Name>CoreTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj">
       <Project>{AFE4E2B7-D50D-4CEB-BA92-BBFD6116495F}</Project>
       <Name>DataProjectsCore</Name>
