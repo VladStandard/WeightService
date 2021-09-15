@@ -253,6 +253,7 @@
     <Build Include="IIS\Functions\fnGetNomenclatureByCode.sql" />
     <Build Include="IIS\Functions\fnGetIdInfoSys.sql" />
     <Build Include="IIS\Functions\fnGetDeprecated.sql" />
+    <Build Include="DW\Functions\fnGetGuid1Cv2.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="VSDWH.publish.publish.xml" />

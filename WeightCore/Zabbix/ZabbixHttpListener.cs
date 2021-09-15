@@ -190,7 +190,7 @@ namespace WeightCore.Zabbix
     <body>
 {GetHttpSubString(DataCollectorStatus.Response())}
     </body>
-</html>".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+</html>.TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                     break;
                 case @"zebra":
                     result = $@"
@@ -201,7 +201,7 @@ namespace WeightCore.Zabbix
     <body>
 {GetHttpSubString(DataCollectorZebra.Response())}
     </body>
-</html>".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+</html>.TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                     break;
                 case @"massa":
                     result = $@"
@@ -212,7 +212,7 @@ namespace WeightCore.Zabbix
     <body>
 {GetHttpSubString(DataCollectorMassa.Response())}
     </body>
-</html>".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+</html>.TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                     break;
                 case @"sql":
                     result = $@"
@@ -223,7 +223,7 @@ namespace WeightCore.Zabbix
     <body>
 {GetHttpSubString(DataCollectorSqlCon.Response())}
     </body>
-</html>".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+</html>.TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                     break;
             }
             return result;

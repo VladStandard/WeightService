@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Terra
+namespace WebApiTerra1000
 {
     public class Program
     {

@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Terra.Common
+namespace WebApiTerra1000.Common
 {
     public class TaskHelper
     {
@@ -31,14 +31,14 @@ namespace Terra.Common
 
         public void Setup()
         {
-            
+
         }
 
         #endregion
 
         #region Public and private methods
 
-        public ContentResult RunTask(Task<ContentResult> task, 
+        public ContentResult RunTask(Task<ContentResult> task,
             [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try

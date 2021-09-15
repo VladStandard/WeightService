@@ -13,13 +13,13 @@ BEGIN
 	DECLARE @RESULT TABLE ([ID] INT)
 	INSERT INTO @RESULT ([ID])
 		SELECT
-			[n].[ID]
-		FROM [DW].[DimNomenclatures] AS [n]
+			[N].[ID]
+		FROM [DW].[DimNomenclatures] AS [N]
 		LEFT JOIN [DW].[DimTypesOfNomenclature] [t]
-			ON [n].NomenclatureType = t.[CodeInIS]
+			ON [N].NomenclatureType = t.[CodeInIS]
 		WHERE t.[GoodsForSale] = 1
-		AND COALESCE([n].[Marked], 0) = 0
-		ORDER BY [n].[ID] OFFSET (@offset * @rowcount) ROWS FETCH NEXT @rowcount ROWS ONLY
+		AND COALESCE([N].[Marked], 0) = 0
+		ORDER BY [N].[ID] OFFSET (@offset * @rowcount) ROWS FETCH NEXT @rowcount ROWS ONLY
 	RETURN (SELECT
 			*
 		FROM (SELECT
@@ -28,7 +28,7 @@ BEGIN
 			   ,[N].[Code] "@Code"
 			   ,[N].[MasterId] "@MasterId"
 			   ,[N].[InformationSystemID] "@InformationSystemID"
-			   ,[DW].[fnGetGuid1C]([N].[CodeInIS]) "@CodeInIS"
+			   ,[DW].[fnGetGuid1Cv2] ([N].[CodeInIS]) [@GUID_1C]
 			   ,[N].[NameFull] "FullName"
 			   ,ng.[Name] "NomenclatureGroup"
 			   ,JSON_VALUE([N].[Parents], '$.parents[0]') "Category"

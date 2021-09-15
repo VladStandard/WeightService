@@ -15,20 +15,21 @@ BEGIN
 	RETURN 	(
 		select * from (
 		select 
-			 [n].[ID]					"@ID"
-			,[n].[Name]					"@Name"
-			,[n].[Code]					"@Code"	
-			,[n].[MasterId]				"@MasterId"
-			,[n].[InformationSystemID]	"@InformationSystemID"
-			,[n].[NameFull]				"FullName"
-			,[n].[CreateDate]		    "CreateDate"
-			,[n].[DLM]				    "DLM"
-			,[ng].[Name]				"NomenclatureGroup"
-			,json_value([n].[Parents], '$.parents[0]') "Category"
+			 [N].[ID]					"@ID"
+			,[N].[Name]					"@Name"
+			,[N].[Code]					"@Code"	
+			,[N].[MasterId]				"@MasterId"
+			,[N].[InformationSystemID]	"@InformationSystemID"
+			,[DW].[fnGetGuid1Cv2] ([N].[CodeInIS]) [@GUID_1C]
+			,[N].[NameFull]				"FullName"
+			,[N].[CreateDate]		    "CreateDate"
+			,[N].[DLM]				    "DLM"
+			,[DW].[fnGetGuid1Cv2] ([N].[CodeInIS]) [GUID_1C]
+			,json_value([N].[Parents], '$.parents[0]') "Category"
 			,[b].[Name]					"Brand"
-			,[n].[boxTypeName]			"boxTypeName"
-			,[n].[packTypeName]			"packTypeName"
-			,[n].[Unit]					"Unit"
+			,[N].[boxTypeName]			"boxTypeName"
+			,[N].[packTypeName]			"packTypeName"
+			,[N].[Unit]					"Unit"
 			,cost.[Price]				"PlannedCost"
 			,cast((select [Price] as "@Price"
 				,[IsAction] as "@IsAction"
@@ -38,24 +39,24 @@ BEGIN
 				[PriceTypeID] = 0xBA6D90E6BA17BDD711E297052E5C534D 
 				and [DocType] = 'DocumentRef.УстановкаЦенНоменклатуры'
 				and [IsAction] = 0
-				and [fp].NomenclatureID = [n].CodeInIS
+				and [fp].NomenclatureID = [N].CodeInIS
 				and [fp].[Marked] = 0 and [fp].[Posted] = 1
 				for xml path ('Price'), binary base64 
 			) as xml) as Prices
-		from [DW].[DimNomenclatures] as [n]
+		from [DW].[DimNomenclatures] as [N]
 		left join [DW].[DimTypesOfNomenclature] t
-			on [n].NomenclatureType = t.[CodeInIS] --AND Nomenclature.[InformationSystemID] = t.[InformationSystemID]
+			on [N].NomenclatureType = t.[CodeInIS] --AND Nomenclature.[InformationSystemID] = t.[InformationSystemID]
 		left join [DW].[vwCurrentPlannedCost] cost
-			on [n].[ID] = cost.[NomenclatureID]
+			on [N].[ID] = cost.[NomenclatureID]
 		left join [DW].[DimNomenclatureGroups] as ng
-			on [n].[NomenclatureGroup] = ng.[CodeInIS]
+			on [N].[NomenclatureGroup] = ng.[CodeInIS]
 		left join [DW].[DimBrands] as b
-			on [n].[Brand] = b.[CodeInIS]
+			on [N].[Brand] = b.[CodeInIS]
 		where 
 			--JSON_VALUE([n].[Parents], '$.parents[0]') IN ('Колбасные изделия','Мясные продукты','Рыбная продукция')
 			t.[GoodsForSale] = 1
-			and coalesce([n].[Marked],0) = 0 
-			and [n].[Code] = @code
+			and coalesce([N].[Marked],0) = 0 
+			and [N].[Code] = @code
 		) as D
 		for xml path('Nomenclature')
 			,root('Goods')

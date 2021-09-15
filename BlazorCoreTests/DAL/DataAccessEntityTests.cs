@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using CoreTests;
+using DataProjectsCore.DAL.TableScaleModels;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL
@@ -32,7 +34,7 @@ namespace BlazorCoreTests.DAL
 select *
 from [db_scales].[Scales]
 where Id > 4
-                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n'), string.Empty, 0, string.Empty);
+                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t'), string.Empty, 0, string.Empty);
                 foreach (var entity in entities)
                 {
                     TestContext.WriteLine(entity);
@@ -55,7 +57,7 @@ where Id > 4
 select [Id],[Description],[DeviceIP]
 from [db_scales].[Scales]
 where Id > 4
-                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n'), string.Empty, 0, string.Empty);
+                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t'), string.Empty, 0, string.Empty);
                 var items = new List<ScaleTempEntity>();
                 foreach (var entity in entities)
                 {

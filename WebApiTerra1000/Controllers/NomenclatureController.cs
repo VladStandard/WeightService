@@ -9,8 +9,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebApiTerra1000.Common;
 
-namespace Terra.Controllers
+namespace WebApiTerra1000.Controllers
 {
     public class NomenclatureController : BaseController
     {
@@ -33,16 +34,19 @@ namespace Terra.Controllers
             {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                string sql = !string.IsNullOrEmpty(code)
-                    ? "SELECT [IIS].[fnGetNomenclatureByCode] (:code)"
-                    : "SELECT [IIS].[fnGetNomenclatureByID] (:id)";
-                string response = !string.IsNullOrEmpty(code)
-                    ? session.CreateSQLQuery(sql)
+                string response = string.Empty;
+                if (!string.IsNullOrEmpty(code))
+                {
+                    response = session.CreateSQLQuery(SqlQueries.GetNomenclatureFromCode)
                         .SetParameter("code", code)
-                        .UniqueResult<string>()
-                    : session.CreateSQLQuery(sql)
+                        .UniqueResult<string>();
+                }
+                else
+                {
+                    response = session.CreateSQLQuery(SqlQueries.GetNomenclatureFromId)
                         .SetParameter("id", id)
                         .UniqueResult<string>();
+                }
                 transaction.Commit();
                 XDocument xml = XDocument.Parse(response ?? "<Nomenclature />", LoadOptions.None);
                 XDocument doc = new(new XElement("response", xml.Root));
@@ -60,11 +64,11 @@ namespace Terra.Controllers
         [Route("api/nomenclatures/")]
         public ContentResult GetNomenclatures(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                const string sql = "SELECT [IIS].[fnGetNomenclatureChangesList] (:StartDate, :EndDate, :Offset, :RowCount)";
-                string response = session.CreateSQLQuery(sql)
+                string response = session.CreateSQLQuery(SqlQueries.GetNomenclatures)
                     .SetParameter("StartDate", startDate)
                     .SetParameter("EndDate", endDate)
                     .SetParameter("Offset", offset)
@@ -87,11 +91,11 @@ namespace Terra.Controllers
         [Route("api/nomenclaturescosts/")]
         public ContentResult GetNomenclaturesCosts(int offset = 0, int rowCount = 10)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                const string sql = "SELECT [IIS].[fnGetNomenclatureList] (:offset, :rowcount)";
-                string response = session.CreateSQLQuery(sql)
+                string response = session.CreateSQLQuery(SqlQueries.GetNomenclaturesCosts)
                     .SetParameter("offset", offset)
                     .SetParameter("rowcount", rowCount)
                     .UniqueResult<string>();

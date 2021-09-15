@@ -12,7 +12,7 @@
 //using System.Threading;
 //using System.Threading.Tasks;
 
-//namespace Terra.Common
+//namespace WebApiTerra1000.Common
 //{
 //    public interface IZabbixSenderFactory
 //    {

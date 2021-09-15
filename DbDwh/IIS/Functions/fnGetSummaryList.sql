@@ -25,18 +25,18 @@ BEGIN
 		[Parent] int,
 		[Contragent!1!ID] bigint,
 		[Contragent!1!DLM] datetime,
-		[Contragent!1!GUID] varchar(38),
+		[Contragent!1!GUID_1C] nvarchar(38),
 
 		[Nomenclature!2!ID]bigint, 
 		[Nomenclature!2!DLM]datetime,
-		[Nomenclature!2!GUID]varchar(38),
+		[Nomenclature!2!GUID_1C] nvarchar(38),
 
 		[Shipment!3!ID]bigint, 
 		[Shipment!3!Posted] bit, 
 		[Shipment!3!Marked] bit, 
 		[Shipment!3!Docdate] datetime,
 		[Shipment!3!DLM]datetime,
-		[Shipment!3!GUID]varchar(38),
+		[Shipment!3!GUID_1C] nvarchar(38),
 		[Shipment!3!CHECKSUMM] int,
 
 		[Aggregation!4!Contragents] int, 
@@ -50,16 +50,16 @@ insert into @t (
 		[Parent],
 		[Contragent!1!ID],
 		[Contragent!1!DLM],
-		[Contragent!1!GUID],
+		[Contragent!1!GUID_1C],
 		[Nomenclature!2!ID], 
 		[Nomenclature!2!DLM],
-		[Nomenclature!2!GUID],
+		[Nomenclature!2!GUID_1C],
 		[Shipment!3!ID], 
 		[Shipment!3!Posted], 
 		[Shipment!3!Marked], 
 		[Shipment!3!Docdate],
 		[Shipment!3!DLM],
-		[Shipment!3!GUID],
+		[Shipment!3!GUID_1C],
 		[Shipment!3!CHECKSUMM]
 
 	)
@@ -69,11 +69,11 @@ insert into @t (
 		null as [Parent],
 		Contragent.[ID]  as [Contragent!1!ID],
 		Contragent.[DLM] as [Contragent!1!DLM],
-		[DW].[fnGetGuid1C](Contragent.[CodeInIS]) as [Contragent!1!GUID],
+		[DW].[fnGetGuid1Cv2] (Contragent.[CodeInIS]) as [Contragent!1!GUID_1C],
 
 		null as [Nomenclature!2!ID], 
 		null as [Nomenclature!2!DLM],
-		null as [Nomenclature!2!GUID],
+		null as [Nomenclature!2!GUID_1C],
 
 		null as [Shipment!3!ID], 
 		null as [Shipment!3!Posted], 
@@ -81,7 +81,7 @@ insert into @t (
 		null as [Shipment!3!Docdate],
 
 		null as [Shipment!3!DLM],
-		null as [Shipment!3!GUID],
+		null as [Shipment!3!GUID_1C],
 		null as [Shipment!3!CHECKSUMM]
 
 	FROM DW.DimContragents as Contragent
@@ -95,11 +95,11 @@ insert into @t (
 		null as [Parent],
 		null as [Contragent!1!ID],
 		null as [Contragent!1!DLM],
-		null as [Contragent!1!GUID],
+		null as [Contragent!1!GUID_1C],
 
 		Nomenclature.[ID] as [Nomenclature!2!ID], 
 		Nomenclature.[DLM] as [Nomenclature!2!DLM],
-		[DW].[fnGetGuid1C](Nomenclature.[CodeInIS]) as [Nomenclature!2!GUID],
+		[DW].[fnGetGuid1Cv2] (Nomenclature.[CodeInIS]) [Nomenclature!2!GUID_1C],
 
 
 		null as [Shipment!3!ID], 
@@ -107,7 +107,7 @@ insert into @t (
 		null as [Shipment!3!Marked], 
 		null as [Shipment!3!Docdate],
 		null as [Shipment!3!DLM],
-		null as [Shipment!3!GUID],
+		null as [Shipment!3!GUID_1C],
 		null as [Shipment!3!CHECKSUMM]
 
 	FROM [DW].[DimNomenclatures] as Nomenclature
@@ -125,18 +125,18 @@ insert into @t (
 		null as [Parent],
 		null as [Contragent!1!ID],
 		null as [Contragent!1!DLM],
-		null as [Contragent!1!GUID],
+		null as [Contragent!1!GUID_1C],
 
 		null as [Nomenclature!2!ID], 
 		null as [Nomenclature!2!DLM],
-		null as [Nomenclature!2!GUID],
+		null as [Nomenclature!2!GUID_1C],
 
 		doc.ID as [Shipment!3!ID], 
 		doc.Posted as [Shipment!3!Posted], 
 		doc.Marked as [Shipment!3!Marked], 
 		doc.DocDate as [Shipment!3!Docdate],
 		doc.[DLM] as [Shipment!3!DLM],
-		[DW].[fnGetGuid1C](Shipments.[CodeInIS]) as [Shipment!3!GUID],
+		[DW].[fnGetGuid1Cv2] (Shipments.[CodeInIS]) [Shipment!3!GUID_1C],
 		CHECKSUM_AGG(cast(Shipments.[CHECKSUMM] as int)) [Shipment!3!CHECKSUMM]
 
 		FROM [DW].[FactSalesOfGoods] Shipments
@@ -155,18 +155,18 @@ insert into @t (
 		null as [Parent],
 		null as [Contragent!1!ID],
 		null as [Contragent!1!DLM],
-		null as [Contragent!1!GUID],
+		null as [Contragent!1!GUID_1C],
 
 		null as [Nomenclature!2!ID], 
 		null as [Nomenclature!2!DLM],
-		null as [Nomenclature!2!GUID],
+		null as [Nomenclature!2!GUID_1C],
 
 		doc.ID as [Shipment!3!ID], 
 		doc.Posted as [Shipment!3!Posted], 
 		doc.Marked as [Shipment!3!Marked], 
 		doc.DocDate as [Shipment!3!Docdate],
 		doc.[DLM] as [Shipment!3!DLM],
-		[DW].[fnGetGuid1C](Shipments.[CodeInIS]) as [Shipment!3!GUID],
+		[DW].[fnGetGuid1Cv2] (Shipments.[CodeInIS]) [Shipment!3!GUID_1C],
 		CHECKSUM_AGG(cast(Shipments.[CHECKSUMM] as int)) [Shipment!3!CHECKSUMM]
 
 		FROM [DW].[FactSalesOfGoods] Shipments
@@ -190,7 +190,7 @@ insert into @t (
 		[Shipment!3!Marked], 
 		[Shipment!3!Docdate],
 		[Shipment!3!DLM],
-		[Shipment!3!GUID],
+		[Shipment!3!GUID_1C],
 		[Shipment!3!CHECKSUMM]
 	)
 	SELECT DISTINCT
@@ -201,7 +201,7 @@ insert into @t (
 		doc.Marked as [Shipment!3!Marked], 
 		doc.DocDate as [Shipment!3!Docdate],
 		doc.[DLM] as [Shipment!3!DLM],
-		[DW].[fnGetGuid1C](Shipments.[CodeInIS]) as [Shipment!3!GUID],
+		[DW].[fnGetGuid1Cv2] (Shipments.[CodeInIS]) [Shipment!3!GUID_1C],
 		CHECKSUM_AGG(cast(Shipments.[CHECKSUMM] as int)) [Shipment!3!CHECKSUMM]
 
 		FROM [DW].[FactReturns] Shipments
@@ -235,6 +235,6 @@ GRANT EXECUTE ON [IIS].[fnGetSummaryList] TO [TerraSoftRole]
 GO
 
 -- CHECK FUNCTION
-DECLARE @StartDate DATETIME = '2021-01-01T00:00:00'
-DECLARE @EndDate DATETIME = '2021-01-10T00:00:00'
+DECLARE @StartDate DATETIME = '2021-01-20T00:00:00'
+DECLARE @EndDate DATETIME = '2021-01-25T00:00:00'
 SELECT [IIS].[fnGetSummaryList](@StartDate,@EndDate) [fnGetSummaryList]

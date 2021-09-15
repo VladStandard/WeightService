@@ -10,13 +10,14 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebApiTerra1000.Common;
 
-namespace Terra.Controllers
+namespace WebApiTerra1000.Controllers
 {
     public class ContragentController : BaseController
     {
         #region Constructor and destructor
-        
+
         public ContragentController(ILogger<ContragentController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
         }
@@ -56,8 +57,7 @@ namespace Terra.Controllers
             {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                const string sql = "SELECT [IIS].[fnGetContragentByID] (:ID)";
-                string response = session.CreateSQLQuery(sql)
+                string response = session.CreateSQLQuery(SqlQueries.GetContragent)
                     .SetParameter("ID", id)
                     .UniqueResult<string>();
                 transaction.Commit();
@@ -81,14 +81,13 @@ namespace Terra.Controllers
             {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                const string sql = "SELECT [IIS].[fnGetContragentChangesList] (:StartDate, :EndDate, :Offset, :RowCount)";
-                string response = session.CreateSQLQuery(sql)
+                string response = session.CreateSQLQuery(SqlQueries.GetContragents)
                     .SetParameter("StartDate", startDate)
                     .SetParameter("EndDate", endDate)
                     .SetParameter("Offset", offset)
                     .SetParameter("RowCount", rowCount)
                     .List<string>().First();
-                    //.UniqueResult<string>();
+                //.UniqueResult<string>();
                 transaction.Commit();
                 XDocument xml = XDocument.Parse(response ?? "<Contragents/>", LoadOptions.None);
                 XDocument doc = new(new XElement("response", xml.Root));

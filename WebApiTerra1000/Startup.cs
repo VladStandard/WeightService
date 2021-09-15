@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NHibernate;
 
-namespace Terra
+namespace WebApiTerra1000
 {
     public class Startup
     {

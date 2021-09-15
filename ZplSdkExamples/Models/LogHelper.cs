@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Controls;
-using WPF.Utils;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable CommentTypo

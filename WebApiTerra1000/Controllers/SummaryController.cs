@@ -9,8 +9,9 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebApiTerra1000.Common;
 
-namespace Terra.Controllers
+namespace WebApiTerra1000.Controllers
 {
     public class SummaryController : BaseController
     {
@@ -29,11 +30,11 @@ namespace Terra.Controllers
         [Route("api/summary/")]
         public ContentResult GetSummary(DateTime startDate, DateTime endDate)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                const string sql = "SELECT [IIS].[fnGetSummaryList] (:StartDate, :EndDate)";
-                string response = session.CreateSQLQuery(sql)
+                string response = session.CreateSQLQuery(SqlQueries.GetSummary)
                     .SetParameter("StartDate", startDate)
                     .SetParameter("EndDate", endDate)
                     .UniqueResult<string>();

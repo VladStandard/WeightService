@@ -31,7 +31,7 @@ select
 	,[LEVEL]
 from [db_scales].[ACCESS]
 order by [USER] desc
-        ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetAccessUser(string userName) => @$"
 select
@@ -42,7 +42,7 @@ select
 	,[LEVEL]
 from [db_scales].[ACCESS]
 where [USER]=N'{userName}'
-        ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
 
                 public static class Apps
@@ -78,7 +78,7 @@ select
 	,[ICON]
 from [db_scales].[LOG_TYPES]
 order by [NUMBER]
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetLogs => @"
 -- Table LOGS diagram summary
@@ -100,7 +100,7 @@ left join [db_scales].[Scales] [s] on [s].[HostId]=[h].[ID]
 left join [db_scales].[APPS] [a] on [a].[UID]=[l].[APP_UID]
 left join [db_scales].[LOG_TYPES] [lt] on [lt].[UID]=[l].[LOG_TYPE_UID]
 order by [l].[CREATE_DT] desc
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
             }
         }
@@ -127,7 +127,7 @@ from [db_scales].[Hosts] [h]
 left join [db_scales].[Scales] [s] on [h].[Id] = [s].[HostId]
 where [h].[Id] in (select [HostId] from [db_scales].[Scales] where [Scales].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
 order by [h].[Name]
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetFreeHosts => @"
 -- Get free hosts
@@ -143,7 +143,7 @@ select [h].[Id]
 from [db_scales].[Hosts] [h]
 where [h].[Id] not in (select [HostId] from [db_scales].[Scales] [s] where [s].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
 order by [h].[Name]
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetHostId => @"
 select [ID]
@@ -173,13 +173,13 @@ where [HOSTS].[MARKED]=0 and [HOSTS].[IDRREF]=@idrref
                     public static string Save => @"
 INSERT INTO [db_scales].[Labels] ([WeithingFactId], [Label])
 	VALUES (@ID, CONVERT(VARBINARY(MAX), @LABEL))
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                     
 					public static string SaveZpl => @"
 INSERT INTO [db_scales].[Labels] ([WeithingFactId], [ZPL])
 	VALUES (@ID, @ZPL)
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
-                }
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				}
 
                 public static class Scales
                 {
@@ -343,37 +343,36 @@ update [db_scales].[TASKS] set [ENABLED]=@enabled where [UID]=@uid
 select [UID]
 from [db_scales].[TASKS_TYPES] 
 where [NAME]=@task_type
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                    public static string GetTasksTypes => @"
+					public static string GetTasksTypes => @"
 select
 		[UID]
 	,[NAME]
 from [db_scales].[TASKS_TYPES]
 order by [NAME]
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                    public static string GetTasksTypesByName => @"
+					public static string GetTasksTypesByName => @"
 select
 		[UID]
 	,[NAME]
 from [db_scales].[TASKS_TYPES]
 where [NAME]=@task_name
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                    public static string GetTasksTypesByUid => @"
+					public static string GetTasksTypesByUid => @"
 select
 		[UID]
 	,[NAME]
 from [db_scales].[TASKS_TYPES]
 where [UID]=@task_uid
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                    public static string AddTaskType => @"
+					public static string AddTaskType => @"
 insert into [db_scales].[TASKS_TYPES]([NAME])
 values(@name)
-				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
 
                 public static class WeithingFacts
@@ -392,7 +391,7 @@ left join [db_scales].[Hosts] [h] on [s].[HostId] = [h].[Id]
 left join [db_scales].[ZebraPrinter] [p] on [s].[ZebraPrinterId] = [p].[Id]
 group by cast([WeithingDate] as date), [s].[Description], [h].[Name], [p].[Name]
 order by [WeithingDate] desc
-						".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 					public static string Save => @"
 DECLARE @SSCC varchar(50);
@@ -401,7 +400,7 @@ DECLARE @xmldata xml;
 DECLARE @ID int;
 EXECUTE [db_scales].[SetWeithingFact] @OrderID,@ScaleID,@PLU,@NetWeight,@TareWeight,@ProductDate,@Kneading,@SSCC OUTPUT,@WeithingDate OUTPUT,@xmldata OUTPUT,@ID OUTPUT;
 SELECT  @SSCC, @WeithingDate, convert(varchar(max), @xmldata) xmldata, @ID;
-						".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 				}
             }
         }

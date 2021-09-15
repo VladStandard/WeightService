@@ -76,7 +76,7 @@
 //DECLARE @xmldata xml;
 //EXECUTE [db_scales].[SetWeithingFact] @OrderID,@ScaleID,@PLU,@NetWeight,@TareWeight,@ProductDate,@SSCC OUTPUT,@WeithingDate OUTPUT,@xmldata OUTPUT
 //SELECT @SSCC [SSCC], @WEITHINGDATE [WEITHINGDATE], CONVERT(VARCHAR(MAX), @XMLDATA) [XMLDATA]
-//                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+//                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 //        }
 //    }
 //}

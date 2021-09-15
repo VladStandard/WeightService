@@ -15,7 +15,7 @@ select
 	,[LEVEL]
 from [db_scales].[ACCESS]
 order by [USER] desc
-        ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+        .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetAccessUser(string userName) => @$"
 select
@@ -26,7 +26,7 @@ select
 	,[LEVEL]
 from [db_scales].[ACCESS]
 where [USER]=N'{userName}'
-        ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+        .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetLogs => @"
 -- Table Logs diagram summary
@@ -47,6 +47,6 @@ left join [db_scales].[Hosts] [h] on [h].[ID]=[l].[HOST_ID]
 left join [db_scales].[Scales] [s] on [s].[HostId]=[h].[ID]
 left join [db_scales].[APPS] [a] on [a].[UID]=[l].[APP_UID]
 order by [l].[CREATE_DT] desc
-            ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+            .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 	}
 }

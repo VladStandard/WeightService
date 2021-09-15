@@ -306,7 +306,7 @@
 //	,[UseOrder]
 //	,[VerScalesUI]
 //FROM [db_scales].[GetScaleByID] (@ScaleID)
-//                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n'));
+//                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t'));
 //        }
 
 //        //public void Load()

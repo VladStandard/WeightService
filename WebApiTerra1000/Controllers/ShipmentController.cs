@@ -11,8 +11,9 @@ using System.Data.SqlClient;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebApiTerra1000.Common;
 
-namespace Terra.Controllers
+namespace WebApiTerra1000.Controllers
 {
     public class ShipmentController : BaseController
     {
@@ -31,12 +32,12 @@ namespace Terra.Controllers
         [Route("api/shipment/")]
         public ContentResult GetShipment(long id)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            {
                 XDocument doc;
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                const string sql = "SELECT [IIS].[GetRefShipmentsById] (:ID)";
-                string response = session.CreateSQLQuery(sql)
+                string response = session.CreateSQLQuery(SqlQueries.GetShipment)
                     .SetParameter("ID", id)
                     .UniqueResult<string>();
                 if (response != null)
@@ -100,12 +101,12 @@ namespace Terra.Controllers
         [Route("api/shipments/")]
         public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            {
                 XDocument doc;
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                const string sql = "SELECT [IIS].[GetRefShipmentsByDocDate] (:StartDate,:EndDate,:Offset,:RowCount)";
-                string response = session.CreateSQLQuery(sql)
+                string response = session.CreateSQLQuery(SqlQueries.GetShipments)
                     .SetParameter("StartDate", startDate)
                     .SetParameter("EndDate", endDate)
                     .SetParameter("Offset", offset)
@@ -115,7 +116,7 @@ namespace Terra.Controllers
                 {
                     IDbCommand command = new SqlCommand();
                     command.Connection = session.Connection;
-                    transaction.Enlist((System.Data.Common.DbCommand) command);
+                    transaction.Enlist((System.Data.Common.DbCommand)command);
 
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "[IIS].[GetShipments]";
@@ -160,7 +161,7 @@ namespace Terra.Controllers
                 return new ContentResult
                 {
                     ContentType = "application/xml",
-                    StatusCode = (int) HttpStatusCode.OK,
+                    StatusCode = (int)HttpStatusCode.OK,
                     Content = doc.ToString()
                 };
             }));

@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,13 +10,21 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebApiTerra1000.Common;
 
-namespace Terra.Controllers
+namespace WebApiTerra1000.Controllers
 {
     public class TestController : BaseController
     {
+        #region Public and private fields and properties
+
+        private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
+
+        #endregion
+
         #region Constructor and destructor
 
         public TestController(ILogger<TestController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
@@ -30,24 +39,25 @@ namespace Terra.Controllers
         [HttpGet()]
         [Route("api/terra/")]
         [Route("api/test/")]
-        public ContentResult GetTest(string id)
+        public ContentResult GetTest()
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() => {
+            _appVersion.Setup(Assembly.GetExecutingAssembly());
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                const string sql = "SELECT SYSDATETIME() [CURRENT_TIME]";
-                DateTime response = session.CreateSQLQuery(sql).UniqueResult<DateTime>();
+                DateTime response = session.CreateSQLQuery(SqlQueries.GetTest).UniqueResult<DateTime>();
                 transaction.Commit();
                 XDocument doc = new(
                     new XElement("Response",
-                        new XElement("Message", "Current IIS DateTime"),
-                        new XElement("IisCurrentDate", DateTime.Now.ToString(CultureInfo.InvariantCulture)),
+                        new XElement("App", _appVersion.App),
+                        new XElement("Version", _appVersion.Version),
+                        new XElement("WinCurrentDate", DateTime.Now.ToString(CultureInfo.InvariantCulture)),
                         new XElement("SqlCurrentDate", response.ToString(CultureInfo.InvariantCulture)),
                         new XElement("ConnectTimeout", session.Connection.ConnectionTimeout.ToString()),
                         new XElement("DataSource", session.Connection.DataSource),
                         new XElement("ServerVersion", session.Connection.ServerVersion),
                         new XElement("Database", session.Connection.Database),
-                        !string.IsNullOrEmpty(id) ? new XElement("ID", id) : new XElement("ID", "is empty"),
                         new XElement("PhysicalMegaBytes", (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576),
                         new XElement("VirtualMegaBytes", (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
                     ));
@@ -65,11 +75,11 @@ namespace Terra.Controllers
         [Route("api/deprecated/")]
         public ContentResult GetDeprecated()
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() => {
+            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            {
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                const string sql = "SELECT [IIS].[fnGetDeprecated]() [fnGetDeprecated]";
-                string response = session.CreateSQLQuery(sql).UniqueResult<string>();
+                string response = session.CreateSQLQuery(SqlQueries.GetDeprecated).UniqueResult<string>();
                 transaction.Commit();
                 XDocument xml = XDocument.Parse(response ?? "<Summary />", LoadOptions.None);
                 XDocument doc = new(xml.Root);
@@ -78,7 +88,7 @@ namespace Terra.Controllers
                     ContentType = "application/xml",
                     StatusCode = (int)HttpStatusCode.OK,
                     Content = doc.ToString()
-                }; 
+                };
             }));
         }
 

@@ -1,25 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>57639ce5-7a45-48db-a319-3545fdfae09d</UserSecretsId>
-    <AssemblyName>Terra</AssemblyName>
+    <AssemblyName>WebApiTerra1000</AssemblyName>
     <RootNamespace>Terra</RootNamespace>
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2021</Copyright>
     <Authors />
-    <Version>$(VersionPrefix)</Version>
-    <AssemblyVersion>0.5.550</AssemblyVersion>
-    <FileVersion>0.5.550</FileVersion>
+    <Version>0.5.600</Version>
+    <AssemblyVersion>0.5.600</AssemblyVersion>
+    <FileVersion>0.5.600</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
     <PackageReference Include="NHibernate" Version="5.3.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj" />
+  </ItemGroup>
 </Project>

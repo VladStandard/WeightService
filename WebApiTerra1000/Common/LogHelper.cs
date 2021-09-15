@@ -3,7 +3,7 @@
 
 //using System.IO;
     //using System.Threading;
-    //namespace Terra.Common
+    //namespace WebApiTerra1000.Common
     //{
     //    public class LogHelper
     //    {

@@ -36,7 +36,7 @@ BEGIN
 			   ,[CONTRAGENTS].[ConsolidatedClientID] "@ConsolidatedClientID"
 			   ,[CONTRAGENTS].[Comment] "@Comment"
 			   ,[CONTRAGENTS].[InformationSystemID] "@InformationSystemID"
-			   ,[DW].[fnGetGuid1C]([CONTRAGENTS].[CodeInIS]) "@CodeInIS"
+			   ,[DW].[fnGetGuid1Cv2] ([CONTRAGENTS].[CodeInIS]) "@GUID_1C"
 			   ,CAST((SELECT
 						[DP].[ID] "@DeliveryPlaceID"
 					   ,[DocNumber] "@DocNumber"

@@ -58,7 +58,7 @@ FROM [db_scales].[ZebraPrinter] x
 INNER JOIN[db_scales].[ZebraPrinterType] y
 ON x.[PrinterTypeId] = y.Id
 WHERE x.[Id] = @ID;
-                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
@@ -88,7 +88,7 @@ WHERE x.[Id] = @ID;
 select [Name],MAX([ImageData]) [ImageData] 
 from [db_scales].[GetPrinterResources] (@ID,@Type)
 group by [Name]
-                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 using (SqlCommand cmd = new(query))
                 {
                     Logo.Clear();
@@ -114,7 +114,7 @@ group by [Name]
                 string query = @"
 select [Name], [ImageData] 
 from [db_scales].[GetPrinterResources] (@ID,@Type)
-                    ".TrimStart('\r', ' ', '\n').TrimEnd('\r', ' ', '\n');
+                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 using (SqlCommand cmd = new(query))
                 {
                     Fonts.Clear();

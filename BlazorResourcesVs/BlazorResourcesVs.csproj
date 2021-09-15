@@ -25,6 +25,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="5.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.10" />
     <PackageReference Include="Radzen.Blazor" Version="3.9.9" />
   </ItemGroup>
 

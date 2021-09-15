@@ -24,6 +24,7 @@ BEGIN
 			   ,[C].[ConsolidatedClientID] "@ConsolidatedClientID"
 			   ,[C].[Comment] "@Comment"
 			   ,[C].[InformationSystemID] "@InformationSystemID"
+			   ,[DW].[fnGetGuid1Cv2] ([C].[CodeInIS]) "@GUID_1C"
 			   ,CAST((SELECT
 						dp.ID AS "@DeliveryPlaceID"
 					   ,[DocNumber] AS "@DocNumber"
