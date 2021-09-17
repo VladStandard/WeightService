@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.610] - 2021-09-17
+### Changed
+- IIS\Functions\GetRefShipmentsByDocDate
+
 ## [0.1.600] - 2021-09-15
 ### Changed
 - IIS\Functions\fnGetContragentByID

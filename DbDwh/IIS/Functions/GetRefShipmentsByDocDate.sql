@@ -1,3 +1,10 @@
+-- [IIS].[GetRefShipmentsByDocDate]
+
+-- DROP FUNCTION
+DROP FUNCTION IF EXISTS [IIS].[GetRefShipmentsByDocDate]
+GO
+
+-- CREATE FUNCTION
 create function [IIS].[GetRefShipmentsByDocDate] 
 (
 	@StartDate datetime = null, 
@@ -8,15 +15,15 @@ create function [IIS].[GetRefShipmentsByDocDate]
 returns nvarchar(max)
 as
 begin
+	declare @days_limit int = 5
+	declare @rows_limit int = 15
 	set @EndDate = isnull(@EndDate, getdate())
-	declare @xml xml
-	if (datediff(hour, @StartDate, @EndDate) > 25) begin
-		set @xml = (select 'Error. Interval too long (more than 25 hours).' as [MESSAGE] for xml raw, root('Shipments'), binary base64)
-		return cast (@xml as nvarchar(max))
+	declare @result nvarchar(1024)
+	if (datediff(day, @StartDate, @EndDate) > @days_limit) begin
+		return '{ "Error": "Interval ' + cast(datediff(day, @StartDate, @EndDate) as nvarchar(255)) + ' days is can not be more than ' + cast(@days_limit as nvarchar(255)) + ' days!" }'
 	end
-	if (@RowCount > 15) begin
-		set @xml = (select 'Error. Value @RowCount Not more than 15.' as [MESSAGE] for xml raw, root('Shipments'), binary base64)
-		return cast (@xml as nvarchar(max))
+	if (@RowCount > @rows_limit) begin
+		return '{ "Error": "Value ' + cast(@RowCount as nvarchar(255)) + ' is more than ' + cast(@rows_limit as nvarchar(255)) + '!" }'
 	end
 	declare @jsonVariable nvarchar(max)
 	set @jsonVariable = (
@@ -40,4 +47,15 @@ begin
 	for json path)
 	return @jsonVariable
 end
-go
+GO
+
+-- ACCESS
+GRANT EXECUTE ON [IIS].[GetRefShipmentsByDocDate] TO [TerraSoftRole]
+GO
+
+-- CHECK FUNCTION
+DECLARE @StartDate DATETIME = '2021-09-10T00:00:00'
+DECLARE @EndDate DATETIME = '2021-09-16T00:00:00'
+DECLARE @Offset INT = 0
+DECLARE @RowCount INT = 10
+SELECT [IIS].[GetRefShipmentsByDocDate](@StartDate, @EndDate, @Offset, @RowCount) [GetRefShipmentsByDocDate]

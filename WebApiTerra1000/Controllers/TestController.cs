@@ -54,6 +54,7 @@ namespace WebApiTerra1000.Controllers
                         new XElement("Version", _appVersion.Version),
                         new XElement("WinCurrentDate", DateTime.Now.ToString(CultureInfo.InvariantCulture)),
                         new XElement("SqlCurrentDate", response.ToString(CultureInfo.InvariantCulture)),
+                        new XElement("ConnectionString", session.Connection.ConnectionString.ToString()),
                         new XElement("ConnectTimeout", session.Connection.ConnectionTimeout.ToString()),
                         new XElement("DataSource", session.Connection.DataSource),
                         new XElement("ServerVersion", session.Connection.ServerVersion),

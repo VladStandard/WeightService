@@ -86,7 +86,7 @@ GO
 
 -- CHECK FUNCTION
 DECLARE @StartDate DATETIME = '2021-01-01T00:00:00'
-DECLARE @EndDate DATETIME = '2021-07-10T00:00:00'
+DECLARE @EndDate DATETIME = '2021-12-30T00:00:00'
 DECLARE @Offset INT = 0
 DECLARE @RowCount INT = 100
 SELECT [IIS].[fnGetContragentChangesList](@StartDate, @EndDate, @Offset, @RowCount) [fnGetContragentChangesList]
