@@ -1,14 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace terra2.Tests.Controllers
+namespace Terra.Common
 {
-    [TestClass]
-    public class ShipmentControllerTest
+    public class ResponseEntity
     {
-        [TestMethod]
-        public void TestMethod1()
+        public ErrorEntity Error { get; set; }
+
+        public ResponseEntity()
         {
+            Error = new ErrorEntity();
         }
     }
 }

@@ -5,6 +5,6 @@ namespace Terra.Common
 {
     public class ErrorEntity
     {
-        public string Error { get; set; }
+        public string Description { get; set; }
     }
 }

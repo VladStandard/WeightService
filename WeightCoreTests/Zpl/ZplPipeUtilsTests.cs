@@ -1,7 +1,4 @@
-﻿using WeightCore.Zpl;
-using NUnit.Framework;
-
-namespace HardwareTests.Zpl
+﻿namespace HardwareTests.Zpl
 {
     [TestFixture]
     internal class ZplPipeUtilsTests

@@ -13,6 +13,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Terra.Common;
 using WebApiTerra1000.Common;
 
 namespace WebApiTerra1000.Controllers
@@ -44,11 +45,19 @@ namespace WebApiTerra1000.Controllers
             _appVersion.Setup(Assembly.GetExecutingAssembly());
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
+                XDocument doc = null;
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                DateTime response = session.CreateSQLQuery(SqlQueries.GetTest).UniqueResult<DateTime>();
+                string response = session.CreateSQLQuery(SqlQueries.GetTest)
+                    .UniqueResult<string>();
                 transaction.Commit();
-                XDocument doc = new(
+
+                if ((doc = ResponseUtils.GetNullOrEmpty(response)) != null)
+                    return ResponseUtils.GetContentResult(Enums.FormatType.Xml, doc.ToString());
+                if ((doc = ResponseUtils.GetError(response)) != null)
+                    return ResponseUtils.GetContentResult(Enums.FormatType.Xml, doc.ToString());
+                
+                doc = new(
                     new XElement("Response",
                         new XElement("App", _appVersion.App),
                         new XElement("Version", _appVersion.Version),
@@ -62,12 +71,7 @@ namespace WebApiTerra1000.Controllers
                         new XElement("PhysicalMegaBytes", (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576),
                         new XElement("VirtualMegaBytes", (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576)
                     ));
-                return new ContentResult
-                {
-                    ContentType = "application/xml",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Content = doc.ToString()
-                };
+                return ResponseUtils.GetContentResult(Enums.FormatType.Xml, doc.ToString());
             }));
         }
 
@@ -78,18 +82,20 @@ namespace WebApiTerra1000.Controllers
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
+                XDocument doc = null;
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                string response = session.CreateSQLQuery(SqlQueries.GetDeprecated).UniqueResult<string>();
+                string response = session.CreateSQLQuery(SqlQueries.GetDeprecated)
+                    .UniqueResult<string>();
                 transaction.Commit();
-                XDocument xml = XDocument.Parse(response ?? "<Summary />", LoadOptions.None);
-                XDocument doc = new(xml.Root);
-                return new ContentResult
-                {
-                    ContentType = "application/xml",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Content = doc.ToString()
-                };
+
+                if ((doc = ResponseUtils.GetNullOrEmpty(response)) != null)
+                    return ResponseUtils.GetContentResult(Enums.FormatType.Xml, doc.ToString());
+                if ((doc = ResponseUtils.GetError(response)) != null)
+                    return ResponseUtils.GetContentResult(Enums.FormatType.Xml, doc.ToString());
+
+                doc = ResponseUtils.GetUnknownError(response);
+                return ResponseUtils.GetContentResult(Enums.FormatType.Xml, doc.ToString());
             }));
         }
 

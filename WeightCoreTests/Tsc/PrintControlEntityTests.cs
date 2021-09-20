@@ -1,8 +1,4 @@
-﻿using WeightCore.Print;
-using WeightCore.Print.Tsc;
-using NUnit.Framework;
-
-namespace HardwareTests.Tsc
+﻿namespace HardwareTests.Tsc
 {
     [TestFixture]
     internal class PrintControlEntityTests

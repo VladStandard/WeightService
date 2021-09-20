@@ -30,53 +30,5 @@ namespace WebApiTerra1000.Controllers
         }
 
         #endregion
-
-        #region Public and private methods
-
-        //private async Task SendZabbixAsync(string method, XDocument doc)
-        //{
-        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-        //    using var zabbixServer = _zabbixServer.OpenSession();
-        //    zabbixServer.ZabbixNoticeAsync(ZabbixHost, ZabbixKey,
-        //        new Dictionary<string, string> {
-        //            { "method", method},
-        //            { "date", DateTime.Now.ToString("O") },
-        //            { "size", doc.ToString().Length.ToString() }
-        //            //{ "start", StartDate.ToString("O") },
-        //            //{ "end", EndDate.ToString("O") }
-        //        }
-        //    );
-        //}
-
-        //private async Task SendZabbixAsync(string method, XDocument doc, string start, string end)
-        //{
-        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-        //    using var zabbixServer = _zabbixServer.OpenSession();
-        //    zabbixServer.ZabbixNoticeAsync(ZabbixHost, ZabbixKey,
-        //        new Dictionary<string, string> {
-        //            { "method", method},
-        //            { "date", DateTime.Now.ToString("O") },
-        //            { "size", doc.ToString().Length.ToString() },
-        //            { "start", start },
-        //            { "end", end }
-        //        }
-        //    );
-        //}
-
-        //private async Task SendZabbixAsync(string method, string message)
-        //{
-        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-
-        //    using var zabbixServer = _zabbixServer.OpenSession();
-        //    zabbixServer.ZabbixNoticeAsync(ZabbixHost, ZabbixKey,
-        //        new Dictionary<string, string> {
-        //            { "method", method },
-        //            { "error", message }
-        //        });
-        //}
-
-        #endregion
     }
 }

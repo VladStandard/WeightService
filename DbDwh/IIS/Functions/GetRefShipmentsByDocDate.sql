@@ -15,8 +15,8 @@ create function [IIS].[GetRefShipmentsByDocDate]
 returns nvarchar(max)
 as
 begin
-	declare @days_limit int = 5
-	declare @rows_limit int = 15
+	declare @days_limit int = 31
+	declare @rows_limit int = 1000
 	set @EndDate = isnull(@EndDate, getdate())
 	declare @result nvarchar(1024)
 	if (datediff(day, @StartDate, @EndDate) > @days_limit) begin
@@ -54,8 +54,8 @@ GRANT EXECUTE ON [IIS].[GetRefShipmentsByDocDate] TO [TerraSoftRole]
 GO
 
 -- CHECK FUNCTION
-DECLARE @StartDate DATETIME = '2021-09-10T00:00:00'
-DECLARE @EndDate DATETIME = '2021-09-16T00:00:00'
+DECLARE @StartDate DATETIME = '2021-08-01T00:00:00'
+DECLARE @EndDate DATETIME = '2021-09-01T00:00:00'
 DECLARE @Offset INT = 0
 DECLARE @RowCount INT = 10
 SELECT [IIS].[GetRefShipmentsByDocDate](@StartDate, @EndDate, @Offset, @RowCount) [GetRefShipmentsByDocDate]

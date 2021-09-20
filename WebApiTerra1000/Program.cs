@@ -10,19 +10,7 @@ namespace WebApiTerra1000
     {
         public static void Main(string[] args)
         {
-            try
-            {
-                //var configuration = new ConfigurationBuilder()
-                //    .SetBasePath(Directory.GetCurrentDirectory())
-                //    .AddJsonFile("appsettings.json", true, true)
-                //    .AddEnvironmentVariables()
-                //    .Build();
-                CreateHostBuilder(args).Build().Run();
-            }
-            catch (System.Exception)
-            {
-                //
-            }
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -30,7 +18,6 @@ namespace WebApiTerra1000
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                })
-            ;
+                });
     }
 }

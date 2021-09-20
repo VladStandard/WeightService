@@ -6,11 +6,15 @@ namespace WebApiTerra1000.Common
     public static class SqlQueries
     {
         public static string GetTest => @"
-SELECT SYSDATETIME() [CURRENT_TIME]
+SELECT CAST(SYSDATETIME() AS NVARCHAR(255)) [CURRENT_TIME]
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetDeprecated => @"
-SELECT [IIS].[fnGetDeprecated]() [fnGetDeprecated]
+SELECT [dbo].[fnGetDeprecated]() [fnGetDeprecated]
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+        public static string GetDeliveryPlaces => @"
+SELECT[IIS].[fnGetDeliveryPlaces] (:StartDate, :EndDate, :Offset, :RowCount)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetContragent => @"

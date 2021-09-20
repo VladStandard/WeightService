@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NHibernate;
 using System;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -86,10 +85,9 @@ namespace WebApiTerra1000.Controllers
                     .SetParameter("EndDate", endDate)
                     .SetParameter("Offset", offset)
                     .SetParameter("RowCount", rowCount)
-                    .List<string>().First();
-                //.UniqueResult<string>();
+                    .UniqueResult<string>();
                 transaction.Commit();
-                XDocument xml = XDocument.Parse(response ?? "<Contragents/>", LoadOptions.None);
+                XDocument xml = XDocument.Parse(response ?? "<Contragents />", LoadOptions.None);
                 XDocument doc = new(new XElement("response", xml.Root));
                 return new ContentResult
                 {

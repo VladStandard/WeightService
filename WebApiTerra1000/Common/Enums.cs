@@ -1,14 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace terra2.Tests.Controllers
+namespace Terra.Common
 {
-    [TestClass]
-    public class ShipmentControllerTest
+    public static class Enums
     {
-        [TestMethod]
-        public void TestMethod1()
+        public enum FormatType
         {
+            Json,
+            Xml,
+            Html,
+            Text,
+            Auto
         }
     }
 }

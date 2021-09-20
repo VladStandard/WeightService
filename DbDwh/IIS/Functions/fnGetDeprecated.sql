@@ -1,23 +1,26 @@
-﻿-- [IIS].[fnGetDeprecated]
+﻿-- [dbo].[fnGetDeprecated]
 
 -- DROP FUNCTION
-DROP FUNCTION IF EXISTS [IIS].[fnGetDeprecated]
+DROP FUNCTION IF EXISTS [dbo].[fnGetDeprecated]
 GO
 
 -- CREATE FUNCTION
-CREATE FUNCTION [IIS].[fnGetDeprecated]()
+CREATE FUNCTION [dbo].[fnGetDeprecated]()
 RETURNS xml
 AS
 BEGIN
+	DECLARE @xml XML = '<Error />'
+	DECLARE @err NVARCHAR(1024)
 	-- Deprecated method!
-	RETURN (SELECT N'Deprecated method!' [Message] 
-	FOR XML RAW('Result'), ROOT('Response'), BINARY BASE64)
+	SET @err = N'Deprecated method!'
+	SET @xml.modify ('insert attribute Description{sql:variable("@err")} into (/Error)[1] ')
+	RETURN @xml
 END
 GO
 
 -- ACCESS
-GRANT EXECUTE ON [IIS].[fnGetDeprecated] TO [TerraSoftRole]
+GRANT EXECUTE ON [dbo].[fnGetDeprecated] TO [TerraSoftRole]
 GO
 
 -- CHECK FUNCTION
-SELECT [IIS].[fnGetDeprecated]() [fnGetDeprecated]
+SELECT [dbo].[fnGetDeprecated]() [fnGetDeprecated]

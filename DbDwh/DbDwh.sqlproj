@@ -87,6 +87,8 @@
     <Folder Include="MDM\SP" />
     <Folder Include="MDM\Security" />
     <Folder Include="MDM\TEST" />
+    <Folder Include="DBO" />
+    <Folder Include="DBO\Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\_OwnerUser.sql" />
@@ -252,8 +254,11 @@
     <Build Include="IIS\Functions\fnGetNomenclatureList.sql" />
     <Build Include="IIS\Functions\fnGetNomenclatureByCode.sql" />
     <Build Include="IIS\Functions\fnGetIdInfoSys.sql" />
-    <Build Include="IIS\Functions\fnGetDeprecated.sql" />
     <Build Include="DW\Functions\fnGetGuid1Cv2.sql" />
+    <Build Include="IIS\Functions\fnGetDeliveryPlaces.sql" />
+    <None Include="DBO\Functions\fnCheckDates.sql" />
+    <None Include="DBO\Functions\fnCheckRowCount.sql" />
+    <Build Include="DBO\Functions\fnGetDeprecated.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="VSDWH.publish.publish.xml" />

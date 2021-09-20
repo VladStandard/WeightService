@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("ScalesCoreTests")]
 [assembly: AssemblyDescription("Тесты ядра весовой платформы")]
@@ -18,5 +16,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("2cbec9b0-82fc-4f69-a635-162caca67e79")]
 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.5.610.0")]
-[assembly: AssemblyFileVersion("0.5.610.0")]
+[assembly: AssemblyVersion("0.5.620.0")]
+[assembly: AssemblyFileVersion("0.5.620.0")]

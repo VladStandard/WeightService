@@ -1,11 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System.Diagnostics;
-using Microsoft.Win32;
-using NUnit.Framework;
-using ScalesCore.Win.Registry.Helpers;
-
 namespace ScalesCoreTests.Helpers
 {
     internal class RegistryHelperTests

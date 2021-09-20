@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using NUnit.Framework;
-
-namespace HardwareTests
+﻿namespace HardwareTests
 {
     /// <summary>
     /// Utilites.

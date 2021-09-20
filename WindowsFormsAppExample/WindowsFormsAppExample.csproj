@@ -25,7 +25,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <TargetCulture>ru-RU</TargetCulture>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>0.5.610.%2a</ApplicationVersion>
+    <ApplicationVersion>0.5.620.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

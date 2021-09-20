@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.610] - 2021-09-16
+## [0.1.620] - 2021-09-20
+### Fixed
+- Redmine 1594. Подготовка таблиц Creatio для обратной интеграции с 1С
+### Added
+- DeliveryPlaceController
+
+## [0.1.610] - 2021-09-17
 ### Fixed
 - Redmine 1594. Подготовка таблиц Creatio для обратной интеграции с 1С
 

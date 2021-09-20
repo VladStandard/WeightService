@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>0.5.610</Version>
+    <Version>0.5.620</Version>
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020  - 2021</Copyright>
