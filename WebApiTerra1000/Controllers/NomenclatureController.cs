@@ -9,7 +9,8 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using WebApiTerra1000.Common;
+using WebApiTerra1000.Utils;
+using static WebApiTerra1000.Utils.TerraEnums;
 
 namespace WebApiTerra1000.Controllers
 {
@@ -28,7 +29,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/nomenclature/")]
-        public ContentResult GetNomenclature(string code, int id)
+        public ContentResult GetNomenclature(string code, int id, FormatType format = FormatType.Raw)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -56,13 +57,14 @@ namespace WebApiTerra1000.Controllers
                     StatusCode = (int)HttpStatusCode.OK,
                     Content = doc.ToString()
                 };
-            }));
+            }), format);
         }
 
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/nomenclatures/")]
-        public ContentResult GetNomenclatures(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10)
+        public ContentResult GetNomenclatures(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Raw)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -83,13 +85,14 @@ namespace WebApiTerra1000.Controllers
                     StatusCode = (int)HttpStatusCode.OK,
                     Content = doc.ToString()
                 };
-            }));
+            }), format);
         }
 
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/nomenclaturescosts/")]
-        public ContentResult GetNomenclaturesCosts(int offset = 0, int rowCount = 10)
+        public ContentResult GetNomenclaturesCosts(int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Raw)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -109,7 +112,7 @@ namespace WebApiTerra1000.Controllers
                     StatusCode = (int)HttpStatusCode.OK,
                     Content = doc.ToString()
                 };
-            }));
+            }), format);
         }
 
         #endregion

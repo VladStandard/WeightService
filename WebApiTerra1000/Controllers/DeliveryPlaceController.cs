@@ -9,7 +9,8 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using WebApiTerra1000.Common;
+using WebApiTerra1000.Utils;
+using static WebApiTerra1000.Utils.TerraEnums;
 
 namespace WebApiTerra1000.Controllers
 {
@@ -28,7 +29,8 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/deliveryplaces/")]
-        public ContentResult GetDeliveryPlaces(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 1000)
+        public ContentResult GetDeliveryPlaces(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
+            FormatType format = FormatType.Raw)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -42,7 +44,7 @@ namespace WebApiTerra1000.Controllers
                     .UniqueResult<string>();
                 transaction.Commit();
                 XDocument xml = XDocument.Parse(response ?? "<Response />", LoadOptions.None);
-                //XDocument doc = new(new XElement("Response", xml.Root));
+                //XDocument doc = new(new XElement(TerraConsts.ResponseRoot, xml.Root));
                 XDocument doc = new(xml.Root);
                 return new ContentResult
                 {
@@ -50,7 +52,7 @@ namespace WebApiTerra1000.Controllers
                     StatusCode = (int)HttpStatusCode.OK,
                     Content = doc.ToString()
                 };
-            }));
+            }), format);
         }
 
         #endregion

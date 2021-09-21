@@ -11,8 +11,9 @@ using System.Data;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Terra.Common;
 using WebApiTerra1000.Common;
+using WebApiTerra1000.Utils;
+using static WebApiTerra1000.Utils.TerraEnums;
 
 namespace WebApiTerra1000.Controllers
 {
@@ -31,7 +32,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/shipment/")]
-        public ContentResult GetShipment(long id)
+        public ContentResult GetShipment(long id, FormatType format = FormatType.Raw)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -84,7 +85,7 @@ namespace WebApiTerra1000.Controllers
                 else
                 {
                     XDocument xml = XDocument.Parse("<Shipment />", LoadOptions.None);
-                    doc = new XDocument(new XElement("Response", xml.Root));
+                    doc = new XDocument(new XElement(TerraConsts.Response, xml.Root));
                 }
                 return new ContentResult
                 {
@@ -92,14 +93,15 @@ namespace WebApiTerra1000.Controllers
                     StatusCode = (int)HttpStatusCode.OK,
                     Content = doc.ToString()
                 };
-            }));
+            }), format);
         }
 
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/shipmentsbydocdate/")]
         [Route("api/shipments/")]
-        public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10)
+        public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Raw)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -115,10 +117,10 @@ namespace WebApiTerra1000.Controllers
                     .UniqueResult<string>();
                 transaction.Commit();
                 
-                if ((doc = ResponseUtils.GetNullOrEmpty(response)) != null)
-                    return ResponseUtils.GetContentResult(Enums.FormatType.Xml, doc.ToString());
-                if ((doc = ResponseUtils.GetError(response)) != null)
-                    return ResponseUtils.GetContentResult(Enums.FormatType.Xml, doc.ToString());
+                if ((doc = TerraUtils.Xml.GetNullOrEmpty(response)) != null)
+                    return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
+                if ((doc = TerraUtils.Xml.GetError(response)) != null)
+                    return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
 
                 IDbCommand command = new SqlCommand();
                 command.Connection = session.Connection;
@@ -154,10 +156,9 @@ namespace WebApiTerra1000.Controllers
                 {
                     xml = XDocument.Parse("<Shipments />", LoadOptions.None);
                 }
-                doc = new XDocument(new XElement("Response", xml.Root));
-
-                return ResponseUtils.GetContentResult(Enums.FormatType.Xml, doc.ToString());
-            }));
+                doc = new XDocument(new XElement(TerraConsts.Response, xml.Root));
+                return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
+            }), format);
         }
 
         #endregion

@@ -3,12 +3,12 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>57639ce5-7a45-48db-a319-3545fdfae09d</UserSecretsId>
     <AssemblyName>WebApiTerra1000</AssemblyName>
-    <RootNamespace>Terra</RootNamespace>
+    <RootNamespace>WebApiTerra1000</RootNamespace>
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2021</Copyright>
     <Authors />
-    <Version>0.5.620</Version>
+    <Version>0.5.630</Version>
     <AssemblyVersion>0.5.600</AssemblyVersion>
     <FileVersion>0.5.600</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>

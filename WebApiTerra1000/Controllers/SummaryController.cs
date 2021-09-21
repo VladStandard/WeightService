@@ -9,7 +9,8 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using WebApiTerra1000.Common;
+using WebApiTerra1000.Utils;
+using static WebApiTerra1000.Utils.TerraEnums;
 
 namespace WebApiTerra1000.Controllers
 {
@@ -28,7 +29,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/summary/")]
-        public ContentResult GetSummary(DateTime startDate, DateTime endDate)
+        public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatType format = FormatType.Raw)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -47,7 +48,7 @@ namespace WebApiTerra1000.Controllers
                     StatusCode = (int)HttpStatusCode.OK,
                     Content = doc.ToString()
                 };
-            }));
+            }), format);
         }
 
         #endregion

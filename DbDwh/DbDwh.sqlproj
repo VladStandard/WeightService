@@ -259,6 +259,9 @@
     <None Include="DBO\Functions\fnCheckDates.sql" />
     <None Include="DBO\Functions\fnCheckRowCount.sql" />
     <Build Include="DBO\Functions\fnGetDeprecated.sql" />
+    <Build Include="DBO\Functions\fnGetXmlSimpleV1.sql" />
+    <Build Include="DBO\Functions\fnGetXmlSimpleV2.sql" />
+    <Build Include="DBO\Functions\fnGetXmlSimpleV3.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="VSDWH.publish.publish.xml" />
