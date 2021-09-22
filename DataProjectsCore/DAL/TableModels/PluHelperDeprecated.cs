@@ -1,6 +1,6 @@
 ﻿//using ScalesLib.Sql.Helpers;
 //using System.Collections.Generic;
-//using System.Data.SqlClient;
+//using Microsoft.Data.SqlClient;
 
 //namespace DataProjectsCore.DAL.Entities
 //{
@@ -67,7 +67,7 @@
 //                }
 //            }
 //            return pluEntity;
-            
+
 //        }
 
 

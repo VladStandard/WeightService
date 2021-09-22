@@ -183,7 +183,7 @@ select
 	,[CheckWeight]
 
 from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             SqlCommand cmd = new(query, con);
             cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.Int) { Value = Scale.Id });
             cmd.Parameters.Add(new SqlParameter("@PLU", SqlDbType.Int) { Value = PLU });
@@ -252,7 +252,7 @@ select
 	,[CheckWeight]
 from [db_scales].[GetPLU] (@ScaleID)
 order by [PLU]
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             SqlCommand cmd = new(query, con);
             cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.Int) { Value = scaleId });
             cmd.Prepare();

@@ -8,23 +8,23 @@ using WebApiTerra1000.Utils;
 namespace WebApiTerra1000.Common
 {
     [XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-    public class SqlResponseSimpleEntity : BaseSerializeEntity<SqlResponseSimpleEntity>
+    public class SqlSimpleV2Entity : BaseSerializeEntity<SqlSimpleV2Entity>
     {
         #region Public and private fields and properties
 
         [XmlElement(TerraConsts.Simple)]
-        public SqlSimpleEntity Item { get; set; } = new SqlSimpleEntity();
+        public SqlSimpleV1Entity Item { get; set; } = new SqlSimpleV1Entity();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SqlResponseSimpleEntity(string description)
+        public SqlSimpleV2Entity(string description)
         {
-            Item = new SqlSimpleEntity(description);
+            Item = new SqlSimpleV1Entity(description);
         }
 
-        public SqlResponseSimpleEntity()
+        public SqlSimpleV2Entity()
         {
             //
         }

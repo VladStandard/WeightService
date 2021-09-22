@@ -5,22 +5,17 @@ DROP FUNCTION IF EXISTS [dbo].[fnCheckRowCount]
 GO
 
 -- CREATE FUNCTION
-CREATE FUNCTION [dbo].[fnCheckRowCount] (@RowCount INT = 100) RETURNS XML
+CREATE FUNCTION [dbo].[fnCheckRowCount] (@RowCount INT = 100) RETURNS NVARCHAR(1024)
 AS BEGIN
 	-- DECLARE VARS.
-	DECLARE @xml XML = '<Error />'
 	DECLARE @err NVARCHAR(1024)
 	DECLARE @RowCountLimit INT = 1000
 	-- Negative value.
 	IF (@RowCount <= 0) BEGIN
-		SET @err = '@RowCount must be more than 0!' 
-		SET @xml.modify ('insert attribute Description{sql:variable("@err")} into (/Error)[1] ')
-		RETURN @xml
+		RETURN '@RowCount must be more than 0!' 
 	END
 	IF (@RowCount > @RowCountLimit) BEGIN
-		SET @err = '@RowCount is too much: ' + cast(@RowCount as nvarchar(255)) + ' (limit is ' + cast(@RowCountLimit as nvarchar(255)) + ')!'
-		SET @xml.modify ('insert attribute Description{sql:variable("@err")} into (/Error)[1] ')
-		RETURN @xml
+		RETURN '@RowCount is too much: ' + cast(@RowCount as nvarchar(255)) + ' (limit is ' + cast(@RowCountLimit as nvarchar(255)) + ')!'
 	END
 	RETURN NULL
 END

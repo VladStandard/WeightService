@@ -10,7 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using static WebApiTerra1000.Utils.TerraEnums;
+using static DataShareCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {
@@ -30,7 +30,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/contragents-test/")]
-        public ContentResult GetContragentsTest(FormatType format = FormatType.Raw)
+        public ContentResult GetContragentsTest(FormatType format = FormatType.Xml)
         {
             //return TaskHelper.RunTask(new Task<ContentResult>(() =>
             //{
@@ -66,7 +66,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/contragent/")]
-        public ContentResult GetContragent(int id, FormatType format = FormatType.Raw)
+        public ContentResult GetContragent(int id, FormatType format = FormatType.Xml)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -91,7 +91,7 @@ namespace WebApiTerra1000.Controllers
         [HttpGet()]
         [Route("api/contragents/")]
         public ContentResult GetContragents(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, 
-            FormatType format = FormatType.Raw)
+            FormatType format = FormatType.Xml)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {

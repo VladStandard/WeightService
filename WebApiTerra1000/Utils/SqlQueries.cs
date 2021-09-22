@@ -21,6 +21,10 @@ SELECT [dbo].[fnGetXmlSimpleV2]() [fnGetXmlSimpleV2]
 SELECT [dbo].[fnGetXmlSimpleV3]() [fnGetXmlSimpleV3]
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
+        public static string GetXmlSimpleV4 => @"
+SELECT [dbo].[fnGetXmlSimpleV4]() [fnGetXmlSimpleV4]
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
         public static string GetException => @"
 SELECT [dbo].[fnGetException123]() [fnGetException]
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');

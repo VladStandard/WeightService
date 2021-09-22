@@ -8,17 +8,17 @@
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2021</Copyright>
     <Authors />
-    <Version>0.5.630</Version>
-    <AssemblyVersion>0.5.600</AssemblyVersion>
-    <FileVersion>0.5.600</FileVersion>
+    <Version>0.5.640</Version>
+    <AssemblyVersion>0.5.640</AssemblyVersion>
+    <FileVersion>0.5.640</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="3.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.9" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataShareCore\DataShareCore.csproj" />

@@ -1,6 +1,6 @@
 ﻿//using ScalesLib.Sql.Helpers;
 //using System;
-//using System.Data.SqlClient;
+//using Microsoft.Data.SqlClient;
 //using System.Xml.Linq;
 
 //namespace DataProjectsCore.DAL.Entities
@@ -76,7 +76,7 @@
 //DECLARE @xmldata xml;
 //EXECUTE [db_scales].[SetWeithingFact] @OrderID,@ScaleID,@PLU,@NetWeight,@TareWeight,@ProductDate,@SSCC OUTPUT,@WeithingDate OUTPUT,@xmldata OUTPUT
 //SELECT @SSCC [SSCC], @WEITHINGDATE [WEITHINGDATE], CONVERT(VARCHAR(MAX), @XMLDATA) [XMLDATA]
-//                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+//                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 //        }
 //    }
 //}

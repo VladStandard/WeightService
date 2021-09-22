@@ -10,7 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using static WebApiTerra1000.Utils.TerraEnums;
+using static DataShareCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {
@@ -29,7 +29,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/summary/")]
-        public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatType format = FormatType.Raw)
+        public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {

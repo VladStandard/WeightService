@@ -14,7 +14,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using WebApiTerra1000.Common;
 using WebApiTerra1000.Utils;
-using static WebApiTerra1000.Utils.TerraEnums;
+using static DataShareCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {
@@ -59,15 +59,8 @@ namespace WebApiTerra1000.Controllers
                     session.Connection.Database,
                     (ulong)Process.GetCurrentProcess().WorkingSet64 / 1048576,
                     (ulong)Process.GetCurrentProcess().PrivateMemorySize64 / 1048576);
-                return format switch
-                {
-                    FormatType.Json => TerraUtils.GetResult(FormatType.Json, serviceInfo.SerializeAsJson(), HttpStatusCode.OK),
-                    FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, serviceInfo.SerializeAsXml(), HttpStatusCode.OK),
-                    FormatType.Html => TerraUtils.GetResult(FormatType.Html, serviceInfo.SerializeAsHtml(), HttpStatusCode.OK),
-                    FormatType.Text => TerraUtils.GetResult(FormatType.Text, serviceInfo.SerializeAsText(), HttpStatusCode.OK),
-                    FormatType.Raw => TerraUtils.GetResult(FormatType.Text, response, HttpStatusCode.OK),
-                    _ => throw TerraUtils.GetArgumentException(nameof(format)),
-                };
+                //return TerraUtils.GetResultWithWrap(format, serviceInfo, HttpStatusCode.OK);
+                return serviceInfo.GetResult(format, HttpStatusCode.OK);
             }), format);
         }
 
@@ -79,16 +72,9 @@ namespace WebApiTerra1000.Controllers
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetException);
-                SqlSimpleEntity simple = new(response);
-                return format switch
-                {
-                    FormatType.Json => TerraUtils.GetResult(FormatType.Json, simple.SerializeAsJson(), HttpStatusCode.OK),
-                    FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, simple.SerializeAsXml(), HttpStatusCode.OK),
-                    FormatType.Html => TerraUtils.GetResult(FormatType.Html, simple.SerializeAsHtml(), HttpStatusCode.OK),
-                    FormatType.Text => TerraUtils.GetResult(FormatType.Text, simple.SerializeAsText(), HttpStatusCode.OK),
-                    FormatType.Raw => TerraUtils.GetResult(FormatType.Text, simple.SerializeAsText(), HttpStatusCode.OK),
-                    _ => throw TerraUtils.GetArgumentException(nameof(format)),
-                };
+                SqlSimpleV1Entity simple = new(response);
+                //return TerraUtils.GetResultWithWrap(format, simple, HttpStatusCode.OK);
+                return simple.GetResult(format, HttpStatusCode.OK);
             }), format);
         }
 
@@ -103,51 +89,28 @@ namespace WebApiTerra1000.Controllers
                 {
                     case 1:
                         string response1 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV1);
-                        SqlSimpleEntity item1 = SqlSimpleEntity.DeserializeFromXml(response1);
-                        return format switch
-                        {
-                            FormatType.Json => TerraUtils.GetResult(FormatType.Json, item1.SerializeAsJson(), HttpStatusCode.OK),
-                            FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, item1.SerializeAsXml(), HttpStatusCode.OK),
-                            FormatType.Html => TerraUtils.GetResult(FormatType.Html, item1.SerializeAsHtml(), HttpStatusCode.OK),
-                            FormatType.Text => TerraUtils.GetResult(FormatType.Text, item1.SerializeAsText(), HttpStatusCode.OK),
-                            FormatType.Raw => TerraUtils.GetResult(FormatType.Raw, response1, HttpStatusCode.OK),
-                            _ => throw TerraUtils.GetArgumentException(nameof(format)),
-                        };
+                        SqlSimpleV1Entity item1 = SqlSimpleV1Entity.DeserializeFromXml(response1);
+                        //return TerraUtils.GetResultWithWrap(format, item1, HttpStatusCode.OK);
+                        return item1.GetResult(format, HttpStatusCode.OK);
                     case 2:
                         string response2 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV2);
-                        SqlResponseSimpleEntity item2 = SqlResponseSimpleEntity.DeserializeFromXml(response2);
-                        return format switch
-                        {
-                            FormatType.Json => TerraUtils.GetResult(FormatType.Json, item2.SerializeAsJson(), HttpStatusCode.OK),
-                            FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, item2.SerializeAsXml(), HttpStatusCode.OK),
-                            FormatType.Html => TerraUtils.GetResult(FormatType.Html, item2.SerializeAsHtml(), HttpStatusCode.OK),
-                            FormatType.Text => TerraUtils.GetResult(FormatType.Text, item2.SerializeAsText(), HttpStatusCode.OK),
-                            FormatType.Raw => TerraUtils.GetResult(FormatType.Raw, response2, HttpStatusCode.OK),
-                            _ => throw TerraUtils.GetArgumentException(nameof(format)),
-                        };
+                        SqlSimpleV2Entity item2 = SqlSimpleV2Entity.DeserializeFromXml(response2);
+                        //return TerraUtils.GetResultWithWrap(format, item2, HttpStatusCode.OK);
+                        return item2.GetResult(format, HttpStatusCode.OK);
                     case 3:
                         string response3 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV3);
-                        SqlResponseSimplesEntity item3 = SqlResponseSimplesEntity.DeserializeFromXml(response3);
-                        return format switch
-                        {
-                            FormatType.Json => TerraUtils.GetResult(FormatType.Json, item3.SerializeAsJson(), HttpStatusCode.OK),
-                            FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, item3.SerializeAsXml(), HttpStatusCode.OK),
-                            FormatType.Html => TerraUtils.GetResult(FormatType.Html, item3.SerializeAsHtml(), HttpStatusCode.OK),
-                            FormatType.Text => TerraUtils.GetResult(FormatType.Text, item3.SerializeAsText(), HttpStatusCode.OK),
-                            FormatType.Raw => TerraUtils.GetResult(FormatType.Raw, response3, HttpStatusCode.OK),
-                            _ => throw TerraUtils.GetArgumentException(nameof(format)),
-                        };
+                        SqlSimpleV3Entity item3 = SqlSimpleV3Entity.DeserializeFromXml(response3);
+                        //return TerraUtils.GetResultWithWrap(format, item3, HttpStatusCode.OK);
+                        return item3.GetResult(format, HttpStatusCode.OK);
+                    case 4:
+                        string response4 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV4);
+                        SqlSimpleV4Entity item4 = SqlSimpleV4Entity.DeserializeFromXml(response4);
+                        //return TerraUtils.GetResultWithWrap(format, item4, HttpStatusCode.OK);
+                        return item4.GetResult(format, HttpStatusCode.OK);
                 }
-                SqlSimpleEntity item = new("Simple method from C Sharp");
-                return format switch
-                {
-                    FormatType.Json => TerraUtils.GetResult(FormatType.Json, item.SerializeAsJson(), HttpStatusCode.OK),
-                    FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, item.SerializeAsXml(), HttpStatusCode.OK),
-                    FormatType.Html => TerraUtils.GetResult(FormatType.Html, item.SerializeAsHtml(), HttpStatusCode.OK),
-                    FormatType.Text => TerraUtils.GetResult(FormatType.Text, item.SerializeAsText(), HttpStatusCode.OK),
-                    FormatType.Raw => TerraUtils.GetResult(FormatType.Raw, item.ToString(), HttpStatusCode.OK),
-                    _ => throw TerraUtils.GetArgumentException(nameof(format)),
-                };
+                SqlSimpleV1Entity item = new("Simple method from C Sharp");
+                //return TerraUtils.GetResultWithWrap(format, item, HttpStatusCode.OK);
+                return item.GetResult(format, HttpStatusCode.OK);
             }), format);
         }
 

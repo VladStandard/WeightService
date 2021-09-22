@@ -266,5 +266,14 @@ namespace DataShareCore
             /// </summary>
             EndsWith = 3,
         }
+
+        public enum FormatType
+        {
+            Json,
+            Xml,
+            Html,
+            Text,
+            Raw
+        }
     }
 }

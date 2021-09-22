@@ -6,16 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.630] - 2021-09-21
+## [0.1.630] - 2021-09-22
 ### Changed
 - IIS\Functions\GetRefShipmentsByDocDate
-- DBO\Functions\fnGetDeprecated
+- DBO\Functions\fnGetXmlDeprecated
 ### Added
-- IIS\Functions\fnGetDeliveryPlaces
 - DBO\Functions\fnCheckDates
 - DBO\Functions\fnCheckRowCount
+- IIS\Functions\fnGetDeliveryPlaces
+- DBO\Functions\fnGetXmlError
+- DBO\Functions\fnGetXmlMessage
 - DBO\Functions\fnGetXmlSimpleV1
 - DBO\Functions\fnGetXmlSimpleV2
+- DBO\Functions\fnGetXmlSimpleV3
+- DBO\Functions\fnGetXmlSimpleV4
 
 ## [0.1.600] - 2021-09-15
 ### Changed

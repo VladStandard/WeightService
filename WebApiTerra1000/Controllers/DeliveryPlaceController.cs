@@ -10,7 +10,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using WebApiTerra1000.Utils;
-using static WebApiTerra1000.Utils.TerraEnums;
+using static DataShareCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {
@@ -30,7 +30,7 @@ namespace WebApiTerra1000.Controllers
         [HttpGet()]
         [Route("api/deliveryplaces/")]
         public ContentResult GetDeliveryPlaces(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
-            FormatType format = FormatType.Raw)
+            FormatType format = FormatType.Xml)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {

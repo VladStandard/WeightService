@@ -8,7 +8,7 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using static WebApiTerra1000.Utils.TerraEnums;
+using static DataShareCore.ShareEnums;
 
 namespace WebApiTerra1000.Common
 {
@@ -53,15 +53,16 @@ namespace WebApiTerra1000.Common
             {
                 filePath = Path.GetFileName(filePath);
                 ServiceExceptionEntity serviceException = new(filePath, lineNumber, memberName, ex);
-                return format switch
-                {
-                    FormatType.Json => TerraUtils.GetResult(FormatType.Json, serviceException.SerializeAsJson(), HttpStatusCode.OK),
-                    FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, serviceException.SerializeAsXml(), HttpStatusCode.OK),
-                    FormatType.Html => TerraUtils.GetResult(FormatType.Html, serviceException.SerializeAsHtml(), HttpStatusCode.OK),
-                    FormatType.Text => TerraUtils.GetResult(FormatType.Text, serviceException.SerializeAsText(), HttpStatusCode.OK),
-                    FormatType.Raw => TerraUtils.GetResult(FormatType.Text, serviceException.SerializeAsText(), HttpStatusCode.OK),
-                    _ => throw TerraUtils.GetArgumentException(nameof(format)),
-                };
+                return serviceException.GetResult(format, HttpStatusCode.OK);
+                //return format switch
+                //{
+                //    FormatType.Json => TerraUtils.GetResult(FormatType.Json, serviceException.SerializeAsJson(), HttpStatusCode.OK),
+                //    FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, serviceException.SerializeAsXml(), HttpStatusCode.OK),
+                //    FormatType.Html => TerraUtils.GetResult(FormatType.Html, serviceException.SerializeAsHtml(), HttpStatusCode.OK),
+                //    FormatType.Text => TerraUtils.GetResult(FormatType.Text, serviceException.SerializeAsText(), HttpStatusCode.OK),
+                //    FormatType.Raw => TerraUtils.GetResult(FormatType.Text, serviceException.SerializeAsText(), HttpStatusCode.OK),
+                //    _ => throw TerraUtils.GetArgumentException(nameof(format)),
+                //};
             }
             finally
             {

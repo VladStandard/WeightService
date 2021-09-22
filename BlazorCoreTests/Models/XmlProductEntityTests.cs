@@ -31,7 +31,7 @@ namespace BlazorCoreTests.Models
   <NameFull>яПолуфабрикаты мясные рубленые формованные непанированные категории Б. Котлеты ""Из мраморной говядины"" охлажденные ТУ 10.13.14-014-91005552-2019 (400г)</NameFull>
   <AdditionalDescriptionOfNomenclature>Срок годности: при температуре от 0°С до +6°С и относительной влажности воздуха 85±5% - 12 суток. Упаковано в модифицированной атмосфере.</AdditionalDescriptionOfNomenclature>
 </Product>
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 case 2:
                     return @"
 <Product Category=""Колбаса вареная"" Code=""ЦБД00028783"" Description=""Докторская стандарт 500 г ц/ф 1 сорт"" Comment="""" SKU="""" DescriptionOptional=""AA=="" GUIDMercury=""58133a03-05cc-44a5-9d74-5c25e080709d"" Temperature=""0-6"" ProductShelfLife=""30 сут."" Brand=""ВладимирскийСтандарт"">
@@ -53,7 +53,7 @@ namespace BlazorCoreTests.Models
   <NameFull>Колбасные изделия вареные куриные 1 сорта. Колбаса вареная ""Докторская стандарт"" охлажденная ТУ 10.13.14-005-91005552-2016, ц/ф (500г)</NameFull>
   <AdditionalDescriptionOfNomenclature>Срок годности: 30 суток при температуре от 0°С до +6°С и относительной влажности воздуха 75%-78%. Упаковано под вакуумом.</AdditionalDescriptionOfNomenclature>
 </Product>
-                        .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 case 3:
                     return @"
 <Product Category=""Полуфабрикаты рубленые"" Code=""ЦБД00004577"" Description=""яБифштекс  &quot;Гурман&quot;  лоток 360 гр"" Comment="""" SKU="""" DescriptionOptional=""AA=="" GUIDMercury="""" Temperature=""-18"" ProductShelfLife=""90 сут"">
@@ -67,7 +67,7 @@ namespace BlazorCoreTests.Models
   <NameFull>Полуфабрикаты рубленные яБифштекс  ""Гурман""  лоток 360 гр</NameFull>
   <AdditionalDescriptionOfNomenclature />
 </Product>
-                        .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 case 4:
                     return @"
 <Product Category=""Полуфабрикаты рубленые"" Code=""ЦБД00029982"" Description=""Котлеты Купеческие 480г"" Comment="""" SKU="""" DescriptionOptional=""AA=="" GUIDMercury=""cc026f1d-90c4-465e-82fa-6fef623fb349"" Temperature=""-18"" ProductShelfLife=""90 сут"" Brand=""ВладимирскийСтандарт"">
@@ -88,7 +88,7 @@ namespace BlazorCoreTests.Models
   <NameFull>Полуфабрикаты мясные рубленые формованные и панированные  категории Г  Котлеты ""Купеческие""  замороженные, ТУ 10.13.14-014-91005552-2019,   480г</NameFull>
   <AdditionalDescriptionOfNomenclature>Срок годности: при температуре не выше минус 18°С — 90 суток. </AdditionalDescriptionOfNomenclature>
 </Product>
-                        .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 case 5:
                     return @"
 <Product Category=""Фарш"" Code=""ЦБД00036400"" Description=""яИз свинины и говядины 400 г"" Comment="""" SKU="""" DescriptionOptional=""AA=="" GUIDMercury=""12d94183-59d2-4fac-8b8e-115964866030"" Temperature=""0-6"" ProductShelfLife=""12 сут"" Brand=""Телятино"">
@@ -109,7 +109,7 @@ namespace BlazorCoreTests.Models
   <NameFull>яПолуфабрикат мясной рубленый неформованный категории Б фарш ""Из свинины и говядины"" охлажденный, ТУ 10.13.14-014-91005552-2019, ( 400 г)</NameFull>
   <AdditionalDescriptionOfNomenclature>Срок годности: при температуре от 0 С до +6 С и относительной влажности воздуха 85±5%, упакованный с применением модифицированной газовой среды - 12 суток</AdditionalDescriptionOfNomenclature>
 </Product>
-                        .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 case 6:
                     return @"
 <Product Category=""Полуфабрикаты рубленые"" Code=""ЦБД00036397"" Description=""яКолбаски Гриль 300 г"" Comment="""" SKU="""" DescriptionOptional=""AA=="" GUIDMercury=""73d9cfe4-5747-49e9-a52f-85381fe85e65"" Temperature=""0-6"" ProductShelfLife=""12 сут"" Brand=""Телятино"">
@@ -130,7 +130,7 @@ namespace BlazorCoreTests.Models
   <NameFull> яПолуфабрикаты мясные рубленые формованные категории В Колбаски ""Гриль"" охлажденные, ТУ 10.13.14-014-91005552-2019, (300 г)</NameFull>
   <AdditionalDescriptionOfNomenclature>Срок годности: при температуре от 0 С до + 6 С и относительной влажности воздуха 85±5%, упакованный с применением модифицированной газовой среды - 12 суток</AdditionalDescriptionOfNomenclature>
 </Product>
-                        .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             }
             return string.Empty;
         }

@@ -39,11 +39,15 @@ namespace DataProjectsCore.DAL.Models
                 if (CoreSettings.Trusted)
                 {
                     FluentConfiguration configuration = Fluently.Configure()
-                        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                            .Server(CoreSettings.Server)
-                            .Database(CoreSettings.Db)
-                            .TrustedConnection()
-                        ))
+                        .Database(
+                            MsSqlConfiguration.MsSql2012.ConnectionString(x => x
+                                .Server(CoreSettings.Server)
+                                .Database(CoreSettings.Db)
+                                .TrustedConnection()
+                            )
+                        .ShowSql()
+                        .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
+                        )
                         .Mappings(m => m.FluentMappings.Add<AccessMap>())
                         .Mappings(m => m.FluentMappings.Add<AppMap>())
                         .Mappings(m => m.FluentMappings.Add<BarcodeTypeMap>())
@@ -76,12 +80,16 @@ namespace DataProjectsCore.DAL.Models
                     if (string.IsNullOrEmpty(CoreSettings.Username) || string.IsNullOrEmpty(CoreSettings.Password))
                         throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
                     FluentConfiguration configuration = Fluently.Configure()
-                        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                            .Server(CoreSettings.Server)
-                            .Database(CoreSettings.Db)
-                            .Username(CoreSettings.Username)
-                            .Password(CoreSettings.Password)
-                        ))
+                        .Database(
+                            MsSqlConfiguration.MsSql2012.ConnectionString(x => x
+                                .Server(CoreSettings.Server)
+                                .Database(CoreSettings.Db)
+                                .Username(CoreSettings.Username)
+                                .Password(CoreSettings.Password)
+                            )
+                        .ShowSql()
+                        .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
+                        )
                         .Mappings(m => m.FluentMappings.Add<AccessMap>())
                         .Mappings(m => m.FluentMappings.Add<AppMap>())
                         .Mappings(m => m.FluentMappings.Add<BarcodeTypeMap>())

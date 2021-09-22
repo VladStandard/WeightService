@@ -5,7 +5,7 @@ using DataProjectsCore.DAL.Utils;
 using DataProjectsCore.Helpers;
 using DataShareCore.Helpers;
 using System;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;

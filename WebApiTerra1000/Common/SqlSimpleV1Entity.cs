@@ -8,7 +8,7 @@ using WebApiTerra1000.Utils;
 namespace WebApiTerra1000.Common
 {
     [XmlRoot(TerraConsts.Simple, Namespace = "", IsNullable = false)]
-    public class SqlSimpleEntity : BaseSerializeEntity<SqlSimpleEntity>
+    public class SqlSimpleV1Entity : BaseSerializeEntity<SqlSimpleV1Entity>
     {
         #region Public and private fields and properties
 
@@ -19,12 +19,12 @@ namespace WebApiTerra1000.Common
 
         #region Constructor and destructor
 
-        public SqlSimpleEntity(string description)
+        public SqlSimpleV1Entity(string description)
         {
             Description = description;
         }
 
-        public SqlSimpleEntity()
+        public SqlSimpleV1Entity()
         {
             //
         }
@@ -37,6 +37,18 @@ namespace WebApiTerra1000.Common
         {
             return @$"{nameof(Description)}: {Description}. ";
         }
+
+        //public ContentResult GetResult(FormatType format, HttpStatusCode statusCode)
+        //{
+        //    return format switch
+        //    {
+        //        FormatType.Json => GetResult(format, SerializeAsJson(), statusCode),
+        //        FormatType.Xml => GetResult(format, SerializeAsXml(), statusCode),
+        //        FormatType.Html => GetResult(format, SerializeAsHtml(), statusCode),
+        //        FormatType.Text or FormatType.Raw => GetResult(format, SerializeAsText(), statusCode),
+        //        _ => throw GetArgumentException(nameof(format)),
+        //    };
+        //}
 
         #endregion
     }

@@ -111,28 +111,28 @@ namespace WeightCore.Zpl
 ^PQ1
 
 ^XZ
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetSample1 => @"
 ^FO820,30
 ^CFZ,24,20
 ^FB1100,4,0,C,0
 ^FH^FDИзготовитель: ООО ""Владимирский стандарт"" Россия, 600910 Владимирская обл. г.Радужный квартал 13/13 дом 20^FS
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetSample2 => @"
 ^FO510,50
 ^CFE,44,34
 ^FB910,4,0,J,0
 ^FH^FDКолбасные изделия вареные куриные 1 сорта, Колбаса вареная ""Докторская стандарт"" охлажденная ТУ 10,13,14-005-91005552-2016, ц/ф (500г)^FS
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetSample3 => @"
 ^FO350,50
 ^CFZ,36,20
 ^FB800,4,0,J,0
 ^FH^FDСрок годности: 30 суток при температуре от 0°С до +6°С и относительной влажности воздуха 75%-78%. Упаковано под вакуумом,^FS
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetEac => @"
 ^GFA,1498,1498,14,
@@ -243,7 +243,7 @@ FFF800000000000000000001FFF0
 FFF800000000000000000001FFF0
 FFF800000000000000000001FFF0
 FFF800000000000000000001FFF0
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetFish => @"
 ^GFA,1410,1410,15,
@@ -341,7 +341,7 @@ FFFFFFFFFFFFFF9FFFFFFFFFFFFFE0
 FFFFFFFFFFFFFF9FFFFFFFFFFFFFE0
 FFFFFFFFFFFFFF9FFFFFFFFFFFFFE0
 FC0000000000001FFFFFFFFFFFFFE0
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetTemp6 => @"
 ^GFA,1695,1695,15,
@@ -458,6 +458,6 @@ FC0000000000001FFFFFFFFFFFFFE0
 0000000000000000000000000183F0
 000000000000000000000000008000
 000000000000000000000000000000
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
     }
 }

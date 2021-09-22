@@ -159,7 +159,7 @@
     <Build Include="Security\_TerraSoftRole.sql" />
     <Build Include="Security\Schemas\IIS.sql" />
     <Build Include="IIS\Functions\fnGetNomenclatureChangesList.sql" />
-    <Build Include="IIS\Functions\fnGetShipmentChangesList.sql" />
+    <Build Include="IIS\Functions\deprecated_fnGetShipmentChangesList.sql" />
     <Build Include="IIS\Functions\fnGetContragentByID.sql" />
     <Build Include="IIS\Functions\fnGetNomenclatureByID.sql" />
     <Build Include="IIS\Functions\fnGetShipmentByID.sql" />
@@ -181,7 +181,7 @@
     <Build Include="DW\Functions\fnCheckINN.sql" />
     <Build Include="DW\StoredProcedures\spConsolidateContragentsRebuild.sql" />
     <Build Include="IIS\Functions\fnGetSipmentListByDocDate.sql" />
-    <Build Include="IIS\Functions\fnGetSipmentListByShippingDate.sql" />
+    <Build Include="IIS\Functions\deprecated_fnGetSipmentListByShippingDate.sql" />
     <Build Include="Security\Schemas\SCSL.sql" />
     <Build Include="SCSL\scsl_datareader.sql" />
     <Build Include="SCSL\scsl_datawriter.sql" />
@@ -258,10 +258,13 @@
     <Build Include="IIS\Functions\fnGetDeliveryPlaces.sql" />
     <None Include="DBO\Functions\fnCheckDates.sql" />
     <None Include="DBO\Functions\fnCheckRowCount.sql" />
-    <Build Include="DBO\Functions\fnGetDeprecated.sql" />
+    <Build Include="DBO\Functions\fnGetXmlDeprecated.sql" />
     <Build Include="DBO\Functions\fnGetXmlSimpleV1.sql" />
     <Build Include="DBO\Functions\fnGetXmlSimpleV2.sql" />
     <Build Include="DBO\Functions\fnGetXmlSimpleV3.sql" />
+    <Build Include="DBO\Functions\fnGetXmlSimpleV4.sql" />
+    <None Include="DBO\Functions\fnGetXmlError.sql" />
+    <None Include="DBO\Functions\fnGetXmlMessage.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="VSDWH.publish.publish.xml" />

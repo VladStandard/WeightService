@@ -33,11 +33,15 @@ namespace MdmControlCore.DAL
                 if (AppSettings.Trusted)
                 {
                     FluentConfiguration configuration = Fluently.Configure()
-                        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                            .Server(AppSettings.Server)
-                            .Database(AppSettings.Db)
-                            .TrustedConnection()
-                        ))
+                        .Database(
+                            MsSqlConfiguration.MsSql2012.ConnectionString(x => x
+                                .Server(AppSettings.Server)
+                                .Database(AppSettings.Db)
+                                .TrustedConnection()
+                            )
+                        .ShowSql()
+                        .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
+                        )
                         .Mappings(m => m.FluentMappings.Add<BrandMap>())
                         .Mappings(m => m.FluentMappings.Add<InformationSystemMap>())
                         .Mappings(m => m.FluentMappings.Add<NomenclatureGroupMap>())
@@ -53,12 +57,16 @@ namespace MdmControlCore.DAL
                     if (string.IsNullOrEmpty(AppSettings.Username) || string.IsNullOrEmpty(AppSettings.Password))
                         throw new ArgumentException("AppSettings.Username or AppSettings.Password is null!");
                     FluentConfiguration configuration = Fluently.Configure()
-                    .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                            .Server(AppSettings.Server)
-                            .Database(AppSettings.Db)
-                            .Username(AppSettings.Username)
-                            .Password(AppSettings.Password)
-                        ))
+                    .Database(
+                            MsSqlConfiguration.MsSql2012.ConnectionString(x => x
+                                .Server(AppSettings.Server)
+                                .Database(AppSettings.Db)
+                                .Username(AppSettings.Username)
+                                .Password(AppSettings.Password)
+                            )
+                        .ShowSql()
+                        .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
+                        )
                         .Mappings(m => m.FluentMappings.Add<BrandMap>())
                         .Mappings(m => m.FluentMappings.Add<InformationSystemMap>())
                         .Mappings(m => m.FluentMappings.Add<NomenclatureGroupMap>())

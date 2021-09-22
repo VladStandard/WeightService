@@ -10,7 +10,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace ScalesCore.Helpers
 {
@@ -185,7 +185,8 @@ namespace ScalesCore.Helpers
             try
             {
                 if (ProviderFactory == null)
-                    ProviderFactory = DbProviderFactories.GetFactory("System.Data.SqlClient");
+                    //ProviderFactory = DbProviderFactories.GetFactory("System.Data.SqlClient");
+                    ProviderFactory = DbProviderFactories.GetFactory("Microsoft.Data.SqlClient");
                 if (ProviderFactory != null && !string.IsNullOrEmpty(ConnectionString))
                 {
                     Connection = ProviderFactory.CreateConnection();

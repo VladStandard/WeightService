@@ -1,7 +1,7 @@
 ﻿//using ScalesLib.Sql.Helpers;
 //using System;
 //using System.Collections.Generic;
-//using System.Data.SqlClient;
+//using Microsoft.Data.SqlClient;
 //using System.IO;
 //using System.Reflection;
 //using System.Text;
@@ -105,7 +105,7 @@
 //                return textWriter.ToString();
 //            }
 //        }
-                
+
 //        public void Load()
 //        {
 //            if (TemplateId != null)
@@ -113,7 +113,7 @@
 //                GetTemplateObjFromDB();
 //            }
 //        }
-        
+
 //        private void GetTemplateObjFromDB()
 //        {
 //            using (var con = new SqlConnection(_sql.ConnectionString))

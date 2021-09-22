@@ -3,25 +3,26 @@
 
 using DataShareCore.DAL.Models;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using WebApiTerra1000.Utils;
 
 namespace WebApiTerra1000.Common
 {
     [XmlRoot(TerraConsts.Response, Namespace = "", IsNullable = false)]
-    public class SqlResponseSimplesEntity : BaseSerializeEntity<SqlResponseSimplesEntity>
+    public class SqlSimpleV4Entity : BaseSerializeEntity<SqlSimpleV4Entity>
     {
         #region Public and private fields and properties
 
-        //[XmlArray(TerraConsts.Simple)]
-        [XmlArrayItem(TerraConsts.Simple, typeof(SqlSimpleEntity))]
-        public SqlSimpleEntity[] Simples { get; set; } = Array.Empty<SqlSimpleEntity>();
+        [XmlArray(TerraConsts.Items)]
+        [XmlArrayItem(TerraConsts.Simple, typeof(SqlSimpleV1Entity))]
+        public List<SqlSimpleV1Entity> Simples { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public SqlResponseSimplesEntity()
+        public SqlSimpleV4Entity()
         {
             //
         }
@@ -33,18 +34,15 @@ namespace WebApiTerra1000.Common
         public override string ToString()
         {
             string result = string.Empty;
-            foreach (SqlSimpleEntity item in Simples)
+            if (Simples?.Count > 0)
             {
-                result += item.SerializeAsText() + Environment.NewLine;
+                foreach (SqlSimpleV1Entity item in Simples)
+                {
+                    result += item.SerializeAsText() + Environment.NewLine;
+                }
             }
             return result;
         }
-
-        //public static new SqlResponseItemsEntity DeserializeFromXml(string xml)
-        //{
-        //    XmlSerializer xmlSerializer = new(typeof(SqlResponseItemsEntity));
-        //    return (SqlResponseItemsEntity)xmlSerializer.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(xml)));
-        //}
 
         #endregion
     }

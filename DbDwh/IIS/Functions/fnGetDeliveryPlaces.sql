@@ -9,7 +9,8 @@ CREATE FUNCTION [IIS].[fnGetDeliveryPlaces] (@StartDate DATETIME, @EndDate DATET
 AS BEGIN
 	-- DECLARE.
 	DECLARE @xml XML = '<Response />'
-	DECLARE @check XML = NULL
+	DECLARE @check NVARCHAR(1024) = NULL
+	DECLARE @check_xml XML = NULL
 	DECLARE @ResultCount INT = 0
 	SET @EndDate = ISNULL(@EndDate, GETDATE())
 	-- CHECKS.
@@ -18,7 +19,8 @@ AS BEGIN
 		SET @check = (select [dbo].[fnCheckRowCount] (@RowCount))
 	END 
 	IF (@check IS NOT NULL) BEGIN
-		SET @xml.modify('insert sql:variable("@check") as first into (/Response)[1]')
+		SET @check_xml = (SELECT [dbo].[fnGetXmlMessage] (NULL, 'Error', 'Description', @check))
+		SET @xml.modify('insert sql:variable("@check_xml") as first into (/Response)[1]')
 	END
 	ELSE BEGIN
 		-- DECLARE TABLE.

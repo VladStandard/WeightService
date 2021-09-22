@@ -184,7 +184,7 @@ namespace DataProjectsCore.DAL.TableModels
 select top (1) [Id], [CategoryId], convert(nvarchar(max),[ImageData],0) [XslContent]
 from [db_scales].[Templates]
 where [Title] = @Title
-                    .TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             using (SqlCommand cmd = new(query))
             {
                 cmd.Connection = con;

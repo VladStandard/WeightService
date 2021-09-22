@@ -2,6 +2,7 @@
 
 -- DROP FUNCTION
 DROP FUNCTION IF EXISTS [IIS].[fnGetSipmentListByDocDate]
+DROP FUNCTION IF EXISTS [IIS].[fnGetSipmentListByDocDatev2]
 GO
 
 -- CREATE FUNCTION
@@ -11,13 +12,15 @@ AS
 BEGIN
 	-- DECLARE.
 	DECLARE @xml XML = '<Response />'
-	DECLARE @check XML = NULL
+	DECLARE @check NVARCHAR(1024) = NULL
+	DECLARE @check_xml XML = NULL
 	DECLARE @ResultCount INT = 0
 	SET @EndDate = ISNULL(@EndDate, GETDATE())
 	-- CHECKS.
 	SET @check = (select [dbo].[fnCheckDates] (@StartDate, @EndDate))
 	IF (@check IS NOT NULL) BEGIN
-		SET @xml.modify('insert sql:variable("@check") as first into (/Response)[1]')
+		SET @check_xml = (SELECT [dbo].[fnGetXmlMessage] (NULL, 'Error', 'Description', @check))
+		SET @xml.modify('insert sql:variable("@check_xml") as first into (/Response)[1]')
 	END
 	ELSE BEGIN
 		-- DECLARE TABLE.
@@ -75,6 +78,6 @@ GRANT EXECUTE ON [IIS].[fnGetSipmentListByDocDate] TO [TerraSoftRole]
 GO
 
 -- CHECK FUNCTION.
-DECLARE @StartDate DATETIME = '2021-09-10T00:00:00'
-DECLARE @EndDate DATETIME = '2021-09-01T00:00:00'
+DECLARE @StartDate DATETIME = '2021-08-01T00:00:00'
+DECLARE @EndDate DATETIME = '2021-09-22T00:00:00'
 SELECT [IIS].[fnGetSipmentListByDocDate](@StartDate, @EndDate) [fnGetSipmentListByDocDate]

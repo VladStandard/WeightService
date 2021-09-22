@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -11,9 +12,8 @@ using System.Data;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using WebApiTerra1000.Common;
 using WebApiTerra1000.Utils;
-using static WebApiTerra1000.Utils.TerraEnums;
+using static DataShareCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {
@@ -32,7 +32,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/shipment/")]
-        public ContentResult GetShipment(long id, FormatType format = FormatType.Raw)
+        public ContentResult GetShipment(long id, FormatType format = FormatType.Xml)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -101,7 +101,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/shipmentsbydocdate/")]
         [Route("api/shipments/")]
         public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
-            FormatType format = FormatType.Raw)
+            FormatType format = FormatType.Xml)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
@@ -116,11 +116,11 @@ namespace WebApiTerra1000.Controllers
                     .SetParameter("RowCount", rowCount)
                     .UniqueResult<string>();
                 transaction.Commit();
-                
-                if ((doc = TerraUtils.Xml.GetNullOrEmpty(response)) != null)
-                    return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
-                if ((doc = TerraUtils.Xml.GetError(response)) != null)
-                    return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
+
+                //if ((doc = TerraUtils.Xml.GetNullOrEmpty(response)) != null)
+                //    return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
+                //if ((doc = TerraUtils.Xml.GetError(response)) != null)
+                //    return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
 
                 IDbCommand command = new SqlCommand();
                 command.Connection = session.Connection;
@@ -157,7 +157,7 @@ namespace WebApiTerra1000.Controllers
                     xml = XDocument.Parse("<Shipments />", LoadOptions.None);
                 }
                 doc = new XDocument(new XElement(TerraConsts.Response, xml.Root));
-                return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
+                return BaseSerializeEntity<XDocument>.GetResult(format, doc.ToString(), HttpStatusCode.OK);
             }), format);
         }
 
