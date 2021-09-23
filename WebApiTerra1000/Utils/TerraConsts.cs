@@ -18,5 +18,10 @@ namespace WebApiTerra1000.Utils
         public const string InnerException = @"InnerException";
         public const string Simple = @"Simple";
         public const string Items = @"Items";
+        public const string Contragents = @"Contragents";
+        public const string DeliveryPlaces = @"DeliveryPlaces";
+        public const string Goods = @"Goods";
+        public const string Shipments = @"Shipments";
+        public const string Summary = @"Summary";
     }
 }

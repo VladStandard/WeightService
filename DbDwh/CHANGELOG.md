@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.630] - 2021-09-22
+## [0.1.650] - 2021-09-23
 ### Changed
 - IIS\Functions\GetRefShipmentsByDocDate
 - DBO\Functions\fnGetXmlDeprecated

@@ -24,18 +24,12 @@ namespace WebApiTerra1000
 
         private ISessionFactory GetSessionFactory(string connectionString)
         {
-            //ISessionFactory sessionFactory = Fluently.Configure()
-            //    .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString).ShowSql())
-            //    //.Mappings(m => m.FluentMappings.AddFromAssemblyOf<CatMap>())
-            //    //.Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
-            //    .BuildSessionFactory();
-            FluentConfiguration configuration = Fluently.Configure()
+            FluentConfiguration configuration = Fluently
+                .Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
                 .ShowSql()
                 .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
-                )
-                //.Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
-            ;
+                );
             configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
             return configuration.BuildSessionFactory();
         }

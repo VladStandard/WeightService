@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using Microsoft.Data.SqlClient;
+using DataShareCore.DAL.Models;
 
 namespace ScalesCore.Helpers
 {

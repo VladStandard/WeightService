@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.650] - 2021-09-23
+### Changed
+- Redmine 1594. Подготовка таблиц Creatio для обратной интеграции с 1С
+
 ## [0.5.550] - 2021-09-08
 ### Changed
 - ShareEnums

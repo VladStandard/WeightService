@@ -54,15 +54,6 @@ namespace WebApiTerra1000.Common
                 filePath = Path.GetFileName(filePath);
                 ServiceExceptionEntity serviceException = new(filePath, lineNumber, memberName, ex);
                 return serviceException.GetResult(format, HttpStatusCode.OK);
-                //return format switch
-                //{
-                //    FormatType.Json => TerraUtils.GetResult(FormatType.Json, serviceException.SerializeAsJson(), HttpStatusCode.OK),
-                //    FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, serviceException.SerializeAsXml(), HttpStatusCode.OK),
-                //    FormatType.Html => TerraUtils.GetResult(FormatType.Html, serviceException.SerializeAsHtml(), HttpStatusCode.OK),
-                //    FormatType.Text => TerraUtils.GetResult(FormatType.Text, serviceException.SerializeAsText(), HttpStatusCode.OK),
-                //    FormatType.Raw => TerraUtils.GetResult(FormatType.Text, serviceException.SerializeAsText(), HttpStatusCode.OK),
-                //    _ => throw TerraUtils.GetArgumentException(nameof(format)),
-                //};
             }
             finally
             {

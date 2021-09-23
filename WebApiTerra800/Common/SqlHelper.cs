@@ -5,7 +5,6 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Microsoft.Data.SqlClient;
 
 namespace terra.Common
 {

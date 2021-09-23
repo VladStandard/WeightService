@@ -38,18 +38,6 @@ namespace WebApiTerra1000.Common
             return @$"{nameof(Description)}: {Description}. ";
         }
 
-        //public ContentResult GetResult(FormatType format, HttpStatusCode statusCode)
-        //{
-        //    return format switch
-        //    {
-        //        FormatType.Json => GetResult(format, SerializeAsJson(), statusCode),
-        //        FormatType.Xml => GetResult(format, SerializeAsXml(), statusCode),
-        //        FormatType.Html => GetResult(format, SerializeAsHtml(), statusCode),
-        //        FormatType.Text or FormatType.Raw => GetResult(format, SerializeAsText(), statusCode),
-        //        _ => throw GetArgumentException(nameof(format)),
-        //    };
-        //}
-
         #endregion
     }
 }

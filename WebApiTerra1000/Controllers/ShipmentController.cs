@@ -12,6 +12,7 @@ using System.Data;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebApiTerra1000.Common;
 using WebApiTerra1000.Utils;
 using static DataShareCore.ShareEnums;
 
@@ -23,6 +24,7 @@ namespace WebApiTerra1000.Controllers
 
         public ShipmentController(ILogger<ShipmentController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
+            //
         }
 
         #endregion
@@ -36,63 +38,34 @@ namespace WebApiTerra1000.Controllers
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
-                XDocument doc;
-                using ISession session = SessionFactory.OpenSession();
-                using ITransaction transaction = session.BeginTransaction();
-                string response = session.CreateSQLQuery(SqlQueries.GetShipment)
-                    .SetParameter("ID", id)
-                    .UniqueResult<string>();
-                transaction.Commit();
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipment, new SqlParameter("ID", id));
+                XDocument xml = XDocument.Parse($"<{TerraConsts.Shipments} />", LoadOptions.None);
                 if (response != null)
                 {
-                    IDbCommand command = new SqlCommand();
-                    command.Connection = session.Connection;
-                    command.CommandTimeout = session.Connection.ConnectionTimeout;
+                    using ISession session = SessionFactory.OpenSession();
+                    using ITransaction transaction = session.BeginTransaction();
+                    IDbCommand command = new SqlCommand()
+                    {
+                        Connection = session.Connection as Microsoft.Data.SqlClient.SqlConnection,
+                        CommandTimeout = session.Connection.ConnectionTimeout,
+                        CommandType = CommandType.StoredProcedure,
+                        CommandText = "[IIS].[GetShipments]",
+                    };
                     transaction.Enlist((System.Data.Common.DbCommand)command);
-
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.CommandText = "[IIS].[GetShipments]";
-
-                    // Set input parameter
-                    SqlParameter IdInput = new("@jsonListId", SqlDbType.NVarChar);
-                    IdInput.Direction = ParameterDirection.Input;
-                    IdInput.Value = response;
-                    command.Parameters.Add(IdInput);
-
-                    // Set output parameter
-                    SqlParameter XmlOutput = new("@xml", SqlDbType.Xml);
-                    XmlOutput.Direction = ParameterDirection.Output;
-                    command.Parameters.Add(XmlOutput);
-
-                    SqlParameter returnParameter = new("@RETURN_VALUE", SqlDbType.Int);
-                    returnParameter.Direction = ParameterDirection.ReturnValue;
-                    command.Parameters.Add(returnParameter);
-
-                    // Execute the stored procedure
+                    // Parameters.
+                    command.Parameters.Add(new SqlParameter("@jsonListId", SqlDbType.NVarChar) { Direction = ParameterDirection.Input, Value = response });
+                    SqlParameter xmlOutput = new("@xml", SqlDbType.Xml) { Direction = ParameterDirection.Output };
+                    command.Parameters.Add(xmlOutput);
+                    command.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int) { Direction = ParameterDirection.ReturnValue });
+                    // Execute.
                     command.ExecuteNonQuery();
-
-                    XDocument xml;
-                    if (XmlOutput.Value != DBNull.Value)
+                    if (xmlOutput.Value != DBNull.Value)
                     {
-                        xml = XDocument.Parse(XmlOutput.Value.ToString() ?? "<Shipment />", LoadOptions.None);
+                        xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{TerraConsts.Shipments} />", LoadOptions.None);
                     }
-                    else
-                    {
-                        xml = XDocument.Parse("<Shipment />", LoadOptions.None);
-                    }
-                    doc = new XDocument(new XElement("response", xml.Root));
                 }
-                else
-                {
-                    XDocument xml = XDocument.Parse("<Shipment />", LoadOptions.None);
-                    doc = new XDocument(new XElement(TerraConsts.Response, xml.Root));
-                }
-                return new ContentResult
-                {
-                    ContentType = "application/xml",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Content = doc.ToString()
-                };
+                XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+                return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
             }), format);
         }
 
@@ -100,63 +73,38 @@ namespace WebApiTerra1000.Controllers
         [HttpGet()]
         [Route("api/shipmentsbydocdate/")]
         [Route("api/shipments/")]
-        public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
-            FormatType format = FormatType.Xml)
+        public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatType format = FormatType.Xml)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
-                XDocument xml = null;
-                XDocument doc = null;
-                using ISession session = SessionFactory.OpenSession();
-                using ITransaction transaction = session.BeginTransaction();
-                string response = session.CreateSQLQuery(SqlQueries.GetShipments)
-                    .SetParameter("StartDate", startDate)
-                    .SetParameter("EndDate", endDate)
-                    .SetParameter("Offset", offset)
-                    .SetParameter("RowCount", rowCount)
-                    .UniqueResult<string>();
-                transaction.Commit();
-
-                //if ((doc = TerraUtils.Xml.GetNullOrEmpty(response)) != null)
-                //    return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
-                //if ((doc = TerraUtils.Xml.GetError(response)) != null)
-                //    return TerraUtils.GetResult(FormatType.Xml, doc.ToString(), HttpStatusCode.OK);
-
-                IDbCommand command = new SqlCommand();
-                command.Connection = session.Connection;
-                command.CommandTimeout = session.Connection.ConnectionTimeout;
-                transaction.Enlist((System.Data.Common.DbCommand)command);
-
-                command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "[IIS].[GetShipments]";
-
-                // Set input parameter
-                SqlParameter IdInput = new("@jsonListId", SqlDbType.NVarChar);
-                IdInput.Direction = ParameterDirection.Input;
-                IdInput.Value = response;
-                command.Parameters.Add(IdInput);
-
-                // Set output parameter
-                SqlParameter XmlOutput = new("@xml", SqlDbType.Xml);
-                XmlOutput.Direction = ParameterDirection.Output;
-                command.Parameters.Add(XmlOutput);
-
-                SqlParameter returnParameter = new("@RETURN_VALUE", SqlDbType.Int);
-                returnParameter.Direction = ParameterDirection.ReturnValue;
-                command.Parameters.Add(returnParameter);
-
-                // Execute the stored procedure
-                command.ExecuteNonQuery();
-
-                if (XmlOutput.Value != DBNull.Value)
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipments, 
+                    TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+                XDocument xml = xml = XDocument.Parse($"<{TerraConsts.Shipments} />", LoadOptions.None);
+                if (response != null)
                 {
-                    xml = XDocument.Parse(XmlOutput.Value.ToString() ?? "<Shipments />", LoadOptions.None);
+                    using ISession session = SessionFactory.OpenSession();
+                    using ITransaction transaction = session.BeginTransaction();
+                    IDbCommand command = new SqlCommand()
+                    {
+                        Connection = session.Connection as Microsoft.Data.SqlClient.SqlConnection,
+                        CommandTimeout = session.Connection.ConnectionTimeout,
+                        CommandType = CommandType.StoredProcedure,
+                        CommandText = "[IIS].[GetShipments]",
+                    };
+                    transaction.Enlist((System.Data.Common.DbCommand)command);
+                    // Parameters.
+                    command.Parameters.Add(new SqlParameter("@jsonListId", SqlDbType.NVarChar) { Direction = ParameterDirection.Input, Value = response });
+                    SqlParameter xmlOutput = new("@xml", SqlDbType.Xml) { Direction = ParameterDirection.Output };
+                    command.Parameters.Add(xmlOutput);
+                    command.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int) { Direction = ParameterDirection.ReturnValue });
+                    // Execute.
+                    command.ExecuteNonQuery();
+                    if (xmlOutput.Value != DBNull.Value)
+                    {
+                        xml = XDocument.Parse(xmlOutput.Value.ToString() ?? $"<{TerraConsts.Shipments} />", LoadOptions.None);
+                    }
                 }
-                else
-                {
-                    xml = XDocument.Parse("<Shipments />", LoadOptions.None);
-                }
-                doc = new XDocument(new XElement(TerraConsts.Response, xml.Root));
+                XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
                 return BaseSerializeEntity<XDocument>.GetResult(format, doc.ToString(), HttpStatusCode.OK);
             }), format);
         }

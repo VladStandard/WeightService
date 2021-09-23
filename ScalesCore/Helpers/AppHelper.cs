@@ -3,9 +3,9 @@
 
 using DataProjectsCore.DAL;
 using DataShareCore;
+using DataShareCore.DAL.Models;
 using Microsoft.Win32;
 using MvvmHelpers;
-using ScalesCore.Models;
 using ScalesCore.Properties;
 using ScalesCore.Win.Registry.Helpers;
 using System;

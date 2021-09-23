@@ -196,7 +196,6 @@
     <Compile Include="Helpers\XamlHelper.cs" />
     <Compile Include="Models\WindowResolution.cs" />
     <Compile Include="Models\SqlAuthentication.cs" />
-    <Compile Include="Models\SqlParam.cs" />
     <Compile Include="Models\SqlTableField.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Win\Registry\Entities\Enums.cs" />

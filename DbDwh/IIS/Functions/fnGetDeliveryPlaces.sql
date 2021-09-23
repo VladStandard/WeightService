@@ -65,7 +65,7 @@ AS BEGIN
 				,[StatusID] [@StatusID], [InformationSystemID] [@InformationSystemID]
 				,[CodeInIS] [@CodeInIS], [RelevanceStatus] [@RelevanceStatus], [NormalizationStatus] [@NormalizationStatus], [MasterId] [@MasterId]
 			FROM @TABLE FOR XML PATH('DeliveryPlace')
-			,ROOT('Response')
+			,ROOT('DeliveryPlaces')
 			,BINARY BASE64)
 	END
 	-- ATTRIBUTES.
@@ -88,7 +88,7 @@ GO
 
 -- CHECK FUNCTION.
 DECLARE @StartDate DATETIME = '2021-01-01T00:00:00'
-DECLARE @EndDate DATETIME = '2021-12-01T00:00:00'
+DECLARE @EndDate DATETIME = '2021-12-30T00:00:00'
 DECLARE @Offset INT = 0
 DECLARE @RowCount INT = 1000
 SELECT [IIS].[fnGetDeliveryPlaces] (@StartDate, @EndDate, @Offset, @RowCount) [fnGetDeliveryPlaces]

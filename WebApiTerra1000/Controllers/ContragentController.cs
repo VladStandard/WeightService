@@ -1,14 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using NHibernate;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebApiTerra1000.Common;
 using WebApiTerra1000.Utils;
 using static DataShareCore.ShareEnums;
 
@@ -29,61 +32,15 @@ namespace WebApiTerra1000.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/contragents-test/")]
-        public ContentResult GetContragentsTest(FormatType format = FormatType.Xml)
-        {
-            //return TaskHelper.RunTask(new Task<ContentResult>(() =>
-            //{
-            //    string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetException);
-            //    SqlSimpleEntity simple = new(response);
-            //    return format switch
-            //    {
-            //        FormatType.Json => TerraUtils.GetResult(FormatType.Json, simple.SerializeAsJson(), HttpStatusCode.OK),
-            //        FormatType.Xml => TerraUtils.GetResult(FormatType.Xml, simple.SerializeAsXml(), HttpStatusCode.OK),
-            //        FormatType.Html => TerraUtils.GetResult(FormatType.Html, simple.SerializeAsHtml(), HttpStatusCode.OK),
-            //        FormatType.Text => TerraUtils.GetResult(FormatType.Text, simple.SerializeAsText(), HttpStatusCode.OK),
-            //        FormatType.Raw => TerraUtils.GetResult(FormatType.Text, simple.SerializeAsText(), HttpStatusCode.OK),
-            //        _ => throw TerraUtils.GetArgumentException(nameof(format)),
-            //    };
-            //}), format);
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
-            {
-                XDocument response = new(
-                    new XElement(TerraConsts.Response,
-                        new XElement("Contragents",
-                            new XElement("Result") { Value = "Success" }
-                        )
-                    ));
-                return new ContentResult
-                {
-                    ContentType = "application/xml",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Content = response.ToString()
-                };
-            }), format);
-        }
-
-        [AllowAnonymous]
-        [HttpGet()]
         [Route("api/contragent/")]
         public ContentResult GetContragent(int id, FormatType format = FormatType.Xml)
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
-                using ISession session = SessionFactory.OpenSession();
-                using ITransaction transaction = session.BeginTransaction();
-                string response = session.CreateSQLQuery(SqlQueries.GetContragent)
-                    .SetParameter("ID", id)
-                    .UniqueResult<string>();
-                transaction.Commit();
-                XDocument xml = XDocument.Parse(response ?? "<Contragent />", LoadOptions.None);
-                XDocument doc = new(new XElement("response", xml.Root));
-                return new ContentResult
-                {
-                    ContentType = "application/xml",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Content = doc.ToString()
-                };
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragent, new SqlParameter("ID", id));
+                XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
+                XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+                return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
             }), format);
         }
 
@@ -95,23 +52,11 @@ namespace WebApiTerra1000.Controllers
         {
             return TaskHelper.RunTask(new Task<ContentResult>(() =>
             {
-                using ISession session = SessionFactory.OpenSession();
-                using ITransaction transaction = session.BeginTransaction();
-                string response = session.CreateSQLQuery(SqlQueries.GetContragents)
-                    .SetParameter("StartDate", startDate)
-                    .SetParameter("EndDate", endDate)
-                    .SetParameter("Offset", offset)
-                    .SetParameter("RowCount", rowCount)
-                    .UniqueResult<string>();
-                transaction.Commit();
-                XDocument xml = XDocument.Parse(response ?? "<Contragents />", LoadOptions.None);
-                XDocument doc = new(new XElement("response", xml.Root));
-                return new ContentResult
-                {
-                    ContentType = "application/xml",
-                    StatusCode = (int)HttpStatusCode.OK,
-                    Content = doc.ToString()
-                };
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragents,
+                    TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
+                XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
+                XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
+                return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
             }), format);
         }
 

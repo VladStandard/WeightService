@@ -54,7 +54,7 @@ SELECT [IIS].[fnGetNomenclatureChangesList] (:StartDate, :EndDate, :Offset, :Row
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetNomenclaturesCosts => @"
-SELECT [IIS].[fnGetNomenclatureList] (:offset, :rowcount)
+SELECT [IIS].[fnGetNomenclatureList] (:StartDate, :EndDate, :Offset, :RowCount)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetShipment => @"
