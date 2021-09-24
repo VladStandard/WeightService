@@ -9,7 +9,7 @@ GO
 CREATE FUNCTION [IIS].[fnGetSummaryList] (@StartDate DATETIME, @EndDate DATETIME = NULL) RETURNS XML
 AS BEGIN
 	-- DECLARE.
-	DECLARE @xml XML = '<Response />'
+	DECLARE @xml XML = '<Summary />'
 	DECLARE @check NVARCHAR(1024) = NULL
 	DECLARE @check_xml XML = NULL
 	DECLARE @ResultCount INT = 0
@@ -18,7 +18,7 @@ AS BEGIN
 	SET @check = (select [dbo].[fnCheckDates] (@StartDate, @EndDate))
 	IF (@check IS NOT NULL) BEGIN
 		SET @check_xml = (SELECT [dbo].[fnGetXmlMessage] (NULL, 'Error', 'Description', @check))
-		SET @xml.modify('insert sql:variable("@check_xml") as first into (/Response)[1]')
+		SET @xml.modify('insert sql:variable("@check_xml") as first into (/Summary)[1]')
 	END
 	ELSE 
 	BEGIN
@@ -155,15 +155,15 @@ AS BEGIN
 		FROM  @Table
 		-- IMPORT.
 		SET @ResultCount = (SELECT COUNT (1) FROM @Table)
-		SET @xml = (SELECT DISTINCT * from  @Table ORDER BY [Aggregation!4!Shipments] DESC FOR XML EXPLICIT, ROOT('Response'), BINARY BASE64)
+		SET @xml = (SELECT DISTINCT * from  @Table ORDER BY [Aggregation!4!Shipments] DESC FOR XML EXPLICIT, ROOT('Summary'), BINARY BASE64)
 	END
 	-- ATTRIBUTES.
 	IF (@xml IS NULL) BEGIN
-		SET @xml = '<Response />'
+		SET @xml = '<Summary />'
 	END
-	SET @xml.modify ('insert attribute StartDate{sql:variable("@StartDate")} into (/Response)[1] ')
-	SET @xml.modify ('insert attribute EndDate{sql:variable("@EndDate")} into (/Response)[1] ')
-	SET @xml.modify ('insert attribute ResultCount{sql:variable("@ResultCount")} into (/Response)[1] ')
+	SET @xml.modify ('insert attribute StartDate{sql:variable("@StartDate")} into (/Summary)[1] ')
+	SET @xml.modify ('insert attribute EndDate{sql:variable("@EndDate")} into (/Summary)[1] ')
+	SET @xml.modify ('insert attribute ResultCount{sql:variable("@ResultCount")} into (/Summary)[1] ')
 	-- RESULT.
 	RETURN @xml
 END
