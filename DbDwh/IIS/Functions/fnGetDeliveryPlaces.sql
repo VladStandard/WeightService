@@ -25,33 +25,34 @@ AS BEGIN
 	ELSE BEGIN
 		-- DECLARE TABLE.
 		DECLARE @TABLE TABLE (
-			[Marked] [bit] NULL,
-			[ContragentID] [varbinary](16) NULL,
-			[Code] [nvarchar](15) NULL,
-			[Name] [nvarchar](150) NULL,
-			[GUID_Mercury] [nvarchar](36) NULL,
-			[KPP] [nvarchar](15) NULL,
-			[GLN] [nvarchar](15) NULL,
-			[Address] [nvarchar](1024) NULL,
-			[FormatStoreID] [varbinary](16) NULL,
-			[RegionStoreID] [varbinary](16) NULL,
-			[FormatStoreName] [nvarchar](150) NULL,
-			[RegionStoreName] [nvarchar](150) NULL,
-			[ID] [int] NOT NULL,
-			[CreateDate] [datetime] NOT NULL,
-			[DLM] [datetime] NOT NULL,
-			[StatusID] [int] NOT NULL,
-			[InformationSystemID] [int] NOT NULL,
-			[CodeInIS] [varbinary](16) NOT NULL,
-			[RelevanceStatus] [tinyint] NULL,
-			[NormalizationStatus] [tinyint] NULL,
-			[MasterId] [int] NULL
+			 [Marked] [bit] NULL
+			,[ContragentID] nvarchar(38)
+			,[Code] [nvarchar](15) NULL
+			,[Name] [nvarchar](150) NULL
+			,[GUID_Mercury] [nvarchar](36) NULL
+			,[KPP] [nvarchar](15) NULL
+			,[GLN] [nvarchar](15) NULL
+			,[Address] [nvarchar](1024) NULL
+			,[FormatStoreID] nvarchar(38)
+			,[RegionStoreID] nvarchar(38)
+			,[FormatStoreName] [nvarchar](150) NULL
+			,[RegionStoreName] [nvarchar](150) NULL
+			,[ID] [int] NOT NULL
+			,[CreateDate] [datetime] NOT NULL
+			,[DLM] [datetime] NOT NULL
+			,[StatusID] [int] NOT NULL
+			,[InformationSystemID] [int] NOT NULL
+			,[CodeInIS] nvarchar(38)
+			,[RelevanceStatus] [tinyint] NULL
+			,[NormalizationStatus] [tinyint] NULL
+			,[MasterId] [int] NULL
 		)
 		-- INSERT.
 		INSERT INTO @TABLE([Marked], [ContragentID], [Code], [Name], [GUID_Mercury], [KPP], [GLN], [Address], [FormatStoreID], [RegionStoreID], [FormatStoreName], 
 			[RegionStoreName], [ID], [CreateDate], [DLM], [StatusID], [InformationSystemID], [CodeInIS], [RelevanceStatus], [NormalizationStatus], [MasterId])
-		SELECT [Marked], [ContragentID], [Code], [Name], [GUID_Mercury], [KPP], [GLN], [Address], [FormatStoreID], [RegionStoreID], [FormatStoreName], 
-			[RegionStoreName], [ID], [CreateDate], [DLM], [StatusID], [InformationSystemID], [CodeInIS], [RelevanceStatus], [NormalizationStatus], [MasterId]
+		SELECT [Marked], [DW].[fnGetGuid1Cv2] ([ContragentID]), [Code], [Name], [GUID_Mercury], [KPP], [GLN], [Address], 
+			[DW].[fnGetGuid1Cv2] ([FormatStoreID]), [DW].[fnGetGuid1Cv2] ([RegionStoreID]), [FormatStoreName], [RegionStoreName], [ID], [CreateDate], [DLM], [StatusID], 
+			[InformationSystemID], [DW].[fnGetGuid1Cv2] ([CodeInIS]), [RelevanceStatus], [NormalizationStatus], [MasterId]
 		FROM [DW].[DimDeliveryPlaces]
 		WHERE [DLM] BETWEEN @StartDate AND @EndDate
 		ORDER BY [DLM]
@@ -63,7 +64,7 @@ AS BEGIN
 				,[KPP] [@KPP], [GLN] [@GLN], [Address] [@Address], [FormatStoreID] [@FormatStoreID]
 				,[RegionStoreID] [@RegionStoreID], [FormatStoreName] [@FormatStoreName], [RegionStoreName] [@RegionStoreName]
 				,[StatusID] [@StatusID], [InformationSystemID] [@InformationSystemID]
-				,[CodeInIS] [@CodeInIS], [RelevanceStatus] [@RelevanceStatus], [NormalizationStatus] [@NormalizationStatus], [MasterId] [@MasterId]
+				,[CodeInIS] [@GUID_1C], [RelevanceStatus] [@RelevanceStatus], [NormalizationStatus] [@NormalizationStatus], [MasterId] [@MasterId]
 			FROM @TABLE FOR XML PATH('DeliveryPlace')
 			,ROOT('DeliveryPlaces')
 			,BINARY BASE64)
