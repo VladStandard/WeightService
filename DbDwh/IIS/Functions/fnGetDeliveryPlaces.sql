@@ -26,7 +26,8 @@ AS BEGIN
 		-- DECLARE TABLE.
 		DECLARE @TABLE TABLE (
 			 [Marked] [bit] NULL
-			,[ContragentID] nvarchar(38)
+			,[Accountid] int
+			,[AccountUid] nvarchar(38)
 			,[Code] [nvarchar](15) NULL
 			,[Name] [nvarchar](150) NULL
 			,[GUID_Mercury] [nvarchar](36) NULL
@@ -37,6 +38,7 @@ AS BEGIN
 			,[RegionStoreID] nvarchar(38)
 			,[FormatStoreName] [nvarchar](150) NULL
 			,[RegionStoreName] [nvarchar](150) NULL
+			,[RegionCode] [nvarchar](9) NULL
 			,[ID] [int] NOT NULL
 			,[CreateDate] [datetime] NOT NULL
 			,[DLM] [datetime] NOT NULL
@@ -48,21 +50,25 @@ AS BEGIN
 			,[MasterId] [int] NULL
 		)
 		-- INSERT.
-		INSERT INTO @TABLE([Marked], [ContragentID], [Code], [Name], [GUID_Mercury], [KPP], [GLN], [Address], [FormatStoreID], [RegionStoreID], [FormatStoreName], 
-			[RegionStoreName], [ID], [CreateDate], [DLM], [StatusID], [InformationSystemID], [CodeInIS], [RelevanceStatus], [NormalizationStatus], [MasterId])
-		SELECT [Marked], [DW].[fnGetGuid1Cv2] ([ContragentID]), [Code], [Name], [GUID_Mercury], [KPP], [GLN], [Address], 
-			[DW].[fnGetGuid1Cv2] ([FormatStoreID]), [DW].[fnGetGuid1Cv2] ([RegionStoreID]), [FormatStoreName], [RegionStoreName], [ID], [CreateDate], [DLM], [StatusID], 
-			[InformationSystemID], [DW].[fnGetGuid1Cv2] ([CodeInIS]), [RelevanceStatus], [NormalizationStatus], [MasterId]
-		FROM [DW].[DimDeliveryPlaces]
-		WHERE [DLM] BETWEEN @StartDate AND @EndDate
+		INSERT INTO @TABLE([Marked], [AccountId], [AccountUid], [Code], [Name], [GUID_Mercury], [KPP], [GLN], [Address], [FormatStoreID], [RegionStoreID], [FormatStoreName], 
+			[RegionStoreName], [RegionCode], [ID], [CreateDate], [DLM], [StatusID], [InformationSystemID], [CodeInIS], [RelevanceStatus], [NormalizationStatus], [MasterId])
+		SELECT [DP].[Marked], [C].[ID], [DW].[fnGetGuid1Cv2] ([DP].[ContragentID]), [DP].[Code], [DP].[Name], [DP].[GUID_Mercury], [DP].[KPP], [DP].[GLN], [DP].[Address], 
+			[DW].[fnGetGuid1Cv2] ([DP].[FormatStoreID]), [DW].[fnGetGuid1Cv2] ([RegionStoreID]), [DP].[FormatStoreName], [DP].[RegionStoreName], [R].[Code] [RegionCode], 
+			[DP].[ID], [DP].[CreateDate], [DP].[DLM], [DP].[StatusID], 
+			[DP].[InformationSystemID], [DW].[fnGetGuid1Cv2] ([DP].[CodeInIS]), [DP].[RelevanceStatus], [DP].[NormalizationStatus], [DP].[MasterId]
+		FROM [DW].[DimDeliveryPlaces] [DP]
+		LEFT JOIN [DW].[DimRegions] [R] on [DP].[RegionStoreName]=[R].[RegionName]
+		LEFT JOIN [DW].[DimContragents] [C] on [C].[CodeInIS]=[DP].[ContragentID]
+		WHERE [DP].[DLM] BETWEEN @StartDate AND @EndDate
 		ORDER BY [DLM]
 		OFFSET (@Offset*@RowCount) ROWS FETCH NEXT @RowCount ROWS ONLY
 		-- IMPORT.
 		SET @ResultCount = (SELECT COUNT (1) FROM @TABLE)
 		SET @xml = (
-			SELECT [DLM] [@DLM], [CreateDate] [@CreateDate], [ID] [@ID], [Marked] [@Marked], [ContragentID] [@ContragentID], [Code] [@Code], [Name] [@Name], [GUID_Mercury] [@GUID_Mercury]
+			SELECT [DLM] [@DLM], [CreateDate] [@CreateDate], [ID] [@ID], [Marked] [@Marked], [AccountId] [@AccountId], [AccountUid] [@AccountUid]
+				,[Code] [@Code], [Name] [@Name], [GUID_Mercury] [@GUID_Mercury]
 				,[KPP] [@KPP], [GLN] [@GLN], [Address] [@Address], [FormatStoreID] [@FormatStoreID]
-				,[RegionStoreID] [@RegionStoreID], [FormatStoreName] [@FormatStoreName], [RegionStoreName] [@RegionStoreName]
+				,[RegionStoreID] [@RegionStoreID], [FormatStoreName] [@FormatStoreName], [RegionStoreName] [@RegionStoreName], [RegionCode] [@RegionCode]
 				,[StatusID] [@StatusID], [InformationSystemID] [@InformationSystemID]
 				,[CodeInIS] [@GUID_1C], [RelevanceStatus] [@RelevanceStatus], [NormalizationStatus] [@NormalizationStatus], [MasterId] [@MasterId]
 			FROM @TABLE FOR XML PATH('DeliveryPlace')
