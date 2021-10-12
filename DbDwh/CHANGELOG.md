@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.670] - 2021-10-12
+### Changed
+- IIS\Functions\fnGetDeliveryPlaces
+- IIS\Functions\fnGetSummaryList
+- IIS\StoredProcedures/GetShipments
+
 ## [0.1.661] - 2021-09-30
 ### Changed
 - IIS\Functions\fnGetDeliveryPlaces

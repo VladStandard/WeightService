@@ -1,4 +1,4 @@
--- [IIS].[fnGetDeliveryPlaces]
+﻿-- [IIS].[fnGetDeliveryPlaces]
 
 -- DROP FUNCTION.
 DROP FUNCTION IF EXISTS [IIS].[fnGetDeliveryPlaces]
@@ -26,8 +26,8 @@ AS BEGIN
 		-- DECLARE TABLE.
 		DECLARE @TABLE TABLE (
 			 [Marked] [bit] NULL
-			,[AccountId] int
-			,[Account_GUID_1C] nvarchar(38)
+			,[Account_GUID_1C] int
+			,[AccountId] nvarchar(38)
 			,[Code] [nvarchar](15) NULL
 			,[Name] [nvarchar](150) NULL
 			,[GUID_Mercury] [nvarchar](36) NULL
@@ -50,7 +50,7 @@ AS BEGIN
 			,[MasterId] [int] NULL
 		)
 		-- INSERT.
-		INSERT INTO @TABLE([Marked], [AccountId], [Account_GUID_1C], [Code], [Name], [GUID_Mercury], [KPP], [GLN], [Address], [FormatStoreID], [RegionStoreID], [FormatStoreName], 
+		INSERT INTO @TABLE([Marked], [Account_GUID_1C], [AccountId], [Code], [Name], [GUID_Mercury], [KPP], [GLN], [Address], [FormatStoreID], [RegionStoreID], [FormatStoreName], 
 			[RegionStoreName], [RegionCode], [ID], [CreateDate], [DLM], [StatusID], [InformationSystemID], [CodeInIS], [RelevanceStatus], [NormalizationStatus], [MasterId])
 		SELECT [DP].[Marked], [C].[ID], [DW].[fnGetGuid1Cv2] ([DP].[ContragentID]), [DP].[Code], [DP].[Name], [DP].[GUID_Mercury], [DP].[KPP], [DP].[GLN], [DP].[Address], 
 			[DW].[fnGetGuid1Cv2] ([DP].[FormatStoreID]), [DW].[fnGetGuid1Cv2] ([RegionStoreID]), [DP].[FormatStoreName], [DP].[RegionStoreName], [R].[Code] [RegionCode], 
@@ -65,7 +65,7 @@ AS BEGIN
 		-- IMPORT.
 		SET @ResultCount = (SELECT COUNT (1) FROM @TABLE)
 		SET @xml = (
-			SELECT [DLM] [@DLM], [CreateDate] [@CreateDate], [ID] [@ID], [Marked] [@Marked], [AccountId] [@AccountId], [Account_GUID_1C] [@Account_GUID_1C]
+			SELECT [DLM] [@DLM], [CreateDate] [@CreateDate], [ID] [@ID], [Marked] [@Marked], [Account_GUID_1C] [@Account_GUID_1C], [AccountId] [@AccountId]
 				,[Code] [@Code], [Name] [@Name], [GUID_Mercury] [@GUID_Mercury]
 				,[KPP] [@KPP], [GLN] [@GLN], [Address] [@Address], [FormatStoreID] [@FormatStoreID]
 				,[RegionStoreID] [@RegionStoreID], [FormatStoreName] [@FormatStoreName], [RegionStoreName] [@RegionStoreName], [RegionCode] [@RegionCode]

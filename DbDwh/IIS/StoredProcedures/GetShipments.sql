@@ -1,160 +1,158 @@
-﻿create procedure [IIS].[GetShipments]
-	@jsonListId nvarchar(max)
-	,@xml xml output
-as
-begin
-    set nocount on;  
-	declare @IDTbl table (ID bigint, IDC bigint)
-	insert into @IDTbl 
-		select * 
-		from openjson ( @jsonListId , N'$')
-		with (ID bigint N'$.id', IDC bigint N'$.idc')
-	drop table if exists #Shipments;
-	create table #Shipments (
-		 [ParentDoc] bigint
-		,[Marked] bit
-		,[Posted] bit
-		,[DocNum] nvarchar(15)
-		,[DocDate] datetime
-		,[DocType] nvarchar(50)
-		,[ID] bigint
-		,[CodeInIS] varbinary(16)
-		,[DLM] datetime
-		,[OrgID] int
-		,[OrgName] nvarchar(150) 
-		,[ContragentID] int
-		,[ContragentName] nvarchar(150) 
-		,[DeliveryPlaceID] int
-		,[DeliveryPlace] nvarchar(150) 
-		,[NomenclatureID] int
-		,[NomenclatureMasterID] int
-		,[NomenclatureName] nvarchar(150) 
-		,[VATRate] nvarchar(10) 
-		,[Qty] numeric(15,3)
-		,[Price] numeric(15,2)
-		,[CostWithDiscounts] numeric(15,2)
-		,[Cost] numeric(15,2)
-		,[CostVAT] numeric(15,2)
-		,[BasePrice] numeric(15,2)
-		,[DiscountCondition] nvarchar(20) 
-		,[PercentageDiscounts] numeric(5,2)
+-- [IIS].[GetShipments]
 
+-- DROP PROCEDURE
+DROP PROCEDURE IF EXISTS [IIS].[GetShipments]
+GO
+
+-- CREATE PROCEDURE
+CREATE PROCEDURE [IIS].[GetShipments] @jsonListId NVARCHAR(MAX), @xml XML OUTPUT
+AS BEGIN
+	DECLARE @TableIds TABLE (ID BIGINT, IDC bigint)
+	INSERT INTO @TableIds SELECT * FROM OPENJSON(@jsonListId, N'$') WITH (ID BIGINT N'$.id', IDC BIGINT N'$.idc')
+	DROP TABLE IF EXISTS #Shipments
+	CREATE TABLE #Shipments (
+		[ParentDoc] BIGINT
+	   ,[Marked] BIT
+	   ,[Posted] BIT
+	   ,[DocNum] NVARCHAR(15)
+	   ,[DocDate] DATETIME
+	   ,[DocType] NVARCHAR(50)
+	   ,[ID] BIGINT
+	   ,[CodeInIS] VARBINARY(16)
+	   ,[DLM] DATETIME
+	   ,[OrgID] INT
+	   ,[OrgName] NVARCHAR(150)
+	   ,[ContragentID] INT
+	   ,[ContragentName] NVARCHAR(150)
+	   ,[DeliveryPlaceID] INT
+	   ,[DeliveryPlace] NVARCHAR(150)
+	   ,[NomenclatureID] INT
+	   ,[NomenclatureMasterID] INT
+	   ,[NomenclatureName] NVARCHAR(150)
+	   ,[VATRate] NVARCHAR(10)
+	   ,[Qty] NUMERIC(15, 3)
+	   ,[Price] NUMERIC(15, 2)
+	   ,[CostWithDiscounts] NUMERIC(15, 2)
+	   ,[Cost] NUMERIC(15, 2)
+	   ,[CostVAT] NUMERIC(15, 2)
+	   ,[BasePrice] NUMERIC(15, 2)
+	   ,[DiscountCondition] NVARCHAR(20)
+	   ,[PercentageDiscounts] NUMERIC(5, 2)
+	   ,[InformationSystemID] INT
 	)
-	insert into #Shipments
-	select 
-		null [ParentDoc]
-		,[doc].[Marked]
-		,[doc].[Posted]
-		,[doc].[DocNum]
-		,[doc].[DocDate]
-		,[doc].[DocType]
-		,[doc].[ID]
-		,[doc].[CodeInIS]
-		,[doc].[DLM]
-		,[ss].[_OrgID] OrgID
-		,(select [Description] from [DW].[DimOrganizations] where ID = [ss].[_OrgID]) as OrgName
-		,[ss].[_ContragentID]
-		,(select [Name] from [DW].[DimContragents] where ID = [ss].[_ContragentID]) as ContragentName
-		,[ss].[_DeliveryPlaceID]
-		,(select [Name] from [DW].[DimDeliveryPlaces] where ID = [ss].[_DeliveryPlaceID]) as DeliveryPlace
-		,[ss].[_NomenclatureID]
-		,(select [MasterId] from [DW].[DimNomenclatures] where ID = [ss].[_NomenclatureID]) as NomenclatureMasterID
-		,(select [Name] from [DW].[DimNomenclatures] where ID = [ss].[_NomenclatureID]) as NomenclatureName
-		,[ss].[VATRate]
-		,[ss].[Qty] * COALESCE( (select [Weight] from [DW].[DimNomenclatures] where ID = [ss].[_NomenclatureID]) ,1) as [Qty]
-		,[ss].[Price]
-		,[ss].[Cost] as [CostWithDiscounts]
-		,([ss].[Qty]*[ss].[Price]) as [Cost]
-		,[ss].[CostVAT]
-		,[ss].[BasePrice]
-		,[ss].[DiscountCondition]
-		,[ss].[PercentageDiscounts]
-	from [DW].[FactSalesOfGoods] [ss]
-	inner join [DW].[DocJournal] as [doc]
-	on [ss].[CodeInIS] = [doc].[CodeInIS] and [ss].InformationSystemID = [doc].InformationSystemID
-	where [doc].[ID] in (select ID from @IDTbl)
-	union all
-	select 
-		 [ss].[_SalesCodeID] ParentDoc
-		,[doc].[Marked]
-		,[doc].[Posted]
-		,[doc].[DocNum]
-		,[doc].[DocDate]
-		,[doc].[DocType]
-		,[doc].[ID]
-		,[doc].[CodeInIS]
-		,[doc].[DLM]
-		,[ss].[_OrgID] OrgID
-		,(select [Description] from [DW].[DimOrganizations] where ID = [ss].[_OrgID]) as OrgName
-		,[ss].[_ContragentID]
-		,(select [Name] from [DW].[DimContragents] where ID = [ss].[_ContragentID]) as ContragentName
-		,[ss].[_DeliveryPlaceID]
-		,(select [Name] from [DW].[DimDeliveryPlaces] where ID = [ss].[_DeliveryPlaceID]) as DeliveryPlace
-		,[ss].[_NomenclatureID]
-		,(select [MasterId] from [DW].[DimNomenclatures] where ID = [ss].[_NomenclatureID]) as NomenclatureMasterId
-		,(select [Name] from [DW].[DimNomenclatures] where ID = [ss].[_NomenclatureID]) as NomenclatureName
-		,[ss].[VATRate]
-		,([ss].Qty - [ss].[QtyBeforeChange]) * COALESCE( (select [Weight] from [DW].[DimNomenclatures] where ID = [ss].[_NomenclatureID]) ,1) as [Qty]
-		,([ss].[Price] - [ss].[PriceBeforeChange])	as [Price]
-		,([ss].[Cost] - [ss].[CostBeforeChange])	as [CostWithDiscounts]
-		,(([ss].Qty - [ss].[QtyBeforeChange]) * ([ss].[Price] - [ss].[PriceBeforeChange]))	as [Cost]
-		,([ss].[CostVAT] - [ss].[CostVATBeforeChange]) as [CostVAT]
-		,null as [BasePrice]
-		,null as [DiscountCondition]
-		,null as [PercentageDiscounts]
-	from [DW].[FactReturns] [ss]
-	inner join [DW].[DocJournal] as [doc] 
-	on [ss].[CodeInIS] = [doc].[CodeInIS] and [ss].InformationSystemID = [doc].InformationSystemID
-	where [doc].[ID] in (SELECT IDC FROM @IDTbl)
-	and
-		([ss].Qty - [ss].[QtyBeforeChange])
-		+([ss].[Price] - [ss].[PriceBeforeChange])
-		+([ss].[Cost] - [ss].[CostBeforeChange])
-		+([ss].[CostVAT]-[ss].[CostVATBeforeChange]) <> 0
-	;
-	select * from #Shipments
-	declare @Shipments table (
-		 [Tag] int
-		,[Parent] int
-		,[Shipment!1!ID] bigint
-		,[Shipment!1!DocType] nvarchar(50)
-		,[Shipment!1!Marked] bit
-		,[Shipment!1!Posted] bit
-		,[Shipment!1!DocNum] nvarchar(15)
-		,[Shipment!1!DocDate] datetime
-		,[Shipment!1!OrgID] bigint
-		,[Shipment!1!OrgName] nvarchar(150)
-		,[Shipment!1!ContragentID] bigint
-		,[Shipment!1!ContragentName] nvarchar(150)
-		,[Shipment!1!DeliveryPlaceID] bigint
-		,[Shipment!1!DeliveryPlace] nvarchar(150)
-		,[Shipment!1!ShippingDate] datetime
-		,[Shipment!1!DLM] datetime
-		,[Shipment!1!Cost] numeric(15,2)
-		,[Shipment!1!CostWithDiscounts] numeric(15,2)
-		,[Shipment!2!NomenclatureID] int
-		,[Shipment!2!NomenclatureMasterID] int
-		,[Shipment!2!NomenclatureName] nvarchar(150)
-		,[Shipment!2!Qty] numeric(15,3)
-		,[Shipment!2!Price] numeric(15,2)
-		,[Shipment!2!Cost] numeric(15,2)
-		,[Shipment!2!CostWithDiscounts] numeric(15,2)
-		,[Shipment!2!PercentageDiscounts] numeric(15,2)
-		,[Shipment!2!BasePrice] numeric(15,2)
-		,[Shipment!2!OrderDocDate] datetime
-		,[Shipment!2!Marked] bit
-		,[Shipment!2!Posted] bit
+	INSERT INTO #Shipments
+		SELECT
+			NULL [ParentDoc]
+		   ,[doc].[Marked]
+		   ,[doc].[Posted]
+		   ,[doc].[DocNum]
+		   ,[doc].[DocDate]
+		   ,[doc].[DocType]
+		   ,[doc].[ID]
+		   ,[doc].[CodeInIS]
+		   ,[doc].[DLM]
+		   ,[ss].[_OrgID] OrgID
+		   ,(SELECT [Description] FROM [DW].[DimOrganizations] WHERE ID = [ss].[_OrgID]) AS [OrgName]
+		   ,[ss].[_ContragentID]
+		   ,(SELECT [Name] FROM [DW].[DimContragents] WHERE ID = [ss].[_ContragentID]) AS [ContragentName]
+		   ,[ss].[_DeliveryPlaceID]
+		   ,(SELECT [Name] FROM [DW].[DimDeliveryPlaces] WHERE ID = [ss].[_DeliveryPlaceID]) AS [DeliveryPlace]
+		   ,[ss].[_NomenclatureID]
+		   ,(SELECT [MasterId] FROM [DW].[DimNomenclatures] WHERE ID = [ss].[_NomenclatureID]) AS [NomenclatureMasterID]
+		   ,(SELECT [Name] FROM [DW].[DimNomenclatures] WHERE ID = [ss].[_NomenclatureID]) AS [NomenclatureName]
+		   ,[ss].[VATRate]
+		   ,[ss].[Qty] * COALESCE((SELECT [Weight] FROM [DW].[DimNomenclatures] WHERE ID = [ss].[_NomenclatureID]) , 1) AS [Qty]
+		   ,[ss].[Price]
+		   ,[ss].[Cost] AS [CostWithDiscounts]
+		   ,([ss].[Qty] * [ss].[Price]) AS [Cost]
+		   ,[ss].[CostVAT]
+		   ,[ss].[BasePrice]
+		   ,[ss].[DiscountCondition]
+		   ,[ss].[PercentageDiscounts]
+		   ,[ss].[InformationSystemID]
+		FROM [DW].[FactSalesOfGoods] [ss]
+		INNER JOIN [DW].[DocJournal] AS [doc] ON [ss].[CodeInIS] = [doc].[CodeInIS] AND [ss].InformationSystemID = [doc].InformationSystemID
+		WHERE [doc].[ID] IN (SELECT ID FROM @TableIds)
+		UNION ALL
+		SELECT
+			[ss].[_SalesCodeID] ParentDoc
+		   ,[doc].[Marked]
+		   ,[doc].[Posted]
+		   ,[doc].[DocNum]
+		   ,[doc].[DocDate]
+		   ,[doc].[DocType]
+		   ,[doc].[ID]
+		   ,[doc].[CodeInIS]
+		   ,[doc].[DLM]
+		   ,[ss].[_OrgID] OrgID
+		   ,(SELECT [Description] FROM [DW].[DimOrganizations] WHERE ID = [ss].[_OrgID]) AS [OrgName]
+		   ,[ss].[_ContragentID]
+		   ,(SELECT [Name] FROM [DW].[DimContragents] WHERE ID = [ss].[_ContragentID]) AS [ContragentName]
+		   ,[ss].[_DeliveryPlaceID]
+		   ,(SELECT [Name] FROM [DW].[DimDeliveryPlaces] WHERE ID = [ss].[_DeliveryPlaceID]) AS [DeliveryPlace]
+		   ,[ss].[_NomenclatureID]
+		   ,(SELECT [MasterId] FROM [DW].[DimNomenclatures] WHERE ID = [ss].[_NomenclatureID]) AS [NomenclatureMasterId]
+		   ,(SELECT [Name] FROM [DW].[DimNomenclatures] WHERE ID = [ss].[_NomenclatureID]) AS [NomenclatureName]
+		   ,[ss].[VATRate]
+		   ,([ss].Qty - [ss].[QtyBeforeChange]) * COALESCE((SELECT [Weight] FROM [DW].[DimNomenclatures] WHERE ID = [ss].[_NomenclatureID]), 1) AS [Qty]
+		   ,([ss].[Price] - [ss].[PriceBeforeChange]) AS [Price]
+		   ,([ss].[Cost] - [ss].[CostBeforeChange]) AS [CostWithDiscounts]
+		   ,(([ss].Qty - [ss].[QtyBeforeChange]) * ([ss].[Price] - [ss].[PriceBeforeChange])) AS [Cost]
+		   ,([ss].[CostVAT] - [ss].[CostVATBeforeChange]) AS [CostVAT]
+		   ,NULL AS [BasePrice]
+		   ,NULL AS [DiscountCondition]
+		   ,NULL AS [PercentageDiscounts]
+		   ,[ss].[InformationSystemID] AS [InformationSystemID]
+		FROM [DW].[FactReturns] [ss]
+		INNER JOIN [DW].[DocJournal] AS [doc] ON [ss].[CodeInIS] = [doc].[CodeInIS] AND [ss].InformationSystemID = [doc].InformationSystemID
+		WHERE [doc].[ID] IN (SELECT IDC FROM @TableIds)
+		AND ([ss].Qty - [ss].[QtyBeforeChange])
+		+ ([ss].[Price] - [ss].[PriceBeforeChange])
+		+ ([ss].[Cost] - [ss].[CostBeforeChange])
+		+ ([ss].[CostVAT] - [ss].[CostVATBeforeChange]) <> 0
+	DECLARE @Shipments TABLE (
+		[Tag] INT
+	   ,[Parent] INT
+	   ,[Shipment!1!ID] BIGINT
+	   ,[Shipment!1!DocType] NVARCHAR(50)
+	   ,[Shipment!1!Marked] BIT
+	   ,[Shipment!1!Posted] BIT
+	   ,[Shipment!1!DocNum] NVARCHAR(15)
+	   ,[Shipment!1!DocDate] DATETIME
+	   ,[Shipment!1!OrgID] BIGINT
+	   ,[Shipment!1!OrgName] NVARCHAR(150)
+	   ,[Shipment!1!ContragentID] BIGINT
+	   ,[Shipment!1!ContragentName] NVARCHAR(150)
+	   ,[Shipment!1!DeliveryPlaceID] BIGINT
+	   ,[Shipment!1!DeliveryPlace] NVARCHAR(150)
+	   ,[Shipment!1!ShippingDate] DATETIME
+	   ,[Shipment!1!DLM] DATETIME
+	   ,[Shipment!1!Cost] NUMERIC(15, 2)
+	   ,[Shipment!1!CostWithDiscounts] NUMERIC(15, 2)
+	   ,[Shipment!1!InformationSystemID] INT
+	   ,[Shipment!2!NomenclatureID] INT
+	   ,[Shipment!2!NomenclatureMasterID] INT
+	   ,[Shipment!2!NomenclatureName] NVARCHAR(150)
+	   ,[Shipment!2!Qty] NUMERIC(15, 3)
+	   ,[Shipment!2!Price] NUMERIC(15, 2)
+	   ,[Shipment!2!Cost] NUMERIC(15, 2)
+	   ,[Shipment!2!CostWithDiscounts] NUMERIC(15, 2)
+	   ,[Shipment!2!PercentageDiscounts] NUMERIC(15, 2)
+	   ,[Shipment!2!BasePrice] NUMERIC(15, 2)
+	   ,[Shipment!2!OrderDocDate] DATETIME
+	   ,[Shipment!2!Marked] BIT
+	   ,[Shipment!2!Posted] BIT
+	   ,[Shipment!2!InformationSystemID] INT
 	)
-	insert into @Shipments (
-		[Tag],[Parent]		
+	INSERT INTO @Shipments ([Tag], [Parent]
 		,[Shipment!1!ID]
 		,[Shipment!1!DocType]
-		,[Shipment!1!Marked]	
-		,[Shipment!1!Posted]	
+		,[Shipment!1!Marked]
+		,[Shipment!1!Posted]
 		,[Shipment!1!DocNum]
 		,[Shipment!1!DocDate]
 		,[Shipment!1!OrgID]
-		,[Shipment!1!OrgName]	
+		,[Shipment!1!OrgName]
 		,[Shipment!1!ContragentID]
 		,[Shipment!1!ContragentName]
 		,[Shipment!1!DeliveryPlaceID]
@@ -163,46 +161,34 @@ begin
 		,[Shipment!1!DLM]
 		,[Shipment!1!Cost]
 		,[Shipment!1!CostWithDiscounts]
-	)
+		,[Shipment!1!InformationSystemID])
 		SELECT
-			1					[Tag]
-			,NULL				[Parent]
-			,[ID]				[Shipment!1!ID]
-			,[DocType]			[Shipment!1!DocType]
-			,Marked				[Shipment!1!Posted]
-			,Posted				[Shipment!1!Marked]
-			,[DocNum]				[Shipment!1!DocNum]	
-			,[DocDate]				[Shipment!1!DocDate]
-			,OrgID					[Shipment!1!OrgID]
-			,OrgName				[Shipment!1!OrgName]
-			,ContragentID			[Shipment!1!ContragentID]
-			,ContragentName			[Shipment!1!ContragentName]
-			,DeliveryPlaceID		[Shipment!1!DeliveryPlaceID]
-			,DeliveryPlace			[Shipment!1!DeliveryPlace]
-			,[DocDate]				[Shipment!1!ShippingDate]
-			,MAX([DLM])				[Shipment!1!DLM]
-			,SUM(Cost)				[Shipment!1!Cost]
-			,SUM(CostWithDiscounts)	[Shipment!1!CostWithDiscounts]
-		from #Shipments
-		group by 
-			ID
-			,[DocType]
-			,Marked		
-			,Posted			
-			,[DocNum]		
-			,[DocDate]		
-			,OrgID			
-			,OrgName		
-			,ContragentID	
-			,ContragentName	
-			,DeliveryPlaceID
-			,DeliveryPlace	
-			,[DocDate]		
-	insert into @Shipments (
-		 [Tag]
+			1 AS [Tag]
+		   ,NULL AS [Parent]
+		   ,[ID] AS [Shipment!1!ID]
+		   ,[DocType] AS [Shipment!1!DocType]
+		   ,[Marked] AS [Shipment!1!Posted]
+		   ,[Posted] AS [Shipment!1!Marked]
+		   ,[DocNum] AS [Shipment!1!DocNum]
+		   ,[DocDate] AS [Shipment!1!DocDate]
+		   ,[OrgID] AS [Shipment!1!OrgID]
+		   ,[OrgName] AS [Shipment!1!OrgName]
+		   ,[ContragentID] AS [Shipment!1!ContragentID]
+		   ,[ContragentName] AS [Shipment!1!ContragentName]
+		   ,[DeliveryPlaceID] AS [Shipment!1!DeliveryPlaceID]
+		   ,[DeliveryPlace] AS [Shipment!1!DeliveryPlace]
+		   ,[DocDate] AS [Shipment!1!ShippingDate]
+		   ,MAX([DLM]) AS [Shipment!1!DLM]
+		   ,SUM([Cost]) AS [Shipment!1!Cost]
+		   ,SUM([CostWithDiscounts]) [Shipment!1!CostWithDiscounts]
+		   ,[InformationSystemID] [Shipment!1!InformationSystemID]
+		FROM #Shipments
+		GROUP BY [ID], [DocType], [Marked], [Posted], [DocNum], [DocDate], [OrgID], [OrgName], [ContragentID], [ContragentName],
+			[DeliveryPlaceID], [DeliveryPlace], [DocDate], [InformationSystemID]
+	INSERT INTO @Shipments ([Tag]
 		,[Parent]
 		,[Shipment!1!ID]
-		,[Shipment!2!OrderDocDate]	
+		,[Shipment!2!OrderDocDate]
 		,[Shipment!2!NomenclatureID]
 		,[Shipment!2!NomenclatureMasterId]
 		,[Shipment!2!NomenclatureName]
@@ -214,37 +200,41 @@ begin
 		,[Shipment!2!BasePrice]
 		,[Shipment!2!Marked]
 		,[Shipment!2!Posted]
-	)
-	select 
-		 2							[Tag]
-		,1							[Parent]
-		,[ID]						[Shipment!1!ID]
-		,NULL						[Shipment!2!OrderDocDate]	
-		,NomenclatureID				[Shipment!2!NomenclatureID]
-		,NomenclatureMasterID		[Shipment!2!NomenclatureMasterID]
-		,NomenclatureName			[Shipment!2!NomenclatureName]
-		,SUM(Qty)					[Shipment!2!Qty]
-		,[Price]					[Shipment!2!Price]
-		,SUM([Cost])				[Shipment!2!Cost]
-		,SUM( CostWithDiscounts)	[Shipment!2!CostWithDiscounts]
-		,[PercentageDiscounts]		[Shipment!2!PercentageDiscounts]
-		,[BasePrice]				[Shipment!2!BasePrice]
-		,[Marked]					[Shipment!2!Marked]
-		,[Posted]					[Shipment!2!Posted]
-	from #Shipments
-	group by 
-		 [ID]
-		,[NomenclatureID]
-		,[NomenclatureMasterID]
-		,[NomenclatureName]
-		,[Price]
-		,[PercentageDiscounts]
-		,[BasePrice]
-		,[Marked]
-		,[Posted]
+		,[Shipment!2!InformationSystemID])
+		SELECT
+			2 AS [Tag]
+		   ,1 AS [Parent]
+		   ,[ID] AS [Shipment!1!ID]
+		   ,NULL AS [Shipment!2!OrderDocDate]
+		   ,[NomenclatureID] AS [Shipment!2!NomenclatureID]
+		   ,[NomenclatureMasterID] AS [Shipment!2!NomenclatureMasterID]
+		   ,[NomenclatureName] AS [Shipment!2!NomenclatureName]
+		   ,SUM([Qty]) AS [Shipment!2!Qty]
+		   ,[Price] AS [Shipment!2!Price]
+		   ,SUM([Cost]) AS [Shipment!2!Cost]
+		   ,SUM([CostWithDiscounts]) AS [Shipment!2!CostWithDiscounts]
+		   ,[PercentageDiscounts] AS [Shipment!2!PercentageDiscounts]
+		   ,[BasePrice] AS [Shipment!2!BasePrice]
+		   ,[Marked] AS [Shipment!2!Marked]
+		   ,[Posted] AS [Shipment!2!Posted]
+		   ,[InformationSystemID] AS [Shipment!2!InformationSystemID]
+		FROM #Shipments
+		GROUP BY [ID], [NomenclatureID], [NomenclatureMasterID], [NomenclatureName], [Price], [PercentageDiscounts], [BasePrice], 
+			[Marked], [Posted], [InformationSystemID]
+	SET @xml = (SELECT * FROM @Shipments ORDER BY [Shipment!1!ID], [Tag] FOR XML EXPLICIT, ROOT ('Shipments'), BINARY BASE64)
+	--SELECT * FROM #Shipments
+	DROP TABLE IF EXISTS #Shipments
+	RETURN 0
+	END
+GO
 
-	set @xml = (select * from @Shipments order by [Shipment!1!ID],[Tag] for xml explicit, root('Shipments'), binary base64)
-	---SELECT @xml
-	drop table if EXISTS #Shipments;
-	return 0
-end
+-- ACCESS
+GRANT EXECUTE ON [IIS].[GetShipments] TO [TerraSoftRole]
+GO
+
+-- CHECK FUNCTION
+DECLARE @ID BIGINT = -9223372036854773994
+DECLARE @JSON NVARCHAR(MAX) = (SELECT [IIS].[GetRefShipmentsById](@ID) [GetRefShipmentsById])
+DECLARE @XML XML
+EXEC [IIS].[GetShipments] @jsonListId = @JSON, @xml = @XML OUTPUT
+SELECT @XML [XML]
