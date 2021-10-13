@@ -97,5 +97,5 @@ GO
 DECLARE @StartDate DATETIME = '2021-01-01T00:00:00'
 DECLARE @EndDate DATETIME = '2021-12-30T00:00:00'
 DECLARE @Offset INT = 0
-DECLARE @RowCount INT = 10000
+DECLARE @RowCount INT = 1000
 SELECT [IIS].[fnGetDeliveryPlaces] (@StartDate, @EndDate, @Offset, @RowCount) [fnGetDeliveryPlaces]

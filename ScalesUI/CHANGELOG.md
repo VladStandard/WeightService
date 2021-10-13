@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.670] - 2021-10-12
+### Fixed
+- 
+
 ## [0.5.590] - 2021-09-13
 ### Fixed
 - Redmine 1605. После наступления новых суток, требуется изменить дату производства

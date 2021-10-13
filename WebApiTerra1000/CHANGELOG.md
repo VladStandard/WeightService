@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.670] - 2021-10-13
+### Fixed
+- TC-T-7. WebApiTerra1000 поднять тайм-аут запроса до 15 минут
+
+### Added
 ## [0.1.650] - 2021-09-23
 ### Fixed
 - Redmine 1594. Подготовка таблиц Creatio для обратной интеграции с 1С
