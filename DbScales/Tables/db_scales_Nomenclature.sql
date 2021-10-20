@@ -3,11 +3,12 @@
 	 [Id]					INT NOT NULL
 	,[Code]					nvarchar (30)
 	,[Name]					nvarchar (300)
-    ,[IdRRef]        UNIQUEIDENTIFIER NULL
+  ,[IdRRef]        UNIQUEIDENTIFIER NULL
 	,[SerializedRepresentationObject] XML NULL
 	,[CreateDate]			datetime NULL DEFAULT(GETDATE())
 	,[ModifiedDate]			datetime NULL DEFAULT(GETDATE())
-    ,PRIMARY KEY CLUSTERED (	[Id] ASC )
+  ,[Weighted] bit NULL
+  ,PRIMARY KEY CLUSTERED (	[Id] ASC )
 
 ) ON [ScalesFileGroup]
 
