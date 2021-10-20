@@ -14,7 +14,22 @@ RETURNS tinyint
 AS
 BEGIN
 	declare @result tinyint = 0
+	if (@method = 1) begin
+		set @result = substring(substring(@str, 
+		patindex('%[0-9]%', @str), len(@str)), 0, patindex('%[^0-9]%', 
+			substring(@str, patindex('%[0-9]%', @str), len(@str))))
 
+	end else if (@method = 2) begin
+		set @result = (select [value] from (
+		select row_number() over (order by (select null)) [row], [value]
+		from string_split((select substring(@str, patindex('%[0-9]%', @str), 16)), ' ')) Q
+		where [row] = 1)
+	end else if (@method = 3) begin
+		set @result = (select substring (@str
+			,patindex('%[0-9]%', @str)
+			,patindex('% суток%', @str) - patindex('%[0-9]%', @str)
+		))
+	end
 	return @result
 END
 GO
