@@ -26,55 +26,59 @@ AS BEGIN
 		DECLARE @RESULT TABLE ([ID] INT)
 		INSERT INTO @RESULT ([ID])
 			SELECT
-				[N].[ID]
-			FROM [DW].[DimNomenclatures] AS [N]
-			LEFT JOIN [DW].[DimTypesOfNomenclature] AS [T] ON [N].[NomenclatureType] = [T].[CodeInIS] 
-				--AND Nomenclature.[InformationSystemID] = [T].[InformationSystemID]
-			WHERE [T].[GoodsForSale] = 1
-			AND COALESCE([N].[Marked], 0) = 0
-			AND (([N].[DLM] >= @StartDate) OR (@StartDate IS NULL))
-			AND (([N].[DLM] < @EndDate) OR (@EndDate IS NULL))
-			ORDER BY [N].[ID] OFFSET @Offset ROWS FETCH NEXT @RowCount ROWS ONLY
+				[Nomenclature].[ID]
+			FROM [DW].[DimNomenclatures] AS [Nomenclature]
+			LEFT JOIN [DW].[DimTypesOfNomenclature] t
+				ON [Nomenclature].NomenclatureType = t.[CodeInIS] --AND Nomenclature.[InformationSystemID] = t.[InformationSystemID]
+			WHERE t.[GoodsForSale] = 1
+			AND COALESCE([Nomenclature].[Marked], 0) = 0
+			AND (([Nomenclature].[DLM] >= @StartDate) OR (@StartDate IS NULL))
+			AND (([Nomenclature].[DLM] < @EndDate) OR (@EndDate IS NULL))
+			ORDER BY [Nomenclature].[ID] OFFSET @Offset ROWS FETCH NEXT @RowCount ROWS ONLY
 		RETURN (SELECT * FROM (SELECT
-				 [N].[ID] "@ID"
-				,[N].[Name] "@Name"
-				,[N].[Code] "@Code"
-				,[N].[MasterId] "@MasterId"
-				,[N].[InformationSystemID] "@InformationSystemID"
-				,[DW].[fnGetGuid1Cv2] ([N].[CodeInIS]) [@GUID_1C]
-				,[N].[NameFull] "FullName"
-				,[N].[CreateDate] "CreateDate"
-				,[N].[DLM] "DLM"
-				,[NG].[Name] "NomenclatureGroup"
-				,JSON_VALUE([N].[Parents], '$.parents[0]') "Category"
-				,[B].[Name] "Brand"
-				,[N].[boxTypeName] "boxTypeName"
-				,[N].[packTypeName] "packTypeName"
-				,[N].[Unit] "Unit"
-				,[COST].[Price] "PlannedCost"
+				 [Nomenclature].[ID] "@ID"
+				,[Nomenclature].[Name] "@Name"
+				,[Nomenclature].[Code] "@Code"
+				,[Nomenclature].[MasterId] "@MasterId"
+				,[Nomenclature].[InformationSystemID] "@InformationSystemID"
+				,[DW].[fnGetGuid1Cv2] ([Nomenclature].[CodeInIS]) [@GUID_1C]
+				,[Nomenclature].[NameFull] "FullName"
+				,[Nomenclature].[CreateDate] "CreateDate"
+				,[Nomenclature].[DLM] "DLM"
+				,ng.[Name] "NomenclatureGroup"
+				,JSON_VALUE([Nomenclature].[Parents], '$.parents[0]') "Category"
+				,b.[Name] "Brand"
+				,[Nomenclature].[boxTypeName] "boxTypeName"
+				,[Nomenclature].[packTypeName] "packTypeName"
+				,[Nomenclature].[Unit] "Unit"
+				,cost.[Price] "PlannedCost"
 				,CAST((SELECT
 						[Price] AS "@Price"
 						,[IsAction] AS "@IsAction"
 						,[startdate] AS "@StartDate"
-					FROM [DW].[FactPrices] AS [T]
+					FROM [DW].[FactPrices] AS [t]
 					WHERE [PriceTypeID] = 0xBA6D90E6BA17BDD711E297052E5C534D
 					AND [DocType] = 'DocumentRef.УстановкаЦенНоменклатуры'
 					AND [IsAction] = 0
-					AND [T].NomenclatureId = [N].CodeInIS
-					AND [T].[Marked] = 0
-					AND [T].[Posted] = 1
+					AND [t].NomenclatureId = [Nomenclature].CodeInIS
+					AND [t].[Marked] = 0
+					AND [t].[Posted] = 1
 					FOR XML PATH ('Price'), BINARY BASE64)
 				AS XML) AS Prices
-			FROM [DW].[DimNomenclatures] AS [N]
-			LEFT JOIN [DW].[DimTypesOfNomenclature] [T] ON [N].NomenclatureType = [T].[CodeInIS] --AND [n].[InformationSystemID] = [T].[InformationSystemID]
-			LEFT JOIN [DW].[vwCurrentPlannedCost] AS [COST] ON [N].[ID] = [COST].[NomenclatureId]
-			LEFT JOIN [DW].[DimNomenclatureGroups] AS [NG] ON [N].[NomenclatureGroup] = [NG].[CodeInIS]
-			LEFT JOIN [DW].[DimBrands] AS [B] ON [N].[Brand] = [B].[CodeInIS]
+			FROM [DW].[DimNomenclatures] AS [Nomenclature]
+			LEFT JOIN [DW].[DimTypesOfNomenclature] [t]
+				ON [Nomenclature].NomenclatureType = t.[CodeInIS] --AND [n].[InformationSystemID] = t.[InformationSystemID]
+			LEFT JOIN [DW].[vwCurrentPlannedCost] cost
+				ON [Nomenclature].[ID] = cost.[NomenclatureId]
+			LEFT JOIN [DW].[DimNomenclatureGroups] AS ng
+				ON [Nomenclature].[NomenclatureGroup] = ng.[CodeInIS]
+			LEFT JOIN [DW].[DimBrands] AS b
+				ON [Nomenclature].[Brand] = b.[CodeInIS]
 			WHERE
 			--JSON_VALUE([n].[Parents], '$.parents[0]') IN ('Колбасные изделия','Мясные продукты','Рыбная продукция')
-			[T].[GoodsForSale] = 1
-			AND COALESCE([N].[Marked], 0) = 0
-			AND [N].[ID] IN (SELECT id FROM @RESULT)) AS D
+			t.[GoodsForSale] = 1
+			AND COALESCE([Nomenclature].[Marked], 0) = 0
+			AND [Nomenclature].[ID] IN (SELECT id FROM @RESULT)) AS D
 		FOR XML PATH ('Nomenclature'), ROOT ('Goods'), BINARY BASE64)
 	END
 	-- ATTRIBUTES.

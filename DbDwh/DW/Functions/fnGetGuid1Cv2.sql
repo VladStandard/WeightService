@@ -21,7 +21,8 @@ RETURN(
 END;
 GO
 
-GRANT EXECUTE ON [DW].[fnGetGuid1Cv2] TO [RenterRole]; 
+GRANT EXECUTE ON [DW].[fnGetGuid1Cv2] TO [RenterRole]
+GRANT EXECUTE ON [DW].[fnGetGuid1Cv2] TO [TerrasoftRole]
 GO
 
 -- CHECK

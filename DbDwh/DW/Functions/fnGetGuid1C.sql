@@ -25,5 +25,6 @@ end;
 
 GO
 
-GRANT EXECUTE ON [DW].[fnGetGuid1C] TO [RenterRole]; 
+GRANT EXECUTE ON [DW].[fnGetGuid1C] TO [RenterRole]
+GRANT EXECUTE ON [DW].[fnGetGuid1C] TO [TerrasoftRole]
 GO

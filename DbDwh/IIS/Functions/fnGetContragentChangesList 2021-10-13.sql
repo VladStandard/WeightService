@@ -24,35 +24,34 @@ BEGIN
 	RETURN (SELECT
 			*
 		FROM (SELECT
-				[C].[ID] "@ID"
-			   ,[C].[Name] "@Name"
-			   ,[C].[Code] "@Code"
-			   ,[C].[FullName] "@FullName"
-			   ,[C].[ContragentType] "@ContragentType"
-			   ,[C].[INN] "@INN"
-			   ,[C].[KPP] "@KPP"
-			   ,[C].[OKPO] "@OKPO"
-			   ,[C].[GUID_Mercury] "@GUID_Mercury"
-			   ,[C].[ConsolidatedClientID] "@ConsolidatedClientID"
-			   ,[C].[Comment] "@Comment"
-			   ,[C].[InformationSystemID] "@InformationSystemID"
-			   ,[DW].[fnGetGuid1Cv2] ([C].[CodeInIS]) "@GUID_1C"
+				[CONTRAGENTS].[ID] "@ID"
+			   ,[CONTRAGENTS].[Name] "@Name"
+			   ,[CONTRAGENTS].[Code] "@Code"
+			   ,[CONTRAGENTS].[FullName] "@FullName"
+			   ,[CONTRAGENTS].[ContragentType] "@ContragentType"
+			   ,[CONTRAGENTS].[INN] "@INN"
+			   ,[CONTRAGENTS].[KPP] "@KPP"
+			   ,[CONTRAGENTS].[OKPO] "@OKPO"
+			   ,[CONTRAGENTS].[GUID_Mercury] "@GUID_Mercury"
+			   ,[CONTRAGENTS].[ConsolidatedClientID] "@ConsolidatedClientID"
+			   ,[CONTRAGENTS].[Comment] "@Comment"
+			   ,[CONTRAGENTS].[InformationSystemID] "@InformationSystemID"
+			   ,[DW].[fnGetGuid1Cv2] ([CONTRAGENTS].[CodeInIS]) "@GUID_1C"
 			   ,CAST((SELECT
-						 [FIDN].[ID] "@Id"
-						,[DP].[ID] "@DeliveryPlaceID"
-						,[FIDN].[DocNumber] "@DocNumber"
-						,[FIDN].[DocumentDate] "@DocumentDate"
-						,[FIDN].[DateStart] "@DateStart"
-						,[FIDN].[DateEnd] "@DateEnd"
-						,[FIDN].[DiscountPercent] "@DiscountPercent"
-						,[FIDN].[Comment] "@Comment"
+						[DP].[ID] "@DeliveryPlaceID"
+					   ,[DocNumber] "@DocNumber"
+					   ,[DocumentDate] "@DocumentDate"
+					   ,[DateStart] "@DateStart"
+					   ,[DateEnd] "@DateEnd"
+					   ,[DiscountPercent] "@DiscountPercent"
+					   ,[FIDN].[Comment] "@Comment"
 					FROM [DW].[FactInstallationDiscountsNomenclatures] AS [FIDN]
 					LEFT JOIN [DW].[DimDeliveryPlaces] [DP]
 						ON [FIDN].[DeliveryPlaceID] = [DP].[CodeInIS]
-					WHERE [FIDN].[ContragentID] = [C].CodeInIS
+					WHERE [FIDN].[ContragentID] = [CONTRAGENTS].CodeInIS
 					FOR XML PATH ('Discount'), BINARY BASE64)
 				AS XML) [Discounts]
-			   ,CAST([C].[ContactInfo] AS XML) "ContactInformations"
+			   ,CAST([CONTRAGENTS].[ContactInfo] AS XML) "ContactInformations"
 			   ,(SELECT
 						[dp].[ID] [@ID]
 					   ,[dp].[Name] [@Name]
@@ -68,12 +67,12 @@ BEGIN
 					FROM [DW].[DimDeliveryPlaces] [dp]
 					LEFT JOIN [DW].[DimRegions] Region
 						ON [dp].[RegionStoreID] = [Region].[CodeInIS]
-					WHERE [dp].[ContragentID] = [C].[CodeInIS]
+					WHERE [dp].[ContragentID] = [CONTRAGENTS].[CodeInIS]
 					AND [dp].[Marked] = 0
 					FOR XML PATH ('DeliveryPlaces'), TYPE)
 				AS DeliveryPlaces
-			FROM [DW].[DimContragents] [C]
-			WHERE [C].[ID] IN (SELECT
+			FROM [DW].[DimContragents] [CONTRAGENTS]
+			WHERE [CONTRAGENTS].[ID] IN (SELECT
 					[ID]
 				FROM @RESULT)) AS D
 		FOR XML PATH ('Contragent')
@@ -86,7 +85,7 @@ GRANT EXECUTE ON [IIS].[fnGetContragentChangesList] to [TerraSoftRole]
 GO
 
 -- CHECK FUNCTION
-DECLARE @StartDate DATETIME = '2021-10-01T00:00:00'
+DECLARE @StartDate DATETIME = '2021-01-01T00:00:00'
 DECLARE @EndDate DATETIME = '2021-12-30T00:00:00'
 DECLARE @Offset INT = 0
 DECLARE @RowCount INT = 100
