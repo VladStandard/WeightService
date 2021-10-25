@@ -8,13 +8,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Blazor. 1. Список устройств.sql = WeightService\Blazor. 1. Список устройств.sql
 		WeightService\Blazor. 2. Устройство.sql = WeightService\Blazor. 2. Устройство.sql
 		WeightService\Blazor. 3. Весовой пост.sql = WeightService\Blazor. 3. Весовой пост.sql
+		WeightService\DB restore - Scales.sql = WeightService\DB restore - Scales.sql
 		WeightService\Exec LoadResourceToDB.sql = WeightService\Exec LoadResourceToDB.sql
 		WeightService\Exec SaveWeighingFact.sql = WeightService\Exec SaveWeighingFact.sql
 		WeightService\Exec SetNewScale.sql = WeightService\Exec SetNewScale.sql
-		WeightService\Linked server PALYCH-LUTON.sql = WeightService\Linked server PALYCH-LUTON.sql
-		WeightService\Linked server SQLSRSP01-LEEDS.sql = WeightService\Linked server SQLSRSP01-LEEDS.sql
+		WeightService\Linked server CREATIO - PALYCH.sql = WeightService\Linked server CREATIO - PALYCH.sql
+		WeightService\Linked server CREATIO - SQLSRSP01.sql = WeightService\Linked server CREATIO - SQLSRSP01.sql
+		WeightService\Linked server PALYCH - CREATIO.sql = WeightService\Linked server PALYCH - CREATIO.sql
+		WeightService\Linked server PALYCH - SQLSRSP01.sql = WeightService\Linked server PALYCH - SQLSRSP01.sql
+		WeightService\Linked server SQLSRSP01 - CREATIO.sql = WeightService\Linked server SQLSRSP01 - CREATIO.sql
+		WeightService\Linked server SQLSRSP01 - PALYCH.sql = WeightService\Linked server SQLSRSP01 - PALYCH.sql
 		WeightService\ScaleEntity.Load.sql = WeightService\ScaleEntity.Load.sql
-		WeightService\SCALES-MON-004 PLU.sql = WeightService\SCALES-MON-004 PLU.sql
+		WeightService\Scales - Duplicates Nomenclature.sql = WeightService\Scales - Duplicates Nomenclature.sql
+		WeightService\Scales - Import 1 Nomenclature.sql = WeightService\Scales - Import 1 Nomenclature.sql
+		WeightService\Scales - Import 2 PLU.sql = WeightService\Scales - Import 2 PLU.sql
+		WeightService\Scales - Nomenclature WeightTara.sql = WeightService\Scales - Nomenclature WeightTara.sql
+		WeightService\Scales - PLU list.sql = WeightService\Scales - PLU list.sql
 		WeightService\SSCCStorage.sql = WeightService\SSCCStorage.sql
 		WeightService\Table Access diagram summary.sql = WeightService\Table Access diagram summary.sql
 		WeightService\Table Access insert new user.sql = WeightService\Table Access insert new user.sql
@@ -83,7 +92,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3D55FBA1-34CE-4423-9DF3-EEB06D0AC482}.Default|Default.ActiveCfg = Default
+		{ED488C61-3862-41DA-A284-BA59740AB56B}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -49,7 +49,7 @@ namespace ScalesUI.Forms
 
                 // Загружить при кажом открытии формы.
                 if (_sessionState != null)
-                    _sessionState.CurrentScale = ScalesUtils.GetScale(_sessionState.Host?.CurrentScaleId);
+                    _sessionState.CurrentScale = ScalesUtils.GetScale(_sessionState.Host?.ScaleId);
 
                 // Определить COM-порт.
                 DefaultComPortName();
@@ -272,9 +272,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (_sessionState.IsTscPrinter)
-                    _taskManager.PrintManager.PrintControl.Cmd.Calibrate(true, true);
-                else
+                //_taskManager.PrintManager.PrintControl.CmdCalibrate();
+                if (!_sessionState.IsTscPrinter)
                     _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplCalibration());
             }
             catch (Exception ex)

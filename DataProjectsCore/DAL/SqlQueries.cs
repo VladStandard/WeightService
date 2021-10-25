@@ -151,7 +151,13 @@ from [db_scales].[Hosts]
 where [Name]=@host and [IdRRef]=@idrref
 				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                    public static string GetHostByUid => @"
+					public static string GetHostIdByIdRRef => @"
+select [ID]
+from [db_scales].[Hosts] 
+where [IdRRef]=@idrref
+				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+					public static string GetHostByUid => @"
 select
 		[HOSTS].[ID]
 	,[HOSTS].[NAME]

@@ -42,7 +42,7 @@ namespace WeightCore.XamlPages
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            _sessionState.SqlViewModel.SetupTasks(_sessionState.Host?.CurrentScaleId);
+            _sessionState.SqlViewModel.SetupTasks(_sessionState.Host?.ScaleId);
 
             System.Windows.Controls.Grid gridTasks = new();
             // Columns.

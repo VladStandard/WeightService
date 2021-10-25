@@ -44,77 +44,76 @@ namespace DataProjectsCore.Helpers
 
         #region Public and private methods
 
-        private void Log4netSave(string message, ShareEnums.LogType logType,
-            [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
-        {
-            DateTime dt = DateTime.Now;
-            string? dtStamp = $"[{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}:{dt.Second:D2}]";
-            string? msg = $"{dtStamp} {message}";
-            bool isDebug = false;
-            switch (logType)
-            {
-                //case LogType.Debug:
-                //    _log4net?.Debug(msg);
-                //    isDebug = true;
-                //    break;
-                case ShareEnums.LogType.Error:
-                    _log4net?.Error(msg);
-                    isDebug = true;
-                    break;
-                case ShareEnums.LogType.Stop:
-                    _log4net?.Fatal(msg);
-                    isDebug = true;
-                    break;
-                case ShareEnums.LogType.Information:
-                    _log4net?.Info(msg);
-                    break;
-                case ShareEnums.LogType.Warning:
-                    _log4net?.Warn(msg);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
-            }
-            if (isDebug)
-            {
-                string? msgDebug = $"{dtStamp} File: {filePath}. Method: {memberName}. Line: {lineNumber}.";
-                _log4net?.Debug(msgDebug);
-            }
-        }
+        //private void Log4netSave(string message, ShareEnums.LogType logType,
+        //    [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
+        //{
+        //    DateTime dt = DateTime.Now;
+        //    string? dtStamp = $"[{dt.Year:D4}-{dt.Month:D2}-{dt.Day:D2} {dt.Hour:D2}:{dt.Minute:D2}:{dt.Second:D2}]";
+        //    string? msg = $"{dtStamp} {message}";
+        //    bool isDebug = false;
+        //    switch (logType)
+        //    {
+        //        //case LogType.Debug:
+        //        //    _log4net?.Debug(msg);
+        //        //    isDebug = true;
+        //        //    break;
+        //        case ShareEnums.LogType.Error:
+        //            _log4net?.Error(msg);
+        //            isDebug = true;
+        //            break;
+        //        case ShareEnums.LogType.Stop:
+        //            _log4net?.Fatal(msg);
+        //            isDebug = true;
+        //            break;
+        //        case ShareEnums.LogType.Information:
+        //            _log4net?.Info(msg);
+        //            break;
+        //        case ShareEnums.LogType.Warning:
+        //            _log4net?.Warn(msg);
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException(nameof(logType), logType, null);
+        //    }
+        //    if (isDebug)
+        //    {
+        //        string? msgDebug = $"{dtStamp} File: {filePath}. Method: {memberName}. Line: {lineNumber}.";
+        //        _log4net?.Debug(msgDebug);
+        //    }
+        //}
 
-        public void Error(string message, [CallerFilePath] string filePath = "",
-            [CallerMemberName] string memberName = "",
+        public void Error(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", 
             [CallerLineNumber] int lineNumber = 0)
         {
-            Log4netSave(message, ShareEnums.LogType.Error, filePath, memberName, lineNumber);
+            //Log4netSave(message, ShareEnums.LogType.Error, filePath, memberName, lineNumber);
             _logDb.SaveError(message, filePath, memberName, lineNumber);
         }
 
-        [Obsolete(@"Deprecated method. Use Stop.")]
-        public void Fatal(string message,
-            [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
-        {
-            Log4netSave(message, ShareEnums.LogType.Stop, filePath, memberName, lineNumber);
-            _logDb.SaveStop(message, filePath, memberName, lineNumber);
-        }
+        //[Obsolete(@"Deprecated method. Use Stop.")]
+        //public void Fatal(string message,
+        //    [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
+        //{
+        //    //Log4netSave(message, ShareEnums.LogType.Stop, filePath, memberName, lineNumber);
+        //    _logDb.SaveStop(message, filePath, memberName, lineNumber);
+        //}
 
         public void Stop(string message,
             [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Log4netSave(message, ShareEnums.LogType.Stop, filePath, memberName, lineNumber);
+            //Log4netSave(message, ShareEnums.LogType.Stop, filePath, memberName, lineNumber);
             _logDb.SaveStop(message, filePath, memberName, lineNumber);
         }
 
         public void Information(string message,
             [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Log4netSave(message, ShareEnums.LogType.Information, filePath, memberName, lineNumber);
+            //Log4netSave(message, ShareEnums.LogType.Information, filePath, memberName, lineNumber);
             _logDb.SaveInformation(message, filePath, memberName, lineNumber);
         }
 
         public void Warning(string message,
             [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Log4netSave(message, ShareEnums.LogType.Warning, filePath, memberName, lineNumber);
+            //Log4netSave(message, ShareEnums.LogType.Warning, filePath, memberName, lineNumber);
             _logDb.SaveWarning(message, filePath, memberName, lineNumber);
         }
 

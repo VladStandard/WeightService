@@ -21,35 +21,34 @@ namespace DataProjectsCore.DAL.Utils
 
         #region Public and private methods
 
-        public static HostDirect Load(Guid idrref)
+        public static HostDirect LoadReader(SqlDataReader reader)
         {
             HostDirect result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            if (reader.Read())
             {
-                con.Open();
-                using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Hosts.GetHostByUid))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@idrref", idrref);
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        if (reader.Read())
-                        {
-                            result.IdRRef = idrref;
-                            result.Name = SqlConnectFactory.GetValue<string>(reader, "NAME");
-                            result.IP = SqlConnectFactory.GetValue<string>(reader, "IP");
-                            result.MAC = SqlConnectFactory.GetValue<string>(reader, "MAC");
-                            result.Marked = SqlConnectFactory.GetValue<bool>(reader, "MARKED");
-                            result.SettingsFile = XDocument.Parse(SqlConnectFactory.GetValue<string>(reader, "SETTINGSFILE"));
-                            result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                            result.CurrentScaleId = SqlConnectFactory.GetValue<int>(reader, "SCALE_ID");
-                        }
-                    }
-                    reader.Close();
-                }
-                con.Close();
+                //result.IdRRef = idrref;
+                result.Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                result.Name = SqlConnectFactory.GetValueAsNullable<string>(reader, "NAME");
+                result.Ip = SqlConnectFactory.GetValueAsNullable<string>(reader, "IP");
+                result.Mac = SqlConnectFactory.GetValueAsNullable<string>(reader, "MAC");
+                result.Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "MARKED");
+                string? settingFile = SqlConnectFactory.GetValueAsNullable<string>(reader, "SETTINGSFILE");
+                if (settingFile is string sf)
+                    result.SettingsFile = XDocument.Parse(sf);
+                result.ScaleId = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "SCALE_ID");
             }
+            return result;
+        }
+
+        public static HostDirect Load(Guid idrref)
+        {
+            SqlParameter[] parameters = new SqlParameter[] {
+                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref },
+            };
+            HostDirect result = SqlConnectFactory.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByUid, parameters, LoadReader);
+            if (result == null)
+                result = new HostDirect();
+            result.IdRRef = idrref;
             return result;
         }
 
@@ -99,40 +98,21 @@ namespace DataProjectsCore.DAL.Utils
             return tokenSalt;
         }
 
+        public static bool GetHostIdReader(SqlDataReader reader) => reader.Read();
+
         public static bool TokenExist()
         {
             if (!File.Exists(FilePathToken))
-            {
                 return false;
-            }
 
             XDocument doc = XDocument.Load(FilePathToken);
-            Guid IdRRef = Guid.Parse(doc.Root.Elements("ID").First().Value);
-            string EncryptConnectionString = doc.Root.Elements("EncryptConnectionString").First().Value;
-            string connectionString = EncryptDecryptUtils.Decrypt(EncryptConnectionString);
-            int countRow = 0;
-
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                string query = "SELECT COUNT(*) as CNT FROM [db_scales].[Hosts] WHERE [IdRRef] = @ID ";
-                using (SqlCommand cmd = new(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ID", IdRRef);
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            countRow = SqlConnectFactory.GetValue<int>(reader, "CNT");
-                        }
-                    }
-                    reader.Close();
-                }
-                con.Close();
-            }
-            return countRow == 1;
+            Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
+            //string EncryptConnectionString = doc.Root.Elements("EncryptConnectionString").First().Value;
+            //string connectionString = EncryptDecryptUtils.Decrypt(EncryptConnectionString);
+            SqlParameter[] parameters = new SqlParameter[] {
+                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref },
+            };
+            return SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, GetHostIdReader);
         }
 
         #endregion

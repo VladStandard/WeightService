@@ -16,7 +16,7 @@ namespace TscBarcode.Views
     {
         #region Public and private fields and properties
 
-        public PrintControlEntity PrintControl { get; set; }
+        public TscPrintControlHelper PrintControl { get; set; }
 
         #endregion
 
@@ -27,11 +27,11 @@ namespace TscBarcode.Views
             InitializeComponent();
 
             object context = FindResource("PrintControlEntityViewModel");
-            if (context is PrintControlEntity printControl)
+            if (context is TscPrintControlHelper printControl)
             {
                 PrintControl = printControl;
                 if (string.IsNullOrEmpty(PrintControl.IpAddress))
-                    PrintControl.IpAddress = "192.168.6.132";
+                    PrintControl.IpAddress = "192.168.7.41";
             }
         }
 
@@ -73,57 +73,57 @@ namespace TscBarcode.Views
 
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Open();
+            //PrintControl.Open();
         }
 
         private void ButtonCmdCalibrate_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.Calibrate(false, PrintControl.IsClearBuffer);
+            PrintControl.CmdCalibrate(null);
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Close();
+            //PrintControl.Close();
         }
 
         private void ButtonCmdSendCustom_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.SendCustom(false, PrintControl.Cmd.Text, PrintControl.IsClearBuffer);
+            PrintControl.CmdSendCustom(PrintControl.Text);
         }
 
         private void ButtonCmdConvertZpl_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.ConvertZpl(true);
+            PrintControl.CmdConvertZpl(true);
         }
 
         private void ButtonCmdSetCutter_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.SetCutter(false, PrintControl.CutterValue, PrintControl.IsClearBuffer);
+            PrintControl.CmdSetCutter(PrintControl.CutterValue);
         }
 
         private void ButtonCmdPrintTest_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.PrintTest(true);
+            PrintControl.CmdPrintTest();
         }
 
         private void ButtonCmdClearBuffer_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.ClearBuffer(true);
+            PrintControl.CmdClearBuffer();
         }
 
         private void ButtonPrintSetupReset_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Setup(PrintLabelSize.Size80x100, true);
+            PrintControl.SetupHardware(PrintLabelSize.Size80x100, true);
         }
 
         private void ButtonPrintSetup_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Setup(PrintControl.Size, true);
+            PrintControl.SetupHardware(PrintControl.Size, true);
         }
 
         private void ButtonFeed_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.Feed(true, PrintControl.IsClearBuffer, PrintControl.Dpi, PrintControl.FeedMm);
+            PrintControl.CmdFeed(PrintControl.Dpi, PrintControl.FeedMm);
         }
 
         #endregion
@@ -132,26 +132,26 @@ namespace TscBarcode.Views
 
         public void ButtonGetZpl1_OnClick(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.TextPrepare = ZplSamples.GetSample1;
-            PrintControl.Cmd.ConvertZpl(true);
+            PrintControl.TextPrepare = ZplSamples.GetSample1;
+            PrintControl.CmdConvertZpl(true);
         }
 
         public void ButtonGetZpl2_OnClick(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.TextPrepare = ZplSamples.GetSample2;
-            PrintControl.Cmd.ConvertZpl(true);
+            PrintControl.TextPrepare = ZplSamples.GetSample2;
+            PrintControl.CmdConvertZpl(true);
         }
 
         public void ButtonGetZpl3_OnClick(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.TextPrepare = ZplSamples.GetSample3;
-            PrintControl.Cmd.ConvertZpl(true);
+            PrintControl.TextPrepare = ZplSamples.GetSample3;
+            PrintControl.CmdConvertZpl(true);
         }
 
         public void ButtonGetZplFull_OnClick(object sender, RoutedEventArgs e)
         {
-            PrintControl.Cmd.TextPrepare = ZplSamples.GetSampleFull;
-            PrintControl.Cmd.ConvertZpl(true);
+            PrintControl.TextPrepare = ZplSamples.GetSampleFull;
+            PrintControl.CmdConvertZpl(true);
         }
 
         #endregion

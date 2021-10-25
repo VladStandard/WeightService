@@ -23,7 +23,38 @@ namespace ScalesUI
     {
         private static readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
 
-        internal static void MainExec([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        internal static void TokenWrite(string conectionString, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0,
+            [CallerMemberName] string memberName = "")
+        {
+            try
+            {
+                Guid uuid = HostsUtils.TokenWrite(conectionString);
+                CustomMessageBox messageBox = CustomMessageBox.Show(null,
+                    "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
+                    $"{uuid}" + Environment.NewLine +
+                    "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
+                    LocalizationData.ScalesUI.Registration);
+                messageBox.Wait();
+                if (messageBox.Result == DialogResult.OK)
+                {
+                    Clipboard.SetText($@"{uuid}");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                filePath = Path.GetFileName(filePath);
+                string message = $"Файл: {filePath}" + Environment.NewLine +
+                                 $"Метод: {memberName}. Строка: {lineNumber}" + Environment.NewLine + Environment.NewLine +
+                                 ex.Message;
+                if (ex.InnerException != null)
+                    message += Environment.NewLine + ex.InnerException;
+                _ = CustomMessageBox.Show(null, message, LocalizationData.ScalesUI.Exception);
+            }
+        }
+
+        [STAThread]
+        internal static void Main()
         {
             _appVersion.Setup(Assembly.GetExecutingAssembly());
 
@@ -34,45 +65,21 @@ namespace ScalesUI
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show(null, $"База данных недоступна. {ex.Message}", LocalizationData.ScalesUI.Exception);
+                _ = CustomMessageBox.Show(null, $"База данных недоступна. {ex.Message}", LocalizationData.ScalesUI.Exception);
                 throw new Exception(ex.Message);
             }
 
-            // если нужного файла с токеном не нашлось и не задана строка подключения к БД - то софтина не запускается
+            // Exit.
             if (!HostsUtils.TokenExist())
             {
-                try
-                {
-                    Guid uuid = HostsUtils.TokenWrite(conectionString);
-                    CustomMessageBox messageBox = CustomMessageBox.Show(null,
-                        "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
-                        $"{uuid}" + Environment.NewLine +
-                        "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
-                        LocalizationData.ScalesUI.Registration);
-                    messageBox.Wait();
-                    if (messageBox.Result == DialogResult.OK)
-                    {
-                        Clipboard.SetText($@"{uuid}");
-                        return;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    filePath = Path.GetFileName(filePath);
-                    string message = $"Файл: {filePath}" + Environment.NewLine +
-                                     $"Метод: {memberName}. Строка: {lineNumber}" + Environment.NewLine + Environment.NewLine +
-                                     ex.Message;
-                    if (ex.InnerException != null)
-                        message += Environment.NewLine + ex.InnerException;
-                    CustomMessageBox messageBox = CustomMessageBox.Show(null, message, LocalizationData.ScalesUI.Exception);
-                }
+                TokenWrite(conectionString);
                 Application.Exit();
                 return;
             }
 
-            //var memory = new MemorySizeEntity();
             HostDirect host = HostsUtils.TokenRead();
-            if (host.CurrentScaleId == 0)
+            // Exit.
+            if (host.ScaleId == 0)
             {
                 CustomMessageBox messageBox = CustomMessageBox.Show(null,
                     "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
@@ -88,8 +95,8 @@ namespace ScalesUI
                 return;
             }
 
-            _ = new Mutex(true, Application.ProductName, out bool first);
-            if (first != true)
+            _ = new Mutex(true, Application.ProductName, out bool createdNew);
+            if (!createdNew)
             {
                 MessageBox.Show($@"Application {Application.ProductName} already running!");
                 Application.Exit();
@@ -100,12 +107,6 @@ namespace ScalesUI
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());
             }
-        }
-
-        [STAThread]
-        internal static void Main()
-        {
-            MainExec();
         }
     }
 }

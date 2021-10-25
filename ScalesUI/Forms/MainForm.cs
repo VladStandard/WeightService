@@ -14,7 +14,6 @@ using System.Reflection;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
-using WeightCore.Managers;
 
 namespace ScalesUI.Forms
 {
@@ -25,7 +24,6 @@ namespace ScalesUI.Forms
         private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        private readonly TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         private readonly QuartzHelper _quartz = QuartzHelper.Instance;
 
@@ -47,7 +45,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.Close();
+                _sessionState.TaskManager.Close();
+                _sessionState.TaskManager.ClosePrintManager();
 
                 if (_sessionState.CurrentScale != null)
                 {
@@ -70,7 +69,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
@@ -151,7 +150,8 @@ namespace ScalesUI.Forms
                 }
                 if (isClose)
                 {
-                    _taskManager.Close();
+                    _sessionState.TaskManager.Close();
+                    _sessionState.TaskManager.ClosePrintManager();
                     _quartz.Close();
                     e.Cancel = false;
                 }
@@ -222,10 +222,10 @@ namespace ScalesUI.Forms
             CheckEnabledManager(ProjectsEnums.TaskType.MemoryManager, fieldMemoryManager);
             if (_sessionState.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
-                char ch = StringUtils.GetProgressChar(_taskManager.MemoryManagerProgressChar);
+                char ch = StringUtils.GetProgressChar(_sessionState.TaskManager.MemoryManagerProgressChar);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
-                    $"Использовано памяти: {_taskManager.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}");
-                _taskManager.MemoryManagerProgressChar = ch;
+                    $"Использовано памяти: {_sessionState.TaskManager.MemoryManager.MemorySize.Physical.MegaBytes:N0} MB | {ch}");
+                _sessionState.TaskManager.MemoryManagerProgressChar = ch;
             }
         }
 
@@ -237,35 +237,42 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, $"{_sessionState.LabelsCurrent}/{_sessionState.LabelsCount}");
 
             // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
-            _sessionState.LabelsCurrent = _taskManager.PrintManager.UserLabelCount < _sessionState.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _sessionState.LabelsCount;
+            _sessionState.LabelsCurrent = _sessionState.TaskManager.PrintManager.UserLabelCount < _sessionState.LabelsCount 
+                ? _sessionState.TaskManager.PrintManager.UserLabelCount : _sessionState.LabelsCount;
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
             if (_sessionState.LabelsCurrent == 0)
                 _sessionState.LabelsCurrent = 1;
 
-            char ch = StringUtils.GetProgressChar(_taskManager.PrintManagerProgressChar);
+            char ch = StringUtils.GetProgressChar(_sessionState.TaskManager.PrintManagerProgressChar);
             // TSC printers.
             if (_sessionState.CurrentScale?.ZebraPrinter != null && _sessionState.IsTscPrinter)
             {
-                if (_taskManager.PrintManager.PrintControl != null)
+                if (_sessionState.TaskManager.PrintManager != null)
                 {
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _taskManager.PrintManager.PrintControl.IsStatusNormal
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _sessionState.TaskManager.PrintManager.TscPrintControl.IsOpen
                         ? $"Принтер: доступен | {ch}" : $"Принтер: недоступен | {ch}");
                 }
             }
             // Zebra printers.
             else
             {
-                _sessionState.LabelsCurrent = _taskManager.PrintManager.UserLabelCount < _sessionState.LabelsCount ? _taskManager.PrintManager.UserLabelCount : _sessionState.LabelsCount;
+                _sessionState.LabelsCurrent = _sessionState.TaskManager.PrintManager.UserLabelCount < _sessionState.LabelsCount 
+                    ? _sessionState.TaskManager.PrintManager.UserLabelCount : _sessionState.LabelsCount;
                 // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
                 if (_sessionState.LabelsCurrent == 0)
                     _sessionState.LabelsCurrent = 1;
-                if (_taskManager.PrintManager.CurrentStatus != null)
+                if (_sessionState.TaskManager.PrintManager.CurrentStatus != null)
                 {
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _taskManager.PrintManager.CurrentStatus.isReadyToPrint
-                        ? $"Принтер: доступен | {_taskManager.PrintManager.PrintControl.IpAddress} | {ch}" : $"Принтер: недоступен | {ch}");
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _sessionState.TaskManager.PrintManager.CurrentStatus.isReadyToPrint
+                        ? $"Принтер: доступен | {_sessionState.TaskManager.PrintManager.TscPrintControl.IpAddress} | {ch}" : $"Принтер: недоступен | {ch}");
                 }
             }
-            _taskManager.PrintManagerProgressChar = ch;
+            _sessionState.TaskManager.PrintManagerProgressChar = ch;
+        }
+
+        private void CallbackPrintManagerAfterJob()
+        {
+            _sessionState.TaskManager.ClosePrintManager();
         }
 
         private void CallbackMassaManager()
@@ -279,7 +286,7 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelPlu, _sessionState.CurrentPlu.CheckWeight == false
                     ? $"PLU (шт): {_sessionState.CurrentPlu.PLU}"
                     : $"PLU (вес): {_sessionState.CurrentPlu.PLU}");
-                decimal weight = _taskManager.MassaManager.WeightNet - _sessionState.CurrentPlu.GoodsTareWeight;
+                decimal weight = _sessionState.TaskManager.MassaManager.WeightNet - _sessionState.CurrentPlu.GoodsTareWeight;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightNetto, $"{weight:0.000} кг");
                 //await MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto,
                 //    _sessionState.MassaManager.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent).ConfigureAwait(false);
@@ -288,11 +295,12 @@ namespace ScalesUI.Forms
             }
 
             //LedMassa.State = _sessionState.MassaManager.IsStable == 1;
-            char ch = StringUtils.GetProgressChar(_taskManager.MassaManagerProgressChar);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _taskManager.MassaManager.IsReady || _taskManager.MassaManager.IsStable == 1
-                ? $"Весы: доступны | Вес брутто: { _taskManager.MassaManager.WeightNet:0.000} кг | {ch}"
-                : $"Весы: недоступны | Вес брутто: { _taskManager.MassaManager.WeightNet:0.000} кг | {ch}");
-            _taskManager.MassaManagerProgressChar = ch;
+            char ch = StringUtils.GetProgressChar(_sessionState.TaskManager.MassaManagerProgressChar);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _sessionState.TaskManager.MassaManager.IsReady || 
+                _sessionState.TaskManager.MassaManager.IsStable == 1
+                ? $"Весы: доступны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}"
+                : $"Весы: недоступны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}");
+            _sessionState.TaskManager.MassaManagerProgressChar = ch;
             if (!flag)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelPlu, "PLU");
@@ -338,7 +346,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.Close();
+                _sessionState.TaskManager.Close();
+                _sessionState.TaskManager.ClosePrintManager();
 
                 if (_sessionState.IsDebug)
                 {
@@ -361,7 +370,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
@@ -378,7 +387,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (_taskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold || _taskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
+                if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold ||
+                    _sessionState.TaskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
                 {
                     CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, LocalizationData.ScalesUI.OperationControl,
                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -387,7 +397,7 @@ namespace ScalesUI.Forms
                         return;
                 }
 
-                _taskManager.MassaManager.SetZero();
+                _sessionState.TaskManager.MassaManager.SetZero();
                 _sessionState.CurrentPlu = null;
             }
             catch (Exception ex)
@@ -404,12 +414,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.Close();
+                _sessionState.TaskManager.Close();
+                _sessionState.TaskManager.ClosePrintManager();
 
                 // Weight check.
-                if (_taskManager.MassaManager != null)
+                if (_sessionState.TaskManager.MassaManager != null)
                 {
-                    if (_taskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold || _taskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
+                    if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold || 
+                        _sessionState.TaskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
                     {
                         CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, LocalizationData.ScalesUI.OperationControl,
                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -445,7 +457,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
@@ -454,7 +466,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.Close();
+                _sessionState.TaskManager.Close();
+                _sessionState.TaskManager.ClosePrintManager();
 
                 if (_sessionState.CurrentOrder == null)
                 {
@@ -498,7 +511,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
@@ -507,7 +520,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.Close();
+                _sessionState.TaskManager.Close();
+                _sessionState.TaskManager.ClosePrintManager();
 
                 using SetKneadingNumberForm kneadingNumberForm = new()
                 { Owner = this };
@@ -524,7 +538,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
@@ -533,7 +547,9 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState?.PrintLabel(Owner);
+                _sessionState.TaskManager.OpenPrintManager(CallbackPrintManager, CallbackPrintManagerAfterJob,
+                    _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                _sessionState.PrintLabel(Owner);
             }
             catch (Exception ex)
             {
@@ -622,7 +638,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.Close();
+                _sessionState.TaskManager.Close();
+                _sessionState.TaskManager.ClosePrintManager();
 
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
                 wpfPageLoader.ShowDialog(this);
@@ -634,7 +651,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
@@ -647,7 +664,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.Close();
+                _sessionState.TaskManager.Close();
+                _sessionState.TaskManager.ClosePrintManager();
 
                 // .. methods
             }
@@ -658,7 +676,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _taskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackPrintManager, CallbackMassaManager,
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }

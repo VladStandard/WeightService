@@ -268,7 +268,7 @@ namespace ScalesCore.Helpers
         /// <param name="reader"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        public T GetValue<T>(string name, Microsoft.Data.SqlClient.SqlDataReader reader, string description = null) where T : IConvertible
+        public T GetValue<T>(string name, SqlDataReader reader, string description = null) where T : IConvertible
         {
             T value = default;
             int ordinal = -1;

@@ -5,15 +5,11 @@ DROP FUNCTION IF EXISTS [db_scales].[GetCountDays]
 GO
 
 -- CREATE FUNCTION
-CREATE FUNCTION [db_scales].[GetCountDays]
-(
-	@str nvarchar(1024),
-	@method tinyint = 1
-)
-RETURNS tinyint
+CREATE FUNCTION [db_scales].[GetCountDays] (@str nvarchar(1024), @method smallint = 1)
+RETURNS smallint
 AS
 BEGIN
-	declare @result tinyint = 0
+	declare @result smallint = 0
 	if (@method = 1) begin
 		set @result = substring(substring(@str, 
 		patindex('%[0-9]%', @str), len(@str)), 0, patindex('%[^0-9]%', 

@@ -48,7 +48,26 @@ namespace DataProjectsCore.DAL
             return _instance.GetSqlConnection();
         }
 
+        [Obsolete(@"Deprecated method")]
         public static T? GetValue<T>(IDataReader reader, string fieldName)
+        {
+            //object value = reader[fieldName];
+            //Type t = typeof(T);
+            //t = Nullable.GetUnderlyingType(t) ?? t;
+            //return (value == null || DBNull.Value.Equals(value)) ? default : (T)Convert.ChangeType(value, t);
+            return GetValueAsNullable<T>(reader, fieldName);
+        }
+
+        public static T GetValueAsNotNullable<T>(IDataReader reader, string fieldName) where T : struct
+        {
+            object value = reader[fieldName];
+            Type t = typeof(T);
+            t = Nullable.GetUnderlyingType(t) ?? t;
+            T? result = (value == null || DBNull.Value.Equals(value)) ? default : (T)Convert.ChangeType(value, t);
+            return result == null ? default : (T)result;
+        }
+
+        public static T? GetValueAsNullable<T>(IDataReader reader, string fieldName)
         {
             object value = reader[fieldName];
             Type t = typeof(T);
@@ -87,6 +106,30 @@ namespace DataProjectsCore.DAL
         public static T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderInside<T> methodInside)
         {
             T? result = default;
+            using SqlConnection con = GetConnection();
+            con.Open();
+            using (SqlCommand cmd = new(query))
+            {
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddRange(parameters);
+                //cmd.CommandType = CommandType.TableDirect;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        result = methodInside(reader);
+                    }
+                    reader.Close();
+                }
+            }
+            con.Close();
+            return result;
+        }
+
+        public static T ExecuteReaderForEntity<T>(string query, SqlParameter[] parameters, ExecuteReaderInside<T> methodInside) where T : new()
+        {
+            T result = new();
             using SqlConnection con = GetConnection();
             con.Open();
             using (SqlCommand cmd = new(query))
