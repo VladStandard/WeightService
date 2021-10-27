@@ -26,7 +26,7 @@ namespace ScalesUI.Forms
         private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        private readonly TaskManagerEntity _taskManager = TaskManagerEntity.Instance;
+        private readonly TaskManagerHelper _taskManager = TaskManagerHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
 
         #endregion

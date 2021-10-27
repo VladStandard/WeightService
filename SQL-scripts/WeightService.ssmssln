@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Scales - Import 2 PLU.sql = WeightService\Scales - Import 2 PLU.sql
 		WeightService\Scales - Nomenclature WeightTara.sql = WeightService\Scales - Nomenclature WeightTara.sql
 		WeightService\Scales - PLU list.sql = WeightService\Scales - PLU list.sql
+		WeightService\Scales - Table LOG_TYPES.sql = WeightService\Scales - Table LOG_TYPES.sql
+		WeightService\Scales - Table LOGS diagram summary.sql = WeightService\Scales - Table LOGS diagram summary.sql
 		WeightService\SSCCStorage.sql = WeightService\SSCCStorage.sql
 		WeightService\Table Access diagram summary.sql = WeightService\Table Access diagram summary.sql
 		WeightService\Table Access insert new user.sql = WeightService\Table Access insert new user.sql
@@ -37,8 +39,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Table Hosts. Set IsDebug.sql = WeightService\Table Hosts. Set IsDebug.sql
 		WeightService\Table Hosts.sql = WeightService\Table Hosts.sql
 		WeightService\Table Labels.sql = WeightService\Table Labels.sql
-		WeightService\Table LOG_TYPES.sql = WeightService\Table LOG_TYPES.sql
-		WeightService\Table LOGS diagram summary.sql = WeightService\Table LOGS diagram summary.sql
 		WeightService\Table Nomenclature. Чудо печка Scales.sql = WeightService\Table Nomenclature. Чудо печка Scales.sql
 		WeightService\Table Nomenclature. Чудо печка. Insert.sql = WeightService\Table Nomenclature. Чудо печка. Insert.sql
 		WeightService\Table Nomenclature. ЧудоПечка.sql = WeightService\Table Nomenclature. ЧудоПечка.sql
@@ -92,7 +92,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ED488C61-3862-41DA-A284-BA59740AB56B}.Default|Default.ActiveCfg = Default
+		{67CFA697-DCF0-4DB1-8A03-CFE13E91A9A1}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

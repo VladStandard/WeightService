@@ -88,7 +88,7 @@ namespace TscBarcode.Views
 
         private void ButtonCmdSendCustom_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.CmdSendCustom(PrintControl.Text);
+            PrintControl.CmdSendCustom(PrintControl.Text, null);
         }
 
         private void ButtonCmdConvertZpl_Click(object sender, RoutedEventArgs e)

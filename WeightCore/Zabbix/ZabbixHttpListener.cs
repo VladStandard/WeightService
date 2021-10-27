@@ -342,19 +342,14 @@ namespace WeightCore.Zabbix
         /// <returns></returns>
         public bool CheckHttpAccess(HttpListener listener, EnumCheckHttpAccess httpAccess)
         {
-            switch (httpAccess)
+            return httpAccess switch
             {
-                case EnumCheckHttpAccess.Status:
-                    return CheckHttpAccessUrl(listener, @"http://+:18086/status/");
-                case EnumCheckHttpAccess.Zebra:
-                    return CheckHttpAccessUrl(listener, @"http://+:18086/zebra/");
-                case EnumCheckHttpAccess.Massa:
-                    return CheckHttpAccessUrl(listener, @"http://+:18086/massa/");
-                case EnumCheckHttpAccess.SqlCon:
-                    return CheckHttpAccessUrl(listener, @"http://+:18086/sql/");
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(httpAccess), httpAccess, null);
-            }
+                EnumCheckHttpAccess.Status => CheckHttpAccessUrl(listener, @"http://+:18086/status/"),
+                EnumCheckHttpAccess.Zebra => CheckHttpAccessUrl(listener, @"http://+:18086/zebra/"),
+                EnumCheckHttpAccess.Massa => CheckHttpAccessUrl(listener, @"http://+:18086/massa/"),
+                EnumCheckHttpAccess.SqlCon => CheckHttpAccessUrl(listener, @"http://+:18086/sql/"),
+                _ => throw new ArgumentOutOfRangeException(nameof(httpAccess), httpAccess, null),
+            };
         }
 
         /// <summary>

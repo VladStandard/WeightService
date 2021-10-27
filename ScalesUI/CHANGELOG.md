@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.690] - 2021-10-26
+### Fixed
+- TSC printer
+
 ## [0.5.680] - 2021-10-22
 ### Fixed
 - TSC printer

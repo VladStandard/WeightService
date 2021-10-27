@@ -37,7 +37,7 @@ namespace WeightCore.MassaK
 
         #region Private fields and properties
 
-        private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Thread _readerThread;
         private volatile bool _keepReading;
 

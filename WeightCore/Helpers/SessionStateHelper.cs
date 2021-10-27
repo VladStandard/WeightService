@@ -30,7 +30,7 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
-        public readonly TaskManagerEntity TaskManager = TaskManagerEntity.Instance;
+        public readonly TaskManagerHelper TaskManager = TaskManagerHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }

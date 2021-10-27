@@ -4,7 +4,6 @@
 using MvvmHelpers;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using WeightCore.Zpl;
 
 namespace WeightCore.Print.Tsc
@@ -81,16 +80,6 @@ namespace WeightCore.Print.Tsc
             }
         }
         private TscPrintSetupHelper TscPrintSetup = TscPrintSetupHelper.Instance;
-        private bool _isOpen;
-        public bool IsOpen
-        {
-            get => _isOpen;
-            private set
-            {
-                _isOpen = value;
-                OnPropertyChanged();
-            }
-        }
         private int _cutterValue;
         public int CutterValue
         {
@@ -133,6 +122,16 @@ namespace WeightCore.Print.Tsc
             }
         }
         public delegate void Callback();
+        private bool _driverStatus;
+        public bool DriverStatus
+        {
+            get => _driverStatus;
+            private set
+            {
+                _driverStatus = value;
+                OnPropertyChanged();
+            }
+        }
 
         #endregion
 
@@ -147,6 +146,7 @@ namespace WeightCore.Print.Tsc
             Dpi = dpi;
             TscPrintSetup.Init(Size);
             IsClearBuffer = true;
+            DriverStatus = false;
         }
 
         #endregion
@@ -174,7 +174,7 @@ namespace WeightCore.Print.Tsc
                 TscPrintSetup.Sensor,
                 TscPrintSetup.Vertical,
                 TscPrintSetup.Offset);
-            
+
             tscDriver.closeport();
         }
 
@@ -184,56 +184,51 @@ namespace WeightCore.Print.Tsc
 
         public PrintStatus GetStatusAsEnum(byte? value)
         {
-            switch (value)
+            return value switch
             {
                 // Normal
-                case (byte)0x00:
-                    return 0x00;
+                0x00 => 0x00,
                 // Head opened
-                case (byte)0x01:
-                    return (PrintStatus)0x01;
+                0x01 => (PrintStatus)0x01,
                 // Paper Jam
-                case (byte)0x02:
-                    return (PrintStatus)0x02;
+                0x02 => (PrintStatus)0x02,
                 // Paper Jam and head opened
-                case (byte)0x03:
-                    return (PrintStatus)0x03;
+                0x03 => (PrintStatus)0x03,
                 // Out of paper
-                case (byte)0x04:
-                    return (PrintStatus)0x04;
+                0x04 => (PrintStatus)0x04,
                 // Out of paper and head opened
-                case (byte)0x05:
-                    return (PrintStatus)0x05;
+                0x05 => (PrintStatus)0x05,
                 // Out of ribbon
-                case (byte)0x08:
-                    return (PrintStatus)0x08;
+                0x08 => (PrintStatus)0x08,
                 // Out of ribbon and head opened
-                case (byte)0x09:
-                    return (PrintStatus)0x09;
+                0x09 => (PrintStatus)0x09,
                 // Out of ribbon and paper jam
-                case (byte)0x0A:
-                    return (PrintStatus)0x0A;
+                0x0A => (PrintStatus)0x0A,
                 // Out of ribbon, paper jam and head opened
-                case (byte)0x0B:
-                    return (PrintStatus)0x0B;
+                0x0B => (PrintStatus)0x0B,
                 // Out of ribbon and out of paper
-                case (byte)0x0C:
-                    return (PrintStatus)0x0C;
+                0x0C => (PrintStatus)0x0C,
                 // Out of ribbon, out of paper and head opened
-                case (byte)0x0D:
-                    return (PrintStatus)0x0D;
+                0x0D => (PrintStatus)0x0D,
                 // Pause
-                case (byte)0x10:
-                    return (PrintStatus)0x10;
+                0x10 => (PrintStatus)0x10,
                 // Printing
-                case (byte)0x20:
-                    return (PrintStatus)0x20;
-            }
-            return PrintStatus.HundredTwentyEight;
+                0x20 => (PrintStatus)0x20,
+                _ => PrintStatus.HundredTwentyEight,
+            };
         }
 
-        //public PrintStatus GetStatusAsEnum() => GetStatusAsEnum(TscEthernet?.printerstatus());
-        //public PrintStatus GetStatusAsEnum() => GetStatusAsEnum(tscDriver?.driver_status());
+        public bool GetDriverStatus(Callback callbackPrintManagerClose)
+        {
+            TSCSDK.driver tscDriver = new();
+            bool result = tscDriver.driver_status(Name);
+
+            tscDriver.closeport();
+            callbackPrintManagerClose?.Invoke();
+            return result;
+        }
+
+        public bool GetDriverStatus(TSCSDK.driver tscDriver) => tscDriver != null && tscDriver.driver_status(Name);
 
         public string GetStatusAsStringRus(byte? value) => value switch
         {
@@ -268,71 +263,38 @@ namespace WeightCore.Print.Tsc
             _ => "Другая ошибка",
         };
 
-        //public string GetStatusAsStringRus()
-        //{
-        //    return GetStatusAsStringRus(TscEthernet?.printerstatus());
-        //}
-
-        public string GetStatusAsStringEng(byte? value)
+        public string GetStatusAsStringEng(byte? value) => value switch
         {
-            switch (value)
-            {
-                // Normal
-                case (byte)0x00:
-                    return "Normal";
-                // Head opened
-                case (byte)0x01:
-                    return "Head opened";
-                // Paper Jam
-                case (byte)0x02:
-                    return "Paper Jam";
-                // Paper Jam and head opened
-                case (byte)0x03:
-                    return "Paper Jam and head opened";
-                // Out of paper
-                case (byte)0x04:
-                    return "Out of paper";
-                // Out of paper and head opened
-                case (byte)0x05:
-                    return "Out of paper and head opened";
-                // Out of ribbon
-                case (byte)0x08:
-                    return "Out of ribbon";
-                // Out of ribbon and head opened
-                case (byte)0x09:
-                    return "Out of ribbon and head opened";
-                // Out of ribbon and paper jam
-                case (byte)0x0A:
-                    return "Out of ribbon and paper jam";
-                // Out of ribbon, paper jam and head opened
-                case (byte)0x0B:
-                    return "Out of ribbon, paper jam and head opened";
-                // Out of ribbon and out of paper
-                case (byte)0x0C:
-                    return "Out of ribbon and out of paper";
-                // Out of ribbon, out of paper and head opened
-                case (byte)0x0D:
-                    return "Out of ribbon, out of paper and head opened";
-                // Pause
-                case (byte)0x10:
-                    return "Pause";
-                // Printing
-                case (byte)0x20:
-                    return "Printing";
-            }
-            return "Other error";
-        }
-
-        //public string GetStatusAsStringEng()
-        //{
-        //    if (TscEthernet != null)
-        //    {
-        //        byte st = TscEthernet.printerstatus();
-        //        return GetStatusAsStringEng(st);
-        //    }
-        //    return GetStatusAsStringEng((byte)PrintStatus.HundredTwentyEight);
-        //}
-        //public bool GetStatusAsBool() => tscDriver.driver_status(Name);
+            // Normal
+            0x00 => "Normal",
+            // Head opened
+            0x01 => "Head opened",
+            // Paper Jam
+            0x02 => "Paper Jam",
+            // Paper Jam and head opened
+            0x03 => "Paper Jam and head opened",
+            // Out of paper
+            0x04 => "Out of paper",
+            // Out of paper and head opened
+            0x05 => "Out of paper and head opened",
+            // Out of ribbon
+            0x08 => "Out of ribbon",
+            // Out of ribbon and head opened
+            0x09 => "Out of ribbon and head opened",
+            // Out of ribbon and paper jam
+            0x0A => "Out of ribbon and paper jam",
+            // Out of ribbon, paper jam and head opened
+            0x0B => "Out of ribbon, paper jam and head opened",
+            // Out of ribbon and out of paper
+            0x0C => "Out of ribbon and out of paper",
+            // Out of ribbon, out of paper and head opened
+            0x0D => "Out of ribbon, out of paper and head opened",
+            // Pause
+            0x10 => "Pause",
+            // Printing
+            0x20 => "Printing",
+            _ => "Other error",
+        };
 
         #endregion
 
@@ -347,13 +309,13 @@ namespace WeightCore.Print.Tsc
             TSCSDK.driver tscDriver = new();
             if (!tscDriver.openport(Name))
                 return;
+            DriverStatus = GetDriverStatus(tscDriver);
             tscDriver.clearbuffer();
 
             if (!string.IsNullOrEmpty(cmd))
                 tscDriver.sendcommand(cmd);
-            
-            tscDriver.closeport();
 
+            tscDriver.closeport();
             callbackPrintManagerClose?.Invoke();
         }
 
@@ -384,12 +346,12 @@ namespace WeightCore.Print.Tsc
         {
             if (string.IsNullOrEmpty(Name))
                 return;
-            
+
             TSCSDK.driver tscDriver = new();
             if (!tscDriver.openport(Name))
                 return;
             tscDriver.clearbuffer();
-            
+
             tscDriver.closeport();
         }
 
@@ -418,48 +380,22 @@ namespace WeightCore.Print.Tsc
 
         public void CmdFeed(PrintDpi dpi, int mm)
         {
-            int value;
-            switch (dpi)
+            var value = dpi switch
             {
-                case PrintDpi.Dpi100:
-                    value = 4 * mm;
-                    break;
-                case PrintDpi.Dpi200:
-                    value = 8 * mm;
-                    break;
-                case PrintDpi.Dpi300:
-                    value = 12 * mm;
-                    break;
-                case PrintDpi.Dpi400:
-                    value = 16 * mm;
-                    break;
-                case PrintDpi.Dpi500:
-                    value = 20 * mm;
-                    break;
-                case PrintDpi.Dpi600:
-                    value = 24 * mm;
-                    break;
-                case PrintDpi.Dpi700:
-                    value = 28 * mm;
-                    break;
-                case PrintDpi.Dpi800:
-                    value = 32 * mm;
-                    break;
-                case PrintDpi.Dpi900:
-                    value = 36 * mm;
-                    break;
-                case PrintDpi.Dpi1000:
-                    value = 40 * mm;
-                    break;
-                case PrintDpi.Dpi1100:
-                    value = 44 * mm;
-                    break;
-                case PrintDpi.Dpi1200:
-                    value = 48 * mm;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(dpi), dpi, null);
-            }
+                PrintDpi.Dpi100 => 4 * mm,
+                PrintDpi.Dpi200 => 8 * mm,
+                PrintDpi.Dpi300 => 12 * mm,
+                PrintDpi.Dpi400 => 16 * mm,
+                PrintDpi.Dpi500 => 20 * mm,
+                PrintDpi.Dpi600 => 24 * mm,
+                PrintDpi.Dpi700 => 28 * mm,
+                PrintDpi.Dpi800 => 32 * mm,
+                PrintDpi.Dpi900 => 36 * mm,
+                PrintDpi.Dpi1000 => 40 * mm,
+                PrintDpi.Dpi1100 => 44 * mm,
+                PrintDpi.Dpi1200 => 48 * mm,
+                _ => throw new ArgumentOutOfRangeException(nameof(dpi), dpi, null),
+            };
             if (value > 0)
                 CmdSendCustom($"FEED {value}", null);
         }
