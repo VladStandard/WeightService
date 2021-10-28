@@ -7,11 +7,9 @@ using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.Helpers;
 using Nito.AsyncEx;
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Helpers;
-using WeightCore.MassaK;
 using WeightCore.Print;
 using WeightCore.Print.Tsc;
 
@@ -39,6 +37,7 @@ namespace WeightCore.Managers
         #region Public and private fields and properties
 
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
+        private readonly DebugHelper _debug = DebugHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         private bool IsTscPrinter { get; set; }
@@ -64,28 +63,17 @@ namespace WeightCore.Managers
         public MassaManagerHelper MassaManager = MassaManagerHelper.Instance;
         public bool MassaManagerIsExit { get; set; }
         public char MassaManagerProgressChar { get; set; }
-        private readonly AsyncLock _mutexMassaManager = new();
+        private readonly AsyncLock _mutexMassaManagerResponse = new();
+        private readonly AsyncLock _mutexMassaManagerRequest = new();
         private readonly CancellationTokenSource _ctsMassaManager = new(TimeSpan.FromMilliseconds(1_000));
 
         public delegate void CallbackButtonSetZero(object sender, EventArgs e);
 
-        public bool IsDebug
-        {
-            get
-            {
-#if DEBUG
-                return true;
-#else
-                return false;
-#endif
-            }
-        }
-        
         #endregion
 
         #region Public and private methods - Http listener
 
-        //private void StartHttpListener([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        //private void StartHttpListener()
         //{
         //    _logUtils.Information("Запустить http-listener. начало.");
         //    _logUtils.Information("http://localhost:18086/status");
@@ -144,9 +132,9 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Open(DeviceManagerHelper.Callback callbackDeviceManager, MemoryManagerHelper.Callback callbackMemoryManager, 
-            MassaManagerHelper.Callback callbackMassaManager, CallbackButtonSetZero callbackButtonSetZero, SqlViewModelEntity sqlViewModel, 
-            bool isTscPrinter, ScaleDirect currentScale)
+        public void Open(DeviceManagerHelper.Callback callbackDeviceManager, MemoryManagerHelper.Callback callbackMemoryManager,
+            MassaManagerHelper.Callback callbackMassaManager, CallbackButtonSetZero callbackButtonSetZero,
+            SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
             {
@@ -155,9 +143,10 @@ namespace WeightCore.Managers
                 MassaManagerIsExit = false;
                 IsTscPrinter = isTscPrinter;
 
-                TaskRunDeviceManager(callbackDeviceManager, sqlViewModel);
-                TaskRunMemoryManager(callbackMemoryManager, sqlViewModel);
-                TaskRunMassaManager(callbackMassaManager, callbackButtonSetZero, sqlViewModel, currentScale);
+                TaskRunDeviceManager(callbackDeviceManager, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager));
+                TaskRunMemoryManager(callbackMemoryManager, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager));
+                TaskRunMassaManagerResponse(callbackMassaManager, callbackButtonSetZero, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager), currentScale);
+                TaskRunMassaManagerRequest(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager));
             }
             catch (Exception ex)
             {
@@ -165,16 +154,15 @@ namespace WeightCore.Managers
             }
         }
 
-        public void OpenPrintManager(PrintManagerHelper.Callback callbackPrintManager, TscPrintControlHelper.Callback callbackPrintManagerClose, 
-            SqlViewModelEntity sqlViewModel, bool isTscPrinter, 
-            ScaleDirect currentScale)
+        public void OpenPrintManager(PrintManagerHelper.Callback callbackPrintManager, TscPrintControlHelper.Callback callbackPrintManagerClose,
+            SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
             {
                 PrintManagerIsExit = false;
                 IsTscPrinter = isTscPrinter;
 
-                TaskRunPrintManager(callbackPrintManager, callbackPrintManagerClose, sqlViewModel, currentScale);
+                TaskRunPrintManager(callbackPrintManager, callbackPrintManagerClose, ref sqlViewModel, currentScale);
             }
             catch (Exception ex)
             {
@@ -199,12 +187,9 @@ namespace WeightCore.Managers
                 MemoryManager.Close();
                 MassaManager.Close();
 
-                if (IsDebug)
-                {
-                    _log.Information($"{nameof(DeviceManager)} is closed");
-                    _log.Information($"{nameof(MemoryManager)} is closed");
-                    _log.Information($"{nameof(MassaManager)} is closed");
-                }
+                DebugLog($"{nameof(DeviceManager)} is closed");
+                DebugLog($"{nameof(MemoryManager)} is closed");
+                DebugLog($"{nameof(MassaManager)} is closed");
             }
             catch (Exception ex)
             {
@@ -239,7 +224,7 @@ namespace WeightCore.Managers
             }
         }
 
-        private void TaskRunDeviceManager(DeviceManagerHelper.Callback callbackDeviceManager, SqlViewModelEntity sqlViewModel)
+        private void TaskRunDeviceManager(DeviceManagerHelper.Callback callbackDeviceManager, bool taskEnabled)
         {
             _ = Task.Run(async () =>
             {
@@ -253,17 +238,15 @@ namespace WeightCore.Managers
                     try
                     {
                         // DeviceManager.
-                        if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager))
+                        if (taskEnabled)
                         {
                             //if (DeviceManager == null)
                             {
                                 DeviceManager.Init(1_000, 5_000, 5_000);
                             }
-                            if (IsDebug)
-                                _log.Information($"{nameof(DeviceManager)} is runned");
+                            DebugLog($"{nameof(DeviceManager)} is runned");
                             DeviceManager.Open(callbackDeviceManager);
-                            if (IsDebug)
-                                _log.Information($"{nameof(DeviceManager)} is finished");
+                            DebugLog($"{nameof(DeviceManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -274,7 +257,7 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunMemoryManager(MemoryManagerHelper.Callback callbackMemoryManager, SqlViewModelEntity sqlViewModel)
+        public void TaskRunMemoryManager(MemoryManagerHelper.Callback callbackMemoryManager, bool taskEnabled)
         {
             _ = Task.Run(async () =>
             {
@@ -288,17 +271,15 @@ namespace WeightCore.Managers
                     try
                     {
                         // MemoryManager.
-                        if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
+                        if (taskEnabled)
                         {
                             //if (MemoryManager == null)
                             {
                                 MemoryManager.Init(1_000, 5_000, 5_000);
                             }
-                            if (IsDebug)
-                                _log.Information($"{nameof(MemoryManager)} is runned");
+                            DebugLog($"{nameof(MemoryManager)} is runned");
                             MemoryManager.Open(callbackMemoryManager);
-                            if (IsDebug)
-                                _log.Information($"{nameof(MemoryManager)} is finished");
+                            DebugLog($"{nameof(MemoryManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -310,8 +291,9 @@ namespace WeightCore.Managers
         }
 
         public void TaskRunPrintManager(PrintManagerHelper.Callback callbackPrintManager, TscPrintControlHelper.Callback callbackPrintManagerClose,
-            SqlViewModelEntity sqlViewModel, ScaleDirect currentScale)
+            ref SqlViewModelEntity sqlViewModel, ScaleDirect currentScale)
         {
+            bool taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager);
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
@@ -324,14 +306,12 @@ namespace WeightCore.Managers
                     try
                     {
                         // PrintManager.
-                        if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager))
+                        if (taskEnabled)
                         {
                             PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
-                            if (IsDebug) 
-                                _log.Information($"{nameof(PrintManager)} is runned");
+                            DebugLog($"{nameof(PrintManager)} is runned");
                             PrintManager.Open(IsTscPrinter, callbackPrintManager, callbackPrintManagerClose);
-                            if (IsDebug) 
-                                _log.Information($"{nameof(PrintManager)} is finished");
+                            DebugLog($"{nameof(PrintManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -342,14 +322,14 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunMassaManager(MassaManagerHelper.Callback callbackMassaManager,
-            CallbackButtonSetZero callbackButtonSetZero, SqlViewModelEntity sqlViewModel, ScaleDirect currentScale)
+        public void TaskRunMassaManagerResponse(MassaManagerHelper.Callback callbackMassaManager, CallbackButtonSetZero callbackButtonSetZero,
+            bool taskEnabled, ScaleDirect currentScale)
         {
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
                 //using (await _mutexMassaManager.LockAsync(_ctsMassaManager.Token))
-                using (await _mutexMassaManager.LockAsync())
+                using (await _mutexMassaManagerResponse.LockAsync())
                 {
                     // It's safe to await while the lock is held
                     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
@@ -357,20 +337,14 @@ namespace WeightCore.Managers
                     try
                     {
                         // MassaManager.
-                        if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager))
+                        if (taskEnabled)
                         {
-                            //if (MassaManager == null)
-                            {
-                                DeviceSocketRs232 deviceSocketRs232 = new(currentScale.DeviceComPort, 
-                                    currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
-                                MassaManager.Init(deviceSocketRs232, 1_000, 5_000, 5_000);
-                                callbackButtonSetZero(null, null);
-                            }
-                            if (IsDebug) 
-                                _log.Information($"{nameof(MassaManager)} is runned");
-                            MassaManager.Open(callbackMassaManager);
-                            if (IsDebug) 
-                                _log.Information($"{nameof(MassaManager)} is finished");
+                            MassaManager.Init(1_000, 5_000, 5_000,
+                                currentScale.DeviceComPort, true, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
+                            callbackButtonSetZero(null, null);
+                            DebugLog($"{nameof(MassaManager)} is runned");
+                            MassaManager.OpenResponse(callbackMassaManager);
+                            DebugLog($"{nameof(MassaManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -379,6 +353,41 @@ namespace WeightCore.Managers
                     }
                 }
             });
+        }
+
+        public void TaskRunMassaManagerRequest(bool taskEnabled)
+        {
+            _ = Task.Run(async () =>
+            {
+                // AsyncLock can be locked asynchronously
+                //using (await _mutexMassaManager.LockAsync(_ctsMassaManager.Token))
+                using (await _mutexMassaManagerRequest.LockAsync())
+                {
+                    // It's safe to await while the lock is held
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+
+                    try
+                    {
+                        // MassaManager.
+                        if (taskEnabled)
+                        {
+                            DebugLog($"{nameof(TaskRunMassaManagerRequest)} is runned");
+                            MassaManager.OpenRequest();
+                            DebugLog($"{nameof(TaskRunMassaManagerRequest)} is finished");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _exception.Catch(null, ref ex);
+                    }
+                }
+            });
+        }
+
+        private void DebugLog(string message)
+        {
+            if (_debug.IsDebug)
+                _log.Information(message);
         }
 
         #endregion

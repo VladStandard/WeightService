@@ -24,10 +24,11 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
+        private readonly DebugHelper _debug = DebugHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
+        private readonly LogHelper _log = LogHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private readonly TaskManagerHelper _taskManager = TaskManagerHelper.Instance;
-        private readonly LogHelper _log = LogHelper.Instance;
 
         #endregion
 
@@ -45,7 +46,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = _sessionState is null ? false : !_sessionState.IsDebug;
+                TopMost = !_debug.IsDebug;
 
                 // Загружить при кажом открытии формы.
                 if (_sessionState != null)
@@ -398,9 +399,9 @@ namespace ScalesUI.Forms
                         fieldCurrentMKProp.Text = _taskManager.MassaManager.DeviceParameters.GetMessage();
                     }
 
-                    if (_taskManager.MassaManager.DeviceError != null)
+                    if (_taskManager.MassaManager.ResponseError != null)
                     {
-                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.DeviceError.GetMessage()}";
+                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.ResponseError.GetMessage()}";
                     }
                 }
             }

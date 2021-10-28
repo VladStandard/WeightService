@@ -253,23 +253,26 @@
     <Compile Include="Gui\WpfPageLoader.Designer.cs">
       <DependentUpon>WpfPageLoader.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DebugHelper.cs" />
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\MouseHookHelper.cs" />
     <Compile Include="Managers\MemoryManagerHelper.cs" />
     <Compile Include="Managers\TaskManagerHelper.cs" />
-    <Compile Include="MassaK\CmdEntity - Copy.cs" />
+    <Compile Include="MassaK\CmdEntityBackup.cs" />
     <Compile Include="MassaK\CmdEntity.cs" />
     <Compile Include="MassaK\CmdQueries.cs" />
+    <Compile Include="MassaK\CmdType.cs" />
     <Compile Include="MassaK\Crc16.cs" />
-    <Compile Include="MassaK\DeviceSocket.cs" />
-    <Compile Include="MassaK\MassaKScales.cs" />
+    <Compile Include="MassaK\DeviceSocketComEntity.cs" />
+    <Compile Include="MassaK\DeviceSocketTcpEntity.cs" />
+    <Compile Include="MassaK\DeviceMassaEntity.cs" />
     <Compile Include="MassaK\MkCommanderBackup.cs" />
     <Compile Include="MassaK\MkCommander.cs" />
     <Compile Include="MassaK\MkDeviceEntityBackup.cs" />
     <Compile Include="Managers\MassaManagerHelper.cs" />
     <Compile Include="Managers\DeviceManagerHelper.cs" />
     <Compile Include="Helpers\SessionStateHelper.cs" />
-    <Compile Include="MassaK\ResponseEntity.cs" />
+    <Compile Include="MassaK\ResponseParseEntity.cs" />
     <Compile Include="MassaK\SerialPortExtension.cs" />
     <Compile Include="Print\Native\RawPrinterHelper.cs" />
     <Compile Include="Print\PrintManagerEntityBackup.cs" />

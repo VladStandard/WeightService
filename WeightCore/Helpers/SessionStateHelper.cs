@@ -34,17 +34,6 @@ namespace WeightCore.Helpers
         private readonly LogHelper _log = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
-        public bool IsDebug
-        {
-            get
-            {
-#if DEBUG
-                return true;
-#else
-                return false;
-#endif
-            }
-        }
         public HostDirect Host { get; private set; }
         public ZplCommander ZplCommander { get; private set; }
         public int CurrentScaleId { get; }

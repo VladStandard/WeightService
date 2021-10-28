@@ -17,6 +17,7 @@ namespace ScalesUI.Forms
 
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
+        private readonly DebugHelper _debug = DebugHelper.Instance;
         private List<OrderDirect> _ordList = null;
         private int _numPage = 0;
         private readonly int offset = 9;
@@ -36,7 +37,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_sessionState.IsDebug;
+                TopMost = !_debug.IsDebug;
 
                 _ordList = OrderDirect.GetOrderList(_sessionState.CurrentScale);
                 if (_ordList.Count < offset)

@@ -14,6 +14,7 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
+        private readonly DebugHelper _debug = DebugHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private int OldKneading { get; }
         private int OldPalletSize { get; }
@@ -41,7 +42,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_sessionState.IsDebug;
+                TopMost = !_debug.IsDebug;
                 Width = Owner.Width;
                 Height = Owner.Height;
                 Left = Owner.Left;

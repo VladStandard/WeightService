@@ -6,18 +6,88 @@ using System.Linq;
 
 namespace WeightCore.MassaK
 {
-    //public enum CmdEnum
-
     public class CmdEntity
     {
         #region Public and private fields and properties
 
-        public int WeightTare { get; set; }
+        public int WeightTare { get; set; } = 0;
         public int ScaleFactor { get; set; } = 1_000;
+        public CmdType CmdType { get; set; } = CmdType.Unknown;
+        public byte[] Bytes { get; private set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public CmdEntity(CmdType cmdType)
+        {
+            CmdType = cmdType;
+        }
+
+        public CmdEntity(CmdType cmdType, int weightTare, int scaleFactor = 1_000)
+        {
+            CmdType = cmdType;
+            WeightTare = weightTare;
+            ScaleFactor = scaleFactor;
+        }
 
         #endregion
 
         #region Public and private methods
+
+        public byte[] CmdGetMassa()
+        {
+            byte[] data = new byte[CmdQueries.CMD_GET_MASSA.Length];
+            for (int i = 0; i < CmdQueries.CMD_GET_MASSA.Length; i++)
+            {
+                data[i] = CmdQueries.CMD_GET_MASSA[i];
+            }
+
+            byte[] selected = data.Skip(5).Take(1).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
+
+            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
+            data[data.Length - 1] = (byte)(crc & 0xFF);
+
+            return Bytes = data;
+        }
+
+        public byte[] CmdGetScalePar()
+        {
+            byte[] data = new byte[CmdQueries.CMD_GET_SCALE_PAR.Length];
+            for (int i = 0; i < CmdQueries.CMD_GET_SCALE_PAR.Length; i++)
+            {
+                data[i] = CmdQueries.CMD_GET_SCALE_PAR[i];
+            }
+
+            byte[] selected = data.Skip(5).Take(1).ToArray();
+            _ = selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
+
+            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
+            data[data.Length - 1] = (byte)(crc & 0xFF);
+
+            return data;
+        }
+
+        public byte[] CmdGetName()
+        {
+            byte[] data = new byte[CmdQueries.CMD_TCP_GET_NAME.Length];
+            for (int i = 0; i < CmdQueries.CMD_TCP_GET_NAME.Length; i++)
+            {
+                data[i] = CmdQueries.CMD_TCP_GET_NAME[i];
+            }
+
+            byte[] selected = data.Skip(5).Take(1).ToArray();
+            selected.Reverse();
+            ushort crc = Crc16.ComputeChecksum(selected);
+
+            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+            data[data.Length - 1] = (byte)(crc & 0xFF);
+
+            return data;
+        }
 
         public byte[] CmdSetTare()
         {
@@ -72,42 +142,6 @@ namespace WeightCore.MassaK
             return data;
         }
 
-        public byte[] CmdGetMassa()
-        {
-            byte[] data = new byte[CmdQueries.CMD_GET_MASSA.Length];
-            for (int i = 0; i < CmdQueries.CMD_GET_MASSA.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_GET_MASSA[i];
-            }
-
-            byte[] selected = data.Skip(5).Take(1).ToArray();
-            _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
-            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
-            return data;
-        }
-
-        public byte[] CmdGetScalePar()
-        {
-            byte[] data = new byte[CmdQueries.CMD_GET_SCALE_PAR.Length];
-            for (int i = 0; i < CmdQueries.CMD_GET_SCALE_PAR.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_GET_SCALE_PAR[i];
-            }
-
-            byte[] selected = data.Skip(5).Take(1).ToArray();
-            _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
-            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
-            return data;
-        }
-
         public byte[] CmdSetName(string name = "xx")
         {
             byte[] data = new byte[CmdQueries.CMD_SET_NAME.Length + name.Length + 2];
@@ -141,25 +175,7 @@ namespace WeightCore.MassaK
             return data;
         }
 
-        public byte[] CmdGetName()
-        {
-            byte[] data = new byte[CmdQueries.CMD_TCP_GET_NAME.Length];
-            for (int i = 0; i < CmdQueries.CMD_TCP_GET_NAME.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_TCP_GET_NAME[i];
-            }
-
-            byte[] selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
-            return data;
-        }
-
-        public static byte[] CmdTcpGetTare()
+        public byte[] CmdTcpGetTare()
         {
             byte[] data = new byte[CmdQueries.CMD_TCP_GET_TARE.Length];
             for (int i = 0; i < CmdQueries.CMD_TCP_GET_TARE.Length; i++)

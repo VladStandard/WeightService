@@ -1,5 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// Protokol_100 (r 5) 2018 V3.pdf
 
 namespace WeightCore.MassaK
 {

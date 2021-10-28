@@ -22,9 +22,10 @@ namespace ScalesUI.Forms
         #region Private fields and properties
 
         private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
+        private readonly DebugHelper _debug = DebugHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
+        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private readonly QuartzHelper _quartz = QuartzHelper.Instance;
 
         #endregion
@@ -35,10 +36,10 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            FormBorderStyle = _sessionState.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
-            TopMost = !_sessionState.IsDebug;
-            fieldResolution.Visible = _sessionState.IsDebug;
-            fieldResolution.SelectedIndex = _sessionState.IsDebug ? 1 : 0;
+            FormBorderStyle = _debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
+            TopMost = !_debug.IsDebug;
+            fieldResolution.Visible = _debug.IsDebug;
+            fieldResolution.SelectedIndex = _debug.IsDebug ? 1 : 0;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -138,13 +139,13 @@ namespace ScalesUI.Forms
             try
             {
                 bool isClose;
-                if (_sessionState.IsDebug)
+                if (_debug.IsDebug)
                 {
                     isClose = true;
                 }
                 else
                 {
-                    using PasswordForm pinForm = new() { TopMost = !_sessionState.IsDebug };
+                    using PasswordForm pinForm = new() { TopMost = !_debug.IsDebug };
                     isClose = pinForm.ShowDialog() == DialogResult.OK;
                     pinForm.Close();
                 }
@@ -288,15 +289,10 @@ namespace ScalesUI.Forms
                     : $"PLU (вес): {_sessionState.CurrentPlu.PLU}");
                 decimal weight = _sessionState.TaskManager.MassaManager.WeightNet - _sessionState.CurrentPlu.GoodsTareWeight;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightNetto, $"{weight:0.000} кг");
-                //await MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto,
-                //    _sessionState.MassaManager.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent).ConfigureAwait(false);
-                //MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldWeightTare, 
-                //    $"{(float)getMassa.Tare / getMassa.ScaleFactor:0.000} кг");
             }
 
-            //LedMassa.State = _sessionState.MassaManager.IsStable == 1;
             char ch = StringUtils.GetProgressChar(_sessionState.TaskManager.MassaManagerProgressChar);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _sessionState.TaskManager.MassaManager.IsReady || 
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _sessionState.TaskManager.MassaManager.ResponseError == null && 
                 _sessionState.TaskManager.MassaManager.IsStable == 1
                 ? $"Весы: доступны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}"
                 : $"Весы: недоступны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}");
@@ -305,38 +301,8 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelPlu, "PLU");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightNetto, "0,000 кг");
-                //await MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto, Color.Transparent).ConfigureAwait(false);
             }
         }
-
-        //private void NotifyMassa(MassaManagerEntity message)
-        //{
-        //    var flag = false;
-        //    if (message != null)
-        //    {
-        //        MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldGrossWeight, $"Вес брутто: {message.WeightNet:0.000} кг");
-        //        if (_sessionState.CurrentPlu != null)
-        //        {
-        //            flag = true;
-        //            MDSoft.WinFormsUtils.InvokeControl.SetText.Async(labelPlu, _sessionState.CurrentPlu.CheckWeight == false
-        //                ? $"PLU (шт): {_sessionState.CurrentPlu.PLU}" : $"PLU (вес): {_sessionState.CurrentPlu.PLU}");
-        //            var weight = message.WeightNet - _sessionState.CurrentPlu.GoodsTareWeight;
-        //            MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldWeightNetto, $"{weight:0.000} кг");
-        //            MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto,
-        //                message.IsStable == 0x01 ? Color.FromArgb(150, 255, 150) : Color.Transparent);
-        //            //MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldWeightTare, 
-        //            //    $"{(float)getMassa.Tare / getMassa.ScaleFactor:0.000} кг");
-        //        }
-        //        if (message.IsReady)
-        //            LedMassa.State = message.IsStable == 1;
-        //    }
-        //    if (!flag)
-        //    {
-        //        MDSoft.WinFormsUtils.InvokeControl.SetText.Async(labelPlu, "PLU");
-        //        MDSoft.WinFormsUtils.InvokeControl.SetText.Async(fieldWeightNetto, "0,000 кг");
-        //        MDSoft.WinFormsUtils.InvokeControl.SetBackColor.Async(fieldWeightNetto, Color.Transparent);
-        //    }
-        //}
 
         #endregion
 
@@ -349,7 +315,7 @@ namespace ScalesUI.Forms
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
 
-                if (_sessionState.IsDebug)
+                if (_debug.IsDebug)
                 {
                     OpenFormSettings();
                 }

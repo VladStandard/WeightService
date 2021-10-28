@@ -17,6 +17,7 @@ namespace WeightCore.Gui
 
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
+        private readonly DebugHelper _debug = DebugHelper.Instance;
         public bool UseOwnerSize { get; set; }
         public ProjectsEnums.Page Page { get; private set; }
         private ElementHost ElementHost { get; set; }
@@ -57,7 +58,7 @@ namespace WeightCore.Gui
             try
             {
                 // Own GUI.
-                TopMost = !_sessionState.IsDebug;
+                TopMost = !_debug.IsDebug;
 
                 if (UseOwnerSize)
                 {

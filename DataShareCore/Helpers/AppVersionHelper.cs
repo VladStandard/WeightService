@@ -31,9 +31,9 @@ namespace DataShareCore.Helpers
 
         #region Public and private fields and properties
 
-        public string? AppTitle { get; private set; } = null;
-        public string? App { get; private set; } = null;
-        public string? Version { get; private set; } = null;
+        public string AppTitle { get; private set; } = string.Empty;
+        public string App { get; private set; } = string.Empty;
+        public string Version { get; private set; } = string.Empty;
 
         #endregion
 
@@ -83,18 +83,14 @@ namespace DataShareCore.Helpers
 
         public string GetCurrentVersionFormat(int input, AppVerStringFormat format)
         {
-            switch (format)
+            return format switch
             {
-                case AppVerStringFormat.Use1:
-                    return $"{input:D1}";
-                case AppVerStringFormat.Use2:
-                    return $"{input:D2}";
-                case AppVerStringFormat.Use3:
-                    return $"{input:D3}";
-                case AppVerStringFormat.Use4:
-                    return $"{input:D4}";
-            }
-            return $"{input:D}";
+                AppVerStringFormat.Use1 => $"{input:D1}",
+                AppVerStringFormat.Use2 => $"{input:D2}",
+                AppVerStringFormat.Use3 => $"{input:D3}",
+                AppVerStringFormat.Use4 => $"{input:D4}",
+                _ => $"{input:D}",
+            };
         }
 
         public string GetDescription(Assembly assembly)

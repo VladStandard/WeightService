@@ -13,6 +13,7 @@ namespace ScalesUI.Forms
         #region Public and private fields and properties
 
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
+        private readonly DebugHelper _debug = DebugHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
 
         #endregion
@@ -32,7 +33,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_sessionState.IsDebug;
+                TopMost = !_debug.IsDebug;
                 listBox1.Items.Clear();
                 foreach (string prop in _sessionState.CurrentOrder.ToString().Split('\n'))
                 {
