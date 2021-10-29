@@ -1,4 +1,4 @@
--- Scales - Table LOG_TYPES
+-- Scales - LOG_TYPES
 -- 1. Connect from PALYCH\LUTON
 select 
 	 [UID]

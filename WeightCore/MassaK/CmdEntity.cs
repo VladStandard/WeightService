@@ -13,7 +13,9 @@ namespace WeightCore.MassaK
         public int WeightTare { get; set; } = 0;
         public int ScaleFactor { get; set; } = 1_000;
         public CmdType CmdType { get; set; } = CmdType.Unknown;
-        public byte[] Bytes { get; private set; }
+        public byte[] Request { get; set; } = null;
+        public byte[] Response { get; set; } = null;
+        public ResponseParseEntity ResponseParse { get; set; } = null;
 
         #endregion
 
@@ -35,72 +37,58 @@ namespace WeightCore.MassaK
 
         #region Public and private methods
 
-        public byte[] CmdGetMassa()
+        private void CmdSetCrc(byte[] data, short skip = 5, short len = 1)
         {
-            byte[] data = new byte[CmdQueries.CMD_GET_MASSA.Length];
-            for (int i = 0; i < CmdQueries.CMD_GET_MASSA.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_GET_MASSA[i];
-            }
-
-            byte[] selected = data.Skip(5).Take(1).ToArray();
-            _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
+            byte[] selected = data.Skip(skip).Take(len).ToArray();
+            if (len > 1)
+                _ = selected.Reverse();
+            ushort crc = MassaUtils.Crc16.ComputeChecksum(selected);
             data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
             data[data.Length - 1] = (byte)(crc & 0xFF);
+        }
 
-            return Bytes = data;
+        public byte[] CmdGetMassa()
+        {
+            byte[] data = MassaUtils.Cmd.Get.CMD_GET_MASSA;
+            CmdSetCrc(data);
+            return data;
         }
 
         public byte[] CmdGetScalePar()
         {
-            byte[] data = new byte[CmdQueries.CMD_GET_SCALE_PAR.Length];
-            for (int i = 0; i < CmdQueries.CMD_GET_SCALE_PAR.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_GET_SCALE_PAR[i];
-            }
-
-            byte[] selected = data.Skip(5).Take(1).ToArray();
-            _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
-            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
+            byte[] data = MassaUtils.Cmd.Get.CMD_GET_SCALE_PAR;
+            CmdSetCrc(data);
             return data;
         }
 
         public byte[] CmdGetName()
         {
-            byte[] data = new byte[CmdQueries.CMD_TCP_GET_NAME.Length];
-            for (int i = 0; i < CmdQueries.CMD_TCP_GET_NAME.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_TCP_GET_NAME[i];
-            }
-
-            byte[] selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
+            byte[] data = MassaUtils.Cmd.Get.CMD_GET_NAME;
+            CmdSetCrc(data);
             return data;
         }
 
         public byte[] CmdSetTare()
         {
-            byte[] data = new byte[CmdQueries.CMD_TCP_SET_TARE.Length];
-            for (int i = 0; i < CmdQueries.CMD_TCP_SET_TARE.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_TCP_SET_TARE[i];
-            }
+            byte[] data = MassaUtils.Cmd.Set.CMD_SET_TARE;
+
             data[6] = (byte)(WeightTare & 0xFF);
             data[7] = (byte)((byte)(WeightTare >> 0x08) & 0xFF);
             data[8] = (byte)((byte)(WeightTare >> 0x16) & 0xFF);
             data[9] = (byte)((byte)(WeightTare >> 0x32) & 0xFF);
+            CmdSetaTareScaleFactor(data);
+            CmdSetCrc(data, 5, 9);
+            //byte[] selected = data.Skip(5).Take(9).ToArray();
+            //_ = selected.Reverse();
+            //ushort crc = Crc16.ComputeChecksum(selected);
+            //data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
+            //data[data.Length - 1] = (byte)(crc & 0xFF);
 
+            return data;
+        }
+
+        private void CmdSetaTareScaleFactor(byte[] data)
+        {
             data[10] = ScaleFactor switch
             {
                 10000 => 0x00,
@@ -110,124 +98,70 @@ namespace WeightCore.MassaK
                 1 => 0x04,
                 _ => 0x01,
             };
-            byte[] selected = data.Skip(5).Take(9).ToArray();
-            _ = selected.Reverse();
-
-            // Посчитать CRC-код.
-            //short crc = ComputeCRC16CCITT(0, selected, 1);
-            ushort crc = Crc16.ComputeChecksum(selected);
-            //var crc2 = Utils.Crc16.ComputeCRC16CCITT(0, selected, 1);
-
-            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
-            return data;
         }
 
         public byte[] CmdSetZero()
         {
-            byte[] data = new byte[CmdQueries.CMD_TCP_SET_ZERO.Length];
-            for (int i = 0; i < CmdQueries.CMD_TCP_SET_ZERO.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_TCP_SET_ZERO[i];
-            }
-
-            byte[] selected = data.Skip(5).Take(1).ToArray();
-            _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
-            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
+            byte[] data = MassaUtils.Cmd.Set.CMD_SET_ZERO;
+            CmdSetCrc(data);
             return data;
         }
 
         public byte[] CmdSetName(string name = "xx")
         {
-            byte[] data = new byte[CmdQueries.CMD_SET_NAME.Length + name.Length + 2];
+            byte[] data = new byte[MassaUtils.Cmd.Set.CMD_SET_NAME.Length + name.Length + 2];
             int k = 0;
-            for (int i = 0; i < CmdQueries.CMD_SET_NAME.Length; i++)
+            for (int i = 0; i < MassaUtils.Cmd.Set.CMD_SET_NAME.Length; i++)
             {
-                data[i] = CmdQueries.CMD_SET_NAME[i];
+                data[i] = MassaUtils.Cmd.Set.CMD_SET_NAME[i];
                 k++;
             }
-
-            for (int i = 0; (i < name.Length && i < 27); i++, k++)
+            for (int i = 0; i < name.Length && i < 27; i++, k++)
             {
-                data[k] = (byte)name.ToArray<char>()[i];
+                data[k] = (byte)name.ToArray()[i];
                 k++;
             }
 
             data[k++] = 0x00;
             data[k++] = 0x00;
-
             data[4] = (byte)(1 + name.Length);
             data[5] = 0x00;
-
-
-            byte[] selected = data.Skip(6).Take(1 + name.Length).ToArray();
-            selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
+            CmdSetCrc(data, 6, (short)(1 + name.Length));
+            //byte[] selected = data.Skip(6).Take(1 + name.Length).ToArray();
+            //selected.Reverse();
+            //ushort crc = Crc16.ComputeChecksum(selected);
+            //data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+            //data[data.Length - 1] = (byte)(crc & 0xFF);
             return data;
         }
 
         public byte[] CmdTcpGetTare()
         {
-            byte[] data = new byte[CmdQueries.CMD_TCP_GET_TARE.Length];
-            for (int i = 0; i < CmdQueries.CMD_TCP_GET_TARE.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_TCP_GET_TARE[i];
-            }
-
-            byte[] selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
+            byte[] data = MassaUtils.Cmd.Get.CMD_GET_TARE;
+            CmdSetCrc(data);
             return data;
         }
 
         public byte[] CmdTcpSetRegnum(int Regnum)
         {
-            byte[] data = new byte[CmdQueries.CMD_TCP_SET_RGNUM.Length];
-            for (int i = 0; i < CmdQueries.CMD_TCP_SET_RGNUM.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_TCP_SET_RGNUM[i];
-            }
-
+            byte[] data = MassaUtils.Cmd.Set.CMD_SET_RGNUM;
             data[7] = (byte)(Regnum & 0xFF);
             data[8] = (byte)((byte)(Regnum >> 0x08) & 0xFF);
             data[9] = (byte)((byte)(Regnum >> 0x16) & 0xFF);
             data[10] = (byte)((byte)(Regnum >> 0x32) & 0xFF);
 
-            byte[] selected = data.Skip(5).Take(6).ToArray();
-            selected.Reverse();
-
-            // Посчитать CRC-код.
-            //short crc = ComputeCRC16CCITT(0, selected, 1);
-            ushort crc = Crc16.ComputeChecksum(selected);
-            //var crc2 = Utils.Crc16.ComputeCRC16CCITT(0, selected, 1);
-
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
+            CmdSetCrc(data, 5, 6);
+            //byte[] selected = data.Skip(5).Take(6).ToArray();
+            //selected.Reverse();
+            //ushort crc = Crc16.ComputeChecksum(selected);
+            //data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
+            //data[data.Length - 1] = (byte)(crc & 0xFF);
             return data;
         }
 
-        public byte[] CmdTcpSetDatetime(DateTime dt)
+        public byte[] CmdSetDatetime(DateTime dt)
         {
-            byte[] data = new byte[CmdQueries.CMD_TCP_SET_DATETIME.Length];
-            for (int i = 0; i < CmdQueries.CMD_TCP_SET_DATETIME.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_TCP_SET_DATETIME[i];
-            }
-
+            byte[] data = MassaUtils.Cmd.Set.CMD_SET_DATETIME;
             data[7] = (byte)(dt.Year & 0xFF);
             data[8] = (byte)((byte)(dt.Month >> 0xFF) & 0xFF);
             data[9] = (byte)((byte)(dt.Day >> 0xFF) & 0xFF);
@@ -238,49 +172,34 @@ namespace WeightCore.MassaK
             return data;
         }
 
-        public byte[] CmdTcpGetSys()
+        public byte[] CmdGetSys()
         {
-            byte[] data = new byte[CmdQueries.CMD_TCP_GET_SYS.Length];
-            for (int i = 0; i < CmdQueries.CMD_TCP_GET_SYS.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_TCP_GET_SYS[i];
-            }
-
+            byte[] data = MassaUtils.Cmd.Get.CMD_GET_SYS;
+            CmdSetCrc(data);
             return data;
         }
 
-        public byte[] CmdTcpGetWeight()
+        public byte[] CmdGetWeight()
         {
-            byte[] data = new byte[CmdQueries.CMD_TCP_GET_WEIGHT.Length];
-            for (int i = 0; i < CmdQueries.CMD_TCP_GET_WEIGHT.Length; i++)
-            {
-                data[i] = CmdQueries.CMD_TCP_GET_WEIGHT[i];
-            }
-
-            byte[] selected = data.Skip(5).Take(1).ToArray();
-            selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
-
-            data[data.Length - 2] = (byte)((crc >> 0x08) & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
-
+            byte[] data = MassaUtils.Cmd.Get.CMD_GET_WEIGHT;
+            CmdSetCrc(data);
             return data;
         }
 
-        public void CmdResponseParse(byte[] data)
-        {
-            byte header0 = data[0];
-            byte header1 = data[1];
-            byte header2 = data[2];
-            short len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
-            byte command = data[5];
-            //short ScalesID = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
-            //byte[] selected = data.Skip(5).Take(len).ToArray();
-            //selected.Reverse();
-            //short crc = Crc16.ComputeChecksum(selected);
-            short crc = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
-            //return (Int16)CRC == (Int16)crc;
-        }
+        //public void CmdResponseParse(byte[] data)
+        //{
+        //    byte header0 = data[0];
+        //    byte header1 = data[1];
+        //    byte header2 = data[2];
+        //    short len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
+        //    byte command = data[5];
+        //    //short ScalesID = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
+        //    //byte[] selected = data.Skip(5).Take(len).ToArray();
+        //    //selected.Reverse();
+        //    //short crc = Crc16.ComputeChecksum(selected);
+        //    short crc = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0);
+        //    //return (Int16)CRC == (Int16)crc;
+        //}
 
         #endregion
     }

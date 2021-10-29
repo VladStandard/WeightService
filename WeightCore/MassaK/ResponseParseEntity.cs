@@ -7,33 +7,6 @@ using System.Linq;
 
 namespace WeightCore.MassaK
 {
-    public class ResponseParseFactory
-    {
-        public static ResponseParseEntity ParseResponse(byte[] data)
-        {
-            if (!ResponseParseEntity.IsValidData(data))
-                return null;
-            // Cmd.
-            return data[5] switch
-            {
-                // CMD_ACK_MASSA: 36 DEC
-                0x24 => new ResponseParseGetMassaEntity(data),
-                // CMD_ERROR: 40 DEC
-                0x28 => new ResponseParseErrorEntity(data),
-                // CMD_ACK_SCALE_PAR: 118 DEC
-                0x76 => new ResponseParseScaleParEntity(data),
-                // CMD_ACK_SCALE_PAR: 18 DEC
-                0x12 => new ResponseParseSetTareEntity(data),
-                // CMD_NACK_TARE: 21 DEC
-                0x15 => new ResponseParseNackTareEntity(data),
-                // CMD_SET_ZERO: 39 DEC
-                0x27 => new ResponseParseSetZeroEntity(data),
-                // По-умолчанию.
-                _ => null,
-            };
-        }
-    }
-
     public abstract class ResponseParseEntity
     {
         public byte[] Data;
@@ -57,12 +30,8 @@ namespace WeightCore.MassaK
             byte header2 = data[2];
             if (!(header0 == 0xF8 && header1 == 0x55 && header2 == 0xCE))
                 return false;
-
-            short len = BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0);
-            if (len <= 0)
-                return false;
-
-            return true;
+            // Len.
+            return BitConverter.ToInt16(data.Skip(3).Take(2).ToArray(), 0) > 0;
         }
     }
 
@@ -82,7 +51,7 @@ namespace WeightCore.MassaK
 
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
+            ushort crc = MassaUtils.Crc16.ComputeChecksum(selected);
             IsValid = Crc == (short)crc && Command == 0x28;
         }
 
@@ -148,9 +117,8 @@ namespace WeightCore.MassaK
 
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
+            ushort crc = MassaUtils.Crc16.ComputeChecksum(selected);
             IsValid = Crc == (short)crc;
-
         }
 
         public override string GetMessage()
@@ -172,9 +140,8 @@ namespace WeightCore.MassaK
 
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
+            ushort crc = MassaUtils.Crc16.ComputeChecksum(selected);
             IsValid = Crc == (short)crc;
-
         }
 
         public override string GetMessage()
@@ -196,9 +163,8 @@ namespace WeightCore.MassaK
 
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
+            ushort crc = MassaUtils.Crc16.ComputeChecksum(selected);
             IsValid = Crc == (short)crc;
-
         }
 
         public override string GetMessage()
@@ -251,7 +217,7 @@ namespace WeightCore.MassaK
 
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
-            ushort crc = Crc16.ComputeChecksum(selected);
+            ushort crc = MassaUtils.Crc16.ComputeChecksum(selected);
             IsValid = Crc == (short)crc && Command == 0x24;
         }
 
@@ -291,7 +257,7 @@ namespace WeightCore.MassaK
 
             byte[] selected = data.Skip(5).Take(Len).ToArray();
             _ = selected.Reverse();
-            _ = Crc16.ComputeChecksum(selected);
+            _ = MassaUtils.Crc16.ComputeChecksum(selected);
 
             // сюда надо вставить логику
             int i = 6;

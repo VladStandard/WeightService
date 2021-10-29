@@ -12,10 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - БД. Добавить поля "Дата последней поверки".
 - Email. Уведомление о датах поверки весов.
 - RFID-считыватель "ФИО оператора весов". Положить в БД.
-- Redmine 1559. ScalesUI не сбрасывает весы в ноль
 - Redmine 1559. BlazorDeviceControl, Страница редактирования номенклатуры
 - Redmine 1600. Подготовить шаблон инструкции "Действия при ошибках печати"
 - Redmine 1608. DbScales. Таблица Labels. Удалить поле Label
+
+## [0.5.700] - 2021-10-29
+### Fixed
+- ScalesUI v.0.5.700
+- WeightCore v.0.5.700
+- WS-T-12. ScalesUI. Устранение ошибок работы с COM-портом
+- WS-T-13. ScalesUI. Не сбрасывает весы в ноль
 
 ## [0.5.690] - 2021-10-26
 ### Fixed

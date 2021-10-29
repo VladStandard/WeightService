@@ -1,4 +1,4 @@
--- Scales - Table LOGS diagram summary
+-- Scales - LOGS diagram summary
 -- 1. Connect from PALYCH\LUTON
 -- use [ScalesDB]
 set nocount on
@@ -10,7 +10,7 @@ declare @select bit = 1
 declare @delete bit = 0
 declare @commit bit = 0
 declare @create_dt datetime = '2021-10-28 00:00'
-declare @host nvarchar(255) = N'SCALES-MON-004'
+declare @host nvarchar(255) = N''
 ----------------------------------------------------------------------------------------------------
 set @host_id = (select [Id] from [db_scales].[Hosts] where [Name] = @host)
 set @rows = (select [p].[rows] from sys.tables [t]

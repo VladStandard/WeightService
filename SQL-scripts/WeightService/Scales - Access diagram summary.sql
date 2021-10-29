@@ -1,4 +1,4 @@
--- Table Access diagram summary
+-- Scales - Access diagram summary
 select
 	 [UID]
 	,[CREATE_DT]

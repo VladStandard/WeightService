@@ -21,8 +21,8 @@ namespace WeightCore.MassaK
 
         #region Public and private fields and properties
 
-        private SerialPort SerialPortItem { get; set; }
-        private readonly object _lockObject = new();
+        public SerialPort SerialPortItem { get; private set; }
+        public object LockObject { get; private set; } = new();
         public bool IsConnected { get; private set; }
         public bool IsEnableReconnect { get; private set; }
         public string PortName { get; private set; }
@@ -45,7 +45,7 @@ namespace WeightCore.MassaK
 
         public void Close()
         {
-            lock (_lockObject)
+            lock (LockObject)
             {
                 if (SerialPortItem != null)
                 {
@@ -72,7 +72,7 @@ namespace WeightCore.MassaK
         /// <exception cref="ConnectionException"></exception>
         public void Open()
         {
-            lock (_lockObject)
+            lock (LockObject)
             {
                 try
                 {
@@ -85,10 +85,10 @@ namespace WeightCore.MassaK
                     if (!SerialPortItem.IsOpen)
                         SerialPortItem.Open();
 
-                    SerialPortItem.Write(new byte[] { 0x44 }, 0, 1);
-                    byte[] response = ReadResponse();
-                    if (response == null)
-                        throw new ConnectionException();
+                    //SerialPortItem.Write(new byte[] { 0x44 }, 0, 1);
+                    //byte[] response = ReadResponse();
+                    //if (response == null)
+                    //    throw new ConnectionException();
 
                     IsConnected = true;
                 }
@@ -103,33 +103,33 @@ namespace WeightCore.MassaK
         /// Weight in gramms.
         /// </summary>
         /// <returns></returns>
-        public int GetWeight()
-        {
-            if (IsEnableReconnect)
-                Open();
-            lock (_lockObject)
-            {
-                SerialPortItem.Write(new byte[] { 0x45 }, 0, 1);
-                byte[] response = ReadResponse();
-                return response[1] * 256 + response[0];
-            }
-        }
+        //public int GetWeight()
+        //{
+        //    if (IsEnableReconnect)
+        //        Open();
+        //    lock (LockObject)
+        //    {
+        //        SerialPortItem.Write(new byte[] { 0x45 }, 0, 1);
+        //        byte[] response = ReadResponse();
+        //        return response[1] * 256 + response[0];
+        //    }
+        //}
 
-        private byte[] ReadResponse()
-        {
-            int length = 2;
-            byte[] response = new byte[length];
-            int offset = 0;
-            while (offset < length)
-            {
-                int b = SerialPortItem.ReadByte();
-                response[offset] = (byte)b;
-                offset++;
-            }
-            return response;
-        }
+        //private byte[] ReadResponse()
+        //{
+        //    int length = 2;
+        //    byte[] response = new byte[length];
+        //    int offset = 0;
+        //    while (offset < length)
+        //    {
+        //        int b = SerialPortItem.ReadByte();
+        //        response[offset] = (byte)b;
+        //        offset++;
+        //    }
+        //    return response;
+        //}
 
-        private byte[] ReadResponse2()
+        private byte[] ReadFromPort()
         {
             int bytes = SerialPortItem.BytesToRead;
             byte[] response = new byte[bytes];
@@ -137,18 +137,63 @@ namespace WeightCore.MassaK
             {
                 SerialPortItem.Read(response, 0, bytes);
             }
+
+            int i = 0;
+            int pos = 0;
+            foreach (byte item in response)
+            {
+                if (item == 0xF8)
+                    pos = i;
+                i++;
+            }
+            if (pos > 0)
+            {
+                byte[] buffer = new byte[response.Length - pos];
+                int j = 0;
+                for (i = pos; i < response.Length; i++)
+                {
+                    buffer[j] = response[i];
+                    j++;
+                }
+                return buffer;
+            }
+
             return response;
         }
 
-        public byte[] GetResponse(byte[] request)
+        public byte[] WriteToPort(CmdEntity cmd)
         {
             if (IsEnableReconnect)
                 Open();
-            lock (_lockObject)
+            lock (LockObject)
             {
-                SerialPortItem.Write(request, 0, request.Length);
-                return ReadResponse2();
+                SerialPortItem.Write(cmd.Request, 0, cmd.Request.Length);
+                return ReadFromPort();
             }
+        }
+
+        public ResponseParseEntity Parse(CmdEntity cmd)
+        {
+            if (!ResponseParseEntity.IsValidData(cmd.Response))
+                return null;
+            // Cmd.
+            return cmd.Response[5] switch
+            {
+                // CMD_ACK_MASSA: 36 DEC
+                0x24 => new ResponseParseGetMassaEntity(cmd.Response),
+                // CMD_ERROR: 40 DEC
+                0x28 => new ResponseParseErrorEntity(cmd.Response),
+                // CMD_ACK_SCALE_PAR: 118 DEC
+                0x76 => new ResponseParseScaleParEntity(cmd.Response),
+                // CMD_ACK_SCALE_PAR: 18 DEC
+                0x12 => new ResponseParseSetTareEntity(cmd.Response),
+                // CMD_NACK_TARE: 21 DEC
+                0x15 => new ResponseParseNackTareEntity(cmd.Response),
+                // CMD_SET_ZERO: 39 DEC
+                0x27 => new ResponseParseSetZeroEntity(cmd.Response),
+                // По-умолчанию.
+                _ => null,
+            };
         }
 
         #endregion

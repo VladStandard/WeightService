@@ -339,9 +339,9 @@ namespace WeightCore.Managers
                         // MassaManager.
                         if (taskEnabled)
                         {
-                            MassaManager.Init(1_000, 5_000, 5_000,
+                            MassaManager.Init(100, 250, 5_000, 5_000,
                                 currentScale.DeviceComPort, true, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
-                            callbackButtonSetZero(null, null);
+                            callbackButtonSetZero?.Invoke(null, null);
                             DebugLog($"{nameof(MassaManager)} is runned");
                             MassaManager.OpenResponse(callbackMassaManager);
                             DebugLog($"{nameof(MassaManager)} is finished");

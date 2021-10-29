@@ -22,7 +22,8 @@ namespace WeightCore.Managers
 
         #region Public and private fields and properties - Manager
 
-        public int WaitWhileMiliSeconds { get; private set; }
+        public int WaitResponse { get; private set; }
+        public int WaitRequest { get; private set; }
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; }
@@ -44,24 +45,25 @@ namespace WeightCore.Managers
         public int ScaleFactor { get; set; } = 1000;
         public int CurrentError { get; private set; }
         public ResponseParseScaleParEntity DeviceParameters { get; private set; }
-        public ResponseParseErrorEntity ResponseError { get; private set; }
+        public ResponseParseErrorEntity ResponseGetError { get; private set; } = null;
+        public ResponseParseErrorEntity ResponseSetError { get; private set; } = null;
         private static readonly object Locker = new();
-        private readonly ConcurrentQueue<CmdEntity> _requestQueue = new();
+        public ConcurrentQueue<CmdEntity> RequestQueue { get; private set; } = new();
         private DeviceMassaEntity DeviceMassa { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public void Init(int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds,
+        public void Init(int waitResponse, int waitRequest, int waitExceptionMiliSeconds, int waitCloseMiliSeconds,
             string portName, bool isEnableReconnect, int readTimeout, int writeTimeout)
         {
-            WaitWhileMiliSeconds = waitWhileMiliSeconds;
+            WaitResponse = waitResponse == 0 ? 100 : waitResponse;
+            WaitRequest = waitRequest == 0 ? 250 : waitRequest;
             WaitExceptionMiliSeconds = waitExceptionMiliSeconds;
             WaitCloseMiliSeconds = waitCloseMiliSeconds;
             IsExecuteResponse = false;
             IsExecuteRequest = false;
-
             DeviceMassa = new(portName, isEnableReconnect, readTimeout, writeTimeout);
         }
 
@@ -74,16 +76,11 @@ namespace WeightCore.Managers
             IsExecuteResponse = true;
             while (IsExecuteResponse)
             {
-                if (WaitWhileMiliSeconds == 0)
-                {
-                    Thread.Sleep(TimeSpan.FromMilliseconds(100));
-                    continue;
-                }
                 try
                 {
                     OpenJobResponse();
-                    callback();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
+                    callback?.Invoke();
+                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitResponse));
                 }
                 catch (TaskCanceledException)
                 {
@@ -96,7 +93,7 @@ namespace WeightCore.Managers
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                     throw;
                 }
-                System.Windows.Forms.Application.DoEvents();
+                //System.Windows.Forms.Application.DoEvents();
             }
         }
 
@@ -105,15 +102,10 @@ namespace WeightCore.Managers
             IsExecuteRequest = true;
             while (IsExecuteRequest)
             {
-                if (WaitWhileMiliSeconds == 0)
-                {
-                    Thread.Sleep(TimeSpan.FromMilliseconds(250));
-                    continue;
-                }
                 try
                 {
                     GetMassa();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
+                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitRequest));
                 }
                 catch (TaskCanceledException)
                 {
@@ -126,7 +118,7 @@ namespace WeightCore.Managers
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
                     throw;
                 }
-                System.Windows.Forms.Application.DoEvents();
+                //System.Windows.Forms.Application.DoEvents();
             }
         }
 
@@ -150,12 +142,12 @@ namespace WeightCore.Managers
 
         private void OpenJobResponse()
         {
-            if (_requestQueue.TryDequeue(out CmdEntity cmd))
+            if (RequestQueue.TryDequeue(out CmdEntity cmd))
             {
                 lock (Locker)
                 {
                     if (DeviceMassa == null || cmd == null) return;
-                    ResponseError = null;
+                    //ResponseError = null;
                     switch (cmd.CmdType)
                     {
                         case CmdType.GetMassa:
@@ -177,13 +169,18 @@ namespace WeightCore.Managers
 
         private void ResponseParseGetMassa(CmdEntity cmd)
         {
-            byte[] response = DeviceMassa.GetResponse(cmd.CmdGetMassa());
-            ResponseParseEntity responseParse = ResponseParseFactory.ParseResponse(response);
-            if (responseParse == null) return;
+            //byte[] response = DeviceMassa.GetResponse(cmd.CmdGetMassa());
+            //ResponseParseEntity responseParse = MassaUtils.Parser.ParseResponse(response);
+            //if (responseParse == null) return;
+            cmd.Request = cmd.CmdGetMassa();
+            cmd.Response = DeviceMassa.WriteToPort(cmd);
+            cmd.ResponseParse = DeviceMassa.Parse(cmd);
+            if (cmd.ResponseParse == null) return;
 
-            switch (responseParse)
+            switch (cmd.ResponseParse)
             {
                 case ResponseParseGetMassaEntity reponseGetMassa:
+                    ResponseGetError = null;
                     // 1 байт. Цена деления в значении массы нетто и массы тары:
                     // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
                     ScaleFactor = reponseGetMassa.ScaleFactor;
@@ -199,7 +196,7 @@ namespace WeightCore.Managers
                     //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
                     break;
                 case ResponseParseErrorEntity reponseError:
-                    ResponseError = reponseError;
+                    ResponseGetError = reponseError;
                     _log.Error(reponseError.GetMessage());
                     break;
             }
@@ -207,61 +204,74 @@ namespace WeightCore.Managers
 
         private void ResponseParseSetZero(CmdEntity cmd)
         {
-            byte[] response = DeviceMassa.GetResponse(cmd.CmdSetZero());
-            ResponseParseEntity responseParse = ResponseParseFactory.ParseResponse(response);
-            if (responseParse == null) return;
+            cmd.Request = cmd.CmdSetZero();
+            cmd.Response = DeviceMassa.WriteToPort(cmd);
+            cmd.ResponseParse = DeviceMassa.Parse(cmd);
+            if (cmd.ResponseParse == null) return;
 
-            switch (responseParse)
+            switch (cmd.ResponseParse)
             {
                 case ResponseParseSetZeroEntity reponseSetZero:
+                    ResponseSetError = null;
                     if (_debug.IsDebug)
                         _log.Information(reponseSetZero.GetMessage());
                     break;
                 case ResponseParseErrorEntity reponseError:
-                    ResponseError = reponseError;
+                    ResponseSetError = reponseError;
+                    _log.Error(ResponseSetError.GetMessage());
                     break;
             }
         }
 
         private void ResponseParseSetTare(CmdEntity cmd)
         {
-            byte[] response = DeviceMassa.GetResponse(cmd.CmdSetTare());
-            ResponseParseEntity responseParse = ResponseParseFactory.ParseResponse(response);
-            if (responseParse == null) return;
+            //byte[] response = DeviceMassa.GetResponse(cmd.CmdSetTare());
+            //ResponseParseEntity responseParse = MassaUtils.Parser.ParseResponse(response);
+            //if (responseParse == null) return;
+            cmd.Request = cmd.CmdSetTare();
+            cmd.Response = DeviceMassa.WriteToPort(cmd);
+            cmd.ResponseParse = DeviceMassa.Parse(cmd);
+            if (cmd.ResponseParse == null) return;
 
-            switch (responseParse)
+            switch (cmd.ResponseParse)
             {
                 case ResponseParseSetTareEntity reponseSetTare:
+                    ResponseSetError = null;
                     //weightTare = ((CmdSetTare) request).WeightTare;
                     //scaleFactor = ((CmdSetTare) request).ScaleFactor;
                     if (_debug.IsDebug)
                         _log.Information(reponseSetTare.GetMessage());
                     break;
                 case ResponseParseNackTareEntity reponseNackTare:
+                    ResponseSetError = null;
                     if (_debug.IsDebug)
                         _log.Information(reponseNackTare.GetMessage());
                     break;
                 case ResponseParseErrorEntity reponseError:
-                    ResponseError = reponseError;
-                    if (_debug.IsDebug)
-                        _log.Information(reponseError.GetMessage());
+                    ResponseSetError = reponseError;
+                    _log.Error(reponseError.GetMessage());
                     break;
             }
         }
 
         private void ResponseParseGetScalePar(CmdEntity cmd)
         {
-            byte[] response = DeviceMassa.GetResponse(cmd.CmdGetScalePar());
-            ResponseParseEntity responseParse = ResponseParseFactory.ParseResponse(response);
-            if (responseParse == null) return;
+            //byte[] response = DeviceMassa.GetResponse(cmd.CmdGetScalePar());
+            //ResponseParseEntity responseParse = MassaUtils.Parser.ParseResponse(response);
+            //if (responseParse == null) return;
+            cmd.Request = cmd.CmdGetScalePar();
+            cmd.Response = DeviceMassa.WriteToPort(cmd);
+            cmd.ResponseParse = DeviceMassa.Parse(cmd);
+            if (cmd.ResponseParse == null) return;
 
-            switch (responseParse)
+            switch (cmd.ResponseParse)
             {
                 case ResponseParseScaleParEntity reponseScalePar:
+                    ResponseGetError = null;
                     DeviceParameters = reponseScalePar;
                     break;
                 case ResponseParseErrorEntity reponseError:
-                    ResponseError = reponseError;
+                    ResponseGetError = reponseError;
                     _log.Error(reponseError.GetMessage());
                     break;
             }
@@ -272,13 +282,13 @@ namespace WeightCore.Managers
             DeviceMassa?.Dispose();
         }
 
-        public void GetMassa() => _requestQueue.Enqueue(new CmdEntity(CmdType.GetMassa));
+        public void GetMassa() => RequestQueue.Enqueue(new CmdEntity(CmdType.GetMassa));
 
-        public void SetZero() => _requestQueue.Enqueue(new CmdEntity(CmdType.SetZero));
+        public void SetZero() => RequestQueue.Enqueue(new CmdEntity(CmdType.SetZero));
 
-        public void SetTareWeight(int weightTare) => _requestQueue.Enqueue(new CmdEntity(CmdType.SetTare, weightTare));
+        public void SetTareWeight(int weightTare) => RequestQueue.Enqueue(new CmdEntity(CmdType.SetTare, weightTare));
 
-        public void GetScalePar() => _requestQueue.Enqueue(new CmdEntity(CmdType.GetScalePar));
+        public void GetScalePar() => RequestQueue.Enqueue(new CmdEntity(CmdType.GetScalePar));
 
         #endregion
     }

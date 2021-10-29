@@ -399,9 +399,9 @@ namespace ScalesUI.Forms
                         fieldCurrentMKProp.Text = _taskManager.MassaManager.DeviceParameters.GetMessage();
                     }
 
-                    if (_taskManager.MassaManager.ResponseError != null)
+                    if (_taskManager.MassaManager.ResponseSetError != null)
                     {
-                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.ResponseError.GetMessage()}";
+                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.ResponseSetError.GetMessage()}";
                     }
                 }
             }
