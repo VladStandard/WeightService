@@ -129,13 +129,46 @@ namespace WeightCore.MassaK
         //    return response;
         //}
 
-        private byte[] ReadFromPort()
+        private int GetBufferLength(CmdEntity cmd)
         {
-            int bytes = SerialPortItem.BytesToRead;
-            byte[] response = new byte[bytes];
-            if (bytes > 0)
+            switch (cmd.CmdType)
             {
-                SerialPortItem.Read(response, 0, bytes);
+                case CmdType.GetMassa:
+                    return 0;
+                case CmdType.GetName:
+                    break;
+                case CmdType.GetScalePar:
+                    break;
+                case CmdType.GetSys:
+                    break;
+                case CmdType.GetTare:
+                    break;
+                case CmdType.GetWeight:
+                    break;
+                case CmdType.SetDatetime:
+                    break;
+                case CmdType.SetName:
+                    break;
+                case CmdType.SetRegnum:
+                    break;
+                case CmdType.SetTare:
+                    break;
+                case CmdType.SetZero:
+                    break;
+                case CmdType.ResponseParse:
+                    break;
+            }
+            return 0;
+        }
+
+        private byte[] ReadFromPort(CmdEntity cmd)
+        {
+            int length = SerialPortItem.BytesToRead;
+            //int length = GetBufferLength(cmd);
+            byte[] response = new byte[length];
+            if (length > 0)
+            {
+                SerialPortItem.Read(response, 0, length);
             }
 
             int i = 0;
@@ -157,7 +190,7 @@ namespace WeightCore.MassaK
                 }
                 return buffer;
             }
-
+            System.Threading.Thread.Sleep(100);
             return response;
         }
 
@@ -168,7 +201,7 @@ namespace WeightCore.MassaK
             lock (LockObject)
             {
                 SerialPortItem.Write(cmd.Request, 0, cmd.Request.Length);
-                return ReadFromPort();
+                return ReadFromPort(cmd);
             }
         }
 

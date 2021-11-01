@@ -59,8 +59,9 @@
             this.buttonSelectPlu = new System.Windows.Forms.Button();
             this.btAddKneading = new System.Windows.Forms.Button();
             this.btNewPallet = new System.Windows.Forms.Button();
-            this.buttonSetZero = new System.Windows.Forms.Button();
             this.buttonSelectOrder = new System.Windows.Forms.Button();
+            this.buttonSetZero = new System.Windows.Forms.Button();
+            this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -470,8 +471,8 @@
             // 
             this.buttonSettings.BackColor = System.Drawing.Color.Transparent;
             this.buttonSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSettings.Location = new System.Drawing.Point(210, 3);
-            this.buttonSettings.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.buttonSettings.Location = new System.Drawing.Point(405, 3);
+            this.buttonSettings.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(120, 122);
             this.buttonSettings.TabIndex = 0;
@@ -487,9 +488,10 @@
             this.flowLayoutPanelBottom.Controls.Add(this.buttonSelectPlu);
             this.flowLayoutPanelBottom.Controls.Add(this.btAddKneading);
             this.flowLayoutPanelBottom.Controls.Add(this.btNewPallet);
-            this.flowLayoutPanelBottom.Controls.Add(this.buttonSetZero);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonSettings);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonSelectOrder);
+            this.flowLayoutPanelBottom.Controls.Add(this.buttonSetZero);
+            this.flowLayoutPanelBottom.Controls.Add(this.buttonRunScalesTerminal);
             this.flowLayoutPanelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanelBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanelBottom.Location = new System.Drawing.Point(0, 622);
@@ -503,8 +505,8 @@
             this.buttonPrint.BackColor = System.Drawing.Color.Transparent;
             this.buttonPrint.Enabled = false;
             this.buttonPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPrint.Location = new System.Drawing.Point(1050, 3);
-            this.buttonPrint.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.buttonPrint.Location = new System.Drawing.Point(1055, 3);
+            this.buttonPrint.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(120, 122);
             this.buttonPrint.TabIndex = 6;
@@ -517,8 +519,8 @@
             // 
             this.buttonSetKneading.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.buttonSetKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSetKneading.Location = new System.Drawing.Point(910, 3);
-            this.buttonSetKneading.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.buttonSetKneading.Location = new System.Drawing.Point(925, 3);
+            this.buttonSetKneading.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.buttonSetKneading.Name = "buttonSetKneading";
             this.buttonSetKneading.Size = new System.Drawing.Size(120, 122);
             this.buttonSetKneading.TabIndex = 5;
@@ -531,8 +533,8 @@
             // 
             this.buttonSelectPlu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.buttonSelectPlu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSelectPlu.Location = new System.Drawing.Point(770, 3);
-            this.buttonSelectPlu.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.buttonSelectPlu.Location = new System.Drawing.Point(795, 3);
+            this.buttonSelectPlu.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.buttonSelectPlu.Name = "buttonSelectPlu";
             this.buttonSelectPlu.Size = new System.Drawing.Size(120, 122);
             this.buttonSelectPlu.TabIndex = 3;
@@ -545,8 +547,8 @@
             // 
             this.btAddKneading.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btAddKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btAddKneading.Location = new System.Drawing.Point(630, 3);
-            this.btAddKneading.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btAddKneading.Location = new System.Drawing.Point(665, 3);
+            this.btAddKneading.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.btAddKneading.Name = "btAddKneading";
             this.btAddKneading.Size = new System.Drawing.Size(120, 122);
             this.btAddKneading.TabIndex = 35;
@@ -559,8 +561,8 @@
             // 
             this.btNewPallet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btNewPallet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btNewPallet.Location = new System.Drawing.Point(490, 3);
-            this.btNewPallet.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btNewPallet.Location = new System.Drawing.Point(535, 3);
+            this.btNewPallet.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.btNewPallet.Name = "btNewPallet";
             this.btNewPallet.Size = new System.Drawing.Size(120, 122);
             this.btNewPallet.TabIndex = 34;
@@ -569,12 +571,26 @@
             this.btNewPallet.Click += new System.EventHandler(this.ButtonNewPallet_Click);
             this.btNewPallet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
+            // buttonSelectOrder
+            // 
+            this.buttonSelectOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.buttonSelectOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSelectOrder.Location = new System.Drawing.Point(275, 3);
+            this.buttonSelectOrder.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.buttonSelectOrder.Name = "buttonSelectOrder";
+            this.buttonSelectOrder.Size = new System.Drawing.Size(120, 122);
+            this.buttonSelectOrder.TabIndex = 4;
+            this.buttonSelectOrder.Text = "Выбрать\r\nзаказ";
+            this.buttonSelectOrder.UseVisualStyleBackColor = false;
+            this.buttonSelectOrder.Click += new System.EventHandler(this.ButtonSelectOrder_Click);
+            this.buttonSelectOrder.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            // 
             // buttonSetZero
             // 
             this.buttonSetZero.BackColor = System.Drawing.Color.Transparent;
             this.buttonSetZero.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSetZero.Location = new System.Drawing.Point(350, 3);
-            this.buttonSetZero.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.buttonSetZero.Location = new System.Drawing.Point(145, 3);
+            this.buttonSetZero.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.buttonSetZero.Name = "buttonSetZero";
             this.buttonSetZero.Size = new System.Drawing.Size(120, 122);
             this.buttonSetZero.TabIndex = 1;
@@ -584,19 +600,18 @@
             this.buttonSetZero.Click += new System.EventHandler(this.ButtonSetZero_Click);
             this.buttonSetZero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // buttonSelectOrder
+            // buttonRunScalesTerminal
             // 
-            this.buttonSelectOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.buttonSelectOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSelectOrder.Location = new System.Drawing.Point(70, 3);
-            this.buttonSelectOrder.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.buttonSelectOrder.Name = "buttonSelectOrder";
-            this.buttonSelectOrder.Size = new System.Drawing.Size(120, 122);
-            this.buttonSelectOrder.TabIndex = 4;
-            this.buttonSelectOrder.Text = "Выбрать\r\nзаказ";
-            this.buttonSelectOrder.UseVisualStyleBackColor = false;
-            this.buttonSelectOrder.Click += new System.EventHandler(this.ButtonSelectOrder_Click);
-            this.buttonSelectOrder.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.buttonRunScalesTerminal.BackColor = System.Drawing.Color.Transparent;
+            this.buttonRunScalesTerminal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonRunScalesTerminal.Location = new System.Drawing.Point(15, 3);
+            this.buttonRunScalesTerminal.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.buttonRunScalesTerminal.Name = "buttonRunScalesTerminal";
+            this.buttonRunScalesTerminal.Size = new System.Drawing.Size(120, 122);
+            this.buttonRunScalesTerminal.TabIndex = 36;
+            this.buttonRunScalesTerminal.Text = "Scales Terminal";
+            this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
+            this.buttonRunScalesTerminal.Click += new System.EventHandler(this.buttonRunScalesTerminal_Click);
             // 
             // MainForm
             // 
@@ -660,6 +675,7 @@
         private System.Windows.Forms.Label fieldMassaGetState;
         private System.Windows.Forms.Label fieldMassaQueries;
         private System.Windows.Forms.Label fieldMassaSetState;
+        private System.Windows.Forms.Button buttonRunScalesTerminal;
     }
 }
 

@@ -420,6 +420,9 @@ namespace DataCore
                 $@"Пороговое значение: {MassaThreshold} кг." + Environment.NewLine + Environment.NewLine +
                 @"  Yes - игнорировать и продолжить." + Environment.NewLine +
                 @"  No - приостановить и разгрузить.";
+            public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English 
+                ? @"Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator."
+                : @"Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
         }
 
         public static class Methods

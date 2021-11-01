@@ -8,8 +8,11 @@ using DataProjectsCore.Utils;
 using DataShareCore;
 using DataShareCore.Helpers;
 using DataShareCore.Schedulers;
+using ScalesCore.Helpers;
 using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using WeightCore.Gui;
@@ -25,6 +28,7 @@ namespace ScalesUI.Forms
         private readonly DebugHelper _debug = DebugHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
+        private readonly ProcHelper _proc = ProcHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private readonly QuartzHelper _quartz = QuartzHelper.Instance;
 
@@ -62,12 +66,6 @@ namespace ScalesUI.Forms
                 _log.Information("The program is runned");
 
                 _quartz.AddJob(QuartzUtils.CronExpression.EveryDay(), delegate { ScheduleIsNextDay(); });
-
-                // Сценарий обмена данными с весовым устройством.
-                _sessionState.TaskManager.MassaManager.GetScalePar();
-                _sessionState.TaskManager.MassaManager.GetMassa();
-                _sessionState.TaskManager.MassaManager.SetZero();
-                _sessionState.TaskManager.MassaManager.SetTareWeight(0);
             }
             catch (Exception ex)
             {
@@ -76,8 +74,6 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                //_sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                //    ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
@@ -300,7 +296,7 @@ namespace ScalesUI.Forms
             }
 
             char ch = StringUtils.GetProgressChar(_sessionState.TaskManager.MassaManagerProgressChar);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _sessionState.TaskManager.MassaManager.IsStable == 1
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _sessionState.TaskManager.MassaManager.IsStable == 0
                 ? $"Взвешивание | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}"
                 : $"Весы стабильны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}");
             _sessionState.TaskManager.MassaManagerProgressChar = ch;
@@ -404,8 +400,6 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                //_sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                //    ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
@@ -492,8 +486,6 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                //_sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                //    ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
@@ -548,8 +540,6 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                //_sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                //    ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
@@ -577,8 +567,6 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                //_sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                //    ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
@@ -692,13 +680,42 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                //_sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                //    ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
+        private void buttonRunScalesTerminal_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string fileName = @"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe";
+                if (File.Exists(fileName))
+                {
+                    _sessionState.TaskManager.Close();
+                    _sessionState.TaskManager.ClosePrintManager();
+                    Application.DoEvents();
+                    _proc.Run(fileName, string.Empty, false, ProcessWindowStyle.Normal, true);
+                }
+                else
+                {
+                    CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.ProgramNotFound(fileName), 
+                        LocalizationData.ScalesUI.Exception, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    messageBox.Wait();
+                }
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
+                    null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+            }
+        }
+        
         #endregion
 
         #region Public and private methods - Share
@@ -719,8 +736,6 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                //_sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                //    ButtonSetZero_Click, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }

@@ -30,6 +30,7 @@ namespace WeightCore.Managers
         public delegate void Callback();
         public bool IsExecuteResponse { get; set; }
         public bool IsExecuteRequest { get; set; }
+        public bool IsRequestInit { get; set; } = true;
 
         #endregion
 
@@ -65,6 +66,7 @@ namespace WeightCore.Managers
             IsExecuteResponse = false;
             IsExecuteRequest = false;
             DeviceMassa = new(portName, isEnableReconnect, readTimeout, writeTimeout);
+            IsRequestInit = true;
         }
 
         #endregion
@@ -104,6 +106,11 @@ namespace WeightCore.Managers
             {
                 try
                 {
+                    if (IsRequestInit)
+                    {
+                        GetInit();
+                        IsRequestInit = false;
+                    }
                     GetMassa();
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitRequest));
                 }
@@ -162,9 +169,42 @@ namespace WeightCore.Managers
                         case CmdType.GetScalePar:
                             ResponseParseGetScalePar(cmd);
                             break;
+                        case CmdType.Init1:
+                            ResponseParseInit1(cmd);
+                            break;
+                        case CmdType.Init2:
+                            ResponseParseInit2(cmd);
+                            break;
+                        case CmdType.Init3:
+                            ResponseParseInit3(cmd);
+                            break;
                     }
                 }
             }
+        }
+
+        private void ResponseParseInit1(CmdEntity cmd)
+        {
+            cmd.Request = cmd.CmdInit1();
+            cmd.Response = DeviceMassa.WriteToPort(cmd);
+            //cmd.ResponseParse = DeviceMassa.Parse(cmd);
+            if (cmd.ResponseParse == null) return;
+        }
+
+        private void ResponseParseInit2(CmdEntity cmd)
+        {
+            cmd.Request = cmd.CmdInit2();
+            cmd.Response = DeviceMassa.WriteToPort(cmd);
+            //cmd.ResponseParse = DeviceMassa.Parse(cmd);
+            if (cmd.ResponseParse == null) return;
+        }
+
+        private void ResponseParseInit3(CmdEntity cmd)
+        {
+            cmd.Request = cmd.CmdInit3();
+            cmd.Response = DeviceMassa.WriteToPort(cmd);
+            //cmd.ResponseParse = DeviceMassa.Parse(cmd);
+            if (cmd.ResponseParse == null) return;
         }
 
         private void ResponseParseGetMassa(CmdEntity cmd)
@@ -280,6 +320,18 @@ namespace WeightCore.Managers
         public void CloseJob()
         {
             DeviceMassa?.Dispose();
+        }
+
+        public void GetInit()
+        {
+            RequestQueue.Enqueue(new CmdEntity(CmdType.Init1));
+            RequestQueue.Enqueue(new CmdEntity(CmdType.Init2));
+            RequestQueue.Enqueue(new CmdEntity(CmdType.Init3));
+            
+            GetScalePar();
+            GetMassa();
+            SetZero();
+            SetTareWeight(0);
         }
 
         public void GetMassa() => RequestQueue.Enqueue(new CmdEntity(CmdType.GetMassa));

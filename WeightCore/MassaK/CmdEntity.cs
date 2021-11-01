@@ -42,15 +42,34 @@ namespace WeightCore.MassaK
             byte[] selected = data.Skip(skip).Take(len).ToArray();
             if (len > 1)
                 _ = selected.Reverse();
-            ushort crc = MassaUtils.Crc16.ComputeChecksum(selected);
+            //ushort crc = MassaUtils.Crc16.GetChecksum(selected);
+            ushort crc = NullFX.CRC.Crc16.ComputeChecksum(NullFX.CRC.Crc16Algorithm.Ccitt, selected);
             data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
             data[data.Length - 1] = (byte)(crc & 0xFF);
+        }
+
+        public byte[] CmdInit1()
+        {
+            byte[] data = MassaUtils.Cmd.Get.CMD_INIT_1;
+            return data;
+        }
+
+        public byte[] CmdInit2()
+        {
+            byte[] data = MassaUtils.Cmd.Get.CMD_INIT_2;
+            return data;
+        }
+
+        public byte[] CmdInit3()
+        {
+            byte[] data = MassaUtils.Cmd.Get.CMD_INIT_3;
+            return data;
         }
 
         public byte[] CmdGetMassa()
         {
             byte[] data = MassaUtils.Cmd.Get.CMD_GET_MASSA;
-            CmdSetCrc(data);
+            //CmdSetCrc(data);
             return data;
         }
 

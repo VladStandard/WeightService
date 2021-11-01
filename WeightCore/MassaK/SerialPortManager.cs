@@ -6,7 +6,6 @@ using System.IO;
 using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
-using log4net;
 
 namespace WeightCore.MassaK
 {

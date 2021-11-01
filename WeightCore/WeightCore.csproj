@@ -260,6 +260,12 @@
     <Compile Include="Managers\TaskManagerHelper.cs" />
     <Compile Include="MassaK\CmdEntityBackup.cs" />
     <Compile Include="MassaK\CmdEntity.cs" />
+    <Compile Include="MassaK\Crc16CcittEntity.cs" />
+    <Compile Include="MassaK\Crc16JashliaoVcEntity.cs" />
+    <Compile Include="MassaK\Crc16DanyloKdEntity.cs" />
+    <Compile Include="MassaK\Crc16BaseEntity.cs" />
+    <Compile Include="MassaK\Crc16JashEntity.cs" />
+    <Compile Include="MassaK\Crc16Entity.cs" />
     <Compile Include="MassaK\MassaUtils.cs" />
     <Compile Include="MassaK\DeviceSocketComEntity.cs" />
     <Compile Include="MassaK\DeviceSocketTcpEntity.cs" />
@@ -344,16 +350,6 @@
     <Content Include="Zpl templates\Requests.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj">
-      <Project>{AFE4E2B7-D50D-4CEB-BA92-BBFD6116495F}</Project>
-      <Name>DataProjectsCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj">
-      <Project>{8BA404FC-5E08-44F6-9C55-6D52C4FD0846}</Project>
-      <Name>DataShareCore</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="XamlPages\PagePluList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -365,6 +361,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj">
+      <Project>{afe4e2b7-d50d-4ceb-ba92-bbfd6116495f}</Project>
+      <Name>DataProjectsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj">
+      <Project>{8ba404fc-5e08-44f6-9c55-6d52c4fd0846}</Project>
+      <Name>DataShareCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NullFX.CRC\NullFX.CRC\NullFX.CRC.csproj">
+      <Project>{f885722c-f9b3-44fd-8498-8fa35c9111f7}</Project>
+      <Name>NullFX.CRC</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
