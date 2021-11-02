@@ -276,7 +276,9 @@
     <Compile Include="Managers\MassaManagerHelper.cs" />
     <Compile Include="Managers\DeviceManagerHelper.cs" />
     <Compile Include="Helpers\SessionStateHelper.cs" />
+    <Compile Include="MassaK\ResponseMassaEntity.cs" />
     <Compile Include="MassaK\ResponseParseEntity.cs" />
+    <Compile Include="MassaK\ResponseScaleParEntity.cs" />
     <Compile Include="MassaK\SerialPortExtension.cs" />
     <Compile Include="Print\Native\RawPrinterHelper.cs" />
     <Compile Include="Print\PrintManagerEntityBackup.cs" />

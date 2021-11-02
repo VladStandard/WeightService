@@ -32,9 +32,10 @@
             this.fieldWeightTare = new System.Windows.Forms.Label();
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.fieldMassaSetState = new System.Windows.Forms.Label();
+            this.fieldMassaScalePar = new System.Windows.Forms.Label();
+            this.fieldMassaSet = new System.Windows.Forms.Label();
             this.fieldMassaQueries = new System.Windows.Forms.Label();
-            this.fieldMassaGetState = new System.Windows.Forms.Label();
+            this.fieldMassaGet = new System.Windows.Forms.Label();
             this.labelLabelsTitle = new System.Windows.Forms.Label();
             this.fieldMassaManager = new System.Windows.Forms.Label();
             this.fieldPrintManager = new System.Windows.Forms.Label();
@@ -62,6 +63,7 @@
             this.buttonSelectOrder = new System.Windows.Forms.Button();
             this.buttonSetZero = new System.Windows.Forms.Button();
             this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
+            this.fieldMassaComPort = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -121,9 +123,11 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0563F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00938F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.000938F));
-            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSetState, 2, 12);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaQueries, 1, 12);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGetState, 2, 11);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaComPort, 1, 12);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaScalePar, 2, 11);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSet, 2, 13);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaQueries, 1, 13);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGet, 2, 12);
             this.tableLayoutPanelMain.Controls.Add(this.labelLabelsTitle, 3, 9);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaManager, 1, 11);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPrintManager, 1, 10);
@@ -167,20 +171,35 @@
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // fieldMassaSetState
+            // fieldMassaScalePar
             // 
-            this.fieldMassaSetState.AutoSize = true;
-            this.fieldMassaSetState.BackColor = System.Drawing.Color.Transparent;
-            this.fieldMassaSetState.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaSetState.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaSetState.Location = new System.Drawing.Point(343, 529);
-            this.fieldMassaSetState.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMassaSetState.Name = "fieldMassaSetState";
-            this.fieldMassaSetState.Size = new System.Drawing.Size(702, 25);
-            this.fieldMassaSetState.TabIndex = 48;
-            this.fieldMassaSetState.Text = "Состояние запроса к весам";
-            this.fieldMassaSetState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaSetState.Visible = false;
+            this.fieldMassaScalePar.AutoSize = true;
+            this.fieldMassaScalePar.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaScalePar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaScalePar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaScalePar.Location = new System.Drawing.Point(343, 498);
+            this.fieldMassaScalePar.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaScalePar.Name = "fieldMassaScalePar";
+            this.fieldMassaScalePar.Size = new System.Drawing.Size(702, 25);
+            this.fieldMassaScalePar.TabIndex = 49;
+            this.fieldMassaScalePar.Text = "Запрос параметров: ";
+            this.fieldMassaScalePar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaScalePar.Visible = false;
+            // 
+            // fieldMassaSet
+            // 
+            this.fieldMassaSet.AutoSize = true;
+            this.fieldMassaSet.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaSet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaSet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaSet.Location = new System.Drawing.Point(343, 560);
+            this.fieldMassaSet.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaSet.Name = "fieldMassaSet";
+            this.fieldMassaSet.Size = new System.Drawing.Size(702, 25);
+            this.fieldMassaSet.TabIndex = 48;
+            this.fieldMassaSet.Text = "Задать параметры весов: ";
+            this.fieldMassaSet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaSet.Visible = false;
             // 
             // fieldMassaQueries
             // 
@@ -188,29 +207,29 @@
             this.fieldMassaQueries.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaQueries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaQueries.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaQueries.Location = new System.Drawing.Point(14, 529);
+            this.fieldMassaQueries.Location = new System.Drawing.Point(14, 560);
             this.fieldMassaQueries.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaQueries.Name = "fieldMassaQueries";
             this.fieldMassaQueries.Size = new System.Drawing.Size(323, 25);
             this.fieldMassaQueries.TabIndex = 47;
-            this.fieldMassaQueries.Text = "Очередь менеджера весов";
+            this.fieldMassaQueries.Text = "Пакетов в очереди: ";
             this.fieldMassaQueries.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldMassaQueries.Visible = false;
             // 
-            // fieldMassaGetState
+            // fieldMassaGet
             // 
-            this.fieldMassaGetState.AutoSize = true;
-            this.fieldMassaGetState.BackColor = System.Drawing.Color.Transparent;
-            this.fieldMassaGetState.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaGetState.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaGetState.Location = new System.Drawing.Point(343, 498);
-            this.fieldMassaGetState.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMassaGetState.Name = "fieldMassaGetState";
-            this.fieldMassaGetState.Size = new System.Drawing.Size(702, 25);
-            this.fieldMassaGetState.TabIndex = 46;
-            this.fieldMassaGetState.Text = "Состояние ответа от весов";
-            this.fieldMassaGetState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaGetState.Visible = false;
+            this.fieldMassaGet.AutoSize = true;
+            this.fieldMassaGet.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaGet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaGet.Location = new System.Drawing.Point(343, 529);
+            this.fieldMassaGet.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaGet.Name = "fieldMassaGet";
+            this.fieldMassaGet.Size = new System.Drawing.Size(702, 25);
+            this.fieldMassaGet.TabIndex = 46;
+            this.fieldMassaGet.Text = "Сообщение взвешивания: ";
+            this.fieldMassaGet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaGet.Visible = false;
             // 
             // labelLabelsTitle
             // 
@@ -613,6 +632,21 @@
             this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
             this.buttonRunScalesTerminal.Click += new System.EventHandler(this.buttonRunScalesTerminal_Click);
             // 
+            // fieldMassaComPort
+            // 
+            this.fieldMassaComPort.AutoSize = true;
+            this.fieldMassaComPort.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaComPort.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaComPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaComPort.Location = new System.Drawing.Point(14, 529);
+            this.fieldMassaComPort.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaComPort.Name = "fieldMassaComPort";
+            this.fieldMassaComPort.Size = new System.Drawing.Size(323, 25);
+            this.fieldMassaComPort.TabIndex = 50;
+            this.fieldMassaComPort.Text = "Состояние COM-порта: ";
+            this.fieldMassaComPort.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaComPort.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,10 +706,12 @@
         private System.Windows.Forms.Label fieldPrintManager;
         private System.Windows.Forms.Label fieldMemoryManager;
         private System.Windows.Forms.Label labelLabelsTitle;
-        private System.Windows.Forms.Label fieldMassaGetState;
+        private System.Windows.Forms.Label fieldMassaGet;
         private System.Windows.Forms.Label fieldMassaQueries;
-        private System.Windows.Forms.Label fieldMassaSetState;
+        private System.Windows.Forms.Label fieldMassaSet;
         private System.Windows.Forms.Button buttonRunScalesTerminal;
+        private System.Windows.Forms.Label fieldMassaScalePar;
+        private System.Windows.Forms.Label fieldMassaComPort;
     }
 }
 

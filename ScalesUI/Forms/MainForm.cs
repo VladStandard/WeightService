@@ -283,6 +283,11 @@ namespace ScalesUI.Forms
         private void CallbackMassaManager()
         {
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaManager);
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaComPort);
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaQueries);
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaScalePar);
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaGet);
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaSet);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, buttonSetZero);
             bool flag = false;
             if (_sessionState.CurrentPlu != null)
@@ -300,11 +305,15 @@ namespace ScalesUI.Forms
                 ? $"Взвешивание | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}"
                 : $"Весы стабильны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}");
             _sessionState.TaskManager.MassaManagerProgressChar = ch;
-            // Состояние ответа от весов.
-            CallbackMassaManagerResponseGet();
+            // Состояние COM-порта.
+            CallbackMassaManagerIsResponse();
+            // Запрос параметров.
+            CallbackMassaManagerResponseGetScalePar();
+            // Сообщение взвешивания.
+            CallbackMassaManagerResponseGetMassa();
             // Состояние запроса к весам.
-            CallbackMassaManagerResponseSet();
-            // Очередь запросов.
+            CallbackMassaManagerResponseSetAll();
+            // Пакетов в очереди.
             CallbackMassaManagerRequestQueue();
 
             if (!flag)
@@ -315,57 +324,48 @@ namespace ScalesUI.Forms
         }
 
         /// <summary>
-        /// Состояние ответа от весов.
+        /// Состояние COM-порта.
         /// </summary>
-        private void CallbackMassaManagerResponseGet()
+        private void CallbackMassaManagerIsResponse()
         {
-            if (_sessionState.TaskManager.MassaManager.ResponseGetError != null)
-            {
-                if (!fieldMassaGetState.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGetState, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGetState, _sessionState.TaskManager.MassaManager.ResponseGetError.GetMessage());
-            }
-            else
-            {
-                if (fieldMassaGetState.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGetState, false);
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.IsResponse
+                ? "Состояние COM-порта: отвечает" : "Состояние COM-порта: не отвечает");
+        }
+
+        /// <summary>
+        /// Запрос параметров.
+        /// </summary>
+        private void CallbackMassaManagerResponseGetScalePar()
+        {
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaScalePar, "Запрос параметров: " + 
+                _sessionState.TaskManager.MassaManager.ResponseParseGetScalePar?.Message);
+        }
+
+        /// <summary>
+        /// Сообщение взвешивания.
+        /// </summary>
+        private void CallbackMassaManagerResponseGetMassa()
+        {
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGet, "Сообщение взвешивания: " + 
+                _sessionState.TaskManager.MassaManager.ResponseParseGetMassa?.Message);
         }
 
         /// <summary>
         /// Состояние запроса к весам.
         /// </summary>
-        private void CallbackMassaManagerResponseSet()
+        private void CallbackMassaManagerResponseSetAll()
         {
-            if (_sessionState.TaskManager.MassaManager.ResponseSetError != null)
-            {
-                if (!fieldMassaSetState.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSetState, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSetState, _sessionState.TaskManager.MassaManager.ResponseSetError.GetMessage());
-            }
-            else
-            {
-                if (fieldMassaSetState.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSetState, false);
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSet, "Задать параметры весов: " +
+                _sessionState.TaskManager.MassaManager.ResponseParseSetAll?.Message);
         }
 
         /// <summary>
-        /// Очередь запросов.
+        /// Пакетов в очереди.
         /// </summary>
         private void CallbackMassaManagerRequestQueue()
         {
-            if (_debug.IsDebug)
-            {
-                if (!fieldMassaQueries.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueries, true);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries, $"Очередь запросов: {_sessionState.TaskManager.MassaManager.RequestQueue.Count}");
-            }
-            else
-            {
-                if (fieldMassaQueries.Visible)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueries, false);
-            }
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries, 
+                $"Пакетов в очереди: {_sessionState.TaskManager.MassaManager.RequestQueue.Count}");
         }
 
         #endregion

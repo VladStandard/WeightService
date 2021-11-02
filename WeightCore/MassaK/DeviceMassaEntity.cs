@@ -3,11 +3,14 @@
 
 using System;
 using System.IO.Ports;
+using System.Threading;
 
 namespace WeightCore.MassaK
 {
     public class DeviceMassaEntity : IDisposable
     {
+        #region Classes
+        
         public class NotIsConnectedException : Exception
         {
             public NotIsConnectedException() : base("Not is connected to scales") { }
@@ -18,6 +21,8 @@ namespace WeightCore.MassaK
             public ConnectionException() : base("Failed to connect to scales") { }
             public ConnectionException(Exception e) : base("Failed to connect to scales", e) { }
         }
+
+        #endregion
 
         #region Public and private fields and properties
 
@@ -99,10 +104,6 @@ namespace WeightCore.MassaK
             }
         }
 
-        /// <summary>
-        /// Weight in gramms.
-        /// </summary>
-        /// <returns></returns>
         //public int GetWeight()
         //{
         //    if (IsEnableReconnect)
@@ -129,39 +130,7 @@ namespace WeightCore.MassaK
         //    return response;
         //}
 
-        private int GetBufferLength(CmdEntity cmd)
-        {
-            switch (cmd.CmdType)
-            {
-                case CmdType.GetMassa:
-                    return 0;
-                case CmdType.GetName:
-                    break;
-                case CmdType.GetScalePar:
-                    break;
-                case CmdType.GetSys:
-                    break;
-                case CmdType.GetTare:
-                    break;
-                case CmdType.GetWeight:
-                    break;
-                case CmdType.SetDatetime:
-                    break;
-                case CmdType.SetName:
-                    break;
-                case CmdType.SetRegnum:
-                    break;
-                case CmdType.SetTare:
-                    break;
-                case CmdType.SetZero:
-                    break;
-                case CmdType.ResponseParse:
-                    break;
-            }
-            return 0;
-        }
-
-        private byte[] ReadFromPort(CmdEntity cmd)
+        private byte[] ReadFromPort()
         {
             int length = SerialPortItem.BytesToRead;
             //int length = GetBufferLength(cmd);
@@ -171,26 +140,25 @@ namespace WeightCore.MassaK
                 SerialPortItem.Read(response, 0, length);
             }
 
-            int i = 0;
-            int pos = 0;
-            foreach (byte item in response)
-            {
-                if (item == 0xF8)
-                    pos = i;
-                i++;
-            }
-            if (pos > 0)
-            {
-                byte[] buffer = new byte[response.Length - pos];
-                int j = 0;
-                for (i = pos; i < response.Length; i++)
-                {
-                    buffer[j] = response[i];
-                    j++;
-                }
-                return buffer;
-            }
-            System.Threading.Thread.Sleep(100);
+            //int i = 0;
+            //int pos = 0;
+            //foreach (byte item in response)
+            //{
+            //    if (item == 0xF8)
+            //        pos = i;
+            //    i++;
+            //}
+            //if (pos > 0)
+            //{
+            //    byte[] buffer = new byte[response.Length - pos];
+            //    int j = 0;
+            //    for (i = pos; i < response.Length; i++)
+            //    {
+            //        buffer[j] = response[i];
+            //        j++;
+            //    }
+            //    return buffer;
+            //}
             return response;
         }
 
@@ -201,32 +169,11 @@ namespace WeightCore.MassaK
             lock (LockObject)
             {
                 SerialPortItem.Write(cmd.Request, 0, cmd.Request.Length);
-                return ReadFromPort(cmd);
+                Thread.Sleep(10);
+                byte[] result = ReadFromPort();
+                Thread.Sleep(10);
+                return result;
             }
-        }
-
-        public ResponseParseEntity Parse(CmdEntity cmd)
-        {
-            if (!ResponseParseEntity.IsValidData(cmd.Response))
-                return null;
-            // Cmd.
-            return cmd.Response[5] switch
-            {
-                // CMD_ACK_MASSA: 36 DEC
-                0x24 => new ResponseParseGetMassaEntity(cmd.Response),
-                // CMD_ERROR: 40 DEC
-                0x28 => new ResponseParseErrorEntity(cmd.Response),
-                // CMD_ACK_SCALE_PAR: 118 DEC
-                0x76 => new ResponseParseScaleParEntity(cmd.Response),
-                // CMD_ACK_SCALE_PAR: 18 DEC
-                0x12 => new ResponseParseSetTareEntity(cmd.Response),
-                // CMD_NACK_TARE: 21 DEC
-                0x15 => new ResponseParseNackTareEntity(cmd.Response),
-                // CMD_SET_ZERO: 39 DEC
-                0x27 => new ResponseParseSetZeroEntity(cmd.Response),
-                // По-умолчанию.
-                _ => null,
-            };
         }
 
         #endregion

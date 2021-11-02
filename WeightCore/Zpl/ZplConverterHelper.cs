@@ -315,7 +315,7 @@ namespace WeightCore.Zpl
 
             foreach (string commandLine in ZPLCommand)
             {
-                stream.Write(ASCIIEncoding.ASCII.GetBytes(commandLine), 0, commandLine.Length);
+                stream.Write(Encoding.ASCII.GetBytes(commandLine), 0, commandLine.Length);
                 stream.Flush();
             }
 
@@ -348,12 +348,12 @@ namespace WeightCore.Zpl
                 using (NetworkStream stream = client.GetStream())
                 {
                     string ZPLCommand = $"^XA^MNN^LL500~DYE:{namettf}.TTF,B,T," + binaryData.Length + ",,";
-                    stream.Write(ASCIIEncoding.ASCII.GetBytes(ZPLCommand), 0, ZPLCommand.Length);
+                    stream.Write(Encoding.ASCII.GetBytes(ZPLCommand), 0, ZPLCommand.Length);
                     stream.Flush();
                     stream.Write(binaryData, 0, binaryData.Length);
                     stream.Flush();
                     ZPLCommand = "^XZ";
-                    stream.Write(ASCIIEncoding.ASCII.GetBytes(ZPLCommand), 0, ZPLCommand.Length);
+                    stream.Write(Encoding.ASCII.GetBytes(ZPLCommand), 0, ZPLCommand.Length);
                     stream.Flush();
                     stream.Close();
                 }

@@ -46,6 +46,12 @@ namespace WeightCore.MassaK
                 ? GetNew(new List<byte[]>() { CMD_BEGIN, bytes, CMD_END })
                 : GetNew(new List<byte[]>() { CMD_BEGIN, bytes });
 
+            /// <summary>
+            /// Неизвестная команда.
+            /// F8 55 CE 01 00 F0 F0 00
+            /// </summary>
+            public static readonly byte[] CMD_NACK = GetFull(new byte[] { 0x01, 0x00, 0xF0, 0xF0, 0x00 }, false);
+
             public static class Get
             {
                 /// <summary>
@@ -66,9 +72,27 @@ namespace WeightCore.MassaK
 
                 /// <summary>
                 /// Запрос массы нетто, массы тары, флагов стабильности, установки нуля и тары.
-                /// F8 55 CE 01 00 23 00 00
+                /// F8 55 CE 01 00 23 23 00
                 /// </summary>
                 public static readonly byte[] CMD_GET_MASSA = GetFull(new byte[] { 0x01, 0x00, 0x23, 0x23, 0x00 }, false);
+
+                /// <summary>
+                /// Запрос параметров Ethernet.
+                /// F8 55 CE 01 00 2D 2D 00
+                /// </summary>
+                public static readonly byte[] CMD_GET_ETHERNET = GetFull(new byte[] { 0x01, 0x00, 0x2D, 0x2D, 0x00 }, false);
+
+                /// <summary>
+                /// Запрос параметров Wi-Fi.
+                /// F8 55 CE 01 00 33 33 00
+                /// </summary>
+                public static readonly byte[] CMD_GET_WIFI_IP = GetFull(new byte[] { 0x01, 0x00, 0x33, 0x33, 0x00 }, false);
+
+                /// <summary>
+                /// Запрос параметров доступа к Wi-Fi.
+                /// F8 55 CE 01 00 3A 3A 00
+                /// </summary>
+                public static readonly byte[] CMD_GET_WIFI_SSID = GetFull(new byte[] { 0x01, 0x00, 0x3A, 0x3A, 0x00 }, false);
 
                 /// <summary>
                 /// Запрос параметров весового устройства.
@@ -152,16 +176,22 @@ namespace WeightCore.MassaK
 
     public enum CmdType
     {
-        Unknown,
+        Nack,
         Init1,
         Init2,
         Init3,
+        GetEthernet,
+        GetWiFiIp,
+        GetWiFiSsid,
         GetMassa,
         GetName,
         GetScalePar,
         GetSys,
         GetTare,
         GetWeight,
+        SetEthernet,
+        SetWiFiIp,
+        SetWiFiSsid,
         SetDatetime,
         SetName,
         SetRegnum,

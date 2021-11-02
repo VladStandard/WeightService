@@ -6,11 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.710] - 2021-11-01
+## [0.5.750] - 2021-11-02
 ### Fixed
 - MassaK scales
 ### Added
 - Run ScalesTerminal
+- Protokol 100
 
 ## [0.5.690] - 2021-10-26
 ### Fixed

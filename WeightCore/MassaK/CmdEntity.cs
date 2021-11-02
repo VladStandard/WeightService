@@ -12,9 +12,8 @@ namespace WeightCore.MassaK
 
         public int WeightTare { get; set; } = 0;
         public int ScaleFactor { get; set; } = 1_000;
-        public CmdType CmdType { get; set; } = CmdType.Unknown;
+        public CmdType CmdType { get; set; } = CmdType.Nack;
         public byte[] Request { get; set; } = null;
-        public byte[] Response { get; set; } = null;
         public ResponseParseEntity ResponseParse { get; set; } = null;
 
         #endregion
@@ -37,55 +36,19 @@ namespace WeightCore.MassaK
 
         #region Public and private methods
 
-        private void CmdSetCrc(byte[] data, short skip = 5, short len = 1)
+        private byte[] CrcRecalc(byte[] response, short skip = 5, short len = 1)
         {
-            byte[] selected = data.Skip(skip).Take(len).ToArray();
+            byte[] data = response.Skip(skip).Take(len).ToArray();
             if (len > 1)
-                _ = selected.Reverse();
+                _ = data.Reverse();
             //ushort crc = MassaUtils.Crc16.GetChecksum(selected);
-            ushort crc = NullFX.CRC.Crc16.ComputeChecksum(NullFX.CRC.Crc16Algorithm.Ccitt, selected);
-            data[data.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
-            data[data.Length - 1] = (byte)(crc & 0xFF);
+            ushort crc = NullFX.CRC.Crc16.ComputeChecksum(NullFX.CRC.Crc16Algorithm.Ccitt, data);
+            response[response.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
+            response[response.Length - 1] = (byte)(crc & 0xFF);
+            return response;
         }
 
-        public byte[] CmdInit1()
-        {
-            byte[] data = MassaUtils.Cmd.Get.CMD_INIT_1;
-            return data;
-        }
-
-        public byte[] CmdInit2()
-        {
-            byte[] data = MassaUtils.Cmd.Get.CMD_INIT_2;
-            return data;
-        }
-
-        public byte[] CmdInit3()
-        {
-            byte[] data = MassaUtils.Cmd.Get.CMD_INIT_3;
-            return data;
-        }
-
-        public byte[] CmdGetMassa()
-        {
-            byte[] data = MassaUtils.Cmd.Get.CMD_GET_MASSA;
-            //CmdSetCrc(data);
-            return data;
-        }
-
-        public byte[] CmdGetScalePar()
-        {
-            byte[] data = MassaUtils.Cmd.Get.CMD_GET_SCALE_PAR;
-            CmdSetCrc(data);
-            return data;
-        }
-
-        public byte[] CmdGetName()
-        {
-            byte[] data = MassaUtils.Cmd.Get.CMD_GET_NAME;
-            CmdSetCrc(data);
-            return data;
-        }
+        public byte[] CmdGetName() => CrcRecalc(MassaUtils.Cmd.Get.CMD_GET_NAME);
 
         public byte[] CmdSetTare()
         {
@@ -96,7 +59,7 @@ namespace WeightCore.MassaK
             data[8] = (byte)((byte)(WeightTare >> 0x16) & 0xFF);
             data[9] = (byte)((byte)(WeightTare >> 0x32) & 0xFF);
             CmdSetaTareScaleFactor(data);
-            CmdSetCrc(data, 5, 9);
+            CrcRecalc(data, 5, 9);
             //byte[] selected = data.Skip(5).Take(9).ToArray();
             //_ = selected.Reverse();
             //ushort crc = Crc16.ComputeChecksum(selected);
@@ -119,13 +82,6 @@ namespace WeightCore.MassaK
             };
         }
 
-        public byte[] CmdSetZero()
-        {
-            byte[] data = MassaUtils.Cmd.Set.CMD_SET_ZERO;
-            CmdSetCrc(data);
-            return data;
-        }
-
         public byte[] CmdSetName(string name = "xx")
         {
             byte[] data = new byte[MassaUtils.Cmd.Set.CMD_SET_NAME.Length + name.Length + 2];
@@ -145,7 +101,7 @@ namespace WeightCore.MassaK
             data[k++] = 0x00;
             data[4] = (byte)(1 + name.Length);
             data[5] = 0x00;
-            CmdSetCrc(data, 6, (short)(1 + name.Length));
+            CrcRecalc(data, 6, (short)(1 + name.Length));
             //byte[] selected = data.Skip(6).Take(1 + name.Length).ToArray();
             //selected.Reverse();
             //ushort crc = Crc16.ComputeChecksum(selected);
@@ -157,7 +113,7 @@ namespace WeightCore.MassaK
         public byte[] CmdTcpGetTare()
         {
             byte[] data = MassaUtils.Cmd.Get.CMD_GET_TARE;
-            CmdSetCrc(data);
+            CrcRecalc(data);
             return data;
         }
 
@@ -169,7 +125,7 @@ namespace WeightCore.MassaK
             data[9] = (byte)((byte)(Regnum >> 0x16) & 0xFF);
             data[10] = (byte)((byte)(Regnum >> 0x32) & 0xFF);
 
-            CmdSetCrc(data, 5, 6);
+            CrcRecalc(data, 5, 6);
             //byte[] selected = data.Skip(5).Take(6).ToArray();
             //selected.Reverse();
             //ushort crc = Crc16.ComputeChecksum(selected);
@@ -194,14 +150,14 @@ namespace WeightCore.MassaK
         public byte[] CmdGetSys()
         {
             byte[] data = MassaUtils.Cmd.Get.CMD_GET_SYS;
-            CmdSetCrc(data);
+            CrcRecalc(data);
             return data;
         }
 
         public byte[] CmdGetWeight()
         {
             byte[] data = MassaUtils.Cmd.Get.CMD_GET_WEIGHT;
-            CmdSetCrc(data);
+            CrcRecalc(data);
             return data;
         }
 
