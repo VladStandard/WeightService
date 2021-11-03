@@ -32,6 +32,7 @@
             this.fieldWeightTare = new System.Windows.Forms.Label();
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.fieldMassaComPort = new System.Windows.Forms.Label();
             this.fieldMassaScalePar = new System.Windows.Forms.Label();
             this.fieldMassaSet = new System.Windows.Forms.Label();
             this.fieldMassaQueries = new System.Windows.Forms.Label();
@@ -61,9 +62,8 @@
             this.btAddKneading = new System.Windows.Forms.Button();
             this.btNewPallet = new System.Windows.Forms.Button();
             this.buttonSelectOrder = new System.Windows.Forms.Button();
-            this.buttonSetZero = new System.Windows.Forms.Button();
+            this.buttonScalesInit = new System.Windows.Forms.Button();
             this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
-            this.fieldMassaComPort = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -170,6 +170,21 @@
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1180, 622);
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            // 
+            // fieldMassaComPort
+            // 
+            this.fieldMassaComPort.AutoSize = true;
+            this.fieldMassaComPort.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaComPort.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaComPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaComPort.Location = new System.Drawing.Point(14, 529);
+            this.fieldMassaComPort.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaComPort.Name = "fieldMassaComPort";
+            this.fieldMassaComPort.Size = new System.Drawing.Size(323, 25);
+            this.fieldMassaComPort.TabIndex = 50;
+            this.fieldMassaComPort.Text = "Состояние COM-порта: ";
+            this.fieldMassaComPort.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaComPort.Visible = false;
             // 
             // fieldMassaScalePar
             // 
@@ -509,7 +524,7 @@
             this.flowLayoutPanelBottom.Controls.Add(this.btNewPallet);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonSettings);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonSelectOrder);
-            this.flowLayoutPanelBottom.Controls.Add(this.buttonSetZero);
+            this.flowLayoutPanelBottom.Controls.Add(this.buttonScalesInit);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonRunScalesTerminal);
             this.flowLayoutPanelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanelBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
@@ -604,20 +619,20 @@
             this.buttonSelectOrder.Click += new System.EventHandler(this.ButtonSelectOrder_Click);
             this.buttonSelectOrder.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // buttonSetZero
+            // buttonScalesInit
             // 
-            this.buttonSetZero.BackColor = System.Drawing.Color.Transparent;
-            this.buttonSetZero.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSetZero.Location = new System.Drawing.Point(145, 3);
-            this.buttonSetZero.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.buttonSetZero.Name = "buttonSetZero";
-            this.buttonSetZero.Size = new System.Drawing.Size(120, 122);
-            this.buttonSetZero.TabIndex = 1;
-            this.buttonSetZero.Text = ">0<";
-            this.buttonSetZero.UseVisualStyleBackColor = false;
-            this.buttonSetZero.Visible = false;
-            this.buttonSetZero.Click += new System.EventHandler(this.ButtonSetZero_Click);
-            this.buttonSetZero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.buttonScalesInit.BackColor = System.Drawing.Color.Transparent;
+            this.buttonScalesInit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonScalesInit.Location = new System.Drawing.Point(145, 3);
+            this.buttonScalesInit.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.buttonScalesInit.Name = "buttonScalesInit";
+            this.buttonScalesInit.Size = new System.Drawing.Size(120, 122);
+            this.buttonScalesInit.TabIndex = 1;
+            this.buttonScalesInit.Text = "Инициали- зировать весы";
+            this.buttonScalesInit.UseVisualStyleBackColor = false;
+            this.buttonScalesInit.Visible = false;
+            this.buttonScalesInit.Click += new System.EventHandler(this.buttonScalesInit_Click);
+            this.buttonScalesInit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // buttonRunScalesTerminal
             // 
@@ -631,21 +646,6 @@
             this.buttonRunScalesTerminal.Text = "Scales Terminal";
             this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
             this.buttonRunScalesTerminal.Click += new System.EventHandler(this.buttonRunScalesTerminal_Click);
-            // 
-            // fieldMassaComPort
-            // 
-            this.fieldMassaComPort.AutoSize = true;
-            this.fieldMassaComPort.BackColor = System.Drawing.Color.Transparent;
-            this.fieldMassaComPort.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaComPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaComPort.Location = new System.Drawing.Point(14, 529);
-            this.fieldMassaComPort.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMassaComPort.Name = "fieldMassaComPort";
-            this.fieldMassaComPort.Size = new System.Drawing.Size(323, 25);
-            this.fieldMassaComPort.TabIndex = 50;
-            this.fieldMassaComPort.Text = "Состояние COM-порта: ";
-            this.fieldMassaComPort.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaComPort.Visible = false;
             // 
             // MainForm
             // 
@@ -690,7 +690,7 @@
         private System.Windows.Forms.ProgressBar fieldCountBox;
         private System.Windows.Forms.ComboBox fieldResolution;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelBottom;
-        private System.Windows.Forms.Button buttonSetZero;
+        private System.Windows.Forms.Button buttonScalesInit;
         private System.Windows.Forms.Button buttonPrint;
         private System.Windows.Forms.Button buttonSetKneading;
         private System.Windows.Forms.Button buttonSelectOrder;

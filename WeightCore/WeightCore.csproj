@@ -222,7 +222,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Crc16citt.cs" />
     <Compile Include="Gui\CustomMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,18 +257,12 @@
     <Compile Include="Helpers\MouseHookHelper.cs" />
     <Compile Include="Managers\MemoryManagerHelper.cs" />
     <Compile Include="Managers\TaskManagerHelper.cs" />
-    <Compile Include="MassaK\CmdEntityBackup.cs" />
-    <Compile Include="MassaK\CmdEntity.cs" />
-    <Compile Include="MassaK\Crc16CcittEntity.cs" />
-    <Compile Include="MassaK\Crc16JashliaoVcEntity.cs" />
-    <Compile Include="MassaK\Crc16DanyloKdEntity.cs" />
-    <Compile Include="MassaK\Crc16BaseEntity.cs" />
-    <Compile Include="MassaK\Crc16JashEntity.cs" />
-    <Compile Include="MassaK\Crc16Entity.cs" />
-    <Compile Include="MassaK\MassaUtils.cs" />
-    <Compile Include="MassaK\DeviceSocketComEntity.cs" />
+    <Compile Include="MassaK\MassaCmdType.cs" />
+    <Compile Include="MassaK\MassaExchangeEntity.cs" />
+    <Compile Include="MassaK\Crc16MassaEntity.cs" />
     <Compile Include="MassaK\DeviceSocketTcpEntity.cs" />
-    <Compile Include="MassaK\DeviceMassaEntity.cs" />
+    <Compile Include="MassaK\MassaDeviceEntity.cs" />
+    <Compile Include="MassaK\MassaRequestHelper.cs" />
     <Compile Include="MassaK\MkCommanderBackup.cs" />
     <Compile Include="MassaK\MkCommander.cs" />
     <Compile Include="MassaK\MkDeviceEntityBackup.cs" />

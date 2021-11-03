@@ -8,7 +8,7 @@ namespace WeightCore.MassaK
 {
     public class ResponseParseEntity
     {
-        public CmdType CmdType { get; }
+        public MassaCmdType CmdType { get; }
         public byte[] Response { get; }
         public byte Header0 { get; private set; }
         public byte Header1 { get; private set; }
@@ -30,54 +30,54 @@ namespace WeightCore.MassaK
                     return 0x00;
                 switch (CmdType)
                 {
-                    case CmdType.GetScalePar:
+                    case MassaCmdType.GetScalePar:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.GetMassa:
+                    case MassaCmdType.GetMassa:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.SetTare:
+                    case MassaCmdType.SetTare:
                         // -
                         break;
-                    case CmdType.SetZero:
+                    case MassaCmdType.SetZero:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.GetName:
+                    case MassaCmdType.GetName:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.SetName:
+                    case MassaCmdType.SetName:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.GetEthernet:
+                    case MassaCmdType.GetEthernet:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.SetEthernet:
+                    case MassaCmdType.SetEthernet:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.GetWiFiIp:
+                    case MassaCmdType.GetWiFiIp:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.SetWiFiIp:
+                    case MassaCmdType.SetWiFiIp:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.GetWiFiSsid:
+                    case MassaCmdType.GetWiFiSsid:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.SetWiFiSsid:
+                    case MassaCmdType.SetWiFiSsid:
                         if (Command == 0x28)
                             return Data[6];
                         break;
-                    case CmdType.Nack:
+                    case MassaCmdType.Nack:
                         // -
                         break;
                 }
@@ -89,7 +89,7 @@ namespace WeightCore.MassaK
             get {
                 switch (CmdType)
                 {
-                    case CmdType.GetScalePar:
+                    case MassaCmdType.GetScalePar:
                         if (Command == 0x76) return "Запрос параметров весового устройства";
                         if (Command == 0x28)
                         {
@@ -97,7 +97,7 @@ namespace WeightCore.MassaK
                             return "Ошибка выполнения команды";
                         }
                         break;
-                    case CmdType.GetMassa:
+                    case MassaCmdType.GetMassa:
                         if (Command == 0x24) return "Запрос массы нетто, тары, стабильности";
                         if (Command == 0x28)
                         {
@@ -109,14 +109,14 @@ namespace WeightCore.MassaK
                             return "Ошибка выполнения команды";
                         }
                         break;
-                    case CmdType.SetTare:
+                    case MassaCmdType.SetTare:
                         if (Command == 0x12) return "Команда установки тары выполнена успешно";
                         if (Command == 0x15)
                         {
                             return "Невозможно установить тару";
                         }
                         break;
-                    case CmdType.SetZero:
+                    case MassaCmdType.SetZero:
                         if (Command == 0x27) return "Команда установки >0< выполнена успешно";
                         if (Command == 0x28)
                         {
@@ -124,10 +124,10 @@ namespace WeightCore.MassaK
                             return "Ошибка выполнения команды";
                         }
                         break;
-                    case CmdType.GetName:
+                    case MassaCmdType.GetName:
                         if (Command == 0x21) return "Запрос имени и ID весового устройства";
                         break;
-                    case CmdType.SetName:
+                    case MassaCmdType.SetName:
                         if (Command == 0x27) return "Команда установки имени выполнена успешно";
                         if (Command == 0x28)
                         {
@@ -136,14 +136,14 @@ namespace WeightCore.MassaK
                             return "Ошибка выполнения команды";
                         }
                         break;
-                    case CmdType.GetEthernet:
+                    case MassaCmdType.GetEthernet:
                         if (Command == 0x2E) return "Запрос параметров Ethernet";
                         if (Command == 0x28)
                         {
                             if (ErrorCode == 0x11) return "Интерфейс Ethernet не поддерживается";
                         }
                         break;
-                    case CmdType.SetEthernet:
+                    case MassaCmdType.SetEthernet:
                         if (Command == 0x27) return "Установка Ethernet выполнена успешно";
                         if (Command == 0x28)
                         {
@@ -153,7 +153,7 @@ namespace WeightCore.MassaK
                             return "Ошибка выполнения команды";
                         }
                         break;
-                    case CmdType.GetWiFiIp:
+                    case MassaCmdType.GetWiFiIp:
                         if (Command == 0x34) return "Запрос IP-параметров подключения к сети Wi-Fi";
                         if (Command == 0x28)
                         {
@@ -161,7 +161,7 @@ namespace WeightCore.MassaK
                             return "Ошибка выполнения команды";
                         }
                         break;
-                    case CmdType.SetWiFiIp:
+                    case MassaCmdType.SetWiFiIp:
                         if (Command == 0x27) return "Передача IP-параметров подключения к сети Wi-Fi выполнена успешно";
                         if (Command == 0x28)
                         {
@@ -171,7 +171,7 @@ namespace WeightCore.MassaK
                             return "Ошибка выполнения команды";
                         }
                         break;
-                    case CmdType.GetWiFiSsid:
+                    case MassaCmdType.GetWiFiSsid:
                         if (Command == 0x3B) return "Запрос параметров доступа к сети Wi-Fi";
                         if (Command == 0x28)
                         {
@@ -179,7 +179,7 @@ namespace WeightCore.MassaK
                             return "Ошибка выполнения команды";
                         }
                         break;
-                    case CmdType.SetWiFiSsid:
+                    case MassaCmdType.SetWiFiSsid:
                         if (Command == 0x27) return "Передача параметров доступа к сети Wi-Fi выполнена успешно";
                         if (Command == 0x28)
                         {
@@ -189,7 +189,7 @@ namespace WeightCore.MassaK
                             return "Ошибка выполнения команды";
                         }
                         break;
-                    case CmdType.Nack:
+                    case MassaCmdType.Nack:
                         if (Command == 0xF0) return "Принята неизвестная команда";
                         break;
                 }
@@ -199,7 +199,7 @@ namespace WeightCore.MassaK
         public ResponseMassaEntity Massa { get; set; }
         public ResponseScaleParEntity ScalePar { get; set; }
 
-        public ResponseParseEntity(CmdType cmdType, byte[] response)
+        public ResponseParseEntity(MassaCmdType cmdType, byte[] response)
         {
             CmdType = cmdType;
 
@@ -227,10 +227,10 @@ namespace WeightCore.MassaK
 
             switch (CmdType)
             {
-                case CmdType.GetMassa:
+                case MassaCmdType.GetMassa:
                     Massa = new ResponseMassaEntity(Response);
                     break;
-                case CmdType.GetScalePar:
+                case MassaCmdType.GetScalePar:
                     ScalePar = new ResponseScaleParEntity(Response);
                     break;
             }

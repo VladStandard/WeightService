@@ -12,12 +12,10 @@ namespace HardwareTests.MassaK
     [TestFixture]
     internal class Crc16MassaKTests
     {
-        // CMD_GET_MASSA
-        // IRP_MJ_WRITE	F8 55 CE 01 00 23 23 00
-        // IRP_MJ_READ	F8 55 CE 0D 00 24 00 00 00 00 01 01 00 01 00 00 00 00 FC 23
-
-        private byte[] getMassaRequest = MassaUtils.Cmd.Get.CMD_GET_MASSA.Skip(5).Take(1).ToArray();
-        private byte[] getMassaResponse = new byte[] { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
+        // WRITE	F8 55 CE 01 00 23 23 00
+        private readonly byte[] getMassaRequest = MassaRequestHelper.Instance.CMD_GET_MASSA;
+        // READ	    F8 55 CE 0D 00 24 00 00 00 00 01 01 00 01 00 00 00 00 FC 23
+        private readonly byte[] getMassaResponse = new byte[] { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
 
         [Test]
         public void ComputeChecksum_AreEqual()
@@ -28,7 +26,6 @@ namespace HardwareTests.MassaK
             {
                 byte[] data = getMassaRequest;
                 ushort crc = 0;
-                .
                 foreach (NullFX.CRC.Crc16Algorithm algorithm in (NullFX.CRC.Crc16Algorithm[])Enum.GetValues(typeof(NullFX.CRC.Crc16Algorithm)))
                 {
                     crc = NullFX.CRC.Crc16.ComputeChecksum(algorithm, data);

@@ -247,17 +247,17 @@ namespace WeightCore.Zpl
             return zplCode;
         }
 
-        public static string ZplContentAsBase64(string base64String)
-        {
-            //с наскока не сработало
-            byte[] b = Encoding.ASCII.GetBytes(base64String);
-            Crc16Ccitt crc = new(PrintInitialCrcValue.Zeros);
-            byte[] c = crc.ComputeChecksumBytes(b);
-            //Encode the compressed data into Base64. No whitespace or line breaks allowed.
-            //Convert the Base64 string to a byte array according to ASCII encoding().
-            //Calculate the CRC over that byte array. The Initial CRC Value must be zero.
-            return $"{b.Length},:B64:{base64String}:{ByteConverter.ByteArrayToString(c)}";
-        }
+        //public static string ZplContentAsBase64(string base64String)
+        //{
+        //    //с наскока не сработало
+        //    byte[] b = Encoding.ASCII.GetBytes(base64String);
+        //    Crc16Ccitt crc = new(PrintInitialCrcValue.Zeros);
+        //    byte[] c = crc.ComputeChecksumBytes(b);
+        //    //Encode the compressed data into Base64. No whitespace or line breaks allowed.
+        //    //Convert the Base64 string to a byte array according to ASCII encoding().
+        //    //Calculate the CRC over that byte array. The Initial CRC Value must be zero.
+        //    return $"{b.Length},:B64:{base64String}:{ByteConverter.ByteArrayToString(c)}";
+        //}
 
         private static string FixBase64ForImage(string image)
         {

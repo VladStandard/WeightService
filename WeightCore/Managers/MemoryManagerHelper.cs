@@ -67,8 +67,6 @@ namespace WeightCore.Managers
                         continue;
                     }
                     MakeJob();
-                    callback();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
                 {
@@ -78,6 +76,11 @@ namespace WeightCore.Managers
                 catch (Exception ex)
                 {
                     _exception.Catch(null, ref ex);
+                }
+                finally
+                {
+                    callback?.Invoke();
+                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
             }
         }

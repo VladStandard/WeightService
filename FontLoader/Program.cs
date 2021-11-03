@@ -42,7 +42,7 @@ namespace FontLoader
 
                 string namettf = Path.GetFileNameWithoutExtension(filePath).ToUpper();
                 byte[] b = File.ReadAllBytes(filePath);
-                ushort crc = Crc16.ComputeChecksum(b);
+                //ushort crc = Crc16.ComputeChecksum(b);
                 //string converted = Convert.ToBase64String(b);
                 string converted = ByteArrayToString(b);
 

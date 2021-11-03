@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Crc16MassaK\Crc16MassaK.vcxproj" />
     <ProjectReference Include="..\NullFX.CRC\NullFX.CRC\NullFX.CRC.csproj" />
     <ProjectReference Include="..\WeightCore\WeightCore.csproj" />
   </ItemGroup>

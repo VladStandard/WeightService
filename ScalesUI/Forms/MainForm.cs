@@ -75,7 +75,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -288,7 +288,7 @@ namespace ScalesUI.Forms
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaScalePar);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaGet);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaSet);
-            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, buttonSetZero);
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, buttonScalesInit);
             bool flag = false;
             if (_sessionState.CurrentPlu != null)
             {
@@ -401,7 +401,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -413,7 +413,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ButtonSetZero_Click(object sender, EventArgs e)
+        private void buttonScalesInit_Click(object sender, EventArgs e)
         {
             try
             {
@@ -427,7 +427,7 @@ namespace ScalesUI.Forms
                         return;
                 }
 
-                _sessionState.TaskManager.MassaManager.SetZero();
+                _sessionState.TaskManager.MassaManager.GetInit();
             }
             catch (Exception ex)
             {
@@ -436,6 +436,8 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -462,8 +464,6 @@ namespace ScalesUI.Forms
 
                 // PLU form.
                 using PluListForm pluListForm = new() { Owner = this };
-                // Commented from 2021-03-05.
-                //buttonSetZero_Click(sender, e);
                 if (pluListForm.ShowDialog() == DialogResult.OK)
                 {
                     _sessionState.Kneading = 1;
@@ -487,7 +487,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -541,7 +541,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -568,7 +568,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -576,9 +576,9 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.TaskManager.OpenPrintManager(CallbackPrintManager, CallbackPrintManagerClose,
-                    _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
                 _sessionState.PrintLabel(Owner);
+                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
             catch (Exception ex)
             {
@@ -681,7 +681,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -712,7 +712,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
         
@@ -737,7 +737,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    null, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 

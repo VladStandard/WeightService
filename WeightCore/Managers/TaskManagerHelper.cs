@@ -133,7 +133,8 @@ namespace WeightCore.Managers
         #region Public and private methods
 
         public void Open(DeviceManagerHelper.Callback callbackDeviceManager, MemoryManagerHelper.Callback callbackMemoryManager,
-            MassaManagerHelper.Callback callbackMassaManager, CallbackButtonSetZero callbackButtonSetZero,
+            MassaManagerHelper.Callback callbackMassaManager, 
+            PrintManagerHelper.Callback callbackPrintManager, TscPrintControlHelper.Callback callbackPrintManagerClose,
             SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
@@ -141,12 +142,14 @@ namespace WeightCore.Managers
                 DeviceManagerIsExit = false;
                 MemoryManagerIsExit = false;
                 MassaManagerIsExit = false;
+                PrintManagerIsExit = false;
                 IsTscPrinter = isTscPrinter;
 
                 TaskRunDeviceManager(callbackDeviceManager, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager));
                 TaskRunMemoryManager(callbackMemoryManager, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager));
-                TaskRunMassaManagerResponse(callbackMassaManager, callbackButtonSetZero, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager), currentScale);
+                TaskRunMassaManagerResponse(callbackMassaManager, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager), currentScale);
                 TaskRunMassaManagerRequest(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager));
+                TaskRunPrintManager(callbackPrintManager, callbackPrintManagerClose, ref sqlViewModel, currentScale);
             }
             catch (Exception ex)
             {
@@ -237,16 +240,10 @@ namespace WeightCore.Managers
 
                     try
                     {
-                        // DeviceManager.
                         if (taskEnabled)
                         {
-                            //if (DeviceManager == null)
-                            {
-                                DeviceManager.Init(1_000, 5_000, 5_000);
-                            }
-                            DebugLog($"{nameof(DeviceManager)} is runned");
+                            DeviceManager.Init(1_000, 5_000, 5_000);
                             DeviceManager.Open(callbackDeviceManager);
-                            DebugLog($"{nameof(DeviceManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -270,16 +267,10 @@ namespace WeightCore.Managers
 
                     try
                     {
-                        // MemoryManager.
                         if (taskEnabled)
                         {
-                            //if (MemoryManager == null)
-                            {
-                                MemoryManager.Init(1_000, 5_000, 5_000);
-                            }
-                            DebugLog($"{nameof(MemoryManager)} is runned");
+                            MemoryManager.Init(1_000, 5_000, 5_000);
                             MemoryManager.Open(callbackMemoryManager);
-                            DebugLog($"{nameof(MemoryManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -305,13 +296,10 @@ namespace WeightCore.Managers
 
                     try
                     {
-                        // PrintManager.
                         if (taskEnabled)
-                        {
+                        { 
                             PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
-                            DebugLog($"{nameof(PrintManager)} is runned");
                             PrintManager.Open(IsTscPrinter, callbackPrintManager, callbackPrintManagerClose);
-                            DebugLog($"{nameof(PrintManager)} is finished");
                         }
                     }
                     catch (Exception ex)
@@ -322,8 +310,7 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunMassaManagerResponse(MassaManagerHelper.Callback callbackMassaManager, CallbackButtonSetZero callbackButtonSetZero,
-            bool taskEnabled, ScaleDirect currentScale)
+        public void TaskRunMassaManagerResponse(MassaManagerHelper.Callback callbackMassaManager, bool taskEnabled, ScaleDirect currentScale)
         {
             _ = Task.Run(async () =>
             {
@@ -336,17 +323,18 @@ namespace WeightCore.Managers
 
                     try
                     {
-                        // MassaManager.
                         if (taskEnabled)
                         {
-                            MassaManager.Init(100, 250, 5_000, 5_000,
+                            MassaManager.Init(100, 250, 1_000, 5_000,
                                 currentScale.DeviceComPort, true, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
-                            callbackButtonSetZero?.Invoke(null, null);
-                            DebugLog($"{nameof(MassaManager)} is runned");
                             MassaManager.OpenResponse(callbackMassaManager);
-                            DebugLog($"{nameof(MassaManager)} is finished");
-                        }
+                        }                    
                     }
+                    //catch (ConnectionException cex)
+                    //{
+                    //    Exception ex = new(cex.Message);
+                    //    _exception.Catch(null, ref ex);
+                    //}
                     catch (Exception ex)
                     {
                         _exception.Catch(null, ref ex);
@@ -368,12 +356,9 @@ namespace WeightCore.Managers
 
                     try
                     {
-                        // MassaManager.
                         if (taskEnabled)
                         {
-                            DebugLog($"{nameof(TaskRunMassaManagerRequest)} is runned");
                             MassaManager.OpenRequest();
-                            DebugLog($"{nameof(TaskRunMassaManagerRequest)} is finished");
                         }
                     }
                     catch (Exception ex)

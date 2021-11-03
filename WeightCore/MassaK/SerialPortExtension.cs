@@ -9,7 +9,6 @@ namespace WeightCore.MassaK
     {
         public static SerialPort GetDefault(this SerialPort serialPort, string portName, int readTimeout = 1_000, int writeTimeout = 1_000) => new(portName)
         {
-            // Protokol_100 (r 5) 2018 V3.pdf - page 3
             BaudRate = 4800,
             Parity = Parity.Even,
             DataBits = 8,

@@ -85,8 +85,6 @@ namespace WeightCore.Print
                 try
                 {
                     OpenJob(isTscPrinter, callbackPrintManagerClose);
-                    callbackPrintManager();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
                 catch (TaskCanceledException)
                 {
@@ -98,7 +96,11 @@ namespace WeightCore.Print
                     _exception.Catch(null, ref ex);
                     throw;
                 }
-                System.Windows.Forms.Application.DoEvents();
+                finally
+                {
+                    callbackPrintManager?.Invoke();
+                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
+                }
             }
         }
 

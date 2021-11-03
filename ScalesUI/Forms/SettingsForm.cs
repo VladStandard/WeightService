@@ -38,8 +38,8 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            if (_taskManager.MassaManager != null)
-                _taskManager.MassaManager.GetScalePar();
+            //if (_taskManager.MassaManager != null)
+            //    _taskManager.MassaManager.GetScalePar();
         }
 
         private void ScaleOptionsForm_Load(object sender, EventArgs e)
@@ -390,9 +390,9 @@ namespace ScalesUI.Forms
 
                 if (_taskManager.MassaManager != null)
                 {
-                    _taskManager.MassaManager.GetScalePar();
-                    Thread.Sleep(10);
-                    Application.DoEvents();
+                    //_taskManager.MassaManager.GetScalePar();
+                    //Thread.Sleep(10);
+                    //Application.DoEvents();
 
                     if (_taskManager.MassaManager.ResponseParseGetMassa != null)
                     {
