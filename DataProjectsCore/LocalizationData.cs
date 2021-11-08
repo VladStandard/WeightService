@@ -423,6 +423,12 @@ namespace DataCore
             public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English 
                 ? @"Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator."
                 : @"Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
+            public static string MassaNotQuering => Lang == ShareEnums.Lang.English
+                ? @"Massa-K scales are not interrogated!"
+                : @"Весы Масса-К не опрашиваются!";
+            public static string IsNotLoaded => Lang == ShareEnums.Lang.English
+                ? @"The program is not yet loaded!" + Environment.NewLine + @"Wait for it..."
+                : @"Программа ещё не загружена!" + Environment.NewLine + @"Подождите...";
         }
 
         public static class Methods

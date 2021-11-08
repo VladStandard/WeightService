@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.760] - 2021-11-08
+### Changed
+- CRC16
+
 ## [0.5.750] - 2021-11-02
 ### Added
 - Protokol 100

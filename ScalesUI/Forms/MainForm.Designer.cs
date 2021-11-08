@@ -64,6 +64,8 @@
             this.buttonSelectOrder = new System.Windows.Forms.Button();
             this.buttonScalesInit = new System.Windows.Forms.Button();
             this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
+            this.fieldMassaGetCrc = new System.Windows.Forms.Label();
+            this.fieldMassaSetCrc = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -123,6 +125,8 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0563F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00938F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.000938F));
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSetCrc, 3, 13);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGetCrc, 3, 12);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaComPort, 1, 12);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaScalePar, 2, 11);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSet, 2, 13);
@@ -212,7 +216,7 @@
             this.fieldMassaSet.Name = "fieldMassaSet";
             this.fieldMassaSet.Size = new System.Drawing.Size(702, 25);
             this.fieldMassaSet.TabIndex = 48;
-            this.fieldMassaSet.Text = "Задать параметры весов: ";
+            this.fieldMassaSet.Text = "Команда для весов: ";
             this.fieldMassaSet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldMassaSet.Visible = false;
             // 
@@ -647,6 +651,36 @@
             this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
             this.buttonRunScalesTerminal.Click += new System.EventHandler(this.buttonRunScalesTerminal_Click);
             // 
+            // fieldMassaGetCrc
+            // 
+            this.fieldMassaGetCrc.AutoSize = true;
+            this.fieldMassaGetCrc.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaGetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaGetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaGetCrc.Location = new System.Drawing.Point(1051, 529);
+            this.fieldMassaGetCrc.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaGetCrc.Name = "fieldMassaGetCrc";
+            this.fieldMassaGetCrc.Size = new System.Drawing.Size(112, 25);
+            this.fieldMassaGetCrc.TabIndex = 51;
+            this.fieldMassaGetCrc.Text = "CRC: ";
+            this.fieldMassaGetCrc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaGetCrc.Visible = false;
+            // 
+            // fieldMassaSetCrc
+            // 
+            this.fieldMassaSetCrc.AutoSize = true;
+            this.fieldMassaSetCrc.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaSetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaSetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaSetCrc.Location = new System.Drawing.Point(1051, 560);
+            this.fieldMassaSetCrc.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaSetCrc.Name = "fieldMassaSetCrc";
+            this.fieldMassaSetCrc.Size = new System.Drawing.Size(112, 25);
+            this.fieldMassaSetCrc.TabIndex = 52;
+            this.fieldMassaSetCrc.Text = "CRC: ";
+            this.fieldMassaSetCrc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaSetCrc.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -712,6 +746,8 @@
         private System.Windows.Forms.Button buttonRunScalesTerminal;
         private System.Windows.Forms.Label fieldMassaScalePar;
         private System.Windows.Forms.Label fieldMassaComPort;
+        private System.Windows.Forms.Label fieldMassaSetCrc;
+        private System.Windows.Forms.Label fieldMassaGetCrc;
     }
 }
 

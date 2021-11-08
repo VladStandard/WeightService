@@ -259,7 +259,7 @@
     <Compile Include="Managers\TaskManagerHelper.cs" />
     <Compile Include="MassaK\MassaCmdType.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />
-    <Compile Include="MassaK\Crc16MassaEntity.cs" />
+    <Compile Include="MassaK\BytesHelper.cs" />
     <Compile Include="MassaK\DeviceSocketTcpEntity.cs" />
     <Compile Include="MassaK\MassaDeviceEntity.cs" />
     <Compile Include="MassaK\MassaRequestHelper.cs" />
@@ -365,10 +365,6 @@
     <ProjectReference Include="..\DataShareCore\DataShareCore.csproj">
       <Project>{8ba404fc-5e08-44f6-9c55-6d52c4fd0846}</Project>
       <Name>DataShareCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NullFX.CRC\NullFX.CRC\NullFX.CRC.csproj">
-      <Project>{f885722c-f9b3-44fd-8498-8fa35c9111f7}</Project>
-      <Name>NullFX.CRC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -173,8 +173,8 @@ namespace WeightCore.Managers
         {
             switch (cmd.CmdType)
             {
-                case MassaCmdType.GetInit1:
-                    cmd.Request = _massaRequest.CMD_GET_INIT_1;
+                case MassaCmdType.UdpPoll:
+                    cmd.Request = _massaRequest.CMD_UDP_POLL;
                     break;
                 case MassaCmdType.GetInit2:
                     cmd.Request = _massaRequest.CMD_GET_INIT_2;
@@ -305,7 +305,7 @@ namespace WeightCore.Managers
             Thread.Sleep(timeOut);
         }
 
-        public void GetInit1() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetInit1));
+        public void GetInit1() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.UdpPoll));
         public void GetInit2() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetInit2));
         public void GetInit3() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetInit3));
         public void GetMassa() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetMassa));

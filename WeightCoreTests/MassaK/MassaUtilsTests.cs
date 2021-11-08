@@ -13,6 +13,8 @@ namespace HardwareTests.MassaK
     [TestFixture]
     internal class MassaUtilsTests
     {
+        private readonly BytesHelper _bytes = BytesHelper.Instance;
+
         [Test]
         public void ComputeChecksum_AreEqual()
         {
@@ -20,19 +22,17 @@ namespace HardwareTests.MassaK
 
             Assert.DoesNotThrow(() =>
             {
-                TestContext.WriteLine($"CMD_GET_MASSA: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_MASSA)}");
-                TestContext.WriteLine($"CMD_GET_SCALE_PAR: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_SCALE_PAR)}");
-                TestContext.WriteLine($"CMD_GET_TARE: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_TARE)}");
-                TestContext.WriteLine($"CMD_GET_NAME: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_NAME)}");
-                TestContext.WriteLine($"CMD_GET_SYS: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_SYS)}");
-                TestContext.WriteLine($"CMD_GET_WEIGHT: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_WEIGHT)}");
+                TestContext.WriteLine($"CMD_GET_MASSA: {_bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_MASSA)}");
+                TestContext.WriteLine($"CMD_GET_SCALE_PAR: {_bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_SCALE_PAR)}");
+                TestContext.WriteLine($"CMD_GET_TARE: {_bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_TARE)}");
+                TestContext.WriteLine($"CMD_GET_NAME: {_bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_NAME)}");
+                TestContext.WriteLine($"CMD_GET_SYS: {_bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_SYS)}");
+                TestContext.WriteLine($"CMD_GET_WEIGHT: {_bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_GET_WEIGHT)}");
                 TestContext.WriteLine();
 
-                TestContext.WriteLine($"CMD_SET_ZERO: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_SET_ZERO)}");
-                TestContext.WriteLine($"CMD_SET_NAME: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_SET_NAME)}");
-                TestContext.WriteLine($"CMD_SET_TARE: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_SET_TARE)}");
-                TestContext.WriteLine($"CMD_SET_DATETIME: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_SET_DATETIME)}");
-                TestContext.WriteLine($"CMD_SET_RGNUM: {MassaRequestHelper.Instance.GetBytesAsHex(MassaRequestHelper.Instance.CMD_SET_RGNUM)}");
+                TestContext.WriteLine($"CMD_SET_ZERO: {_bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_SET_ZERO)}");
+                TestContext.WriteLine($"CMD_SET_NAME: {_bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_SET_NAME)}");
+                TestContext.WriteLine($"CMD_SET_TARE: {_bytes.GetBytesAsHex(MassaRequestHelper.Instance.CMD_SET_TARE)}");
 
                 Assert.AreEqual(0, 0);
             });

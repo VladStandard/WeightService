@@ -31,6 +31,7 @@ namespace ScalesUI.Forms
         private readonly ProcHelper _proc = ProcHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private readonly QuartzHelper _quartz = QuartzHelper.Instance;
+        private bool _isLoaded = false;
 
         #endregion
 
@@ -50,6 +51,7 @@ namespace ScalesUI.Forms
         {
             try
             {
+                _isLoaded = false;
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
 
@@ -76,6 +78,9 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                Application.DoEvents();
+                buttonScalesInit_Click(sender, e);
+                _isLoaded = true;
             }
         }
 
@@ -287,7 +292,9 @@ namespace ScalesUI.Forms
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaQueries);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaScalePar);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaGet);
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaGetCrc);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaSet);
+            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaSetCrc);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, buttonScalesInit);
             bool flag = false;
             if (_sessionState.CurrentPlu != null)
@@ -348,6 +355,8 @@ namespace ScalesUI.Forms
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGet, "Сообщение взвешивания: " + 
                 _sessionState.TaskManager.MassaManager.ResponseParseGetMassa?.Message);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGetCrc, "CRC: " +
+                (_sessionState.TaskManager.MassaManager.ResponseParseGetMassa?.IsValidAll == true ? "верна" : "ошибка!"));
         }
 
         /// <summary>
@@ -355,8 +364,10 @@ namespace ScalesUI.Forms
         /// </summary>
         private void CallbackMassaManagerResponseSetAll()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSet, "Задать параметры весов: " +
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSet, "Команда для весов: " +
                 _sessionState.TaskManager.MassaManager.ResponseParseSetAll?.Message);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSetCrc, "CRC: " +
+                (_sessionState.TaskManager.MassaManager.ResponseParseSetAll?.IsValidAll == true ? "верна" : "ошибка!"));
         }
 
         /// <summary>
@@ -417,11 +428,21 @@ namespace ScalesUI.Forms
         {
             try
             {
+                //_sessionState.TaskManager.Close();
+                //_sessionState.TaskManager.ClosePrintManager();
+                if (_sessionState.TaskManager.MassaManagerIsExit)
+                {
+                    CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaNotQuering, 
+                        LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    messageBox.Wait();
+                    return;
+                }
+
                 if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold ||
                     _sessionState.TaskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
                 {
-                    CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, LocalizationData.ScalesUI.OperationControl,
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, 
+                        LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     messageBox.Wait();
                     if (messageBox.Result != DialogResult.Yes)
                         return;
@@ -436,8 +457,8 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                //_sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
+                //    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -683,6 +704,17 @@ namespace ScalesUI.Forms
                 _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
                     CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
+        }
+
+        private bool checkIsLoaded()
+        {
+            if (!_isLoaded)
+            {
+                CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.IsNotLoaded,
+                    LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                messageBox.Wait();
+            }
+            return _isLoaded;
         }
 
         private void buttonRunScalesTerminal_Click(object sender, EventArgs e)

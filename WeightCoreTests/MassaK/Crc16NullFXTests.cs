@@ -4,13 +4,12 @@
 
 using NUnit.Framework;
 using System;
-using System.Linq;
 using WeightCore.MassaK;
 
 namespace HardwareTests.MassaK
 {
     [TestFixture]
-    internal class Crc16MassaKTests
+    internal class Crc16NullFXTests
     {
         // WRITE	F8 55 CE 01 00 23 23 00
         private readonly byte[] getMassaRequest = MassaRequestHelper.Instance.CMD_GET_MASSA;

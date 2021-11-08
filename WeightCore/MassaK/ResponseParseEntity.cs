@@ -10,14 +10,13 @@ namespace WeightCore.MassaK
     {
         public MassaCmdType CmdType { get; }
         public byte[] Response { get; }
-        public byte Header0 { get; private set; }
-        public byte Header1 { get; private set; }
-        public byte Header2 { get; private set; }
-        public short Len { get; private set; }
+        public byte[] Header { get; private set; }
+        public byte[] Len { get; private set; }
+        public ushort LenAsUshort { get; private set; }
         public byte Command { get; }
-        public byte[] Data { get; private set; }
-        public ushort Crc { get; private set; }
-        public ushort CrcCalc { get; private set; }
+        public byte[] Body { get; private set; }
+        public byte[] Crc { get; private set; }
+        public byte[] CrcCalc { get; private set; }
         public bool IsValidHeaders { get; private set; }
         public bool IsValidLength { get; private set; }
         public bool IsValidCommand { get; private set; }
@@ -26,56 +25,56 @@ namespace WeightCore.MassaK
         public byte ErrorCode
         { 
             get {
-                if (Data == null)
+                if (Body == null)
                     return 0x00;
                 switch (CmdType)
                 {
                     case MassaCmdType.GetScalePar:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.GetMassa:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.SetTare:
                         // -
                         break;
                     case MassaCmdType.SetZero:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.GetName:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.SetName:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.GetEthernet:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.SetEthernet:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.GetWiFiIp:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.SetWiFiIp:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.GetWiFiSsid:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.SetWiFiSsid:
                         if (Command == 0x28)
-                            return Data[6];
+                            return Body[6];
                         break;
                     case MassaCmdType.Nack:
                         // -
@@ -196,7 +195,11 @@ namespace WeightCore.MassaK
                 return null;
             }
         }
+        private BytesHelper _bytes = BytesHelper.Instance;
+        private MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
+
         public ResponseMassaEntity Massa { get; set; }
+        
         public ResponseScaleParEntity ScalePar { get; set; }
 
         public ResponseParseEntity(MassaCmdType cmdType, byte[] response)
@@ -205,25 +208,27 @@ namespace WeightCore.MassaK
 
             Response = response;
 
-            Header0 = response[0];
-            Header1 = response[1];
-            Header2 = response[2];
-            IsValidHeaders = Header0 == 0xF8 && Header1 == 0x55 && Header2 == 0xCE;
-            
-            Len = BitConverter.ToInt16(response.Skip(3).Take(2).ToArray(), 0);
-            IsValidLength = Len > 0;
+            Header = new byte[3];
+            Header[0] = response[0];
+            Header[1] = response[1];
+            Header[2] = response[2];
+            IsValidHeaders = Header[0] == _massaRequest.Header[0] && Header[1] == _massaRequest.Header[1] && Header[2] == _massaRequest.Header[2];
+
+            Len = new byte[2];
+            Len[0] = response[3];
+            Len[1] = response[4];
+            LenAsUshort = BitConverter.ToUInt16(response.Skip(3).Take(2).ToArray(), 0);
+            IsValidLength = LenAsUshort > 0;
             
             Command = response[5];
             IsValidCommand = ErrorCode == 0x00;
 
-            Data = response.Skip(5).Take(Len).ToArray();
-            _ = Data.Reverse();
+            Body = response.Skip(5).Take(LenAsUshort).ToArray();
+            _ = Body.Reverse();
 
-            Crc = (ushort)BitConverter.ToInt16(response.Skip(5+Len).Take(2).ToArray(), 0);
-
-            //CrcCalc = MassaUtils.Crc16.GetChecksum(data);
-            CrcCalc = NullFX.CRC.Crc16.ComputeChecksum(NullFX.CRC.Crc16Algorithm.Ccitt, Data);
-            IsValidCrc = Crc == CrcCalc;
+            Crc = response.Skip(5 + LenAsUshort).Take(2).ToArray();
+            CrcCalc = _bytes.CrcGet(Body);
+            IsValidCrc = Crc[0] == CrcCalc[0] && Crc[1] == CrcCalc[1];
 
             switch (CmdType)
             {

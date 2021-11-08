@@ -5,8 +5,6 @@
 // https://github.com/nullfx/NullFX.CRC
 
 using NUnit.Framework;
-using System;
-using System.Linq;
 using WeightCore.MassaK;
 
 namespace HardwareTests.MassaK
@@ -14,10 +12,10 @@ namespace HardwareTests.MassaK
     [TestFixture]
     internal class Crc16MassaEntityTests
     {
-        // WRITE    F8 55 CE 01 00 23 23 00
-        private byte[] getMassaRequest = MassaRequestHelper.Instance.CMD_GET_MASSA;
-        // READ     F8 55 CE 0D 00 24 00 00 00 00 01 01 00 01 00 00 00 00 FC 23
-        private byte[] getMassaResponse = new byte[] { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
+        private readonly BytesHelper _bytes = BytesHelper.Instance;
+        private readonly MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
+        // READ     F8 55 CE 0D 00 24 00 00 00 00 01 01 00 01 00 00 00 00 FC 23  -- 0.000 кг
+        private readonly byte[] getMassaResponse = new byte[] { 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
 
         [Test]
         public void ComputeChecksum_AreEqual()
@@ -26,16 +24,19 @@ namespace HardwareTests.MassaK
 
             Assert.DoesNotThrow(() =>
             {
-                byte[] data = getMassaRequest;
-                ushort crc = new Crc16MassaEntity().ComputeChecksum(data);
-                Assert.AreEqual(crc, 0x2300);
+                byte[] request = new byte[] { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x23, 0x00, 0x00 };
+                byte[] requestCheck = _massaRequest.MakeRequestCrcRecalc(request);
+                Assert.AreEqual(requestCheck, new byte[] { 0xF8, 0x55, 0xCE, 0x01, 0x00, 0x23, 0x23, 0x00 });
                 
-                crc = new Crc16MassaEntity().ComputeChecksum(data, false);
-                Assert.AreEqual(crc, 0x0023);
+                byte[] body = new byte[] { 0x23 };
+                byte[] crc = _bytes.CrcGet(body);
+                Assert.AreEqual(crc, new byte[] { 0x23, 0x00 });
 
-                data = getMassaResponse;
-                crc = new Crc16MassaEntity().ComputeChecksum(data);
-                Assert.AreEqual(crc, 0xFC23);
+                body = getMassaResponse;
+                crc = _bytes.CrcGet(body);
+                Assert.AreEqual(crc, new byte[] { 0xFC, 0x23 });
+                requestCheck = _massaRequest.MakeRequestCrcAdd(body);
+                Assert.AreEqual(requestCheck, new byte[] { 0xF8, 0x55, 0xCE, 0x0D, 0x00, 0x24, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0xFC, 0x23 });
             });
 
             Utils.MethodComplete();

@@ -328,7 +328,7 @@ namespace WeightCore.Managers
                             MassaManager.Init(100, 250, 1_000, 5_000,
                                 currentScale.DeviceComPort, true, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
                             MassaManager.OpenResponse(callbackMassaManager);
-                        }                    
+                        }
                     }
                     //catch (ConnectionException cex)
                     //{

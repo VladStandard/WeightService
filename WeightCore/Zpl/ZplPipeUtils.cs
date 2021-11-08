@@ -12,7 +12,6 @@ using System.Text;
 using System.Text.Unicode;
 using System.Xml;
 using System.Xml.Xsl;
-using WeightCore.Print;
 using WeightCore.Print.Native;
 
 namespace WeightCore.Zpl
