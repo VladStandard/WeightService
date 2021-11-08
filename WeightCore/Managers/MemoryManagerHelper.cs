@@ -104,8 +104,7 @@ namespace WeightCore.Managers
 
         public void MakeJob()
         {
-            MemorySize.Physical.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
-            MemorySize.Virtual.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
+            MemorySize.Update();
         }
 
         #endregion

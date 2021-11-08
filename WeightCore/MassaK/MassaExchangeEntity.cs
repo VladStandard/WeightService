@@ -14,7 +14,6 @@ namespace WeightCore.MassaK
         public MassaCmdType CmdType { get; set; } = MassaCmdType.Nack;
         public byte[] Request { get; set; } = null;
         public ResponseParseEntity ResponseParse { get; set; } = null;
-        private readonly BytesHelper _bytes = BytesHelper.Instance;
         private readonly MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
 
         #endregion

@@ -32,6 +32,9 @@
             this.fieldWeightTare = new System.Windows.Forms.Label();
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.fieldMemoryManagerTotal = new System.Windows.Forms.Label();
+            this.fieldMassaSetCrc = new System.Windows.Forms.Label();
+            this.fieldMassaGetCrc = new System.Windows.Forms.Label();
             this.fieldMassaComPort = new System.Windows.Forms.Label();
             this.fieldMassaScalePar = new System.Windows.Forms.Label();
             this.fieldMassaSet = new System.Windows.Forms.Label();
@@ -64,8 +67,6 @@
             this.buttonSelectOrder = new System.Windows.Forms.Button();
             this.buttonScalesInit = new System.Windows.Forms.Button();
             this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
-            this.fieldMassaGetCrc = new System.Windows.Forms.Label();
-            this.fieldMassaSetCrc = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -125,6 +126,7 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0563F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00938F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.000938F));
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryManagerTotal, 2, 9);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSetCrc, 3, 13);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGetCrc, 3, 12);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaComPort, 1, 12);
@@ -174,6 +176,51 @@
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1180, 622);
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            // 
+            // fieldMemoryManagerTotal
+            // 
+            this.fieldMemoryManagerTotal.AutoSize = true;
+            this.fieldMemoryManagerTotal.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMemoryManagerTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMemoryManagerTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMemoryManagerTotal.Location = new System.Drawing.Point(343, 436);
+            this.fieldMemoryManagerTotal.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMemoryManagerTotal.Name = "fieldMemoryManagerTotal";
+            this.fieldMemoryManagerTotal.Size = new System.Drawing.Size(702, 25);
+            this.fieldMemoryManagerTotal.TabIndex = 53;
+            this.fieldMemoryManagerTotal.Text = "Всего памяти: ";
+            this.fieldMemoryManagerTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMemoryManagerTotal.Visible = false;
+            // 
+            // fieldMassaSetCrc
+            // 
+            this.fieldMassaSetCrc.AutoSize = true;
+            this.fieldMassaSetCrc.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaSetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaSetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaSetCrc.Location = new System.Drawing.Point(1051, 560);
+            this.fieldMassaSetCrc.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaSetCrc.Name = "fieldMassaSetCrc";
+            this.fieldMassaSetCrc.Size = new System.Drawing.Size(112, 25);
+            this.fieldMassaSetCrc.TabIndex = 52;
+            this.fieldMassaSetCrc.Text = "CRC: ";
+            this.fieldMassaSetCrc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaSetCrc.Visible = false;
+            // 
+            // fieldMassaGetCrc
+            // 
+            this.fieldMassaGetCrc.AutoSize = true;
+            this.fieldMassaGetCrc.BackColor = System.Drawing.Color.Transparent;
+            this.fieldMassaGetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldMassaGetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaGetCrc.Location = new System.Drawing.Point(1051, 529);
+            this.fieldMassaGetCrc.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldMassaGetCrc.Name = "fieldMassaGetCrc";
+            this.fieldMassaGetCrc.Size = new System.Drawing.Size(112, 25);
+            this.fieldMassaGetCrc.TabIndex = 51;
+            this.fieldMassaGetCrc.Text = "CRC: ";
+            this.fieldMassaGetCrc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldMassaGetCrc.Visible = false;
             // 
             // fieldMassaComPort
             // 
@@ -344,8 +391,7 @@
             this.fieldCurrentTime.AutoSize = true;
             this.fieldCurrentTime.BackColor = System.Drawing.Color.Transparent;
             this.fieldCurrentTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldCurrentTime.Enabled = false;
-            this.fieldCurrentTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldCurrentTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldCurrentTime.Location = new System.Drawing.Point(14, 34);
             this.fieldCurrentTime.Margin = new System.Windows.Forms.Padding(3);
             this.fieldCurrentTime.Name = "fieldCurrentTime";
@@ -353,6 +399,7 @@
             this.fieldCurrentTime.TabIndex = 25;
             this.fieldCurrentTime.Text = "Дата время";
             this.fieldCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldCurrentTime.Click += new System.EventHandler(this.fieldCurrentTime_Click);
             this.fieldCurrentTime.DoubleClick += new System.EventHandler(this.FieldDt_DoubleClick);
             this.fieldCurrentTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
@@ -651,36 +698,6 @@
             this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
             this.buttonRunScalesTerminal.Click += new System.EventHandler(this.buttonRunScalesTerminal_Click);
             // 
-            // fieldMassaGetCrc
-            // 
-            this.fieldMassaGetCrc.AutoSize = true;
-            this.fieldMassaGetCrc.BackColor = System.Drawing.Color.Transparent;
-            this.fieldMassaGetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaGetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaGetCrc.Location = new System.Drawing.Point(1051, 529);
-            this.fieldMassaGetCrc.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMassaGetCrc.Name = "fieldMassaGetCrc";
-            this.fieldMassaGetCrc.Size = new System.Drawing.Size(112, 25);
-            this.fieldMassaGetCrc.TabIndex = 51;
-            this.fieldMassaGetCrc.Text = "CRC: ";
-            this.fieldMassaGetCrc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaGetCrc.Visible = false;
-            // 
-            // fieldMassaSetCrc
-            // 
-            this.fieldMassaSetCrc.AutoSize = true;
-            this.fieldMassaSetCrc.BackColor = System.Drawing.Color.Transparent;
-            this.fieldMassaSetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldMassaSetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaSetCrc.Location = new System.Drawing.Point(1051, 560);
-            this.fieldMassaSetCrc.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldMassaSetCrc.Name = "fieldMassaSetCrc";
-            this.fieldMassaSetCrc.Size = new System.Drawing.Size(112, 25);
-            this.fieldMassaSetCrc.TabIndex = 52;
-            this.fieldMassaSetCrc.Text = "CRC: ";
-            this.fieldMassaSetCrc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaSetCrc.Visible = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -748,6 +765,7 @@
         private System.Windows.Forms.Label fieldMassaComPort;
         private System.Windows.Forms.Label fieldMassaSetCrc;
         private System.Windows.Forms.Label fieldMassaGetCrc;
+        private System.Windows.Forms.Label fieldMemoryManagerTotal;
     }
 }
 

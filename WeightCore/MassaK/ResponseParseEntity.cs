@@ -8,6 +8,7 @@ namespace WeightCore.MassaK
 {
     public class ResponseParseEntity
     {
+        public DateTime DtCreated { get; private set; }
         public MassaCmdType CmdType { get; }
         public byte[] Response { get; }
         public byte[] Header { get; private set; }
@@ -195,15 +196,15 @@ namespace WeightCore.MassaK
                 return null;
             }
         }
-        private BytesHelper _bytes = BytesHelper.Instance;
-        private MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
-
         public ResponseMassaEntity Massa { get; set; }
-        
         public ResponseScaleParEntity ScalePar { get; set; }
+        private readonly BytesHelper _bytes = BytesHelper.Instance;
+        private readonly MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
 
         public ResponseParseEntity(MassaCmdType cmdType, byte[] response)
         {
+            DtCreated = DateTime.Now;
+
             CmdType = cmdType;
 
             Response = response;

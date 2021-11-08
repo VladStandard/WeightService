@@ -94,19 +94,18 @@ namespace WeightCore.Gui
             return fieldMessages;
         }
         
-        public static Form BuildServiceMessagesWindow(Form owner)
+        public static void BuildServiceMessagesWindow(Form owner)
         {
             if (owner is null)
-                return null;
+                return;
 
             string assyGuid = Assembly.GetExecutingAssembly().GetCustomAttribute<GuidAttribute>().Value.ToUpper();
             foreach (Form itemForm in Application.OpenForms)
             {
                 if (itemForm.Name == assyGuid + NameForm)
                 {
-                    //form.Show();
                     itemForm.Activate();
-                    return itemForm;
+                    return;
                 }
             }
 
@@ -159,7 +158,7 @@ namespace WeightCore.Gui
             btnClose.Select();
             form.ControlBox = false;
             form.Show();
-            return form;
+            return;
         }
     }
 
