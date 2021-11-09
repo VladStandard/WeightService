@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.Helpers;
 using Nito.AsyncEx;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Helpers;
@@ -51,18 +52,24 @@ namespace WeightCore.Managers
         public MemoryManagerHelper MemoryManager = MemoryManagerHelper.Instance;
         public bool MemoryManagerIsExit { get; set; }
         public char MemoryManagerProgressChar { get; set; }
+        public string MemoryManagerProgressString { get; set; }
         private readonly AsyncLock _mutexMemoryManager = new();
         private readonly CancellationTokenSource _ctsMemoryManager = new(TimeSpan.FromMilliseconds(1_000));
 
         public PrintManagerHelper PrintManager = PrintManagerHelper.Instance;
         public bool PrintManagerIsExit { get; set; }
         public char PrintManagerProgressChar { get; set; }
+        public string PrintManagerProgressString { get; set; }
         private readonly AsyncLock _mutexPrintManager = new();
         private readonly CancellationTokenSource _ctsPrintManager = new(TimeSpan.FromMilliseconds(1_000));
 
         public MassaManagerHelper MassaManager = MassaManagerHelper.Instance;
         public bool MassaManagerIsExit { get; set; }
         public char MassaManagerProgressChar { get; set; }
+        public string MassaManagerProgressString { get; set; }
+        public string MassaQueriesProgressString { get; set; }
+        public string MassaRequestProgressString { get; set; }
+        public string MassaResponseProgressString { get; set; }
         private readonly AsyncLock _mutexMassaManagerResponse = new();
         private readonly AsyncLock _mutexMassaManagerRequest = new();
         private readonly CancellationTokenSource _ctsMassaManager = new(TimeSpan.FromMilliseconds(1_000));
@@ -133,9 +140,8 @@ namespace WeightCore.Managers
         #region Public and private methods
 
         public void Open(DeviceManagerHelper.Callback callbackDeviceManager, MemoryManagerHelper.Callback callbackMemoryManager,
-            MassaManagerHelper.Callback callbackMassaManager, 
-            PrintManagerHelper.Callback callbackPrintManager, TscPrintControlHelper.Callback callbackPrintManagerClose,
-            SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
+            MassaManagerHelper.Callback callbackMassaManager, PrintManagerHelper.Callback callbackPrintManager, 
+            TscPrintControlHelper.Callback callbackPrintManagerClose, SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
             {
@@ -369,10 +375,11 @@ namespace WeightCore.Managers
             });
         }
 
-        private void DebugLog(string message)
+        private void DebugLog(string message, 
+            [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             if (_debug.IsDebug)
-                _log.Information(message);
+                _log.Information(message, filePath, memberName, lineNumber);
         }
 
         #endregion

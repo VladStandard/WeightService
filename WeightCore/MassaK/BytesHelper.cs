@@ -17,8 +17,10 @@ namespace WeightCore.MassaK
 
         #endregion
 
-        public string GetBytesAsHex(byte[] bytes, char delimeter = ' ') => 
-            string.Join(delimeter != ' ' ? $"{delimeter} " : " ", bytes.Select(b => b.ToString("X2")));
+        #region Public and private methods
+
+        public string GetBytesAsHex(byte[] bytes, char delimeter = ' ') =>
+                    string.Join(delimeter != ' ' ? $"{delimeter} " : " ", bytes.Select(b => b.ToString("X2")));
 
         public byte[] MergeBytes(List<byte[]> bytesList)
         {
@@ -51,7 +53,8 @@ namespace WeightCore.MassaK
                 for (bits = 0; bits < 8; bits++)
                 {
                     if (((temp ^ a) & 0x8000) != 0)
-                        a = (a << 1) ^ 0x1021; else a <<= 1;
+                        a = (a << 1) ^ 0x1021;
+                    else a <<= 1;
                     temp <<= 1;
                 }
                 crc = a ^ (crc << 8) ^ (data[k] & 0xFF);
@@ -60,7 +63,7 @@ namespace WeightCore.MassaK
             byte[] crcReverse = new byte[2];
             crcReverse[0] = (byte)(ushort)crc;
             crcReverse[1] = (byte)((ushort)crc >> 8);
-            
+
             return BitConverter.ToUInt16(crcReverse, 0);
         }
 
@@ -83,10 +86,11 @@ namespace WeightCore.MassaK
             body[body.Length - 1] = crcBytes[1];
             return body;
         }
-        
+
         public byte[] CrcGet(byte[] body) => CrcComputeChecksumAsBytes(body);
-        
+
         public byte[] CrcGetWithBody(byte[] body) => MergeBytes(new List<byte[]>() { body, CrcComputeChecksumAsBytes(body) });
 
+        #endregion
     }
 }

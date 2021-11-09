@@ -67,6 +67,18 @@ namespace DataProjectsCore.Utils
             };
         }
 
+        public static string GetProgressString(string s)
+        {
+            return s switch
+            {
+                "" => ".",
+                "." => "..",
+                ".." => "...",
+                "..." => "",
+                _ => "",
+            };
+        }
+
         public static string GetStringValueTrim(string value, int length)
         {
             return (value.Length > length) ? value.Substring(0, length) : value;

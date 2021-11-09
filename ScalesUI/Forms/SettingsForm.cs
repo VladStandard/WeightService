@@ -394,14 +394,14 @@ namespace ScalesUI.Forms
                     //Thread.Sleep(10);
                     //Application.DoEvents();
 
-                    if (_taskManager.MassaManager.ResponseParseGetMassa != null)
+                    if (_taskManager.MassaManager.ResponseParseGet != null)
                     {
-                        fieldCurrentMKProp.Text = _taskManager.MassaManager.ResponseParseGetMassa.Message;
+                        fieldCurrentMKProp.Text = _taskManager.MassaManager.ResponseParseGet.Message;
                     }
 
-                    if (_taskManager.MassaManager.ResponseParseGetScalePar != null)
+                    if (_taskManager.MassaManager.ResponseParseScalePar != null)
                     {
-                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.ResponseParseGetScalePar.Message}";
+                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.ResponseParseScalePar.Message}";
                     }
                 }
             }

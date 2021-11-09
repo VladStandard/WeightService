@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace DataShareCore.Utils
 {
-    public static class UtilsEnum
+    public static class EnumUtils
     {
         // https://stackoverflow.com/questions/79126/create-generic-method-constraining-t-to-an-enum
         public static T ParseEnum<T>(string value, T defaultValue) where T : struct, IConvertible

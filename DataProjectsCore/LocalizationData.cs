@@ -429,6 +429,9 @@ namespace DataCore
             public static string IsNotLoaded => Lang == ShareEnums.Lang.English
                 ? @"The program is not yet loaded!" + Environment.NewLine + @"Wait for it..."
                 : @"Программа ещё не загружена!" + Environment.NewLine + @"Подождите...";
+            public static string PrinterInfoCaption => Lang == ShareEnums.Lang.English
+                ? @"Printer info"
+                : @"Информация о принтере";
         }
 
         public static class Methods

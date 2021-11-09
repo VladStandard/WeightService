@@ -64,9 +64,13 @@ namespace ScalesUI.Forms
 
                 _sessionState.NewPallet();
 
-                _log.Information("The program is runned");
 
                 _quartz.AddJob(QuartzUtils.CronExpression.EveryDay(), delegate { ScheduleIsNextDay(); });
+                
+                if (_debug.IsDebug)
+                    fieldCurrentTime_Click(sender, e);
+                
+                _log.Information("The program is runned");
             }
             catch (Exception ex)
             {
@@ -75,9 +79,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
-                Application.DoEvents();
+                TaskManagerOpen();
                 buttonScalesInit_Click(sender, e);
             }
         }
@@ -188,18 +190,23 @@ namespace ScalesUI.Forms
 
         #region Public and private methods - Callbacks
 
+        private void TaskManagerOpen()
+        {
+            _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager, 
+                CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+            Application.DoEvents();
+        }
+
         private void CheckEnabledManager(ProjectsEnums.TaskType taskType, Control control)
         {
             if (_sessionState.SqlViewModel.IsTaskEnabled(taskType))
             {
-                if (!control.Visible && _isShowInfoLabels)
+                if (!control.Visible)
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(control, true);
-                else if (!_isShowInfoLabels)
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(control, false);
             }
             else
             {
-                if (control.Visible || !_isShowInfoLabels)
+                if (control.Visible)
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(control, false);
             }
         }
@@ -226,29 +233,30 @@ namespace ScalesUI.Forms
         private void CallbackMemoryManager()
         {
             CheckEnabledManager(ProjectsEnums.TaskType.MemoryManager, fieldMemoryManager);
-            CheckEnabledManager(ProjectsEnums.TaskType.MemoryManager, fieldMemoryManagerTotal);
 
             if (_sessionState.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
-                char ch = StringUtils.GetProgressChar(_sessionState.TaskManager.MemoryManagerProgressChar);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
-                    $"Память: {_sessionState.TaskManager.MemoryManager.MemorySize.PhysicalCurrent.MegaBytes:N0} MB | {ch}");
+                    $"Память: {_sessionState.TaskManager.MemoryManager.MemorySize.PhysicalCurrent.MegaBytes:N0} MB {_sessionState.TaskManager.MemoryManagerProgressString}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal,
-                    //$"Виртуальная: свободно {_sessionState.TaskManager.MemoryManager.MemorySize.FreeVirtual.MegaBytes:N0} из " +
-                    //$"{_sessionState.TaskManager.MemoryManager.MemorySize.TotalVirtual.MegaBytes:N0} MB." +
                     _sessionState.TaskManager.MemoryManager.MemorySize.DtChanged.ToString(@"HH:mm:ss") + 
                     $"  Физическая память: свободно {_sessionState.TaskManager.MemoryManager.MemorySize.PhysicalFree.MegaBytes:N0} из " +
                     $"{_sessionState.TaskManager.MemoryManager.MemorySize.PhysicalTotal.MegaBytes:N0} MB.");
-                _sessionState.TaskManager.MemoryManagerProgressChar = ch;
+                MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldMemoryProgress, 
+                    (int)_sessionState.TaskManager.MemoryManager.MemorySize.PhysicalTotal.MegaBytes);
+                MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldMemoryProgress, 0);
+                MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMemoryProgress, 
+                    (int)(_sessionState.TaskManager.MemoryManager.MemorySize.PhysicalTotal.MegaBytes - 
+                    _sessionState.TaskManager.MemoryManager.MemorySize.PhysicalFree.MegaBytes));
+                _sessionState.TaskManager.MemoryManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MemoryManagerProgressString);
             }
         }
 
         private void CallbackPrintManager()
         {
             CheckEnabledManager(ProjectsEnums.TaskType.PrintManager, fieldPrintManager);
-            CheckEnabledManager(ProjectsEnums.TaskType.PrintManager, labelLabelsTitle);
             CheckEnabledManager(ProjectsEnums.TaskType.PrintManager, fieldLabelsCount);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, $"{_sessionState.LabelsCurrent}/{_sessionState.LabelsCount}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, $"Этикетки: {_sessionState.LabelsCurrent} / {_sessionState.LabelsCount}");
 
             // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
             _sessionState.LabelsCurrent = _sessionState.TaskManager.PrintManager.UserLabelCount < _sessionState.LabelsCount 
@@ -257,14 +265,13 @@ namespace ScalesUI.Forms
             if (_sessionState.LabelsCurrent == 0)
                 _sessionState.LabelsCurrent = 1;
 
-            char ch = StringUtils.GetProgressChar(_sessionState.TaskManager.PrintManagerProgressChar);
             // TSC printers.
             //if (_sessionState.CurrentScale?.ZebraPrinter != null && _sessionState.IsTscPrinter)
             if (_sessionState.IsTscPrinter)
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _sessionState.TaskManager.PrintManager.TscPrintControl.DriverStatus
-                    ? $"Принтер {_sessionState.CurrentScale.ZebraPrinter.Name}: доступен | {ch}" 
-                    : $"Принтер {_sessionState.CurrentScale.ZebraPrinter.Name}: недоступен | {ch}");
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, 
+                    $"Принтер: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PrinterStatusDescription} " +
+                    $"{_sessionState.TaskManager.PrintManagerProgressString}");
             }
             // Zebra printers.
             else
@@ -277,11 +284,11 @@ namespace ScalesUI.Forms
                 if (_sessionState.TaskManager.PrintManager.CurrentStatus != null)
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _sessionState.TaskManager.PrintManager.CurrentStatus.isReadyToPrint
-                        ? $"Принтер {_sessionState.CurrentScale.ZebraPrinter.Ip}: доступен | {ch}" 
-                        : $"Принтер {_sessionState.CurrentScale.ZebraPrinter.Ip}: недоступен | {ch}");
+                        ? $"Принтер {_sessionState.CurrentScale.ZebraPrinter.Ip}: доступен {_sessionState.TaskManager.PrintManagerProgressString}" 
+                        : $"Принтер {_sessionState.CurrentScale.ZebraPrinter.Ip}: недоступен {_sessionState.TaskManager.PrintManagerProgressString}");
                 }
             }
-            _sessionState.TaskManager.PrintManagerProgressChar = ch;
+            _sessionState.TaskManager.PrintManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.PrintManagerProgressString);
         }
 
         private void CallbackPrintManagerClose()
@@ -294,11 +301,6 @@ namespace ScalesUI.Forms
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaManager);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaComPort);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaQueries);
-            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaScalePar);
-            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaGet);
-            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaGetCrc);
-            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaSet);
-            CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, fieldMassaSetCrc);
             CheckEnabledManager(ProjectsEnums.TaskType.MassaManager, buttonScalesInit);
             bool flag = false;
             if (_sessionState.CurrentPlu != null)
@@ -311,11 +313,10 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightNetto, $"{weight:0.000} кг");
             }
 
-            char ch = StringUtils.GetProgressChar(_sessionState.TaskManager.MassaManagerProgressChar);
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _sessionState.TaskManager.MassaManager.IsStable == 0
-                ? $"Взвешивание | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}"
-                : $"Весы стабильны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг | {ch}");
-            _sessionState.TaskManager.MassaManagerProgressChar = ch;
+                ? $"Взвешивание | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг {_sessionState.TaskManager.MassaManagerProgressString}"
+                : $"Весы стабильны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг {_sessionState.TaskManager.MassaManagerProgressString}");
+            _sessionState.TaskManager.MassaManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaManagerProgressString);
             // Состояние COM-порта.
             CallbackMassaManagerIsResponse();
             // Запрос параметров.
@@ -348,15 +349,15 @@ namespace ScalesUI.Forms
         /// </summary>
         private void CallbackMassaManagerResponseGetScalePar()
         {
-            if (_sessionState.TaskManager.MassaManager.ResponseParseGetScalePar == null)
+            if (_sessionState.TaskManager.MassaManager.ResponseParseScalePar == null)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaScalePar, "Запрос параметров: ...");
             }
             else
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaScalePar,
-                    _sessionState.TaskManager.MassaManager.ResponseParseGetScalePar.DtCreated.ToString(@"HH:mm:ss") + "  Запрос параметров: " +
-                    _sessionState.TaskManager.MassaManager.ResponseParseGetScalePar.Message);
+                    _sessionState.TaskManager.MassaManager.ResponseParseScalePar.DtCreated.ToString(@"HH:mm:ss") + "  Запрос параметров: " +
+                    _sessionState.TaskManager.MassaManager.ResponseParseScalePar.Message);
             }
         }
 
@@ -365,7 +366,7 @@ namespace ScalesUI.Forms
         /// </summary>
         private void CallbackMassaManagerResponseGetMassa()
         {
-            if (_sessionState.TaskManager.MassaManager.ResponseParseGetMassa == null)
+            if (_sessionState.TaskManager.MassaManager.ResponseParseGet == null)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGet, " Сообщение взвешивания: ...");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGetCrc, "CRC: ...");
@@ -373,10 +374,12 @@ namespace ScalesUI.Forms
             else
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGet, 
-                    _sessionState.TaskManager.MassaManager.ResponseParseGetMassa.DtCreated.ToString(@"HH:mm:ss") + "  Сообщение взвешивания: " + 
-                    _sessionState.TaskManager.MassaManager.ResponseParseGetMassa.Message);
+                    _sessionState.TaskManager.MassaManager.ResponseParseGet.DtCreated.ToString(@"HH:mm:ss") + "  Сообщение взвешивания: " + 
+                    _sessionState.TaskManager.MassaManager.ResponseParseGet.Message);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGetCrc, "CRC: " +
-                    (_sessionState.TaskManager.MassaManager.ResponseParseGetMassa.IsValidAll ? "верна" : "ошибка!"));
+                    (_sessionState.TaskManager.MassaManager.ResponseParseGet.IsValidAll 
+                    ? $"верна {_sessionState.TaskManager.MassaRequestProgressString}" : $"ошибка! {_sessionState.TaskManager.MassaRequestProgressString}"));
+                _sessionState.TaskManager.MassaRequestProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaRequestProgressString);
             }
         }
 
@@ -385,7 +388,7 @@ namespace ScalesUI.Forms
         /// </summary>
         private void CallbackMassaManagerResponseSetAll()
         {
-            if (_sessionState.TaskManager.MassaManager.ResponseParseSetAll == null)
+            if (_sessionState.TaskManager.MassaManager.ResponseParseSet == null)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSet, "Команда для весов: ...");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSetCrc, "CRC: ...");
@@ -393,10 +396,12 @@ namespace ScalesUI.Forms
             else
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSet,
-                    _sessionState.TaskManager.MassaManager.ResponseParseSetAll.DtCreated.ToString(@"HH:mm:ss") + "  Команда для весов: " +
-                    _sessionState.TaskManager.MassaManager.ResponseParseSetAll.Message);
+                    _sessionState.TaskManager.MassaManager.ResponseParseSet.DtCreated.ToString(@"HH:mm:ss") + "  Команда для весов: " +
+                    _sessionState.TaskManager.MassaManager.ResponseParseSet.Message);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSetCrc, "CRC: " +
-                    (_sessionState.TaskManager.MassaManager.ResponseParseSetAll.IsValidAll == true ? "верна" : "ошибка!"));
+                    (_sessionState.TaskManager.MassaManager.ResponseParseSet.IsValidAll 
+                    ? $"верна {_sessionState.TaskManager.MassaResponseProgressString}" : $"ошибка! {_sessionState.TaskManager.MassaResponseProgressString}"));
+                _sessionState.TaskManager.MassaResponseProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaResponseProgressString);
             }
         }
 
@@ -406,12 +411,28 @@ namespace ScalesUI.Forms
         private void CallbackMassaManagerRequestQueue()
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries, 
-                $"Пакетов в очереди: {_sessionState.TaskManager.MassaManager.RequestQueue.Count}");
+                $"Пакетов в очереди: {_sessionState.TaskManager.MassaManager.RequestQueue.Count} {_sessionState.TaskManager.MassaQueriesProgressString}");
+            _sessionState.TaskManager.MassaQueriesProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaQueriesProgressString);
         }
 
         #endregion
 
         #region Private methods
+
+        private void fieldPrintManager_DoubleClick(object sender, EventArgs e)
+        {
+            CustomMessageBox messageBox = CustomMessageBox.Show(this,
+                $"Принтер: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.Name}" + Environment.NewLine +
+                $"Драйвер: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.DriverName}" + Environment.NewLine +
+                $"Порт: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PortName}" + Environment.NewLine +
+                $"Код состояния: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PrinterState}" + Environment.NewLine +
+                $"Код статуса: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PrinterStatus}" + Environment.NewLine +
+                $"Статус: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PrinterStatusDescription}" + Environment.NewLine +
+                $"Состояние (ENG): {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.Status}" + Environment.NewLine +
+                $"Состояние: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.StatusDescription}" + Environment.NewLine,
+                LocalizationData.ScalesUI.PrinterInfoCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            messageBox.Wait();
+        }
 
         private void ButtonSettings_Click(object sender, EventArgs e)
         {
@@ -441,8 +462,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                TaskManagerOpen();
             }
         }
 
@@ -487,8 +507,6 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                //_sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                //    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -537,8 +555,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                TaskManagerOpen();
             }
         }
 
@@ -579,9 +596,9 @@ namespace ScalesUI.Forms
                 }
                 if (_sessionState.CurrentOrder != null)
                 {
-                    fieldCountBox.Maximum = _sessionState.CurrentOrder.PlaneBoxCount;
-                    fieldCountBox.Minimum = 0;
-                    fieldCountBox.Value = _sessionState.CurrentOrder.FactBoxCount;
+                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldCountBox, _sessionState.CurrentOrder.PlaneBoxCount);
+                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldCountBox, 0);
+                    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldCountBox, _sessionState.CurrentOrder.FactBoxCount);
                 }
             }
             catch (Exception ex)
@@ -591,8 +608,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                TaskManagerOpen();
             }
         }
 
@@ -618,8 +634,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                TaskManagerOpen();
             }
         }
 
@@ -628,8 +643,6 @@ namespace ScalesUI.Forms
             try
             {
                 _sessionState.PrintLabel(Owner);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
             catch (Exception ex)
             {
@@ -638,6 +651,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                TaskManagerOpen();
             }
         }
 
@@ -687,6 +701,16 @@ namespace ScalesUI.Forms
         private void fieldCurrentTime_Click(object sender, EventArgs e)
         {
             _isShowInfoLabels = !_isShowInfoLabels;
+            // MemoryManager.
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryManagerTotal, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryProgress, _isShowInfoLabels);
+            // PrintManager.
+            // MassaManager.
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaScalePar, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGet, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGetCrc, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSet, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSetCrc, _isShowInfoLabels);
         }
 
         private void FieldDt_DoubleClick(object sender, EventArgs e)
@@ -736,8 +760,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                TaskManagerOpen();
             }
         }
 
@@ -767,8 +790,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                TaskManagerOpen();
             }
         }
         
@@ -792,8 +814,7 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                _sessionState.TaskManager.Open(CallbackDeviceManager, CallbackMemoryManager, CallbackMassaManager,
-                    CallbackPrintManager, CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                TaskManagerOpen();
             }
         }
 

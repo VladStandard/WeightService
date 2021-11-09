@@ -1,71 +1,60 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Wmi;
 using System;
 using System.Diagnostics;
-using System.Management;
 
 namespace WeightCore.Memory
 {
-    public class SizeEntity
-    {
-        public ulong Bytes { get; set; } = 0;
-
-        public ulong KiloBytes => Bytes / 1024;
-
-        public ulong MegaBytes => Bytes / 1048576;
-    }
 
     public class MemorySizeEntity
     {
-        public DateTime DtChanged { get; set; }
-        public SizeEntity VirtualFree;
-        public SizeEntity VirtualTotal;
-        public SizeEntity VirtualCurrent;
-        public SizeEntity PhysicalFree;
-        public SizeEntity PhysicalTotal;
-        public SizeEntity PhysicalCurrent;
+        #region Public and private fields and properties
+
+        public DateTime DtChanged { get; private set; }
+        public MemorySizeConvertEntity VirtualCurrent { get; private set; }
+        public MemorySizeConvertEntity PhysicalCurrent { get; private set; }
+        public MemorySizeConvertEntity VirtualFree { get; private set; }
+        public MemorySizeConvertEntity PhysicalFree { get; private set; }
+        public MemorySizeConvertEntity VirtualTotal { get; private set; }
+        public MemorySizeConvertEntity PhysicalTotal { get; private set; }
+        private WmiHelper _wmi = WmiHelper.Instance;
+
+        #endregion
+
+        #region Constructor and destructor
 
         public MemorySizeEntity()
         {
-            VirtualFree = new SizeEntity();
-            PhysicalFree = new SizeEntity();
-            VirtualTotal = new SizeEntity();
-            PhysicalTotal = new SizeEntity();
-            PhysicalCurrent = new SizeEntity();
-            VirtualCurrent = new SizeEntity();
+            PhysicalCurrent = new MemorySizeConvertEntity();
+            VirtualCurrent = new MemorySizeConvertEntity();
+            VirtualFree = new MemorySizeConvertEntity();
+            VirtualTotal = new MemorySizeConvertEntity();
+            PhysicalFree = new MemorySizeConvertEntity();
+            PhysicalTotal = new MemorySizeConvertEntity();
             
             Update();
         }
 
+        #endregion
+
+        #region Public and private methods
+
         public void Update()
         {
             DtChanged = DateTime.Now;
-            
+
             PhysicalCurrent.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
             VirtualCurrent.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
 
-            // PowerShell: Get-WmiObject -class Win32_OperatingSystem | select TotalVisibleMemorySize
-            //ObjectQuery wql = new("SELECT * FROM Win32_OperatingSystem");
-            ObjectQuery wql = new("SELECT FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize FROM Win32_OperatingSystem");
-            ManagementObjectSearcher searcher = new(wql);
-            ManagementObjectCollection results = searcher.Get();
-            ulong freeVirtual = 0;
-            ulong freePhysical = 0;
-            ulong totalVirtual = 0;
-            ulong totalPhysical = 0;
-            foreach (ManagementObject result in results)
-            {
-                freeVirtual = System.Convert.ToUInt64(result["FreeVirtualMemory"]) * 1024;
-                freePhysical = System.Convert.ToUInt64(result["FreePhysicalMemory"]) * 1024;
-                totalVirtual = System.Convert.ToUInt64(result["TotalVirtualMemorySize"]) * 1024;
-                totalPhysical = System.Convert.ToUInt64(result["TotalVisibleMemorySize"]) * 1024;
-            }
-
-            VirtualFree = new SizeEntity { Bytes = freeVirtual };
-            PhysicalFree = new SizeEntity { Bytes = freePhysical };
-            VirtualTotal = new SizeEntity { Bytes = totalVirtual };
-            PhysicalTotal = new SizeEntity { Bytes = totalPhysical };
+            Win32OperatingSystemMemoryEntity getWmi = _wmi.GetWin32OperatingSystemMemory();
+            VirtualFree = new MemorySizeConvertEntity { Bytes = getWmi.FreeVirtual };
+            PhysicalFree = new MemorySizeConvertEntity { Bytes = getWmi.FreePhysical };
+            VirtualTotal = new MemorySizeConvertEntity { Bytes = getWmi.TotalVirtual };
+            PhysicalTotal = new MemorySizeConvertEntity { Bytes = getWmi.TotalPhysical };
         }
+
+        #endregion
     }
 }

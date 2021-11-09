@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Wmi;
 using MvvmHelpers;
 using System;
 using System.Threading;
@@ -122,16 +123,28 @@ namespace WeightCore.Print.Tsc
             }
         }
         public delegate void Callback();
-        private bool _driverStatus;
-        public bool DriverStatus
+        //private bool _driverStatus;
+        //public bool DriverStatus
+        //{
+        //    get => _driverStatus;
+        //    private set
+        //    {
+        //        _driverStatus = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+        //private Win32PrinterEntity _win32Printer;
+        public Win32PrinterEntity Win32Printer
         {
-            get => _driverStatus;
-            private set
+            get
             {
-                _driverStatus = value;
-                OnPropertyChanged();
+                //if (_win32Printer == null)
+                //    _win32Printer = _wmi.GetWin32Printer(Name);
+                //return _win32Printer;
+                return _wmi.GetWin32Printer(Name);
             }
         }
+        private readonly WmiHelper _wmi = WmiHelper.Instance;
 
         #endregion
 
@@ -146,7 +159,6 @@ namespace WeightCore.Print.Tsc
             Dpi = dpi;
             TscPrintSetup.Init(Size);
             IsClearBuffer = true;
-            DriverStatus = false;
         }
 
         #endregion
@@ -228,7 +240,7 @@ namespace WeightCore.Print.Tsc
             return result;
         }
 
-        public bool GetDriverStatus(TSCSDK.driver tscDriver) => tscDriver != null && tscDriver.driver_status(Name);
+        //public bool GetDriverStatus(TSCSDK.driver tscDriver) => tscDriver != null && tscDriver.driver_status(Name);
 
         public string GetStatusAsStringRus(byte? value) => value switch
         {
@@ -309,7 +321,7 @@ namespace WeightCore.Print.Tsc
             TSCSDK.driver tscDriver = new();
             if (!tscDriver.openport(Name))
                 return;
-            DriverStatus = GetDriverStatus(tscDriver);
+            //DriverStatus = GetDriverStatus(tscDriver);
             tscDriver.clearbuffer();
 
             if (!string.IsNullOrEmpty(cmd))

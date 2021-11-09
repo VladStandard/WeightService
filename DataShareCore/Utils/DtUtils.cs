@@ -5,7 +5,7 @@ using System;
 
 namespace DataShareCore.Utils
 {
-    public static class UtilsDt
+    public static class DtUtils
     {
         public static string FormatDtRus(DateTime dt, bool useSeconds)
         {

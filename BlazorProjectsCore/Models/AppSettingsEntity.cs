@@ -73,7 +73,7 @@ namespace BlazorProjectsCore.Models
         public static int Delay => 5_000;
         public string MemoryInfo => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.Physical != null
-            ? $"{LocalizationCore.Strings.MemoryUsed}: {Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
+            ? $"{LocalizationCore.Strings.MemoryUsed}: {Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {DtUtils.FormatCurDtRus(true)}"
             : $"{LocalizationCore.Strings.MemoryUsed}: - MB";
         public bool IsChartSmooth { get; set; }
 

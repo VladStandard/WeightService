@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.770] - 2021-11-09
+### Fixed
+- Состояние весов
+- Состояние принтера
+
 ## [0.5.760] - 2021-11-08
 ### Changed
 - CRC16

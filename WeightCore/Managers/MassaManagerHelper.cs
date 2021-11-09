@@ -39,11 +39,11 @@ namespace WeightCore.Managers
         public decimal WeightNet { get; private set; }
         public decimal WeightGross { get; private set; }
         public byte IsStable { get; private set; }
-        public int ScaleFactor { get; set; } = 1000;
+        public int ScaleFactor { get; set; } = 1_000;
         public int CurrentError { get; private set; }
-        public ResponseParseEntity ResponseParseGetScalePar { get; private set; } = null;
-        public ResponseParseEntity ResponseParseGetMassa { get; private set; } = null;
-        public ResponseParseEntity ResponseParseSetAll { get; private set; } = null;
+        public ResponseParseEntity ResponseParseScalePar { get; private set; } = null;
+        public ResponseParseEntity ResponseParseGet { get; private set; } = null;
+        public ResponseParseEntity ResponseParseSet { get; private set; } = null;
         public bool IsResponse {  get; private set; }
         private static readonly object Locker = new();
         public ConcurrentQueue<MassaExchangeEntity> RequestQueue { get; private set; } = new();
@@ -224,28 +224,28 @@ namespace WeightCore.Managers
             switch (cmd.CmdType)
             {
                 case MassaCmdType.GetMassa:
-                    ResponseParseGetMassa = cmd.ResponseParse;
+                    ResponseParseGet = cmd.ResponseParse;
                     break;
                 case MassaCmdType.GetScalePar:
-                    ResponseParseGetScalePar = cmd.ResponseParse;
+                    ResponseParseScalePar = cmd.ResponseParse;
                     break;
                 case MassaCmdType.SetWiFiSsid:
-                    ResponseParseSetAll = cmd.ResponseParse;
+                    ResponseParseSet = cmd.ResponseParse;
                     break;
                 case MassaCmdType.SetDatetime:
-                    ResponseParseSetAll = cmd.ResponseParse;
+                    ResponseParseSet = cmd.ResponseParse;
                     break;
                 case MassaCmdType.SetName:
-                    ResponseParseSetAll = cmd.ResponseParse;
+                    ResponseParseSet = cmd.ResponseParse;
                     break;
                 case MassaCmdType.SetRegnum:
-                    ResponseParseSetAll = cmd.ResponseParse;
+                    ResponseParseSet = cmd.ResponseParse;
                     break;
                 case MassaCmdType.SetTare:
-                    ResponseParseSetAll = cmd.ResponseParse;
+                    ResponseParseSet = cmd.ResponseParse;
                     break;
                 case MassaCmdType.SetZero:
-                    ResponseParseSetAll = cmd.ResponseParse;
+                    ResponseParseSet = cmd.ResponseParse;
                     break;
             }
         }
