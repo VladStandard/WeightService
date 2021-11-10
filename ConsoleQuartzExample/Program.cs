@@ -21,14 +21,14 @@ namespace ConsoleQuartzExample
         internal static void Method([CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             Console.Out.WriteLineAsync(
-                $"{DateTime.Now}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}"
+                $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}.{DateTime.Now.Millisecond}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}"
                 ).ConfigureAwait(true);
         }
 
         internal static async Task Main()
         {
             await Console.Out.WriteLineAsync("Start");
-            string cronExpression = QuartzUtils.CronExpression.EverySeconds(3);
+            string cronExpression = QuartzUtils.CronExpression.EverySeconds(1);
             await Console.Out.WriteLineAsync($"{nameof(cronExpression)}: {cronExpression}");
             _quartz.AddJob(cronExpression, delegate { Method(); });
             await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(true);

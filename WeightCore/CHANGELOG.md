@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.770] - 2021-11-09
+## [0.5.780] - 2021-11-10
 ### Fixed
 - Состояние весов
 - Состояние принтера

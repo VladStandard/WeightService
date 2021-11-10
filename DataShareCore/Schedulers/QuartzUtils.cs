@@ -3,6 +3,7 @@
 
 using Quartz;
 using System;
+using System.Collections.Generic;
 
 namespace DataShareCore.Schedulers
 {
@@ -17,13 +18,13 @@ namespace DataShareCore.Schedulers
         public static ITrigger? CreateTrigger(QuartzEnums.Interval interval, int length, bool repeatForever) =>
             new QuartzTriggerEntity(interval, length, repeatForever).Trigger;
 
-        public static IJobDetail? CreateJobDetail(Action action)
+        public static IJobDetail? CreateJobDetail(Action action, string jobName)
         {
             IJobDetail? jobDetail;
-            QuartzJobEntity.ActionMethod = action;
+            QuartzJobEntity.Actions.Add(action, jobName);
             JobBuilder jobBuilder = JobBuilder
                 .Create<QuartzJobEntity>()
-                .WithIdentity(nameof(jobDetail));
+                .WithIdentity(jobName);
             jobDetail = jobBuilder.Build();
             return jobDetail;
         }

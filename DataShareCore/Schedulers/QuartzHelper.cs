@@ -34,15 +34,16 @@ namespace DataShareCore.Schedulers
                 return _factory;
             }
         }
-        public IScheduler? Scheduler { get; private set; } = null;
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public QuartzHelper()
+        public IScheduler? _scheduler = null;
+        public IScheduler Scheduler
         {
-            //
+            get
+            {
+                if (_scheduler == null)
+                    //_scheduler = await Factory.GetScheduler().ConfigureAwait(false);
+                    _scheduler = Factory.GetScheduler().Result;
+                return _scheduler;
+            }
         }
 
         #endregion
@@ -50,70 +51,65 @@ namespace DataShareCore.Schedulers
         #region Public and private methods
 
         private async Task AddJobTemplateAsync(QuartzEnums.Interval interval, int length, TimeSpan timeSpan, string cronExpression,
-            bool repeatForever, Action action)
+            bool repeatForever, Action action, string jobName)
         {
             // AsyncLock can be locked asynchronously
             using (await _mutex.LockAsync())
             {
                 // It's safe to await while the lock is held
-                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-
-                // Trigger.
-                ITrigger? trigger;
-                switch (interval)
+                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                ITrigger? trigger = interval switch
                 {
-                    case QuartzEnums.Interval.TimeSpan:
-                        trigger = QuartzUtils.CreateTrigger(timeSpan, repeatForever);
-                        break;
-                    case QuartzEnums.Interval.Cron:
-                        trigger = QuartzUtils.CreateTrigger(cronExpression, repeatForever);
-                        break;
-                    default:
-                        trigger = QuartzUtils.CreateTrigger(interval, length, repeatForever);
-                        break;
-                }
+                    QuartzEnums.Interval.TimeSpan => QuartzUtils.CreateTrigger(timeSpan, repeatForever),
+                    QuartzEnums.Interval.Cron => QuartzUtils.CreateTrigger(cronExpression, repeatForever),
+                    _ => QuartzUtils.CreateTrigger(interval, length, repeatForever),
+                };
                 if (trigger == null)
                     return;
-                // Job.
-                IJobDetail? jobDetail = QuartzUtils.CreateJobDetail(action);
-                if (jobDetail == null)
-                    return;
 
-                if (Scheduler == null)
-                {
-                    Scheduler = await Factory.GetScheduler().ConfigureAwait(true);
-                    await StartAsync().ConfigureAwait(true);
-                }
-                await Scheduler.ScheduleJob(jobDetail, trigger).ConfigureAwait(true);
+                // Job.
+                //IJobDetail? jobDetail = QuartzUtils.CreateJobDetail(action, jobName);
+                //if (jobDetail == null)
+                //return;
+
+                //var job = Scheduler.GetJobDetail(new JobKey(jobName));
+                
+                //var job = new JobDetail("dumbJob", null, typeof(Quartz.Jobs.NativeJob));
+                //job.JobDataMap.Put(Quartz.Jobs.NativeJob.PropertyCommand, "echo \"hi\" >> foobar.txt");
+                //var trigger = TriggerUtils.MakeSecondlyTrigger(5);
+                //trigger.Name = "dumbTrigger";
+                //await scheduler.ScheduleJob(job, trigger);
+
+                //await StartAsync().ConfigureAwait(false);
+                //await Scheduler.ScheduleJob(jobDetail, trigger).ConfigureAwait(false);
             }
         }
 
-        public async Task AddJobAsync(QuartzEnums.Interval interval, int length, bool repeatForever, Action action) => 
-            await AddJobTemplateAsync(interval, length, new TimeSpan(0), string.Empty, repeatForever, action).ConfigureAwait(true);
+        public async Task AddJobAsync(QuartzEnums.Interval interval, int length, bool repeatForever, Action action, string jobName) => 
+            await AddJobTemplateAsync(interval, length, new TimeSpan(0), string.Empty, repeatForever, action, jobName).ConfigureAwait(false);
 
-        public async Task AddJobAsync(TimeSpan timeSpan, bool repeatForever, Action action) =>
-            await AddJobTemplateAsync(QuartzEnums.Interval.TimeSpan, 0, timeSpan, string.Empty, repeatForever, action).ConfigureAwait(true);
+        public async Task AddJobAsync(TimeSpan timeSpan, bool repeatForever, Action action, string jobName) =>
+            await AddJobTemplateAsync(QuartzEnums.Interval.TimeSpan, 0, timeSpan, string.Empty, repeatForever, action, jobName).ConfigureAwait(false);
 
-        public async Task AddJobAsync(string cronExpression, Action action) =>
-            await AddJobTemplateAsync(QuartzEnums.Interval.Cron, 0, new TimeSpan(0), cronExpression, false, action).ConfigureAwait(true);
+        public async Task AddJobAsync(string cronExpression, Action action, string jobName) =>
+            await AddJobTemplateAsync(QuartzEnums.Interval.Cron, 0, new TimeSpan(0), cronExpression, false, action, jobName).ConfigureAwait(false);
 
-        public void AddJob(QuartzEnums.Interval interval, int length, bool repeatForever, Action action) =>
-            AddJobAsync(interval, length, repeatForever, action).ConfigureAwait(true);
+        public void AddJob(QuartzEnums.Interval interval, int length, bool repeatForever, Action action, string jobName) =>
+            AddJobAsync(interval, length, repeatForever, action, jobName).ConfigureAwait(false);
 
-        public void AddJob(TimeSpan timeSpan, bool repeatForever, Action action) =>
-            AddJobAsync(timeSpan, repeatForever, action).ConfigureAwait(true);
+        public void AddJob(TimeSpan timeSpan, bool repeatForever, Action action, string jobName) =>
+            AddJobAsync(timeSpan, repeatForever, action, jobName).ConfigureAwait(false);
 
-        public void AddJob(string cronExpression, Action action) =>
-            AddJobAsync(cronExpression, action).ConfigureAwait(true);
+        public void AddJob(string cronExpression, Action action, string jobName) =>
+            AddJobAsync(cronExpression, action, jobName).ConfigureAwait(false);
 
         public async Task CloseAsync()
         {
-            if (Scheduler != null)
-                await Scheduler.Shutdown().ConfigureAwait(true);
+            if (!Scheduler.IsShutdown)
+                await Scheduler.Shutdown().ConfigureAwait(false);
         }
 
-        public void Close() =>
-            CloseAsync().ConfigureAwait(true);
+        public void Close() => CloseAsync().ConfigureAwait(false);
 
         public void Dispose()
         {
@@ -122,16 +118,15 @@ namespace DataShareCore.Schedulers
 
         public async Task StartAsync()
         {
-            if (Scheduler == null)
-                return;
-            await Scheduler.Start().ConfigureAwait(true);
+            if (!Scheduler.IsStarted)
+                await Scheduler.Start().ConfigureAwait(false);
             //ITrigger trigger = .GetAwaiter().GetResult();
             //trigger?.GetTriggerBuilder().StartNow();
         }
 
         public void Start()
         {
-            StartAsync().ConfigureAwait(true);
+            StartAsync().ConfigureAwait(false);
         }
 
         #endregion

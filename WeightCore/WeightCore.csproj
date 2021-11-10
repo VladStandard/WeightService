@@ -257,6 +257,7 @@
     <Compile Include="Helpers\MouseHookHelper.cs" />
     <Compile Include="Managers\MemoryManagerHelper.cs" />
     <Compile Include="Managers\TaskManagerHelper.cs" />
+    <Compile Include="Managers\TaskManagerHelperDeprecated.cs" />
     <Compile Include="MassaK\MassaCmdType.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />
     <Compile Include="MassaK\BytesHelper.cs" />

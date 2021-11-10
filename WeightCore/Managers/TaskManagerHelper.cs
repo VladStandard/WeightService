@@ -44,27 +44,20 @@ namespace WeightCore.Managers
         private bool IsTscPrinter { get; set; }
 
         public DeviceManagerHelper DeviceManager = DeviceManagerHelper.Instance;
-        public bool DeviceManagerIsExit { get; set; }
         public char DeviceManagerProgressChar { get; set; }
         private readonly AsyncLock _mutexDeviceManager = new();
-        private readonly CancellationTokenSource _ctsDeviceManager = new(TimeSpan.FromMilliseconds(1_000));
 
         public MemoryManagerHelper MemoryManager = MemoryManagerHelper.Instance;
-        public bool MemoryManagerIsExit { get; set; }
         public char MemoryManagerProgressChar { get; set; }
         public string MemoryManagerProgressString { get; set; }
         private readonly AsyncLock _mutexMemoryManager = new();
-        private readonly CancellationTokenSource _ctsMemoryManager = new(TimeSpan.FromMilliseconds(1_000));
 
         public PrintManagerHelper PrintManager = PrintManagerHelper.Instance;
-        public bool PrintManagerIsExit { get; set; }
         public char PrintManagerProgressChar { get; set; }
         public string PrintManagerProgressString { get; set; }
         private readonly AsyncLock _mutexPrintManager = new();
-        private readonly CancellationTokenSource _ctsPrintManager = new(TimeSpan.FromMilliseconds(1_000));
 
         public MassaManagerHelper MassaManager = MassaManagerHelper.Instance;
-        public bool MassaManagerIsExit { get; set; }
         public char MassaManagerProgressChar { get; set; }
         public string MassaManagerProgressString { get; set; }
         public string MassaQueriesProgressString { get; set; }
@@ -72,68 +65,8 @@ namespace WeightCore.Managers
         public string MassaResponseProgressString { get; set; }
         private readonly AsyncLock _mutexMassaManagerResponse = new();
         private readonly AsyncLock _mutexMassaManagerRequest = new();
-        private readonly CancellationTokenSource _ctsMassaManager = new(TimeSpan.FromMilliseconds(1_000));
 
         public delegate void CallbackButtonSetZero(object sender, EventArgs e);
-
-        #endregion
-
-        #region Public and private methods - Http listener
-
-        //private void StartHttpListener()
-        //{
-        //    _logUtils.Information("Запустить http-listener. начало.");
-        //    _logUtils.Information("http://localhost:18086/status");
-        //    try
-        //    {
-        //    //    CancellationTokenSource cancelTokenSource = new();
-        //    //    _token = cancelTokenSource.Token;
-        //    //    _threadChecker = new ThreadChecker(_token, 2_500);
-        //    //    // Подписка на событие.
-        //    //    //_threadChecker.EventReloadValues += EventHttpListenerReloadValues;
-        //    //    _tokenHttpListener = cancelTokenSource.Token;
-        //    //    HttpListener = new ZabbixHttpListener(_tokenHttpListener, 10);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    //    _sessionState?.Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-        //    //    if (ex.InnerException != null)
-        //    //        _sessionState?.Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-        //    //    string msg = ex.Message;
-        //    //    if (ex.InnerException != null)
-        //    //        msg += Environment.NewLine + ex.InnerException.Message;
-        //    //    CustomMessageBox.Show(this, StartHttpListener + Environment.NewLine + msg, Messages.Exception);
-        //    }
-        //    //catch (Exception ex)
-        //    //{
-        //    //    Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-        //    //    if (ex.InnerException != null)
-        //    //        Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-        //    //    _log.Error(ex.Message);
-        //    //}
-        //    //_logUtils.Information("Запистить http-listener. Финиш.");
-        //}
-
-        //private void StopHttpListener([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0,
-        //    [CallerMemberName] string memberName = "")
-        //{
-        //    //try
-        //    //{
-        //    //    _log?.Info("Остановить http-listener. Начало.");
-        //    //    HttpListener?.Stop();
-        //    //    _token.ThrowIfCancellationRequested();
-        //    //    _tokenHttpListener.ThrowIfCancellationRequested();
-        //    //    _threadChecker?.Stop();
-        //    //}
-        //    //catch (Exception ex)
-        //    //{
-        //    //    Log.SaveError(filePath, lineNumber, memberName, ex.Message);
-        //    //    if (ex.InnerException != null)
-        //    //        Log.SaveError(filePath, lineNumber, memberName, ex.InnerException.Message);
-        //    //    _log?.Error(ex.Message);
-        //    //}
-        //    //_log?.Info("Остановить http-listener. Финиш.");
-        //}
 
         #endregion
 
@@ -145,10 +78,6 @@ namespace WeightCore.Managers
         {
             try
             {
-                DeviceManagerIsExit = false;
-                MemoryManagerIsExit = false;
-                MassaManagerIsExit = false;
-                PrintManagerIsExit = false;
                 IsTscPrinter = isTscPrinter;
 
                 TaskRunDeviceManager(callbackDeviceManager, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager));
@@ -168,7 +97,6 @@ namespace WeightCore.Managers
         {
             try
             {
-                PrintManagerIsExit = false;
                 IsTscPrinter = isTscPrinter;
 
                 TaskRunPrintManager(callbackPrintManager, callbackPrintManagerClose, ref sqlViewModel, currentScale);
@@ -183,15 +111,6 @@ namespace WeightCore.Managers
         {
             try
             {
-                DeviceManagerIsExit = true;
-                MemoryManagerIsExit = true;
-                MassaManagerIsExit = true;
-
-                _ctsDeviceManager.Cancel();
-                _ctsMemoryManager.Cancel();
-                _ctsPrintManager.Cancel();
-                _ctsMassaManager.Cancel();
-
                 DeviceManager.Close();
                 MemoryManager.Close();
                 MassaManager.Close();
@@ -214,14 +133,7 @@ namespace WeightCore.Managers
         {
             try
             {
-                PrintManagerIsExit = true;
-                _ctsPrintManager.Cancel();
                 PrintManager.Close();
-                //if (IsTscPrinter && !PrintManager.PrintControl.IsStatusNormal)
-                //    if (PrintManager.PrintControl != null && IsTscPrinter)
-                //    {
-                //        PrintManager.PrintControl.Close();
-                //    }
             }
             catch (Exception ex)
             {
@@ -265,7 +177,6 @@ namespace WeightCore.Managers
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
-                //using (await _mutexMemoryManager.LockAsync(_ctsMemoryManager.Token))
                 using (await _mutexMemoryManager.LockAsync())
                 {
                     // It's safe to await while the lock is held

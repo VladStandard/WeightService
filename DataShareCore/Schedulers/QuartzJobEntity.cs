@@ -3,6 +3,7 @@
 
 using Quartz;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DataShareCore.Schedulers
@@ -11,7 +12,8 @@ namespace DataShareCore.Schedulers
     {
         #region Public and private fields and properties
 
-        public static Action? ActionMethod { get; set; } = null;
+        public static Dictionary<Action, string> Actions { get; set; } = new Dictionary<Action, string>();
+        //public Action? ActionMethod { get; set; } = null;
 
         #endregion
 
@@ -20,13 +22,10 @@ namespace DataShareCore.Schedulers
         public async Task Execute(IJobExecutionContext context)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            if (ActionMethod != null)
+            foreach (KeyValuePair<Action, string> action in Actions)
             {
-                ActionMethod.Invoke();
-            }
-            else
-            {
-                await Console.Out.WriteLineAsync($"{DateTime.Now}. Empty {nameof(ActionMethod)}!").ConfigureAwait(false);
+                // ActionMethod?.Invoke();
+                action.Key?.Invoke();
             }
         }
 

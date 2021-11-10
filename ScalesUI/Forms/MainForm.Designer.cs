@@ -32,6 +32,7 @@
             this.fieldWeightTare = new System.Windows.Forms.Label();
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.fieldMemoryProgress = new System.Windows.Forms.ProgressBar();
             this.fieldMemoryManagerTotal = new System.Windows.Forms.Label();
             this.fieldMassaSetCrc = new System.Windows.Forms.Label();
             this.fieldMassaGetCrc = new System.Windows.Forms.Label();
@@ -66,7 +67,6 @@
             this.buttonSelectOrder = new System.Windows.Forms.Button();
             this.buttonScalesInit = new System.Windows.Forms.Button();
             this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
-            this.fieldMemoryProgress = new System.Windows.Forms.ProgressBar();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -176,6 +176,15 @@
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1180, 622);
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            // 
+            // fieldMemoryProgress
+            // 
+            this.fieldMemoryProgress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fieldMemoryProgress.Location = new System.Drawing.Point(1051, 560);
+            this.fieldMemoryProgress.Name = "fieldMemoryProgress";
+            this.fieldMemoryProgress.Size = new System.Drawing.Size(112, 21);
+            this.fieldMemoryProgress.TabIndex = 54;
+            this.fieldMemoryProgress.Visible = false;
             // 
             // fieldMemoryManagerTotal
             // 
@@ -684,15 +693,6 @@
             this.buttonRunScalesTerminal.Text = "Scales Terminal";
             this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
             this.buttonRunScalesTerminal.Click += new System.EventHandler(this.buttonRunScalesTerminal_Click);
-            // 
-            // fieldMemoryProgress
-            // 
-            this.fieldMemoryProgress.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fieldMemoryProgress.Location = new System.Drawing.Point(1051, 560);
-            this.fieldMemoryProgress.Name = "fieldMemoryProgress";
-            this.fieldMemoryProgress.Size = new System.Drawing.Size(112, 21);
-            this.fieldMemoryProgress.TabIndex = 54;
-            this.fieldMemoryProgress.Visible = false;
             // 
             // MainForm
             // 

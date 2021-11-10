@@ -9,8 +9,8 @@ declare @host_id int
 declare @select bit = 1
 declare @delete bit = 0
 declare @commit bit = 0
-declare @create_dt datetime = '2021-11-02 00:00'
-declare @host nvarchar(255) = N''
+declare @create_dt datetime = '2021-11-10 00:00'
+declare @host nvarchar(255) = N'SCALES-MON-PC208'
 ----------------------------------------------------------------------------------------------------
 set @host_id = (select [Id] from [db_scales].[Hosts] where [Name] = @host)
 set @rows = (select [p].[rows] from sys.tables [t]

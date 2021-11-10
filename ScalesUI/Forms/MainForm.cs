@@ -64,9 +64,10 @@ namespace ScalesUI.Forms
 
                 _sessionState.NewPallet();
 
+                //_quartz.AddJob(QuartzUtils.CronExpression.EveryDay(), delegate { ScheduleIsNextDay(); });
+                _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(1), delegate { ScheduleIsNextDay(); }, "jobNextDay");
+                _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(1), delegate { ScheduleClock(); }, "jobClock");
 
-                _quartz.AddJob(QuartzUtils.CronExpression.EveryDay(), delegate { ScheduleIsNextDay(); });
-                
                 if (_debug.IsDebug)
                     fieldCurrentTime_Click(sender, e);
                 
@@ -119,8 +120,8 @@ namespace ScalesUI.Forms
                         break;
                 }
 
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, string.Empty);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, string.Empty);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, string.Empty);
             }
             catch (Exception ex)
             {
@@ -186,6 +187,28 @@ namespace ScalesUI.Forms
             _log.Information("ScheduleIsNextDay");
         }
 
+        private void ScheduleClock()
+        {
+            _log.Information("ScheduleClock");
+
+            ////if (_sessionState.ProductDate.Date < DateTime.Now.Date && !_sessionState.IsChangedProductDate)
+            ////    _sessionState.ProductDate = DateTime.Now;
+            //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, "Сейчас: " + DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
+            //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, $"{_sessionState.ProductDate:dd.MM.yyyy}");
+            //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, $"{_sessionState.Kneading}");
+
+            //if (!Equals(buttonPrint.Enabled, _sessionState.CurrentPlu != null))
+            //    MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _sessionState.CurrentPlu != null);
+
+            //string strCheckWeight = _sessionState.CurrentPlu?.CheckWeight == true ? "вес" : "шт";
+            //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, _sessionState.CurrentPlu != null
+            //    ? $"{_sessionState.CurrentPlu.PLU} | {strCheckWeight} | {_sessionState.CurrentPlu.GoodsName}" : string.Empty);
+            //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, _sessionState.CurrentPlu != null
+            //    ? $"{_sessionState.CurrentPlu.GoodsTareWeight:0.000} кг" : "0,000 кг");
+
+            //_log.Information("ScheduleClock end");
+        }
+
         #endregion
 
         #region Public and private methods - Callbacks
@@ -213,21 +236,6 @@ namespace ScalesUI.Forms
 
         private void CallbackDeviceManager()
         {
-            //if (_sessionState.ProductDate.Date < DateTime.Now.Date && !_sessionState.IsChangedProductDate)
-            //    _sessionState.ProductDate = DateTime.Now;
-
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, "Сейчас: " + DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, $"{_sessionState.ProductDate:dd.MM.yyyy}");
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, $"{_sessionState.Kneading}");
-
-            if (!Equals(buttonPrint.Enabled, _sessionState.CurrentPlu != null))
-                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _sessionState.CurrentPlu != null);
-
-            string strCheckWeight = _sessionState.CurrentPlu?.CheckWeight == true ? "вес" : "шт";
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, _sessionState.CurrentPlu != null
-                ? $"{_sessionState.CurrentPlu.PLU} | {strCheckWeight} | {_sessionState.CurrentPlu.GoodsName}" : string.Empty);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, _sessionState.CurrentPlu != null
-                ? $"{_sessionState.CurrentPlu.GoodsTareWeight:0.000} кг" : "0,000 кг");
         }
 
         private void CallbackMemoryManager()
@@ -478,9 +486,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                //_sessionState.TaskManager.Close();
-                //_sessionState.TaskManager.ClosePrintManager();
-                if (_sessionState.TaskManager.MassaManagerIsExit)
+                //if (_sessionState.TaskManager.MassaManagerIsExit)
+                if (_sessionState.TaskManager.MassaManager.IsExecuteResponse)
                 {
                     CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaNotQuering, 
                         LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Warning);
