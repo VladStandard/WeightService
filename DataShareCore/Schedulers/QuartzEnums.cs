@@ -7,11 +7,13 @@ namespace DataShareCore.Schedulers
     {
         public enum Interval
         {
-            TimeSpan = 0,
-            Cron = 1,
-            Seconds = 2,
-            Minutes = 3,
-            Hours = 4,
+            TimeSpan,
+            Cron,
+            Seconds,
+            Seconds10,
+            Minutes,
+            Hours,
+            Days,
         }
     }
 }

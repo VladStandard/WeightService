@@ -336,7 +336,7 @@
             this.fieldPrintManager.Text = "Менеджер принтера";
             this.fieldPrintManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldPrintManager.Visible = false;
-            this.fieldPrintManager.DoubleClick += new System.EventHandler(this.fieldPrintManager_DoubleClick);
+            this.fieldPrintManager.DoubleClick += new System.EventHandler(this.FieldPrintManager_DoubleClick);
             this.fieldPrintManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMemoryManager
@@ -395,7 +395,7 @@
             this.fieldCurrentTime.TabIndex = 25;
             this.fieldCurrentTime.Text = "Дата время";
             this.fieldCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldCurrentTime.Click += new System.EventHandler(this.fieldCurrentTime_Click);
+            this.fieldCurrentTime.Click += new System.EventHandler(this.FieldCurrentTime_Click);
             this.fieldCurrentTime.DoubleClick += new System.EventHandler(this.FieldDt_DoubleClick);
             this.fieldCurrentTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
@@ -516,7 +516,7 @@
             this.fieldTitle.TabIndex = 20;
             this.fieldTitle.Text = "ScalesUI";
             this.fieldTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.fieldTitle.DoubleClick += new System.EventHandler(this.fieldTitle_DoubleClick);
+            this.fieldTitle.DoubleClick += new System.EventHandler(this.FieldTitle_DoubleClick);
             this.fieldTitle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldPlu
@@ -678,7 +678,7 @@
             this.buttonScalesInit.Text = "Инициали- зировать весы";
             this.buttonScalesInit.UseVisualStyleBackColor = false;
             this.buttonScalesInit.Visible = false;
-            this.buttonScalesInit.Click += new System.EventHandler(this.buttonScalesInit_Click);
+            this.buttonScalesInit.Click += new System.EventHandler(this.ButtonScalesInit_Click);
             this.buttonScalesInit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // buttonRunScalesTerminal
@@ -692,7 +692,7 @@
             this.buttonRunScalesTerminal.TabIndex = 36;
             this.buttonRunScalesTerminal.Text = "Scales Terminal";
             this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
-            this.buttonRunScalesTerminal.Click += new System.EventHandler(this.buttonRunScalesTerminal_Click);
+            this.buttonRunScalesTerminal.Click += new System.EventHandler(this.ButtonRunScalesTerminal_Click);
             // 
             // MainForm
             // 

@@ -16,6 +16,9 @@ namespace DataShareCore.Schedulers
         public string CronExpression { get; set; } = string.Empty;
         public bool RepeatForever { get; set; } = false;
 
+        public string Name { get; set; }
+        public string Group { get; set; }
+
         public ITrigger? _trigger = null;
         public ITrigger? Trigger
         {
@@ -50,7 +53,8 @@ namespace DataShareCore.Schedulers
                 if (_trigger == null)
                 {
                     TriggerBuilder? triggerBuilder = TriggerBuilder.Create()
-                        .WithIdentity($"{nameof(_trigger)}_{IntervalLength}")
+                        //.WithIdentity($"{nameof(_trigger)}_{IntervalLength}")
+                        .WithIdentity(Name, Group)
                         ;
                     switch (Interval)
                     {
@@ -96,19 +100,21 @@ namespace DataShareCore.Schedulers
 
         #region Constructor and destructor
 
-        private QuartzTriggerEntity(QuartzEnums.Interval interval, bool repeatForever)
+        private QuartzTriggerEntity(string name, string group, QuartzEnums.Interval interval, bool repeatForever)
         {
             Interval = interval;
             RepeatForever = repeatForever;
+            Name = name;
+            Group = group;
         }
 
-        public QuartzTriggerEntity(QuartzEnums.Interval interval, int length, bool repeatForever) : this(interval, repeatForever) 
+        public QuartzTriggerEntity(string name, string group, QuartzEnums.Interval interval, int length, bool repeatForever) : this(name, group, interval, repeatForever) 
             => IntervalLength = length;
 
-        public QuartzTriggerEntity(TimeSpan timeSpan, bool repeatForever) : this(QuartzEnums.Interval.TimeSpan, repeatForever) 
+        public QuartzTriggerEntity(string name, string group, TimeSpan timeSpan, bool repeatForever) : this(name, group, QuartzEnums.Interval.TimeSpan, repeatForever) 
             => TimeSpanValue = timeSpan;
 
-        public QuartzTriggerEntity(string cronExpression, bool repeatForever) : this(QuartzEnums.Interval.Cron, repeatForever) 
+        public QuartzTriggerEntity(string name, string group, string cronExpression, bool repeatForever) : this(name, group, QuartzEnums.Interval.Cron, repeatForever) 
             => CronExpression = cronExpression;
 
         #endregion

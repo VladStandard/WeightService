@@ -30,7 +30,7 @@ namespace ScalesUI.Forms
         private readonly LogHelper _log = LogHelper.Instance;
         private readonly ProcHelper _proc = ProcHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        private readonly QuartzHelper _quartz = QuartzHelper.Instance;
+        private readonly QuartzEntity _quartz = QuartzEntity.Instance;
         private bool _isShowInfoLabels = false;
 
         #endregion
@@ -64,12 +64,11 @@ namespace ScalesUI.Forms
 
                 _sessionState.NewPallet();
 
-                //_quartz.AddJob(QuartzUtils.CronExpression.EveryDay(), delegate { ScheduleIsNextDay(); });
-                _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(1), delegate { ScheduleIsNextDay(); }, "jobNextDay");
-                _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(1), delegate { ScheduleClock(); }, "jobClock");
+                //_quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), delegate { ScheduleEveryDays(); }, "jobScheduleEveryDays");
+                _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { ScheduleEverySeconds(); }, "jobScheduleEverySeconds");
 
                 if (_debug.IsDebug)
-                    fieldCurrentTime_Click(sender, e);
+                    FieldCurrentTime_Click(sender, e);
                 
                 _log.Information("The program is runned");
             }
@@ -81,7 +80,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
-                buttonScalesInit_Click(sender, e);
+                ButtonScalesInit_Click(sender, e);
             }
         }
 
@@ -182,17 +181,17 @@ namespace ScalesUI.Forms
 
         #region Public and private methods - Schedulers
 
-        private void ScheduleIsNextDay()
+        private void ScheduleEveryDays()
         {
             _log.Information("ScheduleIsNextDay");
         }
 
-        private void ScheduleClock()
+        private void ScheduleEverySeconds()
         {
-            _log.Information("ScheduleClock");
+            _log.Information("ScheduleEverySeconds");
 
-            ////if (_sessionState.ProductDate.Date < DateTime.Now.Date && !_sessionState.IsChangedProductDate)
-            ////    _sessionState.ProductDate = DateTime.Now;
+            //if (_sessionState.ProductDate.Date < DateTime.Now.Date && !_sessionState.IsChangedProductDate)
+            //    _sessionState.ProductDate = DateTime.Now;
             //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, "Сейчас: " + DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
             //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, $"{_sessionState.ProductDate:dd.MM.yyyy}");
             //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, $"{_sessionState.Kneading}");
@@ -206,7 +205,7 @@ namespace ScalesUI.Forms
             //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, _sessionState.CurrentPlu != null
             //    ? $"{_sessionState.CurrentPlu.GoodsTareWeight:0.000} кг" : "0,000 кг");
 
-            //_log.Information("ScheduleClock end");
+            _log.Information("ScheduleClock finish");
         }
 
         #endregion
@@ -427,7 +426,7 @@ namespace ScalesUI.Forms
 
         #region Private methods
 
-        private void fieldPrintManager_DoubleClick(object sender, EventArgs e)
+        private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
         {
             CustomMessageBox messageBox = CustomMessageBox.Show(this,
                 $"Принтер: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.Name}" + Environment.NewLine +
@@ -482,7 +481,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonScalesInit_Click(object sender, EventArgs e)
+        private void ButtonScalesInit_Click(object sender, EventArgs e)
         {
             try
             {
@@ -705,7 +704,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void fieldCurrentTime_Click(object sender, EventArgs e)
+        private void FieldCurrentTime_Click(object sender, EventArgs e)
         {
             _isShowInfoLabels = !_isShowInfoLabels;
             // MemoryManager.
@@ -750,7 +749,7 @@ namespace ScalesUI.Forms
             _sessionState.NewPallet();
         }
 
-        private void fieldTitle_DoubleClick(object sender, EventArgs e)
+        private void FieldTitle_DoubleClick(object sender, EventArgs e)
         {
             try
             {
@@ -771,7 +770,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonRunScalesTerminal_Click(object sender, EventArgs e)
+        private void ButtonRunScalesTerminal_Click(object sender, EventArgs e)
         {
             try
             {
@@ -800,12 +799,14 @@ namespace ScalesUI.Forms
                 TaskManagerOpen();
             }
         }
-        
+
         #endregion
 
         #region Public and private methods - Share
 
+#pragma warning disable IDE0051 // Remove unused private members
         private void TemplateJobWithTaskManager()
+#pragma warning restore IDE0051 // Remove unused private members
         {
             try
             {

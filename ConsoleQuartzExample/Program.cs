@@ -3,7 +3,7 @@
 
 using DataShareCore.Schedulers;
 using System;
-using System.Runtime.CompilerServices;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace ConsoleQuartzExample
@@ -12,29 +12,48 @@ namespace ConsoleQuartzExample
     {
         #region Public and private fields and properties
 
-        private static readonly QuartzHelper _quartz = QuartzHelper.Instance;
+        //private static readonly QuartzEntity _quartz1 = new QuartzEntity();
+        //private static readonly QuartzEntity _quartz2 = new QuartzEntity();
+        //private static readonly QuartzEntity _quartz3 = new QuartzEntity();
+        private static QuartzEntity _quartz = QuartzEntity.Instance;
 
         #endregion
 
         #region Public and private methods
 
-        internal static void Method([CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        internal static void Method1()
         {
-            Console.Out.WriteLineAsync(
-                $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}.{DateTime.Now.Millisecond}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}"
-                ).ConfigureAwait(true);
+            Console.Out.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Method1");
+        }
+
+        internal static void Method2()
+        {
+            Console.Out.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Method2");
+        }
+
+        internal static void Method3()
+        {
+            Console.Out.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Method3");
         }
 
         internal static async Task Main()
         {
-            await Console.Out.WriteLineAsync("Start");
-            string cronExpression = QuartzUtils.CronExpression.EverySeconds(1);
-            await Console.Out.WriteLineAsync($"{nameof(cronExpression)}: {cronExpression}");
-            _quartz.AddJob(cronExpression, delegate { Method(); });
-            await Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(true);
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            await Console.Out.WriteLineAsync($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Start schedule. Wait 10 minutes. Press enter to exit.");
+            _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method1(); }, "jobSample1", "triggerName1", "triggerGroup1");
+            _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(10), delegate { Method2(); }, "jobSample2", "triggerName2", "triggerGroup2");
+            _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(15), delegate { Method1(); }, "jobSample3", "triggerName3", "triggerGroup3");
+            while (true)
+            {
+                if (stopwatch.Elapsed.Minutes > 9)
+                    break;
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Enter)
+                    break;
+                System.Threading.Thread.Sleep(10);
+            }
+            _quartz.Close();
             await Console.Out.WriteLineAsync("Finish");
-            await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(true);
-            await _quartz.CloseAsync();
         }
 
         #endregion

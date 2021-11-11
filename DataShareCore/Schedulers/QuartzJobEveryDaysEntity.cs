@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataShareCore.Schedulers
 {
-    public class QuartzJobEntity : IJob
+    public class QuartzJobEveryDaysEntity : IJob
     {
         #region Public and private fields and properties
 

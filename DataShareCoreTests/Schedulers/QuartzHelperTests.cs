@@ -12,11 +12,11 @@ namespace DataShareCoreTests.Schedulers
     {
         #region Public and private fields and properties
 
-        private static readonly QuartzHelper _quartz = QuartzHelper.Instance;
+        private static readonly QuartzEntity _quartz = QuartzEntity.Instance;
 
         #endregion
 
-        internal static void Method([CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        internal void Method([CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             TestContext.WriteLine($"{DateTime.Now}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}");
         }
@@ -29,7 +29,7 @@ namespace DataShareCoreTests.Schedulers
             Assert.DoesNotThrow(async () =>
             {
                 TestContext.WriteLine("Open");
-                _quartz.AddJob(QuartzEnums.Interval.Seconds, 2, false, delegate { Method(); });
+                _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobTest");
 
                 await Task.Delay(TimeSpan.FromSeconds(7)).ConfigureAwait(true);
                 _quartz.Close();
@@ -48,7 +48,7 @@ namespace DataShareCoreTests.Schedulers
             Assert.Throws<ArgumentException>(async () =>
             {
                 TestContext.WriteLine("Open");
-                _quartz.AddJob(QuartzEnums.Interval.TimeSpan, 2, false, delegate { Method(); });
+                _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobTest");
 
                 await Task.Delay(TimeSpan.FromSeconds(7)).ConfigureAwait(true);
                 TestContext.WriteLine("Close");
