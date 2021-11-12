@@ -306,7 +306,16 @@ namespace WeightCore.Managers
         public void GetInit1() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.UdpPoll));
         public void GetInit2() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetInit2));
         public void GetInit3() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetInit3));
-        public void GetMassa() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetMassa));
+        public void GetMassa()
+        {
+            RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetMassa));
+            // Clear queue.
+            while (RequestQueue.Count > 0)
+            {
+                RequestQueue.TryDequeue(out _);
+            }
+        }
+
         public void GetScalePar() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetScalePar));
         public void GetScaleParAfter() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetScaleParAfter));
         public void SetTareWeight(int weightTare) => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.SetTare, weightTare));
