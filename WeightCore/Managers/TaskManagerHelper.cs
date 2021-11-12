@@ -72,19 +72,17 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Open(DeviceManagerHelper.Callback callbackDeviceManager, MemoryManagerHelper.Callback callbackMemoryManager,
-            MassaManagerHelper.Callback callbackMassaManager, PrintManagerHelper.Callback callbackPrintManager, 
-            TscPrintControlHelper.Callback callbackPrintManagerClose, SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
+        public void Open(TscPrintControlHelper.Callback callbackPrintManagerClose, SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
             {
                 IsTscPrinter = isTscPrinter;
 
-                TaskRunDeviceManager(callbackDeviceManager, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager));
-                TaskRunMemoryManager(callbackMemoryManager, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager));
-                TaskRunMassaManagerResponse(callbackMassaManager, sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager), currentScale);
+                TaskRunDeviceManager(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager));
+                TaskRunMemoryManager(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager));
+                TaskRunMassaManagerResponse(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager), currentScale);
                 TaskRunMassaManagerRequest(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager));
-                TaskRunPrintManager(callbackPrintManager, callbackPrintManagerClose, ref sqlViewModel, currentScale);
+                TaskRunPrintManager(callbackPrintManagerClose, ref sqlViewModel, currentScale);
             }
             catch (Exception ex)
             {
@@ -92,14 +90,14 @@ namespace WeightCore.Managers
             }
         }
 
-        public void OpenPrintManager(PrintManagerHelper.Callback callbackPrintManager, TscPrintControlHelper.Callback callbackPrintManagerClose,
+        public void OpenPrintManager(TscPrintControlHelper.Callback callbackPrintManagerClose,
             SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
             {
                 IsTscPrinter = isTscPrinter;
 
-                TaskRunPrintManager(callbackPrintManager, callbackPrintManagerClose, ref sqlViewModel, currentScale);
+                TaskRunPrintManager(callbackPrintManagerClose, ref sqlViewModel, currentScale);
             }
             catch (Exception ex)
             {
@@ -145,7 +143,7 @@ namespace WeightCore.Managers
             }
         }
 
-        private void TaskRunDeviceManager(DeviceManagerHelper.Callback callbackDeviceManager, bool taskEnabled)
+        private void TaskRunDeviceManager(bool taskEnabled)
         {
             _ = Task.Run(async () =>
             {
@@ -161,7 +159,7 @@ namespace WeightCore.Managers
                         if (taskEnabled)
                         {
                             DeviceManager.Init(1_000, 5_000, 5_000);
-                            DeviceManager.Open(callbackDeviceManager);
+                            DeviceManager.Open();
                         }
                     }
                     catch (Exception ex)
@@ -172,7 +170,7 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunMemoryManager(MemoryManagerHelper.Callback callbackMemoryManager, bool taskEnabled)
+        public void TaskRunMemoryManager(bool taskEnabled)
         {
             _ = Task.Run(async () =>
             {
@@ -187,7 +185,7 @@ namespace WeightCore.Managers
                         if (taskEnabled)
                         {
                             MemoryManager.Init(1_000, 5_000, 5_000);
-                            MemoryManager.Open(callbackMemoryManager);
+                            MemoryManager.Open();
                         }
                     }
                     catch (Exception ex)
@@ -198,7 +196,7 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunPrintManager(PrintManagerHelper.Callback callbackPrintManager, TscPrintControlHelper.Callback callbackPrintManagerClose,
+        public void TaskRunPrintManager(TscPrintControlHelper.Callback callbackPrintManagerClose,
             ref SqlViewModelEntity sqlViewModel, ScaleDirect currentScale)
         {
             bool taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager);
@@ -216,7 +214,7 @@ namespace WeightCore.Managers
                         if (taskEnabled)
                         { 
                             PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
-                            PrintManager.Open(IsTscPrinter, callbackPrintManager, callbackPrintManagerClose);
+                            PrintManager.Open(IsTscPrinter, callbackPrintManagerClose);
                         }
                     }
                     catch (Exception ex)
@@ -227,7 +225,7 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunMassaManagerResponse(MassaManagerHelper.Callback callbackMassaManager, bool taskEnabled, ScaleDirect currentScale)
+        public void TaskRunMassaManagerResponse(bool taskEnabled, ScaleDirect currentScale)
         {
             _ = Task.Run(async () =>
             {
@@ -244,7 +242,7 @@ namespace WeightCore.Managers
                         {
                             MassaManager.Init(100, 250, 1_000, 5_000,
                                 currentScale.DeviceComPort, true, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
-                            MassaManager.OpenResponse(callbackMassaManager);
+                            MassaManager.OpenResponse();
                         }
                     }
                     //catch (ConnectionException cex)

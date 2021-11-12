@@ -28,12 +28,12 @@ namespace ConsoleQuartzExample
 
         internal static void Method2()
         {
-            Console.Out.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Method2");
+            Console.Out.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Method2 --");
         }
 
         internal static void Method3()
         {
-            Console.Out.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Method3");
+            Console.Out.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Method3 ===");
         }
 
         internal static async Task Main()

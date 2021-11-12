@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Helpers;
@@ -28,7 +27,6 @@ namespace WeightCore.Managers
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; } = string.Empty;
-        public delegate void Callback();
         public bool IsExecute { get; set; } = false;
 
         #endregion
@@ -54,7 +52,7 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Manager
 
-        public void Open(Callback callback)
+        public void Open()
         {
             IsExecute = true;
             while (IsExecute)
@@ -79,7 +77,6 @@ namespace WeightCore.Managers
                 }
                 finally
                 {
-                    callback?.Invoke();
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
             }

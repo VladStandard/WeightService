@@ -26,7 +26,6 @@ namespace WeightCore.Managers
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; }
-        public delegate void Callback();
         public bool IsExecuteResponse { get; set; }
         public bool IsExecuteRequest { get; set; }
 
@@ -34,7 +33,7 @@ namespace WeightCore.Managers
 
         #region Public fields and properties
 
-        private MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
+        private readonly MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         public decimal WeightNet { get; private set; }
         public decimal WeightGross { get; private set; }
@@ -74,7 +73,7 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Manager
 
-        public void OpenResponse(Callback callback)
+        public void OpenResponse()
         {
             IsExecuteResponse = true;
             while (IsExecuteResponse)
@@ -97,7 +96,6 @@ namespace WeightCore.Managers
                 finally
                 {
                     OpenJobResponse();
-                    callback?.Invoke();
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitResponse));
                 }
             }

@@ -29,7 +29,6 @@ namespace WeightCore.Managers
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; }
-        public delegate void Callback();
         public bool IsExecute { get; set; }
 
         #endregion
@@ -49,7 +48,7 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Manager
 
-        public void Open(Callback callback)
+        public void Open()
         {
             IsExecute = true;
             while (IsExecute)
@@ -75,7 +74,6 @@ namespace WeightCore.Managers
                 }
                 finally
                 {
-                    callback?.Invoke();
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
             }

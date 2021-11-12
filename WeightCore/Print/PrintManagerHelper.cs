@@ -28,7 +28,6 @@ namespace WeightCore.Print
         public int WaitExceptionMiliSeconds { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; }
-        public delegate void Callback();
         public bool IsExecute { get; set; }
 
         #endregion
@@ -77,7 +76,7 @@ namespace WeightCore.Print
 
         #region Public and private methods - Manager
 
-        public void Open(bool isTscPrinter, Callback callbackPrintManager, TscPrintControlHelper.Callback callbackPrintManagerClose)
+        public void Open(bool isTscPrinter, TscPrintControlHelper.Callback callbackPrintManagerClose)
         {
             IsExecute = true;
             while (IsExecute)
@@ -98,7 +97,6 @@ namespace WeightCore.Print
                 }
                 finally
                 {
-                    callbackPrintManager?.Invoke();
                     Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
                 }
             }

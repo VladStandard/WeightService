@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.780] - 2021-11-10
+## [0.5.800] - 2021-11-12
 ### Fixed
 - Состояние весов
 - Состояние принтера
+- Quartz schedulers
 
 ## [0.5.750] - 2021-11-02
 ### Fixed

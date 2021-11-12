@@ -4,8 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>0.5.550</AssemblyVersion>
-    <FileVersion>0.5.550</FileVersion>
+    <AssemblyVersion>0.5.800</AssemblyVersion>
+    <FileVersion>0.5.800</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

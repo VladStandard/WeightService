@@ -16,14 +16,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Redmine 1600. Подготовить шаблон инструкции "Действия при ошибках печати"
 - Redmine 1608. DbScales. Таблица Labels. Удалить поле Label
 
-## [0.5.790] - 2021-11-11
+## [0.5.800] - 2021-11-12
 ### Removed
 - NullFX.CRC replaced on NullFX NuGet package
 ### Changed
 - Updated NuGet packages
-- ScalesUI v.0.5.790
-- WeightCore v.0.5.790
-- WeightCoreTests v.0.5.790
+- ScalesUI v.0.5.800
+- WeightCore v.0.5.800
+- WeightCoreTests v.0.5.800
 
 ## [0.5.750] - 2021-11-02
 ### Fixed
