@@ -53,6 +53,7 @@ namespace ScalesUI.Forms
             {
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
+                Application.DoEvents();
 
                 if (_sessionState.CurrentScale != null)
                 {
@@ -157,13 +158,19 @@ namespace ScalesUI.Forms
                 else
                 {
                     using PasswordForm pinForm = new() { TopMost = !_debug.IsDebug };
-                    isClose = pinForm.ShowDialog() == DialogResult.OK;
-                    pinForm.Close();
+                    if (pinForm.ShowDialog() == DialogResult.OK)
+                    {
+                        pinForm.Close();
+                        isClose = true;
+                    }
+                    else isClose = false;
                 }
                 if (isClose)
                 {
                     _sessionState.TaskManager.Close();
                     _sessionState.TaskManager.ClosePrintManager();
+                    Application.DoEvents();
+
                     _quartz.Close();
                     e.Cancel = false;
                 }
@@ -311,7 +318,8 @@ namespace ScalesUI.Forms
                 : $"Весы стабильны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг {_sessionState.TaskManager.MassaManagerProgressString}");
             _sessionState.TaskManager.MassaManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaManagerProgressString);
             // Состояние COM-порта.
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.IsResponse
+            //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.IsResponse
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.MassaDevice.IsConnected
                 ? "Состояние COM-порта: отвечает" : "Состояние COM-порта: не отвечает");
             // Запрос параметров.
             ScheduleMassaManagerResponseGetScalePar();
@@ -321,7 +329,7 @@ namespace ScalesUI.Forms
             ScheduleMassaManagerResponseSetAll();
             // Пакетов в очереди.
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries,
-                $"Пакетов в очереди: {_sessionState.TaskManager.MassaManager.RequestQueue.Count} {_sessionState.TaskManager.MassaQueriesProgressString}");
+                $"Очередь сообщений весов: {_sessionState.TaskManager.MassaManager.RequestQueue.Count} {_sessionState.TaskManager.MassaQueriesProgressString}");
             _sessionState.TaskManager.MassaQueriesProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaQueriesProgressString);
 
             if (!flag)
@@ -398,7 +406,8 @@ namespace ScalesUI.Forms
 
         private void TaskManagerOpen()
         {
-            _sessionState.TaskManager.Open(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+            _sessionState.TaskManager.Open(_sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+            _sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             Application.DoEvents();
         }
 
@@ -432,19 +441,13 @@ namespace ScalesUI.Forms
             {
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
+                Application.DoEvents();
 
-                if (_debug.IsDebug)
+                using PasswordForm pinForm = new() { TopMost = !_debug.IsDebug };
+                if (pinForm.ShowDialog() == DialogResult.OK)
                 {
-                    OpenFormSettings();
-                }
-                else
-                {
-                    PasswordForm pinForm = new();
-                    if (pinForm.ShowDialog() == DialogResult.OK)
-                    {
-                        OpenFormSettings();
-                    }
                     pinForm.Close();
+                    OpenFormSettings();
                 }
             }
             catch (Exception ex)
@@ -471,7 +474,8 @@ namespace ScalesUI.Forms
             try
             {
                 //if (_sessionState.TaskManager.MassaManagerIsExit)
-                if (_sessionState.TaskManager.MassaManager.IsExecuteResponse)
+                //if (_sessionState.TaskManager.IsExecuteMassa)
+                if (_sessionState.TaskManager.MassaManager.MassaDevice.IsConnected)
                 {
                     CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaNotQuering, 
                         LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -507,6 +511,7 @@ namespace ScalesUI.Forms
             {
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
+                Application.DoEvents();
 
                 // Weight check.
                 //if (_sessionState.TaskManager.MassaManager != null)
@@ -556,6 +561,7 @@ namespace ScalesUI.Forms
             {
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
+                Application.DoEvents();
 
                 if (_sessionState.CurrentOrder == null)
                 {
@@ -609,6 +615,7 @@ namespace ScalesUI.Forms
             {
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
+                Application.DoEvents();
 
                 using SetKneadingNumberForm kneadingNumberForm = new()
                 { Owner = this };
@@ -740,6 +747,7 @@ namespace ScalesUI.Forms
             {
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
+                Application.DoEvents();
 
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
                 wpfPageLoader.ShowDialog(this);
@@ -765,7 +773,13 @@ namespace ScalesUI.Forms
                     _sessionState.TaskManager.Close();
                     _sessionState.TaskManager.ClosePrintManager();
                     Application.DoEvents();
-                    _proc.Run(fileName, string.Empty, false, ProcessWindowStyle.Normal, true);
+
+                    using PasswordForm pinForm = new() { TopMost = !_debug.IsDebug };
+                    if (pinForm.ShowDialog() == DialogResult.OK)
+                    {
+                        pinForm.Close();
+                        _proc.Run(fileName, string.Empty, false, ProcessWindowStyle.Normal, true);
+                    }
                 }
                 else
                 {
@@ -797,6 +811,7 @@ namespace ScalesUI.Forms
             {
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
+                Application.DoEvents();
 
                 // .. methods
             }

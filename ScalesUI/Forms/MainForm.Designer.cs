@@ -287,7 +287,7 @@
             this.fieldMassaQueries.Name = "fieldMassaQueries";
             this.fieldMassaQueries.Size = new System.Drawing.Size(323, 25);
             this.fieldMassaQueries.TabIndex = 47;
-            this.fieldMassaQueries.Text = "Пакетов в очереди: ";
+            this.fieldMassaQueries.Text = "Очередь сообщений весов:  ";
             this.fieldMassaQueries.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fieldMassaQueries.Visible = false;
             // 

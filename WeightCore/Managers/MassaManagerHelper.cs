@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using System.Threading.Tasks;
 using WeightCore.Helpers;
 using WeightCore.MassaK;
 
@@ -23,11 +22,9 @@ namespace WeightCore.Managers
 
         public int WaitResponse { get; private set; }
         public int WaitRequest { get; private set; }
-        public int WaitExceptionMiliSeconds { get; private set; }
+        public int WaitException { get; private set; }
         public int WaitCloseMiliSeconds { get; private set; }
         public string ExceptionMsg { get; private set; }
-        public bool IsExecuteResponse { get; set; }
-        public bool IsExecuteRequest { get; set; }
 
         #endregion
 
@@ -43,10 +40,9 @@ namespace WeightCore.Managers
         public ResponseParseEntity ResponseParseScalePar { get; private set; } = null;
         public ResponseParseEntity ResponseParseGet { get; private set; } = null;
         public ResponseParseEntity ResponseParseSet { get; private set; } = null;
-        public bool IsResponse {  get; private set; }
-        private static readonly object Locker = new();
-        public ConcurrentQueue<MassaExchangeEntity> RequestQueue { get; private set; } = new();
-        private MassaDeviceEntity DeviceMassa { get; set; }
+        public bool IsResponse { get; private set; }
+        public BlockingCollection<MassaExchangeEntity> RequestQueue { get; private set; } = new();
+        public MassaDeviceEntity MassaDevice { get; private set; }
 
         #endregion
 
@@ -54,83 +50,42 @@ namespace WeightCore.Managers
 
         public MassaManagerHelper()
         {
-            
+
         }
 
         public void Init(int waitResponse, int waitRequest, int waitExceptionMiliSeconds, int waitCloseMiliSeconds,
-            string portName, bool isEnableReconnect, int readTimeout, int writeTimeout)
+            string portName, int readTimeout, int writeTimeout)
         {
             WaitResponse = waitResponse == 0 ? 100 : waitResponse;
             WaitRequest = waitRequest == 0 ? 250 : waitRequest;
-            WaitExceptionMiliSeconds = waitExceptionMiliSeconds;
+            WaitException = waitExceptionMiliSeconds;
             WaitCloseMiliSeconds = waitCloseMiliSeconds;
-            IsExecuteResponse = false;
-            IsExecuteRequest = false;
-            DeviceMassa = new(portName, isEnableReconnect, readTimeout, writeTimeout);
+            MassaDevice = new(portName, readTimeout, writeTimeout);
         }
 
         #endregion
 
         #region Public and private methods - Manager
 
-        public void OpenResponse()
-        {
-            IsExecuteResponse = true;
-            while (IsExecuteResponse)
-            {
-                try
-                {
-                    DeviceMassa.Open();
-                }
-                catch (TaskCanceledException)
-                {
-                    // Console.WriteLine(tcex.Message);
-                    // Not the problem.
-                }
-                catch (Exception ex)
-                 {
-                    _exception.Catch(null, ref ex);
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
-                    //throw;
-                }
-                finally
-                {
-                    OpenJobResponse();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitResponse));
-                }
-            }
-        }
-
         public void OpenRequest()
         {
-            IsExecuteRequest = true;
-            while (IsExecuteRequest)
-            {
-                try
-                {
-                    GetMassa();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitRequest));
-                }
-                catch (TaskCanceledException)
-                {
-                    // Console.WriteLine(tcex.Message);
-                    // Not the problem.
-                }
-                catch (Exception ex)
-                {
-                    _exception.Catch(null, ref ex);
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitExceptionMiliSeconds));
-                    //throw;
-                }
-            }
+            GetMassa(true);
+        }
+
+        public void OpenResponse()
+        {
+            OpenJobResponse();
+        }
+
+        public void OpenReopen()
+        {
+            MassaDevice.Open();
         }
 
         public void Close()
         {
             try
             {
-                IsExecuteResponse = false;
-                IsExecuteRequest = false;
                 CloseJob();
             }
             catch (Exception ex)
@@ -145,125 +100,119 @@ namespace WeightCore.Managers
 
         private void OpenJobResponse()
         {
+            if (MassaDevice.IsConnected)
+            {
+                foreach (MassaExchangeEntity massaExchange in RequestQueue.GetConsumingEnumerable())
+                {
+                    if (MassaDevice == null || massaExchange == null) return;
+                    Parse(massaExchange);
+                }
+                RequestQueue = new BlockingCollection<MassaExchangeEntity>();
+            }
+            // Clear queue.
             if (RequestQueue.Count > 100)
             {
-                // Clear queue.
-                while (RequestQueue.Count > 0)
-                {
-                    RequestQueue.TryDequeue(out _);
-                }
-            }
-
-            if (DeviceMassa.IsConnected)
-            {
-                if (RequestQueue.TryDequeue(out MassaExchangeEntity cmd))
-                {
-                    lock (Locker)
-                    {
-                        if (DeviceMassa == null || cmd == null) return;
-                        Parse(cmd);
-                    }
-                }
+                RequestQueue = new BlockingCollection<MassaExchangeEntity>();
             }
         }
 
-        private void Parse(MassaExchangeEntity cmd)
+        private void Parse(MassaExchangeEntity massaExchange)
         {
-            switch (cmd.CmdType)
+            switch (massaExchange.CmdType)
             {
                 case MassaCmdType.UdpPoll:
-                    cmd.Request = _massaRequest.CMD_UDP_POLL;
+                    massaExchange.Request = _massaRequest.CMD_UDP_POLL;
                     break;
                 case MassaCmdType.GetInit2:
-                    cmd.Request = _massaRequest.CMD_GET_INIT_2;
+                    massaExchange.Request = _massaRequest.CMD_GET_INIT_2;
                     break;
                 case MassaCmdType.GetInit3:
-                    cmd.Request = _massaRequest.CMD_GET_INIT_3;
+                    massaExchange.Request = _massaRequest.CMD_GET_INIT_3;
                     break;
                 case MassaCmdType.GetEthernet:
-                    cmd.Request = _massaRequest.CMD_GET_ETHERNET;
+                    massaExchange.Request = _massaRequest.CMD_GET_ETHERNET;
                     break;
                 case MassaCmdType.GetWiFiIp:
-                    cmd.Request = _massaRequest.CMD_GET_WIFI_IP;
+                    massaExchange.Request = _massaRequest.CMD_GET_WIFI_IP;
                     break;
                 case MassaCmdType.GetMassa:
-                    cmd.Request = _massaRequest.CMD_GET_MASSA;
+                    massaExchange.Request = _massaRequest.CMD_GET_MASSA;
                     break;
                 case MassaCmdType.GetName:
                     break;
                 case MassaCmdType.GetScalePar:
-                    cmd.Request = _massaRequest.CMD_GET_SCALE_PAR;
+                    massaExchange.Request = _massaRequest.CMD_GET_SCALE_PAR;
                     break;
                 case MassaCmdType.GetScaleParAfter:
-                    cmd.Request = _massaRequest.CMD_GET_SCALE_PAR_AFTER;
+                    massaExchange.Request = _massaRequest.CMD_GET_SCALE_PAR_AFTER;
                     break;
                 case MassaCmdType.SetTare:
-                    cmd.Request = cmd.CmdSetTare();
+                    massaExchange.Request = massaExchange.CmdSetTare();
                     break;
                 case MassaCmdType.SetZero:
-                    cmd.Request = _massaRequest.CMD_SET_ZERO;
+                    massaExchange.Request = _massaRequest.CMD_SET_ZERO;
                     break;
             }
-            if (cmd.Request == null)
+            if (massaExchange.Request == null)
                 return;
 
-            byte[] response = DeviceMassa.WriteToPort(cmd);
+            byte[] response = MassaDevice.WriteToPort(massaExchange);
             IsResponse = response != null;
             if (!IsResponse)
                 return;
 
-            cmd.ResponseParse = new ResponseParseEntity(cmd.CmdType, response);
-            ParseSetResponse(cmd);
-            ParseSetMassa(cmd);
+            massaExchange.ResponseParse = new ResponseParseEntity(massaExchange.CmdType, response);
+            ParseSetResponse(massaExchange);
+            ParseSetMassa(massaExchange);
         }
 
-        private void ParseSetResponse(MassaExchangeEntity cmd)
+        private void ParseSetResponse(MassaExchangeEntity massaExchange)
         {
-            switch (cmd.CmdType)
+            switch (massaExchange.CmdType)
             {
                 case MassaCmdType.GetMassa:
-                    ResponseParseGet = cmd.ResponseParse;
+                    ResponseParseGet = massaExchange.ResponseParse;
                     break;
                 case MassaCmdType.GetScalePar:
-                    ResponseParseScalePar = cmd.ResponseParse;
+                    ResponseParseScalePar = massaExchange.ResponseParse;
                     break;
                 case MassaCmdType.SetWiFiSsid:
-                    ResponseParseSet = cmd.ResponseParse;
+                    ResponseParseSet = massaExchange.ResponseParse;
                     break;
                 case MassaCmdType.SetDatetime:
-                    ResponseParseSet = cmd.ResponseParse;
+                    ResponseParseSet = massaExchange.ResponseParse;
                     break;
                 case MassaCmdType.SetName:
-                    ResponseParseSet = cmd.ResponseParse;
+                    ResponseParseSet = massaExchange.ResponseParse;
                     break;
                 case MassaCmdType.SetRegnum:
-                    ResponseParseSet = cmd.ResponseParse;
+                    ResponseParseSet = massaExchange.ResponseParse;
                     break;
                 case MassaCmdType.SetTare:
-                    ResponseParseSet = cmd.ResponseParse;
+                    ResponseParseSet = massaExchange.ResponseParse;
                     break;
                 case MassaCmdType.SetZero:
-                    ResponseParseSet = cmd.ResponseParse;
+                    ResponseParseSet = massaExchange.ResponseParse;
                     break;
             }
         }
 
-        private void ParseSetMassa(MassaExchangeEntity cmd)
+        private void ParseSetMassa(MassaExchangeEntity massaExchange)
         {
-            switch (cmd.CmdType)
+            switch (massaExchange.CmdType)
             {
                 case MassaCmdType.GetMassa:
                     // 1 байт. Цена деления в значении массы нетто и массы тары:
                     // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
-                    ScaleFactor = cmd.ResponseParse.Massa.ScaleFactor;
+                    ScaleFactor = massaExchange.ResponseParse.Massa.ScaleFactor;
                     // 4 байта. Текущая масса нетто со знаком
-                    WeightNet = cmd.ResponseParse.Massa.Weight / (decimal)ScaleFactor;
+                    WeightNet = massaExchange.ResponseParse.Massa.Weight / (decimal)ScaleFactor;
                     // 4 байта. Текущая масса тары со знаком
-                    decimal weightTare = cmd.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
+                    decimal weightTare = massaExchange.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
                     // 4 байта. Текущая масса тары со знаком
                     WeightGross = WeightNet + weightTare;
                     // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
-                    IsStable = cmd.ResponseParse.Massa.Stable;
+                    IsStable = massaExchange.ResponseParse.Massa.Stable;
                     // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
                     //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
                     break;
@@ -272,54 +221,47 @@ namespace WeightCore.Managers
 
         public void CloseJob()
         {
-            DeviceMassa?.Dispose();
+            MassaDevice?.Dispose();
         }
 
         public void GetInit()
         {
-            int timeOut = 500;
-
             GetInit1();
-            Thread.Sleep(timeOut);
             GetInit2();
-            Thread.Sleep(timeOut);
             GetInit3();
-            Thread.Sleep(timeOut);
 
             GetScalePar();
-            Thread.Sleep(timeOut);
             GetScaleParAfter();
-            Thread.Sleep(timeOut);
             GetScalePar();
-            Thread.Sleep(timeOut);
-            GetMassa();
-            Thread.Sleep(timeOut);
-            
+            GetMassa(false);
+
             SetZero();
-            Thread.Sleep(timeOut);
             SetTareWeight(0);
-            Thread.Sleep(timeOut);
             SetZero();
-            Thread.Sleep(timeOut);
+
+            //RequestQueue.CompleteAdding();
         }
 
-        public void GetInit1() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.UdpPoll));
-        public void GetInit2() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetInit2));
-        public void GetInit3() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetInit3));
-        public void GetMassa()
+        public void GetInit1() => RequestQueue.Add(new MassaExchangeEntity(MassaCmdType.UdpPoll));
+        public void GetInit2() => RequestQueue.Add(new MassaExchangeEntity(MassaCmdType.GetInit2));
+        public void GetInit3() => RequestQueue.Add(new MassaExchangeEntity(MassaCmdType.GetInit3));
+        public void GetMassa(bool isComplete)
         {
-            RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetMassa));
-            // Clear queue.
-            while (RequestQueue.Count > 0)
+            if (isComplete)
             {
-                RequestQueue.TryDequeue(out _);
+                RequestQueue.Add(new MassaExchangeEntity(MassaCmdType.GetMassa));
+                //RequestQueue.CompleteAdding();
+            }
+            else
+            {
+                RequestQueue.Add(new MassaExchangeEntity(MassaCmdType.GetMassa));
             }
         }
 
-        public void GetScalePar() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetScalePar));
-        public void GetScaleParAfter() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.GetScaleParAfter));
-        public void SetTareWeight(int weightTare) => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.SetTare, weightTare));
-        public void SetZero() => RequestQueue.Enqueue(new MassaExchangeEntity(MassaCmdType.SetZero));
+        public void GetScalePar() => RequestQueue.Add(new MassaExchangeEntity(MassaCmdType.GetScalePar));
+        public void GetScaleParAfter() => RequestQueue.Add(new MassaExchangeEntity(MassaCmdType.GetScaleParAfter));
+        public void SetTareWeight(int weightTare) => RequestQueue.Add(new MassaExchangeEntity(MassaCmdType.SetTare, weightTare));
+        public void SetZero() => RequestQueue.Add(new MassaExchangeEntity(MassaCmdType.SetZero));
 
         #endregion
     }

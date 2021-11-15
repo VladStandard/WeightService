@@ -22,19 +22,17 @@ namespace WeightCore.MassaK
         #region Public and private fields and properties
 
         public SerialPort SerialPortItem { get; private set; }
-        public object LockObject { get; private set; } = new();
+        public object Locker { get; private set; } = new();
         public bool IsConnected { get; private set; }
-        public bool IsEnableReconnect { get; private set; }
         public string PortName { get; private set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public MassaDeviceEntity(string portName, bool isEnableReconnect, int readTimeout, int writeTimeout)
+        public MassaDeviceEntity(string portName, int readTimeout, int writeTimeout)
         {
             PortName = portName;
-            IsEnableReconnect = isEnableReconnect;
             SerialPortItem = SerialPortItem.GetDefault(portName, readTimeout, writeTimeout);
         }
 
@@ -44,8 +42,9 @@ namespace WeightCore.MassaK
 
         public void Close()
         {
-            lock (LockObject)
+            lock (Locker)
             {
+                IsConnected = false;
                 if (SerialPortItem != null)
                 {
                     if (SerialPortItem.IsOpen)
@@ -53,7 +52,6 @@ namespace WeightCore.MassaK
                     SerialPortItem.Dispose();
                     SerialPortItem = null;
                 }
-                IsConnected = false;
             }
         }
 
@@ -64,23 +62,31 @@ namespace WeightCore.MassaK
 
         public void Open()
         {
-            lock (LockObject)
+            lock (Locker)
             {
                 try
                 {
-                    if (IsConnected) return;
+                    //if (IsConnected) return;
                     if (string.IsNullOrEmpty(PortName))
+                    {
+                        IsConnected = false;
                         throw new ArgumentNullException(PortName);
+                    }
                     
                     if (SerialPortItem == null)
                         SerialPortItem = SerialPortItem.GetDefault(PortName);
                     if (!SerialPortItem.IsOpen)
+                    {
                         SerialPortItem.Open();
-
-                    IsConnected = true;
+                        IsConnected = true;
+                        return;
+                    }
+                    else
+                        IsConnected = true;
                 }
                 catch (Exception ex)
                 {
+                    IsConnected = false;
                     throw new MassaConnectionException(ex);
                 }
             }
@@ -99,9 +105,9 @@ namespace WeightCore.MassaK
 
         public byte[] WriteToPort(MassaExchangeEntity cmd)
         {
-            if (IsEnableReconnect)
-                Open();
-            lock (LockObject)
+            //if (IsEnableReconnect)
+            //    Open();
+            lock (Locker)
             {
                 SerialPortItem.Write(cmd.Request, 0, cmd.Request.Length);
                 Thread.Sleep(10);

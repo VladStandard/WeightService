@@ -63,26 +63,44 @@ namespace WeightCore.Managers
         public string MassaQueriesProgressString { get; set; }
         public string MassaRequestProgressString { get; set; }
         public string MassaResponseProgressString { get; set; }
-        private readonly AsyncLock _mutexMassaManagerResponse = new();
-        private readonly AsyncLock _mutexMassaManagerRequest = new();
+        private readonly AsyncLock _mutexMassaResponse = new();
+        private readonly AsyncLock _mutexMassaRequest = new();
+        private readonly AsyncLock _mutexMassaReOpen = new();
 
         public delegate void CallbackButtonSetZero(object sender, EventArgs e);
+        public bool IsExecuteMassaReopen { get; set; }
+        public bool IsExecuteMassaRequest { get; set; }
+        public bool IsExecuteMassaResponse { get; set; }
 
         #endregion
 
         #region Public and private methods
 
-        public void Open(TscPrintControlHelper.Callback callbackPrintManagerClose, SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
+        public void Open(SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
             {
                 IsTscPrinter = isTscPrinter;
 
-                TaskRunDeviceManager(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager));
-                TaskRunMemoryManager(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager));
-                TaskRunMassaManagerResponse(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager), currentScale);
-                TaskRunMassaManagerRequest(sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager));
-                TaskRunPrintManager(callbackPrintManagerClose, ref sqlViewModel, currentScale);
+                bool taskEnabled = false;
+
+                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager);
+                if (taskEnabled)
+                    TaskRunDeviceManager();
+
+                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager);
+                if (taskEnabled)
+                    TaskRunMemoryManager();
+                
+                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager);
+                if (taskEnabled)
+                {
+                    MassaManager.Init(100, 250, 1_000, 5_000,
+                        currentScale.DeviceComPort, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
+                    TaskRunMassaManagerReOpen();
+                    TaskRunMassaManagerRequest();
+                    TaskRunMassaManagerResponse();
+                }
             }
             catch (Exception ex)
             {
@@ -97,7 +115,12 @@ namespace WeightCore.Managers
             {
                 IsTscPrinter = isTscPrinter;
 
-                TaskRunPrintManager(callbackPrintManagerClose, ref sqlViewModel, currentScale);
+                bool taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager);
+                if (taskEnabled)
+                {
+                    PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
+                    TaskRunPrintManager(callbackPrintManagerClose);
+                }
             }
             catch (Exception ex)
             {
@@ -109,6 +132,10 @@ namespace WeightCore.Managers
         {
             try
             {
+                IsExecuteMassaReopen = false;
+                IsExecuteMassaRequest = false;
+                IsExecuteMassaResponse = false;
+
                 DeviceManager.Close();
                 MemoryManager.Close();
                 MassaManager.Close();
@@ -143,12 +170,11 @@ namespace WeightCore.Managers
             }
         }
 
-        private void TaskRunDeviceManager(bool taskEnabled)
+        private void TaskRunDeviceManager()
         {
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
-                //using (await _mutexDeviceManager.LockAsync(_ctsDeviceManager.Token))
                 using (await _mutexDeviceManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
@@ -156,11 +182,8 @@ namespace WeightCore.Managers
 
                     try
                     {
-                        if (taskEnabled)
-                        {
-                            DeviceManager.Init(1_000, 5_000, 5_000);
-                            DeviceManager.Open();
-                        }
+                        DeviceManager.Init(1_000, 5_000, 5_000);
+                        DeviceManager.Open();
                     }
                     catch (Exception ex)
                     {
@@ -170,7 +193,7 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunMemoryManager(bool taskEnabled)
+        public void TaskRunMemoryManager()
         {
             _ = Task.Run(async () =>
             {
@@ -182,11 +205,8 @@ namespace WeightCore.Managers
 
                     try
                     {
-                        if (taskEnabled)
-                        {
-                            MemoryManager.Init(1_000, 5_000, 5_000);
-                            MemoryManager.Open();
-                        }
+                        MemoryManager.Init(1_000, 5_000, 5_000);
+                        MemoryManager.Open();
                     }
                     catch (Exception ex)
                     {
@@ -196,14 +216,11 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunPrintManager(TscPrintControlHelper.Callback callbackPrintManagerClose,
-            ref SqlViewModelEntity sqlViewModel, ScaleDirect currentScale)
+        public void TaskRunPrintManager(TscPrintControlHelper.Callback callbackPrintManagerClose)
         {
-            bool taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager);
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
-                //using (await _mutexPrintManager.LockAsync(_ctsPrintManager.Token))
                 using (await _mutexPrintManager.LockAsync())
                 {
                     // It's safe to await while the lock is held
@@ -211,11 +228,7 @@ namespace WeightCore.Managers
 
                     try
                     {
-                        if (taskEnabled)
-                        { 
-                            PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
-                            PrintManager.Open(IsTscPrinter, callbackPrintManagerClose);
-                        }
+                        PrintManager.Open(IsTscPrinter, callbackPrintManagerClose);
                     }
                     catch (Exception ex)
                     {
@@ -225,60 +238,100 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunMassaManagerResponse(bool taskEnabled, ScaleDirect currentScale)
+        public void TaskRunMassaManagerReOpen()
         {
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
-                //using (await _mutexMassaManager.LockAsync(_ctsMassaManager.Token))
-                using (await _mutexMassaManagerResponse.LockAsync())
+                using (await _mutexMassaReOpen.LockAsync())
                 {
                     // It's safe to await while the lock is held
                     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
 
-                    try
+                    IsExecuteMassaReopen = true;
+                    while (IsExecuteMassaReopen)
                     {
-                        if (taskEnabled)
+                        try
                         {
-                            MassaManager.Init(100, 250, 1_000, 5_000,
-                                currentScale.DeviceComPort, true, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
-                            MassaManager.OpenResponse();
+                            MassaManager.OpenReopen();
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitResponse)).ConfigureAwait(true);
                         }
-                    }
-                    //catch (ConnectionException cex)
-                    //{
-                    //    Exception ex = new(cex.Message);
-                    //    _exception.Catch(null, ref ex);
-                    //}
-                    catch (Exception ex)
-                    {
-                        _exception.Catch(null, ref ex);
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            _exception.Catch(null, ref ex);
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(true);
+                        }
                     }
                 }
             });
         }
 
-        public void TaskRunMassaManagerRequest(bool taskEnabled)
+        public void TaskRunMassaManagerRequest()
         {
             _ = Task.Run(async () =>
             {
                 // AsyncLock can be locked asynchronously
-                //using (await _mutexMassaManager.LockAsync(_ctsMassaManager.Token))
-                using (await _mutexMassaManagerRequest.LockAsync())
+                using (await _mutexMassaRequest.LockAsync())
                 {
                     // It's safe to await while the lock is held
                     await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
 
-                    try
+                    IsExecuteMassaRequest = true;
+                    while (IsExecuteMassaRequest)
                     {
-                        if (taskEnabled)
+                        try
                         {
                             MassaManager.OpenRequest();
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitResponse)).ConfigureAwait(true);
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            _exception.Catch(null, ref ex);
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(true);
                         }
                     }
-                    catch (Exception ex)
+                }
+            });
+        }
+
+        public void TaskRunMassaManagerResponse()
+        {
+            _ = Task.Run(async () =>
+            {
+                // AsyncLock can be locked asynchronously
+                using (await _mutexMassaResponse.LockAsync())
+                {
+                    // It's safe to await while the lock is held
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+
+                    IsExecuteMassaResponse = true;
+                    while (IsExecuteMassaResponse)
                     {
-                        _exception.Catch(null, ref ex);
+                        try
+                        {
+                            MassaManager.OpenResponse();
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitResponse)).ConfigureAwait(true);
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            _exception.Catch(null, ref ex);
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(true);
+                        }
                     }
                 }
             });
