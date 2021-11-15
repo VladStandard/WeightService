@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore;
 using DataProjectsCore;
 using System;
 using System.Windows.Forms;
@@ -13,12 +14,12 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
-        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly DebugHelper _debug = DebugHelper.Instance;
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        private int OldKneading { get; }
-        private int OldPalletSize { get; }
-        private DateTime OldProductDate { get; }
+        private readonly int _saveKneading;
+        private readonly int _savePalletSize;
+        private readonly DateTime _saveProductDate;
 
         #endregion
 
@@ -28,10 +29,9 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            OldKneading = _sessionState.Kneading;
-            OldProductDate = _sessionState.ProductDate;
-            OldPalletSize = _sessionState.LabelsCount;
-            buttonOk.Select();
+            _saveKneading = _sessionState.Kneading;
+            _saveProductDate = _sessionState.ProductDate;
+            _savePalletSize = _sessionState.LabelsCount;
         }
 
         #endregion
@@ -47,13 +47,16 @@ namespace ScalesUI.Forms
                 Height = Owner.Height;
                 Left = Owner.Left;
                 Top = Owner.Top;
-
-                StartPosition = FormStartPosition.CenterScreen;
+                StartPosition = FormStartPosition.CenterParent;
                 ShowPalletSize();
             }
             catch (Exception ex)
             {
                 _exception.Catch(this, ref ex);
+            }
+            finally
+            {
+                buttonOk.Select();
             }
         }
 
@@ -81,7 +84,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonKneadingLeft_Click(object sender, EventArgs e)
+        private void ButtonKneadingLeft_Click(object sender, EventArgs e)
         {
             try
             {
@@ -112,14 +115,15 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
             try
             {
+                CheckWeightCount();
                 DialogResult = DialogResult.Cancel;
-                _sessionState.Kneading = OldKneading;
-                _sessionState.ProductDate = OldProductDate;
-                _sessionState.LabelsCount = OldPalletSize;
+                _sessionState.Kneading = _saveKneading;
+                _sessionState.ProductDate = _saveProductDate;
+                _sessionState.LabelsCount = _savePalletSize;
                 Close();
             }
             catch (Exception ex)
@@ -128,10 +132,23 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonOk_Click(object sender, EventArgs e)
+        private void CheckWeightCount()
+        {
+            if (_sessionState.CurrentPlu.CheckWeight == true && _sessionState.LabelsCount > 1)
+            {
+                CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.CheckPluWeightCount,
+                    LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                messageBox.Wait();
+                _sessionState.LabelsCount = 1;
+            }
+            fieldPalletSize.Text = _sessionState.LabelsCount.ToString();
+        }
+
+        private void ButtonOk_Click(object sender, EventArgs e)
         {
             try
             {
+                CheckWeightCount();
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -141,7 +158,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonDtRight_Click(object sender, EventArgs e)
+        private void ButtonDtRight_Click(object sender, EventArgs e)
         {
             try
             {
@@ -154,7 +171,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonDtLeft_Click(object sender, EventArgs e)
+        private void ButtonDtLeft_Click(object sender, EventArgs e)
         {
             try
             {
@@ -167,7 +184,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonPalletSize10_Click(object sender, EventArgs e)
+        private void ButtonPalletSize10_Click(object sender, EventArgs e)
         {
             try
             {
@@ -186,17 +203,10 @@ namespace ScalesUI.Forms
 
         private void ShowPalletSize()
         {
-            try
-            {
-                fieldPalletSize.Text = _sessionState.LabelsCount.ToString();
-            }
-            catch (Exception ex)
-            {
-                _exception.Catch(this, ref ex);
-            }
+            fieldPalletSize.Text = _sessionState.LabelsCount.ToString();
         }
 
-        private void buttonPalletSizeNext_Click(object sender, EventArgs e)
+        private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
         {
             try
             {
@@ -209,7 +219,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonPalletSizePrev_Click(object sender, EventArgs e)
+        private void ButtonPalletSizePrev_Click(object sender, EventArgs e)
         {
             try
             {
@@ -222,22 +232,22 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void buttonSet40_Click(object sender, EventArgs e)
+        private void ButtonSet40_Click(object sender, EventArgs e)
         {
             SetLabelsCount(40);
         }
 
-        private void buttonSet60_Click(object sender, EventArgs e)
+        private void ButtonSet60_Click(object sender, EventArgs e)
         {
             SetLabelsCount(60);
         }
 
-        private void buttonSet120_Click(object sender, EventArgs e)
+        private void ButtonSet120_Click(object sender, EventArgs e)
         {
             SetLabelsCount(120);
         }
 
-        private void buttonSet1_Click(object sender, EventArgs e)
+        private void ButtonSet1_Click(object sender, EventArgs e)
         {
             SetLabelsCount(1);
         }
@@ -261,7 +271,7 @@ namespace ScalesUI.Forms
             {
                 if (e.KeyCode == Keys.Escape)
                 {
-                    buttonClose_Click(sender, e);
+                    ButtonClose_Click(sender, e);
                 }
             }
             catch (Exception ex)

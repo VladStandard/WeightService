@@ -1,13 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using log4net;
 using System;
 using System.Collections.Concurrent;
-using System.Threading;
 using System.Threading.Tasks;
-using WeightCore.Zpl;
-using log4net;
 using WeightCore.Print.Native;
+using WeightCore.Zpl;
 
 namespace WeightCore.Print.Zebra
 {
@@ -15,64 +14,49 @@ namespace WeightCore.Print.Zebra
     {
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public StateEntity ZebraCurrentState = new();
-        readonly ConcurrentQueue<string> requestQueue = new();
-        Thread SharingSessionThread = null;
+        public BlockingCollection<string> Requests { get; private set; } = new();
 
-        //public delegate void OnResponseHandler(StateEntity state);
-        //public event OnResponseHandler NotifyStateForMainForm;
         public StatusDataCollector DataCollector { get; set; }
-        private IDeviceSocket DeviceSocket { get; }
         public static readonly int CommandThreadTimeOut = 100;
-        static readonly object locker = new();
 
         public Guid ID { get; private set; }
         public string Name { get; private set; }
 
 
-        public DeviceEntity(IDeviceSocket deviceSocket, Guid id, string name = "")
+        public DeviceEntity(Guid id, string name = "")
         {
-            DeviceSocket = deviceSocket;
             ID = id;
             Name = name;
             // Уведомитель состояния.
             DataCollector = new StatusDataCollector();
-            //StateEntity ZebraCurrentState = new();
         }
 
 
         public void ClearZebraPrintBuffer()
         {
-            // если очередь не пустая
-            // очищаем
-            // запускаем команду очистки очереди печати
-            while (!requestQueue.IsEmpty)
-            {
-                requestQueue.TryDequeue(out string msg);
-            }
-            string zplContent = ZplPipeUtils.ZplClearPrintBuffer();
-            requestQueue.Enqueue(zplContent);
+            // если очередь не пустая - очищаем, запускаем команду очистки очереди печати
+            if (Requests.Count > 0)
+                Requests = new BlockingCollection<string>();
+
+            Requests.Add(ZplPipeUtils.ZplClearPrintBuffer());
         }
 
         public void SetOdometorUserLabel(int value)
         {
-            string zplContent = ZplPipeUtils.ZplSetOdometerUserLabel(value);
-            requestQueue.Enqueue(zplContent);
+            Requests.Add(ZplPipeUtils.ZplSetOdometerUserLabel(value));
         }
 
         public void GetOdometorUserLabel()
         {
-            string zplContent = ZplPipeUtils.ZplGetOdometerUserLabel();
-            requestQueue.Enqueue(zplContent);
+            Requests.Add(ZplPipeUtils.ZplGetOdometerUserLabel());
         }
 
         public async void SendAsync(string template, string content)
         {
-            //await Task.Run(() => Send(template, content));
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             try
             {
-                string zplContent = ZplPipeUtils.XsltTransformationPipe(template, content, true);
-                requestQueue.Enqueue(zplContent);
+                Requests.Add(ZplPipeUtils.XsltTransformationPipe(template, content, true));
                 log.Debug($"{Name} - send content:\n{content}");
             }
             catch (Exception ex)
@@ -84,19 +68,16 @@ namespace WeightCore.Print.Zebra
 
         public async void SendAsync(string content)
         {
-            //await Task.Run(() => Send(content));
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             try
             {
-                requestQueue.Enqueue(content);
+                Requests.Add(content);
             }
             catch (Exception ex)
             {
                 log.Debug($"{Name}\n{ex.Message}");
             }
         }
-
-        //bool _workthread = true;
 
         //public void CheckDeviceStatusOn()
         //{
@@ -147,53 +128,40 @@ namespace WeightCore.Print.Zebra
         //    Thread.Sleep(100);
         //}
 
-        public void CheckDeviceStatusOff()
-        {
-            if (SharingSessionThread != null && SharingSessionThread.IsAlive)
-            {
-                //_workthread = false;
-                Thread.Sleep(200);
-                SharingSessionThread.Abort();
-                SharingSessionThread.Join(1000);
-                SharingSessionThread = null;
-            }
-        }
+        //public void CheckDeviceStatusOff()
+        //{
+        //    if (SharingSessionThread != null && SharingSessionThread.IsAlive)
+        //    {
+        //        //_workthread = false;
+        //        Thread.Sleep(200);
+        //        SharingSessionThread.Abort();
+        //        SharingSessionThread.Join(1000);
+        //        SharingSessionThread = null;
+        //    }
+        //}
     }
 
     public abstract class IDeviceSocket
     {
         protected static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public abstract string SendStringToPrinter(string szString);
-        //public abstract bool SendBytesToPrinter( IntPtr pBytes, Int32 dwCount);
-        //public abstract bool SendFileToPrinter( string szFileName);
     }
 
     public class DeviceSocketRaw : IDeviceSocket
     {
-
         private string PrinterName { get; set; }
 
         public DeviceSocketRaw(string _PrinterName)
         {
             PrinterName = _PrinterName;
         }
+
         public override string SendStringToPrinter(string szString)
         {
             string zpl = ZplPipeUtils.ToCodePoints(szString);
             RawPrinterHelper.SendStringToPrinter(PrinterName, zpl);
             return "";
         }
-
-        //public override bool SendBytesToPrinter( IntPtr pBytes, Int32 dwCount)
-        //{
-        //    return true;
-        //}
-        //public override bool SendFileToPrinter( string szFileName)
-        //{
-
-        //    return true;
-        //}
-
     }
 
     public class DeviceSocketTcp : IDeviceSocket
@@ -216,16 +184,5 @@ namespace WeightCore.Print.Zebra
             }
             return info;
         }
-        //public override bool SendBytesToPrinter(IntPtr pBytes, Int32 dwCount)
-        //{
-
-        //    return true;
-        //}
-        //public override bool SendFileToPrinter(string szFileName)
-        //{
-
-        //    return true;
-        //}
-
     }
 }

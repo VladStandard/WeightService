@@ -34,13 +34,12 @@ namespace WeightCore.Print
 
         #region Public and private fields and properties
 
-        //private readonly LogHelper _log = LogHelper.Instance;
         public string Peeler { get; private set; }
         public int UserLabelCount { get; private set; }
         public PrinterStatus CurrentStatus { get; private set; }
         public Connection Con { get; private set; }
-        public ConcurrentQueue<string> PrintCmdQueue { get; } = new ConcurrentQueue<string>();
-        private readonly object _locker = new();
+        public BlockingCollection<string> Documents { get; private set; } = new();
+        //private readonly object _locker = new();
         private ZebraPrinter _zebraPrinter;
         public ZebraPrinter ZebraPrinter => _zebraPrinter ??= ZebraPrinterFactory.GetInstance(Con);
         public TscPrintControlHelper TscPrintControl = TscPrintControlHelper.Instance;
@@ -123,7 +122,7 @@ namespace WeightCore.Print
         public async void SendAsync(string printCmd)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            PrintCmdQueue.Enqueue(printCmd);
+            Documents.Add(printCmd);
         }
 
         public void OpenJob(bool isTscPrinter, TscPrintControlHelper.Callback callbackPrintManagerClose)
@@ -139,9 +138,9 @@ namespace WeightCore.Print
         {
             try
             {
-                lock (_locker)
+                //lock (_locker)
                 {
-                    if (!PrintCmdQueue.IsEmpty)
+                    if (Documents.Count > 0)
                     {
                         CurrentStatus = ZebraPrinter.GetCurrentStatus();
                         UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", ZebraPrinter.Connection));
@@ -150,10 +149,11 @@ namespace WeightCore.Print
                             Peeler = SGD.GET("sensor.peeler", ZebraPrinter.Connection);
                             if (Peeler == "clear")
                             {
-                                if (PrintCmdQueue.TryDequeue(out string request))
+                                foreach (string doc in Documents.GetConsumingEnumerable())
                                 {
-                                    request = request.Replace("|", "\\&");
-                                    ZebraPrinter.SendCommand(request);
+                                    //if (Documents.TryDequeue(out string doc))
+                                    string docReplace = doc.Replace("|", "\\&");
+                                    ZebraPrinter.SendCommand(docReplace);
                                 }
                             }
                         }
@@ -171,16 +171,17 @@ namespace WeightCore.Print
             UserLabelCount = 1;
             try
             {
-                lock (_locker)
+                //lock (_locker)
                 {
-                    if (!PrintCmdQueue.IsEmpty)
+                    if (Documents.Count > 0)
                     {
-                        if (PrintCmdQueue.TryDequeue(out string request))
+                        foreach (string doc in Documents.GetConsumingEnumerable())
                         {
-                            request = request.Replace("|", "\\&");
-                            if (!request.Equals("^XA~JA^XZ") && !request.Contains("odometer.user_label_count"))
+                            //if (Documents.TryDequeue(out string request))
+                            string docReplace = doc.Replace("|", "\\&");
+                            if (!docReplace.Equals("^XA~JA^XZ") && !docReplace.Contains("odometer.user_label_count"))
                             {
-                                TscPrintControl.CmdSendCustom(request, callbackPrintManagerClose);
+                                TscPrintControl.CmdSendCustom(docReplace, callbackPrintManagerClose);
                             }
                         }
                     }
@@ -199,23 +200,21 @@ namespace WeightCore.Print
 
         public void ClearPrintBuffer(bool isTscPrinter)
         {
-            while (!PrintCmdQueue.IsEmpty)
-            {
-                PrintCmdQueue.TryDequeue(out _);
-            }
+            if (Documents.Count > 0)
+                Documents = new BlockingCollection<string>();
             if (isTscPrinter)
             {
                 TscPrintControl.CmdClearBuffer();
             }
             else
             {
-                PrintCmdQueue.Enqueue("^XA~JA^XZ");
+                Documents.Add("^XA~JA^XZ");
             }
         }
 
         public void SetOdometorUserLabel(int value)
         {
-            PrintCmdQueue.Enqueue($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+            Documents.Add($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
         }
 
         #endregion

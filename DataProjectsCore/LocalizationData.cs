@@ -424,14 +424,17 @@ namespace DataCore
                 ? @"Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator."
                 : @"Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
             public static string MassaNotQuering => Lang == ShareEnums.Lang.English
-                ? @"Massa-K scales are not interrogated!"
-                : @"Весы Масса-К не опрашиваются!";
+                ? @"Massa-K scales are not respond!"
+                : @"Весы Масса-К не отвечают!";
             public static string IsNotLoaded => Lang == ShareEnums.Lang.English
                 ? @"The program is not yet loaded!" + Environment.NewLine + @"Wait for it..."
                 : @"Программа ещё не загружена!" + Environment.NewLine + @"Подождите...";
             public static string PrinterInfoCaption => Lang == ShareEnums.Lang.English
                 ? @"Printer info"
                 : @"Информация о принтере";
+            public static string CheckPluWeightCount => Lang == ShareEnums.Lang.English
+                ? @"Weighted products can be specified in quantities of 1 piece."
+                : @"Весовая продукция может быть указана в количестве 1 штуки.";
         }
 
         public static class Methods

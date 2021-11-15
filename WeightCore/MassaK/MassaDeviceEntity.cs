@@ -10,7 +10,7 @@ namespace WeightCore.MassaK
     public class MassaDeviceEntity : IDisposable
     {
         #region Classes
-        
+
         public class MassaConnectionException : Exception
         {
             public MassaConnectionException() : base("Failed to connect to scales") { }
@@ -21,10 +21,12 @@ namespace WeightCore.MassaK
 
         #region Public and private fields and properties
 
-        public SerialPort SerialPortItem { get; private set; }
         public object Locker { get; private set; } = new();
         public bool IsConnected { get; private set; }
         public string PortName { get; private set; }
+        public int ReadTimeout { get; private set; }
+        public int WriteTimeout { get; private set; }
+        public SerialPort SerialPortItem { get; set; }
 
         #endregion
 
@@ -33,7 +35,8 @@ namespace WeightCore.MassaK
         public MassaDeviceEntity(string portName, int readTimeout, int writeTimeout)
         {
             PortName = portName;
-            SerialPortItem = SerialPortItem.GetDefault(portName, readTimeout, writeTimeout);
+            ReadTimeout = readTimeout;
+            WriteTimeout = writeTimeout;
         }
 
         #endregion
@@ -45,13 +48,11 @@ namespace WeightCore.MassaK
             lock (Locker)
             {
                 IsConnected = false;
-                if (SerialPortItem != null)
-                {
-                    if (SerialPortItem.IsOpen)
-                        SerialPortItem.Close();
-                    SerialPortItem.Dispose();
-                    SerialPortItem = null;
-                }
+                if (SerialPortItem == null)
+                    return;
+                if (SerialPortItem.IsOpen)
+                    SerialPortItem.Close();
+                SerialPortItem.Dispose();
             }
         }
 
@@ -66,15 +67,20 @@ namespace WeightCore.MassaK
             {
                 try
                 {
-                    //if (IsConnected) return;
                     if (string.IsNullOrEmpty(PortName))
                     {
                         IsConnected = false;
                         throw new ArgumentNullException(PortName);
                     }
-                    
+
+                    if (SerialPortItem == null && !string.IsNullOrEmpty(PortName))
+                        SerialPortItem = SerialPortItem.GetDefault(PortName, ReadTimeout, WriteTimeout);
+
                     if (SerialPortItem == null)
-                        SerialPortItem = SerialPortItem.GetDefault(PortName);
+                    {
+                        IsConnected = false;
+                        return;
+                    }
                     if (!SerialPortItem.IsOpen)
                     {
                         SerialPortItem.Open();
@@ -94,6 +100,8 @@ namespace WeightCore.MassaK
 
         private byte[] ReadFromPort()
         {
+            if (SerialPortItem == null)
+                return null;
             int length = SerialPortItem.BytesToRead;
             byte[] response = new byte[length];
             if (length > 0)
@@ -109,10 +117,12 @@ namespace WeightCore.MassaK
             //    Open();
             lock (Locker)
             {
+                if (SerialPortItem == null)
+                    return null;
                 SerialPortItem.Write(cmd.Request, 0, cmd.Request.Length);
-                Thread.Sleep(10);
+                Thread.Sleep(50);
                 byte[] result = ReadFromPort();
-                Thread.Sleep(10);
+                Thread.Sleep(50);
                 return result;
             }
         }

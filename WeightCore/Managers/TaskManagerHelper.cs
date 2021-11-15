@@ -63,11 +63,12 @@ namespace WeightCore.Managers
         public string MassaQueriesProgressString { get; set; }
         public string MassaRequestProgressString { get; set; }
         public string MassaResponseProgressString { get; set; }
+        
         private readonly AsyncLock _mutexMassaResponse = new();
         private readonly AsyncLock _mutexMassaRequest = new();
         private readonly AsyncLock _mutexMassaReOpen = new();
 
-        public delegate void CallbackButtonSetZero(object sender, EventArgs e);
+        //public delegate void CallbackButtonSetZero(object sender, EventArgs e);
         public bool IsExecuteMassaReopen { get; set; }
         public bool IsExecuteMassaRequest { get; set; }
         public bool IsExecuteMassaResponse { get; set; }
@@ -81,10 +82,8 @@ namespace WeightCore.Managers
             try
             {
                 IsTscPrinter = isTscPrinter;
-
-                bool taskEnabled = false;
-
-                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager);
+                
+                bool taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager);
                 if (taskEnabled)
                     TaskRunDeviceManager();
 
@@ -95,8 +94,7 @@ namespace WeightCore.Managers
                 taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager);
                 if (taskEnabled)
                 {
-                    MassaManager.Init(100, 250, 1_000, 5_000,
-                        currentScale.DeviceComPort, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
+                    MassaManager.Init(currentScale.DeviceComPort, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
                     TaskRunMassaManagerReOpen();
                     TaskRunMassaManagerRequest();
                     TaskRunMassaManagerResponse();
@@ -253,8 +251,8 @@ namespace WeightCore.Managers
                     {
                         try
                         {
-                            MassaManager.OpenReopen();
-                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitResponse)).ConfigureAwait(true);
+                            MassaManager.MassaDevice.Open();
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitReopen)).ConfigureAwait(false);
                         }
                         catch (TaskCanceledException)
                         {
@@ -264,7 +262,7 @@ namespace WeightCore.Managers
                         catch (Exception ex)
                         {
                             _exception.Catch(null, ref ex);
-                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(true);
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(false);
                         }
                     }
                 }
@@ -286,8 +284,9 @@ namespace WeightCore.Managers
                     {
                         try
                         {
-                            MassaManager.OpenRequest();
-                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitResponse)).ConfigureAwait(true);
+                            if (MassaManager.MassaDevice.IsConnected)
+                                MassaManager.GetMassa();
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitRequest)).ConfigureAwait(false);
                         }
                         catch (TaskCanceledException)
                         {
@@ -297,7 +296,7 @@ namespace WeightCore.Managers
                         catch (Exception ex)
                         {
                             _exception.Catch(null, ref ex);
-                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(true);
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(false);
                         }
                     }
                 }
@@ -319,8 +318,9 @@ namespace WeightCore.Managers
                     {
                         try
                         {
-                            MassaManager.OpenResponse();
-                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitResponse)).ConfigureAwait(true);
+                            if (MassaManager.MassaDevice.IsConnected)
+                                MassaManager.OpenResponse();
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitResponse)).ConfigureAwait(false);
                         }
                         catch (TaskCanceledException)
                         {
@@ -330,7 +330,7 @@ namespace WeightCore.Managers
                         catch (Exception ex)
                         {
                             _exception.Catch(null, ref ex);
-                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(true);
+                            await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(false);
                         }
                     }
                 }

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.810] - 2021-11-15
+### Fixed
+- WS-T-18. ScalesUI. Выделить задачу наблюдения за состоянием COM-порта
+- WS-T-19. ScalesUI. Запретить указывать более 1 этикетки для весовой продукции
+
 ## [0.5.800] - 2021-11-12
 ### Fixed
 - Состояние весов

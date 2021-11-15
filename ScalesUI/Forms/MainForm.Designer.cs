@@ -67,6 +67,7 @@
             this.buttonSelectOrder = new System.Windows.Forms.Button();
             this.buttonScalesInit = new System.Windows.Forms.Button();
             this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
+            this.fieldMassaQueriesProgress = new System.Windows.Forms.ProgressBar();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -126,10 +127,11 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0563F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00938F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.000938F));
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaQueriesProgress, 3, 12);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryProgress, 3, 13);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryManagerTotal, 2, 13);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSetCrc, 3, 12);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGetCrc, 3, 11);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSetCrc, 3, 11);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldMassaGetCrc, 3, 10);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaComPort, 1, 11);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaScalePar, 2, 10);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaSet, 2, 12);
@@ -207,7 +209,7 @@
             this.fieldMassaSetCrc.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaSetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaSetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaSetCrc.Location = new System.Drawing.Point(1051, 529);
+            this.fieldMassaSetCrc.Location = new System.Drawing.Point(1051, 498);
             this.fieldMassaSetCrc.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaSetCrc.Name = "fieldMassaSetCrc";
             this.fieldMassaSetCrc.Size = new System.Drawing.Size(112, 25);
@@ -222,7 +224,7 @@
             this.fieldMassaGetCrc.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaGetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaGetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaGetCrc.Location = new System.Drawing.Point(1051, 498);
+            this.fieldMassaGetCrc.Location = new System.Drawing.Point(1051, 467);
             this.fieldMassaGetCrc.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaGetCrc.Name = "fieldMassaGetCrc";
             this.fieldMassaGetCrc.Size = new System.Drawing.Size(112, 25);
@@ -694,6 +696,15 @@
             this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
             this.buttonRunScalesTerminal.Click += new System.EventHandler(this.ButtonRunScalesTerminal_Click);
             // 
+            // fieldMassaQueriesProgress
+            // 
+            this.fieldMassaQueriesProgress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fieldMassaQueriesProgress.Location = new System.Drawing.Point(1051, 529);
+            this.fieldMassaQueriesProgress.Name = "fieldMassaQueriesProgress";
+            this.fieldMassaQueriesProgress.Size = new System.Drawing.Size(112, 21);
+            this.fieldMassaQueriesProgress.TabIndex = 55;
+            this.fieldMassaQueriesProgress.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -762,6 +773,7 @@
         private System.Windows.Forms.Label fieldMassaGetCrc;
         private System.Windows.Forms.Label fieldMemoryManagerTotal;
         private System.Windows.Forms.ProgressBar fieldMemoryProgress;
+        private System.Windows.Forms.ProgressBar fieldMassaQueriesProgress;
     }
 }
 

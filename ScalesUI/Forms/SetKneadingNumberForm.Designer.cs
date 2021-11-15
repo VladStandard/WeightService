@@ -114,7 +114,7 @@
             this.buttonPalletSizeNext.TabIndex = 17;
             this.buttonPalletSizeNext.Text = ">";
             this.buttonPalletSizeNext.UseVisualStyleBackColor = true;
-            this.buttonPalletSizeNext.Click += new System.EventHandler(this.buttonPalletSizeNext_Click);
+            this.buttonPalletSizeNext.Click += new System.EventHandler(this.ButtonPalletSizeNext_Click);
             this.buttonPalletSizeNext.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // buttonPalletSizePrev
@@ -127,7 +127,7 @@
             this.buttonPalletSizePrev.TabIndex = 16;
             this.buttonPalletSizePrev.Text = "<";
             this.buttonPalletSizePrev.UseVisualStyleBackColor = true;
-            this.buttonPalletSizePrev.Click += new System.EventHandler(this.buttonPalletSizePrev_Click);
+            this.buttonPalletSizePrev.Click += new System.EventHandler(this.ButtonPalletSizePrev_Click);
             this.buttonPalletSizePrev.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // buttonPalletSize10
@@ -140,7 +140,7 @@
             this.buttonPalletSize10.TabIndex = 18;
             this.buttonPalletSize10.Text = "+10";
             this.buttonPalletSize10.UseVisualStyleBackColor = true;
-            this.buttonPalletSize10.Click += new System.EventHandler(this.buttonPalletSize10_Click);
+            this.buttonPalletSize10.Click += new System.EventHandler(this.ButtonPalletSize10_Click);
             this.buttonPalletSize10.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // fieldPalletSize
@@ -179,7 +179,7 @@
             this.buttonDtRight.TabIndex = 10;
             this.buttonDtRight.Text = ">";
             this.buttonDtRight.UseVisualStyleBackColor = true;
-            this.buttonDtRight.Click += new System.EventHandler(this.buttonDtRight_Click);
+            this.buttonDtRight.Click += new System.EventHandler(this.ButtonDtRight_Click);
             this.buttonDtRight.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // buttonDtLeft
@@ -192,7 +192,7 @@
             this.buttonDtLeft.TabIndex = 9;
             this.buttonDtLeft.Text = "<";
             this.buttonDtLeft.UseVisualStyleBackColor = true;
-            this.buttonDtLeft.Click += new System.EventHandler(this.buttonDtLeft_Click);
+            this.buttonDtLeft.Click += new System.EventHandler(this.ButtonDtLeft_Click);
             this.buttonDtLeft.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // buttonKneadingLeft
@@ -205,7 +205,7 @@
             this.buttonKneadingLeft.TabIndex = 6;
             this.buttonKneadingLeft.Text = "...";
             this.buttonKneadingLeft.UseVisualStyleBackColor = true;
-            this.buttonKneadingLeft.Click += new System.EventHandler(this.buttonKneadingLeft_Click);
+            this.buttonKneadingLeft.Click += new System.EventHandler(this.ButtonKneadingLeft_Click);
             this.buttonKneadingLeft.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // labelKneading
@@ -257,7 +257,7 @@
             this.buttonSet40.TabIndex = 19;
             this.buttonSet40.Text = "40";
             this.buttonSet40.UseVisualStyleBackColor = true;
-            this.buttonSet40.Click += new System.EventHandler(this.buttonSet40_Click);
+            this.buttonSet40.Click += new System.EventHandler(this.ButtonSet40_Click);
             this.buttonSet40.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // buttonSet60
@@ -270,7 +270,7 @@
             this.buttonSet60.TabIndex = 20;
             this.buttonSet60.Text = "60";
             this.buttonSet60.UseVisualStyleBackColor = true;
-            this.buttonSet60.Click += new System.EventHandler(this.buttonSet60_Click);
+            this.buttonSet60.Click += new System.EventHandler(this.ButtonSet60_Click);
             this.buttonSet60.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // buttonSet120
@@ -283,7 +283,7 @@
             this.buttonSet120.TabIndex = 21;
             this.buttonSet120.Text = "120";
             this.buttonSet120.UseVisualStyleBackColor = true;
-            this.buttonSet120.Click += new System.EventHandler(this.buttonSet120_Click);
+            this.buttonSet120.Click += new System.EventHandler(this.ButtonSet120_Click);
             this.buttonSet120.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // buttonSet1
@@ -296,7 +296,7 @@
             this.buttonSet1.TabIndex = 22;
             this.buttonSet1.Text = "1";
             this.buttonSet1.UseVisualStyleBackColor = true;
-            this.buttonSet1.Click += new System.EventHandler(this.buttonSet1_Click);
+            this.buttonSet1.Click += new System.EventHandler(this.ButtonSet1_Click);
             this.buttonSet1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // flowLayoutPanel1
@@ -320,7 +320,7 @@
             this.buttonClose.TabIndex = 3;
             this.buttonClose.Text = "Закрыть";
             this.buttonClose.UseVisualStyleBackColor = false;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             this.buttonClose.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // buttonOk
@@ -333,7 +333,7 @@
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = false;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            this.buttonOk.Click += new System.EventHandler(this.ButtonOk_Click);
             this.buttonOk.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // SetKneadingNumberForm

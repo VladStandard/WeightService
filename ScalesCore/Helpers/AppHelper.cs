@@ -3,7 +3,7 @@
 
 using DataProjectsCore.DAL;
 using DataShareCore;
-using DataShareCore.DAL.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.Win32;
 using MvvmHelpers;
 using ScalesCore.Properties;
@@ -181,18 +181,14 @@ namespace ScalesCore.Helpers
         /// <returns></returns>
         public string GetCurrentVersionFormat(int input, ShareEnums.AppVerStringFormat format)
         {
-            switch (format)
+            return format switch
             {
-                case ShareEnums.AppVerStringFormat.Use1:
-                    return $"{input:D1}";
-                case ShareEnums.AppVerStringFormat.Use2:
-                    return $"{input:D2}";
-                case ShareEnums.AppVerStringFormat.Use3:
-                    return $"{input:D3}";
-                case ShareEnums.AppVerStringFormat.Use4:
-                    return $"{input:D4}";
-            }
-            return $"{input:D}";
+                ShareEnums.AppVerStringFormat.Use1 => $"{input:D1}",
+                ShareEnums.AppVerStringFormat.Use2 => $"{input:D2}",
+                ShareEnums.AppVerStringFormat.Use3 => $"{input:D3}",
+                ShareEnums.AppVerStringFormat.Use4 => $"{input:D4}",
+                _ => $"{input:D}",
+            };
         }
 
         /// <summary>
@@ -396,7 +392,7 @@ namespace ScalesCore.Helpers
             {
                 Collection<Collection<object>> records = SqlHelp.SelectData(SqlQueries.DbScales.Tables.Scales.QueryFindGuid, 
                     new Collection<string>() { "RESULT" }, 
-                    new Collection<SqlParam>() { new SqlParam("GUID", guid) });
+                    new Collection<SqlParameter>() { new SqlParameter("GUID", guid) });
                 foreach (Collection<object> rec in records)
                 {
                     foreach (object field in rec)

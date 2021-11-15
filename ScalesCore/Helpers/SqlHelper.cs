@@ -11,12 +11,11 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using Microsoft.Data.SqlClient;
-using DataShareCore.DAL.Models;
 
 namespace ScalesCore.Helpers
 {
     /// <summary>
-    /// Помощник SQL.
+    /// SQL helper.
     /// </summary>
     public sealed class SqlHelper : BaseViewModel
     {
@@ -28,12 +27,6 @@ namespace ScalesCore.Helpers
         {
             Open(ShareEnums.SettingsStorage.UseConfig);
         }
-
-        #endregion
-
-        #region Private fields and properties
-
-        //
 
         #endregion
 
@@ -49,9 +42,6 @@ namespace ScalesCore.Helpers
         public string ConnectionString { get; private set; }
 
         private string _status;
-        /// <summary>
-        /// Статус.
-        /// </summary>
         public string Status
         {
             get => _status;
@@ -132,15 +122,15 @@ namespace ScalesCore.Helpers
             Console.WriteLine($@"ConnectionString=""{ConnectionString}""");
         }
 
-        private void SetParameters(DbCommand cmd, Collection<SqlParam> parameters)
+        private void SetParameters(DbCommand cmd, Collection<SqlParameter> parameters)
         {
-            foreach (SqlParam parameter in parameters)
+            foreach (SqlParameter parameter in parameters)
             {
-                cmd.Parameters.Add(new SqlParameter(parameter.Name, parameter.Value));
+                cmd.Parameters.Add(new SqlParameter(parameter.ParameterName, parameter.Value));
             }
         }
 
-        public Collection<Collection<object>> SelectData(string query, Collection<string> fieldNames, Collection<SqlParam> parameters = null)
+        public Collection<Collection<object>> SelectData(string query, Collection<string> fieldNames, Collection<SqlParameter> parameters = null)
         {
             Collection<Collection<object>> result = new();
             if (ProviderFactory == null || string.IsNullOrEmpty(query) || Connection == null || Connection.State != ConnectionState.Open)
@@ -208,9 +198,6 @@ namespace ScalesCore.Helpers
             }
         }
 
-        /// <summary>
-        /// Закрыть SQL-подключение.
-        /// </summary>
         public void CloseConnection(ShareEnums.Lang language)
         {
             Status = language == ShareEnums.Lang.English ?
@@ -227,13 +214,6 @@ namespace ScalesCore.Helpers
             return ConnectionState.Closed;
         }
 
-        /// <summary>
-        /// Получить значение поля.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="field"></param>
-        /// <param name="reader"></param>
-        /// <returns></returns>
         public SqlTableField<T> GetValueField<T>(SqlTableField<T> field, SqlDataReader reader) where T : IConvertible
         {
             T value = default;
@@ -260,14 +240,6 @@ namespace ScalesCore.Helpers
             return new SqlTableField<T>(null, value, default);
         }
 
-        /// <summary>
-        /// Получить значение поля.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="name"></param>
-        /// <param name="reader"></param>
-        /// <param name="description"></param>
-        /// <returns></returns>
         public T GetValue<T>(string name, SqlDataReader reader, string description = null) where T : IConvertible
         {
             T value = default;

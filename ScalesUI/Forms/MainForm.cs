@@ -83,6 +83,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
+                System.Threading.Thread.Sleep(1_000);
                 ButtonScalesInit_Click(sender, e);
             }
         }
@@ -318,7 +319,6 @@ namespace ScalesUI.Forms
                 : $"Весы стабильны | Вес брутто: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} кг {_sessionState.TaskManager.MassaManagerProgressString}");
             _sessionState.TaskManager.MassaManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaManagerProgressString);
             // Состояние COM-порта.
-            //MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.IsResponse
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.MassaDevice.IsConnected
                 ? "Состояние COM-порта: отвечает" : "Состояние COM-порта: не отвечает");
             // Запрос параметров.
@@ -327,10 +327,11 @@ namespace ScalesUI.Forms
             ScheduleMassaManagerResponseGetMassa();
             // Состояние запроса к весам.
             ScheduleMassaManagerResponseSetAll();
-            // Пакетов в очереди.
+            // Очередь сообщений весов.
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries,
-                $"Очередь сообщений весов: {_sessionState.TaskManager.MassaManager.RequestQueue.Count} {_sessionState.TaskManager.MassaQueriesProgressString}");
+                $"Очередь сообщений весов: {_sessionState.TaskManager.MassaManager.Requests.Count} {_sessionState.TaskManager.MassaQueriesProgressString}");
             _sessionState.TaskManager.MassaQueriesProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaQueriesProgressString);
+            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, _sessionState.TaskManager.MassaManager.Requests.Count);
 
             if (!flag)
             {
@@ -473,9 +474,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                //if (_sessionState.TaskManager.MassaManagerIsExit)
-                //if (_sessionState.TaskManager.IsExecuteMassa)
-                if (_sessionState.TaskManager.MassaManager.MassaDevice.IsConnected)
+                if (!_sessionState.TaskManager.MassaManager.MassaDevice.IsConnected)
                 {
                     CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaNotQuering, 
                         LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -514,17 +513,14 @@ namespace ScalesUI.Forms
                 Application.DoEvents();
 
                 // Weight check.
-                //if (_sessionState.TaskManager.MassaManager != null)
+                if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold || 
+                    _sessionState.TaskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
                 {
-                    if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold || 
-                        _sessionState.TaskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
-                    {
-                        CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, LocalizationData.ScalesUI.OperationControl,
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        messageBox.Wait();
-                        if (messageBox.Result != DialogResult.Yes)
-                            return;
-                    }
+                    CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, LocalizationData.ScalesUI.OperationControl,
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    messageBox.Wait();
+                    if (messageBox.Result != DialogResult.Yes)
+                        return;
                 }
 
                 // PLU form.
@@ -617,8 +613,7 @@ namespace ScalesUI.Forms
                 _sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
 
-                using SetKneadingNumberForm kneadingNumberForm = new()
-                { Owner = this };
+                using SetKneadingNumberForm kneadingNumberForm = new() { Owner = this };
                 if (kneadingNumberForm.ShowDialog() == DialogResult.OK)
                 {
                     //_sessionState.Kneading = settingsForm.CurrentKneading;
@@ -649,7 +644,8 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                TaskManagerOpen();
+                //TaskManagerOpen();
+                _sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
 
@@ -709,6 +705,7 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGetCrc, _isShowInfoLabels);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSet, _isShowInfoLabels);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSetCrc, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueriesProgress, _isShowInfoLabels);
         }
 
         private void FieldDt_DoubleClick(object sender, EventArgs e)
