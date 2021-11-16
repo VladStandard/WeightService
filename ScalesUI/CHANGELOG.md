@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.820] - 2021-11-16
+### Fixed
+- 
+
 ## [0.5.810] - 2021-11-15
 ### Fixed
 - WS-T-18. ScalesUI. Выделить задачу наблюдения за состоянием COM-порта

@@ -10,9 +10,9 @@ using WeightCore.Print.Tsc;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 
-namespace WeightCore.Print
+namespace WeightCore.Managers
 {
-    public class PrintManagerHelper
+    public class PrintManagerHelper : ManagerEntity
     {
         #region Design pattern "Lazy Singleton"
 
@@ -21,25 +21,14 @@ namespace WeightCore.Print
 
         #endregion
 
-        #region Public and private fields and properties - Manager
-
-        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        public int WaitWhileMiliSeconds { get; private set; }
-        public int WaitExceptionMiliSeconds { get; private set; }
-        public int WaitCloseMiliSeconds { get; private set; }
-        public string ExceptionMsg { get; private set; }
-        public bool IsExecute { get; set; }
-
-        #endregion
-
         #region Public and private fields and properties
 
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         public string Peeler { get; private set; }
         public int UserLabelCount { get; private set; }
         public PrinterStatus CurrentStatus { get; private set; }
         public Connection Con { get; private set; }
         public BlockingCollection<string> Documents { get; private set; } = new();
-        //private readonly object _locker = new();
         private ZebraPrinter _zebraPrinter;
         public ZebraPrinter ZebraPrinter => _zebraPrinter ??= ZebraPrinterFactory.GetInstance(Con);
         public TscPrintControlHelper TscPrintControl = TscPrintControlHelper.Instance;
@@ -48,25 +37,34 @@ namespace WeightCore.Print
 
         #region Constructor and destructor
 
-        public void Init(int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds)
-        {
-            WaitWhileMiliSeconds = waitWhileMiliSeconds;
-            WaitExceptionMiliSeconds = waitExceptionMiliSeconds;
-            WaitCloseMiliSeconds = waitCloseMiliSeconds;
-            IsExecute = false;
-        }
+        //public new void Init(int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
+        //{
+        //    if (IsInit)
+        //        return;
+        //    IsInit = true;
+        //    Init(waitReopen, waitResponse, waitRequest, waitClose, waitException);
+        //}
 
         public void Init(Connection connection, string name, string ip, int port,
-            int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds)
+            int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
         {
-            Init(waitWhileMiliSeconds, waitExceptionMiliSeconds, waitCloseMiliSeconds);
+            if (IsInit)
+                return;
+            IsInit = true;
+            Init(waitReopen, waitResponse, waitRequest, waitClose, waitException);
+
             Con = connection;
             TscPrintControl.Init(name, ip, port);
         }
 
-        public void Init(string name, string ip, int port, int waitWhileMiliSeconds, int waitExceptionMiliSeconds, int waitCloseMiliSeconds)
+        public void Init(string name, string ip, int port,
+            int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
         {
-            Init(waitWhileMiliSeconds, waitExceptionMiliSeconds, waitCloseMiliSeconds);
+            if (IsInit)
+                return;
+            IsInit = true;
+            Init(waitReopen, waitResponse, waitRequest, waitClose, waitException);
+
             Con = new TcpConnection(ip, port);
             TscPrintControl.Init(name, ip, port);
         }
@@ -77,41 +75,21 @@ namespace WeightCore.Print
 
         public void Open(bool isTscPrinter, TscPrintControlHelper.Callback callbackPrintManagerClose)
         {
-            IsExecute = true;
-            while (IsExecute)
+            lock (Locker)
             {
-                try
-                {
-                    OpenJob(isTscPrinter, callbackPrintManagerClose);
-                }
-                catch (TaskCanceledException)
-                {
-                    // Console.WriteLine(tcex.Message);
-                    // Not the problem.
-                }
-                catch (Exception ex)
-                {
-                    _exception.Catch(null, ref ex);
-                    throw;
-                }
-                finally
-                {
-                    Thread.Sleep(TimeSpan.FromMilliseconds(WaitWhileMiliSeconds));
-                }
+                Con?.Open();
+                if (isTscPrinter)
+                    OpenTsc(callbackPrintManagerClose);
+                else
+                    OpenZebra();
             }
         }
 
         public void Close()
         {
-            try
+            lock (Locker)
             {
-                IsExecute = false;
-                CloseJob();
-            }
-            catch (Exception ex)
-            {
-                _exception.Catch(null, ref ex);
-                throw;
+                Con?.Close();
             }
         }
 
@@ -123,15 +101,6 @@ namespace WeightCore.Print
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Documents.Add(printCmd);
-        }
-
-        public void OpenJob(bool isTscPrinter, TscPrintControlHelper.Callback callbackPrintManagerClose)
-        {
-            Con?.Open();
-            if (isTscPrinter)
-                OpenTsc(callbackPrintManagerClose);
-            else
-                OpenZebra();
         }
 
         public void OpenZebra()
@@ -191,11 +160,6 @@ namespace WeightCore.Print
             {
                 _exception.Catch(null, ref ex);
             }
-        }
-
-        public void CloseJob()
-        {
-            Con?.Close();
         }
 
         public void ClearPrintBuffer(bool isTscPrinter)

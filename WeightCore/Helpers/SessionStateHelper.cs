@@ -419,7 +419,7 @@ namespace WeightCore.Helpers
 
             if (!isCheck)
             {
-                CustomMessageBox messageBox = CustomMessageBox.Show(owner, LocalizationData.ScalesUI.WeightControl + Environment.NewLine +
+                CustomMessageBox messageBox = CustomMessageBox.Show(owner, LocalizationData.ScalesUI.WeightingControl + Environment.NewLine +
                     $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
                     $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
                     $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +

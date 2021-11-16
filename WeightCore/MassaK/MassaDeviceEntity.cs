@@ -13,8 +13,8 @@ namespace WeightCore.MassaK
 
         public class MassaConnectionException : Exception
         {
-            public MassaConnectionException() : base("Failed to connect to scales") { }
-            public MassaConnectionException(Exception e) : base("Failed to connect to scales", e) { }
+            public MassaConnectionException() : base("Failed connect to the scales") { }
+            public MassaConnectionException(Exception e) : base("Failed connect to the scales", e) { }
         }
 
         #endregion
@@ -113,8 +113,6 @@ namespace WeightCore.MassaK
 
         public byte[] WriteToPort(MassaExchangeEntity cmd)
         {
-            //if (IsEnableReconnect)
-            //    Open();
             lock (Locker)
             {
                 if (SerialPortItem == null)

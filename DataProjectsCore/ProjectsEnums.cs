@@ -7,11 +7,9 @@ namespace DataProjectsCore
     {
         public enum TaskType
         {
-            DeviceManager,
             MassaManager,
             MemoryManager,
             PrintManager,
-            ZabbixManager,
         }
 
         public enum DefaultSetting

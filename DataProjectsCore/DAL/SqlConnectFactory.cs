@@ -89,14 +89,12 @@ namespace DataProjectsCore.DAL
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddRange(parameters);
                 //cmd.CommandType = CommandType.TableDirect;
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    if (reader.HasRows)
-                    {
-                        methodInside(reader);
-                    }
-                    reader.Close();
+                    methodInside(reader);
                 }
+                reader.Close();
             }
             con.Close();
         }
@@ -114,14 +112,12 @@ namespace DataProjectsCore.DAL
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddRange(parameters);
                 //cmd.CommandType = CommandType.TableDirect;
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    if (reader.HasRows)
-                    {
-                        result = methodInside(reader);
-                    }
-                    reader.Close();
+                    result = methodInside(reader);
                 }
+                reader.Close();
             }
             con.Close();
             return result;
@@ -138,14 +134,12 @@ namespace DataProjectsCore.DAL
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddRange(parameters);
                 //cmd.CommandType = CommandType.TableDirect;
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    if (reader.HasRows)
-                    {
-                        result = methodInside(reader);
-                    }
-                    reader.Close();
+                    result = methodInside(reader) ?? new T();
                 }
+                reader.Close();
             }
             con.Close();
             return result;

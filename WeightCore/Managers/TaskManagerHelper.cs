@@ -11,7 +11,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Helpers;
-using WeightCore.Print;
 using WeightCore.Print.Tsc;
 
 namespace WeightCore.Managers
@@ -41,37 +40,37 @@ namespace WeightCore.Managers
         private readonly DebugHelper _debug = DebugHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
-        private bool IsTscPrinter { get; set; }
 
-        public DeviceManagerHelper DeviceManager = DeviceManagerHelper.Instance;
-        public char DeviceManagerProgressChar { get; set; }
-        private readonly AsyncLock _mutexDeviceManager = new();
-
-        public MemoryManagerHelper MemoryManager = MemoryManagerHelper.Instance;
-        public char MemoryManagerProgressChar { get; set; }
-        public string MemoryManagerProgressString { get; set; }
-        private readonly AsyncLock _mutexMemoryManager = new();
-
-        public PrintManagerHelper PrintManager = PrintManagerHelper.Instance;
-        public char PrintManagerProgressChar { get; set; }
-        public string PrintManagerProgressString { get; set; }
-        private readonly AsyncLock _mutexPrintManager = new();
-
+        // MassaManager.
         public MassaManagerHelper MassaManager = MassaManagerHelper.Instance;
-        public char MassaManagerProgressChar { get; set; }
+        private readonly AsyncLock _mutexMassaReOpen = new();
+        private readonly AsyncLock _mutexMassaRequest = new();
+        private readonly AsyncLock _mutexMassaResponse = new();
+        public bool IsExecuteMassaReopen { get; private set; }
+        public bool IsExecuteMassaRequest { get; private set; }
+        public bool IsExecuteMassaResponse { get; private set; }
+        public char MassaManagerProgressChar { get; private set; }
         public string MassaManagerProgressString { get; set; }
         public string MassaQueriesProgressString { get; set; }
         public string MassaRequestProgressString { get; set; }
         public string MassaResponseProgressString { get; set; }
-        
-        private readonly AsyncLock _mutexMassaResponse = new();
-        private readonly AsyncLock _mutexMassaRequest = new();
-        private readonly AsyncLock _mutexMassaReOpen = new();
 
-        //public delegate void CallbackButtonSetZero(object sender, EventArgs e);
-        public bool IsExecuteMassaReopen { get; set; }
-        public bool IsExecuteMassaRequest { get; set; }
-        public bool IsExecuteMassaResponse { get; set; }
+        // PrintManager.
+        public PrintManagerHelper PrintManager = PrintManagerHelper.Instance;
+        private readonly AsyncLock _mutexPrintReOpen = new();
+        private readonly AsyncLock _mutexPrintRequest = new();
+        private readonly AsyncLock _mutexPrintResponse = new();
+        public bool IsExecutePrintReopen { get; private set; }
+        public bool IsExecutePrintRequest { get; private set; }
+        public bool IsExecutePrintResponse { get; private set; }
+        public string PrintManagerProgressString { get; set; }
+        private bool IsTscPrinter { get; set; }
+
+        // MemoryManager.
+        public MemoryManagerHelper MemoryManager = MemoryManagerHelper.Instance;
+        private readonly AsyncLock _mutexMemoryReopen = new();
+        public bool IsExecuteMemoryReopen { get; private set; }
+        public string MemoryManagerProgressString { get; set; }
 
         #endregion
 
@@ -82,22 +81,23 @@ namespace WeightCore.Managers
             try
             {
                 IsTscPrinter = isTscPrinter;
-                
-                bool taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.DeviceManager);
-                if (taskEnabled)
-                    TaskRunDeviceManager();
 
-                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager);
-                if (taskEnabled)
-                    TaskRunMemoryManager();
-                
+                bool taskEnabled = false;
+
                 taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager);
                 if (taskEnabled)
                 {
                     MassaManager.Init(currentScale.DeviceComPort, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
-                    TaskRunMassaManagerReOpen();
+                    TaskRunMassaManagerReopen();
                     TaskRunMassaManagerRequest();
                     TaskRunMassaManagerResponse();
+                }
+
+                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager);
+                if (taskEnabled)
+                {
+                    MemoryManager.Init();
+                    TaskRunMemoryManagerReopen();
                 }
             }
             catch (Exception ex)
@@ -116,8 +116,8 @@ namespace WeightCore.Managers
                 bool taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager);
                 if (taskEnabled)
                 {
-                    PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port, 1_000, 5_000, 5_000);
-                    TaskRunPrintManager(callbackPrintManagerClose);
+                    PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
+                    TaskRunPrintManagerReopen(callbackPrintManagerClose);
                 }
             }
             catch (Exception ex)
@@ -133,12 +133,12 @@ namespace WeightCore.Managers
                 IsExecuteMassaReopen = false;
                 IsExecuteMassaRequest = false;
                 IsExecuteMassaResponse = false;
+                IsExecuteMemoryReopen = false;
+                System.Windows.Forms.Application.DoEvents();
 
-                DeviceManager.Close();
                 MemoryManager.Close();
                 MassaManager.Close();
 
-                DebugLog($"{nameof(DeviceManager)} is closed");
                 DebugLog($"{nameof(MemoryManager)} is closed");
                 DebugLog($"{nameof(MassaManager)} is closed");
             }
@@ -156,7 +156,12 @@ namespace WeightCore.Managers
         {
             try
             {
+                IsExecutePrintReopen = false;
+                System.Windows.Forms.Application.DoEvents();
+
                 PrintManager.Close();
+
+                DebugLog($"{nameof(PrintManager)} is closed");
             }
             catch (Exception ex)
             {
@@ -168,75 +173,7 @@ namespace WeightCore.Managers
             }
         }
 
-        private void TaskRunDeviceManager()
-        {
-            _ = Task.Run(async () =>
-            {
-                // AsyncLock can be locked asynchronously
-                using (await _mutexDeviceManager.LockAsync())
-                {
-                    // It's safe to await while the lock is held
-                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-
-                    try
-                    {
-                        DeviceManager.Init(1_000, 5_000, 5_000);
-                        DeviceManager.Open();
-                    }
-                    catch (Exception ex)
-                    {
-                        _exception.Catch(null, ref ex);
-                    }
-                }
-            });
-        }
-
-        public void TaskRunMemoryManager()
-        {
-            _ = Task.Run(async () =>
-            {
-                // AsyncLock can be locked asynchronously
-                using (await _mutexMemoryManager.LockAsync())
-                {
-                    // It's safe to await while the lock is held
-                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-
-                    try
-                    {
-                        MemoryManager.Init(1_000, 5_000, 5_000);
-                        MemoryManager.Open();
-                    }
-                    catch (Exception ex)
-                    {
-                        _exception.Catch(null, ref ex);
-                    }
-                }
-            });
-        }
-
-        public void TaskRunPrintManager(TscPrintControlHelper.Callback callbackPrintManagerClose)
-        {
-            _ = Task.Run(async () =>
-            {
-                // AsyncLock can be locked asynchronously
-                using (await _mutexPrintManager.LockAsync())
-                {
-                    // It's safe to await while the lock is held
-                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
-
-                    try
-                    {
-                        PrintManager.Open(IsTscPrinter, callbackPrintManagerClose);
-                    }
-                    catch (Exception ex)
-                    {
-                        _exception.Catch(null, ref ex);
-                    }
-                }
-            });
-        }
-
-        public void TaskRunMassaManagerReOpen()
+        public void TaskRunMassaManagerReopen()
         {
             _ = Task.Run(async () =>
             {
@@ -286,6 +223,8 @@ namespace WeightCore.Managers
                         {
                             if (MassaManager.MassaDevice.IsConnected)
                                 MassaManager.GetMassa();
+                            else
+                                MassaManager.ClearRequests(0);
                             await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitRequest)).ConfigureAwait(false);
                         }
                         catch (TaskCanceledException)
@@ -320,6 +259,8 @@ namespace WeightCore.Managers
                         {
                             if (MassaManager.MassaDevice.IsConnected)
                                 MassaManager.OpenResponse();
+                            else
+                                MassaManager.ResetMassa();
                             await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitResponse)).ConfigureAwait(false);
                         }
                         catch (TaskCanceledException)
@@ -331,6 +272,72 @@ namespace WeightCore.Managers
                         {
                             _exception.Catch(null, ref ex);
                             await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(false);
+                        }
+                    }
+                }
+            });
+        }
+
+        public void TaskRunPrintManagerReopen(TscPrintControlHelper.Callback callbackPrintManagerClose)
+        {
+            _ = Task.Run(async () =>
+            {
+                // AsyncLock can be locked asynchronously
+                using (await _mutexPrintReOpen.LockAsync())
+                {
+                    // It's safe to await while the lock is held
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+
+                    IsExecutePrintReopen = true;
+                    while (IsExecutePrintReopen)
+                    {
+                        try
+                        {
+                            PrintManager.Open(IsTscPrinter, callbackPrintManagerClose);
+                            await Task.Delay(TimeSpan.FromMilliseconds(PrintManager.WaitReopen)).ConfigureAwait(false);
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            _exception.Catch(null, ref ex);
+                            await Task.Delay(TimeSpan.FromMilliseconds(PrintManager.WaitException)).ConfigureAwait(false);
+                        }
+                    }
+                }
+            });
+        }
+
+        public void TaskRunMemoryManagerReopen()
+        {
+            _ = Task.Run(async () =>
+            {
+                // AsyncLock can be locked asynchronously
+                using (await _mutexPrintReOpen.LockAsync())
+                {
+                    // It's safe to await while the lock is held
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
+
+                    IsExecutePrintReopen = true;
+                    while (IsExecutePrintReopen)
+                    {
+                        try
+                        {
+                            MemoryManager.Open();
+                            await Task.Delay(TimeSpan.FromMilliseconds(PrintManager.WaitReopen)).ConfigureAwait(false);
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            _exception.Catch(null, ref ex);
+                            await Task.Delay(TimeSpan.FromMilliseconds(PrintManager.WaitException)).ConfigureAwait(false);
                         }
                     }
                 }

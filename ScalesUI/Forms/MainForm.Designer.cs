@@ -32,6 +32,7 @@
             this.fieldWeightTare = new System.Windows.Forms.Label();
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.fieldMassaQueriesProgress = new System.Windows.Forms.ProgressBar();
             this.fieldMemoryProgress = new System.Windows.Forms.ProgressBar();
             this.fieldMemoryManagerTotal = new System.Windows.Forms.Label();
             this.fieldMassaSetCrc = new System.Windows.Forms.Label();
@@ -67,7 +68,7 @@
             this.buttonSelectOrder = new System.Windows.Forms.Button();
             this.buttonScalesInit = new System.Windows.Forms.Button();
             this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
-            this.fieldMassaQueriesProgress = new System.Windows.Forms.ProgressBar();
+            this.fieldLang = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -127,6 +128,7 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0563F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00938F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.000938F));
+            this.tableLayoutPanelMain.Controls.Add(this.fieldLang, 3, 14);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaQueriesProgress, 3, 12);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryProgress, 3, 13);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryManagerTotal, 2, 13);
@@ -179,12 +181,25 @@
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
+            // fieldMassaQueriesProgress
+            // 
+            this.fieldMassaQueriesProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fieldMassaQueriesProgress.Location = new System.Drawing.Point(1051, 529);
+            this.fieldMassaQueriesProgress.Name = "fieldMassaQueriesProgress";
+            this.fieldMassaQueriesProgress.Size = new System.Drawing.Size(112, 25);
+            this.fieldMassaQueriesProgress.TabIndex = 55;
+            this.fieldMassaQueriesProgress.Visible = false;
+            // 
             // fieldMemoryProgress
             // 
-            this.fieldMemoryProgress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fieldMemoryProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.fieldMemoryProgress.Location = new System.Drawing.Point(1051, 560);
             this.fieldMemoryProgress.Name = "fieldMemoryProgress";
-            this.fieldMemoryProgress.Size = new System.Drawing.Size(112, 21);
+            this.fieldMemoryProgress.Size = new System.Drawing.Size(112, 25);
             this.fieldMemoryProgress.TabIndex = 54;
             this.fieldMemoryProgress.Visible = false;
             // 
@@ -359,10 +374,12 @@
             // 
             // fieldCountBox
             // 
-            this.fieldCountBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fieldCountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.fieldCountBox.Location = new System.Drawing.Point(1051, 436);
             this.fieldCountBox.Name = "fieldCountBox";
-            this.fieldCountBox.Size = new System.Drawing.Size(112, 21);
+            this.fieldCountBox.Size = new System.Drawing.Size(112, 25);
             this.fieldCountBox.TabIndex = 30;
             this.fieldCountBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
@@ -370,6 +387,7 @@
             // 
             this.fieldResolution.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fieldResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldResolution.FormattingEnabled = true;
             this.fieldResolution.Items.AddRange(new object[] {
             "Максимальное",
@@ -378,7 +396,7 @@
             "1920х1080"});
             this.fieldResolution.Location = new System.Drawing.Point(1051, 34);
             this.fieldResolution.Name = "fieldResolution";
-            this.fieldResolution.Size = new System.Drawing.Size(112, 21);
+            this.fieldResolution.Size = new System.Drawing.Size(112, 24);
             this.fieldResolution.TabIndex = 29;
             this.fieldResolution.Visible = false;
             this.fieldResolution.SelectedIndexChanged += new System.EventHandler(this.FieldResolution_SelectedIndexChanged);
@@ -696,14 +714,22 @@
             this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
             this.buttonRunScalesTerminal.Click += new System.EventHandler(this.ButtonRunScalesTerminal_Click);
             // 
-            // fieldMassaQueriesProgress
+            // fieldLang
             // 
-            this.fieldMassaQueriesProgress.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fieldMassaQueriesProgress.Location = new System.Drawing.Point(1051, 529);
-            this.fieldMassaQueriesProgress.Name = "fieldMassaQueriesProgress";
-            this.fieldMassaQueriesProgress.Size = new System.Drawing.Size(112, 21);
-            this.fieldMassaQueriesProgress.TabIndex = 55;
-            this.fieldMassaQueriesProgress.Visible = false;
+            this.fieldLang.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fieldLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldLang.FormattingEnabled = true;
+            this.fieldLang.Items.AddRange(new object[] {
+            "Russian",
+            "English"});
+            this.fieldLang.Location = new System.Drawing.Point(1051, 591);
+            this.fieldLang.Name = "fieldLang";
+            this.fieldLang.Size = new System.Drawing.Size(112, 24);
+            this.fieldLang.TabIndex = 56;
+            this.fieldLang.Visible = false;
+            this.fieldLang.SelectedIndexChanged += new System.EventHandler(this.fieldLang_SelectedIndexChanged);
+            this.fieldLang.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // MainForm
             // 
@@ -774,6 +800,7 @@
         private System.Windows.Forms.Label fieldMemoryManagerTotal;
         private System.Windows.Forms.ProgressBar fieldMemoryProgress;
         private System.Windows.Forms.ProgressBar fieldMassaQueriesProgress;
+        private System.Windows.Forms.ComboBox fieldLang;
     }
 }
 

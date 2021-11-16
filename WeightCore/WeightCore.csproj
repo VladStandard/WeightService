@@ -255,6 +255,7 @@
     <Compile Include="Helpers\DebugHelper.cs" />
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\MouseHookHelper.cs" />
+    <Compile Include="Managers\ManagerEntity.cs" />
     <Compile Include="Managers\MemoryManagerHelper.cs" />
     <Compile Include="Managers\TaskManagerHelper.cs" />
     <Compile Include="Managers\TaskManagerHelperDeprecated.cs" />
@@ -268,7 +269,6 @@
     <Compile Include="MassaK\MkCommander.cs" />
     <Compile Include="MassaK\MkDeviceEntityBackup.cs" />
     <Compile Include="Managers\MassaManagerHelper.cs" />
-    <Compile Include="Managers\DeviceManagerHelper.cs" />
     <Compile Include="Helpers\SessionStateHelper.cs" />
     <Compile Include="MassaK\ResponseMassaEntity.cs" />
     <Compile Include="MassaK\ResponseParseEntity.cs" />
@@ -287,7 +287,12 @@
     <Compile Include="Print\Enums.cs" />
     <Compile Include="Print\Tsc\TscPrintControlHelper.cs" />
     <Compile Include="Print\Tsc\TscPrintSetupHelper.cs" />
-    <Compile Include="Print\PrintManagerHelper.cs" />
+    <Compile Include="Managers\PrintManagerHelper.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="XamlPages\PagePluList.xaml.cs">
       <DependentUpon>PagePluList.xaml</DependentUpon>
     </Compile>
@@ -332,6 +337,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gui\WpfPageLoader.resx">
       <DependentUpon>WpfPageLoader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

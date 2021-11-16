@@ -9,23 +9,12 @@ using WeightCore.MassaK;
 
 namespace WeightCore.Managers
 {
-    public class MassaManagerHelper
+    public class MassaManagerHelper : ManagerEntity
     {
         #region Design pattern "Lazy Singleton"
 
         private static MassaManagerHelper _instance;
         public static MassaManagerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-        #endregion
-
-        #region Public and private fields and properties - Manager
-
-        public int WaitReopen { get; private set; }
-        public int WaitRequest { get; private set; }
-        public int WaitResponse { get; private set; }
-        public int WaitException { get; private set; }
-        public int WaitClose { get; private set; }
-        public string ExceptionMsg { get; private set; }
 
         #endregion
 
@@ -41,32 +30,20 @@ namespace WeightCore.Managers
         public ResponseParseEntity ResponseParseScalePar { get; private set; } = null;
         public ResponseParseEntity ResponseParseGet { get; private set; } = null;
         public ResponseParseEntity ResponseParseSet { get; private set; } = null;
-        public bool IsResponse { get; private set; }
         public BlockingCollection<MassaExchangeEntity> Requests { get; private set; } = new();
         public MassaDeviceEntity MassaDevice { get; private set; }
-        public bool IsInit { get; private set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public MassaManagerHelper()
-        {
-
-        }
-
-        public void Init(string portName, int readTimeout, int writeTimeout, 
-            int waitResponse = 500, int waitRequest = 250, int waitReopen = 5_000, int waitClose = 5_000, int waitException = 1_000)
+        public void Init(string portName, int readTimeout, int writeTimeout,
+            int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
         {
             if (IsInit)
                 return;
             IsInit = true;
-
-            WaitResponse = waitResponse == 0 ? 500 : waitResponse;
-            WaitRequest = waitRequest == 0 ? 250 : waitRequest;
-            WaitReopen = waitReopen == 0 ? 5_000 : waitReopen;
-            WaitClose = waitClose == 0 ? 5_000 : waitClose;
-            WaitException = waitException == 0 ? 5_000 : waitException;
+            Init(waitReopen, waitResponse, waitRequest, waitClose, waitException);
             MassaDevice = new(portName, readTimeout, writeTimeout);
         }
 
@@ -74,15 +51,17 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Manager
 
-        public void OpenResponse()
+        public void ClearRequests(ushort limit)
         {
-            // Clear requests.
-            if (Requests.Count > 100)
+            if (Requests.Count > limit)
             {
                 Requests = new BlockingCollection<MassaExchangeEntity>();
-                return;
             }
+        }
 
+        public void OpenResponse()
+        {
+            ClearRequests(100);
             if (MassaDevice.IsConnected)
             {
                 foreach (MassaExchangeEntity massaExchange in Requests.GetConsumingEnumerable())
@@ -213,6 +192,12 @@ namespace WeightCore.Managers
             }
         }
 
+        public void ResetMassa()
+        {
+            WeightGross = WeightNet = 0;
+            IsStable = 1;
+        }
+
         public void CloseJob()
         {
             MassaDevice?.Dispose();
@@ -232,15 +217,12 @@ namespace WeightCore.Managers
             SetZero();
             SetTareWeight(0);
             SetZero();
-
-            //RequestQueue.CompleteAdding();
         }
 
         public void GetInit1() => Requests.Add(new MassaExchangeEntity(MassaCmdType.UdpPoll));
         public void GetInit2() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetInit2));
         public void GetInit3() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetInit3));
         public void GetMassa() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetMassa));
-
         public void GetScalePar() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetScalePar));
         public void GetScaleParAfter() => Requests.Add(new MassaExchangeEntity(MassaCmdType.GetScaleParAfter));
         public void SetTareWeight(int weightTare) => Requests.Add(new MassaExchangeEntity(MassaCmdType.SetTare, weightTare));

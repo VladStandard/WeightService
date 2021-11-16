@@ -409,7 +409,6 @@ namespace DataCore
             public static string Exception => Lang == ShareEnums.Lang.English ? @"Exception" : @"Ошибка";
             public static string Registration => Lang == ShareEnums.Lang.English ? @"Device registration" : @"Регистрация устройства";
             public static string OperationControl => Lang == ShareEnums.Lang.English ? @"Control of operations" : @"Контроль операций";
-            public static string WeightControl => Lang == ShareEnums.Lang.English ? @"The weight is out of bounds!" : @"Вес выходит за границы!";
             public static readonly decimal MassaThreshold = 0.05M;
             public static string MassaCheck => Lang == ShareEnums.Lang.English 
                 ? @"Unload the weight platform!" + Environment.NewLine +
@@ -435,6 +434,41 @@ namespace DataCore
             public static string CheckPluWeightCount => Lang == ShareEnums.Lang.English
                 ? @"Weighted products can be specified in quantities of 1 piece."
                 : @"Весовая продукция может быть указана в количестве 1 штуки.";
+            public static string Labels => Lang == ShareEnums.Lang.English ? @"Labels" : @"Этикетки";
+            public static string Printer => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
+            public static string Memory => Lang == ShareEnums.Lang.English ? @"Memory" : @"Память";
+            public static string MemoryPhysical => Lang == ShareEnums.Lang.English ? @"Physical memory" : @"Физическая память";
+            public static string MemoryVirtual => Lang == ShareEnums.Lang.English ? @"Virtual memory" : @"Виртуальная память";
+            public static string MemoryFree => Lang == ShareEnums.Lang.English ? @"free" : @"свободно";
+            public static string Plu => Lang == ShareEnums.Lang.English ? @"PLU" : @"PLU";
+            public static string PluCount => Lang == ShareEnums.Lang.English ? @"PLU (count)" : @"PLU (шт)";
+            public static string PluWeight => Lang == ShareEnums.Lang.English ? @"PLU (weight)" : @"PLU (вес)";
+            public static string UnitKg => Lang == ShareEnums.Lang.English ? @"kg" : @"кг";
+            public static string ComPortState => Lang == ShareEnums.Lang.English ? @"COM-port status" : @"Состояние COM-порта";
+            public static string ScaleQueue => Lang == ShareEnums.Lang.English ? @"Scales message queue" : @"Очередь сообщений весов";
+            public static string RequestParameters => Lang == ShareEnums.Lang.English ? @"Request parameters" : @"Запрос параметров";
+            public static string WeightingControl => Lang == ShareEnums.Lang.English ? @"The weight is out of bounds!" : @"Вес выходит за границы!";
+            public static string WeightingProcess => Lang == ShareEnums.Lang.English ? @"Weighing | Gross weight" : @"Взвешивание | Вес брутто";
+            public static string WeightingStable => Lang == ShareEnums.Lang.English ? @"Scales are stable | Gross weight" : @"Весы стабильны | Вес брутто";
+            public static string WeightingMessage => Lang == ShareEnums.Lang.English ? @"Weighting message" : @"Сообщение взвешивания";
+            public static string WeightingScaleCmd => Lang == ShareEnums.Lang.English ? @"Command for scales" : @"Команда для весов";
+            public static string Crc => Lang == ShareEnums.Lang.English ? @"CRC" : @"CRC";
+            public static string StateResponsed => Lang == ShareEnums.Lang.English ? @"responsed" : @"отвечает";
+            public static string StateNotResponsed => Lang == ShareEnums.Lang.English ? @"not responsed" : @"не отвечает";
+            public static string StateCorrect => Lang == ShareEnums.Lang.English ? @"correct" : @"верна";
+            public static string StateError => Lang == ShareEnums.Lang.English ? @"error" : @"ошибка";
+            public static string QuestionRunApp => Lang == ShareEnums.Lang.English ? @"Run the app" : @"Запустить приложение";
+        }
+
+        public static class Buttons
+        {
+            public static string Yes => Lang == ShareEnums.Lang.English ? @"Yes" : @"Да";
+            public static string Retry => Lang == ShareEnums.Lang.English ? @"Retry" : @"Повторить";
+            public static string No => Lang == ShareEnums.Lang.English ? @"No" : @"Нет";
+            public static string Ignore => Lang == ShareEnums.Lang.English ? @"Ignore" : @"Игнорировать";
+            public static string Cancel => Lang == ShareEnums.Lang.English ? @"Cancel" : @"Отмена";
+            public static string Abort => Lang == ShareEnums.Lang.English ? @"Abort" : @"Прервать";
+            public static string Ok => Lang == ShareEnums.Lang.English ? @"Ok" : @"Ок";
         }
 
         public static class Methods

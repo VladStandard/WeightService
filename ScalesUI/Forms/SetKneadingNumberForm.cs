@@ -134,6 +134,9 @@ namespace ScalesUI.Forms
 
         private void CheckWeightCount()
         {
+            if (_sessionState.CurrentPlu == null)
+                return;
+
             if (_sessionState.CurrentPlu.CheckWeight == true && _sessionState.LabelsCount > 1)
             {
                 CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.CheckPluWeightCount,

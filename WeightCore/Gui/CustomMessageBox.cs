@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace WeightCore.Gui
         #region Public and private fields and properties
 
         public DialogResult Result { get; private set; } = DialogResult.None;
-        public bool IsExit { get; set; }
+        private bool IsExit { get; set; }
 
         #endregion
 
@@ -27,110 +28,128 @@ namespace WeightCore.Gui
 
         #endregion
 
-        #region Public and private methods - static Show
+        #region Public and private methods
         
         public static CustomMessageBox Show(IWin32Window owner, string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
-            MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, int selectButton = 0)
+            MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, int buttonSelect = 0)
         {
-            CustomMessageBox messageBox = new()
+            CustomMessageBox customMessageBox = new()
             {
                 Owner = owner is Form form ? form : null,
                 fieldMessage = { Text = label },
                 Text = caption,
                 IsExit = false,
             };
+            ShowButtonsTranslate(customMessageBox, buttons);
+            ShowButtonsVisible(customMessageBox, buttons);
+            ShowButtonSelect(customMessageBox, buttonSelect);
+            ShowButtonsResize(customMessageBox);
+            ShowAlign(customMessageBox);
 
+            return customMessageBox;
+        }
+
+        private static void ShowButtonsTranslate(CustomMessageBox customMessageBox, MessageBoxButtons buttons)
+        {
+            customMessageBox.buttonYes.Text = LocalizationData.Buttons.Yes;
+            customMessageBox.buttonRetry.Text = LocalizationData.Buttons.Retry;
+            customMessageBox.buttonNo.Text = LocalizationData.Buttons.No;
+            customMessageBox.buttonIgnore.Text = LocalizationData.Buttons.Ignore;
+            customMessageBox.buttonCancel.Text = LocalizationData.Buttons.Cancel;
+            customMessageBox.buttonAbort.Text = LocalizationData.Buttons.Abort;
+            customMessageBox.buttonOk.Text = LocalizationData.Buttons.Ok;
+        }
+
+        private static void ShowButtonsVisible(CustomMessageBox customMessageBox, MessageBoxButtons buttons)
+        {
             switch (buttons)
             {
                 case MessageBoxButtons.YesNo:
                     {
-                        messageBox.btYes.Visible = true;
-                        messageBox.btNo.Visible = true;
+                        customMessageBox.buttonYes.Visible = true;
+                        customMessageBox.buttonNo.Visible = true;
                         break;
                     }
                 case MessageBoxButtons.OK:
                     {
-                        messageBox.btOk.Visible = true;
+                        customMessageBox.buttonOk.Visible = true;
                         break;
                     }
                 case MessageBoxButtons.OKCancel:
                     {
-                        messageBox.btOk.Visible = true;
-                        messageBox.btCancel.Visible = true;
+                        customMessageBox.buttonOk.Visible = true;
+                        customMessageBox.buttonCancel.Visible = true;
                         break;
                     }
                 case MessageBoxButtons.RetryCancel:
                     {
-                        messageBox.btRetry.Visible = true;
-                        messageBox.btCancel.Visible = true;
+                        customMessageBox.buttonRetry.Visible = true;
+                        customMessageBox.buttonCancel.Visible = true;
                         break;
                     }
                 case MessageBoxButtons.AbortRetryIgnore:
                     {
-                        messageBox.btAbort.Visible = true;
-                        messageBox.btRetry.Visible = true;
-                        messageBox.btIgnore.Visible = true;
+                        customMessageBox.buttonAbort.Visible = true;
+                        customMessageBox.buttonRetry.Visible = true;
+                        customMessageBox.buttonIgnore.Visible = true;
                         break;
                     }
                 case MessageBoxButtons.YesNoCancel:
                     {
-                        messageBox.btYes.Visible = true;
-                        messageBox.btNo.Visible = true;
-                        messageBox.btCancel.Visible = true;
+                        customMessageBox.buttonYes.Visible = true;
+                        customMessageBox.buttonNo.Visible = true;
+                        customMessageBox.buttonCancel.Visible = true;
                         break;
                     }
                 default:
                     {
-                        messageBox.btOk.Visible = true;
+                        customMessageBox.buttonOk.Visible = true;
                         break;
                     }
             }
+        }
 
+        private static void ShowButtonSelect(CustomMessageBox customMessageBox, int buttonSelect)
+        {
             int i = -1;
-            foreach (Button button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
+            foreach (Button button in customMessageBox.flowLayoutPanel.Controls.OfType<Button>())
             {
                 if (button.Visible)
                     i++;
-                if (selectButton == i)
+                if (buttonSelect == i)
                     button.Select();
             }
+        }
 
-            Font f = new("Arial", 16, FontStyle.Bold);
-            foreach (Button button in messageBox.flowLayoutPanel1.Controls.OfType<Button>())
+        private static void ShowButtonsResize(CustomMessageBox customMessageBox)
+        {
+            foreach (Button button in customMessageBox.flowLayoutPanel.Controls.OfType<Button>())
             {
                 button.Height = 80;
                 button.Width = 140;
-                button.Font = f;
+                button.Font = new("Arial", 16, FontStyle.Bold);
             }
+        }
 
-            // Выровнять.
-            messageBox.StartPosition = FormStartPosition.CenterScreen;
-            if (messageBox.Owner != null)
+        private static void ShowAlign(CustomMessageBox customMessageBox)
+        {
+            if (customMessageBox.Owner != null)
             {
-                messageBox.TopMost = messageBox.Owner.TopMost;
-                //messageBox.Width = messageBox.Owner.Width;
-                //messageBox.Height = messageBox.Owner.Height;
-                //messageBox.Left = messageBox.Owner.Left;
-                //messageBox.Top = messageBox.Owner.Top;
-                messageBox.Show(messageBox.Owner);
+                customMessageBox.TopMost = customMessageBox.Owner.TopMost;
+                customMessageBox.Show(customMessageBox.Owner);
             }
             else
             {
-                messageBox.Show();
+                customMessageBox.Show();
             }
-            return messageBox;
         }
-
-        #endregion
-
-        #region Public and private methods
 
         public void Wait()
         {
             while (!IsExit)
             {
-                Application.DoEvents();
                 Thread.Sleep(10);
+                Application.DoEvents();
             }
         }
 
