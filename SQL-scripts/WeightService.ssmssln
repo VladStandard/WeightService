@@ -24,10 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Scales - Duplicates Nomenclature.sql = WeightService\Scales - Duplicates Nomenclature.sql
 		WeightService\Scales - Import 1 Nomenclature.sql = WeightService\Scales - Import 1 Nomenclature.sql
 		WeightService\Scales - Import 2 PLU.sql = WeightService\Scales - Import 2 PLU.sql
+		WeightService\Scales - Labels.sql = WeightService\Scales - Labels.sql
 		WeightService\Scales - LOG_TYPES.sql = WeightService\Scales - LOG_TYPES.sql
 		WeightService\Scales - LOGS diagram summary.sql = WeightService\Scales - LOGS diagram summary.sql
 		WeightService\Scales - Nomenclature WeightTara.sql = WeightService\Scales - Nomenclature WeightTara.sql
-		WeightService\Scales - PLU list.sql = WeightService\Scales - PLU list.sql
+		WeightService\Scales - PLU.sql = WeightService\Scales - PLU.sql
 		WeightService\SSCCStorage.sql = WeightService\SSCCStorage.sql
 		WeightService\Table APPS.sql = WeightService\Table APPS.sql
 		WeightService\Table BarCodes.sql = WeightService\Table BarCodes.sql
@@ -38,7 +39,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Table Hosts. Free.sql = WeightService\Table Hosts. Free.sql
 		WeightService\Table Hosts. Set IsDebug.sql = WeightService\Table Hosts. Set IsDebug.sql
 		WeightService\Table Hosts.sql = WeightService\Table Hosts.sql
-		WeightService\Table Labels.sql = WeightService\Table Labels.sql
 		WeightService\Table Nomenclature. Чудо печка Scales.sql = WeightService\Table Nomenclature. Чудо печка Scales.sql
 		WeightService\Table Nomenclature. Чудо печка. Insert.sql = WeightService\Table Nomenclature. Чудо печка. Insert.sql
 		WeightService\Table Nomenclature. ЧудоПечка.sql = WeightService\Table Nomenclature. ЧудоПечка.sql
@@ -92,7 +92,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5B34CF53-09E6-4FDF-AD3C-91A6E156689B}.Default|Default.ActiveCfg = Default
+		{C66F0162-3971-4D98-B0EF-222A45F9ABB1}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

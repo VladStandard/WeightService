@@ -67,17 +67,7 @@ namespace WeightCore.MassaK
             return BitConverter.ToUInt16(crcReverse, 0);
         }
 
-        public byte[] CrcComputeChecksumAsBytes(byte[] data)
-        {
-            //ushort crc = CrcComputeChecksumAsUshort(data);
-            //byte[] crcBytes = new byte[2];
-            //crcBytes[0] = (byte)crc;
-            //crcBytes[1] = (byte)(crc >> 8);
-            //response[response.Length - 2] = (byte)(crc >> 0x08 & 0xFF);
-            //response[response.Length - 1] = (byte)(crc & 0xFF);
-            //return crcBytes;
-            return BitConverter.GetBytes(CrcComputeChecksumAsUshort(data));
-        }
+        public byte[] CrcComputeChecksumAsBytes(byte[] data) => BitConverter.GetBytes(CrcComputeChecksumAsUshort(data));
 
         public byte[] CrcRecalc(byte[] body)
         {
