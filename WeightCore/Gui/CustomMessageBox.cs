@@ -3,9 +3,9 @@
 
 using DataCore;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace WeightCore.Gui
@@ -15,7 +15,6 @@ namespace WeightCore.Gui
         #region Public and private fields and properties
 
         public DialogResult Result { get; private set; } = DialogResult.None;
-        private bool IsExit { get; set; }
 
         #endregion
 
@@ -29,90 +28,96 @@ namespace WeightCore.Gui
         #endregion
 
         #region Public and private methods
-        
-        public static CustomMessageBox Show(IWin32Window owner, string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
+
+        public void Show(IWin32Window owner, string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
             MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, int buttonSelect = 0)
         {
-            CustomMessageBox customMessageBox = new()
-            {
-                Owner = owner is Form form ? form : null,
-                fieldMessage = { Text = label },
-                Text = caption,
-                IsExit = false,
-            };
-            ShowButtonsTranslate(customMessageBox, buttons);
-            ShowButtonsVisible(customMessageBox, buttons);
-            ShowButtonSelect(customMessageBox, buttonSelect);
-            ShowButtonsResize(customMessageBox);
-            ShowAlign(customMessageBox);
+            Owner = owner is Form form ? form : null;
+            fieldMessage.Text = label;
+            Text = caption;
 
-            return customMessageBox;
+            ButtonsLocalization();
+            SetButtonsVisible(buttons);
+            SelectButton(buttonSelect);
+            ResizeButtons();
+            ShowAlign();
         }
 
-        private static void ShowButtonsTranslate(CustomMessageBox customMessageBox, MessageBoxButtons buttons)
+        private void ButtonsLocalization()
         {
-            customMessageBox.buttonYes.Text = LocalizationData.Buttons.Yes;
-            customMessageBox.buttonRetry.Text = LocalizationData.Buttons.Retry;
-            customMessageBox.buttonNo.Text = LocalizationData.Buttons.No;
-            customMessageBox.buttonIgnore.Text = LocalizationData.Buttons.Ignore;
-            customMessageBox.buttonCancel.Text = LocalizationData.Buttons.Cancel;
-            customMessageBox.buttonAbort.Text = LocalizationData.Buttons.Abort;
-            customMessageBox.buttonOk.Text = LocalizationData.Buttons.Ok;
+            buttonYes.Text = LocalizationData.Buttons.Yes;
+            buttonRetry.Text = LocalizationData.Buttons.Retry;
+            buttonNo.Text = LocalizationData.Buttons.No;
+            buttonIgnore.Text = LocalizationData.Buttons.Ignore;
+            buttonCancel.Text = LocalizationData.Buttons.Cancel;
+            buttonAbort.Text = LocalizationData.Buttons.Abort;
+            buttonOk.Text = LocalizationData.Buttons.Ok;
         }
 
-        private static void ShowButtonsVisible(CustomMessageBox customMessageBox, MessageBoxButtons buttons)
+        private void SetButtonsVisible(MessageBoxButtons buttons)
         {
             switch (buttons)
             {
                 case MessageBoxButtons.YesNo:
                     {
-                        customMessageBox.buttonYes.Visible = true;
-                        customMessageBox.buttonNo.Visible = true;
-                        break;
-                    }
-                case MessageBoxButtons.OK:
-                    {
-                        customMessageBox.buttonOk.Visible = true;
+                        buttonYes.Visible = true;
+                        buttonNo.Visible = true;
                         break;
                     }
                 case MessageBoxButtons.OKCancel:
                     {
-                        customMessageBox.buttonOk.Visible = true;
-                        customMessageBox.buttonCancel.Visible = true;
+                        buttonOk.Visible = true;
+                        buttonCancel.Visible = true;
                         break;
                     }
                 case MessageBoxButtons.RetryCancel:
                     {
-                        customMessageBox.buttonRetry.Visible = true;
-                        customMessageBox.buttonCancel.Visible = true;
+                        buttonRetry.Visible = true;
+                        buttonCancel.Visible = true;
                         break;
                     }
                 case MessageBoxButtons.AbortRetryIgnore:
                     {
-                        customMessageBox.buttonAbort.Visible = true;
-                        customMessageBox.buttonRetry.Visible = true;
-                        customMessageBox.buttonIgnore.Visible = true;
+                        buttonAbort.Visible = true;
+                        buttonRetry.Visible = true;
+                        buttonIgnore.Visible = true;
                         break;
                     }
                 case MessageBoxButtons.YesNoCancel:
                     {
-                        customMessageBox.buttonYes.Visible = true;
-                        customMessageBox.buttonNo.Visible = true;
-                        customMessageBox.buttonCancel.Visible = true;
+                        buttonYes.Visible = true;
+                        buttonNo.Visible = true;
+                        buttonCancel.Visible = true;
                         break;
                     }
                 default:
                     {
-                        customMessageBox.buttonOk.Visible = true;
+                        buttonOk.Visible = true;
                         break;
                     }
             }
         }
 
-        private static void ShowButtonSelect(CustomMessageBox customMessageBox, int buttonSelect)
+        private void SelectButton(int buttonSelect)
         {
+            //List<Button> controls = new() { buttonYes, buttonRetry, buttonNo, buttonIgnore, buttonCancel, buttonAbort, buttonOk };
+            List<Button> buttons = new();
+            foreach (object control in Controls.OfType<Button>())
+            {
+                if (control is Button button)
+                {
+                    if (button.Visible)
+                        buttons.Add(button);
+                }
+            }
+            if (buttons.Count() == 1)
+            {
+                buttons.First().Select();
+                return;
+            }
+
             int i = -1;
-            foreach (Button button in customMessageBox.flowLayoutPanel.Controls.OfType<Button>())
+            foreach (Button button in buttons)
             {
                 if (button.Visible)
                     i++;
@@ -121,9 +126,9 @@ namespace WeightCore.Gui
             }
         }
 
-        private static void ShowButtonsResize(CustomMessageBox customMessageBox)
+        private void ResizeButtons()
         {
-            foreach (Button button in customMessageBox.flowLayoutPanel.Controls.OfType<Button>())
+            foreach (Button button in Controls.OfType<Button>())
             {
                 button.Height = 80;
                 button.Width = 140;
@@ -131,74 +136,58 @@ namespace WeightCore.Gui
             }
         }
 
-        private static void ShowAlign(CustomMessageBox customMessageBox)
+        private void ShowAlign()
         {
-            if (customMessageBox.Owner != null)
+            if (Owner != null)
             {
-                customMessageBox.TopMost = customMessageBox.Owner.TopMost;
-                customMessageBox.Show(customMessageBox.Owner);
+                TopMost = Owner.TopMost;
+                Show(Owner);
             }
             else
             {
-                customMessageBox.Show();
-            }
-        }
-
-        public void Wait()
-        {
-            while (!IsExit)
-            {
-                Thread.Sleep(10);
-                Application.DoEvents();
+                Show();
             }
         }
 
         private void OnYes_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Yes;
-            IsExit = true;
             Close();
         }
 
         private void OnOk_Click(object sender, EventArgs e)
         {
             Result = DialogResult.OK;
-            IsExit = true;
             Close();
         }
 
         private void OnRetry_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Retry;
-            IsExit = true;
             Close();
         }
 
         private void OnNo_Click(object sender, EventArgs e)
         {
             Result = DialogResult.No;
-            IsExit = true;
             Close();
         }
 
         private void OnIgnore_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Ignore;
-            IsExit = true;
             Close();
         }
 
         private void OnCancel_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Cancel;
-            IsExit = true;
             Close();
         }
 
         private void OnAbort_Click(object sender, EventArgs e)
         {
             Result = DialogResult.Abort;
-            IsExit = true;
             Close();
         }
 
@@ -208,7 +197,7 @@ namespace WeightCore.Gui
             {
                 int offset = Owner.OwnedForms.Length * 38;
                 Location = new Point(
-                    Owner.Left + Owner.Width / 2 - Width / 2 + offset, 
+                    Owner.Left + Owner.Width / 2 - Width / 2 + offset,
                     Owner.Top + Owner.Height / 2 - Height / 2 + offset);
             }
         }
@@ -220,7 +209,7 @@ namespace WeightCore.Gui
                 OnCancel_Click(sender, e);
             }
         }
-        
+
         #endregion
     }
 }

@@ -44,8 +44,11 @@ namespace WeightCore.Helpers
             if (ex.InnerException != null)
                 msg += Environment.NewLine + ex.InnerException.Message;
             if (owner != null)
-                CustomMessageBox.Show(owner, @$"{nameof(memberName)}: {memberName}. {nameof(lineNumber)}: {lineNumber}" + Environment.NewLine + msg,
-                    LocalizationData.ScalesUI.Exception);
+            {
+                CustomMessageBox messageBox = new();
+                messageBox.Show(owner, @$"{nameof(memberName)}: {memberName}. {nameof(lineNumber)}: {lineNumber}" + Environment.NewLine + msg,
+               LocalizationData.ScalesUI.Exception);
+            }
         }
 
         #endregion

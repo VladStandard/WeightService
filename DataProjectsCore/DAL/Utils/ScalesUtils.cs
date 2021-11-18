@@ -65,7 +65,8 @@ namespace DataProjectsCore.DAL.Utils
                             result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
                             result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
                             result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
-                            result.ZebraPrinter = new ZebraPrinterDirect(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
+                            //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
+                            result.ZebraPrinter.Setup(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
                             result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
                             result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
                             result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
@@ -103,7 +104,8 @@ namespace DataProjectsCore.DAL.Utils
                             result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
                             result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
                             result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
-                            result.ZebraPrinter = new ZebraPrinterDirect(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
+                            //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
+                            result.ZebraPrinter.Setup(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
                             result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
                             result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
                             result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");

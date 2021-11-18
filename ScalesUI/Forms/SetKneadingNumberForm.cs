@@ -139,9 +139,10 @@ namespace ScalesUI.Forms
 
             if (_sessionState.CurrentPlu.CheckWeight == true && _sessionState.LabelsCount > 1)
             {
-                CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.CheckPluWeightCount,
+                CustomMessageBox messageBox = new();
+                messageBox.Show(this, LocalizationData.ScalesUI.CheckPluWeightCount,
                     LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                messageBox.Wait();
+                //messageBox.Wait();
                 _sessionState.LabelsCount = 1;
             }
             fieldPalletSize.Text = _sessionState.LabelsCount.ToString();

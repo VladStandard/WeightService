@@ -65,6 +65,7 @@ namespace ScalesUI.Forms
                 }
 
                 LoadResources();
+                LoadLocalization();
 
                 _sessionState.NewPallet();
 
@@ -86,9 +87,27 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
-                System.Threading.Thread.Sleep(1_000);
+                Thread.Sleep(1_000);
                 ButtonScalesInit_Click(sender, e);
             }
+        }
+
+        private void LoadLocalization()
+        {
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonRunScalesTerminal, LocalizationData.ScalesUI.ButtonRunScalesTerminal);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonScalesInit, LocalizationData.ScalesUI.ButtonScalesInit);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonSelectOrder, LocalizationData.ScalesUI.ButtonSelectOrder);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonSettings, LocalizationData.ScalesUI.ButtonSettings);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonNewPallet, LocalizationData.ScalesUI.ButtonNewPallet);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonAddKneading, LocalizationData.ScalesUI.ButtonAddKneading);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonSelectPlu, LocalizationData.ScalesUI.ButtonSelectPlu);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonSetKneading, LocalizationData.ScalesUI.ButtonSetKneading);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonPrint, LocalizationData.ScalesUI.ButtonPrint);
+            
+            MDSoft.WinFormsUtils.InvokeControl.SetText(labelWeightNetto, LocalizationData.ScalesUI.FieldWeightNetto);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(labelWeightTare, LocalizationData.ScalesUI.FieldWeightTare);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(labelKneading, LocalizationData.ScalesUI.FieldKneading);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(labelProductDate, LocalizationData.ScalesUI.FieldProductDate);
         }
 
         private void LoadResources()
@@ -174,7 +193,7 @@ namespace ScalesUI.Forms
                     _sessionState.TaskManager.Close();
                     _sessionState.TaskManager.ClosePrintManager();
                     _quartz.Close();
-                    Wait(2_500);
+                    _sessionState.TaskManager.WaitSync(2_500);
                     e.Cancel = false;
                 }
                 else
@@ -210,7 +229,7 @@ namespace ScalesUI.Forms
 
         private void ScheduleProduct()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, "Сейчас: " + DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldCurrentTime, $"{LocalizationData.ScalesUI.FieldCurrentTime}: " + DateTime.Now.ToString(@"dd.MM.yyyy HH:mm:ss"));
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, $"{_sessionState.ProductDate:dd.MM.yyyy}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, $"{_sessionState.Kneading}");
 
@@ -221,7 +240,8 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, _sessionState.CurrentPlu != null
                 ? $"{_sessionState.CurrentPlu.PLU} | {strCheckWeight} | {_sessionState.CurrentPlu.GoodsName}" : string.Empty);
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, _sessionState.CurrentPlu != null
-                ? $"{_sessionState.CurrentPlu.GoodsTareWeight:0.000} кг" : "0,000 кг");
+                ? $"{_sessionState.CurrentPlu.GoodsTareWeight:0.000} {LocalizationData.ScalesUI.UnitKg}"
+                : $"0,000 {LocalizationData.ScalesUI.UnitKg}");
         }
 
         private void CheckEnabled(ProjectsEnums.TaskType taskType, Control control)
@@ -256,7 +276,7 @@ namespace ScalesUI.Forms
             if (_sessionState.IsTscPrinter)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
-                    $"{LocalizationData.ScalesUI.Printer}: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PrinterStatusDescription} " +
+                    $"{LocalizationData.ScalesUI.Printer}: {_sessionState.TaskManager.PrintManager.Win32Printer().PrinterStatusDescription} " +
                     $"{_sessionState.TaskManager.PrintManagerProgressString}");
             }
             // Zebra printers.
@@ -317,19 +337,20 @@ namespace ScalesUI.Forms
             }
 
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _sessionState.TaskManager.MassaManager.IsStable == 0
-                ? $"{LocalizationData.ScalesUI.WeightingProcess}: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} " +
+                ? $"{LocalizationData.ScalesUI.WeightingProcess}: {_sessionState.TaskManager.MassaManager.WeightNet:0.000} " +
                   $"{LocalizationData.ScalesUI.UnitKg} {_sessionState.TaskManager.MassaManagerProgressString}"
                 : $"{LocalizationData.ScalesUI.WeightingStable}: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} " +
                   $"{LocalizationData.ScalesUI.UnitKg} {_sessionState.TaskManager.MassaManagerProgressString}");
             _sessionState.TaskManager.MassaManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaManagerProgressString);
             // Состояние COM-порта.
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.MassaDevice.IsConnected
-                ? $"{LocalizationData.ScalesUI.ComPortState}: {LocalizationData.ScalesUI.StateResponsed} " +
-                  $"{_sessionState.TaskManager.MassaManagerProgressString}"
-                : $"{LocalizationData.ScalesUI.ComPortState}: {LocalizationData.ScalesUI.StateNotResponsed} " +
-                  $"{_sessionState.TaskManager.MassaManagerProgressString}");
-            // Запрос параметров.
-            ScheduleMassaManagerResponseGetScalePar();
+            if (_sessionState.TaskManager.MassaManager.MassaDevice != null)
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.MassaDevice.IsConnected
+                    ? $"{LocalizationData.ScalesUI.ComPortState}: {LocalizationData.ScalesUI.StateResponsed} " +
+                      $"{_sessionState.TaskManager.MassaManagerProgressString}"
+                    : $"{LocalizationData.ScalesUI.ComPortState}: {LocalizationData.ScalesUI.StateNotResponsed} " +
+                      $"{_sessionState.TaskManager.MassaManagerProgressString}");
+            // Schedule - Request parameters.
+            ScheduleMassaManagerRequestGetScalePar();
             // Сообщение взвешивания.
             ScheduleMassaManagerResponseGetMassa();
             // Состояние запроса к весам.
@@ -348,9 +369,9 @@ namespace ScalesUI.Forms
         }
 
         /// <summary>
-        /// Запрос параметров.
+        /// Schedule - Request parameters.
         /// </summary>
-        private void ScheduleMassaManagerResponseGetScalePar()
+        private void ScheduleMassaManagerRequestGetScalePar()
         {
             if (_sessionState.TaskManager.MassaManager.ResponseParseScalePar == null)
             {
@@ -366,7 +387,7 @@ namespace ScalesUI.Forms
         }
 
         /// <summary>
-        /// Сообщение взвешивания.
+        /// Schedule - Сообщение взвешивания.
         /// </summary>
         private void ScheduleMassaManagerResponseGetMassa()
         {
@@ -390,7 +411,7 @@ namespace ScalesUI.Forms
         }
 
         /// <summary>
-        /// Состояние запроса к весам.
+        /// Schedule - Состояние запроса к весам.
         /// </summary>
         private void ScheduleMassaManagerResponseSetAll()
         {
@@ -420,7 +441,7 @@ namespace ScalesUI.Forms
         private void TaskManagerOpen()
         {
             _sessionState.TaskManager.Open(_sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
-            _sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+            //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             Application.DoEvents();
         }
 
@@ -435,17 +456,19 @@ namespace ScalesUI.Forms
 
         private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
         {
-            CustomMessageBox messageBox = CustomMessageBox.Show(this,
-                $"Принтер: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.Name}" + Environment.NewLine +
-                $"Драйвер: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.DriverName}" + Environment.NewLine +
-                $"Порт: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PortName}" + Environment.NewLine +
-                $"Код состояния: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PrinterState}" + Environment.NewLine +
-                $"Код статуса: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PrinterStatus}" + Environment.NewLine +
-                $"Статус: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.PrinterStatusDescription}" + Environment.NewLine +
-                $"Состояние (ENG): {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.Status}" + Environment.NewLine +
-                $"Состояние: {_sessionState.TaskManager.PrintManager.TscPrintControl.Win32Printer.StatusDescription}" + Environment.NewLine,
+            DataShareCore.Wmi.Win32PrinterEntity win32Printer = _sessionState.TaskManager.PrintManager.Win32Printer();
+            CustomMessageBox messageBox = new();
+            messageBox.Show(this,
+                $"Принтер: {win32Printer.Name}" + Environment.NewLine +
+                $"Драйвер: {win32Printer.DriverName}" + Environment.NewLine +
+                $"Порт: {win32Printer.PortName}" + Environment.NewLine +
+                $"Код состояния: {win32Printer.PrinterState}" + Environment.NewLine +
+                $"Код статуса: {win32Printer.PrinterStatus}" + Environment.NewLine +
+                $"Статус: {win32Printer.PrinterStatusDescription}" + Environment.NewLine +
+                $"Состояние (ENG): {win32Printer.Status}" + Environment.NewLine +
+                $"Состояние: {win32Printer.StatusDescription}" + Environment.NewLine,
                 LocalizationData.ScalesUI.PrinterInfoCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            messageBox.Wait();
+            //messageBox.Wait();
         }
 
         private void ButtonSettings_Click(object sender, EventArgs e)
@@ -489,9 +512,10 @@ namespace ScalesUI.Forms
                 // Massa-K device control.
                 if (!_sessionState.TaskManager.MassaManager.MassaDevice.IsConnected)
                 {
-                    CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaNotQuering, 
+                    CustomMessageBox messageBox = new();
+                    messageBox.Show(this, LocalizationData.ScalesUI.MassaNotQuering, 
                         LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    messageBox.Wait();
+                    //messageBox.Wait();
                     return;
                 }
                 // Fix negative weight.
@@ -502,9 +526,10 @@ namespace ScalesUI.Forms
                 // Operation control.
                 if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold)
                 {
-                    CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, 
+                    CustomMessageBox messageBox = new();
+                    messageBox.Show(this, LocalizationData.ScalesUI.MassaCheck(_sessionState.TaskManager.MassaManager.WeightNet), 
                         LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    messageBox.Wait();
+                    //messageBox.Wait();
                     if (messageBox.Result != DialogResult.Yes)
                         return;
                 }
@@ -533,9 +558,10 @@ namespace ScalesUI.Forms
                 if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold || 
                     _sessionState.TaskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
                 {
-                    CustomMessageBox messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.MassaCheck, LocalizationData.ScalesUI.OperationControl,
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    messageBox.Wait();
+                    CustomMessageBox messageBox = new();
+                    messageBox.Show(this, LocalizationData.ScalesUI.MassaCheck(_sessionState.TaskManager.MassaManager.WeightNet), 
+                        LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    //messageBox.Wait();
                     if (messageBox.Result != DialogResult.Yes)
                         return;
                 }
@@ -579,9 +605,8 @@ namespace ScalesUI.Forms
                 if (_sessionState.CurrentOrder == null)
                 {
                     using OrderListForm settingsForm = new();
-                    if (settingsForm.ShowDialog() == DialogResult.OK)
-                    {
-
+                    if (settingsForm.ShowDialog() == DialogResult.OK) {
+                        //
                     }
                 }
                 else
@@ -589,18 +614,13 @@ namespace ScalesUI.Forms
                     using OrderDetailForm settingsForm = new();
                     DialogResult dialogResult = settingsForm.ShowDialog();
 
-                    if (dialogResult == DialogResult.Retry)
-                    {
+                    if (dialogResult == DialogResult.Retry) {
                         _sessionState.CurrentOrder = null;
                     }
-
-                    if (dialogResult == DialogResult.OK)
-                    {
+                    if (dialogResult == DialogResult.OK) {
                         //ws.Kneading = (int)settingsForm.currentKneading;
                     }
-
-                    if (dialogResult == DialogResult.Cancel)
-                    {
+                    if (dialogResult == DialogResult.Cancel) {
                         //ws.Kneading = (int)settingsForm.currentKneading;
                     }
                 }
@@ -626,6 +646,16 @@ namespace ScalesUI.Forms
         {
             try
             {
+                // OperationControl.
+                if (_sessionState.CurrentPlu == null)
+                {
+                    CustomMessageBox messageBox = new();
+                    messageBox.Show(this, LocalizationData.ScalesUI.ChoosePlu,
+                        LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //messageBox.Wait();
+                    return;
+                }
+
                 _sessionState.TaskManager.Close();
                 _sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
@@ -662,8 +692,8 @@ namespace ScalesUI.Forms
             finally
             {
                 MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                Wait(2_500);
-                _sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                TaskManagerOpen();
             }
         }
 
@@ -714,11 +744,12 @@ namespace ScalesUI.Forms
         {
             try
             {
-                LocalizationData.Lang = fieldLang.SelectedIndex switch
+                LocalizationCore.Lang = LocalizationData.Lang = fieldLang.SelectedIndex switch
                 {
                     1 => ShareEnums.Lang.English,
                     _ => ShareEnums.Lang.Russian,
                 };
+                LoadLocalization();
             }
             catch (Exception ex)
             {
@@ -798,24 +829,15 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void Wait(ushort miliseconds)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            while (sw.Elapsed.TotalMilliseconds < miliseconds)
-            {
-                Thread.Sleep(10);
-                Application.DoEvents();
-            }
-        }
-
         private void ButtonRunScalesTerminal_Click(object sender, EventArgs e)
         {
             try
             {
                 // Question.
-                CustomMessageBox messageBox = CustomMessageBox.Show(this, $"{LocalizationData.ScalesUI.QuestionRunApp} ScalesTerminal?", 
+                CustomMessageBox messageBox = new();
+                messageBox.Show(this, $"{LocalizationData.ScalesUI.QuestionRunApp} ScalesTerminal?", 
                     LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.YesNo, MessageBoxIcon.Question, 2);
-                messageBox.Wait();
+                //messageBox.Wait();
                 if (messageBox.Result != DialogResult.Yes)
                     return;
                 // Pin-code.
@@ -828,7 +850,7 @@ namespace ScalesUI.Forms
                 else
                     pinForm.Close();
                 // Wait.
-                Wait(2_500);
+                _sessionState.TaskManager.WaitSync(2_500);
                 // Run app.
                 string fileName = @"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe";
                 if (File.Exists(fileName))
@@ -839,9 +861,10 @@ namespace ScalesUI.Forms
                 }
                 else
                 {
-                    messageBox = CustomMessageBox.Show(this, LocalizationData.ScalesUI.ProgramNotFound(fileName), 
+                    messageBox = new();
+                    messageBox.Show(this, LocalizationData.ScalesUI.ProgramNotFound(fileName), 
                         LocalizationData.ScalesUI.Exception, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    messageBox.Wait();
+                    //messageBox.Wait();
                 }
             }
             catch (Exception ex)

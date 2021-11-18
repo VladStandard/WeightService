@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataShareCore.Wmi;
 using MvvmHelpers;
 using System;
 using System.Threading;
@@ -123,28 +122,6 @@ namespace WeightCore.Print.Tsc
             }
         }
         public delegate void Callback();
-        //private bool _driverStatus;
-        //public bool DriverStatus
-        //{
-        //    get => _driverStatus;
-        //    private set
-        //    {
-        //        _driverStatus = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-        //private Win32PrinterEntity _win32Printer;
-        public Win32PrinterEntity Win32Printer
-        {
-            get
-            {
-                //if (_win32Printer == null)
-                //    _win32Printer = _wmi.GetWin32Printer(Name);
-                //return _win32Printer;
-                return _wmi.GetWin32Printer(Name);
-            }
-        }
-        private readonly WmiHelper _wmi = WmiHelper.Instance;
 
         #endregion
 
@@ -240,8 +217,6 @@ namespace WeightCore.Print.Tsc
             return result;
         }
 
-        //public bool GetDriverStatus(TSCSDK.driver tscDriver) => tscDriver != null && tscDriver.driver_status(Name);
-
         public string GetStatusAsStringRus(byte? value) => value switch
         {
             // Normal
@@ -312,7 +287,8 @@ namespace WeightCore.Print.Tsc
 
         #region Public and private methods - Cmd
 
-        public void CmdSendCustom(string cmd, Callback callbackPrintManagerClose)
+        //public void CmdSendCustom(string cmd, Callback callbackPrintManagerClose)
+        public void CmdSendCustom(string cmd)
         {
             if (string.IsNullOrEmpty(Name))
                 return;
@@ -328,7 +304,7 @@ namespace WeightCore.Print.Tsc
                 tscDriver.sendcommand(cmd);
 
             tscDriver.closeport();
-            callbackPrintManagerClose?.Invoke();
+            //callbackPrintManagerClose?.Invoke();
         }
 
         public void CmdConvertZpl(bool isUsePicReplace)
@@ -344,14 +320,14 @@ namespace WeightCore.Print.Tsc
 
         public void CmdCalibrate()
         {
-            CmdSendCustom("GAPDETECT", null);
+            CmdSendCustom("GAPDETECT");
         }
 
         public void CmdSetGap(double gapSize = 3.5, double gapOffset = 0.0)
         {
             string strGapSize = $"{gapSize}".Replace(',', '.');
             string strGapOffset = $"{gapOffset}".Replace(',', '.');
-            CmdSendCustom($"GAP {strGapSize} mm, {strGapOffset} mm", null);
+            CmdSendCustom($"GAP {strGapSize} mm, {strGapOffset} mm");
         }
 
         public void CmdClearBuffer()
@@ -370,7 +346,7 @@ namespace WeightCore.Print.Tsc
         public void CmdSetCutter(int value)
         {
             if (value >= 0)
-                CmdSendCustom($"SET CUTTER {value}", null);
+                CmdSendCustom($"SET CUTTER {value}");
         }
 
         public void CmdPrintTest()
@@ -409,7 +385,7 @@ namespace WeightCore.Print.Tsc
                 _ => throw new ArgumentOutOfRangeException(nameof(dpi), dpi, null),
             };
             if (value > 0)
-                CmdSendCustom($"FEED {value}", null);
+                CmdSendCustom($"FEED {value}");
         }
 
         #endregion

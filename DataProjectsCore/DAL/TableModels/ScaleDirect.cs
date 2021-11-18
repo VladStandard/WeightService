@@ -24,7 +24,7 @@ namespace DataProjectsCore.DAL.TableModels
         public int? ScaleFactor { get; set; }
         public int? TemplateIdDefault { get; set; }
         public int? TemplateIdSeries { get; set; }
-        public ZebraPrinterDirect? ZebraPrinter { get; set; }
+        public ZebraPrinterHelper ZebraPrinter = ZebraPrinterHelper.Instance;
 
         #endregion
 
@@ -45,7 +45,6 @@ namespace DataProjectsCore.DAL.TableModels
             ScaleFactor = 1000;
             TemplateIdDefault = 0;
             TemplateIdSeries = 0;
-            ZebraPrinter = null;
         }
 
         public ScaleDirect(int scaleId) : this()

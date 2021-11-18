@@ -419,7 +419,8 @@ namespace WeightCore.Helpers
 
             if (!isCheck)
             {
-                CustomMessageBox messageBox = CustomMessageBox.Show(owner, LocalizationData.ScalesUI.WeightingControl + Environment.NewLine +
+                CustomMessageBox messageBox = new();
+                messageBox.Show(owner, LocalizationData.ScalesUI.WeightingControl + Environment.NewLine +
                     $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
                     $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
                     $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
@@ -427,7 +428,7 @@ namespace WeightCore.Helpers
                     "Для продолжения печати нажмите Ignore.",
                     LocalizationData.ScalesUI.OperationControl,
                     MessageBoxButtons.AbortRetryIgnore);
-                messageBox.Wait();
+                //messageBox.Wait();
                 if (messageBox.Result != DialogResult.Ignore)
                     return;
             }
@@ -519,7 +520,7 @@ namespace WeightCore.Helpers
                 return;
 
             // Отправить задание в очередь печати.
-            TaskManager.PrintManager.SendAsync(printCmd);
+            TaskManager.PrintManager.Send(printCmd);
         }
 
         #endregion

@@ -52,7 +52,7 @@ namespace WeightCore.Zpl
             xmlInput = xmlInput.Replace(nameof(TemplateDirect), "TemplateEntity");
             xmlInput = xmlInput.Replace(nameof(WeighingFactDirect), "WeighingFactEntity");
             xmlInput = xmlInput.Replace(nameof(WorkShopDirect), "WorkShopEntity");
-            xmlInput = xmlInput.Replace(nameof(ZebraPrinterDirect), "ZebraPrinterEntity");
+            xmlInput = xmlInput.Replace(nameof(ZebraPrinterHelper), "ZebraPrinterEntity");
             xmlInput = xmlInput.Replace(nameof(ZplLabelDirect), "ZplLabelEntity");
         }
 

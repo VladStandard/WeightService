@@ -5,48 +5,48 @@ using DataShareCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Xml.Serialization;
 
 namespace DataProjectsCore.DAL.TableModels
 {
     [Serializable]
-    public class ZebraPrinterDirect : BaseSerializeEntity<ZebraPrinterDirect>
+    public class ZebraPrinterHelper : BaseSerializeEntity<ZebraPrinterHelper>
     {
+        #region Design pattern "Lazy Singleton"
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private static ZebraPrinterHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public static ZebraPrinterHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+        #endregion
+
+        #region Public and private fields and properties
+
         public int Id { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Ip { get; set; }
-        public virtual short Port { get; set; }
-        public virtual string Mac { get; set; }
-        public virtual string Password { get; set; }
-        public virtual string PrinterType { get; set; }
-
+        public virtual string Name { get; set; } = "";
+        public virtual string Ip { get; set; } = "";
+        public virtual short Port { get; set; } = default;
+        public virtual string Mac { get; set; } = "";
+        public virtual string Password { get; set; } = "";
+        public virtual string PrinterType { get; set; } = "";
         [XmlIgnore]
-        public Dictionary<string, string> Fonts { get; set; }
-
+        public Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>();
         [XmlIgnore]
-        public Dictionary<string, string> Logo { get; set; }
+        public Dictionary<string, string> Logo { get; set; } = new Dictionary<string, string>();
 
-        public ZebraPrinterDirect()
-        {
-            Init();
-        }
+        #endregion
 
-        public ZebraPrinterDirect(int? id)
+        public void Setup(int? id)
         {
-            Init();
             if (id != null)
             {
                 Id = (int)id;
                 Load();
             }
         }
-
-        private void Init()
-        {
-            Fonts = new Dictionary<string, string>();
-            Logo = new Dictionary<string, string>();
-        }
-
+        
         public void Load()
         {
             using (SqlConnection con = SqlConnectFactory.GetConnection())

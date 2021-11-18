@@ -208,9 +208,10 @@ namespace ScalesUI.Forms
         {
             try
             {
-                CustomMessageBox messageBox = CustomMessageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!",
+                CustomMessageBox messageBox = new();
+                messageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!",
                     @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
-                messageBox.Wait();
+                //messageBox.Wait();
                 //DialogResult dialogResult = MessageBox.Show(@"Прежде чем продолжить калибровку откройте крышку отделителя!", @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
                 if (messageBox.Result == DialogResult.Retry)
                 {
@@ -252,7 +253,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplPowerOnReset());
+                _taskManager.PrintManager.Send(ZplPipeUtils.ZplPowerOnReset());
             }
             catch (Exception ex)
             {
@@ -275,7 +276,7 @@ namespace ScalesUI.Forms
             {
                 //_taskManager.PrintManager.PrintControl.CmdCalibrate();
                 if (!_sessionState.IsTscPrinter)
-                    _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplCalibration());
+                    _taskManager.PrintManager.Send(ZplPipeUtils.ZplCalibration());
             }
             catch (Exception ex)
             {
@@ -291,7 +292,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplPrintConfigurationLabel());
+                _taskManager.PrintManager.Send(ZplPipeUtils.ZplPrintConfigurationLabel());
             }
             catch (Exception ex)
             {
@@ -419,7 +420,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.PrintManager.SendAsync(ZplPipeUtils.ZplClearPrintBuffer());
+                _taskManager.PrintManager.Send(ZplPipeUtils.ZplClearPrintBuffer());
             }
             catch (Exception ex)
             {

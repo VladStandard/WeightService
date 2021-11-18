@@ -276,7 +276,6 @@
     <Compile Include="MassaK\SerialPortExtension.cs" />
     <Compile Include="Print\Native\RawPrinterHelper.cs" />
     <Compile Include="Print\PrintManagerEntityBackup.cs" />
-    <Compile Include="Print\Tsc\TscPrintCmdEntity.cs" />
     <Compile Include="Print\Tsc\TscLib.cs" />
     <Compile Include="Print\Zebra\DeviceContainer.cs" />
     <Compile Include="Print\Zebra\DeviceEntity.cs" />

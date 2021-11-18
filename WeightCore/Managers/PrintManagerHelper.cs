@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Wmi;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using System.Threading.Tasks;
 using WeightCore.Helpers;
 using WeightCore.Print.Tsc;
 using Zebra.Sdk.Comm;
@@ -32,30 +32,23 @@ namespace WeightCore.Managers
         private ZebraPrinter _zebraPrinter;
         public ZebraPrinter ZebraPrinter => _zebraPrinter ??= ZebraPrinterFactory.GetInstance(Con);
         public TscPrintControlHelper TscPrintControl = TscPrintControlHelper.Instance;
+        private readonly WmiHelper _wmi = WmiHelper.Instance;
 
         #endregion
 
         #region Constructor and destructor
 
-        //public new void Init(int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
+        //public void Init(Connection connection, string name, string ip, int port,
+        //    int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
         //{
         //    if (IsInit)
         //        return;
         //    IsInit = true;
         //    Init(waitReopen, waitResponse, waitRequest, waitClose, waitException);
+
+        //    Con = connection;
+        //    TscPrintControl.Init(name, ip, port);
         //}
-
-        public void Init(Connection connection, string name, string ip, int port,
-            int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
-        {
-            if (IsInit)
-                return;
-            IsInit = true;
-            Init(waitReopen, waitResponse, waitRequest, waitClose, waitException);
-
-            Con = connection;
-            TscPrintControl.Init(name, ip, port);
-        }
 
         public void Init(string name, string ip, int port,
             int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
@@ -73,13 +66,16 @@ namespace WeightCore.Managers
 
         #region Public and private methods - Manager
 
-        public void Open(bool isTscPrinter, TscPrintControlHelper.Callback callbackPrintManagerClose)
+        public Win32PrinterEntity Win32Printer() => _wmi.GetWin32Printer(TscPrintControl.Name);
+
+        //public void Open(bool isTscPrinter, TscPrintControlHelper.Callback callbackPrintManagerClose)
+        public void Open(bool isTscPrinter)
         {
             lock (Locker)
             {
                 Con?.Open();
                 if (isTscPrinter)
-                    OpenTsc(callbackPrintManagerClose);
+                    OpenTsc();
                 else
                     OpenZebra();
             }
@@ -97,9 +93,8 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public async void SendAsync(string printCmd)
+        public void Send(string printCmd)
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Documents.Add(printCmd);
         }
 
@@ -135,7 +130,8 @@ namespace WeightCore.Managers
             }
         }
 
-        public void OpenTsc(TscPrintControlHelper.Callback callbackPrintManagerClose)
+        //public void OpenTsc(TscPrintControlHelper.Callback callbackPrintManagerClose)
+        public void OpenTsc()
         {
             UserLabelCount = 1;
             try
@@ -150,7 +146,7 @@ namespace WeightCore.Managers
                             string docReplace = doc.Replace("|", "\\&");
                             if (!docReplace.Equals("^XA~JA^XZ") && !docReplace.Contains("odometer.user_label_count"))
                             {
-                                TscPrintControl.CmdSendCustom(docReplace, callbackPrintManagerClose);
+                                TscPrintControl.CmdSendCustom(docReplace);
                             }
                         }
                     }

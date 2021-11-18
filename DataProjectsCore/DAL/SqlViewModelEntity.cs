@@ -15,16 +15,16 @@ namespace DataProjectsCore.DAL
     {
         #region Design pattern "Lazy Singleton"
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static SqlViewModelEntity _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public static SqlViewModelEntity Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Constructor and destructor
 
-        public SqlViewModelEntity() { SetupDefault(); }
-
-        public void SetupDefault()
+        public SqlViewModelEntity()
         {
             DataSource = string.Empty;
             DataBase = string.Empty;
@@ -95,7 +95,7 @@ namespace DataProjectsCore.DAL
 
         #region Public and private fields and properties
 
-        private ShareEnums.PublishType _publishType;
+        private ShareEnums.PublishType _publishType = ShareEnums.PublishType.Default;
         public ShareEnums.PublishType PublishType
         {
             get => _publishType;
@@ -105,7 +105,7 @@ namespace DataProjectsCore.DAL
                 OnPropertyChanged();
             }
         }
-        private string _publishDescription;
+        private string _publishDescription = "";
         public string PublishDescription
         {
             get => _publishDescription;
@@ -115,7 +115,7 @@ namespace DataProjectsCore.DAL
                 OnPropertyChanged();
             }
         }
-        private string _sqlInstance;
+        private string _sqlInstance = "";
         public string SqlInstance
         {
             get => _sqlInstance;
@@ -125,7 +125,7 @@ namespace DataProjectsCore.DAL
                 OnPropertyChanged();
             }
         }
-        private string _dataSource;
+        private string _dataSource = "";
         public string DataSource
         {
             get => _dataSource;
@@ -135,7 +135,7 @@ namespace DataProjectsCore.DAL
                 OnPropertyChanged();
             }
         }
-        private string _dataBase;
+        private string _dataBase = "";
         public string DataBase
         {
             get => _dataBase;
@@ -145,7 +145,7 @@ namespace DataProjectsCore.DAL
                 OnPropertyChanged();
             }
         }
-        private string _host;
+        private string _host = "";
         public string Host
         {
             get => _host;
@@ -155,17 +155,17 @@ namespace DataProjectsCore.DAL
                 OnPropertyChanged();
             }
         }
-        private List<TaskDirect> tasks;
+        private List<TaskDirect> _tasks = new();
         public List<TaskDirect> Tasks
         {
-            get => tasks;
+            get => _tasks;
             private set
             {
-                tasks = value;
+                _tasks = value;
                 OnPropertyChanged();
             }
         }
-        private List<TaskTypeDirect> _taskTypes;
+        private List<TaskTypeDirect> _taskTypes = new();
         public List<TaskTypeDirect> TaskTypes
         {
             get => _taskTypes;

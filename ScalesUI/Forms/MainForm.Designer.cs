@@ -32,6 +32,7 @@
             this.fieldWeightTare = new System.Windows.Forms.Label();
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.fieldLang = new System.Windows.Forms.ComboBox();
             this.fieldMassaQueriesProgress = new System.Windows.Forms.ProgressBar();
             this.fieldMemoryProgress = new System.Windows.Forms.ProgressBar();
             this.fieldMemoryManagerTotal = new System.Windows.Forms.Label();
@@ -50,8 +51,8 @@
             this.fieldCurrentTime = new System.Windows.Forms.Label();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.labelWeightTare = new System.Windows.Forms.Label();
-            this.lbKneading = new System.Windows.Forms.Label();
-            this.lbProductDate = new System.Windows.Forms.Label();
+            this.labelKneading = new System.Windows.Forms.Label();
+            this.labelProductDate = new System.Windows.Forms.Label();
             this.fieldProductDate = new System.Windows.Forms.Label();
             this.fieldKneading = new System.Windows.Forms.Label();
             this.fieldLabelsCount = new System.Windows.Forms.Label();
@@ -63,12 +64,11 @@
             this.buttonPrint = new System.Windows.Forms.Button();
             this.buttonSetKneading = new System.Windows.Forms.Button();
             this.buttonSelectPlu = new System.Windows.Forms.Button();
-            this.btAddKneading = new System.Windows.Forms.Button();
-            this.btNewPallet = new System.Windows.Forms.Button();
+            this.buttonAddKneading = new System.Windows.Forms.Button();
+            this.buttonNewPallet = new System.Windows.Forms.Button();
             this.buttonSelectOrder = new System.Windows.Forms.Button();
             this.buttonScalesInit = new System.Windows.Forms.Button();
             this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
-            this.fieldLang = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.flowLayoutPanelBottom.SuspendLayout();
@@ -150,8 +150,8 @@
             this.tableLayoutPanelMain.Controls.Add(this.labelWeightNetto, 1, 2);
             this.tableLayoutPanelMain.Controls.Add(this.fieldWeightNetto, 2, 2);
             this.tableLayoutPanelMain.Controls.Add(this.fieldWeightTare, 2, 3);
-            this.tableLayoutPanelMain.Controls.Add(this.lbKneading, 1, 5);
-            this.tableLayoutPanelMain.Controls.Add(this.lbProductDate, 1, 7);
+            this.tableLayoutPanelMain.Controls.Add(this.labelKneading, 1, 5);
+            this.tableLayoutPanelMain.Controls.Add(this.labelProductDate, 1, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldProductDate, 2, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldKneading, 2, 5);
             this.tableLayoutPanelMain.Controls.Add(this.fieldLabelsCount, 2, 9);
@@ -180,6 +180,23 @@
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1180, 622);
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            // 
+            // fieldLang
+            // 
+            this.fieldLang.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fieldLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldLang.FormattingEnabled = true;
+            this.fieldLang.Items.AddRange(new object[] {
+            "Russian",
+            "English"});
+            this.fieldLang.Location = new System.Drawing.Point(1051, 591);
+            this.fieldLang.Name = "fieldLang";
+            this.fieldLang.Size = new System.Drawing.Size(112, 24);
+            this.fieldLang.TabIndex = 56;
+            this.fieldLang.Visible = false;
+            this.fieldLang.SelectedIndexChanged += new System.EventHandler(this.fieldLang_SelectedIndexChanged);
+            this.fieldLang.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMassaQueriesProgress
             // 
@@ -450,35 +467,35 @@
             this.labelWeightTare.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelWeightTare.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // lbKneading
+            // labelKneading
             // 
-            this.lbKneading.AutoSize = true;
-            this.lbKneading.BackColor = System.Drawing.Color.Transparent;
-            this.lbKneading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbKneading.Location = new System.Drawing.Point(14, 288);
-            this.lbKneading.Margin = new System.Windows.Forms.Padding(3);
-            this.lbKneading.Name = "lbKneading";
-            this.lbKneading.Size = new System.Drawing.Size(323, 74);
-            this.lbKneading.TabIndex = 27;
-            this.lbKneading.Text = "Замес";
-            this.lbKneading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.labelKneading.AutoSize = true;
+            this.labelKneading.BackColor = System.Drawing.Color.Transparent;
+            this.labelKneading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelKneading.Location = new System.Drawing.Point(14, 288);
+            this.labelKneading.Margin = new System.Windows.Forms.Padding(3);
+            this.labelKneading.Name = "labelKneading";
+            this.labelKneading.Size = new System.Drawing.Size(323, 74);
+            this.labelKneading.TabIndex = 27;
+            this.labelKneading.Text = "Замес";
+            this.labelKneading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // lbProductDate
+            // labelProductDate
             // 
-            this.lbProductDate.AutoSize = true;
-            this.lbProductDate.BackColor = System.Drawing.Color.Transparent;
-            this.lbProductDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbProductDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbProductDate.Location = new System.Drawing.Point(14, 374);
-            this.lbProductDate.Margin = new System.Windows.Forms.Padding(3);
-            this.lbProductDate.Name = "lbProductDate";
-            this.lbProductDate.Size = new System.Drawing.Size(323, 25);
-            this.lbProductDate.TabIndex = 28;
-            this.lbProductDate.Text = "Дата производства";
-            this.lbProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbProductDate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.labelProductDate.AutoSize = true;
+            this.labelProductDate.BackColor = System.Drawing.Color.Transparent;
+            this.labelProductDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProductDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelProductDate.Location = new System.Drawing.Point(14, 374);
+            this.labelProductDate.Margin = new System.Windows.Forms.Padding(3);
+            this.labelProductDate.Name = "labelProductDate";
+            this.labelProductDate.Size = new System.Drawing.Size(323, 25);
+            this.labelProductDate.TabIndex = 28;
+            this.labelProductDate.Text = "Дата производства";
+            this.labelProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelProductDate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldProductDate
             // 
@@ -587,8 +604,8 @@
             this.flowLayoutPanelBottom.Controls.Add(this.buttonPrint);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonSetKneading);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonSelectPlu);
-            this.flowLayoutPanelBottom.Controls.Add(this.btAddKneading);
-            this.flowLayoutPanelBottom.Controls.Add(this.btNewPallet);
+            this.flowLayoutPanelBottom.Controls.Add(this.buttonAddKneading);
+            this.flowLayoutPanelBottom.Controls.Add(this.buttonNewPallet);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonSettings);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonSelectOrder);
             this.flowLayoutPanelBottom.Controls.Add(this.buttonScalesInit);
@@ -618,21 +635,21 @@
             // 
             // buttonSetKneading
             // 
-            this.buttonSetKneading.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.buttonSetKneading.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonSetKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSetKneading.Location = new System.Drawing.Point(925, 3);
             this.buttonSetKneading.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.buttonSetKneading.Name = "buttonSetKneading";
             this.buttonSetKneading.Size = new System.Drawing.Size(120, 122);
             this.buttonSetKneading.TabIndex = 5;
-            this.buttonSetKneading.Text = "ЕЩЁ";
+            this.buttonSetKneading.Text = "Ещё";
             this.buttonSetKneading.UseVisualStyleBackColor = false;
             this.buttonSetKneading.Click += new System.EventHandler(this.ButtonSetKneading_Click);
             this.buttonSetKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // buttonSelectPlu
             // 
-            this.buttonSelectPlu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.buttonSelectPlu.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonSelectPlu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSelectPlu.Location = new System.Drawing.Point(795, 3);
             this.buttonSelectPlu.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -644,37 +661,37 @@
             this.buttonSelectPlu.Click += new System.EventHandler(this.ButtonSelectPlu_Click);
             this.buttonSelectPlu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // btAddKneading
+            // buttonAddKneading
             // 
-            this.btAddKneading.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btAddKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btAddKneading.Location = new System.Drawing.Point(665, 3);
-            this.btAddKneading.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.btAddKneading.Name = "btAddKneading";
-            this.btAddKneading.Size = new System.Drawing.Size(120, 122);
-            this.btAddKneading.TabIndex = 35;
-            this.btAddKneading.Text = "ЗаМЕС";
-            this.btAddKneading.UseVisualStyleBackColor = false;
-            this.btAddKneading.Click += new System.EventHandler(this.ButtonAddKneading_Click);
-            this.btAddKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.buttonAddKneading.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonAddKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAddKneading.Location = new System.Drawing.Point(665, 3);
+            this.buttonAddKneading.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.buttonAddKneading.Name = "buttonAddKneading";
+            this.buttonAddKneading.Size = new System.Drawing.Size(120, 122);
+            this.buttonAddKneading.TabIndex = 35;
+            this.buttonAddKneading.Text = "Замес";
+            this.buttonAddKneading.UseVisualStyleBackColor = false;
+            this.buttonAddKneading.Click += new System.EventHandler(this.ButtonAddKneading_Click);
+            this.buttonAddKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // btNewPallet
+            // buttonNewPallet
             // 
-            this.btNewPallet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btNewPallet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btNewPallet.Location = new System.Drawing.Point(535, 3);
-            this.btNewPallet.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.btNewPallet.Name = "btNewPallet";
-            this.btNewPallet.Size = new System.Drawing.Size(120, 122);
-            this.btNewPallet.TabIndex = 34;
-            this.btNewPallet.Text = "Новая палета";
-            this.btNewPallet.UseVisualStyleBackColor = false;
-            this.btNewPallet.Click += new System.EventHandler(this.ButtonNewPallet_Click);
-            this.btNewPallet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.buttonNewPallet.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonNewPallet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonNewPallet.Location = new System.Drawing.Point(535, 3);
+            this.buttonNewPallet.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.buttonNewPallet.Name = "buttonNewPallet";
+            this.buttonNewPallet.Size = new System.Drawing.Size(120, 122);
+            this.buttonNewPallet.TabIndex = 34;
+            this.buttonNewPallet.Text = "Новая палета";
+            this.buttonNewPallet.UseVisualStyleBackColor = false;
+            this.buttonNewPallet.Click += new System.EventHandler(this.ButtonNewPallet_Click);
+            this.buttonNewPallet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // buttonSelectOrder
             // 
-            this.buttonSelectOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.buttonSelectOrder.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonSelectOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSelectOrder.Location = new System.Drawing.Point(275, 3);
             this.buttonSelectOrder.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -695,7 +712,7 @@
             this.buttonScalesInit.Name = "buttonScalesInit";
             this.buttonScalesInit.Size = new System.Drawing.Size(120, 122);
             this.buttonScalesInit.TabIndex = 1;
-            this.buttonScalesInit.Text = "Инициали- зировать весы";
+            this.buttonScalesInit.Text = "Инициали-\r\nзировать весы";
             this.buttonScalesInit.UseVisualStyleBackColor = false;
             this.buttonScalesInit.Visible = false;
             this.buttonScalesInit.Click += new System.EventHandler(this.ButtonScalesInit_Click);
@@ -713,23 +730,6 @@
             this.buttonRunScalesTerminal.Text = "Scales Terminal";
             this.buttonRunScalesTerminal.UseVisualStyleBackColor = false;
             this.buttonRunScalesTerminal.Click += new System.EventHandler(this.ButtonRunScalesTerminal_Click);
-            // 
-            // fieldLang
-            // 
-            this.fieldLang.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.fieldLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldLang.FormattingEnabled = true;
-            this.fieldLang.Items.AddRange(new object[] {
-            "Russian",
-            "English"});
-            this.fieldLang.Location = new System.Drawing.Point(1051, 591);
-            this.fieldLang.Name = "fieldLang";
-            this.fieldLang.Size = new System.Drawing.Size(112, 24);
-            this.fieldLang.TabIndex = 56;
-            this.fieldLang.Visible = false;
-            this.fieldLang.SelectedIndexChanged += new System.EventHandler(this.fieldLang_SelectedIndexChanged);
-            this.fieldLang.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // MainForm
             // 
@@ -769,8 +769,8 @@
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.Label fieldTitle;
         private System.Windows.Forms.Label fieldCurrentTime;
-        private System.Windows.Forms.Label lbKneading;
-        private System.Windows.Forms.Label lbProductDate;
+        private System.Windows.Forms.Label labelKneading;
+        private System.Windows.Forms.Label labelProductDate;
         private System.Windows.Forms.ProgressBar fieldCountBox;
         private System.Windows.Forms.ComboBox fieldResolution;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelBottom;
@@ -783,8 +783,8 @@
         private System.Windows.Forms.Label fieldProductDate;
         private System.Windows.Forms.Label fieldKneading;
         private System.Windows.Forms.Label labelPlu;
-        private System.Windows.Forms.Button btAddKneading;
-        private System.Windows.Forms.Button btNewPallet;
+        private System.Windows.Forms.Button buttonAddKneading;
+        private System.Windows.Forms.Button buttonNewPallet;
         private System.Windows.Forms.Label fieldLabelsCount;
         private System.Windows.Forms.Label fieldMassaManager;
         private System.Windows.Forms.Label fieldPrintManager;

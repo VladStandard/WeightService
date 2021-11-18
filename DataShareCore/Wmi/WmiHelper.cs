@@ -18,50 +18,64 @@ namespace DataShareCore.Wmi
 
         #endregion
 
+        #region Public and private fields and properties
+
+        public object Locker { get; private set; } = new();
+
+        #endregion
+
         #region Public and private methods
 
         public Win32OperatingSystemMemoryEntity GetWin32OperatingSystemMemory()
         {
-            // PowerShell: gwmi Win32_OperatingSystem | select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize
-            // PowerShell: gwmi -query "select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize from Win32_OperatingSystem"
-            ObjectQuery wql = new("select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize from Win32_OperatingSystem");
-            ManagementObjectSearcher searcher = new(wql);
-            ManagementObjectCollection results = searcher.Get();
-            ulong freeVirtual = 0;
-            ulong freePhysical = 0;
-            ulong totalVirtual = 0;
-            ulong totalPhysical = 0;
-            foreach (ManagementObject result in results)
+            lock (Locker)
             {
-                freeVirtual = Convert.ToUInt64(result["FreeVirtualMemory"]) * 1024;
-                freePhysical = Convert.ToUInt64(result["FreePhysicalMemory"]) * 1024;
-                totalVirtual = Convert.ToUInt64(result["TotalVirtualMemorySize"]) * 1024;
-                totalPhysical = Convert.ToUInt64(result["TotalVisibleMemorySize"]) * 1024;
+                // PowerShell: gwmi Win32_OperatingSystem | select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize
+                // PowerShell: gwmi -query "select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize from Win32_OperatingSystem"
+                ObjectQuery wql = new("select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize from Win32_OperatingSystem");
+                ManagementObjectSearcher searcher = new(wql);
+                ManagementObjectCollection results = searcher.Get();
+                ulong freeVirtual = 0;
+                ulong freePhysical = 0;
+                ulong totalVirtual = 0;
+                ulong totalPhysical = 0;
+                if (results.Count > 0)
+                    foreach (ManagementObject result in results)
+                    {
+                        freeVirtual = Convert.ToUInt64(result["FreeVirtualMemory"]) * 1024;
+                        freePhysical = Convert.ToUInt64(result["FreePhysicalMemory"]) * 1024;
+                        totalVirtual = Convert.ToUInt64(result["TotalVirtualMemorySize"]) * 1024;
+                        totalPhysical = Convert.ToUInt64(result["TotalVisibleMemorySize"]) * 1024;
+                    }
+                return new Win32OperatingSystemMemoryEntity(freeVirtual, freePhysical, totalVirtual, totalPhysical);
             }
-            return new Win32OperatingSystemMemoryEntity(freeVirtual, freePhysical, totalVirtual, totalPhysical);
         }
 
         public Win32PrinterEntity GetWin32Printer(string name)
         {
-            // PowerShell: gwmi Win32_Printer | select DriverName, PortName, Status, PrinterState, PrinterStatus
-            // PowerShell: gwmi -query "select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name='SCALES-PRN-DEV'"
-            ObjectQuery wql = new("select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name = 'SCALES-PRN-DEV'");
-            ManagementObjectSearcher searcher = new(wql);
-            ManagementObjectCollection results = searcher.Get();
-            string driverName = string.Empty;
-            string portName = string.Empty;
-            string status = string.Empty;
-            string printerState = string.Empty;
-            short printerStatus = -1;
-            foreach (ManagementObject result in results)
+            lock (Locker)
             {
-                driverName = Convert.ToString(result["DriverName"]);
-                portName = Convert.ToString(result["PortName"]);
-                status = Convert.ToString(result["Status"]);
-                printerState = Convert.ToString(result["PrinterState"]);
-                printerStatus = Convert.ToInt16(result["PrinterStatus"]);
+                // PowerShell: gwmi Win32_Printer | select DriverName, PortName, Status, PrinterState, PrinterStatus
+                // PowerShell: gwmi -query "select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name='SCALES-PRN-DEV'"
+                ObjectQuery wql = new("select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name = 'SCALES-PRN-DEV'");
+                ManagementObjectSearcher searcher = new(wql);
+                ManagementObjectCollection results = searcher.Get();
+                string driverName = string.Empty;
+                string portName = string.Empty;
+                string status = string.Empty;
+                string printerState = string.Empty;
+                short printerStatus = -1;
+                if (results.Count > 0)
+                    foreach (ManagementObject result in results)
+                    {
+                        driverName = Convert.ToString(result["DriverName"]);
+                        portName = Convert.ToString(result["PortName"]);
+                        status = Convert.ToString(result["Status"]);
+                        printerState = Convert.ToString(result["PrinterState"]);
+                        printerStatus = Convert.ToInt16(result["PrinterStatus"]);
+                    }
+                return new Win32PrinterEntity(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
             }
-            return new Win32PrinterEntity(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
         }
 
         #endregion

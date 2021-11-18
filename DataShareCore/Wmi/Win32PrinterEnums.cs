@@ -30,7 +30,7 @@ namespace DataShareCore.Wmi
         UserInterventionRequired = 21,
         OutOfMemory = 22,
         DoorOpen = 23,
-        Server_Unknown = 24,
+        ServerUnknown = 24,
         PowerSave = 25,
     }
 

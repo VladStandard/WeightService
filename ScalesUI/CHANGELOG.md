@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.830] - 2021-11-16
+## [0.5.840] - 2021-11-18
 ### Fixed
-- WS-T-26. 
+- WS-T-26. SQL-script переноса PLU между устройствами
+- WS-T-27. Localization GUI
 
 ## [0.5.820] - 2021-11-16
 ### Fixed

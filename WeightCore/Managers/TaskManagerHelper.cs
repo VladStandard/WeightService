@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.Helpers;
 using Nito.AsyncEx;
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -76,10 +77,25 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
+        public void WaitSync(ushort miliseconds)
+        {
+            if (miliseconds < 50)
+                miliseconds = 50;
+            if (miliseconds > 10_000)
+                miliseconds = 10_000;
+            Stopwatch sw = Stopwatch.StartNew();
+            while (sw.Elapsed.TotalMilliseconds < miliseconds)
+            {
+                Thread.Sleep(50);
+                System.Windows.Forms.Application.DoEvents();
+            }
+        }
+        
         public void Open(SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
             {
+                WaitSync(2_500);
                 IsTscPrinter = isTscPrinter;
 
                 bool taskEnabled = false;
@@ -99,6 +115,13 @@ namespace WeightCore.Managers
                     MemoryManager.Init();
                     TaskRunMemoryManagerReopen();
                 }
+
+                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager);
+                if (taskEnabled)
+                {
+                    PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
+                    TaskRunPrintManagerReopen();
+                }
             }
             catch (Exception ex)
             {
@@ -111,14 +134,9 @@ namespace WeightCore.Managers
         {
             try
             {
+                WaitSync(2_500);
                 IsTscPrinter = isTscPrinter;
 
-                bool taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager);
-                if (taskEnabled)
-                {
-                    PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
-                    TaskRunPrintManagerReopen(callbackPrintManagerClose);
-                }
             }
             catch (Exception ex)
             {
@@ -278,7 +296,8 @@ namespace WeightCore.Managers
             });
         }
 
-        public void TaskRunPrintManagerReopen(TscPrintControlHelper.Callback callbackPrintManagerClose)
+        //public void TaskRunPrintManagerReopen(TscPrintControlHelper.Callback callbackPrintManagerClose)
+        public void TaskRunPrintManagerReopen()
         {
             _ = Task.Run(async () =>
             {
@@ -293,7 +312,7 @@ namespace WeightCore.Managers
                     {
                         try
                         {
-                            PrintManager.Open(IsTscPrinter, callbackPrintManagerClose);
+                            PrintManager.Open(IsTscPrinter);
                             await Task.Delay(TimeSpan.FromMilliseconds(PrintManager.WaitReopen)).ConfigureAwait(false);
                         }
                         catch (TaskCanceledException)

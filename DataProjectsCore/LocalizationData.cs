@@ -410,21 +410,22 @@ namespace DataCore
             public static string Registration => Lang == ShareEnums.Lang.English ? @"Device registration" : @"Регистрация устройства";
             public static string OperationControl => Lang == ShareEnums.Lang.English ? @"Control of operations" : @"Контроль операций";
             public static readonly decimal MassaThreshold = 0.05M;
-            public static string MassaCheck => Lang == ShareEnums.Lang.English 
-                ? @"Unload the weight platform!" + Environment.NewLine +
-                $@"Threshold value: {MassaThreshold} kg." + Environment.NewLine + Environment.NewLine +
-                @"  Yes - ignore and continue." + Environment.NewLine +
-                @"  No - suspend and unload."
-                : @"Разгрузите весовую платформу!" + Environment.NewLine +
-                $@"Пороговое значение: {MassaThreshold} кг." + Environment.NewLine + Environment.NewLine +
-                @"  Yes - игнорировать и продолжить." + Environment.NewLine +
-                @"  No - приостановить и разгрузить.";
+            public static string MassaCheck(decimal currentWeight) => Lang == ShareEnums.Lang.English 
+                ? @"Unload the weight platform!" + Environment.NewLine + Environment.NewLine +
+                 $@"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine +
+                 $@"Current gross value: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
+                  @"  Yes - ignore and continue." + Environment.NewLine +
+                  @"  No - suspend and unload."
+                : @"Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine +
+                 $@"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + 
+                 $@"Текущее значение брутто: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
+                  @"  Yes - игнорировать и продолжить." + Environment.NewLine +
+                  @"  No - приостановить и разгрузить.";
             public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English 
                 ? @"Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator."
                 : @"Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
             public static string MassaNotQuering => Lang == ShareEnums.Lang.English
-                ? @"Massa-K scales are not respond!"
-                : @"Весы Масса-К не отвечают!";
+                ? @"Massa-K scales are not respond!" : @"Весы Масса-К не отвечают!";
             public static string IsNotLoaded => Lang == ShareEnums.Lang.English
                 ? @"The program is not yet loaded!" + Environment.NewLine + @"Wait for it..."
                 : @"Программа ещё не загружена!" + Environment.NewLine + @"Подождите...";
@@ -458,6 +459,27 @@ namespace DataCore
             public static string StateCorrect => Lang == ShareEnums.Lang.English ? @"correct" : @"верна";
             public static string StateError => Lang == ShareEnums.Lang.English ? @"error" : @"ошибка";
             public static string QuestionRunApp => Lang == ShareEnums.Lang.English ? @"Run the app" : @"Запустить приложение";
+            public static string ChoosePlu => Lang == ShareEnums.Lang.English
+                ? @"First, you have to choose a PLU!" : @"Сперва, необходимо выбрать PLU!";
+
+            public static string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? @"Scales Terminal" : @"Весовой терминал";
+            public static string ButtonScalesInit => Lang == ShareEnums.Lang.English 
+                ? $@"Initialize{Environment.NewLine}the scales" : $@"Инициали-{Environment.NewLine}зировать весы";
+            public static string ButtonSelectOrder => Lang == ShareEnums.Lang.English 
+                ? $@"Select{Environment.NewLine}order" : $@"Выбрать{Environment.NewLine}заказ";
+            public static string ButtonSettings => Lang == ShareEnums.Lang.English ? @"Settings" : @"Настройки";
+            public static string ButtonNewPallet => Lang == ShareEnums.Lang.English ? @"New pallet" : @"Новая палета";
+            public static string ButtonAddKneading => Lang == ShareEnums.Lang.English ? @"Kneading" : @"Замес";
+            public static string ButtonSelectPlu => Lang == ShareEnums.Lang.English 
+                ? $@"Select{Environment.NewLine}PLU" : $@"Выбрать{Environment.NewLine}PLU";
+            public static string ButtonSetKneading => Lang == ShareEnums.Lang.English ? @"More" : @"Ещё";
+            public static string ButtonPrint => Lang == ShareEnums.Lang.English ? @"Print" : @"Печать";
+
+            public static string FieldCurrentTime => Lang == ShareEnums.Lang.English ? @"Now" : @"Сейчас";
+            public static string FieldWeightNetto => Lang == ShareEnums.Lang.English ? @"Net weight" : @"Вес нетто";
+            public static string FieldWeightTare => Lang == ShareEnums.Lang.English ? @"Tare weight" : @"Вес тары";
+            public static string FieldKneading => Lang == ShareEnums.Lang.English ? @"Kneading" : @"Замес";
+            public static string FieldProductDate => Lang == ShareEnums.Lang.English ? @"Date of production" : @"Дата производства";
         }
 
         public static class Buttons

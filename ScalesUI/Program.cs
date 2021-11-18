@@ -29,12 +29,13 @@ namespace ScalesUI
             try
             {
                 Guid uuid = HostsUtils.TokenWrite(conectionString);
-                CustomMessageBox messageBox = CustomMessageBox.Show(null,
+                CustomMessageBox messageBox = new();
+                messageBox.Show(null,
                     "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
                     $"{uuid}" + Environment.NewLine +
                     "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
                     LocalizationData.ScalesUI.Registration);
-                messageBox.Wait();
+                //messageBox.Wait();
                 if (messageBox.Result == DialogResult.OK)
                 {
                     Clipboard.SetText($@"{uuid}");
@@ -49,7 +50,8 @@ namespace ScalesUI
                                  ex.Message;
                 if (ex.InnerException != null)
                     message += Environment.NewLine + ex.InnerException;
-                _ = CustomMessageBox.Show(null, message, LocalizationData.ScalesUI.Exception);
+                CustomMessageBox messageBox = new();
+                messageBox.Show(null, message, LocalizationData.ScalesUI.Exception);
             }
         }
 
@@ -65,7 +67,8 @@ namespace ScalesUI
             }
             catch (Exception ex)
             {
-                _ = CustomMessageBox.Show(null, $"База данных недоступна. {ex.Message}", LocalizationData.ScalesUI.Exception);
+                CustomMessageBox messageBox = new();
+                messageBox.Show(null, $"База данных недоступна. {ex.Message}", LocalizationData.ScalesUI.Exception);
                 throw new Exception(ex.Message);
             }
 
@@ -81,12 +84,13 @@ namespace ScalesUI
             // Exit.
             if (host.ScaleId == 0)
             {
-                CustomMessageBox messageBox = CustomMessageBox.Show(null,
+                CustomMessageBox messageBox = new();
+                messageBox.Show(null,
                     "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
                     $"{host.IdRRef}" + Environment.NewLine +
                     "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
                     LocalizationData.ScalesUI.Registration);
-                messageBox.Wait();
+                //messageBox.Wait();
                 if (messageBox.Result == DialogResult.OK)
                 {
                     Clipboard.SetText($@"{host.IdRRef}");
