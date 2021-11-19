@@ -12,7 +12,7 @@
         <dal:SqlViewModelEntity x:Key="SqlViewModel" />
     </UserControl.Resources>
 
-    <Grid DataContext="{StaticResource SqlViewModel}" >
+    <Grid DataContext="{DynamicResource SqlViewModel}" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>

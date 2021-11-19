@@ -428,7 +428,6 @@ namespace WeightCore.Helpers
                     "Для продолжения печати нажмите Ignore.",
                     LocalizationData.ScalesUI.OperationControl,
                     MessageBoxButtons.AbortRetryIgnore);
-                //messageBox.Wait();
                 if (messageBox.Result != DialogResult.Ignore)
                     return;
             }

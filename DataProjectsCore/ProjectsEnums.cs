@@ -41,7 +41,8 @@ namespace DataProjectsCore
         {
             Default,
             PluList,
-            SqlSettings
+            SqlSettings,
+            MessageBox,
         }
 
         public enum OrderStatus

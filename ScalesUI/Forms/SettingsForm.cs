@@ -211,8 +211,6 @@ namespace ScalesUI.Forms
                 CustomMessageBox messageBox = new();
                 messageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!",
                     @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
-                //messageBox.Wait();
-                //DialogResult dialogResult = MessageBox.Show(@"Прежде чем продолжить калибровку откройте крышку отделителя!", @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
                 if (messageBox.Result == DialogResult.Retry)
                 {
                     UseWaitCursor = true;

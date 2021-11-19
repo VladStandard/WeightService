@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.840] - 2021-11-18
+## [0.5.850] - 2021-11-19
 ### Fixed
 - WS-T-26. SQL-script переноса PLU между устройствами
 - WS-T-27. Localization GUI
+- WS-T-29. WeightCore. XAML PageMessageBox
 
 ## [0.5.820] - 2021-11-16
 ### Fixed

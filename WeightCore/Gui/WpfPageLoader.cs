@@ -3,6 +3,8 @@
 
 using DataProjectsCore;
 using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -23,6 +25,8 @@ namespace WeightCore.Gui
         private ElementHost ElementHost { get; set; }
         private PagePluList PluList { get; set; }
         public PageSqlSettings SqlSettings { get; private set; }
+        public PageMessageBox PageMessageBoxItem { get; private set; }
+        public MessageBoxHelper MessageBox { get; } = MessageBoxHelper.Instance;
 
         #endregion
 
@@ -95,6 +99,13 @@ namespace WeightCore.Gui
                         SqlSettings.Loaded += SqlSettingsOnLoaded;
                         _sessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
+                    case ProjectsEnums.Page.MessageBox:
+                        PageMessageBoxItem = new PageMessageBox();
+                        PageMessageBoxItem.InitializeComponent();
+                        ElementHost.Child = PageMessageBoxItem;
+                        PageMessageBoxItem.Loaded += MessageBoxOnLoaded;
+                        _sessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        break;
                     case ProjectsEnums.Page.Default:
                     default:
                         break;
@@ -110,7 +121,7 @@ namespace WeightCore.Gui
         {
             try
             {
-                // PLU.
+                // 
             }
             catch (Exception ex)
             {
@@ -122,7 +133,19 @@ namespace WeightCore.Gui
         {
             try
             {
-                // SQL.
+                // 
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(this, ref ex);
+            }
+        }
+
+        private void MessageBoxOnLoaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //
             }
             catch (Exception ex)
             {
@@ -170,6 +193,14 @@ namespace WeightCore.Gui
             catch (Exception ex)
             {
                 _exception.Catch(this, ref ex);
+            }
+        }
+
+        private void WpfPageLoader_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
             }
         }
 

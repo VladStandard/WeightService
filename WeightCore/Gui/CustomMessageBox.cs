@@ -40,7 +40,21 @@ namespace WeightCore.Gui
             SetButtonsVisible(buttons);
             SelectButton(buttonSelect);
             ResizeButtons();
-            ShowAlign();
+            ShowAlign(false);
+        }
+
+        public void ShowDialog(IWin32Window owner, string label, string caption, MessageBoxButtons buttons = MessageBoxButtons.OK,
+            MessageBoxIcon messageBoxIcon = MessageBoxIcon.Information, int buttonSelect = 0)
+        {
+            Owner = owner is Form form ? form : null;
+            fieldMessage.Text = label;
+            Text = caption;
+
+            ButtonsLocalization();
+            SetButtonsVisible(buttons);
+            SelectButton(buttonSelect);
+            ResizeButtons();
+            ShowAlign(true);
         }
 
         private void ButtonsLocalization()
@@ -100,7 +114,6 @@ namespace WeightCore.Gui
 
         private void SelectButton(int buttonSelect)
         {
-            //List<Button> controls = new() { buttonYes, buttonRetry, buttonNo, buttonIgnore, buttonCancel, buttonAbort, buttonOk };
             List<Button> buttons = new();
             foreach (object control in Controls.OfType<Button>())
             {
@@ -136,12 +149,15 @@ namespace WeightCore.Gui
             }
         }
 
-        private void ShowAlign()
+        private void ShowAlign(bool isDialog)
         {
             if (Owner != null)
             {
                 TopMost = Owner.TopMost;
-                Show(Owner);
+                if (isDialog)
+                    ShowDialog(Owner);
+                else
+                    Show(Owner);
             }
             else
             {

@@ -35,7 +35,6 @@ namespace ScalesUI
                     $"{uuid}" + Environment.NewLine +
                     "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
                     LocalizationData.ScalesUI.Registration);
-                //messageBox.Wait();
                 if (messageBox.Result == DialogResult.OK)
                 {
                     Clipboard.SetText($@"{uuid}");
@@ -90,7 +89,6 @@ namespace ScalesUI
                     $"{host.IdRRef}" + Environment.NewLine +
                     "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
                     LocalizationData.ScalesUI.Registration);
-                //messageBox.Wait();
                 if (messageBox.Result == DialogResult.OK)
                 {
                     Clipboard.SetText($@"{host.IdRRef}");

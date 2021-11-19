@@ -457,8 +457,20 @@ namespace ScalesUI.Forms
         private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
         {
             DataShareCore.Wmi.Win32PrinterEntity win32Printer = _sessionState.TaskManager.PrintManager.Win32Printer();
-            CustomMessageBox messageBox = new();
-            messageBox.Show(this,
+            //CustomMessageBox messageBox = new();
+            //messageBox.ShowDialog(this,
+            //    $"Принтер: {win32Printer.Name}" + Environment.NewLine +
+            //    $"Драйвер: {win32Printer.DriverName}" + Environment.NewLine +
+            //    $"Порт: {win32Printer.PortName}" + Environment.NewLine +
+            //    $"Код состояния: {win32Printer.PrinterState}" + Environment.NewLine +
+            //    $"Код статуса: {win32Printer.PrinterStatus}" + Environment.NewLine +
+            //    $"Статус: {win32Printer.PrinterStatusDescription}" + Environment.NewLine +
+            //    $"Состояние (ENG): {win32Printer.Status}" + Environment.NewLine +
+            //    $"Состояние: {win32Printer.StatusDescription}" + Environment.NewLine,
+            //    LocalizationData.ScalesUI.PrinterInfoCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 640, Height = 300 };
+            wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.PrinterInfoCaption;
+            wpfPageLoader.MessageBox.Message =
                 $"Принтер: {win32Printer.Name}" + Environment.NewLine +
                 $"Драйвер: {win32Printer.DriverName}" + Environment.NewLine +
                 $"Порт: {win32Printer.PortName}" + Environment.NewLine +
@@ -466,9 +478,10 @@ namespace ScalesUI.Forms
                 $"Код статуса: {win32Printer.PrinterStatus}" + Environment.NewLine +
                 $"Статус: {win32Printer.PrinterStatusDescription}" + Environment.NewLine +
                 $"Состояние (ENG): {win32Printer.Status}" + Environment.NewLine +
-                $"Состояние: {win32Printer.StatusDescription}" + Environment.NewLine,
-                LocalizationData.ScalesUI.PrinterInfoCaption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //messageBox.Wait();
+                $"Состояние: {win32Printer.StatusDescription}";
+            wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+            wpfPageLoader.MessageBox.Localization();
+            wpfPageLoader.ShowDialog(this);
         }
 
         private void ButtonSettings_Click(object sender, EventArgs e)
@@ -513,9 +526,8 @@ namespace ScalesUI.Forms
                 if (!_sessionState.TaskManager.MassaManager.MassaDevice.IsConnected)
                 {
                     CustomMessageBox messageBox = new();
-                    messageBox.Show(this, LocalizationData.ScalesUI.MassaNotQuering, 
+                    messageBox.ShowDialog(this, LocalizationData.ScalesUI.MassaNotQuering, 
                         LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //messageBox.Wait();
                     return;
                 }
                 // Fix negative weight.
@@ -527,9 +539,8 @@ namespace ScalesUI.Forms
                 if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold)
                 {
                     CustomMessageBox messageBox = new();
-                    messageBox.Show(this, LocalizationData.ScalesUI.MassaCheck(_sessionState.TaskManager.MassaManager.WeightNet), 
+                    messageBox.ShowDialog(this, LocalizationData.ScalesUI.MassaCheck(_sessionState.TaskManager.MassaManager.WeightNet), 
                         LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    //messageBox.Wait();
                     if (messageBox.Result != DialogResult.Yes)
                         return;
                 }
@@ -559,9 +570,8 @@ namespace ScalesUI.Forms
                     _sessionState.TaskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
                 {
                     CustomMessageBox messageBox = new();
-                    messageBox.Show(this, LocalizationData.ScalesUI.MassaCheck(_sessionState.TaskManager.MassaManager.WeightNet), 
+                    messageBox.ShowDialog(this, LocalizationData.ScalesUI.MassaCheck(_sessionState.TaskManager.MassaManager.WeightNet), 
                         LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    //messageBox.Wait();
                     if (messageBox.Result != DialogResult.Yes)
                         return;
                 }
@@ -650,9 +660,8 @@ namespace ScalesUI.Forms
                 if (_sessionState.CurrentPlu == null)
                 {
                     CustomMessageBox messageBox = new();
-                    messageBox.Show(this, LocalizationData.ScalesUI.ChoosePlu,
+                    messageBox.ShowDialog(this, LocalizationData.ScalesUI.ChoosePlu,
                         LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //messageBox.Wait();
                     return;
                 }
 
@@ -834,11 +843,14 @@ namespace ScalesUI.Forms
             try
             {
                 // Question.
-                CustomMessageBox messageBox = new();
-                messageBox.Show(this, $"{LocalizationData.ScalesUI.QuestionRunApp} ScalesTerminal?", 
-                    LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.YesNo, MessageBoxIcon.Question, 2);
-                //messageBox.Wait();
-                if (messageBox.Result != DialogResult.Yes)
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 640, Height = 300 };
+                wpfPageLoader.MessageBox.Caption = _appVersion.AppTitle;
+                wpfPageLoader.MessageBox.Message = $"{LocalizationData.ScalesUI.QuestionRunApp} ScalesTerminal?";
+                wpfPageLoader.MessageBox.ButtonYesVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(this);
+                if (wpfPageLoader.PageMessageBoxItem.MessageBox.Result != DialogResult.Yes)
                     return;
                 // Pin-code.
                 using PasswordForm pinForm = new() { TopMost = !_debug.IsDebug };
@@ -861,10 +873,12 @@ namespace ScalesUI.Forms
                 }
                 else
                 {
-                    messageBox = new();
-                    messageBox.Show(this, LocalizationData.ScalesUI.ProgramNotFound(fileName), 
-                        LocalizationData.ScalesUI.Exception, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //messageBox.Wait();
+                    using WpfPageLoader wpfPageLoader2 = new(ProjectsEnums.Page.MessageBox, false) { Width = 640, Height = 300 };
+                    wpfPageLoader2.MessageBox.Caption = _appVersion.AppTitle;
+                    wpfPageLoader2.MessageBox.Message = LocalizationData.ScalesUI.ProgramNotFound(fileName);
+                    wpfPageLoader2.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                    wpfPageLoader2.MessageBox.Localization();
+                    wpfPageLoader2.ShowDialog(this);
                 }
             }
             catch (Exception ex)
@@ -884,7 +898,6 @@ namespace ScalesUI.Forms
 
 #pragma warning disable IDE0051 // Remove unused private members
         private void TemplateJobWithTaskManager()
-#pragma warning restore IDE0051 // Remove unused private members
         {
             try
             {
@@ -904,6 +917,7 @@ namespace ScalesUI.Forms
                 TaskManagerOpen();
             }
         }
+#pragma warning restore IDE0051 // Remove unused private members
 
         #endregion
     }

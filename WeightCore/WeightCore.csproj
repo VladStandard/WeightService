@@ -292,8 +292,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="XamlPages\MessageBoxHelper.cs" />
     <Compile Include="XamlPages\PagePluList.xaml.cs">
       <DependentUpon>PagePluList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XamlPages\PageMessageBox.xaml.cs">
+      <DependentUpon>PageMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="XamlPages\PageSqlSettings.xaml.cs">
       <DependentUpon>PageSqlSettings.xaml</DependentUpon>
@@ -355,6 +359,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="XamlPages\PagePluList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XamlPages\PageMessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

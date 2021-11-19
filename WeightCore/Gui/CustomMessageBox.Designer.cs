@@ -38,9 +38,7 @@ namespace WeightCore.Gui
             this.buttonRetry = new System.Windows.Forms.Button();
             this.buttonYes = new System.Windows.Forms.Button();
             this.fieldMessage = new System.Windows.Forms.Label();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.buttonOk = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAbort
@@ -145,17 +143,6 @@ namespace WeightCore.Gui
             this.fieldMessage.Text = "my message";
             this.fieldMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox
-            // 
-            this.pictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox.Location = new System.Drawing.Point(8, 8);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox.TabIndex = 20;
-            this.pictureBox.TabStop = false;
-            // 
             // buttonOk
             // 
             this.buttonOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -175,7 +162,6 @@ namespace WeightCore.Gui
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(644, 359);
             this.ControlBox = false;
-            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.fieldMessage);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonAbort);
@@ -190,7 +176,6 @@ namespace WeightCore.Gui
             this.Text = "CustomMessageBox";
             this.Shown += new System.EventHandler(this.CustomMessageBox_Shown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CustomMessageBox_KeyUp);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -203,7 +188,6 @@ namespace WeightCore.Gui
         private System.Windows.Forms.Button buttonRetry;
         private System.Windows.Forms.Button buttonYes;
         private System.Windows.Forms.Label fieldMessage;
-        private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button buttonOk;
     }
 }
