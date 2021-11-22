@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataProjectsCore;
 using DataProjectsCore.Helpers;
 using System;
 using System.Runtime.CompilerServices;
@@ -45,9 +46,13 @@ namespace WeightCore.Helpers
                 msg += Environment.NewLine + ex.InnerException.Message;
             if (owner != null)
             {
-                CustomMessageBox messageBox = new();
-                messageBox.Show(owner, @$"{nameof(memberName)}: {memberName}. {nameof(lineNumber)}: {lineNumber}" + Environment.NewLine + msg,
-               LocalizationData.ScalesUI.Exception);
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
+                wpfPageLoader.MessageBox.Message = @$"{nameof(memberName)}: {memberName}. {nameof(lineNumber)}: {lineNumber}" + Environment.NewLine + msg;
+                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(owner);
             }
         }
 

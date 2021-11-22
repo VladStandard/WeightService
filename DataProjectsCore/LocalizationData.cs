@@ -407,20 +407,36 @@ namespace DataCore
         public static class ScalesUI
         {
             public static string Exception => Lang == ShareEnums.Lang.English ? @"Exception" : @"Ошибка";
+            public static string ExceptionSqlDb => Lang == ShareEnums.Lang.English ? @"The database is unavailable!" : @"База данных недоступна!";
             public static string Registration => Lang == ShareEnums.Lang.English ? @"Device registration" : @"Регистрация устройства";
+            public static string RegistrationWarning1(Guid uid) => Lang == ShareEnums.Lang.English 
+                ? @"The monoblock is registered in the information system with the identifier" + Environment.NewLine +
+                  $"{uid}" + Environment.NewLine +
+                  "Before restarting, map it to the current line in DeviceControl."
+                : "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
+                 $"{uid}" + Environment.NewLine +
+                  "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
+            public static string RegistrationWarning2(Guid uid) => Lang == ShareEnums.Lang.English 
+                ? $@"The monoblock is registered in the information system with the identifier {uid}" + Environment.NewLine +
+                    "Before restarting it, map it to the current line in DeviceControl"
+                : $@"Моноблок зарегистрирован в информационной системе с идентификатором {uid}" + Environment.NewLine +
+                    "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
             public static string OperationControl => Lang == ShareEnums.Lang.English ? @"Control of operations" : @"Контроль операций";
             public static readonly decimal MassaThreshold = 0.05M;
             public static string MassaCheck(decimal currentWeight) => Lang == ShareEnums.Lang.English 
                 ? @"Unload the weight platform!" + Environment.NewLine + Environment.NewLine +
                  $@"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine +
                  $@"Current gross value: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
-                  @"  Yes - ignore and continue." + Environment.NewLine +
-                  @"  No - suspend and unload."
+                 $@"  {Buttons.Yes} - ignore and continue." + Environment.NewLine +
+                 $@"  {Buttons.No} - suspend and unload."
                 : @"Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine +
                  $@"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + 
                  $@"Текущее значение брутто: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
-                  @"  Yes - игнорировать и продолжить." + Environment.NewLine +
-                  @"  No - приостановить и разгрузить.";
+                 $@"  {Buttons.Yes} - игнорировать и продолжить." + Environment.NewLine +
+                 $@"  {Buttons.No} - приостановить и разгрузить.";
+            public static string PrinterWarningOpenCover => Lang == ShareEnums.Lang.English 
+                ? @"Open the cover of the separator before proceeding with the calibration!"
+                : @"Прежде чем продолжить калибровку, откройте крышку отделителя!";
             public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English 
                 ? @"Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator."
                 : @"Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";

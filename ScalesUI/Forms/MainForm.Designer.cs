@@ -195,7 +195,7 @@
             this.fieldLang.Size = new System.Drawing.Size(112, 24);
             this.fieldLang.TabIndex = 56;
             this.fieldLang.Visible = false;
-            this.fieldLang.SelectedIndexChanged += new System.EventHandler(this.fieldLang_SelectedIndexChanged);
+            this.fieldLang.SelectedIndexChanged += new System.EventHandler(this.FieldLang_SelectedIndexChanged);
             this.fieldLang.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMassaQueriesProgress

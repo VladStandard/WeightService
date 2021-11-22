@@ -139,9 +139,13 @@ namespace ScalesUI.Forms
 
             if (_sessionState.CurrentPlu.CheckWeight == true && _sessionState.LabelsCount > 1)
             {
-                CustomMessageBox messageBox = new();
-                messageBox.Show(this, LocalizationData.ScalesUI.CheckPluWeightCount,
-                    LocalizationData.ScalesUI.OperationControl, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.CheckPluWeightCount;
+                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(this);
                 _sessionState.LabelsCount = 1;
             }
             fieldPalletSize.Text = _sessionState.LabelsCount.ToString();

@@ -334,7 +334,7 @@
             this.fieldComPort.Name = "fieldComPort";
             this.fieldComPort.Size = new System.Drawing.Size(166, 24);
             this.fieldComPort.TabIndex = 5;
-            this.fieldComPort.SelectedIndexChanged += new System.EventHandler(this.fieldComPort_SelectedIndexChanged);
+            this.fieldComPort.SelectedIndexChanged += new System.EventHandler(this.FieldComPort_SelectedIndexChanged);
             // 
             // fieldSendTimeout
             // 

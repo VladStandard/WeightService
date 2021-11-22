@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataProjectsCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.DAL.Utils;
@@ -28,16 +29,18 @@ namespace ScalesUI
         {
             try
             {
-                Guid uuid = HostsUtils.TokenWrite(conectionString);
-                CustomMessageBox messageBox = new();
-                messageBox.Show(null,
-                    "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
-                    $"{uuid}" + Environment.NewLine +
-                    "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
-                    LocalizationData.ScalesUI.Registration);
-                if (messageBox.Result == DialogResult.OK)
+                Guid uid = HostsUtils.TokenWrite(conectionString);
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Registration;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.RegistrationWarning1(uid);
+                wpfPageLoader.MessageBox.ButtonYesVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog();
+                if (wpfPageLoader.MessageBox.Result == DialogResult.OK)
                 {
-                    Clipboard.SetText($@"{uuid}");
+                    Clipboard.SetText($@"{uid}");
                     return;
                 }
             }
@@ -49,8 +52,13 @@ namespace ScalesUI
                                  ex.Message;
                 if (ex.InnerException != null)
                     message += Environment.NewLine + ex.InnerException;
-                CustomMessageBox messageBox = new();
-                messageBox.Show(null, message, LocalizationData.ScalesUI.Exception);
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
+                wpfPageLoader.MessageBox.Message = message;
+                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog();
             }
         }
 
@@ -66,8 +74,13 @@ namespace ScalesUI
             }
             catch (Exception ex)
             {
-                CustomMessageBox messageBox = new();
-                messageBox.Show(null, $"База данных недоступна. {ex.Message}", LocalizationData.ScalesUI.Exception);
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.ExceptionSqlDb + Environment.NewLine + Environment.NewLine + ex.Message;
+                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog();
                 throw new Exception(ex.Message);
             }
 
@@ -83,13 +96,14 @@ namespace ScalesUI
             // Exit.
             if (host.ScaleId == 0)
             {
-                CustomMessageBox messageBox = new();
-                messageBox.Show(null,
-                    "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
-                    $"{host.IdRRef}" + Environment.NewLine +
-                    "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.",
-                    LocalizationData.ScalesUI.Registration);
-                if (messageBox.Result == DialogResult.OK)
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Registration;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.RegistrationWarning2(host.IdRRef);
+                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog();
+                if (wpfPageLoader.MessageBox.Result == DialogResult.OK)
                 {
                     Clipboard.SetText($@"{host.IdRRef}");
                 }

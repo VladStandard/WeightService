@@ -419,16 +419,22 @@ namespace WeightCore.Helpers
 
             if (!isCheck)
             {
-                CustomMessageBox messageBox = new();
-                messageBox.Show(owner, LocalizationData.ScalesUI.WeightingControl + Environment.NewLine +
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message =
+                    LocalizationData.ScalesUI.WeightingControl + Environment.NewLine +
                     $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
                     $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
                     $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
                     $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
-                    "Для продолжения печати нажмите Ignore.",
-                    LocalizationData.ScalesUI.OperationControl,
-                    MessageBoxButtons.AbortRetryIgnore);
-                if (messageBox.Result != DialogResult.Ignore)
+                    "Для продолжения печати нажмите Ignore.";
+                wpfPageLoader.MessageBox.ButtonAbortVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.ButtonRetryVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(owner);
+                if (wpfPageLoader.MessageBox.Result != DialogResult.Ignore)
                     return;
             }
 

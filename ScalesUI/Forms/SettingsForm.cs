@@ -16,6 +16,8 @@ using WeightCore.Helpers;
 using WeightCore.Managers;
 using WeightCore.Zpl;
 using static DataShareCore.ShareEnums;
+using DataProjectsCore;
+using DataCore;
 
 namespace ScalesUI.Forms
 {
@@ -80,7 +82,7 @@ namespace ScalesUI.Forms
 
         #region Public and private methods
 
-        private void fieldComPort_SelectedIndexChanged(object sender, EventArgs e)
+        private void FieldComPort_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -204,14 +206,19 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void btnCalibrate_Click(object sender, EventArgs e)
+        private void BtnCalibrate_Click(object sender, EventArgs e)
         {
             try
             {
-                CustomMessageBox messageBox = new();
-                messageBox.Show(this, @"Прежде чем продолжить калибровку откройте крышку отделителя!",
-                    @"ВНИМАНИЕ!", MessageBoxButtons.RetryCancel);
-                if (messageBox.Result == DialogResult.Retry)
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.PrinterWarningOpenCover;
+                wpfPageLoader.MessageBox.ButtonRetryVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.ButtonCancelVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(this);
+                if (wpfPageLoader.MessageBox.Result == DialogResult.Retry)
                 {
                     UseWaitCursor = true;
                     Thread.Sleep(10);

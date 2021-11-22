@@ -3,41 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:dal="clr-namespace:DataProjectsCore.DAL;assembly=DataProjectsCore"
-    xmlns:pages="clr-namespace:WeightCore.XamlPages"
     mc:Ignorable="d" 
     d:DesignWidth="640" d:DesignHeight="300"
     Loaded="UserControl_Loaded" FontSize="20">
 
-    <UserControl.Resources>
-        <pages:MessageBoxHelper x:Key="MessageBox" />
-    </UserControl.Resources>
-    
-    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1"
-            KeyUp="Button_KeyUp"
-            BorderBrush="Blue" BorderThickness="1" Margin="2" >
-        <Grid DataContext="{DynamicResource MessageBox}" KeyUp="Button_KeyUp" Name="gridMain">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="4*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <TextBlock Margin="2" FontSize="30" KeyUp="Button_KeyUp" TextWrapping="Wrap" 
-                       Text="{Binding Path=Caption, Mode=OneWay, IsAsync=True}" 
-                       Background="AliceBlue"
-                       TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"
-                       ></TextBlock>
-
-            <TextBlock Margin="2" FontSize="30" KeyUp="Button_KeyUp" TextWrapping="Wrap" 
-                       Grid.Row="1"
-                       Text="{Binding Path=Message, Mode=OneWay, IsAsync=True}" 
-                       TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"
-                       ></TextBlock>
-
-        </Grid>
+    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Name="borderMain"
+            KeyUp="Button_KeyUp" BorderBrush="Blue" BorderThickness="1" Margin="2" >
     </Border>
 </UserControl>

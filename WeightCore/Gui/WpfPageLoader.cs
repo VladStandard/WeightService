@@ -3,8 +3,6 @@
 
 using DataProjectsCore;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -26,7 +24,7 @@ namespace WeightCore.Gui
         private PagePluList PluList { get; set; }
         public PageSqlSettings SqlSettings { get; private set; }
         public PageMessageBox PageMessageBoxItem { get; private set; }
-        public MessageBoxHelper MessageBox { get; } = MessageBoxHelper.Instance;
+        public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
 
         #endregion
 
@@ -103,6 +101,7 @@ namespace WeightCore.Gui
                         PageMessageBoxItem = new PageMessageBox();
                         PageMessageBoxItem.InitializeComponent();
                         ElementHost.Child = PageMessageBoxItem;
+                        PageMessageBoxItem.MessageBox = MessageBox;
                         PageMessageBoxItem.Loaded += MessageBoxOnLoaded;
                         _sessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;

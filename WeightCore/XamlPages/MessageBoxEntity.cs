@@ -3,20 +3,19 @@
 
 using DataCore;
 using MvvmHelpers;
-using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 
 namespace WeightCore.XamlPages
 {
-    public class MessageBoxHelper : BaseViewModel
+    public class MessageBoxEntity : BaseViewModel
     {
-        #region Design pattern "Lazy Singleton"
+        //#region Design pattern "Lazy Singleton"
 
-        private static MessageBoxHelper _instance;
-        public static MessageBoxHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+        //private static MessageBoxEntity _instance;
+        //public static MessageBoxEntity Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
-        #endregion
+        //#endregion
 
         #region Public and private fields and properties
 
@@ -50,6 +49,25 @@ namespace WeightCore.XamlPages
                 _result = value;
                 OnPropertyChanged();
             }
+        }
+
+        private ushort _fontSizeCaption;
+        public ushort FontSizeCaption
+        {
+            get { return _fontSizeCaption; }
+            set { _fontSizeCaption = value; }
+        }
+        private ushort _fontSizeMessage;
+        public ushort FontSizeMessage
+        {
+            get { return _fontSizeMessage; }
+            set { _fontSizeMessage = value; }
+        }
+        private ushort _fontSizeButton;
+        public ushort FontSizeButton
+        {
+            get { return _fontSizeButton; }
+            set { _fontSizeButton = value; }
         }
 
         private string _buttonYes;
@@ -198,10 +216,13 @@ namespace WeightCore.XamlPages
 
         #region Constructor and destructor
 
-        public MessageBoxHelper()
+        public MessageBoxEntity()
         {
             Caption = string.Empty;
             Message = string.Empty;
+            FontSizeCaption = 30;
+            FontSizeMessage = 26;
+            FontSizeButton = 22;
 
             Localization();
 

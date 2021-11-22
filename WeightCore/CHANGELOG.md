@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.850] - 2021-11-19
+## [0.5.860] - 2021-11-22
 ### Fixed
 - WS-T-29. WeightCore. XAML PageMessageBox
 
