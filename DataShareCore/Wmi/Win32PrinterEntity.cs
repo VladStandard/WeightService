@@ -74,7 +74,7 @@ namespace DataShareCore.Wmi
                 Win32PrinterStatusEnum.Idle => "Idle",
                 Win32PrinterStatusEnum.Paused => "Paused",
                 Win32PrinterStatusEnum.Error => "Error",
-                Win32PrinterStatusEnum.PendingDeletion => "Pending deletion",
+                Win32PrinterStatusEnum.PendingDeletion => "Waiting for printing", // "Pending deletion"
                 Win32PrinterStatusEnum.PaperJam => "Paper jam",
                 Win32PrinterStatusEnum.PaperOut => "Paper out",
                 Win32PrinterStatusEnum.ManualFeed => "Manual feed",

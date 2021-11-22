@@ -27,38 +27,28 @@ namespace WeightCore.Managers
         public string Peeler { get; private set; }
         public int UserLabelCount { get; private set; }
         public PrinterStatus CurrentStatus { get; private set; }
-        public Connection Con { get; private set; }
+        public Connection ZebraConnection { get; private set; }
         public BlockingCollection<string> Documents { get; private set; } = new();
         private ZebraPrinter _zebraPrinter;
-        public ZebraPrinter ZebraPrinter => _zebraPrinter ??= ZebraPrinterFactory.GetInstance(Con);
+        public ZebraPrinter ZebraPrinter => _zebraPrinter ??= ZebraPrinterFactory.GetInstance(ZebraConnection);
         public TscPrintControlHelper TscPrintControl = TscPrintControlHelper.Instance;
         private readonly WmiHelper _wmi = WmiHelper.Instance;
+        public bool IsTscPrinter { get; private set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        //public void Init(Connection connection, string name, string ip, int port,
-        //    int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
-        //{
-        //    if (IsInit)
-        //        return;
-        //    IsInit = true;
-        //    Init(waitReopen, waitResponse, waitRequest, waitClose, waitException);
-
-        //    Con = connection;
-        //    TscPrintControl.Init(name, ip, port);
-        //}
-
-        public void Init(string name, string ip, int port,
-            int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
+        public void Init(bool isTscPrinter, string name, string ip, int port, int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
         {
             if (IsInit)
                 return;
             IsInit = true;
+            IsTscPrinter = isTscPrinter;
             Init(waitReopen, waitResponse, waitRequest, waitClose, waitException);
 
-            Con = new TcpConnection(ip, port);
+            if (IsTscPrinter)
+                ZebraConnection = new TcpConnection(ip, port);
             TscPrintControl.Init(name, ip, port);
         }
 
@@ -68,16 +58,19 @@ namespace WeightCore.Managers
 
         public Win32PrinterEntity Win32Printer() => _wmi.GetWin32Printer(TscPrintControl.Name);
 
-        //public void Open(bool isTscPrinter, TscPrintControlHelper.Callback callbackPrintManagerClose)
-        public void Open(bool isTscPrinter)
+        public void Open()
         {
             lock (Locker)
             {
-                Con?.Open();
-                if (isTscPrinter)
+                if (IsTscPrinter)
+                {
                     OpenTsc();
+                }
                 else
+                {
+                    ZebraConnection?.Open();
                     OpenZebra();
+                }
             }
         }
 
@@ -85,7 +78,10 @@ namespace WeightCore.Managers
         {
             lock (Locker)
             {
-                Con?.Close();
+                if (!IsTscPrinter)
+                {
+                    ZebraConnection?.Close();
+                }
             }
         }
 
@@ -102,23 +98,20 @@ namespace WeightCore.Managers
         {
             try
             {
-                //lock (_locker)
+                if (Documents.Count > 0)
                 {
-                    if (Documents.Count > 0)
+                    CurrentStatus = ZebraPrinter.GetCurrentStatus();
+                    UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", ZebraPrinter.Connection));
+                    if (CurrentStatus.isReadyToPrint)
                     {
-                        CurrentStatus = ZebraPrinter.GetCurrentStatus();
-                        UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", ZebraPrinter.Connection));
-                        if (CurrentStatus.isReadyToPrint)
+                        Peeler = SGD.GET("sensor.peeler", ZebraPrinter.Connection);
+                        if (Peeler == "clear")
                         {
-                            Peeler = SGD.GET("sensor.peeler", ZebraPrinter.Connection);
-                            if (Peeler == "clear")
+                            foreach (string doc in Documents.GetConsumingEnumerable())
                             {
-                                foreach (string doc in Documents.GetConsumingEnumerable())
-                                {
-                                    //if (Documents.TryDequeue(out string doc))
-                                    string docReplace = doc.Replace("|", "\\&");
-                                    ZebraPrinter.SendCommand(docReplace);
-                                }
+                                //if (Documents.TryDequeue(out string doc))
+                                string docReplace = doc.Replace("|", "\\&");
+                                ZebraPrinter.SendCommand(docReplace);
                             }
                         }
                     }
@@ -136,18 +129,15 @@ namespace WeightCore.Managers
             UserLabelCount = 1;
             try
             {
-                //lock (_locker)
+                if (Documents.Count > 0)
                 {
-                    if (Documents.Count > 0)
+                    foreach (string doc in Documents.GetConsumingEnumerable())
                     {
-                        foreach (string doc in Documents.GetConsumingEnumerable())
+                        //if (Documents.TryDequeue(out string request))
+                        string docReplace = doc.Replace("|", "\\&");
+                        if (!docReplace.Equals("^XA~JA^XZ") && !docReplace.Contains("odometer.user_label_count"))
                         {
-                            //if (Documents.TryDequeue(out string request))
-                            string docReplace = doc.Replace("|", "\\&");
-                            if (!docReplace.Equals("^XA~JA^XZ") && !docReplace.Contains("odometer.user_label_count"))
-                            {
-                                TscPrintControl.CmdSendCustom(docReplace);
-                            }
+                            TscPrintControl.CmdSendCustom(docReplace);
                         }
                     }
                 }

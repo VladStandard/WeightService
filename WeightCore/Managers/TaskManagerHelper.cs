@@ -65,7 +65,7 @@ namespace WeightCore.Managers
         public bool IsExecutePrintRequest { get; private set; }
         public bool IsExecutePrintResponse { get; private set; }
         public string PrintManagerProgressString { get; set; }
-        private bool IsTscPrinter { get; set; }
+        public bool IsTscPrinter { get; private set; }
 
         // MemoryManager.
         public MemoryManagerHelper MemoryManager = MemoryManagerHelper.Instance;
@@ -114,24 +114,9 @@ namespace WeightCore.Managers
 
                 if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager))
                 {
-                    PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
+                    PrintManager.Init(IsTscPrinter, currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
                     TaskRunPrintManagerReopen();
                 }
-            }
-            catch (Exception ex)
-            {
-                _exception.Catch(null, ref ex);
-            }
-        }
-
-        public void OpenPrintManager(TscPrintControlHelper.Callback callbackPrintManagerClose,
-            SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
-        {
-            try
-            {
-                WaitSync(2_500);
-                IsTscPrinter = isTscPrinter;
-
             }
             catch (Exception ex)
             {
@@ -147,10 +132,12 @@ namespace WeightCore.Managers
                 IsExecuteMassaRequest = false;
                 IsExecuteMassaResponse = false;
                 IsExecuteMemoryReopen = false;
+                IsExecutePrintReopen = false;
                 System.Windows.Forms.Application.DoEvents();
 
                 MemoryManager.Close();
                 MassaManager.Close();
+                PrintManager.Close();
 
                 DebugLog($"{nameof(MemoryManager)} is closed");
                 DebugLog($"{nameof(MassaManager)} is closed");
@@ -307,7 +294,7 @@ namespace WeightCore.Managers
                     {
                         try
                         {
-                            PrintManager.Open(IsTscPrinter);
+                            PrintManager.Open();
                             await Task.Delay(TimeSpan.FromMilliseconds(PrintManager.WaitReopen)).ConfigureAwait(false);
                         }
                         catch (TaskCanceledException)

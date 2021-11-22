@@ -366,9 +366,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj">
       <Project>{afe4e2b7-d50d-4ceb-ba92-bbfd6116495f}</Project>

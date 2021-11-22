@@ -252,11 +252,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Win\Utils\Kernel32.cs" />
-    <Compile Include="Win\Utils\User32.cs" />
-    <Compile Include="Win\Utils\MessageBoxTimer.cs" />
-    <Compile Include="Win\Utils\MessageBoxTask.cs" />
-    <Compile Include="Win\Utils\Win32.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

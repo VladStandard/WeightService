@@ -55,9 +55,11 @@ namespace DataShareCore.Wmi
         {
             lock (Locker)
             {
+                if (string.IsNullOrEmpty(name))
+                    return new Win32PrinterEntity(name, string.Empty, string.Empty, string.Empty, string.Empty, Win32PrinterStatusEnum.Error);
                 // PowerShell: gwmi Win32_Printer | select DriverName, PortName, Status, PrinterState, PrinterStatus
                 // PowerShell: gwmi -query "select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name='SCALES-PRN-DEV'"
-                ObjectQuery wql = new("select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name = 'SCALES-PRN-DEV'");
+                ObjectQuery wql = new($"select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name = '{name}'");
                 ManagementObjectSearcher searcher = new(wql);
                 ManagementObjectCollection results = searcher.Get();
                 string driverName = string.Empty;
