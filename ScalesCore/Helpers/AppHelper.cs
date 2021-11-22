@@ -4,10 +4,7 @@
 using DataProjectsCore.DAL;
 using DataShareCore;
 using Microsoft.Data.SqlClient;
-using Microsoft.Win32;
 using MvvmHelpers;
-using ScalesCore.Properties;
-using ScalesCore.Win.Registry.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,18 +23,7 @@ namespace ScalesCore.Helpers
 
         private static readonly Lazy<AppHelper> _instance = new(() => new AppHelper());
         public static AppHelper Instance => _instance.Value;
-        private AppHelper() 
-        {
-            // Заполнить GUID из реестра.
-            GuidSetValue(_reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUI, "GUID"));
-        }
-
-        #endregion
-
-        #region Private fields and properties
-
-        // Помощник реестра.
-        private readonly RegistryHelper _reg = RegistryHelper.Instance;
+        private AppHelper() { }
 
         #endregion
 
@@ -47,34 +33,6 @@ namespace ScalesCore.Helpers
         /// Помощник SQL.
         /// </summary>
         public SqlHelper SqlHelp = SqlHelper.Instance;
-
-        private Guid _guidValue;
-        /// <summary>
-        /// Глобальный идентификатор.
-        /// </summary>
-        public Guid GuidValue
-        {
-            get => _guidValue;
-            set
-            {
-                _guidValue = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _guidStatus;
-        /// <summary>
-        /// Статус.
-        /// </summary>
-        public string GuidStatus
-        {
-            get => _guidStatus;
-            set
-            {
-                _guidStatus = value;
-                OnPropertyChanged();
-            }
-        }
 
         #endregion
 
@@ -202,23 +160,6 @@ namespace ScalesCore.Helpers
         }
 
         /// <summary>
-        /// Получить заголовок ПО.
-        /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="useShort"></param>
-        /// <param name="version"></param>
-        /// <param name="useGuid"></param>
-        /// <returns></returns>
-        public string GetMainFormText(Assembly assembly, bool useShort, Version version = null, bool useGuid = true)
-        {
-            string strGuid = useGuid ? $".GUID: { GuidToString() }" : string.Empty;
-            if (useShort)
-                return $@"{GetDescription(assembly)} {GetCurrentVersion(ShareEnums.AppVerCountDigits.Use3, null, version)}{strGuid}";
-            else
-                return $@"{GetDescription(assembly)}. {Assembly.GetExecutingAssembly().GetName().Name} {GetCurrentVersion(ShareEnums.AppVerCountDigits.Use3, null, version)}{strGuid}";
-        }
-
-        /// <summary>
         /// Задать новый размер формы.
         /// </summary>
         /// <param name="form"></param>
@@ -242,115 +183,9 @@ namespace ScalesCore.Helpers
 
         #region Public/Private methods - GUID
 
-        /// <summary>
-        /// Существует.
-        /// </summary>
-        /// <returns></returns>
-        public bool GuidExists()
-        {
-            bool defValue = GuidValue.ToString().Equals("00000000-0000-0000-0000-000000000000", StringComparison.InvariantCultureIgnoreCase);
-            if (GuidValue != null && !defValue)
-                return true;
-            return false;
-        }
-
-        /// <summary>
-        /// Создать.
-        /// </summary>
-        /// <returns></returns>
-        public Guid GuidCreate()
-        {
-            GuidValue = Guid.NewGuid();
-            return GuidValue;
-        }
-
-        /// <summary>
-        /// Задать значение.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public bool GuidSetValue(string value)
-        {
-            try
-            {
-                bool result = Guid.TryParse(value, out Guid guid);
-                GuidValue = guid;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                GuidStatus = $@"Ошибка назначения GUID! {ex.Message}";
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// В строку.
-        /// </summary>
-        /// <returns></returns>
-        public string GuidToString()
-        {
-            return GuidValue.ToString().ToUpper();
-        }
-
-        #endregion
-
-        #region Public methods - ScalesUI
-
-        /// <summary>
-        /// Сохранить настройки GUID в реестре.
-        /// </summary>
-        public void GuidRegSave()
-        {
-            _reg.CreateParameter(_reg.Root, Settings.Default.RegScalesUI, "GUID");
-            _reg.SetValue(_reg.Root, Settings.Default.RegScalesUI, "GUID", GuidToString(), RegistryValueKind.String);
-        }
-
-        /// <summary>
-        /// Каталог установки.
-        /// </summary>
-        public string InstallDir
-        {
-            get => _reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUI, "INSTALLDIR");
-            set
-            {
-                // Создать разделы реестра.
-                if (!_reg.Exists(_reg.Root, Settings.Default.RegVladimirStandardCorp))
-                    _reg.CreateSubKey(_reg.Root, Settings.Default.RegVladimirStandardCorp);
-                if (!_reg.Exists(_reg.Root, Settings.Default.RegScalesUI))
-                    _reg.CreateSubKey(_reg.Root, Settings.Default.RegScalesUI);
-                if (!_reg.Exists(_reg.Root, Settings.Default.RegScalesUISql))
-                    _reg.CreateSubKey(_reg.Root, Settings.Default.RegScalesUISql);
-                // Создать параметр.
-                if (!_reg.Exists(_reg.Root, Settings.Default.RegScalesUI, "INSTALLDIR"))
-                    _reg.CreateParameter(_reg.Root, Settings.Default.RegScalesUI, "INSTALLDIR");
-                // Записать новое значение.
-                if (value.EndsWith(@"\"))
-                    value = value.Substring(0, value.Length - 1);
-                _reg.SetValue(_reg.Root, Settings.Default.RegScalesUI, "INSTALLDIR", value, RegistryValueKind.String);
-            }
-        }
-
         #endregion
 
         #region Public methods - SQL
-
-        /// <summary>
-        /// Сохранить настройки SQL в реестре.
-        /// </summary>
-        public void SqlRegSave()
-        {
-            _reg.CreateParameter(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.Server));
-            _reg.SetValue(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.Server), SqlHelp.Authentication.Server, RegistryValueKind.String);
-            _reg.CreateParameter(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.Database));
-            _reg.SetValue(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.Database), SqlHelp.Authentication.Database, RegistryValueKind.String);
-            _reg.CreateParameter(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.UserId));
-            _reg.SetValue(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.UserId), SqlHelp.Authentication.UserId, RegistryValueKind.String);
-            _reg.CreateParameter(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.Password));
-            _reg.SetValue(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.Password), SqlHelp.Authentication.Password, RegistryValueKind.String);
-            _reg.CreateParameter(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.IntegratedSecurity));
-            _reg.SetValue(_reg.Root, Settings.Default.RegScalesUISql, nameof(SqlHelp.Authentication.IntegratedSecurity), SqlHelp.Authentication.IntegratedSecurity, RegistryValueKind.String);
-        }
 
         /// <summary>
         /// Проверить SQL-подключение.

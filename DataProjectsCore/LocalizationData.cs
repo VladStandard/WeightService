@@ -453,6 +453,8 @@ namespace DataCore
                 : @"Весовая продукция может быть указана в количестве 1 штуки.";
             public static string Labels => Lang == ShareEnums.Lang.English ? @"Labels" : @"Этикетки";
             public static string Printer => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
+            public static string PrinterAvailable => Lang == ShareEnums.Lang.English ? @"available" : @"доступен";
+            public static string PrinterUnavailable => Lang == ShareEnums.Lang.English ? @"unavailable" : @"не доступен";
             public static string Memory => Lang == ShareEnums.Lang.English ? @"Memory" : @"Память";
             public static string MemoryPhysical => Lang == ShareEnums.Lang.English ? @"Physical memory" : @"Физическая память";
             public static string MemoryVirtual => Lang == ShareEnums.Lang.English ? @"Virtual memory" : @"Виртуальная память";
@@ -460,7 +462,9 @@ namespace DataCore
             public static string Plu => Lang == ShareEnums.Lang.English ? @"PLU" : @"PLU";
             public static string PluCount => Lang == ShareEnums.Lang.English ? @"PLU (count)" : @"PLU (шт)";
             public static string PluWeight => Lang == ShareEnums.Lang.English ? @"PLU (weight)" : @"PLU (вес)";
+            public static string UnitPcs => Lang == ShareEnums.Lang.English ? @"pcs." : @"шт.";
             public static string UnitKg => Lang == ShareEnums.Lang.English ? @"kg" : @"кг";
+            public static string UnitWeight => Lang == ShareEnums.Lang.English ? @"weight" : @"вес";
             public static string ComPortState => Lang == ShareEnums.Lang.English ? @"COM-port status" : @"Состояние COM-порта";
             public static string ScaleQueue => Lang == ShareEnums.Lang.English ? @"Scales message queue" : @"Очередь сообщений весов";
             public static string RequestParameters => Lang == ShareEnums.Lang.English ? @"Request parameters" : @"Запрос параметров";

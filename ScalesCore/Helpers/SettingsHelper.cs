@@ -3,9 +3,6 @@
 
 using DataProjectsCore;
 using DataShareCore;
-using Microsoft.Win32;
-using ScalesCore.Properties;
-using ScalesCore.Win.Registry.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -40,8 +37,6 @@ namespace ScalesCore.Helpers
         private readonly CollectionsHelper _collections = CollectionsHelper.Instance;
         // Помощник процессов.
         private readonly ProcHelper _proc = ProcHelper.Instance;
-        // Помощник реестра.
-        private readonly RegistryHelper _reg = RegistryHelper.Instance;
         // Помощник Windows.
         private readonly WinHelper _win = WinHelper.Instance;
         // Помощник инфо Windows.
@@ -76,27 +71,7 @@ namespace ScalesCore.Helpers
         /// </summary>
         public string DirManuals { get; set; }
 
-        /// <summary>
-        /// Язык локализации.
-        /// </summary>
-        public ShareEnums.Lang CurrentLanguage
-        {
-            get
-            {
-                string lang = _reg.GetValue<string>(_reg.Root, Settings.Default.RegScalesUI, "Language");
-                switch (lang)
-                {
-                    case "Russian":
-                        return ShareEnums.Lang.Russian;
-                }
-                return ShareEnums.Lang.English;
-            }
-            set
-            {
-                _reg.CreateParameter(_reg.Root, Settings.Default.RegScalesUI, "Language");
-                _reg.SetValue(_reg.Root, Settings.Default.RegScalesUI, "Language", value, RegistryValueKind.String);
-            }
-        }
+        public ShareEnums.Lang CurrentLanguage { get; set; } = ShareEnums.Lang.Russian;
 
         /// <summary>
         /// Исходный каталог документации.

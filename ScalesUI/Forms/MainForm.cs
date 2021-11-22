@@ -219,12 +219,10 @@ namespace ScalesUI.Forms
 
         private void ScheduleEverySeconds()
         {
-            //if (_sessionState.ProductDate.Date < DateTime.Now.Date && !_sessionState.IsChangedProductDate)
-            //    _sessionState.ProductDate = DateTime.Now;
-            ScheduleProduct();
-            SchedulePrint();
-            ScheduleMemoryManager();
             ScheduleMassaManager();
+            ScheduleMemoryManager();
+            SchedulePrint();
+            ScheduleProduct();
         }
 
         private void ScheduleProduct()
@@ -236,7 +234,8 @@ namespace ScalesUI.Forms
             if (!Equals(buttonPrint.Enabled, _sessionState.CurrentPlu != null))
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _sessionState.CurrentPlu != null);
 
-            string strCheckWeight = _sessionState.CurrentPlu?.CheckWeight == true ? "вес" : "шт";
+            string strCheckWeight = _sessionState.CurrentPlu?.CheckWeight == true 
+                ? LocalizationData.ScalesUI.UnitWeight : LocalizationData.ScalesUI.UnitPcs;
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, _sessionState.CurrentPlu != null
                 ? $"{_sessionState.CurrentPlu.PLU} | {strCheckWeight} | {_sessionState.CurrentPlu.GoodsName}" : string.Empty);
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, _sessionState.CurrentPlu != null
@@ -265,7 +264,6 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, 
                 $"{LocalizationData.ScalesUI.Labels}: {_sessionState.LabelsCurrent} / {_sessionState.LabelsCount}");
 
-            // надо переприсвоить т.к. на CurrentBox сделан Notify чтоб выводить на экран
             _sessionState.LabelsCurrent = _sessionState.TaskManager.PrintManager.UserLabelCount < _sessionState.LabelsCount
                 ? _sessionState.TaskManager.PrintManager.UserLabelCount : _sessionState.LabelsCount;
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
@@ -290,8 +288,10 @@ namespace ScalesUI.Forms
                 if (_sessionState.TaskManager.PrintManager.CurrentStatus != null)
                 {
                     MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _sessionState.TaskManager.PrintManager.CurrentStatus.isReadyToPrint
-                        ? $"{LocalizationData.ScalesUI.Printer} {_sessionState.CurrentScale.ZebraPrinter.Ip}: доступен {_sessionState.TaskManager.PrintManagerProgressString}"
-                        : $"{LocalizationData.ScalesUI.Printer} {_sessionState.CurrentScale.ZebraPrinter.Ip}: недоступен {_sessionState.TaskManager.PrintManagerProgressString}");
+                        ? $"{LocalizationData.ScalesUI.Printer} {_sessionState.CurrentScale.ZebraPrinter.Ip}: " +
+                          $"{LocalizationData.ScalesUI.PrinterAvailable} {_sessionState.TaskManager.PrintManagerProgressString}"
+                        : $"{LocalizationData.ScalesUI.Printer} {_sessionState.CurrentScale.ZebraPrinter.Ip}: " +
+                          $"{LocalizationData.ScalesUI.PrinterUnavailable} {_sessionState.TaskManager.PrintManagerProgressString}");
                 }
             }
             _sessionState.TaskManager.PrintManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.PrintManagerProgressString);
@@ -368,9 +368,6 @@ namespace ScalesUI.Forms
             }
         }
 
-        /// <summary>
-        /// Schedule - Request parameters.
-        /// </summary>
         private void ScheduleMassaManagerRequestGetScalePar()
         {
             if (_sessionState.TaskManager.MassaManager.ResponseParseScalePar == null)
@@ -386,9 +383,6 @@ namespace ScalesUI.Forms
             }
         }
 
-        /// <summary>
-        /// Schedule - Сообщение взвешивания.
-        /// </summary>
         private void ScheduleMassaManagerResponseGetMassa()
         {
             if (_sessionState.TaskManager.MassaManager.ResponseParseGet == null)
@@ -410,9 +404,6 @@ namespace ScalesUI.Forms
             }
         }
 
-        /// <summary>
-        /// Schedule - Состояние запроса к весам.
-        /// </summary>
         private void ScheduleMassaManagerResponseSetAll()
         {
             if (_sessionState.TaskManager.MassaManager.ResponseParseSet == null)

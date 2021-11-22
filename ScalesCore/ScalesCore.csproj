@@ -229,8 +229,6 @@
     <Compile Include="Models\SqlAuthentication.cs" />
     <Compile Include="Models\SqlTableField.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
-    <Compile Include="Win\Registry\Entities\Enums.cs" />
-    <Compile Include="Win\Registry\Entities\Record.cs" />
     <Compile Include="Models\ResultWmiSoftware.cs" />
     <Compile Include="Models\ResultXmlRead.cs" />
     <Compile Include="Models\XmlTag.cs" />
@@ -240,10 +238,8 @@
     <Compile Include="Helpers\HardwareHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\UacHelper.cs" />
-    <Compile Include="Win\Registry\Utils\Constants.cs" />
     <Compile Include="Helpers\WinHelper.cs" />
     <Compile Include="Helpers\WinInfoHelper.cs" />
-    <Compile Include="Win\Registry\Helpers\RegistryHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -256,7 +252,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Win\Registry\Utils\RegistryUtils.cs" />
     <Compile Include="Win\Utils\Kernel32.cs" />
     <Compile Include="Win\Utils\User32.cs" />
     <Compile Include="Win\Utils\MessageBoxTimer.cs" />

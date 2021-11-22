@@ -94,7 +94,6 @@
     <Compile Include="Helpers\HardwareHelperTests.cs" />
     <Compile Include="Models\SqlAuthenticationTests.cs" />
     <Compile Include="Models\SqlTableFieldTests.cs" />
-    <Compile Include="Helpers\RegistryHelperTests.cs" />
     <Compile Include="Helpers\SettingsHelperTests.cs" />
     <Compile Include="Helpers\WinHelperTests.cs" />
     <Compile Include="Helpers\XmlHelperTests.cs" />

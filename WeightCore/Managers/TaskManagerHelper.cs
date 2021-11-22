@@ -98,10 +98,7 @@ namespace WeightCore.Managers
                 WaitSync(2_500);
                 IsTscPrinter = isTscPrinter;
 
-                bool taskEnabled = false;
-
-                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager);
-                if (taskEnabled)
+                if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager))
                 {
                     MassaManager.Init(currentScale.DeviceComPort, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
                     TaskRunMassaManagerReopen();
@@ -109,15 +106,13 @@ namespace WeightCore.Managers
                     TaskRunMassaManagerResponse();
                 }
 
-                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager);
-                if (taskEnabled)
+                if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
                 {
                     MemoryManager.Init();
                     TaskRunMemoryManagerReopen();
                 }
 
-                taskEnabled = sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager);
-                if (taskEnabled)
+                if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.PrintManager))
                 {
                     PrintManager.Init(currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
                     TaskRunPrintManagerReopen();
