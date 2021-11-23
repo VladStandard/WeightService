@@ -120,7 +120,8 @@ namespace DataShareCore
             Plu,
             Marked,
             GoodsName,
-            WeithingDate
+            WeithingDate,
+            CodeInIs
         }
 
         public enum DbOrderDirection

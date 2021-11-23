@@ -1,6 +1,6 @@
 ﻿@page "/sectionpage"
-@using DataCore.DAL.TableModels
-@inherits BaseRazorIdEntity
+@using DataProjectsCore.DAL.TableModels
+@inherits BlazorProjectsCore.Models.BaseRazorIdEntity
 
 @*
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
@@ -25,7 +25,7 @@
                     {
                         switch (Table)
                         {
-                            case EnumTableScale.Contragents:
+                            case ProjectsEnums.TableScale.Contragents:
                                 List<ContragentEntity> contragentsEntities = new List<ContragentEntity>();
                                 foreach (BaseIdEntity entity in Items)
                                 {
@@ -43,7 +43,7 @@
                                     </Columns>
                                 </RadzenGrid>
                                 break;
-                            case EnumTableScale.ProductSeries:
+                            case ProjectsEnums.TableScale.ProductSeries:
                                 List<ProductSeriesEntity> productSeries = new List<ProductSeriesEntity>();
                                 foreach (BaseIdEntity entity in Items)
                                 {
@@ -74,7 +74,7 @@
             <RadzenTabsItem Text=@LocalizationStrings.Share.Chart>
                 @switch (Table)
                 {
-                    case EnumTableScale.Contragents:
+                    case ProjectsEnums.TableScale.Contragents:
                         @if (ContragentsChartCreated == null || ContragentsChartCreated.Length == 0 ||
                     ContragentsChartModified == null || ContragentsChartModified.Length == 0)
                         {
@@ -106,7 +106,7 @@
                             </RadzenChart>
                         }
                         break;
-                    case EnumTableScale.Nomenclatures:
+                    case ProjectsEnums.TableScale.Nomenclatures:
                         @if (NomenclaturesChartCreated == null || NomenclaturesChartCreated.Length == 0 ||
                     NomenclaturesChartModified == null || NomenclaturesChartModified.Length == 0)
                         {

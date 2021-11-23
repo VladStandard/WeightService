@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using DataProjectsCore.DAL.TableDwhModels;
+using DataShareCore;
 using MdmControlBlazor.Utils;
 using MdmControlCore;
-using MdmControlCore.DAL;
-using MdmControlCore.DAL.TableModels;
 using MdmControlCore.Utils;
 using Microsoft.AspNetCore.Components;
 using Toolbelt.Blazor.HotKeys;
@@ -72,25 +72,25 @@ namespace MdmControlBlazor.Components
         private void GetData()
         {
             Item = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-            { { EnumField.Id.ToString(), ItemId } }), null);
+            { { ShareEnums.DbField.Id.ToString(), ItemId } }), null);
 
             BrandEntities = BlazorSettings.SqlDataAccess.BrandCrud.GetEntities(null,
-                new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 
             InformationSystemEntities = BlazorSettings.SqlDataAccess.InformationSystemCrud.GetEntities(null,
-                new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 
             NomenclatureGroupEntities = BlazorSettings.SqlDataAccess.NomenclatureGroupCrud.GetEntities(null,
-                new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 
             NomenclatureGroupCostEntities = BlazorSettings.SqlDataAccess.NomenclatureGroupCrud.GetEntities(null,
-                new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 
             NomenclatureTypeEntities = BlazorSettings.SqlDataAccess.NomenclatureTypeCrud.GetEntities(null,
-                new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 
             StatusEntities = BlazorSettings.SqlDataAccess.StatusCrud.GetEntities(null,
-                new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 
             RelevanceStatuses = UtilsEnum.GetEnumRelevenaceStatusesRus();
             NormilizationStatuses = UtilsEnum.GetEnumNormilizationStatusesRus();
@@ -112,7 +112,7 @@ namespace MdmControlBlazor.Components
                     if (value is int idBrand)
                     {
                         Item.Brand = BlazorSettings.SqlDataAccess.BrandCrud.GetEntity(
-                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idBrand } }), null);
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idBrand } }), null);
                         Item.BrandBytes = Item.Brand.CodeInIs;
                     }
                     break;
@@ -120,7 +120,7 @@ namespace MdmControlBlazor.Components
                     if (value is int idNomenclatureGroup)
                     {
                         Item.NomenclatureGroup = BlazorSettings.SqlDataAccess.NomenclatureGroupCrud.GetEntity(
-                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idNomenclatureGroup } }), null);
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclatureGroup } }), null);
                         Item.NomenclatureGroupBytes = Item.NomenclatureGroup.CodeInIs;
                     }
                     break;
@@ -128,7 +128,7 @@ namespace MdmControlBlazor.Components
                     if (value is int idNomenclatureGroupCost)
                     {
                         Item.NomenclatureGroupCost = BlazorSettings.SqlDataAccess.NomenclatureGroupCrud.GetEntity(
-                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idNomenclatureGroupCost } }), null);
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclatureGroupCost } }), null);
                         Item.NomenclatureGroupCostBytes = Item.NomenclatureGroupCost.CodeInIs;
                     }
                     break;
@@ -136,7 +136,7 @@ namespace MdmControlBlazor.Components
                     if (value is int idNomenclatureTypes)
                     {
                         Item.NomenclatureType = BlazorSettings.SqlDataAccess.NomenclatureTypeCrud.GetEntity(
-                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idNomenclatureTypes } }), null);
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclatureTypes } }), null);
                         Item.NomenclatureTypeBytes = Item.NomenclatureType.CodeInIs;
                     }
                     break;
@@ -144,14 +144,14 @@ namespace MdmControlBlazor.Components
                     if (value is int idStatus)
                     {
                         Item.Status = BlazorSettings.SqlDataAccess.StatusCrud.GetEntity(
-                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idStatus } }), null);
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idStatus } }), null);
                     }
                     break;
                 case "InformationSystems":
                     if (value is int idInformationSystem)
                     {
                         Item.InformationSystem = BlazorSettings.SqlDataAccess.InformationSystemCrud.GetEntity(
-                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idInformationSystem } }), null);
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idInformationSystem } }), null);
                     }
                     break;
                 case "RelevanceStatuses":
@@ -208,16 +208,16 @@ namespace MdmControlBlazor.Components
                 new List<Task> { task }, GuiRefreshAsync);
         }
 
-        private void ActionEdit(EnumTable table, NomenclatureEntity entity, string page, bool isNewWindow)
+        private void ActionEdit(ShareEnums.TableDwh table, NomenclatureEntity entity, string page, bool isNewWindow)
         {
             if (entity == null || entity.EqualsDefault())
                 return;
-            BlazorSettings.ActionAsync(table, EnumTableAction.Edit, entity, page, isNewWindow).ConfigureAwait(true);
+            BlazorSettings.ActionAsync(table, ShareEnums.DbTableAction.Edit, entity, page, isNewWindow).ConfigureAwait(true);
         }
 
         private async Task ActionEditAsync(NomenclatureEntity entity, bool isNewWindow)
         {
-            Task task = new Task(() => { ActionEdit(EnumTable.Nomenclature, entity, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
+            Task task = new Task(() => { ActionEdit(ShareEnums.TableDwh.Nomenclature, entity, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
             await BlazorSettings.RunTasksWithQeustion(LocalizationStrings.TableEdit,
                 LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
                 new List<Task> { task }, GuiRefreshAsync, entity?.Name).ConfigureAwait(false);

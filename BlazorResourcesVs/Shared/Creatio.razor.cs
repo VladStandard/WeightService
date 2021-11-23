@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorResourcesVs.Data;
+using DataCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,9 +32,9 @@ namespace BlazorResourcesVs.Shared
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             var sites = new List<WebSiteEntity>
             {
-                new WebSiteEntity(LocalizationStrings.Resources.CreatioCreDevDmName, LocalizationStrings.Resources.CreatioCreDevDmLink, LocalizationStrings.Resources.CreatioCreDevDmDev),
-                new WebSiteEntity(LocalizationStrings.Resources.CreatioCreDevIaName, LocalizationStrings.Resources.CreatioCreDevIaLink, LocalizationStrings.Resources.CreatioCreDevIaDev),
-                new WebSiteEntity(LocalizationStrings.Resources.CreatioCreTestName, LocalizationStrings.Resources.CreatioCreTestLink, LocalizationStrings.Resources.CreatioCreTestDev),
+                new WebSiteEntity(LocalizationData.Resources.CreatioCreDevDmName, LocalizationData.Resources.CreatioCreDevDmLink, LocalizationData.Resources.CreatioCreDevDmDev),
+                new WebSiteEntity(LocalizationData.Resources.CreatioCreDevIaName, LocalizationData.Resources.CreatioCreDevIaLink, LocalizationData.Resources.CreatioCreDevIaDev),
+                new WebSiteEntity(LocalizationData.Resources.CreatioCreTestName, LocalizationData.Resources.CreatioCreTestLink, LocalizationData.Resources.CreatioCreTestDev),
             };
             LocalSites = sites;
         }

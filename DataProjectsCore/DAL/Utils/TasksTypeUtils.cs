@@ -19,7 +19,7 @@ namespace DataProjectsCore.DAL.Utils
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                StringUtils.SetStringValueTrim(ref taskTypeName, 32);
+                DataShareCore.Utils.StringUtils.SetStringValueTrim(ref taskTypeName, 32);
                 using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTaskTypeUid))
                 {
                     cmd.Connection = con;

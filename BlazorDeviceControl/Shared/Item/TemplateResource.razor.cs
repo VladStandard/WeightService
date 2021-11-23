@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Radzen;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataProjectsCore;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -43,13 +44,13 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.TemplateResources);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplateResources);
                         TemplateResourcesItem = null;
                         ResourceTypes = null;
                         await GuiRefreshWithWaitAsync();
 
                         TemplateResourcesItem = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { EnumField.Id.ToString(), Id } }), null);
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
                         await GuiRefreshWithWaitAsync();
                     }),

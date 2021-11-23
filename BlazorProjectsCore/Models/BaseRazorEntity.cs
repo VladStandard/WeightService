@@ -118,7 +118,7 @@ namespace BlazorProjectsCore.Models
                                 if (value is int idScale)
                                 {
                                     //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
-                                    //    new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idScale } }),
+                                    //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
                                     //    null);
                                 }
                                 break;
@@ -126,7 +126,7 @@ namespace BlazorProjectsCore.Models
                                 if (value is int idNomenclature)
                                 {
                                     //PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
-                                    //    new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idNomenclature } }),
+                                    //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
                                     //    null);
                                 }
                                 break;
@@ -138,7 +138,7 @@ namespace BlazorProjectsCore.Models
                                     //else
                                     //{
                                     //    PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
-                                    //        new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idTemplate } }),
+                                    //        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
                                     //        null);
                                     //}
                                 }
@@ -924,7 +924,7 @@ namespace BlazorProjectsCore.Models
                         //int idLast = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(
                         //    new FieldListEntity(new Dictionary<string, object>
                         //        { { "Printer.Id", printerResourceItem.Printer.Id }}),
-                        //    new FieldOrderEntity(EnumField.Id, EnumOrderDirection.Desc)).Id;
+                        //    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                         //printerResourceItem.Id = idLast + 1;
                         AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(item);
                     }

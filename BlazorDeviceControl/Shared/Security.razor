@@ -1,6 +1,7 @@
 ﻿@page "/security"
-@using DataCore.Utils
-@inherits BaseRazorIdEntity
+@using DataCore
+@using DataShareCore.Utils
+@inherits BlazorProjectsCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
@@ -12,5 +13,5 @@
 }
 else
 {
-    <RadzenLabel Text=@LocalizationCore.Strings.MenuAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@DataShareCore.LocalizationCore.Strings.MenuAccessDeny></RadzenLabel>
 }

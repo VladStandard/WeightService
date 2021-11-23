@@ -20,7 +20,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.Plus);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
                         IdItem = null;
                         Items = null;
                         ItemsCount = 0;
@@ -30,9 +30,9 @@ namespace BlazorDeviceControl.Shared.Section
                             new FieldListEntity(
                                 new Dictionary<string, object> {
                                     { "Scale.Id", ScaleId },
-                                    { EnumField.Marked.ToString(), false },
+                                    { ShareEnums.DbField.Marked.ToString(), false },
                             }),
-                            new FieldOrderEntity(EnumField.GoodsName, EnumOrderDirection.Asc))
+                            new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))
                             .ToList();
                         ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();

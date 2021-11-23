@@ -1,6 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataProjectsCore.Models;
+using DataShareCore;
+using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace BlazorDeviceControl.Shared.Section
 {
     public partial class BarcodeTypes
@@ -19,7 +29,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.Printers);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
                         IdItem = null;
                         Items = null;
                         ItemsCount = 0;
@@ -27,7 +37,7 @@ namespace BlazorDeviceControl.Shared.Section
 
                         Items = AppSettings.DataAccess.BarcodeTypesCrud.GetEntities(
                             null,
-                            new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc))
+                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                             .ToList();
                         ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();

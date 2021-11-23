@@ -1,12 +1,14 @@
 ﻿@page "/section/weithingfacts"
 @using BlazorProjectsCore
+@using DataCore
 @using DataProjectsCore
 @using DataProjectsCore.DAL.DataModels
 @using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
-@inherits             BaseRazorEntity
+@using DataShareCore
+@inherits BlazorProjectsCore.Models.BaseRazorEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
@@ -38,7 +40,7 @@
     </RadzenGrid>
     @if (Items == null)
     {
-        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
     }
     else
     {

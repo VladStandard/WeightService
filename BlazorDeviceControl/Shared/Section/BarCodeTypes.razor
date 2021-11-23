@@ -7,7 +7,7 @@
 @using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
-@inherits BaseRazorIdEntity
+@inherits BlazorProjectsCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
@@ -32,7 +32,7 @@
     </RadzenGrid>
     @if (Items == null)
     {
-        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
     }
     else
     {

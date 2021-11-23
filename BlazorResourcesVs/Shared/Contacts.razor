@@ -1,11 +1,12 @@
 ﻿@page "/contacts"
+@using DataCore
 
 <h2>
-    <RadzenLabel Text="@LocalizationStrings.Resources.ContactsTitle" />
+    <RadzenLabel Text="@LocalizationData.Resources.ContactsTitle" />
 </h2>
 
 <body>
-<RadzenLink Icon="account_box" Path="@LocalizationStrings.Resources.ContactsPhonePath" Text="@LocalizationStrings.Resources.ContactsPhoneText" />
+<RadzenLink Icon="account_box" Path="@LocalizationData.Resources.ContactsPhonePath" Text="@LocalizationData.Resources.ContactsPhoneText" />
 <br />
-<RadzenLink Icon="account_box" Path="@LocalizationStrings.Resources.ContactsCreatioPath" Text="@LocalizationStrings.Resources.ContactsCreatioText" />
+<RadzenLink Icon="account_box" Path="@LocalizationData.Resources.ContactsCreatioPath" Text="@LocalizationData.Resources.ContactsCreatioText" />
 </body>

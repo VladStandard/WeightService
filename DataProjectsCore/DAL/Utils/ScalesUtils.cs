@@ -18,7 +18,7 @@ namespace DataProjectsCore.DAL.Utils
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                StringUtils.SetStringValueTrim(ref scaleName, 150);
+                DataShareCore.Utils.StringUtils.SetStringValueTrim(ref scaleName, 150);
                 using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Scales.GetScaleId))
                 {
                     cmd.Connection = con;
@@ -124,14 +124,14 @@ namespace DataProjectsCore.DAL.Utils
             SqlParameter[] parameters = new SqlParameter[] { 
                 new SqlParameter("@ID", System.Data.SqlDbType.Int) { Value = scale.Id },
                 new SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 150) { Value = scale.Description },
-                //new SqlParameter("@IP", System.Data.SqlDbType.VarChar, 15) { Value = StringUtils.GetStringNullValueTrim(scale.DeviceIP, 15) },
+                //new SqlParameter("@IP", System.Data.SqlDbType.VarChar, 15) { Value = DataShareCore.Utils.StringUtils.GetStringNullValueTrim(scale.DeviceIP, 15) },
                 new SqlParameter("@Port", System.Data.SqlDbType.SmallInt) { Value = scale.DevicePort },
-                //new SqlParameter("@MAC", System.Data.SqlDbType.VarChar, 35) { Value = StringUtils.GetStringNullValueTrim(scale.DeviceMac, 35) },
+                //new SqlParameter("@MAC", System.Data.SqlDbType.VarChar, 35) { Value = DataShareCore.Utils.StringUtils.GetStringNullValueTrim(scale.DeviceMac, 35) },
                 new SqlParameter("@SendTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceSendTimeout },
                 new SqlParameter("@ReceiveTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceReceiveTimeout },
-                new SqlParameter("@ComPort", System.Data.SqlDbType.VarChar, 5) { Value = StringUtils.GetStringNullValueTrim(scale.DeviceComPort, 5) },
+                new SqlParameter("@ComPort", System.Data.SqlDbType.VarChar, 5) { Value = DataShareCore.Utils.StringUtils.GetStringNullValueTrim(scale.DeviceComPort, 5) },
                 new SqlParameter("@UseOrder", System.Data.SqlDbType.SmallInt) { Value = scale.UseOrder == true ? 1 : 0 },
-                new SqlParameter("@VerScalesUI", System.Data.SqlDbType.VarChar, 30) { Value = StringUtils.GetStringNullValueTrim(scale.VerScalesUI, 30) },
+                new SqlParameter("@VerScalesUI", System.Data.SqlDbType.VarChar, 30) { Value = DataShareCore.Utils.StringUtils.GetStringNullValueTrim(scale.VerScalesUI, 30) },
                 new SqlParameter("@ScaleFactor", System.Data.SqlDbType.Int) { Value = scale.ScaleFactor },
             };
             SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbScales.Tables.Scales.UpdateScaleDirect, parameters);

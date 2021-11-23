@@ -1,6 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
+using DataProjectsCore.DAL;
+using DataProjectsCore.DAL.DataModels;
+using DataProjectsCore.Models;
+using DataShareCore;
+using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace BlazorDeviceControl.Shared.Section
 {
     public partial class WeithingFacts
@@ -19,13 +29,14 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.WeithingFacts);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
                         SetItem();
                         Items = null;
                         ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
-                        object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetWeithingFacts, string.Empty, 0, string.Empty);
+                        object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(
+                            SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts, string.Empty, 0, string.Empty);
                         Items = new List<WeithingFactSummaryEntity>();
                         foreach (object obj in objects)
                         {

@@ -4,12 +4,13 @@
 @using DataProjectsCore
 @using DataProjectsCore.Utils
 @using DataCore
+@using DataShareCore
 @inherits BaseRazorEntity
 
 <MudElement HtmlTag="h3" Class="ma-0">
     @if (Items == null)
     {
-        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
     }
     else
     {

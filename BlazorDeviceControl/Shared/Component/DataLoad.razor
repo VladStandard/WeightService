@@ -7,7 +7,7 @@
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-        @if (DataLoadItem == EnumDataLoad.None)
+        @if (DataLoadItem == ShareEnums.DataLoad.None)
         {
             @if (IsShowProgress)
             {
@@ -21,22 +21,22 @@
         {
             @switch (DataLoadItem)
             {
-                case EnumDataLoad.Loading:
+                case ShareEnums.DataLoad.Loading:
                     <RadzenLabel 
                         Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
-                        Text=@LocalizationCore.Strings.DataLoading 
+                        Text=@LocalizationCore.Strings.Main.DataLoading
                     />
                     break;
-                case EnumDataLoad.Success:
+                case ShareEnums.DataLoad.Success:
                     <RadzenLabel 
                         Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
-                        Text=@LocalizationCore.Strings.DataLoadComplete 
+                        Text=@LocalizationCore.Strings.Main.DataLoadComplete 
                     />
                     break;
-                case EnumDataLoad.Error:
+                case ShareEnums.DataLoad.Error:
                     <RadzenLabel 
                         Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
-                        Text=@LocalizationCore.Strings.DataLoadError 
+                        Text=@LocalizationCore.Strings.Main.DataLoadError
                     />
                     break;
             }

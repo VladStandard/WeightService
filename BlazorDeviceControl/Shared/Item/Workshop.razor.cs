@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorProjectsCore.Models;
+using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
@@ -34,13 +35,13 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.Printers);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
                         WorkshopItem = null;
                         ProductionFacilityEntities = null;
                         await GuiRefreshWithWaitAsync();
 
                         WorkshopItem = AppSettings.DataAccess.WorkshopsCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { EnumField.Id.ToString(), Id } }), null);
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         ProductionFacilityEntities = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null).ToList();
                         await GuiRefreshWithWaitAsync();
                     }),
@@ -105,7 +106,7 @@ namespace BlazorDeviceControl.Shared.Item
                         else
                         {
                             WorkshopItem.ProductionFacility = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity(
-                                new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), id } }),
+                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
                             null);
                         }
                     }

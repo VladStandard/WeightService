@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataProjectsCore.DAL.TableDwhModels;
 using MdmControlBlazor.Utils;
-using MdmControlCore;
-using MdmControlCore.DAL;
-using MdmControlCore.DAL.TableModels;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using Toolbelt.Blazor.HotKeys;
@@ -59,8 +57,8 @@ namespace MdmControlBlazor.Components
         private async Task HotKeysRAsync()
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            await GetDataAsync(EnumTable.NomenclatureMaster).ConfigureAwait(false);
-            await GetDataAsync(EnumTable.NomenclatureNonNormalize).ConfigureAwait(false);
+            await GetDataAsync(ShareEnums.TableDwh.NomenclatureMaster).ConfigureAwait(false);
+            await GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(false);
         }
 
         #endregion
@@ -91,31 +89,31 @@ namespace MdmControlBlazor.Components
         {
             await base.SetParametersAsync(parameters);
 
-            await GetDataAsync(EnumTable.NomenclatureMaster).ConfigureAwait(false);
-            await GetDataAsync(EnumTable.NomenclatureNonNormalize).ConfigureAwait(false);
+            await GetDataAsync(ShareEnums.TableDwh.NomenclatureMaster).ConfigureAwait(false);
+            await GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(false);
         }
 
-        private void RowSelect(EnumTable table, NomenclatureLightEntity entity)
+        private void RowSelect(ShareEnums.TableDwh table, NomenclatureLightEntity entity)
         {
             switch (table)
             {
-                case EnumTable.NomenclatureMaster:
+                case ShareEnums.TableDwh.NomenclatureMaster:
                     ItemMaster = entity;
                     break;
-                case EnumTable.NomenclatureNonNormalize:
+                case ShareEnums.TableDwh.NomenclatureNonNormalize:
                     ItemNonNormilize = entity;
                     break;
             }
         }
 
-        private async Task RowSelectAsync(EnumTable table, NomenclatureLightEntity entity)
+        private async Task RowSelectAsync(ShareEnums.TableDwh table, NomenclatureLightEntity entity)
         {
             Task task = new Task(() => RowSelect(table, entity));
             await BlazorSettings.RunTasks(LocalizationStrings.TableSelect, "", LocalizationStrings.DialogResultFail, "",
                 new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
         }
 
-        private async Task RowDoubleClickAsync(EnumTable table, NomenclatureLightEntity entity, bool isNewWindow)
+        private async Task RowDoubleClickAsync(ShareEnums.TableDwh table, NomenclatureLightEntity entity, bool isNewWindow)
         {
             Task task = new Task(() => ActionEditAsync(table, entity, isNewWindow).ConfigureAwait(false));
             await BlazorSettings.RunTasks(LocalizationStrings.TableEdit, "", LocalizationStrings.DialogResultFail, "",
@@ -126,10 +124,10 @@ namespace MdmControlBlazor.Components
         {
             ItemMaster = null;
             ItemsMaster = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<string, object>{
-            { EnumField.IsProduct.ToString(), true },
+            { ShareEnums.DbField.IsProduct.ToString(), true },
             { "InformationSystem.Id", 7 },
             }),
-                new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
         }
 
         private void GetDataNonNormilise()
@@ -138,28 +136,28 @@ namespace MdmControlBlazor.Components
             ItemsNonNormilize = new List<NomenclatureLightEntity>();
             if (UseIsProductNonNormilize)
                 ItemsNonNormilize = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<string, object>{
-                { EnumField.IsProduct.ToString(), true },
-                { EnumField.MasterId.ToString(), null },
+                { ShareEnums.DbField.IsProduct.ToString(), true },
+                { ShareEnums.DbField.MasterId.ToString(), null },
                 }),
-                    new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                    new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
             else
                 ItemsNonNormilize = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<string, object>{
-                { EnumField.MasterId.ToString(), null },
+                { ShareEnums.DbField.MasterId.ToString(), null },
                 }),
-                    new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                    new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
         }
 
-        private async Task GetDataAsync(EnumTable table)
+        private async Task GetDataAsync(ShareEnums.TableDwh table)
         {
             switch (table)
             {
-                case EnumTable.NomenclatureMaster:
+                case ShareEnums.TableDwh.NomenclatureMaster:
                     Task taskMaster = new Task(GetDataMaster);
                     await BlazorSettings.RunTasks(LocalizationStrings.TableMasterRead,
                         LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
                         new List<Task> { taskMaster }, GuiRefreshAsync);
                     break;
-                case EnumTable.NomenclatureNonNormalize:
+                case ShareEnums.TableDwh.NomenclatureNonNormalize:
                     Task taskNonNormalize = new Task(GetDataNonNormilise);
                     await BlazorSettings.RunTasks(LocalizationStrings.TableNonNormalizeRead,
                         LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
@@ -168,20 +166,20 @@ namespace MdmControlBlazor.Components
             }
         }
 
-        private void ClearEntity(EnumTable table)
+        private void ClearEntity(ShareEnums.TableDwh table)
         {
             switch (table)
             {
-                case EnumTable.NomenclatureMaster:
+                case ShareEnums.TableDwh.NomenclatureMaster:
                     ItemMaster = null;
                     break;
-                case EnumTable.NomenclatureNonNormalize:
+                case ShareEnums.TableDwh.NomenclatureNonNormalize:
                     ItemNonNormilize = null;
                     break;
             }
         }
 
-        private async Task ClearEntityAsync(EnumTable table)
+        private async Task ClearEntityAsync(ShareEnums.TableDwh table)
         {
             Task task = new Task(() => ClearEntity(table));
             await BlazorSettings.RunTasks(LocalizationStrings.TableMasterClear,
@@ -197,22 +195,22 @@ namespace MdmControlBlazor.Components
                 "execute [MDM].[NomenclatureUpdateRelevance] :Id, :Value",
                 new Dictionary<string, object> { { "Id", entity.Id }, { "Value", relevance } });
 
-            GetDataAsync(EnumTable.NomenclatureNonNormalize).ConfigureAwait(true);
+            GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(true);
         }
 
-        private async Task SetEntityRelevanceAsync(EnumTable table, short? relevance)
+        private async Task SetEntityRelevanceAsync(ShareEnums.TableDwh table, short? relevance)
         {
             Task task = null;
             switch (table)
             {
-                case EnumTable.NomenclatureMaster:
+                case ShareEnums.TableDwh.NomenclatureMaster:
                     task = new Task(() => SetEntityRelevance(ItemMaster, relevance));
                     await BlazorSettings.RunTasksWithQeustion(relevance == 1 ? LocalizationStrings.TableMasterSetRelevanceTrue : LocalizationStrings.TableMasterSetRelevanceFalse,
                         "", LocalizationStrings.DialogResultFail, "",
                         new List<Task> { task }, GuiRefreshAsync, ItemMaster.Name)
                         .ConfigureAwait(false);
                     break;
-                case EnumTable.NomenclatureNonNormalize:
+                case ShareEnums.TableDwh.NomenclatureNonNormalize:
                     task = new Task(() => SetEntityRelevance(ItemNonNormilize, relevance));
                     await BlazorSettings.RunTasksWithQeustion(relevance == 1 ? LocalizationStrings.TableNonNormalizeSetRelevanceTrue : LocalizationStrings.TableNonNormalizeSetRelevanceFalse,
                         "", LocalizationStrings.DialogResultFail, "",
@@ -222,22 +220,22 @@ namespace MdmControlBlazor.Components
             }
         }
 
-        private async Task ActionEditAsync(EnumTable table, NomenclatureLightEntity entity, bool isNewWindow)
+        private async Task ActionEditAsync(ShareEnums.TableDwh table, NomenclatureLightEntity entity, bool isNewWindow)
         {
             Task task = null;
             string title = string.Empty;
             switch (table)
             {
-                case EnumTable.NomenclatureMaster:
+                case ShareEnums.TableDwh.NomenclatureMaster:
                     task = new Task(() => {
-                        BlazorSettings.ActionAsync(table, EnumTableAction.Edit, entity, LocalizationStrings.UriRouteNomenclatureMaster, isNewWindow)
+                        BlazorSettings.ActionAsync(table, ShareEnums.DbTableAction.Edit, entity, LocalizationStrings.UriRouteNomenclatureMaster, isNewWindow)
                             .ConfigureAwait(true);
                     });
                     title = LocalizationStrings.TableMasterEdit;
                     break;
-                case EnumTable.NomenclatureNonNormalize:
+                case ShareEnums.TableDwh.NomenclatureNonNormalize:
                     task = new Task(() => {
-                        BlazorSettings.ActionAsync(table, EnumTableAction.Edit, entity, LocalizationStrings.UriRouteNomenclatureNonNormilise, isNewWindow)
+                        BlazorSettings.ActionAsync(table, ShareEnums.DbTableAction.Edit, entity, LocalizationStrings.UriRouteNomenclatureNonNormilise, isNewWindow)
                             .ConfigureAwait(true);
                     });
                     title = LocalizationStrings.TableNonNormalizeEdit;
@@ -249,7 +247,7 @@ namespace MdmControlBlazor.Components
 
         private async Task ActionMasterEditAsync()
         {
-            await ActionEditAsync(EnumTable.NomenclatureMaster, ItemMaster, true);
+            await ActionEditAsync(ShareEnums.TableDwh.NomenclatureMaster, ItemMaster, true);
         }
 
         private void MasterRecordCreate()
@@ -260,8 +258,8 @@ namespace MdmControlBlazor.Components
                 "execute [MDM].[NomenclatureMasterRowMake] :Id",
                 new Dictionary<string, object> { { "Id", ItemNonNormilize.Id } });
 
-            GetDataAsync(EnumTable.NomenclatureMaster).ConfigureAwait(true);
-            GetDataAsync(EnumTable.NomenclatureNonNormalize).ConfigureAwait(true);
+            GetDataAsync(ShareEnums.TableDwh.NomenclatureMaster).ConfigureAwait(true);
+            GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(true);
         }
 
         private async Task MasterRecordCreateAsync()
@@ -280,8 +278,8 @@ namespace MdmControlBlazor.Components
                 "execute [MDM].[NomenclatureMasterRowRemove] :MasterId",
                 new Dictionary<string, object> { { "MasterId", ItemMaster.MasterId } });
 
-            GetDataAsync(EnumTable.NomenclatureMaster).ConfigureAwait(true);
-            GetDataAsync(EnumTable.NomenclatureNonNormalize).ConfigureAwait(true);
+            GetDataAsync(ShareEnums.TableDwh.NomenclatureMaster).ConfigureAwait(true);
+            GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(true);
         }
 
         private async Task MasterRecordDeleteAsync()
@@ -307,8 +305,8 @@ namespace MdmControlBlazor.Components
         { "MasterId", ItemMaster.Id },
                 });
 
-            GetDataAsync(EnumTable.NomenclatureMaster).ConfigureAwait(true);
-            GetDataAsync(EnumTable.NomenclatureNonNormalize).ConfigureAwait(true);
+            GetDataAsync(ShareEnums.TableDwh.NomenclatureMaster).ConfigureAwait(true);
+            GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(true);
             Notification.Notify(NotificationSeverity.Info, storeEntityMaster.Name);
 
             ItemMaster = storeEntityMaster;
@@ -328,7 +326,7 @@ namespace MdmControlBlazor.Components
 
             Task task = new Task(() => {
                 UseIsProductNonNormilize = !UseIsProductNonNormilize;
-                GetDataAsync(EnumTable.NomenclatureNonNormalize).ConfigureAwait(true);
+                GetDataAsync(ShareEnums.TableDwh.NomenclatureNonNormalize).ConfigureAwait(true);
             });
             await BlazorSettings.RunTasksWithQeustion(UseIsProductNonNormilize
                 ? LocalizationStrings.TableNonNormalizeSetIsProductFalse

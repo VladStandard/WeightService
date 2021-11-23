@@ -4,7 +4,6 @@
 using System;
 using System.Threading.Tasks;
 using MdmControlBlazor.Utils;
-using MdmControlCore.Utils;
 using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
 using Toolbelt.Blazor.HotKeys;
@@ -19,7 +18,7 @@ namespace MdmControlBlazor.Shared
                 ? "Промышленный сервер" : "Сервер разработки";
         private bool IsSqlServerRelease => JsonAppSettings.Server.Contains(LocalizationStrings.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
         private string MemoryInfo => BlazorSettings.Memory != null
-            ? $"{LocalizationStrings.MemoryUsed}: {BlazorSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {UtilsDt.FormatCurDtRus(true)}"
+            ? $"{LocalizationStrings.MemoryUsed}: {BlazorSettings.Memory.MemorySize.Physical.MegaBytes:N0} MB  |  {DataShareCore.Utils.StringUtils.FormatCurDtRus(true)}"
             : $"{LocalizationStrings.MemoryUsed}: - MB";
         private string AuthMessage => BlazorSettings.Identity != null ? BlazorSettings.Identity.Name : @"User error!";
 

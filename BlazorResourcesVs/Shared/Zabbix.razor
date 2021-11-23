@@ -1,13 +1,14 @@
 ﻿@page "/zabbix"
+@using DataCore
 
 <h2>
-    <RadzenLabel Text="@LocalizationStrings.Resources.ZabbixTitle" />
+    <RadzenLabel Text="@LocalizationData.Resources.ZabbixTitle" />
 </h2>
 
 <body>
-    <RadzenLink Icon="task_alt" Path="@LocalizationStrings.Resources.ZabbixKolbasaPath" Text="@LocalizationStrings.Resources.ZabbixKolbasaText" />
+    <RadzenLink Icon="task_alt" Path="@LocalizationData.Resources.ZabbixKolbasaPath" Text="@LocalizationData.Resources.ZabbixKolbasaText" />
     <br />
-    <RadzenLink Icon="task_alt" Path="@LocalizationStrings.Resources.ZabbixGlobalPath" Text="@LocalizationStrings.Resources.ZabbixGlobalText" />
+    <RadzenLink Icon="task_alt" Path="@LocalizationData.Resources.ZabbixGlobalPath" Text="@LocalizationData.Resources.ZabbixGlobalText" />
     <br />
-    <RadzenLink Icon="task_alt" Path="@LocalizationStrings.Resources.ZabbixWebPath" Text="@LocalizationStrings.Resources.ZabbixWebText" />
+    <RadzenLink Icon="task_alt" Path="@LocalizationData.Resources.ZabbixWebPath" Text="@LocalizationData.Resources.ZabbixWebText" />
 </body>

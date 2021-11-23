@@ -180,10 +180,10 @@ namespace ScalesUI.Forms
                 }
                 else
                 {
-                    using PasswordForm pinForm = new() { TopMost = !_debug.IsDebug };
-                    if (pinForm.ShowDialog() == DialogResult.OK)
+                    using PasswordForm passwordForm = new() { TopMost = !_debug.IsDebug };
+                    if (passwordForm.ShowDialog() == DialogResult.OK)
                     {
-                        pinForm.Close();
+                        passwordForm.Close();
                         isClose = true;
                     }
                     else isClose = false;
@@ -294,7 +294,7 @@ namespace ScalesUI.Forms
                           $"{LocalizationData.ScalesUI.PrinterUnavailable} {_sessionState.TaskManager.PrintManagerProgressString}");
                 }
             }
-            _sessionState.TaskManager.PrintManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.PrintManagerProgressString);
+            _sessionState.TaskManager.PrintManagerProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.TaskManager.PrintManagerProgressString);
         }
 
         private void ScheduleMemoryManager()
@@ -315,7 +315,7 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMemoryProgress,
                     (int)(_sessionState.TaskManager.MemoryManager.MemorySize.PhysicalTotal.MegaBytes -
                     _sessionState.TaskManager.MemoryManager.MemorySize.PhysicalFree.MegaBytes));
-                _sessionState.TaskManager.MemoryManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MemoryManagerProgressString);
+                _sessionState.TaskManager.MemoryManagerProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.TaskManager.MemoryManagerProgressString);
             }
         }
 
@@ -341,7 +341,7 @@ namespace ScalesUI.Forms
                   $"{LocalizationData.ScalesUI.UnitKg} {_sessionState.TaskManager.MassaManagerProgressString}"
                 : $"{LocalizationData.ScalesUI.WeightingStable}: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} " +
                   $"{LocalizationData.ScalesUI.UnitKg} {_sessionState.TaskManager.MassaManagerProgressString}");
-            _sessionState.TaskManager.MassaManagerProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaManagerProgressString);
+            _sessionState.TaskManager.MassaManagerProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.TaskManager.MassaManagerProgressString);
             // Состояние COM-порта.
             if (_sessionState.TaskManager.MassaManager.MassaDevice != null)
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.MassaDevice.IsConnected
@@ -358,7 +358,7 @@ namespace ScalesUI.Forms
             // Очередь сообщений весов.
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries,
                 $"{LocalizationData.ScalesUI.ScaleQueue}: {_sessionState.TaskManager.MassaManager.Requests.Count} {_sessionState.TaskManager.MassaQueriesProgressString}");
-            _sessionState.TaskManager.MassaQueriesProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaQueriesProgressString);
+            _sessionState.TaskManager.MassaQueriesProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.TaskManager.MassaQueriesProgressString);
             MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, _sessionState.TaskManager.MassaManager.Requests.Count);
 
             if (!flag)
@@ -400,7 +400,7 @@ namespace ScalesUI.Forms
                     (_sessionState.TaskManager.MassaManager.ResponseParseGet.IsValidAll
                     ? $"{LocalizationData.ScalesUI.StateCorrect} {_sessionState.TaskManager.MassaRequestProgressString}" 
                     : $"{LocalizationData.ScalesUI.StateError}! {_sessionState.TaskManager.MassaRequestProgressString}"));
-                _sessionState.TaskManager.MassaRequestProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaRequestProgressString);
+                _sessionState.TaskManager.MassaRequestProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.TaskManager.MassaRequestProgressString);
             }
         }
 
@@ -421,7 +421,7 @@ namespace ScalesUI.Forms
                     (_sessionState.TaskManager.MassaManager.ResponseParseSet.IsValidAll
                     ? $"{LocalizationData.ScalesUI.StateCorrect} {_sessionState.TaskManager.MassaResponseProgressString}"
                     : $"{LocalizationData.ScalesUI.StateError}! {_sessionState.TaskManager.MassaResponseProgressString}"));
-                _sessionState.TaskManager.MassaResponseProgressString = StringUtils.GetProgressString(_sessionState.TaskManager.MassaResponseProgressString);
+                _sessionState.TaskManager.MassaResponseProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.TaskManager.MassaResponseProgressString);
             }
         }
 
@@ -472,10 +472,10 @@ namespace ScalesUI.Forms
                 _sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
 
-                using PasswordForm pinForm = new() { TopMost = !_debug.IsDebug };
-                if (pinForm.ShowDialog() == DialogResult.OK)
+                using PasswordForm passwordForm = new() { TopMost = !_debug.IsDebug };
+                if (passwordForm.ShowDialog() == DialogResult.OK)
                 {
-                    pinForm.Close();
+                    passwordForm.Close();
                     OpenFormSettings();
                 }
             }
@@ -838,6 +838,15 @@ namespace ScalesUI.Forms
 
         private void ButtonRunScalesTerminal_Click(object sender, EventArgs e)
         {
+            // Pin-code.
+            using PasswordForm passwordForm = new() { TopMost = !_debug.IsDebug };
+            if (passwordForm.ShowDialog() != DialogResult.OK)
+            {
+                passwordForm.Close();
+                return;
+            }
+            else
+                passwordForm.Close();
             try
             {
                 // WPF MessageBox.
@@ -849,15 +858,6 @@ namespace ScalesUI.Forms
                 wpfPageLoader.ShowDialog(this);
                 if (wpfPageLoader.MessageBox.Result != DialogResult.Yes)
                     return;
-                // Pin-code.
-                using PasswordForm pinForm = new() { TopMost = !_debug.IsDebug };
-                if (pinForm.ShowDialog() != DialogResult.OK)
-                {
-                    pinForm.Close();
-                    return;
-                }
-                else
-                    pinForm.Close();
                 // Wait.
                 _sessionState.TaskManager.WaitSync(2_500);
                 // Run app.

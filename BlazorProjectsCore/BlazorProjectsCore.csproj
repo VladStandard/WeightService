@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <FileVersion>0.5.800</FileVersion>
     <AssemblyVersion>0.5.800</AssemblyVersion>
   </PropertyGroup>
@@ -16,10 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BlazorShareCore\BlazorShareCore.csproj" />
     <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Utils\" />
   </ItemGroup>
 
   <PropertyGroup>

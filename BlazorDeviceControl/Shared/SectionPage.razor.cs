@@ -1,6 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorShareCore.Models;
+using DataShareCore;
+using DataShareCore.DAL.Models;
+using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
+
 namespace BlazorDeviceControl.Shared
 {
     public partial class SectionPage
@@ -21,21 +27,21 @@ namespace BlazorDeviceControl.Shared
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
-            //if (parameters.TryGetValue("Table", out EnumTableScale table)) { Table = table; }
+            //if (parameters.TryGetValue("Table", out ProjectsEnums.TableScale table)) { Table = table; }
 
             await GetDataAsync(new Task(delegate
             {
                 Items = null;
 
                 // ChartDataCreated.
-                ContragentsChartCreated = GetContragentsChartEntities(EnumField.CreateDate);
+                ContragentsChartCreated = GetContragentsChartEntities(ShareEnums.DbField.CreateDate);
                 // ChartDataModified.
-                ContragentsChartModified = GetContragentsChartEntities(EnumField.ModifiedDate);
+                ContragentsChartModified = GetContragentsChartEntities(ShareEnums.DbField.ModifiedDate);
 
                 // ChartDataCreated.
-                NomenclaturesChartCreated = GetNomenclaturesChartEntities(EnumField.CreateDate);
+                NomenclaturesChartCreated = GetNomenclaturesChartEntities(ShareEnums.DbField.CreateDate);
                 // ChartDataModified.
-                NomenclaturesChartModified = GetNomenclaturesChartEntities(EnumField.ModifiedDate);
+                NomenclaturesChartModified = GetNomenclaturesChartEntities(ShareEnums.DbField.ModifiedDate);
             }), false).ConfigureAwait(false);
         }
 

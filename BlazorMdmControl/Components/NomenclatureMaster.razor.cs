@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataProjectsCore.DAL.TableDwhModels;
 using MdmControlBlazor.Utils;
-using MdmControlCore;
-using MdmControlCore.DAL;
-using MdmControlCore.DAL.TableModels;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using Toolbelt.Blazor.HotKeys;
@@ -74,10 +72,10 @@ namespace MdmControlBlazor.Components
         private void GetData()
         {
             IncludeEntities = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<string, object> {
-            //{ EnumField.IsProduct.ToString(), true },
-            { EnumField.MasterId.ToString(), ItemId },
+            //{ ShareEnums.DbField.IsProduct.ToString(), true },
+            { ShareEnums.DbField.MasterId.ToString(), ItemId },
         }),
-                new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc), 0);
+                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
             IncludeEntities = IncludeEntities.Select(x => x).Where(x => x.MasterId != x.Id && x.InformationSystem.Id != 7).ToArray();
         }
 
@@ -113,16 +111,16 @@ namespace MdmControlBlazor.Components
                 new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
         }
 
-        private void ActionEdit(EnumTable table, NomenclatureEntity entity, string page, bool isNewWindow)
+        private void ActionEdit(ShareEnums.TableDwh table, NomenclatureEntity entity, string page, bool isNewWindow)
         {
             if (entity == null || entity.EqualsDefault())
                 return;
-            BlazorSettings.ActionAsync(table, EnumTableAction.Edit, entity, page, isNewWindow).ConfigureAwait(true);
+            BlazorSettings.ActionAsync(table, ShareEnums.DbTableAction.Edit, entity, page, isNewWindow).ConfigureAwait(true);
         }
 
         private async Task ActionEditAsync(NomenclatureEntity entity, bool isNewWindow)
         {
-            Task task = new Task(() => { ActionEdit(EnumTable.Nomenclature, entity, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
+            Task task = new Task(() => { ActionEdit(ShareEnums.TableDwh.Nomenclature, entity, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
             await BlazorSettings.RunTasksWithQeustion(LocalizationStrings.TableEdit,
                 LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
                 new List<Task> { task }, GuiRefreshAsync, entity?.Name).ConfigureAwait(false);

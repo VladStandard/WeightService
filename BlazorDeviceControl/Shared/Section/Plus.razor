@@ -5,7 +5,7 @@
 @using DataProjectsCore.DAL.TableModels
 @using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
-@inherits BaseRazorIdEntity
+@inherits BlazorProjectsCore.Models.BaseRazorIdEntity
 @inject IDialogService DialogService
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
@@ -66,7 +66,7 @@
     </RadzenGrid>
     @if (Items == null)
     {
-        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
     }
     else
     {

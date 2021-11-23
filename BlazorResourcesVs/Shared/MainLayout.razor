@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using DataCore
+@inherits LayoutComponentBase
 
 <RadzenDialog />
 <RadzenNotification />
@@ -12,8 +13,8 @@
     
     <div class="main">
         <div class="top-row px-4 auth">
-            <RadzenLink Icon="email" Text="@LocalizationStrings.Share.CallbackTitle" 
-                Path="@LocalizationStrings.Resources.CallbackEmail" />
+            <RadzenLink Icon="email" Text="@LocalizationData.Share.CallbackTitle" 
+                Path="@LocalizationData.Resources.CallbackEmail" />
         </div>
 
         <div class="content px-4">

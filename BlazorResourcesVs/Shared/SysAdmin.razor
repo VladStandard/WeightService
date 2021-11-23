@@ -1,11 +1,12 @@
 ﻿@page "/sysadmin"
+@using DataCore
 
 <h2>
-    <RadzenLabel Text="@LocalizationStrings.Resources.SysAdmin" />
+    <RadzenLabel Text="@LocalizationData.Resources.SysAdmin" />
 </h2>
 
 <body>
-<RadzenLink Icon="account_box" Path="@LocalizationStrings.Resources.ContactsPhoneText" Text="@LocalizationStrings.Resources.ContactsPhoneText" />
+<RadzenLink Icon="account_box" Path="@LocalizationData.Resources.ContactsPhoneText" Text="@LocalizationData.Resources.ContactsPhoneText" />
 <br />
-<RadzenLink Icon="account_box" Path="@LocalizationStrings.Resources.ContactsCreatioText" Text="@LocalizationStrings.Resources.ContactsCreatioText" />
+<RadzenLink Icon="account_box" Path="@LocalizationData.Resources.ContactsCreatioText" Text="@LocalizationData.Resources.ContactsCreatioText" />
 </body>

@@ -1,12 +1,14 @@
 ﻿@page "/item/printertype"
 @page "/item/printertype/{Id:int}"
 @using BlazorProjectsCore
+@using DataCore
 @using DataProjectsCore
 @using DataProjectsCore.DAL.TableModels
 @using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
-@inherits BaseRazorIdEntity
+@using DataShareCore
+@inherits BlazorProjectsCore.Models.BaseRazorIdEntity
 @inject IDialogService DialogService
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
@@ -14,17 +16,17 @@
     <DataReload Title=@LocalizationData.DeviceControl.ItemPrinterType SetParameters=@SetParametersAsync />
     @if (Item == null)
     {
-        <DataLoad DataLoadItem=EnumDataLoad.Loading IsShowProgress=true />
+        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
     }
     else
     {
         <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
             <thead>
                 <tr>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.RecordName</th>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.RecordValue</th>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.RecordName</th>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.RecordValue</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
                 </tr>
             </thead>
             <tbody>

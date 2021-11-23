@@ -1,6 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorDownloadFile;
+using DataProjectsCore.DAL.TableScaleModels;
+using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace BlazorDeviceControl.Service
 {
     public class FileDownload : IFileDownload

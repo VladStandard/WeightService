@@ -1,13 +1,21 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
+using DataShareCore;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
 namespace BlazorDeviceControl.Shared
 {
     public partial class EntityPage
     {
         #region Public and private fields and properties
 
-        [Parameter] public EnumTableAction TableAction { get; set; }
+        [Parameter] public ShareEnums.DbTableAction TableAction { get; set; }
         [Parameter] public EventCallback CallbackActionSaveAsync { get; set; }
         [Parameter] public EventCallback CallbackActionCancelAsync { get; set; }
 
@@ -22,34 +30,34 @@ namespace BlazorDeviceControl.Shared
             //bool success = true;
             //    switch (Table)
             //    {
-            //        case EnumTableScale.Hosts:
+            //        case ProjectsEnums.TableScale.Hosts:
             //            HostEntity hosts = (HostEntity)Item;
             //            hosts.CreateDate ??= DateTime.Now;
             //            hosts.ModifiedDate = DateTime.Now;
-            //            if (TableAction == EnumTableAction.Add)
+            //            if (TableAction == ShareEnums.DbTableAction.Add)
             //                AppSettings.DataAccess.HostsCrud.SaveEntity(hosts);
             //            else
             //                AppSettings.DataAccess.HostsCrud.UpdateEntity(hosts);
             //            break;
-            //        case EnumTableScale.Contragents:
+            //        case ProjectsEnums.TableScale.Contragents:
             //            ContragentEntity contragents = (ContragentEntity)Item;
             //            contragents.CreateDate ??= DateTime.Now;
             //            contragents.ModifiedDate = DateTime.Now;
-            //            if (TableAction == EnumTableAction.Add)
+            //            if (TableAction == ShareEnums.DbTableAction.Add)
             //                AppSettings.DataAccess.ContragentsCrud.SaveEntity(contragents);
             //            else
             //                AppSettings.DataAccess.ContragentsCrud.UpdateEntity(contragents);
             //            break;
-            //        case EnumTableScale.Nomenclatures:
+            //        case ProjectsEnums.TableScale.Nomenclatures:
             //            NomenclatureEntity nomenclature = (NomenclatureEntity)Item;
             //            nomenclature.CreateDate ??= DateTime.Now;
             //            nomenclature.ModifiedDate = DateTime.Now;
-            //            if (TableAction == EnumTableAction.Add)
+            //            if (TableAction == ShareEnums.DbTableAction.Add)
             //                AppSettings.DataAccess.NomenclaturesCrud.SaveEntity(nomenclature);
             //            else
             //                AppSettings.DataAccess.NomenclaturesCrud.UpdateEntity(nomenclature);
             //            break;
-            //        case EnumTableScale.Plus:
+            //        case ProjectsEnums.TableScale.Plus:
             //            PluEntity plu = (PluEntity)Item;
             //            plu.ModifiedDate = DateTime.Now;
             //            success = FieldControlDeny(plu.Scale, "Устройство");
@@ -64,7 +72,7 @@ namespace BlazorDeviceControl.Shared
             //                    new FieldListEntity(new Dictionary<string, object>
             //                    {
             //                    { "Scale.Id", plu.Scale.Id },
-            //                    { EnumField.Plu.ToString(), plu.Plu },
+            //                    { ShareEnums.DbField.Plu.ToString(), plu.Plu },
             //                                                        }),
             //                    null);
             //                if (pluEntities.Any() && !pluEntities.Where(x => x.Id.Equals(Item.Id)).Select(x => x).Any())
@@ -80,40 +88,40 @@ namespace BlazorDeviceControl.Shared
             //                }
             //                else
             //                {
-            //                    if (TableAction == EnumTableAction.Add)
+            //                    if (TableAction == ShareEnums.DbTableAction.Add)
             //                        AppSettings.DataAccess.PlusCrud.SaveEntity(plu);
             //                    else
             //                        AppSettings.DataAccess.PlusCrud.UpdateEntity(plu);
             //                }
             //            }
             //            break;
-            //        case EnumTableScale.ProductionFacilities:
+            //        case ProjectsEnums.TableScale.ProductionFacilities:
             //            ProductionFacilityEntity productionFacility = (ProductionFacilityEntity)Item;
             //            productionFacility.CreateDate ??= DateTime.Now;
             //            productionFacility.ModifiedDate = DateTime.Now;
-            //            if (TableAction == EnumTableAction.Add)
+            //            if (TableAction == ShareEnums.DbTableAction.Add)
             //                AppSettings.DataAccess.ProductionFacilitiesCrud.SaveEntity(productionFacility);
             //            else
             //                AppSettings.DataAccess.ProductionFacilitiesCrud.UpdateEntity(productionFacility);
             //            break;
-            //        case EnumTableScale.ProductSeries:
+            //        case ProjectsEnums.TableScale.ProductSeries:
             //            ProductSeriesEntity productSeries = (ProductSeriesEntity)Item;
             //            productSeries.CreateDate ??= DateTime.Now;
-            //            if (TableAction == EnumTableAction.Add)
+            //            if (TableAction == ShareEnums.DbTableAction.Add)
             //                AppSettings.DataAccess.ProductSeriesCrud.SaveEntity(productSeries);
             //            else
             //                AppSettings.DataAccess.ProductSeriesCrud.UpdateEntity(productSeries);
             //            break;
-            //        case EnumTableScale.TemplateResources:
+            //        case ProjectsEnums.TableScale.TemplateResources:
             //            TemplateResourceEntity templateResourcesEntity = (TemplateResourceEntity)Item;
             //            templateResourcesEntity.CreateDate ??= DateTime.Now;
             //            templateResourcesEntity.ModifiedDate = DateTime.Now;
-            //            if (TableAction == EnumTableAction.Add)
+            //            if (TableAction == ShareEnums.DbTableAction.Add)
             //                AppSettings.DataAccess.TemplateResourcesCrud.SaveEntity(templateResourcesEntity);
             //            else
             //                AppSettings.DataAccess.TemplateResourcesCrud.UpdateEntity(templateResourcesEntity);
             //            break;
-            //        case EnumTableScale.Templates:
+            //        case ProjectsEnums.TableScale.Templates:
             //            TemplateEntity templateEntity = (TemplateEntity)Item;
             //            if (string.IsNullOrEmpty(templateEntity.CategoryId))
             //            {
@@ -131,7 +139,7 @@ namespace BlazorDeviceControl.Shared
             //            {
             //                templateEntity.CreateDate ??= DateTime.Now;
             //                templateEntity.ModifiedDate = DateTime.Now;
-            //                if (TableAction is EnumTableAction.Add or EnumTableAction.Copy)
+            //                if (TableAction is ShareEnums.DbTableAction.Add or ShareEnums.DbTableAction.Copy)
             //                {
             //                    AppSettings.DataAccess.TemplatesCrud.SaveEntity(templateEntity);
             //                }

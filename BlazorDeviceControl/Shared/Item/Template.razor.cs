@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.Models;
@@ -29,13 +30,13 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.Templates);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
                         TemplateItem = null;
                         TemplateCategories = null;
                         await GuiRefreshWithWaitAsync();
 
                         TemplateItem = AppSettings.DataAccess.TemplatesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { EnumField.Id.ToString(), Id } }), null);
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
                         await GuiRefreshWithWaitAsync();
                     }),

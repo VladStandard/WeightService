@@ -1,6 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataProjectsCore.Models;
+using DataShareCore;
+using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace BlazorDeviceControl.Shared.Item
 {
     public partial class ProductionFacility
@@ -19,12 +28,12 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.ProductionFacilities);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
                         ProductionFacilityItem = null;
                         await GuiRefreshWithWaitAsync();
 
                         ProductionFacilityItem = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { EnumField.Id.ToString(), Id } }), null);
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         await GuiRefreshWithWaitAsync();
                     }),
                 }, true);

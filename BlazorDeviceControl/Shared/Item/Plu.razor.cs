@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorProjectsCore.Models;
+using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
@@ -36,7 +37,7 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.Plus);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
                         IdItem = null;
                         ScaleItems = null;
                         TemplateItems = null;
@@ -75,7 +76,7 @@ namespace BlazorDeviceControl.Shared.Item
                         //{
                         //    PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
                         //        new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", PluItem.Scale.Id } }),
-                        //        new FieldOrderEntity { Direction = EnumOrderDirection.Desc, Name = EnumField.Plu, Use = true });
+                        //        new FieldOrderEntity { Direction = ShareEnums.DbOrderDirection.Desc, Name = ShareEnums.DbField.Plu, Use = true });
                         //    if (pluEntity != null && !pluEntity.EqualsDefault())
                         //    {
                         //        PluItem.Plu = pluEntity.Plu + 1;
@@ -97,7 +98,7 @@ namespace BlazorDeviceControl.Shared.Item
                         if (value is int idScale)
                         {
                             PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
-                                new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idScale } }),
+                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
                                 null);
                         }
                         break;
@@ -105,7 +106,7 @@ namespace BlazorDeviceControl.Shared.Item
                         if (value is int idNomenclature)
                         {
                             PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
-                                new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idNomenclature } }),
+                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
                                 null);
                             OnClickFieldsFill("Entity");
                         }
@@ -118,7 +119,7 @@ namespace BlazorDeviceControl.Shared.Item
                             else
                             {
                                 PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
-                                    new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idTemplate } }),
+                                    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
                                     null);
                             }
                         }

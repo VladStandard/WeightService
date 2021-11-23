@@ -44,7 +44,7 @@ namespace DataProjectsCore.DAL.Utils
             using (SqlConnection con = SqlConnectFactory.GetConnection())
             {
                 con.Open();
-                StringUtils.SetStringValueTrim(ref taskName, 32);
+                DataShareCore.Utils.StringUtils.SetStringValueTrim(ref taskName, 32);
                 using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskUid))
                 {
                     cmd.Connection = con;

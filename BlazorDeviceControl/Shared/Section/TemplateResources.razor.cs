@@ -25,8 +25,8 @@ namespace BlazorDeviceControl.Shared.Section
                         await GuiRefreshWithWaitAsync();
 
                         Items = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(
-                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
-                            new FieldOrderEntity(EnumField.Type, EnumOrderDirection.Asc))
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            new FieldOrderEntity(ShareEnums.DbField.Type, ShareEnums.DbOrderDirection.Asc))
                             .ToList();
                         ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();

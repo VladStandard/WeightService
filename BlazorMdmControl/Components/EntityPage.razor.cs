@@ -4,10 +4,10 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using DataProjectsCore.DAL.TableDwhModels;
+using DataShareCore;
+using DataShareCore.DAL.Models;
 using MdmControlBlazor.Utils;
-using MdmControlCore;
-using MdmControlCore.DAL;
-using MdmControlCore.DAL.TableModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Radzen;
@@ -19,11 +19,11 @@ namespace MdmControlBlazor.Components
         #region Public and private fields and properties
 
         [Parameter]
-        public EnumTable Table { get; set; }
+        public ShareEnums.TableDwh Table { get; set; }
         [Parameter]
         public BaseEntity Entity { get; set; }
         [Parameter]
-        public EnumTableAction Action { get; set; }
+        public ShareEnums.DbTableAction Action { get; set; }
         [Parameter]
         public EventCallback CallbackActionSaveAsync { get; set; }
         [Parameter]
@@ -70,9 +70,9 @@ namespace MdmControlBlazor.Components
                 BlazorSettings.Setup(JsonAppSettings, Notification, Dialog, Navigation, Tooltip, JsRuntime);
                 switch (Table)
                 {
-                    case EnumTable.NomenclatureMaster:
-                    case EnumTable.NomenclatureNonNormalize:
-                        if (Action == EnumTableAction.Add)
+                    case ShareEnums.TableDwh.NomenclatureMaster:
+                    case ShareEnums.TableDwh.NomenclatureNonNormalize:
+                        if (Action == ShareEnums.DbTableAction.Add)
                             BlazorSettings.SqlDataAccess.NomenclatureCrud.SaveEntity((NomenclatureEntity)Entity);
                         else
                             BlazorSettings.SqlDataAccess.NomenclatureCrud.UpdateEntity((NomenclatureEntity)Entity);

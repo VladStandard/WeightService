@@ -1,9 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.DAL.DataModels;
-using DataProjectsCore.DAL.TableScaleModels;
-using DataProjectsCore.DAL.TableSystemModels;
 using DataShareCore;
 using DataShareCore.DAL.Models;
 using System;
@@ -33,49 +30,21 @@ namespace DataProjectsCore.DAL.Models
 
         public void FillReferences(T entity)
         {
-            // Datas.
-            if (typeof(T) == typeof(DeviceEntity))
-            {
-                DeviceEntity? deviceEntity = (DeviceEntity)(object)entity;
-                if (!deviceEntity.EqualsEmpty())
-                {
-                    if (deviceEntity.Scales != null)
-                        deviceEntity.Scales = DataAccess.ScalesCrud.GetEntity(deviceEntity.Scales.Id);
-                }
-            }
-            // Tables.
-            else if (typeof(T) == typeof(AppEntity))
+            FillReferencesSystem(entity);
+            FillReferencesDatas(entity);
+            FillReferencesScales(entity);
+            FillReferencesDwh(entity);
+        }
+
+        private void FillReferencesSystem(T entity)
+        {
+            if (typeof(T) == typeof(TableSystemModels.AppEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(BarcodeTypeEntity))
+            else if (typeof(T) == typeof(TableSystemModels.LogEntity))
             {
-                BarcodeTypeEntity? barCodeTypesEntity = (BarcodeTypeEntity)(object)entity;
-                if (!barCodeTypesEntity.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (typeof(T) == typeof(ContragentEntity))
-            {
-                ContragentEntity? contragentsEntity = (ContragentEntity)(object)entity;
-                if (!contragentsEntity.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (typeof(T) == typeof(LabelEntity))
-            {
-                LabelEntity? labelsEntity = (LabelEntity)(object)entity;
-                if (!labelsEntity.EqualsEmpty())
-                {
-                    if (labelsEntity.WeithingFact != null)
-                        labelsEntity.WeithingFact = DataAccess.WeithingFactsCrud.GetEntity(labelsEntity.WeithingFact.Id);
-                }
-            }
-            else if (typeof(T) == typeof(LogEntity))
-            {
-                LogEntity? logEntity = (LogEntity)(object)entity;
+                TableSystemModels.LogEntity? logEntity = (TableSystemModels.LogEntity)(object)entity;
                 if (!logEntity.EqualsEmpty())
                 {
                     if (logEntity.App != null)
@@ -84,17 +53,59 @@ namespace DataProjectsCore.DAL.Models
                         logEntity.Host = DataAccess.HostsCrud.GetEntity(logEntity.Host.Id);
                 }
             }
-            else if (typeof(T) == typeof(NomenclatureEntity))
+        }
+
+        private void FillReferencesDatas(T entity)
+        {
+            if (typeof(T) == typeof(DataModels.DeviceEntity))
             {
-                NomenclatureEntity? nomenclatureEntity = (NomenclatureEntity)(object)entity;
+                DataModels.DeviceEntity? deviceEntity = (DataModels.DeviceEntity)(object)entity;
+                if (!deviceEntity.EqualsEmpty())
+                {
+                    if (deviceEntity.Scales != null)
+                        deviceEntity.Scales = DataAccess.ScalesCrud.GetEntity(deviceEntity.Scales.Id);
+                }
+            }
+        }
+
+        private void FillReferencesScales(T entity)
+        {
+            if (typeof(T) == typeof(TableScaleModels.BarcodeTypeEntity))
+            {
+                TableScaleModels.BarcodeTypeEntity? barCodeTypesEntity = (TableScaleModels.BarcodeTypeEntity)(object)entity;
+                if (!barCodeTypesEntity.EqualsEmpty())
+                {
+                    //
+                }
+            }
+            else if (typeof(T) == typeof(TableScaleModels.ContragentEntity))
+            {
+                TableScaleModels.ContragentEntity? contragentsEntity = (TableScaleModels.ContragentEntity)(object)entity;
+                if (!contragentsEntity.EqualsEmpty())
+                {
+                    //
+                }
+            }
+            else if (typeof(T) == typeof(TableScaleModels.LabelEntity))
+            {
+                TableScaleModels.LabelEntity? labelsEntity = (TableScaleModels.LabelEntity)(object)entity;
+                if (!labelsEntity.EqualsEmpty())
+                {
+                    if (labelsEntity.WeithingFact != null)
+                        labelsEntity.WeithingFact = DataAccess.WeithingFactsCrud.GetEntity(labelsEntity.WeithingFact.Id);
+                }
+            }
+            else if (typeof(T) == typeof(TableScaleModels.NomenclatureEntity))
+            {
+                TableScaleModels.NomenclatureEntity? nomenclatureEntity = (TableScaleModels.NomenclatureEntity)(object)entity;
                 if (!nomenclatureEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(OrderEntity))
+            else if (typeof(T) == typeof(TableScaleModels.OrderEntity))
             {
-                OrderEntity? ordersEntity = (OrderEntity)(object)entity;
+                TableScaleModels.OrderEntity? ordersEntity = (TableScaleModels.OrderEntity)(object)entity;
                 if (!ordersEntity.EqualsEmpty())
                 {
                     if (ordersEntity.OrderTypes != null)
@@ -107,25 +118,25 @@ namespace DataProjectsCore.DAL.Models
                         ordersEntity.Templates = DataAccess.TemplatesCrud.GetEntity(ordersEntity.Templates.Id);
                 }
             }
-            else if (typeof(T) == typeof(OrderStatusEntity))
+            else if (typeof(T) == typeof(TableScaleModels.OrderStatusEntity))
             {
-                OrderStatusEntity? orderStatusEntity = (OrderStatusEntity)(object)entity;
+                TableScaleModels.OrderStatusEntity? orderStatusEntity = (TableScaleModels.OrderStatusEntity)(object)entity;
                 if (!orderStatusEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(OrderTypeEntity))
+            else if (typeof(T) == typeof(TableScaleModels.OrderTypeEntity))
             {
-                OrderTypeEntity? orderTypesEntity = (OrderTypeEntity)(object)entity;
+                TableScaleModels.OrderTypeEntity? orderTypesEntity = (TableScaleModels.OrderTypeEntity)(object)entity;
                 if (!orderTypesEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(PluEntity))
+            else if (typeof(T) == typeof(TableScaleModels.PluEntity))
             {
-                PluEntity? pluEntity = (PluEntity)(object)entity;
+                TableScaleModels.PluEntity? pluEntity = (TableScaleModels.PluEntity)(object)entity;
                 if (!pluEntity.EqualsEmpty())
                 {
                     if (pluEntity.Templates != null)
@@ -136,25 +147,25 @@ namespace DataProjectsCore.DAL.Models
                         pluEntity.Nomenclature = DataAccess.NomenclaturesCrud.GetEntity(pluEntity.Nomenclature.Id);
                 }
             }
-            else if (typeof(T) == typeof(ProductionFacilityEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ProductionFacilityEntity))
             {
-                ProductionFacilityEntity? productionFacilityEntity = (ProductionFacilityEntity)(object)entity;
+                TableScaleModels.ProductionFacilityEntity? productionFacilityEntity = (TableScaleModels.ProductionFacilityEntity)(object)entity;
                 if (!productionFacilityEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(ProductSeriesEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ProductSeriesEntity))
             {
-                ProductSeriesEntity? productSeriesEntity = (ProductSeriesEntity)(object)entity;
+                TableScaleModels.ProductSeriesEntity? productSeriesEntity = (TableScaleModels.ProductSeriesEntity)(object)entity;
                 if (!productSeriesEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(ScaleEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ScaleEntity))
             {
-                ScaleEntity? scalesEntity = (ScaleEntity)(object)entity;
+                TableScaleModels.ScaleEntity? scalesEntity = (TableScaleModels.ScaleEntity)(object)entity;
                 if (!scalesEntity.EqualsEmpty())
                 {
                     if (scalesEntity.TemplateDefault != null)
@@ -169,25 +180,25 @@ namespace DataProjectsCore.DAL.Models
                         scalesEntity.Host = DataAccess.HostsCrud.GetEntity(scalesEntity.Host.Id);
                 }
             }
-            else if (typeof(T) == typeof(TemplateResourceEntity))
+            else if (typeof(T) == typeof(TableScaleModels.TemplateResourceEntity))
             {
-                TemplateResourceEntity? templateResourcesEntity = (TemplateResourceEntity)(object)entity;
+                TableScaleModels.TemplateResourceEntity? templateResourcesEntity = (TableScaleModels.TemplateResourceEntity)(object)entity;
                 if (!templateResourcesEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TemplateEntity))
+            else if (typeof(T) == typeof(TableScaleModels.TemplateEntity))
             {
-                TemplateEntity? templatesEntity = (TemplateEntity)(object)entity;
+                TableScaleModels.TemplateEntity? templatesEntity = (TableScaleModels.TemplateEntity)(object)entity;
                 if (!templatesEntity.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(WeithingFactEntity))
+            else if (typeof(T) == typeof(TableScaleModels.WeithingFactEntity))
             {
-                WeithingFactEntity? weithingFactEntity = (WeithingFactEntity)(object)entity;
+                TableScaleModels.WeithingFactEntity? weithingFactEntity = (TableScaleModels.WeithingFactEntity)(object)entity;
                 if (!weithingFactEntity.EqualsEmpty())
                 {
                     if (weithingFactEntity.Plu != null)
@@ -200,27 +211,27 @@ namespace DataProjectsCore.DAL.Models
                         weithingFactEntity.Orders = DataAccess.OrdersCrud.GetEntity(weithingFactEntity.Orders.Id);
                 }
             }
-            else if (typeof(T) == typeof(WorkshopEntity))
+            else if (typeof(T) == typeof(TableScaleModels.WorkshopEntity))
             {
-                WorkshopEntity? workshopEntity = (WorkshopEntity)(object)entity;
+                TableScaleModels.WorkshopEntity? workshopEntity = (TableScaleModels.WorkshopEntity)(object)entity;
                 if (!workshopEntity.EqualsEmpty())
                 {
                     if (workshopEntity.ProductionFacility != null)
                         workshopEntity.ProductionFacility = DataAccess.ProductionFacilitiesCrud.GetEntity(workshopEntity.ProductionFacility.Id);
                 }
             }
-            else if (typeof(T) == typeof(PrinterEntity))
+            else if (typeof(T) == typeof(TableScaleModels.PrinterEntity))
             {
-                PrinterEntity? zebraPrinterEntity = (PrinterEntity)(object)entity;
+                TableScaleModels.PrinterEntity? zebraPrinterEntity = (TableScaleModels.PrinterEntity)(object)entity;
                 if (!zebraPrinterEntity.EqualsEmpty())
                 {
                     if (zebraPrinterEntity.PrinterType != null)
                         zebraPrinterEntity.PrinterType = DataAccess.PrinterTypesCrud.GetEntity(zebraPrinterEntity.PrinterType.Id);
                 }
             }
-            else if (typeof(T) == typeof(PrinterResourceEntity))
+            else if (typeof(T) == typeof(TableScaleModels.PrinterResourceEntity))
             {
-                PrinterResourceEntity? zebraPrinterResourceRefEntity = (PrinterResourceEntity)(object)entity;
+                TableScaleModels.PrinterResourceEntity? zebraPrinterResourceRefEntity = (TableScaleModels.PrinterResourceEntity)(object)entity;
                 if (!zebraPrinterResourceRefEntity.EqualsEmpty())
                 {
                     if (zebraPrinterResourceRefEntity.Printer != null)
@@ -231,12 +242,71 @@ namespace DataProjectsCore.DAL.Models
                             DataAccess.TemplateResourcesCrud.GetEntity(zebraPrinterResourceRefEntity.Resource.Id);
                 }
             }
-            else if (typeof(T) == typeof(PrinterTypeEntity))
+            if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
             {
-                PrinterTypeEntity? zebraPrinterTypeEntity = (PrinterTypeEntity)(object)entity;
+                TableScaleModels.PrinterTypeEntity? zebraPrinterTypeEntity = (TableScaleModels.PrinterTypeEntity)(object)entity;
                 if (!zebraPrinterTypeEntity.EqualsEmpty())
                 {
                     //
+                }
+            }
+        }
+
+        private void FillReferencesDwh(T entity)
+        {
+            if (typeof(T) == typeof(TableDwhModels.BrandEntity))
+            {
+                TableDwhModels.BrandEntity brandEntity = (TableDwhModels.BrandEntity)(object)entity;
+                if (!brandEntity.EqualsEmpty())
+                {
+                    if (brandEntity.InformationSystem != null)
+                        brandEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(brandEntity.InformationSystem.Id);
+                }
+            }
+            if (typeof(T) == typeof(TableDwhModels.NomenclatureEntity))
+            {
+                TableDwhModels.NomenclatureEntity? nomenclatureEntity = (TableDwhModels.NomenclatureEntity)(object)entity;
+                if (!nomenclatureEntity.EqualsEmpty())
+                {
+                    //if (nomenclatureEntity.BrandBytes != null && nomenclatureEntity.BrandBytes.Length > 0)
+                    //    nomenclatureEntity.Brand = DataAccess.BrandCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.BrandBytes);
+                    //if (nomenclatureEntity.InformationSystem != null)
+                    //    nomenclatureEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureEntity.InformationSystem.Id);
+                    //if (nomenclatureEntity.NomenclatureGroupCostBytes != null && nomenclatureEntity.NomenclatureGroupCostBytes.Length > 0)
+                    //    nomenclatureEntity.NomenclatureGroupCost = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupCostBytes);
+                    //if (nomenclatureEntity.NomenclatureGroupBytes != null && nomenclatureEntity.NomenclatureGroupBytes.Length > 0)
+                    //    nomenclatureEntity.NomenclatureGroup = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
+                    //if (nomenclatureEntity.NomenclatureTypeBytes != null && nomenclatureEntity.NomenclatureTypeBytes.Length > 0)
+                    //    nomenclatureEntity.NomenclatureType = DataAccess.NomenclatureTypeCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
+                    if (nomenclatureEntity.Status != null)
+                        nomenclatureEntity.Status = DataAccess.StatusCrud.GetEntity(nomenclatureEntity.Status.Id);
+                }
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureLightEntity))
+            {
+                TableDwhModels.NomenclatureLightEntity nomenclatureLightEntity = (TableDwhModels.NomenclatureLightEntity)(object)entity;
+                if (!nomenclatureLightEntity.EqualsEmpty())
+                {
+                    if (nomenclatureLightEntity.InformationSystem != null)
+                        nomenclatureLightEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureLightEntity.InformationSystem.Id);
+                }
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureGroupEntity))
+            {
+                TableDwhModels.NomenclatureGroupEntity nomenclatureGroupEntity = (TableDwhModels.NomenclatureGroupEntity)(object)entity;
+                if (!nomenclatureGroupEntity.EqualsEmpty())
+                {
+                    if (nomenclatureGroupEntity.InformationSystem != null)
+                        nomenclatureGroupEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureGroupEntity.InformationSystem.Id);
+                }
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureTypeEntity))
+            {
+                TableDwhModels.NomenclatureTypeEntity nomenclatureTypeEntity = (TableDwhModels.NomenclatureTypeEntity)(object)entity;
+                if (!nomenclatureTypeEntity.EqualsEmpty())
+                {
+                    if (nomenclatureTypeEntity.InformationSystem != null)
+                        nomenclatureTypeEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureTypeEntity.InformationSystem.Id);
                 }
             }
         }
@@ -306,15 +376,15 @@ namespace DataProjectsCore.DAL.Models
             {
                 if (!entity.Equals(GetEntity(idEntity.Id)))
                 {
-                    if (typeof(T) == typeof(ContragentEntity))
+                    if (typeof(T) == typeof(TableScaleModels.ContragentEntity))
                     {
                         throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
                     }
-                    if (typeof(T) == typeof(NomenclatureEntity))
+                    if (typeof(T) == typeof(TableScaleModels.NomenclatureEntity))
                     {
                         throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
                     }
-                    if (typeof(T) == typeof(PrinterTypeEntity))
+                    if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
                     {
                         Console.WriteLine($"SaveEntity: {entity}");
                     }
@@ -327,15 +397,15 @@ namespace DataProjectsCore.DAL.Models
                 {
                     if (!entity.Equals(GetEntity(uidEntity.Uid)))
                     {
-                        if (typeof(T) == typeof(ContragentEntity))
+                        if (typeof(T) == typeof(TableScaleModels.ContragentEntity))
                         {
                             throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
                         }
-                        if (typeof(T) == typeof(NomenclatureEntity))
+                        if (typeof(T) == typeof(TableScaleModels.NomenclatureEntity))
                         {
                             throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
                         }
-                        if (typeof(T) == typeof(PrinterTypeEntity))
+                        if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
                         {
                             Console.WriteLine($"SaveEntity: {entity}");
                         }
@@ -350,91 +420,114 @@ namespace DataProjectsCore.DAL.Models
         {
             if (entity.EqualsEmpty()) return;
 
-            if (typeof(T) == typeof(AppEntity))
+            // SYSTEM.
+            if (typeof(T) == typeof(TableSystemModels.AppEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(BarcodeTypeEntity))
+            else if (typeof(T) == typeof(TableSystemModels.LogEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(ContragentEntity))
+            else if (typeof(T) == typeof(TableSystemModels.HostEntity))
             {
-                ((ContragentEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((TableSystemModels.HostEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(HostEntity))
-            {
-                ((HostEntity)(object)entity).ModifiedDate = DateTime.Now;
-            }
-            else if (typeof(T) == typeof(LabelEntity))
+            // SCALES.
+            else if (typeof(T) == typeof(TableScaleModels.BarcodeTypeEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(LogEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ContragentEntity))
+            {
+                ((TableScaleModels.ContragentEntity)(object)entity).ModifiedDate = DateTime.Now;
+            }
+            else if (typeof(T) == typeof(TableScaleModels.LabelEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(OrderEntity))
+            else if (typeof(T) == typeof(TableScaleModels.OrderEntity))
             {
-                ((OrderEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((TableScaleModels.OrderEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(OrderStatusEntity))
-            {
-                //
-            }
-            else if (typeof(T) == typeof(OrderTypeEntity))
+            else if (typeof(T) == typeof(TableScaleModels.OrderStatusEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(PluEntity))
+            else if (typeof(T) == typeof(TableScaleModels.OrderTypeEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(ProductionFacilityEntity))
+            else if (typeof(T) == typeof(TableScaleModels.PluEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(ProductSeriesEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ProductionFacilityEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(ScaleEntity))
-            {
-                ((ScaleEntity)(object)entity).ModifiedDate = DateTime.Now;
-            }
-            else if (typeof(T) == typeof(TemplateResourceEntity))
-            {
-                ((TemplateResourceEntity)(object)entity).ModifiedDate = DateTime.Now;
-            }
-            else if (typeof(T) == typeof(TemplateEntity))
-            {
-                ((TemplateEntity)(object)entity).ModifiedDate = DateTime.Now;
-            }
-            else if (typeof(T) == typeof(WeithingFactEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ProductSeriesEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(WorkshopEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ScaleEntity))
             {
-                ((WorkshopEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((TableScaleModels.ScaleEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(PrinterEntity))
+            else if (typeof(T) == typeof(TableScaleModels.TemplateResourceEntity))
             {
-                ((PrinterEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((TableScaleModels.TemplateResourceEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(PrinterResourceEntity))
+            else if (typeof(T) == typeof(TableScaleModels.TemplateEntity))
             {
-                ((PrinterResourceEntity)(object)entity).ModifiedDate = DateTime.Now;
+                ((TableScaleModels.TemplateEntity)(object)entity).ModifiedDate = DateTime.Now;
             }
-            else if (typeof(T) == typeof(PrinterTypeEntity))
-            {
-                //
-            }
-            else if (typeof(T) == typeof(LogEntity))
+            else if (typeof(T) == typeof(TableScaleModels.WeithingFactEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(AppEntity))
+            else if (typeof(T) == typeof(TableScaleModels.WorkshopEntity))
+            {
+                ((TableScaleModels.WorkshopEntity)(object)entity).ModifiedDate = DateTime.Now;
+            }
+            else if (typeof(T) == typeof(TableScaleModels.PrinterEntity))
+            {
+                ((TableScaleModels.PrinterEntity)(object)entity).ModifiedDate = DateTime.Now;
+            }
+            else if (typeof(T) == typeof(TableScaleModels.PrinterResourceEntity))
+            {
+                ((TableScaleModels.PrinterResourceEntity)(object)entity).ModifiedDate = DateTime.Now;
+            }
+            else if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
+            {
+                //
+            }
+            // DWH.
+            else if (typeof(T) == typeof(TableDwhModels.BrandEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.InformationSystemEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureGroupEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureLightEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureTypeEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.StatusEntity))
             {
                 //
             }
@@ -455,85 +548,118 @@ namespace DataProjectsCore.DAL.Models
         {
             if (entity.EqualsEmpty()) return;
 
-            if (typeof(T) == typeof(AppEntity))
+            // SYSTEM.
+            if (typeof(T) == typeof(TableSystemModels.AppEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(BarcodeTypeEntity))
+            else if (typeof(T) == typeof(TableSystemModels.LogEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(ContragentEntity))
+            else if (typeof(T) == typeof(TableSystemModels.HostEntity))
             {
-                ((ContragentEntity)(object)entity).Marked = true;
+                ((TableSystemModels.HostEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(HostEntity))
-            {
-                ((HostEntity)(object)entity).Marked = true;
-            }
-            else if (typeof(T) == typeof(LabelEntity))
+
+            // SCALES.
+            else if (typeof(T) == typeof(TableScaleModels.BarcodeTypeEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(LogEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ContragentEntity))
+            {
+                ((TableScaleModels.ContragentEntity)(object)entity).Marked = true;
+            }
+            else if (typeof(T) == typeof(TableScaleModels.LabelEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(OrderEntity))
+            else if (typeof(T) == typeof(TableScaleModels.OrderEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(OrderStatusEntity))
+            else if (typeof(T) == typeof(TableScaleModels.OrderStatusEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(OrderTypeEntity))
+            else if (typeof(T) == typeof(TableScaleModels.OrderTypeEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(PluEntity))
+            else if (typeof(T) == typeof(TableScaleModels.PluEntity))
             {
-                ((PluEntity)(object)entity).Marked = true;
+                ((TableScaleModels.PluEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(ProductionFacilityEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ProductionFacilityEntity))
             {
-                ((ProductionFacilityEntity)(object)entity).Marked = true;
+                ((TableScaleModels.ProductionFacilityEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(ProductSeriesEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ProductSeriesEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(ScaleEntity))
+            else if (typeof(T) == typeof(TableScaleModels.ScaleEntity))
             {
-                ((ScaleEntity)(object)entity).Marked = true;
+                ((TableScaleModels.ScaleEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(TemplateResourceEntity))
+            else if (typeof(T) == typeof(TableScaleModels.TemplateResourceEntity))
             {
-                ((TemplateResourceEntity)(object)entity).Marked = true;
+                ((TableScaleModels.TemplateResourceEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(TemplateEntity))
+            else if (typeof(T) == typeof(TableScaleModels.TemplateEntity))
             {
-                ((TemplateEntity)(object)entity).Marked = true;
+                ((TableScaleModels.TemplateEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(WeithingFactEntity))
+            else if (typeof(T) == typeof(TableScaleModels.WeithingFactEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(WorkshopEntity))
+            else if (typeof(T) == typeof(TableScaleModels.WorkshopEntity))
             {
-                ((WorkshopEntity)(object)entity).Marked = true;
+                ((TableScaleModels.WorkshopEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(PrinterEntity))
+            else if (typeof(T) == typeof(TableScaleModels.PrinterEntity))
             {
-                ((PrinterEntity)(object)entity).Marked = true;
+                ((TableScaleModels.PrinterEntity)(object)entity).Marked = true;
             }
-            else if (typeof(T) == typeof(PrinterResourceEntity))
+            else if (typeof(T) == typeof(TableScaleModels.PrinterResourceEntity))
             {
                 //
             }
-            else if (typeof(T) == typeof(PrinterTypeEntity))
+            else if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
             {
-                ((PrinterEntity)(object)entity).Marked = true;
+                ((TableScaleModels.PrinterEntity)(object)entity).Marked = true;
+            }
+            
+            // DWH.
+            else if (typeof(T) == typeof(TableDwhModels.BrandEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.InformationSystemEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureGroupEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureLightEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureTypeEntity))
+            {
+                //
+            }
+            else if (typeof(T) == typeof(TableDwhModels.StatusEntity))
+            {
+                //
             }
 
             DataAccess.UpdateEntity(entity, filePath, lineNumber, memberName);

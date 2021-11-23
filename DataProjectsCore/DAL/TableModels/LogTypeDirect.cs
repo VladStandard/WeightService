@@ -41,7 +41,7 @@ namespace DataProjectsCore.DAL.TableModels
         {
             using SqlConnection con = SqlConnectFactory.GetConnection();
             con.Open();
-            StringUtils.SetStringValueTrim(ref icon, 32);
+            DataShareCore.Utils.StringUtils.SetStringValueTrim(ref icon, 32);
             using (SqlCommand cmd = new(SqlQueries.DbServiceManaging.Tables.Logs.AddLogType))
             {
                 cmd.Connection = con;

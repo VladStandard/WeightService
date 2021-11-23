@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using MdmControlCore;
-using MdmControlCore.DAL;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -14,9 +13,10 @@ using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using MdmControlBlazor.Utils;
-using MdmControlCore.DAL.TableModels;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
+using DataShareCore;
+using DataProjectsCore.DAL.TableDwhModels;
 
 namespace MdmControlBlazor.Data
 {
@@ -30,10 +30,10 @@ namespace MdmControlBlazor.Data
         public TooltipService Tooltip { get; private set; }
         public DataAccessEntity SqlDataAccess { get; set; }
         public IJSRuntime JsRuntime { get; set; }
-        public EnumAccessRights AccessRights { get; set; }
+        public ShareEnums.AccessRights AccessRights { get; set; }
         public bool ChartSmooth { get; set; }
         public int Delay { get; } = 5_000;
-        public MemoryEntity Memory { get; set; }
+        public DataShareCore.MemoryEntity Memory { get; set; }
         public delegate Task DelegateGuiRefresh();
         public int GridPageSize { get; set; } = 20;
         public AuthenticationState State { get; set; }
@@ -90,10 +90,10 @@ namespace MdmControlBlazor.Data
         public void Setup(JsonAppSettingsEntity dataAccessService, NotificationService notification, DialogService dialog, NavigationManager navigation,
             TooltipService tooltip, IJSRuntime jsRuntime)
         {
-            AppSettingsEntity appSettings = new AppSettingsEntity(dataAccessService.Server, dataAccessService.Db, dataAccessService.Trusted, dataAccessService.Username, dataAccessService.Password);
+            AppSettingsEntity appSettings = new(dataAccessService.Server, dataAccessService.Db, dataAccessService.Trusted, dataAccessService.Username, dataAccessService.Password);
             SqlDataAccess = new DataAccessEntity(appSettings);
             Notification = notification;
-            AccessRights = EnumAccessRights.Guest;
+            AccessRights = ShareEnums.AccessRights.Guest;
             Dialog = dialog;
             Navigation = navigation;
             ChartSmooth = false;
@@ -105,26 +105,26 @@ namespace MdmControlBlazor.Data
 
         #region Public and private methods
 
-        public async Task ActionAsync(EnumTable table, EnumTableAction tableAction, BaseEntity entity, string page, bool isNewWindow,
+        public async Task ActionAsync(ShareEnums.TableDwh table, ShareEnums.DbTableAction tableAction, BaseEntity entity, string page, bool isNewWindow,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             try
             {
-                if (table == EnumTable.Default)
+                if (table == ShareEnums.TableDwh.Default)
                     return;
                 if (entity == null || entity.EqualsDefault())
                     return;
 
                 switch (tableAction)
                 {
-                    case EnumTableAction.Add:
-                    case EnumTableAction.Edit:
-                    case EnumTableAction.Copy:
+                    case ShareEnums.DbTableAction.Add:
+                    case ShareEnums.DbTableAction.Edit:
+                    case ShareEnums.DbTableAction.Copy:
                         switch (table)
                         {
-                            case EnumTable.NomenclatureMaster:
-                            case EnumTable.NomenclatureNonNormalize:
+                            case ShareEnums.TableDwh.NomenclatureMaster:
+                            case ShareEnums.TableDwh.NomenclatureNonNormalize:
                                 //if (!isNewWindow)
                                 Navigation.NavigateTo($"{page}/{entity.Id}");
                                 //else
@@ -132,17 +132,17 @@ namespace MdmControlBlazor.Data
                                 break;
                         }
                         break;
-                    case EnumTableAction.Delete:
+                    case ShareEnums.DbTableAction.Delete:
                         SqlDataAccess.ActionDeleteEntity(entity);
                         break;
-                    case EnumTableAction.Marked:
+                    case ShareEnums.DbTableAction.Marked:
                         SqlDataAccess.ActionMarkedEntity(entity);
                         break;
                 }
             }
             catch (Exception ex)
             {
-                NotificationMessage msg = new NotificationMessage
+                NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{memberName}]!",
@@ -160,19 +160,19 @@ namespace MdmControlBlazor.Data
             return ((int)value).ToString("####", CultureInfo.InvariantCulture);
         }
 
-        public ChartCountEntity[] GetNomenclaturesChartEntities(EnumField field, int count)
+        public ChartCountEntity[] GetNomenclaturesChartEntities(ShareEnums.DbField field, int count)
         {
-            ChartCountEntity[] result = new ChartCountEntity[0];
+            ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
             NomenclatureEntity[] entities = SqlDataAccess.NomenclatureCrud.GetEntities(null,
-                new FieldOrderEntity(EnumField.CreateDate, EnumOrderDirection.Asc), count);
+                new FieldOrderEntity(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc), count);
             int i = 0;
             switch (field)
             {
-                case EnumField.CreateDate:
-                    List<ChartCountEntity> entitiesDateCreated = new List<ChartCountEntity>();
+                case ShareEnums.DbField.CreateDate:
+                    List<ChartCountEntity> entitiesDateCreated = new();
                     foreach (NomenclatureEntity entity in entities)
                     {
-                        entitiesDateCreated.Add(new ChartCountEntity(((DateTime)entity.CreateDate).Date, 1));
+                        entitiesDateCreated.Add(new ChartCountEntity(entity.CreateDate.Date, 1));
                         i++;
                     }
                     IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(entity => entity.Date).ToArray();
@@ -434,11 +434,12 @@ namespace MdmControlBlazor.Data
 
         #region Public and private methods - Memory manager
 
-        public void MemoryOpen(MemoryEntity.DelegateGuiRefresh callRefresh)
+        public void MemoryOpen(DataShareCore.MemoryEntity.DelegateGuiRefresh callRefresh)
         {
             if (Memory != null)
                 return;
-            Memory = new MemoryEntity(1_000, 5_000, Convert.ToUInt64(100 * 1_048_576));
+            //Memory = new DataShareCore.MemoryEntity(1_000, 5_000, Convert.ToUInt64(100 * 1_048_576));
+            Memory = new DataShareCore.MemoryEntity(1_000, 5_000);
             Memory.Open(callRefresh);
         }
 
@@ -446,7 +447,7 @@ namespace MdmControlBlazor.Data
 
         #region Public and private methods - Authentication
 
-        public void AuthenticationOpen(AuthenticationStateProvider stateProvider, MemoryEntity.DelegateGuiRefresh callRefresh)
+        public void AuthenticationOpen(AuthenticationStateProvider stateProvider, DataShareCore.MemoryEntity.DelegateGuiRefresh callRefresh)
         {
             if (stateProvider == null)
                 return;

@@ -1,17 +1,17 @@
 ﻿@page "/EntityPage"
-@using MdmControlCore
-@using MdmControlCore.DAL.TableModels
-@using MdmControlBlazor.Utils
+@    using MdmControlCore
+@    using MdmControlCore.DAL.TableModels
+@    using MdmControlBlazor.Utils
 @inherits MdmControlBlazor.Data.BaseRazorEntity
 
 <RadzenCard Style="margin-bottom: 0; font-size: 13px; ">
     <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
         @switch (Table)
         {
-            case EnumTable.NomenclatureMaster:
+            case ShareEnums.TableDwh.NomenclatureMaster:
                 <MdmControlBlazor.Components.NomenclatureMaster Item=@((NomenclatureEntity)Entity) />
                 break;
-            case EnumTable.NomenclatureNonNormalize:
+            case ShareEnums.TableDwh.NomenclatureNonNormalize:
                 <MdmControlBlazor.Components.NomenclatureMaster Item=@((NomenclatureEntity)Entity) />
                 break;
         }

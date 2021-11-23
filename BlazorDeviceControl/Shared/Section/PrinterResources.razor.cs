@@ -20,7 +20,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.PrinterResources);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterResources);
                         IdItem = null;
                         Items = null;
                         ItemsCount = 0;
@@ -28,7 +28,7 @@ namespace BlazorDeviceControl.Shared.Section
 
                         Items = AppSettings.DataAccess.PrinterResourcesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
-                            new FieldOrderEntity(EnumField.Description, EnumOrderDirection.Asc))
+                            new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
                             .ToList();
                         ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();

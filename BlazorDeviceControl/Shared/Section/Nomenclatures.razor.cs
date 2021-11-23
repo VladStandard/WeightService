@@ -19,16 +19,16 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.Printers);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
                         IdItem = null;
                         Items = null;
                         ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
                         Items = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(
-                            //new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
+                            //new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             null,
-                            new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc))
+                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                             .ToList();
                         ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();

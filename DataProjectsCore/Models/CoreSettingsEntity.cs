@@ -26,7 +26,11 @@ namespace DataProjectsCore.Models
         /// </summary>
         public CoreSettingsEntity()
         {
-            //
+            Server = string.Empty;
+            Db = string.Empty;
+            Trusted = false;
+            Username = string.Empty;
+            Password = string.Empty;
         }
 
         public CoreSettingsEntity(string server, string db, bool trusted, string username, string password)

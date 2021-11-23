@@ -20,7 +20,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.Printers);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
                         IdItem = null;
                         Items = null;
                         TemplateCategories = null;
@@ -28,8 +28,8 @@ namespace BlazorDeviceControl.Shared.Section
                         await GuiRefreshWithWaitAsync();
 
                         Items = AppSettings.DataAccess.PrintersCrud.GetEntities(
-                            new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
-                            new FieldOrderEntity(EnumField.Name, EnumOrderDirection.Asc))
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                             .ToList();
                         ItemsCount = Items.Count;
                         await GuiRefreshWithWaitAsync();

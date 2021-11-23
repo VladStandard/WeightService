@@ -1,6 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataProjectsCore.Models;
+using DataShareCore;
+using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace BlazorDeviceControl.Shared.Item
 {
     public partial class PrinterResource
@@ -21,14 +31,14 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.Printers);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
                         PrinterResourceItem = null;
                         PrinterItems = null;
                         ResourceItems = null;
                         await GuiRefreshWithWaitAsync();
 
                         PrinterResourceItem = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { EnumField.Id.ToString(), Id } }), null);
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities(null, null).ToList();
                         ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(null, null).ToList();
                         await GuiRefreshWithWaitAsync();
@@ -48,7 +58,7 @@ namespace BlazorDeviceControl.Shared.Item
                         else
                         {
                             PrinterResourceItem.Printer = AppSettings.DataAccess.PrintersCrud.GetEntity(
-                                new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idZebraPrinter } }),
+                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idZebraPrinter } }),
                             null);
                         }
                     }
@@ -61,7 +71,7 @@ namespace BlazorDeviceControl.Shared.Item
                         else
                         {
                             PrinterResourceItem.Resource = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(
-                                new FieldListEntity(new Dictionary<string, object> { { EnumField.Id.ToString(), idTemplateResource } }),
+                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplateResource } }),
                             null);
                             if (string.IsNullOrEmpty(PrinterResourceItem.Description))
                             {

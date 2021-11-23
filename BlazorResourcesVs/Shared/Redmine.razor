@@ -1,13 +1,14 @@
 ﻿@page "/redmine"
+@using DataCore
 
 <h2>
-    <RadzenLabel Text="@LocalizationStrings.Resources.RedmineTitle" />
+    <RadzenLabel Text="@LocalizationData.Resources.RedmineTitle" />
 </h2>
 
 <body>
-    <RadzenLink Icon="task_alt" Path="@LocalizationStrings.Resources.RedmineProjectsPath" Text="@LocalizationStrings.Resources.RedmineProjectsText" />
+    <RadzenLink Icon="task_alt" Path="@LocalizationData.Resources.RedmineProjectsPath" Text="@LocalizationData.Resources.RedmineProjectsText" />
     <br />
-    <RadzenLink Icon="task_alt" Path="@LocalizationStrings.Resources.RedmineWikiPath" Text="@LocalizationStrings.Resources.RedmineWikiText" />
+    <RadzenLink Icon="task_alt" Path="@LocalizationData.Resources.RedmineWikiPath" Text="@LocalizationData.Resources.RedmineWikiText" />
     <br />
-    <RadzenLink Icon="task_alt" Path="@LocalizationStrings.Resources.RedmineGooglePath" Text="@LocalizationStrings.Resources.RedmineGoogleText" />
+    <RadzenLink Icon="task_alt" Path="@LocalizationData.Resources.RedmineGooglePath" Text="@LocalizationData.Resources.RedmineGoogleText" />
 </body>

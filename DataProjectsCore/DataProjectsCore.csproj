@@ -8,22 +8,20 @@
     <AssemblyVersion>0.5.800</AssemblyVersion>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
     <PackageReference Include="IndexRange" Version="1.0.1-beta.1" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.10" />
-    <PackageReference Include="Quartz" Version="3.3.3" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DataShareCore\DataShareCore.csproj" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
-  </PropertyGroup>
 
 </Project>

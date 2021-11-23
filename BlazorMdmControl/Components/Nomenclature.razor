@@ -310,11 +310,11 @@
     {
         <div class="row col-sm-6 col-md-6 col-lg-6" style="margin-top: 5px">
             <RadzenLabel Style="font-size: 12px; text-align: center;"
-                         Text=@(LocalizationStrings.TableFieldCreateDate + ": " + UtilsDt.FormatDtRus(Item.CreateDate, false)) />
+                         Text=@(LocalizationStrings.TableFieldCreateDate + ": " + DataShareCore.Utils.StringUtils.FormatDtRus(Item.CreateDate, false)) />
         </div>
         <div class="row col-sm-6 col-md-6 col-lg-6" style="margin-top: 5px">
             <RadzenLabel Style="font-size: 12px; text-align: center;"
-                         Text=@(LocalizationStrings.TableFieldModifiedDate + ": " + UtilsDt.FormatDtRus(Item.Dlm, false)) />
+                         Text=@(LocalizationStrings.TableFieldModifiedDate + ": " + DataShareCore.Utils.StringUtils.FormatDtRus(Item.Dlm, false)) />
         </div>
     }
 </div>

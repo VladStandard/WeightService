@@ -82,6 +82,15 @@ namespace DataProjectsCore
             WeithingFacts,
             Workshops,
         }
+        
+        public enum TableDwh
+        {
+            Default,
+            NomenclatureNonNormalize,
+            NomenclatureMaster,
+            Nomenclature,
+            InformationSystem,
+        }
 
         public enum WpfActivePage
         {

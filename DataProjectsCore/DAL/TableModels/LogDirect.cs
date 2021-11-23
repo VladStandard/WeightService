@@ -33,7 +33,7 @@ namespace DataProjectsCore.DAL.TableModels
         {
             HostId = GetHostId(host, idRref);
             AppUid = SaveApp(app);
-            StringUtils.SetStringValueTrim(ref version, 12);
+            DataShareCore.Utils.StringUtils.SetStringValueTrim(ref version, 12);
             Version = version;
         }
 
@@ -43,10 +43,10 @@ namespace DataProjectsCore.DAL.TableModels
 
         private void Save(string message, ShareEnums.LogType logType, string filePath, string memberName, int lineNumber)
         {
-            StringUtils.SetStringValueTrim(ref filePath, 32, true);
-            StringUtils.SetStringValueTrim(ref memberName, 32);
+            DataShareCore.Utils.StringUtils.SetStringValueTrim(ref filePath, 32, true);
+            DataShareCore.Utils.StringUtils.SetStringValueTrim(ref memberName, 32);
             byte logNumber = (byte)logType;
-            StringUtils.SetStringValueTrim(ref message, 1024);
+            DataShareCore.Utils.StringUtils.SetStringValueTrim(ref message, 1024);
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@hostId", System.Data.SqlDbType.Int) { Value = HostId },
                 new SqlParameter("@appUid", System.Data.SqlDbType.UniqueIdentifier) { Value = AppUid },
@@ -97,7 +97,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public Guid? SaveApp(string app)
         {
-            StringUtils.SetStringValueTrim(ref app, 32);
+            DataShareCore.Utils.StringUtils.SetStringValueTrim(ref app, 32);
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@app", System.Data.SqlDbType.NVarChar, 32) { Value = app },
             };
@@ -116,7 +116,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public int? GetHostId(string host, Guid idRref)
         {
-            StringUtils.SetStringValueTrim(ref host, 150);
+            DataShareCore.Utils.StringUtils.SetStringValueTrim(ref host, 150);
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@host", System.Data.SqlDbType.NVarChar, 150) { Value = host },
                 new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idRref },

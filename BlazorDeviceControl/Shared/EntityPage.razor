@@ -1,7 +1,7 @@
 ﻿@page "/entitypage"
 @using BlazorProjectsCore
 @using DataProjectsCore.DAL.TableModels
-@inherits BaseRazorIdEntity
+@inherits BlazorProjectsCore.Models.BaseRazorIdEntity
 
 @*
 if (AppSettings.IdentityItem.AccessLevel is true or false)
@@ -10,31 +10,31 @@ if (AppSettings.IdentityItem.AccessLevel is true or false)
         <div class="row" style="margin-top: 0; margin-left: 0; margin-right: 0; ">
             @switch (Table)
             {
-                case EnumTableScale.BarcodeTypes:
+                case ProjectsEnums.TableScale.BarcodeTypes:
                     break;
-                case EnumTableScale.Contragents:
+                case ProjectsEnums.TableScale.Contragents:
                     break;
-                case EnumTableScale.Hosts:
+                case ProjectsEnums.TableScale.Hosts:
                     HostEntity host = (HostEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Host Item=@host />
                     break;
-                case EnumTableScale.Nomenclatures:
+                case ProjectsEnums.TableScale.Nomenclatures:
                     break;
-                case EnumTableScale.Orders:
+                case ProjectsEnums.TableScale.Orders:
                     break;
-                case EnumTableScale.OrderStatuses:
+                case ProjectsEnums.TableScale.OrderStatuses:
                     break;
-                case EnumTableScale.OrderTypes:
+                case ProjectsEnums.TableScale.OrderTypes:
                     break;
-                case EnumTableScale.Plus:
+                case ProjectsEnums.TableScale.Plus:
                     PluEntity plu = (PluEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Plu Item=@plu />
                     break;
-                case EnumTableScale.ProductionFacilities:
+                case ProjectsEnums.TableScale.ProductionFacilities:
                     ProductionFacilityEntity productionFacility = (ProductionFacilityEntity)Item;
                     <BlazorDeviceControl.Shared.Item.ProductionFacility Item=@productionFacility />
                     break;
-                case EnumTableScale.ProductSeries:
+                case ProjectsEnums.TableScale.ProductSeries:
                     @*
                         var productSeries = (ProductSeriesEntity)Item;
                         <span Style="align-self: start; width: 15%; height: 25px; ">@LocalizationStrings.DeviceControl.TableFieldId</span>
@@ -59,41 +59,41 @@ if (AppSettings.IdentityItem.AccessLevel is true or false)
                             <RadzenTextBox Disabled="false" @bind-Value=@productSeries.Sscc />
                         </div>
                     break;
-                case EnumTableScale.Scales:
+                case ProjectsEnums.TableScale.Scales:
                     ScaleEntity scales = (ScaleEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Scale Item=@scales />
                     break;
-                case EnumTableScale.TemplateResources:
+                case ProjectsEnums.TableScale.TemplateResources:
                     TemplateResourceEntity templateResources = (TemplateResourceEntity)Item;
                     <BlazorDeviceControl.Shared.Item.TemplateResource Item=@templateResources />
                     break;
-                case EnumTableScale.Templates:
+                case ProjectsEnums.TableScale.Templates:
                     TemplateEntity templates = (TemplateEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Template Item=@templates />
                     break;
-                case EnumTableScale.WeithingFacts:
+                case ProjectsEnums.TableScale.WeithingFacts:
                     break;
-                case EnumTableScale.Workshops:
+                case ProjectsEnums.TableScale.Workshops:
                     WorkshopEntity workshop = (WorkshopEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Workshop Item=@workshop />
                     break;
-                case EnumTableScale.Printers:
+                case ProjectsEnums.TableScale.Printers:
                     ZebraPrinterEntity printer = (ZebraPrinterEntity)Item;
                     <BlazorDeviceControl.Shared.Item.Printer Item=@printer />
                     break;
-                case EnumTableScale.PrinterResources:
+                case ProjectsEnums.TableScale.PrinterResources:
                     ZebraPrinterResourceEntity printerResourceRef = (ZebraPrinterResourceEntity)Item;
                     <BlazorDeviceControl.Shared.Item.PrinterResourceRef Item=@printerResourceRef />
                     break;
-                case EnumTableScale.PrinterTypes:
+                case ProjectsEnums.TableScale.PrinterTypes:
                     ZebraPrinterTypeEntity printerType = (ZebraPrinterTypeEntity)Item;
                     <BlazorDeviceControl.Shared.Item.PrinterType Item=@printerType />
                     break;
-                case EnumTableScale.Default:
+                case ProjectsEnums.TableScale.Default:
                     break;
-                case EnumTableScale.Labels:
+                case ProjectsEnums.TableScale.Labels:
                     break;
-                case EnumTableScale.Logs:
+                case ProjectsEnums.TableScale.Logs:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

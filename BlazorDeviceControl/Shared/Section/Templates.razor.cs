@@ -21,7 +21,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableScaleEntity(EnumTableScale.Templates);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
                         IdItem = null;
                         Items = null;
                         TemplateCategories = null;
@@ -34,18 +34,18 @@ namespace BlazorDeviceControl.Shared.Section
                         {
                             TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
                             Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                                new FieldListEntity(new Dictionary<string, object> { { EnumField.Marked.ToString(), false } }),
-                                new FieldOrderEntity(EnumField.CategoryId, EnumOrderDirection.Asc))
+                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                                new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
                                 .ToList();
                         }
                         else
                         {
                             Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
                                 new FieldListEntity(new Dictionary<string, object> {
-                                    { EnumField.Marked.ToString(), false },
-                                    { EnumField.CategoryId.ToString(), TemplateCategory },
+                                    { ShareEnums.DbField.Marked.ToString(), false },
+                                    { ShareEnums.DbField.CategoryId.ToString(), TemplateCategory },
                                 }),
-                                new FieldOrderEntity(EnumField.CategoryId, EnumOrderDirection.Asc))
+                                new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
                                 .ToList();
                         }
                         ItemsCount = Items.Count;
