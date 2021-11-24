@@ -1,6 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore;
+using DataShareCore.Models;
+using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace BlazorDeviceControl.Shared.Sys
 {
     public partial class Info
@@ -9,8 +15,8 @@ namespace BlazorDeviceControl.Shared.Sys
 
         public string ProgramVer => LocalizationCore.Methods.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
         public string CoreVer => LocalizationCore.Methods.GetCoreVersion();
-        public string IsDebug => $@"{LocalizationCore.Strings.IsEnableHe(AppSettings.IsDebug)}";
-        public List<TypeEntity<EnumLang>> TemplateLanguages { get; set; }
+        public string IsDebug => $@"{LocalizationCore.Strings.Main.IsEnableHe(AppSettings.IsDebug)}";
+        public List<TypeEntity<ShareEnums.Lang>> TemplateLanguages { get; set; }
         public List<TypeEntity<bool>> TemplateIsDebug { get; set; }
 
         #endregion
@@ -65,7 +71,7 @@ namespace BlazorDeviceControl.Shared.Sys
                     }
                     break;
                 case nameof(TemplateLanguages):
-                    if (value is EnumLang lang)
+                    if (value is ShareEnums.Lang lang)
                     {
                         LocalizationCore.Lang = lang;
                     }

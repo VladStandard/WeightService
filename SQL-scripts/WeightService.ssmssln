@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Scales - LOGS diagram summary.sql = WeightService\Scales - LOGS diagram summary.sql
 		WeightService\Scales - Nomenclature WeightTara.sql = WeightService\Scales - Nomenclature WeightTara.sql
 		WeightService\Scales - PLU.sql = WeightService\Scales - PLU.sql
+		WeightService\Scales - Scales.sql = WeightService\Scales - Scales.sql
 		WeightService\SSCCStorage.sql = WeightService\SSCCStorage.sql
 		WeightService\Table APPS.sql = WeightService\Table APPS.sql
 		WeightService\Table BarCodes.sql = WeightService\Table BarCodes.sql
@@ -51,7 +52,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Table Scales. АРМ фасовщика.sql = WeightService\Table Scales. АРМ фасовщика.sql
 		WeightService\Table Scales. Заполнить данные.sql = WeightService\Table Scales. Заполнить данные.sql
 		WeightService\Table Scales. Поиск GUID.sql = WeightService\Table Scales. Поиск GUID.sql
-		WeightService\Table Scales.sql = WeightService\Table Scales.sql
 		WeightService\Table TASKS. Actions.sql = WeightService\Table TASKS. Actions.sql
 		WeightService\Table TASKS. Update.sql = WeightService\Table TASKS. Update.sql
 		WeightService\Table TASKS.sql = WeightService\Table TASKS.sql
@@ -92,7 +92,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C66F0162-3971-4D98-B0EF-222A45F9ABB1}.Default|Default.ActiveCfg = Default
+		{7650452C-5742-4D55-AC5E-178836D75D98}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

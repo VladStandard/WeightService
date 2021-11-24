@@ -2,26 +2,27 @@
 @using BlazorProjectsCore
 @using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
+@using DataShareCore
 @inherits BlazorProjectsCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync />
     <br />
-    <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.AppSettings</MudElement>
+    <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.AppSettings</MudElement>
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.SettingName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.SettingValue</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingValue</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationCore.Strings.ProgramVer</td>
+                <td>@LocalizationCore.Strings.Main.ProgramVer</td>
                 @if (string.IsNullOrEmpty(ProgramVer))
                 {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
                 }
                 else
                 {
@@ -29,10 +30,10 @@
                 }
             </tr>
             <tr>
-                <td>@LocalizationCore.Strings.CoreVer</td>
+                <td>@LocalizationCore.Strings.Main.CoreVer</td>
                 @if (string.IsNullOrEmpty(CoreVer))
                 {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
                 }
                 else
                 {
@@ -40,10 +41,10 @@
                 }
             </tr>
             <tr>
-                <td>@LocalizationCore.Strings.HostName</td>
+                <td>@LocalizationCore.Strings.Main.HostName</td>
                 @if (string.IsNullOrEmpty(Environment.MachineName))
                 {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
                 }
                 else
                 {
@@ -54,7 +55,7 @@
                 <td>@LocalizationCore.Strings.SqlServer</td>
                 @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Server))
                 {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
                 }
                 else
                 {
@@ -65,7 +66,7 @@
                 <td>@LocalizationCore.Strings.SqlDb</td>
                 @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Db))
                 {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
                 }
                 else
                 {
@@ -83,7 +84,7 @@
                 }
                 @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Username))
                 {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
                 }
                 else
                 {
@@ -94,25 +95,25 @@
     </MudSimpleTable>
     <br />
 
-    <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.UserSettings</MudElement>
+    <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.UserSettings</MudElement>
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.SettingName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.SettingValue</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingValue</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationCore.Strings.Language</td>
+                <td>@LocalizationCore.Strings.Main.Language</td>
                 @if (TemplateLanguages == null)
                 {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
                 }
                 else
                 {
                     <td>
-                        <RadzenDropDown Style="width: 20%;" TValue="BlazorCore.EnumLang" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDown Style="width: 20%;" TValue="ShareEnums.Lang" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
                                         Data=@TemplateLanguages PageSize="5" TextProperty="Name" ValueProperty="Value"
                                         Value=@LocalizationCore.Lang Change=@(args => OnChange(args, nameof(TemplateLanguages))) 
@@ -121,10 +122,10 @@
                 }
             </tr>
             <tr>
-                <td>@LocalizationCore.Strings.DebugMode</td>
+                <td>@LocalizationCore.Strings.Main.DebugMode</td>
                 @if (TemplateIsDebug == null)
                 {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
                 }
                 else
                 {

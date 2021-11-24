@@ -1,6 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
+using DataProjectsCore.DAL;
+using DataProjectsCore.Models;
+using DataShareCore;
+using DataShareCore.DAL.DataModels;
+using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace BlazorDeviceControl.Shared.Sys
 {
     public partial class Logs
@@ -18,13 +28,13 @@ namespace BlazorDeviceControl.Shared.Sys
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> {
                     new(async() => {
-                        Table = new TableSystemEntity(EnumTableSystem.Logs);
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
                         UidItem = null;
                         Items = null;
                         ItemsCount = 0;
                         await GuiRefreshWithWaitAsync();
 
-                        object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.GetLogs, string.Empty, 0, string.Empty);
+                        object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs, string.Empty, 0, string.Empty);
                         Items = new List<LogSummaryEntity>();
                         foreach (object obj in objects)
                         {
