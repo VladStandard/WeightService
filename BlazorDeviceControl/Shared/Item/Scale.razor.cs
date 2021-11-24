@@ -64,7 +64,7 @@ namespace BlazorDeviceControl.Shared.Item
                         // ScaleFactor
                         ScaleItem.ScaleFactor ??= 1000;
                         // PLU.
-                        PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{LocalizationCore.Strings.DataLoading}]";
+                        PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{LocalizationCore.Strings.Main.DataLoading}]";
                         PluItems = AppSettings.DataAccess.PlusCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
                             { ShareEnums.DbField.Marked.ToString(), false },
                             { "Scale.Id", ScaleItem.Id },

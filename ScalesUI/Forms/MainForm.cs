@@ -4,7 +4,6 @@
 using DataCore;
 using DataProjectsCore;
 using DataProjectsCore.Helpers;
-using DataProjectsCore.Utils;
 using DataShareCore;
 using DataShareCore.Helpers;
 using DataShareCore.Schedulers;
@@ -47,7 +46,6 @@ namespace ScalesUI.Forms
             fieldResolution.Visible = _debug.IsDebug;
             fieldResolution.SelectedIndex = _debug.IsDebug ? 2 : 0;
             fieldLang.Visible = _debug.IsDebug;
-            fieldLang.SelectedIndex = _debug.IsDebug ? 1 : 0;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -55,7 +53,7 @@ namespace ScalesUI.Forms
             try
             {
                 _sessionState.TaskManager.Close();
-                _sessionState.TaskManager.ClosePrintManager();
+                //_sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
 
                 if (_sessionState.CurrentScale != null)
@@ -191,7 +189,7 @@ namespace ScalesUI.Forms
                 if (isClose)
                 {
                     _sessionState.TaskManager.Close();
-                    _sessionState.TaskManager.ClosePrintManager();
+                    //_sessionState.TaskManager.ClosePrintManager();
                     _quartz.Close();
                     _sessionState.TaskManager.WaitSync(2_500);
                     e.Cancel = false;
@@ -436,10 +434,10 @@ namespace ScalesUI.Forms
             Application.DoEvents();
         }
 
-        private void CallbackPrintManagerClose()
-        {
-            _sessionState.TaskManager.ClosePrintManager();
-        }
+        //private void CallbackPrintManagerClose()
+        //{
+        //    _sessionState.TaskManager.ClosePrintManager();
+        //}
 
         #endregion
 
@@ -469,7 +467,7 @@ namespace ScalesUI.Forms
             try
             {
                 _sessionState.TaskManager.Close();
-                _sessionState.TaskManager.ClosePrintManager();
+                //_sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
 
                 using PasswordForm passwordForm = new() { TopMost = !_debug.IsDebug };
@@ -550,25 +548,12 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.TaskManager.Close();
-                _sessionState.TaskManager.ClosePrintManager();
-                Application.DoEvents();
+                if (!CheckWeight())
+                    return;
 
-                // Weight check.
-                if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold || 
-                    _sessionState.TaskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
-                {
-                    // WPF MessageBox.
-                    using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                    wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                    wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.MassaCheck(_sessionState.TaskManager.MassaManager.WeightNet);
-                    wpfPageLoader.MessageBox.ButtonYesVisibility = System.Windows.Visibility.Visible;
-                    wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
-                    wpfPageLoader.MessageBox.Localization();
-                    wpfPageLoader.ShowDialog(this);
-                    if (wpfPageLoader.MessageBox.Result != DialogResult.Yes)
-                        return;
-                }
+                _sessionState.TaskManager.Close();
+                //_sessionState.TaskManager.ClosePrintManager();
+                Application.DoEvents();
 
                 // PLU form.
                 using PluListForm pluListForm = new() { Owner = this };
@@ -603,7 +588,7 @@ namespace ScalesUI.Forms
             try
             {
                 _sessionState.TaskManager.Close();
-                _sessionState.TaskManager.ClosePrintManager();
+                //_sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
 
                 if (_sessionState.CurrentOrder == null)
@@ -664,7 +649,7 @@ namespace ScalesUI.Forms
                 }
 
                 _sessionState.TaskManager.Close();
-                _sessionState.TaskManager.ClosePrintManager();
+                //_sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
 
                 using SetKneadingNumberForm kneadingNumberForm = new() { Owner = this };
@@ -685,11 +670,57 @@ namespace ScalesUI.Forms
             }
         }
 
+        private bool CheckWeight()
+        {
+            if (_sessionState.TaskManager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold ||
+                _sessionState.TaskManager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
+            {
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.MassaCheck(_sessionState.TaskManager.MassaManager.WeightNet);
+                wpfPageLoader.MessageBox.ButtonYesVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(this);
+                return wpfPageLoader.MessageBox.Result == DialogResult.Yes;
+            }
+            return true;
+        }
+
+        private bool CheckWeightBeforePrint()
+        {
+            if (_sessionState.CurrentPlu == null)
+                return false;
+
+            // Unit weight in pcs.
+            if (_sessionState.CurrentPlu.CheckWeight == false)
+                return true;
+
+            decimal weight = _sessionState.TaskManager.MassaManager.WeightNet - _sessionState.CurrentPlu.GoodsTareWeight;
+            if (weight <= LocalizationData.ScalesUI.MassaThreshold)
+            {
+                // WPF MessageBox.
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.MassaCheckBeforePrint(weight);
+                wpfPageLoader.MessageBox.ButtonYesVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(this);
+                return wpfPageLoader.MessageBox.Result == DialogResult.Yes;
+            }
+            return true;
+        }
+
         private void ButtonPrint_Click(object sender, EventArgs e)
         {
             try
             {
-                _sessionState.TaskManager.ClosePrintManager();
+                if (!CheckWeightBeforePrint())
+                    return;
+
+                //_sessionState.TaskManager.ClosePrintManager();
                 _sessionState.PrintLabel(Owner);
             }
             catch (Exception ex)
@@ -819,7 +850,7 @@ namespace ScalesUI.Forms
             try
             {
                 _sessionState.TaskManager.Close();
-                _sessionState.TaskManager.ClosePrintManager();
+                //_sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
 
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
@@ -899,7 +930,7 @@ namespace ScalesUI.Forms
             try
             {
                 _sessionState.TaskManager.Close();
-                _sessionState.TaskManager.ClosePrintManager();
+                //_sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
 
                 // .. methods

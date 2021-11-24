@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.870] - 2021-11-24
+### Fixed
+- Ошибка печати
+
 ## [0.5.860] - 2021-11-22
 ### Fixed
 - WS-T-26. SQL-script переноса PLU между устройствами

@@ -66,7 +66,7 @@ namespace DataProjectsCore.DAL.Utils
                             result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
                             result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
                             //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
-                            result.ZebraPrinter.Setup(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
+                            result.ZebraPrinter.Load(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
                             result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
                             result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
                             result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
@@ -80,44 +80,44 @@ namespace DataProjectsCore.DAL.Utils
             return result;
         }
 
-        [Obsolete(@"Deprecated method")]
-        public static ScaleDirect Load(int scaleId)
-        {
-            ScaleDirect result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                using (SqlCommand cmd = new("SELECT * FROM [db_scales].[GetScaleByID] (@ScaleID);"))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ScaleID", scaleId);
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                            result.Description = SqlConnectFactory.GetValue<string>(reader, "Description");
-                            result.DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
-                            result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
-                            result.DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
-                            result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
-                            result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
-                            result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
-                            //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
-                            result.ZebraPrinter.Setup(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
-                            result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
-                            result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
-                            result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
-                            result.ScaleFactor = SqlConnectFactory.GetValue<int?>(reader, "ScaleFactor");
-                        }
-                    }
-                    reader.Close();
-                }
-                con.Close();
-            }
-            return result;
-        }
+        //[Obsolete(@"Deprecated method")]
+        //public static ScaleDirect Load(int scaleId)
+        //{
+        //    ScaleDirect result = new();
+        //    using (SqlConnection con = SqlConnectFactory.GetConnection())
+        //    {
+        //        con.Open();
+        //        using (SqlCommand cmd = new("SELECT * FROM [db_scales].[GetScaleByID] (@ScaleID);"))
+        //        {
+        //            cmd.Connection = con;
+        //            cmd.Parameters.AddWithValue("@ScaleID", scaleId);
+        //            using SqlDataReader reader = cmd.ExecuteReader();
+        //            if (reader.HasRows)
+        //            {
+        //                while (reader.Read())
+        //                {
+        //                    result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+        //                    result.Description = SqlConnectFactory.GetValue<string>(reader, "Description");
+        //                    result.DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
+        //                    result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
+        //                    result.DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
+        //                    result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
+        //                    result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
+        //                    result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
+        //                    //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
+        //                    result.ZebraPrinter.Load(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
+        //                    result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
+        //                    result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
+        //                    result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
+        //                    result.ScaleFactor = SqlConnectFactory.GetValue<int?>(reader, "ScaleFactor");
+        //                }
+        //            }
+        //            reader.Close();
+        //        }
+        //        con.Close();
+        //    }
+        //    return result;
+        //}
 
         public static void Update(ScaleDirect scale)
         {

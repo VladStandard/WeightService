@@ -4,8 +4,10 @@
 @using DataCore
 @using DataProjectsCore
 @using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.DAL.TableScaleModels
 @using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
+@using DataShareCore
 @inherits BlazorProjectsCore.Models.BaseRazorIdEntity
 @inject IDialogService DialogService
 
@@ -14,36 +16,36 @@
     <DataReload Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@Items TItem="PluDirect"
+        Data=@Items TItem="PluEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
         RowDoubleClick=@(args => ActionEditAsync())
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns>
-            <RadzenGridColumn TItem="PluDirect" Property="Id" Title=@LocalizationData.DeviceControl.TableFieldId Width="6%" TextAlign="TextAlign.Center" />
-            <RadzenGridColumn TItem="PluDirect" Property="Plu" Title=@LocalizationData.DeviceControl.TableFieldPlu Width="6%" TextAlign="TextAlign.Center" />
-            <RadzenGridColumn TItem="PluDirect" Property="Active" Title=@LocalizationData.DeviceControl.TableFieldActive Width="4%" TextAlign="TextAlign.Center">
+            <RadzenGridColumn TItem="PluEntity" Property="Id" Title=@LocalizationData.DeviceControl.TableFieldId Width="6%" TextAlign="TextAlign.Center" />
+            <RadzenGridColumn TItem="PluEntity" Property="Plu" Title=@LocalizationData.DeviceControl.TableFieldPlu Width="6%" TextAlign="TextAlign.Center" />
+            <RadzenGridColumn TItem="PluEntity" Property="Active" Title=@LocalizationData.DeviceControl.TableFieldActive Width="4%" TextAlign="TextAlign.Center">
                 <Template Context="pluEntity">
                     <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.Active Disabled="true" />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluDirect" Property="CheckWeight" Title=@LocalizationData.DeviceControl.TableFieldCheckWeight Width="4%" TextAlign="TextAlign.Center">
+            <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Title=@LocalizationData.DeviceControl.TableFieldCheckWeight Width="4%" TextAlign="TextAlign.Center">
                 <Template Context="pluEntity">
                     <RadzenCheckBox TValue="bool?" @bind-Value="@pluEntity.CheckWeight" Disabled="true" />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluDirect" Title=@LocalizationData.DeviceControl.TableFieldGoodsName Width="16%">
+            <RadzenGridColumn TItem="PluEntity" Title=@LocalizationData.DeviceControl.TableFieldGoodsName Width="16%">
                 <Template Context="pluEntity">
                     <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.GoodsName></RadzenLabel>
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluDirect" Title=@LocalizationData.DeviceControl.TableFieldTemplate Width="15%">
+            <RadzenGridColumn TItem="PluEntity" Title=@LocalizationData.DeviceControl.TableFieldTemplate Width="15%">
                 <Template Context="pluEntity">
                     <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Templates.Title></RadzenLabel>
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluDirect" Property="Gtin" Title=@LocalizationData.DeviceControl.TableFieldGtin Width="10%" />
-            <RadzenGridColumn TItem="PluDirect" Property="GtinCheck" Title="" Width="3%" TextAlign="TextAlign.Center">
+            <RadzenGridColumn TItem="PluEntity" Property="Gtin" Title=@LocalizationData.DeviceControl.TableFieldGtin Width="10%" />
+            <RadzenGridColumn TItem="PluEntity" Property="GtinCheck" Title="" Width="3%" TextAlign="TextAlign.Center">
                 <Template Context="pluEntity">
                     @if (pluEntity.GtinCheck())
                     {
@@ -55,14 +57,14 @@
                     }
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluDirect" Title=@LocalizationData.DeviceControl.TableFieldNomenclatureName Width="15%">
+            <RadzenGridColumn TItem="PluEntity" Title=@LocalizationData.DeviceControl.TableFieldNomenclatureName Width="15%">
                 <Template Context="pluEntity">
                     <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.Nomenclature.Name></RadzenLabel>
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PluDirect" Property="GoodsShelfLifeDays" Title=@LocalizationData.DeviceControl.TableFieldShelfLifeDays Width="5%" />
-            <RadzenGridColumn TItem="PluDirect" Property="GoodsTareWeight" Title=@LocalizationData.DeviceControl.TableFieldGoodsTareWeight Width="5%" />
-            <RadzenGridColumn TItem="PluDirect" Property="GoodsBoxQuantly" Title=@LocalizationData.DeviceControl.TableFieldGoodsBoxQuantly Width="5%" />
+            <RadzenGridColumn TItem="PluEntity" Property="GoodsShelfLifeDays" Title=@LocalizationData.DeviceControl.TableFieldShelfLifeDays Width="5%" />
+            <RadzenGridColumn TItem="PluEntity" Property="GoodsTareWeight" Title=@LocalizationData.DeviceControl.TableFieldGoodsTareWeight Width="5%" />
+            <RadzenGridColumn TItem="PluEntity" Property="GoodsBoxQuantly" Title=@LocalizationData.DeviceControl.TableFieldGoodsBoxQuantly Width="5%" />
         </Columns>
     </RadzenGrid>
     @if (Items == null)

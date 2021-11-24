@@ -4,9 +4,7 @@
 using DataShareCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
-using System.Collections.Generic;
 using System.Threading;
-using System.Xml.Serialization;
 
 namespace DataProjectsCore.DAL.TableModels
 {
@@ -31,108 +29,116 @@ namespace DataProjectsCore.DAL.TableModels
         public virtual string Mac { get; set; } = "";
         public virtual string Password { get; set; } = "";
         public virtual string PrinterType { get; set; } = "";
-        [XmlIgnore]
-        public Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>();
-        [XmlIgnore]
-        public Dictionary<string, string> Logo { get; set; } = new Dictionary<string, string>();
+        //[XmlIgnore]
+        //public Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>();
+        //[XmlIgnore]
+        //public Dictionary<string, string> Logo { get; set; } = new Dictionary<string, string>();
 
         #endregion
 
-        public void Setup(int? id)
+        #region Public and private methods
+
+        public void Load(int? id)
         {
             if (id != null)
             {
                 Id = (int)id;
-                Load();
+                LoadFields();
+                //LoadLogos();
+                //LoadFonts();
             }
         }
-        
-        public void Load()
+
+        private void LoadFields()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                string query = @"
+            // Fields.
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            string query = @"
 SELECT x.Id,x.Name,x.Ip,x.Port,x.Password,x.Mac,y.Name as PrinterType
 FROM [db_scales].[ZebraPrinter] x
 INNER JOIN[db_scales].[ZebraPrinterType] y
 ON x.[PrinterTypeId] = y.Id
 WHERE x.[Id] = @ID;
                     ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-                using (SqlCommand cmd = new(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ID", Id);
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            Ip = SqlConnectFactory.GetValue<string>(reader, "Ip");
-                            Port = SqlConnectFactory.GetValue<short>(reader, "Port");
-                            Mac = SqlConnectFactory.GetValue<string>(reader, "Mac");
-                            Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-                            Password = SqlConnectFactory.GetValue<string>(reader, "Password");
-                            PrinterType = SqlConnectFactory.GetValue<string>(reader, "PrinterType");
-                        }
-                    }
-                    reader.Close();
-                }
-                con.Close();
-            }
-
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlCommand cmd = new(query))
             {
-                con.Open();
-                string query = @"
-select [Name],MAX([ImageData]) [ImageData] 
-from [db_scales].[GetPrinterResources] (@ID,@Type)
-group by [Name]
-                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-                using (SqlCommand cmd = new(query))
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ID", Id);
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    Logo.Clear();
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ID", Id);
-                    cmd.Parameters.AddWithValue("@Type", "GRF");
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            Logo.Add(reader.GetString(0), reader.GetString(1));
-                        }
+                        Ip = SqlConnectFactory.GetValue<string>(reader, "Ip");
+                        Port = SqlConnectFactory.GetValue<short>(reader, "Port");
+                        Mac = SqlConnectFactory.GetValue<string>(reader, "Mac");
+                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
+                        Password = SqlConnectFactory.GetValue<string>(reader, "Password");
+                        PrinterType = SqlConnectFactory.GetValue<string>(reader, "PrinterType");
                     }
-                    reader.Close();
                 }
-                con.Close();
+                reader.Close();
             }
-
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
-            {
-                con.Open();
-                string query = @"
-select [Name], [ImageData] 
-from [db_scales].[GetPrinterResources] (@ID,@Type)
-                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-                using (SqlCommand cmd = new(query))
-                {
-                    Fonts.Clear();
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@ID", Id);
-                    cmd.Parameters.AddWithValue("@Type", "TTF");
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            Fonts.Add(reader.GetString(0), reader.GetString(1));
-                        }
-                    }
-                    reader.Close();
-                }
-                con.Close();
-            }
+            con.Close();
         }
+
+        //        private void LoadLogos()
+        //        {
+        //            // Logos.
+        //            using SqlConnection con = SqlConnectFactory.GetConnection();
+        //            con.Open();
+        //            string query = @"
+        //select [Name],MAX([ImageData]) [ImageData] 
+        //from [db_scales].[GetPrinterResources] (@ID,@Type)
+        //group by [Name]
+        //                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+        //            using (SqlCommand cmd = new(query))
+        //            {
+        //                Logo.Clear();
+        //                cmd.Connection = con;
+        //                cmd.Parameters.AddWithValue("@ID", Id);
+        //                cmd.Parameters.AddWithValue("@Type", "GRF");
+        //                using SqlDataReader reader = cmd.ExecuteReader();
+        //                if (reader.HasRows)
+        //                {
+        //                    while (reader.Read())
+        //                    {
+        //                        Logo.Add(reader.GetString(0), reader.GetString(1));
+        //                    }
+        //                }
+        //                reader.Close();
+        //            }
+        //            con.Close();
+        //        }
+
+        //        private void LoadFonts()
+        //        {
+        //            using SqlConnection con = SqlConnectFactory.GetConnection();
+        //            con.Open();
+        //            string query = @"
+        //select [Name], [ImageData] 
+        //from [db_scales].[GetPrinterResources] (@ID,@Type)
+        //                    ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+        //            using (SqlCommand cmd = new(query))
+        //            {
+        //                Fonts.Clear();
+        //                cmd.Connection = con;
+        //                cmd.Parameters.AddWithValue("@ID", Id);
+        //                cmd.Parameters.AddWithValue("@Type", "TTF");
+        //                using SqlDataReader reader = cmd.ExecuteReader();
+        //                if (reader.HasRows)
+        //                {
+        //                    while (reader.Read())
+        //                    {
+        //                        Fonts.Add(reader.GetString(0), reader.GetString(1));
+        //                    }
+        //                }
+        //                reader.Close();
+        //            }
+        //            con.Close();
+        //        }
+
+        #endregion
     }
 }

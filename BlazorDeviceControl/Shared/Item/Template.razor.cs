@@ -3,7 +3,6 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.Models;
@@ -17,7 +16,11 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public TemplateDirect TemplateItem { get => (TemplateDirect)IdItem; set => SetItem(value); }
+        //public TemplateDirect TemplateItem { get => (TemplateDirect)IdItem; set => SetItem(value); }
+        public DataProjectsCore.DAL.TableScaleModels.TemplateEntity TemplateItem
+        {
+            get => (DataProjectsCore.DAL.TableScaleModels.TemplateEntity)IdItem; set => SetItem(value);
+        }
         public List<TypeEntity<string>> TemplateCategories { get; set; }
 
         #endregion

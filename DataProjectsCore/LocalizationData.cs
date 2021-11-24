@@ -427,13 +427,22 @@ namespace DataCore
                 ? @"Unload the weight platform!" + Environment.NewLine + Environment.NewLine +
                  $@"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine +
                  $@"Current gross value: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
-                 $@"  {Buttons.Yes} - ignore and continue." + Environment.NewLine +
-                 $@"  {Buttons.No} - suspend and unload."
+                 $@"  {Buttons.Yes} - continue." + Environment.NewLine +
+                 $@"  {Buttons.No} - suspend."
                 : @"Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine +
                  $@"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + 
                  $@"Текущее значение брутто: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
-                 $@"  {Buttons.Yes} - игнорировать и продолжить." + Environment.NewLine +
-                 $@"  {Buttons.No} - приостановить и разгрузить.";
+                 $@"  {Buttons.Yes} - продолжить." + Environment.NewLine +
+                 $@"  {Buttons.No} - приостановить.";
+            public static string MassaCheckBeforePrint(decimal currentNet) => Lang == ShareEnums.Lang.English 
+                ? @"For products by weight, put the product on the scale!" + Environment.NewLine + Environment.NewLine +
+                 $@"Current net value: {currentNet:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
+                 $@"  {Buttons.Yes} - continue." + Environment.NewLine +
+                 $@"  {Buttons.No} - suspend."
+                : @"Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + Environment.NewLine +
+                 $@"Текущее значение нетто: {currentNet:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
+                 $@"  {Buttons.Yes} - продолжить." + Environment.NewLine +
+                 $@"  {Buttons.No} - приостановить.";
             public static string PrinterWarningOpenCover => Lang == ShareEnums.Lang.English 
                 ? @"Open the cover of the separator before proceeding with the calibration!"
                 : @"Прежде чем продолжить калибровку, откройте крышку отделителя!";

@@ -30,7 +30,7 @@ namespace WeightCore.Managers
         ~TaskManagerHelper()
         {
             Close();
-            ClosePrintManager();
+            //ClosePrintManager();
         }
 
         #endregion
@@ -152,26 +152,26 @@ namespace WeightCore.Managers
             }
         }
 
-        public void ClosePrintManager()
-        {
-            try
-            {
-                IsExecutePrintReopen = false;
-                System.Windows.Forms.Application.DoEvents();
+        //public void ClosePrintManager()
+        //{
+        //    try
+        //    {
+        //        IsExecutePrintReopen = false;
+        //        System.Windows.Forms.Application.DoEvents();
 
-                PrintManager.Close();
+        //        PrintManager.Close();
 
-                DebugLog($"{nameof(PrintManager)} is closed");
-            }
-            catch (Exception ex)
-            {
-                _exception.Catch(null, ref ex);
-            }
-            finally
-            {
-                System.Windows.Forms.Application.DoEvents();
-            }
-        }
+        //        DebugLog($"{nameof(PrintManager)} is closed");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _exception.Catch(null, ref ex);
+        //    }
+        //    finally
+        //    {
+        //        System.Windows.Forms.Application.DoEvents();
+        //    }
+        //}
 
         public void TaskRunMassaManagerReopen()
         {

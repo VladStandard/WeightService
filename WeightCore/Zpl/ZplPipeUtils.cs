@@ -70,6 +70,7 @@ namespace WeightCore.Zpl
                 xslt.Load(xmlReaderXslt);
                 using StringWriter stringWriter = new();
                 using XmlWriter xmlWriter = XmlWriter.Create(stringWriter, xslt.OutputSettings); // use OutputSettings of xsl, so it can be output as HTML
+                
                 xslt.Transform(xmlReaderXml, xmlWriter);
                 result = stringWriter.ToString();
                 result = ToCodePoints(result);

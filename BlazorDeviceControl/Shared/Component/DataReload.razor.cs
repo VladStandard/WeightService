@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Component
         [Parameter] public string Title { get; set; }
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
         [Parameter] public bool IsShowItemsCount { get; set; }
-        public string ItemsCountResult => $"{LocalizationCore.Strings.ItemsCount}: {ItemsCount}";
+        public string ItemsCountResult => $"{LocalizationCore.Strings.Main.ItemsCount}: {ItemsCount}";
 
         #endregion
 
