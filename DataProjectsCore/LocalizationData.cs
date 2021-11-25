@@ -407,6 +407,8 @@ namespace DataCore
         public static class ScalesUI
         {
             public static string Exception => Lang == ShareEnums.Lang.English ? @"Exception" : @"Ошибка";
+            public static string Method => Lang == ShareEnums.Lang.English ? @"Method" : @"Метод";
+            public static string Line => Lang == ShareEnums.Lang.English ? @"Ling" : @"Строка";
             public static string ExceptionSqlDb => Lang == ShareEnums.Lang.English ? @"The database is unavailable!" : @"База данных недоступна!";
             public static string Registration => Lang == ShareEnums.Lang.English ? @"Device registration" : @"Регистрация устройства";
             public static string RegistrationWarning1(Guid uid) => Lang == ShareEnums.Lang.English 

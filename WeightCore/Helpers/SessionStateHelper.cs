@@ -31,6 +31,7 @@ namespace WeightCore.Helpers
         #region Public and private fields and properties
 
         public readonly TaskManagerHelper TaskManager = TaskManagerHelper.Instance;
+        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
@@ -512,20 +513,27 @@ namespace WeightCore.Helpers
         /// <param name="template"></param>
         private void PrintLabel(TemplateDirect template)
         {
-            CurrentWeighingFact.Save();
+            try
+            {
+                CurrentWeighingFact.Save();
 
-            string xmlInput = CurrentWeighingFact.SerializeObject();
-            string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput, true);
+                string xmlInput = CurrentWeighingFact.SerializeObject();
+                string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput, true);
 
-            // Подменить картинки ZPL.
-            PrintCmdReplacePics(ref printCmd);
-            // Сохранить ZPL-запрос в таблицу [Labels].
-            PrintSaveLabel(printCmd, CurrentWeighingFact.Id);
-            if (TaskManager.PrintManager == null)
-                return;
+                // Подменить картинки ZPL.
+                PrintCmdReplacePics(ref printCmd);
+                // Сохранить ZPL-запрос в таблицу [Labels].
+                PrintSaveLabel(printCmd, CurrentWeighingFact.Id);
+                if (TaskManager.PrintManager == null)
+                    return;
 
-            // Отправить задание в очередь печати.
-            TaskManager.PrintManager.Send(printCmd);
+                // Отправить задание в очередь печати.
+                TaskManager.PrintManager.Send(printCmd);
+            }
+            catch (Exception ex)
+            {
+                _exception.Catch(null, ref ex);
+            }
         }
 
         #endregion

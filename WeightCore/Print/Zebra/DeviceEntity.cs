@@ -51,20 +51,20 @@ namespace WeightCore.Print.Zebra
             Requests.Add(ZplPipeUtils.ZplGetOdometerUserLabel());
         }
 
-        public async void SendAsync(string template, string content)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                Requests.Add(ZplPipeUtils.XsltTransformationPipe(template, content, true));
-                log.Debug($"{Name} - send content:\n{content}");
-            }
-            catch (Exception ex)
-            {
-                log.Debug($"{Name}\n{ex.Message}");
-            }
+        //public async void SendAsync(string template, string content)
+        //{
+        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+        //    try
+        //    {
+        //        Requests.Add(ZplPipeUtils.XsltTransformationPipe(template, content, true));
+        //        log.Debug($"{Name} - send content:\n{content}");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        log.Debug($"{Name}\n{ex.Message}");
+        //    }
 
-        }
+        //}
 
         public async void SendAsync(string content)
         {

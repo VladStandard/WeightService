@@ -52,6 +52,7 @@
             this.Name = "WpfPageLoader";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Выбор PLU";
+            this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WpfPageLoader_FormClosed);
             this.Load += new System.EventHandler(this.WpfPageLoader_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.WpfPageLoader_KeyUp);

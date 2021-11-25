@@ -3,6 +3,7 @@
 
 using DataProjectsCore;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -60,19 +61,29 @@ namespace WeightCore.Gui
             try
             {
                 // Own GUI.
-                TopMost = !_debug.IsDebug;
+                //TopMost = !_debug.IsDebug;
 
-                if (UseOwnerSize)
+                if (Owner != null)
                 {
-                    Width = Owner.Width;
-                    Height = Owner.Height;
-                    Left = Owner.Left;
-                    Top = Owner.Top;
+                    if (UseOwnerSize)
+                    {
+                        Width = Owner.Width;
+                        Height = Owner.Height;
+                        Left = Owner.Left;
+                        Top = Owner.Top;
+                    }
+                    else
+                    {
+                        Left = Owner.Left + Owner.Width / 2 - Width / 2;
+                        Top = Owner.Top + Owner.Height / 2 - Height / 2;
+                    }
                 }
                 else
                 {
-                    Left = Owner.Left + Owner.Width / 2 - Width / 2;
-                    Top = Owner.Top + Owner.Height / 2 - Height / 2;
+                    Screen screen = Screen.FromHandle(Process.GetCurrentProcess().MainWindowHandle);
+                    System.Drawing.Rectangle workingRectangle = screen.WorkingArea;
+                    Left = workingRectangle.Left + workingRectangle.Width / 2 - Width / 2;
+                    Top = workingRectangle.Top + workingRectangle.Height / 2 - Height / 2;
                 }
 
                 // WPF element.

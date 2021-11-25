@@ -1,6 +1,6 @@
+----------------------------------------------------------------------------------------------------
 -- Таблица Errors
-use [ScalesDB]
-
+----------------------------------------------------------------------------------------------------
 if not exists (select * from [sys].[tables] where [name] = 'Errors' and type = 'U') begin
 	create table [db_scales].[Errors] (
 		[Id]             int              identity (1, 1) not null,
@@ -14,7 +14,8 @@ if not exists (select * from [sys].[tables] where [name] = 'Errors' and type = '
 		primary key clustered ([Id] ASC) ON [ScalesFileGroup],
 	) on [ScalesFileGroup]
 end
-
+----------------------------------------------------------------------------------------------------
 select *
 from [db_scales].[Errors]
 order by [CreatedDate] desc
+----------------------------------------------------------------------------------------------------

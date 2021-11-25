@@ -44,16 +44,19 @@ namespace WeightCore.Helpers
             string msg = ex.Message;
             if (ex.InnerException != null)
                 msg += Environment.NewLine + ex.InnerException.Message;
+
+            // WPF MessageBox.
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+            wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
+            wpfPageLoader.MessageBox.Message =
+                @$"{LocalizationData.ScalesUI.Method}: {memberName}." + Environment.NewLine +
+                $"{LocalizationData.ScalesUI.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + msg;
+            wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+            wpfPageLoader.MessageBox.Localization();
             if (owner != null)
-            {
-                // WPF MessageBox.
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
-                wpfPageLoader.MessageBox.Message = @$"{nameof(memberName)}: {memberName}. {nameof(lineNumber)}: {lineNumber}" + Environment.NewLine + msg;
-                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog(owner);
-            }
+            else
+                wpfPageLoader.ShowDialog();
         }
 
         #endregion
