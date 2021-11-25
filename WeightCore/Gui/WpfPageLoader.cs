@@ -74,16 +74,16 @@ namespace WeightCore.Gui
                     }
                     else
                     {
-                        Left = Owner.Left + Owner.Width / 2 - Width / 2;
-                        Top = Owner.Top + Owner.Height / 2 - Height / 2;
+                        Left = Owner.Left + (Owner.Width / 2) - (Width / 2);
+                        Top = Owner.Top + (Owner.Height / 2) - (Height / 2);
                     }
                 }
                 else
                 {
                     Screen screen = Screen.FromHandle(Process.GetCurrentProcess().MainWindowHandle);
                     System.Drawing.Rectangle workingRectangle = screen.WorkingArea;
-                    Left = workingRectangle.Left + workingRectangle.Width / 2 - Width / 2;
-                    Top = workingRectangle.Top + workingRectangle.Height / 2 - Height / 2;
+                    Left = workingRectangle.Left + (workingRectangle.Width / 2) - (Width / 2);
+                    Top = workingRectangle.Top + (workingRectangle.Height / 2) - (Height / 2);
                 }
 
                 // WPF element.
