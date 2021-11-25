@@ -1,6 +1,6 @@
 ﻿namespace ScalesUI.Forms
 {
-    partial class SetKneadingNumberForm
+    partial class KneadingForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,7 @@
             this.labelPalletSize = new System.Windows.Forms.Label();
             this.buttonDtRight = new System.Windows.Forms.Button();
             this.buttonDtLeft = new System.Windows.Forms.Button();
-            this.buttonKneadingLeft = new System.Windows.Forms.Button();
+            this.buttonKneading = new System.Windows.Forms.Button();
             this.labelKneading = new System.Windows.Forms.Label();
             this.labelProdDate = new System.Windows.Forms.Label();
             this.fieldProdDate = new System.Windows.Forms.Label();
@@ -62,7 +62,7 @@
             this.fieldKneading.Name = "fieldKneading";
             this.fieldKneading.Size = new System.Drawing.Size(186, 94);
             this.fieldKneading.TabIndex = 2;
-            this.fieldKneading.Text = "lKneading";
+            this.fieldKneading.Text = "Value";
             this.fieldKneading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel2
@@ -82,7 +82,7 @@
             this.tableLayoutPanel2.Controls.Add(this.labelPalletSize, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.buttonDtRight, 4, 2);
             this.tableLayoutPanel2.Controls.Add(this.buttonDtLeft, 3, 2);
-            this.tableLayoutPanel2.Controls.Add(this.buttonKneadingLeft, 3, 1);
+            this.tableLayoutPanel2.Controls.Add(this.buttonKneading, 3, 1);
             this.tableLayoutPanel2.Controls.Add(this.fieldKneading, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.labelKneading, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.labelProdDate, 1, 2);
@@ -153,7 +153,7 @@
             this.fieldPalletSize.Name = "fieldPalletSize";
             this.fieldPalletSize.Size = new System.Drawing.Size(186, 85);
             this.fieldPalletSize.TabIndex = 13;
-            this.fieldPalletSize.Text = "lbPalletSize";
+            this.fieldPalletSize.Text = "Value";
             this.fieldPalletSize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelPalletSize
@@ -195,18 +195,18 @@
             this.buttonDtLeft.Click += new System.EventHandler(this.ButtonDtLeft_Click);
             this.buttonDtLeft.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
-            // buttonKneadingLeft
+            // buttonKneading
             // 
-            this.buttonKneadingLeft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonKneadingLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonKneadingLeft.Location = new System.Drawing.Point(447, 43);
-            this.buttonKneadingLeft.Name = "buttonKneadingLeft";
-            this.buttonKneadingLeft.Size = new System.Drawing.Size(132, 94);
-            this.buttonKneadingLeft.TabIndex = 6;
-            this.buttonKneadingLeft.Text = "...";
-            this.buttonKneadingLeft.UseVisualStyleBackColor = true;
-            this.buttonKneadingLeft.Click += new System.EventHandler(this.ButtonKneadingLeft_Click);
-            this.buttonKneadingLeft.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
+            this.buttonKneading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonKneading.Location = new System.Drawing.Point(447, 43);
+            this.buttonKneading.Name = "buttonKneading";
+            this.buttonKneading.Size = new System.Drawing.Size(132, 94);
+            this.buttonKneading.TabIndex = 6;
+            this.buttonKneading.Text = "...";
+            this.buttonKneading.UseVisualStyleBackColor = true;
+            this.buttonKneading.Click += new System.EventHandler(this.ButtonKneadingLeft_Click);
+            this.buttonKneading.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
             // labelKneading
             // 
@@ -336,7 +336,7 @@
             this.buttonOk.Click += new System.EventHandler(this.ButtonOk_Click);
             this.buttonOk.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             // 
-            // SetKneadingNumberForm
+            // KneadingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -347,11 +347,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SetKneadingNumberForm";
+            this.Name = "KneadingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Замес";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.SetKneadingNumberForm_Load);
+            this.Load += new System.EventHandler(this.KneadingForm_Load);
             this.Shown += new System.EventHandler(this.SetKneadingNumberForm_Shown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SetKneadingNumberForm_KeyUp);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -365,7 +365,7 @@
         private System.Windows.Forms.Label fieldKneading;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label labelKneading;
-        private System.Windows.Forms.Button buttonKneadingLeft;
+        private System.Windows.Forms.Button buttonKneading;
         private System.Windows.Forms.Label labelProdDate;
         private System.Windows.Forms.Label fieldProdDate;
         private System.Windows.Forms.Button buttonDtRight;

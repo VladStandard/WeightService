@@ -57,7 +57,7 @@
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Закрыть";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // btnRightRoll
             // 
@@ -67,7 +67,7 @@
             this.btnRightRoll.TabIndex = 1;
             this.btnRightRoll.Text = ">>";
             this.btnRightRoll.UseVisualStyleBackColor = true;
-            this.btnRightRoll.Click += new System.EventHandler(this.btnRightRoll_Click);
+            this.btnRightRoll.Click += new System.EventHandler(this.BtnRightRoll_Click);
             // 
             // btnLeftRoll
             // 
@@ -77,7 +77,7 @@
             this.btnLeftRoll.TabIndex = 2;
             this.btnLeftRoll.Text = "<<";
             this.btnLeftRoll.UseVisualStyleBackColor = true;
-            this.btnLeftRoll.Click += new System.EventHandler(this.btnLeftRoll_Click);
+            this.btnLeftRoll.Click += new System.EventHandler(this.BtnLeftRoll_Click);
             // 
             // tableLayoutPanel1
             // 

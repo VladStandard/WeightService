@@ -1,6 +1,6 @@
 -- Table Labels
 -- Connect from PALYCH\LUTON
-select 
+SELECT
 	[L].[Id]
    ,[L].[CreateDate]
    ,[S].[Description]
@@ -13,8 +13,10 @@ select
    ,[WF].[RegNum]
    ,[WF].[Kneading]
    ,[L].[ZPL]
-   ,replace(replace([L].[ZPL], char(13), ''), char(10), '') [ZPL_STR]
-from [db_scales].[Labels] [L]
-left join [db_scales].[WeithingFact] [WF] on [L].[WeithingFactId]=[WF].[Id]
-left join [db_scales].[Scales] [S] on [WF].[ScaleId]=[S].[ID]
-order by [CreateDate] desc
+   ,REPLACE(REPLACE([L].[ZPL], CHAR(13), ''), CHAR(10), '') [ZPL_STR]
+FROM [db_scales].[Labels] [L]
+LEFT JOIN [db_scales].[WeithingFact] [WF]
+	ON [L].[WeithingFactId] = [WF].[Id]
+LEFT JOIN [db_scales].[Scales] [S]
+	ON [WF].[ScaleId] = [S].[Id]
+ORDER BY [CreateDate] DESC

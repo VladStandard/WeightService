@@ -81,83 +81,95 @@ namespace DataProjectsCore.DAL
 
         public static void ExecuteReader(string query, SqlParameter[] parameters, ExecuteReaderInside methodInside)
         {
-            using SqlConnection con = GetConnection();
-            con.Open();
-            using (SqlCommand cmd = new(query))
+            lock (Locker)
             {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddRange(parameters);
-                //cmd.CommandType = CommandType.TableDirect;
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+                using SqlConnection con = GetConnection();
+                con.Open();
+                using (SqlCommand cmd = new(query))
                 {
-                    methodInside(reader);
+                    cmd.Connection = con;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddRange(parameters);
+                    //cmd.CommandType = CommandType.TableDirect;
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        methodInside?.Invoke(reader);
+                    }
+                    reader.Close();
                 }
-                reader.Close();
+                con.Close();
             }
-            con.Close();
         }
 
         public delegate T? ExecuteReaderInside<T>(SqlDataReader reader);
 
         public static T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderInside<T> methodInside)
         {
-            T? result = default;
-            using SqlConnection con = GetConnection();
-            con.Open();
-            using (SqlCommand cmd = new(query))
+            lock (Locker)
             {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddRange(parameters);
-                //cmd.CommandType = CommandType.TableDirect;
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+                T? result = default;
+                using SqlConnection con = GetConnection();
+                con.Open();
+                using (SqlCommand cmd = new(query))
                 {
-                    result = methodInside(reader);
+                    cmd.Connection = con;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddRange(parameters);
+                    //cmd.CommandType = CommandType.TableDirect;
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        result = methodInside(reader);
+                    }
+                    reader.Close();
                 }
-                reader.Close();
+                con.Close();
+                return result;
             }
-            con.Close();
-            return result;
         }
 
         public static T ExecuteReaderForEntity<T>(string query, SqlParameter[] parameters, ExecuteReaderInside<T> methodInside) where T : new()
         {
-            T result = new();
-            using SqlConnection con = GetConnection();
-            con.Open();
-            using (SqlCommand cmd = new(query))
+            lock (Locker)
             {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddRange(parameters);
-                //cmd.CommandType = CommandType.TableDirect;
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+                T result = new();
+                using SqlConnection con = GetConnection();
+                con.Open();
+                using (SqlCommand cmd = new(query))
                 {
-                    result = methodInside(reader) ?? new T();
+                    cmd.Connection = con;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddRange(parameters);
+                    //cmd.CommandType = CommandType.TableDirect;
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        result = methodInside(reader) ?? new T();
+                    }
+                    reader.Close();
                 }
-                reader.Close();
+                con.Close();
+                return result;
             }
-            con.Close();
-            return result;
         }
 
         public static void ExecuteNonQuery(string query, SqlParameter[] parameters)
         {
-            using SqlConnection con = GetConnection();
-            con.Open();
-            using (SqlCommand cmd = new(query))
+            lock (Locker)
             {
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddRange(parameters);
-                //cmd.CommandType = CommandType.StoredProcedure;
-                cmd.ExecuteNonQuery();
+                using SqlConnection con = GetConnection();
+                con.Open();
+                using (SqlCommand cmd = new(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddRange(parameters);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
+                con.Close();
             }
-            con.Close();
         }
 
         #endregion

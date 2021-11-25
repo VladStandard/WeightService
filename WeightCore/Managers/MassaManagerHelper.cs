@@ -38,7 +38,7 @@ namespace WeightCore.Managers
         #region Constructor and destructor
 
         public void Init(string portName, int readTimeout, int writeTimeout,
-            int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
+            int waitReopen = 10_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
         {
             if (IsInit)
                 return;
@@ -81,7 +81,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                _exception.Catch(null, ref ex);
+                _exception.Catch(null, ref ex, false);
             }
         }
 

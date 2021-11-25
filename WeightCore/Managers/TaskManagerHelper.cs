@@ -12,7 +12,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Helpers;
-using WeightCore.Print.Tsc;
 
 namespace WeightCore.Managers
 {
@@ -90,7 +89,7 @@ namespace WeightCore.Managers
                 System.Windows.Forms.Application.DoEvents();
             }
         }
-        
+
         public void Open(SqlViewModelEntity sqlViewModel, bool isTscPrinter, ScaleDirect currentScale)
         {
             try
@@ -100,7 +99,7 @@ namespace WeightCore.Managers
 
                 if (sqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager))
                 {
-                    MassaManager.Init(currentScale.DeviceComPort, currentScale.DeviceReceiveTimeout, currentScale.DeviceSendTimeout);
+                    MassaManager.Init(currentScale.DeviceComPort, currentScale.DeviceReadTimeout, currentScale.DeviceWriteTimeout);
                     TaskRunMassaManagerReopen();
                     TaskRunMassaManagerRequest();
                     TaskRunMassaManagerResponse();
@@ -120,7 +119,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                _exception.Catch(null, ref ex);
+                _exception.Catch(null, ref ex, false);
             }
         }
 
@@ -144,7 +143,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                _exception.Catch(null, ref ex);
+                _exception.Catch(null, ref ex, false);
             }
             finally
             {
@@ -198,7 +197,7 @@ namespace WeightCore.Managers
                         }
                         catch (Exception ex)
                         {
-                            _exception.Catch(null, ref ex);
+                            _exception.Catch(null, ref ex, false);
                             await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(false);
                         }
                     }
@@ -234,7 +233,7 @@ namespace WeightCore.Managers
                         }
                         catch (Exception ex)
                         {
-                            _exception.Catch(null, ref ex);
+                            _exception.Catch(null, ref ex, false);
                             await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(false);
                         }
                     }
@@ -270,7 +269,7 @@ namespace WeightCore.Managers
                         }
                         catch (Exception ex)
                         {
-                            _exception.Catch(null, ref ex);
+                            _exception.Catch(null, ref ex, false);
                             await Task.Delay(TimeSpan.FromMilliseconds(MassaManager.WaitException)).ConfigureAwait(false);
                         }
                     }
@@ -304,7 +303,7 @@ namespace WeightCore.Managers
                         }
                         catch (Exception ex)
                         {
-                            _exception.Catch(null, ref ex);
+                            _exception.Catch(null, ref ex, false);
                             await Task.Delay(TimeSpan.FromMilliseconds(PrintManager.WaitException)).ConfigureAwait(false);
                         }
                     }
@@ -337,7 +336,7 @@ namespace WeightCore.Managers
                         }
                         catch (Exception ex)
                         {
-                            _exception.Catch(null, ref ex);
+                            _exception.Catch(null, ref ex, false);
                             await Task.Delay(TimeSpan.FromMilliseconds(PrintManager.WaitException)).ConfigureAwait(false);
                         }
                     }
@@ -345,7 +344,7 @@ namespace WeightCore.Managers
             });
         }
 
-        private void DebugLog(string message, 
+        private void DebugLog(string message,
             [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             if (_debug.IsDebug)

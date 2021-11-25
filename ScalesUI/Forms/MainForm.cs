@@ -32,6 +32,8 @@ namespace ScalesUI.Forms
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
         private readonly QuartzEntity _quartz = QuartzEntity.Instance;
         private bool _isShowInfoLabels = false;
+        private object LockerSeconds { get; set; } = new();
+        private object LockerDays { get; set; } = new();
 
         #endregion
 
@@ -45,6 +47,7 @@ namespace ScalesUI.Forms
             TopMost = !_debug.IsDebug;
             fieldResolution.Visible = _debug.IsDebug;
             fieldResolution.SelectedIndex = _debug.IsDebug ? 2 : 0;
+            fieldLang.SelectedIndex = 0;
             fieldLang.Visible = _debug.IsDebug;
         }
 
@@ -55,12 +58,6 @@ namespace ScalesUI.Forms
                 _sessionState.TaskManager.Close();
                 //_sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
-
-                if (_sessionState.CurrentScale != null)
-                {
-                    // _sessionState.CurrentScale.Load(_app.GuidToString());
-                    buttonSelectOrder.Visible = !(buttonSelectPlu.Visible = !(_sessionState.CurrentScale.UseOrder == true));
-                }
 
                 LoadResources();
                 LoadLocalization();
@@ -79,11 +76,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
                 Thread.Sleep(1_000);
                 ButtonScalesInit_Click(sender, e);
@@ -99,7 +97,7 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(buttonNewPallet, LocalizationData.ScalesUI.ButtonNewPallet);
             MDSoft.WinFormsUtils.InvokeControl.SetText(buttonAddKneading, LocalizationData.ScalesUI.ButtonAddKneading);
             MDSoft.WinFormsUtils.InvokeControl.SetText(buttonSelectPlu, LocalizationData.ScalesUI.ButtonSelectPlu);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonSetKneading, LocalizationData.ScalesUI.ButtonSetKneading);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(buttonKneading, LocalizationData.ScalesUI.ButtonSetKneading);
             MDSoft.WinFormsUtils.InvokeControl.SetText(buttonPrint, LocalizationData.ScalesUI.ButtonPrint);
             
             MDSoft.WinFormsUtils.InvokeControl.SetText(labelWeightNetto, LocalizationData.ScalesUI.FieldWeightNetto);
@@ -148,11 +146,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
             }
         }
 
@@ -202,7 +201,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -212,15 +211,22 @@ namespace ScalesUI.Forms
 
         private void ScheduleEveryDays()
         {
-            _log.Information("ScheduleIsNextDay");
+            lock (LockerDays)
+            {
+                _log.Information("ScheduleIsNextDay");
+            }
         }
 
         private void ScheduleEverySeconds()
         {
-            ScheduleMassaManager();
-            ScheduleMemoryManager();
-            SchedulePrint();
-            ScheduleProduct();
+            lock (LockerSeconds)
+            {
+                ScheduleMassaManager();
+                ScheduleMemoryManager();
+                SchedulePrint();
+                ScheduleProduct();
+                ScheduleButtonsEnabled();
+            }
         }
 
         private void ScheduleProduct()
@@ -229,16 +235,50 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, $"{_sessionState.ProductDate:dd.MM.yyyy}");
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, $"{_sessionState.Kneading}");
 
-            if (!Equals(buttonPrint.Enabled, _sessionState.CurrentPlu != null))
-                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _sessionState.CurrentPlu != null);
-
-            string strCheckWeight = _sessionState.CurrentPlu?.CheckWeight == true 
+            string strCheckWeight = _sessionState.CurrentPlu?.CheckWeight == true
                 ? LocalizationData.ScalesUI.UnitWeight : LocalizationData.ScalesUI.UnitPcs;
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, _sessionState.CurrentPlu != null
                 ? $"{_sessionState.CurrentPlu.PLU} | {strCheckWeight} | {_sessionState.CurrentPlu.GoodsName}" : string.Empty);
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightTare, _sessionState.CurrentPlu != null
                 ? $"{_sessionState.CurrentPlu.GoodsTareWeight:0.000} {LocalizationData.ScalesUI.UnitKg}"
                 : $"0,000 {LocalizationData.ScalesUI.UnitKg}");
+        }
+
+        private void ScheduleButtonsEnabled()
+        {
+            //buttonSelectOrder.Visible = !(buttonSelectPlu.Visible = !(_sessionState.CurrentScale.UseOrder == true));
+            //if (!Equals(buttonPrint.Enabled, _sessionState.CurrentPlu != null))
+            //    MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _sessionState.CurrentPlu != null);
+            
+            if (_sessionState.TaskManager.MassaManager.IsStable == 0 ||
+                _sessionState.TaskManager.MassaManager.Requests.Count > 0)
+            {
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonSelectOrder, false);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonNewPallet, false);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonAddKneading, false);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonSelectPlu, false);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonKneading, false);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, false);
+            }
+            else
+            {
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonSelectOrder, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonNewPallet, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonAddKneading, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonSelectPlu, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonKneading, true);
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, true);
+            }
+            
+            if (_sessionState.CurrentPlu == null || _sessionState.TaskManager.MassaManager.IsStable == 0 ||
+                _sessionState.TaskManager.MassaManager.Requests.Count > 0)
+            {
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, false);
+            }
+            else
+            {
+                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, true);
+            }
         }
 
         private void CheckEnabled(ProjectsEnums.TaskType taskType, Control control)
@@ -339,7 +379,8 @@ namespace ScalesUI.Forms
                   $"{LocalizationData.ScalesUI.UnitKg} {_sessionState.TaskManager.MassaManagerProgressString}"
                 : $"{LocalizationData.ScalesUI.WeightingStable}: { _sessionState.TaskManager.MassaManager.WeightNet:0.000} " +
                   $"{LocalizationData.ScalesUI.UnitKg} {_sessionState.TaskManager.MassaManagerProgressString}");
-            _sessionState.TaskManager.MassaManagerProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.TaskManager.MassaManagerProgressString);
+            _sessionState.TaskManager.MassaManagerProgressString = DataShareCore.Utils.StringUtils.GetProgressString(
+                _sessionState.TaskManager.MassaManagerProgressString);
             // Состояние COM-порта.
             if (_sessionState.TaskManager.MassaManager.MassaDevice != null)
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.TaskManager.MassaManager.MassaDevice.IsConnected
@@ -479,11 +520,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
             }
         }
@@ -536,11 +578,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
             }
         }
 
@@ -565,7 +608,7 @@ namespace ScalesUI.Forms
                     //_mkDevice.SetTareWeight((int) (_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.CurrentPLU.Scale.ScaleFactor));
 
                     // сразу перейдем к форме с замесами, размерами паллет и прочее
-                    ButtonSetKneading_Click(null, null);
+                    ButtonKneading_Click(null, null);
                 }
                 else if (_sessionState.CurrentPlu != null)
                 {
@@ -574,11 +617,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
             }
         }
@@ -622,16 +666,17 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
             }
         }
 
-        private void ButtonSetKneading_Click(object sender, EventArgs e)
+        private void ButtonKneading_Click(object sender, EventArgs e)
         {
             try
             {
@@ -652,8 +697,8 @@ namespace ScalesUI.Forms
                 //_sessionState.TaskManager.ClosePrintManager();
                 Application.DoEvents();
 
-                using SetKneadingNumberForm kneadingNumberForm = new() { Owner = this };
-                if (kneadingNumberForm.ShowDialog() == DialogResult.OK)
+                using KneadingForm kneadingForm = new() { Owner = this };
+                if (kneadingForm.ShowDialog() == DialogResult.OK)
                 {
                     //_sessionState.Kneading = settingsForm.CurrentKneading;
                     //_sessionState.ProductDate = settingsForm.CurrentProductDate;
@@ -661,11 +706,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
             }
         }
@@ -725,11 +771,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
                 TaskManagerOpen();
             }
@@ -770,11 +817,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
             }
         }
 
@@ -791,11 +839,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
             }
         }
 
@@ -830,20 +879,14 @@ namespace ScalesUI.Forms
 
         private void ButtonAddKneading_Click(object sender, EventArgs e)
         {
-            //_sessionState.RotateKneading(Direction.forward);
-            using NumberInputForm numberInputForm = new()
-            { InputValue = 0 };
-            // _sessionState.Kneading;
+            using NumberInputForm numberInputForm = new() { InputValue = 0 };
             if (numberInputForm.ShowDialog() == DialogResult.OK)
             {
                 _sessionState.Kneading = numberInputForm.InputValue;
             }
         }
 
-        private void ButtonNewPallet_Click(object sender, EventArgs e)
-        {
-            _sessionState.NewPallet();
-        }
+        private void ButtonNewPallet_Click(object sender, EventArgs e) => _sessionState.NewPallet();
 
         private void FieldTitle_DoubleClick(object sender, EventArgs e)
         {
@@ -858,11 +901,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
             }
         }
@@ -911,11 +955,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 _sessionState.TaskManager.Open(_sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
             }
         }
@@ -937,11 +982,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                if (buttonPrint.Enabled)
+                    MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
             }
         }

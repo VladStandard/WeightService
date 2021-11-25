@@ -228,20 +228,18 @@ namespace WeightCore.Helpers
         public static readonly int KneadingMaxValue = 140;
 
         private int _kneading;
-
         public int Kneading
         {
             get => _kneading;
             set
             {
                 _kneading = value;
-                // если замес изменился - чистим очередь печати
-                if (TaskManager.PrintManager == null)
-                    return ;
-
-                TaskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
-                if (!IsTscPrinter)
-                    TaskManager.PrintManager.SetOdometorUserLabel(LabelsCurrent);
+                if (TaskManager.PrintManager != null)
+                {
+                    TaskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
+                    if (!IsTscPrinter)
+                        TaskManager.PrintManager.SetOdometorUserLabel(LabelsCurrent);
+                }
             }
         }
 
@@ -357,7 +355,7 @@ namespace WeightCore.Helpers
         }
 
         /// <summary>
-        /// Подменить картинки ZPL.
+        /// Replace ZPL's pics
         /// </summary>
         /// <param name="value"></param>
         public void PrintCmdReplacePics(ref string value)
@@ -465,28 +463,21 @@ namespace WeightCore.Helpers
         /// <param name="template"></param>
         private void PrintWeightLabel(TemplateDirect template)
         {
-            // Проверка наличия устройства весов.
+            // Check scales exists.
             if (TaskManager.MassaManager == null)
             {
                 _log.Information(@"Устройство весов не обнаружено!");
                 return;
             }
-            // Проверка товара на весах.
+            // Check product's weight on the scales.
             if (TaskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
             {
                 _log.Information($@"Вес товара: {TaskManager.MassaManager.WeightNet} кг, печать этикетки невозможна!");
                 return;
             }
 
-            CurrentWeighingFact = WeighingFactDirect.New(
-                CurrentScale,
-                CurrentPlu,
-                ProductDate,
-                Kneading,
-                CurrentPlu.Scale.ScaleFactor,
-                TaskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight,
-                CurrentPlu.GoodsTareWeight
-            );
+            CurrentWeighingFact = WeighingFactDirect.New(CurrentScale, CurrentPlu, ProductDate, Kneading, CurrentPlu.Scale.ScaleFactor,
+                TaskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
 
             // Указан номинальный вес.
             bool isCheck = false;
@@ -494,23 +485,16 @@ namespace WeightCore.Helpers
             {
                 if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
                     CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
-                {
                     isCheck = true;
-                }
             }
             else
                 isCheck = true;
             if (!isCheck)
                 return;
 
-            // Печать этикетки.
             PrintLabel(template);
         }
 
-        /// <summary>
-        /// Печать этикетки.
-        /// </summary>
-        /// <param name="template"></param>
         private void PrintLabel(TemplateDirect template)
         {
             try
@@ -520,19 +504,19 @@ namespace WeightCore.Helpers
                 string xmlInput = CurrentWeighingFact.SerializeObject();
                 string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput, true);
 
-                // Подменить картинки ZPL.
+                // Replace ZPL's pics.
                 PrintCmdReplacePics(ref printCmd);
-                // Сохранить ZPL-запрос в таблицу [Labels].
+                // DB save ZPL-query to Labels.
                 PrintSaveLabel(printCmd, CurrentWeighingFact.Id);
                 if (TaskManager.PrintManager == null)
                     return;
 
-                // Отправить задание в очередь печати.
+                // Send doc to the printrer.
                 TaskManager.PrintManager.Send(printCmd);
             }
             catch (Exception ex)
             {
-                _exception.Catch(null, ref ex);
+                _exception.Catch(null, ref ex, true);
             }
         }
 

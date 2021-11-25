@@ -62,8 +62,8 @@ namespace DataProjectsCore.DAL.Utils
                             result.DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
                             result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
                             result.DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
-                            result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
-                            result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
+                            result.DeviceWriteTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
+                            result.DeviceReadTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
                             result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
                             //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
                             result.ZebraPrinter.Load(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
@@ -127,8 +127,8 @@ namespace DataProjectsCore.DAL.Utils
                 //new SqlParameter("@IP", System.Data.SqlDbType.VarChar, 15) { Value = DataShareCore.Utils.StringUtils.GetStringNullValueTrim(scale.DeviceIP, 15) },
                 new SqlParameter("@Port", System.Data.SqlDbType.SmallInt) { Value = scale.DevicePort },
                 //new SqlParameter("@MAC", System.Data.SqlDbType.VarChar, 35) { Value = DataShareCore.Utils.StringUtils.GetStringNullValueTrim(scale.DeviceMac, 35) },
-                new SqlParameter("@SendTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceSendTimeout },
-                new SqlParameter("@ReceiveTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceReceiveTimeout },
+                new SqlParameter("@SendTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceWriteTimeout },
+                new SqlParameter("@ReceiveTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceReadTimeout },
                 new SqlParameter("@ComPort", System.Data.SqlDbType.VarChar, 5) { Value = DataShareCore.Utils.StringUtils.GetStringNullValueTrim(scale.DeviceComPort, 5) },
                 new SqlParameter("@UseOrder", System.Data.SqlDbType.SmallInt) { Value = scale.UseOrder == true ? 1 : 0 },
                 new SqlParameter("@VerScalesUI", System.Data.SqlDbType.VarChar, 30) { Value = DataShareCore.Utils.StringUtils.GetStringNullValueTrim(scale.VerScalesUI, 30) },

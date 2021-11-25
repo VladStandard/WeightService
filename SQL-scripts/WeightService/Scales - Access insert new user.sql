@@ -1,9 +1,21 @@
 -- Scales - Access insert new user
-declare @user nvarchar(255) = N'KOLBASA-VS\khristoforov_dv'
-declare @level bit = 1
-if not exists (select 1 from [db_scales].[ACCESS] where [USER]=@user) begin
-	insert into [db_scales].[ACCESS] ([USER],[LEVEL]) values (@user,@level)
-end else begin
-	update [db_scales].[ACCESS] set [LEVEL]=@level where [USER]=@user
-end
-select * from [db_scales].[ACCESS] where [USER]=@user
+DECLARE @user NVARCHAR(255) = N'KOLBASA-VS\morozov_dv_adm'
+DECLARE @level BIT = 1
+IF NOT EXISTS (SELECT
+			1
+		FROM [db_scales].[ACCESS]
+		WHERE [user] = @user)
+BEGIN
+	INSERT INTO [db_scales].[ACCESS] ([user], [LEVEL])
+		VALUES (@user, @level)
+END
+ELSE
+BEGIN
+	UPDATE [db_scales].[ACCESS]
+	SET [LEVEL] = @level
+	WHERE [user] = @user
+END
+SELECT
+	*
+FROM [db_scales].[ACCESS]
+WHERE [user] = @user

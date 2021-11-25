@@ -16,8 +16,8 @@ namespace DataProjectsCore.DAL.TableModels
         public string? DeviceIP { get; set; }
         public short? DevicePort { get; set; }
         public string? DeviceMac { get; set; }
-        public int DeviceSendTimeout { get; set; }
-        public int DeviceReceiveTimeout { get; set; }
+        public int DeviceReadTimeout { get; set; }
+        public int DeviceWriteTimeout { get; set; }
         public string? DeviceComPort { get; set; }
         public bool? UseOrder { get; set; }
         public string? VerScalesUI { get; set; }
@@ -37,8 +37,8 @@ namespace DataProjectsCore.DAL.TableModels
             DeviceIP = "";
             DevicePort = 5001;
             DeviceMac = null;
-            DeviceSendTimeout = 500;
-            DeviceReceiveTimeout = 1000;
+            DeviceWriteTimeout = 500;
+            DeviceReadTimeout = 1000;
             DeviceComPort = "COM1";
             UseOrder = false;
             VerScalesUI = "";

@@ -51,7 +51,7 @@
             this.buttonClose.TabIndex = 0;
             this.buttonClose.Text = "Закрыть";
             this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
+            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
             // 
             // PluListGrid
             // 
@@ -101,7 +101,7 @@
             this.buttonRightRoll.TabIndex = 1;
             this.buttonRightRoll.Text = ">>";
             this.buttonRightRoll.UseVisualStyleBackColor = true;
-            this.buttonRightRoll.Click += new System.EventHandler(this.buttonRightRoll_Click);
+            this.buttonRightRoll.Click += new System.EventHandler(this.ButtonRightRoll_Click);
             // 
             // buttonLeftRoll
             // 
@@ -114,7 +114,7 @@
             this.buttonLeftRoll.TabIndex = 2;
             this.buttonLeftRoll.Text = "<<";
             this.buttonLeftRoll.UseVisualStyleBackColor = true;
-            this.buttonLeftRoll.Click += new System.EventHandler(this.buttonLeftRoll_Click);
+            this.buttonLeftRoll.Click += new System.EventHandler(this.ButtonLeftRoll_Click);
             // 
             // labelCurrentPage
             // 
@@ -141,7 +141,7 @@
             this.btnRightRoll2.TabIndex = 4;
             this.btnRightRoll2.Text = ">";
             this.btnRightRoll2.UseVisualStyleBackColor = false;
-            this.btnRightRoll2.Click += new System.EventHandler(this.buttonRightRoll_Click);
+            this.btnRightRoll2.Click += new System.EventHandler(this.ButtonRightRoll_Click);
             // 
             // btnLeftRoll2
             // 
@@ -153,7 +153,7 @@
             this.btnLeftRoll2.TabIndex = 5;
             this.btnLeftRoll2.Text = "<";
             this.btnLeftRoll2.UseVisualStyleBackColor = true;
-            this.btnLeftRoll2.Click += new System.EventHandler(this.buttonLeftRoll_Click);
+            this.btnLeftRoll2.Click += new System.EventHandler(this.ButtonLeftRoll_Click);
             // 
             // PluListForm
             // 

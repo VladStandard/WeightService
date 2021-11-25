@@ -63,7 +63,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -85,7 +85,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             return controls;
         }
@@ -113,7 +113,7 @@ namespace ScalesUI.Forms
                     BackColor = SystemColors.Control,
                     TabIndex = i + pageNumber * PageSize,
                 };
-                button.Click += buttonPlu_Click;
+                button.Click += ButtonPlu_Click;
 
                 // PLU number label.
                 decimal mashtabW = 0.19M;
@@ -136,7 +136,7 @@ namespace ScalesUI.Forms
                 };
                 label.MouseClick += (sender, args) =>
                 {
-                    buttonPlu_Click(label, null);
+                    ButtonPlu_Click(label, null);
                 };
 
                 // Weight label.
@@ -159,17 +159,17 @@ namespace ScalesUI.Forms
                 };
                 labelCount.MouseClick += (sender, args) =>
                 {
-                    buttonPlu_Click(labelCount, null);
+                    ButtonPlu_Click(labelCount, null);
                 };
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             return button;
         }
 
-        private void buttonClose_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
             try
             {
@@ -178,11 +178,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
-        private void buttonPlu_Click(object sender, EventArgs e)
+        private void ButtonPlu_Click(object sender, EventArgs e)
         {
             try
             {
@@ -202,11 +202,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
-        private void buttonLeftRoll_Click(object sender, EventArgs e)
+        private void ButtonLeftRoll_Click(object sender, EventArgs e)
         {
             try
             {
@@ -223,11 +223,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
-        private void buttonRightRoll_Click(object sender, EventArgs e)
+        private void ButtonRightRoll_Click(object sender, EventArgs e)
         {
             try
             {
@@ -245,7 +245,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 

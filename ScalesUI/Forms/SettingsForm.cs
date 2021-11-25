@@ -59,8 +59,8 @@ namespace ScalesUI.Forms
 
                 if (_sessionState?.CurrentScale != null)
                 {
-                    fieldSendTimeout.Text = _sessionState.CurrentScale.DeviceSendTimeout.ToString();
-                    fieldReceiveTimeOut.Text = _sessionState.CurrentScale.DeviceReceiveTimeout.ToString();
+                    fieldSendTimeout.Text = _sessionState.CurrentScale.DeviceWriteTimeout.ToString();
+                    fieldReceiveTimeOut.Text = _sessionState.CurrentScale.DeviceReadTimeout.ToString();
                     fieldZebraTcpAddress.Text = _sessionState.CurrentScale.ZebraPrinter.Ip;
                     fieldZebraTcpPort.Text = _sessionState.CurrentScale.ZebraPrinter.Port.ToString();
                     fieldDescription.Text = _sessionState.CurrentScale.Description;
@@ -74,7 +74,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -101,7 +101,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -118,7 +118,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -137,8 +137,8 @@ namespace ScalesUI.Forms
                 Application.DoEvents();
                 // Data.
                 _sessionState.CurrentScale.DeviceComPort = fieldComPort.Text;
-                _sessionState.CurrentScale.DeviceSendTimeout = short.Parse(fieldSendTimeout.Text);
-                _sessionState.CurrentScale.DeviceReceiveTimeout = short.Parse(fieldReceiveTimeOut.Text);
+                _sessionState.CurrentScale.DeviceWriteTimeout = short.Parse(fieldSendTimeout.Text);
+                _sessionState.CurrentScale.DeviceReadTimeout = short.Parse(fieldReceiveTimeOut.Text);
                 _sessionState.CurrentScale.VerScalesUI = _appVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
                 ScalesUtils.Update(_sessionState.CurrentScale);
                 // Settings.
@@ -147,7 +147,7 @@ namespace ScalesUI.Forms
             catch (Exception ex)
             {
                 result = false;
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -198,7 +198,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -230,7 +230,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -246,7 +246,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -262,7 +262,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -285,7 +285,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -301,7 +301,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -352,7 +352,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -380,7 +380,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -413,7 +413,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -429,7 +429,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {

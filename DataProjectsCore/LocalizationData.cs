@@ -496,8 +496,7 @@ namespace DataCore
             public static string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? @"Scales Terminal" : @"Весовой терминал";
             public static string ButtonScalesInit => Lang == ShareEnums.Lang.English 
                 ? $@"Initialize{Environment.NewLine}the scales" : $@"Инициали-{Environment.NewLine}зировать весы";
-            public static string ButtonSelectOrder => Lang == ShareEnums.Lang.English 
-                ? $@"Select{Environment.NewLine}order" : $@"Выбрать{Environment.NewLine}заказ";
+            public static string ButtonSelectOrder => Lang == ShareEnums.Lang.English ? $@"Order" : $@"Заказ";
             public static string ButtonSettings => Lang == ShareEnums.Lang.English ? @"Settings" : @"Настройки";
             public static string ButtonNewPallet => Lang == ShareEnums.Lang.English ? @"New pallet" : @"Новая палета";
             public static string ButtonAddKneading => Lang == ShareEnums.Lang.English ? @"Kneading" : @"Замес";

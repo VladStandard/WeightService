@@ -22,12 +22,8 @@ namespace WeightCore.Zpl
 
         public static char[] DigitsCharacters = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
-        public static char[] SpecialCharacters = { 
-            ' ', ',', '.', '-', 
-            '~', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=',
-            '"', '№', ';', ':', '?',
-            '/', '|', '\\', '{', '}', '<', '>'
-        };
+        public static char[] SpecialCharacters = { ' ', ',', '.', '-', '~', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=',
+            '"', '№', ';', ':', '?', '/', '|', '\\', '{', '}', '<', '>' };
 
         #endregion
 
@@ -78,59 +74,39 @@ namespace WeightCore.Zpl
             return result;
         }
 
-        //[Obsolete(@"Deprecated method")]
-        //public string ZplCommandPipe(string zplCommand)
-        //{
-        //    var outMsg = new StringBuilder();
-        //    try
-        //    {
-        //        string _zpl = ToCodePoints(zplCommand);
-        //        string _errorMessage = string.Empty;
-        //        string info = InterplayToPrinter(IpAddress, Port, _zpl.Split('\n'), out _errorMessage);
-        //        outMsg.AppendLine(info);
-        //        outMsg.AppendLine(_errorMessage);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        outMsg.AppendLine(zplCommand);
-        //        outMsg.AppendLine(ex.Message);
-        //    }
-        //    return outMsg.ToString();
-        //}
-
         public static string ZplCommandPipeByIp(string ip, int port, string zplCommand)
         {
-            StringBuilder outMsg = new();
+            StringBuilder result = new();
             try
             {
 
                 string zpl = ToCodePoints(zplCommand);
                 string info = InterplayToPrinter(ip, port, zpl.Split('\n'), out string errorMessage);
-                outMsg.AppendLine(info);
-                outMsg.AppendLine(errorMessage);
+                result.AppendLine(info);
+                result.AppendLine(errorMessage);
             }
             catch (Exception ex)
             {
-                outMsg.AppendLine(zplCommand);
-                outMsg.AppendLine(ex.Message);
+                result.AppendLine(zplCommand);
+                result.AppendLine(ex.Message);
             }
-            return outMsg.ToString();
+            return result.ToString();
         }
 
-        public static string ZplCommandPipeByRaw(string lptName, string zplCommand)
+        public static string ZplCommandPipeByRaw(string printerName, string zplCommand)
         {
-            StringBuilder outMsg = new();
+            StringBuilder result = new();
             try
             {
                 string zpl = ToCodePoints(zplCommand);
-                RawPrinterHelper.SendStringToPrinter(lptName, zpl);
+                RawPrinterHelper.SendStringToPrinter(printerName, zpl);
             }
             catch (Exception ex)
             {
-                outMsg.AppendLine(zplCommand);
-                outMsg.AppendLine(ex.Message);
+                result.AppendLine(zplCommand);
+                result.AppendLine(ex.Message);
             }
-            return outMsg.ToString();
+            return result.ToString();
         }
         
         #endregion
@@ -247,18 +223,6 @@ namespace WeightCore.Zpl
             return zplCode;
         }
 
-        //public static string ZplContentAsBase64(string base64String)
-        //{
-        //    //с наскока не сработало
-        //    byte[] b = Encoding.ASCII.GetBytes(base64String);
-        //    Crc16Ccitt crc = new(PrintInitialCrcValue.Zeros);
-        //    byte[] c = crc.ComputeChecksumBytes(b);
-        //    //Encode the compressed data into Base64. No whitespace or line breaks allowed.
-        //    //Convert the Base64 string to a byte array according to ASCII encoding().
-        //    //Calculate the CRC over that byte array. The Initial CRC Value must be zero.
-        //    return $"{b.Length},:B64:{base64String}:{ByteConverter.ByteArrayToString(c)}";
-        //}
-
         private static string FixBase64ForImage(string image)
         {
             StringBuilder sbText = new(image, image.Length);
@@ -271,8 +235,8 @@ namespace WeightCore.Zpl
 
         #region Other methods
 
-        public static string InterplayToPrinter(string ipAddress, int port, string[] zplCommand, 
-            out string errorMessage, int receiveTimeout = 1000, int sendTimeout = 100)
+        public static string InterplayToPrinter(string ip, int port, string[] zplCommand, out string errorMessage, 
+            int receiveTimeout = 1_000, int sendTimeout = 100)
         {
             errorMessage = @"";
             StringBuilder response = new();
@@ -283,7 +247,7 @@ namespace WeightCore.Zpl
                 client.ReceiveTimeout = receiveTimeout;
                 client.SendTimeout = sendTimeout;
 
-                client.Connect(ipAddress, port);
+                client.Connect(ip, port);
                 using NetworkStream stream = client.GetStream();
                 using StreamWriter writer = new(stream);
                 writer.AutoFlush = true;
@@ -329,10 +293,7 @@ namespace WeightCore.Zpl
             return Array.BinarySearch(cyrillic, value) >= 0;
         }
 
-        public static bool IsDigit(char value)
-        {
-            return DigitsCharacters.Contains(value);
-        }
+        public static bool IsDigit(char value) => DigitsCharacters.Contains(value);
 
         public static bool IsSpecial(char value, bool isExcludeTop = true)
         {
@@ -341,43 +302,11 @@ namespace WeightCore.Zpl
             return SpecialCharacters.Contains(value);
         }
 
-        [Obsolete(@"Use ToCodePoints")]
-        public static string ToCodePointsOld(string zplInput)
-        {
-            StringBuilder result = new();
-            Dictionary<char, string> unicodeCharacterList = new();
-            foreach (char ch in zplInput)
-            {
-                if (!unicodeCharacterList.ContainsKey(ch))
-                {
-                    byte[] bytes = Encoding.UTF8.GetBytes(ch.ToString());
-                    if (bytes.Length > 1)
-                    {
-                        string hexCode = string.Empty;
-                        foreach (byte b in bytes)
-                        {
-                            hexCode += $"_{BitConverter.ToString(new byte[] { b }).ToLower()}";
-                        }
-                        unicodeCharacterList[ch] = hexCode;
-                    }
-                    else
-                        unicodeCharacterList[ch] = ch.ToString();
-                    result.Append(unicodeCharacterList[ch]);
-                }
-                else
-                // English characters.
-                {
-                    result.Append(unicodeCharacterList[ch]);
-                }
-            }
-            return result.ToString();
-        }
-
         public static string ToCodePoints(string zplInput)
         {
             StringBuilder result = new();
             Dictionary<char, string> unicodeCharacterList = new();
-            // Поиск подстроки [^FH^FD].
+            // Search substring [^FH^FD].
             int isFieldData = 0;
             bool isDataStart = false;
             bool isDataEnd = false;

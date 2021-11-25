@@ -119,7 +119,7 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                _exception.Catch(null, ref ex);
+                _exception.Catch(null, ref ex, false);
             }
         }
 
@@ -144,27 +144,32 @@ namespace WeightCore.Managers
             }
             catch (Exception ex)
             {
-                _exception.Catch(null, ref ex);
+                _exception.Catch(null, ref ex, false);
             }
         }
 
         public void ClearPrintBuffer(bool isTscPrinter)
         {
-            if (Documents.Count > 0)
+            lock (Locker)
+            {
                 Documents = new BlockingCollection<string>();
-            if (isTscPrinter)
-            {
-                TscPrintControl.CmdClearBuffer();
-            }
-            else
-            {
-                Documents.Add("^XA~JA^XZ");
+                if (isTscPrinter)
+                {
+                    TscPrintControl.CmdClearBuffer();
+                }
+                else
+                {
+                    Documents.Add("^XA~JA^XZ");
+                }
             }
         }
 
         public void SetOdometorUserLabel(int value)
         {
-            Documents.Add($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+            lock (Locker)
+            {
+                Documents.Add($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+            }
         }
 
         #endregion

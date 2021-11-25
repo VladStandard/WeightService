@@ -35,28 +35,34 @@ namespace WeightCore.Helpers
 
         #region Public and private methods
 
-        public void Catch(IWin32Window owner, ref Exception ex,
+        public void Catch(IWin32Window owner, ref Exception ex, bool isShowException,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            _log.Error(ex.Message, filePath, memberName, lineNumber);
-            if (ex.InnerException != null)
-                _log.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-            string msg = ex.Message;
-            if (ex.InnerException != null)
-                msg += Environment.NewLine + ex.InnerException.Message;
+            lock (WpfPageLoader.Locker)
+            {
+                _log.Error(ex.Message, filePath, memberName, lineNumber);
+                if (ex.InnerException != null)
+                    _log.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
+                string msg = ex.Message;
+                if (ex.InnerException != null)
+                    msg += Environment.NewLine + ex.InnerException.Message;
 
-            // WPF MessageBox.
-            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-            wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
-            wpfPageLoader.MessageBox.Message =
-                @$"{LocalizationData.ScalesUI.Method}: {memberName}." + Environment.NewLine +
-                $"{LocalizationData.ScalesUI.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + msg;
-            wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
-            wpfPageLoader.MessageBox.Localization();
-            if (owner != null)
-                wpfPageLoader.ShowDialog(owner);
-            else
-                wpfPageLoader.ShowDialog();
+                // WPF MessageBox.
+                if (isShowException)
+                {
+                    using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                    wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
+                    wpfPageLoader.MessageBox.Message =
+                        @$"{LocalizationData.ScalesUI.Method}: {memberName}." + Environment.NewLine +
+                        $"{LocalizationData.ScalesUI.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + msg;
+                    wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                    wpfPageLoader.MessageBox.Localization();
+                    if (owner != null)
+                        wpfPageLoader.ShowDialog(owner);
+                    else
+                        wpfPageLoader.ShowDialog();
+                }
+            }
         }
 
         #endregion

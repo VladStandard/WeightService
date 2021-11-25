@@ -10,7 +10,7 @@ using WeightCore.Helpers;
 
 namespace ScalesUI.Forms
 {
-    public partial class SetKneadingNumberForm : Form
+    public partial class KneadingForm : Form
     {
         #region Private fields and properties
 
@@ -25,7 +25,7 @@ namespace ScalesUI.Forms
 
         #region Constructor and destructor
 
-        public SetKneadingNumberForm()
+        public KneadingForm()
         {
             InitializeComponent();
 
@@ -38,7 +38,7 @@ namespace ScalesUI.Forms
 
         #region Public and private methods
 
-        private void SetKneadingNumberForm_Load(object sender, EventArgs e)
+        private void KneadingForm_Load(object sender, EventArgs e)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -68,11 +68,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
-        private void ShowKneading()
+        private void GuiUpdate()
         {
             try
             {
@@ -80,7 +80,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -89,16 +89,16 @@ namespace ScalesUI.Forms
             try
             {
                 NumberInputForm numberInputForm = new();
-                numberInputForm.InputValue = 0;// _sessionState.Kneading;
+                numberInputForm.InputValue = 0;
                 if (numberInputForm.ShowDialog() == DialogResult.OK)
                 {
                     _sessionState.Kneading = numberInputForm.InputValue;
                 }
-                ShowKneading();
+                GuiUpdate();
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -106,12 +106,12 @@ namespace ScalesUI.Forms
         {
             try
             {
-                ShowKneading();
+                GuiUpdate();
                 ShowProductDate();
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -128,7 +128,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -161,7 +161,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -174,7 +174,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -187,7 +187,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -204,7 +204,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -222,7 +222,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -235,7 +235,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -268,7 +268,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
         
@@ -283,7 +283,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 

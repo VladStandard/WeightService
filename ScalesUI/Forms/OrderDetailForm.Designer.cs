@@ -67,7 +67,7 @@
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Закрыть";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnOk
             // 
@@ -79,7 +79,7 @@
             this.btnOk.Text = "В работу";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Visible = false;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            this.btnOk.Click += new System.EventHandler(this.BtnOk_Click);
             // 
             // btnOrderReset
             // 
@@ -90,7 +90,7 @@
             this.btnOrderReset.TabIndex = 2;
             this.btnOrderReset.Text = "Приостановить заказ";
             this.btnOrderReset.UseVisualStyleBackColor = true;
-            this.btnOrderReset.Click += new System.EventHandler(this.btnOrderReset_Click);
+            this.btnOrderReset.Click += new System.EventHandler(this.BtnOrderReset_Click);
             // 
             // btnOrderComplitrd
             // 
@@ -101,7 +101,7 @@
             this.btnOrderComplitrd.TabIndex = 4;
             this.btnOrderComplitrd.Text = "Заказ выполнен";
             this.btnOrderComplitrd.UseVisualStyleBackColor = true;
-            this.btnOrderComplitrd.Click += new System.EventHandler(this.btnOrderComplitrd_Click);
+            this.btnOrderComplitrd.Click += new System.EventHandler(this.BtnOrderComplitrd_Click);
             // 
             // listBox1
             // 

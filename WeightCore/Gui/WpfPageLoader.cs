@@ -26,6 +26,7 @@ namespace WeightCore.Gui
         public PageSqlSettings SqlSettings { get; private set; }
         public PageMessageBox PageMessageBoxItem { get; private set; }
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
+        public static object Locker { get; private set; } = new();
 
         #endregion
 
@@ -48,7 +49,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, false);
             }
         }
 
@@ -61,7 +62,7 @@ namespace WeightCore.Gui
             try
             {
                 // Own GUI.
-                //TopMost = !_debug.IsDebug;
+                TopMost = !_debug.IsDebug;
 
                 if (Owner != null)
                 {
@@ -123,7 +124,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, false);
             }
         }
 
@@ -135,7 +136,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -147,7 +148,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -159,7 +160,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, false);
             }
         }
 
@@ -172,7 +173,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, false);
             }
         }
 
@@ -202,7 +203,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, false);
             }
         }
 

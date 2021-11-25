@@ -74,11 +74,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             try
             {
@@ -87,23 +87,23 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
-        private void AddRow(TableLayoutPanel panel, int i)
+        private void AddRow(int i)
         {
             try
             {
                 if (i % tableLayoutPanel1.ColumnCount == 0)
                 {
-                    tableLayoutPanel1.RowCount = tableLayoutPanel1.RowCount + 1;
+                    tableLayoutPanel1.RowCount++;
                     tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 120));
                 }
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -141,7 +141,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -153,7 +153,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
@@ -165,43 +165,43 @@ namespace ScalesUI.Forms
                 int i = 0;
 
                 List<OrderDirect> page = _ordList.GetRange(offset * rowCount,
-                    ((offset * rowCount + rowCount) < _ordList.Count()) ? (rowCount) : (_ordList.Count() - offset * rowCount));
+                    ((offset * rowCount + rowCount) < _ordList.Count()) ? rowCount : (_ordList.Count() - offset * rowCount));
 
                 if (!page.Any())
                 {
                     page = _ordList.GetRange(offset * (--rowCount),
-                    ((offset * rowCount + rowCount) < _ordList.Count()) ? (rowCount) : (_ordList.Count() - offset * rowCount));
+                    ((offset * rowCount + rowCount) < _ordList.Count()) ? rowCount : (_ordList.Count() - offset * rowCount));
                 }
 
                 foreach (OrderDirect order in page)
                 {
                     panel.Size = new Size(200, tableLayoutPanel1.Size.Height + 100);
-                    AddRow(panel, i);
+                    AddRow(i);
                     NewButton(panel, offset, i, order);
                     i++;
                 }
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
-        private void btnRightRoll_Click(object sender, EventArgs e)
+        private void BtnRightRoll_Click(object sender, EventArgs e)
         {
             try
             {
                 if (_numPage < (_ordList.Count() / offset)) _numPage++;
-                else _numPage = (_ordList.Count() / offset);
+                else _numPage = _ordList.Count() / offset;
                 GetPage(tableLayoutPanel1, _numPage, offset);
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
 
-        private void btnLeftRoll_Click(object sender, EventArgs e)
+        private void BtnLeftRoll_Click(object sender, EventArgs e)
         {
             try
             {
@@ -210,7 +210,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex);
+                _exception.Catch(this, ref ex, true);
             }
         }
     }

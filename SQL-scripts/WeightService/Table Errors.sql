@@ -1,21 +1,27 @@
 ----------------------------------------------------------------------------------------------------
 -- Таблица Errors
 ----------------------------------------------------------------------------------------------------
-if not exists (select * from [sys].[tables] where [name] = 'Errors' and type = 'U') begin
-	create table [db_scales].[Errors] (
-		[Id]             int              identity (1, 1) not null,
-		[CreatedDate]    datetime         default (getdate()) not null,
-		[ModifiedDate]   datetime         default (getdate()) not null,
-		[FilePath]       nvarchar (1024)  null,
-		[LineNumber]     smallint         null,
-		[MemberName]     nvarchar (128)   null,
-		[Exception]      nvarchar (4000)  not null,
-		[InnerException] nvarchar (4000)  null,
-		primary key clustered ([Id] ASC) ON [ScalesFileGroup],
-	) on [ScalesFileGroup]
-end
+IF NOT EXISTS (SELECT *
+		FROM [sys].[tables]
+		WHERE [name] = 'Errors'
+		AND type = 'U')
+BEGIN
+	CREATE TABLE [db_scales].[Errors] (
+		[Id] INT IDENTITY (1, 1) NOT NULL
+	   ,[CreatedDate] DATETIME DEFAULT (GETDATE()) NOT NULL
+	   ,[ModifiedDate] DATETIME DEFAULT (GETDATE()) NOT NULL
+	   ,[FilePath] NVARCHAR(1024) NULL
+	   ,[LineNumber] SMALLINT NULL
+	   ,[MemberName] NVARCHAR(128) NULL
+	   ,[Exception] NVARCHAR(4000) NOT NULL
+	   ,[InnerException] NVARCHAR(4000) NULL
+	   ,PRIMARY KEY CLUSTERED ([Id] ASC) ON [ScalesFileGroup]
+	   ,
+	) ON [ScalesFileGroup]
+END
 ----------------------------------------------------------------------------------------------------
-select *
-from [db_scales].[Errors]
-order by [CreatedDate] desc
+SELECT
+	*
+FROM [db_scales].[Errors]
+ORDER BY [CreatedDate] DESC
 ----------------------------------------------------------------------------------------------------
