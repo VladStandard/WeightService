@@ -78,7 +78,7 @@ namespace TscBarcode.Views
 
         private void ButtonCmdCalibrate_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.CmdCalibrate(null);
+            //PrintControl.CmdSendCustom("GAPDETECT");
         }
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
@@ -88,7 +88,7 @@ namespace TscBarcode.Views
 
         private void ButtonCmdSendCustom_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.CmdSendCustom(PrintControl.Text, null);
+            //PrintControl.CmdSendCustom(PrintControl.Text);
         }
 
         private void ButtonCmdConvertZpl_Click(object sender, RoutedEventArgs e)
@@ -98,32 +98,62 @@ namespace TscBarcode.Views
 
         private void ButtonCmdSetCutter_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.CmdSetCutter(PrintControl.CutterValue);
+            //if (PrintControl.CutterValue >= 0)
+            //    PrintControl.CmdSendCustom($"SET CUTTER {PrintControl.CutterValue}");
         }
 
         private void ButtonCmdPrintTest_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.CmdPrintTest();
+            if (string.IsNullOrEmpty(Name))
+                return;
+            TSCSDK.driver tscDriver = new();
+            if (!tscDriver.openport(Name))
+                return;
+            tscDriver.clearbuffer();
+
+            tscDriver.barcode("100", "200", "128", "100", "1", "0", "3", "3", "123456789");
+            tscDriver.printerfont("100", "100", "3", "0", "1", "1", "Printer Font Test");
+            tscDriver.sendcommand("BOX 50,50,500,400,3\n");
+            tscDriver.printlabel("1", "1");
+
+            tscDriver.closeport();
         }
 
         private void ButtonCmdClearBuffer_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.CmdClearBuffer();
+            //PrintControl.CmdClearBuffer();
         }
 
         private void ButtonPrintSetupReset_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.SetupHardware(PrintLabelSize.Size80x100, true);
+            PrintControl.SetupHardware(PrintLabelSize.Size80x100);
         }
 
         private void ButtonPrintSetup_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.SetupHardware(PrintControl.Size, true);
+            PrintControl.SetupHardware(PrintControl.Size);
         }
 
         private void ButtonFeed_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.CmdFeed(PrintControl.Dpi, PrintControl.FeedMm);
+            var value = PrintControl.Dpi switch
+            {
+                PrintDpi.Dpi100 => 4 * PrintControl.FeedMm,
+                PrintDpi.Dpi200 => 8 * PrintControl.FeedMm,
+                PrintDpi.Dpi300 => 12 * PrintControl.FeedMm,
+                PrintDpi.Dpi400 => 16 * PrintControl.FeedMm,
+                PrintDpi.Dpi500 => 20 * PrintControl.FeedMm,
+                PrintDpi.Dpi600 => 24 * PrintControl.FeedMm,
+                PrintDpi.Dpi700 => 28 * PrintControl.FeedMm,
+                PrintDpi.Dpi800 => 32 * PrintControl.FeedMm,
+                PrintDpi.Dpi900 => 36 * PrintControl.FeedMm,
+                PrintDpi.Dpi1000 => 40 * PrintControl.FeedMm,
+                PrintDpi.Dpi1100 => 44 * PrintControl.FeedMm,
+                PrintDpi.Dpi1200 => 48 * PrintControl.FeedMm,
+                _ => throw new ArgumentOutOfRangeException(nameof(dpi), dpi, null),
+            };
+            if (value > 0)
+                PrintControl.CmdSendCustom($"FEED {value}");
         }
 
         #endregion

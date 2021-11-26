@@ -208,10 +208,6 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="tsclibnet, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Resources\TscLibNet\2.0.50727\tsclibnet.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="ZebraPrinterSdk, Version=2.15.2634.0, Culture=neutral, processorArchitecture=MSIL">
@@ -250,9 +246,12 @@
     <Compile Include="Helpers\DebugHelper.cs" />
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\MouseHookHelper.cs" />
-    <Compile Include="Managers\ManagerEntity.cs" />
-    <Compile Include="Managers\MemoryManagerHelper.cs" />
-    <Compile Include="Managers\TaskManagerHelper.cs" />
+    <Compile Include="Managers\ManagerBase.cs" />
+    <Compile Include="Managers\ManagerFactory.cs" />
+    <Compile Include="Managers\ManagerFactoryPrint.cs" />
+    <Compile Include="Managers\ManagerFactoryMassa.cs" />
+    <Compile Include="Managers\ManagerFactoryMemory.cs" />
+    <Compile Include="Managers\ManagerHelper.cs" />
     <Compile Include="Managers\TaskManagerHelperDeprecated.cs" />
     <Compile Include="MassaK\MassaCmdType.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />
@@ -263,7 +262,6 @@
     <Compile Include="MassaK\MkCommanderBackup.cs" />
     <Compile Include="MassaK\MkCommander.cs" />
     <Compile Include="MassaK\MkDeviceEntityBackup.cs" />
-    <Compile Include="Managers\MassaManagerHelper.cs" />
     <Compile Include="Helpers\SessionStateHelper.cs" />
     <Compile Include="MassaK\ResponseMassaEntity.cs" />
     <Compile Include="MassaK\ResponseParseEntity.cs" />

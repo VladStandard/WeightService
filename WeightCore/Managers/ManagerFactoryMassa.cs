@@ -1,27 +1,19 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
+using DataProjectsCore;
+using DataProjectsCore.DAL;
+using DataProjectsCore.DAL.TableModels;
 using System.Collections.Concurrent;
-using System.Threading;
-using WeightCore.Helpers;
 using WeightCore.MassaK;
 
 namespace WeightCore.Managers
 {
-    public class MassaManagerHelper : ManagerEntity
+    public class ManagerFactoryMassa : ManagerBase
     {
-        #region Design pattern "Lazy Singleton"
-
-        private static MassaManagerHelper _instance;
-        public static MassaManagerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-        #endregion
-
-        #region Public fields and properties
+        #region Public and private fields and properties
 
         private readonly MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
-        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         public decimal WeightNet { get; private set; }
         public decimal WeightGross { get; private set; }
         public byte IsStable { get; private set; }
@@ -35,21 +27,53 @@ namespace WeightCore.Managers
 
         #endregion
 
-        #region Constructor and destructor
+        #region Public and private methods
 
-        public void Init(string portName, int readTimeout, int writeTimeout,
-            int waitReopen = 10_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
+        public void Init(ScaleDirect currentScale)
         {
-            if (IsInit)
-                return;
-            IsInit = true;
-            Init(waitReopen, waitResponse, waitRequest, waitClose, waitException);
-            MassaDevice = new(portName, readTimeout, writeTimeout);
+            Init(
+            () =>
+            {
+                if (currentScale != null)
+                    MassaDevice = new(currentScale.DeviceComPort, currentScale.DeviceReadTimeout, currentScale.DeviceWriteTimeout);
+            },
+            10_000, 500, 250, 2_000, 1_000);
+        }
+
+        public void Open(ProjectsEnums.TaskType taskType, SqlViewModelEntity sqlViewModel)
+        {
+            Open(taskType, sqlViewModel,
+            () =>
+            {
+                MassaDevice.Open();
+            },
+            () =>
+            {
+                if (MassaDevice.IsConnected)
+                    GetMassa();
+                else
+                    ClearRequests(0);
+            },
+            () =>
+            {
+                if (MassaDevice.IsConnected)
+                    OpenResponse();
+                else
+                    ResetMassa();
+            });
+        }
+
+        public void Close()
+        {
+            Close(() =>
+            {
+                MassaDevice?.Dispose();
+            });
         }
 
         #endregion
 
-        #region Public and private methods - Manager
+        #region Public and private methods - Control
 
         public void ClearRequests(ushort limit)
         {
@@ -72,22 +96,6 @@ namespace WeightCore.Managers
                 Requests = new BlockingCollection<MassaExchangeEntity>();
             }
         }
-
-        public void Close()
-        {
-            try
-            {
-                CloseJob();
-            }
-            catch (Exception ex)
-            {
-                _exception.Catch(null, ref ex, false);
-            }
-        }
-
-        #endregion
-
-        #region Public and private methods
 
         private void Parse(MassaExchangeEntity massaExchange)
         {
@@ -196,11 +204,6 @@ namespace WeightCore.Managers
         {
             WeightGross = WeightNet = 0;
             IsStable = 1;
-        }
-
-        public void CloseJob()
-        {
-            MassaDevice?.Dispose();
         }
 
         public void GetInit()

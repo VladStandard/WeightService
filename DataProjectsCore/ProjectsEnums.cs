@@ -7,6 +7,7 @@ namespace DataProjectsCore
     {
         public enum TaskType
         {
+            Default,
             MassaManager,
             MemoryManager,
             PrintManager,

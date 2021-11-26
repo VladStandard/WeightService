@@ -12,7 +12,7 @@ using Zebra.Sdk.Printer;
 
 namespace WeightCore.Managers
 {
-    public class PrintManagerHelper : ManagerEntity
+    public class PrintManagerHelper : ManagerBase
     {
         #region Design pattern "Lazy Singleton"
 
@@ -123,7 +123,6 @@ namespace WeightCore.Managers
             }
         }
 
-        //public void OpenTsc(TscPrintControlHelper.Callback callbackPrintManagerClose)
         public void OpenTsc()
         {
             UserLabelCount = 1;
@@ -137,7 +136,7 @@ namespace WeightCore.Managers
                         string docReplace = doc.Replace("|", "\\&");
                         if (!docReplace.Equals("^XA~JA^XZ") && !docReplace.Contains("odometer.user_label_count"))
                         {
-                            TscPrintControl.CmdSendCustom(docReplace);
+                            //TscPrintControl.CmdSendCustom(docReplace);
                         }
                     }
                 }
@@ -155,7 +154,7 @@ namespace WeightCore.Managers
                 Documents = new BlockingCollection<string>();
                 if (isTscPrinter)
                 {
-                    TscPrintControl.CmdClearBuffer();
+                    //TscPrintControl.CmdClearBuffer();
                 }
                 else
                 {

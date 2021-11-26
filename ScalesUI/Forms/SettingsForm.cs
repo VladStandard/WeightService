@@ -30,7 +30,7 @@ namespace ScalesUI.Forms
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        private readonly TaskManagerHelper _taskManager = TaskManagerHelper.Instance;
+        private readonly ManagerHelper _managerFactory = ManagerHelper.Instance;
 
         #endregion
 
@@ -258,7 +258,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.PrintManager.Send(ZplPipeUtils.ZplPowerOnReset());
+                _managerFactory.PrintManager.Send(ZplPipeUtils.ZplPowerOnReset());
             }
             catch (Exception ex)
             {
@@ -281,7 +281,7 @@ namespace ScalesUI.Forms
             {
                 //_taskManager.PrintManager.PrintControl.CmdCalibrate();
                 if (!_sessionState.IsTscPrinter)
-                    _taskManager.PrintManager.Send(ZplPipeUtils.ZplCalibration());
+                    _managerFactory.PrintManager.Send(ZplPipeUtils.ZplCalibration());
             }
             catch (Exception ex)
             {
@@ -297,7 +297,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.PrintManager.Send(ZplPipeUtils.ZplPrintConfigurationLabel());
+                _managerFactory.PrintManager.Send(ZplPipeUtils.ZplPrintConfigurationLabel());
             }
             catch (Exception ex)
             {
@@ -394,20 +394,20 @@ namespace ScalesUI.Forms
             {
                 fieldCurrentMKProp.Clear();
 
-                if (_taskManager.MassaManager != null)
+                if (_managerFactory.MassaManager != null)
                 {
                     //_taskManager.MassaManager.GetScalePar();
                     //Thread.Sleep(10);
                     //Application.DoEvents();
 
-                    if (_taskManager.MassaManager.ResponseParseGet != null)
+                    if (_managerFactory.MassaManager.ResponseParseGet != null)
                     {
-                        fieldCurrentMKProp.Text = _taskManager.MassaManager.ResponseParseGet.Message;
+                        fieldCurrentMKProp.Text = _managerFactory.MassaManager.ResponseParseGet.Message;
                     }
 
-                    if (_taskManager.MassaManager.ResponseParseScalePar != null)
+                    if (_managerFactory.MassaManager.ResponseParseScalePar != null)
                     {
-                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_taskManager.MassaManager.ResponseParseScalePar.Message}";
+                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_managerFactory.MassaManager.ResponseParseScalePar.Message}";
                     }
                 }
             }
@@ -425,7 +425,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _taskManager.PrintManager.Send(ZplPipeUtils.ZplClearPrintBuffer());
+                _managerFactory.PrintManager.Send(ZplPipeUtils.ZplClearPrintBuffer());
             }
             catch (Exception ex)
             {

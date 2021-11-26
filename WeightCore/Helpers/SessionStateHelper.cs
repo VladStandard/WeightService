@@ -30,7 +30,7 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
-        public readonly TaskManagerHelper TaskManager = TaskManagerHelper.Instance;
+        public readonly ManagerHelper Manager = ManagerHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
@@ -212,12 +212,12 @@ namespace WeightCore.Helpers
         public void NewPallet()
         {
             LabelsCurrent = 1;
-            if (TaskManager.PrintManager == null)
+            if (Manager.PrintManager == null)
                 return;
 
-            TaskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
+            Manager.PrintManager.ClearPrintBuffer(IsTscPrinter);
             if (!IsTscPrinter)
-                TaskManager.PrintManager.SetOdometorUserLabel(1);
+                Manager.PrintManager.SetOdometorUserLabel(1);
             ProductSeries.New();
         }
 
@@ -234,11 +234,11 @@ namespace WeightCore.Helpers
             set
             {
                 _kneading = value;
-                if (TaskManager.PrintManager != null)
+                if (Manager.PrintManager != null)
                 {
-                    TaskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
+                    Manager.PrintManager.ClearPrintBuffer(IsTscPrinter);
                     if (!IsTscPrinter)
-                        TaskManager.PrintManager.SetOdometorUserLabel(LabelsCurrent);
+                        Manager.PrintManager.SetOdometorUserLabel(LabelsCurrent);
                 }
             }
         }
@@ -275,10 +275,10 @@ namespace WeightCore.Helpers
             set
             {
                 _productDate = value;
-                if (TaskManager.PrintManager == null)
+                if (Manager.PrintManager == null)
                     return;
 
-                TaskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
+                Manager.PrintManager.ClearPrintBuffer(IsTscPrinter);
             }
         }
 
@@ -312,12 +312,12 @@ namespace WeightCore.Helpers
             {
                 _currentPlu = value;
                 LabelsCurrent = 1;
-                if (TaskManager.PrintManager == null)
+                if (Manager.PrintManager == null)
                     return;
 
                 // если ПЛУ изменился - чистим очередь печати
-                TaskManager.PrintManager.ClearPrintBuffer(IsTscPrinter);
-                TaskManager.PrintManager.SetOdometorUserLabel(1);
+                Manager.PrintManager.ClearPrintBuffer(IsTscPrinter);
+                Manager.PrintManager.SetOdometorUserLabel(1);
             }
         }
 
@@ -403,8 +403,8 @@ namespace WeightCore.Helpers
             bool isCheck = false;
             if (CurrentPlu.NominalWeight > 0)
             {
-                if (TaskManager.MassaManager != null)
-                    CurrentWeighingFact.NetWeight = TaskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight;
+                if (Manager.MassaManager != null)
+                    CurrentWeighingFact.NetWeight = Manager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight;
                 else
                     CurrentWeighingFact.NetWeight -= CurrentPlu.GoodsTareWeight;
                 if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
@@ -464,20 +464,20 @@ namespace WeightCore.Helpers
         private void PrintWeightLabel(TemplateDirect template)
         {
             // Check scales exists.
-            if (TaskManager.MassaManager == null)
+            if (Manager.MassaManager == null)
             {
                 _log.Information(@"Устройство весов не обнаружено!");
                 return;
             }
             // Check product's weight on the scales.
-            if (TaskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
+            if (Manager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
             {
-                _log.Information($@"Вес товара: {TaskManager.MassaManager.WeightNet} кг, печать этикетки невозможна!");
+                _log.Information($@"Вес товара: {Manager.MassaManager.WeightNet} кг, печать этикетки невозможна!");
                 return;
             }
 
             CurrentWeighingFact = WeighingFactDirect.New(CurrentScale, CurrentPlu, ProductDate, Kneading, CurrentPlu.Scale.ScaleFactor,
-                TaskManager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
+                Manager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
 
             // Указан номинальный вес.
             bool isCheck = false;
@@ -508,11 +508,11 @@ namespace WeightCore.Helpers
                 PrintCmdReplacePics(ref printCmd);
                 // DB save ZPL-query to Labels.
                 PrintSaveLabel(printCmd, CurrentWeighingFact.Id);
-                if (TaskManager.PrintManager == null)
+                if (Manager.PrintManager == null)
                     return;
 
                 // Send doc to the printrer.
-                TaskManager.PrintManager.Send(printCmd);
+                Manager.PrintManager.Send(printCmd);
             }
             catch (Exception ex)
             {

@@ -142,29 +142,30 @@ namespace WeightCore.Print.Tsc
 
         #region Public and private methods - Base
 
-        public void SetupHardware(PrintLabelSize size, bool isResetGap)
+        //public void SetupHardware(PrintLabelSize size, bool isResetGap)
+        public void SetupHardware(PrintLabelSize size)
         {
             if (string.IsNullOrEmpty(Name))
                 return;
-            TSCSDK.driver tscDriver = new();
-            if (!tscDriver.openport(Name))
-                return;
-            tscDriver.clearbuffer();
+            //TSCSDK.driver tscDriver = new();
+            //if (!tscDriver.openport(Name))
+            //    return;
+            //tscDriver.clearbuffer();
 
             TscPrintSetup.Init(size);
-            if (isResetGap)
-                CmdSetGap();
+            //if (isResetGap)
+            //    CmdSetGap();
 
-            tscDriver.setup(
-                TscPrintSetup.Width,
-                TscPrintSetup.Height,
-                TscPrintSetup.Speed,
-                TscPrintSetup.Density,
-                TscPrintSetup.Sensor,
-                TscPrintSetup.Vertical,
-                TscPrintSetup.Offset);
+            //tscDriver.setup(
+            //    TscPrintSetup.Width,
+            //    TscPrintSetup.Height,
+            //    TscPrintSetup.Speed,
+            //    TscPrintSetup.Density,
+            //    TscPrintSetup.Sensor,
+            //    TscPrintSetup.Vertical,
+            //    TscPrintSetup.Offset);
 
-            tscDriver.closeport();
+            //tscDriver.closeport();
         }
 
         #endregion
@@ -207,15 +208,15 @@ namespace WeightCore.Print.Tsc
             };
         }
 
-        public bool GetDriverStatus(Callback callbackPrintManagerClose)
-        {
-            TSCSDK.driver tscDriver = new();
-            bool result = tscDriver.driver_status(Name);
+        //public bool GetDriverStatus(Callback callbackPrintManagerClose)
+        //{
+        //    TSCSDK.driver tscDriver = new();
+        //    bool result = tscDriver.driver_status(Name);
 
-            tscDriver.closeport();
-            callbackPrintManagerClose?.Invoke();
-            return result;
-        }
+        //    tscDriver.closeport();
+        //    callbackPrintManagerClose?.Invoke();
+        //    return result;
+        //}
 
         public string GetStatusAsStringRus(byte? value) => value switch
         {
@@ -287,25 +288,24 @@ namespace WeightCore.Print.Tsc
 
         #region Public and private methods - Cmd
 
-        //public void CmdSendCustom(string cmd, Callback callbackPrintManagerClose)
-        public void CmdSendCustom(string cmd)
-        {
-            if (string.IsNullOrEmpty(Name))
-                return;
-            Text = cmd;
+        //public void CmdSendCustom(string cmd)
+        //{
+        //    if (string.IsNullOrEmpty(Name))
+        //        return;
+        //    Text = cmd;
 
-            TSCSDK.driver tscDriver = new();
-            if (!tscDriver.openport(Name))
-                return;
-            //DriverStatus = GetDriverStatus(tscDriver);
-            tscDriver.clearbuffer();
+        //    TSCSDK.driver tscDriver = new();
+        //    if (!tscDriver.openport(Name))
+        //        return;
+        //    //DriverStatus = GetDriverStatus(tscDriver);
+        //    tscDriver.clearbuffer();
 
-            if (!string.IsNullOrEmpty(cmd))
-                tscDriver.sendcommand(cmd);
+        //    if (!string.IsNullOrEmpty(cmd))
+        //        tscDriver.sendcommand(cmd);
 
-            tscDriver.closeport();
-            //callbackPrintManagerClose?.Invoke();
-        }
+        //    tscDriver.closeport();
+        //    //callbackPrintManagerClose?.Invoke();
+        //}
 
         public void CmdConvertZpl(bool isUsePicReplace)
         {
@@ -318,75 +318,31 @@ namespace WeightCore.Print.Tsc
             }
         }
 
-        public void CmdCalibrate()
-        {
-            CmdSendCustom("GAPDETECT");
-        }
+        //public void CmdSetGap(double gapSize = 3.5, double gapOffset = 0.0)
+        //{
+        //    string strGapSize = $"{gapSize}".Replace(',', '.');
+        //    string strGapOffset = $"{gapOffset}".Replace(',', '.');
+        //    CmdSendCustom($"GAP {strGapSize} mm, {strGapOffset} mm");
+        //}
 
-        public void CmdSetGap(double gapSize = 3.5, double gapOffset = 0.0)
-        {
-            string strGapSize = $"{gapSize}".Replace(',', '.');
-            string strGapOffset = $"{gapOffset}".Replace(',', '.');
-            CmdSendCustom($"GAP {strGapSize} mm, {strGapOffset} mm");
-        }
+        //public void CmdClearBuffer()
+        //{
+        //    if (string.IsNullOrEmpty(Name))
+        //        return;
 
-        public void CmdClearBuffer()
-        {
-            if (string.IsNullOrEmpty(Name))
-                return;
+        //    TSCSDK.driver tscDriver = new();
+        //    if (!tscDriver.openport(Name))
+        //        return;
+        //    tscDriver.clearbuffer();
 
-            TSCSDK.driver tscDriver = new();
-            if (!tscDriver.openport(Name))
-                return;
-            tscDriver.clearbuffer();
+        //    tscDriver.closeport();
+        //}
 
-            tscDriver.closeport();
-        }
-
-        public void CmdSetCutter(int value)
-        {
-            if (value >= 0)
-                CmdSendCustom($"SET CUTTER {value}");
-        }
-
-        public void CmdPrintTest()
-        {
-            if (string.IsNullOrEmpty(Name))
-                return;
-            TSCSDK.driver tscDriver = new();
-            if (!tscDriver.openport(Name))
-                return;
-            tscDriver.clearbuffer();
-
-            tscDriver.barcode("100", "200", "128", "100", "1", "0", "3", "3", "123456789");
-            tscDriver.printerfont("100", "100", "3", "0", "1", "1", "Printer Font Test");
-            tscDriver.sendcommand("BOX 50,50,500,400,3\n");
-            tscDriver.printlabel("1", "1");
-
-            tscDriver.closeport();
-        }
-
-        public void CmdFeed(PrintDpi dpi, int mm)
-        {
-            var value = dpi switch
-            {
-                PrintDpi.Dpi100 => 4 * mm,
-                PrintDpi.Dpi200 => 8 * mm,
-                PrintDpi.Dpi300 => 12 * mm,
-                PrintDpi.Dpi400 => 16 * mm,
-                PrintDpi.Dpi500 => 20 * mm,
-                PrintDpi.Dpi600 => 24 * mm,
-                PrintDpi.Dpi700 => 28 * mm,
-                PrintDpi.Dpi800 => 32 * mm,
-                PrintDpi.Dpi900 => 36 * mm,
-                PrintDpi.Dpi1000 => 40 * mm,
-                PrintDpi.Dpi1100 => 44 * mm,
-                PrintDpi.Dpi1200 => 48 * mm,
-                _ => throw new ArgumentOutOfRangeException(nameof(dpi), dpi, null),
-            };
-            if (value > 0)
-                CmdSendCustom($"FEED {value}");
-        }
+        //public void CmdSetCutter(int value)
+        //{
+        //    if (value >= 0)
+        //        CmdSendCustom($"SET CUTTER {value}");
+        //}
 
         #endregion
     }
