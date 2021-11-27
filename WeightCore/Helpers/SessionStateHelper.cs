@@ -30,7 +30,7 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
-        public readonly ManagerHelper Manager = ManagerHelper.Instance;
+        public ManagerHelper Manager { get; private set; } = ManagerHelper.Instance;
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
@@ -212,12 +212,12 @@ namespace WeightCore.Helpers
         public void NewPallet()
         {
             LabelsCurrent = 1;
-            if (Manager.PrintManager == null)
+            if (Manager.Print == null)
                 return;
 
-            Manager.PrintManager.ClearPrintBuffer(IsTscPrinter);
+            Manager.Print.ClearPrintBuffer(IsTscPrinter);
             if (!IsTscPrinter)
-                Manager.PrintManager.SetOdometorUserLabel(1);
+                Manager.Print.SetOdometorUserLabel(1);
             ProductSeries.New();
         }
 
@@ -234,11 +234,11 @@ namespace WeightCore.Helpers
             set
             {
                 _kneading = value;
-                if (Manager.PrintManager != null)
+                if (Manager.Print != null)
                 {
-                    Manager.PrintManager.ClearPrintBuffer(IsTscPrinter);
+                    Manager.Print.ClearPrintBuffer(IsTscPrinter);
                     if (!IsTscPrinter)
-                        Manager.PrintManager.SetOdometorUserLabel(LabelsCurrent);
+                        Manager.Print.SetOdometorUserLabel(LabelsCurrent);
                 }
             }
         }
@@ -275,10 +275,10 @@ namespace WeightCore.Helpers
             set
             {
                 _productDate = value;
-                if (Manager.PrintManager == null)
+                if (Manager.Print == null)
                     return;
 
-                Manager.PrintManager.ClearPrintBuffer(IsTscPrinter);
+                Manager.Print.ClearPrintBuffer(IsTscPrinter);
             }
         }
 
@@ -312,12 +312,12 @@ namespace WeightCore.Helpers
             {
                 _currentPlu = value;
                 LabelsCurrent = 1;
-                if (Manager.PrintManager == null)
+                if (Manager.Print == null)
                     return;
 
                 // если ПЛУ изменился - чистим очередь печати
-                Manager.PrintManager.ClearPrintBuffer(IsTscPrinter);
-                Manager.PrintManager.SetOdometorUserLabel(1);
+                Manager.Print.ClearPrintBuffer(IsTscPrinter);
+                Manager.Print.SetOdometorUserLabel(1);
             }
         }
 
@@ -403,8 +403,8 @@ namespace WeightCore.Helpers
             bool isCheck = false;
             if (CurrentPlu.NominalWeight > 0)
             {
-                if (Manager.MassaManager != null)
-                    CurrentWeighingFact.NetWeight = Manager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight;
+                if (Manager.Massa != null)
+                    CurrentWeighingFact.NetWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
                 else
                     CurrentWeighingFact.NetWeight -= CurrentPlu.GoodsTareWeight;
                 if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
@@ -464,20 +464,20 @@ namespace WeightCore.Helpers
         private void PrintWeightLabel(TemplateDirect template)
         {
             // Check scales exists.
-            if (Manager.MassaManager == null)
+            if (Manager.Massa == null)
             {
                 _log.Information(@"Устройство весов не обнаружено!");
                 return;
             }
             // Check product's weight on the scales.
-            if (Manager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
+            if (Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
             {
-                _log.Information($@"Вес товара: {Manager.MassaManager.WeightNet} кг, печать этикетки невозможна!");
+                _log.Information($@"Вес товара: {Manager.Massa.WeightNet} кг, печать этикетки невозможна!");
                 return;
             }
 
             CurrentWeighingFact = WeighingFactDirect.New(CurrentScale, CurrentPlu, ProductDate, Kneading, CurrentPlu.Scale.ScaleFactor,
-                Manager.MassaManager.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
+                Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
 
             // Указан номинальный вес.
             bool isCheck = false;
@@ -508,11 +508,11 @@ namespace WeightCore.Helpers
                 PrintCmdReplacePics(ref printCmd);
                 // DB save ZPL-query to Labels.
                 PrintSaveLabel(printCmd, CurrentWeighingFact.Id);
-                if (Manager.PrintManager == null)
+                if (Manager.Print == null)
                     return;
 
                 // Send doc to the printrer.
-                Manager.PrintManager.Send(printCmd);
+                Manager.Print.Send(printCmd);
             }
             catch (Exception ex)
             {

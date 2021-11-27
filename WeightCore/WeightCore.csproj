@@ -279,7 +279,6 @@
     <Compile Include="Print\Enums.cs" />
     <Compile Include="Print\Tsc\TscPrintControlHelper.cs" />
     <Compile Include="Print\Tsc\TscPrintSetupHelper.cs" />
-    <Compile Include="Managers\PrintManagerHelper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

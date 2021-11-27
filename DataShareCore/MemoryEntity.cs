@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Memory;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -49,12 +50,12 @@ namespace DataShareCore
                 Process proc = Process.GetCurrentProcess();
                 if (proc != null)
                 {
-                    MemorySize.Physical.Bytes = (ulong)proc.WorkingSet64;
-                    MemorySize.Virtual.Bytes = (ulong)proc.PrivateMemorySize64;
+                    MemorySize.PhysicalCurrent.Bytes = (ulong)proc.WorkingSet64;
+                    MemorySize.VirtualCurrent.Bytes = (ulong)proc.PrivateMemorySize64;
                 }
                 else {
-                    MemorySize.Physical.Bytes = 0;
-                    MemorySize.Virtual.Bytes = 0;
+                    MemorySize.PhysicalCurrent.Bytes = 0;
+                    MemorySize.VirtualCurrent.Bytes = 0;
                 }
                 callRefreshAsync?.Invoke(true).ConfigureAwait(false);
                 Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));

@@ -75,7 +75,7 @@ namespace WeightCore.Managers
             }
         }
 
-        public void WaitSync(ushort miliseconds)
+        public static void WaitSync(ushort miliseconds)
         {
             if (miliseconds < 50)
                 miliseconds = 50;

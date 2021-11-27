@@ -71,7 +71,9 @@ namespace ScalesUI.Forms
 
                 if (_debug.IsDebug)
                     FieldCurrentTime_Click(sender, e);
-                
+
+                _sessionState.Manager.Init(_sessionState.CurrentScale, _sessionState.IsTscPrinter);
+
                 _log.Information("The program is runned");
             }
             catch (Exception ex)
@@ -190,7 +192,7 @@ namespace ScalesUI.Forms
                     _sessionState.Manager.Close();
                     //_sessionState.TaskManager.ClosePrintManager();
                     _quartz.Close();
-                    _sessionState.Manager.WaitSync(2_500);
+                    WeightCore.Managers.ManagerBase.WaitSync(2_500);
                     e.Cancel = false;
                 }
                 else
@@ -250,8 +252,8 @@ namespace ScalesUI.Forms
             //if (!Equals(buttonPrint.Enabled, _sessionState.CurrentPlu != null))
             //    MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _sessionState.CurrentPlu != null);
             
-            if (_sessionState.Manager.MassaManager.IsStable == 0 ||
-                _sessionState.Manager.MassaManager.Requests.Count > 0)
+            if (_sessionState.Manager.Massa.IsStable == 0 ||
+                _sessionState.Manager.Massa.Requests.Count > 0)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonSelectOrder, false);
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonNewPallet, false);
@@ -270,8 +272,8 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, true);
             }
             
-            if (_sessionState.CurrentPlu == null || _sessionState.Manager.MassaManager.IsStable == 0 ||
-                _sessionState.Manager.MassaManager.Requests.Count > 0)
+            if (_sessionState.CurrentPlu == null || _sessionState.Manager.Massa.IsStable == 0 ||
+                _sessionState.Manager.Massa.Requests.Count > 0)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, false);
             }
@@ -302,8 +304,8 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, 
                 $"{LocalizationData.ScalesUI.Labels}: {_sessionState.LabelsCurrent} / {_sessionState.LabelsCount}");
 
-            _sessionState.LabelsCurrent = _sessionState.Manager.PrintManager.UserLabelCount < _sessionState.LabelsCount
-                ? _sessionState.Manager.PrintManager.UserLabelCount : _sessionState.LabelsCount;
+            _sessionState.LabelsCurrent = _sessionState.Manager.Print.UserLabelCount < _sessionState.LabelsCount
+                ? _sessionState.Manager.Print.UserLabelCount : _sessionState.LabelsCount;
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
             if (_sessionState.LabelsCurrent == 0)
                 _sessionState.LabelsCurrent = 1;
@@ -312,27 +314,27 @@ namespace ScalesUI.Forms
             if (_sessionState.IsTscPrinter)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
-                    $"{LocalizationData.ScalesUI.Printer}: {_sessionState.Manager.PrintManager.Win32Printer().PrinterStatusDescription} " +
-                    $"{_sessionState.Manager.PrintManagerProgressString}");
+                    $"{LocalizationData.ScalesUI.Printer}: {_sessionState.Manager.Print.Win32Printer().PrinterStatusDescription} " +
+                    $"{_sessionState.Manager.Print.ProgressString}");
             }
             // Zebra printers.
             else
             {
-                _sessionState.LabelsCurrent = _sessionState.Manager.PrintManager.UserLabelCount < _sessionState.LabelsCount
-                    ? _sessionState.Manager.PrintManager.UserLabelCount : _sessionState.LabelsCount;
+                _sessionState.LabelsCurrent = _sessionState.Manager.Print.UserLabelCount < _sessionState.LabelsCount
+                    ? _sessionState.Manager.Print.UserLabelCount : _sessionState.LabelsCount;
                 // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
                 if (_sessionState.LabelsCurrent == 0)
                     _sessionState.LabelsCurrent = 1;
-                if (_sessionState.Manager.PrintManager.CurrentStatus != null)
+                if (_sessionState.Manager.Print.CurrentStatus != null)
                 {
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _sessionState.Manager.PrintManager.CurrentStatus.isReadyToPrint
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, _sessionState.Manager.Print.CurrentStatus.isReadyToPrint
                         ? $"{LocalizationData.ScalesUI.Printer} {_sessionState.CurrentScale.ZebraPrinter.Ip}: " +
-                          $"{LocalizationData.ScalesUI.PrinterAvailable} {_sessionState.Manager.PrintManagerProgressString}"
+                          $"{LocalizationData.ScalesUI.PrinterAvailable} {_sessionState.Manager.Print.ProgressString}"
                         : $"{LocalizationData.ScalesUI.Printer} {_sessionState.CurrentScale.ZebraPrinter.Ip}: " +
-                          $"{LocalizationData.ScalesUI.PrinterUnavailable} {_sessionState.Manager.PrintManagerProgressString}");
+                          $"{LocalizationData.ScalesUI.PrinterUnavailable} {_sessionState.Manager.Print.ProgressString}");
                 }
             }
-            _sessionState.Manager.PrintManagerProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.Manager.PrintManagerProgressString);
+            _sessionState.Manager.Print.ProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.Manager.Print.ProgressString);
         }
 
         private void ScheduleMemoryManager()
@@ -342,18 +344,18 @@ namespace ScalesUI.Forms
             if (_sessionState.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
-                    $"{LocalizationData.ScalesUI.Memory}: {_sessionState.Manager.MemoryManager.MemorySize.PhysicalCurrent.MegaBytes:N0} MB {_sessionState.Manager.MemoryManagerProgressString}");
+                    $"{LocalizationData.ScalesUI.Memory}: {_sessionState.Manager.Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB {_sessionState.Manager.Memory.ProgressString}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal,
-                    _sessionState.Manager.MemoryManager.MemorySize.DtChanged.ToString(@"HH:mm:ss") +
-                    $"  {LocalizationData.ScalesUI.MemoryPhysical}: {LocalizationData.ScalesUI.MemoryFree} {_sessionState.Manager.MemoryManager.MemorySize.PhysicalFree.MegaBytes:N0} из " +
-                    $"{_sessionState.Manager.MemoryManager.MemorySize.PhysicalTotal.MegaBytes:N0} MB.");
+                    _sessionState.Manager.Memory.MemorySize.DtChanged.ToString(@"HH:mm:ss") +
+                    $"  {LocalizationData.ScalesUI.MemoryPhysical}: {LocalizationData.ScalesUI.MemoryFree} {_sessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes:N0} из " +
+                    $"{_sessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB.");
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldMemoryProgress,
-                    (int)_sessionState.Manager.MemoryManager.MemorySize.PhysicalTotal.MegaBytes);
+                    (int)_sessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes);
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldMemoryProgress, 0);
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMemoryProgress,
-                    (int)(_sessionState.Manager.MemoryManager.MemorySize.PhysicalTotal.MegaBytes -
-                    _sessionState.Manager.MemoryManager.MemorySize.PhysicalFree.MegaBytes));
-                _sessionState.Manager.MemoryManagerProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.Manager.MemoryManagerProgressString);
+                    (int)(_sessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes -
+                    _sessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes));
+                _sessionState.Manager.Memory.ProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.Manager.Memory.ProgressString);
             }
         }
 
@@ -370,20 +372,20 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelPlu, _sessionState.CurrentPlu.CheckWeight == false
                     ? $"{LocalizationData.ScalesUI.PluCount}: {_sessionState.CurrentPlu.PLU}"
                     : $"{LocalizationData.ScalesUI.PluWeight}: {_sessionState.CurrentPlu.PLU}");
-                decimal weight = _sessionState.Manager.MassaManager.WeightNet - _sessionState.CurrentPlu.GoodsTareWeight;
+                decimal weight = _sessionState.Manager.Massa.WeightNet - _sessionState.CurrentPlu.GoodsTareWeight;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldWeightNetto, $"{weight:0.000} {LocalizationData.ScalesUI.UnitKg}");
             }
 
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _sessionState.Manager.MassaManager.IsStable == 0
-                ? $"{LocalizationData.ScalesUI.WeightingProcess}: {_sessionState.Manager.MassaManager.WeightNet:0.000} " +
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaManager, _sessionState.Manager.Massa.IsStable == 0
+                ? $"{LocalizationData.ScalesUI.WeightingProcess}: {_sessionState.Manager.Massa.WeightNet:0.000} " +
                   $"{LocalizationData.ScalesUI.UnitKg} {_sessionState.Manager.MassaManagerProgressString}"
-                : $"{LocalizationData.ScalesUI.WeightingStable}: { _sessionState.Manager.MassaManager.WeightNet:0.000} " +
+                : $"{LocalizationData.ScalesUI.WeightingStable}: { _sessionState.Manager.Massa.WeightNet:0.000} " +
                   $"{LocalizationData.ScalesUI.UnitKg} {_sessionState.Manager.MassaManagerProgressString}");
             _sessionState.Manager.MassaManagerProgressString = DataShareCore.Utils.StringUtils.GetProgressString(
                 _sessionState.Manager.MassaManagerProgressString);
             // Состояние COM-порта.
-            if (_sessionState.Manager.MassaManager.MassaDevice != null)
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.Manager.MassaManager.MassaDevice.IsConnected
+            if (_sessionState.Manager.Massa.MassaDevice != null)
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, _sessionState.Manager.Massa.MassaDevice.IsConnected
                     ? $"{LocalizationData.ScalesUI.ComPortState}: {LocalizationData.ScalesUI.StateResponsed} " +
                       $"{_sessionState.Manager.MassaManagerProgressString}"
                     : $"{LocalizationData.ScalesUI.ComPortState}: {LocalizationData.ScalesUI.StateNotResponsed} " +
@@ -396,9 +398,9 @@ namespace ScalesUI.Forms
             ScheduleMassaManagerResponseSetAll();
             // Очередь сообщений весов.
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries,
-                $"{LocalizationData.ScalesUI.ScaleQueue}: {_sessionState.Manager.MassaManager.Requests.Count} {_sessionState.Manager.MassaQueriesProgressString}");
+                $"{LocalizationData.ScalesUI.ScaleQueue}: {_sessionState.Manager.Massa.Requests.Count} {_sessionState.Manager.MassaQueriesProgressString}");
             _sessionState.Manager.MassaQueriesProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.Manager.MassaQueriesProgressString);
-            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, _sessionState.Manager.MassaManager.Requests.Count);
+            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, _sessionState.Manager.Massa.Requests.Count);
 
             if (!flag)
             {
@@ -409,22 +411,22 @@ namespace ScalesUI.Forms
 
         private void ScheduleMassaManagerRequestGetScalePar()
         {
-            if (_sessionState.Manager.MassaManager.ResponseParseScalePar == null)
+            if (_sessionState.Manager.Massa.ResponseParseScalePar == null)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaScalePar, $"{LocalizationData.ScalesUI.RequestParameters}: ...");
             }
             else
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaScalePar,
-                    _sessionState.Manager.MassaManager.ResponseParseScalePar.DtCreated.ToString(@"HH:mm:ss") + 
+                    _sessionState.Manager.Massa.ResponseParseScalePar.DtCreated.ToString(@"HH:mm:ss") + 
                     $"  {LocalizationData.ScalesUI.RequestParameters}: " +
-                    _sessionState.Manager.MassaManager.ResponseParseScalePar.Message);
+                    _sessionState.Manager.Massa.ResponseParseScalePar.Message);
             }
         }
 
         private void ScheduleMassaManagerResponseGetMassa()
         {
-            if (_sessionState.Manager.MassaManager.ResponseParseGet == null)
+            if (_sessionState.Manager.Massa.ResponseParseGet == null)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGet, $" {LocalizationData.ScalesUI.WeightingMessage}: ...");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGetCrc, $"{LocalizationData.ScalesUI.Crc}: ...");
@@ -432,11 +434,11 @@ namespace ScalesUI.Forms
             else
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGet,
-                    _sessionState.Manager.MassaManager.ResponseParseGet.DtCreated.ToString(@"HH:mm:ss") + 
+                    _sessionState.Manager.Massa.ResponseParseGet.DtCreated.ToString(@"HH:mm:ss") + 
                     $"  {LocalizationData.ScalesUI.WeightingMessage}: " +
-                    _sessionState.Manager.MassaManager.ResponseParseGet.Message);
+                    _sessionState.Manager.Massa.ResponseParseGet.Message);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGetCrc, $"{LocalizationData.ScalesUI.Crc}: " +
-                    (_sessionState.Manager.MassaManager.ResponseParseGet.IsValidAll
+                    (_sessionState.Manager.Massa.ResponseParseGet.IsValidAll
                     ? $"{LocalizationData.ScalesUI.StateCorrect} {_sessionState.Manager.MassaRequestProgressString}" 
                     : $"{LocalizationData.ScalesUI.StateError}! {_sessionState.Manager.MassaRequestProgressString}"));
                 _sessionState.Manager.MassaRequestProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.Manager.MassaRequestProgressString);
@@ -445,7 +447,7 @@ namespace ScalesUI.Forms
 
         private void ScheduleMassaManagerResponseSetAll()
         {
-            if (_sessionState.Manager.MassaManager.ResponseParseSet == null)
+            if (_sessionState.Manager.Massa.ResponseParseSet == null)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSet, $"{LocalizationData.ScalesUI.WeightingScaleCmd}: ...");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSetCrc, $"{LocalizationData.ScalesUI.Crc}: ...");
@@ -453,11 +455,11 @@ namespace ScalesUI.Forms
             else
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSet,
-                    _sessionState.Manager.MassaManager.ResponseParseSet.DtCreated.ToString(@"HH:mm:ss") + 
+                    _sessionState.Manager.Massa.ResponseParseSet.DtCreated.ToString(@"HH:mm:ss") + 
                     $"  {LocalizationData.ScalesUI.WeightingScaleCmd}: " +
-                    _sessionState.Manager.MassaManager.ResponseParseSet.Message);
+                    _sessionState.Manager.Massa.ResponseParseSet.Message);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaSetCrc, $"{LocalizationData.ScalesUI.Crc}: " +
-                    (_sessionState.Manager.MassaManager.ResponseParseSet.IsValidAll
+                    (_sessionState.Manager.Massa.ResponseParseSet.IsValidAll
                     ? $"{LocalizationData.ScalesUI.StateCorrect} {_sessionState.Manager.MassaResponseProgressString}"
                     : $"{LocalizationData.ScalesUI.StateError}! {_sessionState.Manager.MassaResponseProgressString}"));
                 _sessionState.Manager.MassaResponseProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.Manager.MassaResponseProgressString);
@@ -468,12 +470,7 @@ namespace ScalesUI.Forms
 
         #region Public and private methods - Callbacks
 
-        private void TaskManagerOpen()
-        {
-            _sessionState.Manager.Open(_sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
-            _sessionState.Manager.Memory.Open(_sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
-            Application.DoEvents();
-        }
+        private void TaskManagerOpen() => _sessionState.Manager.Open(_sessionState.SqlViewModel, _sessionState.CurrentScale);
 
         #endregion
 
@@ -481,7 +478,7 @@ namespace ScalesUI.Forms
 
         private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
         {
-            DataShareCore.Wmi.Win32PrinterEntity win32Printer = _sessionState.Manager.PrintManager.Win32Printer();
+            DataShareCore.Wmi.Win32PrinterEntity win32Printer = _sessionState.Manager.Print.Win32Printer();
             using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
             wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.PrinterInfoCaption;
             wpfPageLoader.MessageBox.Message =
@@ -538,7 +535,7 @@ namespace ScalesUI.Forms
             try
             {
                 // Massa-K device control.
-                if (!_sessionState.Manager.MassaManager.MassaDevice.IsConnected)
+                if (!_sessionState.Manager.Massa.MassaDevice.IsConnected)
                 {
                     // WPF MessageBox.
                     using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
@@ -550,17 +547,17 @@ namespace ScalesUI.Forms
                     return;
                 }
                 // Fix negative weight.
-                if (_sessionState.Manager.MassaManager.WeightNet < 0)
+                if (_sessionState.Manager.Massa.WeightNet < 0)
                 {
-                    _sessionState.Manager.MassaManager.ResetMassa();
+                    _sessionState.Manager.Massa.ResetMassa();
                 }
                 // Operation control.
-                if (_sessionState.Manager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold)
+                if (_sessionState.Manager.Massa.WeightNet > LocalizationData.ScalesUI.MassaThreshold)
                 {
                     // WPF MessageBox.
                     using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                     wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                    wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.MassaCheck(_sessionState.Manager.MassaManager.WeightNet);
+                    wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.MassaCheck(_sessionState.Manager.Massa.WeightNet);
                     wpfPageLoader.MessageBox.ButtonYesVisibility = System.Windows.Visibility.Visible;
                     wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
                     wpfPageLoader.MessageBox.Localization();
@@ -569,7 +566,7 @@ namespace ScalesUI.Forms
                         return;
                 }
 
-                _sessionState.Manager.MassaManager.GetInit();
+                _sessionState.Manager.Massa.GetInit();
             }
             catch (Exception ex)
             {
@@ -713,13 +710,13 @@ namespace ScalesUI.Forms
 
         private bool CheckWeight()
         {
-            if (_sessionState.Manager.MassaManager.WeightNet > LocalizationData.ScalesUI.MassaThreshold ||
-                _sessionState.Manager.MassaManager.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
+            if (_sessionState.Manager.Massa.WeightNet > LocalizationData.ScalesUI.MassaThreshold ||
+                _sessionState.Manager.Massa.WeightNet < -LocalizationData.ScalesUI.MassaThreshold)
             {
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.MassaCheck(_sessionState.Manager.MassaManager.WeightNet);
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.MassaCheck(_sessionState.Manager.Massa.WeightNet);
                 wpfPageLoader.MessageBox.ButtonYesVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
@@ -738,7 +735,7 @@ namespace ScalesUI.Forms
             if (_sessionState.CurrentPlu.CheckWeight == false)
                 return true;
 
-            decimal weight = _sessionState.Manager.MassaManager.WeightNet - _sessionState.CurrentPlu.GoodsTareWeight;
+            decimal weight = _sessionState.Manager.Massa.WeightNet - _sessionState.CurrentPlu.GoodsTareWeight;
             if (weight <= LocalizationData.ScalesUI.MassaThreshold)
             {
                 // WPF MessageBox.
@@ -929,7 +926,7 @@ namespace ScalesUI.Forms
                 if (wpfPageLoader.MessageBox.Result != DialogResult.Yes)
                     return;
                 // Wait.
-                _sessionState.Manager.WaitSync(2_500);
+                WeightCore.Managers.ManagerBase.WaitSync(2_500);
                 // Run app.
                 string fileName = @"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe";
                 if (File.Exists(fileName))

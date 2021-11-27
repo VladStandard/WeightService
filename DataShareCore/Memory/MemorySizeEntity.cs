@@ -5,7 +5,7 @@ using DataShareCore.Wmi;
 using System;
 using System.Diagnostics;
 
-namespace WeightCore.Memory
+namespace DataShareCore.Memory
 {
 
     public class MemorySizeEntity
@@ -33,7 +33,7 @@ namespace WeightCore.Memory
             VirtualTotal = new MemorySizeConvertEntity();
             PhysicalFree = new MemorySizeConvertEntity();
             PhysicalTotal = new MemorySizeConvertEntity();
-            
+
             Update();
         }
 

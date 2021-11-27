@@ -40,9 +40,9 @@ namespace WeightCore.Managers
             10_000, 500, 250, 2_000, 1_000);
         }
 
-        public void Open(ProjectsEnums.TaskType taskType, SqlViewModelEntity sqlViewModel)
+        public void Open(SqlViewModelEntity sqlViewModel)
         {
-            Open(taskType, sqlViewModel,
+            Open(ProjectsEnums.TaskType.MassaManager, sqlViewModel,
             () =>
             {
                 MassaDevice.Open();

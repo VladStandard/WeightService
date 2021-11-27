@@ -3,8 +3,7 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL;
-using DataProjectsCore.DAL.TableModels;
-using DataShareCore;
+using DataShareCore.Memory;
 
 namespace WeightCore.Managers
 {
@@ -18,16 +17,29 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Open(ProjectsEnums.TaskType taskType, SqlViewModelEntity sqlViewModel, ScaleDirect currentScale)
+        public void Init()
         {
-            Open(taskType, sqlViewModel,
-            () => {
+            Init(
+            () =>
+            {
                 //
             },
-            () => {
+            1_000, 500, 250, 2_000, 1_000);
+        }
+
+        public void Open(SqlViewModelEntity sqlViewModel)
+        {
+            Open(ProjectsEnums.TaskType.MemoryManager, sqlViewModel,
+            () =>
+            {
                 //
             },
-            () => {
+            () =>
+            {
+                //
+            },
+            () =>
+            {
                 //
             });
         }
