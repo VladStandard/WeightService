@@ -19,7 +19,7 @@ namespace DataShareCore.Memory
         public MemorySizeConvertEntity PhysicalFree { get; private set; }
         public MemorySizeConvertEntity VirtualTotal { get; private set; }
         public MemorySizeConvertEntity PhysicalTotal { get; private set; }
-        private WmiHelper _wmi = WmiHelper.Instance;
+        private WmiHelper Wmi { get; set; } = WmiHelper.Instance;
 
         #endregion
 
@@ -33,8 +33,6 @@ namespace DataShareCore.Memory
             VirtualTotal = new MemorySizeConvertEntity();
             PhysicalFree = new MemorySizeConvertEntity();
             PhysicalTotal = new MemorySizeConvertEntity();
-
-            Update();
         }
 
         #endregion
@@ -48,7 +46,7 @@ namespace DataShareCore.Memory
             PhysicalCurrent.Bytes = (ulong)Process.GetCurrentProcess().WorkingSet64;
             VirtualCurrent.Bytes = (ulong)Process.GetCurrentProcess().PrivateMemorySize64;
 
-            Win32OperatingSystemMemoryEntity getWmi = _wmi.GetWin32OperatingSystemMemory();
+            Win32OperatingSystemMemoryEntity getWmi = Wmi.GetWin32OperatingSystemMemory();
             VirtualFree = new MemorySizeConvertEntity { Bytes = getWmi.FreeVirtual };
             PhysicalFree = new MemorySizeConvertEntity { Bytes = getWmi.FreePhysical };
             VirtualTotal = new MemorySizeConvertEntity { Bytes = getWmi.TotalVirtual };

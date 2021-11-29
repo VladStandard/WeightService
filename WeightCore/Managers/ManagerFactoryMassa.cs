@@ -13,7 +13,7 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties
 
-        private readonly MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
+        private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
         public decimal WeightNet { get; private set; }
         public decimal WeightGross { get; private set; }
         public byte IsStable { get; private set; }
@@ -24,6 +24,9 @@ namespace WeightCore.Managers
         public ResponseParseEntity ResponseParseSet { get; private set; } = null;
         public BlockingCollection<MassaExchangeEntity> Requests { get; private set; } = new();
         public MassaDeviceEntity MassaDevice { get; private set; }
+        public string ProgressStringQueries { get; set; }
+        public string ProgressStringRequest { get; set; }
+        public string ProgressStringResponse { get; set; }
 
         #endregion
 
@@ -31,18 +34,18 @@ namespace WeightCore.Managers
 
         public void Init(ScaleDirect currentScale)
         {
-            Init(
+            Init(ProjectsEnums.TaskType.MassaManager,
             () =>
             {
                 if (currentScale != null)
                     MassaDevice = new(currentScale.DeviceComPort, currentScale.DeviceReadTimeout, currentScale.DeviceWriteTimeout);
             },
-            10_000, 500, 250, 2_000, 1_000);
+            5_000, 250, 500, 2_000, 1_000);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
-            Open(ProjectsEnums.TaskType.MassaManager, sqlViewModel,
+            Open(sqlViewModel,
             () =>
             {
                 MassaDevice.Open();
@@ -102,36 +105,36 @@ namespace WeightCore.Managers
             switch (massaExchange.CmdType)
             {
                 case MassaCmdType.UdpPoll:
-                    massaExchange.Request = _massaRequest.CMD_UDP_POLL;
+                    massaExchange.Request = MassaRequest.CMD_UDP_POLL;
                     break;
                 case MassaCmdType.GetInit2:
-                    massaExchange.Request = _massaRequest.CMD_GET_INIT_2;
+                    massaExchange.Request = MassaRequest.CMD_GET_INIT_2;
                     break;
                 case MassaCmdType.GetInit3:
-                    massaExchange.Request = _massaRequest.CMD_GET_INIT_3;
+                    massaExchange.Request = MassaRequest.CMD_GET_INIT_3;
                     break;
                 case MassaCmdType.GetEthernet:
-                    massaExchange.Request = _massaRequest.CMD_GET_ETHERNET;
+                    massaExchange.Request = MassaRequest.CMD_GET_ETHERNET;
                     break;
                 case MassaCmdType.GetWiFiIp:
-                    massaExchange.Request = _massaRequest.CMD_GET_WIFI_IP;
+                    massaExchange.Request = MassaRequest.CMD_GET_WIFI_IP;
                     break;
                 case MassaCmdType.GetMassa:
-                    massaExchange.Request = _massaRequest.CMD_GET_MASSA;
+                    massaExchange.Request = MassaRequest.CMD_GET_MASSA;
                     break;
                 case MassaCmdType.GetName:
                     break;
                 case MassaCmdType.GetScalePar:
-                    massaExchange.Request = _massaRequest.CMD_GET_SCALE_PAR;
+                    massaExchange.Request = MassaRequest.CMD_GET_SCALE_PAR;
                     break;
                 case MassaCmdType.GetScaleParAfter:
-                    massaExchange.Request = _massaRequest.CMD_GET_SCALE_PAR_AFTER;
+                    massaExchange.Request = MassaRequest.CMD_GET_SCALE_PAR_AFTER;
                     break;
                 case MassaCmdType.SetTare:
                     massaExchange.Request = massaExchange.CmdSetTare();
                     break;
                 case MassaCmdType.SetZero:
-                    massaExchange.Request = _massaRequest.CMD_SET_ZERO;
+                    massaExchange.Request = MassaRequest.CMD_SET_ZERO;
                     break;
             }
             if (massaExchange.Request == null)

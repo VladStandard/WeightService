@@ -19,37 +19,28 @@ namespace WeightCore.Managers
 
         public void Init()
         {
-            Init(
+            Init(ProjectsEnums.TaskType.MemoryManager,
             () =>
             {
                 //
             },
-            1_000, 500, 250, 2_000, 1_000);
+            1_000, 250, 500, 2_000, 1_000);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
-            Open(ProjectsEnums.TaskType.MemoryManager, sqlViewModel,
+            Open(sqlViewModel,
             () =>
             {
-                //
+                MemorySize.Update();
             },
-            () =>
-            {
-                //
-            },
-            () =>
-            {
-                //
-            });
+            null,
+            null);
         }
 
         public void Close()
         {
-            Close(() =>
-            {
-                //
-            });
+            Close(null);
         }
 
         #endregion

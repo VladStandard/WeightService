@@ -18,10 +18,17 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties - Manager
 
-        public readonly ExceptionHelper Exception = ExceptionHelper.Instance;
-        public readonly DebugHelper Debug = DebugHelper.Instance;
-        public readonly LogHelper Log = LogHelper.Instance;
-
+        public ProjectsEnums.TaskType TaskType { get; set; } = ProjectsEnums.TaskType.Default;
+        public ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
+        public DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        public LogHelper Log { get; set; } = LogHelper.Instance;
+        public AsyncLock MutexReopen { get; private set; } = new();
+        public AsyncLock MutexRequest { get; private set; } = new();
+        public AsyncLock MutexResponse { get; private set; } = new();
+        public bool IsExecuteReopen { get; set; }
+        public bool IsExecuteRequest { get; set; }
+        public bool IsExecuteResponse { get; set; }
+        public string ProgressString { get; set; }
         public int WaitReopen { get; set; }
         public int WaitRequest { get; set; }
         public int WaitResponse { get; set; }
@@ -31,19 +38,6 @@ namespace WeightCore.Managers
         public bool IsInit { get; set; }
         public bool IsResponse { get; set; }
         private object Locker { get; set; } = new();
-
-        public AsyncLock MutexReopen { get; private set; } = new();
-        public AsyncLock MutexRequest { get; private set; } = new();
-        public AsyncLock MutexResponse { get; private set; } = new();
-
-        public bool IsExecuteReopen { get; set; }
-        public bool IsExecuteRequest { get; set; }
-        public bool IsExecuteResponse { get; set; }
-
-        public string ProgressString { get; set; }
-
-        public ProjectsEnums.TaskType TaskType { get; set; } = ProjectsEnums.TaskType.Default;
-
         public delegate void InitCallback();
         public delegate void ReopenCallback();
         public delegate void RequestCallback();
@@ -54,20 +48,19 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        // int waitReopen = 1_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
-        // Massa: int waitReopen = 10_000, int waitResponse = 500, int waitRequest = 250, int waitClose = 2_000, int waitException = 1_000)
-        public void Init(InitCallback initCallback,
-            int waitReopen, int waitResponse, int waitRequest, int waitClose, int waitException)
+        public void Init(ProjectsEnums.TaskType taskType, InitCallback initCallback,
+            int waitReopen, int waitRequest, int waitResponse, int waitClose, int waitException)
         {
             lock (Locker)
             {
                 if (IsInit)
                     return;
                 IsInit = true;
+                TaskType = taskType;
 
                 WaitReopen = waitReopen == 0 ? 5_000 : waitReopen;
-                WaitResponse = waitResponse == 0 ? 500 : waitResponse;
                 WaitRequest = waitRequest == 0 ? 250 : waitRequest;
+                WaitResponse = waitResponse == 0 ? 500 : waitResponse;
                 WaitClose = waitClose == 0 ? 5_000 : waitClose;
                 WaitException = waitException == 0 ? 5_000 : waitException;
 
@@ -89,19 +82,17 @@ namespace WeightCore.Managers
             }
         }
 
-        public void DebugLog(string message,
-            [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
+        public void DebugLog(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             if (Debug.IsDebug)
                 Log.Information(message, filePath, memberName, lineNumber);
         }
 
-        public void Open(ProjectsEnums.TaskType taskType, SqlViewModelEntity sqlViewModel,
+        public void Open(SqlViewModelEntity sqlViewModel,
             ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
         {
             WaitSync(2_500);
 
-            TaskType = taskType;
             if (sqlViewModel.IsTaskEnabled(TaskType))
             {
                 OpenTaskReopen(reopenCallback);
@@ -110,7 +101,7 @@ namespace WeightCore.Managers
             }
         }
 
-        private void OpenTaskReopen(ReopenCallback reopenCallback)
+        private void OpenTaskReopen(ReopenCallback callback)
         {
             // Task Reopen.
             _ = Task.Run(async () =>
@@ -124,38 +115,34 @@ namespace WeightCore.Managers
                     IsExecuteReopen = true;
                     while (IsExecuteReopen)
                     {
-                        lock (Locker)
+                        try
                         {
-                            try
-                            {
-                                reopenCallback?.Invoke();
-                                DebugLog($"{nameof(TaskType)} is opened");
+                            callback?.Invoke();
 
-                                //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(false);
-                                Thread.Sleep(WaitReopen);
-                            }
-                            catch (TaskCanceledException)
-                            {
-                                // Console.WriteLine(tcex.Message);
-                                // Not the problem.
-                            }
-                            catch (Exception ex)
-                            {
-                                Exception.Catch(null, ref ex, false);
-                                //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
-                                Thread.Sleep(WaitException);
-                            }
-                            finally
-                            {
-                                System.Windows.Forms.Application.DoEvents();
-                            }
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(false);
+                            Thread.Sleep(WaitReopen);
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            Exception.Catch(null, ref ex, false);
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
+                            Thread.Sleep(WaitException);
+                        }
+                        finally
+                        {
+                            System.Windows.Forms.Application.DoEvents();
                         }
                     }
                 }
             });
         }
 
-        private void OpenTaskRequest(RequestCallback requestCallback)
+        private void OpenTaskRequest(RequestCallback callback)
         {
             // Task Reopen.
             _ = Task.Run(async () =>
@@ -169,38 +156,34 @@ namespace WeightCore.Managers
                     IsExecuteRequest = true;
                     while (IsExecuteRequest)
                     {
-                        lock (Locker)
+                        try
                         {
-                            try
-                            {
-                                requestCallback?.Invoke();
-                                DebugLog($"{nameof(TaskType)} is opened");
+                            callback?.Invoke();
 
-                                //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(false);
-                                Thread.Sleep(WaitRequest);
-                            }
-                            catch (TaskCanceledException)
-                            {
-                                // Console.WriteLine(tcex.Message);
-                                // Not the problem.
-                            }
-                            catch (Exception ex)
-                            {
-                                Exception.Catch(null, ref ex, false);
-                                //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
-                                Thread.Sleep(WaitException);
-                            }
-                            finally
-                            {
-                                System.Windows.Forms.Application.DoEvents();
-                            }
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(false);
+                            Thread.Sleep(WaitRequest);
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            Exception.Catch(null, ref ex, false);
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
+                            Thread.Sleep(WaitException);
+                        }
+                        finally
+                        {
+                            System.Windows.Forms.Application.DoEvents();
                         }
                     }
                 }
             });
         }
 
-        private void OpenTaskResponse(ResponseCallback responseCallback)
+        private void OpenTaskResponse(ResponseCallback callback)
         {
             // Task Reopen.
             _ = Task.Run(async () =>
@@ -214,38 +197,34 @@ namespace WeightCore.Managers
                     IsExecuteResponse = true;
                     while (IsExecuteResponse)
                     {
-                        lock (Locker)
+                        try
                         {
-                            try
-                            {
-                                responseCallback?.Invoke();
-                                DebugLog($"{nameof(TaskType)} is opened");
+                            callback?.Invoke();
 
-                                //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(false);
-                                Thread.Sleep(WaitResponse);
-                            }
-                            catch (TaskCanceledException)
-                            {
-                                // Console.WriteLine(tcex.Message);
-                                // Not the problem.
-                            }
-                            catch (Exception ex)
-                            {
-                                Exception.Catch(null, ref ex, false);
-                                //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
-                                Thread.Sleep(WaitException);
-                            }
-                            finally
-                            {
-                                System.Windows.Forms.Application.DoEvents();
-                            }
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitReopen)).ConfigureAwait(false);
+                            Thread.Sleep(WaitResponse);
+                        }
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            Exception.Catch(null, ref ex, false);
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
+                            Thread.Sleep(WaitException);
+                        }
+                        finally
+                        {
+                            System.Windows.Forms.Application.DoEvents();
                         }
                     }
                 }
             });
         }
 
-        public void Close(CloseCallback closeCallback)
+        public void Close(CloseCallback callback)
         {
             lock (Locker)
             {
@@ -255,10 +234,7 @@ namespace WeightCore.Managers
                     IsExecuteRequest = false;
                     IsExecuteResponse = false;
 
-                    closeCallback?.Invoke();
-
-                    System.Windows.Forms.Application.DoEvents();
-
+                    callback?.Invoke();
                     DebugLog($"{nameof(TaskType)} is closed");
                 }
                 catch (Exception ex)

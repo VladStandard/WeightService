@@ -4,7 +4,6 @@
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using System.Threading;
-using WeightCore.Helpers;
 
 namespace WeightCore.Managers
 {
@@ -22,12 +21,6 @@ namespace WeightCore.Managers
         public ManagerFactoryMassa Massa { get; private set; } = new ManagerFactoryMassa();
         public ManagerFactoryMemory Memory { get; private set; } = new ManagerFactoryMemory();
         public ManagerFactoryPrint Print { get; private set; } = new ManagerFactoryPrint();
-        public ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
-
-        public string MassaManagerProgressString { get; set; }
-        public string MassaQueriesProgressString { get; set; }
-        public string MassaRequestProgressString { get; set; }
-        public string MassaResponseProgressString { get; set; }
 
         #endregion
 
@@ -49,7 +42,7 @@ namespace WeightCore.Managers
             Print.Init(isTscPrinter, currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
         }
 
-        public void Open(SqlViewModelEntity sqlViewModel, ScaleDirect currentScale)
+        public void Open(SqlViewModelEntity sqlViewModel)
         {
             Massa.Open(sqlViewModel);
             Memory.Open(sqlViewModel);

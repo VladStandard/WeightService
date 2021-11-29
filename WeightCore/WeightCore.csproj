@@ -208,6 +208,9 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="tsclibnet">
+      <HintPath>..\Resources\TscLibNet\2.0.50727\tsclibnet.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="ZebraPrinterSdk, Version=2.15.2634.0, Culture=neutral, processorArchitecture=MSIL">
@@ -247,12 +250,10 @@
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\MouseHookHelper.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
-    <Compile Include="Managers\ManagerFactory.cs" />
     <Compile Include="Managers\ManagerFactoryPrint.cs" />
     <Compile Include="Managers\ManagerFactoryMassa.cs" />
     <Compile Include="Managers\ManagerFactoryMemory.cs" />
     <Compile Include="Managers\ManagerHelper.cs" />
-    <Compile Include="Managers\TaskManagerHelperDeprecated.cs" />
     <Compile Include="MassaK\MassaCmdType.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />
     <Compile Include="MassaK\BytesHelper.cs" />

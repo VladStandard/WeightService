@@ -35,7 +35,7 @@ namespace WeightCore.Managers
 
         public void Init(bool isTscPrinter, string name, string ip, int port)
         {
-            Init(
+            Init(ProjectsEnums.TaskType.MemoryManager,
             () =>
             {
                 IsTscPrinter = isTscPrinter;
@@ -43,12 +43,12 @@ namespace WeightCore.Managers
                     ZebraConnection = new TcpConnection(ip, port);
                 TscPrintControl.Init(name, ip, port);
             },
-            1_000, 500, 250, 2_000, 1_000);
+            1_000, 250, 500, 2_000, 1_000);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
-            Open(ProjectsEnums.TaskType.MemoryManager, sqlViewModel,
+            Open(sqlViewModel,
             () => {
                 if (IsTscPrinter)
                 {
@@ -60,12 +60,7 @@ namespace WeightCore.Managers
                     OpenZebra();
                 }
             },
-            () => {
-                //
-            },
-            () => {
-                //
-            });
+            null, null);
         }
 
         public void Close()
@@ -126,7 +121,7 @@ namespace WeightCore.Managers
                         string docReplace = doc.Replace("|", "\\&");
                         if (!docReplace.Equals("^XA~JA^XZ") && !docReplace.Contains("odometer.user_label_count"))
                         {
-                            //TscPrintControl.CmdSendCustom(docReplace);
+                            TscPrintControl.SendCmd(docReplace);
                         }
                     }
                 }

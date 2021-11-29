@@ -62,7 +62,7 @@ namespace DataShareCore
             }
         }
 
-        public void Close([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void Close()
         {
             IsExecute = false;
         }

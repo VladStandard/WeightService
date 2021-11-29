@@ -153,7 +153,7 @@ namespace TscBarcode.Views
                 _ => throw new ArgumentOutOfRangeException(nameof(dpi), dpi, null),
             };
             if (value > 0)
-                PrintControl.CmdSendCustom($"FEED {value}");
+                PrintControl.SendCmd($"FEED {value}");
         }
 
         #endregion

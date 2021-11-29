@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.890] - 2021-11-26
+## [0.5.900] - 2021-11-29
 ### Fixed
 - Ошибка печати
 - WS-T-34. ScalesUI. Exception WPF window
