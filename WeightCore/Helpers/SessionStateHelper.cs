@@ -19,7 +19,7 @@ using WeightCore.Zpl;
 
 namespace WeightCore.Helpers
 {
-    public class SessionStateHelper : BaseViewModel
+    public class SessionStateHelper : BaseViewModel, IDisposable
     {
         #region Design pattern "Lazy Singleton"
 
@@ -96,67 +96,18 @@ namespace WeightCore.Helpers
             // Load ID host from file.
             Host = HostsUtils.TokenRead();
             CurrentScale = ScalesUtils.GetScale(Host.ScaleId);
-            //this.CurrentScaleId = Properties.Settings.Default.CurrentScaleId;
-            //this.CurrentScale = new ScaleEntity(this.CurrentScaleId);
 
             Kneading = KneadingMinValue;
             ProductDate = DateTime.Now;
             LabelsCurrent = 1;
             LabelsCount = 1;
 
-            // контейнер пока не используем
-            // оставим для бурного роста
-            // ZebraDeviceСontainer = ZebraDeviceСontainer.Instance;
-            // ZebraDeviceСontainer.AddDevice(this.CurrentScale.ZebraIP, this.CurrentScale.ZebraPort);
-            // ZebraDeviceСontainer.CheckDeviceStatusOn();
-            // создаем устройство ZEBRA
-            // с необходимым крннектором (т.е. TCP, а можно и через USB)
-            // WeightServices.Common.Zpl.DeviceSocketTcp zplDeviceSocket =
-            //    new WeightServices.Common.Zpl.DeviceSocketTcp(this.CurrentScale.ZebraPrinter.Ip, this.CurrentScale.ZebraPrinter.Port);
-            // ZebraDeviceEntity = new ZebraDeviceEntity(zplDeviceSocket, Guid.NewGuid());
-            // ZebraDeviceEntity.DataCollector.SetIpPort(zplDeviceSocket.DeviceIP, zplDeviceSocket.DevicePort);
-            // тут запускается поток 
-            // который разбирает очередь 
-            // т.к. команды пишутся не напрямую, а в очередь
-            // а из нее потом доотправляются на устройство
-            // zebraDeviceEntity.CheckDeviceStatusOn();
-            // тут запускается процесс отправляющий комманды проверки состояния устройства
-            // ZplCommander = new ZplCommander(zplDeviceSocket.DeviceIP, zebraDeviceEntity, ZplPipeUtils.ZplHostQuery());
-
-            //try
-            //{
-            //    PrintManager = new PrintManagerEntity(CurrentScale.ZebraPrinter.Ip, CurrentScale.ZebraPrinter.Port, 120);
-            //    PrintManager.Open(IsTscPrinter);
-            //}
-            //catch (Exception ex)
-            //{
-            //    if (CustomMessageBox.Show($"Печатающее устройство недоступно ({CurrentScale.ZebraPrinter}). {ex.Message}") == DialogResult.OK)
-            //    {
-
-            //    }
-            //    //throw new Exception(ex.Message);
-            //}
-
-            // тут создается устройство работы с MassaK
-            // запускаем поток, который разбирает очередь команд
-            // т.к. команды пишутся не напрямую, а в очередь
-            // а из нее потом доотправляются на устройство
-            //var deviceSocketRs232 = new DeviceSocketRs232(CurrentScale.DeviceComPort);
-            //MkDevice = new MkDeviceEntity(deviceSocketRs232);
-            //MkDevice.SetZero();
-
-            // тут запускается процесс отправляющий комманды
-            // для получения с устройства текущего веса
-            //MkCommander mkCommander = new MkCommander(MkDevice);
-
-            // начинается новыя серия
-            // упаковки продукции 
-            // новая паллета, если хотите
+            // начинается новыя серия, упаковки продукции, новая паллета
             ProductSeries = new ProductSeriesDirect(CurrentScale);
             ProductSeries.New();
         }
 
-        ~SessionStateHelper()
+        public void Dispose()
         {
             ZplCommander?.Close();
         }

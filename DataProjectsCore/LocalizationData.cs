@@ -406,6 +406,7 @@ namespace DataCore
 
         public static class ScalesUI
         {
+            public static string LoadProgram => Lang == ShareEnums.Lang.English ? @"Loading the program ..." : @"Загрузка программы ...";
             public static string Exception => Lang == ShareEnums.Lang.English ? @"Exception" : @"Ошибка";
             public static string Method => Lang == ShareEnums.Lang.English ? @"Method" : @"Метод";
             public static string Line => Lang == ShareEnums.Lang.English ? @"Ling" : @"Строка";

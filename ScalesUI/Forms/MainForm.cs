@@ -70,8 +70,6 @@ namespace ScalesUI.Forms
                 if (_debug.IsDebug)
                     FieldCurrentTime_Click(sender, e);
 
-                _sessionState.Manager.Init(_sessionState.CurrentScale, _sessionState.IsTscPrinter);
-
                 _log.Information("The program is runned");
             }
             catch (Exception ex)
@@ -118,8 +116,8 @@ namespace ScalesUI.Forms
                     pictureBoxClose.Image = bmpExit;
                 }
 
-                // Text = _appVersionHelper.AppTitle;
                 MDSoft.WinFormsUtils.InvokeControl.SetText(this, _appVersion.AppTitle);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, $"{LocalizationData.ScalesUI.LoadProgram}");
                 switch (_sessionState.SqlViewModel.PublishType)
                 {
                     case ShareEnums.PublishType.Debug:
@@ -187,7 +185,7 @@ namespace ScalesUI.Forms
                 }
                 if (isClose)
                 {
-                    _sessionState.Manager.Close();
+                    _sessionState.Manager.Dispose();
                     _quartz.Close();
                     WeightCore.Managers.ManagerBase.WaitSync(2_500);
                     e.Cancel = false;
@@ -225,6 +223,7 @@ namespace ScalesUI.Forms
                 SchedulePrint();
                 ScheduleProduct();
                 ScheduleButtonsEnabled();
+                ScheduleLabelsVisible();
             }
         }
 
@@ -278,6 +277,24 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, true);
             }
+        }
+
+        private void ScheduleLabelsVisible()
+        {
+            if (!fieldCurrentTime.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldCurrentTime, true);
+            if (!labelWeightNetto.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelWeightNetto, true);
+            if (!fieldWeightTare.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWeightTare, true);
+            if (!labelKneading.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, true);
+            if (!fieldKneading.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, true);
+            if (!labelProductDate.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelProductDate, true);
+            if (!fieldProductDate.Visible)
+                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldProductDate, true);
         }
 
         private void CheckEnabled(ProjectsEnums.TaskType taskType, Control control)
@@ -342,7 +359,7 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
                     $"{LocalizationData.ScalesUI.Memory}: {_sessionState.Manager.Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB {_sessionState.Manager.Memory.ProgressString}");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal, _sessionState.Manager.Memory.MemorySize.DtChanged.ToString(@"HH:mm:ss") +
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal, _sessionState.Manager.Memory.MemorySize.DtChanged?.ToString(@"HH:mm:ss") +
                     $"  {LocalizationData.ScalesUI.MemoryPhysical}: {LocalizationData.ScalesUI.MemoryFree} {_sessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes:N0} из " +
                     $"{_sessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB.");
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldMemoryProgress,
@@ -466,7 +483,11 @@ namespace ScalesUI.Forms
 
         #region Public and private methods - Callbacks
 
-        private void TaskManagerOpen() => _sessionState.Manager.Open(_sessionState.SqlViewModel);
+        private void TaskManagerOpen()
+        {
+            _sessionState.Manager.Init(_sessionState.CurrentScale, _sessionState.IsTscPrinter);
+            _sessionState.Manager.Open(_sessionState.SqlViewModel);
+        }
 
         #endregion
 

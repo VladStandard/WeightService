@@ -20,15 +20,13 @@ namespace DataShareCore.Wmi
 
         #region Public and private fields and properties
 
-        public object Locker { get; private set; } = new();
-
         #endregion
 
         #region Public and private methods
 
         public Win32OperatingSystemMemoryEntity GetWin32OperatingSystemMemory()
         {
-            lock (Locker)
+            lock (this)
             {
                 // PowerShell: gwmi Win32_OperatingSystem | select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize
                 // PowerShell: gwmi -query "select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize from Win32_OperatingSystem"
@@ -53,7 +51,7 @@ namespace DataShareCore.Wmi
 
         public Win32PrinterEntity GetWin32Printer(string name)
         {
-            lock (Locker)
+            lock (this)
             {
                 if (string.IsNullOrEmpty(name))
                     return new Win32PrinterEntity(name, string.Empty, string.Empty, string.Empty, string.Empty, Win32PrinterStatusEnum.Error);

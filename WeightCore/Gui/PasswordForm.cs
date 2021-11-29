@@ -11,9 +11,8 @@ namespace WeightCore.Gui
     {
         #region Private fields and properties
 
-        private int UnlockPinCode { get => DateTime.Now.Hour * 100 + DateTime.Now.Minute; }
-        private int UserPinCode { get; set; }
-        private bool CheckPin { get => UserPinCode == UnlockPinCode; }
+        private ushort UnlockCode => (ushort)(DateTime.Now.Hour * 100 + DateTime.Now.Minute);
+        private ushort UserCode { get; set; } = 0;
 
         #endregion
 
@@ -28,14 +27,14 @@ namespace WeightCore.Gui
 
         #region Private methods
 
-        /// <summary>
-        /// Форма загружена.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void PasswordForm_Load(object sender, EventArgs e)
         {
             ShowPin();
+        }
+
+        private void PasswordForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult = Equals(UserCode, UnlockCode) ? DialogResult.OK : DialogResult.Cancel;
         }
 
         private void PasswordForm_KeyUp(object sender, KeyEventArgs e)
@@ -44,90 +43,88 @@ namespace WeightCore.Gui
             {
                 case Keys.NumPad0:
                 case Keys.D0:
-                    btnNum_Click(btnNum0, e);
+                    BtnNum_Click(buttonNum0, e);
                     break;
                 case Keys.NumPad1:
                 case Keys.D1:
-                    btnNum_Click(btnNum1, e);
+                    BtnNum_Click(buttonNum1, e);
                     break;
                 case Keys.NumPad2:
                 case Keys.D2:
-                    btnNum_Click(btnNum2, e);
+                    BtnNum_Click(buttonNum2, e);
                     break;
                 case Keys.NumPad3:
                 case Keys.D3:
-                    btnNum_Click(btnNum3, e);
+                    BtnNum_Click(buttonNum3, e);
                     break;
                 case Keys.NumPad4:
                 case Keys.D4:
-                    btnNum_Click(btnNum4, e);
+                    BtnNum_Click(buttonNum4, e);
                     break;
                 case Keys.NumPad5:
                 case Keys.D5:
-                    btnNum_Click(btnNum5, e);
+                    BtnNum_Click(buttonNum5, e);
                     break;
                 case Keys.NumPad6:
                 case Keys.D6:
-                    btnNum_Click(btnNum6, e);
+                    BtnNum_Click(buttonNum6, e);
                     break;
                 case Keys.NumPad7:
                 case Keys.D7:
-                    btnNum_Click(btnNum7, e);
+                    BtnNum_Click(buttonNum7, e);
                     break;
                 case Keys.NumPad8:
                 case Keys.D8:
-                    btnNum_Click(btnNum8, e);
+                    BtnNum_Click(buttonNum8, e);
                     break;
                 case Keys.NumPad9:
                 case Keys.D9:
-                    btnNum_Click(btnNum9, e);
+                    BtnNum_Click(buttonNum9, e);
                     break;
                 case Keys.Escape:
                 case Keys.Enter:
-                    btnClose_Click(sender, e);
+                    BtnClose_Click(sender, e);
                     break;
             }
         }
 
-        private void btnNum_Click(object sender, EventArgs e)
+        private void BtnNum_Click(object sender, EventArgs e)
         {
-            string num = (string)(sender as Control)?.Tag;
-            UserPinCode = int.Parse(UserPinCode + num);
-            if (CheckPin)
+            string numStr = (string)(sender as Control)?.Tag;
+            if (int.TryParse(numStr, out int num))
             {
-                DialogResult = DialogResult.OK;
-                Close();
+                UserCode = ushort.Parse($"{UserCode}{num}");
+                if (Equals(UserCode, UnlockCode))
+                {
+                    Close();
+                    return;
+                }
+                if (UserCode.ToString().Length > 3)
+                    UserCode = 0;
+                ShowPin();
             }
-            if (UserPinCode.ToString().Length > 3)
-            {
-                UserPinCode = 0;
-            }
-            ShowPin();
         }
 
         private void ShowPin()
         {
-            if (UserPinCode == 0)
+            if (UserCode == 0)
             {
-                lbPIn.Text = "....";
+                fieldValue.Text = "....";
                 return;
             }
-
-            string x = UserPinCode.ToString();
+            string x = UserCode.ToString();
             string y = Regex.Replace(x, "[0-9]", "*");
-            lbPIn.Text = y;
-
+            fieldValue.Text = y;
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void BtnClear_Click(object sender, EventArgs e)
         {
-            UserPinCode = 0;
+            UserCode = 0;
             ShowPin();
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
-            DialogResult = CheckPin ? DialogResult.OK : DialogResult.Cancel;
             Close();
         }
 

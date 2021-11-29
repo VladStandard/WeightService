@@ -34,6 +34,10 @@ namespace WeightCore.Managers
 
         public void Init(ScaleDirect currentScale)
         {
+            Init(
+                () => { ReleaseManaged(); },
+                () => { }
+            );
             Init(ProjectsEnums.TaskType.MassaManager,
             () =>
             {
@@ -66,12 +70,16 @@ namespace WeightCore.Managers
             });
         }
 
-        public void Close()
+        public void ReleaseManaged()
         {
-            Close(() =>
-            {
-                MassaDevice?.Dispose();
-            });
+            MassaDevice?.Dispose();
+            MassaDevice = null;
+            ResponseParseScalePar = null;
+            ResponseParseGet = null;
+            ResponseParseSet = null;
+            Requests.Dispose();
+            Requests = null;
+            MassaRequest = null;
         }
 
         #endregion
@@ -89,15 +97,13 @@ namespace WeightCore.Managers
         public void OpenResponse()
         {
             ClearRequests(100);
-            if (MassaDevice.IsConnected)
+
+            foreach (MassaExchangeEntity massaExchange in Requests.GetConsumingEnumerable())
             {
-                foreach (MassaExchangeEntity massaExchange in Requests.GetConsumingEnumerable())
-                {
-                    if (MassaDevice == null || massaExchange == null) return;
-                    Parse(massaExchange);
-                }
-                Requests = new BlockingCollection<MassaExchangeEntity>();
+                if (MassaDevice == null || massaExchange == null) return;
+                Parse(massaExchange);
             }
+            Requests = new BlockingCollection<MassaExchangeEntity>();
         }
 
         private void Parse(MassaExchangeEntity massaExchange)

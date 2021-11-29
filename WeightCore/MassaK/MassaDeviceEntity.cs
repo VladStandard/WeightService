@@ -59,6 +59,9 @@ namespace WeightCore.MassaK
         public void Dispose()
         {
             Close();
+            SerialPortItem?.Dispose();
+            SerialPortItem = null;
+            Locker = null;
         }
 
         public void Open()

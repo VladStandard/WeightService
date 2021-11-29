@@ -3,7 +3,6 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL;
-using DataProjectsCore.DAL.TableModels;
 using DataShareCore.Wmi;
 using System;
 using System.Collections.Concurrent;
@@ -24,10 +23,10 @@ namespace WeightCore.Managers
         public BlockingCollection<string> Documents { get; private set; } = new();
         private ZebraPrinter _zebraPrinter;
         public ZebraPrinter ZebraPrinter => _zebraPrinter ??= ZebraPrinterFactory.GetInstance(ZebraConnection);
-        public TscPrintControlHelper TscPrintControl = TscPrintControlHelper.Instance;
-        private readonly WmiHelper _wmi = WmiHelper.Instance;
+        public TscPrintControlHelper TscPrintControl { get; private set; } = TscPrintControlHelper.Instance;
+        private WmiHelper Wmi { get; set; } = WmiHelper.Instance;
         public bool IsTscPrinter { get; private set; }
-        public Win32PrinterEntity Win32Printer() => _wmi.GetWin32Printer(TscPrintControl.Name);
+        public Win32PrinterEntity Win32Printer() => Wmi.GetWin32Printer(TscPrintControl.Name);
 
         #endregion
 
@@ -35,6 +34,10 @@ namespace WeightCore.Managers
 
         public void Init(bool isTscPrinter, string name, string ip, int port)
         {
+            Init(
+                () => { ReleaseManaged(); },
+                () => { }
+            );
             Init(ProjectsEnums.TaskType.MemoryManager,
             () =>
             {
@@ -43,7 +46,7 @@ namespace WeightCore.Managers
                     ZebraConnection = new TcpConnection(ip, port);
                 TscPrintControl.Init(name, ip, port);
             },
-            1_000, 250, 500, 2_000, 1_000);
+            1_000);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)
@@ -63,15 +66,17 @@ namespace WeightCore.Managers
             null, null);
         }
 
-        public void Close()
+        public void ReleaseManaged()
         {
-            Close(() =>
+            if (!IsTscPrinter)
             {
-                if (!IsTscPrinter)
-                {
-                    ZebraConnection?.Close();
-                }
-            });
+                ZebraConnection?.Close();
+            }
+            CurrentStatus = null;
+            ZebraConnection = null;
+            Documents.Dispose();
+            Documents = null;
+            Wmi = null;
         }
 
         public void Send(string printCmd)

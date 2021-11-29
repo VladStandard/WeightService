@@ -19,12 +19,16 @@ namespace WeightCore.Managers
 
         public void Init()
         {
+            Init(
+                () => { ReleaseManaged(); },
+                () => { }
+            );
             Init(ProjectsEnums.TaskType.MemoryManager,
             () =>
             {
                 //
             },
-            1_000, 250, 500, 2_000, 1_000);
+            1_000);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)
@@ -38,9 +42,10 @@ namespace WeightCore.Managers
             null);
         }
 
-        public void Close()
+        public void ReleaseManaged()
         {
-            Close(null);
+            MemorySize.Dispose();
+            MemorySize = null;
         }
 
         #endregion

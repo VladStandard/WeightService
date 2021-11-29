@@ -87,6 +87,7 @@
             this.labelWeightNetto.TabIndex = 12;
             this.labelWeightNetto.Text = "Вес нетто";
             this.labelWeightNetto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelWeightNetto.Visible = false;
             this.labelWeightNetto.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldWeightTare
@@ -103,6 +104,7 @@
             this.fieldWeightTare.TabIndex = 11;
             this.fieldWeightTare.Text = "0,000";
             this.fieldWeightTare.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldWeightTare.Visible = false;
             this.fieldWeightTare.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldWeightNetto
@@ -118,6 +120,7 @@
             this.fieldWeightNetto.TabIndex = 10;
             this.fieldWeightNetto.Text = "0,000";
             this.fieldWeightNetto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldWeightNetto.Visible = false;
             this.fieldWeightNetto.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // tableLayoutPanelMain
@@ -432,6 +435,7 @@
             this.fieldCurrentTime.TabIndex = 25;
             this.fieldCurrentTime.Text = "Дата время";
             this.fieldCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldCurrentTime.Visible = false;
             this.fieldCurrentTime.Click += new System.EventHandler(this.FieldCurrentTime_Click);
             this.fieldCurrentTime.DoubleClick += new System.EventHandler(this.FieldDt_DoubleClick);
             this.fieldCurrentTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
@@ -465,6 +469,7 @@
             this.labelWeightTare.TabIndex = 17;
             this.labelWeightTare.Text = "Вес тары";
             this.labelWeightTare.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelWeightTare.Visible = false;
             this.labelWeightTare.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // labelKneading
@@ -480,6 +485,7 @@
             this.labelKneading.TabIndex = 27;
             this.labelKneading.Text = "Замес";
             this.labelKneading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelKneading.Visible = false;
             this.labelKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // labelProductDate
@@ -495,6 +501,7 @@
             this.labelProductDate.TabIndex = 28;
             this.labelProductDate.Text = "Дата производства";
             this.labelProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelProductDate.Visible = false;
             this.labelProductDate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldProductDate
@@ -509,6 +516,7 @@
             this.fieldProductDate.TabIndex = 31;
             this.fieldProductDate.Text = " Дата производства";
             this.fieldProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldProductDate.Visible = false;
             this.fieldProductDate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldKneading
@@ -523,6 +531,7 @@
             this.fieldKneading.TabIndex = 32;
             this.fieldKneading.Text = " Замес";
             this.fieldKneading.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldKneading.Visible = false;
             this.fieldKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldLabelsCount
@@ -567,7 +576,7 @@
             this.fieldPlu.Name = "fieldPlu";
             this.fieldPlu.Size = new System.Drawing.Size(702, 27);
             this.fieldPlu.TabIndex = 14;
-            this.fieldPlu.Text = "PLU";
+            this.fieldPlu.Text = "Загрузка программы";
             this.fieldPlu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldPlu.Click += new System.EventHandler(this.ButtonSelectPlu_Click);
             this.fieldPlu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);

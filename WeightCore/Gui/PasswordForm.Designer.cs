@@ -10,238 +10,250 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lbPIn = new System.Windows.Forms.Label();
-            this.btnNum2 = new System.Windows.Forms.Button();
-            this.btnNum5 = new System.Windows.Forms.Button();
-            this.btnNum8 = new System.Windows.Forms.Button();
-            this.btnNum9 = new System.Windows.Forms.Button();
-            this.btnNum6 = new System.Windows.Forms.Button();
-            this.btnNum3 = new System.Windows.Forms.Button();
-            this.btnNum7 = new System.Windows.Forms.Button();
-            this.btnNum4 = new System.Windows.Forms.Button();
-            this.btnNum1 = new System.Windows.Forms.Button();
-            this.btnNum0 = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.fieldValue = new System.Windows.Forms.Label();
+            this.buttonNum2 = new System.Windows.Forms.Button();
+            this.buttonNum5 = new System.Windows.Forms.Button();
+            this.buttonNum8 = new System.Windows.Forms.Button();
+            this.buttonNum9 = new System.Windows.Forms.Button();
+            this.buttonNum6 = new System.Windows.Forms.Button();
+            this.buttonNum3 = new System.Windows.Forms.Button();
+            this.buttonNum7 = new System.Windows.Forms.Button();
+            this.buttonNum4 = new System.Windows.Forms.Button();
+            this.buttonNum1 = new System.Windows.Forms.Button();
+            this.buttonNum0 = new System.Windows.Forms.Button();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanel
             // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-            this.tableLayoutPanel1.Controls.Add(this.lbPIn, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum2, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum5, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum8, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum9, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum6, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum3, 3, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum7, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum4, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum1, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btnNum0, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.btnClear, 2, 5);
-            this.tableLayoutPanel1.Controls.Add(this.btnClose, 3, 5);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(519, 554);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanel.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel.ColumnCount = 5;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel.Controls.Add(this.fieldValue, 1, 1);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum2, 2, 4);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum5, 2, 3);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum8, 2, 2);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum9, 3, 2);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum6, 3, 3);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum3, 3, 4);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum7, 1, 2);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum4, 1, 3);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum1, 1, 4);
+            this.tableLayoutPanel.Controls.Add(this.buttonNum0, 1, 5);
+            this.tableLayoutPanel.Controls.Add(this.buttonClear, 2, 5);
+            this.tableLayoutPanel.Controls.Add(this.buttonClose, 3, 5);
+            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 7;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(519, 554);
+            this.tableLayoutPanel.TabIndex = 0;
             // 
-            // lbPIn
+            // fieldValue
             // 
-            this.lbPIn.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.lbPIn, 3);
-            this.lbPIn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.lbPIn.Location = new System.Drawing.Point(23, 20);
-            this.lbPIn.Name = "lbPIn";
-            this.lbPIn.Size = new System.Drawing.Size(471, 102);
-            this.lbPIn.TabIndex = 12;
-            this.lbPIn.Text = "label1";
-            this.lbPIn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldValue.AutoSize = true;
+            this.fieldValue.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel.SetColumnSpan(this.fieldValue, 3);
+            this.fieldValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.fieldValue.Location = new System.Drawing.Point(13, 10);
+            this.fieldValue.Name = "fieldValue";
+            this.fieldValue.Size = new System.Drawing.Size(492, 106);
+            this.fieldValue.TabIndex = 12;
+            this.fieldValue.Text = "Value";
+            this.fieldValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnNum2
+            // buttonNum2
             // 
-            this.btnNum2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum2.Location = new System.Drawing.Point(182, 329);
-            this.btnNum2.Name = "btnNum2";
-            this.btnNum2.Size = new System.Drawing.Size(153, 96);
-            this.btnNum2.TabIndex = 2;
-            this.btnNum2.Tag = "2";
-            this.btnNum2.Text = "2";
-            this.btnNum2.UseVisualStyleBackColor = true;
-            this.btnNum2.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum2.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum2.Location = new System.Drawing.Point(179, 331);
+            this.buttonNum2.Name = "buttonNum2";
+            this.buttonNum2.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum2.TabIndex = 2;
+            this.buttonNum2.Tag = "2";
+            this.buttonNum2.Text = "2";
+            this.buttonNum2.UseVisualStyleBackColor = false;
+            this.buttonNum2.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnNum5
+            // buttonNum5
             // 
-            this.btnNum5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum5.Location = new System.Drawing.Point(182, 227);
-            this.btnNum5.Name = "btnNum5";
-            this.btnNum5.Size = new System.Drawing.Size(153, 96);
-            this.btnNum5.TabIndex = 5;
-            this.btnNum5.Tag = "5";
-            this.btnNum5.Text = "5";
-            this.btnNum5.UseVisualStyleBackColor = true;
-            this.btnNum5.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum5.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum5.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum5.Location = new System.Drawing.Point(179, 225);
+            this.buttonNum5.Name = "buttonNum5";
+            this.buttonNum5.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum5.TabIndex = 5;
+            this.buttonNum5.Tag = "5";
+            this.buttonNum5.Text = "5";
+            this.buttonNum5.UseVisualStyleBackColor = false;
+            this.buttonNum5.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum5.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnNum8
+            // buttonNum8
             // 
-            this.btnNum8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum8.Location = new System.Drawing.Point(182, 125);
-            this.btnNum8.Name = "btnNum8";
-            this.btnNum8.Size = new System.Drawing.Size(153, 96);
-            this.btnNum8.TabIndex = 8;
-            this.btnNum8.Tag = "8";
-            this.btnNum8.Text = "8";
-            this.btnNum8.UseVisualStyleBackColor = true;
-            this.btnNum8.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum8.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum8.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum8.Location = new System.Drawing.Point(179, 119);
+            this.buttonNum8.Name = "buttonNum8";
+            this.buttonNum8.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum8.TabIndex = 8;
+            this.buttonNum8.Tag = "8";
+            this.buttonNum8.Text = "8";
+            this.buttonNum8.UseVisualStyleBackColor = false;
+            this.buttonNum8.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum8.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnNum9
+            // buttonNum9
             // 
-            this.btnNum9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum9.Location = new System.Drawing.Point(341, 125);
-            this.btnNum9.Name = "btnNum9";
-            this.btnNum9.Size = new System.Drawing.Size(153, 96);
-            this.btnNum9.TabIndex = 9;
-            this.btnNum9.Tag = "9";
-            this.btnNum9.Text = "9";
-            this.btnNum9.UseVisualStyleBackColor = true;
-            this.btnNum9.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum9.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum9.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum9.Location = new System.Drawing.Point(345, 119);
+            this.buttonNum9.Name = "buttonNum9";
+            this.buttonNum9.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum9.TabIndex = 9;
+            this.buttonNum9.Tag = "9";
+            this.buttonNum9.Text = "9";
+            this.buttonNum9.UseVisualStyleBackColor = false;
+            this.buttonNum9.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum9.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnNum6
+            // buttonNum6
             // 
-            this.btnNum6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum6.Location = new System.Drawing.Point(341, 227);
-            this.btnNum6.Name = "btnNum6";
-            this.btnNum6.Size = new System.Drawing.Size(153, 96);
-            this.btnNum6.TabIndex = 6;
-            this.btnNum6.Tag = "6";
-            this.btnNum6.Text = "6";
-            this.btnNum6.UseVisualStyleBackColor = true;
-            this.btnNum6.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum6.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum6.Location = new System.Drawing.Point(345, 225);
+            this.buttonNum6.Name = "buttonNum6";
+            this.buttonNum6.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum6.TabIndex = 6;
+            this.buttonNum6.Tag = "6";
+            this.buttonNum6.Text = "6";
+            this.buttonNum6.UseVisualStyleBackColor = false;
+            this.buttonNum6.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum6.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnNum3
+            // buttonNum3
             // 
-            this.btnNum3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum3.Location = new System.Drawing.Point(341, 329);
-            this.btnNum3.Name = "btnNum3";
-            this.btnNum3.Size = new System.Drawing.Size(153, 96);
-            this.btnNum3.TabIndex = 3;
-            this.btnNum3.Tag = "3";
-            this.btnNum3.Text = "3";
-            this.btnNum3.UseVisualStyleBackColor = true;
-            this.btnNum3.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum3.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum3.Location = new System.Drawing.Point(345, 331);
+            this.buttonNum3.Name = "buttonNum3";
+            this.buttonNum3.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum3.TabIndex = 3;
+            this.buttonNum3.Tag = "3";
+            this.buttonNum3.Text = "3";
+            this.buttonNum3.UseVisualStyleBackColor = false;
+            this.buttonNum3.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnNum7
+            // buttonNum7
             // 
-            this.btnNum7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum7.Location = new System.Drawing.Point(23, 125);
-            this.btnNum7.Name = "btnNum7";
-            this.btnNum7.Size = new System.Drawing.Size(153, 96);
-            this.btnNum7.TabIndex = 7;
-            this.btnNum7.Tag = "7";
-            this.btnNum7.Text = "7";
-            this.btnNum7.UseVisualStyleBackColor = true;
-            this.btnNum7.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum7.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum7.Location = new System.Drawing.Point(13, 119);
+            this.buttonNum7.Name = "buttonNum7";
+            this.buttonNum7.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum7.TabIndex = 7;
+            this.buttonNum7.Tag = "7";
+            this.buttonNum7.Text = "7";
+            this.buttonNum7.UseVisualStyleBackColor = false;
+            this.buttonNum7.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum7.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnNum4
+            // buttonNum4
             // 
-            this.btnNum4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum4.Location = new System.Drawing.Point(23, 227);
-            this.btnNum4.Name = "btnNum4";
-            this.btnNum4.Size = new System.Drawing.Size(153, 96);
-            this.btnNum4.TabIndex = 4;
-            this.btnNum4.Tag = "4";
-            this.btnNum4.Text = "4";
-            this.btnNum4.UseVisualStyleBackColor = true;
-            this.btnNum4.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum4.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum4.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum4.Location = new System.Drawing.Point(13, 225);
+            this.buttonNum4.Name = "buttonNum4";
+            this.buttonNum4.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum4.TabIndex = 4;
+            this.buttonNum4.Tag = "4";
+            this.buttonNum4.Text = "4";
+            this.buttonNum4.UseVisualStyleBackColor = false;
+            this.buttonNum4.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum4.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnNum1
+            // buttonNum1
             // 
-            this.btnNum1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum1.Location = new System.Drawing.Point(23, 329);
-            this.btnNum1.Name = "btnNum1";
-            this.btnNum1.Size = new System.Drawing.Size(153, 96);
-            this.btnNum1.TabIndex = 1;
-            this.btnNum1.Tag = "1";
-            this.btnNum1.Text = "1";
-            this.btnNum1.UseVisualStyleBackColor = true;
-            this.btnNum1.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum1.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum1.Location = new System.Drawing.Point(13, 331);
+            this.buttonNum1.Name = "buttonNum1";
+            this.buttonNum1.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum1.TabIndex = 1;
+            this.buttonNum1.Tag = "1";
+            this.buttonNum1.Text = "1";
+            this.buttonNum1.UseVisualStyleBackColor = false;
+            this.buttonNum1.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnNum0
+            // buttonNum0
             // 
-            this.btnNum0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNum0.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnNum0.Location = new System.Drawing.Point(23, 431);
-            this.btnNum0.Name = "btnNum0";
-            this.btnNum0.Size = new System.Drawing.Size(153, 96);
-            this.btnNum0.TabIndex = 10;
-            this.btnNum0.Tag = "0";
-            this.btnNum0.Text = "0";
-            this.btnNum0.UseVisualStyleBackColor = true;
-            this.btnNum0.Click += new System.EventHandler(this.btnNum_Click);
-            this.btnNum0.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonNum0.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNum0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonNum0.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonNum0.Location = new System.Drawing.Point(13, 437);
+            this.buttonNum0.Name = "buttonNum0";
+            this.buttonNum0.Size = new System.Drawing.Size(160, 100);
+            this.buttonNum0.TabIndex = 10;
+            this.buttonNum0.Tag = "0";
+            this.buttonNum0.Text = "0";
+            this.buttonNum0.UseVisualStyleBackColor = false;
+            this.buttonNum0.Click += new System.EventHandler(this.BtnNum_Click);
+            this.buttonNum0.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnClear
+            // buttonClear
             // 
-            this.btnClear.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnClear.Location = new System.Drawing.Point(182, 431);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(153, 96);
-            this.btnClear.TabIndex = 11;
-            this.btnClear.Text = "C";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            this.btnClear.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonClear.BackColor = System.Drawing.Color.Transparent;
+            this.buttonClear.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonClear.Location = new System.Drawing.Point(179, 437);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(160, 100);
+            this.buttonClear.TabIndex = 11;
+            this.buttonClear.Text = "C";
+            this.buttonClear.UseVisualStyleBackColor = false;
+            this.buttonClear.Click += new System.EventHandler(this.BtnClear_Click);
+            this.buttonClear.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
-            // btnClose
+            // buttonClose
             // 
-            this.btnClose.BackColor = System.Drawing.Color.Beige;
-            this.btnClose.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
-            this.btnClose.Location = new System.Drawing.Point(341, 431);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(153, 96);
-            this.btnClose.TabIndex = 0;
-            this.btnClose.Text = "OK";
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            this.btnClose.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
+            this.buttonClose.BackColor = System.Drawing.Color.Transparent;
+            this.buttonClose.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Millimeter, ((byte)(204)));
+            this.buttonClose.Location = new System.Drawing.Point(345, 437);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(160, 100);
+            this.buttonClose.TabIndex = 0;
+            this.buttonClose.Text = "OK";
+            this.buttonClose.UseVisualStyleBackColor = false;
+            this.buttonClose.Click += new System.EventHandler(this.BtnClose_Click);
+            this.buttonClose.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
             // 
             // PasswordForm
             // 
@@ -249,7 +261,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(519, 554);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -257,29 +269,30 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ПИН-код";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PasswordForm_FormClosing);
             this.Load += new System.EventHandler(this.PasswordForm_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.PasswordForm_KeyUp);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label lbPIn;
-        private System.Windows.Forms.Button btnNum2;
-        private System.Windows.Forms.Button btnNum5;
-        private System.Windows.Forms.Button btnNum8;
-        private System.Windows.Forms.Button btnNum9;
-        private System.Windows.Forms.Button btnNum6;
-        private System.Windows.Forms.Button btnNum3;
-        private System.Windows.Forms.Button btnNum7;
-        private System.Windows.Forms.Button btnNum4;
-        private System.Windows.Forms.Button btnNum1;
-        private System.Windows.Forms.Button btnNum0;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.Label fieldValue;
+        private System.Windows.Forms.Button buttonNum2;
+        private System.Windows.Forms.Button buttonNum5;
+        private System.Windows.Forms.Button buttonNum8;
+        private System.Windows.Forms.Button buttonNum9;
+        private System.Windows.Forms.Button buttonNum6;
+        private System.Windows.Forms.Button buttonNum3;
+        private System.Windows.Forms.Button buttonNum7;
+        private System.Windows.Forms.Button buttonNum4;
+        private System.Windows.Forms.Button buttonNum1;
+        private System.Windows.Forms.Button buttonNum0;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonClose;
     }
 }

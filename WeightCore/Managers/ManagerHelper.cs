@@ -3,11 +3,12 @@
 
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
+using System;
 using System.Threading;
 
 namespace WeightCore.Managers
 {
-    public class ManagerHelper
+    public class ManagerHelper : IDisposable
     {
         #region Design pattern "Lazy Singleton"
 
@@ -26,9 +27,14 @@ namespace WeightCore.Managers
 
         #region Constructor and destructor
 
-        ~ManagerHelper()
+        public void Dispose()
         {
-            Close();
+            Massa.Dispose();
+            Massa = null;
+            Memory.Dispose();
+            Memory = null;
+            Print.Dispose();
+            Print = null;
         }
 
         #endregion
@@ -51,9 +57,9 @@ namespace WeightCore.Managers
 
         public void Close()
         {
-            Massa.Close();
-            Memory.Close();
-            Print.Close();
+            //Massa.ReleaseManaged();
+            //Memory.ReleaseManaged();
+            //Print.ReleaseManaged();
         }
 
         #endregion
