@@ -61,6 +61,8 @@ namespace WeightCore.Helpers
                         wpfPageLoader.ShowDialog(owner);
                     else
                         wpfPageLoader.ShowDialog();
+                    wpfPageLoader.Close();
+                    wpfPageLoader.Dispose();
                 }
             }
         }

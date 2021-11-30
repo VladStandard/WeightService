@@ -30,21 +30,30 @@ namespace WeightCore.Managers
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ManagerFactoryMassa()
+        {
+            Init(
+                () => { CloseMethod(); },
+                () => { ReleaseManaged(); },
+                () => { ReleaseUnmanaged(); }
+            );
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public void Init(ScaleDirect currentScale)
         {
-            Init(
-                () => { ReleaseManaged(); },
-                () => { }
-            );
             Init(ProjectsEnums.TaskType.MassaManager,
             () =>
             {
                 if (currentScale != null)
                     MassaDevice = new(currentScale.DeviceComPort, currentScale.DeviceReadTimeout, currentScale.DeviceWriteTimeout);
             },
-            5_000, 250, 500, 2_000, 1_000);
+            5_000, 250, 500, 3_000, 1_000);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)
@@ -70,16 +79,35 @@ namespace WeightCore.Managers
             });
         }
 
-        public void ReleaseManaged()
+        public new void CloseMethod()
         {
+            base.CloseMethod();
+            
+            MassaDevice?.Close();
+            if (Requests != null)
+            {
+                while (Requests.Count > 0)
+                    Requests.Take();
+            }
+        }
+
+        public new void ReleaseManaged()
+        {
+            base.ReleaseManaged();
+
             MassaDevice?.Dispose();
             MassaDevice = null;
             ResponseParseScalePar = null;
             ResponseParseGet = null;
             ResponseParseSet = null;
-            Requests.Dispose();
+            Requests?.Dispose();
             Requests = null;
             MassaRequest = null;
+        }
+
+        public new void ReleaseUnmanaged()
+        {
+            base.ReleaseUnmanaged();
         }
 
         #endregion

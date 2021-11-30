@@ -30,14 +30,23 @@ namespace WeightCore.Managers
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ManagerFactoryPrint()
+        {
+            Init(
+                () => { CloseMethod(); },
+                () => { ReleaseManaged(); },
+                () => { ReleaseUnmanaged(); }
+            );
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public void Init(bool isTscPrinter, string name, string ip, int port)
         {
-            Init(
-                () => { ReleaseManaged(); },
-                () => { }
-            );
             Init(ProjectsEnums.TaskType.MemoryManager,
             () =>
             {
@@ -66,8 +75,15 @@ namespace WeightCore.Managers
             null, null);
         }
 
-        public void ReleaseManaged()
+        public new void CloseMethod()
         {
+            base.CloseMethod();
+        }
+
+        public new void ReleaseManaged()
+        {
+            base.ReleaseManaged();
+
             if (!IsTscPrinter)
             {
                 ZebraConnection?.Close();
@@ -77,6 +93,11 @@ namespace WeightCore.Managers
             Documents.Dispose();
             Documents = null;
             Wmi = null;
+        }
+
+        public new void ReleaseUnmanaged()
+        {
+            base.ReleaseUnmanaged();
         }
 
         public void Send(string printCmd)

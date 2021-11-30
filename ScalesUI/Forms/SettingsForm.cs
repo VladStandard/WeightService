@@ -218,7 +218,10 @@ namespace ScalesUI.Forms
                 wpfPageLoader.MessageBox.ButtonCancelVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog(this);
-                if (wpfPageLoader.MessageBox.Result == DialogResult.Retry)
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                if (result == DialogResult.Retry)
                 {
                     UseWaitCursor = true;
                     Thread.Sleep(10);

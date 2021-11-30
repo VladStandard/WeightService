@@ -38,7 +38,10 @@ namespace ScalesUI
                 wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog();
-                if (wpfPageLoader.MessageBox.Result == DialogResult.OK)
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                if (result == DialogResult.OK)
                 {
                     Clipboard.SetText($@"{uid}");
                     return;
@@ -59,6 +62,8 @@ namespace ScalesUI
                 wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog();
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
             }
         }
 
@@ -81,6 +86,8 @@ namespace ScalesUI
                 wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog();
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
                 throw new Exception(ex.Message);
             }
 
@@ -103,7 +110,10 @@ namespace ScalesUI
                 wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog();
-                if (wpfPageLoader.MessageBox.Result == DialogResult.OK)
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                if (result == DialogResult.OK)
                 {
                     Clipboard.SetText($@"{host.IdRRef}");
                 }

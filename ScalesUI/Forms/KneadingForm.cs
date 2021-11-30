@@ -90,10 +90,11 @@ namespace ScalesUI.Forms
             {
                 NumberInputForm numberInputForm = new();
                 numberInputForm.InputValue = 0;
-                if (numberInputForm.ShowDialog() == DialogResult.OK)
-                {
+                DialogResult result = numberInputForm.ShowDialog(this);
+                numberInputForm.Close();
+                numberInputForm.Dispose();
+                if (result == DialogResult.OK)
                     _sessionState.Kneading = numberInputForm.InputValue;
-                }
                 GuiUpdate();
             }
             catch (Exception ex)
@@ -146,6 +147,8 @@ namespace ScalesUI.Forms
                 wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog(this);
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
                 _sessionState.LabelsCount = 1;
             }
             fieldPalletSize.Text = _sessionState.LabelsCount.ToString();

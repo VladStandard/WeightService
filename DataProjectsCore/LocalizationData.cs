@@ -486,6 +486,14 @@ namespace DataCore
             public static string WeightingMessage => Lang == ShareEnums.Lang.English ? @"Weighting message" : @"Сообщение взвешивания";
             public static string WeightingScaleCmd => Lang == ShareEnums.Lang.English ? @"Command for scales" : @"Команда для весов";
             public static string Crc => Lang == ShareEnums.Lang.English ? @"CRC" : @"CRC";
+            public static string Threads => Lang == ShareEnums.Lang.English ? @"Threads" : @"Потоки";
+            public static string ThreadsCount => Lang == ShareEnums.Lang.English ? @"Threads count" : @"Количество потоков";
+            public static string ThreadName => Lang == ShareEnums.Lang.English ? @"Name" : @"Имя";
+            public static string ThreadState => Lang == ShareEnums.Lang.English ? @"State" : @"Состояние";
+            public static string ThreadStartTime => Lang == ShareEnums.Lang.English ? @"Start time" : @"Время запуска";
+            public static string ThreadId => Lang == ShareEnums.Lang.English ? @"ID" : @"ID";
+            public static string ThreadPriorityLevel => Lang == ShareEnums.Lang.English ? @"Priority level" : @"Приоритет";
+            public static string ThreadIsBackground => Lang == ShareEnums.Lang.English ? @"Is background" : @"Фоновый";
             public static string StateResponsed => Lang == ShareEnums.Lang.English ? @"responsed" : @"отвечает";
             public static string StateNotResponsed => Lang == ShareEnums.Lang.English ? @"not responsed" : @"не отвечает";
             public static string StateCorrect => Lang == ShareEnums.Lang.English ? @"correct" : @"верна";

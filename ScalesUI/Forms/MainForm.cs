@@ -55,7 +55,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.Manager.Close();
+                TaskManagerClose();
 
                 LoadResources();
                 LoadLocalization();
@@ -176,12 +176,9 @@ namespace ScalesUI.Forms
                 else
                 {
                     using PasswordForm passwordForm = new() { TopMost = !_debug.IsDebug };
-                    if (passwordForm.ShowDialog() == DialogResult.OK)
-                    {
-                        passwordForm.Close();
-                        isClose = true;
-                    }
-                    else isClose = false;
+                    isClose = passwordForm.ShowDialog(this) == DialogResult.OK;
+                    passwordForm.Close();
+                    passwordForm.Dispose();
                 }
                 if (isClose)
                 {
@@ -368,6 +365,7 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMemoryProgress,
                     (int)(_sessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes -
                     _sessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes));
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTasks, $"{LocalizationData.ScalesUI.Threads}: {Process.GetCurrentProcess().Threads.Count}");
                 _sessionState.Manager.Memory.ProgressString = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.Manager.Memory.ProgressString);
             }
         }
@@ -489,6 +487,11 @@ namespace ScalesUI.Forms
             _sessionState.Manager.Open(_sessionState.SqlViewModel);
         }
 
+        private void TaskManagerClose()
+        {
+            _sessionState.Manager.Close();
+        }
+
         #endregion
 
         #region Private methods
@@ -510,20 +513,43 @@ namespace ScalesUI.Forms
             wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
             wpfPageLoader.MessageBox.Localization();
             wpfPageLoader.ShowDialog(this);
+            wpfPageLoader.Close();
+            wpfPageLoader.Dispose();
+        }
+
+        private void FieldTasks_DoubleClick(object sender, EventArgs e)
+        {
+            string message = $"{LocalizationData.ScalesUI.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}" + Environment.NewLine;
+            foreach (ProcessThread thread in Process.GetCurrentProcess().Threads)
+            {
+                message += $"{LocalizationData.ScalesUI.ThreadId}: {thread.Id}. " +
+                    $"{LocalizationData.ScalesUI.ThreadPriorityLevel}: {thread.PriorityLevel}. " +
+                    $"{LocalizationData.ScalesUI.ThreadState}: {thread.ThreadState}. " +
+                    $"{LocalizationData.ScalesUI.ThreadStartTime}: {thread.StartTime}. " + Environment.NewLine;
+            }
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, 20, 14, 18, 1, 12, 1)
+            { Width = Width - 50, Height = Height - 50 };
+            wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Threads;
+            wpfPageLoader.MessageBox.Message = message;
+            wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+            wpfPageLoader.MessageBox.Localization();
+            wpfPageLoader.ShowDialog(this);
+            wpfPageLoader.Close();
+            wpfPageLoader.Dispose();
         }
 
         private void ButtonSettings_Click(object sender, EventArgs e)
         {
             try
             {
-                _sessionState.Manager.Close();
+                TaskManagerClose();
 
                 using PasswordForm passwordForm = new() { TopMost = !_debug.IsDebug };
-                if (passwordForm.ShowDialog() == DialogResult.OK)
-                {
-                    passwordForm.Close();
+                DialogResult result = passwordForm.ShowDialog(this);
+                passwordForm.Close();
+                passwordForm.Dispose();
+                if (result == DialogResult.OK)
                     OpenFormSettings();
-                }
             }
             catch (Exception ex)
             {
@@ -540,9 +566,9 @@ namespace ScalesUI.Forms
         private void OpenFormSettings()
         {
             using SettingsForm settingsForm = new();
-            if (settingsForm.ShowDialog() == DialogResult.OK)
-            {
-            }
+            settingsForm.ShowDialog(this);
+            settingsForm.Close();
+            settingsForm.Dispose();
         }
 
         private void ButtonScalesInit_Click(object sender, EventArgs e)
@@ -559,6 +585,8 @@ namespace ScalesUI.Forms
                     wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
                     wpfPageLoader.MessageBox.Localization();
                     wpfPageLoader.ShowDialog(this);
+                    wpfPageLoader.Close();
+                    wpfPageLoader.Dispose();
                     return;
                 }
                 // Fix negative weight.
@@ -577,7 +605,10 @@ namespace ScalesUI.Forms
                     wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
                     wpfPageLoader.MessageBox.Localization();
                     wpfPageLoader.ShowDialog(this);
-                    if (wpfPageLoader.MessageBox.Result != DialogResult.Yes)
+                    DialogResult result = wpfPageLoader.MessageBox.Result;
+                    wpfPageLoader.Close();
+                    wpfPageLoader.Dispose();
+                    if (result != DialogResult.Yes)
                         return;
                 }
 
@@ -601,11 +632,14 @@ namespace ScalesUI.Forms
                 if (!CheckWeight())
                     return;
 
-                _sessionState.Manager.Close();
+                TaskManagerClose();
 
                 // PLU form.
                 using PluListForm pluListForm = new() { Owner = this };
-                if (pluListForm.ShowDialog() == DialogResult.OK)
+                DialogResult result = pluListForm.ShowDialog(this);
+                pluListForm.Close();
+                pluListForm.Dispose();
+                if (result == DialogResult.OK)
                 {
                     _sessionState.Kneading = 1;
                     _sessionState.ProductDate = DateTime.Now;
@@ -636,27 +670,28 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.Manager.Close();
+                TaskManagerClose();
 
                 if (_sessionState.CurrentOrder == null)
                 {
                     using OrderListForm settingsForm = new();
-                    if (settingsForm.ShowDialog() == DialogResult.OK) {
-                        //
-                    }
+                    settingsForm.ShowDialog(this);
+                    settingsForm.Close();
+                    settingsForm.Dispose();
                 }
                 else
                 {
                     using OrderDetailForm settingsForm = new();
-                    DialogResult dialogResult = settingsForm.ShowDialog();
-
-                    if (dialogResult == DialogResult.Retry) {
+                    DialogResult result = settingsForm.ShowDialog(this);
+                    settingsForm.Close();
+                    settingsForm.Dispose();
+                    if (result == DialogResult.Retry) {
                         _sessionState.CurrentOrder = null;
                     }
-                    if (dialogResult == DialogResult.OK) {
+                    if (result == DialogResult.OK) {
                         //ws.Kneading = (int)settingsForm.currentKneading;
                     }
-                    if (dialogResult == DialogResult.Cancel) {
+                    if (result == DialogResult.Cancel) {
                         //ws.Kneading = (int)settingsForm.currentKneading;
                     }
                 }
@@ -693,13 +728,18 @@ namespace ScalesUI.Forms
                     wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
                     wpfPageLoader.MessageBox.Localization();
                     wpfPageLoader.ShowDialog(this);
+                    wpfPageLoader.Close();
+                    wpfPageLoader.Dispose();
                     return;
                 }
 
-                _sessionState.Manager.Close();
+                TaskManagerClose();
 
                 using KneadingForm kneadingForm = new() { Owner = this };
-                if (kneadingForm.ShowDialog() == DialogResult.OK)
+                DialogResult result = kneadingForm.ShowDialog();
+                kneadingForm.Close();
+                kneadingForm.Dispose();
+                if (result == DialogResult.OK)
                 {
                     //_sessionState.Kneading = settingsForm.CurrentKneading;
                     //_sessionState.ProductDate = settingsForm.CurrentProductDate;
@@ -730,7 +770,10 @@ namespace ScalesUI.Forms
                 wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog(this);
-                return wpfPageLoader.MessageBox.Result == DialogResult.Yes;
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                return result == DialogResult.Yes;
             }
             return true;
         }
@@ -755,7 +798,10 @@ namespace ScalesUI.Forms
                 wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog(this);
-                return wpfPageLoader.MessageBox.Result == DialogResult.Yes;
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                return result == DialogResult.Yes;
             }
             return true;
         }
@@ -858,6 +904,7 @@ namespace ScalesUI.Forms
             // MassaManager.
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaScalePar, _isShowInfoLabels);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGet, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTasks, _isShowInfoLabels);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGetCrc, _isShowInfoLabels);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSet, _isShowInfoLabels);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSetCrc, _isShowInfoLabels);
@@ -880,10 +927,11 @@ namespace ScalesUI.Forms
         private void ButtonAddKneading_Click(object sender, EventArgs e)
         {
             using NumberInputForm numberInputForm = new() { InputValue = 0 };
-            if (numberInputForm.ShowDialog() == DialogResult.OK)
-            {
+            DialogResult result = numberInputForm.ShowDialog(this);
+            numberInputForm.Close();
+            numberInputForm.Dispose();
+            if (result == DialogResult.OK)
                 _sessionState.Kneading = numberInputForm.InputValue;
-            }
         }
 
         private void ButtonNewPallet_Click(object sender, EventArgs e) => _sessionState.NewPallet();
@@ -892,10 +940,12 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.Manager.Close();
+                TaskManagerClose();
 
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
                 wpfPageLoader.ShowDialog(this);
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
             }
             catch (Exception ex)
             {
@@ -913,13 +963,12 @@ namespace ScalesUI.Forms
         {
             // Pin-code.
             using PasswordForm passwordForm = new() { TopMost = !_debug.IsDebug };
-            if (passwordForm.ShowDialog() != DialogResult.OK)
-            {
-                passwordForm.Close();
+            DialogResult result = passwordForm.ShowDialog(this);
+            passwordForm.Close();
+            passwordForm.Dispose();
+            if (result != DialogResult.OK)
                 return;
-            }
-            else
-                passwordForm.Close();
+
             try
             {
                 // WPF MessageBox.
@@ -929,15 +978,19 @@ namespace ScalesUI.Forms
                 wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog(this);
-                if (wpfPageLoader.MessageBox.Result != DialogResult.Yes)
+                result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                if (result != DialogResult.Yes)
                     return;
-                // Wait.
-                WeightCore.Managers.ManagerBase.WaitSync(2_500);
+
+                TaskManagerClose();
+
                 // Run app.
                 string fileName = @"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe";
                 if (File.Exists(fileName))
                 {
-                    _sessionState.Manager.Close();
+                    TaskManagerClose();
                     _proc.Run(fileName, string.Empty, false, ProcessWindowStyle.Normal, true);
                 }
                 else
@@ -948,6 +1001,8 @@ namespace ScalesUI.Forms
                     wpfPageLoader2.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
                     wpfPageLoader2.MessageBox.Localization();
                     wpfPageLoader2.ShowDialog(this);
+                    wpfPageLoader2.Close();
+                    wpfPageLoader2.Dispose();
                 }
             }
             catch (Exception ex)
@@ -971,7 +1026,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.Manager.Close();
+                TaskManagerClose();
 
                 // .. methods
             }

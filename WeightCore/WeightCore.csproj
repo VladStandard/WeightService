@@ -218,10 +218,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gui\CustomMessageBox.cs" />
-    <Compile Include="Gui\CustomMessageBox.Designer.cs">
-      <DependentUpon>CustomMessageBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Gui\GridCustomizator.cs" />
     <Compile Include="Gui\LabelTransparent.cs">
       <SubType>Component</SubType>
@@ -322,9 +318,6 @@
     <None Include="Zpl templates\TEMP6_116x113_090.ZPL" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Gui\CustomMessageBox.resx">
-      <DependentUpon>CustomMessageBox.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Gui\NumberInputForm.resx">
       <DependentUpon>NumberInputForm.cs</DependentUpon>
     </EmbeddedResource>

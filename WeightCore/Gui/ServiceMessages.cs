@@ -157,7 +157,12 @@ namespace WeightCore.Gui
 
             btnClose.Select();
             form.ControlBox = false;
-            form.Show();
+            if (owner != null)
+                form.Show(owner);
+            else
+                form.Show();
+            form.Close();
+            form.Dispose();
             return;
         }
     }

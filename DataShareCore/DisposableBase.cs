@@ -2,39 +2,46 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using static DataShareCore.IDisposableBase;
 
 namespace DataShareCore
 {
-    public class AbstractDisposable : IDisposable
+    public class DisposableBase : IDisposable
     {
         #region Public and private fields and properties
 
-        public bool Disposed { get; private set; }
-        public delegate void ReleaseManagedCallback();
-        public delegate void ReleaseUnmanagedCallback();
-        public ReleaseManagedCallback? ReleaseManagedResources { get; set; }
-        public ReleaseUnmanagedCallback? ReleaseUnmanagedResources { get; set; }
+        public bool IsClosed { get; private set; }
+        public bool IsDisposed { get; private set; }
+        public ReleaseManagedCallback? ReleaseManagedResources { get; private set; }
+        public ReleaseUnmanagedCallback? ReleaseUnmanagedResources { get; private set; }
+        public CloseCallback? CloseDelegate { get; private set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public AbstractDisposable()
+        public DisposableBase()
         {
+            IsClosed = false;
+            IsDisposed = false;
             ReleaseManagedResources = null;
             ReleaseUnmanagedResources = null;
+            CloseDelegate = null;
         }
 
-        public void Init(ReleaseManagedCallback releaseManagedResources, ReleaseUnmanagedCallback releaseUnmanagedResources)
+        public void Init(CloseCallback close, ReleaseManagedCallback releaseManagedResources, ReleaseUnmanagedCallback releaseUnmanagedResources)
         {
             lock (this)
             {
+                IsClosed = false;
+                IsDisposed = false;
+                CloseDelegate = close;
                 ReleaseManagedResources = releaseManagedResources;
                 ReleaseUnmanagedResources = releaseUnmanagedResources;
             }
         }
 
-        ~AbstractDisposable()
+        ~DisposableBase()
         {
             Dispose();
         }
@@ -43,19 +50,30 @@ namespace DataShareCore
 
         #region Public and private methods
 
-        public void CheckIfDisposed()
+        public void CheckIsDisposed()
         {
-            if (Disposed)
+            if (IsDisposed)
             {
                 throw new ObjectDisposedException("Object has been disposed!");
             }
         }
 
-        public virtual void Dispose()
+        public void Close()
+        {
+            if (IsClosed)
+                return;
+            
+            CloseDelegate?.Invoke();
+            IsClosed = true;
+        }
+
+        public void Dispose()
         {
             lock (this)
             {
-                if (!Disposed)
+                Close();
+
+                if (!IsDisposed)
                 {
                     // Releasing managed resources.
                     ReleaseManagedResources?.Invoke();
@@ -64,7 +82,7 @@ namespace DataShareCore
                     ReleaseUnmanagedResources?.Invoke();
 
                     // Resource release flag.
-                    Disposed = true;
+                    IsDisposed = true;
                 }
 
                 // Disable the garbage collector from calling the destructor.

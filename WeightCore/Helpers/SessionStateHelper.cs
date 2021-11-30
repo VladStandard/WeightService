@@ -384,7 +384,10 @@ namespace WeightCore.Helpers
                 wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog(owner);
-                if (wpfPageLoader.MessageBox.Result != DialogResult.Ignore)
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                if (result != DialogResult.Ignore)
                     return;
             }
 

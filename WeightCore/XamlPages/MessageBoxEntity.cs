@@ -10,13 +10,6 @@ namespace WeightCore.XamlPages
 {
     public class MessageBoxEntity : BaseViewModel
     {
-        //#region Design pattern "Lazy Singleton"
-
-        //private static MessageBoxEntity _instance;
-        //public static MessageBoxEntity Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-        //#endregion
-
         #region Public and private fields and properties
 
         private string _caption;
@@ -51,23 +44,41 @@ namespace WeightCore.XamlPages
             }
         }
 
-        private ushort _fontSizeCaption;
-        public ushort FontSizeCaption
+        private double _fontSizeCaption;
+        public double FontSizeCaption
         {
             get { return _fontSizeCaption; }
             set { _fontSizeCaption = value; }
         }
-        private ushort _fontSizeMessage;
-        public ushort FontSizeMessage
+        private double _fontSizeMessage;
+        public double FontSizeMessage
         {
             get { return _fontSizeMessage; }
             set { _fontSizeMessage = value; }
         }
-        private ushort _fontSizeButton;
-        public ushort FontSizeButton
+        private double _fontSizeButton;
+        public double FontSizeButton
         {
             get { return _fontSizeButton; }
             set { _fontSizeButton = value; }
+        }
+        private double _sizeCaption;
+        public double SizeCaption
+        {
+            get { return _sizeCaption; }
+            set { _sizeCaption = value; }
+        }
+        private double _sizeMessage;
+        public double SizeMessage
+        {
+            get { return _sizeMessage; }
+            set { _sizeMessage = value; }
+        }
+        private double _sizeButton;
+        public double SizeButton
+        {
+            get { return _sizeButton; }
+            set { _sizeButton = value; }
         }
 
         private string _buttonYes;

@@ -71,23 +71,23 @@ namespace WeightCore.XamlPages
             Grid.SetRow(gridMain, 0);
             if (rowCount <= 1)
             {
-                RowDefinition row = new() { Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star) };
+                RowDefinition row = new() { Height = new System.Windows.GridLength(MessageBox.SizeCaption, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row);
             }
             else if (rowCount == 2)
             {
-                RowDefinition row = new() { Height = new System.Windows.GridLength(5, System.Windows.GridUnitType.Star) };
+                RowDefinition row = new() { Height = new System.Windows.GridLength(MessageBox.SizeMessage, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row);
-                RowDefinition row2 = new() { Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star) };
+                RowDefinition row2 = new() { Height = new System.Windows.GridLength(MessageBox.SizeButton, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row2);
             }
             else if (rowCount == 3)
             {
-                RowDefinition row = new() { Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star) };
+                RowDefinition row = new() { Height = new System.Windows.GridLength(MessageBox.SizeCaption, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row);
-                RowDefinition row2 = new() { Height = new System.Windows.GridLength(5, System.Windows.GridUnitType.Star) };
+                RowDefinition row2 = new() { Height = new System.Windows.GridLength(MessageBox.SizeMessage, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row2);
-                RowDefinition row3 = new() { Height = new System.Windows.GridLength(1, System.Windows.GridUnitType.Star) };
+                RowDefinition row3 = new() { Height = new System.Windows.GridLength(MessageBox.SizeButton, System.Windows.GridUnitType.Star) };
                 gridMain.RowDefinitions.Add(row3);
             }
 
@@ -157,6 +157,7 @@ namespace WeightCore.XamlPages
         {
             if (!string.IsNullOrEmpty(MessageBox.Message))
             {
+                ScrollViewer scrollViewer = new() { VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
                 TextBlock field = new()
                 {
                     DataContext = $"{{DynamicResource {nameof(MessageBox)}}}",
@@ -173,10 +174,12 @@ namespace WeightCore.XamlPages
                 System.Windows.Data.Binding binding = new("Message") { Mode = System.Windows.Data.BindingMode.OneWay, IsAsync = true, Source = MessageBox };
                 System.Windows.Data.BindingOperations.SetBinding(field, TextBlock.TextProperty, binding);
                 field.KeyUp += Button_KeyUp;
-                Grid.SetColumn(field, 0);
-                Grid.SetColumnSpan(field, colCount);
-                Grid.SetRow(field, row);
-                gridMain.Children.Add(field);
+
+                scrollViewer.Content = field;
+                Grid.SetColumn(scrollViewer, 0);
+                Grid.SetColumnSpan(scrollViewer, colCount);
+                Grid.SetRow(scrollViewer, row);
+                gridMain.Children.Add(scrollViewer);
                 row++;
             }
         }

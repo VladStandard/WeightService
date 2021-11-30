@@ -15,14 +15,23 @@ namespace WeightCore.Managers
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ManagerFactoryMemory()
+        {
+            Init(
+                () => { CloseMethod(); },
+                () => { ReleaseManaged(); },
+                () => { ReleaseUnmanaged(); }
+            );
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public void Init()
         {
-            Init(
-                () => { ReleaseManaged(); },
-                () => { }
-            );
             Init(ProjectsEnums.TaskType.MemoryManager,
             () =>
             {
@@ -42,10 +51,22 @@ namespace WeightCore.Managers
             null);
         }
 
-        public void ReleaseManaged()
+        public new void CloseMethod()
         {
+            base.CloseMethod();
+        }
+
+        public new void ReleaseManaged()
+        {
+            base.ReleaseManaged();
+
             MemorySize.Dispose();
             MemorySize = null;
+        }
+
+        public new void ReleaseUnmanaged()
+        {
+            base.ReleaseUnmanaged();
         }
 
         #endregion

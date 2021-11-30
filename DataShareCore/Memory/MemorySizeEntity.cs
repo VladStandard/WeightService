@@ -4,11 +4,12 @@
 using DataShareCore.Wmi;
 using System;
 using System.Diagnostics;
+using static DataShareCore.IDisposableBase;
 
 namespace DataShareCore.Memory
 {
 
-    public class MemorySizeEntity : AbstractDisposable
+    public class MemorySizeEntity : DisposableBase, IDisposableBase
     {
         #region Public and private fields and properties
 
@@ -28,8 +29,9 @@ namespace DataShareCore.Memory
         public MemorySizeEntity()
         {
             Init(
+                () => { CloseMethod(); },
                 () => { ReleaseManaged(); },
-                () => { }
+                () => { ReleaseUnmanaged(); }
             );
             
             PhysicalCurrent = new MemorySizeConvertEntity();
@@ -46,7 +48,7 @@ namespace DataShareCore.Memory
 
         public void Update()
         {
-            CheckIfDisposed();
+            CheckIsDisposed();
 
             DtChanged = DateTime.Now;
 
@@ -65,7 +67,12 @@ namespace DataShareCore.Memory
             }
         }
 
-        private void ReleaseManaged()
+        public void CloseMethod()
+        {
+            //
+        }
+
+        public void ReleaseManaged()
         {
             DtChanged = null;
             VirtualCurrent = null;
@@ -75,6 +82,11 @@ namespace DataShareCore.Memory
             VirtualTotal = null;
             PhysicalTotal = null;
             Wmi = null;
+        }
+
+        public void ReleaseUnmanaged()
+        {
+            //
         }
 
         #endregion

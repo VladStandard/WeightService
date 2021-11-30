@@ -12,10 +12,11 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Helpers;
+using static DataShareCore.IDisposableBase;
 
 namespace WeightCore.Managers
 {
-    public class ManagerBase : AbstractDisposable
+    public class ManagerBase : DisposableBase, IDisposableBase
     {
         #region Public and private fields and properties - Manager
 
@@ -23,12 +24,12 @@ namespace WeightCore.Managers
         public ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         public DebugHelper Debug { get; set; } = DebugHelper.Instance;
         public LogHelper Log { get; set; } = LogHelper.Instance;
-        public AsyncLock MutexReopen { get; private set; } = new();
-        public AsyncLock MutexRequest { get; private set; } = new();
-        public AsyncLock MutexResponse { get; private set; } = new();
-        public bool IsExecuteReopen { get; set; }
-        public bool IsExecuteRequest { get; set; }
-        public bool IsExecuteResponse { get; set; }
+        public AsyncLock MutexReopen { get; private set; }
+        public AsyncLock MutexRequest { get; private set; }
+        public AsyncLock MutexResponse { get; private set; }
+        public CancellationTokenSource CtsReopen { get; set; }
+        public CancellationTokenSource CtsRequest { get; set; }
+        public CancellationTokenSource CtsResponse { get; set; }
         public string ProgressString { get; set; }
         public ushort WaitReopen { get; set; }
         public ushort WaitRequest { get; set; }
@@ -38,12 +39,6 @@ namespace WeightCore.Managers
         public string ExceptionMsg { get; set; }
         public bool IsInit { get; set; }
         public bool IsResponse { get; set; }
-        public delegate void InitCallback();
-        public delegate void ReopenCallback();
-        public delegate void RequestCallback();
-        public delegate void ResponseCallback();
-        public delegate void CloseCallback();
-        public CloseCallback CloseMethod { get; set; }
         public Task TaskReopen { get; set; } = null;
         public Task TaskRequest { get; set; } = null;
         public Task TaskResponse { get; set; } = null;
@@ -54,15 +49,16 @@ namespace WeightCore.Managers
 
         public ManagerBase()
         {
+            Init(
+                () => { CloseMethod(); },
+                () => { ReleaseManaged(); },
+                () => { ReleaseUnmanaged(); }
+            );
         }
 
         public void Init(ProjectsEnums.TaskType taskType, InitCallback initCallback,
             ushort waitReopen = 0, ushort waitRequest = 0, ushort waitResponse = 0, ushort waitClose = 0, ushort waitException = 0)
         {
-            Init(
-                () => { ReleaseManaged(); },
-                () => { }
-            );
             lock (this)
             {
                 if (IsInit)
@@ -73,7 +69,7 @@ namespace WeightCore.Managers
                 WaitReopen = waitReopen == 0 ? (ushort)2_000 : waitReopen;
                 WaitRequest = waitRequest == 0 ? (ushort)250 : waitRequest;
                 WaitResponse = waitResponse == 0 ? (ushort)500 : waitResponse;
-                WaitClose = waitClose == 0 ? (ushort)2_000 : waitClose;
+                WaitClose = waitClose == 0 ? (ushort)3_000 : waitClose;
                 WaitException = waitException == 0 ? (ushort)2_000 : waitException;
 
                 initCallback?.Invoke();
@@ -87,16 +83,18 @@ namespace WeightCore.Managers
             if (miliseconds > 10_000)
                 miliseconds = 10_000;
             Stopwatch sw = Stopwatch.StartNew();
+            sw.Restart();
             while (sw.Elapsed.TotalMilliseconds < miliseconds)
             {
                 Thread.Sleep(50);
                 System.Windows.Forms.Application.DoEvents();
             }
+            sw.Stop();
         }
 
         public void DebugLog(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
-            CheckIfDisposed();
+            CheckIsDisposed();
             if (Debug.IsDebug)
                 Log.Information(message, filePath, memberName, lineNumber);
         }
@@ -104,6 +102,16 @@ namespace WeightCore.Managers
         public void Open(SqlViewModelEntity sqlViewModel,
             ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
         {
+            CloseMethod();
+
+            MutexReopen = new AsyncLock();
+            MutexRequest = new AsyncLock();
+            MutexResponse = new AsyncLock();
+
+            CtsReopen = null;
+            CtsRequest = null;
+            CtsResponse = null;
+            
             if (sqlViewModel.IsTaskEnabled(TaskType))
             {
                 OpenTaskReopen(reopenCallback);
@@ -112,41 +120,50 @@ namespace WeightCore.Managers
             }
         }
 
+        private void OpenTaskBase(Task task, CancellationTokenSource cts)
+        {
+            if (task == null) return;
+            
+            CheckIsDisposed();
+
+            cts?.Cancel();
+            WaitSync(WaitClose);
+            task.Dispose();
+        }
+
         private void OpenTaskReopen(ReopenCallback callback)
         {
-            CheckIfDisposed();
-            TaskReopen?.Dispose();
+            OpenTaskBase(TaskReopen, CtsReopen);
+            CtsReopen = new CancellationTokenSource();
+
             TaskReopen = Task.Run(async () =>
             {
-                IsExecuteReopen = true;
-                while (IsExecuteReopen)
+                while (CtsReopen != null)
                 {
-                    try
+                    // AsyncLock can be locked asynchronously
+                    using (await MutexReopen.LockAsync(CtsReopen.Token))
                     {
-                        // AsyncLock can be locked asynchronously
-                        using (await MutexReopen.LockAsync())
+                    if (CtsReopen.IsCancellationRequested)
+                        break;
+                        try
                         {
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
                             callback?.Invoke();
                             WaitSync(WaitReopen);
                         }
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        // Console.WriteLine(tcex.Message);
-                        // Not the problem.
-                    }
-                    catch (Exception ex)
-                    {
-                        Exception.Catch(null, ref ex, false);
-                        //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
-                        //Thread.Sleep(WaitException);
-                        WaitSync(WaitException);
-                    }
-                    finally
-                    {
-                        System.Windows.Forms.Application.DoEvents();
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            Exception.Catch(null, ref ex, false);
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
+                            //Thread.Sleep(WaitException);
+                            WaitSync(WaitException);
+                        }
                     }
                 }
             });
@@ -154,39 +171,37 @@ namespace WeightCore.Managers
 
         private void OpenTaskRequest(RequestCallback callback)
         {
-            CheckIfDisposed();
-            TaskRequest?.Dispose();
+            OpenTaskBase(TaskRequest, CtsRequest);
+            CtsRequest = new CancellationTokenSource();
+
             TaskRequest = Task.Run(async () =>
             {
-                IsExecuteRequest = true;
-                while (IsExecuteRequest)
+                while (CtsRequest != null)
                 {
-                    try
+                    // AsyncLock can be locked asynchronously
+                    using (await MutexRequest.LockAsync(CtsRequest.Token))
                     {
-                        // AsyncLock can be locked asynchronously
-                        using (await MutexRequest.LockAsync())
+                        if (CtsRequest.IsCancellationRequested)
+                            break;
+                        try
                         {
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
                             callback?.Invoke();
                             WaitSync(WaitRequest);
                         }
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        // Console.WriteLine(tcex.Message);
-                        // Not the problem.
-                    }
-                    catch (Exception ex)
-                    {
-                        Exception.Catch(null, ref ex, false);
-                        //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
-                        //Thread.Sleep(WaitException);
-                        WaitSync(WaitException);
-                    }
-                    finally
-                    {
-                        System.Windows.Forms.Application.DoEvents();
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            Exception.Catch(null, ref ex, false);
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
+                            //Thread.Sleep(WaitException);
+                            WaitSync(WaitException);
+                        }
                     }
                 }
             });
@@ -194,71 +209,91 @@ namespace WeightCore.Managers
 
         private void OpenTaskResponse(ResponseCallback callback)
         {
-            CheckIfDisposed();
-            TaskResponse?.Dispose();
+            OpenTaskBase(TaskResponse, CtsResponse);
+            CtsResponse = new CancellationTokenSource();
+
             TaskResponse = Task.Run(async () =>
             {
-                IsExecuteResponse = true;
-                while (IsExecuteResponse)
+                while (CtsResponse != null)
                 {
-                    try
+                    // AsyncLock can be locked asynchronously
+                    using (await MutexResponse.LockAsync(CtsResponse.Token))
                     {
-                        // AsyncLock can be locked asynchronously
-                        using (await MutexResponse.LockAsync())
+                        if (CtsResponse.IsCancellationRequested)
+                            break;
+                        try
                         {
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
                             callback?.Invoke();
                             WaitSync(WaitResponse);
                         }
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        // Console.WriteLine(tcex.Message);
-                        // Not the problem.
-                    }
-                    catch (Exception ex)
-                    {
-                        Exception.Catch(null, ref ex, false);
-                        //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
-                        //Thread.Sleep(WaitException);
-                        WaitSync(WaitException);
-                    }
-                    finally
-                    {
-                        System.Windows.Forms.Application.DoEvents();
+                        catch (TaskCanceledException)
+                        {
+                            // Console.WriteLine(tcex.Message);
+                            // Not the problem.
+                        }
+                        catch (Exception ex)
+                        {
+                            Exception.Catch(null, ref ex, false);
+                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
+                            //Thread.Sleep(WaitException);
+                            WaitSync(WaitException);
+                        }
                     }
                 }
             });
         }
 
-        private void ReleaseManaged()
+        public void CloseMethod()
         {
-            try
-            {
-                IsExecuteReopen = false;
-                IsExecuteRequest = false;
-                IsExecuteResponse = false;
+            CtsReopen?.Cancel();
+            CtsRequest?.Cancel();
+            CtsResponse?.Cancel();
 
-                CloseMethod?.Invoke();
-                TaskReopen?.Dispose();
+            WaitSync(WaitClose);
+            
+            MutexReopen = null;
+            MutexRequest = null;
+            MutexResponse = null;
+
+            DebugLog($"{nameof(TaskType)} is closed");
+        }
+
+        public void ReleaseManaged()
+        {
+            CloseMethod();
+
+            CtsReopen?.Dispose();
+            CtsRequest?.Dispose();
+            CtsResponse?.Dispose();
+            
+            if (TaskReopen != null)
+            {
+                TaskReopen.Dispose();
                 TaskReopen = null;
-                TaskRequest?.Dispose();
+            }
+
+            if (TaskRequest != null)
+            {
+                TaskRequest.Dispose();
                 TaskRequest = null;
-                TaskResponse?.Dispose();
+            }
+
+            if (TaskResponse != null)
+            {
+                TaskResponse.Dispose();
                 TaskResponse = null;
-                
-                WaitSync(WaitClose);
-                DebugLog($"{nameof(TaskType)} is closed");
             }
-            catch (Exception ex)
-            {
-                Exception.Catch(null, ref ex, false);
-            }
-            finally
-            {
-                System.Windows.Forms.Application.DoEvents();
-            }
+
+            CtsReopen = null;
+            CtsRequest = null;
+            CtsResponse = null;
+        }
+
+        public void ReleaseUnmanaged()
+        {
+            //
         }
 
         #endregion

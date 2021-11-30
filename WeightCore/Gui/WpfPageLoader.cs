@@ -26,7 +26,7 @@ namespace WeightCore.Gui
         public PageSqlSettings SqlSettings { get; private set; }
         public PageMessageBox PageMessageBoxItem { get; private set; }
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
-        public static object Locker { get; private set; } = new();
+        public static object Locker { get; internal set; } = new object();
 
         #endregion
 
@@ -40,12 +40,20 @@ namespace WeightCore.Gui
             _sessionState.IsWpfPageLoaderClose = false;
         }
 
-        public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize) : this()
+        public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, 
+            double fontSizeCaption = 30, double fontSizeMessage = 26, double fontSizeButton = 22,
+            ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1) : this()
         {
             try
             {
                 Page = page;
                 UseOwnerSize = useOwnerSize;
+                MessageBox.FontSizeCaption = fontSizeCaption;
+                MessageBox.FontSizeMessage = fontSizeMessage;
+                MessageBox.FontSizeButton = fontSizeButton;
+                MessageBox.SizeCaption = sizeCaption;
+                MessageBox.SizeMessage = sizeMessage;
+                MessageBox.SizeButton = sizeButton;
             }
             catch (Exception ex)
             {

@@ -32,6 +32,7 @@
             this.fieldWeightTare = new System.Windows.Forms.Label();
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.fieldTasks = new System.Windows.Forms.Label();
             this.fieldLang = new System.Windows.Forms.ComboBox();
             this.fieldMassaQueriesProgress = new System.Windows.Forms.ProgressBar();
             this.fieldMemoryProgress = new System.Windows.Forms.ProgressBar();
@@ -131,6 +132,7 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.0563F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00938F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.000938F));
+            this.tableLayoutPanelMain.Controls.Add(this.fieldTasks, 3, 8);
             this.tableLayoutPanelMain.Controls.Add(this.fieldLang, 3, 14);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaQueriesProgress, 3, 12);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryProgress, 3, 13);
@@ -183,6 +185,22 @@
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1180, 557);
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            // 
+            // fieldTasks
+            // 
+            this.fieldTasks.AutoSize = true;
+            this.fieldTasks.BackColor = System.Drawing.Color.Transparent;
+            this.fieldTasks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldTasks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldTasks.Location = new System.Drawing.Point(1051, 365);
+            this.fieldTasks.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldTasks.Name = "fieldTasks";
+            this.fieldTasks.Size = new System.Drawing.Size(112, 21);
+            this.fieldTasks.TabIndex = 57;
+            this.fieldTasks.Text = "Tasks";
+            this.fieldTasks.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldTasks.Visible = false;
+            this.fieldTasks.DoubleClick += new System.EventHandler(this.FieldTasks_DoubleClick);
             // 
             // fieldLang
             // 
@@ -822,6 +840,7 @@
         private System.Windows.Forms.ProgressBar fieldMemoryProgress;
         private System.Windows.Forms.ProgressBar fieldMassaQueriesProgress;
         private System.Windows.Forms.ComboBox fieldLang;
+        private System.Windows.Forms.Label fieldTasks;
     }
 }
 

@@ -145,7 +145,8 @@ namespace ScalesCore.Helpers
                         PrintTicket = printTicket,
                     };
                     printDialog.PrintQueue.Commit();
-                    if (printDialog.ShowDialog() == true)
+                    bool? result = printDialog.ShowDialog();
+                    if (result == true)
                     {
                         printDialog.PrintVisual(canvasPrint, description);
                     }
