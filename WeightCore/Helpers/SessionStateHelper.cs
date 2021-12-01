@@ -30,7 +30,7 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
-        public ManagerHelper Manager { get; private set; } = ManagerHelper.Instance;
+        public ManagerHelper Manager { get; private set; }
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
@@ -105,11 +105,15 @@ namespace WeightCore.Helpers
             // начинается новыя серия, упаковки продукции, новая паллета
             ProductSeries = new ProductSeriesDirect(CurrentScale);
             ProductSeries.New();
+
+            Manager = new ManagerHelper();
         }
 
         public void Dispose()
         {
             ZplCommander?.Close();
+            Manager?.Close();
+            Manager?.Dispose();
         }
 
         #endregion
@@ -163,13 +167,12 @@ namespace WeightCore.Helpers
         public void NewPallet()
         {
             LabelsCurrent = 1;
-            if (Manager.Print == null)
+            ProductSeries.New();
+            if (Manager == null || Manager.Print == null)
                 return;
-
             Manager.Print.ClearPrintBuffer(IsTscPrinter);
             if (!IsTscPrinter)
                 Manager.Print.SetOdometorUserLabel(1);
-            ProductSeries.New();
         }
 
         #endregion
@@ -185,12 +188,11 @@ namespace WeightCore.Helpers
             set
             {
                 _kneading = value;
-                if (Manager.Print != null)
-                {
-                    Manager.Print.ClearPrintBuffer(IsTscPrinter);
-                    if (!IsTscPrinter)
-                        Manager.Print.SetOdometorUserLabel(LabelsCurrent);
-                }
+                if (Manager == null || Manager.Print == null)
+                    return;
+                Manager.Print.ClearPrintBuffer(IsTscPrinter);
+                if (!IsTscPrinter)
+                    Manager.Print.SetOdometorUserLabel(LabelsCurrent);
             }
         }
 
@@ -226,9 +228,8 @@ namespace WeightCore.Helpers
             set
             {
                 _productDate = value;
-                if (Manager.Print == null)
+                if (Manager == null || Manager.Print == null)
                     return;
-
                 Manager.Print.ClearPrintBuffer(IsTscPrinter);
             }
         }
@@ -263,9 +264,8 @@ namespace WeightCore.Helpers
             {
                 _currentPlu = value;
                 LabelsCurrent = 1;
-                if (Manager.Print == null)
+                if (Manager == null || Manager.Print == null)
                     return;
-
                 // если ПЛУ изменился - чистим очередь печати
                 Manager.Print.ClearPrintBuffer(IsTscPrinter);
                 Manager.Print.SetOdometorUserLabel(1);
@@ -354,7 +354,7 @@ namespace WeightCore.Helpers
             bool isCheck = false;
             if (CurrentPlu.NominalWeight > 0)
             {
-                if (Manager.Massa != null)
+                if (Manager?.Massa != null)
                     CurrentWeighingFact.NetWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
                 else
                     CurrentWeighingFact.NetWeight -= CurrentPlu.GoodsTareWeight;
@@ -418,7 +418,7 @@ namespace WeightCore.Helpers
         private void PrintWeightLabel(TemplateDirect template)
         {
             // Check scales exists.
-            if (Manager.Massa == null)
+            if (Manager == null || Manager.Massa == null)
             {
                 _log.Information(@"Устройство весов не обнаружено!");
                 return;
@@ -462,7 +462,7 @@ namespace WeightCore.Helpers
                 PrintCmdReplacePics(ref printCmd);
                 // DB save ZPL-query to Labels.
                 PrintSaveLabel(printCmd, CurrentWeighingFact.Id);
-                if (Manager.Print == null)
+                if (Manager == null || Manager.Print == null)
                     return;
 
                 // Send doc to the printrer.

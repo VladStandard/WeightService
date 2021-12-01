@@ -246,9 +246,9 @@
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\MouseHookHelper.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
-    <Compile Include="Managers\ManagerFactoryPrint.cs" />
-    <Compile Include="Managers\ManagerFactoryMassa.cs" />
-    <Compile Include="Managers\ManagerFactoryMemory.cs" />
+    <Compile Include="Managers\ManagerPrint.cs" />
+    <Compile Include="Managers\ManagerMassa.cs" />
+    <Compile Include="Managers\ManagerMemory.cs" />
     <Compile Include="Managers\ManagerHelper.cs" />
     <Compile Include="MassaK\MassaCmdType.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />

@@ -5,11 +5,12 @@ using DataProjectsCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using WeightCore.MassaK;
 
 namespace WeightCore.Managers
 {
-    public class ManagerFactoryMassa : ManagerBase
+    public class ManagerMassa : ManagerBase
     {
         #region Public and private fields and properties
 
@@ -32,13 +33,9 @@ namespace WeightCore.Managers
 
         #region Constructor and destructor
 
-        public ManagerFactoryMassa()
+        public ManagerMassa() : base()
         {
-            Init(
-                () => { CloseMethod(); },
-                () => { ReleaseManaged(); },
-                () => { ReleaseUnmanaged(); }
-            );
+            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
         }
 
         #endregion
@@ -58,24 +55,37 @@ namespace WeightCore.Managers
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
+            Stopwatch sw = Stopwatch.StartNew();
             Open(sqlViewModel,
             () =>
             {
+                sw.Restart();
+                //Log.Information($"Massa.Open repoen start: {sw.Elapsed.TotalSeconds}");
                 MassaDevice.Open();
+                //Log.Information($"Massa.Open repoen end: {sw.Elapsed.TotalSeconds}");
+                sw.Stop();
             },
             () =>
             {
+                sw.Restart();
+                //Log.Information($"Massa.Open request start: {sw.Elapsed.TotalSeconds}");
                 if (MassaDevice.IsConnected)
                     GetMassa();
                 else
                     ClearRequests(0);
+                //Log.Information($"Massa.Open request end: {sw.Elapsed.TotalSeconds}");
+                sw.Stop();
             },
             () =>
             {
+                sw.Restart();
+                //Log.Information($"Massa.Open response start: {sw.Elapsed.TotalSeconds}");
                 if (MassaDevice.IsConnected)
                     OpenResponse();
                 else
                     ResetMassa();
+                //Log.Information($"Massa.Open response end: {sw.Elapsed.TotalSeconds}");
+                sw.Stop();
             });
         }
 
@@ -84,10 +94,9 @@ namespace WeightCore.Managers
             base.CloseMethod();
             
             MassaDevice?.Close();
-            if (Requests != null)
+            while (Requests?.Count > 0)
             {
-                while (Requests.Count > 0)
-                    Requests.Take();
+                Requests.Take();
             }
         }
 
@@ -95,14 +104,19 @@ namespace WeightCore.Managers
         {
             base.ReleaseManaged();
 
-            MassaDevice?.Dispose();
-            MassaDevice = null;
             ResponseParseScalePar = null;
             ResponseParseGet = null;
             ResponseParseSet = null;
+            
             Requests?.Dispose();
             Requests = null;
             MassaRequest = null;
+            MassaDevice?.Dispose();
+            MassaDevice = null;
+
+            ProgressStringQueries = null;
+            ProgressStringRequest = null;
+            ProgressStringResponse = null;
         }
 
         public new void ReleaseUnmanaged()

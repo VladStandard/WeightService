@@ -4,7 +4,7 @@
 using DataProjectsCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.Helpers;
-using DataShareCore;
+using DataShareCore.Models;
 using Nito.AsyncEx;
 using System;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Helpers;
-using static DataShareCore.IDisposableBase;
+using static DataShareCore.Models.IDisposableBase;
 
 namespace WeightCore.Managers
 {
@@ -37,23 +37,20 @@ namespace WeightCore.Managers
         public ushort WaitException { get; set; }
         public ushort WaitClose { get; set; }
         public string ExceptionMsg { get; set; }
-        public bool IsInit { get; set; }
         public bool IsResponse { get; set; }
         public Task TaskReopen { get; set; } = null;
         public Task TaskRequest { get; set; } = null;
         public Task TaskResponse { get; set; } = null;
+        public bool IsOpenedMethod { get; set; }
+        public bool IsClosedMethod { get; set; }
 
         #endregion
 
         #region Public and private methods
 
-        public ManagerBase()
+        public ManagerBase() : base()
         {
-            Init(
-                () => { CloseMethod(); },
-                () => { ReleaseManaged(); },
-                () => { ReleaseUnmanaged(); }
-            );
+            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
         }
 
         public void Init(ProjectsEnums.TaskType taskType, InitCallback initCallback,
@@ -61,9 +58,6 @@ namespace WeightCore.Managers
         {
             lock (this)
             {
-                if (IsInit)
-                    return;
-                IsInit = true;
                 TaskType = taskType;
 
                 WaitReopen = waitReopen == 0 ? (ushort)2_000 : waitReopen;
@@ -76,7 +70,7 @@ namespace WeightCore.Managers
             }
         }
 
-        public static void WaitSync(ushort miliseconds)
+        public static void WaitSync(ushort miliseconds, Task task = null)
         {
             if (miliseconds < 50)
                 miliseconds = 50;
@@ -86,6 +80,9 @@ namespace WeightCore.Managers
             sw.Restart();
             while (sw.Elapsed.TotalMilliseconds < miliseconds)
             {
+                if (task != null && task.Status != TaskStatus.WaitingForActivation)
+                    if (task.Status == TaskStatus.Canceled || task.Status == TaskStatus.Faulted)
+                        break;
                 Thread.Sleep(50);
                 System.Windows.Forms.Application.DoEvents();
             }
@@ -103,10 +100,14 @@ namespace WeightCore.Managers
             ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
         {
             CloseMethod();
+            if (IsOpenedMethod) return;
+            IsOpenedMethod = true;
+            IsClosedMethod = false;
+            Open();
 
-            MutexReopen = new AsyncLock();
-            MutexRequest = new AsyncLock();
-            MutexResponse = new AsyncLock();
+            MutexReopen = null;
+            MutexRequest = null ;
+            MutexResponse = null;
 
             CtsReopen = null;
             CtsRequest = null;
@@ -122,13 +123,14 @@ namespace WeightCore.Managers
 
         private void OpenTaskBase(Task task, CancellationTokenSource cts)
         {
+            CheckIsDisposed();
             if (task == null) return;
             
-            CheckIsDisposed();
-
             cts?.Cancel();
-            WaitSync(WaitClose);
-            task.Dispose();
+            task.Wait(WaitClose);
+            if (task.IsCompleted)
+                task.Dispose();
+            task = null;
         }
 
         private void OpenTaskReopen(ReopenCallback callback)
@@ -138,7 +140,8 @@ namespace WeightCore.Managers
 
             TaskReopen = Task.Run(async () =>
             {
-                while (CtsReopen != null)
+                MutexReopen = new AsyncLock();
+                while (MutexReopen != null && CtsReopen != null)
                 {
                     // AsyncLock can be locked asynchronously
                     using (await MutexReopen.LockAsync(CtsReopen.Token))
@@ -160,8 +163,6 @@ namespace WeightCore.Managers
                         catch (Exception ex)
                         {
                             Exception.Catch(null, ref ex, false);
-                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
-                            //Thread.Sleep(WaitException);
                             WaitSync(WaitException);
                         }
                     }
@@ -176,7 +177,8 @@ namespace WeightCore.Managers
 
             TaskRequest = Task.Run(async () =>
             {
-                while (CtsRequest != null)
+                MutexRequest = new AsyncLock();
+                while (MutexRequest != null && CtsRequest != null)
                 {
                     // AsyncLock can be locked asynchronously
                     using (await MutexRequest.LockAsync(CtsRequest.Token))
@@ -198,8 +200,6 @@ namespace WeightCore.Managers
                         catch (Exception ex)
                         {
                             Exception.Catch(null, ref ex, false);
-                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
-                            //Thread.Sleep(WaitException);
                             WaitSync(WaitException);
                         }
                     }
@@ -214,7 +214,8 @@ namespace WeightCore.Managers
 
             TaskResponse = Task.Run(async () =>
             {
-                while (CtsResponse != null)
+                MutexResponse = new AsyncLock();
+                while (MutexResponse != null && CtsResponse != null)
                 {
                     // AsyncLock can be locked asynchronously
                     using (await MutexResponse.LockAsync(CtsResponse.Token))
@@ -236,8 +237,6 @@ namespace WeightCore.Managers
                         catch (Exception ex)
                         {
                             Exception.Catch(null, ref ex, false);
-                            //await Task.Delay(TimeSpan.FromMilliseconds(WaitException)).ConfigureAwait(false);
-                            //Thread.Sleep(WaitException);
                             WaitSync(WaitException);
                         }
                     }
@@ -247,6 +246,11 @@ namespace WeightCore.Managers
 
         public void CloseMethod()
         {
+            if (IsClosedMethod) return;
+            IsOpenedMethod = false;
+            IsClosedMethod = true;
+            CheckIsDisposed();
+
             CtsReopen?.Cancel();
             CtsRequest?.Cancel();
             CtsResponse?.Cancel();
@@ -264,25 +268,34 @@ namespace WeightCore.Managers
         {
             CloseMethod();
 
+            CtsReopen?.Cancel();
             CtsReopen?.Dispose();
+            CtsRequest?.Cancel();
             CtsRequest?.Dispose();
+            CtsResponse?.Cancel();
             CtsResponse?.Dispose();
             
             if (TaskReopen != null)
             {
-                TaskReopen.Dispose();
+                TaskReopen.Wait(100);
+                if (TaskReopen.IsCompleted)
+                    TaskReopen.Dispose();
                 TaskReopen = null;
             }
 
             if (TaskRequest != null)
             {
-                TaskRequest.Dispose();
+                TaskRequest.Wait(100);
+                if (TaskRequest.IsCompleted)
+                    TaskRequest.Dispose();
                 TaskRequest = null;
             }
 
             if (TaskResponse != null)
             {
-                TaskResponse.Dispose();
+                TaskResponse.Wait(100);
+                if (TaskResponse.IsCompleted)
+                    TaskResponse.Dispose();
                 TaskResponse = null;
             }
 

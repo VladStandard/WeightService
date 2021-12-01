@@ -12,7 +12,7 @@ using Zebra.Sdk.Printer;
 
 namespace WeightCore.Managers
 {
-    public class ManagerFactoryPrint : ManagerBase
+    public class ManagerPrint : ManagerBase
     {
         #region Public and private fields and properties
 
@@ -32,13 +32,9 @@ namespace WeightCore.Managers
 
         #region Constructor and destructor
 
-        public ManagerFactoryPrint()
+        public ManagerPrint() : base()
         {
-            Init(
-                () => { CloseMethod(); },
-                () => { ReleaseManaged(); },
-                () => { ReleaseUnmanaged(); }
-            );
+            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
         }
 
         #endregion
@@ -48,18 +44,18 @@ namespace WeightCore.Managers
         public void Init(bool isTscPrinter, string name, string ip, int port)
         {
             Init(ProjectsEnums.TaskType.MemoryManager,
-            () =>
-            {
+            () => {
                 IsTscPrinter = isTscPrinter;
                 if (IsTscPrinter)
                     ZebraConnection = new TcpConnection(ip, port);
                 TscPrintControl.Init(name, ip, port);
-            },
-            1_000);
+            }, 1_000);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
+            CheckIsDisposed();
+
             Open(sqlViewModel,
             () => {
                 if (IsTscPrinter)
@@ -88,9 +84,10 @@ namespace WeightCore.Managers
             {
                 ZebraConnection?.Close();
             }
+            
             CurrentStatus = null;
             ZebraConnection = null;
-            Documents.Dispose();
+            Documents?.Dispose();
             Documents = null;
             Wmi = null;
         }
@@ -98,10 +95,13 @@ namespace WeightCore.Managers
         public new void ReleaseUnmanaged()
         {
             base.ReleaseUnmanaged();
+
+            Peeler = null;
         }
 
         public void Send(string printCmd)
         {
+            CheckIsDisposed();
             Documents.Add(printCmd);
         }
 
@@ -160,6 +160,8 @@ namespace WeightCore.Managers
 
         public void ClearPrintBuffer(bool isTscPrinter)
         {
+            CheckIsDisposed();
+
             Documents = new BlockingCollection<string>();
             if (isTscPrinter)
             {
@@ -171,8 +173,12 @@ namespace WeightCore.Managers
             }
         }
 
-        public void SetOdometorUserLabel(int value) => 
+        public void SetOdometorUserLabel(int value)
+        {
+            CheckIsDisposed();
+
             Documents.Add($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+        }
 
         #endregion
     }

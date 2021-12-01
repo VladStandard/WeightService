@@ -7,7 +7,7 @@ using DataShareCore.Memory;
 
 namespace WeightCore.Managers
 {
-    public class ManagerFactoryMemory : ManagerBase
+    public class ManagerMemory : ManagerBase
     {
         #region Public and private fields and properties
 
@@ -17,13 +17,9 @@ namespace WeightCore.Managers
 
         #region Constructor and destructor
 
-        public ManagerFactoryMemory()
+        public ManagerMemory() : base()
         {
-            Init(
-                () => { CloseMethod(); },
-                () => { ReleaseManaged(); },
-                () => { ReleaseUnmanaged(); }
-            );
+            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
         }
 
         #endregion
@@ -32,12 +28,7 @@ namespace WeightCore.Managers
 
         public void Init()
         {
-            Init(ProjectsEnums.TaskType.MemoryManager,
-            () =>
-            {
-                //
-            },
-            1_000);
+            Init(ProjectsEnums.TaskType.MemoryManager, null, 1_000);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)
@@ -45,7 +36,7 @@ namespace WeightCore.Managers
             Open(sqlViewModel,
             () =>
             {
-                MemorySize.Update();
+                MemorySize.Open();
             },
             null,
             null);
@@ -60,7 +51,8 @@ namespace WeightCore.Managers
         {
             base.ReleaseManaged();
 
-            MemorySize.Dispose();
+            MemorySize?.Close();
+            MemorySize?.Dispose();
             MemorySize = null;
         }
 

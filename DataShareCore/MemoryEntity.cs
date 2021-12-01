@@ -4,15 +4,11 @@
 using DataShareCore.Memory;
 using System;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace DataShareCore
 {
-    /// <summary>
-    /// Task memory.
-    /// </summary>
     public class MemoryEntity
     {
         #region Public and private fields and properties
@@ -50,12 +46,17 @@ namespace DataShareCore
                 Process proc = Process.GetCurrentProcess();
                 if (proc != null)
                 {
-                    MemorySize.PhysicalCurrent.Bytes = (ulong)proc.WorkingSet64;
-                    MemorySize.VirtualCurrent.Bytes = (ulong)proc.PrivateMemorySize64;
+                    if (MemorySize?.PhysicalCurrent != null)
+                        MemorySize.PhysicalCurrent.Bytes = (ulong)proc.WorkingSet64;
+                    if (MemorySize?.VirtualCurrent != null)
+                        MemorySize.VirtualCurrent.Bytes = (ulong)proc.PrivateMemorySize64;
                 }
-                else {
-                    MemorySize.PhysicalCurrent.Bytes = 0;
-                    MemorySize.VirtualCurrent.Bytes = 0;
+                else
+                {
+                    if (MemorySize?.PhysicalCurrent != null)
+                        MemorySize.PhysicalCurrent.Bytes = 0;
+                    if (MemorySize?.VirtualCurrent != null)
+                        MemorySize.VirtualCurrent.Bytes = 0;
                 }
                 callRefreshAsync?.Invoke(true).ConfigureAwait(false);
                 Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));

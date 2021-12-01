@@ -594,8 +594,9 @@
             this.fieldPlu.Name = "fieldPlu";
             this.fieldPlu.Size = new System.Drawing.Size(702, 27);
             this.fieldPlu.TabIndex = 14;
-            this.fieldPlu.Text = "Загрузка программы";
+            this.fieldPlu.Text = "PLU";
             this.fieldPlu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldPlu.Visible = false;
             this.fieldPlu.Click += new System.EventHandler(this.ButtonSelectPlu_Click);
             this.fieldPlu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 

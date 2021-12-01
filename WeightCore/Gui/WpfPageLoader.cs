@@ -40,13 +40,14 @@ namespace WeightCore.Gui
             _sessionState.IsWpfPageLoaderClose = false;
         }
 
-        public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, 
+        public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None, 
             double fontSizeCaption = 30, double fontSizeMessage = 26, double fontSizeButton = 22,
             ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1) : this()
         {
             try
             {
                 Page = page;
+                FormBorderStyle = formBorderStyle;
                 UseOwnerSize = useOwnerSize;
                 MessageBox.FontSizeCaption = fontSizeCaption;
                 MessageBox.FontSizeMessage = fontSizeMessage;

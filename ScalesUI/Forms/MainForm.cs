@@ -17,6 +17,7 @@ using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
+using WeightCore.Managers;
 
 namespace ScalesUI.Forms
 {
@@ -30,10 +31,11 @@ namespace ScalesUI.Forms
         private readonly LogHelper _log = LogHelper.Instance;
         private readonly ProcHelper _proc = ProcHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        private readonly QuartzEntity _quartz = QuartzEntity.Instance;
+        private QuartzEntity _quartz = QuartzEntity.Instance;
         private bool _isShowInfoLabels = false;
         private object LockerSeconds { get; set; } = new();
         private object LockerDays { get; set; } = new();
+        public ShareEnums.ProgramState ProgramState { get; set; } = ShareEnums.ProgramState.Default;
 
         #endregion
 
@@ -45,16 +47,15 @@ namespace ScalesUI.Forms
 
             FormBorderStyle = _debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
             TopMost = !_debug.IsDebug;
-            fieldResolution.Visible = _debug.IsDebug;
             fieldResolution.SelectedIndex = _debug.IsDebug ? 2 : 0;
             fieldLang.SelectedIndex = 0;
-            fieldLang.Visible = _debug.IsDebug;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             try
             {
+                ProgramState = ShareEnums.ProgramState.IsLoad;
                 TaskManagerClose();
 
                 LoadResources();
@@ -62,6 +63,7 @@ namespace ScalesUI.Forms
 
                 _sessionState.NewPallet();
 
+                SetTitle();
                 _quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), delegate { ScheduleEveryDays(); }, 
                     "jobScheduleEveryDays", "triggerScheduleEveryDays", "triggerGroupScheduleEveryDays");
                 _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { ScheduleEverySeconds(); }, 
@@ -81,8 +83,9 @@ namespace ScalesUI.Forms
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 TaskManagerOpen();
-                Thread.Sleep(1_000);
+                ManagerBase.WaitSync(0_500);
                 ButtonScalesInit_Click(sender, e);
+                ProgramState = ShareEnums.ProgramState.IsRun;
             }
         }
 
@@ -117,28 +120,6 @@ namespace ScalesUI.Forms
                 }
 
                 MDSoft.WinFormsUtils.InvokeControl.SetText(this, _appVersion.AppTitle);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPlu, $"{LocalizationData.ScalesUI.LoadProgram}");
-                switch (_sessionState.SqlViewModel.PublishType)
-                {
-                    case ShareEnums.PublishType.Debug:
-                    case ShareEnums.PublishType.Dev:
-                        //fieldTitle.Text = $@"{_sessionState.AppVersion}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}.";
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}.");
-                        fieldTitle.BackColor = Color.Yellow;
-                        break;
-                    case ShareEnums.PublishType.Release:
-                        //fieldTitle.Text = $@"{_sessionState.AppVersion}.  {_sessionState.CurrentScale.Description}.";
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}.");
-                        fieldTitle.BackColor = Color.LightGreen;
-                        break;
-                    case ShareEnums.PublishType.Default:
-                    default:
-                        //fieldTitle.Text = $@"{_sessionState.AppVersion}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}.";
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}.");
-                        fieldTitle.BackColor = Color.DarkRed;
-                        break;
-                }
-
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldProductDate, string.Empty);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldKneading, string.Empty);
             }
@@ -182,9 +163,18 @@ namespace ScalesUI.Forms
                 }
                 if (isClose)
                 {
-                    _sessionState.Manager.Dispose();
+                    ProgramState = ShareEnums.ProgramState.IsExit;
                     _quartz.Close();
-                    WeightCore.Managers.ManagerBase.WaitSync(2_500);
+                    _quartz.Dispose();
+                    _quartz = null;
+                    ManagerBase.WaitSync(0_100);
+                    SetTitle();
+                    ManagerBase.WaitSync(0_100);
+                    ScheduleControlsVisible(false);
+                    ManagerBase.WaitSync(0_100);
+                    _sessionState.Manager.Close();
+                    _sessionState.Manager.Dispose();
+                    ManagerBase.WaitSync(0_100);
                     e.Cancel = false;
                 }
                 else
@@ -207,6 +197,7 @@ namespace ScalesUI.Forms
         {
             lock (LockerDays)
             {
+                _sessionState.ProductDate = DateTime.Now;
                 _log.Information("ScheduleIsNextDay");
             }
         }
@@ -220,7 +211,8 @@ namespace ScalesUI.Forms
                 SchedulePrint();
                 ScheduleProduct();
                 ScheduleButtonsEnabled();
-                ScheduleLabelsVisible();
+                SetTitle();
+                ScheduleControlsVisible(true);
             }
         }
 
@@ -245,8 +237,8 @@ namespace ScalesUI.Forms
             //if (!Equals(buttonPrint.Enabled, _sessionState.CurrentPlu != null))
             //    MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _sessionState.CurrentPlu != null);
             
-            if (_sessionState.Manager.Massa.IsStable == 0 ||
-                _sessionState.Manager.Massa.Requests.Count > 0)
+            if (_sessionState.Manager?.Massa?.IsStable == 0 ||
+                _sessionState.Manager?.Massa?.Requests?.Count > 0)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonSelectOrder, false);
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonNewPallet, false);
@@ -276,26 +268,164 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ScheduleLabelsVisible()
+        private void SetTitle()
         {
-            if (!fieldCurrentTime.Visible)
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldCurrentTime, true);
-            if (!labelWeightNetto.Visible)
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelWeightNetto, true);
-            if (!fieldWeightTare.Visible)
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWeightTare, true);
-            if (!labelKneading.Visible)
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, true);
-            if (!fieldKneading.Visible)
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, true);
-            if (!labelProductDate.Visible)
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelProductDate, true);
-            if (!fieldProductDate.Visible)
-                MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldProductDate, true);
+            switch (_sessionState.SqlViewModel.PublishType)
+            {
+                case ShareEnums.PublishType.Debug:
+                case ShareEnums.PublishType.Dev:
+                    switch (ProgramState)
+                    {
+                        case ShareEnums.ProgramState.IsLoad:
+                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
+                                $"  {LocalizationData.ScalesUI.ProgramLoad}");
+                            break;
+                        case ShareEnums.ProgramState.IsRun:
+                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}.");
+                            break;
+                        case ShareEnums.ProgramState.IsExit:
+                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
+                                $"  {LocalizationData.ScalesUI.ProgramExit}");
+                            break;
+                    }
+                    fieldTitle.BackColor = Color.Yellow;
+                    break;
+                case ShareEnums.PublishType.Release:
+                    switch (ProgramState)
+                    {
+                        case ShareEnums.ProgramState.IsLoad:
+                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}." +
+                                $"  {LocalizationData.ScalesUI.ProgramLoad}");
+                            break;
+                        case ShareEnums.ProgramState.IsRun:
+                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}.");
+                            break;
+                        case ShareEnums.ProgramState.IsExit:
+                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}." +
+                                $"  {LocalizationData.ScalesUI.ProgramExit}");
+                            break;
+                    }
+                    fieldTitle.BackColor = Color.LightGreen;
+                    break;
+                case ShareEnums.PublishType.Default:
+                default:
+                    switch (ProgramState)
+                    {
+                        case ShareEnums.ProgramState.IsLoad:
+                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
+                                $"  {LocalizationData.ScalesUI.ProgramLoad}");
+                            break;
+                        case ShareEnums.ProgramState.IsRun:
+                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}.");
+                            break;
+                        case ShareEnums.ProgramState.IsExit:
+                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
+                                $"  {LocalizationData.ScalesUI.ProgramExit}");
+                            break;
+                    }
+                    fieldTitle.BackColor = Color.DarkRed;
+                    break;
+            }
         }
 
-        private void CheckEnabled(ProjectsEnums.TaskType taskType, Control control)
+        private void SetControlsVisible()
         {
+            bool visible = ProgramState == ShareEnums.ProgramState.IsRun;
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSettings, visible);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonRunScalesTerminal, visible);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonScalesInit, visible);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonNewPallet, visible);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonAddKneading, visible);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectPlu, visible);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonKneading, visible);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonPrint, visible);
+        }
+
+        private void ScheduleControlsVisible(bool visible)
+        {
+            switch (ProgramState)
+            {
+                case ShareEnums.ProgramState.Default:
+                    break;
+                case ShareEnums.ProgramState.IsLoad:
+                    break;
+                case ShareEnums.ProgramState.IsRun:
+                    if (fieldCurrentTime.Visible != visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldCurrentTime, visible);
+                    if (fieldPlu.Visible != visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPlu, visible);
+                    if (labelWeightNetto.Visible != visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelWeightNetto, visible);
+                    if (fieldWeightTare.Visible != visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWeightTare, visible);
+                    if (labelKneading.Visible != visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, visible);
+                    if (fieldKneading.Visible != visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, visible);
+                    if (labelProductDate.Visible != visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelProductDate, visible);
+                    if (fieldProductDate.Visible != visible)
+                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldProductDate, visible);
+                    break;
+                case ShareEnums.ProgramState.IsExit:
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldCurrentTime, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPlu, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelWeightNetto, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWeightTare, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelProductDate, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldProductDate, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPrintManager, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLabelsCount, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaManager, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaScalePar, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaComPort, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGet, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueries, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSet, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryManager, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryManagerTotal, false);
+                    
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldResolution, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(pictureBoxClose, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTasks, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGetCrc, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSetCrc, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldCountBox, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueriesProgress, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryProgress, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLang, false);
+
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSettings, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonRunScalesTerminal, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonScalesInit, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectOrder, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonNewPallet, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonAddKneading, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectPlu, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonKneading, false);
+                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonPrint, false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SetVisible(ProjectsEnums.TaskType taskType, Control control)
+        {
+            if (ProgramState != ShareEnums.ProgramState.IsRun)
+                return;
+
             if (_sessionState.SqlViewModel.IsTaskEnabled(taskType))
             {
                 if (!control.Visible)
@@ -310,8 +440,8 @@ namespace ScalesUI.Forms
 
         private void SchedulePrint()
         {
-            CheckEnabled(ProjectsEnums.TaskType.PrintManager, fieldPrintManager);
-            CheckEnabled(ProjectsEnums.TaskType.PrintManager, fieldLabelsCount);
+            SetVisible(ProjectsEnums.TaskType.PrintManager, fieldPrintManager);
+            SetVisible(ProjectsEnums.TaskType.PrintManager, fieldLabelsCount);
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, 
                 $"{LocalizationData.ScalesUI.Labels}: {_sessionState.LabelsCurrent} / {_sessionState.LabelsCount}");
 
@@ -350,13 +480,14 @@ namespace ScalesUI.Forms
 
         private void ScheduleMemoryManager()
         {
-            CheckEnabled(ProjectsEnums.TaskType.MemoryManager, fieldMemoryManager);
+            SetVisible(ProjectsEnums.TaskType.MemoryManager, fieldMemoryManager);
 
             if (_sessionState.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
                     $"{LocalizationData.ScalesUI.Memory}: {_sessionState.Manager.Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB {_sessionState.Manager.Memory.ProgressString}");
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal, _sessionState.Manager.Memory.MemorySize.DtChanged?.ToString(@"HH:mm:ss") +
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal, 
+                    _sessionState.Manager.Memory.MemorySize.DtChanged?.ToString(@"HH:mm:ss") +
                     $"  {LocalizationData.ScalesUI.MemoryPhysical}: {LocalizationData.ScalesUI.MemoryFree} {_sessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes:N0} из " +
                     $"{_sessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB.");
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldMemoryProgress,
@@ -372,10 +503,10 @@ namespace ScalesUI.Forms
 
         private void ScheduleMassaManager()
         {
-            CheckEnabled(ProjectsEnums.TaskType.MassaManager, fieldMassaManager);
-            CheckEnabled(ProjectsEnums.TaskType.MassaManager, fieldMassaComPort);
-            CheckEnabled(ProjectsEnums.TaskType.MassaManager, fieldMassaQueries);
-            CheckEnabled(ProjectsEnums.TaskType.MassaManager, buttonScalesInit);
+            SetVisible(ProjectsEnums.TaskType.MassaManager, fieldMassaManager);
+            SetVisible(ProjectsEnums.TaskType.MassaManager, fieldMassaComPort);
+            SetVisible(ProjectsEnums.TaskType.MassaManager, fieldMassaQueries);
+            SetVisible(ProjectsEnums.TaskType.MassaManager, buttonScalesInit);
             bool flag = false;
             if (_sessionState.CurrentPlu != null)
             {
@@ -439,7 +570,7 @@ namespace ScalesUI.Forms
         {
             if (_sessionState.Manager.Massa.ResponseParseGet == null)
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGet, $" {LocalizationData.ScalesUI.WeightingMessage}: ...");
+                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGet, $"{LocalizationData.ScalesUI.WeightingMessage}: ...");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaGetCrc, $"{LocalizationData.ScalesUI.Crc}: ...");
             }
             else
@@ -499,7 +630,8 @@ namespace ScalesUI.Forms
         private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
         {
             DataShareCore.Wmi.Win32PrinterEntity win32Printer = _sessionState.Manager.Print.Win32Printer();
-            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog) { Width = 700, Height = 400 };
+            wpfPageLoader.Text = LocalizationData.ScalesUI.PrinterInfoCaption;
             wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.PrinterInfoCaption;
             wpfPageLoader.MessageBox.Message =
                 $"Принтер: {win32Printer.Name}" + Environment.NewLine +
@@ -519,7 +651,7 @@ namespace ScalesUI.Forms
 
         private void FieldTasks_DoubleClick(object sender, EventArgs e)
         {
-            string message = $"{LocalizationData.ScalesUI.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}" + Environment.NewLine;
+            string message = string.Empty;
             foreach (ProcessThread thread in Process.GetCurrentProcess().Threads)
             {
                 message += $"{LocalizationData.ScalesUI.ThreadId}: {thread.Id}. " +
@@ -527,9 +659,9 @@ namespace ScalesUI.Forms
                     $"{LocalizationData.ScalesUI.ThreadState}: {thread.ThreadState}. " +
                     $"{LocalizationData.ScalesUI.ThreadStartTime}: {thread.StartTime}. " + Environment.NewLine;
             }
-            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, 20, 14, 18, 1, 12, 1)
-            { Width = Width - 50, Height = Height - 50 };
-            wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Threads;
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 
+                20, 14, 18, 0, 12, 1) { Width = Width - 50, Height = Height - 50 };
+            wpfPageLoader.Text = $"{LocalizationData.ScalesUI.ThreadsCount}: {Process.GetCurrentProcess().Threads.Count}";
             wpfPageLoader.MessageBox.Message = message;
             wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
             wpfPageLoader.MessageBox.Localization();
@@ -576,7 +708,7 @@ namespace ScalesUI.Forms
             try
             {
                 // Massa-K device control.
-                if (!_sessionState.Manager.Massa.MassaDevice.IsConnected)
+                if (ProgramState == ShareEnums.ProgramState.IsRun && !_sessionState.Manager.Massa.MassaDevice.IsConnected)
                 {
                     // WPF MessageBox.
                     using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
@@ -896,7 +1028,10 @@ namespace ScalesUI.Forms
 
         private void FieldCurrentTime_Click(object sender, EventArgs e)
         {
-            _isShowInfoLabels = !_isShowInfoLabels;
+            _isShowInfoLabels = ProgramState != ShareEnums.ProgramState.IsRun ? false : !_isShowInfoLabels;
+            // Controls.
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldResolution, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLang, _isShowInfoLabels);
             // MemoryManager.
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryManagerTotal, _isShowInfoLabels);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryProgress, _isShowInfoLabels);

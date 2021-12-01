@@ -9,7 +9,7 @@ DECLARE @host_id INT
 DECLARE @select BIT = 1
 DECLARE @delete BIT = 0
 DECLARE @commit BIT = 0
-DECLARE @create_dt DATETIME = '2021-11-26 00:00'
+DECLARE @create_dt DATETIME = '2021-12-01 00:00'
 DECLARE @host NVARCHAR(255) = N'SCALES-MON-PC208'
 ----------------------------------------------------------------------------------------------------
 SET @host_id = (SELECT

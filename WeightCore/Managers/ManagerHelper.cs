@@ -3,25 +3,17 @@
 
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
-using DataShareCore;
-using System.Threading;
+using DataShareCore.Models;
 
 namespace WeightCore.Managers
 {
     public class ManagerHelper : DisposableBase
     {
-        #region Design pattern "Lazy Singleton"
-
-        private static ManagerHelper _instance;
-        public static ManagerHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
-
-        #endregion
-
         #region Public and private fields and properties
 
-        public ManagerFactoryMassa Massa { get; private set; } = new ManagerFactoryMassa();
-        public ManagerFactoryMemory Memory { get; private set; } = new ManagerFactoryMemory();
-        public ManagerFactoryPrint Print { get; private set; } = new ManagerFactoryPrint();
+        public ManagerMassa Massa { get; private set; } = new ManagerMassa();
+        public ManagerMemory Memory { get; private set; } = new ManagerMemory();
+        public ManagerPrint Print { get; private set; } = new ManagerPrint();
 
         #endregion
 
@@ -29,11 +21,7 @@ namespace WeightCore.Managers
 
         public ManagerHelper()
         {
-            Init(
-                () => { CloseMethod(); },
-                () => { ReleaseManaged(); },
-                () => { ReleaseUnmanaged(); }
-            );
+            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
         }
 
         #endregion
@@ -49,6 +37,7 @@ namespace WeightCore.Managers
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
+            Open();
             Massa.Open(sqlViewModel);
             Memory.Open(sqlViewModel);
             Print.Open(sqlViewModel);

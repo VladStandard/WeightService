@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Models;
 using DataShareCore.Wmi;
 using System;
 using System.Diagnostics;
-using static DataShareCore.IDisposableBase;
 
 namespace DataShareCore.Memory
 {
@@ -26,14 +26,10 @@ namespace DataShareCore.Memory
 
         #region Constructor and destructor
 
-        public MemorySizeEntity()
+        public MemorySizeEntity() : base()
         {
-            Init(
-                () => { CloseMethod(); },
-                () => { ReleaseManaged(); },
-                () => { ReleaseUnmanaged(); }
-            );
-            
+            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
+
             PhysicalCurrent = new MemorySizeConvertEntity();
             VirtualCurrent = new MemorySizeConvertEntity();
             VirtualFree = new MemorySizeConvertEntity();
@@ -46,8 +42,9 @@ namespace DataShareCore.Memory
 
         #region Public and private methods
 
-        public void Update()
+        public new void Open()
         {
+            base.Open();
             CheckIsDisposed();
 
             DtChanged = DateTime.Now;

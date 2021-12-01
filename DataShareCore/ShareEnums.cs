@@ -276,5 +276,13 @@ namespace DataShareCore
             Text,
             Raw
         }
+
+        public enum ProgramState
+        {
+            Default,
+            IsLoad,
+            IsRun,
+            IsExit
+        }
     }
 }

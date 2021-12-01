@@ -1,11 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore;
+using DataProjectsCore;
 using DataProjectsCore.DAL.Utils;
 using DataProjectsCore.Helpers;
 using DataShareCore.Helpers;
-using System;
 using Microsoft.Data.SqlClient;
+using System;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
@@ -13,11 +15,8 @@ using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
-using WeightCore.Managers;
 using WeightCore.Zpl;
 using static DataShareCore.ShareEnums;
-using DataProjectsCore;
-using DataCore;
 
 namespace ScalesUI.Forms
 {
@@ -30,7 +29,6 @@ namespace ScalesUI.Forms
         private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
         private readonly LogHelper _log = LogHelper.Instance;
         private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        public readonly ManagerHelper _manager = ManagerHelper.Instance;
 
         #endregion
 
@@ -261,7 +259,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _manager.Print.Send(ZplPipeUtils.ZplPowerOnReset());
+                _sessionState.Manager.Print.Send(ZplPipeUtils.ZplPowerOnReset());
             }
             catch (Exception ex)
             {
@@ -284,7 +282,7 @@ namespace ScalesUI.Forms
             {
                 //_taskManager.PrintManager.PrintControl.CmdCalibrate();
                 if (!_sessionState.IsTscPrinter)
-                    _manager.Print.Send(ZplPipeUtils.ZplCalibration());
+                    _sessionState.Manager.Print.Send(ZplPipeUtils.ZplCalibration());
             }
             catch (Exception ex)
             {
@@ -300,7 +298,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _manager.Print.Send(ZplPipeUtils.ZplPrintConfigurationLabel());
+                _sessionState.Manager.Print.Send(ZplPipeUtils.ZplPrintConfigurationLabel());
             }
             catch (Exception ex)
             {
@@ -397,20 +395,20 @@ namespace ScalesUI.Forms
             {
                 fieldCurrentMKProp.Clear();
 
-                if (_manager.Massa != null)
+                if (_sessionState.Manager.Massa != null)
                 {
                     //_taskManager.MassaManager.GetScalePar();
                     //Thread.Sleep(10);
                     //Application.DoEvents();
 
-                    if (_manager.Massa.ResponseParseGet != null)
+                    if (_sessionState.Manager.Massa.ResponseParseGet != null)
                     {
-                        fieldCurrentMKProp.Text = _manager.Massa.ResponseParseGet.Message;
+                        fieldCurrentMKProp.Text = _sessionState.Manager.Massa.ResponseParseGet.Message;
                     }
 
-                    if (_manager.Massa.ResponseParseScalePar != null)
+                    if (_sessionState.Manager.Massa.ResponseParseScalePar != null)
                     {
-                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_manager.Massa.ResponseParseScalePar.Message}";
+                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_sessionState.Manager.Massa.ResponseParseScalePar.Message}";
                     }
                 }
             }
@@ -428,7 +426,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _manager.Print.Send(ZplPipeUtils.ZplClearPrintBuffer());
+                _sessionState.Manager.Print.Send(ZplPipeUtils.ZplClearPrintBuffer());
             }
             catch (Exception ex)
             {

@@ -1,32 +1,30 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Models;
 using System;
 using System.IO.Ports;
 using System.Threading;
 
 namespace WeightCore.MassaK
 {
-    public class MassaDeviceEntity : IDisposable
+    public class MassaConnectionException : Exception
     {
-        #region Classes
+        public MassaConnectionException() : base("Failed connect to the scales") { }
+        public MassaConnectionException(Exception e) : base("Failed connect to the scales", e) { }
+    }
 
-        public class MassaConnectionException : Exception
-        {
-            public MassaConnectionException() : base("Failed connect to the scales") { }
-            public MassaConnectionException(Exception e) : base("Failed connect to the scales", e) { }
-        }
-
-        #endregion
-
+    public class MassaDeviceEntity : DisposableBase, IDisposableBase
+    {
         #region Public and private fields and properties
 
-        public object Locker { get; private set; } = new();
         public bool IsConnected { get; private set; }
         public string PortName { get; private set; }
         public int ReadTimeout { get; private set; }
         public int WriteTimeout { get; private set; }
         public SerialPort SerialPortItem { get; set; }
+        public bool IsOpenedMethod { get; set; }
+        public bool IsClosedMethod { get; set; }
 
         #endregion
 
@@ -34,6 +32,8 @@ namespace WeightCore.MassaK
 
         public MassaDeviceEntity(string portName, int readTimeout, int writeTimeout)
         {
+            Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
+
             PortName = portName;
             ReadTimeout = readTimeout;
             WriteTimeout = writeTimeout;
@@ -43,31 +43,15 @@ namespace WeightCore.MassaK
 
         #region Public and private methods
 
-        public void Close()
+        public new void Open()
         {
-            lock (Locker)
+            lock (this)
             {
-                IsConnected = false;
-                if (SerialPortItem == null)
-                    return;
-                if (SerialPortItem.IsOpen)
-                    SerialPortItem.Close();
-                SerialPortItem.Dispose();
-            }
-        }
-
-        public void Dispose()
-        {
-            Close();
-            SerialPortItem?.Dispose();
-            SerialPortItem = null;
-            Locker = null;
-        }
-
-        public void Open()
-        {
-            lock (Locker)
-            {
+                if (IsOpenedMethod) return;
+                IsOpenedMethod = true;
+                IsClosedMethod = false;
+                CheckIsDisposed();
+                
                 try
                 {
                     if (string.IsNullOrEmpty(PortName))
@@ -103,21 +87,26 @@ namespace WeightCore.MassaK
 
         private byte[] ReadFromPort()
         {
-            if (SerialPortItem == null)
-                return null;
-            int length = SerialPortItem.BytesToRead;
-            byte[] response = new byte[length];
-            if (length > 0)
+            lock (this)
             {
-                SerialPortItem.Read(response, 0, length);
+                CheckIsDisposed();
+                if (SerialPortItem == null)
+                    return null;
+                int length = SerialPortItem.BytesToRead;
+                byte[] response = new byte[length];
+                if (length > 0)
+                {
+                    SerialPortItem.Read(response, 0, length);
+                }
+                return response;
             }
-            return response;
         }
 
         public byte[] WriteToPort(MassaExchangeEntity cmd)
         {
-            lock (Locker)
+            lock (this)
             {
+                CheckIsDisposed();
                 if (SerialPortItem == null)
                     return null;
                 SerialPortItem.Write(cmd.Request, 0, cmd.Request.Length);
@@ -126,6 +115,37 @@ namespace WeightCore.MassaK
                 Thread.Sleep(50);
                 return result;
             }
+        }
+
+        public void CloseMethod()
+        {
+            lock (this)
+            {
+                if (IsClosedMethod) return;
+                IsOpenedMethod = false;
+                IsClosedMethod = true;
+                CheckIsDisposed();
+                
+                IsConnected = false;
+                if (SerialPortItem != null)
+                {
+                    if (SerialPortItem.IsOpen)
+                        SerialPortItem.Close();
+                }
+            }
+        }
+
+        public void ReleaseManaged()
+        {
+            CloseMethod();
+
+            SerialPortItem?.Dispose();
+            SerialPortItem = null;
+        }
+
+        public void ReleaseUnmanaged()
+        {
+            //
         }
 
         #endregion
