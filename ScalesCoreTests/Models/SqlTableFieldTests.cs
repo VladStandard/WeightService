@@ -1,6 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Utils;
+using NUnit.Framework;
+using ScalesCore.Models;
+using System;
+using System.Diagnostics;
+
 namespace ScalesCoreTests.Models
 {
     public class SqlTableFieldTests
@@ -47,12 +53,12 @@ namespace ScalesCoreTests.Models
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Constructor_Create_Error)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            Assert.Catch<ArgumentException>(() => { var field = new SqlTableField<string>(); });
-            foreach (var name in EnumValuesUtils.GetString())
+            Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new SqlTableField<string>(); });
+            foreach (string name in EnumValuesUtils.GetString())
             {
-                Assert.Catch<ArgumentException>(() => { var field = new SqlTableField<string>(name); });
+                Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new SqlTableField<string>(name); });
             }
 
             sw.Stop();
@@ -64,27 +70,27 @@ namespace ScalesCoreTests.Models
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var field = new SqlTableField<string>("FieldName");
+            SqlTableField<string> field = new SqlTableField<string>("FieldName");
             Assert.AreEqual("FieldName", field.Name);
             Assert.AreEqual(string.Empty, field.Value);
             Assert.AreEqual(string.Empty, field.Default);
 
-            foreach (var value in EnumValuesUtils.GetString())
+            foreach (string value in EnumValuesUtils.GetString())
             {
                 field = new SqlTableField<string>("FieldName", value);
                 Assert.AreEqual("FieldName", field.Name);
                 Assert.AreEqual(string.Empty, field.Value);
                 Assert.AreEqual(string.Empty, field.Default);
-                foreach (var defValue in EnumValuesUtils.GetString())
+                foreach (string defValue in EnumValuesUtils.GetString())
                 {
                     field = new SqlTableField<string>("FieldName", value, defValue);
                     Assert.AreEqual("FieldName", field.Name);
                     Assert.AreEqual(string.Empty, field.Value);
                     Assert.AreEqual(string.Empty, field.Default);
                 }
-            }    
+            }
 
             sw.Stop();
             TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {sw.Elapsed}");

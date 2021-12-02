@@ -31,8 +31,9 @@ namespace WeightCore.Helpers
         #region Public and private fields and properties
 
         public ManagerHelper Manager { get; private set; }
-        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly LogHelper _log = LogHelper.Instance;
+        public ExceptionHelper Exception { get; private set; } = ExceptionHelper.Instance;
+        public LogHelper Log { get; private set; } = LogHelper.Instance;
+
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
         public HostDirect Host { get; private set; }
@@ -420,13 +421,13 @@ namespace WeightCore.Helpers
             // Check scales exists.
             if (Manager == null || Manager.Massa == null)
             {
-                _log.Information(@"Устройство весов не обнаружено!");
+                Log.Information(@"Устройство весов не обнаружено!");
                 return;
             }
             // Check product's weight on the scales.
             if (Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
             {
-                _log.Information($@"Вес товара: {Manager.Massa.WeightNet} кг, печать этикетки невозможна!");
+                Log.Information($@"Вес товара: {Manager.Massa.WeightNet} кг, печать этикетки невозможна!");
                 return;
             }
 
@@ -470,7 +471,7 @@ namespace WeightCore.Helpers
             }
             catch (Exception ex)
             {
-                _exception.Catch(null, ref ex, true);
+                Exception.Catch(null, ref ex, true);
             }
         }
 

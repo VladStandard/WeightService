@@ -15,7 +15,7 @@ using System.Windows.Forms;
 namespace ScalesCore.Helpers
 {
     /// <summary>
-    /// Помощник приложения.
+    /// Application helper.
     /// </summary>
     public sealed class AppHelper : BaseViewModel
     {

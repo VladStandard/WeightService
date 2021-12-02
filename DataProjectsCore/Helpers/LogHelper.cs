@@ -26,7 +26,7 @@ namespace DataProjectsCore.Helpers
         {
             HostDirect host = HostsUtils.TokenRead();
 
-            _logDb = new LogDirect(host.Name ?? string.Empty, host.IdRRef, _appVersion.App, _appVersion.Version);
+            _logDb = new LogDirect(host.Name ?? string.Empty, host.IdRRef, AppVersion.App, AppVersion.Version);
         }
 
         #endregion
@@ -34,7 +34,7 @@ namespace DataProjectsCore.Helpers
         #region Public and private fields and properties
 
         private readonly LogDirect _logDb;
-        private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
+        private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
 
         #endregion
 

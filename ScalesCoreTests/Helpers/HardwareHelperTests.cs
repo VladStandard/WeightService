@@ -1,12 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using NUnit.Framework;
+using ScalesCore.Helpers;
+using System.Diagnostics;
+
 namespace ScalesCoreTests.Helpers
 {
     internal class HardwareHelperTests
     {
-        // Помощник Windows.
-        private HardwareHelper _hard = HardwareHelper.Instance;
+        private HardwareHelper Hard { get; set; } = HardwareHelper.Instance;
 
         /// <summary>
         /// Setup private fields.
@@ -38,7 +41,7 @@ namespace ScalesCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SearchingDriver_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
             Assert.AreEqual(true, true);
 

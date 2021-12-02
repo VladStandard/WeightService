@@ -1,12 +1,18 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore;
+using NUnit.Framework;
+using ScalesCore.Helpers;
+using ScalesCore.Models;
+using System;
+using System.Diagnostics;
+
 namespace ScalesCoreTests.Helpers
 {
     internal class WinHelperTests
     {
-        // Помощник Windows.
-        private readonly WinHelper _winHelp = WinHelper.Instance;
+        private WinHelper Win { get; set; } = WinHelper.Instance;
 
         /// <summary>
         /// Setup private fields.
@@ -38,14 +44,14 @@ namespace ScalesCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_Empty)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
             foreach (ShareEnums.WinProvider provider in Enum.GetValues(typeof(ShareEnums.WinProvider)))
             {
                 foreach (ShareEnums.StringTemplate template in Enum.GetValues(typeof(ShareEnums.StringTemplate)))
                 {
-                    var actual = _winHelp.SearchingSoftware(ShareEnums.WinProvider.Alias, "Unknown Software", template);
-                    var expected = new ResultWmiSoftware();
+                    ResultWmiSoftware actual = Win.SearchingSoftware(ShareEnums.WinProvider.Alias, "Unknown Software", template);
+                    ResultWmiSoftware expected = new();
                     TestContext.WriteLine($@"actual = {actual}");
                     Assert.AreEqual(expected.ToString(), actual.ToString());
                 }
@@ -60,9 +66,9 @@ namespace ScalesCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var actual = _winHelp.SearchingSoftware(ShareEnums.WinProvider.Registry, "Microsoft .NET Framework", ShareEnums.StringTemplate.StartsWith);
+            ResultWmiSoftware actual = Win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Microsoft .NET Framework", ShareEnums.StringTemplate.StartsWith);
             TestContext.WriteLine($"actual: {actual}");
             TestContext.WriteLine($"actual.Name: {actual.Name}");
             Assert.AreEqual("Microsoft Corporation", actual.Vendor);

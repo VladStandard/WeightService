@@ -1,12 +1,19 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
+using DataShareCore;
+using NUnit.Framework;
+using ScalesCore.Helpers;
+using System;
+using System.Diagnostics;
+using System.IO;
+
 namespace ScalesCoreTests.Helpers
 {
     internal class SettingsHelperTests
     {
-        // Помощник настроек.
-        private readonly SettingsHelper _settingsHelp = SettingsHelper.Instance;
+        private SettingsHelper Settings { get; set; } = SettingsHelper.Instance;
 
         /// <summary>
         /// Setup private fields.
@@ -38,29 +45,29 @@ namespace ScalesCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SetupDirs_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var actual = _settingsHelp.SetupAndCheckDirs(@"c:\Program Files (x86)\VladimirStandardCorp\ScalesUI", ProjectsEnums.SilentUI.True, 
+            bool actual = Settings.SetupAndCheckDirs(@"c:\Program Files (x86)\VladimirStandardCorp\ScalesUI", ProjectsEnums.SilentUI.True,
                 ShareEnums.Lang.Russian);
             Assert.AreEqual(
                 Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\"), actual);
 
             if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\"))
             {
-                TestContext.WriteLine("DirMain: " + _settingsHelp.DirMain);
-                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\", _settingsHelp.DirMain);
+                TestContext.WriteLine("DirMain: " + Settings.DirMain);
+                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\", Settings.DirMain);
 
-                TestContext.WriteLine("DirDocs: " + _settingsHelp.DirDocs);
-                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\Docs", _settingsHelp.DirDocs);
+                TestContext.WriteLine("DirDocs: " + Settings.DirDocs);
+                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\Docs", Settings.DirDocs);
 
-                TestContext.WriteLine("DirDrivers: " + _settingsHelp.DirDrivers);
-                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\Drivers", _settingsHelp.DirDrivers);
+                TestContext.WriteLine("DirDrivers: " + Settings.DirDrivers);
+                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\Drivers", Settings.DirDrivers);
 
-                TestContext.WriteLine("DirFonts: " + _settingsHelp.DirFonts);
-                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\frx", _settingsHelp.DirFonts);
+                TestContext.WriteLine("DirFonts: " + Settings.DirFonts);
+                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\frx", Settings.DirFonts);
 
-                TestContext.WriteLine("DirManuals: " + _settingsHelp.DirManuals);
-                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\Manuals", _settingsHelp.DirManuals);
+                TestContext.WriteLine("DirManuals: " + Settings.DirManuals);
+                Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\Manuals", Settings.DirManuals);
             }
 
             sw.Stop();

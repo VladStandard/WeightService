@@ -31,16 +31,11 @@ namespace ScalesCore.Helpers
 
         #region Private helpers
 
-        // Помощник приложения.
-        private readonly AppHelper _app = AppHelper.Instance;
-        // Помощник коллекций.
-        private readonly CollectionsHelper _collections = CollectionsHelper.Instance;
-        // Помощник процессов.
-        private readonly ProcHelper _proc = ProcHelper.Instance;
-        // Помощник Windows.
-        private readonly WinHelper _win = WinHelper.Instance;
-        // Помощник инфо Windows.
-        private readonly WinInfoHelper _winInfo = WinInfoHelper.Instance;
+        private AppHelper App { get; set; } = AppHelper.Instance;
+        private CollectionsHelper Collections { get; set; } = CollectionsHelper.Instance;
+        private ProcHelper Proc { get; set; } = ProcHelper.Instance;
+        private WinHelper Win { get; set; } = WinHelper.Instance;
+        private WinInfoHelper WinInfo { get; set; } = WinInfoHelper.Instance;
 
         #endregion
 
@@ -187,9 +182,9 @@ namespace ScalesCore.Helpers
             try
             {
                 // Создать каталоги и перенести файлы.
-                DirCreateAndMoveFiles(DirDocs, _collections.Docs);
-                DirCreateAndMoveFiles(DirManuals, _collections.Manuals);
-                DirCreateAndMoveFiles(DirDrivers, _collections.DriversArchives);
+                DirCreateAndMoveFiles(DirDocs, Collections.Docs);
+                DirCreateAndMoveFiles(DirManuals, Collections.Manuals);
+                DirCreateAndMoveFiles(DirDrivers, Collections.DriversArchives);
 
                 Console.WriteLine(@"Install complete.");
                 return ShareEnums.Result.Good;
@@ -229,7 +224,7 @@ namespace ScalesCore.Helpers
         /// </summary>
         public void ExtractDrivers()
         {
-            foreach (string arch in _collections.DriversArchives)
+            foreach (string arch in Collections.DriversArchives)
             {
                 if (arch.EndsWith(".zip"))
                 {
@@ -252,29 +247,29 @@ namespace ScalesCore.Helpers
             // Определить имя файла драйвера.
             string driverFileName;
             // Windows 8 - 10.
-            if ((_winInfo.MajorVersion == 6 && _winInfo.MinorVersion >= 2) || (_winInfo.MajorVersion > 6))
+            if ((WinInfo.MajorVersion == 6 && WinInfo.MinorVersion >= 2) || (WinInfo.MajorVersion > 6))
             {
-                driverFileName = _collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? ShareEnums.WinVersion.Win10x64 : ShareEnums.WinVersion.Win10x32);
+                driverFileName = Collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? ShareEnums.WinVersion.Win10x64 : ShareEnums.WinVersion.Win10x32);
             }
             // Windows 7.
             //else if (_winInfo.MajorVersion == 6 && _winInfo.MinorVersion == 1)
             else
             {
-                driverFileName = _collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? ShareEnums.WinVersion.Win7x64 : ShareEnums.WinVersion.Win7x32);
+                driverFileName = Collections.GetDriverFileName(Environment.Is64BitOperatingSystem ? ShareEnums.WinVersion.Win7x64 : ShareEnums.WinVersion.Win7x32);
             }
 
             // Проверить установку драйвера.
-            if (_win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Virtual Comport Driver",
+            if (Win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Virtual Comport Driver",
                 ShareEnums.StringTemplate.Equals).Vendor.
                 Equals("STMicroelectronics", StringComparison.InvariantCultureIgnoreCase))
                 return;
 
             // Запустить установку драйвера.
-            if (MessageBox.Show(@"Драйвер весов не обнаружен. Установить?", _app.GetDescription(assembly), MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+            if (MessageBox.Show(@"Драйвер весов не обнаружен. Установить?", App.GetDescription(assembly), MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 //MessageBox.Show(DirDrivers + @"\" + driverFileName);
-                _proc.Run(DirDrivers + @"\" + driverFileName, string.Empty, true, ProcessWindowStyle.Normal, true);
+                Proc.Run(DirDrivers + @"\" + driverFileName, string.Empty, true, ProcessWindowStyle.Normal, true);
             }
         }
 

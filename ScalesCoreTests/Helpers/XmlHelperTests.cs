@@ -1,16 +1,21 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using NUnit.Framework;
+using ScalesCore.Helpers;
+using ScalesCore.Models;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+
 namespace ScalesCoreTests.Helpers
 {
     internal class XmlHelperTests
     {
-        // Помощник XML.
-        private readonly XmlHelper _xmlHelp = XmlHelper.Instance;
-        // Имя существующего файла.
+        private XmlHelper Xml { get; set; } = XmlHelper.Instance;
+        private SettingsHelper Settings { get; set; } = SettingsHelper.Instance;
         private const string TestFile = @"c:\Program Files\Common Files\microsoft shared\ink\Content.xml";
-        // Помощник настроек.
-        private readonly SettingsHelper _settingsHelp = SettingsHelper.Instance;
 
         /// <summary>
         /// Setup private fields.
@@ -42,22 +47,22 @@ namespace ScalesCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            Assert.Throws<FileNotFoundException>(() => _xmlHelp.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }));
-            Assert.Throws<FileNotFoundException>(() => _xmlHelp.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }, "test"));
-            Assert.Throws<FileNotFoundException>(() => _xmlHelp.Checks("test", new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
+            Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }));
+            Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }, "test"));
+            Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
 
-            Assert.Throws<ArgumentNullException>(() => _xmlHelp.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) } ));
-            Assert.Throws<ArgumentNullException>(() => _xmlHelp.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(string.Empty, string.Empty) }, string.Empty));
-            Assert.Throws<ArgumentNullException>(() => _xmlHelp.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("", "") }, ""));
-            Assert.Throws<ArgumentNullException>(() => _xmlHelp.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) } ));
-            Assert.Throws<ArgumentNullException>(() => _xmlHelp.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }, "test"));
+            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }));
+            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(string.Empty, string.Empty) }, string.Empty));
+            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("", "") }, ""));
+            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }));
+            Assert.Throws<ArgumentNullException>(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag(null) }, "test"));
             //Assert.Throws<ArgumentNullException>(() => _xml.Checks(TestFile, new Collection<XmlAttribute>() { new XmlAttribute("test", "test", null) }, null));
-            
-            Assert.DoesNotThrow(() => _xmlHelp.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }));
-            Assert.DoesNotThrow(() => _xmlHelp.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
-            
+
+            Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }));
+            Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
+
             sw.Stop();
             TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} complete. Elapsed time: {sw.Elapsed}");
         }
@@ -67,9 +72,9 @@ namespace ScalesCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Read_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var actual = _xmlHelp.Read(TestFile, new Collection<XmlTag>()
+            ResultXmlRead actual = Xml.Read(TestFile, new Collection<XmlTag>()
             {
                 new XmlTag("Wizard", "name", "SavedWIZ"),
                 new XmlTag("Page", "resID", "IDR_DUI_SAVED"),
@@ -79,7 +84,7 @@ namespace ScalesCoreTests.Helpers
             TestContext.WriteLine(@"  Page resID=""IDR_DUI_SAVED""");
             TestContext.WriteLine(@"    Item name=""group2Link""");
             TestContext.WriteLine($@"      enabled=""{actual.Value}""");
-            
+
             TestContext.WriteLine("----------------------------------------------");
             TestContext.WriteLine(string.Join(Environment.NewLine, actual.Str));
             TestContext.WriteLine("----------------------------------------------");
@@ -95,11 +100,11 @@ namespace ScalesCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            if (File.Exists(_settingsHelp.GetScalesConfigFileName()))
+            if (File.Exists(Settings.GetScalesConfigFileName()))
             {
-                var actual = _xmlHelp.Read(_settingsHelp.GetScalesConfigFileName(), new Collection<XmlTag>()
+                ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
                 {
                     new XmlTag("connectionStrings"),
                     new XmlTag("add", "name", "ScalesUI.Properties.Settings.ConnectionString"),
@@ -128,11 +133,11 @@ namespace ScalesCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            if (File.Exists(_settingsHelp.GetScalesConfigFileName()))
+            if (File.Exists(Settings.GetScalesConfigFileName()))
             {
-                var actual = _xmlHelp.Read(_settingsHelp.GetScalesConfigFileName(), new Collection<XmlTag>()
+                ResultXmlRead actual = Xml.Read(Settings.GetScalesConfigFileName(), new Collection<XmlTag>()
                 {
                     new XmlTag("applicationSettings"),
                     new XmlTag("ScalesUI.Properties.Settings"),

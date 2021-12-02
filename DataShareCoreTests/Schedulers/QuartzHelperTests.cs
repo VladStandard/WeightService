@@ -12,7 +12,7 @@ namespace DataShareCoreTests.Schedulers
     {
         #region Public and private fields and properties
 
-        private static readonly QuartzEntity _quartz = QuartzEntity.Instance;
+        private static QuartzEntity Quartz { get; set; } = QuartzEntity.Instance;
 
         #endregion
 
@@ -29,10 +29,10 @@ namespace DataShareCoreTests.Schedulers
             Assert.DoesNotThrow(async () =>
             {
                 TestContext.WriteLine("Open");
-                _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobTest");
+                Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobName", "triggerName", "triggerGroup");
 
                 await Task.Delay(TimeSpan.FromSeconds(7)).ConfigureAwait(true);
-                _quartz.Close();
+                Quartz.Close();
                 TestContext.WriteLine("Close");
             });
             TestContext.WriteLine();
@@ -48,11 +48,11 @@ namespace DataShareCoreTests.Schedulers
             Assert.Throws<ArgumentException>(async () =>
             {
                 TestContext.WriteLine("Open");
-                _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobTest");
+                Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method(); }, "jobName", "triggerName", "triggerGroup");
 
                 await Task.Delay(TimeSpan.FromSeconds(7)).ConfigureAwait(true);
                 TestContext.WriteLine("Close");
-                _quartz.Close();
+                Quartz.Close();
             });
             TestContext.WriteLine();
 

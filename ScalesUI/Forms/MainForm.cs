@@ -13,7 +13,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
@@ -66,6 +65,7 @@ namespace ScalesUI.Forms
                 _sessionState.NewPallet();
 
                 SetTitle();
+                SetButtonsVisible(false);
                 _quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), delegate { ScheduleEveryDays(); }, 
                     "jobScheduleEveryDays", "triggerScheduleEveryDays", "triggerGroupScheduleEveryDays");
                 _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { ScheduleEverySeconds(); }, 
@@ -171,6 +171,7 @@ namespace ScalesUI.Forms
                     _quartz = null;
                     ManagerBase.WaitSync(0_100);
                     SetTitle();
+                    SetButtonsVisible(false);
                     ManagerBase.WaitSync(0_100);
                     ScheduleControlsVisible(false);
                     ManagerBase.WaitSync(0_100);
@@ -214,6 +215,7 @@ namespace ScalesUI.Forms
                 ScheduleProduct();
                 ScheduleButtonsEnabled();
                 SetTitle();
+                SetButtonsVisible(_sessionState.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MassaManager));
                 ScheduleControlsVisible(true);
             }
         }
@@ -349,17 +351,19 @@ namespace ScalesUI.Forms
             fieldTitle.BackColor = Color.DarkRed;
         }
 
-        private void SetControlsVisible()
+        private void SetButtonsVisible(bool isTaskEnabled)
         {
             bool visible = ProgramState == ShareEnums.ProgramState.IsRun;
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSettings, visible);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonRunScalesTerminal, visible);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonScalesInit, visible);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonScalesInit, visible && isTaskEnabled);
+            //MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectOrder, visible);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonNewPallet, visible);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonAddKneading, visible);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectPlu, visible);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonKneading, visible);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonPrint, visible);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonAddKneading, visible && isTaskEnabled);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectPlu, visible && isTaskEnabled);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonKneading, visible && isTaskEnabled);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonPrint, visible && isTaskEnabled);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldCountBox, visible && isTaskEnabled);
         }
 
         private void ScheduleControlsVisible(bool visible)
@@ -417,16 +421,6 @@ namespace ScalesUI.Forms
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueriesProgress, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryProgress, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLang, false);
-
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSettings, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonRunScalesTerminal, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonScalesInit, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectOrder, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonNewPallet, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonAddKneading, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectPlu, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonKneading, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonPrint, false);
                     break;
                 default:
                     break;
@@ -518,7 +512,6 @@ namespace ScalesUI.Forms
             SetVisible(ProjectsEnums.TaskType.MassaManager, fieldMassaManager);
             SetVisible(ProjectsEnums.TaskType.MassaManager, fieldMassaComPort);
             SetVisible(ProjectsEnums.TaskType.MassaManager, fieldMassaQueries);
-            SetVisible(ProjectsEnums.TaskType.MassaManager, buttonScalesInit);
             bool flag = false;
             if (_sessionState.CurrentPlu != null)
             {
@@ -552,7 +545,7 @@ namespace ScalesUI.Forms
             ScheduleMassaManagerResponseSetAll();
             // Очередь сообщений весов.
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries,
-                $"{LocalizationData.ScalesUI.ScaleQueue}: {_sessionState.Manager.Massa.Requests.Count} {_sessionState.Manager.Massa.ProgressStringQueries}");
+                $"{LocalizationData.ScalesUI.ScaleQueue}: {_sessionState.Manager.Massa.Requests?.Count} {_sessionState.Manager.Massa.ProgressStringQueries}");
             _sessionState.Manager.Massa.ProgressStringQueries = DataShareCore.Utils.StringUtils.GetProgressString(_sessionState.Manager.Massa.ProgressStringQueries);
             MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, _sessionState.Manager.Massa.Requests.Count);
 
@@ -632,7 +625,11 @@ namespace ScalesUI.Forms
 
         private void TaskManagerClose()
         {
+            Stopwatch sw = Stopwatch.StartNew();
+            _sessionState.Log.Information($"TaskManagerClose start {sw.Elapsed}");
             _sessionState.Manager.Close();
+            _sessionState.Log.Information($"TaskManagerClose start {sw.Elapsed}");
+            sw.Stop();
         }
 
         #endregion

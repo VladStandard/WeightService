@@ -7,7 +7,7 @@
 //    public static class OrderHelper
 //    {
 //        // Помощник SQL.
-//        private static readonly SqlHelper _sql = SqlHelper.Instance;
+//        private static readonly SqlHelper _sql { get; set; } = SqlHelper.Instance;
 
 //        public static void SetStatus(OrderEntity order, OrderStatus orderStatus)
 //        {

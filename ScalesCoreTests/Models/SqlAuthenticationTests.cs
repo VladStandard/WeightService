@@ -1,6 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataShareCore.Utils;
+using NUnit.Framework;
+using ScalesCore.Models;
+using System.Diagnostics;
+
 namespace ScalesCoreTests.Models
 {
     public class SqlAuthenticationTests
@@ -47,27 +52,27 @@ namespace ScalesCoreTests.Models
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
-            var sw = Stopwatch.StartNew();
+            Stopwatch sw = Stopwatch.StartNew();
 
-            foreach (var port in EnumValuesUtils.GetUshort())
+            foreach (ushort port in EnumValuesUtils.GetUshort())
             {
-                foreach (var usePort in EnumValuesUtils.GetBool())
+                foreach (bool usePort in EnumValuesUtils.GetBool())
                 {
-                    foreach (var persistSecurityInfo in EnumValuesUtils.GetBool())
+                    foreach (bool persistSecurityInfo in EnumValuesUtils.GetBool())
                     {
-                        foreach (var integratedSecurity in EnumValuesUtils.GetBool())
+                        foreach (bool integratedSecurity in EnumValuesUtils.GetBool())
                         {
-                            foreach (var encrypt in EnumValuesUtils.GetBool())
+                            foreach (bool encrypt in EnumValuesUtils.GetBool())
                             {
-                                foreach (var userId in EnumValuesUtils.GetString())
+                                foreach (string userId in EnumValuesUtils.GetString())
                                 {
-                                    foreach (var password in EnumValuesUtils.GetString())
+                                    foreach (string password in EnumValuesUtils.GetString())
                                     {
-                                        foreach (var database in EnumValuesUtils.GetString())
+                                        foreach (string database in EnumValuesUtils.GetString())
                                         {
-                                            foreach (var server in EnumValuesUtils.GetString())
+                                            foreach (string server in EnumValuesUtils.GetString())
                                             {
-                                                Assert.DoesNotThrow(() => { var sqlAu = new SqlAuthentication(server, database, persistSecurityInfo, integratedSecurity, userId, password, encrypt, usePort, port); });
+                                                Assert.DoesNotThrow(() => { SqlAuthentication sqlAu = new(server, database, persistSecurityInfo, integratedSecurity, userId, password, encrypt, usePort, port); });
                                                 TestContext.WriteLine($@"new SqlAuthentication({persistSecurityInfo}, {integratedSecurity}, {userId.AsString()}, {password.AsString()}, {encrypt})");
                                             }
                                         }
@@ -80,24 +85,24 @@ namespace ScalesCoreTests.Models
             }
 
             sw.Stop();
-            NUnit.Framework.TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {sw.Elapsed}");
         }
 
         [Test]
         public void Exists_Execute_Assert()
         {
-            NUnit.Framework.TestContext.WriteLine(@"--------------------------------------------------------------------------------");
-            NUnit.Framework.TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} start.");
-            var sw = Stopwatch.StartNew();
+            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
+            TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} start.");
+            Stopwatch sw = Stopwatch.StartNew();
 
-            var sqlAu = new SqlAuthentication(null, null, null, null);
+            SqlAuthentication sqlAu = new(null, null, null, null);
             Assert.IsFalse(sqlAu.Exists());
 
             sqlAu = new SqlAuthentication("server", "database", "user", "password");
             Assert.IsTrue(sqlAu.Exists());
 
             sw.Stop();
-            NUnit.Framework.TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} complete. Elapsed time: {sw.Elapsed}");
         }
 
         #endregion

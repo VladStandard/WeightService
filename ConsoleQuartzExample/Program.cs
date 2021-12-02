@@ -12,10 +12,7 @@ namespace ConsoleQuartzExample
     {
         #region Public and private fields and properties
 
-        //private static readonly QuartzEntity _quartz1 = new QuartzEntity();
-        //private static readonly QuartzEntity _quartz2 = new QuartzEntity();
-        //private static readonly QuartzEntity _quartz3 = new QuartzEntity();
-        private static QuartzEntity _quartz = QuartzEntity.Instance;
+        private static QuartzEntity Quartz { get; set; } = QuartzEntity.Instance;
 
         #endregion
 
@@ -40,9 +37,9 @@ namespace ConsoleQuartzExample
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             await Console.Out.WriteLineAsync($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} Start schedule. Wait 10 minutes. Press enter to exit.");
-            _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method1(); }, "jobSample1", "triggerName1", "triggerGroup1");
-            _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(10), delegate { Method2(); }, "jobSample2", "triggerName2", "triggerGroup2");
-            _quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(15), delegate { Method1(); }, "jobSample3", "triggerName3", "triggerGroup3");
+            Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(), delegate { Method1(); }, "jobSample1", "triggerName1", "triggerGroup1");
+            Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(10), delegate { Method2(); }, "jobSample2", "triggerName2", "triggerGroup2");
+            Quartz.AddJob(QuartzUtils.CronExpression.EverySeconds(15), delegate { Method1(); }, "jobSample3", "triggerName3", "triggerGroup3");
             while (true)
             {
                 if (stopwatch.Elapsed.Minutes > 9)
@@ -52,7 +49,7 @@ namespace ConsoleQuartzExample
                     break;
                 System.Threading.Thread.Sleep(10);
             }
-            _quartz.Close();
+            Quartz.Close();
             await Console.Out.WriteLineAsync("Finish");
         }
 
