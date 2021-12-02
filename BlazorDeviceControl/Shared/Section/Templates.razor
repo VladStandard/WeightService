@@ -5,9 +5,11 @@
 @using DataProjectsCore.DAL
 @using DataProjectsCore.DAL.DataModels
 @using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.DAL.TableScaleModels
 @using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
+@using DataShareCore
 @inherits BlazorProjectsCore.Models.BaseRazorIdEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
@@ -15,20 +17,20 @@
     <DataReload Title=@LocalizationData.DeviceControl.SectionTemplates SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@Items TItem="TemplateDirect"
+        Data=@Items TItem="TemplateEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
         RowDoubleClick=@(args => ActionEditAsync())
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn 
-                TItem="TemplateDirect" Property="Id" TextAlign="TextAlign.Center"
+                TItem="TemplateEntity" Property="Id" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldId Width="7.5%" />
             <RadzenGridColumn 
-                TItem="TemplateDirect" Property="CategoryId" TextAlign="TextAlign.Center"
+                TItem="TemplateEntity" Property="CategoryId" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldCategoryName Width="10%" />
             <RadzenGridColumn 
-                TItem="TemplateDirect" Property="Title" 
+                TItem="TemplateEntity" Property="Title" 
                 Title=@LocalizationData.DeviceControl.TableFieldTitle Width="82.5%" />
         </Columns>
     </RadzenGrid>

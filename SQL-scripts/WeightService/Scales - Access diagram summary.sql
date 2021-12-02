@@ -1,9 +1,9 @@
 -- Scales - Access diagram summary
-select
-	 [UID]
-	,[CREATE_DT]
-	,[CHANGE_DT]
-	,[USER]
-	,[LEVEL]
-from [db_scales].[ACCESS]
-order by [USER] desc
+SELECT
+	[UID]
+   ,[CREATE_DT]
+   ,[CHANGE_DT]
+   ,[user]
+   ,[LEVEL]
+FROM [db_scales].[ACCESS]
+ORDER BY [user] DESC

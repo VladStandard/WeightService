@@ -3,7 +3,6 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableDwhModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
@@ -17,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<NomenclatureEntity> Items { get; set; }
+        private List<DataProjectsCore.DAL.TableScaleModels.NomenclatureEntity> Items { get; set; }
 
         #endregion
 

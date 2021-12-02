@@ -628,8 +628,8 @@ namespace ScalesUI.Forms
             Stopwatch sw = Stopwatch.StartNew();
             SessionState.Log.Information($"TaskManagerClose start {sw.Elapsed}");
             SessionState.Manager.Close();
-            SessionState.Log.Information($"TaskManagerClose start {sw.Elapsed}");
             sw.Stop();
+            SessionState.Log.Information($"TaskManagerClose finish {sw.Elapsed}");
         }
 
         #endregion

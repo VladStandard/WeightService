@@ -5,6 +5,7 @@
 @using DataProjectsCore.DAL
 @using DataProjectsCore.DAL.DataModels
 @using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.DAL.TableScaleModels
 @using DataProjectsCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
@@ -16,18 +17,18 @@
     <DataReload Title=@LocalizationData.DeviceControl.SectionProductionFacilities SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@Items TItem="ProductionFacilityDirect"
+        Data=@Items TItem="ProductionFacilityEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
         RowDoubleClick=@(args => ActionEditAsync())
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="ProductionFacilityDirect" Property="Id" TextAlign="TextAlign.Center"
+                TItem="ProductionFacilityEntity" Property="Id" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldId 
                 Type="int" Width="7.5%" />
             <RadzenGridColumn 
-                TItem="ProductionFacilityDirect" Property="Name" 
+                TItem="ProductionFacilityEntity" Property="Name" 
                 Title=@LocalizationData.DeviceControl.TableFieldName
                 Type="string" Width="92.5%" />
         </Columns>

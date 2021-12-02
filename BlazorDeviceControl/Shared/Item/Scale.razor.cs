@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using DataProjectsCore;
+using DataProjectsCore.DAL.TableSystemModels;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -29,7 +30,7 @@ namespace BlazorDeviceControl.Shared.Item
         public List<TemplateEntity> TemplatesSeriesItems { get; set; } = null;
         public List<WorkshopEntity> WorkshopItems { get; set; } = null;
         public List<TypeEntity<string>> ComPorts { get; set; }
-        public List<HostDirect> HostItems { get; set; } = null;
+        public List<HostEntity> HostItems { get; set; } = null;
 
         #endregion
 

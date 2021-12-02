@@ -1,5 +1,6 @@
 ﻿@page "/system/access"
 @using BlazorProjectsCore
+@using DataCore
 @using DataProjectsCore
 @using DataProjectsCore.DAL.DataModels
 @using DataProjectsCore.DAL.TableModels
@@ -8,11 +9,12 @@
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
+@using DataShareCore
 @inherits BlazorProjectsCore.Models.BaseRazorUidEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@BlazorShareCore.LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true 
+    <DataReload Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true 
         ItemsCount=@ItemsCount />
     <RadzenGrid Style="margin-top: 5px; "
         Data=@Items TItem="AccessEntity"
@@ -67,5 +69,5 @@
 }
 else
 {
-    <RadzenLabel Text=@BlazorCore.LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
 }
