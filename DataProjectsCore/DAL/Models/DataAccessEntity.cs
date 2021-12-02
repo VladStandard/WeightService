@@ -31,80 +31,83 @@ namespace DataProjectsCore.DAL.Models
             {
                 if (_sessionFactory != null)
                     return _sessionFactory;
-                if (CoreSettings == null)
-                    throw new ArgumentException("CoreSettings is null!");
-                FluentConfiguration configuration;
-                if (CoreSettings.Trusted)
+                //lock (this)
                 {
-                    configuration = Fluently.Configure()
-                        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                            .Server(CoreSettings.Server).Database(CoreSettings.Db)
-                            .TrustedConnection()
-                        )
-                        .ShowSql()
-                        .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
-                        );
+                    if (CoreSettings == null)
+                        throw new ArgumentException("CoreSettings is null!");
+                    FluentConfiguration configuration;
+                    if (CoreSettings.Trusted)
+                    {
+                        configuration = Fluently.Configure()
+                            .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
+                                .Server(CoreSettings.Server).Database(CoreSettings.Db)
+                                .TrustedConnection()
+                            )
+                            .ShowSql()
+                            .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
+                            );
+                    }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(CoreSettings.Username) || string.IsNullOrEmpty(CoreSettings.Password))
+                            throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
+                        configuration = Fluently.Configure()
+                            .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
+                                .Server(CoreSettings.Server).Database(CoreSettings.Db)
+                                .Username(CoreSettings.Username).Password(CoreSettings.Password)
+                            )
+                            .ShowSql()
+                            .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
+                            );
+                    }
+                    AddMappings(configuration, CoreSettings);
+                    configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
+                    _sessionFactory = configuration.BuildSessionFactory();
+                    return _sessionFactory;
                 }
-                else
-                {
-                    if (string.IsNullOrEmpty(CoreSettings.Username) || string.IsNullOrEmpty(CoreSettings.Password))
-                        throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
-                    configuration = Fluently.Configure()
-                        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                            .Server(CoreSettings.Server).Database(CoreSettings.Db)
-                            .Username(CoreSettings.Username).Password(CoreSettings.Password)
-                        )
-                        .ShowSql()
-                        .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
-                        );
-                }
-                AddMappings(configuration, CoreSettings);
-                configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
-                _sessionFactory = configuration.BuildSessionFactory();
-                return _sessionFactory;
             }
         }
 
         // SYSTEM Tables CRUD.
-        public BaseCrud<TableSystemModels.AccessEntity> AccessesCrud;
-        public BaseCrud<TableSystemModels.AppEntity> AppsCrud;
-        public BaseCrud<TableSystemModels.LogEntity> LogsCrud;
-        public BaseCrud<TableSystemModels.LogTypeEntity> LogTypesCrud;
-        public TableSystemModels.HostCrud HostsCrud;
-        
+        public BaseCrud<TableSystemModels.AccessEntity>? AccessesCrud = null;
+        public BaseCrud<TableSystemModels.AppEntity>? AppsCrud = null;
+        public BaseCrud<TableSystemModels.LogEntity>? LogsCrud = null;
+        public BaseCrud<TableSystemModels.LogTypeEntity>? LogTypesCrud = null;
+        public TableSystemModels.HostCrud? HostsCrud = null;
+
         // SCALES Tables CRUD.
-        public BaseCrud<TableScaleModels.BarcodeTypeEntity> BarcodeTypesCrud;
-        public BaseCrud<TableScaleModels.ContragentEntity> ContragentsCrud;
-        public BaseCrud<TableScaleModels.ErrorEntity> ErrorsCrud;
-        public BaseCrud<TableScaleModels.LabelEntity> LabelsCrud;
-        public BaseCrud<TableScaleModels.NomenclatureEntity> NomenclaturesCrud;
-        public BaseCrud<TableScaleModels.OrderEntity> OrdersCrud;
-        public BaseCrud<TableScaleModels.OrderStatusEntity> OrderStatusesCrud;
-        public BaseCrud<TableScaleModels.OrderTypeEntity> OrderTypesCrud;
-        public BaseCrud<TableScaleModels.PluEntity> PlusCrud;
-        public BaseCrud<TableScaleModels.ProductSeriesEntity> ProductSeriesCrud;
-        public BaseCrud<TableScaleModels.ProductionFacilityEntity> ProductionFacilitiesCrud;
-        public BaseCrud<TableScaleModels.ScaleEntity> ScalesCrud;
-        public BaseCrud<TableScaleModels.TemplateEntity> TemplatesCrud;
-        public BaseCrud<TableScaleModels.WeithingFactEntity> WeithingFactsCrud;
-        public BaseCrud<TableScaleModels.WorkshopEntity> WorkshopsCrud;
-        public BaseCrud<TableScaleModels.PrinterEntity> PrintersCrud;
-        public BaseCrud<TableScaleModels.PrinterResourceEntity> PrinterResourcesCrud;
-        public BaseCrud<TableScaleModels.PrinterTypeEntity> PrinterTypesCrud;
-        public TableScaleModels.TemplateResourceCrud TemplateResourcesCrud;
+        public BaseCrud<TableScaleModels.BarcodeTypeEntity>? BarcodeTypesCrud = null;
+        public BaseCrud<TableScaleModels.ContragentEntity>? ContragentsCrud = null;
+        public BaseCrud<TableScaleModels.ErrorEntity>? ErrorsCrud = null;
+        public BaseCrud<TableScaleModels.LabelEntity>? LabelsCrud = null;
+        public BaseCrud<TableScaleModels.NomenclatureEntity>? NomenclaturesCrud = null;
+        public BaseCrud<TableScaleModels.OrderEntity>? OrdersCrud = null;
+        public BaseCrud<TableScaleModels.OrderStatusEntity>? OrderStatusesCrud = null;
+        public BaseCrud<TableScaleModels.OrderTypeEntity>? OrderTypesCrud = null;
+        public BaseCrud<TableScaleModels.PluEntity>? PlusCrud = null;
+        public BaseCrud<TableScaleModels.ProductSeriesEntity>? ProductSeriesCrud = null;
+        public BaseCrud<TableScaleModels.ProductionFacilityEntity>? ProductionFacilitiesCrud = null;
+        public BaseCrud<TableScaleModels.ScaleEntity>? ScalesCrud = null;
+        public BaseCrud<TableScaleModels.TemplateEntity>? TemplatesCrud = null;
+        public BaseCrud<TableScaleModels.WeithingFactEntity>? WeithingFactsCrud = null;
+        public BaseCrud<TableScaleModels.WorkshopEntity>? WorkshopsCrud = null;
+        public BaseCrud<TableScaleModels.PrinterEntity>? PrintersCrud = null;
+        public BaseCrud<TableScaleModels.PrinterResourceEntity>? PrinterResourcesCrud = null;
+        public BaseCrud<TableScaleModels.PrinterTypeEntity>? PrinterTypesCrud = null;
+        public TableScaleModels.TemplateResourceCrud? TemplateResourcesCrud = null;
         // Datas CRUD.
-        public BaseCrud<DataModels.DeviceEntity> DeviceCrud;
-        public BaseCrud<DataShareCore.DAL.DataModels.LogSummaryEntity> LogSummaryCrud;
-        public BaseCrud<DataModels.WeithingFactSummaryEntity> WeithingFactSummaryCrud;
+        public BaseCrud<DataModels.DeviceEntity>? DeviceCrud = null;
+        public BaseCrud<DataShareCore.DAL.DataModels.LogSummaryEntity>? LogSummaryCrud = null;
+        public BaseCrud<DataModels.WeithingFactSummaryEntity>? WeithingFactSummaryCrud = null;
 
         // DWH Tables CRUD.
-        public BaseCrud<TableDwhModels.BrandEntity> BrandCrud;
-        public BaseCrud<TableDwhModels.InformationSystemEntity> InformationSystemCrud;
-        public BaseCrud<TableDwhModels.NomenclatureEntity> NomenclatureCrud;
-        public BaseCrud<TableDwhModels.NomenclatureGroupEntity> NomenclatureGroupCrud;
-        public BaseCrud<TableDwhModels.NomenclatureLightEntity> NomenclatureLightCrud;
-        public BaseCrud<TableDwhModels.NomenclatureTypeEntity> NomenclatureTypeCrud;
-        public BaseCrud<TableDwhModels.StatusEntity> StatusCrud;
+        public BaseCrud<TableDwhModels.BrandEntity>? BrandCrud = null;
+        public BaseCrud<TableDwhModels.InformationSystemEntity>? InformationSystemCrud = null;
+        public BaseCrud<TableDwhModels.NomenclatureEntity>? NomenclatureCrud = null;
+        public BaseCrud<TableDwhModels.NomenclatureGroupEntity>? NomenclatureGroupCrud = null;
+        public BaseCrud<TableDwhModels.NomenclatureLightEntity>? NomenclatureLightCrud = null;
+        public BaseCrud<TableDwhModels.NomenclatureTypeEntity>? NomenclatureTypeCrud = null;
+        public BaseCrud<TableDwhModels.StatusEntity>? StatusCrud = null;
 
         public bool IsDisabled => !GetSession().IsConnected;
         public bool IsOpen => GetSession().IsOpen;
@@ -119,45 +122,52 @@ namespace DataProjectsCore.DAL.Models
         {
             CoreSettings = appSettings;
             DataConfig = new DataConfigurationEntity();
-            // SCALES tables CRUD.
-            AccessesCrud = new BaseCrud<TableSystemModels.AccessEntity>(this);
-            AppsCrud = new BaseCrud<TableSystemModels.AppEntity>(this);
-            HostsCrud = new TableSystemModels.HostCrud(this);
-            LogsCrud = new BaseCrud<TableSystemModels.LogEntity>(this);
-            LogTypesCrud = new BaseCrud<TableSystemModels.LogTypeEntity>(this);
-            //
-            BarcodeTypesCrud = new BaseCrud<TableScaleModels.BarcodeTypeEntity>(this);
-            ContragentsCrud = new BaseCrud<TableScaleModels.ContragentEntity>(this);
-            ErrorsCrud = new BaseCrud<TableScaleModels.ErrorEntity>(this);
-            LabelsCrud = new BaseCrud<TableScaleModels.LabelEntity>(this);
-            NomenclaturesCrud = new BaseCrud<TableScaleModels.NomenclatureEntity>(this);
-            ScalesCrud = new BaseCrud<TableScaleModels.ScaleEntity>(this);
-            OrdersCrud = new BaseCrud<TableScaleModels.OrderEntity>(this);
-            OrderStatusesCrud = new BaseCrud<TableScaleModels.OrderStatusEntity>(this);
-            OrderTypesCrud = new BaseCrud<TableScaleModels.OrderTypeEntity>(this);
-            PlusCrud = new BaseCrud<TableScaleModels.PluEntity>(this);
-            ProductionFacilitiesCrud = new BaseCrud<TableScaleModels.ProductionFacilityEntity>(this);
-            ProductSeriesCrud = new BaseCrud<TableScaleModels.ProductSeriesEntity>(this);
-            TemplatesCrud = new BaseCrud<TableScaleModels.TemplateEntity>(this);
-            TemplateResourcesCrud = new TableScaleModels.TemplateResourceCrud(this);
-            PrinterResourcesCrud = new BaseCrud<TableScaleModels.PrinterResourceEntity>(this);
-            WeithingFactsCrud = new BaseCrud<TableScaleModels.WeithingFactEntity>(this);
-            WorkshopsCrud = new BaseCrud<TableScaleModels.WorkshopEntity>(this);
-            PrinterTypesCrud = new BaseCrud<TableScaleModels.PrinterTypeEntity>(this);
-            PrintersCrud = new BaseCrud<TableScaleModels.PrinterEntity>(this);
-            // Datas CRUD.
-            DeviceCrud = new BaseCrud<DataModels.DeviceEntity>(this);
-            LogSummaryCrud = new BaseCrud<DataShareCore.DAL.DataModels.LogSummaryEntity>(this);
-            WeithingFactSummaryCrud = new BaseCrud<DataModels.WeithingFactSummaryEntity>(this);
 
-            // DWH tables CRUD.
-            BrandCrud = new BaseCrud<TableDwhModels.BrandEntity>(this);
-            InformationSystemCrud = new BaseCrud<TableDwhModels.InformationSystemEntity>(this);
-            NomenclatureGroupCrud = new BaseCrud<TableDwhModels.NomenclatureGroupEntity>(this);
-            NomenclatureTypeCrud = new BaseCrud<TableDwhModels.NomenclatureTypeEntity>(this);
-            NomenclatureCrud = new BaseCrud<TableDwhModels.NomenclatureEntity>(this);
-            NomenclatureLightCrud = new BaseCrud<TableDwhModels.NomenclatureLightEntity>(this);
-            StatusCrud = new BaseCrud<TableDwhModels.StatusEntity>(this);
+            if (string.Equals(CoreSettings.Db, "ScalesDB", StringComparison.InvariantCultureIgnoreCase) ||
+                string.Equals(CoreSettings.Db, "SCALES", StringComparison.InvariantCultureIgnoreCase))
+            {
+                // SYSTEM tables CRUD.
+                AccessesCrud = new BaseCrud<TableSystemModels.AccessEntity>(this);
+                AppsCrud = new BaseCrud<TableSystemModels.AppEntity>(this);
+                HostsCrud = new TableSystemModels.HostCrud(this);
+                LogsCrud = new BaseCrud<TableSystemModels.LogEntity>(this);
+                LogTypesCrud = new BaseCrud<TableSystemModels.LogTypeEntity>(this);
+                // SCALES tables CRUD.
+                BarcodeTypesCrud = new BaseCrud<TableScaleModels.BarcodeTypeEntity>(this);
+                ContragentsCrud = new BaseCrud<TableScaleModels.ContragentEntity>(this);
+                ErrorsCrud = new BaseCrud<TableScaleModels.ErrorEntity>(this);
+                LabelsCrud = new BaseCrud<TableScaleModels.LabelEntity>(this);
+                NomenclaturesCrud = new BaseCrud<TableScaleModels.NomenclatureEntity>(this);
+                ScalesCrud = new BaseCrud<TableScaleModels.ScaleEntity>(this);
+                OrdersCrud = new BaseCrud<TableScaleModels.OrderEntity>(this);
+                OrderStatusesCrud = new BaseCrud<TableScaleModels.OrderStatusEntity>(this);
+                OrderTypesCrud = new BaseCrud<TableScaleModels.OrderTypeEntity>(this);
+                PlusCrud = new BaseCrud<TableScaleModels.PluEntity>(this);
+                ProductionFacilitiesCrud = new BaseCrud<TableScaleModels.ProductionFacilityEntity>(this);
+                ProductSeriesCrud = new BaseCrud<TableScaleModels.ProductSeriesEntity>(this);
+                TemplatesCrud = new BaseCrud<TableScaleModels.TemplateEntity>(this);
+                TemplateResourcesCrud = new TableScaleModels.TemplateResourceCrud(this);
+                PrinterResourcesCrud = new BaseCrud<TableScaleModels.PrinterResourceEntity>(this);
+                WeithingFactsCrud = new BaseCrud<TableScaleModels.WeithingFactEntity>(this);
+                WorkshopsCrud = new BaseCrud<TableScaleModels.WorkshopEntity>(this);
+                PrinterTypesCrud = new BaseCrud<TableScaleModels.PrinterTypeEntity>(this);
+                PrintersCrud = new BaseCrud<TableScaleModels.PrinterEntity>(this);
+                // Datas CRUD.
+                DeviceCrud = new BaseCrud<DataModels.DeviceEntity>(this);
+                LogSummaryCrud = new BaseCrud<DataShareCore.DAL.DataModels.LogSummaryEntity>(this);
+                WeithingFactSummaryCrud = new BaseCrud<DataModels.WeithingFactSummaryEntity>(this);
+            }
+            else if (string.Equals(CoreSettings.Db, "VSDWH", StringComparison.InvariantCultureIgnoreCase))
+            {
+                // DWH tables CRUD.
+                BrandCrud = new BaseCrud<TableDwhModels.BrandEntity>(this);
+                InformationSystemCrud = new BaseCrud<TableDwhModels.InformationSystemEntity>(this);
+                NomenclatureGroupCrud = new BaseCrud<TableDwhModels.NomenclatureGroupEntity>(this);
+                NomenclatureTypeCrud = new BaseCrud<TableDwhModels.NomenclatureTypeEntity>(this);
+                NomenclatureCrud = new BaseCrud<TableDwhModels.NomenclatureEntity>(this);
+                NomenclatureLightCrud = new BaseCrud<TableDwhModels.NomenclatureLightEntity>(this);
+                StatusCrud = new BaseCrud<TableDwhModels.StatusEntity>(this);
+            }
         }
 
         #endregion
@@ -297,25 +307,28 @@ namespace DataProjectsCore.DAL.Models
 
         private void ExecTransaction(ExecCallback callback, string filePath, int lineNumber, string memberName)
         {
-            using ISession? session = GetSession();
-            if (session != null)
+            lock (this)
             {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
+                using ISession? session = GetSession();
+                if (session != null)
                 {
-                    callback?.Invoke(session);
-                    session.Flush();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
+                    using ITransaction? transaction = session.BeginTransaction();
+                    try
+                    {
+                        callback?.Invoke(session);
+                        session.Flush();
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        LogException(ex, filePath, lineNumber, memberName);
+                        throw;
+                    }
+                    finally
+                    {
+                        session.Disconnect();
+                    }
                 }
             }
         }
