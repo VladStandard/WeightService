@@ -106,7 +106,7 @@ namespace WeightCore.Managers
             Open();
 
             MutexReopen = null;
-            MutexRequest = null ;
+            MutexRequest = null;
             MutexResponse = null;
 
             CtsReopen = null;

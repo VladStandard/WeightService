@@ -36,6 +36,7 @@ namespace ScalesUI.Forms
         private object LockerSeconds { get; set; } = new();
         private object LockerDays { get; set; } = new();
         public ShareEnums.ProgramState ProgramState { get; set; } = ShareEnums.ProgramState.Default;
+        private string _appName = null;
 
         #endregion
 
@@ -49,6 +50,7 @@ namespace ScalesUI.Forms
             TopMost = !_debug.IsDebug;
             fieldResolution.SelectedIndex = _debug.IsDebug ? 2 : 0;
             fieldLang.SelectedIndex = 0;
+            _appName = $"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}.";
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -274,67 +276,77 @@ namespace ScalesUI.Forms
             {
                 case ShareEnums.PublishType.Debug:
                 case ShareEnums.PublishType.Dev:
-                    switch (ProgramState)
-                    {
-                        case ShareEnums.ProgramState.IsLoad:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
-                                $"  {LocalizationData.ScalesUI.ProgramLoad}");
-                            break;
-                        case ShareEnums.ProgramState.IsRun:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}.");
-                            break;
-                        case ShareEnums.ProgramState.IsExit:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
-                                $"  {LocalizationData.ScalesUI.ProgramExit}");
-                            break;
-                    }
-                    fieldTitle.BackColor = Color.Yellow;
+                    SetTitleSwitchDev();
                     break;
                 case ShareEnums.PublishType.Release:
-                    switch (ProgramState)
-                    {
-                        case ShareEnums.ProgramState.IsLoad:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}." +
-                                $"  {LocalizationData.ScalesUI.ProgramLoad}");
-                            break;
-                        case ShareEnums.ProgramState.IsRun:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}.");
-                            break;
-                        case ShareEnums.ProgramState.IsExit:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}." +
-                                $"  {LocalizationData.ScalesUI.ProgramExit}");
-                            break;
-                    }
-                    fieldTitle.BackColor = Color.LightGreen;
+                    SetTitleSwitchRelease();
                     break;
                 case ShareEnums.PublishType.Default:
                 default:
-                    switch (ProgramState)
-                    {
-                        case ShareEnums.ProgramState.IsLoad:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
-                                $"  {LocalizationData.ScalesUI.ProgramLoad}");
-                            break;
-                        case ShareEnums.ProgramState.IsRun:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}.");
-                            break;
-                        case ShareEnums.ProgramState.IsExit:
-                            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
-                                $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
-                                $"  {LocalizationData.ScalesUI.ProgramExit}");
-                            break;
-                    }
-                    fieldTitle.BackColor = Color.DarkRed;
+                    SetTitleSwitchDefault();
                     break;
             }
+        }
+
+        private void SetTitleSwitchDev()
+        {
+            switch (ProgramState)
+            {
+                case ShareEnums.ProgramState.IsLoad:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName +
+                        $" SQL: {_sessionState.SqlViewModel.PublishDescription}." +
+                        $"  {LocalizationData.ScalesUI.ProgramLoad}");
+                    break;
+                case ShareEnums.ProgramState.IsRun:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName +
+                        $" SQL: {_sessionState.SqlViewModel.PublishDescription}.");
+                    break;
+                case ShareEnums.ProgramState.IsExit:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName +
+                        $" SQL: {_sessionState.SqlViewModel.PublishDescription}." +
+                        $"  {LocalizationData.ScalesUI.ProgramExit}");
+                    break;
+            }
+            fieldTitle.BackColor = Color.Yellow;
+        }
+
+        private void SetTitleSwitchRelease()
+        {
+            switch (ProgramState)
+            {
+                case ShareEnums.ProgramState.IsLoad:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName + $"  {LocalizationData.ScalesUI.ProgramLoad}");
+                    break;
+                case ShareEnums.ProgramState.IsRun:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName);
+                    break;
+                case ShareEnums.ProgramState.IsExit:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName + $"  {LocalizationData.ScalesUI.ProgramExit}");
+                    break;
+            }
+            fieldTitle.BackColor = Color.LightGreen;
+        }
+
+        private void SetTitleSwitchDefault()
+        {
+            switch (ProgramState)
+            {
+                case ShareEnums.ProgramState.IsLoad:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                        $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
+                        $"  {LocalizationData.ScalesUI.ProgramLoad}");
+                    break;
+                case ShareEnums.ProgramState.IsRun:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                        $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}.");
+                    break;
+                case ShareEnums.ProgramState.IsExit:
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle,
+                        $@"{_appVersion.AppTitle}.  {_sessionState.CurrentScale.Description}. SQL: {_sessionState.SqlViewModel.PublishDescription}." +
+                        $"  {LocalizationData.ScalesUI.ProgramExit}");
+                    break;
+            }
+            fieldTitle.BackColor = Color.DarkRed;
         }
 
         private void SetControlsVisible()

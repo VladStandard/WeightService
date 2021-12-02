@@ -8,12 +8,6 @@ using System.Threading;
 
 namespace WeightCore.MassaK
 {
-    public class MassaConnectionException : Exception
-    {
-        public MassaConnectionException() : base("Failed connect to the scales") { }
-        public MassaConnectionException(Exception e) : base("Failed connect to the scales", e) { }
-    }
-
     public class MassaDeviceEntity : DisposableBase, IDisposableBase
     {
         #region Public and private fields and properties

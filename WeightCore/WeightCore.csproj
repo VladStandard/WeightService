@@ -251,6 +251,7 @@
     <Compile Include="Managers\ManagerMemory.cs" />
     <Compile Include="Managers\ManagerHelper.cs" />
     <Compile Include="MassaK\MassaCmdType.cs" />
+    <Compile Include="MassaK\MassaConnectionException.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />
     <Compile Include="MassaK\BytesHelper.cs" />
     <Compile Include="MassaK\DeviceSocketTcpEntity.cs" />

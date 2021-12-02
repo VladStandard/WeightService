@@ -22,6 +22,7 @@ namespace DataProjectsCore.DAL.Models
 
         public CoreSettingsEntity CoreSettings { get; set; }
         public DataConfigurationEntity DataConfig { get; set; }
+        private delegate void ExecCallback(ISession session);
 
         private ISessionFactory? _sessionFactory;
         private ISessionFactory SessionFactory
@@ -253,41 +254,23 @@ namespace DataProjectsCore.DAL.Models
         public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             T[]? result = new T[0];
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
+            ExecTransaction((session) => {
+                if (DataConfig != null)
                 {
-                    if (DataConfig != null)
-                    {
-                        result = DataConfig.OrderAsc
-                            ? session.Query<T>()
-                            .OrderBy(ent => ent)
+                    result = DataConfig.OrderAsc
+                        ? session.Query<T>()
+                        .OrderBy(ent => ent)
+                        .Skip(DataConfig.PageNo * DataConfig.PageSize)
+                        .Take(DataConfig.PageSize)
+                        .ToArray()
+                        : session.Query<T>()
+                            .OrderByDescending(ent => ent)
                             .Skip(DataConfig.PageNo * DataConfig.PageSize)
                             .Take(DataConfig.PageSize)
                             .ToArray()
-                            : session.Query<T>()
-                                .OrderByDescending(ent => ent)
-                                .Skip(DataConfig.PageNo * DataConfig.PageSize)
-                                .Take(DataConfig.PageSize)
-                                .ToArray()
-                            ;
-                    }
-                    session.Flush();
-                    transaction.Commit();
+                        ;
                 }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            }, filePath, lineNumber, memberName);
             return result;
         }
 
@@ -312,18 +295,15 @@ namespace DataProjectsCore.DAL.Models
             return criteria;
         }
 
-        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
+        private void ExecTransaction(ExecCallback callback, string filePath, int lineNumber, string memberName)
         {
-            T? result = new();
             using ISession? session = GetSession();
             if (session != null)
             {
                 using ITransaction? transaction = session.BeginTransaction();
                 try
                 {
-                    ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
-                    IList<T>? list = criteria?.List<T>();
-                    result = list.FirstOrDefault() ?? new T();
+                    callback?.Invoke(session);
                     session.Flush();
                     transaction.Commit();
                 }
@@ -338,6 +318,16 @@ namespace DataProjectsCore.DAL.Models
                     session.Disconnect();
                 }
             }
+        }
+
+        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
+        {
+            T? result = new();
+            ExecTransaction((session) => {
+                ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
+                IList<T>? list = criteria?.List<T>();
+                result = list.FirstOrDefault() ?? new T();
+            }, filePath, lineNumber, memberName);
             return result;
         }
 
@@ -387,27 +377,9 @@ namespace DataProjectsCore.DAL.Models
         public T[] GetEntities<T>(FieldListEntity fieldList, FieldOrderEntity order, int maxResults, string filePath, int lineNumber, string memberName)
         {
             T[]? result = new T[0];
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
-                {
-                    result = GetCriteria<T>(session, fieldList, order, maxResults).List<T>().ToArray();
-                    session.Flush();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            ExecTransaction((session) => {
+                result = GetCriteria<T>(session, fieldList, order, maxResults).List<T>().ToArray();
+            }, filePath, lineNumber, memberName);
             return result;
         }
 
@@ -453,248 +425,102 @@ namespace DataProjectsCore.DAL.Models
         public T[] GetEntitiesNativeMapping<T>(string query, string filePath, int lineNumber, string memberName)
         {
             T[]? result = new T[0];
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
+            ExecTransaction((session) => {
+                ISQLQuery? sqlQuery = GetSqlQuery(session, query);
+                if (sqlQuery != null)
                 {
-                    ISQLQuery? sqlQuery = GetSqlQuery(session, query);
-                    if (sqlQuery != null)
+                    sqlQuery.AddEntity(typeof(T));
+                    System.Collections.IList? listEntities = sqlQuery.List();
+                    result = new T[listEntities.Count];
+                    for (int i = 0; i < result.Length; i++)
                     {
-                        sqlQuery.AddEntity(typeof(T));
-                        System.Collections.IList? listEntities = sqlQuery.List();
-                        result = new T[listEntities.Count];
-                        for (int i = 0; i < result.Length; i++)
-                        {
-                            result[i] = (T)listEntities[i];
-                        }
+                        result[i] = (T)listEntities[i];
                     }
-
-                    session.Flush();
-                    transaction.Commit();
                 }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            }, filePath, lineNumber, memberName);
             return result;
         }
 
         public object[] GetEntitiesNativeObject(string query, string filePath, int lineNumber, string memberName)
         {
             object[]? result = new object[0];
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
+            ExecTransaction ((session) => {
+                ISQLQuery? sqlQuery = GetSqlQuery(session, query);
+                if (sqlQuery != null)
                 {
-                    ISQLQuery? sqlQuery = GetSqlQuery(session, query);
-                    if (sqlQuery != null)
+                    System.Collections.IList? listEntities = sqlQuery.List();
+                    result = new object[listEntities.Count];
+                    for (int i = 0; i < result.Length; i++)
                     {
-                        System.Collections.IList? listEntities = sqlQuery.List();
-                        result = new object[listEntities.Count];
-                        for (int i = 0; i < result.Length; i++)
-                        {
-                            if (listEntities[i] is object[] records)
-                                result[i] = records;
-                            else
-                                result[i] = listEntities[i];
-                        }
+                        if (listEntities[i] is object[] records)
+                            result[i] = records;
+                        else
+                            result[i] = listEntities[i];
                     }
-
-                    session.Flush();
-                    transaction.Commit();
                 }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            }, filePath, lineNumber, memberName);
             return result;
         }
 
         public int ExecQueryNative(string query, Dictionary<string, object> parameters, string filePath, int lineNumber, string memberName)
         {
             int result = 0;
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
+            ExecTransaction((session) => {
+                ISQLQuery? sqlQuery = GetSqlQuery(session, query);
+                if (sqlQuery != null && parameters != null)
                 {
-                    ISQLQuery? sqlQuery = GetSqlQuery(session, query);
-                    if (sqlQuery != null && parameters != null)
+                    foreach (KeyValuePair<string, object> parameter in parameters)
                     {
-                        foreach (KeyValuePair<string, object> parameter in parameters)
-                        {
-                            if (parameter.Value is byte[] imagedata)
-                                sqlQuery.SetParameter(parameter.Key, imagedata);
-                            else
-                                sqlQuery.SetParameter(parameter.Key, parameter.Value);
-                        }
-                        result = sqlQuery.ExecuteUpdate();
+                        if (parameter.Value is byte[] imagedata)
+                            sqlQuery.SetParameter(parameter.Key, imagedata);
+                        else
+                            sqlQuery.SetParameter(parameter.Key, parameter.Value);
                     }
-                    session.Flush();
-                    transaction.Commit();
+                    result = sqlQuery.ExecuteUpdate();
                 }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            }, filePath, lineNumber, memberName);
             return result;
         }
 
         public void SaveEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             if (entity.EqualsEmpty()) return;
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
-                {
-                    session.Save(entity);
-                    session.Flush();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            ExecTransaction((session) => {
+                session.Save(entity);
+            }, filePath, lineNumber, memberName);
         }
 
         public void UpdateEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             if (entity.EqualsEmpty()) return;
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
-                {
-                    session.SaveOrUpdate(entity);
-                    session.Flush();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            ExecTransaction((session) => {
+                session.SaveOrUpdate(entity);
+            }, filePath, lineNumber, memberName);
         }
 
         public void DeleteEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
         {
             if (entity.EqualsEmpty()) return;
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
-                {
-                    session.Delete(entity);
-                    session.Flush();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            ExecTransaction((session) => {
+                session.Delete(entity);
+            }, filePath, lineNumber, memberName);
         }
 
         public bool ExistsEntity<T>(T entity, string filePath, int lineNumber, string memberName)
         {
             bool result = false;
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
-                {
-                    result = session.Query<T>().Any(x => x.IsAny(entity));
-                    session.Flush();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            ExecTransaction((session) => {
+                result = session.Query<T>().Any(x => x.IsAny(entity));
+            }, filePath, lineNumber, memberName);
             return result;
         }
 
         public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName)
         {
             bool result = false;
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
-                {
-                    result = GetCriteria<T>(session, fieldList, order, 1).List<T>().Count > 0;
-                    session.Flush();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
+            ExecTransaction((session) => {
+                result = GetCriteria<T>(session, fieldList, order, 1).List<T>().Count > 0;
+            }, filePath, lineNumber, memberName);
             return result;
         }
 
