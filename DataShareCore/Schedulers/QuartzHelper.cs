@@ -8,14 +8,14 @@ using System.Threading;
 
 namespace DataShareCore.Schedulers
 {
-    public class QuartzEntity : IDisposable
+    public class QuartzHelper : IDisposable
     {
         #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        private static QuartzEntity _instance;
+        private static QuartzHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public static QuartzEntity Instance => LazyInitializer.EnsureInitialized(ref _instance);
+        public static QuartzHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 

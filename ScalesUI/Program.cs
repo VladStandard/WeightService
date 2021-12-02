@@ -22,7 +22,7 @@ namespace ScalesUI
 {
     internal static class Program
     {
-        private static readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
+        private static AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
 
         internal static void TokenWrite(string conectionString, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0,
             [CallerMemberName] string memberName = "")
@@ -70,7 +70,7 @@ namespace ScalesUI
         [STAThread]
         internal static void Main()
         {
-            _appVersion.Setup(Assembly.GetExecutingAssembly());
+            AppVersion.Setup(Assembly.GetExecutingAssembly());
 
             string conectionString = Properties.Settings.Default.ConnectionString;
             try

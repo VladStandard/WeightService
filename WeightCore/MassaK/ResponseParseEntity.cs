@@ -198,8 +198,8 @@ namespace WeightCore.MassaK
         }
         public ResponseMassaEntity Massa { get; set; }
         public ResponseScaleParEntity ScalePar { get; set; }
-        private readonly BytesHelper _bytes = BytesHelper.Instance;
-        private readonly MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
+        private BytesHelper _bytes { get; set; } = BytesHelper.Instance;
+        private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
 
         public ResponseParseEntity(MassaCmdType cmdType, byte[] response)
         {
@@ -213,7 +213,7 @@ namespace WeightCore.MassaK
             Header[0] = response[0];
             Header[1] = response[1];
             Header[2] = response[2];
-            IsValidHeaders = Header[0] == _massaRequest.Header[0] && Header[1] == _massaRequest.Header[1] && Header[2] == _massaRequest.Header[2];
+            IsValidHeaders = Header[0] == MassaRequest.Header[0] && Header[1] == MassaRequest.Header[1] && Header[2] == MassaRequest.Header[2];
 
             Len = new byte[2];
             Len[0] = response[3];

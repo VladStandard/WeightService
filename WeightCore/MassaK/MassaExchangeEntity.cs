@@ -14,7 +14,7 @@ namespace WeightCore.MassaK
         public MassaCmdType CmdType { get; set; } = MassaCmdType.Nack;
         public byte[] Request { get; set; } = null;
         public ResponseParseEntity ResponseParse { get; set; } = null;
-        private readonly MassaRequestHelper _massaRequest = MassaRequestHelper.Instance;
+        private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
 
         #endregion
 
@@ -38,13 +38,13 @@ namespace WeightCore.MassaK
 
         public byte[] CmdSetTare()
         {
-            byte[] request = _massaRequest.CMD_SET_TARE;
+            byte[] request = MassaRequest.CMD_SET_TARE;
             request[6] = (byte)(WeightTare & 0xFF);
             request[7] = (byte)((byte)(WeightTare >> 0x08) & 0xFF);
             request[8] = (byte)((byte)(WeightTare >> 0x16) & 0xFF);
             request[9] = (byte)((byte)(WeightTare >> 0x32) & 0xFF);
             CmdSetaTareScaleFactor(request);
-            _massaRequest.MakeRequestCrcRecalc(request);
+            MassaRequest.MakeRequestCrcRecalc(request);
             return request;
         }
 
@@ -63,11 +63,11 @@ namespace WeightCore.MassaK
 
         public byte[] CmdSetName(string name = "xx")
         {
-            byte[] request = new byte[_massaRequest.CMD_SET_NAME.Length + name.Length + 2];
+            byte[] request = new byte[MassaRequest.CMD_SET_NAME.Length + name.Length + 2];
             int k = 0;
-            for (int i = 0; i < _massaRequest.CMD_SET_NAME.Length; i++)
+            for (int i = 0; i < MassaRequest.CMD_SET_NAME.Length; i++)
             {
-                request[i] = _massaRequest.CMD_SET_NAME[i];
+                request[i] = MassaRequest.CMD_SET_NAME[i];
                 k++;
             }
             for (int i = 0; i < name.Length && i < 27; i++, k++)
@@ -79,7 +79,7 @@ namespace WeightCore.MassaK
             request[k++] = 0x00;
             request[4] = (byte)(1 + name.Length);
             request[5] = 0x00;
-            _massaRequest.MakeRequestCrcRecalc(request);
+            MassaRequest.MakeRequestCrcRecalc(request);
             return request;
         }
 

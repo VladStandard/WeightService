@@ -10,7 +10,7 @@
 //{
 //    public class DeviceSocketTcpEntity
 //    {
-//        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
+//        private ExceptionHelper _exception { get; set; } = ExceptionHelper.Instance;
 //        public string DeviceIP { get; private set; }
 //        public int DevicePort { get; private set; }
 //        public int DeviceSendTimeout { get; set; }

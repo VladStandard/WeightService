@@ -15,7 +15,7 @@ namespace WebApiTerra1000.Controllers
     {
         #region Public and private fields and properties
 
-        public ControllerHelper TaskHelper = ControllerHelper.Instance;
+        public ControllerHelper Controller { get; set; } = ControllerHelper.Instance;
         public readonly ILogger<BaseController> Logger;
         public readonly ISessionFactory SessionFactory;
 

@@ -53,7 +53,7 @@
 
 //        private static readonly object Locker = new object();
 //        //private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-//        private readonly LogHelper _log = LogHelper.Instance;
+//        private LogHelper _log { get; set; } = LogHelper.Instance;
 //        private readonly ConcurrentQueue<Cmd> _requestQueue = new ConcurrentQueue<Cmd>();
 //        private Thread _sharingSessionThread;
 //        private bool _work;

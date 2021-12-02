@@ -33,7 +33,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/summary/")]
         public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetSummary,
                     TerraUtils.Sql.GetParameters(startDate, endDate));

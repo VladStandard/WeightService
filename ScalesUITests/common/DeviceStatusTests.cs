@@ -9,7 +9,7 @@
 //    {
 //        #region Private fields and properties
 
-//        private readonly DeviceStatus _sessionState = DeviceStatus.Instance;
+//        private DeviceStatus _sessionState { get; set; } = DeviceStatus.Instance;
 
 //        #endregion
 

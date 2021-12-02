@@ -23,7 +23,7 @@
 
 //        #region Private fields and properties
 
-//        private readonly SessionState _sessionState = SessionState.Instance;
+//        private SessionState _sessionState { get; set; } = SessionState.Instance;
 //        //private event EventHandler MiddleMouseEvent = delegate { };
 //        //private LowLevelMouseProc _levelMouseProc;
 //        //private delegate IntPtr LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);

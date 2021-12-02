@@ -25,7 +25,7 @@
 //        #region Private fields and properties
 
 //        // Помощник SQL.
-//        private readonly SqlHelper _sql = SqlHelper.Instance;
+//        private SqlHelper _sql { get; set; } = SqlHelper.Instance;
 //        private const string GLN = "460710023";
 //        private const int CashSize = 20;
 //        private readonly Stack<SsccEntity> _ssccStack = new Stack<SsccEntity>();

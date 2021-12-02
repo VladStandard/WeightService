@@ -35,7 +35,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/contragent/")]
         public ContentResult GetContragent(int id, FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragent, new SqlParameter("ID", id));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
@@ -50,7 +50,7 @@ namespace WebApiTerra1000.Controllers
         public ContentResult GetContragents(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, 
             FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragents,
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));

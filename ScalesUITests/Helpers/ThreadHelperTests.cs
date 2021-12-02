@@ -13,11 +13,11 @@
 //        /// <summary>
 //        /// Помощник потоков.
 //        /// </summary>
-//        private readonly ThreadHelper _thread = ThreadHelper.Instance;
+//        private ThreadHelper _thread { get; set; } = ThreadHelper.Instance;
 //        /// <summary>
 //        /// Помощник состояния устройства.
 //        /// </summary>
-//        private DeviceStatus _sessionState = DeviceStatus.Instance;
+//        private DeviceStatus _sessionState { get; set; } = DeviceStatus.Instance;
 
 //        #endregion
 

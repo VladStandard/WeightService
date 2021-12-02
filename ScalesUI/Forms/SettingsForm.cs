@@ -24,11 +24,11 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
-        private readonly AppVersionHelper _appVersion = AppVersionHelper.Instance;
-        private readonly DebugHelper _debug = DebugHelper.Instance;
-        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly LogHelper _log = LogHelper.Instance;
-        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
+        private AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
+        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
+        private LogHelper Log { get; set; } = LogHelper.Instance;
+        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
 
         #endregion
 
@@ -46,33 +46,33 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_debug.IsDebug;
+                TopMost = !Debug.IsDebug;
 
                 // Загружить при кажом открытии формы.
-                if (_sessionState != null)
-                    _sessionState.CurrentScale = ScalesUtils.GetScale(_sessionState.Host?.ScaleId);
+                if (SessionState != null)
+                    SessionState.CurrentScale = ScalesUtils.GetScale(SessionState.Host?.ScaleId);
 
                 // Определить COM-порт.
                 DefaultComPortName();
 
-                if (_sessionState?.CurrentScale != null)
+                if (SessionState?.CurrentScale != null)
                 {
-                    fieldSendTimeout.Text = _sessionState.CurrentScale.DeviceWriteTimeout.ToString();
-                    fieldReceiveTimeOut.Text = _sessionState.CurrentScale.DeviceReadTimeout.ToString();
-                    fieldZebraTcpAddress.Text = _sessionState.CurrentScale.ZebraPrinter.Ip;
-                    fieldZebraTcpPort.Text = _sessionState.CurrentScale.ZebraPrinter.Port.ToString();
-                    fieldDescription.Text = _sessionState.CurrentScale.Description;
+                    fieldSendTimeout.Text = SessionState.CurrentScale.DeviceWriteTimeout.ToString();
+                    fieldReceiveTimeOut.Text = SessionState.CurrentScale.DeviceReadTimeout.ToString();
+                    fieldZebraTcpAddress.Text = SessionState.CurrentScale.ZebraPrinter.Ip;
+                    fieldZebraTcpPort.Text = SessionState.CurrentScale.ZebraPrinter.Port.ToString();
+                    fieldDescription.Text = SessionState.CurrentScale.Description;
                 }
 
-                if (_sessionState?.CurrentWeighingFact != null)
-                    fieldCurrentWeightFact.Text = _sessionState.CurrentWeighingFact.SerializeObject();
+                if (SessionState?.CurrentWeighingFact != null)
+                    fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeObject();
 
-                fieldGuid.Text = _sessionState?.CurrentScaleId.ToString();
+                fieldGuid.Text = SessionState?.CurrentScaleId.ToString();
                 //fieldSqlConnectionString.Text = Properties.Settings.Default.ConnectionString;
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -99,7 +99,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -116,7 +116,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -134,18 +134,18 @@ namespace ScalesUI.Forms
                 Thread.Sleep(10);
                 Application.DoEvents();
                 // Data.
-                _sessionState.CurrentScale.DeviceComPort = fieldComPort.Text;
-                _sessionState.CurrentScale.DeviceWriteTimeout = short.Parse(fieldSendTimeout.Text);
-                _sessionState.CurrentScale.DeviceReadTimeout = short.Parse(fieldReceiveTimeOut.Text);
-                _sessionState.CurrentScale.VerScalesUI = _appVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
-                ScalesUtils.Update(_sessionState.CurrentScale);
+                SessionState.CurrentScale.DeviceComPort = fieldComPort.Text;
+                SessionState.CurrentScale.DeviceWriteTimeout = short.Parse(fieldSendTimeout.Text);
+                SessionState.CurrentScale.DeviceReadTimeout = short.Parse(fieldReceiveTimeOut.Text);
+                SessionState.CurrentScale.VerScalesUI = AppVersion.GetCurrentVersion(Assembly.GetExecutingAssembly(), AppVerCountDigits.Use3);
+                ScalesUtils.Update(SessionState.CurrentScale);
                 // Settings.
                 Properties.Settings.Default.Save();
             }
             catch (Exception ex)
             {
                 result = false;
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -166,11 +166,11 @@ namespace ScalesUI.Forms
                 Application.DoEvents();
 
                 ZplConverterHelper zp = new();
-                zp.LogoClear(_sessionState.CurrentScale.ZebraPrinter.Ip, _sessionState.CurrentScale.ZebraPrinter.Port);
-                zp.FontsClear(_sessionState.CurrentScale.ZebraPrinter.Ip, _sessionState.CurrentScale.ZebraPrinter.Port);
-                if (_sessionState.CurrentScale.UseOrder == true)
+                zp.LogoClear(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port);
+                zp.FontsClear(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port);
+                if (SessionState.CurrentScale.UseOrder == true)
                 {
-                    if (_sessionState.CurrentOrder == null)
+                    if (SessionState.CurrentOrder == null)
                     {
                         const string message = "Не определен PLU";
                         const string caption = "Операция недоступна!";
@@ -178,25 +178,25 @@ namespace ScalesUI.Forms
                         return;
                     }
 
-                    zp.LogoUpload(_sessionState.CurrentScale.ZebraPrinter.Ip, _sessionState.CurrentScale.ZebraPrinter.Port, _sessionState.CurrentOrder.Template.Logo);
-                    zp.FontsUpload(_sessionState.CurrentScale.ZebraPrinter.Ip, _sessionState.CurrentScale.ZebraPrinter.Port, _sessionState.CurrentOrder.Template.Fonts);
+                    zp.LogoUpload(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port, SessionState.CurrentOrder.Template.Logo);
+                    zp.FontsUpload(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port, SessionState.CurrentOrder.Template.Fonts);
                 }
                 else
                 {
-                    if (_sessionState.CurrentPlu == null)
+                    if (SessionState.CurrentPlu == null)
                     {
                         const string message = "Не определен PLU";
                         const string caption = "Операция недоступна!";
                         MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    zp.LogoUpload(_sessionState.CurrentScale.ZebraPrinter.Ip, _sessionState.CurrentScale.ZebraPrinter.Port, _sessionState.CurrentPlu.Template.Logo);
-                    zp.FontsUpload(_sessionState.CurrentScale.ZebraPrinter.Ip, _sessionState.CurrentScale.ZebraPrinter.Port, _sessionState.CurrentPlu.Template.Fonts);
+                    zp.LogoUpload(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port, SessionState.CurrentPlu.Template.Logo);
+                    zp.FontsUpload(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port, SessionState.CurrentPlu.Template.Fonts);
                 }
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -226,12 +226,12 @@ namespace ScalesUI.Forms
                     Application.DoEvents();
 
                     ZplConverterHelper zp = new();
-                    zp.Сalibration(_sessionState.CurrentScale.ZebraPrinter.Ip, _sessionState.CurrentScale.ZebraPrinter.Port);
+                    zp.Сalibration(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port);
                 }
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -247,7 +247,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -259,11 +259,11 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.Manager.Print.Send(ZplPipeUtils.ZplPowerOnReset());
+                SessionState.Manager.Print.Send(ZplPipeUtils.ZplPowerOnReset());
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -281,12 +281,12 @@ namespace ScalesUI.Forms
             try
             {
                 //_taskManager.PrintManager.PrintControl.CmdCalibrate();
-                if (!_sessionState.IsTscPrinter)
-                    _sessionState.Manager.Print.Send(ZplPipeUtils.ZplCalibration());
+                if (!SessionState.IsTscPrinter)
+                    SessionState.Manager.Print.Send(ZplPipeUtils.ZplCalibration());
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -298,11 +298,11 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.Manager.Print.Send(ZplPipeUtils.ZplPrintConfigurationLabel());
+                SessionState.Manager.Print.Send(ZplPipeUtils.ZplPrintConfigurationLabel());
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -324,9 +324,9 @@ namespace ScalesUI.Forms
                 System.Collections.Generic.List<string> listComPorts = SerialPort.GetPortNames().ToList();
                 // Текущий порт из настроек.
                 string curPort = string.Empty;
-                if (_sessionState?.CurrentScale?.DeviceComPort != null)
+                if (SessionState?.CurrentScale?.DeviceComPort != null)
                 {
-                    curPort = _sessionState.CurrentScale.DeviceComPort;
+                    curPort = SessionState.CurrentScale.DeviceComPort;
                     if (!string.IsNullOrEmpty(curPort))
                     {
                         bool find = false;
@@ -353,7 +353,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -375,13 +375,13 @@ namespace ScalesUI.Forms
                 catch (Exception ex)
                 {
                     labelSqlStatus.Text = $@"Ошибка подключения! {ex.Message}";
-                    _log.Error(ex.Message);
+                    Log.Error(ex.Message);
                 }
                 con.Close();
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -395,26 +395,26 @@ namespace ScalesUI.Forms
             {
                 fieldCurrentMKProp.Clear();
 
-                if (_sessionState.Manager.Massa != null)
+                if (SessionState.Manager.Massa != null)
                 {
                     //_taskManager.MassaManager.GetScalePar();
                     //Thread.Sleep(10);
                     //Application.DoEvents();
 
-                    if (_sessionState.Manager.Massa.ResponseParseGet != null)
+                    if (SessionState.Manager.Massa.ResponseParseGet != null)
                     {
-                        fieldCurrentMKProp.Text = _sessionState.Manager.Massa.ResponseParseGet.Message;
+                        fieldCurrentMKProp.Text = SessionState.Manager.Massa.ResponseParseGet.Message;
                     }
 
-                    if (_sessionState.Manager.Massa.ResponseParseScalePar != null)
+                    if (SessionState.Manager.Massa.ResponseParseScalePar != null)
                     {
-                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{_sessionState.Manager.Massa.ResponseParseScalePar.Message}";
+                        fieldCurrentMKProp.Text = $@"{fieldCurrentMKProp.Text}\n{SessionState.Manager.Massa.ResponseParseScalePar.Message}";
                     }
                 }
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {
@@ -426,11 +426,11 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.Manager.Print.Send(ZplPipeUtils.ZplClearPrintBuffer());
+                SessionState.Manager.Print.Send(ZplPipeUtils.ZplClearPrintBuffer());
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             finally
             {

@@ -19,7 +19,7 @@ namespace WeightCore.MassaK
 
         #region Public and private fields and properties
 
-        private readonly BytesHelper _bytes = BytesHelper.Instance;
+        private BytesHelper Bytes { get; set; } = BytesHelper.Instance;
 
         public readonly byte[] Header = { 0xF8, 0x55, 0xCE };
 
@@ -30,8 +30,8 @@ namespace WeightCore.MassaK
         public byte[] MakeRequestCrcAdd(byte[] body)
         {
             byte[] len = BitConverter.GetBytes((ushort)body.Length);
-            byte[] crc = _bytes.CrcGet(body);
-            return _bytes.MergeBytes(new List<byte[]>() { Header, len, body, crc });
+            byte[] crc = Bytes.CrcGet(body);
+            return Bytes.MergeBytes(new List<byte[]>() { Header, len, body, crc });
         }
 
         public byte[] MakeRequestCrcAdd(byte body) => MakeRequestCrcAdd(new byte[] { body });
@@ -41,13 +41,13 @@ namespace WeightCore.MassaK
             if (request.Length < 8)
                 throw new ArgumentException($"Length of {nameof(request)} must be more than 8 digits!");
             if (request[0] != Header[0] || request[1] != Header[1] || request[2] != Header[2])
-                throw new ArgumentException($"{nameof(Header)} must be '{_bytes.GetBytesAsHex(Header, ' ')}'!");
+                throw new ArgumentException($"{nameof(Header)} must be '{Bytes.GetBytesAsHex(Header, ' ')}'!");
             byte[] len = new byte[2];
             len[0] = request[3];
             len[1] = request[4];
             ushort lenAsUshort = BitConverter.ToUInt16(len, 0);
             byte[] body = request.Skip(5).Take(lenAsUshort).ToArray();
-            return _bytes.MergeBytes(new List<byte[]>() { Header, len, _bytes.CrcGetWithBody(body) });
+            return Bytes.MergeBytes(new List<byte[]>() { Header, len, Bytes.CrcGetWithBody(body) });
         }
 
         #endregion

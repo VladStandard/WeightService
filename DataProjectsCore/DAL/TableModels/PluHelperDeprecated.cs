@@ -7,7 +7,7 @@
 //    public static class PLUHelper
 //    {
 //        // Помощник SQL.
-//        private static readonly SqlHelper _sql = SqlHelper.Instance;
+//        private static SqlHelper _sql { get; set; } = SqlHelper.Instance;
 
 //        public static PluEntity GetPLU(string scaleGuid, int plu)
 //        {

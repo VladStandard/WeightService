@@ -14,7 +14,7 @@
 //        /// <summary>
 //        /// Помощник принтера Зебра.
 //        /// </summary>
-//        private readonly PrintZebraHelper _printZebra = PrintZebraHelper.Instance;
+//        private PrintZebraHelper _printZebra { get; set; } = PrintZebraHelper.Instance;
 
 //        #endregion
 

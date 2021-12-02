@@ -15,9 +15,9 @@ namespace ScalesUI.Forms
     {
         #region Public and private fields and properties
 
-        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        private readonly DebugHelper _debug = DebugHelper.Instance;
+        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
+        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
         private List<OrderDirect> _ordList = null;
         private int _numPage = 0;
         private readonly int offset = 9;
@@ -37,9 +37,9 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_debug.IsDebug;
+                TopMost = !Debug.IsDebug;
 
-                _ordList = OrderDirect.GetOrderList(_sessionState.CurrentScale);
+                _ordList = OrderDirect.GetOrderList(SessionState.CurrentScale);
                 if (_ordList.Count < offset)
                 {
                     btnLeftRoll.Visible = false;
@@ -74,7 +74,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -87,7 +87,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -103,7 +103,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -128,9 +128,9 @@ namespace ScalesUI.Forms
                 //the names are changed!
                 btn.Click += delegate
                 {
-                    _sessionState.CurrentOrder = _ordList[btn.TabIndex];
-                    _sessionState.CurrentOrder.LoadTemplate();
-                    _sessionState.CurrentPlu = _sessionState.CurrentOrder.PLU;
+                    SessionState.CurrentOrder = _ordList[btn.TabIndex];
+                    SessionState.CurrentOrder.LoadTemplate();
+                    SessionState.CurrentPlu = SessionState.CurrentOrder.PLU;
                     //ws.CurrentPLU.LoadTemplate();
                     //_sessionState.WeightTare = (int)( _sessionState.CurrentOrder.PLU.GoodsTareWeight * _sessionState.CurrentPLU.);
                     //_sessionState.WeightReal = 0;
@@ -141,7 +141,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -153,7 +153,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -183,7 +183,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -197,7 +197,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -210,7 +210,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
     }

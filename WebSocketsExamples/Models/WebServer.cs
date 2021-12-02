@@ -27,7 +27,7 @@ namespace WebSocketsExamples.Models
         private TcpListener _listener;
         private bool Disposed { get; set; }
         private readonly IWebSocketServerFactory _webSocketServerFactory;
-        private readonly LogHelper _log = LogHelper.Instance;
+        private LogHelper Log { get; set; } = LogHelper.Instance;
         private readonly HashSet<string> _supportedSubProtocols;
         const int BUFFER_SIZE = 4 * 1024 * 1024; // 4MB
         public bool Exit { get; private set; }
@@ -64,9 +64,9 @@ namespace WebSocketsExamples.Models
             }
             catch (Exception ex)
             {
-                _log.Error(ex.ToString());
+                Log.Error(ex.ToString());
             }
-            _log.Info("Web-server disposed.");
+            Log.Info("Web-server disposed.");
         }
 
         public void Dispose()
@@ -96,7 +96,7 @@ namespace WebSocketsExamples.Models
             {
                 var fileName = Path.GetFileNameWithoutExtension(filePath);
                 var msg = $@"File {fileName}. Member {memberName}. Object has been disposed off!";
-                _log.Info(msg);
+                Log.Info(msg);
                 throw new ObjectDisposedException(msg);
             }
         }
@@ -111,14 +111,14 @@ namespace WebSocketsExamples.Models
             {
                 if (_supportedSubProtocols.Contains(protocol))
                 {
-                    _log.Info($"Http header has requested sub protocol {protocol} which is supported");
+                    Log.Info($"Http header has requested sub protocol {protocol} which is supported");
                     return protocol;
                 }
             }
 
             if (protocols.Count > 0)
             {
-                _log.Warn($"Http header has requested the following sub protocols: {string.Join(", ", protocols)}. There are no supported protocols configured that match.");
+                Log.Warn($"Http header has requested the following sub protocols: {string.Join(", ", protocols)}. There are no supported protocols configured that match.");
             }
 
             return null;
@@ -163,7 +163,7 @@ namespace WebSocketsExamples.Models
                 }
                 else
                 {
-                    _log.Error("ReadHttpHeaderFromStreamAsync is null!");
+                    Log.Error("ReadHttpHeaderFromStreamAsync is null!");
                 }
 
                 InvokeTextBox.AddTextFormat(textBox, "Connection closed.");
@@ -201,7 +201,7 @@ namespace WebSocketsExamples.Models
                 WebSocketReceiveResult result = await webSocket.ReceiveAsync(buffer, token);
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    _log.Info($"Client initiated close. Status: {result.CloseStatus} Description: {result.CloseStatusDescription}");
+                    Log.Info($"Client initiated close. Status: {result.CloseStatus} Description: {result.CloseStatusDescription}");
                     break;
                 }
 
@@ -226,7 +226,7 @@ namespace WebSocketsExamples.Models
             {
                 //IPAddress localAddress = IPAddress.Any;
                 IPAddress localAddress = IPAddress.Parse("127.0.0.1");
-                _log.Info($@"IPAddress = [{localAddress}]");
+                Log.Info($@"IPAddress = [{localAddress}]");
                 _listener = new TcpListener(localAddress, port);
                 _listener.Start();
                 InvokeTextBox.AddTextFormat(textBox, $@"Url = http://localhost:{port}");

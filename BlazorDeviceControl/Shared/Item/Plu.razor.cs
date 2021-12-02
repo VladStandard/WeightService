@@ -24,8 +24,8 @@ namespace BlazorDeviceControl.Shared.Item
         public List<ScaleEntity> ScaleItems { get; set; } = null;
         public List<TemplateEntity> TemplateItems { get; set; } = null;
         public List<NomenclatureEntity> NomenclatureItems { get; set; } = null;
-        private readonly XmlProductHelper _product = XmlProductHelper.Instance;
-        private readonly BarcodeHelper _barcode = BarcodeHelper.Instance;
+        private XmlProductHelper Product { get; set; } = XmlProductHelper.Instance;
+        private BarcodeHelper Barcode { get; set; } = BarcodeHelper.Instance;
 
         #endregion
 
@@ -166,7 +166,7 @@ namespace BlazorDeviceControl.Shared.Item
                     PluItem.GoodsTareWeight = 0;
                 }
 
-                XmlProductEntity productEntity = _product.GetProductEntity(PluItem.Nomenclature?.SerializedRepresentationObject);
+                XmlProductEntity productEntity = Product.GetProductEntity(PluItem.Nomenclature?.SerializedRepresentationObject);
                 if (productEntity != null && !productEntity.EqualsNew())
                 {
                     if (name.Equals("Entity", StringComparison.InvariantCultureIgnoreCase))
@@ -211,7 +211,7 @@ namespace BlazorDeviceControl.Shared.Item
                                 break;
                             case "getgtin":
                                 if (PluItem.Gtin.Length > 12)
-                                    PluItem.Gtin = _barcode.GetGtin(PluItem.Gtin.Substring(0, 13));
+                                    PluItem.Gtin = Barcode.GetGtin(PluItem.Gtin.Substring(0, 13));
                                 break;
                             case "ean13":
                                 PluItem.Ean13 = PluItem.XmlEan13;

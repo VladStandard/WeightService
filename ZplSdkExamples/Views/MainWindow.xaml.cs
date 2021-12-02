@@ -26,12 +26,12 @@ namespace ZplSdkExamples.Views
 
         private readonly ConnectionBuilderViewModel _viewModel;
         private Connection _connection;
-        private readonly LogHelper _log = LogHelper.Instance;
+        private LogHelper Log { get; set; } = LogHelper.Instance;
         private HealthDataCollectorDummy _healthDataCollector;
         private CancellationTokenSource _cancelTokenSource;
         private CancellationToken _token;
         private FakeCheckThreadByLog _fakeCheckThreadByLog;
-        private CancellationTokenSource _cancelTokenSourceHttpListener;
+        //private CancellationTokenSource _cancelTokenSourceHttpListener;
         private CancellationToken _tokenHttpListener;
         private ZabbixHttpListener _zabbixHttpListener;
 
@@ -51,7 +51,7 @@ namespace ZplSdkExamples.Views
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _log.Setup(logData);
+            Log.Setup(logData);
         }
 
         private void MainWindow_OnClosed(object sender, EventArgs e)
@@ -221,35 +221,35 @@ namespace ZplSdkExamples.Views
         /// <param name="e"></param>
         private void ButtonStartHttpListener_OnClick(object sender, RoutedEventArgs e)
         {
-            _log.Info("OnStart.");
+            Log.Info("OnStart.");
 
             try
             {
-                _log.Info("new HealthDataCollectorDummy()");
+                Log.Info("new HealthDataCollectorDummy()");
                 _healthDataCollector = new HealthDataCollectorDummy();
                 _healthDataCollector.LoadValues();
 
-                _log.Info("new FakeCheckThreadByLog");
+                Log.Info("new FakeCheckThreadByLog");
                 _cancelTokenSource = new CancellationTokenSource();
                 _token = _cancelTokenSource.Token;
 
                 _fakeCheckThreadByLog = new FakeCheckThreadByLog(_healthDataCollector.LoadValues, _token, 2500);
                 _fakeCheckThreadByLog.Start();
 
-                _log.Info("new ZabbixHttpListener");
-                _log.Info("http://localhost:18086/status");
-                _cancelTokenSourceHttpListener = new CancellationTokenSource();
+                Log.Info("new ZabbixHttpListener");
+                Log.Info("http://localhost:18086/status");
+                //_cancelTokenSourceHttpListener = new CancellationTokenSource();
                 _tokenHttpListener = _cancelTokenSource.Token;
 
                 //_zabbixHttpListener = new ZabbixHttpListener(_healthDataCollector.ResponseBuilderFunc, _tokenHttpListener, 10);
                 _zabbixHttpListener = new ZabbixHttpListener();
                 _zabbixHttpListener.Start();
 
-                _log.Info("fakeCheckThreadByLog.StartED.");
+                Log.Info("fakeCheckThreadByLog.StartED.");
             }
             catch (Exception ex)
             {
-                _log.Error(ex.Message);
+                Log.Error(ex.Message);
             }
         }
 
@@ -260,7 +260,7 @@ namespace ZplSdkExamples.Views
         /// <param name="e"></param>
         private void ButtonStopHttpListener_OnClick(object sender, RoutedEventArgs e)
         {
-            _log.Info("fakeCheckThreadByLog.Stop()");
+            Log.Info("fakeCheckThreadByLog.Stop()");
             try
             {
                 _zabbixHttpListener?.Stop();
@@ -271,10 +271,10 @@ namespace ZplSdkExamples.Views
             }
             catch (Exception ex)
             {
-                _log.Error(ex.Message);
+                Log.Error(ex.Message);
             }
 
-            _log.Info("In OnStop.");
+            Log.Info("In OnStop.");
         }
 
         #endregion

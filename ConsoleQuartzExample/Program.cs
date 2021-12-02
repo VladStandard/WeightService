@@ -12,7 +12,7 @@ namespace ConsoleQuartzExample
     {
         #region Public and private fields and properties
 
-        private static QuartzEntity Quartz { get; set; } = QuartzEntity.Instance;
+        private static QuartzHelper Quartz { get; set; } = QuartzHelper.Instance;
 
         #endregion
 

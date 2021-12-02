@@ -80,7 +80,7 @@ namespace WeightCore.Print.Tsc
                 OnPropertyChanged();
             }
         }
-        private readonly TscPrintSetupHelper TscPrintSetup = TscPrintSetupHelper.Instance;
+        private TscPrintSetupHelper TscPrintSetup { get; set; } = TscPrintSetupHelper.Instance;
         private int _cutterValue;
         public int CutterValue
         {

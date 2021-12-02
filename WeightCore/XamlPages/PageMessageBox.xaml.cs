@@ -13,7 +13,7 @@ namespace WeightCore.XamlPages
     {
         #region Private fields and properties
 
-        public SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        public SessionStateHelper SessionState { get; private set; } = SessionStateHelper.Instance;
 
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
 

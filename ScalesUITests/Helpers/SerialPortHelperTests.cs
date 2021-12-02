@@ -11,7 +11,7 @@
 //        /// <summary>
 //        /// Помощник COM-порта.
 //        /// </summary>
-//        private readonly SerialPortHelper _serialPort = SerialPortHelper.Instance;
+//        private SerialPortHelper _serialPort { get; set; } = SerialPortHelper.Instance;
 
 //        #endregion
 

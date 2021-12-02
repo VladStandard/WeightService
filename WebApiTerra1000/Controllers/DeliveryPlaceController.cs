@@ -35,7 +35,7 @@ namespace WebApiTerra1000.Controllers
         public ContentResult GetDeliveryPlaces(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
             FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetDeliveryPlaces,
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));

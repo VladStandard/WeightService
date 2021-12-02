@@ -11,13 +11,11 @@
 //    [Serializable]
 //    public class ScaleEntity
 //    {
-//        // Помощник приложения.
 //        [XmlIgnoreAttribute]
-//        private readonly AppHelper _app = AppHelper.Instance;
+//        private AppHelper _app { get; set; } = AppHelper.Instance;
 
-//        // Помощник SQL.
 //        [XmlIgnoreAttribute]
-//        private readonly SqlHelper _sql = SqlHelper.Instance;
+//        private SqlHelper _sql { get; set; } = SqlHelper.Instance;
 
 //        //// Помощник GUID.
 //        //[XmlIgnoreAttribute]

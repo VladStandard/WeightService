@@ -12,9 +12,9 @@ namespace ScalesUI.Forms
     {
         #region Public and private fields and properties
 
-        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        private readonly DebugHelper _debug = DebugHelper.Instance;
-        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
+        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
 
         #endregion
 
@@ -33,16 +33,16 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_debug.IsDebug;
+                TopMost = !Debug.IsDebug;
                 listBox1.Items.Clear();
-                foreach (string prop in _sessionState.CurrentOrder.ToString().Split('\n'))
+                foreach (string prop in SessionState.CurrentOrder.ToString().Split('\n'))
                 {
                     listBox1.Items.Add(prop);
                 }
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -55,7 +55,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -63,14 +63,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Paused);
-                _sessionState.CurrentOrder = null;
+                SessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Paused);
+                SessionState.CurrentOrder = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -78,14 +78,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Performed);
-                _sessionState.CurrentOrder = null;
+                SessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.Performed);
+                SessionState.CurrentOrder = null;
                 DialogResult = DialogResult.Retry;
                 Close();
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -93,14 +93,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.InProgress);
-                _sessionState.CurrentOrder = null;
+                SessionState.CurrentOrder.SetStatus(ProjectsEnums.OrderStatus.InProgress);
+                SessionState.CurrentOrder = null;
                 DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 

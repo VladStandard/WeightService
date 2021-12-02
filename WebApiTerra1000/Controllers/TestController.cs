@@ -41,7 +41,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/info/")]
         public ContentResult GetInfo(FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 _appVersion.Setup(Assembly.GetExecutingAssembly());
                 
@@ -71,7 +71,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/exception/")]
         public ContentResult GetException(FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetException);
                 
@@ -84,7 +84,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/simple/")]
         public ContentResult GetSimple(FormatType format = FormatType.Xml, int version = 0)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 switch (version)
                 {

@@ -20,7 +20,7 @@
 //        #region Private fields and properties
 
 //        private static readonly object Locker = new object();
-//        private readonly LogHelper _log = LogHelper.Instance;
+//        private LogHelper _log { get; set; } = LogHelper.Instance;
 //        private readonly Thread _commandThread;
 //        private MkDeviceEntity _mkDevice;
 //        private bool _work;

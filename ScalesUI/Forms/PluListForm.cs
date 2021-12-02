@@ -16,9 +16,9 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
-        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly DebugHelper _debug = DebugHelper.Instance;
-        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
+        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
+        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
         private List<PluDirect> _orderList;
         private readonly List<PluDirect> _pluList;
         public int RowCount { get; } = 5;
@@ -35,7 +35,7 @@ namespace ScalesUI.Forms
             InitializeComponent();
             
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            _pluList = PluDirect.GetPluList(_sessionState.CurrentScale);
+            _pluList = PluDirect.GetPluList(SessionState.CurrentScale);
         }
 
         #endregion
@@ -46,14 +46,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TopMost = !_debug.IsDebug;
+                TopMost = !Debug.IsDebug;
                 Width = Owner.Width;
                 Height = Owner.Height;
                 Left = Owner.Left;
                 Top = Owner.Top;
                 //StartPosition = FormStartPosition.CenterParent;
 
-                _orderList = PluDirect.GetPluList(_sessionState.CurrentScale);
+                _orderList = PluDirect.GetPluList(SessionState.CurrentScale);
 
                 PluDirect[] pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
                 Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
@@ -63,7 +63,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -85,7 +85,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             return controls;
         }
@@ -164,7 +164,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
             return button;
         }
@@ -178,7 +178,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -186,14 +186,14 @@ namespace ScalesUI.Forms
         {
             try
             {
-                _sessionState.CurrentOrder = null;
+                SessionState.CurrentOrder = null;
                 int tabIndex = 0;
                 if (sender is Control control)
                     tabIndex = control.TabIndex;
                 if (_orderList?.Count >= tabIndex)
                 {
-                    _sessionState.CurrentPlu = _orderList[tabIndex];
-                    _sessionState.CurrentPlu.LoadTemplate();
+                    SessionState.CurrentPlu = _orderList[tabIndex];
+                    SessionState.CurrentPlu.LoadTemplate();
                     //_sessionState.WeightTare = (int)(_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.Calibre);
                     //_sessionState.WeightReal = 0;
                     DialogResult = DialogResult.OK;
@@ -202,7 +202,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -223,7 +223,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -245,7 +245,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 

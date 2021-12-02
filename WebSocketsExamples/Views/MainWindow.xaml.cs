@@ -16,7 +16,7 @@ namespace WebSocketsExamples.Views
     {
         #region Private fields and properties
 
-        private readonly LogHelper _log = LogHelper.Instance;
+        private LogHelper Log { get; set; } = LogHelper.Instance;
         static IWebSocketServerFactory _webSocketServerFactory;
         private Task _taskWebServer;
         private WebServer _webServer;
@@ -33,7 +33,7 @@ namespace WebSocketsExamples.Views
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             _webSocketServerFactory = new WebSocketServerFactory();
-            _log.Setup(fieldOut);
+            Log.Setup(fieldOut);
         }
 
         #endregion
@@ -56,7 +56,7 @@ namespace WebSocketsExamples.Views
             }
             catch (Exception ex)
             {
-                _log.Error(nameof(WebServer), nameof(StartWebServer), ex.ToString());
+                Log.Error(nameof(WebServer), nameof(StartWebServer), ex.ToString());
                 InvokeTextBox.AddTextFormat(textBox, $@"WebServer exception: {ex.Message}.");
                 if (ex.InnerException != null)
                     InvokeTextBox.AddTextFormat(textBox, 

@@ -29,10 +29,7 @@ namespace ScalesCore.Helpers
 
         #region Public fields and properties - GUID
 
-        /// <summary>
-        /// Помощник SQL.
-        /// </summary>
-        public SqlHelper SqlHelp = SqlHelper.Instance;
+        public SqlHelper SqlHelp { get; private set; } = SqlHelper.Instance;
 
         #endregion
 

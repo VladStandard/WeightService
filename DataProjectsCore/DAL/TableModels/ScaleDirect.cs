@@ -24,7 +24,7 @@ namespace DataProjectsCore.DAL.TableModels
         public int? ScaleFactor { get; set; }
         public int? TemplateIdDefault { get; set; }
         public int? TemplateIdSeries { get; set; }
-        public ZebraPrinterHelper ZebraPrinter = ZebraPrinterHelper.Instance;
+        public ZebraPrinterHelper ZebraPrinter { get; private set; } = ZebraPrinterHelper.Instance;
 
         #endregion
 

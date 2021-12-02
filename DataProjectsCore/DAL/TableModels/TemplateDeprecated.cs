@@ -14,7 +14,7 @@
 //    public class TemplateEntity
 //    {
 //        // Помощник SQL.
-//        private readonly SqlHelper _sql = SqlHelper.Instance;
+//        private SqlHelper _sql { get; set; } = SqlHelper.Instance;
 
 //        public string Title { get; set; }
 //        public string XslContent { get; set; }

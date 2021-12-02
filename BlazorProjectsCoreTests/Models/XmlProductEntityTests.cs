@@ -5,7 +5,7 @@ namespace BlazorCoreTests.Models
     [TestFixture]
     internal class XmlProductEntityTests
     {
-        private readonly ProductHelper _product = ProductHelper.Instance;
+        private ProductHelper _product { get; set; } = ProductHelper.Instance;
 
         private string GetXmlProduct(int number)
         {

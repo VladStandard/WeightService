@@ -36,7 +36,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/shipment/")]
         public ContentResult GetShipment(long id, FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipment, new SqlParameter("ID", id));
                 XDocument xml = XDocument.Parse($"<{TerraConsts.Shipments} />", LoadOptions.None);
@@ -75,7 +75,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/shipments/")]
         public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipments, 
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));

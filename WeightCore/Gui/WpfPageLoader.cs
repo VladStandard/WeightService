@@ -16,9 +16,9 @@ namespace WeightCore.Gui
     {
         #region Public and private fields and properties
 
-        private readonly ExceptionHelper _exception = ExceptionHelper.Instance;
-        private readonly SessionStateHelper _sessionState = SessionStateHelper.Instance;
-        private readonly DebugHelper _debug = DebugHelper.Instance;
+        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
+        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
         public bool UseOwnerSize { get; set; }
         public ProjectsEnums.Page Page { get; private set; }
         private ElementHost ElementHost { get; set; }
@@ -37,7 +37,7 @@ namespace WeightCore.Gui
             InitializeComponent();
 
             Page = ProjectsEnums.Page.Default;
-            _sessionState.IsWpfPageLoaderClose = false;
+            SessionState.IsWpfPageLoaderClose = false;
         }
 
         public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None, 
@@ -58,7 +58,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, false);
+                Exception.Catch(this, ref ex, false);
             }
         }
 
@@ -71,7 +71,7 @@ namespace WeightCore.Gui
             try
             {
                 // Own GUI.
-                TopMost = !_debug.IsDebug;
+                TopMost = !Debug.IsDebug;
 
                 if (Owner != null)
                 {
@@ -109,14 +109,14 @@ namespace WeightCore.Gui
                         PluList.InitializeComponent();
                         ElementHost.Child = PluList;
                         PluList.Loaded += PluListOnLoaded;
-                        _sessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.SqlSettings:
                         SqlSettings = new PageSqlSettings();
                         SqlSettings.InitializeComponent();
                         ElementHost.Child = SqlSettings;
                         SqlSettings.Loaded += SqlSettingsOnLoaded;
-                        _sessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.MessageBox:
                         PageMessageBoxItem = new PageMessageBox();
@@ -124,7 +124,7 @@ namespace WeightCore.Gui
                         ElementHost.Child = PageMessageBoxItem;
                         PageMessageBoxItem.MessageBox = MessageBox;
                         PageMessageBoxItem.Loaded += MessageBoxOnLoaded;
-                        _sessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
+                        SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.Default:
                     default:
@@ -133,7 +133,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, false);
+                Exception.Catch(this, ref ex, false);
             }
         }
 
@@ -145,7 +145,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -157,7 +157,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true);
             }
         }
 
@@ -169,7 +169,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, false);
+                Exception.Catch(this, ref ex, false);
             }
         }
 
@@ -177,12 +177,12 @@ namespace WeightCore.Gui
         {
             try
             {
-                _sessionState.WpfPageLoader_OnClose -= WpfPageLoader_OnClose;
+                SessionState.WpfPageLoader_OnClose -= WpfPageLoader_OnClose;
                 Close();
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, false);
+                Exception.Catch(this, ref ex, false);
             }
         }
 
@@ -212,7 +212,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                _exception.Catch(this, ref ex, false);
+                Exception.Catch(this, ref ex, false);
             }
         }
 

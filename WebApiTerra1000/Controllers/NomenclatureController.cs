@@ -35,7 +35,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/nomenclature/")]
         public ContentResult GetNomenclature(string code, int id, FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = string.IsNullOrEmpty(code)
                     ? TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatureFromId, new SqlParameter("id", id))
@@ -52,7 +52,7 @@ namespace WebApiTerra1000.Controllers
         public ContentResult GetNomenclatures(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
             FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclatures,
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
@@ -67,7 +67,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/nomenclaturescosts/")]
         public ContentResult GetNomenclaturesCosts(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatType format = FormatType.Xml)
         {
-            return TaskHelper.RunTask(new Task<ContentResult>(() =>
+            return Controller.RunTask(new Task<ContentResult>(() =>
             {
                 string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetNomenclaturesCosts,
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));

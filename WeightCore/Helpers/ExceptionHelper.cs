@@ -29,7 +29,7 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
-        private readonly LogHelper _log = LogHelper.Instance;
+        private LogHelper Log { get; set; } = LogHelper.Instance;
 
         #endregion
 
@@ -40,9 +40,9 @@ namespace WeightCore.Helpers
         {
             lock (WpfPageLoader.Locker)
             {
-                _log.Error(ex.Message, filePath, memberName, lineNumber);
+                Log.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    _log.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
+                    Log.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
                 string msg = ex.Message;
                 if (ex.InnerException != null)
                     msg += Environment.NewLine + ex.InnerException.Message;

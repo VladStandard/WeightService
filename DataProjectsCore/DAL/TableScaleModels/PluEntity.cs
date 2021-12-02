@@ -37,6 +37,9 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         #endregion
 
+        private XmlProductHelper Product { get; set; } = XmlProductHelper.Instance;
+        private BarcodeHelper Barcode { get; set; } = BarcodeHelper.Instance;
+
         #region Public and private fields and properties - XML
 
         public virtual string XmlGoodsName
@@ -413,8 +416,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public virtual decimal CalcGoodsTareWeight()
         {
-            XmlProductHelper product = XmlProductHelper.Instance;
-            XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+            XmlProductEntity productEntity = Product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
             if (productEntity != null && !productEntity.EqualsNew() && Nomenclature != null)
             {
                 // Вес коробки.
@@ -455,8 +457,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             if (Gtin?.Length > 12)
             {
-                BarcodeHelper barcode = BarcodeHelper.Instance;
-                string gtin = barcode.GetGtin(Gtin.Substring(0, 13));
+                string gtin = Barcode.GetGtin(Gtin.Substring(0, 13));
                 return Equals(Gtin, gtin);
             }
             return false;

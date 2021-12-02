@@ -52,7 +52,7 @@ namespace BlazorProjectsCore.Models
 
         #region Public and private fields and properties
 
-        public AppSettingsEntity AppSettings = AppSettingsEntity.Instance;
+        public AppSettingsEntity AppSettings { get; private set; } = AppSettingsEntity.Instance;
 
         #endregion
 

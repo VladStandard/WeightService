@@ -13,7 +13,7 @@
 //        /// <summary>
 //        /// Помощник SQL.
 //        /// </summary>
-//        private static readonly SqlHelper _sql = SqlHelper.Instance;
+//        private static SqlHelper _sql { get; set; } = SqlHelper.Instance;
 
 //        /// <summary>
 //        /// Выполнить ХП SetWeithingFact.
