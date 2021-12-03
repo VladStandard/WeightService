@@ -26,17 +26,15 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterTypes);
-                        PrinterTypeItem = null;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterTypes);
+                    PrinterTypeItem = null;
+                    await GuiRefreshWithWaitAsync();
 
-                        PrinterTypeItem = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                    PrinterTypeItem = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

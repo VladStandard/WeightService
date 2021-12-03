@@ -42,19 +42,17 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplateResources);
-                        TemplateResourcesItem = null;
-                        ResourceTypes = null;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplateResources);
+                    TemplateResourcesItem = null;
+                    ResourceTypes = null;
+                    await GuiRefreshWithWaitAsync();
 
-                        TemplateResourcesItem = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                    TemplateResourcesItem = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         private void OnChange(object value, string name)

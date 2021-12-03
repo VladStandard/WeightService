@@ -6,7 +6,6 @@ using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlazorProjectsCore.Models
@@ -42,20 +41,10 @@ namespace BlazorProjectsCore.Models
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        IdItem = item;
-                        // Debug log.
-                        //if (AppSettings.IsDebug)
-                        //{
-                        //    Console.WriteLine("--------------------------------------------------------------------------------");
-                        //    Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
-                        //    Console.WriteLine($"Item: {Item}");
-                        //    Console.WriteLine("--------------------------------------------------------------------------------");
-                        //}
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                new Task(async() => {
+                    IdItem = item;
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

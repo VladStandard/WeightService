@@ -26,43 +26,41 @@ namespace BlazorDeviceControl.Shared.Sys
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                        UidItem = null;
-                        Items = null;
-                        ItemsCount = 0;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+                    UidItem = null;
+                    Items = null;
+                    ItemsCount = 0;
+                    await GuiRefreshWithWaitAsync();
 
-                        object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs, string.Empty, 0, string.Empty);
-                        Items = new List<LogSummaryEntity>();
-                        foreach (object obj in objects)
+                    object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs, string.Empty, 0, string.Empty);
+                    Items = new List<LogSummaryEntity>();
+                    foreach (object obj in objects)
+                    {
+                        if (obj is object[] { Length: 11 } item)
                         {
-                            if (obj is object[] { Length: 11 } item)
+                            if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                             {
-                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                                Items.Add(new LogSummaryEntity()
                                 {
-                                    Items.Add(new LogSummaryEntity()
-                                    {
-                                        Uid = uid,
-                                        CreateDt = Convert.ToDateTime(item[1]),
-                                        Scale = Convert.ToString(item[2]),
-                                        Host = Convert.ToString(item[3]),
-                                        App = Convert.ToString(item[4]),
-                                        Version = Convert.ToString(item[5]),
-                                        File = Convert.ToString(item[6]),
-                                        Line = Convert.ToInt32(item[7]),
-                                        Member = Convert.ToString(item[8]),
-                                        Icon = Convert.ToString(item[9]),
-                                        Message = Convert.ToString(item[10]),
-                                    });
-                                }
+                                    Uid = uid,
+                                    CreateDt = Convert.ToDateTime(item[1]),
+                                    Scale = Convert.ToString(item[2]),
+                                    Host = Convert.ToString(item[3]),
+                                    App = Convert.ToString(item[4]),
+                                    Version = Convert.ToString(item[5]),
+                                    File = Convert.ToString(item[6]),
+                                    Line = Convert.ToInt32(item[7]),
+                                    Member = Convert.ToString(item[8]),
+                                    Icon = Convert.ToString(item[9]),
+                                    Message = Convert.ToString(item[10]),
+                                });
                             }
                         }
-                        ItemsCount = Items.Count;
-                        await GuiRefreshWithWaitAsync();
-                    }),
-            }, true);
+                    }
+                    ItemsCount = Items.Count;
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

@@ -30,39 +30,37 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                        IdItem = null;
-                        Items = null;
-                        TemplateCategories = null;
-                        ItemsCount = 0;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+                    IdItem = null;
+                    Items = null;
+                    TemplateCategories = null;
+                    ItemsCount = 0;
+                    await GuiRefreshWithWaitAsync();
                         
-                        // Filter.
-                        TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
-                        if (string.IsNullOrEmpty(TemplateCategory))
-                        {
-                            TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
-                            Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                                new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
-                                .ToList();
-                        }
-                        else
-                        {
-                            Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Marked.ToString(), false },
-                                    { ShareEnums.DbField.CategoryId.ToString(), TemplateCategory },
-                                }),
-                                new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
-                                .ToList();
-                        }
-                        ItemsCount = Items.Count;
-                        await GuiRefreshWithWaitAsync();
-                    }),
-            }, true);
+                    // Filter.
+                    TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
+                    if (string.IsNullOrEmpty(TemplateCategory))
+                    {
+                        TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
+                        Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
+                            .ToList();
+                    }
+                    else
+                    {
+                        Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                { ShareEnums.DbField.Marked.ToString(), false },
+                                { ShareEnums.DbField.CategoryId.ToString(), TemplateCategory },
+                            }),
+                            new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
+                            .ToList();
+                    }
+                    ItemsCount = Items.Count;
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
 

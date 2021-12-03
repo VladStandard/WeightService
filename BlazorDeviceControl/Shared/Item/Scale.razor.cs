@@ -40,54 +40,52 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
-                        ScaleItem = null;
-                        ComPorts = null;
-                        PluItems = null;
-                        TemplatesDefaultItems = null;
-                        TemplatesSeriesItems = null;
-                        WorkshopItems = null;
-                        PrinterItems = null;
-                        HostItems = null;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
+                    ScaleItem = null;
+                    ComPorts = null;
+                    PluItems = null;
+                    TemplatesDefaultItems = null;
+                    TemplatesSeriesItems = null;
+                    WorkshopItems = null;
+                    PrinterItems = null;
+                    HostItems = null;
+                    await GuiRefreshWithWaitAsync();
 
-                        ScaleItem = AppSettings.DataAccess.ScalesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object> {
-                            { ShareEnums.DbField.Id.ToString(), Id },
-                        }), null);
-                        // ComPorts
-                        ComPorts = new List<TypeEntity<string>>();
-                        for (int i = 1; i < 256; i++)
-                        {
-                            ComPorts.Add(new TypeEntity<string>($"COM{i}", $"COM{i}"));
-                        }
-                        // ScaleFactor
-                        ScaleItem.ScaleFactor ??= 1000;
-                        // PLU.
-                        PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{LocalizationCore.Strings.Main.DataLoading}]";
-                        PluItems = AppSettings.DataAccess.PlusCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
-                            { ShareEnums.DbField.Marked.ToString(), false },
-                            { "Scale.Id", ScaleItem.Id },
-                        }), new FieldOrderEntity(ShareEnums.DbField.Plu, ShareEnums.DbOrderDirection.Asc)).ToList();
-                        PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{PluItems.Count} {LocalizationData.DeviceControl.DataRecords}]";
-                        // Other.
-                        TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            null).ToList();
-                        TemplatesSeriesItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            null).ToList();
-                        WorkshopItems = AppSettings.DataAccess.WorkshopsCrud.GetEntities(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            null).ToList();
-                        PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            null).ToList();
-                        HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(ScaleItem.Host?.Id);
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                    ScaleItem = AppSettings.DataAccess.ScalesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object> {
+                        { ShareEnums.DbField.Id.ToString(), Id },
+                    }), null);
+                    // ComPorts
+                    ComPorts = new List<TypeEntity<string>>();
+                    for (int i = 1; i < 256; i++)
+                    {
+                        ComPorts.Add(new TypeEntity<string>($"COM{i}", $"COM{i}"));
+                    }
+                    // ScaleFactor
+                    ScaleItem.ScaleFactor ??= 1000;
+                    // PLU.
+                    PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{LocalizationCore.Strings.Main.DataLoading}]";
+                    PluItems = AppSettings.DataAccess.PlusCrud.GetEntities(new FieldListEntity(new Dictionary<string, object> {
+                        { ShareEnums.DbField.Marked.ToString(), false },
+                        { "Scale.Id", ScaleItem.Id },
+                    }), new FieldOrderEntity(ShareEnums.DbField.Plu, ShareEnums.DbOrderDirection.Asc)).ToList();
+                    PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{PluItems.Count} {LocalizationData.DeviceControl.DataRecords}]";
+                    // Other.
+                    TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                        null).ToList();
+                    TemplatesSeriesItems = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                        null).ToList();
+                    WorkshopItems = AppSettings.DataAccess.WorkshopsCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                        null).ToList();
+                    PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                        null).ToList();
+                    HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(ScaleItem.Host?.Id);
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         //private async Task RowDoubleClickAsync(BaseIdEntity entity,

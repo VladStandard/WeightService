@@ -5,5 +5,6 @@ namespace BlazorDeviceControl.Shared
 {
     public partial class Authorization
     {
+
     }
 }

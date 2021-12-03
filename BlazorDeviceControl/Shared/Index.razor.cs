@@ -5,10 +5,6 @@ namespace BlazorDeviceControl.Shared
 {
     public partial class Index
     {
-        #region Public and private methods
-
-        //
-
-        #endregion
+        
     }
 }

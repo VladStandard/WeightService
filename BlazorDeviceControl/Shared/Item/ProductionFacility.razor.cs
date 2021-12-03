@@ -26,17 +26,15 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
-                        ProductionFacilityItem = null;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
+                    ProductionFacilityItem = null;
+                    await GuiRefreshWithWaitAsync();
 
-                        ProductionFacilityItem = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                    ProductionFacilityItem = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

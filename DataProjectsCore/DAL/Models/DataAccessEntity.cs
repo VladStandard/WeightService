@@ -247,6 +247,8 @@ namespace DataProjectsCore.DAL.Models
 
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
+            if (ErrorsCrud == null)
+                return;
             int idLast = ErrorsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             TableScaleModels.ErrorEntity? error = new()
             {
@@ -561,109 +563,135 @@ namespace DataProjectsCore.DAL.Models
                 // SCALES.
                 if (typeof(T) == typeof(TableSystemModels.HostEntity))
                 {
-                    nextId = HostsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (HostsCrud != null)
+                        nextId = HostsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 if (typeof(T) == typeof(TableScaleModels.BarcodeTypeEntity))
                 {
-                    nextId = BarcodeTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (BarcodeTypesCrud != null)
+                        nextId = BarcodeTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.ContragentEntity))
                 {
-                    nextId = ContragentsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (ContragentsCrud != null)
+                        nextId = ContragentsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.LabelEntity))
                 {
-                    nextId = LabelsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (LabelsCrud != null)
+                        nextId = LabelsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.NomenclatureEntity))
                 {
-                    nextId = NomenclaturesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (NomenclaturesCrud != null)
+                        nextId = NomenclaturesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.OrderEntity))
                 {
-                    nextId = OrdersCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (OrdersCrud != null)
+                        nextId = OrdersCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.OrderStatusEntity))
                 {
-                    nextId = OrderStatusesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (OrderStatusesCrud != null)
+                        nextId = OrderStatusesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.OrderTypeEntity))
                 {
-                    nextId = OrderTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (OrderTypesCrud != null)
+                        nextId = OrderTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.PluEntity))
                 {
-                    nextId = PlusCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (PlusCrud != null)
+                        nextId = PlusCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.ProductionFacilityEntity))
                 {
-                    nextId = ProductionFacilitiesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (ProductionFacilitiesCrud != null)
+                        nextId = ProductionFacilitiesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.ProductSeriesEntity))
                 {
-                    nextId = ProductSeriesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (ProductSeriesCrud != null)
+                        nextId = ProductSeriesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.ScaleEntity))
                 {
-                    nextId = ScalesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (ScalesCrud != null)
+                        nextId = ScalesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.TemplateResourceEntity))
                 {
-                    nextId = TemplateResourcesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (TemplateResourcesCrud != null)
+                        nextId = TemplateResourcesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.TemplateEntity))
                 {
-                    nextId = TemplatesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (TemplatesCrud != null)
+                        nextId = TemplatesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.WeithingFactEntity))
                 {
-                    nextId = WeithingFactsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (WeithingFactsCrud != null)
+                        nextId = WeithingFactsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.WorkshopEntity))
                 {
-                    nextId = WorkshopsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (WorkshopsCrud != null)
+                        nextId = WorkshopsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.PrinterEntity))
                 {
-                    nextId = PrintersCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (PrintersCrud != null)
+                        nextId = PrintersCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.PrinterResourceEntity))
                 {
-                    nextId = PrinterResourcesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (PrinterResourcesCrud != null)
+                        nextId = PrinterResourcesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
                 {
-                    nextId = PrinterTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (PrinterTypesCrud != null)
+                        nextId = PrinterTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 
                 // DWH.
                 if (typeof(T) == typeof(TableDwhModels.BrandEntity))
                 {
-                    nextId = BrandCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (BrandCrud != null)
+                        nextId = BrandCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableDwhModels.InformationSystemEntity))
                 {
-                    nextId = InformationSystemCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (InformationSystemCrud != null)
+                        nextId = InformationSystemCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableDwhModels.NomenclatureEntity))
                 {
-                    nextId = NomenclatureCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (NomenclatureCrud != null)
+                        nextId = NomenclatureCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableDwhModels.NomenclatureGroupEntity))
                 {
-                    nextId = NomenclatureGroupCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (NomenclatureGroupCrud != null)
+                        nextId = NomenclatureGroupCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableDwhModels.NomenclatureLightEntity))
                 {
-                    nextId = NomenclatureLightCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (NomenclatureLightCrud != null)
+                        nextId = NomenclatureLightCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableDwhModels.NomenclatureTypeEntity))
                 {
-                    nextId = NomenclatureTypeCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (NomenclatureTypeCrud != null)
+                        nextId = NomenclatureTypeCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 else if (typeof(T) == typeof(TableDwhModels.StatusEntity))
                 {
-                    nextId = StatusCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    if (StatusCrud != null)
+                        nextId = StatusCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 }
                 
                 result.Id = nextId + 1;
@@ -686,27 +714,27 @@ namespace DataProjectsCore.DAL.Models
             {
                 if (typeof(T) == typeof(TableSystemModels.AccessEntity))
                 {
-                    _ = AccessesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                    _ = AccessesCrud?.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(TableSystemModels.AppEntity))
                 {
-                    _ = AppsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                    _ = AppsCrud?.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(TableSystemModels.LogEntity))
                 {
-                    _ = LogsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                    _ = LogsCrud?.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(TableSystemModels.LogTypeEntity))
                 {
-                    _ = LogTypesCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                    _ = LogTypesCrud?.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(DataShareCore.DAL.DataModels.LogSummaryEntity))
                 {
-                    _ = LogSummaryCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                    _ = LogSummaryCrud?.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 else if (typeof(T) == typeof(DataModels.WeithingFactSummaryEntity))
                 {
-                    //_ = WeithingFactSummaryCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                    //_ = WeithingFactSummaryCrud?.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
                 }
                 result.Uid = Guid.NewGuid();
             }
@@ -717,142 +745,142 @@ namespace DataProjectsCore.DAL.Models
         {
             // SYSTEM.
             if (entity is TableSystemModels.AccessEntity accessEntity)
-                AccessesCrud.DeleteEntity(accessEntity);
+                AccessesCrud?.DeleteEntity(accessEntity);
             else if (entity is TableSystemModels.AppEntity appEntity)
-                AppsCrud.DeleteEntity(appEntity);
+                AppsCrud?.DeleteEntity(appEntity);
             else if (entity is TableSystemModels.HostEntity hostsEntity)
-                HostsCrud.DeleteEntity(hostsEntity);
+                HostsCrud?.DeleteEntity(hostsEntity);
             else if (entity is TableSystemModels.LogEntity logEntity)
-                LogsCrud.DeleteEntity(logEntity);
+                LogsCrud?.DeleteEntity(logEntity);
             else if (entity is TableSystemModels.LogTypeEntity logTypeEntity)
-                LogTypesCrud.DeleteEntity(logTypeEntity);
+                LogTypesCrud?.DeleteEntity(logTypeEntity);
             // SCALES.
             else if (entity is TableScaleModels.LabelEntity labelsEntity)
-                LabelsCrud.DeleteEntity(labelsEntity);
+                LabelsCrud?.DeleteEntity(labelsEntity);
             else if (entity is TableScaleModels.BarcodeTypeEntity barCodeTypesEntity)
-                BarcodeTypesCrud.DeleteEntity(barCodeTypesEntity);
+                BarcodeTypesCrud?.DeleteEntity(barCodeTypesEntity);
             else if (entity is TableScaleModels.ContragentEntity contragentsEntity)
-                ContragentsCrud.DeleteEntity(contragentsEntity);
+                ContragentsCrud?.DeleteEntity(contragentsEntity);
             else if (entity is DataShareCore.DAL.DataModels.LogSummaryEntity logSummaryEntity)
-                LogSummaryCrud.DeleteEntity(logSummaryEntity);
+                LogSummaryCrud?.DeleteEntity(logSummaryEntity);
             else if (entity is TableScaleModels.NomenclatureEntity nomenclatureEntity)
-                NomenclaturesCrud.DeleteEntity(nomenclatureEntity);
+                NomenclaturesCrud?.DeleteEntity(nomenclatureEntity);
             else if (entity is TableScaleModels.OrderEntity ordersEntity)
-                OrdersCrud.DeleteEntity(ordersEntity);
+                OrdersCrud?.DeleteEntity(ordersEntity);
             else if (entity is TableScaleModels.OrderStatusEntity orderStatusEntity)
-                OrderStatusesCrud.DeleteEntity(orderStatusEntity);
+                OrderStatusesCrud?.DeleteEntity(orderStatusEntity);
             else if (entity is TableScaleModels.OrderTypeEntity orderTypesEntity)
-                OrderTypesCrud.DeleteEntity(orderTypesEntity);
+                OrderTypesCrud?.DeleteEntity(orderTypesEntity);
             else if (entity is TableScaleModels.PluEntity pluEntity)
-                PlusCrud.DeleteEntity(pluEntity);
+                PlusCrud?.DeleteEntity(pluEntity);
             else if (entity is TableScaleModels.ProductionFacilityEntity productionFacilityEntity)
-                ProductionFacilitiesCrud.DeleteEntity(productionFacilityEntity);
+                ProductionFacilitiesCrud?.DeleteEntity(productionFacilityEntity);
             else if (entity is TableScaleModels.ProductSeriesEntity productSeriesEntity)
-                ProductSeriesCrud.DeleteEntity(productSeriesEntity);
+                ProductSeriesCrud?.DeleteEntity(productSeriesEntity);
             else if (entity is TableScaleModels.ScaleEntity scalesEntity)
-                ScalesCrud.DeleteEntity(scalesEntity);
+                ScalesCrud?.DeleteEntity(scalesEntity);
             else if (entity is TableScaleModels.TemplateEntity templatesEntity)
-                TemplatesCrud.DeleteEntity(templatesEntity);
+                TemplatesCrud?.DeleteEntity(templatesEntity);
             else if (entity is TableScaleModels.TemplateResourceEntity templateResourcesEntity)
-                TemplateResourcesCrud.DeleteEntity(templateResourcesEntity);
+                TemplateResourcesCrud?.DeleteEntity(templateResourcesEntity);
             else if (entity is TableScaleModels.WeithingFactEntity weithingFactEntity)
-                WeithingFactsCrud.DeleteEntity(weithingFactEntity);
+                WeithingFactsCrud?.DeleteEntity(weithingFactEntity);
             else if (entity is DataModels.WeithingFactSummaryEntity weithingFactSummaryEntity)
-                WeithingFactSummaryCrud.DeleteEntity(weithingFactSummaryEntity);
+                WeithingFactSummaryCrud?.DeleteEntity(weithingFactSummaryEntity);
             else if (entity is TableScaleModels.WorkshopEntity workshopEntity)
-                WorkshopsCrud.DeleteEntity(workshopEntity);
+                WorkshopsCrud?.DeleteEntity(workshopEntity);
             else if (entity is TableScaleModels.PrinterEntity zebraPrinterEntity)
-                PrintersCrud.DeleteEntity(zebraPrinterEntity);
+                PrintersCrud?.DeleteEntity(zebraPrinterEntity);
             else if (entity is TableScaleModels.PrinterTypeEntity zebraPrinterTypeEntity)
-                PrinterTypesCrud.MarkedEntity(zebraPrinterTypeEntity);
+                PrinterTypesCrud?.MarkedEntity(zebraPrinterTypeEntity);
             else if (entity is TableScaleModels.PrinterResourceEntity zebraPrinterResourceRefEntity)
-                PrinterResourcesCrud.DeleteEntity(zebraPrinterResourceRefEntity);
+                PrinterResourcesCrud?.DeleteEntity(zebraPrinterResourceRefEntity);
             // DWH.
             else if (entity is TableDwhModels.BrandEntity brandEntity)
-                BrandCrud.DeleteEntity(brandEntity);
+                BrandCrud?.DeleteEntity(brandEntity);
             else if (entity is TableDwhModels.InformationSystemEntity informationSystemEntity)
-                InformationSystemCrud.DeleteEntity(informationSystemEntity);
+                InformationSystemCrud?.DeleteEntity(informationSystemEntity);
             else if (entity is TableDwhModels.NomenclatureEntity dwhNomenclatureEntity)
-                NomenclatureCrud.DeleteEntity(dwhNomenclatureEntity);
+                NomenclatureCrud?.DeleteEntity(dwhNomenclatureEntity);
             else if (entity is TableDwhModels.NomenclatureGroupEntity nomenclatureGroupEntity)
-                NomenclatureGroupCrud.DeleteEntity(nomenclatureGroupEntity);
+                NomenclatureGroupCrud?.DeleteEntity(nomenclatureGroupEntity);
             else if (entity is TableDwhModels.NomenclatureLightEntity nomenclatureLightEntity)
-                NomenclatureLightCrud.DeleteEntity(nomenclatureLightEntity);
+                NomenclatureLightCrud?.DeleteEntity(nomenclatureLightEntity);
             else if (entity is TableDwhModels.NomenclatureTypeEntity nomenclatureTypeEntity)
-                NomenclatureTypeCrud.DeleteEntity(nomenclatureTypeEntity);
+                NomenclatureTypeCrud?.DeleteEntity(nomenclatureTypeEntity);
             else if (entity is TableDwhModels.StatusEntity statusEntity)
-                StatusCrud.DeleteEntity(statusEntity);
+                StatusCrud?.DeleteEntity(statusEntity);
         }
 
         public void ActionMarkedEntity<T>(T entity) where T : IBaseEntity
         {
             // SYSTEM.
             if (entity is TableSystemModels.AccessEntity accessEntity)
-                AccessesCrud.MarkedEntity(accessEntity);
+                AccessesCrud?.MarkedEntity(accessEntity);
             else if (entity is TableSystemModels.AppEntity appEntity)
-                AppsCrud.MarkedEntity(appEntity);
+                AppsCrud?.MarkedEntity(appEntity);
             else if (entity is TableSystemModels.HostEntity hostsEntity)
-                HostsCrud.MarkedEntity(hostsEntity);
+                HostsCrud?.MarkedEntity(hostsEntity);
             else if (entity is TableSystemModels.LogEntity logEntity)
-                LogsCrud.MarkedEntity(logEntity);
+                LogsCrud?.MarkedEntity(logEntity);
             else if (entity is TableSystemModels.LogTypeEntity logTypeEntity)
-                LogTypesCrud.MarkedEntity(logTypeEntity);
+                LogTypesCrud?.MarkedEntity(logTypeEntity);
             // SCALES.
             else if (entity is TableScaleModels.BarcodeTypeEntity barCodeTypesEntity)
-                BarcodeTypesCrud.MarkedEntity(barCodeTypesEntity);
+                BarcodeTypesCrud?.MarkedEntity(barCodeTypesEntity);
             else if (entity is TableScaleModels.ContragentEntity contragentsEntity)
-                ContragentsCrud.MarkedEntity(contragentsEntity);
+                ContragentsCrud?.MarkedEntity(contragentsEntity);
             else if (entity is TableScaleModels.LabelEntity labelsEntity)
-                LabelsCrud.MarkedEntity(labelsEntity);
+                LabelsCrud?.MarkedEntity(labelsEntity);
             else if (entity is DataShareCore.DAL.DataModels.LogSummaryEntity logSummaryEntity)
-                LogSummaryCrud.MarkedEntity(logSummaryEntity);
+                LogSummaryCrud?.MarkedEntity(logSummaryEntity);
             else if (entity is TableScaleModels.NomenclatureEntity nomenclatureEntity)
-                NomenclaturesCrud.MarkedEntity(nomenclatureEntity);
+                NomenclaturesCrud?.MarkedEntity(nomenclatureEntity);
             else if (entity is TableScaleModels.OrderEntity ordersEntity)
-                OrdersCrud.MarkedEntity(ordersEntity);
+                OrdersCrud?.MarkedEntity(ordersEntity);
             else if (entity is TableScaleModels.OrderStatusEntity orderStatusEntity)
-                OrderStatusesCrud.MarkedEntity(orderStatusEntity);
+                OrderStatusesCrud?.MarkedEntity(orderStatusEntity);
             else if (entity is TableScaleModels.OrderTypeEntity orderTypesEntity)
-                OrderTypesCrud.MarkedEntity(orderTypesEntity);
+                OrderTypesCrud?.MarkedEntity(orderTypesEntity);
             else if (entity is TableScaleModels.PluEntity pluEntity)
-                PlusCrud.MarkedEntity(pluEntity);
+                PlusCrud?.MarkedEntity(pluEntity);
             else if (entity is TableScaleModels.ProductionFacilityEntity productionFacilityEntity)
-                ProductionFacilitiesCrud.MarkedEntity(productionFacilityEntity);
+                ProductionFacilitiesCrud?.MarkedEntity(productionFacilityEntity);
             else if (entity is TableScaleModels.ProductSeriesEntity productSeriesEntity)
-                ProductSeriesCrud.MarkedEntity(productSeriesEntity);
+                ProductSeriesCrud?.MarkedEntity(productSeriesEntity);
             else if (entity is TableScaleModels.ScaleEntity scalesEntity)
-                ScalesCrud.MarkedEntity(scalesEntity);
+                ScalesCrud?.MarkedEntity(scalesEntity);
             else if (entity is TableScaleModels.TemplateEntity templatesEntity)
-                TemplatesCrud.MarkedEntity(templatesEntity);
+                TemplatesCrud?.MarkedEntity(templatesEntity);
             else if (entity is TableScaleModels.TemplateResourceEntity templateResourcesEntity)
-                TemplateResourcesCrud.MarkedEntity(templateResourcesEntity);
+                TemplateResourcesCrud?.MarkedEntity(templateResourcesEntity);
             else if (entity is TableScaleModels.WeithingFactEntity weithingFactEntity)
-                WeithingFactsCrud.MarkedEntity(weithingFactEntity);
+                WeithingFactsCrud?.MarkedEntity(weithingFactEntity);
             else if (entity is DataModels.WeithingFactSummaryEntity weithingFactSummaryEntity)
-                WeithingFactSummaryCrud.MarkedEntity(weithingFactSummaryEntity);
+                WeithingFactSummaryCrud?.MarkedEntity(weithingFactSummaryEntity);
             else if (entity is TableScaleModels.WorkshopEntity workshopEntity)
-                WorkshopsCrud.MarkedEntity(workshopEntity);
+                WorkshopsCrud?.MarkedEntity(workshopEntity);
             else if (entity is TableScaleModels.PrinterEntity zebraPrinterEntity)
-                PrintersCrud.MarkedEntity(zebraPrinterEntity);
+                PrintersCrud?.MarkedEntity(zebraPrinterEntity);
             else if (entity is TableScaleModels.PrinterTypeEntity zebraPrinterTypeEntity)
-                PrinterTypesCrud.MarkedEntity(zebraPrinterTypeEntity);
+                PrinterTypesCrud?.MarkedEntity(zebraPrinterTypeEntity);
             else if (entity is TableScaleModels.PrinterResourceEntity zebraPrinterResourceRefEntity)
-                PrinterResourcesCrud.MarkedEntity(zebraPrinterResourceRefEntity);
+                PrinterResourcesCrud?.MarkedEntity(zebraPrinterResourceRefEntity);
             // DWH.
             else if (entity is TableDwhModels.BrandEntity brandEntity)
-                BrandCrud.MarkedEntity(brandEntity);
+                BrandCrud?.MarkedEntity(brandEntity);
             else if (entity is TableDwhModels.InformationSystemEntity informationSystemEntity)
-                InformationSystemCrud.MarkedEntity(informationSystemEntity);
+                InformationSystemCrud?.MarkedEntity(informationSystemEntity);
             else if (entity is TableDwhModels.NomenclatureEntity dwhNomenclatureEntity)
-                NomenclatureCrud.MarkedEntity(dwhNomenclatureEntity);
+                NomenclatureCrud?.MarkedEntity(dwhNomenclatureEntity);
             else if (entity is TableDwhModels.NomenclatureGroupEntity nomenclatureGroupEntity)
-                NomenclatureGroupCrud.MarkedEntity(nomenclatureGroupEntity);
+                NomenclatureGroupCrud?.MarkedEntity(nomenclatureGroupEntity);
             else if (entity is TableDwhModels.NomenclatureLightEntity nomenclatureLightEntity)
-                NomenclatureLightCrud.MarkedEntity(nomenclatureLightEntity);
+                NomenclatureLightCrud?.MarkedEntity(nomenclatureLightEntity);
             else if (entity is TableDwhModels.NomenclatureTypeEntity nomenclatureTypeEntity)
-                NomenclatureTypeCrud.MarkedEntity(nomenclatureTypeEntity);
+                NomenclatureTypeCrud?.MarkedEntity(nomenclatureTypeEntity);
             else if (entity is TableDwhModels.StatusEntity statusEntity)
-                StatusCrud.MarkedEntity(statusEntity);
+                StatusCrud?.MarkedEntity(statusEntity);
         }
 
         #endregion

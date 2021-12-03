@@ -27,37 +27,35 @@ namespace BlazorDeviceControl.Shared.Sys
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                        UidItem = null;
-                        Items = null;
-                        ItemsCount = 0;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+                    UidItem = null;
+                    Items = null;
+                    ItemsCount = 0;
+                    await GuiRefreshWithWaitAsync();
 
-                        object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess, string.Empty, 0, string.Empty);
-                        Items = new List<AccessEntity>();
-                        foreach (object obj in objects)
+                    object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess, string.Empty, 0, string.Empty);
+                    Items = new List<AccessEntity>();
+                    foreach (object obj in objects)
+                    {
+                        if (obj is object[] { Length: 5 } item)
                         {
-                            if (obj is object[] { Length: 5 } item)
+                            if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                             {
-                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                                Items.Add(new AccessEntity()
                                 {
-                                    Items.Add(new AccessEntity()
-                                    {
-                                        Uid = uid,
-                                        CreateDt = Convert.ToDateTime(item[1]),
-                                        ChangeDt = Convert.ToDateTime(item[2]),
-                                        User = Convert.ToString(item[3]),
-                                        Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
-                                    });
-                                }
+                                    Uid = uid,
+                                    CreateDt = Convert.ToDateTime(item[1]),
+                                    ChangeDt = Convert.ToDateTime(item[2]),
+                                    User = Convert.ToString(item[3]),
+                                    Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
+                                });
                             }
                         }
-                        ItemsCount = Items.Count;
-                        await GuiRefreshWithWaitAsync();
-                      }),
-                  }, true);
+                    }
+                    ItemsCount = Items.Count;
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

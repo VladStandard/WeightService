@@ -27,23 +27,21 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
-                        IdItem = null;
-                        Items = null;
-                        ItemsCount = 0;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
+                    IdItem = null;
+                    Items = null;
+                    ItemsCount = 0;
+                    await GuiRefreshWithWaitAsync();
 
-                        Items = AppSettings.DataAccess.WorkshopsCrud.GetEntities(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                            .OrderBy(x => x.ProductionFacility.Name)
-                            .ToList();
-                        ItemsCount = Items.Count;
-                        await GuiRefreshWithWaitAsync();
-                    }),
-            }, true);
+                    Items = AppSettings.DataAccess.WorkshopsCrud.GetEntities(
+                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
+                        .OrderBy(x => x.ProductionFacility.Name)
+                        .ToList();
+                    ItemsCount = Items.Count;
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

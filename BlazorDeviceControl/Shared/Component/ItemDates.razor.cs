@@ -27,22 +27,20 @@ namespace BlazorDeviceControl.Shared.Component
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        switch (Item)
-                        {
-                            case ScaleEntity scaleEntity:
-                                DtCreate = scaleEntity.CreateDate.ToString();
-                                DtModify = scaleEntity.ModifiedDate.ToString();
-                                break;
-                            case PrinterEntity printerEntity:
-                                DtCreate = printerEntity.CreateDate.ToString();
-                                DtModify = printerEntity.ModifiedDate.ToString();
+                new Task(async() => {
+                    switch (Item)
+                    {
+                        case ScaleEntity scaleEntity:
+                            DtCreate = scaleEntity.CreateDate.ToString();
+                            DtModify = scaleEntity.ModifiedDate.ToString();
                             break;
-                        }
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                        case PrinterEntity printerEntity:
+                            DtCreate = printerEntity.CreateDate.ToString();
+                            DtModify = printerEntity.ModifiedDate.ToString();
+                        break;
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

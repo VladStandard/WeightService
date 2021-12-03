@@ -27,35 +27,33 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
-                        SetItem();
-                        Items = null;
-                        ItemsCount = 0;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+                    SetItem();
+                    Items = null;
+                    ItemsCount = 0;
+                    await GuiRefreshWithWaitAsync();
 
-                        object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(
-                            SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts, string.Empty, 0, string.Empty);
-                        Items = new List<WeithingFactSummaryEntity>();
-                        foreach (object obj in objects)
+                    object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(
+                        SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts, string.Empty, 0, string.Empty);
+                    Items = new List<WeithingFactSummaryEntity>();
+                    foreach (object obj in objects)
+                    {
+                        if (obj is object[] { Length: 5 } item)
                         {
-                            if (obj is object[] { Length: 5 } item)
+                            Items.Add(new WeithingFactSummaryEntity
                             {
-                                Items.Add(new WeithingFactSummaryEntity
-                                {
-                                    WeithingDate = Convert.ToDateTime(item[0]),
-                                    Count = Convert.ToInt32(item[1]),
-                                    Scale = Convert.ToString(item[2]),
-                                    Host = Convert.ToString(item[3]),
-                                    Printer = Convert.ToString(item[4]),
-                                });
-                            }
+                                WeithingDate = Convert.ToDateTime(item[0]),
+                                Count = Convert.ToInt32(item[1]),
+                                Scale = Convert.ToString(item[2]),
+                                Host = Convert.ToString(item[3]),
+                                Printer = Convert.ToString(item[4]),
+                            });
                         }
-                        ItemsCount = Items.Count;
-                        await GuiRefreshWithWaitAsync();
-                    }),
-            }, true);
+                    }
+                    ItemsCount = Items.Count;
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

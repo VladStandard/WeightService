@@ -29,21 +29,19 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                        PrinterResourceItem = null;
-                        PrinterItems = null;
-                        ResourceItems = null;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                    PrinterResourceItem = null;
+                    PrinterItems = null;
+                    ResourceItems = null;
+                    await GuiRefreshWithWaitAsync();
 
-                        PrinterResourceItem = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities(null, null).ToList();
-                        ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(null, null).ToList();
-                        await GuiRefreshWithWaitAsync();
-                    }),
-            }, true);
+                    PrinterResourceItem = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities(null, null).ToList();
+                    ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(null, null).ToList();
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         private void OnChange(object value, string name)

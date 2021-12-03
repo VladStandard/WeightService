@@ -31,19 +31,17 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                        TemplateItem = null;
-                        TemplateCategories = null;
-                        await GuiRefreshWithWaitAsync();
+                new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+                    TemplateItem = null;
+                    TemplateCategories = null;
+                    await GuiRefreshWithWaitAsync();
 
-                        TemplateItem = AppSettings.DataAccess.TemplatesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                    TemplateItem = AppSettings.DataAccess.TemplatesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         private void OnChange(object value, string name)

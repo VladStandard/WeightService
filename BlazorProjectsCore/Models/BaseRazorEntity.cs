@@ -94,79 +94,75 @@ namespace BlazorProjectsCore.Models
         public void OnChange(object value, string name, IBaseEntity item)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        switch (name)
-                        {
-                            case nameof(PrinterTypeEntity):
-                                if (item is PrinterEntity printerItem)
+                new Task(async() => {
+                    switch (name)
+                    {
+                        case nameof(PrinterTypeEntity):
+                            if (item is PrinterEntity printerItem)
+                            {
+                                if (value is int id)
                                 {
-                                    if (value is int id)
+                                    if (id <= 0)
+                                        printerItem.PrinterType = null;
+                                    else
                                     {
-                                        if (id <= 0)
-                                            printerItem.PrinterType = null;
-                                        else
-                                        {
-                                            printerItem.PrinterType = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(
-                                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
-                                            null);
-                                        }
+                                        printerItem.PrinterType = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(
+                                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
+                                        null);
                                     }
                                 }
-                                break;
-                            case nameof(ScaleEntity):
-                                if (value is int idScale)
-                                {
-                                    //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
-                                    //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
-                                    //    null);
-                                }
-                                break;
-                            case nameof(NomenclatureEntity):
-                                if (value is int idNomenclature)
-                                {
-                                    //PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
-                                    //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
-                                    //    null);
-                                }
-                                break;
-                            case nameof(TemplateEntity):
-                                if (value is int idTemplate)
-                                {
-                                    //if (idTemplate <= 0)
-                                    //    PluItem.Templates = null;
-                                    //else
-                                    //{
-                                    //    PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
-                                    //        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
-                                    //        null);
-                                    //}
-                                }
-                                break;
-                        }
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                            }
+                            break;
+                        case nameof(ScaleEntity):
+                            if (value is int idScale)
+                            {
+                                //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
+                                //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
+                                //    null);
+                            }
+                            break;
+                        case nameof(NomenclatureEntity):
+                            if (value is int idNomenclature)
+                            {
+                                //PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
+                                //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
+                                //    null);
+                            }
+                            break;
+                        case nameof(TemplateEntity):
+                            if (value is int idTemplate)
+                            {
+                                //if (idTemplate <= 0)
+                                //    PluItem.Templates = null;
+                                //else
+                                //{
+                                //    PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                                //        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
+                                //        null);
+                                //}
+                            }
+                            break;
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         public async Task ItemSelectAsync(IBaseEntity item)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        Item = item;
-                        // Debug log.
-                        //if (AppSettings.IsDebug)
-                        //{
-                        //    Console.WriteLine("--------------------------------------------------------------------------------");
-                        //    Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
-                        //    Console.WriteLine($"Item: {Item}");
-                        //    Console.WriteLine("--------------------------------------------------------------------------------");
-                        //}
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                new Task(async() => {
+                    Item = item;
+                    // Debug log.
+                    //if (AppSettings.IsDebug)
+                    //{
+                    //    Console.WriteLine("--------------------------------------------------------------------------------");
+                    //    Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
+                    //    Console.WriteLine($"Item: {Item}");
+                    //    Console.WriteLine("--------------------------------------------------------------------------------");
+                    //}
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion
@@ -569,6 +565,12 @@ namespace BlazorProjectsCore.Models
             }
         }
 
+        public void RunTasks(string title, string detailSuccess, string detailFail, string detailCancel, Task task, bool continueOnCapturedContext,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            RunTasks(title, detailSuccess, detailFail, detailCancel, new List<Task> { task }, continueOnCapturedContext, filePath, lineNumber, memberName);
+        }
+
         private void RunTasksCore(string title, string detailSuccess, string detailCancel, List<Task> tasks, bool continueOnCapturedContext)
         {
             if (tasks != null)
@@ -748,16 +750,15 @@ namespace BlazorProjectsCore.Models
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemCancelAsync)}", LocalizationCore.Strings.DialogResultSuccess,
                 LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel,
-                new List<Task> {
-                    new(() => {
-                        if (Item == null)
-                            return;
-                        if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
-                            return;
-                        if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
-                            return;
-                        RouteSectionNavigate(isNewWindow);
-                    })}, false);
+                new Task(() => {
+                    if (Item == null)
+                        return;
+                    if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
+                        return;
+                    if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+                        return;
+                    RouteSectionNavigate(isNewWindow);
+                }), false);
         }
 
         public bool FieldControlDeny(BaseEntity item, string field)
@@ -990,6 +991,7 @@ namespace BlazorProjectsCore.Models
 
         public void ItemSaveCheckWorkshop(WorkshopEntity item)
         {
+            //
         }
 
         public async Task ItemSaveAsync(bool continueOnCapturedContext, bool isNewWindow)
@@ -1128,58 +1130,56 @@ namespace BlazorProjectsCore.Models
         private void Action(ShareEnums.DbTableAction tableAction, bool isNewWindow)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> {
-                    new(async() => {
-                        //if (item == null || item.EqualsDefault())
-                        //    return;
-                        BaseIdEntity idItem = null;
-                        BaseUidEntity uidItem = null;
-                        switch (Item)
-                        {
-                            case BaseIdEntity baseIdEntity:
-                                idItem = baseIdEntity;
-                                break;
-                            case BaseUidEntity baseUidEntity:
-                                uidItem = baseUidEntity;
-                                break;
-                        }
-                        switch (tableAction)
-                        {
-                            case ShareEnums.DbTableAction.New:
-                            case ShareEnums.DbTableAction.Edit:
-                            case ShareEnums.DbTableAction.Copy:
-                                if (AppSettings.IdentityItem.AccessLevel == true)
+                new Task(async() => {
+                    //if (item == null || item.EqualsDefault())
+                    //    return;
+                    BaseIdEntity idItem = null;
+                    BaseUidEntity uidItem = null;
+                    switch (Item)
+                    {
+                        case BaseIdEntity baseIdEntity:
+                            idItem = baseIdEntity;
+                            break;
+                        case BaseUidEntity baseUidEntity:
+                            uidItem = baseUidEntity;
+                            break;
+                    }
+                    switch (tableAction)
+                    {
+                        case ShareEnums.DbTableAction.New:
+                        case ShareEnums.DbTableAction.Edit:
+                        case ShareEnums.DbTableAction.Copy:
+                            if (AppSettings.IdentityItem.AccessLevel == true)
+                            {
+                                if (Table is TableScaleEntity tableScale)
                                 {
-                                    if (Table is TableScaleEntity tableScale)
+                                    switch (tableScale.Value)
                                     {
-                                        switch (tableScale.Value)
-                                        {
-                                            case ProjectsEnums.TableScale.Scales:
-                                            case ProjectsEnums.TableScale.Plus:
-                                            case ProjectsEnums.TableScale.Printers:
-                                            case ProjectsEnums.TableScale.PrinterTypes:
-                                                RouteItemNavigate(isNewWindow);
-                                                break;
-                                        }
+                                        case ProjectsEnums.TableScale.Scales:
+                                        case ProjectsEnums.TableScale.Plus:
+                                        case ProjectsEnums.TableScale.Printers:
+                                        case ProjectsEnums.TableScale.PrinterTypes:
+                                            RouteItemNavigate(isNewWindow);
+                                            break;
                                     }
                                 }
-                                break;
-                            case ShareEnums.DbTableAction.Delete:
-                                if (AppSettings.IdentityItem.AccessLevel == true)
-                                {
-                                    AppSettings.DataAccess.ActionDeleteEntity(Item);
-                                }
-                                break;
-                            case ShareEnums.DbTableAction.Mark:
-                                if (AppSettings.IdentityItem.AccessLevel == true)
-                                {
-                                    AppSettings.DataAccess.ActionMarkedEntity(Item);
-                                }
-                                break;
-                        }
-                        await GuiRefreshWithWaitAsync();
-                    }),
-                }, true);
+                            }
+                            break;
+                        case ShareEnums.DbTableAction.Delete:
+                            if (AppSettings.IdentityItem.AccessLevel == true)
+                            {
+                                AppSettings.DataAccess.ActionDeleteEntity(Item);
+                            }
+                            break;
+                        case ShareEnums.DbTableAction.Mark:
+                            if (AppSettings.IdentityItem.AccessLevel == true)
+                            {
+                                AppSettings.DataAccess.ActionMarkedEntity(Item);
+                            }
+                            break;
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         public async Task ActionNewAsync(bool isNewWindow = false)

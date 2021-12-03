@@ -12,7 +12,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         public virtual DateTime CreateDt { get; set; }
         public virtual DateTime ChangeDt { get; set; }
-        public virtual string User { get; set; }
+        public virtual string? User { get; set; }
         public virtual bool? Level { get; set; }
 
         #endregion

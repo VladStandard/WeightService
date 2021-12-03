@@ -8,9 +8,9 @@
     <StartupObject>BlazorDeviceControl.Program</StartupObject>
     <AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
-    <AssemblyVersion>0.5.880</AssemblyVersion>
+    <AssemblyVersion>0.5.910</AssemblyVersion>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-    <FileVersion>0.5.880</FileVersion>
+    <FileVersion>0.5.910</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2021</Copyright>

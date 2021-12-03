@@ -29,10 +29,7 @@ namespace BlazorProjectsCore.Models
 
         #region Constructor and destructor
 
-        public AppSettingsEntity() { }
-
-        public void Setup(AuthenticationStateProvider stateProvider, JsonSettingsEntity jsonAppSettings, HotKeys hotKeys,
-            [CallerMemberName] string memberName = "")
+        public void Setup(AuthenticationStateProvider stateProvider, JsonSettingsEntity jsonAppSettings, HotKeys hotKeys)
         {
             lock (Locker)
             {
@@ -45,7 +42,7 @@ namespace BlazorProjectsCore.Models
                 }
                 if (hotKeys != null)
                 {
-                    HotKeysItem?.DisposeAsync().ConfigureAwait(true);
+                    _ = (HotKeysItem?.DisposeAsync().ConfigureAwait(true));
                     HotKeysItem = hotKeys;
                 }
 
