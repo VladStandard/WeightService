@@ -39,7 +39,7 @@ namespace DataProjectsCore.Models
 
         public List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguages()
         {
-            return LocalizationData.Lang switch
+            return LocalizationCore.Lang switch
             {
                 ShareEnums.Lang.English => GetTemplateLanguagesEng(),
                 ShareEnums.Lang.Russian => GetTemplateLanguagesRus(),

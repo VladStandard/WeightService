@@ -8,6 +8,8 @@
     <UserSecretsId>49c9fcd1-72a7-49db-8a2c-3ef041b6be9e</UserSecretsId>
     <Platforms>AnyCPU;x64</Platforms>
     <NeutralLanguage>en</NeutralLanguage>
+    <FileVersion>0.5.910</FileVersion>
+    <AssemblyVersion>0.5.910</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
