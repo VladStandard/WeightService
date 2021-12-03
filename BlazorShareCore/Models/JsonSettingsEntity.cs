@@ -37,6 +37,11 @@ namespace BlazorShareCore.Models
             get => Configuration["Sql:Password"];
             set => Configuration["Sql:Password"] = value;
         }
+        public string Schema
+        {
+            get => Configuration["Sql:Schema"];
+            set => Configuration["Sql:Schema"] = value;
+        }
         public bool IsDebug
         {
             get => Convert.ToBoolean(Configuration["IsDebug"]);

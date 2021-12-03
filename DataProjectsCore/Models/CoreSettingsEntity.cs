@@ -15,6 +15,7 @@ namespace DataProjectsCore.Models
         public bool Trusted { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Schema { get; set; }
         public string ConnectionString => ToString();
 
         #endregion
@@ -31,15 +32,17 @@ namespace DataProjectsCore.Models
             Trusted = false;
             Username = string.Empty;
             Password = string.Empty;
+            Schema = string.Empty;
         }
 
-        public CoreSettingsEntity(string server, string db, bool trusted, string username, string password)
+        public CoreSettingsEntity(string server, string db, bool trusted, string username, string password, string schema)
         {
             Server = server;
             Db = db;
             Trusted = trusted;
             Username = username;
             Password = password;
+            Schema = schema;
         }
 
         #endregion

@@ -24,6 +24,7 @@ namespace DataProjectsCore.DAL.Models
         public DataConfigurationEntity DataConfig { get; set; }
         private delegate void ExecCallback(ISession session);
 
+        // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
         private ISessionFactory? _sessionFactory;
         private ISessionFactory SessionFactory
         {
@@ -31,37 +32,27 @@ namespace DataProjectsCore.DAL.Models
             {
                 if (_sessionFactory != null)
                     return _sessionFactory;
-                //lock (this)
+                lock (this)
                 {
                     if (CoreSettings == null)
                         throw new ArgumentException("CoreSettings is null!");
-                    FluentConfiguration configuration;
-                    if (CoreSettings.Trusted)
-                    {
-                        configuration = Fluently.Configure()
-                            .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                                .Server(CoreSettings.Server).Database(CoreSettings.Db)
-                                .TrustedConnection()
-                            )
-                            .ShowSql()
-                            .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
-                            );
-                    }
-                    else
-                    {
-                        if (string.IsNullOrEmpty(CoreSettings.Username) || string.IsNullOrEmpty(CoreSettings.Password))
-                            throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
-                        configuration = Fluently.Configure()
-                            .Database(MsSqlConfiguration.MsSql2012.ConnectionString(x => x
-                                .Server(CoreSettings.Server).Database(CoreSettings.Db)
-                                .Username(CoreSettings.Username).Password(CoreSettings.Password)
-                            )
-                            .ShowSql()
-                            .Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>()
-                            );
-                    }
-                    AddMappings(configuration, CoreSettings);
-                    configuration.ExposeConfiguration(x => x.SetProperty("hbm2ddl.keywords", "auto-quote"));
+                    if (!CoreSettings.Trusted && (string.IsNullOrEmpty(CoreSettings.Username) || string.IsNullOrEmpty(CoreSettings.Password)))
+                        throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
+                    // This code have exception: 
+                    // SqlException: A connection was successfully established with the server, but then an error occurred during the login process. 
+                    // (provider: SSL Provider, error: 0 - The certificate chain was issued by an authority that is not trusted.)
+                    //MsSqlConfiguration config = CoreSettings.Trusted
+                    //    ? MsSqlConfiguration.MsSql2012.ConnectionString(c => c
+                    //        .Server(CoreSettings.Server).Database(CoreSettings.Db).TrustedConnection())
+                    //    : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
+                    //        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
+                    MsSqlConfiguration config = MsSqlConfiguration.MsSql2012.ConnectionString(GetConnectionString());
+                    config.ShowSql().Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>().DefaultSchema(CoreSettings.Schema);
+                    FluentConfiguration configuration = Fluently.Configure().Database(config);
+                    AddConfigurationMappings(configuration, CoreSettings);
+                    //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
+                    //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
+                    configuration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
                     _sessionFactory = configuration.BuildSessionFactory();
                     return _sessionFactory;
                 }
@@ -170,54 +161,68 @@ namespace DataProjectsCore.DAL.Models
             }
         }
 
-        #endregion
+        private string GetConnectionString() => CoreSettings.Trusted
+            ? $"Data Source={CoreSettings.Server};Initial Catalog={CoreSettings.Db};Persist Security Info=True;Trusted Connection=True;TrustServerCertificate=True;"
+            : $"Data Source={CoreSettings.Server};Initial Catalog={CoreSettings.Db};Persist Security Info=True;User ID={CoreSettings.Username};Password={CoreSettings.Password};TrustServerCertificate=True;";
 
-        #region Public and private methods - Share
-
-        private void AddMappings(FluentConfiguration configuration, CoreSettingsEntity coreSettings)
+        private void AddConfigurationMappings(FluentConfiguration configuration, CoreSettingsEntity coreSettings)
         {
-            if (configuration == null)
+            if (configuration == null || coreSettings == null || string.IsNullOrEmpty(coreSettings.Db))
                 return;
+
             if (string.Equals(coreSettings.Db, "ScalesDB", StringComparison.InvariantCultureIgnoreCase) ||
                 string.Equals(coreSettings.Db, "SCALES", StringComparison.InvariantCultureIgnoreCase))
             {
-                // SYSTEM.
-                configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.AccessMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.AppMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.HostMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.LogMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.LogTypeMap>());
-                // SCALES.
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarcodeTypeMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ErrorMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LabelMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.NomenclatureMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderTypeMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductionFacilityMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductSeriesMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ScaleMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterResourceMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateResourceMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WeithingFactMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WorkshopMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());
+                AddConfigurationMappingsForScale(configuration);
             }
             else if (string.Equals(coreSettings.Db, "VSDWH", StringComparison.InvariantCultureIgnoreCase))
             {
-                configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.BrandMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.InformationSystemMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureGroupMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureTypeMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureLightMap>());
-                configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.StatusMap>());
+                AddConfigurationMappingsForDwh(configuration);
             }
         }
+
+        private void AddConfigurationMappingsForScale(FluentConfiguration configuration)
+        {
+            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.AccessMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.AppMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.HostMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.LogMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.LogTypeMap>());
+
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarcodeTypeMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ErrorMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LabelMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.NomenclatureMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderTypeMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PluMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductionFacilityMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ProductSeriesMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ScaleMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterResourceMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateResourceMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.TemplateMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WeithingFactMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.WorkshopMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.PrinterTypeMap>());
+        }
+
+        private void AddConfigurationMappingsForDwh(FluentConfiguration configuration)
+        {
+            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.BrandMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.InformationSystemMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureGroupMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureTypeMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.NomenclatureLightMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableDwhModels.StatusMap>());
+        }
+
+        #endregion
+
+        #region Public and private methods - Share
 
         public override string ToString()
         {

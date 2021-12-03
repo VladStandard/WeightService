@@ -36,11 +36,12 @@ namespace BlazorProjectsCore.Models
         {
             lock (Locker)
             {
-                if (jsonAppSettings != null && JsonAppSettings == null && CoreSettingsItem == null && DataAccess == null)
+                if (jsonAppSettings != null && JsonAppSettings == null && CoreSettings == null && DataAccess == null)
                 {
                     JsonAppSettings = jsonAppSettings;
-                    CoreSettingsItem = new(JsonAppSettings.Server, JsonAppSettings.Db, JsonAppSettings.Trusted, JsonAppSettings.Username, JsonAppSettings.Password);
-                    DataAccess = new DataAccessEntity(CoreSettingsItem);
+                    CoreSettings = new(JsonAppSettings.Server, JsonAppSettings.Db, 
+                        JsonAppSettings.Trusted, JsonAppSettings.Username, JsonAppSettings.Password, JsonAppSettings.Schema);
+                    DataAccess = new DataAccessEntity(CoreSettings);
                 }
                 if (hotKeys != null)
                 {
@@ -58,7 +59,7 @@ namespace BlazorProjectsCore.Models
         #region Public and private fields and properties
 
         public object Locker { get; set; } = new object();
-        public CoreSettingsEntity CoreSettingsItem { get; set; }
+        public CoreSettingsEntity CoreSettings { get; set; }
         public IdentityEntity IdentityItem { get; private set; }
         public DataAccessEntity DataAccess { get; private set; }
         public DataSourceEntity DataSource { get; private init; } = new();
