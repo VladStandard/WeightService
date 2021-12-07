@@ -47,7 +47,9 @@ namespace DataProjectsCore.DAL.Models
                     //    : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
                     //        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
                     MsSqlConfiguration config = MsSqlConfiguration.MsSql2012.ConnectionString(GetConnectionString());
-                    config.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>().DefaultSchema(CoreSettings.Schema); //.ShowSql()
+                    //config.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>().DefaultSchema(CoreSettings.Schema).ShowSql();
+                    //config.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>().DefaultSchema(CoreSettings.Schema);
+                    config.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
                     FluentConfiguration configuration = Fluently.Configure().Database(config);
                     AddConfigurationMappings(configuration, CoreSettings);
                     //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
@@ -303,7 +305,6 @@ namespace DataProjectsCore.DAL.Models
                 AbstractCriterion fieldsWhere = Restrictions.AllEq(fieldList.Fields);
                 criteria.Add(fieldsWhere);
             }
-            //if (order != null && order.Use)
             if (order is { Use: true })
             {
                 Order fieldOrder = order.Direction == ShareEnums.DbOrderDirection.Asc ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());

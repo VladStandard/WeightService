@@ -22,7 +22,16 @@ namespace WeightCore.Managers
         public Connection ZebraConnection { get; private set; }
         public BlockingCollection<string> Documents { get; private set; } = new();
         private ZebraPrinter _zebraPrinter;
-        public ZebraPrinter ZebraPrinter => _zebraPrinter ??= ZebraPrinterFactory.GetInstance(ZebraConnection);
+        public ZebraPrinter ZebraPrinter
+        {
+            get
+            {
+                if (ZebraConnection != null && _zebraPrinter == null)
+                    _zebraPrinter = ZebraPrinterFactory.GetInstance(ZebraConnection);
+                return _zebraPrinter;
+            }
+        }
+
         public TscPrintControlHelper TscPrintControl { get; private set; } = TscPrintControlHelper.Instance;
         private WmiHelper Wmi { get; set; } = WmiHelper.Instance;
         public bool IsTscPrinter { get; private set; }
@@ -46,8 +55,10 @@ namespace WeightCore.Managers
             Init(ProjectsEnums.TaskType.MemoryManager,
             () => {
                 IsTscPrinter = isTscPrinter;
-                if (IsTscPrinter)
+                //if (IsTscPrinter)
+                { 
                     ZebraConnection = new TcpConnection(ip, port);
+                }
                 TscPrintControl.Init(name, ip, port);
             }, 1_000);
         }
@@ -109,7 +120,7 @@ namespace WeightCore.Managers
         {
             try
             {
-                if (Documents.Count > 0)
+                if (Documents?.Count > 0)
                 {
                     CurrentStatus = ZebraPrinter.GetCurrentStatus();
                     UserLabelCount = int.Parse(SGD.GET("odometer.user_label_count", ZebraPrinter.Connection));

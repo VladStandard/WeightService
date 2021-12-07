@@ -6,6 +6,7 @@ using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.Interfaces;
 using System;
+using System.Collections.Generic;
 using static DataShareCore.LocalizationCore;
 
 namespace DataCore
@@ -406,6 +407,14 @@ namespace DataCore
 
         public static class ScalesUI
         {
+            public static List<string> ListLanguages => Lang == ShareEnums.Lang.English
+                ? new List<string> { "Russian", "English"}
+                : new List<string> { "Russian", "English" };
+                //: new List<string> { "Русский", "Английский" };
+            public static List<string> ListResolutions => Lang == ShareEnums.Lang.English
+                ? new List<string> { "Maximum", "1024x768", "1366x768", "1600x1024", "1920x1080" }
+                : new List<string> { "Максимальное", "1024x768", "1366x768", "1600x1024", "1920x1080" };
+
             public static string ProgramLoad => Lang == ShareEnums.Lang.English ? @"Loading the program ..." : @"Загрузка программы ...";
             public static string ProgramExit => Lang == ShareEnums.Lang.English ? @"Ending the program ..." : @"Завершение программы ...";
             public static string Exception => Lang == ShareEnums.Lang.English ? @"Exception" : @"Ошибка";
@@ -465,7 +474,8 @@ namespace DataCore
                 ? @"Weighted products can be specified in quantities of 1 piece."
                 : @"Весовая продукция может быть указана в количестве 1 штуки.";
             public static string Labels => Lang == ShareEnums.Lang.English ? @"Labels" : @"Этикетки";
-            public static string Printer => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
+            public static string PrinterTsc => Lang == ShareEnums.Lang.English ? @"Printer TSC" : @"Принтер TSC";
+            public static string PrinterZebra => Lang == ShareEnums.Lang.English ? @"Printer Zebra" : @"Принтер Zebra";
             public static string PrinterAvailable => Lang == ShareEnums.Lang.English ? @"available" : @"доступен";
             public static string PrinterUnavailable => Lang == ShareEnums.Lang.English ? @"unavailable" : @"не доступен";
             public static string Memory => Lang == ShareEnums.Lang.English ? @"Memory" : @"Память";

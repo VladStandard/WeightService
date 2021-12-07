@@ -6,10 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.920] - 2021-12-07
+### Fixed
+- WS-T-45. Ошибка отключения принтера Zebra
+
 ## [0.5.900] - 2021-11-29
 ### Fixed
 - Ошибка печати
-- WS-T-34. ScalesUI. Exception WPF window
+- WS-T-34. Exception WPF window
 
 ## [0.5.860] - 2021-11-22
 ### Fixed

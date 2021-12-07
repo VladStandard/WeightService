@@ -1,4 +1,4 @@
--- Scales - LOGS diagram summary
+-- Scales - LOGS
 -- 1. Connect from PALYCH\LUTON
 --SELECT * FROM db_scales.LOGS WHERE MEMBER='OpenZebra'
 -- use [ScalesDB]

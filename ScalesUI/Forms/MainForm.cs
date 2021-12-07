@@ -9,6 +9,7 @@ using DataShareCore.Helpers;
 using DataShareCore.Schedulers;
 using ScalesCore.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -20,7 +21,7 @@ using WeightCore.Managers;
 
 namespace ScalesUI.Forms
 {
-    public partial class MainForm : Form
+     public partial class MainForm : Form
     {
         #region Private fields and properties
 
@@ -29,13 +30,14 @@ namespace ScalesUI.Forms
         private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private LogHelper Log { get; set; } = LogHelper.Instance;
         private ProcHelper Proc { get; set; } = ProcHelper.Instance;
-        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
         private QuartzHelper Quartz { get; set; } = QuartzHelper.Instance;
-        private bool _isShowInfoLabels = false;
-        private object LockerSeconds { get; set; } = new();
-        private object LockerDays { get; set; } = new();
+        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
         public ShareEnums.ProgramState ProgramState { get; set; } = ShareEnums.ProgramState.Default;
-        private readonly string _appName = null;
+
+        private bool IsShowInfoLabels { get; set; } = false;
+        private object LockerDays { get; set; } = new();
+        private object LockerSeconds { get; set; } = new();
+        private string AppName { get; set; } = null;
 
         #endregion
 
@@ -47,9 +49,13 @@ namespace ScalesUI.Forms
 
             FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
             TopMost = !Debug.IsDebug;
-            fieldResolution.SelectedIndex = Debug.IsDebug ? 2 : 0;
-            fieldLang.SelectedIndex = 0;
-            _appName = $"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}.";
+            AppName = $"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}.";
+
+            // ComboBoxes.
+            ComboBoxFieldLoad(fieldResolution, FieldResolution_SelectedIndexChanged, LocalizationData.ScalesUI.ListResolutions, Debug.IsDebug ? 2 : 0);
+            ComboBoxFieldLoad(fieldLang, FieldLang_SelectedIndexChanged, LocalizationData.ScalesUI.ListLanguages);
+            FieldLang_SelectedIndexChanged(null, null);
+            FieldResolution_SelectedIndexChanged(null, null);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -59,8 +65,7 @@ namespace ScalesUI.Forms
                 ProgramState = ShareEnums.ProgramState.IsLoad;
                 TaskManagerClose();
 
-                LoadResources();
-                LoadLocalization();
+                MainForm_LoadResources();
 
                 SessionState.NewPallet();
 
@@ -91,7 +96,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void LoadLocalization()
+        private void MainForm_LoadLocalization()
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(buttonRunScalesTerminal, LocalizationData.ScalesUI.ButtonRunScalesTerminal);
             MDSoft.WinFormsUtils.InvokeControl.SetText(buttonScalesInit, LocalizationData.ScalesUI.ButtonScalesInit);
@@ -107,9 +112,11 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(labelWeightTare, LocalizationData.ScalesUI.FieldWeightTare);
             MDSoft.WinFormsUtils.InvokeControl.SetText(labelKneading, LocalizationData.ScalesUI.FieldKneading);
             MDSoft.WinFormsUtils.InvokeControl.SetText(labelProductDate, LocalizationData.ScalesUI.FieldProductDate);
+
+            ComboBoxFieldLoad(fieldResolution, FieldResolution_SelectedIndexChanged, LocalizationData.ScalesUI.ListResolutions);
         }
 
-        private void LoadResources()
+        private void MainForm_LoadResources()
         {
             try
             {
@@ -295,16 +302,16 @@ namespace ScalesUI.Forms
             switch (ProgramState)
             {
                 case ShareEnums.ProgramState.IsLoad:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName +
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName +
                         $" SQL: {SessionState.SqlViewModel.PublishDescription}." +
                         $"  {LocalizationData.ScalesUI.ProgramLoad}");
                     break;
                 case ShareEnums.ProgramState.IsRun:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName +
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName +
                         $" SQL: {SessionState.SqlViewModel.PublishDescription}.");
                     break;
                 case ShareEnums.ProgramState.IsExit:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName +
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName +
                         $" SQL: {SessionState.SqlViewModel.PublishDescription}." +
                         $"  {LocalizationData.ScalesUI.ProgramExit}");
                     break;
@@ -317,13 +324,13 @@ namespace ScalesUI.Forms
             switch (ProgramState)
             {
                 case ShareEnums.ProgramState.IsLoad:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName + $"  {LocalizationData.ScalesUI.ProgramLoad}");
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName + $"  {LocalizationData.ScalesUI.ProgramLoad}");
                     break;
                 case ShareEnums.ProgramState.IsRun:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName);
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName);
                     break;
                 case ShareEnums.ProgramState.IsExit:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, _appName + $"  {LocalizationData.ScalesUI.ProgramExit}");
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTitle, AppName + $"  {LocalizationData.ScalesUI.ProgramExit}");
                     break;
             }
             fieldTitle.BackColor = Color.LightGreen;
@@ -461,7 +468,7 @@ namespace ScalesUI.Forms
             if (SessionState.IsTscPrinter)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
-                    $"{LocalizationData.ScalesUI.Printer}: {SessionState.Manager.Print.Win32Printer().PrinterStatusDescription} " +
+                    $"{LocalizationData.ScalesUI.PrinterTsc}: {SessionState.Manager.Print.Win32Printer().PrinterStatusDescription} " +
                     $"{SessionState.Manager.Print.ProgressString}");
             }
             // Zebra printers.
@@ -474,11 +481,12 @@ namespace ScalesUI.Forms
                     SessionState.LabelsCurrent = 1;
                 if (SessionState.Manager.Print.CurrentStatus != null)
                 {
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager, SessionState.Manager.Print.CurrentStatus.isReadyToPrint
-                        ? $"{LocalizationData.ScalesUI.Printer} {SessionState.CurrentScale.ZebraPrinter.Ip}: " +
-                          $"{LocalizationData.ScalesUI.PrinterAvailable} {SessionState.Manager.Print.ProgressString}"
-                        : $"{LocalizationData.ScalesUI.Printer} {SessionState.CurrentScale.ZebraPrinter.Ip}: " +
-                          $"{LocalizationData.ScalesUI.PrinterUnavailable} {SessionState.Manager.Print.ProgressString}");
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
+                        $"{LocalizationData.ScalesUI.PrinterZebra} {SessionState.CurrentScale.ZebraPrinter.Ip}: " +
+                        (SessionState.Manager.Print.CurrentStatus.isReadyToPrint 
+                        ? LocalizationData.ScalesUI.PrinterAvailable : LocalizationData.ScalesUI.PrinterUnavailable) + 
+                        $" {SessionState.Manager.Print.ProgressString}"
+                    );
                 }
             }
             SessionState.Manager.Print.ProgressString = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Print.ProgressString);
@@ -491,17 +499,25 @@ namespace ScalesUI.Forms
             if (SessionState.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
-                    $"{LocalizationData.ScalesUI.Memory}: {SessionState.Manager.Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB {SessionState.Manager.Memory.ProgressString}");
+                    $"{LocalizationData.ScalesUI.Memory}: " +
+                    (SessionState?.Manager?.Memory?.MemorySize?.PhysicalCurrent != null 
+                        ? $"{SessionState.Manager.Memory.MemorySize.PhysicalCurrent.MegaBytes:N0}" : "-") +
+                    $" MB {SessionState.Manager.Memory.ProgressString}");
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal, 
                     SessionState.Manager.Memory.MemorySize.DtChanged?.ToString(@"HH:mm:ss") +
-                    $"  {LocalizationData.ScalesUI.MemoryPhysical}: {LocalizationData.ScalesUI.MemoryFree} {SessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes:N0} из " +
-                    $"{SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB.");
+                    $"  {LocalizationData.ScalesUI.MemoryPhysical}: {LocalizationData.ScalesUI.MemoryFree} " +
+                    (SessionState?.Manager?.Memory?.MemorySize?.PhysicalFree != null
+                        ? $"{SessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes:N0}" +
+                        $" из {SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB."
+                        : "- из - MB."));
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldMemoryProgress,
-                    (int)SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes);
+                    SessionState?.Manager?.Memory?.MemorySize?.PhysicalTotal != null
+                    ? (int)SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes : 0);
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldMemoryProgress, 0);
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMemoryProgress,
-                    (int)(SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes -
-                    SessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes));
+                    SessionState.Manager.Memory.MemorySize.PhysicalTotal != null && SessionState.Manager.Memory.MemorySize.PhysicalFree != null
+                    ? (int)(SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes -
+                    SessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes) : 0);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTasks, $"{LocalizationData.ScalesUI.Threads}: {Process.GetCurrentProcess().Threads.Count}");
                 SessionState.Manager.Memory.ProgressString = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Memory.ProgressString);
             }
@@ -547,7 +563,8 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries,
                 $"{LocalizationData.ScalesUI.ScaleQueue}: {SessionState.Manager.Massa.Requests?.Count} {SessionState.Manager.Massa.ProgressStringQueries}");
             SessionState.Manager.Massa.ProgressStringQueries = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringQueries);
-            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, SessionState.Manager.Massa.Requests.Count);
+            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, SessionState?.Manager?.Massa?.Requests != null
+                ? SessionState.Manager.Massa.Requests.Count : 0);
 
             if (!flag)
             {
@@ -613,10 +630,6 @@ namespace ScalesUI.Forms
             }
         }
 
-        #endregion
-
-        #region Public and private methods - Callbacks
-
         private void TaskManagerOpen()
         {
             SessionState.Manager.Init(SessionState.CurrentScale, SessionState.IsTscPrinter);
@@ -635,6 +648,20 @@ namespace ScalesUI.Forms
         #endregion
 
         #region Private methods
+
+        private void ComboBoxFieldLoad(ComboBox comboBox, EventHandler eventHandler, List<string> sourceList, int selectedIndex = 0)
+        {
+            if (comboBox == null || sourceList == null || sourceList.Count == 0 || selectedIndex < 0)
+                return;
+            int backupIndex = comboBox.SelectedIndex;
+            comboBox.SelectedIndexChanged -= eventHandler;
+            comboBox.Items.Clear();
+            comboBox.Items.AddRange(sourceList.ToArray());
+            comboBox.SelectedIndex = selectedIndex <= 0
+                ? backupIndex <= 0 ? 0 : backupIndex
+                : selectedIndex < comboBox.Items.Count ? selectedIndex : 0;
+            comboBox.SelectedIndexChanged += eventHandler;
+        }
 
         private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
         {
@@ -990,12 +1017,17 @@ namespace ScalesUI.Forms
                         WindowState = FormWindowState.Normal;
                         Size = new Size(1366, 768);
                         break;
-                    // 1920х1080
+                    // 1600x1024
                     case 3:
+                        WindowState = FormWindowState.Normal;
+                        Size = new Size(1600, 1024);
+                        break;
+                    // 1920х1080
+                    case 4:
                         WindowState = FormWindowState.Normal;
                         Size = new Size(1920, 1080);
                         break;
-                    // Максимальное
+                    // Maximum
                     default:
                         WindowState = FormWindowState.Maximized;
                         break;
@@ -1022,7 +1054,7 @@ namespace ScalesUI.Forms
                     1 => ShareEnums.Lang.English,
                     _ => ShareEnums.Lang.Russian,
                 };
-                LoadLocalization();
+                MainForm_LoadLocalization();
             }
             catch (Exception ex)
             {
@@ -1037,22 +1069,22 @@ namespace ScalesUI.Forms
 
         private void FieldCurrentTime_Click(object sender, EventArgs e)
         {
-            _isShowInfoLabels = ProgramState == ShareEnums.ProgramState.IsRun && !_isShowInfoLabels;
+            IsShowInfoLabels = ProgramState == ShareEnums.ProgramState.IsRun && !IsShowInfoLabels;
             // Controls.
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldResolution, _isShowInfoLabels);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLang, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldResolution, IsShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLang, IsShowInfoLabels);
             // MemoryManager.
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryManagerTotal, _isShowInfoLabels);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryProgress, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryManagerTotal, IsShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryProgress, IsShowInfoLabels);
             // PrintManager.
             // MassaManager.
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaScalePar, _isShowInfoLabels);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGet, _isShowInfoLabels);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTasks, _isShowInfoLabels);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGetCrc, _isShowInfoLabels);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSet, _isShowInfoLabels);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSetCrc, _isShowInfoLabels);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueriesProgress, _isShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaScalePar, IsShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGet, IsShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldTasks, IsShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGetCrc, IsShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSet, IsShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSetCrc, IsShowInfoLabels);
+            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueriesProgress, IsShowInfoLabels);
         }
 
         private void FieldDt_DoubleClick(object sender, EventArgs e)
