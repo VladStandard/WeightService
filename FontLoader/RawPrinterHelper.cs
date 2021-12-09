@@ -22,7 +22,7 @@ public class RawPrinterHelper
     public static extern bool ClosePrinter(IntPtr hPrinter);
 
     [DllImport("winspool.Drv", EntryPoint = "StartDocPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-    public static extern bool StartDocPrinter(IntPtr hPrinter, Int32 level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFOA di);
+    public static extern bool StartDocPrinter(IntPtr hPrinter, int level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFOA di);
 
     [DllImport("winspool.Drv", EntryPoint = "EndDocPrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
     public static extern bool EndDocPrinter(IntPtr hPrinter);
@@ -34,17 +34,17 @@ public class RawPrinterHelper
     public static extern bool EndPagePrinter(IntPtr hPrinter);
 
     [DllImport("winspool.Drv", EntryPoint = "WritePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-    public static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, Int32 dwCount, out Int32 dwWritten);
+    public static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, int dwCount, out int dwWritten);
 
     // SendBytesToPrinter()
     // When the function is given a printer name and an unmanaged array
     // of bytes, the function sends those bytes to the print queue.
     // Returns true on success, false on failure.
-    public static bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, Int32 dwCount)
+    public static bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, int dwCount)
     {
-        Int32 dwError = 0, dwWritten = 0;
-        IntPtr hPrinter = new IntPtr(0);
-        DOCINFOA di = new DOCINFOA();
+        int dwError = 0, dwWritten = 0;
+        IntPtr hPrinter = new(0);
+        DOCINFOA di = new();
         bool bSuccess = false; // Assume failure unless you specifically succeed.
 
         di.pDocName = "My C#.NET RAW Document";
@@ -79,14 +79,14 @@ public class RawPrinterHelper
     public static bool SendFileToPrinter(string szPrinterName, string szFileName)
     {
         // Open the file.
-        FileStream fs = new FileStream(szFileName, FileMode.Open);
+        FileStream fs = new(szFileName, FileMode.Open);
         // Create a BinaryReader on the file.
-        BinaryReader br = new BinaryReader(fs);
+        BinaryReader br = new(fs);
         // Dim an array of bytes big enough to hold the file's contents.
-        Byte[] bytes = new Byte[fs.Length];
+        byte[] bytes = new byte[fs.Length];
         bool bSuccess = false;
         // Your unmanaged pointer.
-        IntPtr pUnmanagedBytes = new IntPtr(0);
+        IntPtr pUnmanagedBytes = new(0);
         int nLength;
 
         nLength = Convert.ToInt32(fs.Length);
@@ -105,7 +105,7 @@ public class RawPrinterHelper
     public static bool SendStringToPrinter(string szPrinterName, string szString)
     {
         IntPtr pBytes;
-        Int32 dwCount;
+        int dwCount;
         // How many characters are in the string?
         dwCount = szString.Length;
         // Assume that the printer is expecting ANSI text, and then convert
