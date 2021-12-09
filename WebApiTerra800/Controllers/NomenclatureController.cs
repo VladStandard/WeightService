@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -25,8 +26,8 @@ namespace terra.Controllers
 
         private HttpResponseMessage GetResponse(XDocument doc)
         {
-            var xdoc = XDocument.Parse(doc.ToString());
-            var response = Request.CreateResponse(HttpStatusCode.OK);
+            XDocument xdoc = XDocument.Parse(doc.ToString());
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(xdoc.ToString(), Encoding.UTF8, "application/xml");
             return response;
         }
@@ -36,47 +37,43 @@ namespace terra.Controllers
         {
 
             Errors.Clear();
-            var doc = new XDocument(new XElement("response"));
+            XDocument doc = new(new XElement("response"));
 
-            using (var conn = SqlHelper.GetConnection())
+            using SqlConnection conn = SqlHelper.GetConnection();
+            List<SqlParameter> sqlParameters = new()
             {
-                var sqlParameters = new List<SqlParameter>();
-                sqlParameters.Add(new SqlParameter($"@StartDate", startDate));
-                sqlParameters.Add(new SqlParameter($"@EndDate", endDate));
-                sqlParameters.Add(new SqlParameter($"@Offset", offset));
-                sqlParameters.Add(new SqlParameter($"@RowCount", rowCount));
+                new SqlParameter($"@StartDate", startDate),
+                new SqlParameter($"@EndDate", endDate),
+                new SqlParameter($"@Offset", offset),
+                new SqlParameter($"@RowCount", rowCount)
+            };
 
-                using (var cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetNomenclatureChangesList] (@StartDate, @EndDate, @Offset, @RowCount)", conn, sqlParameters))
+            using SqlCommand cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetNomenclatureChangesList] (@StartDate, @EndDate, @Offset, @RowCount)", conn, sqlParameters);
+            try
+            {
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
                 {
-                    try
+                    xmlReader.Read();
+                    if (xmlReader.MoveToContent() != XmlNodeType.None)
                     {
-                        using (var xmlReader = cmd.ExecuteXmlReader())
-                        {
-                            xmlReader.Read();
-                            if (xmlReader.MoveToContent() != XmlNodeType.None)
-                            {
-                                var someElement = XElement.Load(xmlReader.ReadSubtree());
-                                doc.Root.Add(someElement);
-                            }
-                            else
-                            {
-                                Errors.Add("No objects.");
-                            }
-                        }
-
-                        doc.Root.Add(Errors.GetXElement());
-                        return GetResponse(doc);
-
+                        XElement someElement = XElement.Load(xmlReader.ReadSubtree());
+                        doc.Root.Add(someElement);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Errors.Add(ex.Message);
-                        doc.Root.Add(Errors.GetXElement());
-                        return GetResponse(doc);
+                        Errors.Add("No objects.");
                     }
-
                 }
 
+                doc.Root.Add(Errors.GetXElement());
+                return GetResponse(doc);
+
+            }
+            catch (Exception ex)
+            {
+                Errors.Add(ex.Message);
+                doc.Root.Add(Errors.GetXElement());
+                return GetResponse(doc);
             }
 
         }
@@ -84,46 +81,42 @@ namespace terra.Controllers
         // GET: api/Nomenclature/?id=1
         public HttpResponseMessage Get(int id)
         {
-            var doc = new XDocument(new XElement("response"));
+            XDocument doc = new(new XElement("response"));
 
-            using (var conn = SqlHelper.GetConnection())
+            using SqlConnection conn = SqlHelper.GetConnection();
+            List<SqlParameter> sqlParameters = new()
             {
-                var sqlParameters = new List<SqlParameter>();
-                sqlParameters.Add(new SqlParameter($"@ID", id));
+                new SqlParameter($"@ID", id)
+            };
 
-                using (var cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetNomenclatureByID] (@ID)", conn, sqlParameters))
+            using SqlCommand cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetNomenclatureByID] (@ID)", conn, sqlParameters);
+            try
+            {
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
                 {
-                    try
+
+                    xmlReader.Read();
+                    if (xmlReader.MoveToContent() != XmlNodeType.None)
                     {
-                        using (var xmlReader = cmd.ExecuteXmlReader())
-                        {
-
-                            xmlReader.Read();
-                            if (xmlReader.MoveToContent() != XmlNodeType.None)
-                            {
-                                var someElement = XElement.Load(xmlReader.ReadSubtree());
-                                doc.Root.Add(someElement);
-                            }
-                            else
-                            {
-                                Errors.Add("No objects.");
-                            }
-
-                        }
-
-                        doc.Root.Add(Errors.GetXElement());
-                        return GetResponse(doc);
-
+                        XElement someElement = XElement.Load(xmlReader.ReadSubtree());
+                        doc.Root.Add(someElement);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Errors.Add(ex.Message);
-                        doc.Root.Add(Errors.GetXElement());
-                        return GetResponse(doc);
+                        Errors.Add("No objects.");
                     }
 
                 }
 
+                doc.Root.Add(Errors.GetXElement());
+                return GetResponse(doc);
+
+            }
+            catch (Exception ex)
+            {
+                Errors.Add(ex.Message);
+                doc.Root.Add(Errors.GetXElement());
+                return GetResponse(doc);
             }
 
         }

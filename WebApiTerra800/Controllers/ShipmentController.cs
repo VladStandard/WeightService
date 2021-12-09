@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -16,12 +17,12 @@ namespace terra.Controllers
     public class ShipmentController : ApiController
     {
 
-        private ErrorContainer errors = new ErrorContainer();
+        private readonly ErrorContainer errors = new();
 
         private HttpResponseMessage GetResponse(XDocument doc)
         {
-            var xdoc = XDocument.Parse(doc.ToString());
-            var response = Request.CreateResponse(HttpStatusCode.OK);
+            XDocument xdoc = XDocument.Parse(doc.ToString());
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(xdoc.ToString(), Encoding.UTF8, "application/xml");
             return response;
         }
@@ -32,92 +33,84 @@ namespace terra.Controllers
         {
 
             errors.Clear();
-            var doc = new XDocument(new XElement("response"));
+            XDocument doc = new(new XElement("response"));
 
-            using (var conn = SqlHelper.GetConnection())
+            using SqlConnection conn = SqlHelper.GetConnection();
+            List<SqlParameter> sqlParameters = new()
             {
-                var sqlParameters = new List<SqlParameter>();
-                sqlParameters.Add(new SqlParameter($"@StartDate", StartDate));
-                sqlParameters.Add(new SqlParameter($"@EndDate", EndDate));
-                sqlParameters.Add(new SqlParameter($"@Offset", Offset));
-                sqlParameters.Add(new SqlParameter($"@RowCount", RowCount));
-                using (var cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetShipmentChangesList] (@StartDate, @EndDate, @Offset, @RowCount)", conn, sqlParameters))
+                new SqlParameter($"@StartDate", StartDate),
+                new SqlParameter($"@EndDate", EndDate),
+                new SqlParameter($"@Offset", Offset),
+                new SqlParameter($"@RowCount", RowCount)
+            };
+            using SqlCommand cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetShipmentChangesList] (@StartDate, @EndDate, @Offset, @RowCount)", conn, sqlParameters);
+            try
+            {
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
                 {
-                    try
+
+                    if (xmlReader.MoveToContent() != XmlNodeType.None)
                     {
-                        using (var xmlReader = cmd.ExecuteXmlReader())
-                        {
-
-                            if (xmlReader.MoveToContent() != XmlNodeType.None)
-                            {
-                                var someElement = XElement.Load(xmlReader.ReadSubtree());
-                                doc.Root.Add(someElement);
-                            }
-                            else
-                            {
-                                errors.Add("No objects.");
-                            }
-
-                        }
-
-                        doc.Root.Add(errors.GetXElement());
-                        return GetResponse(doc);
-
+                        XElement someElement = XElement.Load(xmlReader.ReadSubtree());
+                        doc.Root.Add(someElement);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        errors.Add(ex.Message);
-                        doc.Root.Add(errors.GetXElement());
-                        return GetResponse(doc);
+                        errors.Add("No objects.");
                     }
 
                 }
 
+                doc.Root.Add(errors.GetXElement());
+                return GetResponse(doc);
+
+            }
+            catch (Exception ex)
+            {
+                errors.Add(ex.Message);
+                doc.Root.Add(errors.GetXElement());
+                return GetResponse(doc);
             }
 
         }
 
         // GET: api/Shipment/id
-        public HttpResponseMessage Get(Int64 id)
+        public HttpResponseMessage Get(long id)
         {
-            var doc = new XDocument(new XElement("response"));
+            XDocument doc = new(new XElement("response"));
 
-            using (var conn = SqlHelper.GetConnection())
+            using SqlConnection conn = SqlHelper.GetConnection();
+            List<SqlParameter> sqlParameters = new()
             {
-                var sqlParameters = new List<SqlParameter>();
-                sqlParameters.Add(new SqlParameter($"@ID", id));
+                new SqlParameter($"@ID", id)
+            };
 
-                using (var cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetShipmentByID] (@ID)", conn, sqlParameters))
+            using SqlCommand cmd = SqlHelper.GetCommand("SELECT [IIS].[fnGetShipmentByID] (@ID)", conn, sqlParameters);
+            try
+            {
+                using (XmlReader xmlReader = cmd.ExecuteXmlReader())
                 {
-                    try
+                    xmlReader.Read();
+                    if (xmlReader.MoveToContent() != XmlNodeType.None)
                     {
-                        using (var xmlReader = cmd.ExecuteXmlReader())
-                        {
-                            xmlReader.Read();
-                            if (xmlReader.MoveToContent() != XmlNodeType.None)
-                            {
-                                var someElement = XElement.Load(xmlReader.ReadSubtree());
-                                doc.Root.Add(someElement);
-                            }
-                            else
-                            {
-                                errors.Add("No objects.");
-                            }
-
-                        }
-                        doc.Root.Add(errors.GetXElement());
-                        return GetResponse(doc);
-
+                        XElement someElement = XElement.Load(xmlReader.ReadSubtree());
+                        doc.Root.Add(someElement);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        errors.Add(ex.Message);
-                        doc.Root.Add(errors.GetXElement());
-                        return GetResponse(doc);
+                        errors.Add("No objects.");
                     }
 
                 }
+                doc.Root.Add(errors.GetXElement());
+                return GetResponse(doc);
 
+            }
+            catch (Exception ex)
+            {
+                errors.Add(ex.Message);
+                doc.Root.Add(errors.GetXElement());
+                return GetResponse(doc);
             }
 
         }
