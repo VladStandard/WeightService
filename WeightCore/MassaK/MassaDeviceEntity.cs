@@ -5,6 +5,7 @@ using DataShareCore.Models;
 using System;
 using System.IO.Ports;
 using System.Threading;
+using WeightCore.SerialPorts;
 
 namespace WeightCore.MassaK
 {
@@ -61,7 +62,7 @@ namespace WeightCore.MassaK
                     }
 
                     if (SerialPortItem == null && !string.IsNullOrEmpty(PortName))
-                        SerialPortItem = SerialPortItem.GetDefault(PortName, ReadTimeout, WriteTimeout);
+                        SerialPortItem = SerialPortUtils.GetDefault(PortName, ReadTimeout, WriteTimeout);
 
                     if (SerialPortItem == null)
                     {
@@ -104,7 +105,7 @@ namespace WeightCore.MassaK
                 {
                     SerialPortItem.Read(data, 0, len);
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                     //catch read exception
                 }

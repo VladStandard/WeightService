@@ -5,10 +5,9 @@ using System.IO.Ports;
 
 namespace WeightCore.MassaK
 {
-    public static class SerialPortExtension
+    public static class SerialPortUtils
     {
-#pragma warning disable IDE0060 // Remove unused parameter
-        public static SerialPort GetDefault(this SerialPort serialPort, string portName, int readTimeout = 1_000, int writeTimeout = 1_000) => new(portName)
+        public static SerialPort GetDefault(string portName, int readTimeout = 1_000, int writeTimeout = 1_000) => new(portName)
         {
             BaudRate = 4800,
             Parity = Parity.Even,
@@ -20,7 +19,7 @@ namespace WeightCore.MassaK
             // FlowControl = Hardware
         };
 
-        public static SerialPort GetNew(this SerialPort serialPort, string portName, int baudRate, Parity parity, int dataBits,
+        public static SerialPort GetNew(string portName, int baudRate, Parity parity, int dataBits,
             StopBits stopBits, Handshake handshake, int readTimeout, int writeTimeout) => new(portName)
         {
             BaudRate = baudRate,
@@ -31,6 +30,5 @@ namespace WeightCore.MassaK
             ReadTimeout = readTimeout,
             WriteTimeout = writeTimeout,
         };
-#pragma warning restore IDE0060 // Remove unused parameter
     }
 }

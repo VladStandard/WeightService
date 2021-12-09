@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.TableModels;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using WeightCore.MassaK;
+using static WeightCore.MassaK.MassaEnums;
 
 namespace WeightCore.Managers
 {

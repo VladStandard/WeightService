@@ -16,7 +16,7 @@ namespace WeightCore.XamlPages
     {
         #region Private fields and properties
 
-        public SessionStateHelper _sessionState { get; private set; } = SessionStateHelper.Instance;
+        public SessionStateHelper SessionState { get; private set; } = SessionStateHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; }
         public int RowCount { get; } = 5;
         public int ColumnCount { get; } = 4;
@@ -36,7 +36,7 @@ namespace WeightCore.XamlPages
             {
                 sqlViewModel = SqlViewModel;
             }
-            SqlViewModel = _sessionState.SqlViewModel;
+            SqlViewModel = SessionState.SqlViewModel;
         }
 
         #endregion
@@ -45,7 +45,7 @@ namespace WeightCore.XamlPages
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            _sessionState.SqlViewModel.SetupTasks(_sessionState.Host?.ScaleId);
+            SessionState.SqlViewModel.SetupTasks(SessionState.Host?.ScaleId);
 
             System.Windows.Controls.Grid gridTasks = new();
             // Columns.
@@ -58,7 +58,7 @@ namespace WeightCore.XamlPages
                 gridTasks.ColumnDefinitions.Add(column);
             }
             // Rows.
-            for (int row = 0; row < _sessionState.SqlViewModel.Tasks.Count; row++)
+            for (int row = 0; row < SessionState.SqlViewModel.Tasks.Count; row++)
             {
                 // Row.
                 System.Windows.Controls.RowDefinition rows = new()
@@ -69,7 +69,7 @@ namespace WeightCore.XamlPages
                 // Task caption.
                 System.Windows.Controls.Label labelTaskCaption = new()
                 {
-                    Content = _sessionState.SqlViewModel.Tasks[row].TaskType.Name,
+                    Content = SessionState.SqlViewModel.Tasks[row].TaskType.Name,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalAlignment = System.Windows.VerticalAlignment.Center,
                 };
@@ -83,13 +83,13 @@ namespace WeightCore.XamlPages
                     Height = 30,
                     HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
                     VerticalContentAlignment = System.Windows.VerticalAlignment.Center,
-                    Tag = _sessionState.SqlViewModel.Tasks[row]
+                    Tag = SessionState.SqlViewModel.Tasks[row]
                 };
                 System.Windows.Controls.ComboBoxItem itemTrue = new() { Content = "True" };
                 comboBoxTaskEnabled.Items.Add(itemTrue);
                 System.Windows.Controls.ComboBoxItem itemFalse = new() { Content = "False" };
                 comboBoxTaskEnabled.Items.Add(itemFalse);
-                comboBoxTaskEnabled.SelectedItem = _sessionState.SqlViewModel.Tasks[row].Enabled ? itemTrue : itemFalse;
+                comboBoxTaskEnabled.SelectedItem = SessionState.SqlViewModel.Tasks[row].Enabled ? itemTrue : itemFalse;
                 System.Windows.Controls.Grid.SetColumn(comboBoxTaskEnabled, 1);
                 System.Windows.Controls.Grid.SetRow(comboBoxTaskEnabled, row);
                 gridTasks.Children.Add(comboBoxTaskEnabled);
@@ -119,13 +119,13 @@ namespace WeightCore.XamlPages
             }
 
             Result = DialogResult.OK;
-            _sessionState.IsWpfPageLoaderClose = true;
+            SessionState.IsWpfPageLoaderClose = true;
         }
 
         public void ButtonClose_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Result = DialogResult.Cancel;
-            _sessionState.IsWpfPageLoaderClose = true;
+            SessionState.IsWpfPageLoaderClose = true;
         }
 
         #endregion

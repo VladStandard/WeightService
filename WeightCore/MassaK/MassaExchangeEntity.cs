@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.Linq;
+using static WeightCore.MassaK.MassaEnums;
 
 namespace WeightCore.MassaK
 {

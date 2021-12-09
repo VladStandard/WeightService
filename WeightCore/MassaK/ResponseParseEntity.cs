@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using static WeightCore.MassaK.MassaEnums;
 
 namespace WeightCore.MassaK
 {
