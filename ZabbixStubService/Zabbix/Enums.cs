@@ -3,7 +3,7 @@
 
 // ReSharper disable IdentifierTypo
 
-namespace WeightCore.Zabbix
+namespace ZabbixStubService.Zabbix
 {
     public enum EnumCheckHttpAccess
     {

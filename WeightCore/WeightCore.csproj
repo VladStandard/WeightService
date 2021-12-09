@@ -396,18 +396,6 @@
     <Compile Include="XamlPages\PageSqlSettings.xaml.cs">
       <DependentUpon>PageSqlSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Zabbix\Enums.cs" />
-    <Compile Include="Zabbix\FakeCheckThreadByLog.cs" />
-    <Compile Include="Zabbix\HealthDataCollector.cs" />
-    <Compile Include="Zabbix\HealthDataCollectorByFile.cs" />
-    <Compile Include="Zabbix\HealthDataCollectorDummy.cs" />
-    <Compile Include="Zabbix\HealthDataCollectorMassa.cs" />
-    <Compile Include="Zabbix\HealthDataCollectorSqlCon.cs" />
-    <Compile Include="Zabbix\HealthDataCollectorStatus.cs" />
-    <Compile Include="Zabbix\HealthDataCollectorZebra.cs" />
-    <Compile Include="Zabbix\IHealthDataCollector.cs" />
-    <Compile Include="Zabbix\ThreadChecker.cs" />
-    <Compile Include="Zabbix\ZabbixHttpListener.cs" />
     <Compile Include="Zpl\ByteConverter.cs" />
     <Compile Include="Zpl\ZplCommander.cs" />
     <Compile Include="Zpl\ZplConverterHelper.cs" />
