@@ -38,7 +38,7 @@ namespace WeightCore.Helpers
         public AppHelper App { get; private set; } = AppHelper.Instance;
         private CollectionsHelper Collections { get; set; } = CollectionsHelper.Instance;
         private ProcHelper Proc { get; set; } = ProcHelper.Instance;
-        private WinHelper Win { get; set; } = WinHelper.Instance;
+        private RegHelper Win { get; set; } = RegHelper.Instance;
         private WinInfoHelper WinInfo { get; set; } = WinInfoHelper.Instance;
 
         #endregion

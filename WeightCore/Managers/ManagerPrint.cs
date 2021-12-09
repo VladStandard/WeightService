@@ -35,7 +35,7 @@ namespace WeightCore.Managers
         public TscPrintControlHelper TscPrintControl { get; private set; } = TscPrintControlHelper.Instance;
         private WmiHelper Wmi { get; set; } = WmiHelper.Instance;
         public bool IsTscPrinter { get; private set; }
-        public Win32PrinterEntity Win32Printer() => Wmi.GetWin32Printer(TscPrintControl.Name);
+        public WmiWin32PrinterEntity Win32Printer() => Wmi.GetWin32Printer(TscPrintControl.Name);
 
         #endregion
 

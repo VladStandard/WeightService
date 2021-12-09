@@ -3,7 +3,7 @@
 
 namespace DataShareCore.Wmi
 {
-    public class Win32OperatingSystemMemoryEntity
+    public class WmiWin32MemoryEntity
     {
         #region Public and private fields and properties
 
@@ -16,7 +16,7 @@ namespace DataShareCore.Wmi
 
         #region Constructor and destructor
 
-        public Win32OperatingSystemMemoryEntity()
+        public WmiWin32MemoryEntity()
         {
             FreeVirtual = 0;
             FreePhysical = 0;
@@ -24,7 +24,7 @@ namespace DataShareCore.Wmi
             TotalPhysical = 0;
         }
 
-        public Win32OperatingSystemMemoryEntity(ulong freeVirtual, ulong freePhysical, ulong totalVirtual, ulong totalPhysical)
+        public WmiWin32MemoryEntity(ulong freeVirtual, ulong freePhysical, ulong totalVirtual, ulong totalPhysical)
         {
             FreeVirtual = freeVirtual;
             FreePhysical = freePhysical;

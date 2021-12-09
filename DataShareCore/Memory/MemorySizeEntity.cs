@@ -56,7 +56,7 @@ namespace DataShareCore.Memory
 
             if (Wmi != null)
             {
-                Win32OperatingSystemMemoryEntity getWmi = Wmi.GetWin32OperatingSystemMemory();
+                WmiWin32MemoryEntity getWmi = Wmi.GetWin32OperatingSystemMemory();
                 VirtualFree = new MemorySizeConvertEntity { Bytes = getWmi.FreeVirtual };
                 PhysicalFree = new MemorySizeConvertEntity { Bytes = getWmi.FreePhysical };
                 VirtualTotal = new MemorySizeConvertEntity { Bytes = getWmi.TotalVirtual };

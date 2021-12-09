@@ -664,7 +664,7 @@ namespace ScalesUI.Forms
 
         private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
         {
-            DataShareCore.Wmi.Win32PrinterEntity win32Printer = SessionState.Manager.Print.Win32Printer();
+            DataShareCore.Wmi.WmiWin32PrinterEntity win32Printer = SessionState.Manager.Print.Win32Printer();
             using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog) { Width = 700, Height = 400 };
             wpfPageLoader.Text = LocalizationData.ScalesUI.PrinterInfoCaption;
             wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.PrinterInfoCaption;

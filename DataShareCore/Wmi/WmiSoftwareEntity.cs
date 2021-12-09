@@ -1,16 +1,16 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace WeightCore.Models
+namespace DataShareCore.Wmi
 {
-    public class ResultWmiSoftware
+    public class WmiSoftwareEntity
     {
-        public ResultWmiSoftware() : this(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
+        public WmiSoftwareEntity() : this(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
         {
             //
         }
 
-        public ResultWmiSoftware(string name, string vendor, string version, string guid, string language)
+        public WmiSoftwareEntity(string name, string vendor, string version, string guid, string language)
         {
             Name = name;
             Vendor = vendor;

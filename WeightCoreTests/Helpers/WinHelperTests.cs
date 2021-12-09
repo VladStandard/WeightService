@@ -2,17 +2,17 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataShareCore;
+using DataShareCore.Wmi;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
 using WeightCore.Helpers;
-using WeightCore.Models;
 
 namespace WeightCoreTests.Helpers
 {
     internal class WinHelperTests
     {
-        private WinHelper Win { get; set; } = WinHelper.Instance;
+        private RegHelper Win { get; set; } = RegHelper.Instance;
 
         /// <summary>
         /// Setup private fields.
@@ -50,8 +50,8 @@ namespace WeightCoreTests.Helpers
             {
                 foreach (ShareEnums.StringTemplate template in Enum.GetValues(typeof(ShareEnums.StringTemplate)))
                 {
-                    ResultWmiSoftware actual = Win.SearchingSoftware(ShareEnums.WinProvider.Alias, "Unknown Software", template);
-                    ResultWmiSoftware expected = new();
+                    WmiSoftwareEntity actual = Win.SearchingSoftware(ShareEnums.WinProvider.Alias, "Unknown Software", template);
+                    WmiSoftwareEntity expected = new();
                     TestContext.WriteLine($@"actual = {actual}");
                     Assert.AreEqual(expected.ToString(), actual.ToString());
                 }
@@ -68,7 +68,7 @@ namespace WeightCoreTests.Helpers
             TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} start.");
             Stopwatch sw = Stopwatch.StartNew();
 
-            ResultWmiSoftware actual = Win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Microsoft .NET Framework", ShareEnums.StringTemplate.StartsWith);
+            WmiSoftwareEntity actual = Win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Microsoft .NET Framework", ShareEnums.StringTemplate.StartsWith);
             TestContext.WriteLine($"actual: {actual}");
             TestContext.WriteLine($"actual.Name: {actual.Name}");
             Assert.AreEqual("Microsoft Corporation", actual.Vendor);

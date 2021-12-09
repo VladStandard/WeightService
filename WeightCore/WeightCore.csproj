@@ -328,10 +328,10 @@
     <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="Helpers\HardwareHelper.cs" />
     <Compile Include="Helpers\ProcHelper.cs" />
+    <Compile Include="Helpers\RegHelper.cs" />
     <Compile Include="Helpers\SettingsHelper.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Helpers\UacHelper.cs" />
-    <Compile Include="Helpers\WinHelper.cs" />
     <Compile Include="Helpers\WinInfoHelper.cs" />
     <Compile Include="Helpers\XamlHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
@@ -356,7 +356,6 @@
     <Compile Include="MassaK\ResponseScaleParEntity.cs" />
     <Compile Include="MassaK\SerialPortEventArgs.cs" />
     <Compile Include="MassaK\SerialPortExtension.cs" />
-    <Compile Include="Models\ResultWmiSoftware.cs" />
     <Compile Include="Models\ResultXmlRead.cs" />
     <Compile Include="Models\SqlAuthentication.cs" />
     <Compile Include="Models\SqlTableField.cs" />

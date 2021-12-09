@@ -3,7 +3,7 @@
 
 namespace DataShareCore.Wmi
 {
-    public class Win32PrinterEntity
+    public class WmiWin32PrinterEntity
     {
         #region Public and private fields and properties
 
@@ -20,7 +20,7 @@ namespace DataShareCore.Wmi
 
         #region Constructor and destructor
 
-        public Win32PrinterEntity(string name, string driverName, string portName, string status, string printerState, Win32PrinterStatusEnum printerStatus)
+        public WmiWin32PrinterEntity(string name, string driverName, string portName, string status, string printerState, Win32PrinterStatusEnum printerStatus)
         {
             Name = name;
             DriverName = driverName;

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Collections.Generic;
 using System.Management;
 using System.Threading;
 
@@ -24,7 +25,7 @@ namespace DataShareCore.Wmi
 
         #region Public and private methods
 
-        public Win32OperatingSystemMemoryEntity GetWin32OperatingSystemMemory()
+        public WmiWin32MemoryEntity GetWin32OperatingSystemMemory()
         {
             lock (this)
             {
@@ -32,49 +33,111 @@ namespace DataShareCore.Wmi
                 // PowerShell: gwmi -query "select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize from Win32_OperatingSystem"
                 ObjectQuery wql = new("select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize from Win32_OperatingSystem");
                 ManagementObjectSearcher searcher = new(wql);
-                ManagementObjectCollection results = searcher.Get();
+                ManagementObjectCollection items = searcher.Get();
                 ulong freeVirtual = 0;
                 ulong freePhysical = 0;
                 ulong totalVirtual = 0;
                 ulong totalPhysical = 0;
-                if (results.Count > 0)
-                    foreach (ManagementObject result in results)
+                if (items.Count > 0)
+                    foreach (ManagementObject item in items)
                     {
-                        freeVirtual = Convert.ToUInt64(result["FreeVirtualMemory"]) * 1024;
-                        freePhysical = Convert.ToUInt64(result["FreePhysicalMemory"]) * 1024;
-                        totalVirtual = Convert.ToUInt64(result["TotalVirtualMemorySize"]) * 1024;
-                        totalPhysical = Convert.ToUInt64(result["TotalVisibleMemorySize"]) * 1024;
+                        freeVirtual = Convert.ToUInt64(item["FreeVirtualMemory"]) * 1024;
+                        freePhysical = Convert.ToUInt64(item["FreePhysicalMemory"]) * 1024;
+                        totalVirtual = Convert.ToUInt64(item["TotalVirtualMemorySize"]) * 1024;
+                        totalPhysical = Convert.ToUInt64(item["TotalVisibleMemorySize"]) * 1024;
                     }
-                return new Win32OperatingSystemMemoryEntity(freeVirtual, freePhysical, totalVirtual, totalPhysical);
+                return new WmiWin32MemoryEntity(freeVirtual, freePhysical, totalVirtual, totalPhysical);
             }
         }
 
-        public Win32PrinterEntity GetWin32Printer(string name)
+        public Dictionary<string, string> GetWin32OperatingSystemInfo()
+        {
+            lock (this)
+            {
+                // PowerShell: gwmi Win32_OperatingSystem | select Caption, OSArchitecture, SerialNumber
+                // PowerShell: gwmi -query "select Caption, OSArchitecture, SerialNumber from Win32_OperatingSystem"
+                ObjectQuery wql = new("select Caption, OSArchitecture, SerialNumber from Win32_OperatingSystem");
+                ManagementObjectSearcher searcher = new(wql);
+                ManagementObjectCollection items = searcher.Get();
+                Dictionary<string, string> result = new();
+                if (items.Count > 0)
+                    foreach (ManagementObject item in items)
+                    {
+                        result.Add("SerialNumber", item["SerialNumber"].ToString());
+                        result.Add("SystemVersion", item["Caption"].ToString());
+                        result.Add("Architecture", item["OSArchitecture"].ToString());
+                    }
+                result.Add("CoreVersion", Environment.OSVersion.ToString());
+                result.Add("ComputerName", Environment.MachineName);
+                return result;
+            }
+        }
+
+        public WmiWin32PrinterEntity GetWin32Printer(string name)
         {
             lock (this)
             {
                 if (string.IsNullOrEmpty(name))
-                    return new Win32PrinterEntity(name, string.Empty, string.Empty, string.Empty, string.Empty, Win32PrinterStatusEnum.Error);
+                    return new WmiWin32PrinterEntity(name, string.Empty, string.Empty, string.Empty, string.Empty, Win32PrinterStatusEnum.Error);
                 // PowerShell: gwmi Win32_Printer | select DriverName, PortName, Status, PrinterState, PrinterStatus
                 // PowerShell: gwmi -query "select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name='SCALES-PRN-DEV'"
                 ObjectQuery wql = new($"select DriverName, PortName, Status, PrinterState, PrinterStatus from Win32_Printer where Name = '{name}'");
                 ManagementObjectSearcher searcher = new(wql);
-                ManagementObjectCollection results = searcher.Get();
+                ManagementObjectCollection items = searcher.Get();
                 string driverName = string.Empty;
                 string portName = string.Empty;
                 string status = string.Empty;
                 string printerState = string.Empty;
                 short printerStatus = -1;
-                if (results.Count > 0)
-                    foreach (ManagementObject result in results)
+                if (items.Count > 0)
+                    foreach (ManagementObject item in items)
                     {
-                        driverName = Convert.ToString(result["DriverName"]);
-                        portName = Convert.ToString(result["PortName"]);
-                        status = Convert.ToString(result["Status"]);
-                        printerState = Convert.ToString(result["PrinterState"]);
-                        printerStatus = Convert.ToInt16(result["PrinterStatus"]);
+                        driverName = Convert.ToString(item["DriverName"]);
+                        portName = Convert.ToString(item["PortName"]);
+                        status = Convert.ToString(item["Status"]);
+                        printerState = Convert.ToString(item["PrinterState"]);
+                        printerStatus = Convert.ToInt16(item["PrinterStatus"]);
                     }
-                return new Win32PrinterEntity(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
+                return new WmiWin32PrinterEntity(name, driverName, portName, status, printerState, (Win32PrinterStatusEnum)printerStatus);
+            }
+        }
+
+        public WmiSoftwareEntity GetSoftware(string search)
+        {
+            lock (this)
+            {
+                // PowerShell: gwmi -Class Win32_Product | identifyingnumber, name, vendor, version, language, caption | where {$_.name -like "*Visual C++ Library*" }
+                // PowerShell: gwmi -query "select identifyingnumber, name, vendor, version, language, caption from Win32_Product where name like '%Visual C++ Library%'"
+                SelectQuery wql = new("select identifyingnumber, name, vendor, version, language, caption from win32_product") 
+                    { Condition = $"Name LIKE '*{search}*'" };
+                ManagementObjectSearcher searcher = new(wql);
+                ManagementObjectCollection items = searcher.Get();
+                string guid = string.Empty;
+                string name = string.Empty;
+                string vendor = string.Empty;
+                string version = string.Empty;
+                string language = string.Empty;
+                if (items.Count > 0)
+                {
+                    ManagementBaseObject? item = items.GetEnumerator().Current;
+                    if (item != null)
+                    {
+                        foreach (PropertyData prop in item.Properties)
+                        {
+                            if (prop.Name.Equals("IDENTIFYINGNUMBER", StringComparison.InvariantCultureIgnoreCase))
+                                language = prop.Value.ToString();
+                            else if (prop.Name.Equals("NAME", StringComparison.InvariantCultureIgnoreCase))
+                                name = prop.Value.ToString();
+                            else if (prop.Name.Equals("VENDOR", StringComparison.InvariantCultureIgnoreCase))
+                                vendor = prop.Value.ToString();
+                            else if (prop.Name.Equals("VERSION", StringComparison.InvariantCultureIgnoreCase))
+                                version = prop.Value.ToString();
+                            else if (prop.Name.Equals("LANGUAGE", StringComparison.InvariantCultureIgnoreCase))
+                                guid = prop.Value.ToString();
+                        }
+                    }
+                }
+                return new WmiSoftwareEntity(name, vendor, version, guid, language);
             }
         }
 
