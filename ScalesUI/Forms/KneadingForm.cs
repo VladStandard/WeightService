@@ -14,12 +14,12 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
+        private DateTime SaveProductDate { get; }
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
         private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
+        private int SaveKneading { get; }
+        private int SavePalletSize { get; }
         private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
-        private readonly int _saveKneading;
-        private readonly int _savePalletSize;
-        private readonly DateTime _saveProductDate;
 
         #endregion
 
@@ -29,9 +29,9 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            _saveKneading = SessionState.Kneading;
-            _saveProductDate = SessionState.ProductDate;
-            _savePalletSize = SessionState.LabelsCount;
+            SaveKneading = SessionState.Kneading;
+            SaveProductDate = SessionState.ProductDate;
+            SavePalletSize = SessionState.LabelsCount;
         }
 
         #endregion
@@ -122,9 +122,9 @@ namespace ScalesUI.Forms
             {
                 CheckWeightCount();
                 DialogResult = DialogResult.Cancel;
-                SessionState.Kneading = _saveKneading;
-                SessionState.ProductDate = _saveProductDate;
-                SessionState.LabelsCount = _savePalletSize;
+                SessionState.Kneading = SaveKneading;
+                SessionState.ProductDate = SaveProductDate;
+                SessionState.LabelsCount = SavePalletSize;
                 Close();
             }
             catch (Exception ex)

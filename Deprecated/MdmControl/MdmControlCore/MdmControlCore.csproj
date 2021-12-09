@@ -20,5 +20,7 @@
     <Folder Include="JSON\" />
     <Folder Include="Utils\" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
 </Project>

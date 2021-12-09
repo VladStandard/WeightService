@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 
 namespace DataProjectsCore.Models
 {
@@ -13,19 +14,14 @@ namespace DataProjectsCore.Models
         Var3,
     }
 
-    public sealed class BarcodeHelper
+    public class BarcodeHelper
     {
         #region Design pattern "Lazy Singleton"
 
-        // ReSharper disable once InconsistentNaming
-        private static readonly Lazy<BarcodeHelper> _instance = new(() => new BarcodeHelper());
-        public static BarcodeHelper Instance => _instance.Value;
-
-        #endregion
-
-        #region Constructor and destructor
-
-        private BarcodeHelper() { }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private static BarcodeHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public static BarcodeHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 

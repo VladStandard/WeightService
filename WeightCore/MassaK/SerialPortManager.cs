@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WeightCore.MassaK
 {
-    public sealed class SerialPortManager
+    public class SerialPortManager
     {
         #region Constructor
 

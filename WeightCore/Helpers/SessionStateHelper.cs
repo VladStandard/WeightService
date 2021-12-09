@@ -23,7 +23,9 @@ namespace WeightCore.Helpers
     {
         #region Design pattern "Lazy Singleton"
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static SessionStateHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public static SessionStateHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion

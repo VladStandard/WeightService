@@ -12,7 +12,9 @@ namespace WeightCore.MassaK
     {
         #region Design pattern "Lazy Singleton"
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static MassaRequestHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public static MassaRequestHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion

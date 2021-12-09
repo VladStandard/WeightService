@@ -38,6 +38,7 @@ namespace DataShareCore.Models
         /// Callback method to release unmanaged resources.
         /// </summary>
         public ReleaseUnmanagedCallback? ReleaseUnmanagedResourcesCaller { get; private set; }
+        public object Locker { get; private set; } = new();
 
         #endregion
 
@@ -57,7 +58,7 @@ namespace DataShareCore.Models
         public void Init(CloseCallback close, ReleaseManagedCallback releaseManaged, ReleaseUnmanagedCallback releaseUnmanaged)
         {
             CheckIsDisposed();
-            lock (this)
+            lock (Locker)
             {
                 IsOpened = false;
                 IsClosed = false;
@@ -89,7 +90,7 @@ namespace DataShareCore.Models
         public void Open()
         {
             CheckIsDisposed();
-            lock (this)
+            lock (Locker)
             {
                 if (IsOpened) return;
                 IsOpened = true;
@@ -101,7 +102,7 @@ namespace DataShareCore.Models
         public void Close()
         {
             CheckIsDisposed();
-            lock (this)
+            lock (Locker)
             {
                 if (IsClosed) return;
                 IsOpened = false;
@@ -114,7 +115,7 @@ namespace DataShareCore.Models
         {
             Close();
             
-            lock (this)
+            lock (Locker)
             {
                 if (!IsDisposed)
                 {

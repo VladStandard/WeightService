@@ -4,17 +4,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace MdmControlCore.XML
 {
-    public sealed class ProductHelper
+    public class ProductHelper
     {
         #region Design pattern "Lazy Singleton"
 
-        // ReSharper disable once InconsistentNaming
-        private static readonly Lazy<ProductHelper> _instance = new Lazy<ProductHelper>(() => new ProductHelper());
-        public static ProductHelper Instance => _instance.Value;
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private static ProductHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public static ProductHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 

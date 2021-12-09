@@ -8,17 +8,22 @@ using System.Threading;
 
 namespace WeightCore.MassaK
 {
-    public class MassaDeviceEntity : DisposableBase, IDisposableBase
+    public partial class MassaDeviceEntity : DisposableBase, IDisposableBase
     {
         #region Public and private fields and properties
 
+        public bool IsClosedMethod { get; set; }
         public bool IsConnected { get; private set; }
-        public string PortName { get; private set; }
+        public bool IsOpenedMethod { get; set; }
         public int ReadTimeout { get; private set; }
         public int WriteTimeout { get; private set; }
         public SerialPort SerialPortItem { get; set; }
-        public bool IsOpenedMethod { get; set; }
-        public bool IsClosedMethod { get; set; }
+        public string PortName { get; private set; }
+        public delegate void SerialPortEventHandler(object sender, SerialPortEventArgs e);
+        public event SerialPortEventHandler comReceiveDataEvent = null;
+        public event SerialPortEventHandler comOpenEvent = null;
+        public event SerialPortEventHandler comCloseEvent = null;
+        private object thisLock = new();
 
         #endregion
 
@@ -39,6 +44,7 @@ namespace WeightCore.MassaK
 
         public new void Open()
         {
+            //base.Open();
             lock (this)
             {
                 if (IsOpenedMethod) return;
@@ -62,6 +68,7 @@ namespace WeightCore.MassaK
                         IsConnected = false;
                         return;
                     }
+                    SerialPortItem.DataReceived += new SerialDataReceivedEventHandler(DataReceived);
                     if (!SerialPortItem.IsOpen)
                     {
                         SerialPortItem.Open();
@@ -75,6 +82,37 @@ namespace WeightCore.MassaK
                 {
                     IsConnected = false;
                     throw new MassaConnectionException(ex);
+                }
+            }
+        }
+
+        private void DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            if (SerialPortItem.BytesToRead <= 0)
+            {
+                return;
+            }
+            //Thread Safety explain in MSDN:
+            // Any public static (Shared in Visual Basic) members of this type are thread safe. 
+            // Any instance members are not guaranteed to be thread safe.
+            // So, we need to synchronize I/O
+            lock (thisLock)
+            {
+                int len = SerialPortItem.BytesToRead;
+                byte[] data = new byte[len];
+                try
+                {
+                    SerialPortItem.Read(data, 0, len);
+                }
+                catch (System.Exception)
+                {
+                    //catch read exception
+                }
+                SerialPortEventArgs args = new();
+                args.receivedBytes = data;
+                if (comReceiveDataEvent != null)
+                {
+                    comReceiveDataEvent.Invoke(this, args);
                 }
             }
         }

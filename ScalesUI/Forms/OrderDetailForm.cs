@@ -12,9 +12,9 @@ namespace ScalesUI.Forms
     {
         #region Public and private fields and properties
 
-        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
         private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
+        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
 
         #endregion
 

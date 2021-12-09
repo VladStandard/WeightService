@@ -15,5 +15,7 @@
     <ProjectReference Include="..\CoreTests\CoreTests.csproj" />
     <ProjectReference Include="..\DataShareCore\DataShareCore.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
 </Project>

@@ -18,5 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CoreTests\CoreTests.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
 </Project>

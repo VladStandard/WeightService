@@ -66,10 +66,10 @@ IF (@select = 1)
 BEGIN
 	PRINT N'[v] Enabled select mode'
 	SELECT
-		[l].[UID]
-	   ,[l].[CREATE_DT]
+		--[l].[UID]
+	    [l].[CREATE_DT]
 	   ,[s].[Description] [SCALE]
-	   ,[h].[Name] [HOST]
+	   --,[h].[Name] [HOST]
 	   ,[a].[NAME] [APP]
 	   ,[l].[VERSION]
 	   ,[l].[FILE]

@@ -192,7 +192,7 @@
             this.fieldTasks.BackColor = System.Drawing.Color.Transparent;
             this.fieldTasks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldTasks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldTasks.Location = new System.Drawing.Point(1051, 365);
+            this.fieldTasks.Location = new System.Drawing.Point(1051, 360);
             this.fieldTasks.Margin = new System.Windows.Forms.Padding(3);
             this.fieldTasks.Name = "fieldTasks";
             this.fieldTasks.Size = new System.Drawing.Size(112, 21);
@@ -208,7 +208,7 @@
             this.fieldLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.fieldLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldLang.FormattingEnabled = true;
-            this.fieldLang.Location = new System.Drawing.Point(1051, 527);
+            this.fieldLang.Location = new System.Drawing.Point(1051, 522);
             this.fieldLang.Name = "fieldLang";
             this.fieldLang.Size = new System.Drawing.Size(112, 24);
             this.fieldLang.TabIndex = 56;
@@ -220,7 +220,7 @@
             this.fieldMassaQueriesProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldMassaQueriesProgress.Location = new System.Drawing.Point(1051, 473);
+            this.fieldMassaQueriesProgress.Location = new System.Drawing.Point(1051, 468);
             this.fieldMassaQueriesProgress.Name = "fieldMassaQueriesProgress";
             this.fieldMassaQueriesProgress.Size = new System.Drawing.Size(112, 21);
             this.fieldMassaQueriesProgress.TabIndex = 55;
@@ -231,7 +231,7 @@
             this.fieldMemoryProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldMemoryProgress.Location = new System.Drawing.Point(1051, 500);
+            this.fieldMemoryProgress.Location = new System.Drawing.Point(1051, 495);
             this.fieldMemoryProgress.Name = "fieldMemoryProgress";
             this.fieldMemoryProgress.Size = new System.Drawing.Size(112, 21);
             this.fieldMemoryProgress.TabIndex = 54;
@@ -243,7 +243,7 @@
             this.fieldMemoryManagerTotal.BackColor = System.Drawing.Color.Transparent;
             this.fieldMemoryManagerTotal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMemoryManagerTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMemoryManagerTotal.Location = new System.Drawing.Point(343, 500);
+            this.fieldMemoryManagerTotal.Location = new System.Drawing.Point(343, 495);
             this.fieldMemoryManagerTotal.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMemoryManagerTotal.Name = "fieldMemoryManagerTotal";
             this.fieldMemoryManagerTotal.Size = new System.Drawing.Size(702, 21);
@@ -258,7 +258,7 @@
             this.fieldMassaSetCrc.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaSetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaSetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaSetCrc.Location = new System.Drawing.Point(1051, 446);
+            this.fieldMassaSetCrc.Location = new System.Drawing.Point(1051, 441);
             this.fieldMassaSetCrc.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaSetCrc.Name = "fieldMassaSetCrc";
             this.fieldMassaSetCrc.Size = new System.Drawing.Size(112, 21);
@@ -273,7 +273,7 @@
             this.fieldMassaGetCrc.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaGetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaGetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaGetCrc.Location = new System.Drawing.Point(1051, 419);
+            this.fieldMassaGetCrc.Location = new System.Drawing.Point(1051, 414);
             this.fieldMassaGetCrc.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaGetCrc.Name = "fieldMassaGetCrc";
             this.fieldMassaGetCrc.Size = new System.Drawing.Size(112, 21);
@@ -288,7 +288,7 @@
             this.fieldMassaComPort.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaComPort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaComPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaComPort.Location = new System.Drawing.Point(14, 446);
+            this.fieldMassaComPort.Location = new System.Drawing.Point(14, 441);
             this.fieldMassaComPort.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaComPort.Name = "fieldMassaComPort";
             this.fieldMassaComPort.Size = new System.Drawing.Size(323, 21);
@@ -303,7 +303,7 @@
             this.fieldMassaScalePar.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaScalePar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaScalePar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaScalePar.Location = new System.Drawing.Point(343, 419);
+            this.fieldMassaScalePar.Location = new System.Drawing.Point(343, 414);
             this.fieldMassaScalePar.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaScalePar.Name = "fieldMassaScalePar";
             this.fieldMassaScalePar.Size = new System.Drawing.Size(702, 21);
@@ -318,7 +318,7 @@
             this.fieldMassaSet.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaSet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaSet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaSet.Location = new System.Drawing.Point(343, 473);
+            this.fieldMassaSet.Location = new System.Drawing.Point(343, 468);
             this.fieldMassaSet.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaSet.Name = "fieldMassaSet";
             this.fieldMassaSet.Size = new System.Drawing.Size(702, 21);
@@ -333,7 +333,7 @@
             this.fieldMassaQueries.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaQueries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaQueries.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaQueries.Location = new System.Drawing.Point(14, 473);
+            this.fieldMassaQueries.Location = new System.Drawing.Point(14, 468);
             this.fieldMassaQueries.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaQueries.Name = "fieldMassaQueries";
             this.fieldMassaQueries.Size = new System.Drawing.Size(323, 21);
@@ -348,7 +348,7 @@
             this.fieldMassaGet.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaGet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaGet.Location = new System.Drawing.Point(343, 446);
+            this.fieldMassaGet.Location = new System.Drawing.Point(343, 441);
             this.fieldMassaGet.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaGet.Name = "fieldMassaGet";
             this.fieldMassaGet.Size = new System.Drawing.Size(702, 21);
@@ -363,7 +363,7 @@
             this.fieldMassaManager.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMassaManager.Location = new System.Drawing.Point(14, 419);
+            this.fieldMassaManager.Location = new System.Drawing.Point(14, 414);
             this.fieldMassaManager.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaManager.Name = "fieldMassaManager";
             this.fieldMassaManager.Size = new System.Drawing.Size(323, 21);
@@ -379,7 +379,7 @@
             this.fieldPrintManager.BackColor = System.Drawing.Color.Transparent;
             this.fieldPrintManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldPrintManager.Location = new System.Drawing.Point(14, 392);
+            this.fieldPrintManager.Location = new System.Drawing.Point(14, 387);
             this.fieldPrintManager.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintManager.Name = "fieldPrintManager";
             this.fieldPrintManager.Size = new System.Drawing.Size(323, 21);
@@ -396,7 +396,7 @@
             this.fieldMemoryManager.BackColor = System.Drawing.Color.Transparent;
             this.fieldMemoryManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMemoryManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldMemoryManager.Location = new System.Drawing.Point(14, 500);
+            this.fieldMemoryManager.Location = new System.Drawing.Point(14, 495);
             this.fieldMemoryManager.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMemoryManager.Name = "fieldMemoryManager";
             this.fieldMemoryManager.Size = new System.Drawing.Size(323, 21);
@@ -411,7 +411,7 @@
             this.fieldCountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldCountBox.Location = new System.Drawing.Point(1051, 392);
+            this.fieldCountBox.Location = new System.Drawing.Point(1051, 387);
             this.fieldCountBox.Name = "fieldCountBox";
             this.fieldCountBox.Size = new System.Drawing.Size(112, 21);
             this.fieldCountBox.TabIndex = 30;
@@ -505,7 +505,7 @@
             this.labelProductDate.Location = new System.Drawing.Point(14, 327);
             this.labelProductDate.Margin = new System.Windows.Forms.Padding(3);
             this.labelProductDate.Name = "labelProductDate";
-            this.labelProductDate.Size = new System.Drawing.Size(323, 32);
+            this.labelProductDate.Size = new System.Drawing.Size(323, 27);
             this.labelProductDate.TabIndex = 28;
             this.labelProductDate.Text = "Дата производства";
             this.labelProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -520,7 +520,7 @@
             this.fieldProductDate.Location = new System.Drawing.Point(343, 327);
             this.fieldProductDate.Margin = new System.Windows.Forms.Padding(3);
             this.fieldProductDate.Name = "fieldProductDate";
-            this.fieldProductDate.Size = new System.Drawing.Size(702, 32);
+            this.fieldProductDate.Size = new System.Drawing.Size(702, 27);
             this.fieldProductDate.TabIndex = 31;
             this.fieldProductDate.Text = " Дата производства";
             this.fieldProductDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -547,7 +547,7 @@
             this.fieldLabelsCount.AutoSize = true;
             this.fieldLabelsCount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldLabelsCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldLabelsCount.Location = new System.Drawing.Point(343, 392);
+            this.fieldLabelsCount.Location = new System.Drawing.Point(343, 387);
             this.fieldLabelsCount.Margin = new System.Windows.Forms.Padding(3);
             this.fieldLabelsCount.Name = "fieldLabelsCount";
             this.fieldLabelsCount.Size = new System.Drawing.Size(702, 21);

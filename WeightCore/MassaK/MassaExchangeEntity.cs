@@ -9,12 +9,12 @@ namespace WeightCore.MassaK
     {
         #region Public and private fields and properties
 
-        public int WeightTare { get; set; } = 0;
-        public int ScaleFactor { get; set; } = 1_000;
-        public MassaCmdType CmdType { get; set; } = MassaCmdType.Nack;
-        public byte[] Request { get; set; } = null;
-        public ResponseParseEntity ResponseParse { get; set; } = null;
         private MassaRequestHelper MassaRequest { get; set; } = MassaRequestHelper.Instance;
+        public byte[] Request { get; set; } = null;
+        public int ScaleFactor { get; set; } = 1_000;
+        public int WeightTare { get; set; } = 0;
+        public MassaCmdType CmdType { get; set; } = MassaCmdType.Nack;
+        public ResponseParseEntity ResponseParse { get; set; } = null;
 
         #endregion
 

@@ -26,7 +26,7 @@ namespace WeightCore.MassaK
         public byte ErrorCode
         { 
             get {
-                if (Body == null)
+                if (Body == null || Body.Length < 6)
                     return 0x00;
                 switch (CmdType)
                 {
@@ -204,41 +204,47 @@ namespace WeightCore.MassaK
         public ResponseParseEntity(MassaCmdType cmdType, byte[] response)
         {
             DtCreated = DateTime.Now;
-
             CmdType = cmdType;
-
             Response = response;
-
             Header = new byte[3];
-            Header[0] = response[0];
-            Header[1] = response[1];
-            Header[2] = response[2];
-            IsValidHeaders = Header[0] == MassaRequest.Header[0] && Header[1] == MassaRequest.Header[1] && Header[2] == MassaRequest.Header[2];
-
+            IsValidHeaders = false;
             Len = new byte[2];
-            Len[0] = response[3];
-            Len[1] = response[4];
-            LenAsUshort = BitConverter.ToUInt16(response.Skip(3).Take(2).ToArray(), 0);
-            IsValidLength = LenAsUshort > 0;
-            
-            Command = response[5];
-            IsValidCommand = ErrorCode == 0x00;
+            IsValidLength = false;
+            Command = new byte();
+            IsValidCommand = false;
+            IsValidCrc = false;
 
-            Body = response.Skip(5).Take(LenAsUshort).ToArray();
-            _ = Body.Reverse();
-
-            Crc = response.Skip(5 + LenAsUshort).Take(2).ToArray();
-            CrcCalc = _bytes.CrcGet(Body);
-            IsValidCrc = Crc[0] == CrcCalc[0] && Crc[1] == CrcCalc[1];
-
-            switch (CmdType)
+            if (Response?.Length > 0)
             {
-                case MassaCmdType.GetMassa:
-                    Massa = new ResponseMassaEntity(Response);
-                    break;
-                case MassaCmdType.GetScalePar:
-                    ScalePar = new ResponseScaleParEntity(Response);
-                    break;
+                Header[0] = Response[0];
+                Header[1] = Response[1];
+                Header[2] = Response[2];
+                IsValidHeaders = Header[0] == MassaRequest.Header[0] && Header[1] == MassaRequest.Header[1] && Header[2] == MassaRequest.Header[2];
+                
+                Len[0] = Response[3];
+                Len[1] = Response[4];
+                LenAsUshort = BitConverter.ToUInt16(Response.Skip(3).Take(2).ToArray(), 0);
+                IsValidLength = LenAsUshort > 0;
+
+                Command = Response[5];
+                IsValidCommand = ErrorCode == 0x00;
+                
+                Body = Response.Skip(5).Take(LenAsUshort).ToArray();
+                _ = Body.Reverse();
+                
+                Crc = Response.Skip(5 + LenAsUshort).Take(2).ToArray();
+                CrcCalc = _bytes.CrcGet(Body);
+                IsValidCrc = Crc[0] == CrcCalc[0] && Crc[1] == CrcCalc[1];
+                
+                switch (CmdType)
+                {
+                    case MassaCmdType.GetMassa:
+                        Massa = new ResponseMassaEntity(Response);
+                        break;
+                    case MassaCmdType.GetScalePar:
+                        ScalePar = new ResponseScaleParEntity(Response);
+                        break;
+                }
             }
         }
     }

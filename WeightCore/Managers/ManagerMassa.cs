@@ -231,23 +231,26 @@ namespace WeightCore.Managers
 
         private void ParseSetMassa(MassaExchangeEntity massaExchange)
         {
-            switch (massaExchange.CmdType)
+            if (massaExchange?.ResponseParse?.Massa != null)
             {
-                case MassaCmdType.GetMassa:
-                    // 1 байт. Цена деления в значении массы нетто и массы тары:
-                    // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
-                    ScaleFactor = massaExchange.ResponseParse.Massa.ScaleFactor;
-                    // 4 байта. Текущая масса нетто со знаком
-                    WeightNet = massaExchange.ResponseParse.Massa.Weight / (decimal)ScaleFactor;
-                    // 4 байта. Текущая масса тары со знаком
-                    decimal weightTare = massaExchange.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
-                    // 4 байта. Текущая масса тары со знаком
-                    WeightGross = WeightNet + weightTare;
-                    // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
-                    IsStable = massaExchange.ResponseParse.Massa.Stable;
-                    // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
-                    //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
-                    break;
+                switch (massaExchange.CmdType)
+                {
+                    case MassaCmdType.GetMassa:
+                        // 1 байт. Цена деления в значении массы нетто и массы тары:
+                        // 0 – 100 мг, 1 – 1 г, 2 – 10 г, 3 – 100 г, 4 – 1 кг
+                        ScaleFactor = massaExchange.ResponseParse.Massa.ScaleFactor;
+                        // 4 байта. Текущая масса нетто со знаком
+                        WeightNet = massaExchange.ResponseParse.Massa.Weight / (decimal)ScaleFactor;
+                        // 4 байта. Текущая масса тары со знаком
+                        decimal weightTare = massaExchange.ResponseParse.Massa.Tare / (decimal)ScaleFactor;
+                        // 4 байта. Текущая масса тары со знаком
+                        WeightGross = WeightNet + weightTare;
+                        // 1 байт. Признак стабилизации массы: 0 – нестабильна, 1 – стабильна
+                        IsStable = massaExchange.ResponseParse.Massa.Stable;
+                        // 1 байт. Признак индикации<NET>: 0 – нет индикации, 1 – есть индикация. ... = x.Net;
+                        //byte Zero. 1 байт. Признак индикации > 0 < : 0 – нет индикации, 1 – есть индикация. ... = x.Zero;
+                        break;
+                }
             }
         }
 

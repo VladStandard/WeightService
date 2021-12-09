@@ -16,16 +16,16 @@ namespace WeightCore.Gui
     {
         #region Public and private fields and properties
 
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
-        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        public bool UseOwnerSize { get; set; }
-        public ProjectsEnums.Page Page { get; private set; }
         private ElementHost ElementHost { get; set; }
+        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private PagePluList PluList { get; set; }
-        public PageSqlSettings SqlSettings { get; private set; }
-        public PageMessageBox PageMessageBoxItem { get; private set; }
+        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
+        public bool UseOwnerSize { get; set; }
         public MessageBoxEntity MessageBox { get; set; } = new MessageBoxEntity();
+        public PageMessageBox PageMessageBoxItem { get; private set; }
+        public PageSqlSettings SqlSettings { get; private set; }
+        public ProjectsEnums.Page Page { get; private set; }
         public static object Locker { get; internal set; } = new object();
 
         #endregion

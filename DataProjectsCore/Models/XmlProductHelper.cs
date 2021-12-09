@@ -4,28 +4,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace DataProjectsCore.Models
 {
-    public sealed class XmlProductHelper
+    public class XmlProductHelper
     {
         #region Design pattern "Lazy Singleton"
 
-        // ReSharper disable once InconsistentNaming
-        private static readonly Lazy<XmlProductHelper> _instance = new(() => new XmlProductHelper());
-        public static XmlProductHelper Instance => _instance.Value;
-
-        #endregion
-
-        #region Constructor and destructor
-
-        private XmlProductHelper() { Setup(); }
-
-        public void Setup()
-        {
-            // Setup methods
-        }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private static XmlProductHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public static XmlProductHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 

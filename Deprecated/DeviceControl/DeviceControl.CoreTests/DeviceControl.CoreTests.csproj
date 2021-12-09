@@ -17,5 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DeviceControl.Core\DeviceControl.Core.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
 </Project>

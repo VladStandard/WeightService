@@ -15,5 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ResourcesVS\ResourcesVS.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
 </Project>

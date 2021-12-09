@@ -16,15 +16,15 @@ namespace ScalesUI.Forms
     {
         #region Private fields and properties
 
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
+        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
+        private List<PluDirect> OrderList { get; set; }
+        private List<PluDirect> PluList { get; set; }
         private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
-        private List<PluDirect> _orderList;
-        private readonly List<PluDirect> _pluList;
-        public int RowCount { get; } = 5;
         public int ColumnCount { get; } = 4;
-        public int PageSize { get; } = 20;
         public int CurrentPage { get; private set; }
+        public int PageSize { get; } = 20;
+        public int RowCount { get; } = 5;
 
         #endregion
 
@@ -35,7 +35,7 @@ namespace ScalesUI.Forms
             InitializeComponent();
             
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            _pluList = PluDirect.GetPluList(SessionState.CurrentScale);
+            PluList = PluDirect.GetPluList(SessionState.CurrentScale);
         }
 
         #endregion
@@ -53,9 +53,9 @@ namespace ScalesUI.Forms
                 Top = Owner.Top;
                 //StartPosition = FormStartPosition.CenterParent;
 
-                _orderList = PluDirect.GetPluList(SessionState.CurrentScale);
+                OrderList = PluDirect.GetPluList(SessionState.CurrentScale);
 
-                PluDirect[] pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+                PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
                 Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
                 GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
@@ -190,9 +190,9 @@ namespace ScalesUI.Forms
                 int tabIndex = 0;
                 if (sender is Control control)
                     tabIndex = control.TabIndex;
-                if (_orderList?.Count >= tabIndex)
+                if (OrderList?.Count >= tabIndex)
                 {
-                    SessionState.CurrentPlu = _orderList[tabIndex];
+                    SessionState.CurrentPlu = OrderList[tabIndex];
                     SessionState.CurrentPlu.LoadTemplate();
                     //_sessionState.WeightTare = (int)(_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.Calibre);
                     //_sessionState.WeightReal = 0;
@@ -215,7 +215,7 @@ namespace ScalesUI.Forms
                 if (CurrentPage == saveCurrentPage)
                     return;
 
-                PluDirect[] pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+                PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
                 Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
                 GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 
@@ -232,12 +232,12 @@ namespace ScalesUI.Forms
             try
             {
                 int saveCurrentPage = CurrentPage;
-                int countPage = _pluList.Count / PageSize;
+                int countPage = PluList.Count / PageSize;
                 CurrentPage = CurrentPage < countPage ? CurrentPage + 1 : countPage;
                 if (CurrentPage == saveCurrentPage)
                     return;
 
-                PluDirect[] pluEntities = _pluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
+                PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
                 Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);
                 GridCustomizatorClass.PageBuilder(PluListGrid, controls);
 

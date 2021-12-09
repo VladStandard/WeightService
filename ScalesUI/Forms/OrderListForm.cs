@@ -15,12 +15,12 @@ namespace ScalesUI.Forms
     {
         #region Public and private fields and properties
 
-        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
-        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
         private DebugHelper Debug { get; set; } = DebugHelper.Instance;
-        private List<OrderDirect> _ordList = null;
-        private int _numPage = 0;
-        private readonly int offset = 9;
+        private ExceptionHelper Exception { get; set; } = ExceptionHelper.Instance;
+        private int NumPage { get; set; } = 0;
+        private int Offset { get; set; } = 9;
+        private List<OrderDirect> OrdList { get; set; } = null;
+        private SessionStateHelper SessionState { get; set; } = SessionStateHelper.Instance;
 
         #endregion
 
@@ -39,8 +39,8 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
 
-                _ordList = OrderDirect.GetOrderList(SessionState.CurrentScale);
-                if (_ordList.Count < offset)
+                OrdList = OrderDirect.GetOrderList(SessionState.CurrentScale);
+                if (OrdList.Count < Offset)
                 {
                     btnLeftRoll.Visible = false;
                     btnRightRoll.Visible = false;
@@ -69,7 +69,7 @@ namespace ScalesUI.Forms
                 //        tableLayoutPanel1.RowCount = tableLayoutPanel1.RowCount + 1;
                 //        tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120));
                 //    }
-                GetPage(tableLayoutPanel1, _numPage, offset);
+                GetPage(tableLayoutPanel1, NumPage, Offset);
                 Refresh();
             }
             catch (Exception ex)
@@ -128,7 +128,7 @@ namespace ScalesUI.Forms
                 //the names are changed!
                 btn.Click += delegate
                 {
-                    SessionState.CurrentOrder = _ordList[btn.TabIndex];
+                    SessionState.CurrentOrder = OrdList[btn.TabIndex];
                     SessionState.CurrentOrder.LoadTemplate();
                     SessionState.CurrentPlu = SessionState.CurrentOrder.PLU;
                     //ws.CurrentPLU.LoadTemplate();
@@ -164,13 +164,13 @@ namespace ScalesUI.Forms
                 DropButtons(panel);
                 int i = 0;
 
-                List<OrderDirect> page = _ordList.GetRange(offset * rowCount,
-                    ((offset * rowCount + rowCount) < _ordList.Count()) ? rowCount : (_ordList.Count() - offset * rowCount));
+                List<OrderDirect> page = OrdList.GetRange(offset * rowCount,
+                    ((offset * rowCount + rowCount) < OrdList.Count()) ? rowCount : (OrdList.Count() - offset * rowCount));
 
                 if (!page.Any())
                 {
-                    page = _ordList.GetRange(offset * (--rowCount),
-                    ((offset * rowCount + rowCount) < _ordList.Count()) ? rowCount : (_ordList.Count() - offset * rowCount));
+                    page = OrdList.GetRange(offset * (--rowCount),
+                    ((offset * rowCount + rowCount) < OrdList.Count()) ? rowCount : (OrdList.Count() - offset * rowCount));
                 }
 
                 foreach (OrderDirect order in page)
@@ -191,9 +191,9 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (_numPage < (_ordList.Count() / offset)) _numPage++;
-                else _numPage = _ordList.Count() / offset;
-                GetPage(tableLayoutPanel1, _numPage, offset);
+                if (NumPage < (OrdList.Count() / Offset)) NumPage++;
+                else NumPage = OrdList.Count() / Offset;
+                GetPage(tableLayoutPanel1, NumPage, Offset);
             }
             catch (Exception ex)
             {
@@ -205,8 +205,8 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (_numPage > 0) _numPage--; else _numPage = 0;
-                GetPage(tableLayoutPanel1, _numPage, offset);
+                if (NumPage > 0) NumPage--; else NumPage = 0;
+                GetPage(tableLayoutPanel1, NumPage, Offset);
             }
             catch (Exception ex)
             {

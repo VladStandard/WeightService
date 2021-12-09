@@ -7,7 +7,6 @@ using DataProjectsCore.Helpers;
 using DataShareCore;
 using DataShareCore.Helpers;
 using DataShareCore.Schedulers;
-using ScalesCore.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,7 +20,7 @@ using WeightCore.Managers;
 
 namespace ScalesUI.Forms
 {
-     public partial class MainForm : Form
+    public partial class MainForm : Form
     {
         #region Private fields and properties
 
@@ -1089,7 +1088,7 @@ namespace ScalesUI.Forms
 
         private void FieldDt_DoubleClick(object sender, EventArgs e)
         {
-            ServiceMessagesWindow.BuildServiceMessagesWindow(this);
+            new ServiceMessagesWindow().BuildServiceMessagesWindow(this);
         }
 
         private void MainForm_MouseUp(object sender, MouseEventArgs e)

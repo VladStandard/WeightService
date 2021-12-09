@@ -31,8 +31,8 @@ namespace DataShareCore.Helpers
 
         #region Public and private fields and properties
 
-        public string AppTitle { get; private set; } = string.Empty;
         public string App { get; private set; } = string.Empty;
+        public string AppTitle { get; private set; } = string.Empty;
         public string Version { get; private set; } = string.Empty;
 
         #endregion

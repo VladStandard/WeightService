@@ -10,8 +10,8 @@ namespace WeightCore.Gui
     {
         #region Private fields and properties
 
-        public int InputValue { get; set; }
         private int _InputValueShadow;
+        public int InputValue { get; set; }
 
         #endregion
 
