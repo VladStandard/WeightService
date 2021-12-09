@@ -445,7 +445,6 @@
             this.fieldCurrentTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.fieldCurrentTime.Visible = false;
             this.fieldCurrentTime.Click += new System.EventHandler(this.FieldCurrentTime_Click);
-            this.fieldCurrentTime.DoubleClick += new System.EventHandler(this.FieldDt_DoubleClick);
             this.fieldCurrentTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // pictureBoxClose

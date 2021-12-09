@@ -151,9 +151,6 @@
     <Reference Include="FluentFTP, Version=35.2.0.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentFTP.35.2.0\lib\net45\FluentFTP.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=2.0.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.13\lib\net45\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="MDSoft.WinFormsUtils, Version=0.1.111.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MDSoft.WinFormsUtils.0.1.111\lib\net472\MDSoft.WinFormsUtils.dll</HintPath>
     </Reference>

@@ -10,7 +10,7 @@ namespace ZplSdkExamples.Utils
 
         public static bool IsBluetoothSupported()
         {
-            var osVersion = Environment.OSVersion;
+            OperatingSystem osVersion = Environment.OSVersion;
             if (osVersion.Version.Major >= 10)
             {
                 return true;

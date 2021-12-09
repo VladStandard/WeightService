@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using log4net;
+using MDSoft.WpfUtils;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -29,7 +29,6 @@ namespace ZplSdkExamples.Models
     {
         #region Public and private fields and properties
 
-        private readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private TextBox _textBox;
 
         #endregion
@@ -64,32 +63,27 @@ namespace ZplSdkExamples.Models
 
         private void Message(string message, EnumLogType logType, [CallerFilePath] string sourceFilePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int sourceLineNumber = 0)
         {
-            var dt = DateTime.Now;
-            var msg = $"[{dt.Year}-{dt.Month}-{dt.Day} {dt.Hour}:{dt.Minute}:{dt.Second}] {message}";
-            var isDebug = false;
+            DateTime dt = DateTime.Now;
+            string msg = $"[{dt.Year}-{dt.Month}-{dt.Day} {dt.Hour}:{dt.Minute}:{dt.Second}] {message}";
+            bool isDebug = false;
             switch (logType)
             {
                 case EnumLogType.Debug:
-                    _log?.Debug(msg);
                     InvokeTextBox.AddTextFormat(_textBox, dt, "Debug. " + message);
                     isDebug = true;
                     break;
                 case EnumLogType.Error:
-                    _log?.Error(msg);
                     InvokeTextBox.AddTextFormat(_textBox, dt, "Error. " + message);
                     isDebug = true;
                     break;
                 case EnumLogType.Fatal:
-                    _log?.Fatal(msg);
                     InvokeTextBox.AddTextFormat(_textBox, dt, "Fatal. " + message);
                     isDebug = true;
                     break;
                 case EnumLogType.Info:
-                    _log?.Info(msg);
                     InvokeTextBox.AddTextFormat(_textBox, dt, "Info. " + message);
                     break;
                 case EnumLogType.Warn:
-                    _log?.Warn(msg);
                     InvokeTextBox.AddTextFormat(_textBox, dt, "Warn. " + message);
                     break;
                 default:
@@ -97,8 +91,7 @@ namespace ZplSdkExamples.Models
             }
             if (isDebug)
             {
-                var msgDebug = $"[{dt.Year}-{dt.Month}-{dt.Day} {dt.Hour}:{dt.Minute}:{dt.Second}] Файл {sourceFilePath}. Метод {memberName}. Строка {sourceLineNumber}.";
-                _log?.Debug(msgDebug);
+                string msgDebug = $"[{dt.Year}-{dt.Month}-{dt.Day} {dt.Hour}:{dt.Minute}:{dt.Second}] Файл {sourceFilePath}. Метод {memberName}. Строка {sourceLineNumber}.";
                 InvokeTextBox.AddTextFormat(_textBox, dt, msgDebug);
             }
         }

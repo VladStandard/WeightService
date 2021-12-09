@@ -2,7 +2,6 @@
 //// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 //using WeightCore.Print.Tsc;
-//using log4net;
 //using System;
 //using System.Collections.Concurrent;
 //using System.Threading;
@@ -20,7 +19,6 @@
 //        public int UserLabelCount { get; private set; }
 //        public PrinterStatus CurrentStatus { get; private set; }
 //        public int CommandThreadTimeOut { get; }
-//        private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 //        public Connection Con { get; private set; }
 //        public ConcurrentQueue<string> CmdQueue { get; } = new ConcurrentQueue<string>();
 //        private readonly object _locker = new object();

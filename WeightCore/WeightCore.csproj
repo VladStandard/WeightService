@@ -82,9 +82,6 @@
     <Reference Include="Csv, Version=2.0.62.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Csv.2.0.62\lib\net40\Csv.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=2.0.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.13\lib\net45\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="MDSoft.WinFormsUtils, Version=0.1.111.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MDSoft.WinFormsUtils.0.1.111\lib\net472\MDSoft.WinFormsUtils.dll</HintPath>
     </Reference>
@@ -368,8 +365,10 @@
     <Compile Include="Print\Native\RawPrinterHelper.cs" />
     <Compile Include="Print\PrintManagerEntityBackup.cs" />
     <Compile Include="Print\Tsc\TscLib.cs" />
-    <Compile Include="Print\Zebra\DeviceContainer.cs" />
     <Compile Include="Print\Zebra\DeviceEntity.cs" />
+    <Compile Include="Print\Zebra\DeviceSocketRaw.cs" />
+    <Compile Include="Print\Zebra\DeviceSocketTcp.cs" />
+    <Compile Include="Print\Zebra\IDeviceSocket.cs" />
     <Compile Include="Print\Zebra\StateEntity.cs" />
     <Compile Include="Print\Zebra\StatusDataCollector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

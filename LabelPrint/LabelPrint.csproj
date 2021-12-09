@@ -84,6 +84,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MDSoft.WpfUtils, Version=0.1.111.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MDSoft.WpfUtils.0.1.111\lib\net48\MDSoft.WpfUtils.dll</HintPath>
+    </Reference>
     <Reference Include="MvvmHelpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Refractored.MvvmHelpers.1.6.2\lib\net461\MvvmHelpers.dll</HintPath>
     </Reference>
@@ -100,9 +103,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPF.Utils, Version=0.2.19.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WPF.Utils.0.2.19\lib\net48\WPF.Utils.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

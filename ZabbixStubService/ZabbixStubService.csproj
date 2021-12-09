@@ -80,9 +80,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -117,7 +114,6 @@
     <None Include="App.config" />
     <None Include="app.manifest" />
     <None Include="CHANGELOG.md" />
-    <None Include="packages.config" />
     <None Include="netsh.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

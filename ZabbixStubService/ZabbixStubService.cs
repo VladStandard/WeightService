@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using log4net;
 using System;
 using System.Runtime.InteropServices;
 using System.ServiceProcess;
@@ -12,8 +11,6 @@ namespace ZabbixStubService
 {
     public partial class ZabbixStubService : ServiceBase
     {
-        private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         public enum ServiceState
         {
             SERVICE_STOPPED = 0x00000001,

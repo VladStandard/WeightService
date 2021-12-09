@@ -1,5 +1,4 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 
@@ -8,7 +7,6 @@ namespace FontLoader
 {
     class Program
     {
-        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         static void Main(string[] args)
         {
             Arguments CommandLine = new Arguments(args);

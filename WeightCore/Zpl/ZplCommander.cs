@@ -1,9 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using log4net;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Print.Zebra;
 using Zebra.Sdk.Comm;
@@ -15,15 +13,11 @@ namespace WeightCore.Zpl
     {
         #region Private fields and properties
 
-        private static readonly int CommandThreadTimeOut = 10_000;
-        private static readonly int CommandCountPackage = 1;
-        private static readonly object locker = new();
-        private readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Thread _commandThread;
-        private bool _commandThreadExit;
-        private Task _task;
-        private bool _taskExit;
-        private Connection _connection;
+        private bool TaskExit { get; set; }
+        private Connection Connection { get; set; }
+        private int CommandThreadTimeOut { get; set; } = 10_000;
+        private object Locker { get; set; } = new();
+        private Task Task { get; set; }
 
         #endregion
 
@@ -31,37 +25,7 @@ namespace WeightCore.Zpl
 
         public ZplCommander(string address, DeviceEntity mkDeviceEntity, string cmd)
         {
-            //StartThread(mkDeviceEntity, cmd);
             StartTask(address, mkDeviceEntity, cmd);
-        }
-
-        public void StartThread(DeviceEntity mkDeviceEntity, string cmd)
-        {
-            if (_commandThread != null)
-                return;
-
-            _commandThreadExit = false;
-            _commandThread = new Thread(t =>
-            {
-                while (!_commandThreadExit)
-                {
-                    lock (locker)
-                    {
-                        for (int i = 0; i < CommandCountPackage; i++)
-                        {
-                            mkDeviceEntity.SendAsync(cmd);
-                        }
-                    }
-                    Thread.Sleep(CommandThreadTimeOut);
-                }
-            })
-            { IsBackground = true };
-            _commandThread.Start();
-        }
-
-        public void StopThread()
-        {
-            _commandThreadExit = true;
         }
 
         private string GetDescription(PrinterStatus status)
@@ -90,51 +54,55 @@ namespace WeightCore.Zpl
 
         public void StartTask(string address, DeviceEntity mkDeviceEntity, string cmd)
         {
-            if (_task != null)
+            if (Task != null)
                 return;
 
-            _taskExit = false;
-            _task = Task.Run(async () =>
+            TaskExit = false;
+            Task = Task.Run(async () =>
             {
                 bool isFirst = true;
-                while (!_taskExit)
+                while (!TaskExit)
                 {
-                    try
+                    lock (Locker)
                     {
-                        ConnnectionOpen(ref address);
-                        if (_connection != null)
+                        try
                         {
-                            if (_connection.GetType().Name.Contains("Status"))
+                            ConnnectionOpen(ref address);
+                            if (Connection != null)
                             {
-                                ZebraPrinterLinkOs printer = ZebraPrinterFactory.GetLinkOsPrinter(_connection);
-                                PrinterStatus status = printer?.GetCurrentStatus();
-                                if (status != null)
+                                if (Connection.GetType().Name.Contains("Status"))
                                 {
-                                    // Готов к печати
-                                    if (status.isReadyToPrint)
+                                    ZebraPrinterLinkOs printer = ZebraPrinterFactory.GetLinkOsPrinter(Connection);
+                                    PrinterStatus status = printer?.GetCurrentStatus();
+                                    if (status != null)
                                     {
+                                        // Готов к печати
+                                        if (status.isReadyToPrint)
+                                        {
+                                        }
+                                        else
+                                        {
+                                            mkDeviceEntity.DataCollector.Setup(status);
+                                        }
                                     }
                                     else
                                     {
-                                        mkDeviceEntity.DataCollector.Setup(status);
+                                        throw new Exception("GetLinkOsPrinter error!");
                                     }
-                                }
-                                else
-                                {
-                                    throw new Exception("GetLinkOsPrinter error!");
                                 }
                             }
                         }
+                        catch (ConnectionException)
+                        {
+                            throw;
+                        }
+                        catch (ZebraPrinterLanguageUnknownException)
+                        {
+                            throw;
+                        }
+
                     }
-                    catch (ConnectionException)
-                    {
-                        _log.Error("Zebra. Connection could not be opened!");
-                    }
-                    catch (ZebraPrinterLanguageUnknownException)
-                    {
-                        _log.Error("Zebra. Could not create printer!");
-                    }
-                    // Первый опрос.
+                    
                     if (isFirst)
                     {
                         isFirst = false;
@@ -149,30 +117,32 @@ namespace WeightCore.Zpl
 
         public void StopTask()
         {
-            _taskExit = true;
+            TaskExit = true;
+            Task?.Dispose();
+            Task = null;
             ConnnectionClose();
         }
 
         private void ConnnectionOpen(ref string address)
         {
-            if (_connection == null)
+            if (Connection == null)
             {
                 //_connection = ZebraConnectionBuilder.Build($"TCP_STATUS:{address}");
                 //_connection = Zebra.Sdk.Comm.ConnectionBuilder.Build($"TCP_STATUS:{address}");
-                _connection = ConnectionBuilder.Build($"TCP_STATUS:{address}");
+                Connection = ConnectionBuilder.Build($"TCP_STATUS:{address}");
             }
-            if (_connection != null)
-                if (!_connection.Connected)
-                    _connection.Open();
+            if (Connection != null)
+                if (!Connection.Connected)
+                    Connection.Open();
         }
 
         private void ConnnectionClose()
         {
-            if (_connection != null)
+            if (Connection != null)
             {
                 try
                 {
-                    _connection.Close();
+                    Connection.Close();
                 }
                 catch (Exception)
                 {
@@ -180,26 +150,18 @@ namespace WeightCore.Zpl
                 }
                 finally
                 {
-                    _connection = null;
+                    Connection = null;
                 }
             }
         }
 
         public void Close()
         {
-            StopThread();
-            if (_commandThread != null)
-            {
-                _commandThread.Join(2500);
-                _commandThread.Abort();
-                _commandThread = null;
-            }
-
             StopTask();
-            if (_task != null)
+            if (Task != null)
             {
-                _task.Wait(TimeSpan.FromMilliseconds(500));
-                _task = null;
+                Task.Wait(TimeSpan.FromMilliseconds(500));
+                Task = null;
             }
         }
 

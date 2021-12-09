@@ -16,10 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Redmine 1600. Подготовить шаблон инструкции "Действия при ошибках печати"
 - Redmine 1608. DbScales. Таблица Labels. Удалить поле Label
 
-## [0.5.920] - 2021-12-08
+## [0.5.920] - 2021-12-09
 ### Changed
 - Core v.0.5.920
 - Clients v.0.5.920
+### Removed
+- WindowsFormsAppExample
+- log4net NuGet package
 
 ## [0.5.910] - 2021-12-03
 ### Changed

@@ -1086,11 +1086,6 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueriesProgress, IsShowInfoLabels);
         }
 
-        private void FieldDt_DoubleClick(object sender, EventArgs e)
-        {
-            new ServiceMessagesWindow().BuildServiceMessagesWindow(this);
-        }
-
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             if (Equals(e.Button, MouseButtons.Middle))
