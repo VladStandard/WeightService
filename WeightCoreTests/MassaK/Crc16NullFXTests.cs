@@ -5,6 +5,7 @@
 using NUnit.Framework;
 using System;
 using WeightCore.MassaK;
+using WeightCoreTests;
 
 namespace HardwareTests.MassaK
 {
@@ -23,13 +24,13 @@ namespace HardwareTests.MassaK
 
             Assert.DoesNotThrow(() =>
             {
-                byte[] data = getMassaRequest;
-                ushort crc = 0;
-                foreach (NullFX.CRC.Crc16Algorithm algorithm in (NullFX.CRC.Crc16Algorithm[])Enum.GetValues(typeof(NullFX.CRC.Crc16Algorithm)))
-                {
-                    crc = NullFX.CRC.Crc16.ComputeChecksum(algorithm, data);
-                    TestContext.WriteLine($"{nameof(algorithm)}: {algorithm}. {nameof(data)}: {data}. {nameof(crc)}: {crc}");
-                }
+                //byte[] data = getMassaRequest;
+                //ushort crc = 0;
+                //foreach (NullFX.CRC.Crc16Algorithm algorithm in (NullFX.CRC.Crc16Algorithm[])Enum.GetValues(typeof(NullFX.CRC.Crc16Algorithm)))
+                //{
+                //    crc = NullFX.CRC.Crc16.ComputeChecksum(algorithm, data);
+                //    TestContext.WriteLine($"{nameof(algorithm)}: {algorithm}. {nameof(data)}: {data}. {nameof(crc)}: {crc}");
+                //}
 
                 Assert.AreEqual(0x2300, 0x2300);
             });

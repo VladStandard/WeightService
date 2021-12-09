@@ -6,6 +6,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using WeightCore.Helpers;
+using WeightCore.Models;
 
 namespace WeightCoreTests.Helpers
 {

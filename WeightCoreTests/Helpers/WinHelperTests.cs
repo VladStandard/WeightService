@@ -5,6 +5,8 @@ using DataShareCore;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
+using WeightCore.Helpers;
+using WeightCore.Models;
 
 namespace WeightCoreTests.Helpers
 {

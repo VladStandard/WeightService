@@ -5,17 +5,12 @@ using DataShareCore.Utils;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
+using WeightCore.Models;
 
 namespace WeightCoreTests.Models
 {
     public class SqlTableFieldTests
     {
-        #region Private fields and properties
-
-        //
-
-        #endregion
-
         #region Test methods
 
         /// <summary>

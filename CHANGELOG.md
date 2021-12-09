@@ -20,6 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Core v.0.5.920
 - Clients v.0.5.920
+- FontLoader
+- WebApiTerra800
+- ZabbixStubService
 ### Removed
 - WindowsFormsAppExample
 - log4net NuGet package

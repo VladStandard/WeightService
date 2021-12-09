@@ -4,17 +4,12 @@
 using DataShareCore.Utils;
 using NUnit.Framework;
 using System.Diagnostics;
+using WeightCore.Models;
 
 namespace WeightCoreTests.Models
 {
     public class SqlAuthenticationTests
     {
-        #region Private fields and properties
-
-        //
-
-        #endregion
-
         #region Test methods
 
         /// <summary>

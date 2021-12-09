@@ -1,10 +1,13 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using System;
 using System.Collections.Generic;
 
 // ReSharper disable UnusedMember.Global
 // Last changed 2021-01-28.
 
-namespace HardwareTests
+namespace WeightCoreTests
 {
     /// <summary>
     /// Enumeration of values.
@@ -110,7 +113,7 @@ namespace HardwareTests
         {
             return str == null ? "<null>" : str == "" ? "<empty>" : str;
         }
-        
+
         /// <summary>
         /// List of uri values.
         /// </summary>
@@ -135,7 +138,7 @@ namespace HardwareTests
         /// <returns></returns>
         public static List<byte[]> GetBytes()
         {
-            return new List<byte[]>() { null, new byte[0], new byte[] { Byte.MinValue, 0x00, Byte.MaxValue } };
+            return new List<byte[]>() { null, new byte[0], new byte[] { byte.MinValue, 0x00, byte.MaxValue } };
         }
 
         /// <summary>
@@ -144,7 +147,7 @@ namespace HardwareTests
         /// <returns></returns>
         public static List<byte> GetByte()
         {
-            return new List<byte>() { Byte.MinValue, 0x00, Byte.MaxValue };
+            return new List<byte>() { byte.MinValue, 0x00, byte.MaxValue };
         }
 
         /// <summary>

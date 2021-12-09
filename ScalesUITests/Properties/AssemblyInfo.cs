@@ -1,4 +1,7 @@
 ﻿
+using System.Reflection;
+using System.Runtime.InteropServices;
+
 [assembly: AssemblyTitle("ScalesUITests")]
 [assembly: AssemblyDescription("Тесты печати этикеток")]
 [assembly: AssemblyConfiguration("")]

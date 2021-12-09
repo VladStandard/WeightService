@@ -3,6 +3,7 @@
 
 using NUnit.Framework;
 using System.Diagnostics;
+using WeightCore.Helpers;
 
 namespace WeightCoreTests.Helpers
 {

@@ -6,6 +6,7 @@
 
 using NUnit.Framework;
 using WeightCore.MassaK;
+using WeightCoreTests;
 
 namespace HardwareTests.MassaK
 {

@@ -1,19 +1,86 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <IsPackable>false</IsPackable>
-    <AssemblyVersion>0.5.760</AssemblyVersion>
-    <FileVersion>0.5.760</FileVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5F69B63-170B-4703-873A-8855817AD252}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WeightCoreTests</RootNamespace>
+    <AssemblyName>WeightCoreTests</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NullFX.CRC" Version="1.1.3" />
-    <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0-preview-20211109-03" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WeightCore\WeightCore.csproj" />
+    <Compile Include="EnumValues.cs" />
+    <Compile Include="Helpers\AppHelperTests.cs" />
+    <Compile Include="Helpers\CollectionsHelperTests.cs" />
+    <Compile Include="Helpers\HardwareHelperTests.cs" />
+    <Compile Include="Helpers\SettingsHelperTests.cs" />
+    <Compile Include="Helpers\WinHelperTests.cs" />
+    <Compile Include="Helpers\XmlHelperTests.cs" />
+    <Compile Include="MassaK\Crc16MassaEntityTests.cs" />
+    <Compile Include="MassaK\Crc16NullFXTests.cs" />
+    <Compile Include="MassaK\MassaUtilsTests.cs" />
+    <Compile Include="Models\SqlAuthenticationTests.cs" />
+    <Compile Include="Models\SqlTableFieldTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tsc\PrintControlEntityTests.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Zpl\ZplPipeUtilsTests.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit">
+      <Version>3.13.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj">
+      <Project>{AFE4E2B7-D50D-4CEB-BA92-BBFD6116495F}</Project>
+      <Name>DataProjectsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj">
+      <Project>{8BA404FC-5E08-44F6-9C55-6D52C4FD0846}</Project>
+      <Name>DataShareCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeightCore\WeightCore.csproj">
+      <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
+      <Name>WeightCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
   </PropertyGroup>
