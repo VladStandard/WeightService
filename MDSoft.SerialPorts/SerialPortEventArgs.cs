@@ -3,11 +3,11 @@
 
 using System;
 
-namespace WeightCore.SerialPorts
+namespace MDSoft.SerialPorts
 {
     public class SerialPortEventArgs : EventArgs
     {
-        public bool isOpend = false;
-        public byte[] receivedBytes = null;
+        public bool IsOpened { get; set; } = false;
+        public byte[] ReceivedBytes { get; set; } = null;
     }
 }

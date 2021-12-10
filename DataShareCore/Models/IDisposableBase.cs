@@ -6,7 +6,6 @@ namespace DataShareCore.Models
     public interface IDisposableBase
     {
         public delegate void InitCallback();
-        //public delegate void OpenCallback();
         public delegate void CloseCallback();
         public delegate void ReopenCallback();
         public delegate void RequestCallback();

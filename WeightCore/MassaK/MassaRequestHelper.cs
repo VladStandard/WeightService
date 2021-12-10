@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MDSoft.SerialPorts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace WeightCore.MassaK
         #region Public and private fields and properties
 
         private BytesHelper Bytes { get; set; } = BytesHelper.Instance;
+        private MassaCrcHelper MassaCrc { get; set; } = MassaCrcHelper.Instance;
 
         public readonly byte[] Header = { 0xF8, 0x55, 0xCE };
 
@@ -32,7 +34,7 @@ namespace WeightCore.MassaK
         public byte[] MakeRequestCrcAdd(byte[] body)
         {
             byte[] len = BitConverter.GetBytes((ushort)body.Length);
-            byte[] crc = Bytes.CrcGet(body);
+            byte[] crc = MassaCrc.CrcGet(body);
             return Bytes.MergeBytes(new List<byte[]>() { Header, len, body, crc });
         }
 
@@ -49,7 +51,7 @@ namespace WeightCore.MassaK
             len[1] = request[4];
             ushort lenAsUshort = BitConverter.ToUInt16(len, 0);
             byte[] body = request.Skip(5).Take(lenAsUshort).ToArray();
-            return Bytes.MergeBytes(new List<byte[]>() { Header, len, Bytes.CrcGetWithBody(body) });
+            return Bytes.MergeBytes(new List<byte[]>() { Header, len, MassaCrc.CrcGetWithBody(body) });
         }
 
         #endregion

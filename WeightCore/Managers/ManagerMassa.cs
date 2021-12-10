@@ -25,7 +25,7 @@ namespace WeightCore.Managers
         public ResponseParseEntity ResponseParseGet { get; private set; } = null;
         public ResponseParseEntity ResponseParseSet { get; private set; } = null;
         public BlockingCollection<MassaExchangeEntity> Requests { get; private set; } = new();
-        public MassaDeviceEntity MassaDevice { get; private set; }
+        public MassaDeviceModel MassaDevice { get; private set; }
         public string ProgressStringQueries { get; set; }
         public string ProgressStringRequest { get; set; }
         public string ProgressStringResponse { get; set; }
@@ -49,44 +49,31 @@ namespace WeightCore.Managers
             () =>
             {
                 if (currentScale != null)
-                    MassaDevice = new(currentScale.DeviceComPort, currentScale.DeviceReadTimeout, currentScale.DeviceWriteTimeout);
+                    MassaDevice = new(currentScale.DeviceComPort, currentScale.DeviceReadTimeout, currentScale.DeviceWriteTimeout, GetData);
             },
             5_000, 250, 500, 3_000, 1_000);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
-            Stopwatch sw = Stopwatch.StartNew();
             Open(sqlViewModel,
             () =>
             {
-                sw.Restart();
-                //Log.Information($"Massa.Open repoen start: {sw.Elapsed.TotalSeconds}");
                 MassaDevice.Open();
-                //Log.Information($"Massa.Open repoen end: {sw.Elapsed.TotalSeconds}");
-                sw.Stop();
             },
             () =>
             {
-                sw.Restart();
-                //Log.Information($"Massa.Open request start: {sw.Elapsed.TotalSeconds}");
                 if (MassaDevice.IsConnected)
                     GetMassa();
                 else
                     ClearRequests(0);
-                //Log.Information($"Massa.Open request end: {sw.Elapsed.TotalSeconds}");
-                sw.Stop();
             },
             () =>
             {
-                sw.Restart();
-                //Log.Information($"Massa.Open response start: {sw.Elapsed.TotalSeconds}");
                 if (MassaDevice.IsConnected)
                     OpenResponse();
                 else
                     ResetMassa();
-                //Log.Information($"Massa.Open response end: {sw.Elapsed.TotalSeconds}");
-                sw.Stop();
             });
         }
 
@@ -144,12 +131,12 @@ namespace WeightCore.Managers
             foreach (MassaExchangeEntity massaExchange in Requests.GetConsumingEnumerable())
             {
                 if (MassaDevice == null || massaExchange == null) return;
-                Parse(massaExchange);
+                SendData(massaExchange);
             }
             Requests = new BlockingCollection<MassaExchangeEntity>();
         }
 
-        private void Parse(MassaExchangeEntity massaExchange)
+        private void SendData(MassaExchangeEntity massaExchange)
         {
             switch (massaExchange.CmdType)
             {
@@ -189,14 +176,21 @@ namespace WeightCore.Managers
             if (massaExchange.Request == null)
                 return;
 
-            byte[] response = MassaDevice.WriteToPort(massaExchange);
+            MassaDevice.SendData(massaExchange);
+        }
+
+        private void GetData(MassaExchangeEntity massaExchange, byte[] response)
+        {
             IsResponse = response != null;
             if (!IsResponse)
                 return;
 
-            massaExchange.ResponseParse = new ResponseParseEntity(massaExchange.CmdType, response);
-            ParseSetResponse(massaExchange);
-            ParseSetMassa(massaExchange);
+            if (massaExchange != null)
+            {
+                massaExchange.ResponseParse = new ResponseParseEntity(massaExchange.CmdType, response);
+                ParseSetResponse(massaExchange);
+                ParseSetMassa(massaExchange);
+            }
         }
 
         private void ParseSetResponse(MassaExchangeEntity massaExchange)

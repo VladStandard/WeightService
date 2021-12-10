@@ -23,10 +23,6 @@ namespace DataShareCore.Models
         /// </summary>
         public bool IsDisposed { get; private set; }
         /// <summary>
-        /// Callback method to open.
-        /// </summary>
-        //public OpenCallback? OpenCaller { get; private set; }
-        /// <summary>
         /// Callback method to close.
         /// </summary>
         public CloseCallback? CloseCaller { get; private set; }
@@ -49,7 +45,6 @@ namespace DataShareCore.Models
             IsOpened = false;
             IsClosed = false;
             IsDisposed = false;
-            //OpenCaller = null;
             CloseCaller = null;
             ReleaseManagedResourcesCaller = null;
             ReleaseUnmanagedResourcesCaller = null;
@@ -63,7 +58,6 @@ namespace DataShareCore.Models
                 IsOpened = false;
                 IsClosed = false;
                 IsDisposed = false;
-                //OpenCaller = open;
                 CloseCaller = close;
                 ReleaseManagedResourcesCaller = releaseManaged;
                 ReleaseUnmanagedResourcesCaller = releaseUnmanaged;
@@ -95,7 +89,6 @@ namespace DataShareCore.Models
                 if (IsOpened) return;
                 IsOpened = true;
                 IsClosed = false;
-                //OpenCaller?.Invoke();
             }
         }
 

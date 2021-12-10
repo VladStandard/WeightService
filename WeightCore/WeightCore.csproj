@@ -202,6 +202,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Ports, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Ports.6.0.0\lib\net461\System.IO.Ports.dll</HintPath>
+    </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
@@ -340,20 +343,16 @@
     <Compile Include="Managers\ManagerMassa.cs" />
     <Compile Include="Managers\ManagerMemory.cs" />
     <Compile Include="Managers\ManagerHelper.cs" />
+    <Compile Include="MassaK\MassaCrcHelper.cs" />
     <Compile Include="MassaK\MassaEnums.cs" />
-    <Compile Include="MassaK\MassaConnectionException.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />
-    <Compile Include="MassaK\BytesHelper.cs" />
-    <Compile Include="MassaK\MassaDeviceEntity.cs" />
+    <Compile Include="MassaK\MassaDeviceModel.cs" />
     <Compile Include="MassaK\MassaRequestHelper.cs" />
-    <Compile Include="MassaK\MkCommander.cs" />
     <Compile Include="MassaK\MkDeviceEntityBackup.cs" />
     <Compile Include="Helpers\SessionStateHelper.cs" />
     <Compile Include="MassaK\ResponseMassaEntity.cs" />
     <Compile Include="MassaK\ResponseParseEntity.cs" />
     <Compile Include="MassaK\ResponseScaleParEntity.cs" />
-    <Compile Include="SerialPorts\SerialPortEventArgs.cs" />
-    <Compile Include="MassaK\SerialPortUtils.cs" />
     <Compile Include="Models\ResultXmlRead.cs" />
     <Compile Include="Models\SqlAuthentication.cs" />
     <Compile Include="Models\SqlTableField.cs" />
@@ -369,7 +368,6 @@
     <Compile Include="Print\Zebra\StateEntity.cs" />
     <Compile Include="Print\Zebra\StatusDataCollector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MassaK\SerialPortManager.cs" />
     <Compile Include="Print\Enums.cs" />
     <Compile Include="Print\Tsc\TscPrintControlHelper.cs" />
     <Compile Include="Print\Tsc\TscPrintSetupHelper.cs" />
@@ -469,6 +467,10 @@
     <ProjectReference Include="..\DataShareCore\DataShareCore.csproj">
       <Project>{8ba404fc-5e08-44f6-9c55-6d52c4fd0846}</Project>
       <Name>DataShareCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MDSoft.SerialPorts\MDSoft.SerialPorts.csproj">
+      <Project>{7859db5a-22a2-44a4-a4e8-4f341c8d3e4e}</Project>
+      <Name>MDSoft.SerialPorts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

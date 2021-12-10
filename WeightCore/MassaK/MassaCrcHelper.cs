@@ -1,49 +1,27 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MDSoft.SerialPorts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 
 namespace WeightCore.MassaK
 {
-    public class BytesHelper
+    public class MassaCrcHelper
     {
         #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        private static BytesHelper _instance;
+        private static MassaCrcHelper _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public static BytesHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+        public static MassaCrcHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
+        public BytesHelper Bytes { get; private set; } = BytesHelper.Instance;
+
         #region Public and private methods
-
-        public string GetBytesAsHex(byte[] bytes, char delimeter = ' ') =>
-                    string.Join(delimeter != ' ' ? $"{delimeter} " : " ", bytes.Select(b => b.ToString("X2")));
-
-        public byte[] MergeBytes(List<byte[]> bytesList)
-        {
-            int len = 0;
-            foreach (byte[] bytes in bytesList)
-            {
-                len += bytes.Length;
-            }
-            byte[] data = new byte[len];
-
-            int i = 0;
-            foreach (byte[] bytes in bytesList)
-            {
-                foreach (byte item in bytes)
-                {
-                    data[i] = item;
-                    i++;
-                }
-            }
-            return data;
-        }
 
         public ushort CrcComputeChecksumAsUshort(byte[] data)
         {
@@ -51,15 +29,15 @@ namespace WeightCore.MassaK
             int crc = 0;
             for (k = 0; k < data.Length; k++)
             {
-                a = 0; temp = (crc >> 8) << 8;
+                a = 0; temp = crc >> 8 << 8;
                 for (bits = 0; bits < 8; bits++)
                 {
                     if (((temp ^ a) & 0x8000) != 0)
-                        a = (a << 1) ^ 0x1021;
+                        a = a << 1 ^ 0x1021;
                     else a <<= 1;
                     temp <<= 1;
                 }
-                crc = a ^ (crc << 8) ^ (data[k] & 0xFF);
+                crc = a ^ crc << 8 ^ data[k] & 0xFF;
             }
 
             byte[] crcReverse = new byte[2];
@@ -81,7 +59,7 @@ namespace WeightCore.MassaK
 
         public byte[] CrcGet(byte[] body) => CrcComputeChecksumAsBytes(body);
 
-        public byte[] CrcGetWithBody(byte[] body) => MergeBytes(new List<byte[]>() { body, CrcComputeChecksumAsBytes(body) });
+        public byte[] CrcGetWithBody(byte[] body) => Bytes.MergeBytes(new List<byte[]>() { body, CrcComputeChecksumAsBytes(body) });
 
         #endregion
     }

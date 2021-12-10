@@ -62,7 +62,7 @@ namespace ScalesUI.Forms
             try
             {
                 ProgramState = ShareEnums.ProgramState.IsLoad;
-                TaskManagerClose();
+                SessionState.Manager.Close();
 
                 MainForm_LoadResources();
 
@@ -88,7 +88,9 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                TaskManagerOpen();
+                SessionState.Manager.Init(SessionState.CurrentScale, SessionState.IsTscPrinter);
+                SessionState.Manager.Open(SessionState.SqlViewModel);
+                //SessionState.Manager.Massa.Open();
                 ManagerBase.WaitSync(0_500);
                 ButtonScalesInit_Click(sender, e);
                 ProgramState = ShareEnums.ProgramState.IsRun;
@@ -499,18 +501,18 @@ namespace ScalesUI.Forms
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
                     $"{LocalizationData.ScalesUI.Memory}: " +
-                    (SessionState?.Manager?.Memory?.MemorySize?.PhysicalCurrent != null 
+                    (SessionState.Manager?.Memory?.MemorySize?.PhysicalCurrent != null 
                         ? $"{SessionState.Manager.Memory.MemorySize.PhysicalCurrent.MegaBytes:N0}" : "-") +
-                    $" MB {SessionState.Manager.Memory.ProgressString}");
+                    (SessionState.Manager?.Memory != null ? $" MB {SessionState.Manager.Memory.ProgressString}" : $" MB "));
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal, 
-                    SessionState.Manager.Memory.MemorySize.DtChanged?.ToString(@"HH:mm:ss") +
+                    SessionState.Manager?.Memory?.MemorySize?.DtChanged?.ToString(@"HH:mm:ss") +
                     $"  {LocalizationData.ScalesUI.MemoryPhysical}: {LocalizationData.ScalesUI.MemoryFree} " +
-                    (SessionState?.Manager?.Memory?.MemorySize?.PhysicalFree != null
-                        ? $"{SessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes:N0}" +
+                    (SessionState.Manager?.Memory?.MemorySize?.PhysicalFree != null
+                        ? $"{SessionState.Manager?.Memory.MemorySize.PhysicalFree.MegaBytes:N0}" +
                         $" из {SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB."
                         : "- из - MB."));
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldMemoryProgress,
-                    SessionState?.Manager?.Memory?.MemorySize?.PhysicalTotal != null
+                    SessionState.Manager?.Memory?.MemorySize?.PhysicalTotal != null
                     ? (int)SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes : 0);
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldMemoryProgress, 0);
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMemoryProgress,
@@ -562,7 +564,7 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries,
                 $"{LocalizationData.ScalesUI.ScaleQueue}: {SessionState.Manager.Massa.Requests?.Count} {SessionState.Manager.Massa.ProgressStringQueries}");
             SessionState.Manager.Massa.ProgressStringQueries = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringQueries);
-            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, SessionState?.Manager?.Massa?.Requests != null
+            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, SessionState.Manager?.Massa?.Requests != null
                 ? SessionState.Manager.Massa.Requests.Count : 0);
 
             if (!flag)
@@ -627,21 +629,6 @@ namespace ScalesUI.Forms
                     : $"{LocalizationData.ScalesUI.StateError}! {SessionState.Manager.Massa.ProgressStringResponse}"));
                 SessionState.Manager.Massa.ProgressStringResponse = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringResponse);
             }
-        }
-
-        private void TaskManagerOpen()
-        {
-            SessionState.Manager.Init(SessionState.CurrentScale, SessionState.IsTscPrinter);
-            SessionState.Manager.Open(SessionState.SqlViewModel);
-        }
-
-        private void TaskManagerClose()
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            SessionState.Log.Information($"TaskManagerClose start {sw.Elapsed}");
-            SessionState.Manager.Close();
-            sw.Stop();
-            SessionState.Log.Information($"TaskManagerClose finish {sw.Elapsed}");
         }
 
         #endregion
@@ -709,7 +696,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TaskManagerClose();
+                SessionState.Manager.Close();
 
                 using PasswordForm passwordForm = new() { TopMost = !Debug.IsDebug };
                 DialogResult result = passwordForm.ShowDialog(this);
@@ -726,7 +713,7 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                TaskManagerOpen();
+                SessionState.Manager.Open(SessionState.SqlViewModel);
             }
         }
 
@@ -799,7 +786,7 @@ namespace ScalesUI.Forms
                 if (!CheckWeight())
                     return;
 
-                TaskManagerClose();
+                SessionState.Manager.Close();
 
                 // PLU form.
                 using PluListForm pluListForm = new() { Owner = this };
@@ -829,7 +816,7 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                TaskManagerOpen();
+                SessionState.Manager.Open(SessionState.SqlViewModel);
             }
         }
 
@@ -837,7 +824,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TaskManagerClose();
+                SessionState.Manager.Close();
 
                 if (SessionState.CurrentOrder == null)
                 {
@@ -877,7 +864,7 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                TaskManagerOpen();
+                SessionState.Manager.Open(SessionState.SqlViewModel);
             }
         }
 
@@ -900,7 +887,7 @@ namespace ScalesUI.Forms
                     return;
                 }
 
-                TaskManagerClose();
+                SessionState.Manager.Close();
 
                 using KneadingForm kneadingForm = new() { Owner = this };
                 DialogResult result = kneadingForm.ShowDialog();
@@ -920,7 +907,7 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                TaskManagerOpen();
+                SessionState.Manager.Open(SessionState.SqlViewModel);
             }
         }
 
@@ -991,7 +978,7 @@ namespace ScalesUI.Forms
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
-                TaskManagerOpen();
+                SessionState.Manager.Open(SessionState.SqlViewModel);
             }
         }
 
@@ -1110,7 +1097,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TaskManagerClose();
+                SessionState.Manager.Close();
 
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.SqlSettings, false) { Width = 400, Height = 400 };
                 wpfPageLoader.ShowDialog(this);
@@ -1125,7 +1112,7 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                TaskManagerOpen();
+                SessionState.Manager.Open(SessionState.SqlViewModel);
             }
         }
 
@@ -1154,13 +1141,13 @@ namespace ScalesUI.Forms
                 if (result != DialogResult.Yes)
                     return;
 
-                TaskManagerClose();
+                SessionState.Manager.Close();
 
                 // Run app.
                 string fileName = @"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe";
                 if (File.Exists(fileName))
                 {
-                    TaskManagerClose();
+                    SessionState.Manager.Close();
                     Proc.Run(fileName, string.Empty, false, ProcessWindowStyle.Normal, true);
                 }
                 else
@@ -1183,7 +1170,7 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                TaskManagerOpen();
+                SessionState.Manager.Open(SessionState.SqlViewModel);
             }
         }
 
@@ -1196,7 +1183,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                TaskManagerClose();
+                SessionState.Manager.Close();
 
                 // .. methods
             }
@@ -1208,7 +1195,7 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                TaskManagerOpen();
+                SessionState.Manager.Open(SessionState.SqlViewModel);
             }
         }
 #pragma warning restore IDE0051 // Remove unused private members
