@@ -51,7 +51,7 @@
 
 //        #region Private fields and properties
 
-//        private static readonly object Locker = new object();
+//        private static readonly object _locker = new object();
 //        private LogHelper _log { get; set; } = LogHelper.Instance;
 //        private readonly ConcurrentQueue<Cmd> _requestQueue = new ConcurrentQueue<Cmd>();
 //        private Thread _sharingSessionThread;
@@ -104,7 +104,7 @@
 //                Cmd request = null;
 //                if (_requestQueue.TryDequeue(out request))
 //                {
-//                    lock (Locker)
+//                    lock (_locker)
 //                    {
 //                        IsReady = false;
 //                        //var state = EnumControlState.Up;

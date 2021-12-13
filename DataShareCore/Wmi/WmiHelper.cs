@@ -21,13 +21,15 @@ namespace DataShareCore.Wmi
 
         #region Public and private fields and properties
 
+        private readonly object _locker = new();
+
         #endregion
 
         #region Public and private methods
 
         public WmiWin32MemoryEntity GetWin32OperatingSystemMemory()
         {
-            lock (this)
+            lock (_locker)
             {
                 // PowerShell: gwmi Win32_OperatingSystem | select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize
                 // PowerShell: gwmi -query "select FreeVirtualMemory, FreePhysicalMemory, TotalVirtualMemorySize, TotalVisibleMemorySize from Win32_OperatingSystem"
@@ -52,7 +54,7 @@ namespace DataShareCore.Wmi
 
         public Dictionary<string, string> GetWin32OperatingSystemInfo()
         {
-            lock (this)
+            lock (_locker)
             {
                 // PowerShell: gwmi Win32_OperatingSystem | select Caption, OSArchitecture, SerialNumber
                 // PowerShell: gwmi -query "select Caption, OSArchitecture, SerialNumber from Win32_OperatingSystem"
@@ -75,7 +77,7 @@ namespace DataShareCore.Wmi
 
         public WmiWin32PrinterEntity GetWin32Printer(string name)
         {
-            lock (this)
+            lock (_locker)
             {
                 if (string.IsNullOrEmpty(name))
                     return new WmiWin32PrinterEntity(name, string.Empty, string.Empty, string.Empty, string.Empty, Win32PrinterStatusEnum.Error);
@@ -104,7 +106,7 @@ namespace DataShareCore.Wmi
 
         public WmiSoftwareEntity GetSoftware(string search)
         {
-            lock (this)
+            lock (_locker)
             {
                 // PowerShell: gwmi -Class Win32_Product | identifyingnumber, name, vendor, version, language, caption | where {$_.name -like "*Visual C++ Library*" }
                 // PowerShell: gwmi -query "select identifyingnumber, name, vendor, version, language, caption from Win32_Product where name like '%Visual C++ Library%'"

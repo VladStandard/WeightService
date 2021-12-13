@@ -37,7 +37,7 @@
 
 //        public void Close()
 //        {
-//            lock (this)
+//            lock (_locker)
 //            {
 //                try
 //                {
@@ -55,7 +55,7 @@
 
 //        public void DoAppend(log4net.Core.LoggingEvent loggingEvent)
 //        {
-//            lock (this)
+//            lock (_locker)
 //            {
 //                try
 //                {

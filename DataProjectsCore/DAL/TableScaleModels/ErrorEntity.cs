@@ -12,11 +12,11 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public virtual DateTime CreatedDate { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
-        public virtual string FilePath { get; set; }
+        public virtual string? FilePath { get; set; }
         public virtual int LineNumber { get; set; }
-        public virtual string MemberName { get; set; }
-        public virtual string Exception { get; set; }
-        public virtual string InnerException { get; set; }
+        public virtual string? MemberName { get; set; }
+        public virtual string? Exception { get; set; }
+        public virtual string? InnerException { get; set; }
 
         #endregion
 

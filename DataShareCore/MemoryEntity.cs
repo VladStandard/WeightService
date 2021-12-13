@@ -34,6 +34,12 @@ namespace DataShareCore
             ExceptionMsg = string.Empty;
         }
 
+        ~MemoryEntity()
+        {
+            MemorySize.Close();
+            MemorySize.Dispose(false);
+        }
+
         #endregion
 
         #region Public and private methods

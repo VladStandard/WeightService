@@ -15,7 +15,7 @@ namespace MDSoft.SerialPorts
         public event SerialPortEventHandler ComReceiveDataEvent = null;
         public event SerialPortEventHandler ComOpenEvent = null;
         public event SerialPortEventHandler ComCloseEvent = null;
-        private object Locker { get; set; } = new();
+        private readonly object _locker = new();
 
         private void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -23,7 +23,7 @@ namespace MDSoft.SerialPorts
             {
                 return;
             }
-            lock (Locker)
+            lock (_locker)
             {
                 int len = SerialPort.BytesToRead;
                 byte[] data = new byte[len];

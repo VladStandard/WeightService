@@ -52,7 +52,7 @@ namespace WeightCore.Managers
             base.ReleaseManaged();
 
             MemorySize?.Close();
-            MemorySize?.Dispose();
+            MemorySize?.Dispose(false);
             MemorySize = null;
         }
 

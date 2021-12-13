@@ -110,7 +110,7 @@ namespace WeightCore.XamlPages
                         {
                             if (comboBoxTaskEnabled.SelectedItem is System.Windows.Controls.ComboBoxItem itemSelected)
                             {
-                                TasksUtils.SaveTask(taskItem, taskItem.TaskType, taskItem.Scale.Id,
+                                TasksUtils.SaveTask(taskItem, 
                                     string.Equals(itemSelected.Content.ToString(), "True", System.StringComparison.InvariantCultureIgnoreCase));
                             }
                         }

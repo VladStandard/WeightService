@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore.DAL.TableModels;
-using DataProjectsCore.Utils;
 using Microsoft.Data.SqlClient;
 using System;
 
@@ -12,29 +11,32 @@ namespace DataProjectsCore.DAL.Utils
     {
         #region Public and private methods
 
-        public static void SaveTask(TaskDirect task, TaskTypeDirect taskType, int scaleId, bool enabled)
+        public static void SaveNullTask(TaskTypeDirect taskType, int scaleId, bool enabled)
         {
             using SqlConnection con = SqlConnectFactory.GetConnection();
             con.Open();
+            using SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.InsertTask);
+            cmd.Connection = con;
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@task_type_uid", taskType.Uid);
+            cmd.Parameters.AddWithValue("@scale_id", scaleId);
+            cmd.Parameters.AddWithValue("@enabled", enabled);
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        public static void SaveTask(TaskDirect task, bool enabled)
+        {
             if (task == null)
-            {
-                using SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.InsertTask);
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@task_type_uid", taskType.Uid);
-                cmd.Parameters.AddWithValue("@scale_id", scaleId);
-                cmd.Parameters.AddWithValue("@enabled", enabled);
-                cmd.ExecuteNonQuery();
-            }
-            else
-            {
-                using SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.UpdateTask);
-                cmd.Connection = con;
-                cmd.Parameters.Clear();
-                cmd.Parameters.AddWithValue("@uid", task.Uid);
-                cmd.Parameters.AddWithValue("@enabled", enabled);
-                cmd.ExecuteNonQuery();
-            }
+                return;
+            using SqlConnection con = SqlConnectFactory.GetConnection();
+            con.Open();
+            using SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.UpdateTask);
+            cmd.Connection = con;
+            cmd.Parameters.Clear();
+            cmd.Parameters.AddWithValue("@uid", task.Uid);
+            cmd.Parameters.AddWithValue("@enabled", enabled);
+            cmd.ExecuteNonQuery();
             con.Close();
         }
 

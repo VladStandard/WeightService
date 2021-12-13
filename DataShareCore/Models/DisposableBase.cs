@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using System.Runtime.CompilerServices;
 using static DataShareCore.Models.IDisposableBase;
 
 namespace DataShareCore.Models
@@ -34,7 +35,7 @@ namespace DataShareCore.Models
         /// Callback method to release unmanaged resources.
         /// </summary>
         public ReleaseUnmanagedCallback? ReleaseUnmanagedResourcesCaller { get; private set; }
-        public object Locker { get; private set; } = new();
+        private readonly object _locker = new();
 
         #endregion
 
@@ -42,22 +43,25 @@ namespace DataShareCore.Models
 
         public DisposableBase()
         {
-            IsOpened = false;
-            IsClosed = false;
-            IsDisposed = false;
+            SetDefault();
+        }
+
+        private void SetDefault()
+        {
             CloseCaller = null;
             ReleaseManagedResourcesCaller = null;
             ReleaseUnmanagedResourcesCaller = null;
+            IsOpened = false;
+            IsClosed = false;
+            IsDisposed = false;
         }
 
         public void Init(CloseCallback close, ReleaseManagedCallback releaseManaged, ReleaseUnmanagedCallback releaseUnmanaged)
         {
             CheckIsDisposed();
-            lock (Locker)
+            lock (_locker)
             {
-                IsOpened = false;
-                IsClosed = false;
-                IsDisposed = false;
+                SetDefault();
                 CloseCaller = close;
                 ReleaseManagedResourcesCaller = releaseManaged;
                 ReleaseUnmanagedResourcesCaller = releaseUnmanaged;
@@ -66,7 +70,7 @@ namespace DataShareCore.Models
 
         ~DisposableBase()
         {
-            Dispose();
+            Dispose(false);
         }
 
         #endregion
@@ -84,7 +88,7 @@ namespace DataShareCore.Models
         public void Open()
         {
             CheckIsDisposed();
-            lock (Locker)
+            lock (_locker)
             {
                 if (IsOpened) return;
                 IsOpened = true;
@@ -95,7 +99,7 @@ namespace DataShareCore.Models
         public void Close()
         {
             CheckIsDisposed();
-            lock (Locker)
+            lock (_locker)
             {
                 if (IsClosed) return;
                 IsOpened = false;
@@ -106,17 +110,28 @@ namespace DataShareCore.Models
 
         public void Dispose()
         {
+            Dispose(false);
+        }
+        
+        public virtual void Dispose(bool disposing)
+        {
             Close();
-            
-            lock (Locker)
+            CloseCaller = null;
+
+            lock (_locker)
             {
                 if (!IsDisposed)
                 {
                     // Releasing managed resources.
-                    ReleaseManagedResourcesCaller?.Invoke();
+                    if (disposing)
+                    {
+                        ReleaseManagedResourcesCaller?.Invoke();
+                        ReleaseManagedResourcesCaller = null;
+                    }
 
                     // Releasing unmanaged resources.
                     ReleaseUnmanagedResourcesCaller?.Invoke();
+                    ReleaseUnmanagedResourcesCaller = null;
 
                     // Resource release flag.
                     IsDisposed = true;

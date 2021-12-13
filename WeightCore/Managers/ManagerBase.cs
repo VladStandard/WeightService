@@ -43,6 +43,7 @@ namespace WeightCore.Managers
         public Task TaskResponse { get; set; } = null;
         public bool IsOpenedMethod { get; set; }
         public bool IsClosedMethod { get; set; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -56,15 +57,15 @@ namespace WeightCore.Managers
         public void Init(ProjectsEnums.TaskType taskType, InitCallback initCallback,
             ushort waitReopen = 0, ushort waitRequest = 0, ushort waitResponse = 0, ushort waitClose = 0, ushort waitException = 0)
         {
-            lock (this)
+            lock (_locker)
             {
                 TaskType = taskType;
 
-                WaitReopen = waitReopen == 0 ? (ushort)2_000 : waitReopen;
+                WaitReopen = waitReopen == 0 ? (ushort)1_000 : waitReopen;
                 WaitRequest = waitRequest == 0 ? (ushort)250 : waitRequest;
                 WaitResponse = waitResponse == 0 ? (ushort)500 : waitResponse;
-                WaitClose = waitClose == 0 ? (ushort)3_000 : waitClose;
-                WaitException = waitException == 0 ? (ushort)2_000 : waitException;
+                WaitClose = waitClose == 0 ? (ushort)2_000 : waitClose;
+                WaitException = waitException == 0 ? (ushort)1_000 : waitException;
 
                 initCallback?.Invoke();
             }
@@ -74,8 +75,8 @@ namespace WeightCore.Managers
         {
             if (miliseconds < 50)
                 miliseconds = 50;
-            if (miliseconds > 10_000)
-                miliseconds = 10_000;
+            if (miliseconds > 5_000)
+                miliseconds = 5_000;
             Stopwatch sw = Stopwatch.StartNew();
             sw.Restart();
             while (sw.Elapsed.TotalMilliseconds < miliseconds)
@@ -130,7 +131,6 @@ namespace WeightCore.Managers
             task.Wait(WaitClose);
             if (task.IsCompleted)
                 task.Dispose();
-            task = null;
         }
 
         private void OpenTaskReopen(ReopenCallback callback)
@@ -153,7 +153,7 @@ namespace WeightCore.Managers
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
                             callback?.Invoke();
-                            WaitSync(WaitReopen);
+                            //WaitSync(WaitReopen);
                         }
                         catch (TaskCanceledException)
                         {
@@ -190,7 +190,7 @@ namespace WeightCore.Managers
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
                             callback?.Invoke();
-                            WaitSync(WaitRequest);
+                            //WaitSync(WaitRequest);
                         }
                         catch (TaskCanceledException)
                         {
@@ -227,7 +227,7 @@ namespace WeightCore.Managers
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
                             callback?.Invoke();
-                            WaitSync(WaitResponse);
+                            //WaitSync(WaitResponse);
                         }
                         catch (TaskCanceledException)
                         {
@@ -255,13 +255,16 @@ namespace WeightCore.Managers
             CtsRequest?.Cancel();
             CtsResponse?.Cancel();
 
-            WaitSync(WaitClose);
-            
+            //WaitSync(WaitClose);
+            //WaitSync(WaitClose, TaskReopen);
+            //WaitSync(WaitClose, TaskRequest);
+            //WaitSync(WaitClose, TaskResponse);
+
             MutexReopen = null;
             MutexRequest = null;
             MutexResponse = null;
 
-            DebugLog($"{nameof(TaskType)} is closed");
+            DebugLog($"{TaskType} is closed");
         }
 
         public void ReleaseManaged()

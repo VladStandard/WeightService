@@ -31,6 +31,7 @@ namespace WebSocketsExamples.Models
         private readonly HashSet<string> _supportedSubProtocols;
         const int BUFFER_SIZE = 4 * 1024 * 1024; // 4MB
         public bool Exit { get; private set; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -71,7 +72,7 @@ namespace WebSocketsExamples.Models
 
         public void Dispose()
         {
-            lock (this)
+            lock (_locker)
             {
                 if (!Disposed)
                 {

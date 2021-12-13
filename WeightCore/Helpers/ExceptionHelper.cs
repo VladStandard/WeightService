@@ -32,6 +32,7 @@ namespace WeightCore.Helpers
         #region Public and private fields and properties
 
         private LogHelper Log { get; set; } = LogHelper.Instance;
+        private readonly object _locker = new();
 
         #endregion
 
@@ -40,7 +41,7 @@ namespace WeightCore.Helpers
         public void Catch(IWin32Window owner, ref Exception ex, bool isShowException,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            lock (WpfPageLoader.Locker)
+            lock (_locker)
             {
                 Log.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)

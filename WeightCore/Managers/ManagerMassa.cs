@@ -59,18 +59,18 @@ namespace WeightCore.Managers
             Open(sqlViewModel,
             () =>
             {
-                MassaDevice.Open();
+                MassaDevice?.Open();
             },
             () =>
             {
-                if (MassaDevice.IsConnected)
+                if (MassaDevice?.IsConnected == true)
                     GetMassa();
                 else
                     ClearRequests(0);
             },
             () =>
             {
-                if (MassaDevice.IsConnected)
+                if (MassaDevice?.IsConnected == true)
                     OpenResponse();
                 else
                     ResetMassa();
@@ -99,7 +99,7 @@ namespace WeightCore.Managers
             Requests?.Dispose();
             Requests = null;
             MassaRequest = null;
-            MassaDevice?.Dispose();
+            MassaDevice?.Dispose(true);
             MassaDevice = null;
 
             ProgressStringQueries = null;
@@ -176,7 +176,7 @@ namespace WeightCore.Managers
             if (massaExchange.Request == null)
                 return;
 
-            MassaDevice.SendData(massaExchange);
+            MassaDevice?.SendData(massaExchange);
         }
 
         private void GetData(MassaExchangeEntity massaExchange, byte[] response)

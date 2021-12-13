@@ -39,7 +39,6 @@ namespace WeightCore.Helpers
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
         public HostDirect Host { get; private set; }
-        public ZplCommander ZplCommander { get; private set; }
         public int CurrentScaleId { get; }
         public OrderDirect CurrentOrder { get; set; }
 
@@ -112,11 +111,20 @@ namespace WeightCore.Helpers
             Manager = new ManagerHelper();
         }
 
+        ~SessionStateHelper()
+        {
+            Dispose();
+        }
+
         public void Dispose()
         {
-            ZplCommander?.Close();
-            Manager?.Close();
-            Manager?.Dispose();
+            Dispose(false);
+        }
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+                Manager?.Dispose(disposing);
         }
 
         #endregion

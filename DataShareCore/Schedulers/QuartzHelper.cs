@@ -144,6 +144,8 @@ namespace DataShareCore.Schedulers
                         .Create<QuartzJobEveryDaysEntity>()
                         .WithIdentity(jobName);
                     break;
+                case QuartzEnums.Interval.TimeSpan:
+                    break;
             }
             if (jobBuilder != null)
                 jobDetail = jobBuilder.Build();

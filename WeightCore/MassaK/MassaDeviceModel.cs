@@ -90,7 +90,6 @@ namespace WeightCore.MassaK
             if (IsOpenedMethod) return;
             IsOpenedMethod = true;
             IsClosedMethod = false;
-            CheckIsDisposed();
 
             try
             {

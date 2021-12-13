@@ -66,7 +66,7 @@ namespace DataProjectsCore.DAL
                 TaskDirect task = TasksUtils.GetTask(taskType.Uid, (int)scaleId);
                 if (task == null)
                 {
-                    TasksUtils.SaveTask(task, taskType, (int)scaleId, true);
+                    TasksUtils.SaveNullTask(taskType, (int)scaleId, true);
                     task = TasksUtils.GetTask(taskType.Uid, (int)scaleId);
                 }
                 Tasks.Add(task);

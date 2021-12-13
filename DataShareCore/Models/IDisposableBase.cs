@@ -15,7 +15,7 @@ namespace DataShareCore.Models
 
         public void CloseMethod();
 
-        public void Dispose();
+        public void Dispose(bool disposing);
 
         public void ReleaseManaged();
 

@@ -62,7 +62,7 @@ namespace WeightCore.Print.Zebra
         //        {
         //            if (requestQueue.TryDequeue(out string request))
         //            {
-        //                lock (locker)
+        //                lock (_locker)
         //                {
         //                    string msg = string.Empty;
         //                    try

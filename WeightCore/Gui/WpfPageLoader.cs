@@ -26,7 +26,6 @@ namespace WeightCore.Gui
         public PageMessageBox PageMessageBoxItem { get; private set; }
         public PageSqlSettings SqlSettings { get; private set; }
         public ProjectsEnums.Page Page { get; private set; }
-        public static object Locker { get; internal set; } = new object();
 
         #endregion
 

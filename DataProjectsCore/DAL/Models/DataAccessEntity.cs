@@ -23,6 +23,7 @@ namespace DataProjectsCore.DAL.Models
         public CoreSettingsEntity CoreSettings { get; set; }
         public DataConfigurationEntity DataConfig { get; set; }
         private delegate void ExecCallback(ISession session);
+        private readonly object _locker = new();
 
         // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
         private ISessionFactory? _sessionFactory;
@@ -32,7 +33,7 @@ namespace DataProjectsCore.DAL.Models
             {
                 if (_sessionFactory != null)
                     return _sessionFactory;
-                lock (this)
+                lock (_locker)
                 {
                     if (CoreSettings == null)
                         throw new ArgumentException("CoreSettings is null!");
@@ -315,7 +316,7 @@ namespace DataProjectsCore.DAL.Models
 
         private void ExecTransaction(ExecCallback callback, string filePath, int lineNumber, string memberName)
         {
-            lock (this)
+            lock (_locker)
             {
                 using ISession? session = GetSession();
                 if (session != null)

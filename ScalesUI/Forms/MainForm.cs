@@ -34,8 +34,8 @@ namespace ScalesUI.Forms
         public ShareEnums.ProgramState ProgramState { get; set; } = ShareEnums.ProgramState.Default;
 
         private bool IsShowInfoLabels { get; set; } = false;
-        private object LockerDays { get; set; } = new();
-        private object LockerSeconds { get; set; } = new();
+        private readonly object _lockerDays = new();
+        private readonly object _lockerSeconds = new();
         private string AppName { get; set; } = null;
 
         #endregion
@@ -88,9 +88,9 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                
                 SessionState.Manager.Init(SessionState.CurrentScale, SessionState.IsTscPrinter);
                 SessionState.Manager.Open(SessionState.SqlViewModel);
-                //SessionState.Manager.Massa.Open();
                 ManagerBase.WaitSync(0_500);
                 ButtonScalesInit_Click(sender, e);
                 ProgramState = ShareEnums.ProgramState.IsRun;
@@ -183,8 +183,7 @@ namespace ScalesUI.Forms
                     ManagerBase.WaitSync(0_100);
                     ScheduleControlsVisible(false);
                     ManagerBase.WaitSync(0_100);
-                    SessionState.Manager.Close();
-                    SessionState.Manager.Dispose();
+                    SessionState.Dispose(true);
                     ManagerBase.WaitSync(0_100);
                     e.Cancel = false;
                 }
@@ -206,8 +205,10 @@ namespace ScalesUI.Forms
 
         private void ScheduleEveryDays()
         {
-            lock (LockerDays)
+            lock (_lockerDays)
             {
+                if (Quartz == null)
+                    return;
                 SessionState.ProductDate = DateTime.Now;
                 Log.Information("ScheduleIsNextDay");
             }
@@ -215,8 +216,10 @@ namespace ScalesUI.Forms
 
         private void ScheduleEverySeconds()
         {
-            lock (LockerSeconds)
+            lock (_lockerSeconds)
             {
+                if (Quartz == null)
+                    return;
                 ScheduleMassaManager();
                 ScheduleMemoryManager();
                 SchedulePrint();
@@ -245,6 +248,8 @@ namespace ScalesUI.Forms
 
         private void ScheduleButtonsEnabled()
         {
+            if (tableLayoutPanelMain == null)
+                return;
             //buttonSelectOrder.Visible = !(buttonSelectPlu.Visible = !(_sessionState.CurrentScale.UseOrder == true));
             //if (!Equals(buttonPrint.Enabled, _sessionState.CurrentPlu != null))
             //    MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, _sessionState.CurrentPlu != null);
@@ -469,7 +474,7 @@ namespace ScalesUI.Forms
             if (SessionState.IsTscPrinter)
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
-                    $"{LocalizationData.ScalesUI.PrinterTsc}: {SessionState.Manager.Print.Win32Printer().PrinterStatusDescription} " +
+                    $"{LocalizationData.ScalesUI.PrinterTsc}: {SessionState.Manager.Print.Win32Printer()?.PrinterStatusDescription} " +
                     $"{SessionState.Manager.Print.ProgressString}");
             }
             // Zebra printers.
@@ -652,6 +657,8 @@ namespace ScalesUI.Forms
         private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
         {
             DataShareCore.Wmi.WmiWin32PrinterEntity win32Printer = SessionState.Manager.Print.Win32Printer();
+            if (win32Printer == null)
+                return;
             using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog) { Width = 700, Height = 400 };
             wpfPageLoader.Text = LocalizationData.ScalesUI.PrinterInfoCaption;
             wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.PrinterInfoCaption;

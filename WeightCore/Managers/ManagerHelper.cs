@@ -24,6 +24,13 @@ namespace WeightCore.Managers
             Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
         }
 
+        ~ManagerHelper()
+        {
+            Massa?.Dispose(false);
+            Memory?.Dispose(false);
+            Print?.Dispose(false);
+        }
+
         #endregion
 
         #region Public and private methods
@@ -40,6 +47,21 @@ namespace WeightCore.Managers
             Open();
             Massa.Open(sqlViewModel);
             Memory.Open(sqlViewModel);
+            Print.Open(sqlViewModel);
+        }
+
+        public void OpenMassa(SqlViewModelEntity sqlViewModel)
+        {
+            Massa.Open(sqlViewModel);
+        }
+
+        public void OpenMemory(SqlViewModelEntity sqlViewModel)
+        {
+            Memory.Open(sqlViewModel);
+        }
+
+        public void OpenPrint(SqlViewModelEntity sqlViewModel)
+        {
             Print.Open(sqlViewModel);
         }
 

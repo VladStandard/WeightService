@@ -31,7 +31,7 @@ namespace BlazorProjectsCore.Models
 
         public void Setup(AuthenticationStateProvider stateProvider, JsonSettingsEntity jsonAppSettings, HotKeys hotKeys)
         {
-            lock (Locker)
+            lock (_locker)
             {
                 if (jsonAppSettings != null && JsonAppSettings == null && CoreSettings == null && DataAccess == null)
                 {
@@ -55,7 +55,7 @@ namespace BlazorProjectsCore.Models
 
         #region Public and private fields and properties
 
-        public object Locker { get; set; } = new object();
+        private readonly object _locker = new();
         public CoreSettingsEntity CoreSettings { get; set; }
         public IdentityEntity IdentityItem { get; private set; }
         public DataAccessEntity DataAccess { get; private set; }

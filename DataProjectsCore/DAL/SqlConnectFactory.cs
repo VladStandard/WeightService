@@ -15,7 +15,7 @@ namespace DataProjectsCore.DAL
 
         public string ConnectionString { get; }
 
-        private static readonly object Locker = new();
+        private static readonly object _locker = new();
 
         protected SqlConnectFactory(string connectionString)
         {
@@ -29,7 +29,7 @@ namespace DataProjectsCore.DAL
 
         public static SqlConnection GetConnection(string connectionString)
         {
-            lock (Locker)
+            lock (_locker)
             {
                 if (_instance == null)
                     _instance = new SqlConnectFactory(connectionString);
@@ -81,7 +81,7 @@ namespace DataProjectsCore.DAL
 
         public static void ExecuteReader(string query, SqlParameter[] parameters, ExecuteReaderInside methodInside)
         {
-            lock (Locker)
+            lock (_locker)
             {
                 using SqlConnection con = GetConnection();
                 con.Open();
@@ -106,7 +106,7 @@ namespace DataProjectsCore.DAL
 
         public static T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderInside<T> methodInside)
         {
-            lock (Locker)
+            lock (_locker)
             {
                 T? result = default;
                 using SqlConnection con = GetConnection();
@@ -131,7 +131,7 @@ namespace DataProjectsCore.DAL
 
         public static T ExecuteReaderForEntity<T>(string query, SqlParameter[] parameters, ExecuteReaderInside<T> methodInside) where T : new()
         {
-            lock (Locker)
+            lock (_locker)
             {
                 T result = new();
                 using SqlConnection con = GetConnection();
@@ -156,7 +156,7 @@ namespace DataProjectsCore.DAL
 
         public static void ExecuteNonQuery(string query, SqlParameter[] parameters)
         {
-            lock (Locker)
+            lock (_locker)
             {
                 using SqlConnection con = GetConnection();
                 con.Open();
