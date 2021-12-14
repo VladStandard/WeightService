@@ -36,7 +36,6 @@ namespace DataShareCore
 
         ~MemoryEntity()
         {
-            MemorySize.Close();
             MemorySize.Dispose(false);
         }
 

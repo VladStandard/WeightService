@@ -77,7 +77,7 @@ namespace DataShareCore.Models
 
         #region Public and private methods
 
-        public void CheckIsDisposed()
+        public void CheckIsDisposed([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             if (IsDisposed)
             {
@@ -96,9 +96,10 @@ namespace DataShareCore.Models
             }
         }
 
-        public void Close()
+        public void Close([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            CheckIsDisposed();
+            // For Close - don't use check for sisposing.
+            //CheckIsDisposed(filePath, lineNumber, memberName);
             lock (_locker)
             {
                 if (IsClosed) return;
@@ -112,10 +113,10 @@ namespace DataShareCore.Models
         {
             Dispose(false);
         }
-        
-        public virtual void Dispose(bool disposing)
+
+        public virtual void Dispose(bool disposing, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            Close();
+            Close(filePath, lineNumber, memberName);
             CloseCaller = null;
 
             lock (_locker)

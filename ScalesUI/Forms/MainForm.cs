@@ -274,15 +274,15 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, true);
             }
             
-            if (SessionState.CurrentPlu == null || SessionState.Manager.Massa.IsStable == 0 ||
-                SessionState.Manager.Massa.Requests.Count > 0)
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, false);
-            }
-            else
-            {
-                MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, true);
-            }
+            //if (SessionState.CurrentPlu == null || SessionState.Manager.Massa.IsStable == 0 ||
+            //    SessionState.Manager.Massa.Requests.Count > 0)
+            //{
+            //    MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, false);
+            //}
+            //else
+            //{
+            //    MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonPrint, true);
+            //}
         }
 
         private void SetTitle()
