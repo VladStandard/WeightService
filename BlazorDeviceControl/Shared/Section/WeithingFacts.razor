@@ -12,10 +12,9 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true 
-        ItemsCount=@ItemsCount />
+    <DataReload Title=@LocalizationData.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true />
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@Items TItem="WeithingFactSummaryEntity"
+        Data=@ItemsCast TItem="WeithingFactSummaryEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">

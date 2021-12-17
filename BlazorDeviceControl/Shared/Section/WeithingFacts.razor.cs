@@ -4,11 +4,14 @@
 using DataProjectsCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.DataModels;
+using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
+using DataShareCore.DAL.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Section
@@ -17,7 +20,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        public List<WeithingFactSummaryEntity> Items { get; set; }
+        private List<WeithingFactSummaryEntity> ItemsCast => Items == null ? new List<WeithingFactSummaryEntity>() : Items.Select(x => (WeithingFactSummaryEntity)x).ToList();
 
         #endregion
 
@@ -31,12 +34,11 @@ namespace BlazorDeviceControl.Shared.Section
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
                     SetItem();
                     Items = null;
-                    ItemsCount = 0;
                     await GuiRefreshWithWaitAsync();
 
                     object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(
                         SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts, string.Empty, 0, string.Empty);
-                    Items = new List<WeithingFactSummaryEntity>();
+                    Items = new List<WeithingFactSummaryEntity>().ToList<IBaseEntity>();
                     foreach (object obj in objects)
                     {
                         if (obj is object[] { Length: 5 } item)
@@ -51,7 +53,6 @@ namespace BlazorDeviceControl.Shared.Section
                             });
                         }
                     }
-                    ItemsCount = Items.Count;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

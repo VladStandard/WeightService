@@ -6,6 +6,7 @@ using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
+using DataShareCore.DAL.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         [Parameter] public int ScaleId { get; set; }
-        private List<PluEntity> Items { get; set; }
+        private List<PluEntity> ItemsCast => Items == null ? new List<PluEntity>() : Items.Select(x => (PluEntity)x).ToList();
 
         #endregion
 
@@ -28,11 +29,11 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
                     IdItem = null;
                     Items = null;
-                    ItemsCount = 0;
                     await GuiRefreshWithWaitAsync();
 
                     Items = AppSettings.DataAccess.PlusCrud.GetEntities(
@@ -42,8 +43,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 { ShareEnums.DbField.Marked.ToString(), false },
                         }),
                         new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))
-                        .ToList();
-                    ItemsCount = Items.Count;
+                        .ToList<IBaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

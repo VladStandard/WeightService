@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore.DAL.DataModels;
+using DataShareCore.DAL.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        public List<DeviceEntity> Items { get; set; }
-        public DeviceEntity Entity { get; set; }
+        private List<DeviceEntity> ItemsCast => Items == null ? new List<DeviceEntity>() : Items.Select(x => (DeviceEntity)x).ToList();
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Section
 
             await GetDataAsync(new Task(delegate
             {
-                Items = AppSettings.DataAccess.DeviceCrud.GetEntities(null, null).ToList();
+                Items = AppSettings.DataAccess.DeviceCrud.GetEntities(null, null).ToList<IBaseEntity>();
             }), false).ConfigureAwait(false);
         }
 

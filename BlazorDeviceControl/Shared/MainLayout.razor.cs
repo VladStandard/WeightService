@@ -5,7 +5,6 @@ using BlazorShareCore.Models;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Toolbelt.Blazor.HotKeys;
 

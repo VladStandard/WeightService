@@ -6,9 +6,11 @@ using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
+using DataShareCore.DAL.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Sys
@@ -17,7 +19,7 @@ namespace BlazorDeviceControl.Shared.Sys
     {
         #region Public and private fields and properties
 
-        public List<AccessEntity> Items { get; set; }
+        private List<AccessEntity> ItemsCast => Items == null ? new List<AccessEntity>() : Items.Select(x => (AccessEntity)x).ToList();
 
         #endregion
 
@@ -31,11 +33,10 @@ namespace BlazorDeviceControl.Shared.Sys
                     Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
                     UidItem = null;
                     Items = null;
-                    ItemsCount = 0;
                     await GuiRefreshWithWaitAsync();
 
                     object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess, string.Empty, 0, string.Empty);
-                    Items = new List<AccessEntity>();
+                    Items = new List<AccessEntity>().ToList<IBaseEntity>();
                     foreach (object obj in objects)
                     {
                         if (obj is object[] { Length: 5 } item)
@@ -53,7 +54,6 @@ namespace BlazorDeviceControl.Shared.Sys
                             }
                         }
                     }
-                    ItemsCount = Items.Count;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

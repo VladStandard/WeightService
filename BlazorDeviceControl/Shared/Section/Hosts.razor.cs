@@ -6,6 +6,7 @@ using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
+using DataShareCore.DAL.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<HostEntity> Items { get; set; }
+        private List<HostEntity> ItemsCast => Items == null ? new List<HostEntity>() : Items.Select(x => (HostEntity)x).ToList();
 
         #endregion
 
@@ -31,14 +32,12 @@ namespace BlazorDeviceControl.Shared.Section
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
                     IdItem = null;
                     Items = null;
-                    ItemsCount = 0;
                     await GuiRefreshWithWaitAsync();
 
                     Items = AppSettings.DataAccess.HostsCrud.GetEntities(
                         new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                         new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                        .ToList();
-                    ItemsCount = Items.Count;
+                        .ToList<IBaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

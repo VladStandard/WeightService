@@ -5,7 +5,6 @@ using DataProjectsCore.DAL.TableScaleModels;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Component

@@ -6,6 +6,7 @@ using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
+using DataShareCore.DAL.Interfaces;
 using DataShareCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<TemplateEntity> Items { get; set; }
         private List<TypeEntity<string>> TemplateCategories { get; set; }
         private string TemplateCategory { get; set; }
+        private List<TemplateEntity> ItemsCast => Items == null ? new List<TemplateEntity>() : Items.Select(x => (TemplateEntity)x).ToList();
 
         #endregion
 
@@ -30,14 +31,14 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
                     IdItem = null;
                     Items = null;
                     TemplateCategories = null;
-                    ItemsCount = 0;
                     await GuiRefreshWithWaitAsync();
-                        
+
                     // Filter.
                     TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
                     if (string.IsNullOrEmpty(TemplateCategory))
@@ -46,7 +47,7 @@ namespace BlazorDeviceControl.Shared.Section
                         Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
-                            .ToList();
+                            .ToList<IBaseEntity>();
                     }
                     else
                     {
@@ -56,9 +57,8 @@ namespace BlazorDeviceControl.Shared.Section
                                 { ShareEnums.DbField.CategoryId.ToString(), TemplateCategory },
                             }),
                             new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
-                            .ToList();
+                            .ToList<IBaseEntity>();
                     }
-                    ItemsCount = Items.Count;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

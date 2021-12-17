@@ -54,7 +54,7 @@ namespace DataProjectsCore.DAL.DataModels
             return new DeviceEntity()
             {
                 Id = Id,
-                Scales = (ScaleEntity)Scales?.Clone(),
+                Scales = (ScaleEntity)Scales.Clone(),
             };
         }
 

@@ -40,13 +40,14 @@ namespace BlazorProjectsCore.Models
 
         public IBaseEntity Item { get; private set; }
         public IBaseEntity ParentItem { get; private set; }
+        [Parameter] public List<IBaseEntity> Items { get; set; }
         [Parameter] public ITableEntity Table { get; set; }
         [Parameter] public bool IsShowNew { get; set; }
         [Parameter] public bool IsShowEdit { get; set; }
         [Parameter] public bool IsShowCopy { get; set; }
         [Parameter] public bool IsShowMark { get; set; }
         [Parameter] public bool IsShowDelete { get; set; }
-        [Parameter] public int ItemsCount { get; set; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -60,10 +61,15 @@ namespace BlazorProjectsCore.Models
 
         public void Dispose()
         {
-            Dialog?.Dispose();
-            Tooltip?.Dispose();
-            AppSettings.HotKeysContextItem?.Dispose();
-            GC.Collect();
+            lock (_locker)
+            {
+                Dialog?.Dispose();
+                Tooltip?.Dispose();
+                AppSettings.HotKeysContextItem?.Dispose();
+                
+                // Disable the garbage collector from calling the destructor.
+                GC.SuppressFinalize(this);
+            }
         }
 
         #endregion
@@ -95,53 +101,56 @@ namespace BlazorProjectsCore.Models
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    switch (name)
+                    lock (_locker)
                     {
-                        case nameof(PrinterTypeEntity):
-                            if (item is PrinterEntity printerItem)
-                            {
-                                if (value is int id)
+                        switch (name)
+                        {
+                            case nameof(PrinterTypeEntity):
+                                if (item is PrinterEntity printerItem)
                                 {
-                                    if (id <= 0)
-                                        printerItem.PrinterType = null;
-                                    else
+                                    if (value is int id)
                                     {
-                                        printerItem.PrinterType = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(
-                                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
-                                        null);
+                                        if (id <= 0)
+                                            printerItem.PrinterType = null;
+                                        else
+                                        {
+                                            printerItem.PrinterType = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(
+                                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
+                                            null);
+                                        }
                                     }
                                 }
-                            }
-                            break;
-                        case nameof(ScaleEntity):
-                            if (value is int idScale)
-                            {
-                                //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
-                                //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
-                                //    null);
-                            }
-                            break;
-                        case nameof(NomenclatureEntity):
-                            if (value is int idNomenclature)
-                            {
-                                //PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
-                                //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
-                                //    null);
-                            }
-                            break;
-                        case nameof(TemplateEntity):
-                            if (value is int idTemplate)
-                            {
-                                //if (idTemplate <= 0)
-                                //    PluItem.Templates = null;
-                                //else
-                                //{
-                                //    PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
-                                //        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
-                                //        null);
-                                //}
-                            }
-                            break;
+                                break;
+                            case nameof(ScaleEntity):
+                                if (value is int idScale)
+                                {
+                                    //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
+                                    //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
+                                    //    null);
+                                }
+                                break;
+                            case nameof(NomenclatureEntity):
+                                if (value is int idNomenclature)
+                                {
+                                    //PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
+                                    //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
+                                    //    null);
+                                }
+                                break;
+                            case nameof(TemplateEntity):
+                                if (value is int idTemplate)
+                                {
+                                    //if (idTemplate <= 0)
+                                    //    PluItem.Templates = null;
+                                    //else
+                                    //{
+                                    //    PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                                    //        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
+                                    //        null);
+                                    //}
+                                }
+                                break;
+                        }
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -152,15 +161,18 @@ namespace BlazorProjectsCore.Models
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Item = item;
-                    // Debug log.
-                    //if (AppSettings.IsDebug)
-                    //{
-                    //    Console.WriteLine("--------------------------------------------------------------------------------");
-                    //    Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
-                    //    Console.WriteLine($"Item: {Item}");
-                    //    Console.WriteLine("--------------------------------------------------------------------------------");
-                    //}
+                    lock (_locker)
+                    {
+                        Item = item;
+                        // Debug log.
+                        //if (AppSettings.IsDebug)
+                        //{
+                        //    Console.WriteLine("--------------------------------------------------------------------------------");
+                        //    Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
+                        //    Console.WriteLine($"Item: {Item}");
+                        //    Console.WriteLine("--------------------------------------------------------------------------------");
+                        //}
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

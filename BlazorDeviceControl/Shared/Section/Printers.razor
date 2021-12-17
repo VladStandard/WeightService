@@ -14,10 +14,9 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true 
-        ItemsCount=@ItemsCount />
+    <DataReload Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true />
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@Items TItem="PrinterEntity"
+        Data=@ItemsCast TItem="PrinterEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
         RowDoubleClick=@(args => ActionEditAsync())
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"

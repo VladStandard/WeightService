@@ -5,6 +5,7 @@ using DataProjectsCore;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
+using DataShareCore.DAL.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<PrinterTypeEntity> Items { get; set; }
+        private List<PrinterTypeEntity> ItemsCast => Items == null ? new List<PrinterTypeEntity>() : Items.Select(x => (PrinterTypeEntity)x).ToList();
 
         #endregion
 
@@ -26,16 +27,15 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterTypes);
                     IdItem = null;
                     Items = null;
-                    ItemsCount = 0;
                     await GuiRefreshWithWaitAsync();
 
                     Items = AppSettings.DataAccess.PrinterTypesCrud.GetEntities(null, null)
-                        .OrderBy(x => x.Name).ToList();
-                    ItemsCount = Items.Count;
+                        .OrderBy(x => x.Name).ToList<IBaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

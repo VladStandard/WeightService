@@ -3,8 +3,10 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
+using DataShareCore.DAL.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<DataProjectsCore.DAL.TableScaleModels.NomenclatureEntity> Items { get; set; }
+        private List<NomenclatureEntity> ItemsCast => Items == null ? new List<NomenclatureEntity>() : Items.Select(x => (NomenclatureEntity)x).ToList();
 
         #endregion
 
@@ -26,19 +28,18 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
                     IdItem = null;
                     Items = null;
-                    ItemsCount = 0;
                     await GuiRefreshWithWaitAsync();
 
                     Items = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(
                         //new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                         null,
                         new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                        .ToList();
-                    ItemsCount = Items.Count;
+                        .ToList<IBaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

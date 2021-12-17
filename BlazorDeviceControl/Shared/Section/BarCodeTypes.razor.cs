@@ -6,6 +6,7 @@ using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
+using DataShareCore.DAL.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<BarcodeTypeEntity> Items { get; set; }
+        private List<BarcodeTypeEntity> ItemsCast => Items == null ? new List<BarcodeTypeEntity>() : Items.Select(x => (BarcodeTypeEntity)x).ToList();
 
         #endregion
 
@@ -31,14 +32,12 @@ namespace BlazorDeviceControl.Shared.Section
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
                     IdItem = null;
                     Items = null;
-                    ItemsCount = 0;
                     await GuiRefreshWithWaitAsync();
 
                     Items = AppSettings.DataAccess.BarcodeTypesCrud.GetEntities(
                         null,
                         new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                        .ToList();
-                    ItemsCount = Items.Count;
+                        .ToList<IBaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
