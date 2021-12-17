@@ -9,7 +9,7 @@ declare @template_id int
 declare @commit bit = 0
 declare @update bit = 0
 --declare @host nvarchar(255) = N'SCALES-MON-005'
-declare @host nvarchar(255) = N'SCALES-MON-PC208'
+declare @host nvarchar(255) = N'PC159'
 declare @template_name nvarchar(255) = 'I2OF5 Template80x100unit_I2OF5_300dpi_tsc' -- Производство
 --declare @template_name nvarchar(255) = 'ЧудоПечка 30x50 шт АРМ'  -- Чудо-Печка
 -- Set.
@@ -26,51 +26,93 @@ insert into @plu_exists([Id]) (select [Id] from [db_scales].[PLU])
 --insert into @products([code],[plu]) values(N'ЦБД00053846',679) -- Упаковка "Чудо печка" Угорь Унаги
 --insert into @products([code],[plu]) values(N'ЦБД00053847',662) -- Упаковка "Чудо печка" Колбаса Хуторская
 --insert into @products([code],[plu]) values(N'ЦБД00053848',648) -- Упаковка "Чудо печка" Куриная грудка
--- СЦ Линия №10 - SCALES-MON-004.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00008197', 102, 5, 25) -- Московская  в.к. ГОСТ
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00002181', 103, 5, 15) -- Мадейра в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000431', 104, 5, 25) -- Дворянская в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000477', 106, 5, 15) -- Суздальский в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000472', 107, 5, 25) -- Кремлевский в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000478', 108, 5, 15) -- Юбилейный в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000470', 109, 5, 15) -- Зернистый в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00012800', 112, 5, 25) -- Коньячный в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011413', 113, 5, 25) -- Владимирский в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000474', 114, 5, 25) -- Салями "Домашняя" п.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000379', 115, 5, 25) -- Кремлёвская с грудинкой
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000475', 117, 5, 25) -- Салями по-Фински п.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000386', 120, 5, 25) -- Чесночная стандарт
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00037388', 137, 5, 25) -- Сервелат с телятиной в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011404', 141, 5, 12) -- Сочная п/а
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011405', 142, 4, 15) -- Сочная п/а 400 г
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041861', 143, 5, 25) -- Российский в.к. 1 сорт
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041860', 144, 5, 25) -- Городской стандарт в.к. 1 сорт
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041859', 145, 5, 25) -- Деликатесная п.к. 1 сорт
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00053241', 146, 5, 25) -- С беконом по-деревенски
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00026237', 147, 5, 25) -- Ореховый п.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00049186', 149, 5, 25) -- Московская в.к. ГОСТ ВС
--- СЦ Линия №11 - SCALES-MON-005.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00008197', 102, 5, 25) -- Московская  в.к. ГОСТ
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00002181', 103, 5, 15) -- Мадейра в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000431', 104, 5, 25) -- Дворянская в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000477', 106, 5, 15) -- Суздальский в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000472', 107, 5, 25) -- Кремлевский в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000478', 108, 5, 15) -- Юбилейный в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000470', 109, 5, 15) -- Зернистый в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00012800', 112, 5, 25) -- Коньячный в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011413', 113, 5, 25) -- Владимирский в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000474', 114, 5, 25) -- Салями "Домашняя" п.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000379', 115, 5, 25) -- Кремлёвская с грудинкой
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000475', 117, 5, 25) -- Салями по-Фински п.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000386', 120, 5, 25) -- Чесночная стандарт
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00026237', 132, 5, 25) -- Ореховый п.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00037388', 137, 5, 25) -- Сервелат с телятиной в.к.
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041861', 147, 5, 25) -- Российский в.к. 1 сорт
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041860', 148, 5, 25) -- Городской стандарт в.к. 1 сорт
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041859', 149, 5, 25) -- Деликатесная п.к. 1 сорт
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00053241', 153, 5, 25) -- С беконом по-деревенски
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00049186', 155, 5, 25) -- Московская в.к. ГОСТ ВС
-insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011404', 156, 5, 12) -- Сочная п/а
+---- СЦ Линия №10 - SCALES-MON-004.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00008197', 102, 5, 25) -- Московская  в.к. ГОСТ
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00002181', 103, 5, 15) -- Мадейра в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000431', 104, 5, 25) -- Дворянская в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000477', 106, 5, 15) -- Суздальский в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000472', 107, 5, 25) -- Кремлевский в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000478', 108, 5, 15) -- Юбилейный в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000470', 109, 5, 15) -- Зернистый в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00012800', 112, 5, 25) -- Коньячный в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011413', 113, 5, 25) -- Владимирский в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000474', 114, 5, 25) -- Салями "Домашняя" п.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000379', 115, 5, 25) -- Кремлёвская с грудинкой
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000475', 117, 5, 25) -- Салями по-Фински п.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000386', 120, 5, 25) -- Чесночная стандарт
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00037388', 137, 5, 25) -- Сервелат с телятиной в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011404', 141, 5, 12) -- Сочная п/а
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011405', 142, 4, 15) -- Сочная п/а 400 г
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041861', 143, 5, 25) -- Российский в.к. 1 сорт
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041860', 144, 5, 25) -- Городской стандарт в.к. 1 сорт
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041859', 145, 5, 25) -- Деликатесная п.к. 1 сорт
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00053241', 146, 5, 25) -- С беконом по-деревенски
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00026237', 147, 5, 25) -- Ореховый п.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00049186', 149, 5, 25) -- Московская в.к. ГОСТ ВС
+---- СЦ Линия №11 - SCALES-MON-005.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00008197', 102, 5, 25) -- Московская  в.к. ГОСТ
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00002181', 103, 5, 15) -- Мадейра в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000431', 104, 5, 25) -- Дворянская в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000477', 106, 5, 15) -- Суздальский в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000472', 107, 5, 25) -- Кремлевский в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000478', 108, 5, 15) -- Юбилейный в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000470', 109, 5, 15) -- Зернистый в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00012800', 112, 5, 25) -- Коньячный в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011413', 113, 5, 25) -- Владимирский в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000474', 114, 5, 25) -- Салями "Домашняя" п.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000379', 115, 5, 25) -- Кремлёвская с грудинкой
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000475', 117, 5, 25) -- Салями по-Фински п.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000386', 120, 5, 25) -- Чесночная стандарт
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00026237', 132, 5, 25) -- Ореховый п.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00037388', 137, 5, 25) -- Сервелат с телятиной в.к.
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041861', 147, 5, 25) -- Российский в.к. 1 сорт
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041860', 148, 5, 25) -- Городской стандарт в.к. 1 сорт
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041859', 149, 5, 25) -- Деликатесная п.к. 1 сорт
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00053241', 153, 5, 25) -- С беконом по-деревенски
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00049186', 155, 5, 25) -- Московская в.к. ГОСТ ВС
+--insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00011404', 156, 5, 12) -- Сочная п/а
+-- Камешково - Линия 3
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041851', 106, 6, 0) -- Докторская стандарт ц/ф 1 сорт ВС
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041854', 107, 6, 0) -- Любительская стандарт ц/ф 1 сорт ВС
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041852', 108, 6, 0) -- Русская стандарт ц/ф 1 сорт ВС
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00005846', 109, 7, 0) -- яВладимирская ц/ф
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00004307', 111, 7, 0) -- Молочная Владимирский стандарт ц/ф
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000324', 114, 6, 0) -- Оливье п/а
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00000433', 115, 6, 0) -- яНежная стандарт п/а сетка
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00010500', 116, 7, 0) -- яАроматная стандарт п/а сетка
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00013621', 117, 7, 0) -- яВот такая с грудинкой по-деревенски
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00013619', 118, 7, 0) -- яВот такая из вырезки по-деревенски
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041852', 102, 7, 0) -- Русская стандарт ц/ф 1 сорт ВС
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00014862', 113, 5, 0) -- Докторская  стандарт  п/а 1 сорт
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00041851', 101, 7, 0) -- Докторская стандарт ц/ф 1 сорт ВС
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000324', 126, 5, 0) -- Оливье п/а
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00004307', 128, 6, 0) -- Молочная Владимирский стандарт ц/ф
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00014862', 130, 6, 0) -- Докторская  стандарт  п/а 1 сорт
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00014865', 131, 6, 0) -- Русская  стандарт  п/а 1 сорт
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'000В0000317', 132, 6, 0) -- Муромская  стандарт 4-х слойный ц/ф
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00014865', 133, 6, 0) -- Русская  стандарт  п/а 1 сорт
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00048987', 135, 6, 0) -- Русская стандарт п/а 1 сорт ВС
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00048988', 136, 6, 0) -- Докторская стандарт п/а 1 сорт ВС
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00048989', 137, 6, 0) -- Любительская стандарт п/а 1 сорт ВС
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00043809', 138, 6, 0) -- яДокторская Оригинальная ц/ф
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00014699', 139, 6, 0) -- Докторская ГОСТ ц/ф
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00000000', 140, 6, 0) -- Русская стандарт 500 г ц/ф 1 сорт
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00052445', 141, 6, 0) -- яЛюбительская стандарт ц/ф 1 сорт ВС (ВН)
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00052380', 142, 6, 0) -- яДокторская стандарт п/а 1 сорт (ВН)
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00052379', 143, 6, 0) -- яРусская стандарт п/а 1 сорт (ВН)
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00053560', 145, 6, 0) -- Докторская Оригинальная
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00054059', 151, 6, 0) -- Докторская Особая
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00054058', 152, 6, 0) -- Русская Особая
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00054244', 153, 6, 0) -- Русская Оригинальная
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00054871', 154, 6, 0) -- яДокторская стандарт ц/ф 1 сорт ВС (ВН)
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00014863', 155, 4, 0) -- Докторская  стандарт  п/а 500 г 1 сорт
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00030102', 156, 4, 0) -- Со шпиком 500 г
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00030102', 157, 8, 0) -- Со шпиком 500 г
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00045427', 158, 4, 0) -- Оливье п/а 450 г
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00048864', 159, 4, 0) -- Докторская стандарт п/а 430 г
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00014868', 160, 4, 0) -- Русская  стандарт  п/а 500 г 1 сорт
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00045427', 161, 8, 0) -- Оливье п/а 450 г
+insert into @products([code],[plu],[num],[GoodsBoxQuantly]) values(N'ЦБД00056574', 162, 6, 0) -- Оливье стандарт
 -- Select local data.
 --select * from [db_scales].[Nomenclature] [N] where [N].[Code] in (select [Code] from @products)
 -- Remote data.
@@ -237,8 +279,10 @@ order by [Id]
 -- Settings.
 if (@commit = 1) begin
 	commit tran
+	print N'[+] Commit is enabled'
 end else begin
 	rollback tran
+	print N'[-] Commit is disabled'
 end
 set nocount off
 -- Committed local data.

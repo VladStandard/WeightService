@@ -1,4 +1,4 @@
--- Таблица PLU
+-- Scales - PLU
 declare @id int = 200
 use [ScalesDB]
 select
