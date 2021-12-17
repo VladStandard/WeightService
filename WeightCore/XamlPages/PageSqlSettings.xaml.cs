@@ -48,6 +48,7 @@ namespace WeightCore.XamlPages
             SessionState.SqlViewModel.SetupTasks(SessionState.Host?.ScaleId);
 
             System.Windows.Controls.Grid gridTasks = new();
+            
             // Columns.
             for (int col = 0; col < 2; col++)
             {
@@ -57,6 +58,7 @@ namespace WeightCore.XamlPages
                 };
                 gridTasks.ColumnDefinitions.Add(column);
             }
+            
             // Rows.
             for (int row = 0; row < SessionState.SqlViewModel.Tasks.Count; row++)
             {

@@ -73,7 +73,9 @@ namespace MDSoft.SerialPorts
             if (SerialPort.IsOpen)
             {
                 Close();
+                return;
             }
+
             SerialPort.PortName = portName;
             SerialPort.BaudRate = Convert.ToInt32(baudRate);
             SerialPort.DataBits = Convert.ToInt16(dataBits);

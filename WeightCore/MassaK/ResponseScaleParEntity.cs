@@ -37,8 +37,12 @@ namespace WeightCore.MassaK
 
             P_Max = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
 
-            i++; // пропустим 0x0D
-            i++; // пропустим 0x0A
+            // skip 0x0D
+            if (response[i] == 0x0D)
+                i++;
+            // skip 0x0A
+            if (response[i] == 0x0A)
+                i++;
             memStream.SetLength(0);
 
             while (response[i] != 0x0D)

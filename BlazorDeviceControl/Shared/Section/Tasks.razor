@@ -1,0 +1,63 @@
+﻿@page "/section/tasks"
+@using BlazorProjectsCore
+@using DataCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL
+@using DataProjectsCore.DAL.DataModels
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.DAL.TableScaleModels
+@using DataProjectsCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using DataShareCore
+@inherits BlazorProjectsCore.Models.BaseRazorIdEntity
+
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <DataReload Title=@LocalizationData.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true />
+    <RadzenGrid Style="margin-top: 5px;" 
+        Data=@ItemsCast TItem="TaskEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionEditAsync())
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="TaskEntity" Property="Uid" TextAlign="TextAlign.Center"
+                Title=@LocalizationData.DeviceControl.TableFieldUid
+                Type="int" Width="7.5%" />
+            <RadzenGridColumn 
+                TItem="TaskTypeEntity" TextAlign="TextAlign.Left"
+                Title=@LocalizationData.DeviceControl.TableFieldTaskType
+                Type="string" Width="20%">
+                <Template Context="item">
+                    <RadzenLabel Text=@item.TaskType?.Name Disabled="true" Style="white-space: pre-wrap;" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="HostEntity" TextAlign="TextAlign.Left"
+                Title=@LocalizationData.DeviceControl.TableFieldTaskType
+                Type="string" Width="20%">
+                <Template Context="item">
+                    <RadzenLabel Text=@item.Scale?.Host?.Name Disabled="true" Style="white-space: pre-wrap;" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="TaskEntity" Property="Enabled"
+                Title=@LocalizationData.DeviceControl.TableFieldEnabled
+                Type="string" Width="22.5%" />
+        </Columns>
+    </RadzenGrid>
+    @if (Items == null)
+    {
+        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <SectionActions IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
+    }
+}
+else
+{
+    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+}

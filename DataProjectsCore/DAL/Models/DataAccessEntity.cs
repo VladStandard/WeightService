@@ -82,6 +82,8 @@ namespace DataProjectsCore.DAL.Models
         public BaseCrud<TableScaleModels.ProductSeriesEntity>? ProductSeriesCrud = null;
         public BaseCrud<TableScaleModels.ProductionFacilityEntity>? ProductionFacilitiesCrud = null;
         public BaseCrud<TableScaleModels.ScaleEntity>? ScalesCrud = null;
+        public BaseCrud<TableScaleModels.TaskEntity>? TaskCrud = null;
+        public BaseCrud<TableScaleModels.TaskTypeEntity>? TaskTypeCrud = null;
         public BaseCrud<TableScaleModels.TemplateEntity>? TemplatesCrud = null;
         public BaseCrud<TableScaleModels.WeithingFactEntity>? WeithingFactsCrud = null;
         public BaseCrud<TableScaleModels.WorkshopEntity>? WorkshopsCrud = null;
@@ -139,6 +141,8 @@ namespace DataProjectsCore.DAL.Models
                 PlusCrud = new BaseCrud<TableScaleModels.PluEntity>(this);
                 ProductionFacilitiesCrud = new BaseCrud<TableScaleModels.ProductionFacilityEntity>(this);
                 ProductSeriesCrud = new BaseCrud<TableScaleModels.ProductSeriesEntity>(this);
+                TaskCrud = new BaseCrud<TableScaleModels.TaskEntity>(this);
+                TaskTypeCrud = new BaseCrud<TableScaleModels.TaskTypeEntity>(this);
                 TemplatesCrud = new BaseCrud<TableScaleModels.TemplateEntity>(this);
                 TemplateResourcesCrud = new TableScaleModels.TemplateResourceCrud(this);
                 PrinterResourcesCrud = new BaseCrud<TableScaleModels.PrinterResourceEntity>(this);
@@ -790,6 +794,10 @@ namespace DataProjectsCore.DAL.Models
                 ProductSeriesCrud?.DeleteEntity(productSeriesEntity);
             else if (entity is TableScaleModels.ScaleEntity scalesEntity)
                 ScalesCrud?.DeleteEntity(scalesEntity);
+            else if (entity is TableScaleModels.TaskEntity taskEntity)
+                TaskCrud?.DeleteEntity(taskEntity);
+            else if (entity is TableScaleModels.TaskTypeEntity taskTypeEntity)
+                TaskTypeCrud?.DeleteEntity(taskTypeEntity);
             else if (entity is TableScaleModels.TemplateEntity templatesEntity)
                 TemplatesCrud?.DeleteEntity(templatesEntity);
             else if (entity is TableScaleModels.TemplateResourceEntity templateResourcesEntity)
@@ -861,6 +869,10 @@ namespace DataProjectsCore.DAL.Models
                 ProductSeriesCrud?.MarkedEntity(productSeriesEntity);
             else if (entity is TableScaleModels.ScaleEntity scalesEntity)
                 ScalesCrud?.MarkedEntity(scalesEntity);
+            else if (entity is TableScaleModels.TaskEntity taskEntity)
+                TaskCrud?.MarkedEntity(taskEntity);
+            else if (entity is TableScaleModels.TaskTypeEntity taskTypeEntity)
+                TaskTypeCrud?.MarkedEntity(taskTypeEntity);
             else if (entity is TableScaleModels.TemplateEntity templatesEntity)
                 TemplatesCrud?.MarkedEntity(templatesEntity);
             else if (entity is TableScaleModels.TemplateResourceEntity templateResourcesEntity)

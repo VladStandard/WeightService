@@ -26,6 +26,7 @@ namespace WeightCore.MassaK
         public delegate void ResponseCallback(MassaExchangeEntity massaExchange, byte[] response);
         private ResponseCallback _responseCallback = null;
         private MassaExchangeEntity _massaExchange = null;
+        private readonly object _locker = new();
 
         #endregion
 
@@ -74,10 +75,13 @@ namespace WeightCore.MassaK
 
         public void ReceiveDataEvent(object sender, SerialPortEventArgs e)
         {
-            CheckIsDisposed();
-            ReceiveBytesCount += e.ReceivedBytes.Length;
-            _responseCallback?.Invoke(_massaExchange, e.ReceivedBytes);
-            _massaExchange = null;
+            lock (_locker)
+            {
+                CheckIsDisposed();
+                ReceiveBytesCount += e.ReceivedBytes.Length;
+                _responseCallback?.Invoke(_massaExchange, e.ReceivedBytes);
+                _massaExchange = null;
+            }
         }
 
         #endregion

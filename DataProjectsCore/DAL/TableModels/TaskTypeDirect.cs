@@ -21,7 +21,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public TaskTypeDirect()
         {
-            //
+            Name = string.Empty;
         }
 
         public TaskTypeDirect(Guid uid, string name)

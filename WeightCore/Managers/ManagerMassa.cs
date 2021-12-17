@@ -5,7 +5,6 @@ using DataProjectsCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableModels;
 using System.Collections.Concurrent;
-using System.Diagnostics;
 using WeightCore.MassaK;
 using static WeightCore.MassaK.MassaEnums;
 
@@ -29,6 +28,7 @@ namespace WeightCore.Managers
         public string ProgressStringQueries { get; set; }
         public string ProgressStringRequest { get; set; }
         public string ProgressStringResponse { get; set; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -49,7 +49,8 @@ namespace WeightCore.Managers
             () =>
             {
                 if (currentScale != null)
-                    MassaDevice = new(currentScale.DeviceComPort, currentScale.DeviceReadTimeout, currentScale.DeviceWriteTimeout, GetData);
+                    MassaDevice = new(currentScale.DeviceComPort, currentScale.DeviceReadTimeout,
+                        currentScale.DeviceWriteTimeout, GetData);
             },
             5_000, 250, 500, 3_000, 1_000);
         }
@@ -80,7 +81,7 @@ namespace WeightCore.Managers
         public new void CloseMethod()
         {
             base.CloseMethod();
-            
+
             MassaDevice?.Close();
             while (Requests?.Count > 0)
             {
@@ -95,7 +96,7 @@ namespace WeightCore.Managers
             ResponseParseScalePar = null;
             ResponseParseGet = null;
             ResponseParseSet = null;
-            
+
             Requests?.Dispose();
             Requests = null;
             MassaRequest = null;
@@ -181,15 +182,18 @@ namespace WeightCore.Managers
 
         private void GetData(MassaExchangeEntity massaExchange, byte[] response)
         {
-            IsResponse = response != null;
-            if (!IsResponse)
-                return;
-
-            if (massaExchange != null)
+            lock (_locker)
             {
-                massaExchange.ResponseParse = new ResponseParseEntity(massaExchange.CmdType, response);
-                ParseSetResponse(massaExchange);
-                ParseSetMassa(massaExchange);
+                IsResponse = response != null;
+                if (!IsResponse)
+                    return;
+
+                if (massaExchange != null)
+                {
+                    massaExchange.ResponseParse = new ResponseParseEntity(massaExchange.CmdType, response);
+                    ParseSetResponse(massaExchange);
+                    ParseSetMassa(massaExchange);
+                }
             }
         }
 
