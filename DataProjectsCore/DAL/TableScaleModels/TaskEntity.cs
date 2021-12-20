@@ -66,8 +66,8 @@ namespace DataProjectsCore.DAL.TableScaleModels
             return new TaskEntity
             {
                 Uid = Uid,
-                TaskType = (TaskTypeEntity)TaskType?.Clone(),
-                Scale = (ScaleEntity)Scale?.Clone(),
+                TaskType = (TaskTypeEntity)TaskType.Clone(),
+                Scale = (ScaleEntity)Scale.Clone(),
                 Enabled = Enabled,
             };
         }

@@ -16,6 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Redmine 1600. Подготовить шаблон инструкции "Действия при ошибках печати"
 - Redmine 1608. DbScales. Таблица Labels. Удалить поле Label
 
+## [0.5.950] - 2021-12-20
+### Changed
+- DbScales v.0.5.950
+- BlazorDeviceControl v.0.5.950
+- DataProjectsCore v.0.5.950
+
 ## [0.5.930] - 2021-12-13
 ### Changed
 - ScalesUI v.0.5.930

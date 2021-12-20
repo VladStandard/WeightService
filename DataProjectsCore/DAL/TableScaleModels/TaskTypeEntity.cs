@@ -9,7 +9,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = "";
+        public virtual string Name { get; set; }
 
         #endregion
 
@@ -18,7 +18,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                   $"{nameof(Name)}: {Name}. ";
+                $"{nameof(Name)}: {Name}. ";
         }
 
         public virtual bool Equals(TaskTypeEntity entity)
@@ -26,7 +26,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(Name, entity.Name);
+                Equals(Name, entity.Name);
         }
 
         public override bool Equals(object obj)
@@ -50,7 +50,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Name, default(string));
+                Equals(Name, default(string));
         }
 
         public override object Clone()

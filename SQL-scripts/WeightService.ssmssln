@@ -78,7 +78,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Загрузка ресурсов шаблонов.sql = WeightService\Загрузка ресурсов шаблонов.sql
 		WeightService\Заказы статус.sql = WeightService\Заказы статус.sql
 		WeightService\Заказы.sql = WeightService\Заказы.sql
-		WeightService\Импорт PLU из 1С Палыч.sql = WeightService\Импорт PLU из 1С Палыч.sql
 		WeightService\Импорт данных.sql = WeightService\Импорт данных.sql
 		WeightService\Обновление БД ScalesDB 2021-01-19.sql = WeightService\Обновление БД ScalesDB 2021-01-19.sql
 		WeightService\Таблицы и строки.sql = WeightService\Таблицы и строки.sql
@@ -92,7 +91,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{62B7C250-6631-4EF7-8C2A-589DBC68AEE9}.Default|Default.ActiveCfg = Default
+		{F5D0A286-9A27-48D6-86C7-B98C8F4A0D06}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

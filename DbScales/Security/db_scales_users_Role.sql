@@ -15,11 +15,8 @@ grant select on [db_scales].[Contragents] to [db_scales_users]
 go
 grant select on [db_scales].[Nomenclature] to [db_scales_users]
 go
-grant select on [db_scales].[Organization] to [db_scales_users]
-go
 grant select on [db_scales].[BarCodeTypes] to [db_scales_users]
 go
-
 grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[OrderStatus] to [db_scales_users]
 go
 grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[Orders] to [db_scales_users]
@@ -37,7 +34,7 @@ go
 grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[ProductSeries] to [db_scales_users]
 go
 ---------------------------------------------------------------------
--- Добавленные объекты с 26.11.2020
+-- Added from 2020-11-26
 ---------------------------------------------------------------------
 grant SELECT, INSERT,UPDATE, DELETE ON [db_scales].[ProductionFacility] to [db_scales_users]
 go
@@ -54,4 +51,13 @@ go
 grant SELECT,INSERT,UPDATE,DELETE ON [db_scales].[Hosts] to [db_scales_users]
 go
 grant select on [db_scales].[vwProductionDynamics] to [db_scales_users]
+go
+---------------------------------------------------------------------
+-- Added from 2021-12-20
+---------------------------------------------------------------------
+grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[TASKS] to [db_scales_users]
+go
+grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[TASKS_TYPES] to [db_scales_users]
+go
+grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[Organization] to [db_scales_users]
 go

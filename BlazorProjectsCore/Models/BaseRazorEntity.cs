@@ -164,14 +164,6 @@ namespace BlazorProjectsCore.Models
                     lock (_locker)
                     {
                         Item = item;
-                        // Debug log.
-                        //if (AppSettings.IsDebug)
-                        //{
-                        //    Console.WriteLine("--------------------------------------------------------------------------------");
-                        //    Console.WriteLine($"---------- {nameof(BaseRazorIdEntity)}.{nameof(ItemSelectAsync)} (for Debug mode) ---------- ");
-                        //    Console.WriteLine($"Item: {Item}");
-                        //    Console.WriteLine("--------------------------------------------------------------------------------");
-                        //}
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

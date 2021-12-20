@@ -33,8 +33,8 @@ namespace BlazorDeviceControl.Shared.Section
                     await GuiRefreshWithWaitAsync();
 
                     Items = AppSettings.DataAccess.TaskCrud.GetEntities(
-                        null,
-                        new FieldOrderEntity(ShareEnums.DbField.ScaleId, ShareEnums.DbOrderDirection.Asc))
+                        null, null)
+                        //new FieldOrderEntity(ShareEnums.DbField.ScaleId, ShareEnums.DbOrderDirection.Asc))
                         .ToList<IBaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.950] - 2021-12-20
+### Changed
+- Security\db_scales_users_Role.sql
+
 ## [0.5.510] - 2021-10-20
 ### Added
 - Function db_scales_GetCountDays.sql

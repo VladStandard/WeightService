@@ -52,6 +52,7 @@ namespace DataCore
             public const string UriRouteSectionHosts = "/section/hosts";
             public const string UriRouteSectionBarCodeTypes = "/section/barcodetypes";
             public const string UriRouteSectionNomenclatures = "/section/nomenclatures";
+            public const string UriRouteSectionTasks = "/section/tasks";
             public const string UriRouteSectionPrinterTypes = "/section/printertypes";
             public const string UriRouteSectionPrinterResources = "/section/printerresources";
             public const string UriRouteSectionPrinters = "/section/printers";
@@ -110,6 +111,7 @@ namespace DataCore
             public static string SectionProductionFacilities => Lang == ShareEnums.Lang.English ? @"Prod. facilities" : @"Произв. площадки";
             public static string SectionResources => Lang == ShareEnums.Lang.English ? @"Resources" : @"Ресурсы";
             public static string SectionScales => Lang == ShareEnums.Lang.English ? @"Devices" : @"Устройства";
+            public static string SectionTasks => Lang == ShareEnums.Lang.English ? @"Tasks" : @"Задачи";
             public static string SectionTemplateResources => Lang == ShareEnums.Lang.English ? @"Template resources" : @"Ресурсы шаблонов";
             public static string SectionTemplates => Lang == ShareEnums.Lang.English ? @"Templates" : @"Шаблоны";
             public static string SectionWeithingFacts => Lang == ShareEnums.Lang.English ? @"Weithing facts" : @"Взвешивания";

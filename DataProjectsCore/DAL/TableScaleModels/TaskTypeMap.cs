@@ -12,7 +12,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
             Table("[db_scales].[TASKS_TYPES]");
             LazyLoad();
             Id(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-            Map(x => x.Name).CustomSqlType("NVARCHAR(32)").Column("NAME").Length(32).Not.Nullable();
+            Map(x => x.Name).CustomSqlType("NVARCHAR(32)").Column("Name").Length(32).Not.Nullable();
         }
     }
 }

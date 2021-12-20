@@ -47,9 +47,9 @@ namespace DataProjectsCore.DAL.Models
                 TableSystemModels.LogEntity? logEntity = (TableSystemModels.LogEntity)(object)entity;
                 if (!logEntity.EqualsEmpty())
                 {
-                    if (logEntity.App != null)
+                    if (logEntity.App != null && DataAccess.AppsCrud != null)
                         logEntity.App = DataAccess.AppsCrud.GetEntity(logEntity.App.Uid);
-                    if (logEntity.Host != null)
+                    if (logEntity.Host != null && DataAccess.HostsCrud != null)
                         logEntity.Host = DataAccess.HostsCrud.GetEntity(logEntity.Host.Id);
                 }
             }
@@ -62,7 +62,7 @@ namespace DataProjectsCore.DAL.Models
                 DataModels.DeviceEntity? deviceEntity = (DataModels.DeviceEntity)(object)entity;
                 if (!deviceEntity.EqualsEmpty())
                 {
-                    if (deviceEntity.Scales != null)
+                    if (deviceEntity.Scales != null && DataAccess.ScalesCrud != null)
                         deviceEntity.Scales = DataAccess.ScalesCrud.GetEntity(deviceEntity.Scales.Id);
                 }
             }
@@ -91,7 +91,7 @@ namespace DataProjectsCore.DAL.Models
                 TableScaleModels.LabelEntity? labelsEntity = (TableScaleModels.LabelEntity)(object)entity;
                 if (!labelsEntity.EqualsEmpty())
                 {
-                    if (labelsEntity.WeithingFact != null)
+                    if (labelsEntity.WeithingFact != null && DataAccess.WeithingFactsCrud != null)
                         labelsEntity.WeithingFact = DataAccess.WeithingFactsCrud.GetEntity(labelsEntity.WeithingFact.Id);
                 }
             }
@@ -103,18 +103,26 @@ namespace DataProjectsCore.DAL.Models
                     //
                 }
             }
+            else if (typeof(T) == typeof(TableScaleModels.OrganizationEntity))
+            {
+                TableScaleModels.OrganizationEntity? organizationEntity = (TableScaleModels.OrganizationEntity)(object)entity;
+                if (!organizationEntity.EqualsEmpty())
+                {
+                    //
+                }
+            }
             else if (typeof(T) == typeof(TableScaleModels.OrderEntity))
             {
                 TableScaleModels.OrderEntity? ordersEntity = (TableScaleModels.OrderEntity)(object)entity;
                 if (!ordersEntity.EqualsEmpty())
                 {
-                    if (ordersEntity.OrderTypes != null)
+                    if (ordersEntity.OrderTypes != null && DataAccess.OrderTypesCrud != null)
                         ordersEntity.OrderTypes = DataAccess.OrderTypesCrud.GetEntity(ordersEntity.OrderTypes.Id);
-                    if (ordersEntity.Scales != null)
+                    if (ordersEntity.Scales != null && DataAccess.ScalesCrud != null)
                         ordersEntity.Scales = DataAccess.ScalesCrud.GetEntity(ordersEntity.Scales.Id);
-                    if (ordersEntity.Plu != null)
+                    if (ordersEntity.Plu != null && DataAccess.PlusCrud != null)
                         ordersEntity.Plu = DataAccess.PlusCrud.GetEntity(ordersEntity.Plu.Id);
-                    if (ordersEntity.Templates != null)
+                    if (ordersEntity.Templates != null && DataAccess.TemplatesCrud != null)
                         ordersEntity.Templates = DataAccess.TemplatesCrud.GetEntity(ordersEntity.Templates.Id);
                 }
             }
@@ -139,11 +147,11 @@ namespace DataProjectsCore.DAL.Models
                 TableScaleModels.PluEntity? pluEntity = (TableScaleModels.PluEntity)(object)entity;
                 if (!pluEntity.EqualsEmpty())
                 {
-                    if (pluEntity.Templates != null)
+                    if (pluEntity.Templates != null && DataAccess.TemplatesCrud != null)
                         pluEntity.Templates = DataAccess.TemplatesCrud.GetEntity(pluEntity.Templates.Id);
-                    if (pluEntity.Scale != null)
+                    if (pluEntity.Scale != null && DataAccess.ScalesCrud != null)
                         pluEntity.Scale = DataAccess.ScalesCrud.GetEntity(pluEntity.Scale.Id);
-                    if (pluEntity.Nomenclature != null)
+                    if (pluEntity.Nomenclature != null && DataAccess.NomenclaturesCrud != null)
                         pluEntity.Nomenclature = DataAccess.NomenclaturesCrud.GetEntity(pluEntity.Nomenclature.Id);
                 }
             }
@@ -168,16 +176,35 @@ namespace DataProjectsCore.DAL.Models
                 TableScaleModels.ScaleEntity? scalesEntity = (TableScaleModels.ScaleEntity)(object)entity;
                 if (!scalesEntity.EqualsEmpty())
                 {
-                    if (scalesEntity.TemplateDefault != null)
+                    if (scalesEntity.TemplateDefault != null && DataAccess.TemplatesCrud != null)
                         scalesEntity.TemplateDefault = DataAccess.TemplatesCrud.GetEntity(scalesEntity.TemplateDefault.Id);
-                    if (scalesEntity.TemplateSeries != null)
+                    if (scalesEntity.TemplateSeries != null && DataAccess.TemplatesCrud != null)
                         scalesEntity.TemplateSeries = DataAccess.TemplatesCrud.GetEntity(scalesEntity.TemplateSeries.Id);
-                    if (scalesEntity.WorkShop != null)
+                    if (scalesEntity.WorkShop != null && DataAccess.WorkshopsCrud != null)
                         scalesEntity.WorkShop = DataAccess.WorkshopsCrud.GetEntity(scalesEntity.WorkShop.Id);
-                    if (scalesEntity.Printer != null)
+                    if (scalesEntity.Printer != null && DataAccess.PrintersCrud != null)
                         scalesEntity.Printer = DataAccess.PrintersCrud.GetEntity(scalesEntity.Printer.Id);
-                    if (scalesEntity.Host != null)
+                    if (scalesEntity.Host != null && DataAccess.HostsCrud != null)
                         scalesEntity.Host = DataAccess.HostsCrud.GetEntity(scalesEntity.Host.Id);
+                }
+            }
+            else if (typeof(T) == typeof(TableScaleModels.TaskEntity))
+            {
+                TableScaleModels.TaskEntity? taskEntity = (TableScaleModels.TaskEntity)(object)entity;
+                if (!taskEntity.EqualsEmpty())
+                {
+                    if (taskEntity.TaskType != null && DataAccess.TaskTypeCrud != null)
+                        taskEntity.TaskType = DataAccess.TaskTypeCrud.GetEntity(taskEntity.TaskType.Uid);
+                    if (taskEntity.Scale != null && DataAccess.ScalesCrud != null)
+                        taskEntity.Scale = DataAccess.ScalesCrud.GetEntity(taskEntity.Scale.Id);
+                }
+            }
+            else if (typeof(T) == typeof(TableScaleModels.TaskTypeEntity))
+            {
+                TableScaleModels.TaskTypeEntity? taskTypeEntity = (TableScaleModels.TaskTypeEntity)(object)entity;
+                if (!taskTypeEntity.EqualsEmpty())
+                {
+                    //
                 }
             }
             else if (typeof(T) == typeof(TableScaleModels.TemplateResourceEntity))
@@ -201,13 +228,13 @@ namespace DataProjectsCore.DAL.Models
                 TableScaleModels.WeithingFactEntity? weithingFactEntity = (TableScaleModels.WeithingFactEntity)(object)entity;
                 if (!weithingFactEntity.EqualsEmpty())
                 {
-                    if (weithingFactEntity.Plu != null)
+                    if (weithingFactEntity.Plu != null && DataAccess.PlusCrud != null)
                         weithingFactEntity.Plu = DataAccess.PlusCrud.GetEntity(weithingFactEntity.Plu.Id);
-                    if (weithingFactEntity.Scales != null)
+                    if (weithingFactEntity.Scales != null && DataAccess.ScalesCrud != null)
                         weithingFactEntity.Scales = DataAccess.ScalesCrud.GetEntity(weithingFactEntity.Scales.Id);
-                    if (weithingFactEntity.Series != null)
+                    if (weithingFactEntity.Series != null && DataAccess.ProductSeriesCrud != null)
                         weithingFactEntity.Series = DataAccess.ProductSeriesCrud.GetEntity(weithingFactEntity.Series.Id);
-                    if (weithingFactEntity.Orders != null)
+                    if (weithingFactEntity.Orders != null && DataAccess.OrdersCrud != null)
                         weithingFactEntity.Orders = DataAccess.OrdersCrud.GetEntity(weithingFactEntity.Orders.Id);
                 }
             }
@@ -216,7 +243,7 @@ namespace DataProjectsCore.DAL.Models
                 TableScaleModels.WorkshopEntity? workshopEntity = (TableScaleModels.WorkshopEntity)(object)entity;
                 if (!workshopEntity.EqualsEmpty())
                 {
-                    if (workshopEntity.ProductionFacility != null)
+                    if (workshopEntity.ProductionFacility != null && DataAccess.ProductionFacilitiesCrud != null)
                         workshopEntity.ProductionFacility = DataAccess.ProductionFacilitiesCrud.GetEntity(workshopEntity.ProductionFacility.Id);
                 }
             }
@@ -225,7 +252,7 @@ namespace DataProjectsCore.DAL.Models
                 TableScaleModels.PrinterEntity? zebraPrinterEntity = (TableScaleModels.PrinterEntity)(object)entity;
                 if (!zebraPrinterEntity.EqualsEmpty())
                 {
-                    if (zebraPrinterEntity.PrinterType != null)
+                    if (zebraPrinterEntity.PrinterType != null && DataAccess.PrinterTypesCrud != null)
                         zebraPrinterEntity.PrinterType = DataAccess.PrinterTypesCrud.GetEntity(zebraPrinterEntity.PrinterType.Id);
                 }
             }
@@ -234,15 +261,13 @@ namespace DataProjectsCore.DAL.Models
                 TableScaleModels.PrinterResourceEntity? zebraPrinterResourceRefEntity = (TableScaleModels.PrinterResourceEntity)(object)entity;
                 if (!zebraPrinterResourceRefEntity.EqualsEmpty())
                 {
-                    if (zebraPrinterResourceRefEntity.Printer != null)
-                        zebraPrinterResourceRefEntity.Printer =
-                            DataAccess.PrintersCrud.GetEntity(zebraPrinterResourceRefEntity.Printer.Id);
-                    if (zebraPrinterResourceRefEntity.Resource != null)
-                        zebraPrinterResourceRefEntity.Resource =
-                            DataAccess.TemplateResourcesCrud.GetEntity(zebraPrinterResourceRefEntity.Resource.Id);
+                    if (zebraPrinterResourceRefEntity.Printer != null && DataAccess.PrintersCrud != null)
+                        zebraPrinterResourceRefEntity.Printer = DataAccess.PrintersCrud.GetEntity(zebraPrinterResourceRefEntity.Printer.Id);
+                    if (zebraPrinterResourceRefEntity.Resource != null && DataAccess.TemplateResourcesCrud != null)
+                        zebraPrinterResourceRefEntity.Resource = DataAccess.TemplateResourcesCrud.GetEntity(zebraPrinterResourceRefEntity.Resource.Id);
                 }
             }
-            if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
+            else if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
             {
                 TableScaleModels.PrinterTypeEntity? zebraPrinterTypeEntity = (TableScaleModels.PrinterTypeEntity)(object)entity;
                 if (!zebraPrinterTypeEntity.EqualsEmpty())
@@ -259,11 +284,11 @@ namespace DataProjectsCore.DAL.Models
                 TableDwhModels.BrandEntity brandEntity = (TableDwhModels.BrandEntity)(object)entity;
                 if (!brandEntity.EqualsEmpty())
                 {
-                    if (brandEntity.InformationSystem != null)
+                    if (brandEntity.InformationSystem != null && DataAccess.InformationSystemCrud != null)
                         brandEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(brandEntity.InformationSystem.Id);
                 }
             }
-            if (typeof(T) == typeof(TableDwhModels.NomenclatureEntity))
+            else if (typeof(T) == typeof(TableDwhModels.NomenclatureEntity))
             {
                 TableDwhModels.NomenclatureEntity? nomenclatureEntity = (TableDwhModels.NomenclatureEntity)(object)entity;
                 if (!nomenclatureEntity.EqualsEmpty())
@@ -278,7 +303,7 @@ namespace DataProjectsCore.DAL.Models
                     //    nomenclatureEntity.NomenclatureGroup = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
                     //if (nomenclatureEntity.NomenclatureTypeBytes != null && nomenclatureEntity.NomenclatureTypeBytes.Length > 0)
                     //    nomenclatureEntity.NomenclatureType = DataAccess.NomenclatureTypeCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
-                    if (nomenclatureEntity.Status != null)
+                    if (nomenclatureEntity.Status != null && DataAccess.StatusCrud != null)
                         nomenclatureEntity.Status = DataAccess.StatusCrud.GetEntity(nomenclatureEntity.Status.Id);
                 }
             }
@@ -287,7 +312,7 @@ namespace DataProjectsCore.DAL.Models
                 TableDwhModels.NomenclatureLightEntity nomenclatureLightEntity = (TableDwhModels.NomenclatureLightEntity)(object)entity;
                 if (!nomenclatureLightEntity.EqualsEmpty())
                 {
-                    if (nomenclatureLightEntity.InformationSystem != null)
+                    if (nomenclatureLightEntity.InformationSystem != null && DataAccess.InformationSystemCrud != null)
                         nomenclatureLightEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureLightEntity.InformationSystem.Id);
                 }
             }
@@ -296,7 +321,7 @@ namespace DataProjectsCore.DAL.Models
                 TableDwhModels.NomenclatureGroupEntity nomenclatureGroupEntity = (TableDwhModels.NomenclatureGroupEntity)(object)entity;
                 if (!nomenclatureGroupEntity.EqualsEmpty())
                 {
-                    if (nomenclatureGroupEntity.InformationSystem != null)
+                    if (nomenclatureGroupEntity.InformationSystem != null && DataAccess.InformationSystemCrud != null)
                         nomenclatureGroupEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureGroupEntity.InformationSystem.Id);
                 }
             }
@@ -305,7 +330,7 @@ namespace DataProjectsCore.DAL.Models
                 TableDwhModels.NomenclatureTypeEntity nomenclatureTypeEntity = (TableDwhModels.NomenclatureTypeEntity)(object)entity;
                 if (!nomenclatureTypeEntity.EqualsEmpty())
                 {
-                    if (nomenclatureTypeEntity.InformationSystem != null)
+                    if (nomenclatureTypeEntity.InformationSystem != null && DataAccess.InformationSystemCrud != null)
                         nomenclatureTypeEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureTypeEntity.InformationSystem.Id);
                 }
             }
