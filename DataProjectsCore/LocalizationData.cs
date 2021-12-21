@@ -112,6 +112,7 @@ namespace DataCore
             public static string SectionResources => Lang == ShareEnums.Lang.English ? @"Resources" : @"Ресурсы";
             public static string SectionScales => Lang == ShareEnums.Lang.English ? @"Devices" : @"Устройства";
             public static string SectionTasks => Lang == ShareEnums.Lang.English ? @"Tasks" : @"Задачи";
+            public static string SectionModules => Lang == ShareEnums.Lang.English ? @"Modules" : @"Модули";
             public static string SectionTemplateResources => Lang == ShareEnums.Lang.English ? @"Template resources" : @"Ресурсы шаблонов";
             public static string SectionTemplates => Lang == ShareEnums.Lang.English ? @"Templates" : @"Шаблоны";
             public static string SectionWeithingFacts => Lang == ShareEnums.Lang.English ? @"Weithing facts" : @"Взвешивания";
@@ -131,6 +132,9 @@ namespace DataCore
             public static string TableActions => Lang == ShareEnums.Lang.English ? @"___" : @"Действия";
             public static string TableActionsIsDeny => Lang == ShareEnums.Lang.English ? @"___" : @"Действия недоступны";
             public static string TableFieldAccessLevel => Lang == ShareEnums.Lang.English ? @"___" : @"Уровень доступа";
+            public static string TableFieldAccessLevelNo => Lang == ShareEnums.Lang.English ? @"No access" : @"Нет доступа";
+            public static string TableFieldAccessLevelRead => Lang == ShareEnums.Lang.English ? @"Read access" : @"Доступ на чтение";
+            public static string TableFieldAccessLevelWrite => Lang == ShareEnums.Lang.English ? @"Write access" : @"Доступ на запись";
             public static string TableFieldActive => Lang == ShareEnums.Lang.English ? @"___" : @"Активно";
             public static string TableFieldApp => Lang == ShareEnums.Lang.English ? @"___" : @"Программа";
             public static string TableFieldBarCodeTypeId => Lang == ShareEnums.Lang.English ? @"___" : @"ID типа ШК";
@@ -149,7 +153,7 @@ namespace DataCore
             public static string TableFieldDayOfWeek => Lang == ShareEnums.Lang.English ? @"___" : @"День недели";
             public static string TableFieldDescription => Lang == ShareEnums.Lang.English ? @"___" : @"Описание";
             public static string TableFieldDeviceComPort => Lang == ShareEnums.Lang.English ? @"___" : @"COM-порт";
-            public static string TableFieldDeviceIp => Lang == ShareEnums.Lang.English ? @"___" : @"IP устройства";
+            public static string TableFieldDeviceIp => Lang == ShareEnums.Lang.English ? @"IP" : @"IP";
             public static string TableFieldDeviceMac => Lang == ShareEnums.Lang.English ? @"___" : @"MAC устройства";
             public static string TableFieldDeviceNumber => Lang == ShareEnums.Lang.English ? @"___" : @"Номер устройства";
             public static string TableFieldDevicePort => Lang == ShareEnums.Lang.English ? @"___" : @"Порт устройства";

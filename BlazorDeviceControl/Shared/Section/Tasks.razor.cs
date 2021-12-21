@@ -16,7 +16,18 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<TaskEntity> ItemsCast => Items == null ? new List<TaskEntity>() : Items.Select(x => (TaskEntity)x).ToList();
+        private List<TaskEntity> ItemsCast
+        {
+            get
+            {
+                List<TaskEntity> items = Items == null 
+                    ? new List<TaskEntity>() 
+                    : Items.Select(x => (TaskEntity)x).ToList();
+                //ItemsCast.Sort(delegate (TaskEntity a, TaskEntity b) { return a.Scale.Host.Name.CompareTo(b.Scale.Host.Name); });
+                items.Sort((a, b) => string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name));
+                return items;
+            }
+        }
 
         #endregion
 
@@ -34,7 +45,7 @@ namespace BlazorDeviceControl.Shared.Section
 
                     Items = AppSettings.DataAccess.TaskCrud.GetEntities(
                         null, null)
-                        //new FieldOrderEntity(ShareEnums.DbField.ScaleId, ShareEnums.DbOrderDirection.Asc))
+                        //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
                         .ToList<IBaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);

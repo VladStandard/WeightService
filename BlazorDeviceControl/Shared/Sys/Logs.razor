@@ -23,49 +23,34 @@
         <Columns >
             <RadzenGridColumn 
                 TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="13%" >
+                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
                 <Template Context="logItem" >
                     <RadzenDatePicker 
-                        Style="height: 80%; width=80%; " 
                         TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LogSummaryEntity" Property="Host" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldHost Type="string" Width="9%" />
+                Title=@LocalizationData.DeviceControl.TableFieldHost Type="string" Width="12%" />
             <RadzenGridColumn 
                 TItem="LogSummaryEntity" Property="App" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldApp Type="string" Width="7%" />
             <RadzenGridColumn 
-                TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldVersion Type="string" Width="7%">
-                <Template Context="logItem">
-                    <RadzenLabel 
-                        Style="height: 80%; width=80%; white-space: normal; " 
-                        Text=@logItem.Version Disabled="true" />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
                 TItem="LogSummaryEntity" Property="File" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="10%" />
+                Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="12%" />
             <RadzenGridColumn 
-                TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
+                TItem="LogSummaryEntity" Property="Line" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="5%">
-                <Template Context="logItem">
-                    <RadzenLabel 
-                        Style="height: 80%; width=80%; " 
-                        Text=@logItem.Line.ToString() Disabled="true" />
-                </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LogSummaryEntity" Property="Member" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="15%" />
+                Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="14%" />
             <RadzenGridColumn 
                 TItem="LogSummaryEntity" Property="Icon" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldIcon Type="string" Width="7%" />
             <RadzenGridColumn 
                 TItem="LogSummaryEntity" Property="Message" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldMessage Type="string" Width="27%">
+                Title=@LocalizationData.DeviceControl.TableFieldMessage Type="string" Width="28%">
                 <Template Context="logItem">
                     <RadzenLabel 
                         Style="height: 80%; width=80%; white-space: pre-wrap; " 

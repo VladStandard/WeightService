@@ -23,35 +23,34 @@
         <Columns >
             <RadzenGridColumn 
                 TItem="AccessEntity" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="13%">
+                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%">
                 <Template Context="logItem">
                     <RadzenDatePicker 
-                        Style="height: 80%; width=80%; " 
                         TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
-                                Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="13%">
+                    Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="15%">
                 <Template Context="logItem">
                     <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
-                                Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="40%" />
+                Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="40%" />
             <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
-                                Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="34%">
+                Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="30%">
                 <Template Context="accessItem">
                     @if (accessItem.Level == null)
                     {
-                        <RadzenLabel Text="Нет доступа" Disabled="true" />
+                        <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelNo Disabled="true" />
                     }
                     else if (accessItem.Level == false)
                     {
-                        <RadzenLabel Text="Доступ на чтение" Disabled="true" />
+                        <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelRead Disabled="true" />
                     }
                     else if (accessItem.Level == true)
                     {
-                        <RadzenLabel Text="Доступ на запись" Disabled="true" />
+                        <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelWrite Disabled="true" />
                     }
                 </Template>
             </RadzenGridColumn>

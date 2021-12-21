@@ -4,7 +4,6 @@
 using DataProjectsCore;
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.DataModels;
-using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;

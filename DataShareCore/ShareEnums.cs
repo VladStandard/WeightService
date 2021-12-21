@@ -105,23 +105,25 @@ namespace DataShareCore
 
         public enum DbField
         {
-            Uid,
-            Id,
-            Name,
-            Value,
-            Description,
-            ScaleId,
             CategoryId,
-            PrinterId,
-            Title,
+            CodeInIs,
             CreateDate,
-            ModifiedDate,
-            Type,
-            Plu,
-            Marked,
+            Description,
             GoodsName,
+            Id,
+            Marked,
+            ModifiedDate,
+            Name,
+            Plu,
+            PrinterId,
+            Scale_Id,
+            ScaleId,
+            Task_Uid,
+            Title,
+            Type,
+            Uid,
+            Value,
             WeithingDate,
-            CodeInIs
         }
 
         public enum DbOrderDirection

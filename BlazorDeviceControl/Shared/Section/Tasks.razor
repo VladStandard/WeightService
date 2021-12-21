@@ -14,7 +14,7 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true />
+    <DataReload Title=@LocalizationData.DeviceControl.SectionModules SetParameters=@SetParametersAsync IsShowItemsCount=true />
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TaskEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
@@ -23,29 +23,27 @@
         AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="TaskEntity" Property="Uid" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldUid
-                Type="int" Width="26%" />
+                TItem="TaskEntity" Property="Uid" TextAlign="TextAlign.Left" Type="int" Width="26%" 
+                Title=@LocalizationData.DeviceControl.TableFieldUid/>
             <RadzenGridColumn 
-                TItem="TaskEntity" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldHost
-                Type="string" Width="32%">
+                TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
+                Title=@LocalizationData.DeviceControl.TableFieldHost >
                 <Template Context="item">
                     <RadzenLabel Text=@item.Scale?.Host?.Name Disabled="true" Style="white-space: pre-wrap;" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="TaskEntity" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldTaskType
-                Type="string" Width="32%">
+                TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
+                Title=@LocalizationData.DeviceControl.TableFieldTaskType >
                 <Template Context="item">
                     <RadzenLabel Text=@item.TaskType?.Name Disabled="true" Style="white-space: pre-wrap;" />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="TaskEntity" Property="Enabled" 
-                Title=@LocalizationData.DeviceControl.TableFieldEnabled Width="10%" TextAlign="TextAlign.Center">
-                <Template Context="taskEntity">
-                    <RadzenCheckBox TValue="bool?" @bind-Value="@taskEntity.Enabled" Disabled="true" />
+            <RadzenGridColumn 
+                TItem="TaskEntity" Property="Enabled" TextAlign="TextAlign.Center" Width="10%" 
+                Title=@LocalizationData.DeviceControl.TableFieldEnabled >
+                <Template Context="item">
+                    <RadzenCheckBox TValue="bool" @bind-Value="@item.Enabled" Disabled="true" />
                 </Template>
             </RadzenGridColumn>
         </Columns>

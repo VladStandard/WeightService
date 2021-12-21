@@ -319,7 +319,8 @@ namespace DataProjectsCore.DAL.Models
             }
             if (order is { Use: true })
             {
-                Order fieldOrder = order.Direction == ShareEnums.DbOrderDirection.Asc ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
+                Order fieldOrder = order.Direction == ShareEnums.DbOrderDirection.Asc 
+                    ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
                 criteria.AddOrder(fieldOrder);
             }
             return criteria;

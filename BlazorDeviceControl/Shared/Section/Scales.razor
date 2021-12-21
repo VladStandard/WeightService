@@ -25,15 +25,15 @@
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Id" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldId 
-                Type="int" Width="7.5%" />
+                Type="int" Width="6%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Description" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldDescription 
-                Type="string" Width="12%" />
+                Type="string" Width="13%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Host.Name" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldHost 
-                Type="string" Width="12%" />
+                Type="string" Width="13%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Host.Ip" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldDeviceIp 
@@ -41,7 +41,7 @@
             <RadzenGridColumn 
                 TItem="ScaleEntity" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldIdRref 
-                Type="string" Width="20%">
+                Type="string" Width="15%">
                 <Template Context="item">
                     <RadzenLabel Text=@item.Host?.IdRRef.ToString() Disabled="true" Style="white-space: pre-wrap;" />
                 </Template>
@@ -49,15 +49,15 @@
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Printer.Name" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldPrinter 
-                Type="string" Width="13%" />
+                Type="string" Width="12%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="WorkShop.Name" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldWorkShopName 
-                Type="string" Width="7.5%" />
+                Type="string" Width="7%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="TemplateDefault.Title" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldTemplateDefault 
-                Type="string" Width="20%">
+                Type="string" Width="26%">
                 <Template Context="item">
                     <RadzenLabel Text=@item.TemplateDefault.Title Disabled="true" Style="white-space: pre-wrap;" />
                 </Template>
