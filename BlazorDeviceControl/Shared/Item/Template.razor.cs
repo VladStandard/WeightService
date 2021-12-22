@@ -19,7 +19,7 @@ namespace BlazorDeviceControl.Shared.Item
         //public TemplateDirect TemplateItem { get => (TemplateDirect)IdItem; set => SetItem(value); }
         public DataProjectsCore.DAL.TableScaleModels.TemplateEntity TemplateItem
         {
-            get => (DataProjectsCore.DAL.TableScaleModels.TemplateEntity)IdItem; set => SetItem(value);
+            get => (DataProjectsCore.DAL.TableScaleModels.TemplateEntity)IdItem; set => IdItem = value;
         }
         public List<TypeEntity<string>> TemplateCategories { get; set; }
 

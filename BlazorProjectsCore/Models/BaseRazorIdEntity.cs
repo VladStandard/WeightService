@@ -15,27 +15,26 @@ namespace BlazorProjectsCore.Models
         #region Public and private fields and properties
 
         [Parameter] public int Id { get; set; }
-        public IBaseIdEntity IdItem { get => (BaseIdEntity)Item; set => SetItem(value); }
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public BaseRazorIdEntity() { }
+        public IBaseIdEntity IdItem
+        {
+            get => (BaseIdEntity)Item;
+            set
+            {
+                Item = (IBaseEntity)value;
+            }
+        }
+        public IBaseIdEntity IdParentItem
+        {
+            get => (BaseIdEntity)ParentItem;
+            set
+            {
+                ParentItem = (IBaseEntity)value;
+            }
+        }
 
         #endregion
 
         #region Public and private methods
-
-        public void SetItem(IBaseIdEntity item)
-        {
-            SetItem((IBaseEntity)item);
-        }
-
-        public void SetParentItem(IBaseIdEntity parentItem)
-        {
-            SetParentItem((IBaseEntity)parentItem);
-        }
 
         public async Task ItemSelectAsync(IBaseIdEntity item)
         {

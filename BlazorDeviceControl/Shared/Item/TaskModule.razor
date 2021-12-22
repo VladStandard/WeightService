@@ -1,0 +1,30 @@
+﻿@page "/item/taskmodule"
+@page "/item/taskmodule/{Uid:guid}"
+@using BlazorProjectsCore
+@using BlazorProjectsCore.Models
+@using DataCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Section
+@using DataShareCore
+@inherits BlazorProjectsCore.Models.BaseRazorUidEntity
+
+@if (AppSettings.IdentityItem.AccessLevel is true or false)
+{
+    <DataReload Title=@LocalizationData.DeviceControl.ItemTaskModule SetParameters=@SetParametersAsync />
+    @if (Item == null)
+    {
+        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+    }
+    else
+    {
+        <TaskModules Uid=@TaskItem.Uid />
+        <ItemSave Table=@Table Uid=TaskItem.Uid />
+    }
+}
+else
+{
+    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+}

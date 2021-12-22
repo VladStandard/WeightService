@@ -77,8 +77,9 @@
     <Watch Remove="Shared\Component\ItemDates.razor" />
     <Watch Remove="Shared\Component\ItemSave.razor" />
     <Watch Remove="Shared\Component\SectionActions.razor" />
+    <Watch Remove="Shared\Item\TaskModule.razor" />
     <Watch Remove="Shared\Section\SectionIdActions.razor" />
-    <Watch Remove="Shared\Section\Tasks.razor" />
+    <Watch Remove="Shared\Section\TaskModules.razor" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorProjectsCore\BlazorProjectsCore.csproj" />

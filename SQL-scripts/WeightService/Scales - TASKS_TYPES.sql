@@ -1,0 +1,5 @@
+-- Table [TASKS_TYPES]
+SELECT
+	*
+FROM [db_scales].[TASKS_TYPES]
+ORDER BY [NAME]

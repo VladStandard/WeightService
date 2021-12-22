@@ -10,8 +10,8 @@ namespace BlazorDeviceControl.Shared.Component
     {
         #region Public and private fields and properties
 
-        [Parameter] public int Id { get; set; }
-        [Parameter] public Guid Uid { get; set; }
+        [Parameter] public int? Id { get; set; }
+        [Parameter] public Guid? Uid { get; set; }
 
         #endregion
 

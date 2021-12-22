@@ -1,33 +1,22 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
+using DataProjectsCore.Models;
 using DataShareCore;
-using DataShareCore.DAL.Interfaces;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Section
+namespace BlazorDeviceControl.Shared.Item
 {
-    public partial class Tasks
+    public partial class TaskModule
     {
         #region Public and private fields and properties
 
-        private List<TaskEntity> ItemsCast
-        {
-            get
-            {
-                List<TaskEntity> items = Items == null 
-                    ? new List<TaskEntity>() 
-                    : Items.Select(x => (TaskEntity)x).ToList();
-                //ItemsCast.Sort(delegate (TaskEntity a, TaskEntity b) { return a.Scale.Host.Name.CompareTo(b.Scale.Host.Name); });
-                items.Sort((a, b) => string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name));
-                return items;
-            }
-        }
+        public TaskEntity TaskItem { get => (TaskEntity)UidItem; set => UidItem = value; }
 
         #endregion
 
@@ -39,14 +28,14 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    IdItem = null;
+                    TaskItem = null;
                     Items = null;
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.TaskCrud.GetEntities(
-                        null, null)
-                        //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
-                        .ToList<IBaseEntity>();
+                    TaskItem = AppSettings.DataAccess.TaskCrud.GetEntity(new FieldListEntity(new Dictionary<string, object> {
+                        { ShareEnums.DbField.Uid.ToString(), Uid },
+                    }), null);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

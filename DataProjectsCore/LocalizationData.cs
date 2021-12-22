@@ -18,14 +18,12 @@ namespace DataCore
         public static class DeviceControl
         {
             #region Main
-
-            public static string Index => Lang == ShareEnums.Lang.English ? @"DeviceControl" : @"Управление устройствами";
-            public static string IndexContinue => Lang == ShareEnums.Lang.English
-                ? @"Click on a menu section to continue." : @"Нажмите на раздел меню, чтобы продолжить.";
-            public static string SqlServerDebug => "CREATIO";
-            public static string SqlServerRelease => "PALYCH";
             public static string CallbackEmail => @"mailto:morozov_dv@kolbasa-vs.ru&subject=device-control.kolbasa-vs.local";
             public static string DataRecords => Lang == ShareEnums.Lang.English ? "records" : "записей";
+            public static string Index => Lang == ShareEnums.Lang.English ? @"DeviceControl" : @"Управление устройствами";
+            public static string IndexContinue => Lang == ShareEnums.Lang.English ? @"Click on a menu section to continue." : @"Нажмите на раздел меню, чтобы продолжить.";
+            public static string SqlServerDebug => "CREATIO";
+            public static string SqlServerRelease => "PALYCH";
             #endregion
             #region Комплексы промышленных устройств
             public static string DevicesTitle => Lang == ShareEnums.Lang.English ? @"Complexes of industrial devices" : @"Комплексы промышленных устройств";
@@ -41,95 +39,101 @@ namespace DataCore
             public const string UriRouteItemPrinterType = "/item/printertype";
             public const string UriRouteItemProductionFacility = "/item/productionfacily";
             public const string UriRouteItemScale = "/item/scale";
+            public const string UriRouteItemTaskModule = "/item/taskmodule";
             public const string UriRouteItemTemplate = "/item/template";
             public const string UriRouteItemTemplateResource = "/item/templateresource";
             public const string UriRouteItemWeithingFact = "/item/weithingfact";
             public const string UriRouteItemWorkshop = "/item/workshop";
             #endregion
             #region URI route section
+            public const string UriRouteSectionBarCodeTypes = "/section/barcodetypes";
             public const string UriRouteSectionContragents = "/section/contragents";
             public const string UriRouteSectionDevices = "/section/devices";
             public const string UriRouteSectionHosts = "/section/hosts";
-            public const string UriRouteSectionBarCodeTypes = "/section/barcodetypes";
             public const string UriRouteSectionNomenclatures = "/section/nomenclatures";
-            public const string UriRouteSectionTasks = "/section/tasks";
-            public const string UriRouteSectionPrinterTypes = "/section/printertypes";
             public const string UriRouteSectionPrinterResources = "/section/printerresources";
             public const string UriRouteSectionPrinters = "/section/printers";
+            public const string UriRouteSectionPrinterTypes = "/section/printertypes";
             public const string UriRouteSectionProductionFacilities = "/section/productionfacilities";
             public const string UriRouteSectionScales = "/section/scales";
+            public const string UriRouteSectionTaskModules = "/section/taskmodules";
             public const string UriRouteSectionTemplateResources = "/section/templateresources";
             public const string UriRouteSectionTemplates = "/section/templates";
             public const string UriRouteSectionWeithingFacts = "/section/weithingfacts";
             public const string UriRouteSectionWorkshops = "/section/workshops";
             #endregion
             #region Items scales
-            public static string ItemBarCodeType => Lang == ShareEnums.Lang.English ? @"Barcodes type" : @"Тип штрихкода";
             public static string ItemBarcode => Lang == ShareEnums.Lang.English ? @"Barcode" : @"Штрихкод";
+            public static string ItemBarCodeType => Lang == ShareEnums.Lang.English ? @"Barcodes type" : @"Тип штрихкода";
             public static string ItemContragent => Lang == ShareEnums.Lang.English ? @"Counterparty" : @"Контрагент";
             public static string ItemFont => Lang == ShareEnums.Lang.English ? @"Font" : @"Шрифт";
             public static string ItemHost => Lang == ShareEnums.Lang.English ? @"Host" : @"Хост";
             public static string ItemLabel => Lang == ShareEnums.Lang.English ? @"Label" : @"Этикетка";
             public static string ItemLogo => Lang == ShareEnums.Lang.English ? @"Logo" : @"Логотип";
-            public static string ItemNomenclatureUnit => Lang == ShareEnums.Lang.English ? @"Package" : @"Упаковка";
+            public static string ItemModule => Lang == ShareEnums.Lang.English ? @"Module" : @"Модуль";
             public static string ItemNomenclature => Lang == ShareEnums.Lang.English ? @"Nomenclature" : @"Номенклатура";
+            public static string ItemNomenclatureUnit => Lang == ShareEnums.Lang.English ? @"Package" : @"Упаковка";
+            public static string ItemOrder => Lang == ShareEnums.Lang.English ? @"Order" : @"Заказ";
             public static string ItemOrderStatus => Lang == ShareEnums.Lang.English ? @"Order status" : @"Статус заказа";
             public static string ItemOrderType => Lang == ShareEnums.Lang.English ? @"Order type" : @"Типы заказа";
-            public static string ItemOrder => Lang == ShareEnums.Lang.English ? @"Order" : @"Заказ";
             public static string ItemPlu => Lang == ShareEnums.Lang.English ? @"PLU" : @"ПЛУ";
+            public static string ItemPrinter => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
             public static string ItemPrinterResource => Lang == ShareEnums.Lang.English ? @"Printer resource" : @"Ресурс принтера";
             public static string ItemPrinterType => Lang == ShareEnums.Lang.English ? @"Printer type" : @"Тип принтера";
-            public static string ItemPrinter => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
-            public static string ItemProductSeries => Lang == ShareEnums.Lang.English ? @"Product series" : @"Серия продукта";
             public static string ItemProductionFacility => Lang == ShareEnums.Lang.English ? @"Prod. facility" : @"Произв. площадка";
+            public static string ItemProductSeries => Lang == ShareEnums.Lang.English ? @"Product series" : @"Серия продукта";
             public static string ItemResource => Lang == ShareEnums.Lang.English ? @"Resource" : @"Ресурс";
             public static string ItemScale => Lang == ShareEnums.Lang.English ? @"Device" : @"Устройство";
-            public static string ItemTemplateResource => Lang == ShareEnums.Lang.English ? @"Template resource" : @"Ресурс шаблона";
+            public static string ItemTask => Lang == ShareEnums.Lang.English ? @"Task" : @"Задача";
+            public static string ItemTaskModule => Lang == ShareEnums.Lang.English ? @"Task module" : @"Модуль задачи";
             public static string ItemTemplate => Lang == ShareEnums.Lang.English ? @"Template" : @"Шаблон";
+            public static string ItemTemplateResource => Lang == ShareEnums.Lang.English ? @"Template resource" : @"Ресурс шаблона";
             public static string ItemWeithingFact => Lang == ShareEnums.Lang.English ? @"Weithing fact" : @"Взвешивание";
             public static string ItemWorkshop => Lang == ShareEnums.Lang.English ? @"Workshop" : @"Цех";
             #endregion
             #region Sections
-            public static string SectionBarCodeTypes => Lang == ShareEnums.Lang.English ? @"Barcodes types" : @"Типы штрихкодов";
             public static string SectionBarcodes => Lang == ShareEnums.Lang.English ? @"Barcodes" : @"Штрихкоды";
+            public static string SectionBarCodeTypes => Lang == ShareEnums.Lang.English ? @"Barcodes types" : @"Типы штрихкодов";
             public static string SectionContragents => Lang == ShareEnums.Lang.English ? @"Counterparties" : @"Контрагенты";
             public static string SectionFonts => Lang == ShareEnums.Lang.English ? @"Fonts" : @"Шрифты";
             public static string SectionHosts => Lang == ShareEnums.Lang.English ? @"Hosts" : @"Хосты";
             public static string SectionLabels => Lang == ShareEnums.Lang.English ? @"Labels" : @"Этикетки";
             public static string SectionLogos => Lang == ShareEnums.Lang.English ? @"Logos" : @"Логотипы";
             public static string SectionLogs => Lang == ShareEnums.Lang.English ? @"Logs" : @"Логи";
-            public static string SectionNomenclatureUnits => Lang == ShareEnums.Lang.English ? @"Packages" : @"Упаковки";
+            public static string SectionModules => Lang == ShareEnums.Lang.English ? @"Modules" : @"Модули";
             public static string SectionNomenclatures => Lang == ShareEnums.Lang.English ? @"Nomenclatures" : @"Номенклатура";
+            public static string SectionNomenclatureUnits => Lang == ShareEnums.Lang.English ? @"Packages" : @"Упаковки";
+            public static string SectionOrders => Lang == ShareEnums.Lang.English ? @"Orders" : @"Заказы";
             public static string SectionOrderStatuses => Lang == ShareEnums.Lang.English ? @"Order statuses" : @"Статусы заказов";
             public static string SectionOrderTypes => Lang == ShareEnums.Lang.English ? @"Order types" : @"Типы заказов";
-            public static string SectionOrders => Lang == ShareEnums.Lang.English ? @"Orders" : @"Заказы";
             public static string SectionPlus => Lang == ShareEnums.Lang.English ? @"PLU" : @"ПЛУ";
             public static string SectionPrinterResources => Lang == ShareEnums.Lang.English ? @"Printer resources" : @"Ресурсы принтера";
-            public static string SectionPrinterTypes => Lang == ShareEnums.Lang.English ? @"Printer types" : @"Типы принтеров";
             public static string SectionPrinters => Lang == ShareEnums.Lang.English ? @"Printers" : @"Принтеры";
-            public static string SectionProductSeries => Lang == ShareEnums.Lang.English ? @"Product series" : @"Серии продуктов";
+            public static string SectionPrinterTypes => Lang == ShareEnums.Lang.English ? @"Printer types" : @"Типы принтеров";
             public static string SectionProductionFacilities => Lang == ShareEnums.Lang.English ? @"Prod. facilities" : @"Произв. площадки";
+            public static string SectionProductSeries => Lang == ShareEnums.Lang.English ? @"Product series" : @"Серии продуктов";
             public static string SectionResources => Lang == ShareEnums.Lang.English ? @"Resources" : @"Ресурсы";
             public static string SectionScales => Lang == ShareEnums.Lang.English ? @"Devices" : @"Устройства";
+            public static string SectionTaskModules => Lang == ShareEnums.Lang.English ? @"Task Modules" : @"Модули задач";
             public static string SectionTasks => Lang == ShareEnums.Lang.English ? @"Tasks" : @"Задачи";
-            public static string SectionModules => Lang == ShareEnums.Lang.English ? @"Modules" : @"Модули";
             public static string SectionTemplateResources => Lang == ShareEnums.Lang.English ? @"Template resources" : @"Ресурсы шаблонов";
             public static string SectionTemplates => Lang == ShareEnums.Lang.English ? @"Templates" : @"Шаблоны";
             public static string SectionWeithingFacts => Lang == ShareEnums.Lang.English ? @"Weithing facts" : @"Взвешивания";
             public static string SectionWorkshops => Lang == ShareEnums.Lang.English ? @"Workshops" : @"Цеха";
             #endregion
             #region Tables
+            public static string Table => Lang == ShareEnums.Lang.English ? @"Table" : @"Таблица";
             public static string TableActionAdd => Lang == ShareEnums.Lang.English ? @"Add" : @"Добавить";
             public static string TableActionCancel => Lang == ShareEnums.Lang.English ? @"Cancel" : @"Отмена";
             public static string TableActionClear => Lang == ShareEnums.Lang.English ? @"Clear" : @"Очистить";
             public static string TableActionCopy => Lang == ShareEnums.Lang.English ? @"Copy" : @"Копировать";
             public static string TableActionDelete => Lang == ShareEnums.Lang.English ? @"Delete" : @"Удалить";
             public static string TableActionEdit => Lang == ShareEnums.Lang.English ? @"Edit" : @"Редактировать";
+            public static string TableActionFill => Lang == ShareEnums.Lang.English ? @"Fill" : @"Заполнить";
             public static string TableActionMark => Lang == ShareEnums.Lang.English ? @"Mark" : @"Пометить";
             public static string TableActionNew => Lang == ShareEnums.Lang.English ? @"New" : @"Новый";
-            public static string TableActionFill => Lang == ShareEnums.Lang.English ? @"Fill" : @"Заполнить";
-            public static string TableActionSave => Lang == ShareEnums.Lang.English ? @"Save" : @"Сохранить";
             public static string TableActions => Lang == ShareEnums.Lang.English ? @"___" : @"Действия";
+            public static string TableActionSave => Lang == ShareEnums.Lang.English ? @"Save" : @"Сохранить";
             public static string TableActionsIsDeny => Lang == ShareEnums.Lang.English ? @"___" : @"Действия недоступны";
             public static string TableFieldAccessLevel => Lang == ShareEnums.Lang.English ? @"___" : @"Уровень доступа";
             public static string TableFieldAccessLevelNo => Lang == ShareEnums.Lang.English ? @"No access" : @"Нет доступа";
@@ -160,6 +164,7 @@ namespace DataCore
             public static string TableFieldDeviceReceiveTimeout => Lang == ShareEnums.Lang.English ? @"___" : @"Таймаут приёма";
             public static string TableFieldDeviceSendTimeout => Lang == ShareEnums.Lang.English ? @"___" : @"Таймаут отправки";
             public static string TableFieldEan13 => Lang == ShareEnums.Lang.English ? @"___" : @"EAN13";
+            public static string TableFieldEnabled = Lang == ShareEnums.Lang.English ? @"Enabled" : @"Активно";
             public static string TableFieldFile => Lang == ShareEnums.Lang.English ? @"___" : @"Файл";
             public static string TableFieldGln => Lang == ShareEnums.Lang.English ? @"___" : @"Gln";
             public static string TableFieldGoodsBoxQuantly => Lang == ShareEnums.Lang.English ? @"___" : @"Вложений в короб";
@@ -173,8 +178,8 @@ namespace DataCore
             public static string TableFieldHost => Lang == ShareEnums.Lang.English ? @"___" : @"Хост";
             public static string TableFieldIcon => Lang == ShareEnums.Lang.English ? @"___" : @"Иконка";
             public static string TableFieldId => Lang == ShareEnums.Lang.English ? @"___" : @"ID";
-            public static string TableFieldIdRRef => Lang == ShareEnums.Lang.English ? @"___" : @"ID 1C";
             public static string TableFieldIdRref => Lang == ShareEnums.Lang.English ? @"___" : @"ID 1C";
+            public static string TableFieldIdRRef => Lang == ShareEnums.Lang.English ? @"___" : @"ID 1C";
             public static string TableFieldImageData => Lang == ShareEnums.Lang.English ? @"___" : @"ImageData";
             public static string TableFieldImageDataInfo => Lang == ShareEnums.Lang.English ? @"___" : @"Информация";
             public static string TableFieldIsClose => Lang == ShareEnums.Lang.English ? @"___" : @"IsClose";
@@ -200,6 +205,15 @@ namespace DataCore
             public static string TableFieldPackWeight => Lang == ShareEnums.Lang.English ? @"___" : @"PackWeight";
             public static string TableFieldPlu => Lang == ShareEnums.Lang.English ? @"___" : @"PLU";
             public static string TableFieldPluDescription => Lang == ShareEnums.Lang.English ? @"___" : @"Для переноса строки используйте символ `|`";
+            public static string TableFieldPrinter => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
+            public static string TableFieldPrinterControlPanel => Lang == ShareEnums.Lang.English ? @"Printer control panel" : @"Панель управления принтером";
+            public static string TableFieldPrinterDarknessLevel => Lang == ShareEnums.Lang.English ? @"Level of darkness" : @"Уровень темноты";
+            public static string TableFieldPrinterIp => Lang == ShareEnums.Lang.English ? @"IP-address" : @"IP-адрес";
+            public static string TableFieldPrinterMac => Lang == ShareEnums.Lang.English ? @"MAC-address" : @"MAC-адрес";
+            public static string TableFieldPrinterPassword => Lang == ShareEnums.Lang.English ? @"Printer password" : @"Пароль принтера";
+            public static string TableFieldPrinterPeelOffSet => Lang == ShareEnums.Lang.English ? @"Offset" : @"Смещение";
+            public static string TableFieldPrinterPort => Lang == ShareEnums.Lang.English ? @"Printer port" : @"Порт принтера";
+            public static string TableFieldPrinterType => Lang == ShareEnums.Lang.English ? @"Printer type" : @"Тип принтера";
             public static string TableFieldProductDate => Lang == ShareEnums.Lang.English ? @"___" : @"Дата продукции";
             public static string TableFieldProductionFacilityName => Lang == ShareEnums.Lang.English ? @"___" : @"Площадка";
             public static string TableFieldRegNum => Lang == ShareEnums.Lang.English ? @"___" : @"#";
@@ -214,6 +228,7 @@ namespace DataCore
             public static string TableFieldState => Lang == ShareEnums.Lang.English ? @"___" : @"Статус";
             public static string TableFieldStorage => Lang == ShareEnums.Lang.English ? @"___" : @"Склад";
             public static string TableFieldTareWeight => Lang == ShareEnums.Lang.English ? @"___" : @"Вес тары";
+            public static string TableFieldTaskType = Lang == ShareEnums.Lang.English ? @"Task type" : @"Тип задачи";
             public static string TableFieldTemplate => Lang == ShareEnums.Lang.English ? @"___" : @"Шаблон";
             public static string TableFieldTemplateDefault => Lang == ShareEnums.Lang.English ? @"___" : @"Шаблон по-умолчанию";
             public static string TableFieldTemplateId => Lang == ShareEnums.Lang.English ? @"___" : @"ID шаблона";
@@ -222,8 +237,6 @@ namespace DataCore
             public static string TableFieldTemplateSeries => Lang == ShareEnums.Lang.English ? @"___" : @"Шаблон суммарной этикетки";
             public static string TableFieldTitle => Lang == ShareEnums.Lang.English ? @"___" : @"Заголовок";
             public static string TableFieldType = Lang == ShareEnums.Lang.English ? @"Type" : @"Тип";
-            public static string TableFieldTaskType = Lang == ShareEnums.Lang.English ? @"Task type" : @"Тип задачи";
-            public static string TableFieldEnabled = Lang == ShareEnums.Lang.English ? @"Enabled" : @"Активно";
             public static string TableFieldUid => Lang == ShareEnums.Lang.English ? @"___" : @"UUID";
             public static string TableFieldUpperWeightThreshold => Lang == ShareEnums.Lang.English ? @"___" : @"Верхнее значение веса короба";
             public static string TableFieldUseOrder => Lang == ShareEnums.Lang.English ? @"___" : @"Использовать заказ";
@@ -235,17 +248,7 @@ namespace DataCore
             public static string TableFieldWorkShopId => Lang == ShareEnums.Lang.English ? @"___" : @"ID цеха";
             public static string TableFieldWorkShopName => Lang == ShareEnums.Lang.English ? @"___" : @"Цех";
             public static string TableFieldXml => Lang == ShareEnums.Lang.English ? @"___" : @"XML";
-            public static string TableFieldPrinter => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
-            public static string TableFieldPrinterControlPanel => Lang == ShareEnums.Lang.English ? @"Printer control panel" : @"Панель управления принтером";
-            public static string TableFieldPrinterDarknessLevel => Lang == ShareEnums.Lang.English ? @"Level of darkness" : @"Уровень темноты";
-            public static string TableFieldPrinterIp => Lang == ShareEnums.Lang.English ? @"IP-address" : @"IP-адрес";
-            public static string TableFieldPrinterMac => Lang == ShareEnums.Lang.English ? @"MAC-address" : @"MAC-адрес";
-            public static string TableFieldPrinterPassword => Lang == ShareEnums.Lang.English ? @"Printer password" : @"Пароль принтера";
-            public static string TableFieldPrinterPeelOffSet => Lang == ShareEnums.Lang.English ? @"Offset" : @"Смещение";
-            public static string TableFieldPrinterPort => Lang == ShareEnums.Lang.English ? @"Printer port" : @"Порт принтера";
-            public static string TableFieldPrinterType => Lang == ShareEnums.Lang.English ? @"Printer type" : @"Тип принтера";
             public static string TableReadData => Lang == ShareEnums.Lang.English ? @"Read data" : @"Прочитать данные";
-            public static string Table => Lang == ShareEnums.Lang.English ? @"Table" : @"Таблица";
             #endregion
         }
 

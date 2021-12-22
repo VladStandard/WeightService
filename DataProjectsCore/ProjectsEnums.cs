@@ -68,16 +68,17 @@ namespace DataProjectsCore
             Hosts,
             Labels,
             Nomenclatures,
+            Orders,
             OrderStatuses,
             OrderTypes,
-            Orders,
             Plus,
-            Printers,
             PrinterResources,
+            Printers,
             PrinterTypes,
-            ProductSeries,
             ProductionFacilities,
+            ProductSeries,
             Scales,
+            Tasks,
             TemplateResources,
             Templates,
             WeithingFacts,
@@ -87,10 +88,10 @@ namespace DataProjectsCore
         public enum TableDwh
         {
             Default,
-            NomenclatureNonNormalize,
-            NomenclatureMaster,
-            Nomenclature,
             InformationSystem,
+            Nomenclature,
+            NomenclatureMaster,
+            NomenclatureNonNormalize,
         }
 
         public enum WpfActivePage

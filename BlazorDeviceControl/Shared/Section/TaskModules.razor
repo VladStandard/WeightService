@@ -1,4 +1,4 @@
-﻿@page "/section/tasks"
+﻿@page "/section/taskmodules"
 @using BlazorProjectsCore
 @using DataCore
 @using DataProjectsCore
@@ -10,11 +10,11 @@
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using DataShareCore
-@inherits BlazorProjectsCore.Models.BaseRazorIdEntity
+@inherits BlazorProjectsCore.Models.BaseRazorUidEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionModules SetParameters=@SetParametersAsync IsShowItemsCount=true />
+    <DataReload Title=@LocalizationData.DeviceControl.SectionTaskModules SetParameters=@SetParametersAsync IsShowItemsCount=true />
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TaskEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
@@ -43,7 +43,7 @@
                 TItem="TaskEntity" Property="Enabled" TextAlign="TextAlign.Center" Width="10%" 
                 Title=@LocalizationData.DeviceControl.TableFieldEnabled >
                 <Template Context="item">
-                    <RadzenCheckBox TValue="bool" @bind-Value="@item.Enabled" Disabled="true" />
+                    <RadzenCheckBox TValue="bool" @bind-Value="@item.Enabled" Disabled=@Disabled />
                 </Template>
             </RadzenGridColumn>
         </Columns>

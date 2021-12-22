@@ -9,10 +9,10 @@ using DataShareCore;
 using DataShareCore.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using DataProjectsCore;
 using DataProjectsCore.DAL.TableSystemModels;
+using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -20,7 +20,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public ScaleEntity ScaleItem { get => (ScaleEntity)IdItem; set => SetItem(value); }
+        public ScaleEntity ScaleItem { get => (ScaleEntity)IdItem; set => IdItem = value; }
         public string PluTitle { get; set; }
         public PluEntity PluItem { get; set; }
         public List<PluEntity> PluItems { get; set; } = null;

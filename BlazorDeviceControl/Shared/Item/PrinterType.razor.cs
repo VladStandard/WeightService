@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public PrinterTypeEntity PrinterTypeItem { get => (PrinterTypeEntity)IdItem; set => SetItem(value); }
+        public PrinterTypeEntity PrinterTypeItem { get => (PrinterTypeEntity)IdItem; set => IdItem = value; }
 
         #endregion
 

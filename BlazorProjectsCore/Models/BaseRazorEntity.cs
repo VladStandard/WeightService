@@ -38,8 +38,8 @@ namespace BlazorProjectsCore.Models
 
         #region Public and private fields and properties - Parameter
 
-        public IBaseEntity Item { get; private set; }
-        public IBaseEntity ParentItem { get; private set; }
+        public IBaseEntity Item { get; set; }
+        public IBaseEntity ParentItem { get; set; }
         [Parameter] public List<IBaseEntity> Items { get; set; }
         [Parameter] public ITableEntity Table { get; set; }
         [Parameter] public bool IsShowNew { get; set; }
@@ -74,28 +74,7 @@ namespace BlazorProjectsCore.Models
 
         #endregion
 
-        #region Constructor and destructor
-
-        public BaseRazorEntity() { }
-
-        #endregion
-
         #region Public and private methods - Item, ParentItem, Table
-
-        public void SetItem()
-        {
-            Item = null;
-        }
-
-        public void SetItem(IBaseEntity item)
-        {
-            Item = item;
-        }
-
-        public void SetParentItem(IBaseEntity parentItem)
-        {
-            ParentItem = parentItem;
-        }
 
         public void OnChange(object value, string name, IBaseEntity item)
         {
@@ -123,6 +102,14 @@ namespace BlazorProjectsCore.Models
                                 break;
                             case nameof(ScaleEntity):
                                 if (value is int idScale)
+                                {
+                                    //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
+                                    //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
+                                    //    null);
+                                }
+                                break;
+                            case nameof(TaskEntity):
+                                if (value is Guid uidTask)
                                 {
                                     //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
                                     //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
@@ -213,7 +200,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idBarcodeType },
                                 }), null);
-                            SetItem(barcodeTypeEntity);
+                            Item = barcodeTypeEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Contragents:
@@ -223,7 +210,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idContragent },
                                 }), null);
-                            SetItem(contragentEntity);
+                            Item = contragentEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Hosts:
@@ -233,7 +220,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idHost },
                                 }), null);
-                            SetItem(hostEntity);
+                            Item = hostEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Labels:
@@ -243,7 +230,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idLabel },
                                 }), null);
-                            SetItem(labelEntity);
+                            Item = labelEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Nomenclatures:
@@ -253,7 +240,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idNomenclature },
                                 }), null);
-                            SetItem(nomenclatureEntity);
+                            Item = nomenclatureEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.OrderStatuses:
@@ -263,7 +250,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idOrderStatus },
                                 }), null);
-                            SetItem(orderStatusEntity);
+                            Item = orderStatusEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.OrderTypes:
@@ -273,7 +260,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idOrderType },
                                 }), null);
-                            SetItem(orderTypeEntity);
+                            Item = orderTypeEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Orders:
@@ -283,7 +270,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idOrder },
                                 }), null);
-                            SetItem(orderEntity);
+                            Item = orderEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Plus:
@@ -293,7 +280,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idPlu },
                                 }), null);
-                            SetItem(pluEntity);
+                            Item = pluEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Printers:
@@ -303,7 +290,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idPrinter },
                                 }), null);
-                            SetItem(printerEntity);
+                            Item = printerEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.PrinterResources:
@@ -313,7 +300,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idPrinterResource },
                                 }), null);
-                            SetItem(printerResourceEntity);
+                            Item = printerResourceEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.PrinterTypes:
@@ -323,7 +310,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idPrinterType },
                                 }), null);
-                            SetItem(printerTypeEntity);
+                            Item = printerTypeEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.ProductSeries:
@@ -333,7 +320,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idProductSeries },
                                 }), null);
-                            SetItem(productSeriesEntity);
+                            Item = productSeriesEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.ProductionFacilities:
@@ -343,7 +330,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idProductionFacility },
                                 }), null);
-                            SetItem(productionFacilityEntity);
+                            Item = productionFacilityEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Scales:
@@ -353,7 +340,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idScale },
                                 }), null);
-                            SetItem(scaleEntity);
+                            Item = scaleEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.TemplateResources:
@@ -363,7 +350,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idTemplateResource },
                                 }), null);
-                            SetItem(templateResourceEntity);
+                            Item = templateResourceEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Templates:
@@ -373,7 +360,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idTemplate },
                                 }), null);
-                            SetItem(templateEntity);
+                            Item = templateEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.WeithingFacts:
@@ -383,7 +370,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idWeithingFact },
                                 }), null);
-                            SetItem(weithingFactEntity);
+                            Item = weithingFactEntity;
                         }
                         break;
                     case ProjectsEnums.TableScale.Workshops:
@@ -393,7 +380,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idWorkshop },
                                 }), null);
-                            SetItem(workshopEntity);
+                            Item = workshopEntity;
                         }
                         break;
                     default:
@@ -411,7 +398,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Uid.ToString(), uidAccess },
                                 }), null);
-                            SetItem(accessEntity);
+                            Item = accessEntity;
                         }
                         break;
                     case ProjectsEnums.TableSystem.Logs:
@@ -421,7 +408,7 @@ namespace BlazorProjectsCore.Models
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Uid.ToString(), uidLog },
                                 }), null);
-                            SetItem(logEntity);
+                            Item = logEntity;
                         }
                         break;
                     default:
@@ -587,16 +574,6 @@ namespace BlazorProjectsCore.Models
                         task.ConfigureAwait(continueOnCapturedContext);
                     }
                 }
-                // Debug log.
-                if (AppSettings.IsDebug)
-                {
-                    //Console.WriteLine("--------------------------------------------------------------------------------");
-                    //Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasks)} (for Debug mode) ---------- ");
-                    //Console.WriteLine($"filePath: {filePath}");
-                    //Console.WriteLine($"memberName: {memberName} | lineNumber: {lineNumber}");
-                    //Console.WriteLine($"tasks.Count: {tasks.Count}");
-                    //Console.WriteLine("--------------------------------------------------------------------------------");
-                }
             }
             if (!string.IsNullOrEmpty(detailSuccess))
                 Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsEntity.Delay);
@@ -667,6 +644,22 @@ namespace BlazorProjectsCore.Models
 
         public void RouteItemNavigate(bool isNewWindow)
         {
+            string page = RouteItemNavigatePage();
+            if (string.IsNullOrEmpty(page))
+                return;
+
+            if (!isNewWindow)
+            {
+                RouteItemNavigateInside(page);
+            }
+            else
+            {
+                RouteItemNavigateNewPage(page);
+            }
+        }
+
+        private string RouteItemNavigatePage()
+        {
             string page = string.Empty;
             if (Item is PrinterEntity)
             {
@@ -684,43 +677,62 @@ namespace BlazorProjectsCore.Models
             {
                 page = LocalizationData.DeviceControl.UriRouteItemScale;
             }
+            else if (Item is TaskEntity)
+            {
+                page = LocalizationData.DeviceControl.UriRouteItemTaskModule;
+            }
+            return page;
+        }
 
+        private void RouteItemNavigateInside(string page)
+        {
+            if (Item is BaseIdEntity idItem)
+            {
+                Navigation.NavigateTo($"{page}/{idItem.Id}");
+            }
+            else if (Item is BaseUidEntity uidItem)
+            {
+                Navigation.NavigateTo($"{page}/{uidItem.Uid}");
+            }
+            else
+            {
+                Navigation.NavigateTo(page);
+            }
+        }
+
+        private void RouteItemNavigateNewPage(string page)
+        {
+            if (Item is BaseIdEntity idItem)
+            {
+                _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
+            }
+            else if (Item is BaseUidEntity uidItem)
+            {
+                _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
+            }
+            else
+            {
+                _ = JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+            }
+        }
+
+        public void RouteSectionNavigate(bool isNewWindow)
+        {
+            string page = RouteSectionNavigatePage();
             if (string.IsNullOrEmpty(page))
                 return;
 
             if (!isNewWindow)
             {
-                if (Item is BaseIdEntity idItem)
-                {
-                    Navigation.NavigateTo($"{page}/{idItem.Id}");
-                }
-                else if (Item is BaseUidEntity uidItem)
-                {
-                    Navigation.NavigateTo($"{page}/{uidItem.Uid}");
-                }
-                else
-                {
-                    Navigation.NavigateTo(page);
-                }
+                Navigation.NavigateTo(page);
             }
             else
             {
-                if (Item is BaseIdEntity idItem)
-                {
-                    _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
-                }
-                else if (Item is BaseUidEntity uidItem)
-                {
-                    _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
-                }
-                else
-                {
-                    _ = JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
-                }
+                _ = JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
             }
         }
 
-        public void RouteSectionNavigate(bool isNewWindow)
+        private string RouteSectionNavigatePage()
         {
             string page = string.Empty;
             if (Item is PrinterEntity)
@@ -736,17 +748,7 @@ namespace BlazorProjectsCore.Models
                 page = LocalizationData.DeviceControl.UriRouteSectionScales;
             }
 
-            if (string.IsNullOrEmpty(page))
-                return;
-
-            if (!isNewWindow)
-            {
-                Navigation.NavigateTo(page);
-            }
-            else
-            {
-                _ = JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
-            }
+            return page;
         }
 
         public async Task ItemCancelAsync(bool isNewWindow)
@@ -826,6 +828,11 @@ namespace BlazorProjectsCore.Models
             else if (item is ScaleEntity scalesEntity)
             {
                 if (scalesEntity.EqualsDefault())
+                    result = false;
+            }
+            else if (item is TaskTypeEntity taskTypeEntity)
+            {
+                if (taskTypeEntity.EqualsDefault())
                     result = false;
             }
             else if (item is TemplateResourceEntity templateResourcesEntity)
@@ -965,6 +972,22 @@ namespace BlazorProjectsCore.Models
             }
         }
 
+        public void ItemSaveCheckTask(TaskEntity item)
+        {
+            bool success = FieldControlDeny(item.TaskType, "Тип задачи");
+            if (success)
+                success = FieldControlDeny(item.Scale, "Устройство");
+            if (success)
+            {
+                if (item.Uid == Guid.Empty)
+                {
+                    AppSettings.DataAccess.TaskCrud.SaveEntity(item);
+                }
+                else
+                    AppSettings.DataAccess.TaskCrud.UpdateEntity(item);
+            }
+        }
+
         public void ItemSaveCheck(BaseEntity item)
         {
             bool success = true;
@@ -1010,8 +1033,14 @@ namespace BlazorProjectsCore.Models
                         if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
                             return;
                         if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
-                            return;
-                        if (Item is BaseIdEntity idItem2)
+                        {
+                            switch (uidItem)
+                            {
+                                case TaskEntity taskItem: ItemSaveCheckTask(taskItem);
+                                    break;
+                            }
+                        }
+                        else if (Item is BaseIdEntity idItem2)
                         {
                             switch (idItem2)
                             {
@@ -1163,6 +1192,7 @@ namespace BlazorProjectsCore.Models
                                         case ProjectsEnums.TableScale.Plus:
                                         case ProjectsEnums.TableScale.Printers:
                                         case ProjectsEnums.TableScale.PrinterTypes:
+                                        case ProjectsEnums.TableScale.Tasks:
                                             RouteItemNavigate(isNewWindow);
                                             break;
                                     }

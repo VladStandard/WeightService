@@ -22,7 +22,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public WorkshopEntity WorkshopItem { get => (WorkshopEntity)IdItem; set => SetItem(value); }
+        public WorkshopEntity WorkshopItem { get => (WorkshopEntity)IdItem; set => IdItem = value; }
         public List<ProductionFacilityEntity> ProductionFacilityEntities { get; set; } = null;
 
         #endregion
