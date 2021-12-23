@@ -62,6 +62,7 @@ BEGIN
 					AND [DocType] = 'DocumentRef.УстановкаЦенНоменклатуры'
 					AND IsAction = 0
 					AND t.NomenclatureID = [Nomenclature].CodeInIS
+					AND [Marked] = 0 AND [Posted] = 1
 					FOR XML PATH ('Price'), BINARY BASE64)
 				AS XML) AS Prices
 			FROM [DW].[DimNomenclatures] [Nomenclature]
