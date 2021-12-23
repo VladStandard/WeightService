@@ -988,6 +988,16 @@ namespace BlazorProjectsCore.Models
             }
         }
 
+        public void ItemSaveCheckTaskType(TaskTypeEntity item)
+        {
+            if (item.Uid == Guid.Empty)
+            {
+                AppSettings.DataAccess.TaskTypeCrud.SaveEntity(item);
+            }
+            else
+                AppSettings.DataAccess.TaskTypeCrud.UpdateEntity(item);
+        }
+
         public void ItemSaveCheck(BaseEntity item)
         {
             bool success = true;
@@ -1032,34 +1042,54 @@ namespace BlazorProjectsCore.Models
                             return;
                         if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
                             return;
-                        if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
-                        {
-                            switch (uidItem)
-                            {
-                                case TaskEntity taskItem: ItemSaveCheckTask(taskItem);
-                                    break;
-                            }
-                        }
-                        else if (Item is BaseIdEntity idItem2)
-                        {
-                            switch (idItem2)
-                            {
-                                case PrinterEntity printerItem: ItemSaveCheckPrinter(printerItem);
-                                    break;
-                                case PrinterTypeEntity printerTypeItem: ItemSaveCheckPrinterType(printerTypeItem);
-                                    break;
-                                case PrinterResourceEntity printerResourceItem: ItemSaveCheckPrinterResource(printerResourceItem);
-                                    break;
-                                case ScaleEntity scaleItem: ItemSaveCheckScale(scaleItem);
-                                    break;
-                                case WorkshopEntity workshopItem: ItemSaveCheckWorkshop(workshopItem);
-                                    break;
-                                default: ItemSaveCheck(idItem2);
-                                    break;
-                            }
-                        }
+                        UidItemSaveAsync();
+                        IdItemSaveAsync();
                         RouteSectionNavigate(isNewWindow);
                     })}, continueOnCapturedContext);
+        }
+
+        private void UidItemSaveAsync()
+        {
+            if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+            {
+                switch (uidItem)
+                {
+                    case TaskEntity taskItem:
+                        ItemSaveCheckTask(taskItem);
+                        break;
+                    case TaskTypeEntity taskTypeItem:
+                        ItemSaveCheckTaskType(taskTypeItem);
+                        break;
+                }
+            }
+        }
+
+        private void IdItemSaveAsync()
+        {
+            if (Item is BaseIdEntity idItem2)
+            {
+                switch (idItem2)
+                {
+                    case PrinterEntity printerItem:
+                        ItemSaveCheckPrinter(printerItem);
+                        break;
+                    case PrinterTypeEntity printerTypeItem:
+                        ItemSaveCheckPrinterType(printerTypeItem);
+                        break;
+                    case PrinterResourceEntity printerResourceItem:
+                        ItemSaveCheckPrinterResource(printerResourceItem);
+                        break;
+                    case ScaleEntity scaleItem:
+                        ItemSaveCheckScale(scaleItem);
+                        break;
+                    case WorkshopEntity workshopItem:
+                        ItemSaveCheckWorkshop(workshopItem);
+                        break;
+                    default:
+                        ItemSaveCheck(idItem2);
+                        break;
+                }
+            }
         }
 
         [Obsolete(@"Deprecated method. Use Action method.")]

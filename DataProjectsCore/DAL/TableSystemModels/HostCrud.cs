@@ -3,17 +3,18 @@
 
 using DataProjectsCore.DAL.Models;
 using DataShareCore;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DataProjectsCore.DAL.TableSystemModels
 {
-    public class HostCrud : BaseCrud<HostEntity>
+    public class HostCrud : CrudController
     {
         #region Constructor and destructor
 
-        public HostCrud(DataAccessEntity dataAccess) : base(dataAccess)
+        public HostCrud(DataAccessEntity dataAccess, ISessionFactory sessionFactory) : base(dataAccess, sessionFactory)
         {
             //
         }

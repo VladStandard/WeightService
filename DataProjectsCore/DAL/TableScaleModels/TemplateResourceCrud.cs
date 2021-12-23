@@ -2,17 +2,18 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore.DAL.Models;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class TemplateResourceCrud : BaseCrud<TemplateResourceEntity>
+    public class TemplateResourceCrud : CrudController
     {
         #region Constructor and destructor
 
-        public TemplateResourceCrud(DataAccessEntity dataAccess) : base(dataAccess)
+        public TemplateResourceCrud(DataAccessEntity dataAccess, ISessionFactory sessionFactory) : base(dataAccess, sessionFactory)
         {
             //
         }

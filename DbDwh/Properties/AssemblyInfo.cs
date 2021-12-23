@@ -20,5 +20,5 @@
 //      Revision
 //
 [assembly: AssemblyVersion("0.1.680")]
-[assembly: AssemblyFileVersion("0.1.500")]
+[assembly: AssemblyFileVersion("0.1.680")]
 [assembly: System.Resources.NeutralResourcesLanguage("en")]

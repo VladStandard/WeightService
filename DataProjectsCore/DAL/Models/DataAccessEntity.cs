@@ -21,8 +21,6 @@ namespace DataProjectsCore.DAL.Models
         #region Public and private fields and properties
 
         public CoreSettingsEntity CoreSettings { get; set; }
-        public DataConfigurationEntity DataConfig { get; set; }
-        private delegate void ExecCallback(ISession session);
         private readonly object _locker = new();
 
         // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
@@ -55,48 +53,49 @@ namespace DataProjectsCore.DAL.Models
         }
 
         // SYSTEM Tables CRUD.
-        public BaseCrud<TableSystemModels.AccessEntity>? AccessesCrud = null;
-        public BaseCrud<TableSystemModels.AppEntity>? AppsCrud = null;
-        public BaseCrud<TableSystemModels.LogEntity>? LogsCrud = null;
-        public BaseCrud<TableSystemModels.LogTypeEntity>? LogTypesCrud = null;
+        public CrudController? AccessesCrud = null;
+        public CrudController? AppsCrud = null;
+        public CrudController? LogsCrud = null;
+        public CrudController? LogTypesCrud = null;
         public TableSystemModels.HostCrud? HostsCrud = null;
 
         // SCALES Tables CRUD.
-        public BaseCrud<TableScaleModels.BarcodeTypeEntity>? BarcodeTypesCrud = null;
-        public BaseCrud<TableScaleModels.ContragentEntity>? ContragentsCrud = null;
-        public BaseCrud<TableScaleModels.ErrorEntity>? ErrorsCrud = null;
-        public BaseCrud<TableScaleModels.LabelEntity>? LabelsCrud = null;
-        public BaseCrud<TableScaleModels.NomenclatureEntity>? NomenclaturesCrud = null;
-        public BaseCrud<TableScaleModels.OrderEntity>? OrdersCrud = null;
-        public BaseCrud<TableScaleModels.OrderStatusEntity>? OrderStatusesCrud = null;
-        public BaseCrud<TableScaleModels.OrderTypeEntity>? OrderTypesCrud = null;
-        public BaseCrud<TableScaleModels.PluEntity>? PlusCrud = null;
-        public BaseCrud<TableScaleModels.PrinterEntity>? PrintersCrud = null;
-        public BaseCrud<TableScaleModels.PrinterResourceEntity>? PrinterResourcesCrud = null;
-        public BaseCrud<TableScaleModels.PrinterTypeEntity>? PrinterTypesCrud = null;
-        public BaseCrud<TableScaleModels.ProductionFacilityEntity>? ProductionFacilitiesCrud = null;
-        public BaseCrud<TableScaleModels.ProductSeriesEntity>? ProductSeriesCrud = null;
-        public BaseCrud<TableScaleModels.ScaleEntity>? ScalesCrud = null;
-        public BaseCrud<TableScaleModels.TaskEntity>? TaskCrud = null;
-        public BaseCrud<TableScaleModels.TaskTypeEntity>? TaskTypeCrud = null;
-        public BaseCrud<TableScaleModels.TemplateEntity>? TemplatesCrud = null;
-        public BaseCrud<TableScaleModels.WeithingFactEntity>? WeithingFactsCrud = null;
-        public BaseCrud<TableScaleModels.WorkshopEntity>? WorkshopsCrud = null;
+        public CrudController? Crud = null;
+        public CrudController? BarcodeTypesCrud = null;
+        public CrudController? ContragentsCrud = null;
+        public CrudController? ErrorsCrud = null;
+        public CrudController? LabelsCrud = null;
+        public CrudController? NomenclaturesCrud = null;
+        public CrudController? OrdersCrud = null;
+        public CrudController? OrderStatusesCrud = null;
+        public CrudController? OrderTypesCrud = null;
+        public CrudController? PlusCrud = null;
+        public CrudController? PrintersCrud = null;
+        public CrudController? PrinterResourcesCrud = null;
+        public CrudController? PrinterTypesCrud = null;
+        public CrudController? ProductionFacilitiesCrud = null;
+        public CrudController? ProductSeriesCrud = null;
+        public CrudController? ScalesCrud = null;
+        public CrudController? TaskCrud = null;
+        public CrudController? TaskTypeCrud = null;
+        public CrudController? TemplatesCrud = null;
+        public CrudController? WeithingFactsCrud = null;
+        public CrudController? WorkshopsCrud = null;
         public TableScaleModels.TemplateResourceCrud? TemplateResourcesCrud = null;
         
         // Scales datas CRUD.
-        public BaseCrud<DataModels.DeviceEntity>? DeviceCrud = null;
-        public BaseCrud<DataModels.WeithingFactSummaryEntity>? WeithingFactSummaryCrud = null;
-        public BaseCrud<DataShareCore.DAL.DataModels.LogSummaryEntity>? LogSummaryCrud = null;
+        public CrudController? DeviceCrud = null;
+        public CrudController? WeithingFactSummaryCrud = null;
+        public CrudController? LogSummaryCrud = null;
 
         // DWH tables CRUD.
-        public BaseCrud<TableDwhModels.BrandEntity>? BrandCrud = null;
-        public BaseCrud<TableDwhModels.InformationSystemEntity>? InformationSystemCrud = null;
-        public BaseCrud<TableDwhModels.NomenclatureEntity>? NomenclatureCrud = null;
-        public BaseCrud<TableDwhModels.NomenclatureGroupEntity>? NomenclatureGroupCrud = null;
-        public BaseCrud<TableDwhModels.NomenclatureLightEntity>? NomenclatureLightCrud = null;
-        public BaseCrud<TableDwhModels.NomenclatureTypeEntity>? NomenclatureTypeCrud = null;
-        public BaseCrud<TableDwhModels.StatusEntity>? StatusCrud = null;
+        public CrudController? BrandCrud = null;
+        public CrudController? InformationSystemCrud = null;
+        public CrudController? NomenclatureCrud = null;
+        public CrudController? NomenclatureGroupCrud = null;
+        public CrudController? NomenclatureLightCrud = null;
+        public CrudController? NomenclatureTypeCrud = null;
+        public CrudController? StatusCrud = null;
 
         public bool IsDisabled => !GetSession().IsConnected;
         public bool IsOpen => GetSession().IsOpen;
@@ -110,56 +109,57 @@ namespace DataProjectsCore.DAL.Models
         public DataAccessEntity(CoreSettingsEntity appSettings)
         {
             CoreSettings = appSettings;
-            DataConfig = new DataConfigurationEntity();
 
             if (string.Equals(CoreSettings.Db, "ScalesDB", StringComparison.InvariantCultureIgnoreCase) ||
                 string.Equals(CoreSettings.Db, "SCALES", StringComparison.InvariantCultureIgnoreCase))
             {
+                Crud = new CrudController(this, SessionFactory);
+
                 // SYSTEM tables CRUD.
-                AccessesCrud = new BaseCrud<TableSystemModels.AccessEntity>(this);
-                AppsCrud = new BaseCrud<TableSystemModels.AppEntity>(this);
-                HostsCrud = new TableSystemModels.HostCrud(this);
-                LogsCrud = new BaseCrud<TableSystemModels.LogEntity>(this);
-                LogTypesCrud = new BaseCrud<TableSystemModels.LogTypeEntity>(this);
+                AccessesCrud = new CrudController(this, SessionFactory);
+                AppsCrud = new CrudController(this, SessionFactory);
+                HostsCrud = new TableSystemModels.HostCrud(this, SessionFactory);
+                LogsCrud = new CrudController(this, SessionFactory);
+                LogTypesCrud = new CrudController(this, SessionFactory);
                 
                 // SCALES tables CRUD.
-                BarcodeTypesCrud = new BaseCrud<TableScaleModels.BarcodeTypeEntity>(this);
-                ContragentsCrud = new BaseCrud<TableScaleModels.ContragentEntity>(this);
-                ErrorsCrud = new BaseCrud<TableScaleModels.ErrorEntity>(this);
-                LabelsCrud = new BaseCrud<TableScaleModels.LabelEntity>(this);
-                NomenclaturesCrud = new BaseCrud<TableScaleModels.NomenclatureEntity>(this);
-                OrdersCrud = new BaseCrud<TableScaleModels.OrderEntity>(this);
-                OrderStatusesCrud = new BaseCrud<TableScaleModels.OrderStatusEntity>(this);
-                OrderTypesCrud = new BaseCrud<TableScaleModels.OrderTypeEntity>(this);
-                PlusCrud = new BaseCrud<TableScaleModels.PluEntity>(this);
-                PrinterResourcesCrud = new BaseCrud<TableScaleModels.PrinterResourceEntity>(this);
-                PrintersCrud = new BaseCrud<TableScaleModels.PrinterEntity>(this);
-                PrinterTypesCrud = new BaseCrud<TableScaleModels.PrinterTypeEntity>(this);
-                ProductionFacilitiesCrud = new BaseCrud<TableScaleModels.ProductionFacilityEntity>(this);
-                ProductSeriesCrud = new BaseCrud<TableScaleModels.ProductSeriesEntity>(this);
-                ScalesCrud = new BaseCrud<TableScaleModels.ScaleEntity>(this);
-                TaskCrud = new BaseCrud<TableScaleModels.TaskEntity>(this);
-                TaskTypeCrud = new BaseCrud<TableScaleModels.TaskTypeEntity>(this);
-                TemplateResourcesCrud = new TableScaleModels.TemplateResourceCrud(this);
-                TemplatesCrud = new BaseCrud<TableScaleModels.TemplateEntity>(this);
-                WeithingFactsCrud = new BaseCrud<TableScaleModels.WeithingFactEntity>(this);
-                WorkshopsCrud = new BaseCrud<TableScaleModels.WorkshopEntity>(this);
-                
+                BarcodeTypesCrud = new CrudController(this, SessionFactory);
+                ContragentsCrud = new CrudController(this, SessionFactory);
+                ErrorsCrud = new CrudController(this, SessionFactory);
+                LabelsCrud = new CrudController(this, SessionFactory);
+                NomenclaturesCrud = new CrudController(this, SessionFactory);
+                OrdersCrud = new CrudController(this, SessionFactory);
+                OrderStatusesCrud = new CrudController(this, SessionFactory);
+                OrderTypesCrud = new CrudController(this, SessionFactory);
+                PlusCrud = new CrudController(this, SessionFactory);
+                PrinterResourcesCrud = new CrudController(this, SessionFactory);
+                PrintersCrud = new CrudController(this, SessionFactory);
+                PrinterTypesCrud = new CrudController(this, SessionFactory);
+                ProductionFacilitiesCrud = new CrudController(this, SessionFactory);
+                ProductSeriesCrud = new CrudController(this, SessionFactory);
+                ScalesCrud = new CrudController(this, SessionFactory);
+                TaskCrud = new CrudController(this, SessionFactory);
+                TaskTypeCrud = new CrudController(this, SessionFactory);
+                TemplateResourcesCrud = new TableScaleModels.TemplateResourceCrud(this, SessionFactory);
+                TemplatesCrud = new CrudController(this, SessionFactory);
+                WeithingFactsCrud = new CrudController(this, SessionFactory);
+                WorkshopsCrud = new CrudController(this, SessionFactory);
+
                 // Datas CRUD.
-                DeviceCrud = new BaseCrud<DataModels.DeviceEntity>(this);
-                LogSummaryCrud = new BaseCrud<DataShareCore.DAL.DataModels.LogSummaryEntity>(this);
-                WeithingFactSummaryCrud = new BaseCrud<DataModels.WeithingFactSummaryEntity>(this);
+                DeviceCrud = new CrudController(this, SessionFactory);
+                LogSummaryCrud = new CrudController(this, SessionFactory);
+                WeithingFactSummaryCrud = new CrudController(this, SessionFactory);
             }
             else if (string.Equals(CoreSettings.Db, "VSDWH", StringComparison.InvariantCultureIgnoreCase))
             {
                 // DWH tables CRUD.
-                BrandCrud = new BaseCrud<TableDwhModels.BrandEntity>(this);
-                InformationSystemCrud = new BaseCrud<TableDwhModels.InformationSystemEntity>(this);
-                NomenclatureCrud = new BaseCrud<TableDwhModels.NomenclatureEntity>(this);
-                NomenclatureGroupCrud = new BaseCrud<TableDwhModels.NomenclatureGroupEntity>(this);
-                NomenclatureLightCrud = new BaseCrud<TableDwhModels.NomenclatureLightEntity>(this);
-                NomenclatureTypeCrud = new BaseCrud<TableDwhModels.NomenclatureTypeEntity>(this);
-                StatusCrud = new BaseCrud<TableDwhModels.StatusEntity>(this);
+                BrandCrud = new CrudController(this, SessionFactory);
+                InformationSystemCrud = new CrudController(this, SessionFactory);
+                NomenclatureCrud = new CrudController(this, SessionFactory);
+                NomenclatureGroupCrud = new CrudController(this, SessionFactory);
+                NomenclatureLightCrud = new CrudController(this, SessionFactory);
+                NomenclatureTypeCrud = new CrudController(this, SessionFactory);
+                StatusCrud = new CrudController(this, SessionFactory);
             }
         }
 
@@ -238,322 +238,11 @@ namespace DataProjectsCore.DAL.Models
 
         #region Public and private methods - Share
 
-        public override string ToString()
-        {
-            return $"{nameof(DataConfig)}: {DataConfig}. " +
-                   $"{nameof(GetSession)}: {GetSession()}.";
-        }
-
         public ISession GetSession() => SessionFactory.OpenSession();
-
-        public void LogException(Exception ex, string filePath, int lineNumber, string memberName)
-        {
-            Console.WriteLine("Catch exception.");
-            Console.WriteLine($"{nameof(filePath)}: {filePath}");
-            Console.WriteLine($"{nameof(lineNumber)}: {lineNumber}");
-            Console.WriteLine($"{nameof(memberName)}: {memberName}");
-            Console.WriteLine($"{memberName}. {ex.Message}");
-            if (ex.InnerException != null)
-                Console.WriteLine($"{memberName}. {ex.InnerException.Message}");
-
-            LogExceptionToSql(ex, filePath, lineNumber, memberName);
-        }
-
-        public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
-        {
-            if (ErrorsCrud == null)
-                return;
-            int idLast = ErrorsCrud.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-            TableScaleModels.ErrorEntity? error = new()
-            {
-                Id = idLast + 1,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now,
-                FilePath = filePath,
-                LineNumber = lineNumber,
-                MemberName = memberName,
-                Exception = ex.Message,
-                InnerException = ex.InnerException.Message,
-            };
-            ErrorsCrud.SaveEntity(error);
-        }
 
         #endregion
 
         #region Public and private methods - CRUD share
-
-        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : IBaseEntity
-        {
-            T[]? result = new T[0];
-            ExecTransaction((session) => {
-                if (DataConfig != null)
-                {
-                    result = DataConfig.OrderAsc
-                        ? session.Query<T>()
-                        .OrderBy(ent => ent)
-                        .Skip(DataConfig.PageNo * DataConfig.PageSize)
-                        .Take(DataConfig.PageSize)
-                        .ToArray()
-                        : session.Query<T>()
-                            .OrderByDescending(ent => ent)
-                            .Skip(DataConfig.PageNo * DataConfig.PageSize)
-                            .Take(DataConfig.PageSize)
-                            .ToArray()
-                        ;
-                }
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
-        private ICriteria GetCriteria<T>(ISession session, FieldListEntity? fieldList, FieldOrderEntity order, int maxResults)
-        {
-            ICriteria criteria = session.CreateCriteria(typeof(T));
-            if (maxResults > 0)
-            {
-                criteria.SetMaxResults(maxResults);
-            }
-            if (fieldList is { Use: true, Fields: { } })
-            {
-                AbstractCriterion fieldsWhere = Restrictions.AllEq(fieldList.Fields);
-                criteria.Add(fieldsWhere);
-            }
-            if (order is { Use: true })
-            {
-                Order fieldOrder = order.Direction == ShareEnums.DbOrderDirection.Asc 
-                    ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
-                criteria.AddOrder(fieldOrder);
-            }
-            return criteria;
-        }
-
-        private void ExecTransaction(ExecCallback callback, string filePath, int lineNumber, string memberName)
-        {
-            using ISession? session = GetSession();
-            if (session != null)
-            {
-                using ITransaction? transaction = session.BeginTransaction();
-                try
-                {
-                    callback?.Invoke(session);
-                    session.Flush();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
-                }
-                finally
-                {
-                    session.Disconnect();
-                }
-            }
-        }
-
-        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
-        {
-            T? result = new();
-            ExecTransaction((session) => {
-                ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
-                IList<T>? list = criteria?.List<T>();
-                result = list.FirstOrDefault() ?? new T();
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
-        //public string GetSqlStringFieldsSelect(string[] fieldsSelect)
-        //{
-        //    var result = string.Empty;
-        //    foreach (var field in fieldsSelect)
-        //    {
-        //        result += $"[{field}], ";
-        //    }
-        //    return result[0..^2];
-        //}
-
-        //public string GetSqlStringValuesParams(object[] valuesParams)
-        //{
-        //    var result = string.Empty;
-        //    foreach (var value in valuesParams)
-        //    {
-        //        result += value switch
-        //        {
-        //            int _ or decimal _ => $"{value}, ",
-        //            _ => $"'{value}', ",
-        //        };
-        //    }
-        //    return result[0..^2];
-        //}
-
-        //public ISQLQuery GetSqlQuery<T>(ISession session, string from, string[] fieldsSelect, object[] valuesParams)
-        //{
-        //    if (string.IsNullOrEmpty(from) || fieldsSelect == null || fieldsSelect.Length == 0 ||
-        //        valuesParams == null || valuesParams.Length == 0)
-        //        return null;
-
-        //    var sqlQuery = $"select {GetSqlStringFieldsSelect(fieldsSelect)} from {from} ({GetSqlStringValuesParams(valuesParams)})";
-        //    var result = session.CreateSQLQuery(sqlQuery).AddEntity(typeof(T));
-        //    return result;
-        //}
-
-        public ISQLQuery? GetSqlQuery(ISession session, string query)
-        {
-            if (string.IsNullOrEmpty(query))
-                return null;
-
-            return session.CreateSQLQuery(query);
-        }
-
-        public T[] GetEntities<T>(FieldListEntity fieldList, FieldOrderEntity order, int maxResults, string filePath, int lineNumber, string memberName)
-        {
-            T[]? result = new T[0];
-            ExecTransaction((session) => {
-                result = GetCriteria<T>(session, fieldList, order, maxResults).List<T>().ToArray();
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
-        //public T[] GetEntitiesNative<T>(string[] fieldsSelect, string from, object[] valuesParams,
-        //    string filePath, int lineNumber, string memberName) where T : class
-        //{
-        //    var result = new T[0];
-        //    using var session = GetSession();
-        //    if (session != null)
-        //    {
-        //        using var transaction = session.BeginTransaction();
-        //        try
-        //        {
-        //            var query = GetSqlQuery<T>(session, from, fieldsSelect, valuesParams);
-        //            query.AddEntity(typeof(TU));
-        //            if (entities != null)
-        //            {
-        //                var listEntities = entities.List<T>();
-        //                result = new T[listEntities.Count];
-        //                for (int i = 0; i < result.Length; i++)
-        //                {
-        //                    result[i] = (T)listEntities[i];
-        //                }
-        //            }
-
-        //            session.Flush();
-        //            transaction.Commit();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            transaction.Rollback();
-        //            LogException(ex, filePath, lineNumber, memberName);
-        //            throw;
-        //        }
-        //        finally
-        //        {
-        //            session.Disconnect();
-        //        }
-        //    }
-        //    return result;
-        //}
-
-        public T[] GetEntitiesNativeMapping<T>(string query, string filePath, int lineNumber, string memberName)
-        {
-            T[]? result = new T[0];
-            ExecTransaction((session) => {
-                ISQLQuery? sqlQuery = GetSqlQuery(session, query);
-                if (sqlQuery != null)
-                {
-                    sqlQuery.AddEntity(typeof(T));
-                    System.Collections.IList? listEntities = sqlQuery.List();
-                    result = new T[listEntities.Count];
-                    for (int i = 0; i < result.Length; i++)
-                    {
-                        result[i] = (T)listEntities[i];
-                    }
-                }
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
-        public object[] GetEntitiesNativeObject(string query, string filePath, int lineNumber, string memberName)
-        {
-            object[]? result = new object[0];
-            ExecTransaction((session) => {
-                ISQLQuery? sqlQuery = GetSqlQuery(session, query);
-                if (sqlQuery != null)
-                {
-                    System.Collections.IList? listEntities = sqlQuery.List();
-                    result = new object[listEntities.Count];
-                    for (int i = 0; i < result.Length; i++)
-                    {
-                        if (listEntities[i] is object[] records)
-                            result[i] = records;
-                        else
-                            result[i] = listEntities[i];
-                    }
-                }
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
-        public int ExecQueryNative(string query, Dictionary<string, object> parameters, string filePath, int lineNumber, string memberName)
-        {
-            int result = 0;
-            ExecTransaction((session) => {
-                ISQLQuery? sqlQuery = GetSqlQuery(session, query);
-                if (sqlQuery != null && parameters != null)
-                {
-                    foreach (KeyValuePair<string, object> parameter in parameters)
-                    {
-                        if (parameter.Value is byte[] imagedata)
-                            sqlQuery.SetParameter(parameter.Key, imagedata);
-                        else
-                            sqlQuery.SetParameter(parameter.Key, parameter.Value);
-                    }
-                    result = sqlQuery.ExecuteUpdate();
-                }
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
-        public void SaveEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
-        {
-            if (entity.EqualsEmpty()) return;
-            ExecTransaction((session) => {
-                session.Save(entity);
-            }, filePath, lineNumber, memberName);
-        }
-
-        public void UpdateEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
-        {
-            if (entity.EqualsEmpty()) return;
-            ExecTransaction((session) => {
-                session.SaveOrUpdate(entity);
-            }, filePath, lineNumber, memberName);
-        }
-
-        public void DeleteEntity<T>(T entity, string filePath, int lineNumber, string memberName) where T : IBaseEntity
-        {
-            if (entity.EqualsEmpty()) return;
-            ExecTransaction((session) => {
-                session.Delete(entity);
-            }, filePath, lineNumber, memberName);
-        }
-
-        public bool ExistsEntity<T>(T entity, string filePath, int lineNumber, string memberName)
-        {
-            bool result = false;
-            ExecTransaction((session) => {
-                result = session.Query<T>().Any(x => x.IsAny(entity));
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
-        public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName)
-        {
-            bool result = false;
-            ExecTransaction((session) => {
-                result = GetCriteria<T>(session, fieldList, order, 1).List<T>().Count > 0;
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
 
         public T ActionGetIdEntity<T>(BaseIdEntity entity, ShareEnums.DbTableAction tableAction) where T : BaseIdEntity, new()
         {
@@ -763,6 +452,7 @@ namespace DataProjectsCore.DAL.Models
 
         public void ActionDeleteEntity<T>(T entity) where T : IBaseEntity
         {
+            Crud.DeleteEntity(accessEntity);
             // SYSTEM.
             if (entity is TableSystemModels.AccessEntity accessEntity)
                 AccessesCrud?.DeleteEntity(accessEntity);
