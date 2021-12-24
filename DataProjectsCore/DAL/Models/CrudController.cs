@@ -4,6 +4,7 @@
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
+using FluentNHibernate.Conventions;
 using NHibernate;
 using NHibernate.Criterion;
 using System;
@@ -57,7 +58,7 @@ namespace DataProjectsCore.DAL.Models
         {
             //if (ErrorsCrud == null)
             //    return;
-            int idLast = GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+            int idLast = GetEntity<TableScaleModels.ErrorEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             TableScaleModels.ErrorEntity error = new()
             {
                 Id = idLast + 1,
@@ -74,19 +75,19 @@ namespace DataProjectsCore.DAL.Models
         }
 
 
-        public IBaseEntity[] GetEntitiesWithConfig(string filePath, int lineNumber, string memberName)
+        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
-            IBaseEntity[]? result = new IBaseEntity[0];
+            T[]? result = new T[0];
             ExecTransaction((session) => {
                 if (DataConfig != null)
                 {
                     result = DataConfig.OrderAsc
-                        ? session.Query<IBaseEntity>()
+                        ? session.Query<T>()
                         .OrderBy(ent => ent)
                         .Skip(DataConfig.PageNo * DataConfig.PageSize)
                         .Take(DataConfig.PageSize)
                         .ToArray()
-                        : session.Query<IBaseEntity>()
+                        : session.Query<T>()
                             .OrderByDescending(ent => ent)
                             .Skip(DataConfig.PageNo * DataConfig.PageSize)
                             .Take(DataConfig.PageSize)
@@ -97,9 +98,10 @@ namespace DataProjectsCore.DAL.Models
             return result;
         }
 
-        private ICriteria GetCriteria(ISession session, FieldListEntity? fieldList, FieldOrderEntity order, int maxResults)
+        private ICriteria GetCriteria<T>(ISession session, FieldListEntity? fieldList, FieldOrderEntity order, int maxResults) where T : IBaseEntity, new()
         {
-            ICriteria criteria = session.CreateCriteria(typeof(IBaseEntity));
+            Type type = typeof(T);
+            ICriteria criteria = session.CreateCriteria(type);
             if (maxResults > 0)
             {
                 criteria.SetMaxResults(maxResults);
@@ -186,11 +188,12 @@ namespace DataProjectsCore.DAL.Models
             return session.CreateSQLQuery(query);
         }
 
-        public IBaseEntity[]? GetEntitiesWithoutReferences(FieldListEntity fieldList, FieldOrderEntity order, int maxResults, string filePath, int lineNumber, string memberName)
+        public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity fieldList, FieldOrderEntity order, int maxResults, string filePath, int lineNumber, string memberName)
+            where T : IBaseEntity, new()
         {
-            IBaseEntity[]? result = new IBaseEntity[0];
+            T[]? result = new T[0];
             ExecTransaction((session) => {
-                result = GetCriteria(session, fieldList, order, maxResults).List<IBaseEntity>().ToArray();
+                result = GetCriteria<T>(session, fieldList, order, maxResults).List<T>().ToArray();
             }, filePath, lineNumber, memberName);
             return result;
         }
@@ -234,48 +237,11 @@ namespace DataProjectsCore.DAL.Models
         //    return result;
         //}
 
-        public void DeleteEntity<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity
-        {
-            if (item.EqualsEmpty()) return;
-            ExecTransaction((session) => {
-                session.Delete(item);
-            }, filePath, lineNumber, memberName);
-        }
-
-        public bool ExistsEntity<T>(T item, string filePath, int lineNumber, string memberName)
-        {
-            bool result = false;
-            ExecTransaction((session) => {
-                result = session.Query<T>().Any(x => x.IsAny(item));
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
-        public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName)
-        {
-            bool result = false;
-            ExecTransaction((session) => {
-                result = GetCriteria<T>(session, fieldList, order, 1).List<T>().Count > 0;
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
-        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
-        {
-            T? result = new();
-            ExecTransaction((session) => {
-                ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
-                IList<T>? list = criteria?.List<T>();
-                result = list.FirstOrDefault() ?? new T();
-            }, filePath, lineNumber, memberName);
-            return result;
-        }
-
         #endregion
 
         #region Public and private methods
 
-        public void FillReferences(IBaseEntity item)
+        public void FillReferences<T>(T item) where T : IBaseEntity, new()
         {
             FillReferencesSystem(item);
             FillReferencesDatas(item);
@@ -283,7 +249,7 @@ namespace DataProjectsCore.DAL.Models
             FillReferencesDwh(item);
         }
 
-        private void FillReferencesSystem(IBaseEntity item)
+        private void FillReferencesSystem<T>(T item) where T : IBaseEntity, new()
         {
             if (item is TableSystemModels.AppEntity)
             {
@@ -293,28 +259,28 @@ namespace DataProjectsCore.DAL.Models
             {
                 if (!logEntity.EqualsEmpty())
                 {
-                    if (logEntity.App != null && DataAccess.AppsCrud != null)
-                        logEntity.App = DataAccess.AppsCrud.GetEntity(logEntity.App.Uid);
-                    if (logEntity.Host != null && DataAccess.HostsCrud != null)
-                        logEntity.Host = DataAccess.HostsCrud.GetEntity(logEntity.Host.Id);
+                    if (logEntity.App != null)
+                        logEntity.App = GetEntity<TableSystemModels.AppEntity>(logEntity.App.Uid);
+                    if (logEntity.Host != null)
+                        logEntity.Host = GetEntity<TableSystemModels.HostEntity> (logEntity.Host.Id);
                 }
             }
         }
 
-        private void FillReferencesDatas(IBaseEntity item)
+        private void FillReferencesDatas<T>(T item) where T : IBaseEntity, new()
         {
             if (item is DataModels.DeviceEntity)
             {
                 DataModels.DeviceEntity? deviceEntity = (DataModels.DeviceEntity)(object)item;
                 if (!deviceEntity.EqualsEmpty())
                 {
-                    if (deviceEntity.Scales != null && DataAccess.ScalesCrud != null)
-                        deviceEntity.Scales = DataAccess.ScalesCrud.GetEntity(deviceEntity.Scales.Id);
+                    if (deviceEntity.Scales != null)
+                        deviceEntity.Scales = GetEntity<TableScaleModels.ScaleEntity>(deviceEntity.Scales.Id);
                 }
             }
         }
 
-        private void FillReferencesScales(IBaseEntity item)
+        private void FillReferencesScales<T>(T item) where T : IBaseEntity, new()
         {
             if (item is TableScaleModels.BarcodeTypeEntity)
             {
@@ -332,212 +298,191 @@ namespace DataProjectsCore.DAL.Models
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.LabelEntity))
+            else if (item is TableScaleModels.LabelEntity label)
             {
-                TableScaleModels.LabelEntity? labelsEntity = (TableScaleModels.LabelEntity)(object)item;
-                if (!labelsEntity.EqualsEmpty())
+                if (!label.EqualsEmpty())
                 {
-                    if (labelsEntity.WeithingFact != null && DataAccess.WeithingFactsCrud != null)
-                        labelsEntity.WeithingFact = DataAccess.WeithingFactsCrud.GetEntity(labelsEntity.WeithingFact.Id);
+                    if (label.WeithingFact != null)
+                        label.WeithingFact = GetEntity<TableScaleModels.WeithingFactEntity> (label.WeithingFact.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.NomenclatureEntity))
+            else if (item is TableScaleModels.NomenclatureEntity nomenclature)
             {
-                TableScaleModels.NomenclatureEntity? nomenclatureEntity = (TableScaleModels.NomenclatureEntity)(object)item;
-                if (!nomenclatureEntity.EqualsEmpty())
+                if (!nomenclature.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.OrganizationEntity))
+            else if (item is TableScaleModels.OrganizationEntity organization)
             {
-                TableScaleModels.OrganizationEntity? organizationEntity = (TableScaleModels.OrganizationEntity)(object)item;
-                if (!organizationEntity.EqualsEmpty())
+                if (!organization.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.OrderEntity))
+            else if (item is TableScaleModels.OrderEntity order)
             {
-                TableScaleModels.OrderEntity? ordersEntity = (TableScaleModels.OrderEntity)(object)item;
-                if (!ordersEntity.EqualsEmpty())
+                if (!order.EqualsEmpty())
                 {
-                    if (ordersEntity.OrderTypes != null && DataAccess.OrderTypesCrud != null)
-                        ordersEntity.OrderTypes = DataAccess.OrderTypesCrud.GetEntity(ordersEntity.OrderTypes.Id);
-                    if (ordersEntity.Scales != null && DataAccess.ScalesCrud != null)
-                        ordersEntity.Scales = DataAccess.ScalesCrud.GetEntity(ordersEntity.Scales.Id);
-                    if (ordersEntity.Plu != null && DataAccess.PlusCrud != null)
-                        ordersEntity.Plu = DataAccess.PlusCrud.GetEntity(ordersEntity.Plu.Id);
-                    if (ordersEntity.Templates != null && DataAccess.TemplatesCrud != null)
-                        ordersEntity.Templates = DataAccess.TemplatesCrud.GetEntity(ordersEntity.Templates.Id);
+                    if (order.OrderTypes != null)
+                        order.OrderTypes = GetEntity<TableScaleModels.OrderTypeEntity>(order.OrderTypes.Id);
+                    if (order.Scales != null)
+                        order.Scales = GetEntity<TableScaleModels.ScaleEntity>(order.Scales.Id);
+                    if (order.Plu != null)
+                        order.Plu = GetEntity<TableScaleModels.PluEntity>(order.Plu.Id);
+                    if (order.Templates != null)
+                        order.Templates = GetEntity<TableScaleModels.TemplateEntity>(order.Templates.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.OrderStatusEntity))
+            else if (item is TableScaleModels.OrderStatusEntity orderStatus)
             {
-                TableScaleModels.OrderStatusEntity? orderStatusEntity = (TableScaleModels.OrderStatusEntity)(object)item;
-                if (!orderStatusEntity.EqualsEmpty())
+                if (!orderStatus.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.OrderTypeEntity))
+            else if (item is TableScaleModels.OrderTypeEntity orderType)
             {
-                TableScaleModels.OrderTypeEntity? orderTypesEntity = (TableScaleModels.OrderTypeEntity)(object)item;
-                if (!orderTypesEntity.EqualsEmpty())
+                if (!orderType.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.PluEntity))
+            else if (item is TableScaleModels.PluEntity plu)
             {
-                TableScaleModels.PluEntity? pluEntity = (TableScaleModels.PluEntity)(object)item;
-                if (!pluEntity.EqualsEmpty())
+                if (!plu.EqualsEmpty())
                 {
-                    if (pluEntity.Templates != null && DataAccess.TemplatesCrud != null)
-                        pluEntity.Templates = DataAccess.TemplatesCrud.GetEntity(pluEntity.Templates.Id);
-                    if (pluEntity.Scale != null && DataAccess.ScalesCrud != null)
-                        pluEntity.Scale = DataAccess.ScalesCrud.GetEntity(pluEntity.Scale.Id);
-                    if (pluEntity.Nomenclature != null && DataAccess.NomenclaturesCrud != null)
-                        pluEntity.Nomenclature = DataAccess.NomenclaturesCrud.GetEntity(pluEntity.Nomenclature.Id);
+                    if (plu.Templates != null)
+                        plu.Templates = GetEntity<TableScaleModels.TemplateEntity>(plu.Templates.Id);
+                    if (plu.Scale != null)
+                        plu.Scale = GetEntity<TableScaleModels.ScaleEntity>(plu.Scale.Id);
+                    if (plu.Nomenclature != null)
+                        plu.Nomenclature = GetEntity<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.ProductionFacilityEntity))
+            else if (item is TableScaleModels.ProductionFacilityEntity ProductionFacility)
             {
-                TableScaleModels.ProductionFacilityEntity? productionFacilityEntity = (TableScaleModels.ProductionFacilityEntity)(object)item;
-                if (!productionFacilityEntity.EqualsEmpty())
+                if (!ProductionFacility.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.ProductSeriesEntity))
+            else if (item is TableScaleModels.ProductSeriesEntity product)
             {
-                TableScaleModels.ProductSeriesEntity? productSeriesEntity = (TableScaleModels.ProductSeriesEntity)(object)item;
-                if (!productSeriesEntity.EqualsEmpty())
+                if (!product.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.ScaleEntity))
+            else if (item is TableScaleModels.ScaleEntity scale)
             {
-                TableScaleModels.ScaleEntity? scalesEntity = (TableScaleModels.ScaleEntity)(object)item;
-                if (!scalesEntity.EqualsEmpty())
+                if (!scale.EqualsEmpty())
                 {
-                    if (scalesEntity.TemplateDefault != null && DataAccess.TemplatesCrud != null)
-                        scalesEntity.TemplateDefault = DataAccess.TemplatesCrud.GetEntity(scalesEntity.TemplateDefault.Id);
-                    if (scalesEntity.TemplateSeries != null && DataAccess.TemplatesCrud != null)
-                        scalesEntity.TemplateSeries = DataAccess.TemplatesCrud.GetEntity(scalesEntity.TemplateSeries.Id);
-                    if (scalesEntity.WorkShop != null && DataAccess.WorkshopsCrud != null)
-                        scalesEntity.WorkShop = DataAccess.WorkshopsCrud.GetEntity(scalesEntity.WorkShop.Id);
-                    if (scalesEntity.Printer != null && DataAccess.PrintersCrud != null)
-                        scalesEntity.Printer = DataAccess.PrintersCrud.GetEntity(scalesEntity.Printer.Id);
-                    if (scalesEntity.Host != null && DataAccess.HostsCrud != null)
-                        scalesEntity.Host = DataAccess.HostsCrud.GetEntity(scalesEntity.Host.Id);
+                    if (scale.TemplateDefault != null)
+                        scale.TemplateDefault = GetEntity<TableScaleModels.TemplateEntity>(scale.TemplateDefault.Id);
+                    if (scale.TemplateSeries != null)
+                        scale.TemplateSeries = GetEntity<TableScaleModels.TemplateEntity>(scale.TemplateSeries.Id);
+                    if (scale.WorkShop != null)
+                        scale.WorkShop = GetEntity<TableScaleModels.WorkshopEntity>(scale.WorkShop.Id);
+                    if (scale.Printer != null)
+                        scale.Printer = GetEntity<TableScaleModels.PrinterEntity>(scale.Printer.Id);
+                    if (scale.Host != null)
+                        scale.Host = GetEntity<TableSystemModels.HostEntity>(scale.Host.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.TaskEntity))
+            else if (item is TableScaleModels.TaskEntity task)
             {
-                TableScaleModels.TaskEntity? taskEntity = (TableScaleModels.TaskEntity)(object)item;
-                if (!taskEntity.EqualsEmpty())
+                if (!task.EqualsEmpty())
                 {
-                    if (taskEntity.TaskType != null && DataAccess.TaskTypeCrud != null)
-                        taskEntity.TaskType = DataAccess.TaskTypeCrud.GetEntity(taskEntity.TaskType.Uid);
-                    if (taskEntity.Scale != null && DataAccess.ScalesCrud != null)
-                        taskEntity.Scale = DataAccess.ScalesCrud.GetEntity(taskEntity.Scale.Id);
+                    if (task.TaskType != null)
+                        task.TaskType = GetEntity<TableScaleModels.TaskTypeEntity>(task.TaskType.Uid);
+                    if (task.Scale != null)
+                        task.Scale = GetEntity<TableScaleModels.ScaleEntity>(task.Scale.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.TaskTypeEntity))
+            else if (item is TableScaleModels.TaskTypeEntity taskType)
             {
-                TableScaleModels.TaskTypeEntity? taskTypeEntity = (TableScaleModels.TaskTypeEntity)(object)item;
-                if (!taskTypeEntity.EqualsEmpty())
+                if (!taskType.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.TemplateResourceEntity))
+            else if (item is TableScaleModels.TemplateEntity template)
             {
-                TableScaleModels.TemplateResourceEntity? templateResourcesEntity = (TableScaleModels.TemplateResourceEntity)(object)item;
-                if (!templateResourcesEntity.EqualsEmpty())
+                if (!template.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.TemplateEntity))
+            else if (item is TableScaleModels.TemplateResourceEntity templateResource)
             {
-                TableScaleModels.TemplateEntity? templatesEntity = (TableScaleModels.TemplateEntity)(object)item;
-                if (!templatesEntity.EqualsEmpty())
+                if (!templateResource.EqualsEmpty())
                 {
                     //
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.WeithingFactEntity))
+            else if (item is TableScaleModels.WeithingFactEntity weithingFact)
             {
-                TableScaleModels.WeithingFactEntity? weithingFactEntity = (TableScaleModels.WeithingFactEntity)(object)item;
-                if (!weithingFactEntity.EqualsEmpty())
+                if (!weithingFact.EqualsEmpty())
                 {
-                    if (weithingFactEntity.Plu != null && DataAccess.PlusCrud != null)
-                        weithingFactEntity.Plu = DataAccess.PlusCrud.GetEntity(weithingFactEntity.Plu.Id);
-                    if (weithingFactEntity.Scales != null && DataAccess.ScalesCrud != null)
-                        weithingFactEntity.Scales = DataAccess.ScalesCrud.GetEntity(weithingFactEntity.Scales.Id);
-                    if (weithingFactEntity.Series != null && DataAccess.ProductSeriesCrud != null)
-                        weithingFactEntity.Series = DataAccess.ProductSeriesCrud.GetEntity(weithingFactEntity.Series.Id);
-                    if (weithingFactEntity.Orders != null && DataAccess.OrdersCrud != null)
-                        weithingFactEntity.Orders = DataAccess.OrdersCrud.GetEntity(weithingFactEntity.Orders.Id);
+                    if (weithingFact.Plu != null)
+                        weithingFact.Plu = GetEntity<TableScaleModels.PluEntity>(weithingFact.Plu.Id);
+                    if (weithingFact.Scales != null)
+                        weithingFact.Scales = GetEntity<TableScaleModels.ScaleEntity>(weithingFact.Scales.Id);
+                    if (weithingFact.Series != null)
+                        weithingFact.Series = GetEntity<TableScaleModels.ProductSeriesEntity>(weithingFact.Series.Id);
+                    if (weithingFact.Orders != null)
+                        weithingFact.Orders = GetEntity<TableScaleModels.OrderEntity>(weithingFact.Orders.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.WorkshopEntity))
+            else if (item is TableScaleModels.WorkshopEntity workshop)
             {
-                TableScaleModels.WorkshopEntity? workshopEntity = (TableScaleModels.WorkshopEntity)(object)item;
-                if (!workshopEntity.EqualsEmpty())
+                if (!workshop.EqualsEmpty())
                 {
-                    if (workshopEntity.ProductionFacility != null && DataAccess.ProductionFacilitiesCrud != null)
-                        workshopEntity.ProductionFacility = DataAccess.ProductionFacilitiesCrud.GetEntity(workshopEntity.ProductionFacility.Id);
+                    if (workshop.ProductionFacility != null)
+                        workshop.ProductionFacility = GetEntity<TableScaleModels.ProductionFacilityEntity>(workshop.ProductionFacility.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.PrinterEntity))
+            else if (item is TableScaleModels.PrinterEntity printer)
             {
-                TableScaleModels.PrinterEntity? zebraPrinterEntity = (TableScaleModels.PrinterEntity)(object)item;
-                if (!zebraPrinterEntity.EqualsEmpty())
+                if (!printer.EqualsEmpty())
                 {
-                    if (zebraPrinterEntity.PrinterType != null && DataAccess.PrinterTypesCrud != null)
-                        zebraPrinterEntity.PrinterType = DataAccess.PrinterTypesCrud.GetEntity(zebraPrinterEntity.PrinterType.Id);
+                    if (printer.PrinterType != null)
+                        printer.PrinterType = GetEntity<TableScaleModels.PrinterTypeEntity>(printer.PrinterType.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.PrinterResourceEntity))
+            else if (item is TableScaleModels.PrinterResourceEntity printerResource)
             {
-                TableScaleModels.PrinterResourceEntity? zebraPrinterResourceRefEntity = (TableScaleModels.PrinterResourceEntity)(object)item;
-                if (!zebraPrinterResourceRefEntity.EqualsEmpty())
+                if (!printerResource.EqualsEmpty())
                 {
-                    if (zebraPrinterResourceRefEntity.Printer != null && DataAccess.PrintersCrud != null)
-                        zebraPrinterResourceRefEntity.Printer = DataAccess.PrintersCrud.GetEntity(zebraPrinterResourceRefEntity.Printer.Id);
-                    if (zebraPrinterResourceRefEntity.Resource != null && DataAccess.TemplateResourcesCrud != null)
-                        zebraPrinterResourceRefEntity.Resource = DataAccess.TemplateResourcesCrud.GetEntity(zebraPrinterResourceRefEntity.Resource.Id);
+                    if (printerResource.Printer != null)
+                        printerResource.Printer = GetEntity<TableScaleModels.PrinterEntity>(printerResource.Printer.Id);
+                    if (printerResource.Resource != null)
+                        printerResource.Resource = GetEntity<TableScaleModels.TemplateResourceEntity>(printerResource.Resource.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
+            else if (item is TableScaleModels.PrinterTypeEntity printerType)
             {
-                TableScaleModels.PrinterTypeEntity? zebraPrinterTypeEntity = (TableScaleModels.PrinterTypeEntity)(object)item;
-                if (!zebraPrinterTypeEntity.EqualsEmpty())
+                if (!printerType.EqualsEmpty())
                 {
                     //
                 }
             }
         }
 
-        private void FillReferencesDwh(IBaseEntity item)
+        private void FillReferencesDwh<T>(T item) where T : IBaseEntity, new()
         {
-            if (typeof(T) == typeof(TableDwhModels.BrandEntity))
+            if (item is TableDwhModels.BrandEntity brand)
             {
-                TableDwhModels.BrandEntity brandEntity = (TableDwhModels.BrandEntity)(object)item;
-                if (!brandEntity.EqualsEmpty())
+                if (!brand.EqualsEmpty())
                 {
-                    if (brandEntity.InformationSystem != null && DataAccess.InformationSystemCrud != null)
-                        brandEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(brandEntity.InformationSystem.Id);
+                    if (brand.InformationSystem != null)
+                        brand.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(brand.InformationSystem.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableDwhModels.NomenclatureEntity))
+            else if (item is TableDwhModels.NomenclatureEntity nomenclature)
             {
-                TableDwhModels.NomenclatureEntity? nomenclatureEntity = (TableDwhModels.NomenclatureEntity)(object)item;
-                if (!nomenclatureEntity.EqualsEmpty())
+                if (!nomenclature.EqualsEmpty())
                 {
                     //if (nomenclatureEntity.BrandBytes != null && nomenclatureEntity.BrandBytes.Length > 0)
                     //    nomenclatureEntity.Brand = DataAccess.BrandCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.BrandBytes);
@@ -549,68 +494,70 @@ namespace DataProjectsCore.DAL.Models
                     //    nomenclatureEntity.NomenclatureGroup = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
                     //if (nomenclatureEntity.NomenclatureTypeBytes != null && nomenclatureEntity.NomenclatureTypeBytes.Length > 0)
                     //    nomenclatureEntity.NomenclatureType = DataAccess.NomenclatureTypeCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
-                    if (nomenclatureEntity.Status != null && DataAccess.StatusCrud != null)
-                        nomenclatureEntity.Status = DataAccess.StatusCrud.GetEntity(nomenclatureEntity.Status.Id);
+                    if (nomenclature.Status != null)
+                        nomenclature.Status = GetEntity<TableDwhModels.StatusEntity>(nomenclature.Status.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableDwhModels.NomenclatureLightEntity))
+            else if (item is TableDwhModels.NomenclatureLightEntity nomenclatureLight)
             {
-                TableDwhModels.NomenclatureLightEntity nomenclatureLightEntity = (TableDwhModels.NomenclatureLightEntity)(object)item;
-                if (!nomenclatureLightEntity.EqualsEmpty())
+                if (!nomenclatureLight.EqualsEmpty())
                 {
-                    if (nomenclatureLightEntity.InformationSystem != null && DataAccess.InformationSystemCrud != null)
-                        nomenclatureLightEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureLightEntity.InformationSystem.Id);
+                    if (nomenclatureLight.InformationSystem != null)
+                        nomenclatureLight.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureLight.InformationSystem.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableDwhModels.NomenclatureGroupEntity))
+            else if (item is TableDwhModels.NomenclatureGroupEntity nomenclatureGroup)
             {
-                TableDwhModels.NomenclatureGroupEntity nomenclatureGroupEntity = (TableDwhModels.NomenclatureGroupEntity)(object)item;
-                if (!nomenclatureGroupEntity.EqualsEmpty())
+                if (!nomenclatureGroup.EqualsEmpty())
                 {
-                    if (nomenclatureGroupEntity.InformationSystem != null && DataAccess.InformationSystemCrud != null)
-                        nomenclatureGroupEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureGroupEntity.InformationSystem.Id);
+                    if (nomenclatureGroup.InformationSystem != null)
+                        nomenclatureGroup.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureGroup.InformationSystem.Id);
                 }
             }
-            else if (typeof(T) == typeof(TableDwhModels.NomenclatureTypeEntity))
+            else if (item is TableDwhModels.NomenclatureTypeEntity nomenclatureType)
             {
-                TableDwhModels.NomenclatureTypeEntity nomenclatureTypeEntity = (TableDwhModels.NomenclatureTypeEntity)(object)item;
-                if (!nomenclatureTypeEntity.EqualsEmpty())
+                if (!nomenclatureType.EqualsEmpty())
                 {
-                    if (nomenclatureTypeEntity.InformationSystem != null && DataAccess.InformationSystemCrud != null)
-                        nomenclatureTypeEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureTypeEntity.InformationSystem.Id);
+                    if (nomenclatureType.InformationSystem != null)
+                        nomenclatureType.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity> (nomenclatureType.InformationSystem.Id);
                 }
             }
         }
 
-        public T GetEntity(FieldListEntity? fieldList, FieldOrderEntity order,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity order,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
-            IBaseEntity item = GetEntity<T>(fieldList, order, filePath, lineNumber, memberName);
+            T? item = new();
+            ExecTransaction((session) => {
+                ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
+                IList<T>? list = criteria?.List<T>();
+                item = list.FirstOrDefault() ?? new T();
+            }, filePath, lineNumber, memberName);
             FillReferences(item);
             return item;
         }
 
-        public IBaseEntity GetEntity(int id)
+        public T GetEntity<T>(int id) where T : IBaseEntity, new()
         {
-            return GetEntity(
+            return GetEntity<T>(
                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
                 new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
         }
 
-        public IBaseEntity GetEntity(Guid uid)
+        public T GetEntity<T>(Guid uid) where T : IBaseEntity, new()
         {
-            return GetEntity(
+            return GetEntity<T>(
                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Uid.ToString(), uid } }),
                 new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc));
         }
 
-        public IBaseEntity[]? GetEntities(FieldListEntity fieldList, FieldOrderEntity order, int maxResults = 0,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public T[]? GetEntities<T>(FieldListEntity fieldList, FieldOrderEntity order, int maxResults = 0,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
-            IBaseEntity[]? items = GetEntitiesWithoutReferences(fieldList, order, maxResults, filePath, lineNumber, memberName);
+            T[]? items = GetEntitiesWithoutReferences<T>(fieldList, order, maxResults, filePath, lineNumber, memberName);
             if (items != null)
             {
-                foreach (IBaseEntity? item in items)
+                foreach (T item in items)
                 {
                     FillReferences(item);
                 }
@@ -624,33 +571,34 @@ namespace DataProjectsCore.DAL.Models
         //    return DataAccess.GetEntitiesNative<T>(fieldsSelect, from, valuesParams, filePath, lineNumber, memberName);
         //}
 
-        public IBaseEntity[] GetEntitiesNativeMappingInside(string query, string filePath, int lineNumber, string memberName)
+        public T[] GetEntitiesNativeMappingInside<T>(string query, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
-            IBaseEntity[]? result = new IBaseEntity[0];
+            T[]? result = new T[0];
             ExecTransaction((session) => {
                 ISQLQuery? sqlQuery = GetSqlQuery(session, query);
                 if (sqlQuery != null)
                 {
-                    sqlQuery.AddEntity(typeof(IBaseEntity));
+                    sqlQuery.AddEntity(typeof(T));
                     System.Collections.IList? listEntities = sqlQuery.List();
-                    result = new IBaseEntity[listEntities.Count];
+                    result = new T[listEntities.Count];
                     for (int i = 0; i < result.Length; i++)
                     {
-                        result[i] = (IBaseEntity)listEntities[i];
+                        result[i] = (T)listEntities[i];
                     }
                 }
             }, filePath, lineNumber, memberName);
             return result;
         }
 
-        public IBaseEntity[] GetEntitiesNativeMapping(string query,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public T[] GetEntitiesNativeMapping<T>(string query,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             //return DataAccess.GetEntitiesNativeMapping<T>(query, filePath, lineNumber, memberName);
-            return GetEntitiesNativeMappingInside(query, filePath, lineNumber, memberName);
+            return GetEntitiesNativeMappingInside<T>(query, filePath, lineNumber, memberName);
         }
 
-        public object[] GetEntitiesNativeObjectInside(string query, string filePath, int lineNumber, string memberName)
+        public object[] GetEntitiesNativeObject(string query,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             object[]? result = new object[0];
             ExecTransaction((session) => {
@@ -669,13 +617,6 @@ namespace DataProjectsCore.DAL.Models
                 }
             }, filePath, lineNumber, memberName);
             return result;
-        }
-
-        public object[] GetEntitiesNativeObject(string query,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            //return DataAccess.GetEntitiesNativeObject(query, filePath, lineNumber, memberName);
-            return GetEntitiesNativeObjectInside(query, filePath, lineNumber, memberName);
         }
 
         public int ExecQueryNativeInside(string query, Dictionary<string, object> parameters, string filePath, int lineNumber, string memberName)
@@ -705,7 +646,7 @@ namespace DataProjectsCore.DAL.Models
             return ExecQueryNativeInside(query, parameters, filePath, lineNumber, memberName);
         }
 
-        public void SaveEntityInside(IBaseEntity item, string filePath, int lineNumber, string memberName)
+        public void SaveEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
             ExecTransaction((session) => {
@@ -713,13 +654,13 @@ namespace DataProjectsCore.DAL.Models
             }, filePath, lineNumber, memberName);
         }
 
-        public void SaveEntity(IBaseEntity item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void SaveEntity<T>(T item,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
             if (item is BaseIdEntity idEntity)
             {
-                if (!item.Equals(GetEntity(idEntity.Id)))
+                if (!item.Equals(GetEntity<T>(idEntity.Id)))
                 {
                     if (item is TableScaleModels.ContragentEntity)
                     {
@@ -741,7 +682,7 @@ namespace DataProjectsCore.DAL.Models
             {
                 if (item is BaseUidEntity uidEntity)
                 {
-                    if (!item.Equals(GetEntity(uidEntity.Uid)))
+                    if (!item.Equals(GetEntity<T>(uidEntity.Uid)))
                     {
                         if (item is TableScaleModels.ContragentEntity)
                         {
@@ -762,7 +703,7 @@ namespace DataProjectsCore.DAL.Models
             }
         }
 
-        public void UpdateEntityInside(IBaseEntity item, string filePath, int lineNumber, string memberName)
+        public void UpdateEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
             ExecTransaction((session) => {
@@ -770,8 +711,8 @@ namespace DataProjectsCore.DAL.Models
             }, filePath, lineNumber, memberName);
         }
 
-        public void UpdateEntity(IBaseEntity item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void UpdateEntity<T>(T item,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
 
@@ -891,17 +832,17 @@ namespace DataProjectsCore.DAL.Models
             UpdateEntityInside(item, filePath, lineNumber, memberName);
         }
 
-        public void DeleteEntity(IBaseEntity item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void DeleteEntity<T>(T item,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
-
-            //DataAccess.DeleteEntity(item, filePath, lineNumber, memberName);
-            DeleteEntity(item, filePath, lineNumber, memberName);
+            ExecTransaction((session) => {
+                session.Delete(item);
+            }, filePath, lineNumber, memberName);
         }
 
-        public void MarkedEntity(IBaseEntity item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void MarkedEntity<T>(T item,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
 
@@ -948,92 +889,112 @@ namespace DataProjectsCore.DAL.Models
             {
                 plu.Marked = true;
             }
-            else if (typeof(T) == typeof(TableScaleModels.ProductionFacilityEntity))
+            else if (item is TableScaleModels.ProductionFacilityEntity productionFacility)
             {
-                ((TableScaleModels.ProductionFacilityEntity)(object)item).Marked = true;
+                productionFacility.Marked = true;
             }
-            else if (typeof(T) == typeof(TableScaleModels.ProductSeriesEntity))
+            else if (item is TableScaleModels.ProductSeriesEntity)
             {
                 //
             }
-            else if (typeof(T) == typeof(TableScaleModels.ScaleEntity))
+            else if (item is TableScaleModels.ScaleEntity scale)
             {
-                ((TableScaleModels.ScaleEntity)(object)item).Marked = true;
+                scale.Marked = true;
             }
-            else if (typeof(T) == typeof(TableScaleModels.TemplateResourceEntity))
+            else if (item is TableScaleModels.TemplateResourceEntity templateResource)
             {
-                ((TableScaleModels.TemplateResourceEntity)(object)item).Marked = true;
+                templateResource.Marked = true;
             }
-            else if (typeof(T) == typeof(TableScaleModels.TemplateEntity))
+            else if (item is TableScaleModels.TemplateEntity template)
             {
-                ((TableScaleModels.TemplateEntity)(object)item).Marked = true;
+                template.Marked = true;
             }
-            else if (typeof(T) == typeof(TableScaleModels.WeithingFactEntity))
+            else if (item is TableScaleModels.WeithingFactEntity)
             {
                 //
             }
-            else if (typeof(T) == typeof(TableScaleModels.WorkshopEntity))
+            else if (item is TableScaleModels.WorkshopEntity workshop)
             {
-                ((TableScaleModels.WorkshopEntity)(object)item).Marked = true;
+                workshop.Marked = true;
             }
-            else if (typeof(T) == typeof(TableScaleModels.PrinterEntity))
+            else if (item is TableScaleModels.PrinterEntity printer)
             {
-                ((TableScaleModels.PrinterEntity)(object)item).Marked = true;
+                printer.Marked = true;
             }
-            else if (typeof(T) == typeof(TableScaleModels.PrinterResourceEntity))
+            else if (item is TableScaleModels.PrinterResourceEntity)
             {
                 //
             }
-            else if (typeof(T) == typeof(TableScaleModels.PrinterTypeEntity))
+            else if (item is TableScaleModels.PrinterTypeEntity)
             {
-                ((TableScaleModels.PrinterEntity)(object)item).Marked = true;
+                //
             }
             
             // DWH.
-            else if (typeof(T) == typeof(TableDwhModels.BrandEntity))
+            else if (item is TableDwhModels.BrandEntity)
             {
                 //
             }
-            else if (typeof(T) == typeof(TableDwhModels.InformationSystemEntity))
+            else if (item is TableDwhModels.InformationSystemEntity)
             {
                 //
             }
-            else if (typeof(T) == typeof(TableDwhModels.NomenclatureEntity))
+            else if (item is TableDwhModels.NomenclatureEntity)
             {
                 //
             }
-            else if (typeof(T) == typeof(TableDwhModels.NomenclatureGroupEntity))
+            else if (item is TableDwhModels.NomenclatureGroupEntity)
             {
                 //
             }
-            else if (typeof(T) == typeof(TableDwhModels.NomenclatureLightEntity))
+            else if (item is TableDwhModels.NomenclatureLightEntity)
             {
                 //
             }
-            else if (typeof(T) == typeof(TableDwhModels.NomenclatureTypeEntity))
+            else if (item is TableDwhModels.NomenclatureTypeEntity)
             {
                 //
             }
-            else if (typeof(T) == typeof(TableDwhModels.StatusEntity))
+            else if (item is TableDwhModels.StatusEntity)
             {
                 //
             }
 
             //DataAccess.UpdateEntity(item, filePath, lineNumber, memberName);
-            UpdateEntityInside(item, filePath, lineNumber, memberName);
+            UpdateEntityInside<T>(item, filePath, lineNumber, memberName);
         }
 
-        public bool ExistsEntity(T item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public bool ExistsEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
+        {
+            bool result = false;
+            ExecTransaction((session) => {
+                result = session.Query<T>().Any(x => x.IsAny(item));
+            }, filePath, lineNumber, memberName);
+            return result;
+        }
+
+        public bool ExistsEntity<T>(T item,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return false;
-            return DataAccess.ExistsEntity(item, filePath, lineNumber, memberName);
+            //return DataAccess.ExistsEntity(item, filePath, lineNumber, memberName);
+            return ExistsEntityInside(item, filePath, lineNumber, memberName);
         }
 
-        public bool ExistsEntity(FieldListEntity fieldList, FieldOrderEntity order,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public bool ExistsEntityInside<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
-            return DataAccess.ExistsEntity<T>(fieldList, order, filePath, lineNumber, memberName);
+            bool result = false;
+            ExecTransaction((session) => {
+                result = GetCriteria<T>(session, fieldList, order, 1).List<T>().Count > 0;
+            }, filePath, lineNumber, memberName);
+            return result;
+        }
+
+        public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity order,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
+        {
+            //return DataAccess.ExistsEntity<T>(fieldList, order, filePath, lineNumber, memberName);
+            return ExistsEntityInside<T>(fieldList, order, filePath, lineNumber, memberName);
         }
 
         #endregion

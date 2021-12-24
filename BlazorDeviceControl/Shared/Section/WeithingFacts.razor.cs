@@ -35,7 +35,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 
-                    object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(
+                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
                         SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts, string.Empty, 0, string.Empty);
                     Items = new List<WeithingFactSummaryEntity>().ToList<IBaseEntity>();
                     foreach (object obj in objects)

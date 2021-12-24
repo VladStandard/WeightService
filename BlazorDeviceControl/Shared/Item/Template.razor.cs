@@ -3,6 +3,7 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.Models;
@@ -37,7 +38,7 @@ namespace BlazorDeviceControl.Shared.Item
                     TemplateCategories = null;
                     await GuiRefreshWithWaitAsync();
 
-                    TemplateItem = AppSettings.DataAccess.TemplatesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                    TemplateItem = AppSettings.DataAccess.TemplatesCrud.GetEntity<TemplateEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                     TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
                     await GuiRefreshWithWaitAsync();

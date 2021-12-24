@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Section
 
             await GetDataAsync(new Task(delegate
             {
-                Items = AppSettings.DataAccess.DeviceCrud.GetEntities(null, null).ToList<IBaseEntity>();
+                Items = AppSettings.DataAccess.DeviceCrud.GetEntities<DeviceEntity>(null, null).ToList<IBaseEntity>();
             }), false).ConfigureAwait(false);
         }
 

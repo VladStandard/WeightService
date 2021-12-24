@@ -93,7 +93,7 @@ namespace BlazorProjectsCore.Models
                                             printerItem.PrinterType = null;
                                         else
                                         {
-                                            printerItem.PrinterType = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(
+                                            printerItem.PrinterType = AppSettings.DataAccess.PrinterTypesCrud.GetEntity<PrinterTypeEntity>(
                                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
                                             null);
                                         }
@@ -196,7 +196,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.BarcodeTypes:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idBarcodeType))
                         {
-                            BarcodeTypeEntity barcodeTypeEntity = AppSettings.DataAccess.BarcodeTypesCrud.GetEntity(
+                            BarcodeTypeEntity barcodeTypeEntity = AppSettings.DataAccess.BarcodeTypesCrud.GetEntity<BarcodeTypeEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idBarcodeType },
                                 }), null);
@@ -206,7 +206,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Contragents:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idContragent))
                         {
-                            ContragentEntity contragentEntity = AppSettings.DataAccess.ContragentsCrud.GetEntity(
+                            ContragentEntity contragentEntity = AppSettings.DataAccess.ContragentsCrud.GetEntity<ContragentEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idContragent },
                                 }), null);
@@ -216,7 +216,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Hosts:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idHost))
                         {
-                            HostEntity hostEntity = AppSettings.DataAccess.HostsCrud.GetEntity(
+                            HostEntity hostEntity = AppSettings.DataAccess.HostsCrud.GetEntity<HostEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idHost },
                                 }), null);
@@ -226,7 +226,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Labels:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idLabel))
                         {
-                            LabelEntity labelEntity = AppSettings.DataAccess.LabelsCrud.GetEntity(
+                            LabelEntity labelEntity = AppSettings.DataAccess.LabelsCrud.GetEntity<LabelEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idLabel },
                                 }), null);
@@ -236,7 +236,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Nomenclatures:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idNomenclature))
                         {
-                            NomenclatureEntity nomenclatureEntity = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
+                            NomenclatureEntity nomenclatureEntity = AppSettings.DataAccess.NomenclaturesCrud.GetEntity<NomenclatureEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idNomenclature },
                                 }), null);
@@ -246,7 +246,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.OrderStatuses:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrderStatus))
                         {
-                            OrderStatusEntity orderStatusEntity = AppSettings.DataAccess.OrderStatusesCrud.GetEntity(
+                            OrderStatusEntity orderStatusEntity = AppSettings.DataAccess.OrderStatusesCrud.GetEntity<OrderStatusEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idOrderStatus },
                                 }), null);
@@ -256,7 +256,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.OrderTypes:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrderType))
                         {
-                            OrderTypeEntity orderTypeEntity = AppSettings.DataAccess.OrderTypesCrud.GetEntity(
+                            OrderTypeEntity orderTypeEntity = AppSettings.DataAccess.OrderTypesCrud.GetEntity<OrderTypeEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idOrderType },
                                 }), null);
@@ -266,7 +266,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Orders:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrder))
                         {
-                            OrderEntity orderEntity = AppSettings.DataAccess.OrdersCrud.GetEntity(
+                            OrderEntity orderEntity = AppSettings.DataAccess.OrdersCrud.GetEntity<OrderEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idOrder },
                                 }), null);
@@ -276,7 +276,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Plus:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPlu))
                         {
-                            PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
+                            PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity<PluEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idPlu },
                                 }), null);
@@ -286,7 +286,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Printers:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinter))
                         {
-                            PrinterEntity printerEntity = AppSettings.DataAccess.PrintersCrud.GetEntity(
+                            PrinterEntity printerEntity = AppSettings.DataAccess.PrintersCrud.GetEntity<PrinterEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idPrinter },
                                 }), null);
@@ -296,7 +296,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.PrinterResources:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinterResource))
                         {
-                            PrinterResourceEntity printerResourceEntity = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(
+                            PrinterResourceEntity printerResourceEntity = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity<PrinterResourceEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idPrinterResource },
                                 }), null);
@@ -306,7 +306,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.PrinterTypes:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinterType))
                         {
-                            PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(
+                            PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.PrinterTypesCrud.GetEntity<PrinterTypeEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idPrinterType },
                                 }), null);
@@ -316,7 +316,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.ProductSeries:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idProductSeries))
                         {
-                            ProductSeriesEntity productSeriesEntity = AppSettings.DataAccess.ProductSeriesCrud.GetEntity(
+                            ProductSeriesEntity productSeriesEntity = AppSettings.DataAccess.ProductSeriesCrud.GetEntity<ProductSeriesEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idProductSeries },
                                 }), null);
@@ -326,7 +326,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.ProductionFacilities:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idProductionFacility))
                         {
-                            ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity(
+                            ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity<ProductionFacilityEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idProductionFacility },
                                 }), null);
@@ -336,7 +336,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Scales:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idScale))
                         {
-                            ScaleEntity scaleEntity = AppSettings.DataAccess.ScalesCrud.GetEntity(
+                            ScaleEntity scaleEntity = AppSettings.DataAccess.ScalesCrud.GetEntity<ScaleEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idScale },
                                 }), null);
@@ -346,7 +346,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.TemplateResources:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idTemplateResource))
                         {
-                            TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(
+                            TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity<TemplateResourceEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idTemplateResource },
                                 }), null);
@@ -356,7 +356,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Templates:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idTemplate))
                         {
-                            TemplateEntity templateEntity = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                            TemplateEntity templateEntity = AppSettings.DataAccess.TemplatesCrud.GetEntity<TemplateEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idTemplate },
                                 }), null);
@@ -366,7 +366,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.WeithingFacts:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idWeithingFact))
                         {
-                            WeithingFactEntity weithingFactEntity = AppSettings.DataAccess.WeithingFactsCrud.GetEntity(
+                            WeithingFactEntity weithingFactEntity = AppSettings.DataAccess.WeithingFactsCrud.GetEntity<WeithingFactEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idWeithingFact },
                                 }), null);
@@ -376,7 +376,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableScale.Workshops:
                         if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idWorkshop))
                         {
-                            WorkshopEntity workshopEntity = AppSettings.DataAccess.WorkshopsCrud.GetEntity(
+                            WorkshopEntity workshopEntity = AppSettings.DataAccess.WorkshopsCrud.GetEntity<WorkshopEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Id.ToString(), idWorkshop },
                                 }), null);
@@ -394,7 +394,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableSystem.Accesses:
                         if (parameters.TryGetValue(ShareEnums.DbField.Uid.ToString(), out Guid uidAccess))
                         {
-                            AccessEntity accessEntity = AppSettings.DataAccess.AccessesCrud.GetEntity(
+                            AccessEntity accessEntity = AppSettings.DataAccess.AccessesCrud.GetEntity<AccessEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Uid.ToString(), uidAccess },
                                 }), null);
@@ -404,7 +404,7 @@ namespace BlazorProjectsCore.Models
                     case ProjectsEnums.TableSystem.Logs:
                         if (parameters.TryGetValue(ShareEnums.DbField.Uid.ToString(), out Guid uidLog))
                         {
-                            LogEntity logEntity = AppSettings.DataAccess.LogsCrud.GetEntity(
+                            LogEntity logEntity = AppSettings.DataAccess.LogsCrud.GetEntity<LogEntity>(
                                 new FieldListEntity(new Dictionary<string, object> {
                                     { ShareEnums.DbField.Uid.ToString(), uidLog },
                                 }), null);
@@ -422,7 +422,7 @@ namespace BlazorProjectsCore.Models
         public ChartCountEntity[] GetContragentsChartEntities(ShareEnums.DbField field)
         {
             ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-            ContragentEntity[] entities = AppSettings.DataAccess.ContragentsCrud.GetEntities(null,
+            ContragentEntity[] entities = AppSettings.DataAccess.ContragentsCrud.GetEntities<ContragentEntity>(null,
                 new FieldOrderEntity(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc));
             int i = 0;
             switch (field)
@@ -468,7 +468,7 @@ namespace BlazorProjectsCore.Models
         public ChartCountEntity[] GetNomenclaturesChartEntities(ShareEnums.DbField field)
         {
             ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-            NomenclatureEntity[] entities = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(null,
+            NomenclatureEntity[] entities = AppSettings.DataAccess.NomenclaturesCrud.GetEntities<NomenclatureEntity>(null,
                 new FieldOrderEntity(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc));
             int i = 0;
             switch (field)
@@ -615,7 +615,7 @@ namespace BlazorProjectsCore.Models
                     Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsEntity.Delay);
             }
             // SQL log.
-            AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
 
         public void RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel, string questionAdd,
@@ -904,7 +904,7 @@ namespace BlazorProjectsCore.Models
             bool success = true;
             if (success)
             {
-                int idLast = AppSettings.DataAccess.PrinterTypesCrud.GetEntity(null, 
+                int idLast = AppSettings.DataAccess.PrinterTypesCrud.GetEntity<PrinterTypeEntity>(null, 
                     new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
                 item.Id = idLast + 1;
                 if (item.Id == 0)
@@ -927,7 +927,7 @@ namespace BlazorProjectsCore.Models
                 }
                 else
                 {
-                    bool existsEntity = AppSettings.DataAccess.PrinterResourcesCrud.ExistsEntity(
+                    bool existsEntity = AppSettings.DataAccess.PrinterResourcesCrud.ExistsEntity<PrinterResourceEntity>(
                         new FieldListEntity(new Dictionary<string, object>
                             {{ShareEnums.DbField.Id.ToString(), item.Id}}),
                         new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
@@ -1093,8 +1093,8 @@ namespace BlazorProjectsCore.Models
         }
 
         [Obsolete(@"Deprecated method. Use Action method.")]
-        private async Task ActionAsync<T>(ITableEntity table, ShareEnums.DbTableAction tableAction, IBaseEntity item, IBaseEntity parentItem = null)
-            where T : BaseRazorEntity
+        private async Task ActionAsync<T, TI>(ITableEntity table, ShareEnums.DbTableAction tableAction, TI item, IBaseEntity parentItem = null)
+            where T : BaseRazorEntity where TI : IBaseEntity, new()
         {
             await RunTasksAsync(LocalizationCore.Strings.TableRead, "", LocalizationCore.Strings.DialogResultFail, "",
                 new List<Task> { new Task(delegate {
@@ -1106,23 +1106,23 @@ namespace BlazorProjectsCore.Models
                         {
                             idEntity = tableScales.Value switch
                             {
-                                ProjectsEnums.TableScale.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity<BarcodeTypeEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Contragents => AppSettings.DataAccess.ActionGetIdEntity<ContragentEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Hosts => AppSettings.DataAccess.ActionGetIdEntity<HostEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Nomenclatures => AppSettings.DataAccess.ActionGetIdEntity<NomenclatureEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.OrderStatuses => AppSettings.DataAccess.ActionGetIdEntity<OrderStatusEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity<OrderTypeEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Plus => AppSettings.DataAccess.ActionGetIdEntity<PluEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.ProductionFacilities => AppSettings.DataAccess.ActionGetIdEntity<ProductionFacilityEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity<ProductSeriesEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Scales => AppSettings.DataAccess.ActionGetIdEntity<ScaleEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity<TemplateResourceEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Templates => AppSettings.DataAccess.ActionGetIdEntity<TemplateEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Workshops => AppSettings.DataAccess.ActionGetIdEntity<WorkshopEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.WeithingFacts => AppSettings.DataAccess.ActionGetIdEntity<WeithingFactEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Printers => AppSettings.DataAccess.ActionGetIdEntity<PrinterEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.PrinterResources => AppSettings.DataAccess.ActionGetIdEntity<PrinterResourceEntity>(idEntity, tableAction),
-                                ProjectsEnums.TableScale.PrinterTypes => AppSettings.DataAccess.ActionGetIdEntity<PrinterTypeEntity>(idEntity, tableAction),
+                                ProjectsEnums.TableScale.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.Contragents => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.Hosts => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.Nomenclatures => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.OrderStatuses => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.Plus => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.ProductionFacilities => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.Scales => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.Templates => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.Workshops => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.WeithingFacts => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.Printers => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.PrinterResources => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+                                ProjectsEnums.TableScale.PrinterTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
                                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
                             };
                         }
@@ -1232,13 +1232,29 @@ namespace BlazorProjectsCore.Models
                         case ShareEnums.DbTableAction.Delete:
                             if (AppSettings.IdentityItem.AccessLevel == true)
                             {
-                                AppSettings.DataAccess.ActionDeleteEntity(Item);
+                                switch (Item)
+                                {
+                                    case BaseIdEntity baseIdEntity:
+                                        AppSettings.DataAccess.ActionDeleteEntity(baseIdEntity);
+                                        break;
+                                    case BaseUidEntity baseUidEntity:
+                                        AppSettings.DataAccess.ActionDeleteEntity(baseUidEntity);
+                                        break;
+                                }
                             }
                             break;
                         case ShareEnums.DbTableAction.Mark:
                             if (AppSettings.IdentityItem.AccessLevel == true)
                             {
-                                AppSettings.DataAccess.ActionMarkedEntity(Item);
+                                switch (Item)
+                                {
+                                    case BaseIdEntity baseIdEntity:
+                                        AppSettings.DataAccess.ActionMarkedEntity(baseIdEntity);
+                                        break;
+                                    case BaseUidEntity baseUidEntity:
+                                        AppSettings.DataAccess.ActionMarkedEntity(baseUidEntity);
+                                        break;
+                                }
                             }
                             break;
                     }

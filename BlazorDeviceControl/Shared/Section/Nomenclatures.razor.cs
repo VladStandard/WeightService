@@ -35,7 +35,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(
+                    Items = AppSettings.DataAccess.NomenclaturesCrud.GetEntities<NomenclatureEntity>(
                         //new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                         null,
                         new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))

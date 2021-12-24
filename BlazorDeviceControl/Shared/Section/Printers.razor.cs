@@ -38,7 +38,7 @@ namespace BlazorDeviceControl.Shared.Section
                     TemplateCategories = null;
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.PrintersCrud.GetEntities(
+                    Items = AppSettings.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(
                         new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                         new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                         .ToList<IBaseEntity>();

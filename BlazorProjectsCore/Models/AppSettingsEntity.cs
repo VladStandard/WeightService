@@ -119,7 +119,7 @@ namespace BlazorProjectsCore.Models
             IdentityItem.IsAccess = false;
             if (DataAccess != null)
             {
-                object[] objects = DataAccess.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccessUser(IdentityItem.Name), 
+                object[] objects = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccessUser(IdentityItem.Name), 
                     filePath, lineNumber, memberName);
                 if (objects.Length == 1)
                 {

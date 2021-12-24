@@ -95,7 +95,7 @@ namespace BlazorDeviceControl.Shared.Item
                     case "Scale":
                         if (value is int idScale)
                         {
-                            PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
+                            PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity<ScaleEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
                                 null);
                         }
@@ -103,7 +103,7 @@ namespace BlazorDeviceControl.Shared.Item
                     case "Nomenclature":
                         if (value is int idNomenclature)
                         {
-                            PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity(
+                            PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity<NomenclatureEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
                                 null);
                             OnClickFieldsFill("Entity");
@@ -116,7 +116,7 @@ namespace BlazorDeviceControl.Shared.Item
                                 PluItem.Templates = null;
                             else
                             {
-                                PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity(
+                                PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity<TemplateEntity>(
                                     new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
                                     null);
                             }
@@ -135,7 +135,7 @@ namespace BlazorDeviceControl.Shared.Item
                 };
                 Notification.Notify(msg);
                 Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }
             finally
             {
@@ -238,7 +238,7 @@ namespace BlazorDeviceControl.Shared.Item
                 };
                 Notification.Notify(msg);
                 Console.WriteLine($"{msg.Summary}. {msg.Detail}");
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }
         }
 

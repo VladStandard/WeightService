@@ -36,10 +36,10 @@ namespace BlazorDeviceControl.Shared.Item
                     ResourceItems = null;
                     await GuiRefreshWithWaitAsync();
 
-                    PrinterResourceItem = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                    PrinterResourceItem = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity<PrinterResourceEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities(null, null).ToList();
-                    ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities(null, null).ToList();
+                    PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(null, null).ToList();
+                    ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities<TemplateResourceEntity>(null, null).ToList();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -55,7 +55,7 @@ namespace BlazorDeviceControl.Shared.Item
                             PrinterResourceItem.Printer = null;
                         else
                         {
-                            PrinterResourceItem.Printer = AppSettings.DataAccess.PrintersCrud.GetEntity(
+                            PrinterResourceItem.Printer = AppSettings.DataAccess.PrintersCrud.GetEntity<PrinterEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idZebraPrinter } }),
                             null);
                         }
@@ -68,7 +68,7 @@ namespace BlazorDeviceControl.Shared.Item
                             PrinterResourceItem.Printer = null;
                         else
                         {
-                            PrinterResourceItem.Resource = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity(
+                            PrinterResourceItem.Resource = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity<TemplateResourceEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplateResource } }),
                             null);
                             if (string.IsNullOrEmpty(PrinterResourceItem.Description))

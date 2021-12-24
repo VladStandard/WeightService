@@ -35,7 +35,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.WorkshopsCrud.GetEntities(
+                    Items = AppSettings.DataAccess.WorkshopsCrud.GetEntities<WorkshopEntity>(
                         new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                         new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                         .OrderBy(x => x.ProductionFacility.Name)

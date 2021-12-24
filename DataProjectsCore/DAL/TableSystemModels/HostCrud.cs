@@ -48,7 +48,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
             if (id > 0 && items.Select(x => x).Where(x => Equals(x.Id, id)).ToList().Count == 0)
             {
-                items.Add(GetEntity(new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }), null));
+                items.Add(GetEntity<HostEntity>(new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }), null));
             }
             return items;
         }

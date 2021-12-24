@@ -34,7 +34,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.PrinterTypesCrud.GetEntities(null, null)
+                    Items = AppSettings.DataAccess.PrinterTypesCrud.GetEntities<PrinterTypeEntity>(null, null)
                         .OrderBy(x => x.Name).ToList<IBaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);

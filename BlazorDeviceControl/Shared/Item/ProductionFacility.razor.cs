@@ -31,7 +31,7 @@ namespace BlazorDeviceControl.Shared.Item
                     ProductionFacilityItem = null;
                     await GuiRefreshWithWaitAsync();
 
-                    ProductionFacilityItem = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                    ProductionFacilityItem = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity<ProductionFacilityEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                     await GuiRefreshWithWaitAsync();
                 }), true);

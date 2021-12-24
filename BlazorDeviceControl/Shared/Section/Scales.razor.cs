@@ -34,7 +34,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.ScalesCrud.GetEntities(
+                    Items = AppSettings.DataAccess.ScalesCrud.GetEntities<ScaleEntity>(
                         new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                         new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
                         .ToList<IBaseEntity>();

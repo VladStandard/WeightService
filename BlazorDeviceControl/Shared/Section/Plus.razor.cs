@@ -36,7 +36,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.PlusCrud.GetEntities(
+                    Items = AppSettings.DataAccess.PlusCrud.GetEntities<PluEntity>(
                         new FieldListEntity(
                             new Dictionary<string, object> {
                                 { "Scale.Id", ScaleId },

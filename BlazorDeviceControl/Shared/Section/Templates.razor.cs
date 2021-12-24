@@ -44,14 +44,14 @@ namespace BlazorDeviceControl.Shared.Section
                     if (string.IsNullOrEmpty(TemplateCategory))
                     {
                         TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
-                        Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                        Items = AppSettings.DataAccess.TemplatesCrud.GetEntities<TemplateEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
                             .ToList<IBaseEntity>();
                     }
                     else
                     {
-                        Items = AppSettings.DataAccess.TemplatesCrud.GetEntities(
+                        Items = AppSettings.DataAccess.TemplatesCrud.GetEntities<TemplateEntity>(
                             new FieldListEntity(new Dictionary<string, object> {
                                 { ShareEnums.DbField.Marked.ToString(), false },
                                 { ShareEnums.DbField.CategoryId.ToString(), TemplateCategory },

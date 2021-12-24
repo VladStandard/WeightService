@@ -39,9 +39,9 @@ namespace BlazorDeviceControl.Shared.Item
                     ProductionFacilityEntities = null;
                     await GuiRefreshWithWaitAsync();
 
-                    WorkshopItem = AppSettings.DataAccess.WorkshopsCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+                    WorkshopItem = AppSettings.DataAccess.WorkshopsCrud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    ProductionFacilityEntities = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null).ToList();
+                    ProductionFacilityEntities = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -65,7 +65,7 @@ namespace BlazorDeviceControl.Shared.Item
                 };
                 Notification.Notify(msg);
                 Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }
         }
 
@@ -88,7 +88,7 @@ namespace BlazorDeviceControl.Shared.Item
                 };
                 Notification.Notify(msg);
                 Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }
         }
 
@@ -103,7 +103,7 @@ namespace BlazorDeviceControl.Shared.Item
                             WorkshopItem.ProductionFacility = null;
                         else
                         {
-                            WorkshopItem.ProductionFacility = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity(
+                            WorkshopItem.ProductionFacility = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity<ProductionFacilityEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
                             null);
                         }

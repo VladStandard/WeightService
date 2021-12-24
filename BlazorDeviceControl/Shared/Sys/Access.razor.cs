@@ -35,7 +35,7 @@ namespace BlazorDeviceControl.Shared.Sys
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 
-                    object[] objects = AppSettings.DataAccess.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess, string.Empty, 0, string.Empty);
+                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess, string.Empty, 0, string.Empty);
                     Items = new List<AccessEntity>().ToList<IBaseEntity>();
                     foreach (object obj in objects)
                     {
