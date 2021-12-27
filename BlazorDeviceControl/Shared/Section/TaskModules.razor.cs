@@ -48,14 +48,14 @@ namespace BlazorDeviceControl.Shared.Section
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
                     await GuiRefreshWithWaitAsync();
 
-                    TaskItem = AppSettings.DataAccess.TaskCrud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
+                    TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
                         { ShareEnums.DbField.Uid.ToString(), Uid },
                     }), null);
                     Items = TaskItem == null || TaskItem?.EqualsDefault() == true
-                        ? AppSettings.DataAccess.TaskCrud.GetEntities<TaskEntity>(null, null)
+                        ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)
                             //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
                             .ToList<IBaseEntity>()
-                        : AppSettings.DataAccess.TaskCrud.GetEntities<TaskEntity>(
+                        : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
                             new FieldListEntity(
                             new Dictionary<string, object> {
                                 { "Scale.Id", TaskItem.Scale.Id },

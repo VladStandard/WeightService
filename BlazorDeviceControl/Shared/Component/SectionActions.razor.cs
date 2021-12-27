@@ -3,12 +3,7 @@
 
 namespace BlazorDeviceControl.Shared.Component
 {
-    public partial class SectionIdActions
+    public partial class SectionActions
     {
-        #region Public and private fields and properties
-
-        //
-
-        #endregion
     }
 }

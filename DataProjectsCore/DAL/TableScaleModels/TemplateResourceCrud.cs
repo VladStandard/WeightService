@@ -22,14 +22,6 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         #region Public and private methods
 
-        public byte[] StringToByteArray(string hex)
-        {
-            return Enumerable.Range(0, hex.Length)
-                .Where(x => x % 2 == 0)
-                .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
-                .ToArray();
-        }
-
         public int LoadResource(int id, string name, string description, string type, byte[] imagedata, bool marked = false)
         {
             Dictionary<string, object>? parameters = new()

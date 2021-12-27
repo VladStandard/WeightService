@@ -31,7 +31,7 @@ namespace BlazorDeviceControl.Shared.Item
                     NomenclatureItem = null;
                     await GuiRefreshWithWaitAsync();
 
-                    NomenclatureItem = AppSettings.DataAccess.NomenclaturesCrud.GetEntity<NomenclatureEntity>(new FieldListEntity(new Dictionary<string, object>
+                    NomenclatureItem = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                     await GuiRefreshWithWaitAsync();
                 }), true);

@@ -82,7 +82,7 @@ namespace BlazorDeviceControl.Shared.Item
                     PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(
                         new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                         null).ToList();
-                    HostItems = AppSettings.DataAccess.HostsCrud.GetFreeHosts(ScaleItem.Host?.Id);
+                    HostItems = AppSettings.DataAccess.Crud.GetFreeHosts(ScaleItem.Host?.Id);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -185,7 +185,7 @@ namespace BlazorDeviceControl.Shared.Item
                             ScaleItem.Host = null;
                         else
                         {
-                            ScaleItem.Host = AppSettings.DataAccess.HostsCrud.GetEntity<HostEntity>(
+                            ScaleItem.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idHost } }),
                                 null);
                         }

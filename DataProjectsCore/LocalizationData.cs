@@ -4,7 +4,7 @@
 using DataProjectsCore;
 using DataProjectsCore.Models;
 using DataShareCore;
-using DataShareCore.Interfaces;
+using DataShareCore.Models;
 using System;
 using System.Collections.Generic;
 using static DataShareCore.LocalizationCore;
@@ -557,12 +557,13 @@ namespace DataCore
         {
             #region Public and private methods
 
-            public static string GetItemTitle(ITableEntity table)
+            public static string GetItemTitle(TableBase table)
             {
                 string result = string.Empty;
-                if (table is TableSystemEntity tableSystem)
+                
+                if (Enum.TryParse(table.Name, out ProjectsEnums.TableSystem tableSystem))
                 {
-                    switch (tableSystem.Value)
+                    switch (tableSystem)
                     {
                         case ProjectsEnums.TableSystem.Accesses:
                             result = Strings.ItemAccess;
@@ -572,9 +573,10 @@ namespace DataCore
                             break;
                     }
                 }
-                if (table is TableScaleEntity tableScales)
+
+                if (Enum.TryParse(table.Name, out ProjectsEnums.TableScale tableScale))
                 {
-                    switch (tableScales.Value)
+                    switch (tableScale)
                     {
                         case ProjectsEnums.TableScale.BarcodeTypes:
                             result = DeviceControl.ItemBarCodeType;
@@ -635,25 +637,27 @@ namespace DataCore
                             break;
                     }
                 }
+
                 return result;
             }
 
-            public static string GetItemTitle(ITableEntity table, int itemId)
+            public static string GetItemTitle(TableBase table, int itemId)
             {
                 return $"{GetItemTitle(table)}. ID: {itemId}";
             }
 
-            public static string GetItemTitle(ITableEntity table, Guid itemUid)
+            public static string GetItemTitle(TableBase table, Guid itemUid)
             {
                 return $"{GetItemTitle(table)}. UID: {itemUid}";
             }
 
-            public static string GetSectionTitle(ITableEntity table)
+            public static string GetSectionTitle(TableBase table)
             {
                 string result = string.Empty;
-                if (table is TableSystemEntity tableSystem)
+                
+                if (Enum.TryParse(table.Name, out ProjectsEnums.TableSystem tableSystem))
                 {
-                    switch (tableSystem.Value)
+                    switch (tableSystem)
                     {
                         case ProjectsEnums.TableSystem.Accesses:
                             result = Strings.SectionAccess;
@@ -663,9 +667,10 @@ namespace DataCore
                             break;
                     }
                 }
-                if (table is TableScaleEntity tableScales)
+
+                if (Enum.TryParse(table.Name, out ProjectsEnums.TableScale tableScale))
                 {
-                    switch (tableScales.Value)
+                    switch (tableScale)
                     {
                         case ProjectsEnums.TableScale.BarcodeTypes:
                             result = DeviceControl.SectionBarcodes;
@@ -726,6 +731,7 @@ namespace DataCore
                             break;
                     }
                 }
+
                 return result;
             }
 

@@ -48,50 +48,31 @@ namespace DataProjectsCore.DAL.Models
             }
         }
 
-        // SYSTEM Tables CRUD.
-        public CrudController? AccessesCrud = null;
-        public CrudController? AppsCrud = null;
-        public CrudController? LogsCrud = null;
-        public CrudController? LogTypesCrud = null;
-        public TableSystemModels.HostCrud? HostsCrud = null;
-
-        // SCALES Tables CRUD.
-        public CrudController? Crud = null;
-        public CrudController? BarcodeTypesCrud = null;
-        public CrudController? ContragentsCrud = null;
-        public CrudController? ErrorsCrud = null;
-        public CrudController? LabelsCrud = null;
-        public CrudController? NomenclaturesCrud = null;
-        public CrudController? OrdersCrud = null;
-        public CrudController? OrderStatusesCrud = null;
-        public CrudController? OrderTypesCrud = null;
-        public CrudController? PlusCrud = null;
-        public CrudController? PrintersCrud = null;
-        public CrudController? PrinterResourcesCrud = null;
-        public CrudController? PrinterTypesCrud = null;
-        public CrudController? ProductionFacilitiesCrud = null;
-        public CrudController? ProductSeriesCrud = null;
-        public CrudController? ScalesCrud = null;
-        public CrudController? TaskCrud = null;
-        public CrudController? TaskTypeCrud = null;
-        public CrudController? TemplatesCrud = null;
-        public CrudController? WeithingFactsCrud = null;
-        public CrudController? WorkshopsCrud = null;
-        public TableScaleModels.TemplateResourceCrud? TemplateResourcesCrud = null;
-
-        // Scales datas CRUD.
-        public CrudController? DeviceCrud = null;
-        public CrudController? WeithingFactSummaryCrud = null;
-        public CrudController? LogSummaryCrud = null;
-
+        public CrudController Crud { get; private set; }
+        public CrudController? ErrorsCrud { get; private set; } = null;
+        public CrudController? LabelsCrud { get; private set; } = null;
+        public CrudController? OrdersCrud { get; private set; } = null;
+        public CrudController? OrderStatusesCrud { get; private set; } = null;
+        public CrudController? OrderTypesCrud { get; private set; } = null;
+        public CrudController? PlusCrud { get; private set; } = null;
+        public CrudController? PrintersCrud { get; private set; } = null;
+        public CrudController? PrinterResourcesCrud { get; private set; } = null;
+        public CrudController? PrinterTypesCrud { get; private set; } = null;
+        public CrudController? ProductionFacilitiesCrud { get; private set; } = null;
+        public CrudController? ProductSeriesCrud { get; private set; } = null;
+        public CrudController? ScalesCrud { get; private set; } = null;
+        public CrudController? TemplatesCrud { get; private set; } = null;
+        public CrudController? WeithingFactsCrud { get; private set; } = null;
+        public CrudController? WorkshopsCrud { get; private set; } = null;
+        public TableScaleModels.TemplateResourceCrud? TemplateResourcesCrud { get; private set; } = null;
         // DWH tables CRUD.
-        public CrudController? BrandCrud = null;
-        public CrudController? InformationSystemCrud = null;
-        public CrudController? NomenclatureCrud = null;
-        public CrudController? NomenclatureGroupCrud = null;
-        public CrudController? NomenclatureLightCrud = null;
-        public CrudController? NomenclatureTypeCrud = null;
-        public CrudController? StatusCrud = null;
+        public CrudController? BrandCrud { get; private set; } = null;
+        public CrudController? InformationSystemCrud { get; private set; } = null;
+        public CrudController? NomenclatureCrud { get; private set; } = null;
+        public CrudController? NomenclatureGroupCrud { get; private set; } = null;
+        public CrudController? NomenclatureLightCrud { get; private set; } = null;
+        public CrudController? NomenclatureTypeCrud { get; private set; } = null;
+        public CrudController? StatusCrud { get; private set; } = null;
 
         public bool IsDisabled => !GetSession().IsConnected;
         public bool IsOpen => GetSession().IsOpen;
@@ -111,19 +92,9 @@ namespace DataProjectsCore.DAL.Models
             {
                 Crud = new CrudController(this, SessionFactory);
 
-                // SYSTEM tables CRUD.
-                AccessesCrud = new CrudController(this, SessionFactory);
-                AppsCrud = new CrudController(this, SessionFactory);
-                HostsCrud = new TableSystemModels.HostCrud(this, SessionFactory);
-                LogsCrud = new CrudController(this, SessionFactory);
-                LogTypesCrud = new CrudController(this, SessionFactory);
-
                 // SCALES tables CRUD.
-                BarcodeTypesCrud = new CrudController(this, SessionFactory);
-                ContragentsCrud = new CrudController(this, SessionFactory);
                 ErrorsCrud = new CrudController(this, SessionFactory);
                 LabelsCrud = new CrudController(this, SessionFactory);
-                NomenclaturesCrud = new CrudController(this, SessionFactory);
                 OrdersCrud = new CrudController(this, SessionFactory);
                 OrderStatusesCrud = new CrudController(this, SessionFactory);
                 OrderTypesCrud = new CrudController(this, SessionFactory);
@@ -134,17 +105,14 @@ namespace DataProjectsCore.DAL.Models
                 ProductionFacilitiesCrud = new CrudController(this, SessionFactory);
                 ProductSeriesCrud = new CrudController(this, SessionFactory);
                 ScalesCrud = new CrudController(this, SessionFactory);
-                TaskCrud = new CrudController(this, SessionFactory);
-                TaskTypeCrud = new CrudController(this, SessionFactory);
                 TemplateResourcesCrud = new TableScaleModels.TemplateResourceCrud(this, SessionFactory);
                 TemplatesCrud = new CrudController(this, SessionFactory);
                 WeithingFactsCrud = new CrudController(this, SessionFactory);
                 WorkshopsCrud = new CrudController(this, SessionFactory);
-
-                // Datas CRUD.
-                DeviceCrud = new CrudController(this, SessionFactory);
-                LogSummaryCrud = new CrudController(this, SessionFactory);
-                WeithingFactSummaryCrud = new CrudController(this, SessionFactory);
+                //// Datas CRUD.
+                //DeviceCrud = new CrudController(this, SessionFactory);
+                //LogSummaryCrud = new CrudController(this, SessionFactory);
+                //WeithingFactSummaryCrud = new CrudController(this, SessionFactory);
             }
             else if (string.Equals(CoreSettings.Db, "VSDWH", StringComparison.InvariantCultureIgnoreCase))
             {
@@ -162,7 +130,9 @@ namespace DataProjectsCore.DAL.Models
         // This code have exception: 
         // SqlException: A connection was successfully established with the server, but then an error occurred during the login process. 
         // (provider: SSL Provider, error: 0 - The certificate chain was issued by an authority that is not trusted.)
+#pragma warning disable IDE0051 // Remove unused private members
         private MsSqlConfiguration GetConnection() => CoreSettings.Trusted
+#pragma warning restore IDE0051 // Remove unused private members
             ? MsSqlConfiguration.MsSql2012.ConnectionString(c => c
                 .Server(CoreSettings.Server).Database(CoreSettings.Db).TrustedConnection())
             : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
@@ -245,13 +215,12 @@ namespace DataProjectsCore.DAL.Models
             T result = tableAction switch
             {
                 ShareEnums.DbTableAction.New => new T(),
-                ShareEnums.DbTableAction.Edit => (T)item,
-                ShareEnums.DbTableAction.Copy => (T)((T)item).Clone(),
-                ShareEnums.DbTableAction.Delete => (T)item,
-                ShareEnums.DbTableAction.Mark => (T)item,
+                ShareEnums.DbTableAction.Edit => item,
+                ShareEnums.DbTableAction.Copy => (T)item.Clone(),
+                ShareEnums.DbTableAction.Delete => item,
+                ShareEnums.DbTableAction.Mark => item,
                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
             };
-
             if (tableAction == ShareEnums.DbTableAction.New || tableAction == ShareEnums.DbTableAction.Copy)
             {
                 int nextId = 0;
@@ -263,22 +232,61 @@ namespace DataProjectsCore.DAL.Models
             return result;
         }
 
+        public T ActionGetUidEntity<T>(T item, ShareEnums.DbTableAction tableAction) where T : BaseUidEntity, new()
+        {
+            T result = tableAction switch
+            {
+                ShareEnums.DbTableAction.New => new T(),
+                ShareEnums.DbTableAction.Edit => item,
+                ShareEnums.DbTableAction.Copy => (T)item.Clone(),
+                ShareEnums.DbTableAction.Delete => item,
+                ShareEnums.DbTableAction.Mark => item,
+                _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+            };
+            if (tableAction == ShareEnums.DbTableAction.New || tableAction == ShareEnums.DbTableAction.Copy)
+            {
+                if (item is TableSystemModels.AccessEntity)
+                {
+                    _ = Crud.GetEntity<TableSystemModels.AccessEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                }
+                else if (item is TableSystemModels.AppEntity)
+                {
+                    _ = Crud.GetEntity<TableSystemModels.AppEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                }
+                else if (item is TableSystemModels.LogEntity)
+                {
+                    _ = Crud.GetEntity<TableSystemModels.LogEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                }
+                else if (item is TableSystemModels.LogTypeEntity)
+                {
+                    _ = Crud.GetEntity<TableSystemModels.LogTypeEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                }
+                else if (item is DataShareCore.DAL.DataModels.LogSummaryEntity)
+                {
+                    _ = Crud.GetEntity<DataShareCore.DAL.DataModels.LogSummaryEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                }
+                else if (item is DataModels.WeithingFactSummaryEntity)
+                {
+                    //_ = WeithingFactSummaryCrud?.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                }
+                result.Uid = Guid.NewGuid();
+            }
+            return result;
+        }
+
         private int ActionGetIdEntityForScales<T>(T item, int nextId) where T : BaseIdEntity, new()
         {
             if (item is TableSystemModels.HostEntity)
             {
-                if (HostsCrud != null)
-                    nextId = HostsCrud.GetEntity<TableSystemModels.HostEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                nextId = Crud.GetEntity<TableSystemModels.HostEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             }
             else if (item is TableScaleModels.BarcodeTypeEntity)
             {
-                if (BarcodeTypesCrud != null)
-                    nextId = BarcodeTypesCrud.GetEntity<TableScaleModels.BarcodeTypeEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                nextId = Crud.GetEntity<TableScaleModels.BarcodeTypeEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             }
             else if (item is TableScaleModels.ContragentEntity)
             {
-                if (ContragentsCrud != null)
-                    nextId = ContragentsCrud.GetEntity<TableScaleModels.ContragentEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                nextId = Crud.GetEntity<TableScaleModels.ContragentEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             }
             else if (item is TableScaleModels.LabelEntity)
             {
@@ -287,8 +295,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (item is TableScaleModels.NomenclatureEntity)
             {
-                if (NomenclaturesCrud != null)
-                    nextId = NomenclaturesCrud.GetEntity<TableScaleModels.NomenclatureEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                nextId = Crud.GetEntity<TableScaleModels.NomenclatureEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             }
             else if (item is TableScaleModels.OrderEntity)
             {
@@ -404,73 +411,30 @@ namespace DataProjectsCore.DAL.Models
             return nextId;
         }
 
-        public T ActionGetUidEntity<T>(BaseUidEntity item, ShareEnums.DbTableAction tableAction) where T : BaseUidEntity, new()
-        {
-            T? result = tableAction switch
-            {
-                ShareEnums.DbTableAction.New => new T(),
-                ShareEnums.DbTableAction.Edit => (T)item,
-                ShareEnums.DbTableAction.Copy => (T)((T)item).Clone(),
-                ShareEnums.DbTableAction.Delete => (T)item,
-                ShareEnums.DbTableAction.Mark => (T)item,
-                _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-            };
-            if (tableAction == ShareEnums.DbTableAction.New || tableAction == ShareEnums.DbTableAction.Copy)
-            {
-                if (item is TableSystemModels.AccessEntity)
-                {
-                    _ = AccessesCrud?.GetEntity<TableSystemModels.AccessEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
-                }
-                else if (item is TableSystemModels.AppEntity)
-                {
-                    _ = AppsCrud?.GetEntity<TableSystemModels.AppEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
-                }
-                else if (item is TableSystemModels.LogEntity)
-                {
-                    _ = LogsCrud?.GetEntity<TableSystemModels.LogEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
-                }
-                else if (item is TableSystemModels.LogTypeEntity)
-                {
-                    _ = LogTypesCrud?.GetEntity<TableSystemModels.LogTypeEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
-                }
-                else if (item is DataShareCore.DAL.DataModels.LogSummaryEntity)
-                {
-                    _ = LogSummaryCrud?.GetEntity<DataShareCore.DAL.DataModels.LogSummaryEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
-                }
-                else if (item is DataModels.WeithingFactSummaryEntity)
-                {
-                    //_ = WeithingFactSummaryCrud?.GetEntity(null, new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
-                }
-                result.Uid = Guid.NewGuid();
-            }
-            return result;
-        }
-
         public void ActionDeleteEntity<T>(T item) where T : IBaseEntity, new()
         {
-            Crud?.DeleteEntity(item);
             // SYSTEM.
             if (item is TableSystemModels.AccessEntity accessEntity)
-                AccessesCrud?.DeleteEntity(accessEntity);
+                Crud.DeleteEntity(accessEntity);
             else if (item is TableSystemModels.AppEntity appEntity)
-                AppsCrud?.DeleteEntity(appEntity);
+                Crud.DeleteEntity(appEntity);
             else if (item is TableSystemModels.HostEntity hostsEntity)
-                HostsCrud?.DeleteEntity(hostsEntity);
+                Crud.DeleteEntity(hostsEntity);
             else if (item is TableSystemModels.LogEntity logEntity)
-                LogsCrud?.DeleteEntity(logEntity);
+                Crud.DeleteEntity(logEntity);
             else if (item is TableSystemModels.LogTypeEntity logTypeEntity)
-                LogTypesCrud?.DeleteEntity(logTypeEntity);
+                Crud.DeleteEntity(logTypeEntity);
             // SCALES.
             else if (item is TableScaleModels.LabelEntity labelsEntity)
                 LabelsCrud?.DeleteEntity(labelsEntity);
             else if (item is TableScaleModels.BarcodeTypeEntity barCodeTypesEntity)
-                BarcodeTypesCrud?.DeleteEntity(barCodeTypesEntity);
+                Crud.DeleteEntity(barCodeTypesEntity);
             else if (item is TableScaleModels.ContragentEntity contragentsEntity)
-                ContragentsCrud?.DeleteEntity(contragentsEntity);
+                Crud.DeleteEntity(contragentsEntity);
             else if (item is DataShareCore.DAL.DataModels.LogSummaryEntity logSummaryEntity)
-                LogSummaryCrud?.DeleteEntity(logSummaryEntity);
+                Crud.DeleteEntity(logSummaryEntity);
             else if (item is TableScaleModels.NomenclatureEntity nomenclatureEntity)
-                NomenclaturesCrud?.DeleteEntity(nomenclatureEntity);
+                Crud.DeleteEntity(nomenclatureEntity);
             else if (item is TableScaleModels.OrderEntity ordersEntity)
                 OrdersCrud?.DeleteEntity(ordersEntity);
             else if (item is TableScaleModels.OrderStatusEntity orderStatusEntity)
@@ -486,9 +450,9 @@ namespace DataProjectsCore.DAL.Models
             else if (item is TableScaleModels.ScaleEntity scalesEntity)
                 ScalesCrud?.DeleteEntity(scalesEntity);
             else if (item is TableScaleModels.TaskEntity taskEntity)
-                TaskCrud?.DeleteEntity(taskEntity);
+                Crud.DeleteEntity(taskEntity);
             else if (item is TableScaleModels.TaskTypeEntity taskTypeEntity)
-                TaskTypeCrud?.DeleteEntity(taskTypeEntity);
+                Crud.DeleteEntity(taskTypeEntity);
             else if (item is TableScaleModels.TemplateEntity templatesEntity)
                 TemplatesCrud?.DeleteEntity(templatesEntity);
             else if (item is TableScaleModels.TemplateResourceEntity templateResourcesEntity)
@@ -496,7 +460,7 @@ namespace DataProjectsCore.DAL.Models
             else if (item is TableScaleModels.WeithingFactEntity weithingFactEntity)
                 WeithingFactsCrud?.DeleteEntity(weithingFactEntity);
             else if (item is DataModels.WeithingFactSummaryEntity weithingFactSummaryEntity)
-                WeithingFactSummaryCrud?.DeleteEntity(weithingFactSummaryEntity);
+                Crud.DeleteEntity(weithingFactSummaryEntity);
             else if (item is TableScaleModels.WorkshopEntity workshopEntity)
                 WorkshopsCrud?.DeleteEntity(workshopEntity);
             else if (item is TableScaleModels.PrinterEntity zebraPrinterEntity)
@@ -525,76 +489,93 @@ namespace DataProjectsCore.DAL.Models
         public void ActionMarkedEntity<T>(T item) where T : IBaseEntity, new()
         {
             // SYSTEM.
-            if (item is TableSystemModels.AccessEntity accessEntity)
-                AccessesCrud?.MarkedEntity(accessEntity);
-            else if (item is TableSystemModels.AppEntity appEntity)
-                AppsCrud?.MarkedEntity(appEntity);
-            else if (item is TableSystemModels.HostEntity hostsEntity)
-                HostsCrud?.MarkedEntity(hostsEntity);
-            else if (item is TableSystemModels.LogEntity logEntity)
-                LogsCrud?.MarkedEntity(logEntity);
-            else if (item is TableSystemModels.LogTypeEntity logTypeEntity)
-                LogTypesCrud?.MarkedEntity(logTypeEntity);
-            // SCALES.
-            else if (item is TableScaleModels.BarcodeTypeEntity barCodeTypesEntity)
-                BarcodeTypesCrud?.MarkedEntity(barCodeTypesEntity);
-            else if (item is TableScaleModels.ContragentEntity contragentsEntity)
-                ContragentsCrud?.MarkedEntity(contragentsEntity);
-            else if (item is TableScaleModels.LabelEntity labelsEntity)
-                LabelsCrud?.MarkedEntity(labelsEntity);
-            else if (item is DataShareCore.DAL.DataModels.LogSummaryEntity logSummaryEntity)
-                LogSummaryCrud?.MarkedEntity(logSummaryEntity);
-            else if (item is TableScaleModels.NomenclatureEntity nomenclatureEntity)
-                NomenclaturesCrud?.MarkedEntity(nomenclatureEntity);
-            else if (item is TableScaleModels.OrderEntity ordersEntity)
-                OrdersCrud?.MarkedEntity(ordersEntity);
-            else if (item is TableScaleModels.OrderStatusEntity orderStatusEntity)
-                OrderStatusesCrud?.MarkedEntity(orderStatusEntity);
-            else if (item is TableScaleModels.OrderTypeEntity orderTypesEntity)
-                OrderTypesCrud?.MarkedEntity(orderTypesEntity);
-            else if (item is TableScaleModels.PluEntity pluEntity)
-                PlusCrud?.MarkedEntity(pluEntity);
-            else if (item is TableScaleModels.ProductionFacilityEntity productionFacilityEntity)
-                ProductionFacilitiesCrud?.MarkedEntity(productionFacilityEntity);
-            else if (item is TableScaleModels.ProductSeriesEntity productSeriesEntity)
-                ProductSeriesCrud?.MarkedEntity(productSeriesEntity);
-            else if (item is TableScaleModels.ScaleEntity scalesEntity)
-                ScalesCrud?.MarkedEntity(scalesEntity);
-            else if (item is TableScaleModels.TaskEntity taskEntity)
-                TaskCrud?.MarkedEntity(taskEntity);
-            else if (item is TableScaleModels.TaskTypeEntity taskTypeEntity)
-                TaskTypeCrud?.MarkedEntity(taskTypeEntity);
-            else if (item is TableScaleModels.TemplateEntity templatesEntity)
-                TemplatesCrud?.MarkedEntity(templatesEntity);
-            else if (item is TableScaleModels.TemplateResourceEntity templateResourcesEntity)
-                TemplateResourcesCrud?.MarkedEntity(templateResourcesEntity);
-            else if (item is TableScaleModels.WeithingFactEntity weithingFactEntity)
-                WeithingFactsCrud?.MarkedEntity(weithingFactEntity);
-            else if (item is DataModels.WeithingFactSummaryEntity weithingFactSummaryEntity)
-                WeithingFactSummaryCrud?.MarkedEntity(weithingFactSummaryEntity);
-            else if (item is TableScaleModels.WorkshopEntity workshopEntity)
-                WorkshopsCrud?.MarkedEntity(workshopEntity);
-            else if (item is TableScaleModels.PrinterEntity zebraPrinterEntity)
-                PrintersCrud?.MarkedEntity(zebraPrinterEntity);
-            else if (item is TableScaleModels.PrinterTypeEntity zebraPrinterTypeEntity)
-                PrinterTypesCrud?.MarkedEntity(zebraPrinterTypeEntity);
-            else if (item is TableScaleModels.PrinterResourceEntity zebraPrinterResourceRefEntity)
-                PrinterResourcesCrud?.MarkedEntity(zebraPrinterResourceRefEntity);
-            // DWH.
-            else if (item is TableDwhModels.BrandEntity brandEntity)
-                BrandCrud?.MarkedEntity(brandEntity);
-            else if (item is TableDwhModels.InformationSystemEntity informationSystemEntity)
-                InformationSystemCrud?.MarkedEntity(informationSystemEntity);
-            else if (item is TableDwhModels.NomenclatureEntity dwhNomenclatureEntity)
-                NomenclatureCrud?.MarkedEntity(dwhNomenclatureEntity);
-            else if (item is TableDwhModels.NomenclatureGroupEntity nomenclatureGroupEntity)
-                NomenclatureGroupCrud?.MarkedEntity(nomenclatureGroupEntity);
-            else if (item is TableDwhModels.NomenclatureLightEntity nomenclatureLightEntity)
-                NomenclatureLightCrud?.MarkedEntity(nomenclatureLightEntity);
-            else if (item is TableDwhModels.NomenclatureTypeEntity nomenclatureTypeEntity)
-                NomenclatureTypeCrud?.MarkedEntity(nomenclatureTypeEntity);
-            else if (item is TableDwhModels.StatusEntity statusEntity)
-                StatusCrud?.MarkedEntity(statusEntity);
+            switch (item)
+            {
+                case TableSystemModels.AccessEntity:
+                case TableSystemModels.AppEntity:
+                case TableSystemModels.HostEntity:
+                case TableSystemModels.LogEntity:
+                case TableSystemModels.LogTypeEntity:
+                case DataShareCore.DAL.DataModels.LogSummaryEntity:
+                case DataModels.WeithingFactSummaryEntity:
+                case TableScaleModels.BarcodeTypeEntity:
+                case TableScaleModels.TaskEntity:
+                case TableScaleModels.TaskTypeEntity:
+                    Crud.MarkedEntity(item);
+                    break;
+                case TableScaleModels.ContragentEntity contragentsEntity:
+                    Crud.MarkedEntity(contragentsEntity);
+                    break;
+                case TableScaleModels.LabelEntity labelsEntity:
+                    LabelsCrud?.MarkedEntity(labelsEntity);
+                    break;
+                case TableScaleModels.NomenclatureEntity nomenclatureEntity:
+                    Crud.MarkedEntity(nomenclatureEntity);
+                    break;
+                case TableScaleModels.OrderEntity ordersEntity:
+                    OrdersCrud?.MarkedEntity(ordersEntity);
+                    break;
+                case TableScaleModels.OrderStatusEntity orderStatusEntity:
+                    OrderStatusesCrud?.MarkedEntity(orderStatusEntity);
+                    break;
+                case TableScaleModels.OrderTypeEntity orderTypesEntity:
+                    OrderTypesCrud?.MarkedEntity(orderTypesEntity);
+                    break;
+                case TableScaleModels.PluEntity pluEntity:
+                    PlusCrud?.MarkedEntity(pluEntity);
+                    break;
+                case TableScaleModels.ProductionFacilityEntity productionFacilityEntity:
+                    ProductionFacilitiesCrud?.MarkedEntity(productionFacilityEntity);
+                    break;
+                case TableScaleModels.ProductSeriesEntity productSeriesEntity:
+                    ProductSeriesCrud?.MarkedEntity(productSeriesEntity);
+                    break;
+                case TableScaleModels.ScaleEntity scalesEntity:
+                    ScalesCrud?.MarkedEntity(scalesEntity);
+                    break;
+                case TableScaleModels.TemplateEntity templatesEntity:
+                    TemplatesCrud?.MarkedEntity(templatesEntity);
+                    break;
+                case TableScaleModels.TemplateResourceEntity templateResourcesEntity:
+                    TemplateResourcesCrud?.MarkedEntity(templateResourcesEntity);
+                    break;
+                case TableScaleModels.WeithingFactEntity weithingFactEntity:
+                    WeithingFactsCrud?.MarkedEntity(weithingFactEntity);
+                    break;
+                case TableScaleModels.WorkshopEntity workshopEntity:
+                    WorkshopsCrud?.MarkedEntity(workshopEntity);
+                    break;
+                case TableScaleModels.PrinterEntity zebraPrinterEntity:
+                    PrintersCrud?.MarkedEntity(zebraPrinterEntity);
+                    break;
+                case TableScaleModels.PrinterTypeEntity zebraPrinterTypeEntity:
+                    PrinterTypesCrud?.MarkedEntity(zebraPrinterTypeEntity);
+                    break;
+                case TableScaleModels.PrinterResourceEntity zebraPrinterResourceRefEntity:
+                    PrinterResourcesCrud?.MarkedEntity(zebraPrinterResourceRefEntity);
+                    break;
+                case TableDwhModels.BrandEntity brandEntity:
+                    BrandCrud?.MarkedEntity(brandEntity);
+                    break;
+                case TableDwhModels.InformationSystemEntity informationSystemEntity:
+                    InformationSystemCrud?.MarkedEntity(informationSystemEntity);
+                    break;
+                case TableDwhModels.NomenclatureEntity dwhNomenclatureEntity:
+                    NomenclatureCrud?.MarkedEntity(dwhNomenclatureEntity);
+                    break;
+                case TableDwhModels.NomenclatureGroupEntity nomenclatureGroupEntity:
+                    NomenclatureGroupCrud?.MarkedEntity(nomenclatureGroupEntity);
+                    break;
+                case TableDwhModels.NomenclatureLightEntity nomenclatureLightEntity:
+                    NomenclatureLightCrud?.MarkedEntity(nomenclatureLightEntity);
+                    break;
+                case TableDwhModels.NomenclatureTypeEntity nomenclatureTypeEntity:
+                    NomenclatureTypeCrud?.MarkedEntity(nomenclatureTypeEntity);
+                    break;
+                case TableDwhModels.StatusEntity statusEntity:
+                    StatusCrud?.MarkedEntity(statusEntity);
+                    break;
+            }
         }
 
         #endregion

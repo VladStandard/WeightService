@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 
 namespace FontLoader
 {
@@ -40,7 +39,7 @@ namespace FontLoader
                 byte[] b = File.ReadAllBytes(filePath);
                 //ushort crc = Crc16.ComputeChecksum(b);
                 //string converted = Convert.ToBase64String(b);
-                string converted = ByteArrayToString(b);
+                string converted = DataShareCore.Utils.StringUtils.ByteArrayToString(b);
 
                 string ZPLCommand = $"^XA^IDE:{namettf}.TTF^FS^XZ";
                 RawPrinterHelper.SendStringToPrinter(printerName, ZPLCommand);
@@ -79,23 +78,6 @@ namespace FontLoader
             {
                 throw;
             }
-        }
-
-        public static string ByteArrayToString(byte[] ba)
-        {
-            StringBuilder hex = new(ba.Length * 2);
-            foreach (byte b in ba)
-                hex.AppendFormat("{0:x2}", b);
-            return hex.ToString();
-        }
-
-        public static byte[] StringToByteArray(string hex)
-        {
-            int NumberChars = hex.Length;
-            byte[] bytes = new byte[NumberChars / 2];
-            for (int i = 0; i < NumberChars; i += 2)
-                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
-            return bytes;
         }
     }
 }

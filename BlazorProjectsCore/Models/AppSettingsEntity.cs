@@ -106,10 +106,20 @@ namespace BlazorProjectsCore.Models
             {
                 AuthenticationState authenticationState = stateProvider.GetAuthenticationStateAsync().Result;
                 IIdentity identity = authenticationState?.User?.Identity;
+                string name;
+                try
+                {
+                    name = identity?.IsAuthenticated == true && !string.IsNullOrEmpty(identity?.Name)
+                        ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
+                }
+                catch (Exception)
+                {
+                    name = LocalizationCore.Strings.Main.IdentityError;
+                }
                 if (IdentityItem == null)
-                    IdentityItem = new IdentityEntity(identity != null ? identity.Name : LocalizationCore.Strings.Main.IdentityError);
+                    IdentityItem = new IdentityEntity(name);
                 else
-                    IdentityItem.Name = identity != null ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
+                    IdentityItem.Name = name;
                 SetUserAccessLevel();
             }
         }

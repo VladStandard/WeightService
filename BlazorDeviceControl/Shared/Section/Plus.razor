@@ -13,7 +13,7 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync IsShowItemsCount=true />
+    <DataReload Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 

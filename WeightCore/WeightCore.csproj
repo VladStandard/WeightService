@@ -394,7 +394,6 @@
     <Compile Include="XamlPages\PageSqlSettings.xaml.cs">
       <DependentUpon>PageSqlSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Zpl\ByteConverter.cs" />
     <Compile Include="Zpl\ZplConverterHelper.cs" />
     <Compile Include="Zpl\ZplPipeUtils.cs" />
     <Compile Include="Zpl\ZplSamples.cs" />

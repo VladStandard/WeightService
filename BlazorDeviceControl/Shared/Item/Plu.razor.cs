@@ -103,7 +103,7 @@ namespace BlazorDeviceControl.Shared.Item
                     case "Nomenclature":
                         if (value is int idNomenclature)
                         {
-                            PluItem.Nomenclature = AppSettings.DataAccess.NomenclaturesCrud.GetEntity<NomenclatureEntity>(
+                            PluItem.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
                                 null);
                             OnClickFieldsFill("Entity");

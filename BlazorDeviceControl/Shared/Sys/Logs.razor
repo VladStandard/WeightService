@@ -13,8 +13,7 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true 
-        Items=@Items/>
+    <DataReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="LogSummaryEntity"
         RowSelect=@(args => ItemSelectAsync(args))

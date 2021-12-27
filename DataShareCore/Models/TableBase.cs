@@ -1,22 +1,29 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Microsoft.AspNetCore.Components;
-
-namespace BlazorDeviceControl.Shared.Component
+namespace DataShareCore.Models
 {
-    public partial class DataFilter
+    public class TableBase
     {
         #region Public and private fields and properties
 
-        [Parameter] public string ItemTypeName { get; set; }
-        //[Parameter] public IBaseEntity[] Items { get; set; }
+        public string Name { get; set; }
 
         #endregion
 
+        #region Constructor and destructor
+
+        public TableBase(string name)
+        {
+            Name = name;
+        }
+
+        #endregion
+        
         #region Public and private methods
 
-        //
+        public override string ToString() => 
+            $"{nameof(Name)}: {Name}";
 
         #endregion
     }

@@ -10,11 +10,17 @@ using System.Threading.Tasks;
 
 namespace DataShareCore.DAL.Models
 {
-    public class BaseEntity : IBaseEntity
+    public class BaseEntity : IBaseEntity, ICloneable
     {
+        #region Public and private fields and properties
+
+        public virtual PrimaryColumnEntity? PrimaryColumn { get; set; }
+
+        #endregion
+
         #region Public and private methods
 
-        public virtual bool EqualsEmpty() => Equals(default);
+        public virtual bool EqualsEmpty() => PrimaryColumn == null;
 
         public virtual byte[] CloneBytes(byte[] bytes)
         {
@@ -59,6 +65,33 @@ namespace DataShareCore.DAL.Models
             return Image.FromStream(ms, true);
         }
 
+        #endregion
+
+        #region Public and private methods - override
+
+        public override string ToString() => PrimaryColumn == null ? string.Empty : PrimaryColumn.ToString();
+
+        public override int GetHashCode() => PrimaryColumn == null ? -1 : PrimaryColumn.GetHashCode();
+
+        public virtual bool Equals(BaseEntity entity)
+        {
+            if (entity is null) return false;
+            if (ReferenceEquals(this, entity)) return true;
+            return PrimaryColumn != null && PrimaryColumn.Equals(entity.PrimaryColumn);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((BaseEntity)obj);
+        }
+
+        public virtual bool EqualsDefault() => PrimaryColumn == null || PrimaryColumn.EqualsDefault();
+
+        public virtual object Clone() => PrimaryColumn == null ? new object() : PrimaryColumn.Clone();
+        
         #endregion
     }
 }

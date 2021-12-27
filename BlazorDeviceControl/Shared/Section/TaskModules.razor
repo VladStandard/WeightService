@@ -14,7 +14,7 @@
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionTaskModules SetParameters=@SetParametersAsync IsShowItemsCount=true />
+    <DataReload Title=@LocalizationData.DeviceControl.SectionTaskModules SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TaskEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
@@ -54,7 +54,7 @@
     }
     else
     {
-        <SectionActions IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
+        <SectionActions IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true Item=@Item />
     }
 }
 else

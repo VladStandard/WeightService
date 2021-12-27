@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DAL\ModelsDwh\" />
-    <Folder Include="DAL\TableModels\" />
-    <Folder Include="DAL\TableSystemModels\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>

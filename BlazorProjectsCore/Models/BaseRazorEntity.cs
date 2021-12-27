@@ -10,7 +10,6 @@ using DataCore;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
-using DataShareCore.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
@@ -21,6 +20,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DataProjectsCore;
+using DataShareCore.Models;
 
 namespace BlazorProjectsCore.Models
 {
@@ -38,10 +38,10 @@ namespace BlazorProjectsCore.Models
 
         #region Public and private fields and properties - Parameter
 
-        public IBaseEntity Item { get; set; }
-        public IBaseEntity ParentItem { get; set; }
+        [Parameter] public IBaseEntity Item { get; set; }
+        [Parameter] public IBaseEntity ParentItem { get; set; }
         [Parameter] public List<IBaseEntity> Items { get; set; }
-        [Parameter] public ITableEntity Table { get; set; }
+        [Parameter] public TableBase Table { get; set; }
         [Parameter] public bool IsShowNew { get; set; }
         [Parameter] public bool IsShowEdit { get; set; }
         [Parameter] public bool IsShowCopy { get; set; }
@@ -189,231 +189,263 @@ namespace BlazorProjectsCore.Models
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
 
-            if (Table is TableScaleEntity tableScale)
+            if (Table is TableScaleEntity)
             {
-                switch (tableScale.Value)
+                if (Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScale))
                 {
-                    case ProjectsEnums.TableScale.BarcodeTypes:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idBarcodeType))
-                        {
-                            BarcodeTypeEntity barcodeTypeEntity = AppSettings.DataAccess.BarcodeTypesCrud.GetEntity<BarcodeTypeEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idBarcodeType },
-                                }), null);
-                            Item = barcodeTypeEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Contragents:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idContragent))
-                        {
-                            ContragentEntity contragentEntity = AppSettings.DataAccess.ContragentsCrud.GetEntity<ContragentEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idContragent },
-                                }), null);
-                            Item = contragentEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Hosts:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idHost))
-                        {
-                            HostEntity hostEntity = AppSettings.DataAccess.HostsCrud.GetEntity<HostEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idHost },
-                                }), null);
-                            Item = hostEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Labels:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idLabel))
-                        {
-                            LabelEntity labelEntity = AppSettings.DataAccess.LabelsCrud.GetEntity<LabelEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idLabel },
-                                }), null);
-                            Item = labelEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Nomenclatures:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idNomenclature))
-                        {
-                            NomenclatureEntity nomenclatureEntity = AppSettings.DataAccess.NomenclaturesCrud.GetEntity<NomenclatureEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idNomenclature },
-                                }), null);
-                            Item = nomenclatureEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.OrderStatuses:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrderStatus))
-                        {
-                            OrderStatusEntity orderStatusEntity = AppSettings.DataAccess.OrderStatusesCrud.GetEntity<OrderStatusEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idOrderStatus },
-                                }), null);
-                            Item = orderStatusEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.OrderTypes:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrderType))
-                        {
-                            OrderTypeEntity orderTypeEntity = AppSettings.DataAccess.OrderTypesCrud.GetEntity<OrderTypeEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idOrderType },
-                                }), null);
-                            Item = orderTypeEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Orders:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrder))
-                        {
-                            OrderEntity orderEntity = AppSettings.DataAccess.OrdersCrud.GetEntity<OrderEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idOrder },
-                                }), null);
-                            Item = orderEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Plus:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPlu))
-                        {
-                            PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity<PluEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idPlu },
-                                }), null);
-                            Item = pluEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Printers:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinter))
-                        {
-                            PrinterEntity printerEntity = AppSettings.DataAccess.PrintersCrud.GetEntity<PrinterEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idPrinter },
-                                }), null);
-                            Item = printerEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.PrinterResources:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinterResource))
-                        {
-                            PrinterResourceEntity printerResourceEntity = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity<PrinterResourceEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idPrinterResource },
-                                }), null);
-                            Item = printerResourceEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.PrinterTypes:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinterType))
-                        {
-                            PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.PrinterTypesCrud.GetEntity<PrinterTypeEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idPrinterType },
-                                }), null);
-                            Item = printerTypeEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.ProductSeries:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idProductSeries))
-                        {
-                            ProductSeriesEntity productSeriesEntity = AppSettings.DataAccess.ProductSeriesCrud.GetEntity<ProductSeriesEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idProductSeries },
-                                }), null);
-                            Item = productSeriesEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.ProductionFacilities:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idProductionFacility))
-                        {
-                            ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity<ProductionFacilityEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idProductionFacility },
-                                }), null);
-                            Item = productionFacilityEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Scales:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idScale))
-                        {
-                            ScaleEntity scaleEntity = AppSettings.DataAccess.ScalesCrud.GetEntity<ScaleEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idScale },
-                                }), null);
-                            Item = scaleEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.TemplateResources:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idTemplateResource))
-                        {
-                            TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity<TemplateResourceEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idTemplateResource },
-                                }), null);
-                            Item = templateResourceEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Templates:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idTemplate))
-                        {
-                            TemplateEntity templateEntity = AppSettings.DataAccess.TemplatesCrud.GetEntity<TemplateEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idTemplate },
-                                }), null);
-                            Item = templateEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.WeithingFacts:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idWeithingFact))
-                        {
-                            WeithingFactEntity weithingFactEntity = AppSettings.DataAccess.WeithingFactsCrud.GetEntity<WeithingFactEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idWeithingFact },
-                                }), null);
-                            Item = weithingFactEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Workshops:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idWorkshop))
-                        {
-                            WorkshopEntity workshopEntity = AppSettings.DataAccess.WorkshopsCrud.GetEntity<WorkshopEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Id.ToString(), idWorkshop },
-                                }), null);
-                            Item = workshopEntity;
-                        }
-                        break;
-                    default:
-                        break;
+                    SetParametersForTableScale(parameters, tableScale);
                 }
             }
-            else if (Table is TableSystemEntity tableSystem)
+            else if (Table is TableSystemEntity)
             {
-                switch (tableSystem.Value)
+                if (Enum.TryParse(Table.Name, out ProjectsEnums.TableSystem tableSystem))
                 {
-                    case ProjectsEnums.TableSystem.Accesses:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Uid.ToString(), out Guid uidAccess))
-                        {
-                            AccessEntity accessEntity = AppSettings.DataAccess.AccessesCrud.GetEntity<AccessEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Uid.ToString(), uidAccess },
-                                }), null);
-                            Item = accessEntity;
-                        }
-                        break;
-                    case ProjectsEnums.TableSystem.Logs:
-                        if (parameters.TryGetValue(ShareEnums.DbField.Uid.ToString(), out Guid uidLog))
-                        {
-                            LogEntity logEntity = AppSettings.DataAccess.LogsCrud.GetEntity<LogEntity>(
-                                new FieldListEntity(new Dictionary<string, object> {
-                                    { ShareEnums.DbField.Uid.ToString(), uidLog },
-                                }), null);
-                            Item = logEntity;
-                        }
-                        break;
-                    default:
-                        break;
+                    SetParametersForTableSystem(parameters, tableSystem);
                 }
+            }
+            else if (Table is TableDwhEntity)
+            {
+                if (Enum.TryParse(Table.Name, out ProjectsEnums.TableDwh tableDwh))
+                {
+                    SetParametersForTableDwh(parameters, tableDwh);
+                }
+            }
+        }
+
+        private void SetParametersForTableScale(ParameterView parameters, ProjectsEnums.TableScale table)
+        {
+            switch (table)
+            {
+                case ProjectsEnums.TableScale.BarcodeTypes:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idBarcodeType))
+                    {
+                        BarcodeTypeEntity barcodeTypeEntity = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idBarcodeType },
+                            }), null);
+                        Item = barcodeTypeEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Contragents:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idContragent))
+                    {
+                        ContragentEntity contragentEntity = AppSettings.DataAccess.Crud.GetEntity<ContragentEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idContragent },
+                            }), null);
+                        Item = contragentEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Hosts:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idHost))
+                    {
+                        HostEntity hostEntity = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idHost },
+                            }), null);
+                        Item = hostEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Labels:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idLabel))
+                    {
+                        LabelEntity labelEntity = AppSettings.DataAccess.LabelsCrud.GetEntity<LabelEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idLabel },
+                            }), null);
+                        Item = labelEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Nomenclatures:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idNomenclature))
+                    {
+                        NomenclatureEntity nomenclatureEntity = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idNomenclature },
+                            }), null);
+                        Item = nomenclatureEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.OrderStatuses:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrderStatus))
+                    {
+                        OrderStatusEntity orderStatusEntity = AppSettings.DataAccess.OrderStatusesCrud.GetEntity<OrderStatusEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idOrderStatus },
+                            }), null);
+                        Item = orderStatusEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.OrderTypes:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrderType))
+                    {
+                        OrderTypeEntity orderTypeEntity = AppSettings.DataAccess.OrderTypesCrud.GetEntity<OrderTypeEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idOrderType },
+                            }), null);
+                        Item = orderTypeEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Orders:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrder))
+                    {
+                        OrderEntity orderEntity = AppSettings.DataAccess.OrdersCrud.GetEntity<OrderEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idOrder },
+                            }), null);
+                        Item = orderEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Plus:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPlu))
+                    {
+                        PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity<PluEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idPlu },
+                            }), null);
+                        Item = pluEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Printers:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinter))
+                    {
+                        PrinterEntity printerEntity = AppSettings.DataAccess.PrintersCrud.GetEntity<PrinterEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idPrinter },
+                            }), null);
+                        Item = printerEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.PrinterResources:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinterResource))
+                    {
+                        PrinterResourceEntity printerResourceEntity = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity<PrinterResourceEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idPrinterResource },
+                            }), null);
+                        Item = printerResourceEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.PrinterTypes:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinterType))
+                    {
+                        PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.PrinterTypesCrud.GetEntity<PrinterTypeEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idPrinterType },
+                            }), null);
+                        Item = printerTypeEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.ProductSeries:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idProductSeries))
+                    {
+                        ProductSeriesEntity productSeriesEntity = AppSettings.DataAccess.ProductSeriesCrud.GetEntity<ProductSeriesEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idProductSeries },
+                            }), null);
+                        Item = productSeriesEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.ProductionFacilities:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idProductionFacility))
+                    {
+                        ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity<ProductionFacilityEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idProductionFacility },
+                            }), null);
+                        Item = productionFacilityEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Scales:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idScale))
+                    {
+                        ScaleEntity scaleEntity = AppSettings.DataAccess.ScalesCrud.GetEntity<ScaleEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idScale },
+                            }), null);
+                        Item = scaleEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.TemplateResources:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idTemplateResource))
+                    {
+                        TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity<TemplateResourceEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idTemplateResource },
+                            }), null);
+                        Item = templateResourceEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Templates:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idTemplate))
+                    {
+                        TemplateEntity templateEntity = AppSettings.DataAccess.TemplatesCrud.GetEntity<TemplateEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idTemplate },
+                            }), null);
+                        Item = templateEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.WeithingFacts:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idWeithingFact))
+                    {
+                        WeithingFactEntity weithingFactEntity = AppSettings.DataAccess.WeithingFactsCrud.GetEntity<WeithingFactEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idWeithingFact },
+                            }), null);
+                        Item = weithingFactEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Workshops:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idWorkshop))
+                    {
+                        WorkshopEntity workshopEntity = AppSettings.DataAccess.WorkshopsCrud.GetEntity<WorkshopEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                        { ShareEnums.DbField.Id.ToString(), idWorkshop },
+                            }), null);
+                        Item = workshopEntity;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SetParametersForTableSystem(ParameterView parameters, ProjectsEnums.TableSystem table)
+        {
+            switch (table)
+            {
+                case ProjectsEnums.TableSystem.Accesses:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Uid.ToString(), out Guid uidAccess))
+                    {
+                        AccessEntity accessEntity = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                    { ShareEnums.DbField.Uid.ToString(), uidAccess },
+                            }), null);
+                        Item = accessEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableSystem.Logs:
+                    if (parameters.TryGetValue(ShareEnums.DbField.Uid.ToString(), out Guid uidLog))
+                    {
+                        LogEntity logEntity = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
+                            new FieldListEntity(new Dictionary<string, object> {
+                                    { ShareEnums.DbField.Uid.ToString(), uidLog },
+                            }), null);
+                        Item = logEntity;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SetParametersForTableDwh(ParameterView parameters, ProjectsEnums.TableDwh table)
+        {
+            switch (table)
+            {
+                default:
+                    break;
             }
         }
 
@@ -422,7 +454,7 @@ namespace BlazorProjectsCore.Models
         public ChartCountEntity[] GetContragentsChartEntities(ShareEnums.DbField field)
         {
             ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-            ContragentEntity[] entities = AppSettings.DataAccess.ContragentsCrud.GetEntities<ContragentEntity>(null,
+            ContragentEntity[] entities = AppSettings.DataAccess.Crud.GetEntities<ContragentEntity>(null,
                 new FieldOrderEntity(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc));
             int i = 0;
             switch (field)
@@ -468,7 +500,7 @@ namespace BlazorProjectsCore.Models
         public ChartCountEntity[] GetNomenclaturesChartEntities(ShareEnums.DbField field)
         {
             ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-            NomenclatureEntity[] entities = AppSettings.DataAccess.NomenclaturesCrud.GetEntities<NomenclatureEntity>(null,
+            NomenclatureEntity[] entities = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
                 new FieldOrderEntity(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc));
             int i = 0;
             switch (field)
@@ -586,18 +618,6 @@ namespace BlazorProjectsCore.Models
 
         private void RunTasksCatch(Exception ex, string title, string detailFail, string filePath, int lineNumber, string memberName)
         {
-            // Debug log.
-            if (AppSettings.IsDebug)
-            {
-                Console.WriteLine("--------------------------------------------------------------------------------");
-                Console.WriteLine($"---------- {nameof(BaseRazorEntity)}.{nameof(RunTasksAsync)} - Catch the Exception (for Debug mode) ---------- ");
-                Console.WriteLine($"filePath: {filePath}");
-                Console.WriteLine($"memberName: {memberName} | lineNumber: {lineNumber}");
-                Console.WriteLine($"Exception: {ex.Message}");
-                if (ex.InnerException != null)
-                    Console.WriteLine($"InnerException: {ex.InnerException.Message}");
-                Console.WriteLine("--------------------------------------------------------------------------------");
-            }
             // User log.
             string msg = ex.Message;
             if (!string.IsNullOrEmpty(ex.InnerException?.Message))
@@ -735,19 +755,41 @@ namespace BlazorProjectsCore.Models
         private string RouteSectionNavigatePage()
         {
             string page = string.Empty;
-            if (Item is PrinterEntity)
+            if (Table is TableScaleEntity)
             {
-                page = LocalizationData.DeviceControl.UriRouteSectionPrinters;
+                if (Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScale))
+                {
+                    switch (tableScale)
+                    {
+                        case ProjectsEnums.TableScale.Printers:
+                            page = LocalizationData.DeviceControl.UriRouteSectionPrinters;
+                            break;
+                        case ProjectsEnums.TableScale.PrinterTypes:
+                            page = LocalizationData.DeviceControl.UriRouteSectionPrinterTypes;
+                            break;
+                        case ProjectsEnums.TableScale.Scales:
+                            page = LocalizationData.DeviceControl.UriRouteSectionScales;
+                            break;
+                        case ProjectsEnums.TableScale.Tasks:
+                            page = LocalizationData.DeviceControl.UriRouteSectionTaskModules;
+                            break;
+                    }
+                }
             }
-            else if (Item is PrinterTypeEntity)
+            else if (Table is TableSystemEntity)
             {
-                page = LocalizationData.DeviceControl.UriRouteSectionPrinterTypes;
+                if (Enum.TryParse(Table.Name, out ProjectsEnums.TableSystem _))
+                {
+                    //
+                }
             }
-            else if (Item is ScaleEntity)
+            else if (Table is TableDwhEntity)
             {
-                page = LocalizationData.DeviceControl.UriRouteSectionScales;
+                if (Enum.TryParse(Table.Name, out ProjectsEnums.TableDwh _))
+                {
+                    //
+                }
             }
-
             return page;
         }
 
@@ -757,8 +799,8 @@ namespace BlazorProjectsCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemCancelAsync)}", LocalizationCore.Strings.DialogResultSuccess,
                 LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel,
                 new Task(() => {
-                    if (Item == null)
-                        return;
+                    //if (Item == null)
+                    //    return;
                     if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
                         return;
                     if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
@@ -980,48 +1022,37 @@ namespace BlazorProjectsCore.Models
             if (success)
             {
                 if (item.Uid == Guid.Empty)
-                {
-                    AppSettings.DataAccess.TaskCrud.SaveEntity(item);
-                }
+                    AppSettings.DataAccess.Crud.SaveEntity(item);
                 else
-                    AppSettings.DataAccess.TaskCrud.UpdateEntity(item);
+                    AppSettings.DataAccess.Crud.UpdateEntity(item);
             }
         }
 
         public void ItemSaveCheckTaskType(TaskTypeEntity item)
         {
             if (item.Uid == Guid.Empty)
-            {
-                AppSettings.DataAccess.TaskTypeCrud.SaveEntity(item);
-            }
+                AppSettings.DataAccess.Crud.SaveEntity(item);
             else
-                AppSettings.DataAccess.TaskTypeCrud.UpdateEntity(item);
+                AppSettings.DataAccess.Crud.UpdateEntity(item);
         }
 
         public void ItemSaveCheck(BaseEntity item)
         {
-            bool success = true;
             switch (item)
             {
                 case TemplateEntity templateItem:
-                    if (success)
-                    {
-                        if (templateItem.Id == 0)
-                            AppSettings.DataAccess.TemplatesCrud.SaveEntity(templateItem);
-                        else
-                            AppSettings.DataAccess.TemplatesCrud.UpdateEntity(templateItem);
-                    }
+                    if (templateItem.Id == 0)
+                        AppSettings.DataAccess.TemplatesCrud.SaveEntity(templateItem);
+                    else
+                        AppSettings.DataAccess.TemplatesCrud.UpdateEntity(templateItem);
                     break;
                 case WorkshopEntity workshopItem:
                     workshopItem.CreateDate ??= DateTime.Now;
                     workshopItem.ModifiedDate = DateTime.Now;
-                    if (success)
-                    {
-                        if (workshopItem.Id == 0)
-                            AppSettings.DataAccess.WorkshopsCrud.SaveEntity(workshopItem);
-                        else
-                            AppSettings.DataAccess.WorkshopsCrud.UpdateEntity(workshopItem);
-                    }
+                    if (workshopItem.Id == 0)
+                        AppSettings.DataAccess.WorkshopsCrud.SaveEntity(workshopItem);
+                    else
+                        AppSettings.DataAccess.WorkshopsCrud.UpdateEntity(workshopItem);
                     break;
             }
         }
@@ -1092,103 +1123,112 @@ namespace BlazorProjectsCore.Models
             }
         }
 
-        [Obsolete(@"Deprecated method. Use Action method.")]
-        private async Task ActionAsync<T, TI>(ITableEntity table, ShareEnums.DbTableAction tableAction, TI item, IBaseEntity parentItem = null)
-            where T : BaseRazorEntity where TI : IBaseEntity, new()
-        {
-            await RunTasksAsync(LocalizationCore.Strings.TableRead, "", LocalizationCore.Strings.DialogResultFail, "",
-                new List<Task> { new Task(delegate {
-                    Console.WriteLine($"ActionAsync. table: {table}. tableAction: {tableAction}. item: {item}");
-                    string title = string.Empty;
-                    if (item is BaseIdEntity idEntity)
-                    {
-                        if (table is TableScaleEntity tableScales)
-                        {
-                            idEntity = tableScales.Value switch
-                            {
-                                ProjectsEnums.TableScale.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Contragents => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Hosts => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Nomenclatures => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.OrderStatuses => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Plus => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.ProductionFacilities => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Scales => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Templates => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Workshops => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.WeithingFacts => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.Printers => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.PrinterResources => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                ProjectsEnums.TableScale.PrinterTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-                                _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                            };
-                        }
-                        title = LocalizationData.Methods.GetItemTitle(table, idEntity.Id);
-                    }
-                    else if (item is BaseUidEntity uidEntity)
-                    {
-                        if (table is TableSystemEntity tableSystem)
-                        {
-                            uidEntity = tableSystem.Value switch
-                            {
-                                ProjectsEnums.TableSystem.Accesses => AppSettings.DataAccess.ActionGetUidEntity<AccessEntity>(uidEntity, tableAction),
-                                ProjectsEnums.TableSystem.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
-                                _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-                            };
-                            title = LocalizationData.Methods.GetItemTitle(table, uidEntity.Uid);
-                        }
-                    }
+        //[Obsolete(@"Deprecated method. Use Action method.")]
+        //private async Task ActionAsync<T, TI>(ITableEntity table, ShareEnums.DbTableAction tableAction, TI item, IBaseEntity parentItem = null)
+        //    where T : BaseRazorEntity where TI : IBaseEntity, new()
+        //{
+        //    await RunTasksAsync(LocalizationCore.Strings.TableRead, "", LocalizationCore.Strings.DialogResultFail, "",
+        //        new List<Task> { new Task(delegate {
+        //            Console.WriteLine($"ActionAsync. table: {table}. tableAction: {tableAction}. item: {item}");
+        //            string title = string.Empty;
+        //            if (item is BaseIdEntity idEntity)
+        //            {
+        //                if (table is TableScaleEntity tableScales)
+        //                {
+        //                    idEntity = tableScales.Value switch
+        //                    {
+        //                        ProjectsEnums.TableScale.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.Contragents => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.Hosts => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.Nomenclatures => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.OrderStatuses => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.Plus => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.ProductionFacilities => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.Scales => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.Templates => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.Workshops => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.WeithingFacts => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.Printers => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.PrinterResources => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        ProjectsEnums.TableScale.PrinterTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
+        //                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+        //                    };
+        //                }
+        //                title = LocalizationData.Methods.GetItemTitle(table, idEntity.Id);
+        //            }
+        //            else if (item is BaseUidEntity uidEntity)
+        //            {
+        //                //if (table is TableSystemEntity tableSystem)
+        //                //{
+        //                //    uidEntity = tableSystem.Value switch
+        //                //    {
+        //                //        ProjectsEnums.TableSystem.Accesses => AppSettings.DataAccess.ActionGetUidEntity<AccessEntity>(uidEntity, tableAction),
+        //                //        ProjectsEnums.TableSystem.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
+        //                //        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
+        //                //    };
+        //                //    title = LocalizationData.Methods.GetItemTitle(table, uidEntity.Uid);
+        //                //}
+        //                title = LocalizationData.Methods.GetItemTitle(table, uidEntity.Uid);
+        //                if (item is AccessEntity access)
+        //                {
+        //                    uidEntity = AppSettings.DataAccess.ActionGetUidEntity(access, tableAction);
+        //                }
+        //                else if (item is LogEntity log)
+        //                {
+        //                    uidEntity = AppSettings.DataAccess.ActionGetUidEntity(log, tableAction);
+        //                }
+        //            }
 
-                    // Printer from ZebraPrinter.razor.
-                    if (item is PrinterResourceEntity zebraPrinterResourceRefEntity)
-                    {
-                        zebraPrinterResourceRefEntity.Printer = (PrinterEntity)parentItem;
-                    }
+        //            // Printer from ZebraPrinter.razor.
+        //            if (item is PrinterResourceEntity zebraPrinterResourceRefEntity)
+        //            {
+        //                zebraPrinterResourceRefEntity.Printer = (PrinterEntity)parentItem;
+        //            }
 
-                    if (tableAction == ShareEnums.DbTableAction.New)
-                    {
-                        if (item is PluEntity pluEntity)
-                        {
-                            pluEntity.Scale = (ScaleEntity)parentItem;
-                        }
-                    }
+        //            if (tableAction == ShareEnums.DbTableAction.New)
+        //            {
+        //                if (item is PluEntity pluEntity)
+        //                {
+        //                    pluEntity.Scale = (ScaleEntity)parentItem;
+        //                }
+        //            }
 
-                    switch (tableAction)
-                    {
-                        case ShareEnums.DbTableAction.New:
-                        case ShareEnums.DbTableAction.Edit:
-                        case ShareEnums.DbTableAction.Copy:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                            {
-                                Console.WriteLine($"ActionAsync. AppSettings.IdentityItem.AccessLevel: {AppSettings.IdentityItem.AccessLevel}");
-                                Dialog.OpenAsync<T>(title,
-                                    new Dictionary<string, object>
-                                    {
-                                        {"Item", item},
-                                        {"Table", table},
-                                        {"TableAction", tableAction},
-                                    },
-                                    new DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
-                            }
-                            break;
-                        case ShareEnums.DbTableAction.Delete:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                            {
-                                AppSettings.DataAccess.ActionDeleteEntity(item);
-                            }
-                            break;
-                        case ShareEnums.DbTableAction.Mark:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
-                            {
-                                AppSettings.DataAccess.ActionMarkedEntity(item);
-                            }
-                            break;
-                    }
-                })}, true).ConfigureAwait(false);
-        }
+        //            switch (tableAction)
+        //            {
+        //                case ShareEnums.DbTableAction.New:
+        //                case ShareEnums.DbTableAction.Edit:
+        //                case ShareEnums.DbTableAction.Copy:
+        //                    if (AppSettings.IdentityItem.AccessLevel == true)
+        //                    {
+        //                        Console.WriteLine($"ActionAsync. AppSettings.IdentityItem.AccessLevel: {AppSettings.IdentityItem.AccessLevel}");
+        //                        Dialog.OpenAsync<T>(title,
+        //                            new Dictionary<string, object>
+        //                            {
+        //                                {"Item", item},
+        //                                {"Table", table},
+        //                                {"TableAction", tableAction},
+        //                            },
+        //                            new DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
+        //                    }
+        //                    break;
+        //                case ShareEnums.DbTableAction.Delete:
+        //                    if (AppSettings.IdentityItem.AccessLevel == true)
+        //                    {
+        //                        AppSettings.DataAccess.ActionDeleteEntity(item);
+        //                    }
+        //                    break;
+        //                case ShareEnums.DbTableAction.Mark:
+        //                    if (AppSettings.IdentityItem.AccessLevel == true)
+        //                    {
+        //                        AppSettings.DataAccess.ActionMarkedEntity(item);
+        //                    }
+        //                    break;
+        //            }
+        //        })}, true).ConfigureAwait(false);
+        //}
 
         private void Action(ShareEnums.DbTableAction tableAction, bool isNewWindow)
         {
@@ -1214,9 +1254,9 @@ namespace BlazorProjectsCore.Models
                         case ShareEnums.DbTableAction.Copy:
                             if (AppSettings.IdentityItem.AccessLevel == true)
                             {
-                                if (Table is TableScaleEntity tableScale)
+                                if (Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScale))
                                 {
-                                    switch (tableScale.Value)
+                                    switch (tableScale)
                                     {
                                         case ProjectsEnums.TableScale.Scales:
                                         case ProjectsEnums.TableScale.Plus:

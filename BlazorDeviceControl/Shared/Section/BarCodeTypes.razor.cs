@@ -34,7 +34,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.BarcodeTypesCrud.GetEntities<BarcodeTypeEntity>(
+                    Items = AppSettings.DataAccess.Crud.GetEntities<BarcodeTypeEntity>(
                         null,
                         new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                         .ToList<IBaseEntity>();

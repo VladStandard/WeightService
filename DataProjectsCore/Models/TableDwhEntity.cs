@@ -5,8 +5,8 @@ using DataShareCore.Models;
 
 namespace DataProjectsCore.Models
 {
-    public class TableSystemEntity : TableBase
+    public class TableDwhEntity : TableBase
     {
-        public TableSystemEntity(ProjectsEnums.TableSystem value) : base(value.ToString()) { }
+        public TableDwhEntity(ProjectsEnums.TableDwh value) : base(value.ToString()) { }
     }
 }
