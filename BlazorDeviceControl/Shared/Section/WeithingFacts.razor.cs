@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.DataModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace BlazorDeviceControl.Shared.Section
 
                     object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
                         SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts, string.Empty, 0, string.Empty);
-                    Items = new List<WeithingFactSummaryEntity>().ToList<IBaseEntity>();
+                    Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
                     foreach (object obj in objects)
                     {
                         if (obj is object[] { Length: 5 } item)

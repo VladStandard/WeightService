@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public PrinterTypeEntity PrinterTypeItem { get => (PrinterTypeEntity)IdItem; set => IdItem = value; }
+        public PrinterTypeEntity PrinterTypeItem { get => (PrinterTypeEntity)Item; set => Item = value; }
 
         #endregion
 
@@ -26,13 +26,14 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterTypes);
                     PrinterTypeItem = null;
                     await GuiRefreshWithWaitAsync();
 
-                    PrinterTypeItem = AppSettings.DataAccess.PrinterTypesCrud.GetEntity<PrinterTypeEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    PrinterTypeItem = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), PrimaryColumn.GetValueAsInt() } }), null);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

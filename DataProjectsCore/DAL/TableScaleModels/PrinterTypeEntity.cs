@@ -5,11 +5,21 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class PrinterTypeEntity : BaseIdEntity
+    public class PrinterTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
         public virtual string Name { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public PrinterTypeEntity()
+        {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            Name = string.Empty;
+        }
 
         #endregion
 
@@ -57,7 +67,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new PrinterTypeEntity
             {
-                Id = Id,
+                PrimaryColumn = (PrimaryColumnEntity?)PrimaryColumn.Clone(),
                 Name = Name
             };
         }

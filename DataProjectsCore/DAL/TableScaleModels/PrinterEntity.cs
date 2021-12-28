@@ -29,7 +29,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strPrinterType = PrinterType != null ? PrinterType.Id.ToString() : "null";
+            string? strPrinterType = PrinterType != null ? PrinterType.PrimaryColumn.GetValueAsInt().ToString() : "null";
             return base.ToString() +
                    $"{nameof(CreateDate)}: {CreateDate}. " +
                    $"{nameof(ModifiedDate)}: {ModifiedDate}. " +

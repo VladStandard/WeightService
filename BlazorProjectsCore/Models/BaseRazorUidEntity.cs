@@ -20,7 +20,7 @@ namespace BlazorProjectsCore.Models
             get => (BaseUidEntity)Item; 
             set
             {
-                Item = (IBaseEntity)value;
+                Item = (BaseEntity)value;
             }
         }
         public IBaseUidEntity UidParentItem
@@ -28,7 +28,7 @@ namespace BlazorProjectsCore.Models
             get => (BaseUidEntity)ParentItem;
             set
             {
-                ParentItem = (IBaseEntity)value;
+                ParentItem = (BaseEntity)value;
             }
         }
 

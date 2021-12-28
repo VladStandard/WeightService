@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntities<ProductionFacilityEntity>(
                         new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                         new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                        .ToList<IBaseEntity>();
+                        .ToList<BaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

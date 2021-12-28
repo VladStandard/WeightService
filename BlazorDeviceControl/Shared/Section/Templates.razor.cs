@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
+using DataShareCore.DAL.Models;
 using DataShareCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace BlazorDeviceControl.Shared.Section
                         Items = AppSettings.DataAccess.TemplatesCrud.GetEntities<TemplateEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<IBaseEntity>();
+                            .ToList<BaseEntity>();
                     }
                     else
                     {
@@ -57,7 +58,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 { ShareEnums.DbField.CategoryId.ToString(), TemplateCategory },
                             }),
                             new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<IBaseEntity>();
+                            .ToList<BaseEntity>();
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

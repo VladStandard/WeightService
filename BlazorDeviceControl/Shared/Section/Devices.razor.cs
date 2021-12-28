@@ -3,6 +3,7 @@
 
 using DataProjectsCore.DAL.DataModels;
 using DataShareCore.DAL.Interfaces;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace BlazorDeviceControl.Shared.Section
 
             await GetDataAsync(new Task(delegate
             {
-                Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<IBaseEntity>();
+                Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<BaseEntity>();
             }), false).ConfigureAwait(false);
         }
 

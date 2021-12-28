@@ -8,7 +8,7 @@
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
 @using DataShareCore
-@inherits BlazorProjectsCore.Models.BaseRazorIdEntity
+@inherits BlazorProjectsCore.Models.BaseRazorEntity
 @inject IDialogService DialogService
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
@@ -34,7 +34,7 @@
                     <td>@LocalizationData.DeviceControl.TableFieldId</td>
                     <td>
                         <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
-                            TValue="int" @bind-Value=@PrinterTypeItem.Id />
+                            TValue="object" @bind-Value=@PrinterTypeItem.PrimaryColumn.Value />
 				    </td>
                     <td>@LocalizationData.DeviceControl.TableFieldName</td>
                     <td>
@@ -44,8 +44,8 @@
                 </tr>
             </tbody>
         </MudSimpleTable>
-        <ItemSave Table=@Table Id=@Id />
-        <ItemDates Table=@Table Id=@Id />
+        <ItemSave Table=@Table PrimaryColumn=@PrimaryColumn />
+        <ItemDates Table=@Table PrimaryColumn=@PrimaryColumn />
     }
 }
 else

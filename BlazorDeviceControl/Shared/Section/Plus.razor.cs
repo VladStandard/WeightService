@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 { ShareEnums.DbField.Marked.ToString(), false },
                         }),
                         new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))
-                        .ToList<IBaseEntity>();
+                        .ToList<BaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

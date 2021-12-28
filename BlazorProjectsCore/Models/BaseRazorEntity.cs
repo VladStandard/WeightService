@@ -2,14 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorShareCore.Models;
+using DataCore;
+using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
-using DataCore;
 using DataShareCore;
-using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
+using DataShareCore.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
@@ -19,8 +20,6 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using DataProjectsCore;
-using DataShareCore.Models;
 
 namespace BlazorProjectsCore.Models
 {
@@ -38,9 +37,10 @@ namespace BlazorProjectsCore.Models
 
         #region Public and private fields and properties - Parameter
 
-        [Parameter] public IBaseEntity Item { get; set; }
-        [Parameter] public IBaseEntity ParentItem { get; set; }
-        [Parameter] public List<IBaseEntity> Items { get; set; }
+        [Parameter] public PrimaryColumnEntity PrimaryColumn { get; set; }
+        [Parameter] public BaseEntity Item { get; set; }
+        [Parameter] public BaseEntity ParentItem { get; set; }
+        [Parameter] public List<BaseEntity> Items { get; set; }
         [Parameter] public TableBase Table { get; set; }
         [Parameter] public bool IsShowNew { get; set; }
         [Parameter] public bool IsShowEdit { get; set; }
@@ -66,7 +66,7 @@ namespace BlazorProjectsCore.Models
                 Dialog?.Dispose();
                 Tooltip?.Dispose();
                 AppSettings.HotKeysContextItem?.Dispose();
-                
+
                 // Disable the garbage collector from calling the destructor.
                 GC.SuppressFinalize(this);
             }
@@ -76,10 +76,11 @@ namespace BlazorProjectsCore.Models
 
         #region Public and private methods - Item, ParentItem, Table
 
-        public void OnChange(object value, string name, IBaseEntity item)
+        public void OnChange(object value, string name, BaseEntity item)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     lock (_locker)
                     {
                         switch (name)
@@ -93,7 +94,7 @@ namespace BlazorProjectsCore.Models
                                             printerItem.PrinterType = null;
                                         else
                                         {
-                                            printerItem.PrinterType = AppSettings.DataAccess.PrinterTypesCrud.GetEntity<PrinterTypeEntity>(
+                                            printerItem.PrinterType = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
                                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
                                             null);
                                         }
@@ -143,11 +144,12 @@ namespace BlazorProjectsCore.Models
                 }), true);
         }
 
-        public async Task ItemSelectAsync(IBaseEntity item)
+        public async Task ItemSelectAsync(BaseEntity item)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     lock (_locker)
                     {
                         Item = item;
@@ -329,10 +331,8 @@ namespace BlazorProjectsCore.Models
                 case ProjectsEnums.TableScale.PrinterTypes:
                     if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idPrinterType))
                     {
-                        PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.PrinterTypesCrud.GetEntity<PrinterTypeEntity>(
-                            new FieldListEntity(new Dictionary<string, object> {
-                                        { ShareEnums.DbField.Id.ToString(), idPrinterType },
-                            }), null);
+                        PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idPrinterType }, }), null);
                         Item = printerTypeEntity;
                     }
                     break;
@@ -798,7 +798,8 @@ namespace BlazorProjectsCore.Models
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemCancelAsync)}", LocalizationCore.Strings.DialogResultSuccess,
                 LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel,
-                new Task(() => {
+                new Task(() =>
+                {
                     //if (Item == null)
                     //    return;
                     if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
@@ -946,13 +947,13 @@ namespace BlazorProjectsCore.Models
             bool success = true;
             if (success)
             {
-                int idLast = AppSettings.DataAccess.PrinterTypesCrud.GetEntity<PrinterTypeEntity>(null, 
-                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-                item.Id = idLast + 1;
-                if (item.Id == 0)
-                    AppSettings.DataAccess.PrinterTypesCrud.SaveEntity(item);
+                int idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null,
+                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).PrimaryColumn.GetValueAsInt();
+                item.PrimaryColumn.Value = idLast + 1;
+                if (item.PrimaryColumn.GetValueAsInt() == 0)
+                    AppSettings.DataAccess.Crud.SaveEntity(item);
                 else
-                    AppSettings.DataAccess.PrinterTypesCrud.UpdateEntity(item);
+                    AppSettings.DataAccess.Crud.UpdateEntity(item);
             }
         }
 
@@ -1097,9 +1098,9 @@ namespace BlazorProjectsCore.Models
 
         private void IdItemSaveAsync()
         {
-            if (Item is BaseIdEntity idItem2)
+            if (Item is BaseEntity item)
             {
-                switch (idItem2)
+                switch (item)
                 {
                     case PrinterEntity printerItem:
                         ItemSaveCheckPrinter(printerItem);
@@ -1117,15 +1118,15 @@ namespace BlazorProjectsCore.Models
                         ItemSaveCheckWorkshop(workshopItem);
                         break;
                     default:
-                        ItemSaveCheck(idItem2);
+                        ItemSaveCheck(item);
                         break;
                 }
             }
         }
 
         //[Obsolete(@"Deprecated method. Use Action method.")]
-        //private async Task ActionAsync<T, TI>(ITableEntity table, ShareEnums.DbTableAction tableAction, TI item, IBaseEntity parentItem = null)
-        //    where T : BaseRazorEntity where TI : IBaseEntity, new()
+        //private async Task ActionAsync<T, TI>(ITableEntity table, ShareEnums.DbTableAction tableAction, TI item, BaseEntity parentItem = null)
+        //    where T : BaseRazorEntity where TI : BaseEntity, new()
         //{
         //    await RunTasksAsync(LocalizationCore.Strings.TableRead, "", LocalizationCore.Strings.DialogResultFail, "",
         //        new List<Task> { new Task(delegate {
@@ -1233,7 +1234,8 @@ namespace BlazorProjectsCore.Models
         private void Action(ShareEnums.DbTableAction tableAction, bool isNewWindow)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     //if (item == null || item.EqualsDefault())
                     //    return;
                     BaseIdEntity idItem = null;

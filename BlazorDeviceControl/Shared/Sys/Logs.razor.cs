@@ -7,6 +7,7 @@ using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.DataModels;
 using DataShareCore.DAL.Interfaces;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace BlazorDeviceControl.Shared.Sys
                     await GuiRefreshWithWaitAsync();
 
                     object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs, string.Empty, 0, string.Empty);
-                    Items = new List<LogSummaryEntity>().ToList<IBaseEntity>();
+                    Items = new List<LogSummaryEntity>().ToList<BaseEntity>();
                     foreach (object obj in objects)
                     {
                         if (obj is object[] { Length: 11 } item)

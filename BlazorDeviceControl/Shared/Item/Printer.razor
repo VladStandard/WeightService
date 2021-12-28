@@ -83,7 +83,7 @@
                                 AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                 Data=@PrinterTypeItems PageSize="10"
                                 TextProperty="Name" ValueProperty="Id"
-                                Value=@PrinterItem.PrinterType?.Id
+                                Value=@PrinterItem.PrinterType?.PrimaryColumn
                                 Change=@(args => OnChange(args, nameof(PrinterTypeEntity), PrinterItem)) />
                         }
 				    </td>

@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataShareCore;
-using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -15,20 +14,20 @@ namespace BlazorProjectsCore.Models
         #region Public and private fields and properties
 
         [Parameter] public int Id { get; set; }
-        public IBaseIdEntity IdItem
+        public BaseIdEntity IdItem
         {
             get => (BaseIdEntity)Item;
             set
             {
-                Item = (IBaseEntity)value;
+                Item = value;
             }
         }
-        public IBaseIdEntity IdParentItem
+        public BaseIdEntity IdParentItem
         {
             get => (BaseIdEntity)ParentItem;
             set
             {
-                ParentItem = (IBaseEntity)value;
+                ParentItem = value;
             }
         }
 
@@ -36,11 +35,12 @@ namespace BlazorProjectsCore.Models
 
         #region Public and private methods
 
-        public async Task ItemSelectAsync(IBaseIdEntity item)
+        public async Task ItemSelectAsync(BaseIdEntity item)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     IdItem = item;
                     await GuiRefreshWithWaitAsync();
                 }), true);

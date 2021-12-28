@@ -7,6 +7,7 @@ namespace DataShareCore.DAL.Models
 {
     public enum ColumnName
     {
+        Default,
         Id,
         Uid,
     }
@@ -16,11 +17,26 @@ namespace DataShareCore.DAL.Models
         #region Public and private fields and properties
 
         public ColumnName Name { get; private set; }
-        public object? Value { get; set; }
+        public object Value { get; set; }
+        public int Id { get; set; }
+        public int Guid { get; set; }
 
         #endregion
 
         #region Public and private methods
+
+        public PrimaryColumnEntity() : this(ColumnName.Default) { }
+
+        public PrimaryColumnEntity(ColumnName name)
+        {
+            Name = name;
+            Value = Name switch
+            {
+                ColumnName.Uid => default(Guid?),
+                ColumnName.Id => default(int?),
+                _ => null,
+            };
+        }
 
         public PrimaryColumnEntity(ColumnName name, object? value)
         {
@@ -32,8 +48,10 @@ namespace DataShareCore.DAL.Models
 
         #region Public and private methods
 
-        private string GetName() => Name switch { ColumnName.Uid => "UID", _ => "ID" };
-        private object? GetValue() => Value == null ? null : Name switch { ColumnName.Uid => (Guid)Value, _ => (int)Value };
+        public string GetName() => Name switch { ColumnName.Uid => "UID", ColumnName.Id => "ID" , _ => string.Empty };
+        public object? GetValue() => Value == null ? null : Name switch { ColumnName.Uid => (Guid)Value, ColumnName.Id => (int)Value, _ => null };
+        public int GetValueAsInt() => Value == null ? 0 : Name switch { ColumnName.Id => (int)Value, _ => 0 };
+        public Guid GetValueAsGuid() => Value == null ? Guid.Empty : Name switch { ColumnName.Uid => (Guid)Value, _ => Guid.Empty };
 
         public override string ToString()
         {
@@ -47,9 +65,11 @@ namespace DataShareCore.DAL.Models
                 case ColumnName.Uid:
                     Guid? uid = (Guid?)GetValue();
                     return uid.GetHashCode();
-                default:
+                case ColumnName.Id:
                     int? id = (int?)GetValue();
                     return id.GetHashCode();
+                default:
+                    throw new ArgumentException($"{nameof(Name)} must be set!");
             }
         }
 
@@ -75,9 +95,11 @@ namespace DataShareCore.DAL.Models
                 case ColumnName.Uid:
                     Guid? uid = (Guid?)GetValue();
                     return Equals(uid, default(Guid?));
-                default:
+                case ColumnName.Id:
                     int? id = (int?)GetValue();
                     return Equals(id, default(int?));
+                default:
+                    throw new ArgumentException($"{nameof(Name)} must be set!");
             }
         }
 

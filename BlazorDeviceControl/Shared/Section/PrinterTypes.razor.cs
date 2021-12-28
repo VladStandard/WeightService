@@ -6,6 +6,7 @@ using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,8 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.PrinterTypesCrud.GetEntities<PrinterTypeEntity>(null, null)
-                        .OrderBy(x => x.Name).ToList<IBaseEntity>();
+                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)
+                        .OrderBy(x => x.Name).ToList<BaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

@@ -1,4 +1,8 @@
 ﻿using System;
+using CoreTests;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataShareCore;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
@@ -56,7 +60,7 @@ namespace BlazorCoreTests.DAL.TableModels
             {
                 const string name = "ZebraPrinterEntity test";
                 const string name2 = "ZebraPrinterEntity test 2";
-                foreach (var zebraPrinterTypeEntity in DataAccessUtils.DataAccess.PrinterTypesCrud.GetEntities(null, null))
+                foreach (var zebraPrinterTypeEntity in DataAccessUtils.DataAccess.Crud.GetEntities(null, null))
                 {
                     // SaveEntity
                     var zebraPrinterType = new PrinterEntity

@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = AppSettings.DataAccess.PrinterResourcesCrud.GetEntities<PrinterResourceEntity>(
                         new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
                         new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
-                        .ToList<IBaseEntity>();
+                        .ToList<BaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

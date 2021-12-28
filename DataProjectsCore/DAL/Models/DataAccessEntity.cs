@@ -57,7 +57,6 @@ namespace DataProjectsCore.DAL.Models
         public CrudController? PlusCrud { get; private set; } = null;
         public CrudController? PrintersCrud { get; private set; } = null;
         public CrudController? PrinterResourcesCrud { get; private set; } = null;
-        public CrudController? PrinterTypesCrud { get; private set; } = null;
         public CrudController? ProductionFacilitiesCrud { get; private set; } = null;
         public CrudController? ProductSeriesCrud { get; private set; } = null;
         public CrudController? ScalesCrud { get; private set; } = null;
@@ -101,7 +100,6 @@ namespace DataProjectsCore.DAL.Models
                 PlusCrud = new CrudController(this, SessionFactory);
                 PrinterResourcesCrud = new CrudController(this, SessionFactory);
                 PrintersCrud = new CrudController(this, SessionFactory);
-                PrinterTypesCrud = new CrudController(this, SessionFactory);
                 ProductionFacilitiesCrud = new CrudController(this, SessionFactory);
                 ProductSeriesCrud = new CrudController(this, SessionFactory);
                 ScalesCrud = new CrudController(this, SessionFactory);
@@ -364,8 +362,8 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (item is TableScaleModels.PrinterTypeEntity)
             {
-                if (PrinterTypesCrud != null)
-                    nextId = PrinterTypesCrud.GetEntity<TableScaleModels.PrinterTypeEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                nextId = Crud.GetEntity<TableScaleModels.PrinterTypeEntity>(null, 
+                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).PrimaryColumn.GetValueAsInt();
             }
             return nextId;
         }
@@ -466,7 +464,7 @@ namespace DataProjectsCore.DAL.Models
             else if (item is TableScaleModels.PrinterEntity zebraPrinterEntity)
                 PrintersCrud?.DeleteEntity(zebraPrinterEntity);
             else if (item is TableScaleModels.PrinterTypeEntity zebraPrinterTypeEntity)
-                PrinterTypesCrud?.MarkedEntity(zebraPrinterTypeEntity);
+                Crud.MarkedEntity(zebraPrinterTypeEntity);
             else if (item is TableScaleModels.PrinterResourceEntity zebraPrinterResourceRefEntity)
                 PrinterResourcesCrud?.DeleteEntity(zebraPrinterResourceRefEntity);
             // DWH.
@@ -549,7 +547,7 @@ namespace DataProjectsCore.DAL.Models
                     PrintersCrud?.MarkedEntity(zebraPrinterEntity);
                     break;
                 case TableScaleModels.PrinterTypeEntity zebraPrinterTypeEntity:
-                    PrinterTypesCrud?.MarkedEntity(zebraPrinterTypeEntity);
+                    Crud.MarkedEntity(zebraPrinterTypeEntity);
                     break;
                 case TableScaleModels.PrinterResourceEntity zebraPrinterResourceRefEntity:
                     PrinterResourcesCrud?.MarkedEntity(zebraPrinterResourceRefEntity);

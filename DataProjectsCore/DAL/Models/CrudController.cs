@@ -449,7 +449,7 @@ namespace DataProjectsCore.DAL.Models
                 if (!printer.EqualsEmpty())
                 {
                     if (printer.PrinterType != null)
-                        printer.PrinterType = GetEntity<TableScaleModels.PrinterTypeEntity>(printer.PrinterType.Id);
+                        printer.PrinterType = GetEntity<TableScaleModels.PrinterTypeEntity>(printer.PrinterType.PrimaryColumn.GetValueAsInt());
                 }
             }
             else if (item is TableScaleModels.PrinterResourceEntity printerResource)

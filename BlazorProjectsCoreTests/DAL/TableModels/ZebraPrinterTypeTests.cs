@@ -28,9 +28,9 @@ namespace BlazorCoreTests.DAL.TableModels
                 {
                     var entity = new PrinterTypeEntity()
                     {
-                        Id = i,
                         Name = s,
                     };
+                    entity.PrimaryColumn.Value = i;
                     _ = entity.ToString();
                     Assert.AreEqual(false, entityNew.Equals(entity));
                 }
@@ -50,10 +50,10 @@ namespace BlazorCoreTests.DAL.TableModels
                 // SaveEntity
                 var zebraPrinterType = new PrinterTypeEntity
                 {
-                    Id = -1,
                     Name = name,
                 };
-                DataAccessUtils.DataAccess.PrinterTypesCrud.SaveEntity(zebraPrinterType);
+                zebraPrinterType.PrimaryColumn.Value = -1;
+                DataAccessUtils.DataAccess.Crud.SaveEntity(zebraPrinterType);
             });
 
             TestsUtils.MethodComplete();
@@ -69,24 +69,24 @@ namespace BlazorCoreTests.DAL.TableModels
                     const string name = "ZebraPrinterType test";
                     const string name2 = "ZebraPrinterType test 2";
                     // GetEntities
-                    foreach (var entity in DataAccessUtils.DataAccess.PrinterTypesCrud.GetEntities(null,
+                    foreach (var entity in DataAccessUtils.DataAccess.Crud.GetEntities(null,
                         new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
                     {
                         if (entity.Name.Equals(name))
                         {
                             // UpdateEntity
                             entity.Name = name2;
-                            DataAccessUtils.DataAccess.PrinterTypesCrud.UpdateEntity(entity);
+                            DataAccessUtils.DataAccess.Crud.UpdateEntity(entity);
                         }
                     }
                     // GetEntities
-                    foreach (var entity in DataAccessUtils.DataAccess.PrinterTypesCrud.GetEntities(null,
+                    foreach (var entity in DataAccessUtils.DataAccess.Crud.GetEntities(null,
                         new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
                     {
                         if (entity.Name.Equals(name2))
                         {
                             // DeleteEntity
-                            DataAccessUtils.DataAccess.PrinterTypesCrud.DeleteEntity(entity);
+                            DataAccessUtils.DataAccess.Crud.DeleteEntity(entity);
                         }
                     }
                 }

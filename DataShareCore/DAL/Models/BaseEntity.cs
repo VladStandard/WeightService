@@ -14,7 +14,7 @@ namespace DataShareCore.DAL.Models
     {
         #region Public and private fields and properties
 
-        public virtual PrimaryColumnEntity? PrimaryColumn { get; set; }
+        public virtual PrimaryColumnEntity PrimaryColumn { get; set; } = new PrimaryColumnEntity();
 
         #endregion
 

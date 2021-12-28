@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace BlazorDeviceControl.Shared.Section
                     Items = TaskItem == null || TaskItem?.EqualsDefault() == true
                         ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)
                             //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<IBaseEntity>()
+                            .ToList<BaseEntity>()
                         : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
                             new FieldListEntity(
                             new Dictionary<string, object> {
@@ -62,7 +63,7 @@ namespace BlazorDeviceControl.Shared.Section
                             }),
                             null)
                             //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<IBaseEntity>()
+                            .ToList<BaseEntity>()
                         ;
                     await GuiRefreshWithWaitAsync();
                 }), true);
