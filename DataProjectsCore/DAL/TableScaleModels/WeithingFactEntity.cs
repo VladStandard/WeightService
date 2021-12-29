@@ -110,6 +110,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new WeithingFactEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 Plu = (PluEntity)Plu?.Clone(),
                 Scales = (ScaleEntity)Scales?.Clone(),

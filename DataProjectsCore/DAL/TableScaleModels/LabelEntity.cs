@@ -75,8 +75,9 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
             return new LabelEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
-                WeithingFact = (WeithingFactEntity)WeithingFact?.Clone(),
+                WeithingFact = (WeithingFactEntity)WeithingFact.Clone(),
                 Label = CloneBytes(Label),
                 CreateDate = CreateDate,
             };

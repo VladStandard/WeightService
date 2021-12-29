@@ -82,6 +82,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new ErrorEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 CreatedDate = CreatedDate,
                 ModifiedDate = ModifiedDate,

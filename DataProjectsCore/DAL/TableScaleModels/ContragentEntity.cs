@@ -79,6 +79,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new ContragentEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,

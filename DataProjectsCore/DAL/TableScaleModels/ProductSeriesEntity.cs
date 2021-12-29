@@ -96,6 +96,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new ProductSeriesEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 CreateDate = CreateDate,
                 Scale = (ScaleEntity)Scale?.Clone(),

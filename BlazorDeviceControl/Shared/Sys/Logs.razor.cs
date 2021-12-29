@@ -32,7 +32,7 @@ namespace BlazorDeviceControl.Shared.Sys
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
                     Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                    UidItem = null;
+                    Item = null;
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 

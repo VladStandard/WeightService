@@ -95,6 +95,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
         {
             return new HostEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,

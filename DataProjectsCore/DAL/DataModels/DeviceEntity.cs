@@ -53,6 +53,7 @@ namespace DataProjectsCore.DAL.DataModels
         {
             return new DeviceEntity()
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 Scales = (ScaleEntity)Scales.Clone(),
             };

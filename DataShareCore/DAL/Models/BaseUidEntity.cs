@@ -1,59 +1,59 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+﻿//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+//// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataShareCore.DAL.Interfaces;
-using System;
+//using DataShareCore.DAL.Interfaces;
+//using System;
 
-namespace DataShareCore.DAL.Models
-{
-    public class BaseUidEntity : BaseEntity, ICloneable, IBaseUidEntity
-    {
-        #region Public and private fields and properties
+//namespace DataShareCore.DAL.Models
+//{
+//    public class BaseUidEntity : BaseEntity, ICloneable, IBaseUidEntity
+//    {
+//        #region Public and private fields and properties
 
-        public virtual Guid Uid { get; set; }
+//        public virtual Guid Uid { get; set; }
 
-        #endregion
+//        #endregion
 
-        #region Public and private methods
+//        #region Public and private methods
 
-        public override string ToString()
-        {
-            return $"{nameof(Uid)}: {Uid}. ";
-        }
+//        public override string ToString()
+//        {
+//            return $"{nameof(Uid)}: {Uid}. ";
+//        }
 
-        public override int GetHashCode()
-        {
-            return Uid.GetHashCode();
-        }
+//        public override int GetHashCode()
+//        {
+//            return Uid.GetHashCode();
+//        }
 
-        public virtual bool Equals(BaseUidEntity entity)
-        {
-            if (entity is null) return false;
-            if (ReferenceEquals(this, entity)) return true;
-            return Uid.Equals(entity.Uid);
-        }
+//        public virtual bool Equals(BaseUidEntity entity)
+//        {
+//            if (entity is null) return false;
+//            if (ReferenceEquals(this, entity)) return true;
+//            return Uid.Equals(entity.Uid);
+//        }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((BaseUidEntity)obj);
-        }
+//        public override bool Equals(object obj)
+//        {
+//            if (obj is null) return false;
+//            if (ReferenceEquals(this, obj)) return true;
+//            if (obj.GetType() != GetType()) return false;
+//            return Equals((BaseUidEntity)obj);
+//        }
 
-        public virtual bool EqualsDefault()
-        {
-            return Equals(Uid, default(Guid));
-        }
+//        public virtual bool EqualsDefault()
+//        {
+//            return Equals(Uid, default(Guid));
+//        }
 
-        public virtual object Clone()
-        {
-            return new BaseUidEntity
-            {
-                Uid = Uid,
-            };
-        }
+//        public virtual object Clone()
+//        {
+//            return new BaseUidEntity
+//            {
+//                Uid = Uid,
+//            };
+//        }
 
-        #endregion
-    }
-}
+//        #endregion
+//    }
+//}

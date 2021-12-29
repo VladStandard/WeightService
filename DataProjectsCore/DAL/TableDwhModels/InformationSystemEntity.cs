@@ -73,6 +73,7 @@ namespace DataProjectsCore.DAL.TableDwhModels
         {
             return new InformationSystemEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 Name = Name,
                 ConnectString1 = Name,

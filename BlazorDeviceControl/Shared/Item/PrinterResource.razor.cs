@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public PrinterResourceEntity PrinterResourceItem { get => (PrinterResourceEntity)IdItem; set => IdItem = value; }
+        public PrinterResourceEntity PrinterResourceItem { get => (PrinterResourceEntity)Item; set => Item = value; }
         public List<PrinterEntity> PrinterItems { get; set; } = null;
         public List<TemplateResourceEntity> ResourceItems { get; set; } = null;
 
@@ -39,7 +39,7 @@ namespace BlazorDeviceControl.Shared.Item
                     PrinterResourceItem = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity<PrinterResourceEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                     PrinterItems = AppSettings.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(null, null).ToList();
-                    ResourceItems = AppSettings.DataAccess.TemplateResourcesCrud.GetEntities<TemplateResourceEntity>(null, null).ToList();
+                    ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null).ToList();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -68,7 +68,7 @@ namespace BlazorDeviceControl.Shared.Item
                             PrinterResourceItem.Printer = null;
                         else
                         {
-                            PrinterResourceItem.Resource = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity<TemplateResourceEntity>(
+                            PrinterResourceItem.Resource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplateResource } }),
                             null);
                             if (string.IsNullOrEmpty(PrinterResourceItem.Description))

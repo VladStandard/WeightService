@@ -7,77 +7,63 @@ namespace DataShareCore.DAL.Models
 {
     public enum ColumnName
     {
-        Default,
-        Id,
-        Uid,
+        Id = 0,
+        Uid = 1,
     }
 
     public class PrimaryColumnEntity
     {
         #region Public and private fields and properties
 
-        public ColumnName Name { get; private set; }
-        public object Value { get; set; }
+        public ColumnName Name { get; set; }
+
         public int Id { get; set; }
-        public int Guid { get; set; }
+        public Guid Uid { get; set; }
 
         #endregion
 
         #region Public and private methods
 
-        public PrimaryColumnEntity() : this(ColumnName.Default) { }
-
-        public PrimaryColumnEntity(ColumnName name)
+        public PrimaryColumnEntity(int id)
         {
-            Name = name;
-            Value = Name switch
-            {
-                ColumnName.Uid => default(Guid?),
-                ColumnName.Id => default(int?),
-                _ => null,
-            };
+            Name = ColumnName.Id;
+            Id = id;
+            Uid = default;
         }
 
-        public PrimaryColumnEntity(ColumnName name, object? value)
+        public PrimaryColumnEntity(Guid uid)
         {
-            Name = name;
-            Value = value;
+            Name = ColumnName.Uid;
+            Id = default;
+            Uid = uid;
         }
 
         #endregion
 
         #region Public and private methods
-
-        public string GetName() => Name switch { ColumnName.Uid => "UID", ColumnName.Id => "ID" , _ => string.Empty };
-        public object? GetValue() => Value == null ? null : Name switch { ColumnName.Uid => (Guid)Value, ColumnName.Id => (int)Value, _ => null };
-        public int GetValueAsInt() => Value == null ? 0 : Name switch { ColumnName.Id => (int)Value, _ => 0 };
-        public Guid GetValueAsGuid() => Value == null ? Guid.Empty : Name switch { ColumnName.Uid => (Guid)Value, _ => Guid.Empty };
 
         public override string ToString()
         {
-            return $"{nameof(Name)}: {GetName()}. {nameof(Value)}: {GetValue()}.";
+            return Id != default 
+                ? $"{nameof(Id)}: {Id}. "
+                : $"{nameof(Uid)}: {Uid}. ";
         }
 
         public override int GetHashCode()
         {
-            switch (Name)
+            return Name switch
             {
-                case ColumnName.Uid:
-                    Guid? uid = (Guid?)GetValue();
-                    return uid.GetHashCode();
-                case ColumnName.Id:
-                    int? id = (int?)GetValue();
-                    return id.GetHashCode();
-                default:
-                    throw new ArgumentException($"{nameof(Name)} must be set!");
-            }
+                ColumnName.Uid => Uid.GetHashCode(),
+                _ => Id.GetHashCode(),
+            };
         }
 
         public virtual bool Equals(PrimaryColumnEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
-            return Equals(GetValue(), entity.GetValue());
+            return Equals(Id, entity.Id) &&
+                Equals(Uid, entity.Uid);
         }
 
         public override bool Equals(object obj)
@@ -90,20 +76,14 @@ namespace DataShareCore.DAL.Models
 
         public virtual bool EqualsDefault()
         {
-            switch (Name)
+            return Name switch
             {
-                case ColumnName.Uid:
-                    Guid? uid = (Guid?)GetValue();
-                    return Equals(uid, default(Guid?));
-                case ColumnName.Id:
-                    int? id = (int?)GetValue();
-                    return Equals(id, default(int?));
-                default:
-                    throw new ArgumentException($"{nameof(Name)} must be set!");
-            }
+                ColumnName.Uid => Equals(Uid, default(Guid)),
+                _ => Equals(Id, default(int)),
+            };
         }
 
-        public virtual object Clone() => new PrimaryColumnEntity(Name, Value);
+        public virtual object Clone() => new PrimaryColumnEntity(Id) { Name = Name, Uid = Uid };
 
         #endregion
     }

@@ -78,6 +78,7 @@ namespace DataProjectsCore.DAL.DataModels
         {
             return new WeithingFactSummaryEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 WeithingDate = WeithingDate,
                 Count = Count,
                 Scale = Scale,

@@ -57,6 +57,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new BarcodeTypeEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 Name = Name
             };

@@ -80,6 +80,7 @@ namespace DataProjectsCore.DAL.TableDwhModels
         {
             return new NomenclatureGroupEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 CreateDate = CreateDate,
                 Dlm = Dlm,
                 Id = Id,

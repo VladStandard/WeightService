@@ -110,17 +110,18 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new OrderEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
-                OrderTypes = (OrderTypeEntity)OrderTypes?.Clone(),
+                OrderTypes = (OrderTypeEntity)OrderTypes.Clone(),
                 ProductDate = ProductDate,
                 PlaneBoxCount = PlaneBoxCount,
                 PlanePalletCount = PlanePalletCount,
                 PlanePackingOperationBeginDate = PlanePackingOperationBeginDate,
                 PlanePackingOperationEndDate = PlanePackingOperationEndDate,
-                Scales = (ScaleEntity)Scales?.Clone(),
-                Plu = (PluEntity)Plu?.Clone(),
+                Scales = (ScaleEntity)Scales.Clone(),
+                Plu = (PluEntity)Plu.Clone(),
                 IdRRef = IdRRef,
-                Templates = (TemplateEntity)Templates?.Clone(),
+                Templates = (TemplateEntity)Templates.Clone(),
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,
             };

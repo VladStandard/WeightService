@@ -11,7 +11,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             Table("[db_scales].[ZebraPrinterType]");
             LazyLoad();
-            Id(x => x.PrimaryColumn.Value).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             Map(x => x.Name).CustomSqlType("NVARCHAR(100)").Column("Name").Nullable().Length(100);
         }
     }

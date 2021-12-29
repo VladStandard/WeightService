@@ -66,6 +66,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new OrderStatusEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 OrderId = OrderId,
                 CurrentDate = CurrentDate,

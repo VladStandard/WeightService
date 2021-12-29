@@ -5,13 +5,22 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class TaskEntity : BaseUidEntity
+    public class TaskEntity : BaseEntity
     {
         #region Public and private fields and properties
 
         public virtual TaskTypeEntity TaskType { get; set; } = new TaskTypeEntity();
         public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
         public virtual bool Enabled { get; set; } = default;
+
+        #endregion
+        
+        #region Constructor and destructor
+
+        public TaskEntity()
+        {
+            PrimaryColumn.Name = ColumnName.Uid;
+        }
 
         #endregion
 
@@ -65,6 +74,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new TaskEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Uid = Uid,
                 TaskType = (TaskTypeEntity)TaskType.Clone(),
                 Scale = (ScaleEntity)Scale.Clone(),

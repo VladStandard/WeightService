@@ -63,7 +63,6 @@ namespace DataProjectsCore.DAL.Models
         public CrudController? TemplatesCrud { get; private set; } = null;
         public CrudController? WeithingFactsCrud { get; private set; } = null;
         public CrudController? WorkshopsCrud { get; private set; } = null;
-        public TableScaleModels.TemplateResourceCrud? TemplateResourcesCrud { get; private set; } = null;
         // DWH tables CRUD.
         public CrudController? BrandCrud { get; private set; } = null;
         public CrudController? InformationSystemCrud { get; private set; } = null;
@@ -103,7 +102,6 @@ namespace DataProjectsCore.DAL.Models
                 ProductionFacilitiesCrud = new CrudController(this, SessionFactory);
                 ProductSeriesCrud = new CrudController(this, SessionFactory);
                 ScalesCrud = new CrudController(this, SessionFactory);
-                TemplateResourcesCrud = new TableScaleModels.TemplateResourceCrud(this, SessionFactory);
                 TemplatesCrud = new CrudController(this, SessionFactory);
                 WeithingFactsCrud = new CrudController(this, SessionFactory);
                 WorkshopsCrud = new CrudController(this, SessionFactory);
@@ -128,9 +126,7 @@ namespace DataProjectsCore.DAL.Models
         // This code have exception: 
         // SqlException: A connection was successfully established with the server, but then an error occurred during the login process. 
         // (provider: SSL Provider, error: 0 - The certificate chain was issued by an authority that is not trusted.)
-#pragma warning disable IDE0051 // Remove unused private members
         private MsSqlConfiguration GetConnection() => CoreSettings.Trusted
-#pragma warning restore IDE0051 // Remove unused private members
             ? MsSqlConfiguration.MsSql2012.ConnectionString(c => c
                 .Server(CoreSettings.Server).Database(CoreSettings.Db).TrustedConnection())
             : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
@@ -230,7 +226,7 @@ namespace DataProjectsCore.DAL.Models
             return result;
         }
 
-        public T ActionGetUidEntity<T>(T item, ShareEnums.DbTableAction tableAction) where T : BaseUidEntity, new()
+        public T ActionGetUidEntity<T>(T item, ShareEnums.DbTableAction tableAction) where T : BaseEntity, new()
         {
             T result = tableAction switch
             {
@@ -332,8 +328,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (item is TableScaleModels.TemplateResourceEntity)
             {
-                if (TemplateResourcesCrud != null)
-                    nextId = TemplateResourcesCrud.GetEntity<TableScaleModels.TemplateResourceEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                nextId = Crud.GetEntity<TableScaleModels.TemplateResourceEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             }
             else if (item is TableScaleModels.TemplateEntity)
             {
@@ -363,7 +358,7 @@ namespace DataProjectsCore.DAL.Models
             else if (item is TableScaleModels.PrinterTypeEntity)
             {
                 nextId = Crud.GetEntity<TableScaleModels.PrinterTypeEntity>(null, 
-                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).PrimaryColumn.GetValueAsInt();
+                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             }
             return nextId;
         }
@@ -454,7 +449,7 @@ namespace DataProjectsCore.DAL.Models
             else if (item is TableScaleModels.TemplateEntity templatesEntity)
                 TemplatesCrud?.DeleteEntity(templatesEntity);
             else if (item is TableScaleModels.TemplateResourceEntity templateResourcesEntity)
-                TemplateResourcesCrud?.DeleteEntity(templateResourcesEntity);
+                Crud.DeleteEntity(templateResourcesEntity);
             else if (item is TableScaleModels.WeithingFactEntity weithingFactEntity)
                 WeithingFactsCrud?.DeleteEntity(weithingFactEntity);
             else if (item is DataModels.WeithingFactSummaryEntity weithingFactSummaryEntity)
@@ -535,7 +530,7 @@ namespace DataProjectsCore.DAL.Models
                     TemplatesCrud?.MarkedEntity(templatesEntity);
                     break;
                 case TableScaleModels.TemplateResourceEntity templateResourcesEntity:
-                    TemplateResourcesCrud?.MarkedEntity(templateResourcesEntity);
+                    Crud.MarkedEntity(templateResourcesEntity);
                     break;
                 case TableScaleModels.WeithingFactEntity weithingFactEntity:
                     WeithingFactsCrud?.MarkedEntity(weithingFactEntity);

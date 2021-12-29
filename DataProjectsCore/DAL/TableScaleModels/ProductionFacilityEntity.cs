@@ -74,6 +74,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new ProductionFacilityEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,

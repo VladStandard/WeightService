@@ -5,7 +5,7 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableSystemModels
 {
-    public class LogTypeEntity : BaseUidEntity
+    public class LogTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -61,6 +61,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
         {
             return new LogTypeEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Uid = Uid,
                 Number = Number,
                 Icon = Icon,

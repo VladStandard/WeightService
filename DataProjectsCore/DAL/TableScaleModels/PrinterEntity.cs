@@ -6,19 +6,19 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class PrinterEntity : BaseIdEntity
+    public class PrinterEntity : BaseEntity
     {
         #region Public and private fields and properties
 
         public virtual DateTime CreateDate { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Ip { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Ip { get; set; } = string.Empty;
         public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
         public virtual short Port { get; set; }
-        public virtual string Password { get; set; }
+        public virtual string Password { get; set; } = string.Empty;
         public virtual PrinterTypeEntity PrinterType { get; set; } = new PrinterTypeEntity();
-        public virtual string Mac { get; set; }
+        public virtual string Mac { get; set; } = string.Empty;
         public virtual bool PeelOffSet { get; set; }
         public virtual short DarknessLevel { get; set; }
         public virtual bool Marked { get; set; }
@@ -29,7 +29,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strPrinterType = PrinterType != null ? PrinterType.PrimaryColumn.GetValueAsInt().ToString() : "null";
+            string? strPrinterType = PrinterType != null ? PrinterType.Id.ToString() : "null";
             return base.ToString() +
                    $"{nameof(CreateDate)}: {CreateDate}. " +
                    $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
@@ -101,6 +101,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new PrinterEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,
@@ -108,7 +109,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
                 Ip = Ip,
                 Port = Port,
                 Password = Password,
-                PrinterType = (PrinterTypeEntity)PrinterType?.Clone(),
+                PrinterType = (PrinterTypeEntity)PrinterType.Clone(),
                 Mac = Mac,
                 PeelOffSet = PeelOffSet,
                 DarknessLevel = DarknessLevel,

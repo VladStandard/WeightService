@@ -46,8 +46,7 @@ namespace BlazorProjectsCore.Models
                     HotKeysItem = hotKeys;
                 }
 
-                if (stateProvider != null)
-                    IdentityOpen(stateProvider);
+                IdentityOpen(stateProvider);
             }
         }
 
@@ -102,26 +101,29 @@ namespace BlazorProjectsCore.Models
 
         private void IdentityOpen(AuthenticationStateProvider stateProvider)
         {
-            if (stateProvider != null)
+            if (stateProvider == null)
+                return;
+            var state = stateProvider.GetAuthenticationStateAsync();
+            if (!state.IsCompleted)
+                return;
+
+            AuthenticationState authenticationState = state.Result;
+            IIdentity identity = authenticationState?.User?.Identity;
+            string name;
+            try
             {
-                AuthenticationState authenticationState = stateProvider.GetAuthenticationStateAsync().Result;
-                IIdentity identity = authenticationState?.User?.Identity;
-                string name;
-                try
-                {
-                    name = identity?.IsAuthenticated == true && !string.IsNullOrEmpty(identity?.Name)
-                        ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
-                }
-                catch (Exception)
-                {
-                    name = LocalizationCore.Strings.Main.IdentityError;
-                }
-                if (IdentityItem == null)
-                    IdentityItem = new IdentityEntity(name);
-                else
-                    IdentityItem.Name = name;
-                SetUserAccessLevel();
+                name = identity?.IsAuthenticated == true && !string.IsNullOrEmpty(identity?.Name)
+                    ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
             }
+            catch (Exception)
+            {
+                name = LocalizationCore.Strings.Main.IdentityError;
+            }
+            if (IdentityItem == null)
+                IdentityItem = new IdentityEntity(name);
+            else
+                IdentityItem.Name = name;
+            SetUserAccessLevel();
         }
 
         private void SetUserAccessLevel([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")

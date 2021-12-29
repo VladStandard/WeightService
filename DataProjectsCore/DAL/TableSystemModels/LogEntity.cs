@@ -6,20 +6,20 @@ using System;
 
 namespace DataProjectsCore.DAL.TableSystemModels
 {
-    public class LogEntity : BaseUidEntity
+    public class LogEntity : BaseEntity
     {
         #region Public and private fields and properties
 
         public virtual DateTime CreateDt { get; set; }
-        public virtual string Scale { get; set; }
+        public virtual string Scale { get; set; } = string.Empty;
         public virtual HostEntity Host { get; set; }
         public virtual AppEntity App { get; set; }
-        public virtual string Version { get; set; }
-        public virtual string File { get; set; }
+        public virtual string Version { get; set; } = string.Empty;
+        public virtual string File { get; set; } = string.Empty;
         public virtual int Line { get; set; }
-        public virtual string Member { get; set; }
+        public virtual string Member { get; set; } = string.Empty;
         public virtual LogTypeEntity LogType { get; set; }
-        public virtual string Message { get; set; }
+        public virtual string Message { get; set; } = string.Empty;
 
         #endregion
 
@@ -100,6 +100,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
         {
             return new LogEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Uid = Uid,
                 CreateDt = CreateDt,
                 Scale = Scale,

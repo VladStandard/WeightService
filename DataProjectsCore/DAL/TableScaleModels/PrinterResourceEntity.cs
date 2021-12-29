@@ -6,13 +6,13 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class PrinterResourceEntity : BaseIdEntity
+    public class PrinterResourceEntity : BaseEntity
     {
         #region Public and private fields and properties
 
         public virtual PrinterEntity Printer { get; set; } = new PrinterEntity();
         public virtual TemplateResourceEntity Resource { get; set; } = new TemplateResourceEntity();
-        public virtual string Description { get; set; }
+        public virtual string Description { get; set; } = string.Empty;
         public virtual DateTime CreateDate { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
 
@@ -76,6 +76,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new PrinterResourceEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 Printer = (PrinterEntity)Printer.Clone(),
                 Resource = (TemplateResourceEntity)Resource.Clone(),

@@ -49,7 +49,7 @@ namespace BlazorDeviceControl.Service
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
             entity.ImageData = await entity.GetBytes(stream, true);
-            dataAccess.TemplateResourcesCrud.UpdateEntity(entity);
+            dataAccess.Crud.UpdateEntity(entity);
         }
     }
 }

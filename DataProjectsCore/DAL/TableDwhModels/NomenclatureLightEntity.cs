@@ -113,6 +113,7 @@ namespace DataProjectsCore.DAL.TableDwhModels
         {
             return new NomenclatureLightEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 Code = Code,
                 Marked = Marked,

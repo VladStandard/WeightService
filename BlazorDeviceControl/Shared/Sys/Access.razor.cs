@@ -6,7 +6,6 @@ using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
-using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -30,9 +29,10 @@ namespace BlazorDeviceControl.Shared.Sys
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                    UidItem = null;
+                    Item = null;
                     Items = null;
                     await GuiRefreshWithWaitAsync();
 

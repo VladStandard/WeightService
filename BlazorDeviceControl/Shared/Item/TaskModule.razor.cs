@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public TaskEntity TaskItem { get => (TaskEntity)UidItem; set => UidItem = value; }
+        public TaskEntity TaskItem { get => (TaskEntity)Item; set => Item = value; }
 
         #endregion
 
@@ -33,9 +33,10 @@ namespace BlazorDeviceControl.Shared.Item
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
                     await GuiRefreshWithWaitAsync();
 
-                    TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
-                        { ShareEnums.DbField.Uid.ToString(), Uid },
-                    }), null);
+                    if (PrimaryColumn != null)
+                        TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
+                            { ShareEnums.DbField.Uid.ToString(), PrimaryColumn.Uid },
+                        }), null);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

@@ -57,6 +57,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new OrderTypeEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 Description = Description
             };

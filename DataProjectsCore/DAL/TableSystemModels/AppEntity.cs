@@ -5,7 +5,7 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableSystemModels
 {
-    public class AppEntity : BaseUidEntity
+    public class AppEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -57,6 +57,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
         {
             return new AppEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Uid = Uid,
                 Name = Name,
             };

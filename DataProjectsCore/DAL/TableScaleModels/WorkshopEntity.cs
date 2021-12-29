@@ -80,6 +80,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new WorkshopEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,

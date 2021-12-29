@@ -6,7 +6,6 @@ using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
-using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -20,13 +19,13 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         public bool Disabled { get => TaskItem == null || TaskItem?.EqualsDefault() == true; }
-        public TaskEntity TaskItem { get => (TaskEntity)UidItem; set => UidItem = value; }
+        public TaskEntity TaskItem { get => (TaskEntity)Item; set => Item = value; }
         private List<TaskEntity> ItemsCast
         {
             get
             {
-                List<TaskEntity> items = Items == null 
-                    ? new List<TaskEntity>() 
+                List<TaskEntity> items = Items == null
+                    ? new List<TaskEntity>()
                     : Items.Select(x => (TaskEntity)x).ToList();
                 //ItemsCast.Sort(delegate (TaskEntity a, TaskEntity b) { return string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name); });
                 items.Sort((a, b) => string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name));
@@ -49,9 +48,10 @@ namespace BlazorDeviceControl.Shared.Section
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
                     await GuiRefreshWithWaitAsync();
 
-                    TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
-                        { ShareEnums.DbField.Uid.ToString(), Uid },
-                    }), null);
+                    if (PrimaryColumn != null)
+                        TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
+                            { ShareEnums.DbField.Uid.ToString(), PrimaryColumn.Uid },
+                        }), null);
                     Items = TaskItem == null || TaskItem?.EqualsDefault() == true
                         ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)
                             //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))

@@ -98,6 +98,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new TemplateEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,

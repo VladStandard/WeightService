@@ -9,17 +9,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; }
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public PrinterTypeEntity()
-        {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
-            Name = string.Empty;
-        }
+        public virtual string Name { get; set; } = string.Empty;
 
         #endregion
 
@@ -67,7 +57,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             return new PrinterTypeEntity
             {
-                PrimaryColumn = (PrimaryColumnEntity?)PrimaryColumn.Clone(),
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Name = Name
             };
         }

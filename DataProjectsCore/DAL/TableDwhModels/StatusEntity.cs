@@ -57,6 +57,7 @@ namespace DataProjectsCore.DAL.TableDwhModels
         {
             return new StatusEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 Name = Name,
             };

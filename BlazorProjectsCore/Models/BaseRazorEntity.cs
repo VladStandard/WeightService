@@ -369,7 +369,7 @@ namespace BlazorProjectsCore.Models
                 case ProjectsEnums.TableScale.TemplateResources:
                     if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idTemplateResource))
                     {
-                        TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.TemplateResourcesCrud.GetEntity<TemplateResourceEntity>(
+                        TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
                             new FieldListEntity(new Dictionary<string, object> {
                                         { ShareEnums.DbField.Id.ToString(), idTemplateResource },
                             }), null);
@@ -706,13 +706,17 @@ namespace BlazorProjectsCore.Models
 
         private void RouteItemNavigateInside(string page)
         {
-            if (Item is BaseIdEntity idItem)
+            if (Item is BaseEntity baseItem)
             {
-                Navigation.NavigateTo($"{page}/{idItem.Id}");
-            }
-            else if (Item is BaseUidEntity uidItem)
-            {
-                Navigation.NavigateTo($"{page}/{uidItem.Uid}");
+                switch (baseItem.Name)
+                {
+                    case ColumnName.Uid:
+                        Navigation.NavigateTo($"{page}/{baseItem.Uid}");
+                        break;
+                    default:
+                        Navigation.NavigateTo($"{page}/{baseItem.Id}");
+                        break;
+                }
             }
             else
             {
@@ -722,13 +726,18 @@ namespace BlazorProjectsCore.Models
 
         private void RouteItemNavigateNewPage(string page)
         {
-            if (Item is BaseIdEntity idItem)
+            if (Item is BaseEntity baseItem)
             {
-                _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{idItem.Id}", "_blank").ConfigureAwait(false);
-            }
-            else if (Item is BaseUidEntity uidItem)
-            {
-                _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{uidItem.Uid}", "_blank").ConfigureAwait(false);
+                switch (baseItem.Name)
+                {
+                    case ColumnName.Id:
+                        _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{baseItem.Id}", "_blank").ConfigureAwait(false);
+                        break;
+                    case ColumnName.Uid:
+                        _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{baseItem.Uid}", "_blank").ConfigureAwait(false);
+                        break;
+                }
+
             }
             else
             {
@@ -802,9 +811,9 @@ namespace BlazorProjectsCore.Models
                 {
                     //if (Item == null)
                     //    return;
-                    if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
+                    if (Item is BaseEntity baseItem && baseItem.EqualsDefault())
                         return;
-                    if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+                    if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
                         return;
                     RouteSectionNavigate(isNewWindow);
                 }), false);
@@ -948,9 +957,9 @@ namespace BlazorProjectsCore.Models
             if (success)
             {
                 int idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null,
-                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).PrimaryColumn.GetValueAsInt();
-                item.PrimaryColumn.Value = idLast + 1;
-                if (item.PrimaryColumn.GetValueAsInt() == 0)
+                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                item.Id = idLast + 1;
+                if (item.Id == 0)
                     AppSettings.DataAccess.Crud.SaveEntity(item);
                 else
                     AppSettings.DataAccess.Crud.UpdateEntity(item);
@@ -1074,17 +1083,17 @@ namespace BlazorProjectsCore.Models
                             return;
                         if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
                             return;
-                        UidItemSaveAsync();
+                        BaseItemSaveAsync();
                         IdItemSaveAsync();
                         RouteSectionNavigate(isNewWindow);
                     })}, continueOnCapturedContext);
         }
 
-        private void UidItemSaveAsync()
+        private void BaseItemSaveAsync()
         {
-            if (Item is BaseUidEntity uidItem && uidItem.EqualsDefault())
+            if (Item is BaseEntity baseItem && baseItem.EqualsDefault())
             {
-                switch (uidItem)
+                switch (baseItem)
                 {
                     case TaskEntity taskItem:
                         ItemSaveCheckTask(taskItem);
@@ -1238,17 +1247,6 @@ namespace BlazorProjectsCore.Models
                 {
                     //if (item == null || item.EqualsDefault())
                     //    return;
-                    BaseIdEntity idItem = null;
-                    BaseUidEntity uidItem = null;
-                    switch (Item)
-                    {
-                        case BaseIdEntity baseIdEntity:
-                            idItem = baseIdEntity;
-                            break;
-                        case BaseUidEntity baseUidEntity:
-                            uidItem = baseUidEntity;
-                            break;
-                    }
                     switch (tableAction)
                     {
                         case ShareEnums.DbTableAction.New:
@@ -1274,29 +1272,19 @@ namespace BlazorProjectsCore.Models
                         case ShareEnums.DbTableAction.Delete:
                             if (AppSettings.IdentityItem.AccessLevel == true)
                             {
-                                switch (Item)
-                                {
-                                    case BaseIdEntity baseIdEntity:
-                                        AppSettings.DataAccess.ActionDeleteEntity(baseIdEntity);
-                                        break;
-                                    case BaseUidEntity baseUidEntity:
-                                        AppSettings.DataAccess.ActionDeleteEntity(baseUidEntity);
-                                        break;
-                                }
+                                if (Item is BaseEntity baseItem)
+                                    AppSettings.DataAccess.ActionDeleteEntity(baseItem);
+                                else if (Item is BaseIdEntity idItem)
+                                    AppSettings.DataAccess.ActionDeleteEntity(idItem);
                             }
                             break;
                         case ShareEnums.DbTableAction.Mark:
                             if (AppSettings.IdentityItem.AccessLevel == true)
                             {
-                                switch (Item)
-                                {
-                                    case BaseIdEntity baseIdEntity:
-                                        AppSettings.DataAccess.ActionMarkedEntity(baseIdEntity);
-                                        break;
-                                    case BaseUidEntity baseUidEntity:
-                                        AppSettings.DataAccess.ActionMarkedEntity(baseUidEntity);
-                                        break;
-                                }
+                                if (Item is BaseEntity baseItem)
+                                    AppSettings.DataAccess.ActionMarkedEntity(baseItem);
+                                else if (Item is BaseIdEntity idItem)
+                                    AppSettings.DataAccess.ActionMarkedEntity(idItem);
                             }
                             break;
                     }

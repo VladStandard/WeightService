@@ -33,7 +33,7 @@ namespace BlazorDeviceControl.Shared.Item
                     await GuiRefreshWithWaitAsync();
 
                     PrinterTypeItem = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), PrimaryColumn.GetValueAsInt() } }), null);
+                        { { ShareEnums.DbField.Id.ToString(), PrimaryColumn.Id } }), null);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

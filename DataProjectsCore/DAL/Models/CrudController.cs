@@ -449,7 +449,7 @@ namespace DataProjectsCore.DAL.Models
                 if (!printer.EqualsEmpty())
                 {
                     if (printer.PrinterType != null)
-                        printer.PrinterType = GetEntity<TableScaleModels.PrinterTypeEntity>(printer.PrinterType.PrimaryColumn.GetValueAsInt());
+                        printer.PrinterType = GetEntity<TableScaleModels.PrinterTypeEntity>(printer.PrinterType.Id);
                 }
             }
             else if (item is TableScaleModels.PrinterResourceEntity printerResource)
@@ -659,9 +659,9 @@ namespace DataProjectsCore.DAL.Models
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
-            if (item is BaseIdEntity idEntity)
+            if (item is BaseEntity baseItem)
             {
-                if (!item.Equals(GetEntity<T>(idEntity.Id)))
+                if (!item.Equals(GetEntity<T>(baseItem.Uid)))
                 {
                     if (item is TableScaleModels.ContragentEntity)
                     {
@@ -679,27 +679,24 @@ namespace DataProjectsCore.DAL.Models
                     SaveEntityInside(item, filePath, lineNumber, memberName);
                 }
             }
-            else
+            else if (item is BaseIdEntity idEntity)
             {
-                if (item is BaseUidEntity uidEntity)
+                if (!item.Equals(GetEntity<T>(idEntity.Id)))
                 {
-                    if (!item.Equals(GetEntity<T>(uidEntity.Uid)))
+                    if (item is TableScaleModels.ContragentEntity)
                     {
-                        if (item is TableScaleModels.ContragentEntity)
-                        {
-                            throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
-                        }
-                        if (item is TableScaleModels.NomenclatureEntity)
-                        {
-                            throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
-                        }
-                        if (item is TableScaleModels.PrinterTypeEntity)
-                        {
-                            Console.WriteLine($"SaveEntity: {item}");
-                        }
-                        //DataAccess.SaveEntity(item, filePath, lineNumber, memberName);
-                        SaveEntityInside(item, filePath, lineNumber, memberName);
+                        throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
                     }
+                    if (item is TableScaleModels.NomenclatureEntity)
+                    {
+                        throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
+                    }
+                    if (item is TableScaleModels.PrinterTypeEntity)
+                    {
+                        Console.WriteLine($"SaveEntity: {item}");
+                    }
+                    //DataAccess.SaveEntity(item, filePath, lineNumber, memberName);
+                    SaveEntityInside(item, filePath, lineNumber, memberName);
                 }
             }
         }

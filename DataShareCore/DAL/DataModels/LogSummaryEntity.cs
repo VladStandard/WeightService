@@ -6,7 +6,7 @@ using System;
 
 namespace DataShareCore.DAL.DataModels
 {
-    public class LogSummaryEntity : BaseUidEntity
+    public class LogSummaryEntity : BaseEntity
     {
         #region Public and private fields and properties
 

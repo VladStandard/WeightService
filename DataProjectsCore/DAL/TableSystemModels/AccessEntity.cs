@@ -6,7 +6,7 @@ using System;
 
 namespace DataProjectsCore.DAL.TableSystemModels
 {
-    public class AccessEntity : BaseUidEntity
+    public class AccessEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -71,6 +71,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
         {
             return new AccessEntity
             {
+                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Uid = Uid,
                 CreateDt = CreateDt,
                 ChangeDt = ChangeDt,
