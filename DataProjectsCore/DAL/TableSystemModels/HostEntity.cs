@@ -6,7 +6,7 @@ using System;
 
 namespace DataProjectsCore.DAL.TableSystemModels
 {
-    public class HostEntity : BaseIdEntity
+    public class HostEntity : BaseEntity
     {
         #region Public and private fields and properties
 

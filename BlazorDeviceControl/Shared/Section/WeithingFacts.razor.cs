@@ -6,7 +6,6 @@ using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.DataModels;
 using DataProjectsCore.Models;
 using DataShareCore;
-using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System;

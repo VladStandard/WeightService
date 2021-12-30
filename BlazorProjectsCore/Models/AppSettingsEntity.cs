@@ -103,27 +103,38 @@ namespace BlazorProjectsCore.Models
         {
             if (stateProvider == null)
                 return;
-            var state = stateProvider.GetAuthenticationStateAsync();
-            if (!state.IsCompleted)
-                return;
+            lock (stateProvider)
+            {
+                System.Threading.Tasks.Task<AuthenticationState> state = stateProvider.GetAuthenticationStateAsync();
+                if (!state.IsCompleted)
+                    return;
 
-            AuthenticationState authenticationState = state.Result;
-            IIdentity identity = authenticationState?.User?.Identity;
-            string name;
-            try
-            {
-                name = identity?.IsAuthenticated == true && !string.IsNullOrEmpty(identity?.Name)
-                    ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
+                AuthenticationState authenticationState = state.Result;
+                if (authenticationState?.User == null)
+                    return;
+                IIdentity identity = authenticationState.User.Identity;
+                if (identity == null)
+                    return;
+                //System.Collections.Generic.IEnumerable<System.Security.Claims.Claim> claims = authenticationState.User.Claims;
+                //System.Collections.Generic.IEnumerator<System.Security.Claims.Claim> enumerator = claims.GetEnumerator();
+                //if (enumerator.Current == null)
+                //    return;
+                string name;
+                try
+                {
+                    name = identity.IsAuthenticated == true && !string.IsNullOrEmpty(identity.Name)
+                        ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
+                }
+                catch (Exception)
+                {
+                    name = LocalizationCore.Strings.Main.IdentityError;
+                }
+                if (IdentityItem == null)
+                    IdentityItem = new IdentityEntity(name);
+                else
+                    IdentityItem.Name = name;
+                SetUserAccessLevel();
             }
-            catch (Exception)
-            {
-                name = LocalizationCore.Strings.Main.IdentityError;
-            }
-            if (IdentityItem == null)
-                IdentityItem = new IdentityEntity(name);
-            else
-                IdentityItem.Name = name;
-            SetUserAccessLevel();
         }
 
         private void SetUserAccessLevel([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")

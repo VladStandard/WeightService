@@ -23,7 +23,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public TemplateResourceEntity TemplateResourcesItem { get => (TemplateResourceEntity)IdItem; set => IdItem = value; }
+        public TemplateResourceEntity TemplateResourcesItem { get => (TemplateResourceEntity)Item; set => Item = value; }
         public List<TypeEntity<string>> ResourceTypes { get; set; }
         [Inject] private IFileUpload FileUpload { get; set; }
         [Inject] private IFileDownload FileDownload { get; set; }

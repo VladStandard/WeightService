@@ -6,7 +6,7 @@ using System;
 
 namespace DataProjectsCore.DAL.TableDwhModels
 {
-    public class NomenclatureGroupEntity : BaseIdEntity
+    public class NomenclatureGroupEntity : BaseEntity
     {
         #region Public and private fields and properties
 

@@ -11,7 +11,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private DeviceEntity DeviceItem => IdItem is DeviceEntity idItem ? idItem : null;
+        public DeviceEntity DeviceItem { get => (DeviceEntity)Item; set => Item = value; }
         [Parameter] public EventCallback CallbackActionSaveAsync { get; set; }
         [Parameter] public EventCallback CallbackActionCancelAsync { get; set; }
 

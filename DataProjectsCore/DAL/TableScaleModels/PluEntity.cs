@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class PluEntity : BaseIdEntity
+    public class PluEntity : BaseEntity
     {
         #region Public and private fields and properties
 

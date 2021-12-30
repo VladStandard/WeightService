@@ -5,7 +5,7 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableDwhModels
 {
-    public class StatusEntity : BaseIdEntity
+    public class StatusEntity : BaseEntity
     {
         #region Public and private fields and properties
 

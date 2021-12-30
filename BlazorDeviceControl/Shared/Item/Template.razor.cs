@@ -17,11 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        //public TemplateDirect TemplateItem { get => (TemplateDirect)IdItem; set => SetItem(value); }
-        public DataProjectsCore.DAL.TableScaleModels.TemplateEntity TemplateItem
-        {
-            get => (DataProjectsCore.DAL.TableScaleModels.TemplateEntity)IdItem; set => IdItem = value;
-        }
+        public TemplateEntity TemplateItem { get => (TemplateEntity)Item; set => Item = value; }
         public List<TypeEntity<string>> TemplateCategories { get; set; }
 
         #endregion

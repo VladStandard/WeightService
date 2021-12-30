@@ -6,7 +6,7 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class ContragentEntity : BaseIdEntity
+    public class ContragentEntity : BaseEntity
     {
         #region Public and private fields and properties
 

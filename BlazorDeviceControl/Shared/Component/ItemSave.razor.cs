@@ -5,11 +5,5 @@ namespace BlazorDeviceControl.Shared.Component
 {
     public partial class ItemSave
     {
-        #region Public and private fields and properties
-
-        //[Parameter] public int? Id { get; set; }
-        //[Parameter] public Guid? Uid { get; set; }
-
-        #endregion
     }
 }

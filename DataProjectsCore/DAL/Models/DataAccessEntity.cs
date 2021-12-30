@@ -204,7 +204,7 @@ namespace DataProjectsCore.DAL.Models
 
         #region Public and private methods - CRUD share
 
-        public T ActionGetIdEntity<T>(T item, ShareEnums.DbTableAction tableAction) where T : BaseIdEntity, new()
+        public T ActionGetIdEntity<T>(T item, ShareEnums.DbTableAction tableAction) where T : BaseEntity, new()
         {
             T result = tableAction switch
             {
@@ -268,7 +268,7 @@ namespace DataProjectsCore.DAL.Models
             return result;
         }
 
-        private int ActionGetIdEntityForScales<T>(T item, int nextId) where T : BaseIdEntity, new()
+        private int ActionGetIdEntityForScales<T>(T item, int nextId) where T : BaseEntity, new()
         {
             if (item is TableSystemModels.HostEntity)
             {
@@ -363,7 +363,7 @@ namespace DataProjectsCore.DAL.Models
             return nextId;
         }
 
-        private int ActionGetIdEntityForDwh<T>(T item, int nextId) where T : BaseIdEntity, new()
+        private int ActionGetIdEntityForDwh<T>(T item, int nextId) where T : BaseEntity, new()
         {
             if (item is TableDwhModels.BrandEntity)
             {

@@ -9,7 +9,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private HostEntity HostItem => IdItem is HostEntity idItem ? idItem : null;
+        public HostEntity HostItem { get => (HostEntity)Item; set => Item = value; } 
 
         #endregion
 

@@ -5,7 +5,7 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class BarcodeTypeEntity : BaseIdEntity
+    public class BarcodeTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 

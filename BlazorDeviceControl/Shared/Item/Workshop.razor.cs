@@ -22,7 +22,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public WorkshopEntity WorkshopItem { get => (WorkshopEntity)IdItem; set => IdItem = value; }
+        public WorkshopEntity WorkshopItem { get => (WorkshopEntity)Item; set => Item = value; }
         public List<ProductionFacilityEntity> ProductionFacilityEntities { get; set; } = null;
 
         #endregion
@@ -46,7 +46,7 @@ namespace BlazorDeviceControl.Shared.Item
                 }), true);
         }
 
-        private async Task RowSelectAsync(BaseIdEntity entity,
+        private async Task RowSelectAsync(BaseEntity item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
@@ -69,7 +69,7 @@ namespace BlazorDeviceControl.Shared.Item
             }
         }
 
-        private async Task RowDoubleClickAsync(BaseIdEntity entity,
+        private async Task RowDoubleClickAsync(BaseEntity item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);

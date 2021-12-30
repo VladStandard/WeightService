@@ -20,7 +20,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public ScaleEntity ScaleItem { get => (ScaleEntity)IdItem; set => IdItem = value; }
+        public ScaleEntity ScaleItem { get => (ScaleEntity)Item; set => Item = value; }
         public string PluTitle { get; set; }
         public PluEntity PluItem { get; set; }
         public List<PluEntity> PluItems { get; set; } = null;

@@ -5,7 +5,7 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableDwhModels
 {
-    public class InformationSystemEntity : BaseIdEntity
+    public class InformationSystemEntity : BaseEntity
     {
         #region Public and private fields and properties
 

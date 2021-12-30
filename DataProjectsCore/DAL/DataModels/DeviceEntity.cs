@@ -3,7 +3,7 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.DataModels
 {
-    public class DeviceEntity : BaseIdEntity
+    public class DeviceEntity : BaseEntity
     {
         #region Public and private fields and properties
 

@@ -27,10 +27,13 @@ namespace BlazorDeviceControl.Shared
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(() => {
-                    AppSettings.Setup(AuthenticationState, JsonAppSettings, HotKeysItem);
-                    if (AppSettings.HotKeysItem != null)
-                        AppSettings.HotKeysContextItem = AppSettings.HotKeysItem.CreateContext()
-                            .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
+                    lock (AuthenticationState)
+                    {
+                        AppSettings.Setup(AuthenticationState, JsonAppSettings, HotKeysItem);
+                        if (AppSettings.HotKeysItem != null)
+                            AppSettings.HotKeysContextItem = AppSettings.HotKeysItem.CreateContext()
+                                .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
+                    }
                 }), true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(() => {

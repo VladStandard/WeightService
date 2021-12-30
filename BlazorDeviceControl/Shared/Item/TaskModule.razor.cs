@@ -33,10 +33,9 @@ namespace BlazorDeviceControl.Shared.Item
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
                     await GuiRefreshWithWaitAsync();
 
-                    if (PrimaryColumn != null)
-                        TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
-                            { ShareEnums.DbField.Uid.ToString(), PrimaryColumn.Uid },
-                        }), null);
+                    TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
+                        { ShareEnums.DbField.Uid.ToString(), Uid },
+                    }), null);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

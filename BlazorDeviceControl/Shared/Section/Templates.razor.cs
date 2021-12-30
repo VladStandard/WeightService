@@ -6,7 +6,6 @@ using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
-using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
 using DataShareCore.Models;
 using Microsoft.AspNetCore.Components;
@@ -35,7 +34,7 @@ namespace BlazorDeviceControl.Shared.Section
                 new Task(async () =>
                 {
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                    IdItem = null;
+                    Item = null;
                     Items = null;
                     TemplateCategories = null;
                     await GuiRefreshWithWaitAsync();

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class LabelEntity : BaseIdEntity
+    public class LabelEntity : BaseEntity
     {
         #region Public and private fields and properties
 

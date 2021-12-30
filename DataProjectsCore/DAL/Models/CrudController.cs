@@ -675,13 +675,9 @@ namespace DataProjectsCore.DAL.Models
                     {
                         Console.WriteLine($"SaveEntity: {item}");
                     }
-                    //DataAccess.SaveEntity(item, filePath, lineNumber, memberName);
                     SaveEntityInside(item, filePath, lineNumber, memberName);
                 }
-            }
-            else if (item is BaseIdEntity idEntity)
-            {
-                if (!item.Equals(GetEntity<T>(idEntity.Id)))
+                else if (!item.Equals(GetEntity<T>(baseItem.Id)))
                 {
                     if (item is TableScaleModels.ContragentEntity)
                     {
@@ -695,7 +691,6 @@ namespace DataProjectsCore.DAL.Models
                     {
                         Console.WriteLine($"SaveEntity: {item}");
                     }
-                    //DataAccess.SaveEntity(item, filePath, lineNumber, memberName);
                     SaveEntityInside(item, filePath, lineNumber, memberName);
                 }
             }

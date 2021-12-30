@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public NomenclatureEntity NomenclatureItem { get => (NomenclatureEntity)IdItem; set => IdItem = value; }
+        public NomenclatureEntity NomenclatureItem { get => (NomenclatureEntity)Item; set => Item = value; }
 
         #endregion
 

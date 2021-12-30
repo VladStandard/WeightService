@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class TemplateResourceEntity : BaseIdEntity
+    public class TemplateResourceEntity : BaseEntity
     {
         #region Public and private fields and properties
 

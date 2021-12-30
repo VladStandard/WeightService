@@ -6,7 +6,7 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class ErrorEntity : BaseIdEntity
+    public class ErrorEntity : BaseEntity
     {
         #region Public and private fields and properties
 

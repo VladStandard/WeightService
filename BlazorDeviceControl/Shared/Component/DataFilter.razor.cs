@@ -10,7 +10,6 @@ namespace BlazorDeviceControl.Shared.Component
         #region Public and private fields and properties
 
         [Parameter] public string ItemTypeName { get; set; }
-        //[Parameter] public IBaseEntity[] Items { get; set; }
 
         #endregion
 

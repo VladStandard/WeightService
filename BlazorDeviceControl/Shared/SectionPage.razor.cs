@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared
         ChartCountEntity[] ContragentsChartModified { get; set; }
         ChartCountEntity[] NomenclaturesChartCreated { get; set; }
         ChartCountEntity[] NomenclaturesChartModified { get; set; }
-        [Parameter] public BaseIdEntity[] Items { get; set; }
+        [Parameter] public BaseEntity[] Items { get; set; }
 
         #endregion
 

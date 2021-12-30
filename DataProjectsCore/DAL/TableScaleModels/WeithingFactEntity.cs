@@ -6,7 +6,7 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class WeithingFactEntity : BaseIdEntity
+    public class WeithingFactEntity : BaseEntity
     {
         #region Public and private fields and properties
 

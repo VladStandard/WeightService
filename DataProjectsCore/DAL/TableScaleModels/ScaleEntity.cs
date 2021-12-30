@@ -7,7 +7,7 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class ScaleEntity : BaseIdEntity
+    public class ScaleEntity : BaseEntity
     {
         #region Public and private fields and properties
 

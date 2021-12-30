@@ -5,7 +5,7 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class OrderTypeEntity : BaseIdEntity
+    public class OrderTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 

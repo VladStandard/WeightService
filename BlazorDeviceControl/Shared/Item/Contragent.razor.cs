@@ -9,7 +9,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        private ContragentEntity ContragentItem => IdItem is ContragentEntity idItem ? idItem : null;
+        public ContragentEntity ContragentItem { get => (ContragentEntity)Item; set => Item = value; }
 
         #endregion
 

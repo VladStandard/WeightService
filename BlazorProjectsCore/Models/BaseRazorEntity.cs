@@ -37,7 +37,8 @@ namespace BlazorProjectsCore.Models
 
         #region Public and private fields and properties - Parameter
 
-        [Parameter] public PrimaryColumnEntity PrimaryColumn { get; set; }
+        [Parameter] public int Id { get; set; } = default;
+        [Parameter] public Guid Uid { get; set; } = Guid.Empty;
         [Parameter] public BaseEntity Item { get; set; }
         [Parameter] public BaseEntity ParentItem { get; set; }
         [Parameter] public List<BaseEntity> Items { get; set; }
@@ -65,7 +66,16 @@ namespace BlazorProjectsCore.Models
             {
                 Dialog?.Dispose();
                 Tooltip?.Dispose();
-                AppSettings.HotKeysContextItem?.Dispose();
+                //AppSettings.HotKeysContextItem?.Dispose();
+                //AppSettings.CoreSettings = null;
+                //AppSettings.IdentityItem = null;
+                //AppSettings.DataAccess = null;
+                //AppSettings.DataSource = null;
+                //AppSettings.JsonAppSettings = null;
+                //AppSettings.HotKeysItem.DisposeAsync();
+                //AppSettings.HotKeysContextItem.Dispose();
+                //AppSettings.Memory.Close();
+                //AppSettings.Memory = null;
 
                 // Disable the garbage collector from calling the destructor.
                 GC.SuppressFinalize(this);
@@ -183,11 +193,9 @@ namespace BlazorProjectsCore.Models
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             if (parameters.Equals(new ParameterView()))
-            {
                 return;
-            }
-
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
+
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
 
@@ -708,15 +716,10 @@ namespace BlazorProjectsCore.Models
         {
             if (Item is BaseEntity baseItem)
             {
-                switch (baseItem.Name)
-                {
-                    case ColumnName.Uid:
-                        Navigation.NavigateTo($"{page}/{baseItem.Uid}");
-                        break;
-                    default:
-                        Navigation.NavigateTo($"{page}/{baseItem.Id}");
-                        break;
-                }
+                if (baseItem.Uid != Guid.Empty)
+                    Navigation.NavigateTo($"{page}/{baseItem.Uid}");
+                else
+                    Navigation.NavigateTo($"{page}/{baseItem.Id}");
             }
             else
             {
@@ -728,16 +731,10 @@ namespace BlazorProjectsCore.Models
         {
             if (Item is BaseEntity baseItem)
             {
-                switch (baseItem.Name)
-                {
-                    case ColumnName.Id:
-                        _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{baseItem.Id}", "_blank").ConfigureAwait(false);
-                        break;
-                    case ColumnName.Uid:
-                        _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{baseItem.Uid}", "_blank").ConfigureAwait(false);
-                        break;
-                }
-
+                if (baseItem.Uid != Guid.Empty)
+                    _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{baseItem.Uid}", "_blank").ConfigureAwait(false);
+                else
+                    _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{baseItem.Id}", "_blank").ConfigureAwait(false);
             }
             else
             {
@@ -809,11 +806,7 @@ namespace BlazorProjectsCore.Models
                 LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel,
                 new Task(() =>
                 {
-                    //if (Item == null)
-                    //    return;
                     if (Item is BaseEntity baseItem && baseItem.EqualsDefault())
-                        return;
-                    if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
                         return;
                     RouteSectionNavigate(isNewWindow);
                 }), false);
@@ -1081,7 +1074,7 @@ namespace BlazorProjectsCore.Models
                     new(() => {
                         if (Item == null)
                             return;
-                        if (Item is BaseIdEntity idItem && idItem.EqualsDefault())
+                        if (Item is BaseEntity item && item.EqualsDefault())
                             return;
                         BaseItemSaveAsync();
                         IdItemSaveAsync();
@@ -1133,120 +1126,11 @@ namespace BlazorProjectsCore.Models
             }
         }
 
-        //[Obsolete(@"Deprecated method. Use Action method.")]
-        //private async Task ActionAsync<T, TI>(ITableEntity table, ShareEnums.DbTableAction tableAction, TI item, BaseEntity parentItem = null)
-        //    where T : BaseRazorEntity where TI : BaseEntity, new()
-        //{
-        //    await RunTasksAsync(LocalizationCore.Strings.TableRead, "", LocalizationCore.Strings.DialogResultFail, "",
-        //        new List<Task> { new Task(delegate {
-        //            Console.WriteLine($"ActionAsync. table: {table}. tableAction: {tableAction}. item: {item}");
-        //            string title = string.Empty;
-        //            if (item is BaseIdEntity idEntity)
-        //            {
-        //                if (table is TableScaleEntity tableScales)
-        //                {
-        //                    idEntity = tableScales.Value switch
-        //                    {
-        //                        ProjectsEnums.TableScale.BarcodeTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.Contragents => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.Hosts => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.Nomenclatures => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.OrderStatuses => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.OrderTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.Plus => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.ProductionFacilities => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.ProductSeries => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.Scales => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.TemplateResources => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.Templates => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.Workshops => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.WeithingFacts => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.Printers => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.PrinterResources => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        ProjectsEnums.TableScale.PrinterTypes => AppSettings.DataAccess.ActionGetIdEntity(idEntity, tableAction),
-        //                        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-        //                    };
-        //                }
-        //                title = LocalizationData.Methods.GetItemTitle(table, idEntity.Id);
-        //            }
-        //            else if (item is BaseUidEntity uidEntity)
-        //            {
-        //                //if (table is TableSystemEntity tableSystem)
-        //                //{
-        //                //    uidEntity = tableSystem.Value switch
-        //                //    {
-        //                //        ProjectsEnums.TableSystem.Accesses => AppSettings.DataAccess.ActionGetUidEntity<AccessEntity>(uidEntity, tableAction),
-        //                //        ProjectsEnums.TableSystem.Logs => AppSettings.DataAccess.ActionGetUidEntity<LogEntity>(uidEntity, tableAction),
-        //                //        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-        //                //    };
-        //                //    title = LocalizationData.Methods.GetItemTitle(table, uidEntity.Uid);
-        //                //}
-        //                title = LocalizationData.Methods.GetItemTitle(table, uidEntity.Uid);
-        //                if (item is AccessEntity access)
-        //                {
-        //                    uidEntity = AppSettings.DataAccess.ActionGetUidEntity(access, tableAction);
-        //                }
-        //                else if (item is LogEntity log)
-        //                {
-        //                    uidEntity = AppSettings.DataAccess.ActionGetUidEntity(log, tableAction);
-        //                }
-        //            }
-
-        //            // Printer from ZebraPrinter.razor.
-        //            if (item is PrinterResourceEntity zebraPrinterResourceRefEntity)
-        //            {
-        //                zebraPrinterResourceRefEntity.Printer = (PrinterEntity)parentItem;
-        //            }
-
-        //            if (tableAction == ShareEnums.DbTableAction.New)
-        //            {
-        //                if (item is PluEntity pluEntity)
-        //                {
-        //                    pluEntity.Scale = (ScaleEntity)parentItem;
-        //                }
-        //            }
-
-        //            switch (tableAction)
-        //            {
-        //                case ShareEnums.DbTableAction.New:
-        //                case ShareEnums.DbTableAction.Edit:
-        //                case ShareEnums.DbTableAction.Copy:
-        //                    if (AppSettings.IdentityItem.AccessLevel == true)
-        //                    {
-        //                        Console.WriteLine($"ActionAsync. AppSettings.IdentityItem.AccessLevel: {AppSettings.IdentityItem.AccessLevel}");
-        //                        Dialog.OpenAsync<T>(title,
-        //                            new Dictionary<string, object>
-        //                            {
-        //                                {"Item", item},
-        //                                {"Table", table},
-        //                                {"TableAction", tableAction},
-        //                            },
-        //                            new DialogOptions() { Width = "1400px", Height = "970px" }).ConfigureAwait(false);
-        //                    }
-        //                    break;
-        //                case ShareEnums.DbTableAction.Delete:
-        //                    if (AppSettings.IdentityItem.AccessLevel == true)
-        //                    {
-        //                        AppSettings.DataAccess.ActionDeleteEntity(item);
-        //                    }
-        //                    break;
-        //                case ShareEnums.DbTableAction.Mark:
-        //                    if (AppSettings.IdentityItem.AccessLevel == true)
-        //                    {
-        //                        AppSettings.DataAccess.ActionMarkedEntity(item);
-        //                    }
-        //                    break;
-        //            }
-        //        })}, true).ConfigureAwait(false);
-        //}
-
         private void Action(ShareEnums.DbTableAction tableAction, bool isNewWindow)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    //if (item == null || item.EqualsDefault())
-                    //    return;
                     switch (tableAction)
                     {
                         case ShareEnums.DbTableAction.New:
@@ -1274,8 +1158,6 @@ namespace BlazorProjectsCore.Models
                             {
                                 if (Item is BaseEntity baseItem)
                                     AppSettings.DataAccess.ActionDeleteEntity(baseItem);
-                                else if (Item is BaseIdEntity idItem)
-                                    AppSettings.DataAccess.ActionDeleteEntity(idItem);
                             }
                             break;
                         case ShareEnums.DbTableAction.Mark:
@@ -1283,8 +1165,6 @@ namespace BlazorProjectsCore.Models
                             {
                                 if (Item is BaseEntity baseItem)
                                     AppSettings.DataAccess.ActionMarkedEntity(baseItem);
-                                else if (Item is BaseIdEntity idItem)
-                                    AppSettings.DataAccess.ActionMarkedEntity(idItem);
                             }
                             break;
                     }
