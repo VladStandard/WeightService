@@ -3,6 +3,7 @@
 
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
+using BlazorShareCore;
 using BlazorShareCore.Models;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +39,7 @@ namespace BlazorDeviceControl
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
+            //services.AddScoped<AuthEntity>();
             services.AddMudServices();
             // Authentication.
             services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();

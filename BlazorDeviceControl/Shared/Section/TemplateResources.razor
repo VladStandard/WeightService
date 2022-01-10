@@ -1,16 +1,16 @@
 ﻿@page "/section/templateresources"
-@using BlazorProjectsCore
-@using DataCore
-@using DataProjectsCore
-@using DataProjectsCore.DAL
-@using DataProjectsCore.DAL.DataModels
-@using DataProjectsCore.DAL.TableModels
-@using DataProjectsCore.DAL.TableScaleModels
-@using DataProjectsCore.Utils
-@using BlazorDeviceControl.Shared.Component
-@using BlazorDeviceControl.Shared.Item
-@using DataShareCore
-@inherits BlazorProjectsCore.Models.BaseRazorEntity
+@    using BlazorProjectsCore
+@    using DataCore
+@    using DataProjectsCore
+@    using DataProjectsCore.DAL
+@    using DataProjectsCore.DAL.DataModels
+@    using DataProjectsCore.DAL.TableModels
+@    using DataProjectsCore.DAL.TableScaleModels
+@    using DataProjectsCore.Utils
+@    using BlazorDeviceControl.Shared.Component
+@    using BlazorDeviceControl.Shared.Item
+@    using DataShareCore
+@inherits             BaseRazorEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {

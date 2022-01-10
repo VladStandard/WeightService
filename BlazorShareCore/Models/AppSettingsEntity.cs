@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorShareCore.Models;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.Models;
 using DataCore;
@@ -16,7 +15,7 @@ using System.Threading;
 using Toolbelt.Blazor.HotKeys;
 using DataProjectsCore.DAL;
 
-namespace BlazorProjectsCore.Models
+namespace BlazorShareCore.Models
 {
     public class AppSettingsEntity : LayoutComponentBase
     {
@@ -27,34 +26,8 @@ namespace BlazorProjectsCore.Models
 
         #endregion
 
-        #region Constructor and destructor
-
-        public void Setup(AuthenticationStateProvider stateProvider, JsonSettingsEntity jsonAppSettings, HotKeys hotKeys)
-        {
-            lock (_locker)
-            {
-                if (jsonAppSettings != null && JsonAppSettings == null && CoreSettings == null && DataAccess == null)
-                {
-                    JsonAppSettings = jsonAppSettings;
-                    CoreSettings = new(JsonAppSettings.Server, JsonAppSettings.Db, 
-                        JsonAppSettings.Trusted, JsonAppSettings.Username, JsonAppSettings.Password, JsonAppSettings.Schema);
-                    DataAccess = new DataAccessEntity(CoreSettings);
-                }
-                if (hotKeys != null)
-                {
-                    _ = (HotKeysItem?.DisposeAsync().ConfigureAwait(true));
-                    HotKeysItem = hotKeys;
-                }
-
-                IdentityOpen(stateProvider);
-            }
-        }
-
-        #endregion
-
         #region Public and private fields and properties
 
-        private readonly object _locker = new();
         public CoreSettingsEntity CoreSettings { get; set; }
         public IdentityEntity IdentityItem { get; private set; }
         public DataAccessEntity DataAccess { get; private set; }
@@ -83,9 +56,9 @@ namespace BlazorProjectsCore.Models
 
         #endregion
 
-        #region Public and private methods - Memory manager
+        #region Public and private methods
 
-        public void MemoryOpen(MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)
+        public void SetupMemory(MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)
         {
             if (Memory != null)
             {
@@ -95,54 +68,71 @@ namespace BlazorProjectsCore.Models
             Memory.Open(callRefreshAsync);
         }
 
-        #endregion
-
-        #region Public and private methods - Authentication & identity
-
-        private void IdentityOpen(AuthenticationStateProvider stateProvider)
+        public void SetupJsonSettings(JsonSettingsEntity jsonAppSettings)
         {
-            if (stateProvider == null)
-                return;
-            lock (stateProvider)
+            if (jsonAppSettings != null && JsonAppSettings == null && CoreSettings == null && DataAccess == null)
             {
-                System.Threading.Tasks.Task<AuthenticationState> state = stateProvider.GetAuthenticationStateAsync();
-                if (!state.IsCompleted)
-                    return;
-
-                AuthenticationState authenticationState = state.Result;
-                if (authenticationState?.User == null)
-                    return;
-                IIdentity identity = authenticationState.User.Identity;
-                if (identity == null)
-                    return;
-                //System.Collections.Generic.IEnumerable<System.Security.Claims.Claim> claims = authenticationState.User.Claims;
-                //System.Collections.Generic.IEnumerator<System.Security.Claims.Claim> enumerator = claims.GetEnumerator();
-                //if (enumerator.Current == null)
-                //    return;
-                string name;
-                try
-                {
-                    name = identity.IsAuthenticated == true && !string.IsNullOrEmpty(identity.Name)
-                        ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
-                }
-                catch (Exception)
-                {
-                    name = LocalizationCore.Strings.Main.IdentityError;
-                }
-                if (IdentityItem == null)
-                    IdentityItem = new IdentityEntity(name);
-                else
-                    IdentityItem.Name = name;
-                SetUserAccessLevel();
+                JsonAppSettings = jsonAppSettings;
+                CoreSettings = new(JsonAppSettings.Server, JsonAppSettings.Db,
+                    JsonAppSettings.Trusted, JsonAppSettings.Username, JsonAppSettings.Password, JsonAppSettings.Schema);
+                DataAccess = new DataAccessEntity(CoreSettings);
             }
         }
 
-        private void SetUserAccessLevel([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void SetupHotKeys(HotKeys hotKeys)
         {
+            if (hotKeys != null)
+            {
+                _ = (HotKeysItem?.DisposeAsync().ConfigureAwait(true));
+                HotKeysItem = hotKeys;
+            }
+        }
+
+        public void SetupIdentity(AuthenticationStateProvider stateProvider)
+        //public void SetupIdentity(IIdentity identity)
+        {
+            if (stateProvider == null)
+                return;
+
+            System.Threading.Tasks.Task<AuthenticationState> state = stateProvider.GetAuthenticationStateAsync();
+            if (!state.IsCompleted)
+                return;
+
+            AuthenticationState authenticationState = state.Result;
+            if (authenticationState?.User == null)
+                return;
+            IIdentity identity = authenticationState.User.Identity;
+
+            if (identity == null)
+                return;
+            //System.Collections.Generic.IEnumerable<System.Security.Claims.Claim> claims = authenticationState.User.Claims;
+            //System.Collections.Generic.IEnumerator<System.Security.Claims.Claim> enumerator = claims.GetEnumerator();
+            //if (enumerator.Current == null)
+            //    return;
+            string name;
+            try
+            {
+                name = identity.IsAuthenticated == true && !string.IsNullOrEmpty(identity.Name)
+                    ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
+            }
+            catch (Exception)
+            {
+                name = LocalizationCore.Strings.Main.IdentityError;
+            }
+            if (IdentityItem == null)
+                IdentityItem = new IdentityEntity(name);
+            else
+                IdentityItem.Name = name;
+        }
+
+        public void SetupUserAccessLevel([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        {
+            if (IdentityItem == null)
+                return;
             IdentityItem.IsAccess = false;
             if (DataAccess != null)
             {
-                object[] objects = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccessUser(IdentityItem.Name), 
+                object[] objects = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccessUser(IdentityItem.Name),
                     filePath, lineNumber, memberName);
                 if (objects.Length == 1)
                 {

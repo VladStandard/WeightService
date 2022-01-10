@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorShareCore.Models;
 using DataCore;
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
@@ -21,7 +20,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace BlazorProjectsCore.Models
+namespace BlazorShareCore.Models
 {
     public class BaseRazorEntity : LayoutComponentBase, IDisposable
     {
@@ -946,50 +945,38 @@ namespace BlazorProjectsCore.Models
 
         public void ItemSaveCheckPrinterType(PrinterTypeEntity item)
         {
-            bool success = true;
-            if (success)
-            {
-                int idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null,
-                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-                item.Id = idLast + 1;
-                if (item.Id == 0)
-                    AppSettings.DataAccess.Crud.SaveEntity(item);
-                else
-                    AppSettings.DataAccess.Crud.UpdateEntity(item);
-            }
+            int idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null,
+                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+            item.Id = idLast + 1;
+            if (item.Id == 0)
+                AppSettings.DataAccess.Crud.SaveEntity(item);
+            else
+                AppSettings.DataAccess.Crud.UpdateEntity(item);
         }
 
         public void ItemSaveCheckPrinterResource(PrinterResourceEntity item)
         {
-            bool success = true;
             item.CreateDate = DateTime.Now;
             item.ModifiedDate = DateTime.Now;
-            if (success)
+            if (item.Id == 0)
             {
-                if (item.Id == 0)
-                {
-                    AppSettings.DataAccess.PrinterResourcesCrud.SaveEntity(item);
-                }
-                else
-                {
-                    bool existsEntity = AppSettings.DataAccess.PrinterResourcesCrud.ExistsEntity<PrinterResourceEntity>(
-                        new FieldListEntity(new Dictionary<string, object>
-                            {{ShareEnums.DbField.Id.ToString(), item.Id}}),
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
-                    if (existsEntity)
-                    {
-                        //int idLast = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(
-                        //    new FieldListEntity(new Dictionary<string, object>
-                        //        { { "Printer.Id", printerResourceItem.Printer.Id }}),
-                        //    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-                        //printerResourceItem.Id = idLast + 1;
-                        AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(item);
-                    }
-                    else
-                    {
-                        AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(item);
-                    }
-                }
+                AppSettings.DataAccess.PrinterResourcesCrud.SaveEntity(item);
+            }
+            else
+            {
+                bool existsEntity = AppSettings.DataAccess.PrinterResourcesCrud.ExistsEntity<PrinterResourceEntity>(
+                    new FieldListEntity(new Dictionary<string, object>
+                        {{ShareEnums.DbField.Id.ToString(), item.Id}}),
+                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
+                //if (existsEntity)
+                //{
+                //    int idLast = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(
+                //        new FieldListEntity(new Dictionary<string, object>
+                //            { { "Printer.Id", printerResourceItem.Printer.Id }}),
+                //        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                //    printerResourceItem.Id = idLast + 1;
+                //}
+                AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(item);
             }
         }
 

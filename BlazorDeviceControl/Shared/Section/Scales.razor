@@ -1,16 +1,16 @@
 ﻿@page "/section/scales"
-@using BlazorProjectsCore
-@using DataCore
-@using DataProjectsCore
-@using DataProjectsCore.DAL
-@using DataProjectsCore.DAL.DataModels
-@using DataProjectsCore.DAL.TableModels
-@using DataProjectsCore.DAL.TableScaleModels
-@using DataProjectsCore.Utils
-@using BlazorDeviceControl.Shared.Component
-@using BlazorDeviceControl.Shared.Item
-@using DataShareCore
-@inherits BlazorProjectsCore.Models.BaseRazorEntity
+@    using BlazorProjectsCore
+@    using DataCore
+@    using DataProjectsCore
+@    using DataProjectsCore.DAL
+@    using DataProjectsCore.DAL.DataModels
+@    using DataProjectsCore.DAL.TableModels
+@    using DataProjectsCore.DAL.TableScaleModels
+@    using DataProjectsCore.Utils
+@    using BlazorDeviceControl.Shared.Component
+@    using BlazorDeviceControl.Shared.Item
+@    using DataShareCore
+@inherits             BaseRazorEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {
@@ -40,7 +40,7 @@
                 Type="string" Width="8%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldIdRref 
+                Title=@LocalizationData.DeviceControl.TableFieldIdRRef
                 Type="string" Width="15%">
                 <Template Context="item">
                     <RadzenLabel Text=@item.Host?.IdRRef.ToString() Disabled="true" Style="white-space: pre-wrap;" />

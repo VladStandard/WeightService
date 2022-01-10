@@ -104,7 +104,7 @@ namespace DataProjectsCore.DAL.TableModels
                 cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
                 cmd.Parameters.AddWithValue($"@PackWeight", PackWeight);  // 
                 cmd.Parameters.AddWithValue($"@PackQuantly", PackQuantly);  // 
-                cmd.Parameters.AddWithValue($"@PackTypeId", PackType == null ? PackType.Id : (object)DBNull.Value);  // 
+                cmd.Parameters.AddWithValue($"@PackTypeId", PackType != null ? PackType.Id : DBNull.Value);  // 
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {

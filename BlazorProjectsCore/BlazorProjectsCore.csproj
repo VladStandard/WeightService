@@ -1,18 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <FileVersion>0.5.960</FileVersion>
-    <AssemblyVersion>0.5.960</AssemblyVersion>
+    <FileVersion>0.6.010</FileVersion>
+    <AssemblyVersion>0.6.010</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="5.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorShareCore\BlazorShareCore.csproj" />
     <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>

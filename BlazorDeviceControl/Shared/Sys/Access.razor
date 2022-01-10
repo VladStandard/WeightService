@@ -1,16 +1,16 @@
 ﻿@page "/system/access"
-@using BlazorProjectsCore
-@using DataCore
-@using DataProjectsCore
-@using DataProjectsCore.DAL.DataModels
-@using DataProjectsCore.DAL.TableModels
-@using DataProjectsCore.DAL.TableSystemModels
-@using DataProjectsCore.Utils
-@using BlazorDeviceControl.Shared.Component
-@using BlazorDeviceControl.Shared.Item
-@using BlazorDeviceControl.Shared.Section
-@using DataShareCore
-@inherits BlazorProjectsCore.Models.BaseRazorEntity
+@    using BlazorProjectsCore
+@    using DataCore
+@    using DataProjectsCore
+@    using DataProjectsCore.DAL.DataModels
+@    using DataProjectsCore.DAL.TableModels
+@    using DataProjectsCore.DAL.TableSystemModels
+@    using DataProjectsCore.Utils
+@    using BlazorDeviceControl.Shared.Component
+@    using BlazorDeviceControl.Shared.Item
+@    using BlazorDeviceControl.Shared.Section
+@    using DataShareCore
+@inherits             BaseRazorEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {

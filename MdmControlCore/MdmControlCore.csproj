@@ -5,10 +5,10 @@
     <Version>$(VersionPrefix)</Version>
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
-    <Copyright>Copyright © 2020 - 2021</Copyright>
+    <Copyright>Copyright © 2020 - 2022</Copyright>
     <Platforms>AnyCPU;x64</Platforms>
-    <FileVersion>0.5.960</FileVersion>
-    <AssemblyVersion>0.5.960</AssemblyVersion>
+    <FileVersion>0.6.010</FileVersion>
+    <AssemblyVersion>0.6.010</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -5,13 +5,13 @@
     <Version>$(VersionPrefix)</Version>
     <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
-    <Copyright>Copyright © 2020 - 2021</Copyright>
+    <Copyright>Copyright © 2020 - 2022</Copyright>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0" />
     <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.0-beta.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CoreTests\CoreTests.csproj" />

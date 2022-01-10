@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        [Inject] public AuthenticationStateProvider AuthenticationStateProviderItem { get; private set; }
+        [Inject] public AuthenticationStateProvider AuthenticationState { get; private set; }
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace BlazorDeviceControl.Shared
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            AuthenticationState authenticationState = AuthenticationStateProviderItem.GetAuthenticationStateAsync().Result;
+            AuthenticationState authenticationState = AuthenticationState.GetAuthenticationStateAsync().Result;
             System.Security.Principal.IIdentity identity = authenticationState?.User?.Identity;
 
             string jsonString = JsonConvert.SerializeObject(identity, 

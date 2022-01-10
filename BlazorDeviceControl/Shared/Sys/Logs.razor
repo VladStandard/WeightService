@@ -1,15 +1,15 @@
 ﻿@page "/system/logs"
-@using BlazorProjectsCore
-@using DataCore
-@using DataProjectsCore
-@using DataProjectsCore.DAL.DataModels
-@using DataProjectsCore.Utils
-@using BlazorDeviceControl.Shared.Component
-@using BlazorDeviceControl.Shared.Item
-@using BlazorDeviceControl.Shared.Section
-@using DataShareCore
-@using DataShareCore.DAL.DataModels
-@inherits BlazorProjectsCore.Models.BaseRazorEntity
+@    using BlazorProjectsCore
+@    using DataCore
+@    using DataProjectsCore
+@    using DataProjectsCore.DAL.DataModels
+@    using DataProjectsCore.Utils
+@    using BlazorDeviceControl.Shared.Component
+@    using BlazorDeviceControl.Shared.Item
+@    using BlazorDeviceControl.Shared.Section
+@    using DataShareCore
+@    using DataShareCore.DAL.DataModels
+@inherits             BaseRazorEntity
 
 @if (AppSettings.IdentityItem.AccessLevel is true or false)
 {

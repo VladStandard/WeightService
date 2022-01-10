@@ -12,11 +12,13 @@ namespace BlazorDeviceControl.Shared
 {
     public partial class MainLayout
     {
-        #region Public and private fields and properties - Inject
+        #region Public and private fields and properties
 
         [Inject] public AuthenticationStateProvider AuthenticationState { get; private set; }
+        //[Inject] public AuthEntity Auth { get; private set; }
         [Inject] public JsonSettingsEntity JsonAppSettings { get; private set; }
         [Inject] public HotKeys HotKeysItem { get; private set; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -26,19 +28,24 @@ namespace BlazorDeviceControl.Shared
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(() => {
-                    lock (AuthenticationState)
+                new Task(() =>
+                {
+                    lock (_locker)
                     {
-                        AppSettings.Setup(AuthenticationState, JsonAppSettings, HotKeysItem);
+                        AppSettings.SetupMemory(GuiRefreshAsync);
+                        AppSettings.SetupJsonSettings(JsonAppSettings);
+                        AppSettings.SetupHotKeys(HotKeysItem);
                         if (AppSettings.HotKeysItem != null)
                             AppSettings.HotKeysContextItem = AppSettings.HotKeysItem.CreateContext()
                                 .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
+                        AppSettings.SetupIdentity(AuthenticationState);
+                        //AppSettings.SetupIdentity(Auth.GetIdentity());
+                        AppSettings.SetupUserAccessLevel();
                     }
                 }), true);
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(() => {
-                    AppSettings.MemoryOpen(GuiRefreshAsync);
-                }), true);
+            //RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            //    new Task(() => {
+            //    }), true);
         }
 
         #endregion

@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        public bool Disabled { get => TaskItem == null || TaskItem?.EqualsDefault() == true; }
+        public bool Disabled { get => TaskItem == null || TaskItem.EqualsDefault() == true; }
         public TaskEntity TaskItem { get => (TaskEntity)Item; set => Item = value; }
         private List<TaskEntity> ItemsCast
         {
@@ -51,7 +51,7 @@ namespace BlazorDeviceControl.Shared.Section
                     TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
                         { ShareEnums.DbField.Uid.ToString(), Uid },
                     }), null);
-                    Items = TaskItem == null || TaskItem?.EqualsDefault() == true
+                    Items = TaskItem == null || TaskItem.EqualsDefault() == true
                         ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)
                             //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
                             .ToList<BaseEntity>()
