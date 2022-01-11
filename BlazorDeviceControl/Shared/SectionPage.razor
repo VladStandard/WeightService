@@ -1,6 +1,8 @@
-﻿@page "/sectionpage"
-@    using DataProjectsCore.DAL.TableModels
-@inherits             BaseRazorEntity
+﻿@*
+@page "/sectionpage"
+@using DataProjectsCore.DAL.TableModels
+@inherits BaseRazorDisposableEntity
+*@
 
 @*
 @if (AppSettings.IdentityItem.AccessLevel is true or false)

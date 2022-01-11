@@ -1,11 +1,11 @@
 ﻿@page "/system/info"
-@    using BlazorProjectsCore
-@    using DataProjectsCore.Utils
-@    using BlazorDeviceControl.Shared.Component
-@    using DataShareCore
-@inherits             BaseRazorEntity
+@using BlazorCore.Models
+@using DataProjectsCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using DataShareCore
+@inherits RazorDisposable
 
-@if (AppSettings.IdentityItem.AccessLevel is true or false)
+@if (AppSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync Items=@Items />
     <br />

@@ -1,12 +1,12 @@
 ﻿@page "/item/printerresource"
 @page "/item/printerresource/{Id:int}"
-@    using System.Globalization
-@    using DataCore
-@    using DataProjectsCore
-@    using DataProjectsCore.DAL.TableModels
-@    using DataProjectsCore.DAL.TableScaleModels
-@    using DataProjectsCore.Utils
-@inherits             BaseRazorEntity
+@using System.Globalization
+@using DataCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.DAL.TableScaleModels
+@using DataProjectsCore.Utils
+@inherits RazorDisposable
 
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldPrinter />

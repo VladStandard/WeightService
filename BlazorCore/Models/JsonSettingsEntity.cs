@@ -4,7 +4,7 @@
 using System;
 using Microsoft.Extensions.Configuration;
 
-namespace BlazorShareCore.Models
+namespace BlazorCore.Models
 {
     /// <summary>
     /// appsettings.json

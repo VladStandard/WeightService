@@ -3,7 +3,7 @@
 
 using System;
 
-namespace BlazorShareCore.Models
+namespace BlazorCore.Models
 {
     public class ChartCountEntity
     {

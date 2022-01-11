@@ -15,7 +15,7 @@ using System.Threading;
 using Toolbelt.Blazor.HotKeys;
 using DataProjectsCore.DAL;
 
-namespace BlazorShareCore.Models
+namespace BlazorCore.Models
 {
     public class AppSettingsEntity : LayoutComponentBase
     {
@@ -28,8 +28,9 @@ namespace BlazorShareCore.Models
 
         #region Public and private fields and properties
 
+        public StuntmanUsersEntity StuntmanUsers { get; set; } = new StuntmanUsersEntity();
         public CoreSettingsEntity CoreSettings { get; set; }
-        public IdentityEntity IdentityItem { get; private set; }
+        public IdentityEntity Identity { get; private set; } = new IdentityEntity();
         public DataAccessEntity DataAccess { get; private set; }
         public DataSourceEntity DataSource { get; private init; } = new();
         public JsonSettingsEntity JsonAppSettings { get; private set; }
@@ -89,8 +90,8 @@ namespace BlazorShareCore.Models
         }
 
         public void SetupIdentity(AuthenticationStateProvider stateProvider)
-        //public void SetupIdentity(IIdentity identity)
         {
+            Identity.Name = string.Empty;
             if (stateProvider == null)
                 return;
 
@@ -105,34 +106,22 @@ namespace BlazorShareCore.Models
 
             if (identity == null)
                 return;
-            //System.Collections.Generic.IEnumerable<System.Security.Claims.Claim> claims = authenticationState.User.Claims;
-            //System.Collections.Generic.IEnumerator<System.Security.Claims.Claim> enumerator = claims.GetEnumerator();
-            //if (enumerator.Current == null)
-            //    return;
-            string name;
             try
             {
-                name = identity.IsAuthenticated == true && !string.IsNullOrEmpty(identity.Name)
+                Identity.Name = identity.IsAuthenticated == true && !string.IsNullOrEmpty(identity.Name)
                     ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
             }
             catch (Exception)
             {
-                name = LocalizationCore.Strings.Main.IdentityError;
+                Identity.Name = LocalizationCore.Strings.Main.IdentityError;
             }
-            if (IdentityItem == null)
-                IdentityItem = new IdentityEntity(name);
-            else
-                IdentityItem.Name = name;
         }
 
         public void SetupUserAccessLevel([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            if (IdentityItem == null)
-                return;
-            IdentityItem.IsAccess = false;
             if (DataAccess != null)
             {
-                object[] objects = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccessUser(IdentityItem.Name),
+                object[] objects = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccessUser(Identity.Name),
                     filePath, lineNumber, memberName);
                 if (objects.Length == 1)
                 {
@@ -142,13 +131,18 @@ namespace BlazorShareCore.Models
                         {
                             if (item[4] != null)
                             {
-                                IdentityItem.AccessLevel = Convert.ToBoolean(item[4]);
+                                Identity.AccessLevel = Convert.ToBoolean(item[4]);
+                                return;
                             }
                         }
                     }
                 }
             }
-            IdentityItem.IsAccess = true;
+        }
+
+        public void SetupUserAccessLevelForce()
+        {
+            Identity.AccessLevel = true;
         }
 
         #endregion

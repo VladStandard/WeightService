@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using CoreTests;
+using NUnit.Framework;
 using System.Threading.Tasks;
 
 namespace BlazorCoreTests.DAL

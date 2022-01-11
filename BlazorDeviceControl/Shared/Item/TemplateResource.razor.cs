@@ -15,7 +15,7 @@ using Radzen;
 using System.Collections.Generic;
 using DataProjectsCore;
 using System.Threading.Tasks;
-using BlazorShareCore.Models;
+using BlazorCore.Models;
 
 namespace BlazorDeviceControl.Shared.Item
 {

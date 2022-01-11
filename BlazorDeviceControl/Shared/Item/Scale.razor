@@ -1,18 +1,17 @@
 ﻿@page "/item/scale"
 @page "/item/scale/{Id:int}"
-@    using BlazorProjectsCore
-@    using BlazorProjectsCore.Models
-@    using DataCore
-@    using DataProjectsCore
-@    using DataProjectsCore.DAL.TableModels
-@    using DataProjectsCore.Utils
-@    using BlazorDeviceControl.Shared.Component
-@    using BlazorDeviceControl.Shared.Section
-@    using DataShareCore
-@inherits             BaseRazorEntity
+@using BlazorCore.Models
+@using DataCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Section
+@using DataShareCore
+@inherits RazorDisposable
 @inject IDialogService DialogService
 
-@if (AppSettings.IdentityItem.AccessLevel is true or false)
+@if (AppSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationData.DeviceControl.ItemScale SetParameters=@SetParametersAsync />
     @if (Item == null)

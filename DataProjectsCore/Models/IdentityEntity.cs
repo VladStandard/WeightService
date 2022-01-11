@@ -9,14 +9,15 @@ namespace DataProjectsCore.Models
     {
         public string Name { get; set; }
         public bool? AccessLevel { get; set; }
-        public bool IsAccess { get; set; }
+        public bool IsAccess { get => AccessLevel == true; }
 
         public IdentityEntity(string name, bool? accessLevel = null)
         {
             Name = name;
             AccessLevel = accessLevel;
-            IsAccess = false;
         }
+
+        public IdentityEntity() : this(string.Empty, null) { }
 
         public override string ToString()
         {

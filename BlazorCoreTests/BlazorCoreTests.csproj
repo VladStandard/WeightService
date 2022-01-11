@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorProjectsCore\BlazorProjectsCore.csproj" />
+    <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
     <ProjectReference Include="..\CoreTests\CoreTests.csproj" />
   </ItemGroup>
 

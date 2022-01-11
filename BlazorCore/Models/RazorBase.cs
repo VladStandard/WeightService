@@ -20,9 +20,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace BlazorShareCore.Models
+namespace BlazorCore.Models
 {
-    public class BaseRazorEntity : LayoutComponentBase, IDisposable
+    public class RazorBase : LayoutComponentBase
     {
         #region Public and private fields and properties - Inject
 
@@ -47,39 +47,13 @@ namespace BlazorShareCore.Models
         [Parameter] public bool IsShowCopy { get; set; }
         [Parameter] public bool IsShowMark { get; set; }
         [Parameter] public bool IsShowDelete { get; set; }
-        private readonly object _locker = new();
+        public object Locker { get; private set; } = new();
 
         #endregion
 
         #region Public and private fields and properties
 
         public AppSettingsEntity AppSettings { get; private set; } = AppSettingsEntity.Instance;
-
-        #endregion
-
-        #region IDisposable
-
-        public void Dispose()
-        {
-            lock (_locker)
-            {
-                Dialog?.Dispose();
-                Tooltip?.Dispose();
-                //AppSettings.HotKeysContextItem?.Dispose();
-                //AppSettings.CoreSettings = null;
-                //AppSettings.IdentityItem = null;
-                //AppSettings.DataAccess = null;
-                //AppSettings.DataSource = null;
-                //AppSettings.JsonAppSettings = null;
-                //AppSettings.HotKeysItem.DisposeAsync();
-                //AppSettings.HotKeysContextItem.Dispose();
-                //AppSettings.Memory.Close();
-                //AppSettings.Memory = null;
-
-                // Disable the garbage collector from calling the destructor.
-                GC.SuppressFinalize(this);
-            }
-        }
 
         #endregion
 
@@ -90,7 +64,7 @@ namespace BlazorShareCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
+                    lock (Locker)
                     {
                         switch (name)
                         {
@@ -159,7 +133,7 @@ namespace BlazorShareCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
+                    lock (Locker)
                     {
                         Item = item;
                     }
@@ -964,7 +938,7 @@ namespace BlazorShareCore.Models
             }
             else
             {
-                bool existsEntity = AppSettings.DataAccess.PrinterResourcesCrud.ExistsEntity<PrinterResourceEntity>(
+                bool _ = AppSettings.DataAccess.PrinterResourcesCrud.ExistsEntity<PrinterResourceEntity>(
                     new FieldListEntity(new Dictionary<string, object>
                         {{ShareEnums.DbField.Id.ToString(), item.Id}}),
                     new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
@@ -1123,7 +1097,7 @@ namespace BlazorShareCore.Models
                         case ShareEnums.DbTableAction.New:
                         case ShareEnums.DbTableAction.Edit:
                         case ShareEnums.DbTableAction.Copy:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
+                            if (AppSettings.Identity.AccessLevel == true)
                             {
                                 if (Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScale))
                                 {
@@ -1141,14 +1115,14 @@ namespace BlazorShareCore.Models
                             }
                             break;
                         case ShareEnums.DbTableAction.Delete:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
+                            if (AppSettings.Identity.AccessLevel == true)
                             {
                                 if (Item is BaseEntity baseItem)
                                     AppSettings.DataAccess.ActionDeleteEntity(baseItem);
                             }
                             break;
                         case ShareEnums.DbTableAction.Mark:
-                            if (AppSettings.IdentityItem.AccessLevel == true)
+                            if (AppSettings.Identity.AccessLevel == true)
                             {
                                 if (Item is BaseEntity baseItem)
                                     AppSettings.DataAccess.ActionMarkedEntity(baseItem);

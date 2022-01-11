@@ -1,14 +1,14 @@
 ﻿@page "/section/devices"
-@    using BlazorProjectsCore
-@    using DataCore
-@    using DataProjectsCore
-@    using DataProjectsCore.DAL.DataModels
-@    using DataProjectsCore.Utils
-@    using DataShareCore
-@    using Microsoft.VisualBasic.CompilerServices
-@inherits             BaseRazorEntity
+@using BlazorCore.Models
+@using DataCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL.DataModels
+@using DataProjectsCore.Utils
+@using DataShareCore
+@using Microsoft.VisualBasic.CompilerServices
+@inherits RazorDisposable
 
-@if (AppSettings.IdentityItem.AccessLevel is true or false)
+@if (AppSettings.Identity.AccessLevel is true or false)
 {
     <h2>
         @LocalizationData.DeviceControl.DevicesTitle

@@ -6,9 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.940] - 2021-12-15
+## [0.6.010] - 2022-01-11
 ### Fixed
-- 
+- BlazorCore refactoring
 
 ## [0.5.930] - 2021-12-14
 ### Fixed

@@ -1,12 +1,11 @@
 ﻿@page "/item/templateresource"
 @page "/item/templateresource/{Id:int}"
-@    using BlazorProjectsCore
-@    using BlazorProjectsCore.Models
-@    using DataProjectsCore
-@    using DataProjectsCore.Utils
-@    using DataCore
-@    using DataShareCore
-@inherits             BaseRazorEntity
+@using BlazorCore.Models
+@using DataProjectsCore
+@using DataProjectsCore.Utils
+@using DataCore
+@using DataShareCore
+@inherits RazorDisposable
 
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldName />

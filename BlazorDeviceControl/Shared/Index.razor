@@ -1,10 +1,9 @@
-﻿@attribute [Authorize]
-@page "/"
-@    using BlazorProjectsCore.Models
-@    using DataCore
-@    using DataProjectsCore
-@    using DataProjectsCore.Utils
-@inherits BaseRazorEntity
+﻿@page "/"
+@using Microsoft.AspNetCore.Authorization
+@using DataCore
+@using DataProjectsCore
+@using DataProjectsCore.Utils
+@inherits RazorBase
 
 <MudElement HtmlTag="h3" Style="width: 100%;">@LocalizationData.DeviceControl.Index</MudElement>
 

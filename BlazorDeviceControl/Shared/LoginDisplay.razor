@@ -1,5 +1,10 @@
 ﻿@page "/login"
-@inherits             BaseRazorEntity
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inherits RazorBase
+
+@inject NavigationManager Navigation
+@inject SignOutSessionStateManager SignOutManager
 
 <AuthorizeView>
     <Authorizing>
@@ -8,12 +13,29 @@
     <Authorized>
         @if (context.User.Identity != null)
         {
-            AuthenticationStateItem = context;
+            Authentication = context;
             <div>@context.User.Identity.Name</div>
-        }!
-        <div>User detect error!</div>
+        } else
+        {
+            <div>User detect error!</div>
+        }
+        <button class="nav-link btn btn-link" @onclick="BeginLogout">Log out</button>
     </Authorized>
     <NotAuthorized>
         <div>Not authorized!</div>
+        <a href="authentication/login">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+<AuthorizeView>
+    <Authorized>
+        <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a>
+        <form method="post" action="Identity/Account/LogOut">
+            <button type="submit" class="nav-link btn btn-link">Log out</button>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <a href="Identity/Account/Register">Register</a>
+        <a href="Identity/Account/Login">Log in</a>
     </NotAuthorized>
 </AuthorizeView>

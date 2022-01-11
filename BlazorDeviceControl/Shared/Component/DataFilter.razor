@@ -1,11 +1,10 @@
 ﻿@page "/component/datafilter"
-@    using BlazorProjectsCore
-@    using BlazorProjectsCore.Models
-@    using DataProjectsCore
-@    using DataProjectsCore.Utils
-@    using DataCore
-@    using DataShareCore
-@inherits BaseRazorEntity
+@using BlazorCore.Models
+@using DataProjectsCore
+@using DataProjectsCore.Utils
+@using DataCore
+@using DataShareCore
+@inherits RazorDisposable
 
 <MudElement HtmlTag="h3" Class="ma-0">
     @if (Items == null)

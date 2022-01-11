@@ -1,10 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorShareCore.Models;
+using BlazorCore.Models;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using System.Threading.Tasks;
 using Toolbelt.Blazor.HotKeys;
 
@@ -14,11 +13,11 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        [Inject] public AuthenticationStateProvider AuthenticationState { get; private set; }
-        //[Inject] public AuthEntity Auth { get; private set; }
-        [Inject] public JsonSettingsEntity JsonAppSettings { get; private set; }
+        //[Inject] public AuthenticationStateProvider AuthenticationState { get; private set; }
         [Inject] public HotKeys HotKeysItem { get; private set; }
-        private readonly object _locker = new();
+        [Inject] public JsonSettingsEntity JsonAppSettings { get; private set; }
+        //[CascadingParameter] private Task<AuthenticationState> authenticationStateTask { get; set; }
+        //private string _authMessage;
 
         #endregion
 
@@ -27,10 +26,11 @@ namespace BlazorDeviceControl.Shared
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
+            //AuthenticationState authState = await authenticationStateTask;
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(() =>
                 {
-                    lock (_locker)
+                    lock (Locker)
                     {
                         AppSettings.SetupMemory(GuiRefreshAsync);
                         AppSettings.SetupJsonSettings(JsonAppSettings);
@@ -38,14 +38,23 @@ namespace BlazorDeviceControl.Shared
                         if (AppSettings.HotKeysItem != null)
                             AppSettings.HotKeysContextItem = AppSettings.HotKeysItem.CreateContext()
                                 .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
-                        AppSettings.SetupIdentity(AuthenticationState);
-                        //AppSettings.SetupIdentity(Auth.GetIdentity());
-                        AppSettings.SetupUserAccessLevel();
+
+                        //AppSettings.SetupIdentity(AuthenticationState);
+                        //AppSettings.SetupUserAccessLevel();
+
+                        //System.Security.Claims.ClaimsPrincipal user = authState.User;
+                        //if (user.Identity.IsAuthenticated)
+                        //{
+                        //    _authMessage = $"{user.Identity.Name} is authenticated.";
+                        //}
+                        //else
+                        //{
+                        //    _authMessage = "The user is NOT authenticated.";
+                        //}
+
+                        AppSettings.SetupUserAccessLevelForce();
                     }
                 }), true);
-            //RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-            //    new Task(() => {
-            //    }), true);
         }
 
         #endregion

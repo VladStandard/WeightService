@@ -1,18 +1,18 @@
 ﻿@page "/section/printertypes"
-@    using BlazorProjectsCore
-@    using DataCore
-@    using DataProjectsCore
-@    using DataProjectsCore.DAL
-@    using DataProjectsCore.DAL.DataModels
-@    using DataProjectsCore.DAL.TableModels
-@    using DataProjectsCore.DAL.TableScaleModels
-@    using DataProjectsCore.Utils
-@    using BlazorDeviceControl.Shared.Component
-@    using BlazorDeviceControl.Shared.Item
-@    using DataShareCore
-@inherits             BaseRazorEntity
+@using BlazorCore.Models
+@using DataCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL
+@using DataProjectsCore.DAL.DataModels
+@using DataProjectsCore.DAL.TableModels
+@using DataProjectsCore.DAL.TableScaleModels
+@using DataProjectsCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using DataShareCore
+@inherits RazorDisposable
 
-@if (AppSettings.IdentityItem.AccessLevel is true or false)
+@if (AppSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationData.DeviceControl.SectionPrinterTypes SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
     <RadzenGrid Style="margin-top: 5px;"

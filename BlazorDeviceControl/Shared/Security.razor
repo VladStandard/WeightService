@@ -1,9 +1,9 @@
 ﻿@page "/security"
-@    using DataCore
-@    using DataShareCore.Utils
-@inherits             BaseRazorEntity
+@using DataCore
+@using DataShareCore.Utils
+@inherits RazorDisposable
 
-@if (AppSettings.IdentityItem.AccessLevel is true or false)
+@if (AppSettings.Identity.AccessLevel is true or false)
 {
     <p>The current authenticated user:</p>
     <div id="jsonRender"></div>

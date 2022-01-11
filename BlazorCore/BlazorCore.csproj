@@ -28,6 +28,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Radzen.Blazor" Version="3.12.3" />
+    <PackageReference Include="RimDev.Stuntman" Version="3.0.0" />
     <PackageReference Include="Toolbelt.Blazor.HotKeys" Version="12.0.0" />
   </ItemGroup>
 

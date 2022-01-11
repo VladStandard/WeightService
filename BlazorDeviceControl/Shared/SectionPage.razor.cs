@@ -1,50 +1,50 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+﻿//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+//// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorShareCore.Models;
-using DataShareCore;
-using DataShareCore.DAL.Models;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+//using BlazorCore.Models;
+//using DataShareCore;
+//using DataShareCore.DAL.Models;
+//using Microsoft.AspNetCore.Components;
+//using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared
-{
-    public partial class SectionPage
-    {
-        #region Public and private fields and properties
+//namespace BlazorDeviceControl.Shared
+//{
+//    public partial class SectionPage
+//    {
+//        #region Public and private fields and properties
 
-        ChartCountEntity[] ContragentsChartCreated { get; set; }
-        ChartCountEntity[] ContragentsChartModified { get; set; }
-        ChartCountEntity[] NomenclaturesChartCreated { get; set; }
-        ChartCountEntity[] NomenclaturesChartModified { get; set; }
-        [Parameter] public BaseEntity[] Items { get; set; }
+//        ChartCountEntity[] ContragentsChartCreated { get; set; }
+//        ChartCountEntity[] ContragentsChartModified { get; set; }
+//        ChartCountEntity[] NomenclaturesChartCreated { get; set; }
+//        ChartCountEntity[] NomenclaturesChartModified { get; set; }
+//        [Parameter] public BaseEntity[] Items { get; set; }
 
-        #endregion
+//        #endregion
 
-        #region Public and private methods
+//        #region Public and private methods
 
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+//        public override async Task SetParametersAsync(ParameterView parameters)
+//        {
+//            await base.SetParametersAsync(parameters).ConfigureAwait(true);
 
-            //if (parameters.TryGetValue("Table", out ProjectsEnums.TableScale table)) { Table = table; }
+//            //if (parameters.TryGetValue("Table", out ProjectsEnums.TableScale table)) { Table = table; }
 
-            await GetDataAsync(new Task(delegate
-            {
-                Items = null;
+//            await GetDataAsync(new Task(delegate
+//            {
+//                Items = null;
 
-                // ChartDataCreated.
-                ContragentsChartCreated = GetContragentsChartEntities(ShareEnums.DbField.CreateDate);
-                // ChartDataModified.
-                ContragentsChartModified = GetContragentsChartEntities(ShareEnums.DbField.ModifiedDate);
+//                // ChartDataCreated.
+//                ContragentsChartCreated = GetContragentsChartEntities(ShareEnums.DbField.CreateDate);
+//                // ChartDataModified.
+//                ContragentsChartModified = GetContragentsChartEntities(ShareEnums.DbField.ModifiedDate);
 
-                // ChartDataCreated.
-                NomenclaturesChartCreated = GetNomenclaturesChartEntities(ShareEnums.DbField.CreateDate);
-                // ChartDataModified.
-                NomenclaturesChartModified = GetNomenclaturesChartEntities(ShareEnums.DbField.ModifiedDate);
-            }), false).ConfigureAwait(false);
-        }
+//                // ChartDataCreated.
+//                NomenclaturesChartCreated = GetNomenclaturesChartEntities(ShareEnums.DbField.CreateDate);
+//                // ChartDataModified.
+//                NomenclaturesChartModified = GetNomenclaturesChartEntities(ShareEnums.DbField.ModifiedDate);
+//            }), false).ConfigureAwait(false);
+//        }
 
-        #endregion
-    }
-}
+//        #endregion
+//    }
+//}

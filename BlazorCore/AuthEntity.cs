@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace BlazorShareCore
+namespace BlazorCore
 {
     public class AuthEntity
     {

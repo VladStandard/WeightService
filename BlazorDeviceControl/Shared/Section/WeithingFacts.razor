@@ -1,16 +1,16 @@
 ﻿@page "/section/weithingfacts"
-@    using BlazorProjectsCore
-@    using DataCore
-@    using DataProjectsCore
-@    using DataProjectsCore.DAL.DataModels
-@    using DataProjectsCore.Utils
-@    using BlazorDeviceControl.Shared.Component
-@    using BlazorDeviceControl.Shared.Item
-@    using BlazorDeviceControl.Shared.Section
-@    using DataShareCore
-@inherits             BaseRazorEntity
+@using BlazorCore.Models
+@using DataCore
+@using DataProjectsCore
+@using DataProjectsCore.DAL.DataModels
+@using DataProjectsCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using BlazorDeviceControl.Shared.Section
+@using DataShareCore
+@inherits RazorDisposable
 
-@if (AppSettings.IdentityItem.AccessLevel is true or false)
+@if (AppSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationData.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
     <RadzenGrid Style="margin-top: 5px;"
