@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 using static DataShareCore.ShareEnums;
 
@@ -17,26 +18,63 @@ namespace DataShareCore.DAL.Models
     {
         #region Public and private methods
 
+        public XmlWriterSettings GetXmlWriterSettings() => new()
+        {
+            ConformanceLevel = ConformanceLevel.Document,
+            OmitXmlDeclaration = false, // не подавлять xml заголовок
+            Encoding = Encoding.UTF8,   // кодировка
+                                        // Какого то кипариса! эта настройка не работает
+                                        // и UTF16 записывается в шапку XML
+                                        // типа Visual Studio работает только с UTF16
+            Indent = true,              // добавлять отступы
+            IndentChars = "\t"          // сиволы отступа
+        };
+
         public string SerializeAsJson() => JsonConvert.SerializeObject(this);
+
+        public string SerializeAsXmlWithEmptyNamespaces()
+        {
+            // Don't use it.
+            // XmlSerializer xmlSerializer = new(typeof(T));
+            // Use it.
+            XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+            XmlSerializerNamespaces emptyNamespaces = new();
+            emptyNamespaces.Add(string.Empty, string.Empty);
+            using StringWriter stringWriter = new();
+            using (XmlWriter xw = XmlWriter.Create(stringWriter, GetXmlWriterSettings()))
+            {
+                xmlSerializer.Serialize(xw, this, emptyNamespaces);
+            }
+            return stringWriter.ToString();
+        }
 
         public string SerializeAsXml()
         {
-            XmlSerializer xmlSerializer = new(typeof(T));
-            using StringWriter textWriter = new();
-            xmlSerializer.Serialize(textWriter, this);
-            return textWriter.ToString();
+            // Don't use it.
+            // XmlSerializer xmlSerializer = new(typeof(T));
+            // Use it.
+            XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+            using StringWriter stringWriter = new();
+            xmlSerializer.Serialize(stringWriter, this);
+            return stringWriter.ToString();
         }
 
         public static T DeserializeFromXml(string xml)
         {
-            XmlSerializer xmlSerializer = new(typeof(T));
+            // Don't use it.
+            // XmlSerializer xmlSerializer = new(typeof(T));
+            // Use it.
+            XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
             return (T)xmlSerializer.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(xml)));
         }
 
         public static T DeserializeFromXmlVersion2(string xml)
         {
+            // Don't use it.
+            // XmlSerializer xmlSerializer = new(typeof(T));
+            // Use it.
+            XmlSerializer xmlSerializer = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
             T result = new();
-            XmlSerializer xmlSerializer = new(typeof(T));
             using (TextReader reader = new StringReader(xml))
             {
                 result = (T)xmlSerializer.Deserialize(reader);

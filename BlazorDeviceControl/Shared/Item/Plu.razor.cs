@@ -131,7 +131,7 @@ namespace BlazorDeviceControl.Shared.Item
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{nameof(OnChange)}]!",
                     Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
+                    Duration = AppSettingsHelper.Delay
                 };
                 Notification.Notify(msg);
                 Console.WriteLine($"{msg.Summary}. {msg.Detail}");
@@ -234,7 +234,7 @@ namespace BlazorDeviceControl.Shared.Item
                     Severity = NotificationSeverity.Error,
                     Summary = $"Ошибка метода [{nameof(OnClickFieldsFill)}]!",
                     Detail = ex.Message,
-                    Duration = AppSettingsEntity.Delay
+                    Duration = AppSettingsHelper.Delay
                 };
                 Notification.Notify(msg);
                 Console.WriteLine($"{msg.Summary}. {msg.Detail}");

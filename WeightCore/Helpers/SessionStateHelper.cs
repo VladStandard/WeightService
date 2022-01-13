@@ -466,7 +466,8 @@ namespace WeightCore.Helpers
             {
                 CurrentWeighingFact.Save();
 
-                string xmlInput = CurrentWeighingFact.SerializeObject();
+                //string xmlInput = CurrentWeighingFact.SerializeObject();
+                string xmlInput = CurrentWeighingFact.SerializeAsXmlWithEmptyNamespaces();
                 string printCmd = ZplPipeUtils.XsltTransformationPipe(template.XslContent, xmlInput, true);
 
                 // Replace ZPL's pics.

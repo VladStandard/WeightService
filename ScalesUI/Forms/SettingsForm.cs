@@ -65,7 +65,8 @@ namespace ScalesUI.Forms
                 }
 
                 if (SessionState?.CurrentWeighingFact != null)
-                    fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeObject();
+                    fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeAsXmlWithEmptyNamespaces();
+                    //fieldCurrentWeightFact.Text = SessionState.CurrentWeighingFact.SerializeObject();
 
                 fieldGuid.Text = SessionState?.CurrentScaleId.ToString();
                 //fieldSqlConnectionString.Text = Properties.Settings.Default.ConnectionString;

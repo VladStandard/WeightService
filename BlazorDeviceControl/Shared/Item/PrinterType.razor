@@ -11,7 +11,7 @@
 @inherits RazorDisposable
 @inject IDialogService DialogService
 
-@if (AppSettings.Identity.AccessLevel is true or false)
+@if (UserSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationData.DeviceControl.ItemPrinterType SetParameters=@SetParametersAsync />
     @if (Item == null)

@@ -11,13 +11,13 @@
 @inherits RazorDisposable
 @inject IDialogService DialogService
 
-@if (AppSettings.Identity.AccessLevel is true or false)
+@if (UserSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationData.DeviceControl.SectionPrinterResources SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterResourceEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionEditAsync())
+        RowDoubleClick=@(args => ActionEditAsync(UserSettings))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns>

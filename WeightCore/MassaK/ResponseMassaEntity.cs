@@ -9,7 +9,7 @@ namespace WeightCore.MassaK
     public class ResponseMassaEntity
     {
         public int Weight;
-        public int ScaleFactor;
+        public int ScaleFactor = 1_000;
         public byte _division;
         public byte Division
         {
@@ -24,7 +24,7 @@ namespace WeightCore.MassaK
                     0x02 => 100,
                     0x03 => 10,
                     0x04 => 1,
-                    _ => 1000,
+                    _ => 1_000,
                 };
             }
         }

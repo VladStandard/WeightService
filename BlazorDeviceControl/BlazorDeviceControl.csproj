@@ -8,8 +8,8 @@
     <AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-    <AssemblyVersion>0.6.010</AssemblyVersion>
-    <FileVersion>0.6.010</FileVersion>
+    <AssemblyVersion>0.6.020</AssemblyVersion>
+    <FileVersion>0.6.020</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
@@ -18,13 +18,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <Optimize>True</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <Optimize>True</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>False</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Data\**" />
@@ -41,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\Images\" />
+    <Folder Include="wwwroot\static\lib\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BlazorDownloadFile" Version="2.3.1" />
@@ -49,6 +53,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.1" />
@@ -57,7 +62,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.10" />
     <PackageReference Include="Radzen.Blazor" Version="3.14.1" />
-    <PackageReference Include="RimDev.Stuntman" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="appsettings.json" />
@@ -81,6 +85,7 @@
     <Watch Remove="Shared\Component\ItemSave.razor" />
     <Watch Remove="Shared\Component\SectionActions.razor" />
     <Watch Remove="Shared\Item\TaskModule.razor" />
+    <Watch Remove="Shared\Login.razor" />
     <Watch Remove="Shared\Section\SectionIdActions.razor" />
     <Watch Remove="Shared\Section\TaskModules.razor" />
   </ItemGroup>
@@ -94,5 +99,8 @@
   </Target>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>False</Optimize>
   </PropertyGroup>
 </Project>

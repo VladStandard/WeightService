@@ -76,7 +76,7 @@ namespace BlazorDeviceControl.Shared.Item
                 Severity = NotificationSeverity.Error,
                 Summary = $"Ошибка метода [{name}]!",
                 Detail = args.Message,
-                Duration = AppSettingsEntity.Delay
+                Duration = AppSettingsHelper.Delay
             };
             Notification.Notify(msg);
         }

@@ -13,6 +13,16 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
+            <NavLink class="nav-link" href=@LocalizationCore.Strings.UriRouteSystemLogin>
+                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.SysLogin
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href=@LocalizationCore.Strings.UriRouteSystemAccess>
+                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.SysAccess
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
             <NavLink class="nav-link" href=@LocalizationCore.Strings.UriRouteSystemInfo>
                 <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.MenuInfo
             </NavLink>
@@ -20,11 +30,6 @@
         <li class="nav-item px-3">
             <NavLink class="nav-link" href=@LocalizationCore.Strings.UriRouteSystemLogs>
                 <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.SysLogs
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href=@LocalizationCore.Strings.UriRouteSystemAccess>
-                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.SysAccess
             </NavLink>
         </li>
         <li class="nav-item px-3">

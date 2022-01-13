@@ -1,0 +1,29 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inherits RazorDisposable
+@inject NavigationManager Navigation
+
+<AuthorizeView>
+    <Authorizing>
+        <div>Authorizing ...</div>
+    </Authorizing>
+    <Authorized>
+        @if (context.User.Identity != null)
+        {
+            Authentication = context;
+            <div>@context.User.Identity.Name</div>
+            <form method="post" action="Identity/Account/LogOut">
+                <button type="submit" class="nav-link btn btn-link">Log out</button>
+            </form>
+        } else
+        {
+            <div>User detect error!</div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <div>Not authorized!</div>
+        <a href="system/login">Log in</a>
+        <a href="system/register">Register</a>
+    </NotAuthorized>
+</AuthorizeView>

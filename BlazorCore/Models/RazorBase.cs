@@ -53,7 +53,8 @@ namespace BlazorCore.Models
 
         #region Public and private fields and properties
 
-        public AppSettingsEntity AppSettings { get; private set; } = AppSettingsEntity.Instance;
+        public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
+        public UserSettingsEntity UserSettings { get; private set; } = new UserSettingsEntity();
 
         #endregion
 
@@ -589,11 +590,11 @@ namespace BlazorCore.Models
                 }
             }
             if (!string.IsNullOrEmpty(detailSuccess))
-                Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsEntity.Delay);
+                Notification.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsHelper.Delay);
             else
             {
                 if (!string.IsNullOrEmpty(detailCancel))
-                    Notification.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsEntity.Delay);
+                    Notification.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsHelper.Delay);
             }
         }
 
@@ -606,14 +607,14 @@ namespace BlazorCore.Models
             if (!string.IsNullOrEmpty(detailFail))
             {
                 if (!string.IsNullOrEmpty(msg))
-                    Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettingsEntity.Delay);
+                    Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettingsHelper.Delay);
                 else
-                    Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettingsEntity.Delay);
+                    Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettingsHelper.Delay);
             }
             else
             {
                 if (!string.IsNullOrEmpty(msg))
-                    Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsEntity.Delay);
+                    Notification.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsHelper.Delay);
             }
             // SQL log.
             AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
@@ -895,7 +896,7 @@ namespace BlazorCore.Models
                     Severity = NotificationSeverity.Warning,
                     Summary = LocalizationCore.Strings.DataControl,
                     Detail = $"{LocalizationCore.Strings.DataControlField} [{field}]!",
-                    Duration = AppSettingsEntity.Delay
+                    Duration = AppSettingsHelper.Delay
                 };
                 Notification.Notify(msg);
                 return false;
@@ -1087,7 +1088,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void Action(ShareEnums.DbTableAction tableAction, bool isNewWindow)
+        private void Action(UserSettingsEntity userSettings, ShareEnums.DbTableAction tableAction, bool isNewWindow)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
@@ -1097,7 +1098,7 @@ namespace BlazorCore.Models
                         case ShareEnums.DbTableAction.New:
                         case ShareEnums.DbTableAction.Edit:
                         case ShareEnums.DbTableAction.Copy:
-                            if (AppSettings.Identity.AccessLevel == true)
+                            if (userSettings.Identity.AccessLevel == true)
                             {
                                 if (Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScale))
                                 {
@@ -1115,14 +1116,14 @@ namespace BlazorCore.Models
                             }
                             break;
                         case ShareEnums.DbTableAction.Delete:
-                            if (AppSettings.Identity.AccessLevel == true)
+                            if (userSettings.Identity.AccessLevel == true)
                             {
                                 if (Item is BaseEntity baseItem)
                                     AppSettings.DataAccess.ActionDeleteEntity(baseItem);
                             }
                             break;
                         case ShareEnums.DbTableAction.Mark:
-                            if (AppSettings.Identity.AccessLevel == true)
+                            if (userSettings.Identity.AccessLevel == true)
                             {
                                 if (Item is BaseEntity baseItem)
                                     AppSettings.DataAccess.ActionMarkedEntity(baseItem);
@@ -1133,34 +1134,34 @@ namespace BlazorCore.Models
                 }), true);
         }
 
-        public async Task ActionNewAsync(bool isNewWindow = false)
+        public async Task ActionNewAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(ShareEnums.DbTableAction.New, isNewWindow);
+            Action(userSettings, ShareEnums.DbTableAction.New, isNewWindow);
         }
 
-        public async Task ActionEditAsync(bool isNewWindow = false)
+        public async Task ActionEditAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(ShareEnums.DbTableAction.Edit, isNewWindow);
+            Action(userSettings, ShareEnums.DbTableAction.Edit, isNewWindow);
         }
 
-        public async Task ActionCopyAsync(bool isNewWindow = false)
+        public async Task ActionCopyAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(ShareEnums.DbTableAction.Copy, isNewWindow);
+            Action(userSettings, ShareEnums.DbTableAction.Copy, isNewWindow);
         }
 
-        public async Task ActionMarkAsync(bool isNewWindow = false)
+        public async Task ActionMarkAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(ShareEnums.DbTableAction.Mark, isNewWindow);
+            Action(userSettings, ShareEnums.DbTableAction.Mark, isNewWindow);
         }
 
-        public async Task ActionDeleteAsync(bool isNewWindow = false)
+        public async Task ActionDeleteAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(ShareEnums.DbTableAction.Delete, isNewWindow);
+            Action(userSettings, ShareEnums.DbTableAction.Delete, isNewWindow);
         }
 
         #endregion

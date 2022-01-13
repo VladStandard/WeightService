@@ -11,7 +11,7 @@
 @using DataShareCore.DAL.DataModels
 @inherits RazorDisposable
 
-@if (AppSettings.Identity.AccessLevel is true or false)
+@if (UserSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
     <RadzenGrid Style="margin-top: 5px; "

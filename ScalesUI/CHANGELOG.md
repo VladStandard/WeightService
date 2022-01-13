@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.020] - 2022-01-11
+### Fixed
+- 
+
 ## [0.5.920] - 2021-12-07
 ### Fixed
 - WS-T-45. Ошибка отключения принтера Zebra

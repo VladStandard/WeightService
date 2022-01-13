@@ -5,6 +5,6 @@ namespace BlazorDeviceControl.Shared
 {
     public partial class Index
     {
-
+        //
     }
 }

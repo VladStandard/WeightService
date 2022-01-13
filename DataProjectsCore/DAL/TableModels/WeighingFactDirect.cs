@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace DataProjectsCore.DAL.TableModels
@@ -15,6 +16,8 @@ namespace DataProjectsCore.DAL.TableModels
     [Serializable]
     public class WeighingFactDirect : BaseSerializeEntity<WeighingFactDirect>
     {
+        #region Public and private fields and properties
+
         public int Id { get; set; }
         public TemplateDirect Temp { get; set; }
         public int ScaleId { get; set; }
@@ -88,17 +91,32 @@ namespace DataProjectsCore.DAL.TableModels
         public decimal GrossWeight { get; set; }
         public int? ScaleFactor { get; set; }
         public DateTime RegDate { get; set; }
-        //public SsccDirect Sscc { get; set; }
+        public SsccDirect Sscc { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
         public WeighingFactDirect()
         {
             ScaleId = 0;
-            PLU = null;
             NetWeight = 0;
             TareWeight = 0;
             ScaleFactor = 1000;
             RegDate = DateTime.Now;
             ProductDate = DateTime.Now.Date;
+
+            _plu = new PluDirect();
+            PLU = new PluDirect();
+            Temp = new TemplateDirect();
+            Scale = new ScaleDirect();
+            ProductSeries = string.Empty;
+            Sscc = new SsccDirect();
         }
+
+        #endregion
+
+        #region Public and private methods
 
         private void SaveReader(SqlDataReader reader)
         {
@@ -106,15 +124,15 @@ namespace DataProjectsCore.DAL.TableModels
             {
                 RegDate = reader.GetDateTime(1);
                 Id = reader.GetInt32(3);
-                //XDocument xDoc = XDocument.Parse(reader.GetString(2));
-                //SsccDirect sscc = new();
-                //sscc.SSCC = xDoc.Root.Element("Item").Attribute("SSCC").Value;
-                //sscc.GLN = xDoc.Root.Element("Item").Attribute("GLN").Value;
-                //sscc.UnitID = int.Parse(xDoc.Root.Element("Item").Attribute("UnitID").Value);
-                //sscc.UnitType = byte.Parse(xDoc.Root.Element("Item").Attribute("UnitType").Value);
-                //sscc.SynonymSSCC = xDoc.Root.Element("Item").Attribute("SynonymSSCC").Value;
-                //sscc.Check = int.Parse(xDoc.Root.Element("Item").Attribute("Check").Value);
-                //Sscc = sscc;
+                XDocument xDoc = XDocument.Parse(reader.GetString(2));
+                SsccDirect sscc = new();
+                sscc.SSCC = xDoc.Root.Element("Item").Attribute("SSCC").Value;
+                sscc.GLN = xDoc.Root.Element("Item").Attribute("GLN").Value;
+                sscc.UnitID = int.Parse(xDoc.Root.Element("Item").Attribute("UnitID").Value);
+                sscc.UnitType = byte.Parse(xDoc.Root.Element("Item").Attribute("UnitType").Value);
+                sscc.SynonymSSCC = xDoc.Root.Element("Item").Attribute("SynonymSSCC").Value;
+                sscc.Check = int.Parse(xDoc.Root.Element("Item").Attribute("Check").Value);
+                Sscc = sscc;
             }
         }
 
@@ -192,35 +210,6 @@ namespace DataProjectsCore.DAL.TableModels
             return weighingFact;
         }
 
-        public new string SerializeObject()
-        {
-            XmlSerializer xmlSerializer = new(typeof(WeighingFactDirect));
-            XmlWriterSettings settings = new()
-            {
-                ConformanceLevel = ConformanceLevel.Document,
-                OmitXmlDeclaration = false,
-                Encoding = Encoding.UTF8,
-                Indent = true,
-                IndentChars = "\t"
-            };
-            // не подавлять xml заголовок
-            // кодировка
-            // Какого то кипариса! эта настройка не работает
-            // и UTF16 записывается в шапку XML
-            // типа Visual Studio работает только с UTF16
-
-            // добавлять отступы
-            // сиволы отступа
-
-            XmlSerializerNamespaces dummyNSs = new();
-            dummyNSs.Add(string.Empty, string.Empty);
-
-            using StringWriter textWriter = new();
-            using (XmlWriter xw = XmlWriter.Create(textWriter, settings))
-            {
-                xmlSerializer.Serialize(xw, this, dummyNSs);
-            }
-            return textWriter.ToString();
-        }
+        #endregion
     }
 }

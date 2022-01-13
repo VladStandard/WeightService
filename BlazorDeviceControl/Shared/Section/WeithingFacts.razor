@@ -10,7 +10,7 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-@if (AppSettings.Identity.AccessLevel is true or false)
+@if (UserSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationData.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
     <RadzenGrid Style="margin-top: 5px;"

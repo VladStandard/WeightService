@@ -109,31 +109,5 @@ namespace DataProjectsCore.DAL.TableModels
             }
             con.Close();
         }
-
-        public new string SerializeObject()
-        {
-            XmlSerializer xmlSerializer = new(typeof(ProductSeriesDirect));
-            XmlWriterSettings settings = new();
-            settings.ConformanceLevel = ConformanceLevel.Document;
-            settings.OmitXmlDeclaration = false;    // не подавлять xml заголовок
-
-            settings.Encoding = Encoding.UTF8;      // кодировка
-            // Какого то кипариса! эта настройка не работает
-            // и UTF16 записывается в шапку XML
-            // типа Visual Studio работает только с UTF16
-
-            settings.Indent = true;                // добавлять отступы
-            settings.IndentChars = "\t";           // сиволы отступа
-
-            XmlSerializerNamespaces dummyNSs = new();
-            dummyNSs.Add(string.Empty, string.Empty);
-
-            using StringWriter textWriter = new();
-            using (XmlWriter xw = XmlWriter.Create(textWriter, settings))
-            {
-                xmlSerializer.Serialize(xw, this, dummyNSs);
-            }
-            return textWriter.ToString();
-        }
     }
 }

@@ -1,5 +1,5 @@
 -- Scales - Access insert new user
-DECLARE @user NVARCHAR(255) = N'KOLBASA-VS\morozov_dv_adm'
+DECLARE @user NVARCHAR(255) = N'KOLBASA-VS\popov_aiu'
 DECLARE @level BIT = 1
 IF NOT EXISTS (SELECT
 			1

@@ -1,10 +1,14 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Authorization
 @using DataCore
 @using DataProjectsCore
 @using DataProjectsCore.Utils
-@inherits RazorBase
+@using Microsoft.AspNetCore.Authorization
+@inherits RazorDisposable
+
+<RadzenDialog />
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
 
 <MudElement HtmlTag="h3" Style="width: 100%;">@LocalizationData.DeviceControl.Index</MudElement>
-
 <MudElement HtmlTag="body" Style="width: 100%;">@LocalizationData.DeviceControl.IndexContinue</MudElement>
