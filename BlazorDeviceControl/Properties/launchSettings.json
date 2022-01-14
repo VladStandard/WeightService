@@ -13,8 +13,6 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "anonymousAuthentication": true,
-      "windowsAuthentication": true
     },
     "BlazorDeviceControl": {
       "commandName": "Project",
@@ -22,9 +20,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "sqlDebugging": true,
-      "anonymousAuthentication": true,
       "applicationUrl": "https://localhost:5009",
-      "windowsAuthentication": true,
       "dotnetRunMessages": true,
       "nativeDebugging": true
     }

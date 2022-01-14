@@ -5,6 +5,7 @@ using BlazorCore.Models;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using System;
 using System.Threading.Tasks;
 using Toolbelt.Blazor.HotKeys;
 
@@ -31,7 +32,11 @@ namespace BlazorDeviceControl.Shared
                 {
                     lock (Locker)
                     {
-                        AppSettings.SetupMemory(GuiRefreshAsync);
+                        _ = Task.Run(async () =>
+                        {
+                            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                            AppSettings.SetupMemory(GuiRefreshAsync);
+                        }).ConfigureAwait(false);
                         AppSettings.SetupJsonSettings(JsonAppSettings);
                         UserSettings.SetupHotKeys(HotKeysItem);
                         if (UserSettings.HotKeysItem != null)

@@ -46,9 +46,9 @@ namespace DataShareCore
         public void Open(DelegateGuiRefreshAsync callRefreshAsync)
         {
             IsExecute = true;
+            Process? proc = Process.GetCurrentProcess();
             while (IsExecute)
             {
-                Process proc = Process.GetCurrentProcess();
                 if (proc != null)
                 {
                     if (MemorySize?.PhysicalCurrent != null)

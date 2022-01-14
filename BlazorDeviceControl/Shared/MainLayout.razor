@@ -6,6 +6,22 @@
 @using Microsoft.AspNetCore.Authorization
 @inherits RazorDisposable
 
+<AuthorizeView>
+    <Authorizing>
+    </Authorizing>
+    <Authorized>
+        @if (context.User.Identity != null)
+        {
+            Authentication = context;
+        } else
+        {
+            Authentication = null;
+        }
+    </Authorized>
+    <NotAuthorized>
+    </NotAuthorized>
+</AuthorizeView>
+
 <div class="page">
     @if (AppSettings == null)
     {
@@ -37,18 +53,7 @@
                     <RadzenLabel Text=@AppSettings.SqlServerDescription Style="text-align: left;" />
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3">
-                    @if (UserSettings.Identity == null || !UserSettings.Identity.IsAccess)
-                    {
-                        <DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true />
-                    }
-                    else 
-                    {
-                        <RadzenLabel Text=@UserSettings.Identity.Name Style="text-align: center; margin-left: 50px; height: 10px;" />
-                        @*
-                        <RadzenLabel Text=@BlazorDeviceControl.Startup.StuntmanOptions.UserPicker(AppSettings.StuntmanUsers.Users[0])
-                        Style="text-align: center; margin-left: 50px; height: 10px;" />
-                        *@
-                    }
+                    <RadzenLabel Text=@UserSettings.Identity.Name Style="text-align: center; margin-left: 50px; height: 10px;" />
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4">
                     <RadzenLabel Text=@AppSettings.MemoryInfo Style="text-align: center; margin-left: 50px; height: 10px;" />
