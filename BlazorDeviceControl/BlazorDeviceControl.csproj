@@ -79,7 +79,6 @@
       <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
   </ItemGroup>
   <ItemGroup>
-    <Watch Remove="Shared\Account.razor" />
     <Watch Remove="Shared\Component\DataFilter.razor" />
     <Watch Remove="Shared\Component\ItemActions.razor" />
     <Watch Remove="Shared\Component\ItemDates.razor" />

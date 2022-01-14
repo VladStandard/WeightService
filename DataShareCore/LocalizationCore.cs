@@ -97,6 +97,7 @@ namespace DataShareCore
             #endregion
             #region System
             public static string SysAccess => Lang == ShareEnums.Lang.English ? @"Access" : @"Доступ";
+            public static string SysAccount => Lang == ShareEnums.Lang.English ? @"Account" : @"Аккаунт";
             public static string SysLogin => Lang == ShareEnums.Lang.English ? @"Log in" : @"Вход";
             public static string SysInfo => Lang == ShareEnums.Lang.English ? @"Info" : @"Информация";
             public static string SysLogs => Lang == ShareEnums.Lang.English ? @"Logs" : @"Логи";

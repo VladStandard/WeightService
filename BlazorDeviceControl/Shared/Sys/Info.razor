@@ -5,6 +5,15 @@
 @using DataShareCore
 @inherits RazorDisposable
 
+@*
+<form method="post" action="Identity/Account/LogOut">
+    <button type="submit" class="nav-link btn btn-link">Log out</button>
+</form>
+
+<a href="system/login">Log in</a>
+<a href="system/register">Register</a>
+*@
+
 @if (UserSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync Items=@Items />
@@ -104,6 +113,32 @@
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.AuthorizingUserName</td>
+                @if (string.IsNullOrEmpty(UserSettings.Identity.Name))
+                {
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                }
+                else
+                {
+                    <td><MudElement HtmlTag="a" Class="ma-0">@UserSettings.Identity.Name</MudElement></td>
+                }
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.AuthorizingAccessLevel</td>
+                @switch (UserSettings.Identity.AccessLevel)
+                {
+                    case null:
+                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationData.DeviceControl.AuthorizingAccessLevelNull</MudElement></td>
+                        break;
+                    case false:
+                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationData.DeviceControl.AuthorizingAccessLevelFalse</MudElement></td>
+                        break;
+                    case true:
+                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationData.DeviceControl.AuthorizingAccessLevelTrue</MudElement></td>
+                        break;
+                }
+            </tr>
             <tr>
                 <td>@LocalizationCore.Strings.Main.Language</td>
                 @if (TemplateLanguages == null)

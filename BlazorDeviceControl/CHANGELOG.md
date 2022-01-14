@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.020] - 2022-01-11
+## [0.6.020] - 2022-01-14
 ### Fixed
 - BlazorCore refactoring
 

@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.020] - 2022-01-11
+## [0.6.020] - 2022-01-14
 ### Changed
 - Union with BlazorProjectsCore project
+- WS-T-61. Authentication & Authorization
 
 ## [0.5.910] - 2021-12-03
 ### Changed
