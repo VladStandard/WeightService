@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
@@ -54,7 +53,7 @@ namespace BlazorCore.Models
         #region Public and private fields and properties
 
         public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
-        public UserSettingsEntity UserSettings { get; private set; } = new UserSettingsEntity();
+        public UserSettingsHelper UserSettings { get; private set; } = UserSettingsHelper.Instance;
 
         #endregion
 
@@ -1088,7 +1087,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void Action(UserSettingsEntity userSettings, ShareEnums.DbTableAction tableAction, bool isNewWindow)
+        private void Action(UserSettingsHelper userSettings, ShareEnums.DbTableAction tableAction, bool isNewWindow)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
@@ -1134,31 +1133,31 @@ namespace BlazorCore.Models
                 }), true);
         }
 
-        public async Task ActionNewAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
+        public async Task ActionNewAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Action(userSettings, ShareEnums.DbTableAction.New, isNewWindow);
         }
 
-        public async Task ActionEditAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
+        public async Task ActionEditAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Action(userSettings, ShareEnums.DbTableAction.Edit, isNewWindow);
         }
 
-        public async Task ActionCopyAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
+        public async Task ActionCopyAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Action(userSettings, ShareEnums.DbTableAction.Copy, isNewWindow);
         }
 
-        public async Task ActionMarkAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
+        public async Task ActionMarkAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Action(userSettings, ShareEnums.DbTableAction.Mark, isNewWindow);
         }
 
-        public async Task ActionDeleteAsync(UserSettingsEntity userSettings, bool isNewWindow = false)
+        public async Task ActionDeleteAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             Action(userSettings, ShareEnums.DbTableAction.Delete, isNewWindow);

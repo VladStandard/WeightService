@@ -532,7 +532,7 @@ namespace DataProjectsCore.DAL.Models
             ExecTransaction((session) => {
                 ICriteria criteria = GetCriteria<T>(session, fieldList, order, 1);
                 IList<T>? list = criteria?.List<T>();
-                item = list.FirstOrDefault() ?? new T();
+                item = list == null ? new T() : list.FirstOrDefault() ?? new T();
             }, filePath, lineNumber, memberName);
             FillReferences(item);
             return item;

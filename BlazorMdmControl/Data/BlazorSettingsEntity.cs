@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using DataShareCore;
 using DataProjectsCore.DAL.TableDwhModels;
+using DataProjectsCore.DAL.Models;
 
 namespace MdmControlBlazor.Data
 {
@@ -434,13 +435,13 @@ namespace MdmControlBlazor.Data
 
         #region Public and private methods - Memory manager
 
-        public void MemoryOpen(DataShareCore.MemoryEntity.DelegateGuiRefresh callRefresh)
+        public void MemoryOpen(DataShareCore.MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)
         {
             if (Memory != null)
                 return;
             //Memory = new DataShareCore.MemoryEntity(1_000, 5_000, Convert.ToUInt64(100 * 1_048_576));
             Memory = new DataShareCore.MemoryEntity(1_000, 5_000);
-            Memory.Open(callRefresh);
+            Memory.Open(callRefreshAsync);
         }
 
         #endregion

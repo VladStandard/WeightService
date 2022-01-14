@@ -79,13 +79,13 @@
       <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
   </ItemGroup>
   <ItemGroup>
+    <Watch Remove="Shared\Account.razor" />
     <Watch Remove="Shared\Component\DataFilter.razor" />
     <Watch Remove="Shared\Component\ItemActions.razor" />
     <Watch Remove="Shared\Component\ItemDates.razor" />
     <Watch Remove="Shared\Component\ItemSave.razor" />
     <Watch Remove="Shared\Component\SectionActions.razor" />
     <Watch Remove="Shared\Item\TaskModule.razor" />
-    <Watch Remove="Shared\Login.razor" />
     <Watch Remove="Shared\Section\SectionIdActions.razor" />
     <Watch Remove="Shared\Section\TaskModules.razor" />
   </ItemGroup>

@@ -139,9 +139,7 @@ namespace DataProjectsCore.DAL.TableDwhModels
                    Equals(Weight, entity.Weight) &&
                    Equals(BoxTypeId, entity.BoxTypeId) &&
                    Equals(BoxTypeName, entity.BoxTypeName) &&
-                   Equals(BoxTypeName, entity.BoxTypeName) &&
                    Equals(PackTypeId, entity.PackTypeId) &&
-                   Equals(PackTypeName, entity.PackTypeName) &&
                    Equals(PackTypeName, entity.PackTypeName) &&
                    Equals(SerializedRepresentationObject, entity.SerializedRepresentationObject) &&
                    Equals(CreateDate, entity.CreateDate) &&

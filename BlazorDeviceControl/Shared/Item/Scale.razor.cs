@@ -4,7 +4,6 @@
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
-using DataCore;
 using DataShareCore;
 using DataShareCore.Models;
 using System.Collections.Generic;

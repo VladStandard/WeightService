@@ -281,7 +281,6 @@ namespace DataProjectsCore.DAL.TableScaleModels
                    Equals(ModifiedDate, default(DateTime?)) &&
                    Equals(GoodsName, default(string)) &&
                    Equals(GoodsFullName, default(string)) &&
-                   Equals(GoodsName, default(string)) &&
                    Equals(GoodsDescription, default(string)) &&
                    Equals(Gtin, default(string)) &&
                    Equals(Ean13, default(string)) &&

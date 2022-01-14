@@ -20,8 +20,8 @@ namespace DataProjectsCore.DAL.Models
         private readonly object _locker = new();
 
         // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
-        private ISessionFactory? _sessionFactory;
-        private ISessionFactory SessionFactory
+        private ISessionFactory? _sessionFactory = null;
+        private ISessionFactory? SessionFactory
         {
             get
             {
@@ -42,7 +42,14 @@ namespace DataProjectsCore.DAL.Models
                     //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
                     //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
                     configuration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
-                    _sessionFactory = configuration.BuildSessionFactory();
+                    try
+                    {
+                        _sessionFactory = configuration.BuildSessionFactory();
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
                     return _sessionFactory;
                 }
             }

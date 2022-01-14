@@ -9,7 +9,7 @@ namespace DataProjectsCore.Models
     {
         public string Name { get; set; }
         public bool? AccessLevel { get; set; }
-        public bool IsAccess { get => AccessLevel == true; }
+        public bool IsAccess => AccessLevel == true;
 
         public IdentityEntity(string name, bool? accessLevel = null)
         {
@@ -23,7 +23,7 @@ namespace DataProjectsCore.Models
         {
             return
                 $"{nameof(Name)}: {Name}. " + Environment.NewLine +
-                $"{nameof(AccessLevel)}: {AccessLevel}. ";
+                AccessLevel == null ? $"{nameof(AccessLevel)}: null. " : $"{nameof(AccessLevel)}: {AccessLevel}. ";
         }
     }
 }

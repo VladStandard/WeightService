@@ -1,9 +1,10 @@
 ﻿@page "/login"
+@using DataProjectsCore
 @inherits MdmControlBlazor.Data.BaseRazorEntity
 
 <AuthorizeView>
     <Authorizing>
-        <div>Authorizing ...</div>
+        <div>@LocalizationData.DeviceControl.AuthorizingProcess</div>
     </Authorizing>
     <Authorized>
         @if (context.User.Identity != null)
@@ -14,6 +15,6 @@
         <div>User detect error!</div>
     </Authorized>
     <NotAuthorized>
-        <div>Not authorized!</div>
+        <div>@LocalizationData.DeviceControl.AuthorizingNot</div>
     </NotAuthorized>
 </AuthorizeView>

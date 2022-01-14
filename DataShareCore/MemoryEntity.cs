@@ -18,7 +18,7 @@ namespace DataShareCore
         public MemorySizeEntity MemorySize { get; private set; }
         public string ExceptionMsg { get; private set; }
         public delegate Task DelegateGuiRefreshAsync(bool continueOnCapturedContext);
-        public delegate void DelegateGuiRefresh();
+        public delegate void DelegateGuiRefresh(bool continueOnCapturedContext);
         public bool IsExecute { get; set; }
 
         #endregion
@@ -63,7 +63,7 @@ namespace DataShareCore
                     if (MemorySize?.VirtualCurrent != null)
                         MemorySize.VirtualCurrent.Bytes = 0;
                 }
-                callRefreshAsync?.Invoke(true).ConfigureAwait(false);
+                //callRefreshAsync?.Invoke(false).ConfigureAwait(false);
                 Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
             }
         }

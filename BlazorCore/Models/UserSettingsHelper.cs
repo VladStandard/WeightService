@@ -4,55 +4,62 @@
 using DataProjectsCore.DAL;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.Models;
-using DataShareCore;
-using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Runtime.CompilerServices;
-using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 using Toolbelt.Blazor.HotKeys;
 
 namespace BlazorCore.Models
 {
-    public class UserSettingsEntity
+    public class UserSettingsHelper
     {
+        #region Design pattern "Lazy Singleton"
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        private static UserSettingsHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public static UserSettingsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+
+        #endregion
+
         #region Public and private fields and properties
 
-        public IdentityEntity Identity { get; private set; } = new IdentityEntity();
-        public HotKeys HotKeysItem { get; private set; }
-        public HotKeysContext HotKeysContextItem { get; set; }
+        public IdentityEntity Identity { get; private set; }
+        public HotKeys HotKeys { get; private set; }
+        public HotKeysContext HotKeysContext { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public UserSettingsHelper()
+        {
+            Identity = new IdentityEntity();
+            HotKeys = null;
+            HotKeysContext = null;
+        }
 
         #endregion
 
         #region Public and private methods
 
-        //public void SetupIdentity(AuthenticationStateProvider stateProvider)
-        public void SetupIdentity(AuthenticationState authenticationState)
+        public void SetupIdentity()
         {
-            Identity.Name = string.Empty;
-            //if (stateProvider == null)
+            //Identity = new IdentityEntity();
+
+            //if (UserIdentity == null)
             //    return;
-
-            //System.Threading.Tasks.Task<AuthenticationState> state = stateProvider.GetAuthenticationStateAsync();
-            //if (!state.IsCompleted)
-            //    return;
-
-            //AuthenticationState authenticationState = state.Result;
-            if (authenticationState?.User == null)
-                return;
-            IIdentity identity = authenticationState.User.Identity;
-
-            if (identity == null)
-                return;
-            try
-            {
-                Identity.Name = identity.IsAuthenticated == true && !string.IsNullOrEmpty(identity.Name)
-                    ? identity.Name : LocalizationCore.Strings.Main.IdentityError;
-            }
-            catch (Exception)
-            {
-                Identity.Name = LocalizationCore.Strings.Main.IdentityError;
-            }
+            //try
+            //{
+            //    Identity.Name = UserIdentity.IsAuthenticated == true && !string.IsNullOrEmpty(UserIdentity.Name)
+            //        ? UserIdentity.Name
+            //        : LocalizationCore.Strings.Main.IdentityError;
+            //}
+            //catch (Exception)
+            //{
+            //    Identity.Name = LocalizationCore.Strings.Main.IdentityError;
+            //}
         }
 
         public void SetupUserAccessLevel(DataAccessEntity dataAccess,
@@ -88,12 +95,12 @@ namespace BlazorCore.Models
         {
             if (hotKeys != null)
             {
-                if (HotKeysItem != null)
+                if (HotKeys != null)
                 {
                     _ = Task.Run(async () =>
                     {
-                        await HotKeysItem.DisposeAsync().ConfigureAwait(true);
-                        HotKeysItem = hotKeys;
+                        await HotKeys.DisposeAsync().ConfigureAwait(true);
+                        HotKeys = hotKeys;
                     }).ConfigureAwait(false);
                 }
             }

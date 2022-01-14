@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BlazorDeviceControl.Shared
 {
-    public partial class Login
+    public partial class Account
     {
         #region Public and private fields and properties
 

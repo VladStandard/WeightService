@@ -1,15 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore;
-using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.Models;
 using System;
 using System.Collections.Generic;
 using static DataShareCore.LocalizationCore;
 
-namespace DataCore
+namespace DataProjectsCore
 {
     public static class LocalizationData
     {
@@ -24,6 +22,10 @@ namespace DataCore
             public static string IndexContinue => Lang == ShareEnums.Lang.English ? @"Click on a menu section to continue." : @"Нажмите на раздел меню, чтобы продолжить.";
             public static string SqlServerDebug => "CREATIO";
             public static string SqlServerRelease => "PALYCH";
+            public static string AuthorizingProcess => Lang == ShareEnums.Lang.English ? "Authorizing ..." : "Авторизация ...";
+            public static string AuthorizingSuccess => Lang == ShareEnums.Lang.English ? "Success authorized" : "Успешная авторизация";
+            public static string AuthorizingNot => Lang == ShareEnums.Lang.English ? "Not authorized!" : "Авторизация провалена!";
+            public static string AuthorizingUserName => Lang == ShareEnums.Lang.English ? "User name: " : "Имя пользователя: ";
             #endregion
             #region Комплексы промышленных устройств
             public static string DevicesTitle => Lang == ShareEnums.Lang.English ? @"Complexes of industrial devices" : @"Комплексы промышленных устройств";
@@ -157,32 +159,32 @@ namespace DataCore
             public static string TableFieldDayOfWeek => Lang == ShareEnums.Lang.English ? @"___" : @"День недели";
             public static string TableFieldDescription => Lang == ShareEnums.Lang.English ? @"___" : @"Описание";
             public static string TableFieldDeviceComPort => Lang == ShareEnums.Lang.English ? @"___" : @"COM-порт";
-            public static string TableFieldDeviceIp => Lang == ShareEnums.Lang.English ? @"IP" : @"IP";
-            public static string TableFieldDeviceMac => Lang == ShareEnums.Lang.English ? @"MAC address" : @"MAC-адрес";
+            public static string TableFieldDeviceIp => Lang == ShareEnums.Lang.English ? @"IP-address" : @"IP-адрес";
+            public static string TableFieldDeviceMac => Lang == ShareEnums.Lang.English ? @"MAC-address" : @"MAC-адрес";
             public static string TableFieldDeviceNumber => Lang == ShareEnums.Lang.English ? @"Device number" : @"Номер устройства";
             public static string TableFieldDevicePort => Lang == ShareEnums.Lang.English ? @"Device port" : @"Порт устройства";
             public static string TableFieldDeviceReceiveTimeout => Lang == ShareEnums.Lang.English ? @"Receive timeout" : @"Таймаут приёма";
             public static string TableFieldDeviceSendTimeout => Lang == ShareEnums.Lang.English ? @"Send timeout" : @"Таймаут отправки";
-            public static string TableFieldEan13 => Lang == ShareEnums.Lang.English ? @"EAN13" : @"EAN13";
+            public static string TableFieldEan13 => @"EAN13";
             public static string TableFieldEnabled = Lang == ShareEnums.Lang.English ? @"Enabled" : @"Активно";
             public static string TableFieldFile => Lang == ShareEnums.Lang.English ? @"File" : @"Файл";
-            public static string TableFieldGln => Lang == ShareEnums.Lang.English ? @"GLN" : @"GLN";
+            public static string TableFieldGln => @"GLN";
             public static string TableFieldGoodsBoxQuantly => Lang == ShareEnums.Lang.English ? @"___" : @"Вложений в короб";
             public static string TableFieldGoodsBruttoWeight => Lang == ShareEnums.Lang.English ? @"___" : @"Вес брутто";
             public static string TableFieldGoodsDescription => Lang == ShareEnums.Lang.English ? @"___" : @"Описание товара";
             public static string TableFieldGoodsFullName => Lang == ShareEnums.Lang.English ? @"___" : @"Полное наименование";
             public static string TableFieldGoodsName => Lang == ShareEnums.Lang.English ? @"___" : @"Товар";
             public static string TableFieldGoodsTareWeight => Lang == ShareEnums.Lang.English ? @"___" : @"Тара";
-            public static string TableFieldGtin => Lang == ShareEnums.Lang.English ? @"GTIN" : @"GTIN";
+            public static string TableFieldGtin => @"GTIN";
             public static string TableFieldGuidMercury => Lang == ShareEnums.Lang.English ? @"GUID Mercury" : @"GUID Меркурий";
             public static string TableFieldHost => Lang == ShareEnums.Lang.English ? @"Host" : @"Хост";
             public static string TableFieldIcon => Lang == ShareEnums.Lang.English ? @"Icon" : @"Иконка";
-            public static string TableFieldId => Lang == ShareEnums.Lang.English ? @"ID" : @"ID";
-            public static string TableFieldIdRRef => Lang == ShareEnums.Lang.English ? @"ID 1C" : @"ID 1C";
+            public static string TableFieldId => @"ID";
+            public static string TableFieldIdRRef => @"ID 1C";
             public static string TableFieldImageData => Lang == ShareEnums.Lang.English ? @"___" : @"ImageData";
             public static string TableFieldImageDataInfo => Lang == ShareEnums.Lang.English ? @"Info" : @"Информация";
             public static string TableFieldIsClose => Lang == ShareEnums.Lang.English ? @"Is close" : @"Закрыто";
-            public static string TableFieldItf14 => Lang == ShareEnums.Lang.English ? @"ITF14" : @"ITF14";
+            public static string TableFieldItf14 => @"ITF14";
             public static string TableFieldKneding => Lang == ShareEnums.Lang.English ? @"Is kneading" : @"Взвешено";
             public static string TableFieldLevel => Lang == ShareEnums.Lang.English ? @"Level" : @"Уровень";
             public static string TableFieldLine => Lang == ShareEnums.Lang.English ? @"Line" : @"Линия";
@@ -260,14 +262,9 @@ namespace DataCore
         {
             #region Main
             public static string AppTitle => Lang == ShareEnums.Lang.English ? @"Resources VS" : @"Ресурсы ВС";
-            public static string CallbackEmail => Lang == ShareEnums.Lang.English ?
-                @"mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local" :
-                @"mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local";
+            public static string CallbackEmail => @"mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local";
             public static string SysAdmin => Lang == ShareEnums.Lang.English ? @"Administration" : @"Администрирование";
-            public static string SupportCreatio =>
-                Lang == ShareEnums.Lang.English
-                    ? @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/"
-                    : @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/";
+            public static string SupportCreatio => @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/";
             #endregion
             #region Support
             public static string SupportTitle => Lang == ShareEnums.Lang.English ? @"Support service" : @"Служба поддержки";
@@ -284,17 +281,11 @@ namespace DataCore
             public static string ContactsTitle => Lang == ShareEnums.Lang.English ? @"Contacts" : @"Контакты";
             public static string ContactsPhoneText => Lang == ShareEnums.Lang.English ? @"Phone directory" : @"Телефонный справочник";
 
-            public static string ContactsPhonePath =>
-                Lang == ShareEnums.Lang.English
-                    ? @"http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP"
-                    : @"http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP";
+            public static string ContactsPhonePath => @"http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP";
 
             public static string ContactsCreatioText => Lang == ShareEnums.Lang.English ? @"Creatio contacts" : @"Creatio контакты";
 
-            public static string ContactsCreatioPath =>
-                Lang == ShareEnums.Lang.English
-                    ? @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/"
-                    : @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/";
+            public static string ContactsCreatioPath => @"https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/";
 
             #endregion
             #region IT department
@@ -302,8 +293,8 @@ namespace DataCore
 
             #endregion
             #region Redmine
-            public static string RedmineTitle => Lang == ShareEnums.Lang.English ? @"Redmine" : @"Redmine";
-            public static string RedmineWikiText => Lang == ShareEnums.Lang.English ? @"Wiki" : @"Wiki";
+            public static string RedmineTitle => @"Redmine";
+            public static string RedmineWikiText => @"Wiki";
             public const string RedmineWikiPath = @"http://192.168.0.50/projects/resources_it/wiki/Wiki";
             public const string RedmineProjectsText = @"проекты";
             public const string RedmineProjectsPath = @"http://192.168.0.50/projects";
@@ -311,27 +302,18 @@ namespace DataCore
             public const string RedmineGooglePath = @"http://192.168.0.50/projects/resources_it/wiki/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%B3%D1%83%D0%B3%D0%BB_%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B";
             #endregion
             #region Zabbix
-            public static string ZabbixTitle => Lang == ShareEnums.Lang.English ? @"Zabbix" : @"Zabbix";
-            public static string ZabbixKolbasaText => Lang == ShareEnums.Lang.English ? @"kolbasa-vs-terrasoft" : @"kolbasa-vs-terrasoft";
+            public static string ZabbixTitle => @"Zabbix";
+            public static string ZabbixKolbasaText => @"kolbasa-vs-terrasoft";
 
-            public static string ZabbixKolbasaPath =>
-                Lang == ShareEnums.Lang.English
-                    ? @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7"
-                    : @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
+            public static string ZabbixKolbasaPath => @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
 
             public static string ZabbixGlobalText => Lang == ShareEnums.Lang.English ? @"Global view" : @"Глобальное представление";
 
-            public static string ZabbixGlobalPath =>
-                Lang == ShareEnums.Lang.English
-                    ? @"http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view"
-                    : @"http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view";
+            public static string ZabbixGlobalPath => @"http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view";
 
             public static string ZabbixWebText => Lang == ShareEnums.Lang.English ? @"Web monitoring" : @"Веб-мониторинг";
 
-            public static string ZabbixWebPath =>
-                Lang == ShareEnums.Lang.English
-                    ? @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7"
-                    : @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
+            public static string ZabbixWebPath => @"http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
 
             #endregion
             #region Creatio
@@ -345,7 +327,7 @@ namespace DataCore
             public const string CreatioMarketplacePath = @"https://marketplace.terrasoft.ru/";
             public static string CreatioCommunityText => Lang == ShareEnums.Lang.English ? @"Community" : @"Сообщество";
             public const string CreatioCommunityPath = @"https://community.terrasoft.ru/";
-            public static string CreatioTableTitle => Lang == ShareEnums.Lang.English ? @"Локальные сайты" : @"Локальные сайты";
+            public static string CreatioTableTitle => Lang == ShareEnums.Lang.English ? @"Local sites" : @"Локальные сайты";
             public static string CreatioTableFieldName => Lang == ShareEnums.Lang.English ? @"Site" : @"Сайт";
             public static string CreatioTableFieldLink => Lang == ShareEnums.Lang.English ? @"Link" : @"Ссылка";
             public static string CreatioTableFieldDev => Lang == ShareEnums.Lang.English ? @"Configuration" : @"Конфигурация";
@@ -417,9 +399,9 @@ namespace DataCore
         public static class ScalesUI
         {
             public static List<string> ListLanguages => Lang == ShareEnums.Lang.English
-                ? new List<string> { "Russian", "English"}
+                ? new List<string> { "Russian", "English" }
                 : new List<string> { "Russian", "English" };
-                //: new List<string> { "Русский", "Английский" };
+            //: new List<string> { "Русский", "Английский" };
             public static List<string> ListResolutions => Lang == ShareEnums.Lang.English
                 ? new List<string> { "Maximum", "1024x768", "1366x768", "1600x1024", "1920x1080" }
                 : new List<string> { "Максимальное", "1024x768", "1366x768", "1600x1024", "1920x1080" };
@@ -431,32 +413,32 @@ namespace DataCore
             public static string Line => Lang == ShareEnums.Lang.English ? @"Ling" : @"Строка";
             public static string ExceptionSqlDb => Lang == ShareEnums.Lang.English ? @"The database is unavailable!" : @"База данных недоступна!";
             public static string Registration => Lang == ShareEnums.Lang.English ? @"Device registration" : @"Регистрация устройства";
-            public static string RegistrationWarning1(Guid uid) => Lang == ShareEnums.Lang.English 
+            public static string RegistrationWarning1(Guid uid) => Lang == ShareEnums.Lang.English
                 ? @"The monoblock is registered in the information system with the identifier" + Environment.NewLine +
                   $"{uid}" + Environment.NewLine +
                   "Before restarting, map it to the current line in DeviceControl."
                 : "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
                  $"{uid}" + Environment.NewLine +
                   "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
-            public static string RegistrationWarning2(Guid uid) => Lang == ShareEnums.Lang.English 
+            public static string RegistrationWarning2(Guid uid) => Lang == ShareEnums.Lang.English
                 ? $@"The monoblock is registered in the information system with the identifier {uid}" + Environment.NewLine +
                     "Before restarting it, map it to the current line in DeviceControl"
                 : $@"Моноблок зарегистрирован в информационной системе с идентификатором {uid}" + Environment.NewLine +
                     "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
             public static string OperationControl => Lang == ShareEnums.Lang.English ? @"Control of operations" : @"Контроль операций";
             public static readonly decimal MassaThreshold = 0.05M;
-            public static string MassaCheck(decimal currentWeight) => Lang == ShareEnums.Lang.English 
+            public static string MassaCheck(decimal currentWeight) => Lang == ShareEnums.Lang.English
                 ? @"Unload the weight platform!" + Environment.NewLine + Environment.NewLine +
                  $@"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine +
                  $@"Current gross value: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
                  $@"  {Buttons.Yes} - continue." + Environment.NewLine +
                  $@"  {Buttons.No} - suspend."
                 : @"Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine +
-                 $@"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + 
+                 $@"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine +
                  $@"Текущее значение брутто: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
                  $@"  {Buttons.Yes} - продолжить." + Environment.NewLine +
                  $@"  {Buttons.No} - приостановить.";
-            public static string MassaCheckBeforePrint(decimal currentNet) => Lang == ShareEnums.Lang.English 
+            public static string MassaCheckBeforePrint(decimal currentNet) => Lang == ShareEnums.Lang.English
                 ? @"For products by weight, put the product on the scale!" + Environment.NewLine + Environment.NewLine +
                  $@"Current net value: {currentNet:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
                  $@"  {Buttons.Yes} - continue." + Environment.NewLine +
@@ -465,10 +447,10 @@ namespace DataCore
                  $@"Текущее значение нетто: {currentNet:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
                  $@"  {Buttons.Yes} - продолжить." + Environment.NewLine +
                  $@"  {Buttons.No} - приостановить.";
-            public static string PrinterWarningOpenCover => Lang == ShareEnums.Lang.English 
+            public static string PrinterWarningOpenCover => Lang == ShareEnums.Lang.English
                 ? @"Open the cover of the separator before proceeding with the calibration!"
                 : @"Прежде чем продолжить калибровку, откройте крышку отделителя!";
-            public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English 
+            public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English
                 ? @"Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator."
                 : @"Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
             public static string MassaNotQuering => Lang == ShareEnums.Lang.English
@@ -491,9 +473,9 @@ namespace DataCore
             public static string MemoryPhysical => Lang == ShareEnums.Lang.English ? @"Physical memory" : @"Физическая память";
             public static string MemoryVirtual => Lang == ShareEnums.Lang.English ? @"Virtual memory" : @"Виртуальная память";
             public static string MemoryFree => Lang == ShareEnums.Lang.English ? @"free" : @"свободно";
-            public static string Plu => Lang == ShareEnums.Lang.English ? @"PLU" : @"PLU";
-            public static string PluCount => Lang == ShareEnums.Lang.English ? @"PLU (count)" : @"PLU (шт)";
-            public static string PluWeight => Lang == ShareEnums.Lang.English ? @"PLU (weight)" : @"PLU (вес)";
+            public static string Plu => Lang == ShareEnums.Lang.English ? @"PLU" : @"ПЛУ";
+            public static string PluCount => Lang == ShareEnums.Lang.English ? @"PLU (count)" : @"ПЛУ (шт)";
+            public static string PluWeight => Lang == ShareEnums.Lang.English ? @"PLU (weight)" : @"ПЛУ (вес)";
             public static string UnitPcs => Lang == ShareEnums.Lang.English ? @"pcs." : @"шт.";
             public static string UnitKg => Lang == ShareEnums.Lang.English ? @"kg" : @"кг";
             public static string UnitWeight => Lang == ShareEnums.Lang.English ? @"weight" : @"вес";
@@ -505,13 +487,13 @@ namespace DataCore
             public static string WeightingStable => Lang == ShareEnums.Lang.English ? @"Scales are stable | Gross weight" : @"Весы стабильны | Вес брутто";
             public static string WeightingMessage => Lang == ShareEnums.Lang.English ? @"Weighting message" : @"Сообщение взвешивания";
             public static string WeightingScaleCmd => Lang == ShareEnums.Lang.English ? @"Command for scales" : @"Команда для весов";
-            public static string Crc => Lang == ShareEnums.Lang.English ? @"CRC" : @"CRC";
+            public static string Crc => @"CRC";
             public static string Threads => Lang == ShareEnums.Lang.English ? @"Threads" : @"Потоки";
             public static string ThreadsCount => Lang == ShareEnums.Lang.English ? @"Threads count" : @"Количество потоков";
             public static string ThreadName => Lang == ShareEnums.Lang.English ? @"Name" : @"Имя";
             public static string ThreadState => Lang == ShareEnums.Lang.English ? @"State" : @"Состояние";
             public static string ThreadStartTime => Lang == ShareEnums.Lang.English ? @"Start time" : @"Время запуска";
-            public static string ThreadId => Lang == ShareEnums.Lang.English ? @"ID" : @"ID";
+            public static string ThreadId => @"ID";
             public static string ThreadPriorityLevel => Lang == ShareEnums.Lang.English ? @"Priority level" : @"Приоритет";
             public static string ThreadIsBackground => Lang == ShareEnums.Lang.English ? @"Is background" : @"Фоновый";
             public static string StateResponsed => Lang == ShareEnums.Lang.English ? @"responsed" : @"отвечает";
@@ -523,13 +505,13 @@ namespace DataCore
                 ? @"First, you have to choose a PLU!" : @"Сперва, необходимо выбрать PLU!";
 
             public static string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? @"Scales Terminal" : @"Весовой терминал";
-            public static string ButtonScalesInit => Lang == ShareEnums.Lang.English 
+            public static string ButtonScalesInit => Lang == ShareEnums.Lang.English
                 ? $@"Initialize{Environment.NewLine}the scales" : $@"Инициали-{Environment.NewLine}зировать весы";
             public static string ButtonSelectOrder => Lang == ShareEnums.Lang.English ? $@"Order" : $@"Заказ";
             public static string ButtonSettings => Lang == ShareEnums.Lang.English ? @"Settings" : @"Настройки";
             public static string ButtonNewPallet => Lang == ShareEnums.Lang.English ? @"New pallet" : @"Новая палета";
             public static string ButtonAddKneading => Lang == ShareEnums.Lang.English ? @"Kneading" : @"Замес";
-            public static string ButtonSelectPlu => Lang == ShareEnums.Lang.English 
+            public static string ButtonSelectPlu => Lang == ShareEnums.Lang.English
                 ? $@"Select{Environment.NewLine}PLU" : $@"Выбрать{Environment.NewLine}PLU";
             public static string ButtonSetKneading => Lang == ShareEnums.Lang.English ? @"More" : @"Ещё";
             public static string ButtonPrint => Lang == ShareEnums.Lang.English ? @"Print" : @"Печать";
@@ -559,7 +541,7 @@ namespace DataCore
             public static string GetItemTitle(TableBase table)
             {
                 string result = string.Empty;
-                
+
                 if (Enum.TryParse(table.Name, out ProjectsEnums.TableSystem tableSystem))
                 {
                     switch (tableSystem)
@@ -653,7 +635,7 @@ namespace DataCore
             public static string GetSectionTitle(TableBase table)
             {
                 string result = string.Empty;
-                
+
                 if (Enum.TryParse(table.Name, out ProjectsEnums.TableSystem tableSystem))
                 {
                     switch (tableSystem)

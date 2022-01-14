@@ -56,7 +56,6 @@ namespace DataProjectsCore.DAL.TableScaleModels
                    Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(Name, entity.Name) &&
                    Equals(Description, entity.Description) &&
-                   Equals(Name, entity.Name) &&
                    Equals(Type, entity.Type) &&
                    Equals(IdRRef, entity.IdRRef) &&
                    Equals(ImageData, entity.ImageData) &&

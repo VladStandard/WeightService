@@ -140,7 +140,7 @@ namespace DataShareCore
             #endregion
             #region URI system
             public const string UriRouteRoot = "/";
-            public const string UriRouteSystemLogin = "/login";
+            public const string UriRouteSystemAccount = "/account";
             public const string UriRouteSystemLogs = "/system/logs";
             public const string UriRouteSystemAccess = "/system/access";
             public const string UriRouteSystemDocs = "/system/docs";
