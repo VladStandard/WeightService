@@ -46,6 +46,9 @@ BEGIN
 						,[FIDN].[DateEnd] "@DateEnd"
 						,[FIDN].[DiscountPercent] "@DiscountPercent"
 						,[FIDN].[Comment] "@Comment"
+						-- А. Попов #1692
+						,[FIDN].Marked "@Marked"
+						,[FIDN].Posted "@Posted"
 					FROM [DW].[FactInstallationDiscountsNomenclatures] AS [FIDN]
 					LEFT JOIN [DW].[DimDeliveryPlaces] [DP]
 						ON [FIDN].[DeliveryPlaceID] = [DP].[CodeInIS]

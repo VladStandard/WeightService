@@ -33,6 +33,9 @@ BEGIN
 					   ,[DateEnd] AS "@DateEnd"
 					   ,[DiscountPercent] AS "@DiscountPercent"
 					   ,t.[Comment] AS "@Comment"
+					   -- А. Попов #1692
+					   ,t.[Marked] AS "@Marked"
+					   ,t.[Posted] AS "@Posted"
 
 					FROM [DW].[FactInstallationDiscountsNomenclatures] AS t
 					LEFT JOIN [DW].[DimDeliveryPlaces] dp
