@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Blazor. 2. Устройство.sql = WeightService\Blazor. 2. Устройство.sql
 		WeightService\Blazor. 3. Весовой пост.sql = WeightService\Blazor. 3. Весовой пост.sql
 		WeightService\DB restore - Scales.sql = WeightService\DB restore - Scales.sql
+		WeightService\DB update 2021-01-19.sql = WeightService\DB update 2021-01-19.sql
 		WeightService\Exec LoadResourceToDB.sql = WeightService\Exec LoadResourceToDB.sql
 		WeightService\Exec SaveWeighingFact.sql = WeightService\Exec SaveWeighingFact.sql
 		WeightService\Exec SetNewScale.sql = WeightService\Exec SetNewScale.sql
@@ -79,8 +80,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Заказы статус.sql = WeightService\Заказы статус.sql
 		WeightService\Заказы.sql = WeightService\Заказы.sql
 		WeightService\Импорт данных.sql = WeightService\Импорт данных.sql
-		WeightService\Обновление БД ScalesDB 2021-01-19.sql = WeightService\Обновление БД ScalesDB 2021-01-19.sql
-		WeightService\Таблицы и строки.sql = WeightService\Таблицы и строки.sql
 		WeightService\Удалить индекс IDX_Scales_HostId.sql = WeightService\Удалить индекс IDX_Scales_HostId.sql
 		WeightService\Функция GetPrinterResources.sql = WeightService\Функция GetPrinterResources.sql
 		WeightService\Функция GetScaleByID.sql = WeightService\Функция GetScaleByID.sql
@@ -91,7 +90,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{42FDA5A9-DDB1-4281-A742-7ADEECC69071}.Default|Default.ActiveCfg = Default
+		{AAE754EA-AE82-4F8B-8F4B-69C538086E2F}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

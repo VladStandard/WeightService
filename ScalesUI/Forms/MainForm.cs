@@ -121,7 +121,7 @@ namespace ScalesUI.Forms
             try
             {
                 System.Resources.ResourceManager resourceManager = new("ScalesUI.Properties.Resources", Assembly.GetExecutingAssembly());
-                object exit = resourceManager.GetObject("exit_2");
+                object exit = resourceManager.GetObject("exit_1");
                 if (exit != null)
                 {
                     Bitmap bmpExit = new((Bitmap)exit);
@@ -511,9 +511,9 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal, 
                     SessionState.Manager?.Memory?.MemorySize?.DtChanged?.ToString(@"HH:mm:ss") +
                     $"  {LocalizationData.ScalesUI.MemoryPhysical}: {LocalizationData.ScalesUI.MemoryFree} " +
-                    (SessionState.Manager?.Memory?.MemorySize?.PhysicalFree != null
-                        ? $"{SessionState.Manager?.Memory.MemorySize.PhysicalFree.MegaBytes:N0}" +
-                        $" из {SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB."
+                    (SessionState.Manager?.Memory?.MemorySize?.PhysicalFree != null && SessionState.Manager.Memory.MemorySize.PhysicalTotal != null
+                        ? $"{SessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes:N0}" +
+                          $" из {SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB."
                         : "- из - MB."));
                 MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldMemoryProgress,
                     SessionState.Manager?.Memory?.MemorySize?.PhysicalTotal != null
@@ -533,6 +533,9 @@ namespace ScalesUI.Forms
             SetVisible(ProjectsEnums.TaskType.MassaManager, fieldMassaManager);
             SetVisible(ProjectsEnums.TaskType.MassaManager, fieldMassaComPort);
             SetVisible(ProjectsEnums.TaskType.MassaManager, fieldMassaQueries);
+
+            if (SessionState.Manager.Massa == null)
+                return;
             bool flag = false;
             if (SessionState.CurrentPlu != null)
             {
@@ -568,7 +571,7 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries,
                 $"{LocalizationData.ScalesUI.ScaleQueue}: {SessionState.Manager.Massa.Requests?.Count} {SessionState.Manager.Massa.ProgressStringQueries}");
             SessionState.Manager.Massa.ProgressStringQueries = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringQueries);
-            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, SessionState.Manager?.Massa?.Requests != null
+            MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, SessionState.Manager.Massa.Requests != null
                 ? SessionState.Manager.Massa.Requests.Count : 0);
 
             if (!flag)
@@ -658,7 +661,7 @@ namespace ScalesUI.Forms
             DataShareCore.Wmi.WmiWin32PrinterEntity win32Printer = SessionState.Manager.Print.Win32Printer();
             if (win32Printer == null)
                 return;
-            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog) { Width = 700, Height = 400 };
+            using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
             wpfPageLoader.Text = LocalizationData.ScalesUI.PrinterInfoCaption;
             wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.PrinterInfoCaption;
             wpfPageLoader.MessageBox.Message =
@@ -1150,17 +1153,16 @@ namespace ScalesUI.Forms
                 SessionState.Manager.Close();
 
                 // Run app.
-                string fileName = @"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe";
-                if (File.Exists(fileName))
+                if (File.Exists(LocalizationData.Paths.ScalesTerminal))
                 {
                     SessionState.Manager.Close();
-                    Proc.Run(fileName, string.Empty, false, ProcessWindowStyle.Normal, true);
+                    Proc.Run(LocalizationData.Paths.ScalesTerminal, string.Empty, false, ProcessWindowStyle.Normal, true);
                 }
                 else
                 {
                     // WPF MessageBox.
                     using WpfPageLoader wpfPageLoader2 = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                    wpfPageLoader2.MessageBox.Message = LocalizationData.ScalesUI.ProgramNotFound(fileName);
+                    wpfPageLoader2.MessageBox.Message = LocalizationData.ScalesUI.ProgramNotFound(LocalizationData.Paths.ScalesTerminal);
                     wpfPageLoader2.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
                     wpfPageLoader2.MessageBox.Localization();
                     wpfPageLoader2.ShowDialog(this);

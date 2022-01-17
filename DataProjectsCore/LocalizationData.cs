@@ -257,11 +257,6 @@ namespace DataProjectsCore
             #endregion
         }
 
-        public static class MdmControl
-        {
-
-        }
-
         public static class Resources
         {
             #region Main
@@ -400,6 +395,11 @@ namespace DataProjectsCore
             #endregion
         }
 
+        public static class Paths
+        {
+            public const string ScalesTerminal = @"C:\Program Files (x86)\Massa-K\ScalesTerminal 100\ScalesTerminal.exe";
+        }
+
         public static class ScalesUI
         {
             public static List<string> ListLanguages => Lang == ShareEnums.Lang.English
@@ -409,7 +409,6 @@ namespace DataProjectsCore
             public static List<string> ListResolutions => Lang == ShareEnums.Lang.English
                 ? new List<string> { "Maximum", "1024x768", "1366x768", "1600x1024", "1920x1080" }
                 : new List<string> { "Максимальное", "1024x768", "1366x768", "1600x1024", "1920x1080" };
-
             public static string ProgramLoad => Lang == ShareEnums.Lang.English ? @"Loading the program ..." : @"Загрузка программы ...";
             public static string ProgramExit => Lang == ShareEnums.Lang.English ? @"Ending the program ..." : @"Завершение программы ...";
             public static string Exception => Lang == ShareEnums.Lang.English ? @"Exception" : @"Ошибка";
@@ -507,7 +506,6 @@ namespace DataProjectsCore
             public static string QuestionRunApp => Lang == ShareEnums.Lang.English ? @"Run the app" : @"Запустить приложение";
             public static string ChoosePlu => Lang == ShareEnums.Lang.English
                 ? @"First, you have to choose a PLU!" : @"Сперва, необходимо выбрать PLU!";
-
             public static string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? @"Scales Terminal" : @"Весовой терминал";
             public static string ButtonScalesInit => Lang == ShareEnums.Lang.English
                 ? $@"Initialize{Environment.NewLine}the scales" : $@"Инициали-{Environment.NewLine}зировать весы";
@@ -519,7 +517,6 @@ namespace DataProjectsCore
                 ? $@"Select{Environment.NewLine}PLU" : $@"Выбрать{Environment.NewLine}PLU";
             public static string ButtonSetKneading => Lang == ShareEnums.Lang.English ? @"More" : @"Ещё";
             public static string ButtonPrint => Lang == ShareEnums.Lang.English ? @"Print" : @"Печать";
-
             public static string FieldCurrentTime => Lang == ShareEnums.Lang.English ? @"Now" : @"Сейчас";
             public static string FieldWeightNetto => Lang == ShareEnums.Lang.English ? @"Net weight" : @"Вес нетто";
             public static string FieldWeightTare => Lang == ShareEnums.Lang.English ? @"Tare weight" : @"Вес тары";

@@ -10,7 +10,7 @@ DECLARE @host_id INT
 DECLARE @select BIT = 1
 DECLARE @delete BIT = 0
 DECLARE @commit BIT = 0
-DECLARE @create_dt DATETIME = '2021-01-01 00:00'
+DECLARE @create_dt DATETIME = '2022-01-01 00:00'
 DECLARE @host NVARCHAR(255) = N''
 ----------------------------------------------------------------------------------------------------
 SET @host_id = (SELECT [Id] FROM [db_scales].[Hosts] WHERE [Name] = @host)

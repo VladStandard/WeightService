@@ -452,7 +452,7 @@
             this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxClose.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxClose.Image = global::ScalesUI.Properties.Resources.exit_2;
+            this.pictureBoxClose.Image = global::ScalesUI.Properties.Resources.exit_1;
             this.pictureBoxClose.Location = new System.Drawing.Point(1051, 68);
             this.pictureBoxClose.Name = "pictureBoxClose";
             this.pictureBoxClose.Size = new System.Drawing.Size(112, 77);
