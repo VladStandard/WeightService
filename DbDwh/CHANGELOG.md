@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.690] - 2022-01-17
+### Changed
+- IIS\Functions\fnGetContragentByID
+- IIS\Functions\fnGetContragentChangesList
+
 ## [0.1.680] - 2021-12-23
 ### Changed
 - IIS\Functions\fnGetNomenclatureList
