@@ -99,9 +99,9 @@ namespace BlazorDeviceControl.Shared
             //            productionFacility.CreateDate ??= DateTime.Now;
             //            productionFacility.ModifiedDate = DateTime.Now;
             //            if (TableAction == ShareEnums.DbTableAction.Add)
-            //                AppSettings.DataAccess.ProductionFacilitiesCrud.SaveEntity(productionFacility);
+            //                AppSettings.DataAccess.Crud.SaveEntity(productionFacility);
             //            else
-            //                AppSettings.DataAccess.ProductionFacilitiesCrud.UpdateEntity(productionFacility);
+            //                AppSettings.DataAccess.Crud.UpdateEntity(productionFacility);
             //            break;
             //        case ProjectsEnums.TableScale.ProductSeries:
             //            ProductSeriesEntity productSeries = (ProductSeriesEntity)Item;

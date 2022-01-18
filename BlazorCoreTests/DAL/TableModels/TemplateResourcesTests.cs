@@ -1,5 +1,8 @@
 ﻿using System;
-using System.Text;
+using CoreTests;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataShareCore;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
@@ -14,20 +17,19 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new TemplateResourceEntity();
+                TemplateResourceEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var dt in TestsEnums.GetDateTime())
-                foreach (var guid in TestsEnums.GetGuid())
-                foreach (var s in TestsEnums.GetString())
-                foreach (var bytes in TestsEnums.GetBytes())
-                foreach (var b in TestsEnums.GetBool())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (DateTime dt in TestsEnums.GetDateTime())
+                foreach (Guid guid in TestsEnums.GetGuid())
+                foreach (string s in TestsEnums.GetString())
+                foreach (bool b in TestsEnums.GetBool())
                 {
-                    var entity = new TemplateResourceEntity
+                    TemplateResourceEntity entity = new()
                     {
                         Id = i,
                         CreateDate = dt,
@@ -35,7 +37,7 @@ namespace BlazorCoreTests.DAL.TableModels
                         Name = s,
                         Description = s,
                         Type = s,
-                        ImageData = bytes,
+                        ImageData = TestsEnums.GetBytes().ToArray(),
                         IdRRef = guid,
                         Marked = b,
                     };
@@ -54,10 +56,9 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
                 {
-                    var id = DataAccessUtils.DataAccess.TemplateResourcesCrud.GetEntity(
-                        null,
+                    int id = DataAccessUtils.DataAccess.Crud.GetEntity<TemplateResourceEntity>(null,
                         new FieldOrderEntity{Use = true, Name = ShareEnums.DbField.Id, Direction = ShareEnums.DbOrderDirection.Desc}).Id;
-                    var entity = new TemplateResourceEntity
+                    TemplateResourceEntity entity = new()
                     {
                         Id = id + 1,
                         Name = "TemplateResourcesEntity name",
@@ -65,18 +66,18 @@ namespace BlazorCoreTests.DAL.TableModels
                         CreateDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
                     };
-                    DataAccessUtils.DataAccess.TemplateResourcesCrud.SaveEntity(entity);
+                    DataAccessUtils.DataAccess.Crud.SaveEntity(entity);
 
                     entity.Description = "Updated";
-                    DataAccessUtils.DataAccess.TemplateResourcesCrud.UpdateEntity(entity);
+                    DataAccessUtils.DataAccess.Crud.UpdateEntity(entity);
 
-                    var result = DataAccessUtils.DataAccess.TemplateResourcesCrud.LoadResource(
-                        entity.Id, entity.Name, "New description", "GRF", 
-                        Encoding.ASCII.GetBytes("new data"));
-                    Assert.AreEqual(1, result);
+                    //var result = DataAccessUtils.DataAccess.TemplateResourceCrud.LoadResource(
+                    //    entity.Id, entity.Name, "New description", "GRF", 
+                    //    Encoding.ASCII.GetBytes("new data"));
+                    //Assert.AreEqual(1, result);
 
                     // GetEntities.
-                    foreach (var entityGet in DataAccessUtils.DataAccess.TemplateResourcesCrud.GetEntities(null, null))
+                    foreach (TemplateResourceEntity entityGet in DataAccessUtils.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null))
                     {
                         if (Equals(entityGet.Name, entity.Name))
                         {

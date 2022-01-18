@@ -61,7 +61,7 @@ namespace BlazorCore.Models
 
         public void OnChange(object value, string name, BaseEntity item)
         {
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     lock (Locker)
@@ -232,7 +232,7 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Labels:
                     if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idLabel))
                     {
-                        LabelEntity labelEntity = AppSettings.DataAccess.LabelsCrud.GetEntity<LabelEntity>(
+                        LabelEntity labelEntity = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
                             new FieldListEntity(new Dictionary<string, object> {
                                         { ShareEnums.DbField.Id.ToString(), idLabel },
                             }), null);
@@ -272,7 +272,7 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Orders:
                     if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idOrder))
                     {
-                        OrderEntity orderEntity = AppSettings.DataAccess.OrdersCrud.GetEntity<OrderEntity>(
+                        OrderEntity orderEntity = AppSettings.DataAccess.Crud.GetEntity<OrderEntity>(
                             new FieldListEntity(new Dictionary<string, object> {
                                         { ShareEnums.DbField.Id.ToString(), idOrder },
                             }), null);
@@ -330,7 +330,7 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.ProductionFacilities:
                     if (parameters.TryGetValue(ShareEnums.DbField.Id.ToString(), out int idProductionFacility))
                     {
-                        ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity<ProductionFacilityEntity>(
+                        ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
                             new FieldListEntity(new Dictionary<string, object> {
                                         { ShareEnums.DbField.Id.ToString(), idProductionFacility },
                             }), null);
@@ -1087,9 +1087,10 @@ namespace BlazorCore.Models
             }
         }
 
-        private void Action(UserSettingsHelper userSettings, ShareEnums.DbTableAction tableAction, bool isNewWindow)
+        public async Task ActionAsync(UserSettingsHelper userSettings, ShareEnums.DbTableAction tableAction, bool isNewWindow)
         {
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(Action)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     switch (tableAction)
@@ -1131,36 +1132,6 @@ namespace BlazorCore.Models
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
-        }
-
-        public async Task ActionNewAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(userSettings, ShareEnums.DbTableAction.New, isNewWindow);
-        }
-
-        public async Task ActionEditAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(userSettings, ShareEnums.DbTableAction.Edit, isNewWindow);
-        }
-
-        public async Task ActionCopyAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(userSettings, ShareEnums.DbTableAction.Copy, isNewWindow);
-        }
-
-        public async Task ActionMarkAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(userSettings, ShareEnums.DbTableAction.Mark, isNewWindow);
-        }
-
-        public async Task ActionDeleteAsync(UserSettingsHelper userSettings, bool isNewWindow = false)
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            Action(userSettings, ShareEnums.DbTableAction.Delete, isNewWindow);
         }
 
         #endregion

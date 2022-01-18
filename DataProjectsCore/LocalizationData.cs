@@ -22,14 +22,6 @@ namespace DataProjectsCore
             public static string IndexContinue => Lang == ShareEnums.Lang.English ? @"Click on a menu section to continue." : @"Нажмите на раздел меню, чтобы продолжить.";
             public static string SqlServerDebug => "CREATIO";
             public static string SqlServerRelease => "PALYCH";
-            public static string AuthorizingProcess => Lang == ShareEnums.Lang.English ? "Authorizing ..." : "Авторизация ...";
-            public static string AuthorizingSuccess => Lang == ShareEnums.Lang.English ? "Success authorized" : "Успешная авторизация";
-            public static string AuthorizingNot => Lang == ShareEnums.Lang.English ? "Not authorized!" : "Авторизация провалена!";
-            public static string AuthorizingUserName => Lang == ShareEnums.Lang.English ? "User name" : "Имя пользователя";
-            public static string AuthorizingAccessLevel => Lang == ShareEnums.Lang.English ? "Access level" : "Уровень доступа";
-            public static string AuthorizingAccessLevelNull => Lang == ShareEnums.Lang.English ? "No access" : "Нет доступа";
-            public static string AuthorizingAccessLevelFalse => Lang == ShareEnums.Lang.English ? "Read only" : "Только чтение";
-            public static string AuthorizingAccessLevelTrue => Lang == ShareEnums.Lang.English ? "Read and write" : "Чтение и запись";
             #endregion
             #region Комплексы промышленных устройств
             public static string DevicesTitle => Lang == ShareEnums.Lang.English ? @"Complexes of industrial devices" : @"Комплексы промышленных устройств";

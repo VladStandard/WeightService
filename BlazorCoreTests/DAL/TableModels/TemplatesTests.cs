@@ -1,4 +1,6 @@
-﻿using FluentNHibernate.Mapping;
+﻿using CoreTests;
+using DataProjectsCore.DAL.TableScaleModels;
+using FluentNHibernate.Mapping;
 using NUnit.Framework;
 using System;
 
@@ -14,19 +16,18 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new TemplateEntity();
+                TemplateEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var dt in TestsEnums.GetDateTime())
-                foreach (var guid in TestsEnums.GetGuid())
-                foreach (var s in TestsEnums.GetString())
-                foreach (var bytes in TestsEnums.GetBytes())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (DateTime dt in TestsEnums.GetDateTime())
+                foreach (Guid guid in TestsEnums.GetGuid())
+                foreach (string s in TestsEnums.GetString())
                 {
-                    var entity = new TemplateEntity
+                    TemplateEntity entity = new()
                     {
                         Id = i,
                         CreateDate = dt,
@@ -34,7 +35,7 @@ namespace BlazorCoreTests.DAL.TableModels
                         IdRRef = guid,
                         CategoryId = s,
                         Title = s,
-                        ImageData = bytes,
+                        ImageData = TestsEnums.GetBytes().ToArray(),
                     };
                     _ = entity.ToString();
                     Assert.AreEqual(false, entityNew.Equals(entity));
@@ -51,10 +52,10 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
                 {
-                    var title = "TemplatesEntity test";
-                    var titleChange = "TemplatesEntity test change";
+                    string title = "TemplatesEntity test";
+                    string titleChange = "TemplatesEntity test change";
                     // SaveEntity
-                    var entity = new TemplateEntity
+                    TemplateEntity entity = new()
                     {
                         CreateDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
@@ -68,7 +69,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     entity.Title = titleChange;
                     DataAccessUtils.DataAccess.TemplatesCrud.UpdateEntity(entity);
                     // GetEntities
-                    foreach (var entityGet in DataAccessUtils.DataAccess.TemplatesCrud.GetEntities(null, null))
+                    foreach (TemplateEntity entityGet in DataAccessUtils.DataAccess.TemplatesCrud.GetEntities<TemplateEntity>(null, null))
                     {
                         if (entityGet.Title.Equals(titleChange))
                         {

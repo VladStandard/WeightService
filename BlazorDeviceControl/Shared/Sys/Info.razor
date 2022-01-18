@@ -114,7 +114,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.AuthorizingUserName</td>
+                <td>@LocalizationCore.Strings.Main.AuthorizingUserName</td>
                 @if (string.IsNullOrEmpty(UserSettings.Identity.Name))
                 {
                     <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
@@ -125,17 +125,17 @@
                 }
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.AuthorizingAccessLevel</td>
+                <td>@LocalizationCore.Strings.Main.AuthorizingAccessLevel</td>
                 @switch (UserSettings.Identity.AccessLevel)
                 {
                     case null:
-                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationData.DeviceControl.AuthorizingAccessLevelNull</MudElement></td>
+                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelNull</MudElement></td>
                         break;
                     case false:
-                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationData.DeviceControl.AuthorizingAccessLevelFalse</MudElement></td>
+                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelFalse</MudElement></td>
                         break;
                     case true:
-                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationData.DeviceControl.AuthorizingAccessLevelTrue</MudElement></td>
+                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelTrue</MudElement></td>
                         break;
                 }
             </tr>

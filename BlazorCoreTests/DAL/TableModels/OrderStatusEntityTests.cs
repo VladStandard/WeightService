@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using CoreTests;
+using DataProjectsCore.DAL.TableScaleModels;
+using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
 {
@@ -12,18 +14,18 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new OrderStatusEntity();
+                OrderStatusEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var dt in TestsEnums.GetDateTime())
-                foreach (var s in TestsEnums.GetString())
-                foreach (var bytes in TestsEnums.GetByte())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (System.DateTime dt in TestsEnums.GetDateTime())
+                foreach (string s in TestsEnums.GetString())
+                foreach (byte bytes in TestsEnums.GetBytes())
                 {
-                    var entity = new OrderStatusEntity
+                    OrderStatusEntity entity = new()
                     {
                         Id = i,
                         OrderId = s,

@@ -17,7 +17,7 @@
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ScaleEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionEditAsync(UserSettings))
+        RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=15 AllowSorting="true" ColumnWidth="200px">
         <Columns >

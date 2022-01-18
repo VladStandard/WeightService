@@ -17,20 +17,20 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new WorkshopEntity();
+                WorkshopEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var s in TestsEnums.GetString())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (string s in TestsEnums.GetString())
                 {
-                    var entity = new PrinterTypeEntity()
+                        PrinterTypeEntity entity = new()
                     {
                         Name = s,
                     };
-                    entity.PrimaryColumn.Value = i;
+                    entity.PrimaryColumn.Id = i;
                     _ = entity.ToString();
                     Assert.AreEqual(false, entityNew.Equals(entity));
                 }
@@ -48,11 +48,11 @@ namespace BlazorCoreTests.DAL.TableModels
             {
                 const string name = "ZebraPrinterType test";
                 // SaveEntity
-                var zebraPrinterType = new PrinterTypeEntity
+                PrinterTypeEntity zebraPrinterType = new()
                 {
                     Name = name,
                 };
-                zebraPrinterType.PrimaryColumn.Value = -1;
+                zebraPrinterType.PrimaryColumn.Id = -1;
                 DataAccessUtils.DataAccess.Crud.SaveEntity(zebraPrinterType);
             });
 
@@ -69,7 +69,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     const string name = "ZebraPrinterType test";
                     const string name2 = "ZebraPrinterType test 2";
                     // GetEntities
-                    foreach (var entity in DataAccessUtils.DataAccess.Crud.GetEntities(null,
+                    foreach (PrinterEntity entity in DataAccessUtils.DataAccess.Crud.GetEntities<PrinterEntity>(null,
                         new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
                     {
                         if (entity.Name.Equals(name))
@@ -80,7 +80,7 @@ namespace BlazorCoreTests.DAL.TableModels
                         }
                     }
                     // GetEntities
-                    foreach (var entity in DataAccessUtils.DataAccess.Crud.GetEntities(null,
+                    foreach (PrinterEntity entity in DataAccessUtils.DataAccess.Crud.GetEntities<PrinterEntity>(null,
                         new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
                     {
                         if (entity.Name.Equals(name2))

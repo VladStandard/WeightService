@@ -1,4 +1,8 @@
 ﻿using System.Collections.Generic;
+using CoreTests;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataShareCore;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
@@ -13,17 +17,17 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new OrderTypeEntity();
+                OrderTypeEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var s in TestsEnums.GetString())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (string s in TestsEnums.GetString())
                 {
-                    var entity = new OrderTypeEntity
-                    {
+                        OrderTypeEntity entity = new()
+                        {
                         Id = i,
                         Description = s
                     };
@@ -37,17 +41,17 @@ namespace BlazorCoreTests.DAL.TableModels
 
         public OrderTypeEntity EntityCreate(string description)
         {
-            if (!DataAccessUtils.DataAccess.OrderTypesCrud.ExistsEntity(new FieldListEntity(
+            if (!DataAccessUtils.DataAccess.OrderTypesCrud.ExistsEntity<OrderTypeEntity>(new FieldListEntity(
                 new Dictionary<string, object> { { ShareEnums.DbField.Description.ToString(), description } }), null))
             {
-                OrderTypeEntity entity = new OrderTypeEntity
+                OrderTypeEntity entity = new()
                 {
                     Id = -1,
                     Description = description
                 };
                 DataAccessUtils.DataAccess.OrderTypesCrud.SaveEntity(entity);
             }
-            return DataAccessUtils.DataAccess.OrderTypesCrud.GetEntity(new FieldListEntity(
+            return DataAccessUtils.DataAccess.OrderTypesCrud.GetEntity<OrderTypeEntity>(new FieldListEntity(
                 new Dictionary<string, object> { { ShareEnums.DbField.Description.ToString(), description } }),
                 new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
         }
@@ -59,16 +63,16 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var description = "TEST ORDER TYPE";
-                var entityNew = EntityCreate(description);
+                string description = "TEST ORDER TYPE";
+                OrderTypeEntity entityNew = EntityCreate(description);
 
                 // UpdateEntity
                 entityNew.Description += " changed";
                 DataAccessUtils.DataAccess.OrderTypesCrud.UpdateEntity(entityNew);
                 // GetEntities
-                var nomenclatureUnits = DataAccessUtils.DataAccess.OrderTypesCrud.GetEntities(null, null);
+                OrderTypeEntity[] nomenclatureUnits = DataAccessUtils.DataAccess.OrderTypesCrud.GetEntities<OrderTypeEntity>(null, null);
                 Assert.AreEqual(true, nomenclatureUnits.Length > 0);
-                foreach (var entity in nomenclatureUnits)
+                foreach (OrderTypeEntity entity in nomenclatureUnits)
                 {
                     if (entity.Description.Equals(description + " changed"))
                     {

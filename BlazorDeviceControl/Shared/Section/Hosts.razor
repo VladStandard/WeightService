@@ -17,7 +17,7 @@
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="HostEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionEditAsync(UserSettings))
+        RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
         <Columns>
@@ -35,7 +35,7 @@
                 TItem="HostEntity" Property="IdRRef" Title=@LocalizationData.DeviceControl.TableFieldIdRRef
                 Type="string" Width="23.5%" />
             <RadzenGridColumn 
-                TItem="HostEntity" Property="Mac" Title=@LocalizationData.DeviceControl.TableFieldDeviceMac
+                TItem="HostEntity" TextAlign="TextAlign.Center" Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldDeviceMac
                 Type="string" Width="23.5%" />
         </Columns>
     </RadzenGrid>

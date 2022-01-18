@@ -1,11 +1,12 @@
-﻿using NUnit.Framework;
+﻿using CoreTests;
+using NUnit.Framework;
 
 namespace BlazorCoreTests.Models
 {
     [TestFixture]
     internal class XmlProductEntityTests
     {
-        private ProductHelper _product { get; set; } = ProductHelper.Instance;
+        //private ProductHelper _product { get; set; } = ProductHelper.Instance;
 
         private string GetXmlProduct(int number)
         {
@@ -142,11 +143,11 @@ namespace BlazorCoreTests.Models
 
             Assert.DoesNotThrow(() =>
             {
-                for (var i = 1; i < 7; i++)
+                for (int i = 1; i < 7; i++)
                 {
-                    var productEntity = _product.GetProductEntity(GetXmlProduct(i));
-                    TestContext.WriteLine(productEntity);
-                    TestContext.WriteLine();
+                    //var productEntity = _product.GetProductEntity(GetXmlProduct(i));
+                    //TestContext.WriteLine(productEntity);
+                    //TestContext.WriteLine();
                 }
             });
 

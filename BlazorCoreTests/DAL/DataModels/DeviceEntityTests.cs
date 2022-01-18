@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using CoreTests;
+using DataProjectsCore.DAL.DataModels;
+using DataProjectsCore.DAL.TableScaleModels;
+using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.DataModels
 {
@@ -12,15 +15,15 @@ namespace BlazorCoreTests.DAL.DataModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new DeviceEntity();
+                DeviceEntity entityNew = new DeviceEntity();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
+                foreach (int i in TestsEnums.GetInt())
                 {
-                    var entity = new DeviceEntity
+                    DeviceEntity entity = new DeviceEntity
                     {
                         Id = i,
                         Scales = new ScaleEntity(),
@@ -40,10 +43,10 @@ namespace BlazorCoreTests.DAL.DataModels
 
             Assert.DoesNotThrow(() =>
             {
-                var i = 0;
-                foreach (var scalesEntity in DataAccessUtils.DataAccess.ScalesCrud.GetEntities(null, null))
+                int i = 0;
+                foreach (ScaleEntity scalesEntity in DataAccessUtils.DataAccess.Crud.GetEntities<ScaleEntity>(null, null))
                 {
-                    var entity = new DeviceEntity
+                    DeviceEntity entity = new DeviceEntity
                     {
                         Id = i,
                         Scales = scalesEntity,

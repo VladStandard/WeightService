@@ -22,20 +22,20 @@
         <Columns >
             <RadzenGridColumn 
                 TItem="AccessEntity" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%">
+                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
                 <Template Context="logItem">
                     <RadzenDatePicker 
                         TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
-                    Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="15%">
+                    Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
                 <Template Context="logItem">
                     <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="40%" />
+                Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="30%" />
             <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="30%">
                 <Template Context="accessItem">

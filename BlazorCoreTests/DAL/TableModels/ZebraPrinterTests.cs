@@ -17,20 +17,20 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new WorkshopEntity();
+                WorkshopEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var dt in TestsEnums.GetDateTime())
-                foreach (var s in TestsEnums.GetString())
-                foreach (var sh in TestsEnums.GetShort())
-                foreach (var b in TestsEnums.GetBool())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (DateTime dt in TestsEnums.GetDateTime())
+                foreach (string s in TestsEnums.GetString())
+                foreach (short sh in TestsEnums.GetShort())
+                foreach (bool b in TestsEnums.GetBool())
                 {
-                    var entity = new PrinterEntity
-                    {
+                                    PrinterEntity entity = new()
+                                    {
                         Id = i,
                         CreateDate = dt,
                         ModifiedDate = dt,
@@ -60,10 +60,10 @@ namespace BlazorCoreTests.DAL.TableModels
             {
                 const string name = "ZebraPrinterEntity test";
                 const string name2 = "ZebraPrinterEntity test 2";
-                foreach (var zebraPrinterTypeEntity in DataAccessUtils.DataAccess.Crud.GetEntities(null, null))
+                foreach (PrinterTypeEntity zebraPrinterTypeEntity in DataAccessUtils.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null))
                 {
                     // SaveEntity
-                    var zebraPrinterType = new PrinterEntity
+                    PrinterEntity zebraPrinterType = new()
                     {
                         Id = -1,
                         CreateDate = DateTime.Now,
@@ -80,7 +80,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     DataAccessUtils.DataAccess.PrintersCrud.SaveEntity(zebraPrinterType);
                 }
                 // GetEntities
-                foreach (var entity in DataAccessUtils.DataAccess.PrintersCrud.GetEntities(null,
+                foreach (PrinterEntity entity in DataAccessUtils.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(null,
                     new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
                 {
                     if (entity.Name.Equals(name))
@@ -91,7 +91,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     }
                 }
                 // GetEntities
-                foreach (var entity in DataAccessUtils.DataAccess.PrintersCrud.GetEntities(null,
+                foreach (PrinterEntity entity in DataAccessUtils.DataAccess.PrintersCrud.GetEntities<PrinterEntity>(null,
                     new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Asc }))
                 {
                     if (entity.Name.Equals(name2))

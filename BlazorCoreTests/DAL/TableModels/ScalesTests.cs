@@ -1,4 +1,9 @@
-﻿using NUnit.Framework;
+﻿using CoreTests;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataProjectsCore.DAL.TableSystemModels;
+using DataShareCore;
+using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
 {
@@ -12,21 +17,21 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new ScaleEntity();
+                ScaleEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var s in TestsEnums.GetString())
-                foreach (var guid in TestsEnums.GetGuid())
-                foreach (var sh in TestsEnums.GetShort())
-                foreach (var b in TestsEnums.GetBool())
-                foreach (var dt in TestsEnums.GetDateTime())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (string s in TestsEnums.GetString())
+                foreach (System.Guid guid in TestsEnums.GetGuid())
+                foreach (short sh in TestsEnums.GetShort())
+                foreach (bool b in TestsEnums.GetBool())
+                foreach (System.DateTime dt in TestsEnums.GetDateTime())
                 {
-                    var entity = new ScaleEntity
-                    {
+                                        ScaleEntity entity = new()
+                                        {
                         Id = i,
                         CreateDate = dt,
                         ModifiedDate = dt,
@@ -64,7 +69,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() => {
                 // GetEntities.
-                foreach (var entity in DataAccessUtils.DataAccess.ScalesCrud.GetEntities(null,
+                foreach (ScaleEntity entity in DataAccessUtils.DataAccess.Crud.GetEntities<ScaleEntity>(null,
                     new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Description, Direction = ShareEnums.DbOrderDirection.Desc }))
                 {
                     TestContext.WriteLine(entity.ToString());

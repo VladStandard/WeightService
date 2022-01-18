@@ -17,23 +17,23 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new BarcodeTypeEntity();
+                BarcodeTypeEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var s in TestsEnums.GetString())
-                {
-                    var entity = new BarcodeTypeEntity()
+                foreach (int i in TestsEnums.GetInt())
+                    foreach (string s in TestsEnums.GetString())
                     {
-                        Id = i,
-                        Name = s
-                    };
-                    _ = entity.ToString();
-                    Assert.AreEqual(false, entityNew.Equals(entity));
-                }
+                        BarcodeTypeEntity entity = new()
+                        {
+                            Id = i,
+                            Name = s
+                        };
+                        _ = entity.ToString();
+                        Assert.AreEqual(false, entityNew.Equals(entity));
+                    }
             });
 
             TestsUtils.MethodComplete();
@@ -48,7 +48,7 @@ namespace BlazorCoreTests.DAL.TableModels
             //};
             //// Не сохранять.
             //DataAccessUtils.DataAccess.BarCodeTypesCrud.SaveEntity(entity);
-            return DataAccessUtils.DataAccess.BarcodeTypesCrud.GetEntity(
+            return DataAccessUtils.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }),
                 new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
         }
@@ -60,15 +60,15 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var name = "Code128";
-                var entityNew = EntityCreate(name);
+                string name = "Code128";
+                BarcodeTypeEntity entityNew = EntityCreate(name);
                 // UpdateEntity - Не изменять
                 //entityNew.Name += " changed";
                 //DataAccessUtils.DataAccess.BarCodeTypesCrud.UpdateEntity(entityNew);
                 // GetEntities
-                var entities = DataAccessUtils.DataAccess.BarcodeTypesCrud.GetEntities(null, null);
+                BarcodeTypeEntity[] entities = DataAccessUtils.DataAccess.Crud.GetEntities<BarcodeTypeEntity>(null, null);
                 Assert.AreEqual(true, entities.Length > 0);
-                foreach (var entity in entities)
+                foreach (BarcodeTypeEntity entity in entities)
                 {
                     if (entity.Name.Equals(name + " changed"))
                     {

@@ -41,7 +41,7 @@ namespace BlazorDeviceControl.Shared.Item
 
                     WorkshopItem = AppSettings.DataAccess.WorkshopsCrud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    ProductionFacilityEntities = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
+                    ProductionFacilityEntities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -103,7 +103,7 @@ namespace BlazorDeviceControl.Shared.Item
                             WorkshopItem.ProductionFacility = null;
                         else
                         {
-                            WorkshopItem.ProductionFacility = AppSettings.DataAccess.ProductionFacilitiesCrud.GetEntity<ProductionFacilityEntity>(
+                            WorkshopItem.ProductionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
                             null);
                         }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using CoreTests;
+using DataProjectsCore.DAL.TableScaleModels;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
@@ -14,19 +16,19 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new WorkshopEntity();
+                WorkshopEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var s in TestsEnums.GetString())
-                foreach (var dt in TestsEnums.GetDateTime())
-                foreach (var guid in TestsEnums.GetGuid())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (string s in TestsEnums.GetString())
+                foreach (DateTime dt in TestsEnums.GetDateTime())
+                foreach (Guid guid in TestsEnums.GetGuid())
                 {
-                    var entity = new WorkshopEntity
-                    {
+                                WorkshopEntity entity = new()
+                                {
                         Id = i,
                         ProductionFacility = new ProductionFacilityEntity(),
                         Name = s,
@@ -49,24 +51,24 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var iStart = -10;
-                var iEnd = 0;
-                var nameFafility = "ProductionFacility Name 1";
-                var nameWorkshop1 = "WorkShop Name 1";
-                var nameWorkshop2 = "WorkShop Name 2";
+                int iStart = -10;
+                int iEnd = 0;
+                string nameFafility = "ProductionFacility Name 1";
+                string nameWorkshop1 = "WorkShop Name 1";
+                string nameWorkshop2 = "WorkShop Name 2";
                 // SaveEntity
-                var facility = new ProductionFacilityEntity()
+                ProductionFacilityEntity facility = new()
                 {
                     Name = nameFafility,
                     CreateDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
                     IdRRef = Guid.Empty,
                 };
-                DataAccessUtils.DataAccess.ProductionFacilitiesCrud.SaveEntity(facility);
-                facility = DataAccessUtils.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null).ToList().FirstOrDefault();
-                for (var i = iStart; i < iEnd; i++)
+                DataAccessUtils.DataAccess.Crud.SaveEntity(facility);
+                facility = DataAccessUtils.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList().FirstOrDefault();
+                for (int i = iStart; i < iEnd; i++)
                 {
-                    var entity = new WorkshopEntity()
+                    WorkshopEntity entity = new()
                     {
                         ProductionFacility = facility,
                         Name = nameWorkshop1,
@@ -77,7 +79,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     DataAccessUtils.DataAccess.WorkshopsCrud.SaveEntity(entity);
                 }
                 // GetEntities
-                foreach (var entity in DataAccessUtils.DataAccess.WorkshopsCrud.GetEntities(null, null))
+                foreach (WorkshopEntity entity in DataAccessUtils.DataAccess.WorkshopsCrud.GetEntities<WorkshopEntity>(null, null))
                 {
                     if (entity.ProductionFacility.Name.Equals(nameFafility))
                     {
@@ -87,7 +89,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     }
                 }
                 // GetEntities
-                foreach (var entity in DataAccessUtils.DataAccess.WorkshopsCrud.GetEntities(null, null))
+                foreach (WorkshopEntity entity in DataAccessUtils.DataAccess.WorkshopsCrud.GetEntities<WorkshopEntity>(null, null))
                 {
                     if (entity.Name.Equals(nameWorkshop1) || entity.Name.Equals(nameWorkshop2))
                     {
@@ -96,10 +98,10 @@ namespace BlazorCoreTests.DAL.TableModels
                     }
                 }
                 // DeleteEntity
-                foreach (var facilityEntity in DataAccessUtils.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null))
+                foreach (ProductionFacilityEntity facilityEntity in DataAccessUtils.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null))
                 {
                     if (facilityEntity.Name.Equals(nameFafility))
-                        DataAccessUtils.DataAccess.ProductionFacilitiesCrud.DeleteEntity(facilityEntity);
+                        DataAccessUtils.DataAccess.Crud.DeleteEntity(facilityEntity);
                 }
             }
             );

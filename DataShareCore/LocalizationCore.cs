@@ -49,6 +49,14 @@ namespace DataShareCore
                 public static string IsEnableIt(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
                 public static string IsEnableShe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
                 public static string IsEnableHe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
+                public static string AuthorizingProcess => Lang == ShareEnums.Lang.English ? "Authorizing ..." : "Авторизация ...";
+                public static string AuthorizingSuccess => Lang == ShareEnums.Lang.English ? "Success authorized" : "Успешная авторизация";
+                public static string AuthorizingNot => Lang == ShareEnums.Lang.English ? "Not authorized!" : "Авторизация провалена!";
+                public static string AuthorizingUserName => Lang == ShareEnums.Lang.English ? "User name" : "Имя пользователя";
+                public static string AuthorizingAccessLevel => Lang == ShareEnums.Lang.English ? "Access level" : "Уровень доступа";
+                public static string AuthorizingAccessLevelNull => Lang == ShareEnums.Lang.English ? "No access" : "Нет доступа";
+                public static string AuthorizingAccessLevelFalse => Lang == ShareEnums.Lang.English ? "Read only" : "Только чтение";
+                public static string AuthorizingAccessLevelTrue => Lang == ShareEnums.Lang.English ? "Read and write" : "Чтение и запись";
             }
             #region Menu
             public static string MenuReferences => Lang == ShareEnums.Lang.English ? @"References" : @"Справочники";

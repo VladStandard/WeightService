@@ -29,6 +29,16 @@ namespace CoreTests
             return new List<string>() { null, "", string.Empty };
         }
 
+        public static List<Guid> GetGuid()
+        {
+            return new List<Guid> { Guid.Empty, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), };
+        }
+
+        public static List<decimal> GetDecimal()
+        {
+            return new List<decimal> { decimal.MinValue, decimal.MinValue / 2, 0, 1, decimal.MaxValue / 2, decimal.MaxValue };
+        }
+
         /// <summary>
         /// List of ushort values.
         /// </summary>
@@ -124,9 +134,9 @@ namespace CoreTests
         /// List of bytes.
         /// </summary>
         /// <returns></returns>
-        public static List<int> GetBytes()
+        public static List<byte> GetBytes()
         {
-            return new List<int>() { 0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048 };
+            return new List<byte>() { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, };
         }
     }
 }

@@ -14,7 +14,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
         public virtual DateTime? ModifiedDate { get; set; }
         public virtual string Name { get; set; }
         public virtual string Ip { get; set; }
-        public virtual string Mac { get; set; }
+        public virtual MacAddressEntity MacAddress { get; set; }
         public virtual Guid IdRRef { get; set; }
 
         public virtual string IdRRefAsString
@@ -24,6 +24,15 @@ namespace DataProjectsCore.DAL.TableSystemModels
         }
         public virtual bool Marked { get; set; }
         public virtual string SettingsFile { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public HostEntity()
+        {
+            MacAddress = new MacAddressEntity();
+        }
 
         #endregion
 
@@ -39,7 +48,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
                    $"{nameof(ModifiedDate)}: {strModifiedDate}. " +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(Ip)}: {Ip}. " +
-                   $"{nameof(Mac)}: {Mac}. " +
+                   $"{nameof(MacAddress)}: {MacAddress}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +
                    $"{nameof(Marked)}: {Marked}. " +
                    $"{nameof(SettingsFile)}: {strSettingsFileString}. ";
@@ -54,7 +63,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
                    Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(Name, entity.Name) &&
                    Equals(Ip, entity.Ip) &&
-                   Equals(Mac, entity.Mac) &&
+                   Equals(MacAddress, entity.MacAddress) &&
                    Equals(IdRRef, entity.IdRRef) &&
                    Equals(Marked, entity.Marked) &&
                    Equals(SettingsFile, entity.SettingsFile);
@@ -80,12 +89,13 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         public new virtual bool EqualsDefault()
         {
+            if (MacAddress != null && !MacAddress.EqualsDefault())
+                return false;
             return base.EqualsDefault() &&
                    Equals(CreateDate, default(DateTime?)) &&
                    Equals(ModifiedDate, default(DateTime?)) &&
                    Equals(Name, default(string)) &&
                    Equals(Ip, default(string)) &&
-                   Equals(Mac, default(string)) &&
                    Equals(IdRRef, default(Guid)) &&
                    Equals(Marked, default(bool)) &&
                    Equals(SettingsFile, default(byte[]));
@@ -101,7 +111,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
                 ModifiedDate = ModifiedDate,
                 Name = Name,
                 Ip = Ip,
-                Mac = Mac,
+                MacAddress = MacAddress,
                 IdRRef = IdRRef,
                 Marked = Marked,
                 SettingsFile = SettingsFile,

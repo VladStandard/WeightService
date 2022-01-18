@@ -18,18 +18,18 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new NomenclatureEntity();
+                NomenclatureEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var dt in TestsEnums.GetDateTime())
-                foreach (var s in TestsEnums.GetString())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (DateTime dt in TestsEnums.GetDateTime())
+                foreach (string s in TestsEnums.GetString())
                 {
-                    var entity = new NomenclatureEntity
-                    {
+                            NomenclatureEntity entity = new()
+                            {
                         Id = i,
                         CreateDate = dt,
                         ModifiedDate = dt,
@@ -52,7 +52,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.Throws<Exception>(() =>
             {
-                var entity = new NomenclatureEntity()
+                NomenclatureEntity entity = new()
                 {
                     Id = -1,
                     CreateDate = DateTime.Now,
@@ -61,7 +61,7 @@ namespace BlazorCoreTests.DAL.TableModels
                     Name = "NomenclatureEntity test",
                     SerializedRepresentationObject = default,
                 };
-                DataAccessUtils.DataAccess.NomenclaturesCrud.SaveEntity(entity);
+                DataAccessUtils.DataAccess.Crud.SaveEntity(entity);
             });
 
             TestsUtils.MethodComplete();
@@ -74,23 +74,23 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var name = "NomenclatureEntity test";
-                var entityExists = DataAccessUtils.DataAccess.NomenclaturesCrud.GetEntity(new FieldListEntity(
+                string name = "NomenclatureEntity test";
+                NomenclatureEntity entityExists = DataAccessUtils.DataAccess.Crud.GetEntity<NomenclatureEntity>(new FieldListEntity(
                     new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }), null);
                 if (entityExists.EqualsDefault())
                     return;
                 // UpdateEntity
                 entityExists.Code = "code test";
-                DataAccessUtils.DataAccess.NomenclaturesCrud.UpdateEntity(entityExists);
+                DataAccessUtils.DataAccess.Crud.UpdateEntity(entityExists);
             });
 
             Assert.DoesNotThrow(() =>
             {
-                var name = "NomenclatureEntity test";
+                string name = "NomenclatureEntity test";
                 // GetEntities
-                var entities = DataAccessUtils.DataAccess.NomenclaturesCrud.GetEntities(null, null);
+                NomenclatureEntity[] entities = DataAccessUtils.DataAccess.Crud.GetEntities<NomenclatureEntity>(null, null);
                 Assert.AreEqual(true, entities.Length > 0);
-                foreach (var entity in entities)
+                foreach (NomenclatureEntity entity in entities)
                 {
                     if (entity.Name.Equals(name))
                     {

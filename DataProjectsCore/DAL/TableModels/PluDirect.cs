@@ -84,7 +84,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public XDocument GetBtXmlNamedSubString()
         {
-            IDictionary<string, object> dict = ObjectToDictionary<PluDirect>(this);
+            IDictionary<string, object> dict = ObjectToDictionary(this);
 
             XDocument doc = new(
                 new XElement("XMLScript", new XAttribute("Version", "2.0"),

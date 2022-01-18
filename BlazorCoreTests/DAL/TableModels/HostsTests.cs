@@ -1,4 +1,8 @@
-﻿using NUnit.Framework;
+﻿using CoreTests;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableSystemModels;
+using DataShareCore;
+using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
 {
@@ -12,34 +16,34 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new HostEntity();
+                HostEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var s in TestsEnums.GetString())
-                foreach (var dt in TestsEnums.GetDateTime())
-                foreach (var guid in TestsEnums.GetGuid())
-                foreach (var b in TestsEnums.GetBool())
-                foreach (var bytes in TestsEnums.GetBytes())
-                {
-                    var entity = new HostEntity
-                    {
-                        Id = i,
-                        CreateDate = dt,
-                        ModifiedDate = dt,
-                        Name = s,
-                        Ip = s,
-                        Mac = s,
-                        IdRRef = guid,
-                        Marked = b,
-                        SettingsFile = s,
-                    };
-                    _ = entity.ToString();
-                    Assert.AreEqual(false, entityNew.Equals(entity));
-                }
+                foreach (int i in TestsEnums.GetInt())
+                    foreach (string s in TestsEnums.GetString())
+                        foreach (System.DateTime dt in TestsEnums.GetDateTime())
+                            foreach (System.Guid guid in TestsEnums.GetGuid())
+                                foreach (bool b in TestsEnums.GetBool())
+                                    foreach (int bytes in TestsEnums.GetBytes())
+                                    {
+                                        HostEntity entity = new()
+                                        {
+                                            Id = i,
+                                            CreateDate = dt,
+                                            ModifiedDate = dt,
+                                            Name = s,
+                                            Ip = s,
+                                            MacAddress = new DataShareCore.DAL.Models.MacAddressEntity(s),
+                                            IdRRef = guid,
+                                            Marked = b,
+                                            SettingsFile = s,
+                                        };
+                                        _ = entity.ToString();
+                                        Assert.AreEqual(false, entityNew.Equals(entity));
+                                    }
             });
 
             TestsUtils.MethodComplete();
@@ -50,9 +54,10 @@ namespace BlazorCoreTests.DAL.TableModels
         {
             TestsUtils.MethodStart();
 
-            Assert.DoesNotThrow(() => {
+            Assert.DoesNotThrow(() =>
+            {
                 // GetEntities.
-                foreach (var entity in DataAccessUtils.DataAccess.HostsCrud.GetEntities(null,
+                foreach (HostEntity entity in DataAccessUtils.DataAccess.Crud.GetEntities<HostEntity>(null,
                     new FieldOrderEntity { Use = true, Name = ShareEnums.DbField.Name, Direction = ShareEnums.DbOrderDirection.Desc }))
                 {
                     TestContext.WriteLine(entity.ToString());
@@ -69,9 +74,10 @@ namespace BlazorCoreTests.DAL.TableModels
         {
             TestsUtils.MethodStart();
 
-            Assert.DoesNotThrow(() => {
+            Assert.DoesNotThrow(() =>
+            {
                 // GetEntities.
-                foreach (var entity in DataAccessUtils.DataAccess.HostsCrud.GetFreeHosts(null))
+                foreach (HostEntity entity in DataAccessUtils.DataAccess.Crud.GetFreeHosts(null))
                 {
                     TestContext.WriteLine(entity.ToString());
                     TestContext.WriteLine($"SettingsFile: {entity.SettingsFile}");

@@ -4,8 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Version>$(VersionPrefix)</Version>
     <Platforms>AnyCPU;x64</Platforms>
-    <AssemblyVersion>0.6.020</AssemblyVersion>
-    <FileVersion>0.6.020</FileVersion>
+    <AssemblyVersion>0.6.030</AssemblyVersion>
+    <FileVersion>0.6.030</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 

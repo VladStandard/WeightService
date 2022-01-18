@@ -215,13 +215,14 @@ namespace MdmControlBlazor.Components
             BlazorSettings.ActionAsync(table, ShareEnums.DbTableAction.Edit, entity, page, isNewWindow).ConfigureAwait(true);
         }
 
-        private async Task ActionEditAsync(NomenclatureEntity entity, bool isNewWindow)
-        {
-            Task task = new Task(() => { ActionEdit(ShareEnums.TableDwh.Nomenclature, entity, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
-            await BlazorSettings.RunTasksWithQeustion(LocalizationStrings.TableEdit,
-                LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
-                new List<Task> { task }, GuiRefreshAsync, entity?.Name).ConfigureAwait(false);
-        }
+        //[Obsolete(@"Use RazorBase.ActionAsync")]
+        //private async Task ActionEditAsync(NomenclatureEntity entity, bool isNewWindow)
+        //{
+        //    Task task = new Task(() => { ActionEdit(ShareEnums.TableDwh.Nomenclature, entity, LocalizationStrings.UriRouteNomenclature, isNewWindow); });
+        //    await BlazorSettings.RunTasksWithQeustion(LocalizationStrings.TableEdit,
+        //        LocalizationStrings.DialogResultSuccess, LocalizationStrings.DialogResultFail, LocalizationStrings.DialogResultCancel,
+        //        new List<Task> { task }, GuiRefreshAsync, entity?.Name).ConfigureAwait(false);
+        //}
 
         private void ExcludeEntity(NomenclatureEntity entity)
         {

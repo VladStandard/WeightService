@@ -56,15 +56,11 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public CrudController Crud { get; private set; }
-        public CrudController? ErrorsCrud { get; private set; } = null;
-        public CrudController? LabelsCrud { get; private set; } = null;
-        public CrudController? OrdersCrud { get; private set; } = null;
         public CrudController? OrderStatusesCrud { get; private set; } = null;
         public CrudController? OrderTypesCrud { get; private set; } = null;
         public CrudController? PlusCrud { get; private set; } = null;
         public CrudController? PrintersCrud { get; private set; } = null;
         public CrudController? PrinterResourcesCrud { get; private set; } = null;
-        public CrudController? ProductionFacilitiesCrud { get; private set; } = null;
         public CrudController? ProductSeriesCrud { get; private set; } = null;
         public CrudController? ScalesCrud { get; private set; } = null;
         public CrudController? TemplatesCrud { get; private set; } = null;
@@ -98,15 +94,11 @@ namespace DataProjectsCore.DAL.Models
                 Crud = new CrudController(this, SessionFactory);
 
                 // SCALES tables CRUD.
-                ErrorsCrud = new CrudController(this, SessionFactory);
-                LabelsCrud = new CrudController(this, SessionFactory);
-                OrdersCrud = new CrudController(this, SessionFactory);
                 OrderStatusesCrud = new CrudController(this, SessionFactory);
                 OrderTypesCrud = new CrudController(this, SessionFactory);
                 PlusCrud = new CrudController(this, SessionFactory);
                 PrinterResourcesCrud = new CrudController(this, SessionFactory);
                 PrintersCrud = new CrudController(this, SessionFactory);
-                ProductionFacilitiesCrud = new CrudController(this, SessionFactory);
                 ProductSeriesCrud = new CrudController(this, SessionFactory);
                 ScalesCrud = new CrudController(this, SessionFactory);
                 TemplatesCrud = new CrudController(this, SessionFactory);
@@ -291,8 +283,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (item is TableScaleModels.LabelEntity)
             {
-                if (LabelsCrud != null)
-                    nextId = LabelsCrud.GetEntity<TableScaleModels.LabelEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                nextId = Crud.GetEntity<TableScaleModels.LabelEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             }
             else if (item is TableScaleModels.NomenclatureEntity)
             {
@@ -300,8 +291,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (item is TableScaleModels.OrderEntity)
             {
-                if (OrdersCrud != null)
-                    nextId = OrdersCrud.GetEntity<TableScaleModels.OrderEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                nextId = Crud.GetEntity<TableScaleModels.OrderEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             }
             else if (item is TableScaleModels.OrderStatusEntity)
             {
@@ -320,8 +310,7 @@ namespace DataProjectsCore.DAL.Models
             }
             else if (item is TableScaleModels.ProductionFacilityEntity)
             {
-                if (ProductionFacilitiesCrud != null)
-                    nextId = ProductionFacilitiesCrud.GetEntity<TableScaleModels.ProductionFacilityEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                nextId = Crud.GetEntity<TableScaleModels.ProductionFacilityEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             }
             else if (item is TableScaleModels.ProductSeriesEntity)
             {
@@ -426,7 +415,7 @@ namespace DataProjectsCore.DAL.Models
                 Crud.DeleteEntity(logTypeEntity);
             // SCALES.
             else if (item is TableScaleModels.LabelEntity labelsEntity)
-                LabelsCrud?.DeleteEntity(labelsEntity);
+                Crud.DeleteEntity(labelsEntity);
             else if (item is TableScaleModels.BarcodeTypeEntity barCodeTypesEntity)
                 Crud.DeleteEntity(barCodeTypesEntity);
             else if (item is TableScaleModels.ContragentEntity contragentsEntity)
@@ -436,7 +425,7 @@ namespace DataProjectsCore.DAL.Models
             else if (item is TableScaleModels.NomenclatureEntity nomenclatureEntity)
                 Crud.DeleteEntity(nomenclatureEntity);
             else if (item is TableScaleModels.OrderEntity ordersEntity)
-                OrdersCrud?.DeleteEntity(ordersEntity);
+                Crud.DeleteEntity(ordersEntity);
             else if (item is TableScaleModels.OrderStatusEntity orderStatusEntity)
                 OrderStatusesCrud?.DeleteEntity(orderStatusEntity);
             else if (item is TableScaleModels.OrderTypeEntity orderTypesEntity)
@@ -444,7 +433,7 @@ namespace DataProjectsCore.DAL.Models
             else if (item is TableScaleModels.PluEntity pluEntity)
                 PlusCrud?.DeleteEntity(pluEntity);
             else if (item is TableScaleModels.ProductionFacilityEntity productionFacilityEntity)
-                ProductionFacilitiesCrud?.DeleteEntity(productionFacilityEntity);
+                Crud.DeleteEntity(productionFacilityEntity);
             else if (item is TableScaleModels.ProductSeriesEntity productSeriesEntity)
                 ProductSeriesCrud?.DeleteEntity(productSeriesEntity);
             else if (item is TableScaleModels.ScaleEntity scalesEntity)
@@ -507,13 +496,13 @@ namespace DataProjectsCore.DAL.Models
                     Crud.MarkedEntity(contragentsEntity);
                     break;
                 case TableScaleModels.LabelEntity labelsEntity:
-                    LabelsCrud?.MarkedEntity(labelsEntity);
+                    Crud.MarkedEntity(labelsEntity);
                     break;
                 case TableScaleModels.NomenclatureEntity nomenclatureEntity:
                     Crud.MarkedEntity(nomenclatureEntity);
                     break;
                 case TableScaleModels.OrderEntity ordersEntity:
-                    OrdersCrud?.MarkedEntity(ordersEntity);
+                    Crud.MarkedEntity(ordersEntity);
                     break;
                 case TableScaleModels.OrderStatusEntity orderStatusEntity:
                     OrderStatusesCrud?.MarkedEntity(orderStatusEntity);
@@ -525,7 +514,7 @@ namespace DataProjectsCore.DAL.Models
                     PlusCrud?.MarkedEntity(pluEntity);
                     break;
                 case TableScaleModels.ProductionFacilityEntity productionFacilityEntity:
-                    ProductionFacilitiesCrud?.MarkedEntity(productionFacilityEntity);
+                    Crud.MarkedEntity(productionFacilityEntity);
                     break;
                 case TableScaleModels.ProductSeriesEntity productSeriesEntity:
                     ProductSeriesCrud?.MarkedEntity(productSeriesEntity);

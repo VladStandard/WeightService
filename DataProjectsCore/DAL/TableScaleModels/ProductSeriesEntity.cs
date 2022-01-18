@@ -12,7 +12,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public virtual DateTime? CreateDate { get; set; }
         public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
-        public virtual Guid? Uid { get; set; }
+        //public virtual Guid? Uid { get; set; }
         public virtual string UidGui
         {
             get => Uid.ToString();

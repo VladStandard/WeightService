@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using CoreTests;
+using DataProjectsCore.DAL.Models;
+using DataProjectsCore.DAL.TableScaleModels;
+using DataShareCore;
 using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
@@ -14,18 +18,18 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new ProductionFacilityEntity();
+                ProductionFacilityEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var s in TestsEnums.GetString())
-                foreach (var dt in TestsEnums.GetDateTime())
-                foreach (var guid in TestsEnums.GetGuid())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (string s in TestsEnums.GetString())
+                foreach (DateTime dt in TestsEnums.GetDateTime())
+                foreach (Guid guid in TestsEnums.GetGuid())
                 {
-                    var entity = new ProductionFacilityEntity
+                    ProductionFacilityEntity entity = new()
                     {
                         Id = i,
                         Name = s,
@@ -43,7 +47,7 @@ namespace BlazorCoreTests.DAL.TableModels
 
         public ProductionFacilityEntity EntityCreate(string name)
         {
-            var entity = new ProductionFacilityEntity
+            ProductionFacilityEntity entity = new()
             {
                 Id = -1,
                 Name = name,
@@ -51,8 +55,8 @@ namespace BlazorCoreTests.DAL.TableModels
                 ModifiedDate = DateTime.Now,
                 IdRRef = Guid.Empty
             };
-            DataAccessUtils.DataAccess.ProductionFacilitiesCrud.SaveEntity(entity);
-            return DataAccessUtils.DataAccess.ProductionFacilitiesCrud.GetEntity(
+            DataAccessUtils.DataAccess.Crud.SaveEntity(entity);
+            return DataAccessUtils.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }),
                 new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
         }
@@ -64,20 +68,20 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var name = "ProductionFacility Test";
-                var entityNew = EntityCreate(name);
+                string name = "ProductionFacility Test";
+                ProductionFacilityEntity entityNew = EntityCreate(name);
                 // UpdateEntity
                 entityNew.Name = "Modify name";
-                DataAccessUtils.DataAccess.ProductionFacilitiesCrud.UpdateEntity(entityNew);
+                DataAccessUtils.DataAccess.Crud.UpdateEntity(entityNew);
                 // GetEntities
-                var entities = DataAccessUtils.DataAccess.ProductionFacilitiesCrud.GetEntities(null, null);
+                ProductionFacilityEntity[] entities = DataAccessUtils.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null);
                 Assert.AreEqual(true, entities.Length > 0);
-                foreach (var entity in entities)
+                foreach (ProductionFacilityEntity entity in entities)
                 {
                     if (entity.Name.Equals(entityNew.Name) || entity.Name.Equals(name))
                     {
                         // DeleteEntity
-                        DataAccessUtils.DataAccess.ProductionFacilitiesCrud.DeleteEntity(entity);
+                        DataAccessUtils.DataAccess.Crud.DeleteEntity(entity);
                     }
                 }
             }

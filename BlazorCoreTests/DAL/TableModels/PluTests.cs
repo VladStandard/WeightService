@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using CoreTests;
+using DataProjectsCore.DAL.TableScaleModels;
+using NUnit.Framework;
 
 namespace BlazorCoreTests.DAL.TableModels
 {
@@ -12,20 +14,20 @@ namespace BlazorCoreTests.DAL.TableModels
 
             Assert.DoesNotThrow(() =>
             {
-                var entityNew = new PluEntity();
+                PluEntity entityNew = new();
                 Assert.AreEqual(true, entityNew.EqualsNew());
                 Assert.AreEqual(true, entityNew.EqualsDefault());
-                var entityCopy = entityNew.Clone();
+                object entityCopy = entityNew.Clone();
                 Assert.AreEqual(true, entityNew.Equals(entityCopy));
 
-                foreach (var i in TestsEnums.GetInt())
-                foreach (var s in TestsEnums.GetString())
-                foreach (var bytes in TestsEnums.GetByte())
-                foreach (var d in TestsEnums.GetDecimal())
-                foreach (var dt in TestsEnums.GetDateTime())
-                foreach (var b in TestsEnums.GetBool())
+                foreach (int i in TestsEnums.GetInt())
+                foreach (string s in TestsEnums.GetString())
+                foreach (byte bytes in TestsEnums.GetBytes())
+                foreach (decimal d in TestsEnums.GetDecimal())
+                foreach (System.DateTime dt in TestsEnums.GetDateTime())
+                foreach (bool b in TestsEnums.GetBool())
                 {
-                    var entity = new PluEntity
+                    PluEntity entity = new()
                     {
                         Id = i,
                         CreateDate = dt,
