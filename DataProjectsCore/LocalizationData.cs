@@ -27,38 +27,50 @@ namespace DataProjectsCore
             public static string DevicesTitle => Lang == ShareEnums.Lang.English ? @"Complexes of industrial devices" : @"Комплексы промышленных устройств";
             #endregion
             #region URI route item
-            public const string UriRouteItemContragent = "/item/contragent";
-            public const string UriRouteItemDevice = "/item/device";
-            public const string UriRouteItemHost = "/item/host";
-            public const string UriRouteItemNomenclature = "/item/nomenclature";
-            public const string UriRouteItemPlu = "/item/plu";
-            public const string UriRouteItemPrinter = "/item/printer";
-            public const string UriRouteItemPrinterResource = "/item/printerresource";
-            public const string UriRouteItemPrinterType = "/item/printertype";
-            public const string UriRouteItemProductionFacility = "/item/productionfacily";
-            public const string UriRouteItemScale = "/item/scale";
-            public const string UriRouteItemTaskModule = "/item/taskmodule";
-            public const string UriRouteItemTemplate = "/item/template";
-            public const string UriRouteItemTemplateResource = "/item/templateresource";
-            public const string UriRouteItemWeithingFact = "/item/weithingfact";
-            public const string UriRouteItemWorkshop = "/item/workshop";
+            public static class UriRouteItem
+            {
+                public const string Access = "/item/access";
+                public const string Contragent = "/item/contragent";
+                public const string Device = "/item/device";
+                public const string Host = "/item/host";
+                public const string Log = "/item/log";
+                public const string Nomenclature = "/item/nomenclature";
+                public const string Plu = "/item/plu";
+                public const string Printer = "/item/printer";
+                public const string PrinterResource = "/item/printerresource";
+                public const string PrinterType = "/item/printertype";
+                public const string ProductionFacility = "/item/productionfacily";
+                public const string Scale = "/item/scale";
+                public const string TaskModule = "/item/taskmodule";
+                public const string TaskTypeModule = "/item/tasktypemodule";
+                public const string Template = "/item/template";
+                public const string TemplateResource = "/item/templateresource";
+                public const string WeithingFact = "/item/weithingfact";
+                public const string Workshop = "/item/workshop";
+            }
             #endregion
             #region URI route section
-            public const string UriRouteSectionBarCodeTypes = "/section/barcodetypes";
-            public const string UriRouteSectionContragents = "/section/contragents";
-            public const string UriRouteSectionDevices = "/section/devices";
-            public const string UriRouteSectionHosts = "/section/hosts";
-            public const string UriRouteSectionNomenclatures = "/section/nomenclatures";
-            public const string UriRouteSectionPrinterResources = "/section/printerresources";
-            public const string UriRouteSectionPrinters = "/section/printers";
-            public const string UriRouteSectionPrinterTypes = "/section/printertypes";
-            public const string UriRouteSectionProductionFacilities = "/section/productionfacilities";
-            public const string UriRouteSectionScales = "/section/scales";
-            public const string UriRouteSectionTaskModules = "/section/taskmodules";
-            public const string UriRouteSectionTemplateResources = "/section/templateresources";
-            public const string UriRouteSectionTemplates = "/section/templates";
-            public const string UriRouteSectionWeithingFacts = "/section/weithingfacts";
-            public const string UriRouteSectionWorkshops = "/section/workshops";
+            public static class UriRouteSection
+            {
+                public const string Access = "/section/access";
+                public const string BarCodeTypes = "/section/barcodetypes";
+                public const string Contragents = "/section/contragents";
+                public const string Devices = "/section/devices";
+                public const string Hosts = "/section/hosts";
+                public const string Logs = "/section/logs";
+                public const string Nomenclatures = "/section/nomenclatures";
+                public const string PrinterResources = "/section/printerresources";
+                public const string Printers = "/section/printers";
+                public const string PrinterTypes = "/section/printertypes";
+                public const string ProductionFacilities = "/section/productionfacilities";
+                public const string Scales = "/section/scales";
+                public const string TaskModules = "/section/taskmodules";
+                public const string TaskTypeModules = "/section/tasktypemodules";
+                public const string TemplateResources = "/section/templateresources";
+                public const string Templates = "/section/templates";
+                public const string WeithingFacts = "/section/weithingfacts";
+                public const string Workshops = "/section/workshops";
+            }
             #endregion
             #region Items scales
             public static string ItemBarcode => Lang == ShareEnums.Lang.English ? @"Barcode" : @"Штрихкод";

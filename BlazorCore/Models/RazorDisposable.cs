@@ -13,8 +13,8 @@ namespace BlazorCore.Models
         {
             lock (Locker)
             {
-                Dialog?.Dispose();
-                Tooltip?.Dispose();
+                DialogService?.Dispose();
+                TooltipService?.Dispose();
                 //AppSettings.HotKeysContextItem?.Dispose();
                 //AppSettings.CoreSettings = null;
                 //AppSettings.IdentityItem = null;

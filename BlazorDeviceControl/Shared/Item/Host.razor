@@ -1,7 +1,9 @@
 ﻿@page "/item/host"
 @page "/item/host/{Id:int}"
+@using BlazorDeviceControl.Shared.Component
 @using DataProjectsCore
 @using DataProjectsCore.Utils
+@using DataShareCore
 @using Microsoft.VisualBasic.CompilerServices
 @inherits RazorDisposable
 
@@ -35,3 +37,6 @@
                     Disabled="false" TValue="string" @bind-Value=@HostItem.SettingsFile />
     <br />
 </div>
+
+<ItemSave Table=@Table Id=@Id ParentRazor=@this />
+<ItemDates Table=@Table Id=@Id ParentRazor=@this />

@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        [Parameter] public int PrinterId { get; set; }
+        [Parameter] public int? PrinterId { get; set; }
         private List<PrinterResourceEntity> ItemsCast => Items == null ? new List<PrinterResourceEntity>() : Items.Select(x => (PrinterResourceEntity)x).ToList();
 
         #endregion
@@ -31,15 +31,21 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterResources);
-                    Item = null;
-                    Items = null;
+                    lock (Locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterResources);
+                        Item = null;
+                        Items = null;
+                    }
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.PrinterResourcesCrud.GetEntities<PrinterResourceEntity>(
-                        new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
-                        new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
-                        .ToList<BaseEntity>();
+                    lock (Locker)
+                    {
+                        Items = AppSettings.DataAccess.PrinterResourcesCrud.GetEntities<PrinterResourceEntity>(
+                            new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
+                            new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
+                            .ToList<BaseEntity>();
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

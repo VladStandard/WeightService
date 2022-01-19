@@ -79,6 +79,7 @@ namespace DataProjectsCore
             ProductSeries,
             Scales,
             Tasks,
+            TasksTypes,
             TemplateResources,
             Templates,
             WeithingFacts,

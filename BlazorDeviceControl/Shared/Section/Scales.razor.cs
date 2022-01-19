@@ -29,15 +29,21 @@ namespace BlazorDeviceControl.Shared.Section
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
-                    Item = null;
-                    Items = null;
+                    lock (Locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
+                        Item = null;
+                        Items = null;
+                    }
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.ScalesCrud.GetEntities<ScaleEntity>(
-                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                        new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
-                        .ToList<BaseEntity>();
+                    lock (Locker)
+                    {
+                        Items = AppSettings.DataAccess.ScalesCrud.GetEntities<ScaleEntity>(
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
+                            .ToList<BaseEntity>();
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

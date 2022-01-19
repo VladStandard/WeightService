@@ -29,8 +29,11 @@ namespace BlazorDeviceControl.Shared.Sys
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
-                    TemplateIsDebug = AppSettings.DataSource.GetTemplateIsDebug();
+                    lock (Locker)
+                    {
+                        TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
+                        TemplateIsDebug = AppSettings.DataSource.GetTemplateIsDebug();
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

@@ -8,7 +8,6 @@
 @using BlazorDeviceControl.Shared.Component
 @using DataShareCore
 @inherits RazorDisposable
-@inject IDialogService DialogService
 
 @if (UserSettings.Identity.AccessLevel is true or false)
 {
@@ -34,7 +33,7 @@
     }
     else
     {
-        <SectionActions IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
+        <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
     }
 }
 else

@@ -5,6 +5,11 @@
 @using Microsoft.AspNetCore.Authorization
 @inherits RazorDisposable
 
+<RadzenDialog />
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
 <AuthorizeView>
     <Authorizing>
         @UserSettings.Identity.Name = null;

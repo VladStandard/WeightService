@@ -31,27 +31,33 @@ namespace BlazorDeviceControl.Shared.Sys
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                    Item = null;
-                    Items = null;
+                    lock (Locker)
+                    {
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+                        Item = null;
+                        Items = null;
+                    }
                     await GuiRefreshWithWaitAsync();
 
-                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess, string.Empty, 0, string.Empty);
-                    Items = new List<AccessEntity>().ToList<BaseEntity>();
-                    foreach (object obj in objects)
+                    lock (Locker)
                     {
-                        if (obj is object[] { Length: 5 } item)
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess, string.Empty, 0, string.Empty);
+                        Items = new List<AccessEntity>().ToList<BaseEntity>();
+                        foreach (object obj in objects)
                         {
-                            if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                            if (obj is object[] { Length: 5 } item)
                             {
-                                Items.Add(new AccessEntity()
+                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                                 {
-                                    Uid = uid,
-                                    CreateDt = Convert.ToDateTime(item[1]),
-                                    ChangeDt = Convert.ToDateTime(item[2]),
-                                    User = Convert.ToString(item[3]),
-                                    Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
-                                });
+                                    Items.Add(new AccessEntity()
+                                    {
+                                        Uid = uid,
+                                        CreateDt = Convert.ToDateTime(item[1]),
+                                        ChangeDt = Convert.ToDateTime(item[2]),
+                                        User = Convert.ToString(item[3]),
+                                        Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
+                                    });
+                                }
                             }
                         }
                     }

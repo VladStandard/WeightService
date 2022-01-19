@@ -8,7 +8,6 @@
 @using BlazorDeviceControl.Shared.Section
 @using DataShareCore
 @inherits RazorDisposable
-@inject IDialogService DialogService
 
 @if (UserSettings.Identity.AccessLevel is true or false)
 {
@@ -175,8 +174,8 @@
             </tbody>
         </MudSimpleTable>
         <Plus Table=@Table ScaleId=@ScaleItem.Id />
-        <ItemSave Table=@Table Item=@Item />
-        <ItemDates Table=@Table Item=@Item />
+        <ItemSave Table=@Table Id=@Id />
+        <ItemDates Table=@Table Id=@Id />
     }
 }
 else

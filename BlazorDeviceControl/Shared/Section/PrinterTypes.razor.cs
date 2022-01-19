@@ -29,13 +29,19 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterTypes);
-                    Item = null;
-                    Items = null;
+                    lock (Locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterTypes);
+                        Item = null;
+                        Items = null;
+                    }
                     await GuiRefreshWithWaitAsync();
 
-                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)
+                    lock (Locker)
+                    {
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)
                         .OrderBy(x => x.Name).ToList<BaseEntity>();
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

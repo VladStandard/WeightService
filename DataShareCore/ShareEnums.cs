@@ -66,6 +66,8 @@ namespace DataShareCore
             Copy,
             Mark,
             Delete,
+            Save,
+            Cancel,
         }
 
         public enum MemoryLimitAction

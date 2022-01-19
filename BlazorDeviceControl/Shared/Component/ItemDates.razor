@@ -8,7 +8,7 @@
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-        @if (Item == null)
+        @if (Id == null && Uid == null)
         {
             <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
         }

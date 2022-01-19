@@ -36,11 +36,14 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
-                    Item = null;
-                    ScaleItems = null;
-                    TemplateItems = null;
-                    NomenclatureItems = null;
+                    lock (Locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
+                        Item = null;
+                        ScaleItems = null;
+                        TemplateItems = null;
+                        NomenclatureItems = null;
+                    }
                     await GuiRefreshWithWaitAsync();
 
                     //ScaleEntity[] scalesEntities = AppSettings.DataAccess.ScalesCrud.GetEntities(null, null);
@@ -81,7 +84,7 @@ namespace BlazorDeviceControl.Shared.Item
                     //        PluItem.Plu = pluEntity.Plu + 1;
                     //    }
                     //}
-                    await GuiRefreshWithWaitAsync();
+                    //await GuiRefreshWithWaitAsync();
                 }), true);
         }
 
@@ -133,7 +136,7 @@ namespace BlazorDeviceControl.Shared.Item
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };
-                Notification.Notify(msg);
+                NotificationService.Notify(msg);
                 Console.WriteLine($"{msg.Summary}. {msg.Detail}");
                 AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }
@@ -236,7 +239,7 @@ namespace BlazorDeviceControl.Shared.Item
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };
-                Notification.Notify(msg);
+                NotificationService.Notify(msg);
                 Console.WriteLine($"{msg.Summary}. {msg.Detail}");
                 AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }

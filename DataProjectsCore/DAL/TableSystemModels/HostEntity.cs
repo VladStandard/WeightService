@@ -15,6 +15,11 @@ namespace DataProjectsCore.DAL.TableSystemModels
         public virtual string Name { get; set; }
         public virtual string Ip { get; set; }
         public virtual MacAddressEntity MacAddress { get; set; }
+        public virtual string MacAddressValue
+        {
+            get => MacAddress.Value;
+            set => MacAddress.Value = value;
+        }
         public virtual Guid IdRRef { get; set; }
 
         public virtual string IdRRefAsString

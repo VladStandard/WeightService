@@ -34,14 +34,20 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                    WorkshopItem = null;
-                    ProductionFacilityEntities = null;
+                    lock (Locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                        WorkshopItem = null;
+                        ProductionFacilityEntities = null;
+                    }
                     await GuiRefreshWithWaitAsync();
 
-                    WorkshopItem = AppSettings.DataAccess.WorkshopsCrud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    ProductionFacilityEntities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
+                    lock (Locker)
+                    {
+                        WorkshopItem = AppSettings.DataAccess.WorkshopsCrud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        ProductionFacilityEntities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -63,7 +69,7 @@ namespace BlazorDeviceControl.Shared.Item
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };
-                Notification.Notify(msg);
+                NotificationService.Notify(msg);
                 Console.WriteLine(msg.Detail);
                 AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }
@@ -86,7 +92,7 @@ namespace BlazorDeviceControl.Shared.Item
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };
-                Notification.Notify(msg);
+                NotificationService.Notify(msg);
                 Console.WriteLine(msg.Detail);
                 AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }

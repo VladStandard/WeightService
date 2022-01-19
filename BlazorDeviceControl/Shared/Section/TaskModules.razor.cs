@@ -43,27 +43,33 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    TaskItem = null;
-                    Items = null;
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
+                    lock (Locker)
+                    {
+                        TaskItem = null;
+                        Items = null;
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
+                    }
                     await GuiRefreshWithWaitAsync();
 
-                    TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
-                        { ShareEnums.DbField.Uid.ToString(), Uid },
-                    }), null);
-                    Items = TaskItem == null || TaskItem.EqualsDefault() == true
-                        ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)
-                            //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<BaseEntity>()
-                        : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
-                            new FieldListEntity(
-                            new Dictionary<string, object> {
+                    lock (Locker)
+                    {
+                        TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
+                            { ShareEnums.DbField.Uid.ToString(), Uid },
+                        }), null);
+                        Items = TaskItem == null || TaskItem.EqualsDefault() == true
+                            ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)
+                                //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
+                                .ToList<BaseEntity>()
+                            : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
+                                new FieldListEntity(
+                                new Dictionary<string, object> {
                                 { "Scale.Id", TaskItem.Scale.Id },
-                            }),
-                            null)
-                            //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<BaseEntity>()
-                        ;
+                                }),
+                                null)
+                                //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
+                                .ToList<BaseEntity>()
+                            ;
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

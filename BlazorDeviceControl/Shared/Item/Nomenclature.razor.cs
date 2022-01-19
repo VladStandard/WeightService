@@ -27,12 +27,18 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-                    NomenclatureItem = null;
+                    lock (Locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
+                        NomenclatureItem = null;
+                    }
                     await GuiRefreshWithWaitAsync();
 
-                    NomenclatureItem = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    lock (Locker)
+                    {
+                        NomenclatureItem = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(new FieldListEntity(new Dictionary<string, object>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

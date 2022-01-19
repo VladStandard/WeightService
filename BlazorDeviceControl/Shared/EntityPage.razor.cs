@@ -149,7 +149,7 @@ namespace BlazorDeviceControl.Shared
             //            }
             //            break;
             //    }
-            Dialog.Close(true);
+            DialogService.Close(true);
         }
 
         #endregion

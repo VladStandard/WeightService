@@ -43,14 +43,20 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplateResources);
-                    TemplateResourcesItem = null;
-                    ResourceTypes = null;
+                    lock (Locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplateResources);
+                        TemplateResourcesItem = null;
+                        ResourceTypes = null;
+                    }
                     await GuiRefreshWithWaitAsync();
 
-                    TemplateResourcesItem = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
+                    lock (Locker)
+                    {
+                        TemplateResourcesItem = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(new FieldListEntity(new Dictionary<string, object>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -78,7 +84,7 @@ namespace BlazorDeviceControl.Shared.Item
                 Detail = args.Message,
                 Duration = AppSettingsHelper.Delay
             };
-            Notification.Notify(msg);
+            NotificationService.Notify(msg);
         }
 
         private async Task OnFileUpload(InputFileChangeEventArgs e)

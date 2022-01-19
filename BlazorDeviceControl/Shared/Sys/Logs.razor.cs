@@ -30,33 +30,33 @@ namespace BlazorDeviceControl.Shared.Sys
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                    Item = null;
-                    Items = null;
-                    await GuiRefreshWithWaitAsync();
-
-                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs, string.Empty, 0, string.Empty);
-                    Items = new List<LogSummaryEntity>().ToList<BaseEntity>();
-                    foreach (object obj in objects)
+                    lock (Locker)
                     {
-                        if (obj is object[] { Length: 11 } item)
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+                        Item = null;
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs, string.Empty, 0, string.Empty);
+                        Items = new List<LogSummaryEntity>().ToList<BaseEntity>();
+                        foreach (object obj in objects)
                         {
-                            if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                            if (obj is object[] { Length: 11 } item)
                             {
-                                Items.Add(new LogSummaryEntity()
+                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                                 {
-                                    Uid = uid,
-                                    CreateDt = Convert.ToDateTime(item[1]),
-                                    Scale = Convert.ToString(item[2]),
-                                    Host = Convert.ToString(item[3]),
-                                    App = Convert.ToString(item[4]),
-                                    Version = Convert.ToString(item[5]),
-                                    File = Convert.ToString(item[6]),
-                                    Line = Convert.ToInt32(item[7]),
-                                    Member = Convert.ToString(item[8]),
-                                    Icon = Convert.ToString(item[9]),
-                                    Message = Convert.ToString(item[10]),
-                                });
+                                    Items.Add(new LogSummaryEntity()
+                                    {
+                                        Uid = uid,
+                                        CreateDt = Convert.ToDateTime(item[1]),
+                                        Scale = Convert.ToString(item[2]),
+                                        Host = Convert.ToString(item[3]),
+                                        App = Convert.ToString(item[4]),
+                                        Version = Convert.ToString(item[5]),
+                                        File = Convert.ToString(item[6]),
+                                        Line = Convert.ToInt32(item[7]),
+                                        Member = Convert.ToString(item[8]),
+                                        Icon = Convert.ToString(item[9]),
+                                        Message = Convert.ToString(item[10]),
+                                    });
+                                }
                             }
                         }
                     }
