@@ -10,7 +10,17 @@ namespace DataProjectsCore.DAL
             public static class Properties
             {
                 public static string GetInstance => @"
-select serverproperty('InstanceName') [InstanceName]
+SELECT SERVERPROPERTY('INSTANCENAME') [INSTANCENAME]
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+                
+				public static string GetDbSpace => @"
+SELECT
+		[NAME] [DB_NAME]
+	,[SIZE] [DB_SIZE]
+	,[SIZE] * 8 / 1024 [DB_SIZE_MB]
+	,[MAX_SIZE]
+	,[MAX_SIZE] * 8 / 1024 [MAX_SIZE_MB]
+FROM [SYS].[DATABASE_FILES]
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             }
         }

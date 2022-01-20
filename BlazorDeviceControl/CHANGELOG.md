@@ -6,11 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.050] - 2022-01-20
+### Added
+- WS-T-57. Info DB size
+
 ## [0.6.040] - 2022-01-19
 ### Fixed
 - BlazorCore refactoring
+### Added
 - WS-T-67. Host section edit
-- WS-T-57. Info DB size
 
 ## [0.5.930] - 2021-12-14
 ### Fixed

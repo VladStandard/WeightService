@@ -993,9 +993,10 @@ namespace DataProjectsCore.DAL.Models
 
         #region Public and private methods - HostEntity
 
-        public List<TableSystemModels.HostEntity> GetFreeHosts(int? id)
+        public List<TableSystemModels.HostEntity> GetFreeHosts(int? id,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts);
+            object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
             List<TableSystemModels.HostEntity>? items = new();
             foreach (object? entity in entities)
             {
@@ -1023,9 +1024,10 @@ namespace DataProjectsCore.DAL.Models
             return items;
         }
 
-        public List<TableSystemModels.HostEntity> GetBusyHosts()
+        public List<TableSystemModels.HostEntity> GetBusyHosts(
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts);
+            object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
             List<TableSystemModels.HostEntity>? items = new();
             foreach (object? entity in entities)
             {

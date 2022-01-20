@@ -33,8 +33,7 @@ namespace BlazorDeviceControl.Shared.Sys
                     lock (Locker)
                     {
                         Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                        Item = null;
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs, string.Empty, 0, string.Empty);
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs);
                         Items = new List<LogSummaryEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {

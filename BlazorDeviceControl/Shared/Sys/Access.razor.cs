@@ -34,14 +34,7 @@ namespace BlazorDeviceControl.Shared.Sys
                     lock (Locker)
                     {
                         Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                        Item = null;
-                        Items = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess, string.Empty, 0, string.Empty);
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess);
                         Items = new List<AccessEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {

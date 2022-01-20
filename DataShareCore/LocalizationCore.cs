@@ -37,6 +37,7 @@ namespace DataShareCore
                 public static string ProgramVer => Lang == ShareEnums.Lang.English ? @"Program version" : @"Версия программы";
                 public static string CoreVer => Lang == ShareEnums.Lang.English ? @"Core version" : @"Версия ядра";
                 public static string AppSettings => Lang == ShareEnums.Lang.English ? @"App settings" : @"Настройки приложения";
+                public static string DbInfo => Lang == ShareEnums.Lang.English ? @"Information about the DB" : @"Информация о БД";
                 public static string UserSettings => Lang == ShareEnums.Lang.English ? @"User settings" : @"Пользовательские настройки";
                 public static string SettingName => Lang == ShareEnums.Lang.English ? @"Setting name" : @"Название настройки";
                 public static string SettingValue => Lang == ShareEnums.Lang.English ? @"Setting value" : @"Значение настройки";
@@ -142,6 +143,9 @@ namespace DataShareCore
             #region SQL
             public static string SqlServer => Lang == ShareEnums.Lang.English ? @"SQL-server" : @"SQL-сервер";
             public static string SqlDb => Lang == ShareEnums.Lang.English ? @"SQL-DB" : @"SQL-БД";
+            public static string SqlDbCurSize => Lang == ShareEnums.Lang.English ? @"DB size" : @"Размер БД";
+            public static string SqlDbMaxSize => Lang == ShareEnums.Lang.English ? @"DB size" : @"Максимальный размер БД";
+            public static string SqlDbFillSize => Lang == ShareEnums.Lang.English ? @"DB fill percentage" : @"Процент заполнения БД";
             public static string SqlUser => Lang == ShareEnums.Lang.English ? @"SQL-user" : @"SQL-пользователь";
             #endregion
             #region Windows

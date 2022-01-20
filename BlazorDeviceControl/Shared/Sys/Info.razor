@@ -5,19 +5,11 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-@*
-<form method="post" action="Identity/Account/LogOut">
-    <button type="submit" class="nav-link btn btn-link">Log out</button>
-</form>
-
-<a href="system/login">Log in</a>
-<a href="system/register">Register</a>
-*@
-
 @if (UserSettings.Identity.AccessLevel is true or false)
 {
     <DataReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync Items=@Items />
     <br />
+    
     <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.AppSettings</MudElement>
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
@@ -98,6 +90,37 @@
                 else
                 {
                     <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Username</MudElement></td>
+                }
+            </tr>
+            <tr>
+                <td>@LocalizationCore.Strings.SqlDbCurSize</td>
+                @if (DbCurSize == 0)
+                {
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                }
+                else
+                {
+                    <td><MudElement HtmlTag="a" Class="ma-0">@DbCurSizeAsString</MudElement></td>
+                }
+            </tr>
+            <tr>
+                <td>@LocalizationCore.Strings.SqlDbMaxSize</td>
+                <td><MudElement HtmlTag="a" Class="ma-0">@DbMaxSizeAsString</MudElement></td>
+            </tr>
+            <tr>
+                <td>@LocalizationCore.Strings.SqlDbFillSize</td>
+                @if (DbFillSize == 0)
+                {
+                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                }
+                else
+                {
+                    <td>
+                        <RadzenProgressBar 
+                            Style="margin-top: 4px; margin-left: 1%; width: 96%; height: 22px; "
+                            Value=@DbFillSize ShowValue="true" 
+                        />
+                    </td>
                 }
             </tr>
         </tbody>
@@ -237,6 +260,7 @@
 *@
         </tbody>
     </MudSimpleTable>
+    <br />
 }
 else
 {

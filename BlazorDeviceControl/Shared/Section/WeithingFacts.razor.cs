@@ -40,8 +40,7 @@ namespace BlazorDeviceControl.Shared.Section
 
                     lock (Locker)
                     {
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                            SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts, string.Empty, 0, string.Empty);
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts);
                         Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {

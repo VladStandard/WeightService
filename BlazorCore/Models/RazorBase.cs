@@ -42,15 +42,7 @@ namespace BlazorCore.Models
         public BaseEntity Item { get; set; }
         [Parameter] public List<BaseEntity> Items { get; set; }
         [Parameter] public TableBase Table { get; set; }
-        public ProjectsEnums.TableScale? TableScale
-        {
-            get
-            {
-                if (Table != null && Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScale))
-                    return tableScale;
-                return null;
-            }
-        }
+        public ProjectsEnums.TableScale? TableScale => Table == null ? null : ProjectsEnums.GetTableScale(Table.Name);
         [Parameter] public bool IsShowNew { get; set; }
         [Parameter] public bool IsShowEdit { get; set; }
         [Parameter] public bool IsShowCopy { get; set; }
@@ -181,17 +173,17 @@ namespace BlazorCore.Models
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
 
-            if (Table is TableSystemEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableSystem tableSystem))
+            if (Table is TableSystemEntity)
             {
-                SetParametersForTableSystem(parameters, tableSystem);
+                SetParametersForTableSystem(parameters, ProjectsEnums.GetTableSystem(Table.Name));
             }
-            if (Table is TableScaleEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScale))
+            else if (Table is TableScaleEntity)
             {
-                SetParametersForTableScale(parameters, tableScale);
+                SetParametersForTableScale(parameters, ProjectsEnums.GetTableScale(Table.Name));
             }
-            else if (Table is TableDwhEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableDwh tableDwh))
+            else if (Table is TableDwhEntity)
             {
-                SetParametersForTableDwh(parameters, tableDwh);
+                SetParametersForTableDwh(parameters, ProjectsEnums.GetTableDwh(Table.Name));
             }
         }
 
@@ -387,8 +379,6 @@ namespace BlazorCore.Models
                         Item = workshopEntity;
                     }
                     break;
-                default:
-                    break;
             }
         }
 
@@ -416,8 +406,6 @@ namespace BlazorCore.Models
                         Item = logEntity;
                     }
                     break;
-                default:
-                    break;
             }
         }
 
@@ -428,102 +416,6 @@ namespace BlazorCore.Models
                 default:
                     break;
             }
-        }
-
-        public string ChartDataFormat(object value) => ((int)value).ToString("####", CultureInfo.InvariantCulture);
-
-        public ChartCountEntity[] GetContragentsChartEntities(ShareEnums.DbField field)
-        {
-            ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-            ContragentEntity[] entities = AppSettings.DataAccess.Crud.GetEntities<ContragentEntity>(null,
-                new FieldOrderEntity(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc));
-            int i = 0;
-            switch (field)
-            {
-                case ShareEnums.DbField.CreateDate:
-                    List<ChartCountEntity> entitiesDateCreated = new();
-                    foreach (ContragentEntity entity in entities)
-                    {
-                        if (entity.CreateDate != null)
-                            entitiesDateCreated.Add(new ChartCountEntity(((DateTime)entity.CreateDate).Date, 1));
-                        i++;
-                    }
-                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(entity => entity.Date).ToArray();
-                    result = new ChartCountEntity[entitiesGroupCreated.Length];
-                    i = 0;
-                    foreach (IGrouping<DateTime, ChartCountEntity> entity in entitiesGroupCreated)
-                    {
-                        result[i] = new ChartCountEntity(entity.Key, entity.Count());
-                        i++;
-                    }
-                    break;
-                case ShareEnums.DbField.ModifiedDate:
-                    List<ChartCountEntity> entitiesDateModified = new();
-                    foreach (ContragentEntity entity in entities)
-                    {
-                        if (entity.ModifiedDate != null)
-                            entitiesDateModified.Add(new ChartCountEntity(((DateTime)entity.ModifiedDate).Date, 1));
-                        i++;
-                    }
-                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupModified = entitiesDateModified.GroupBy(entity => entity.Date).ToArray();
-                    result = new ChartCountEntity[entitiesGroupModified.Length];
-                    i = 0;
-                    foreach (IGrouping<DateTime, ChartCountEntity> entity in entitiesGroupModified)
-                    {
-                        result[i] = new ChartCountEntity(entity.Key, entity.Count());
-                        i++;
-                    }
-                    break;
-            }
-            return result;
-        }
-
-        public ChartCountEntity[] GetNomenclaturesChartEntities(ShareEnums.DbField field)
-        {
-            ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-            NomenclatureEntity[] entities = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                new FieldOrderEntity(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc));
-            int i = 0;
-            switch (field)
-            {
-                case ShareEnums.DbField.CreateDate:
-                    List<ChartCountEntity> entitiesDateCreated = new();
-                    foreach (NomenclatureEntity entity in entities)
-                    {
-                        if (entity.CreateDate != null)
-                            entitiesDateCreated.Add(new ChartCountEntity(((DateTime)entity.CreateDate).Date, 1));
-                        i++;
-                    }
-                    IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(entity => entity.Date).ToArray();
-                    result = new ChartCountEntity[entitiesGroupCreated.Length];
-                    i = 0;
-                    foreach (IGrouping<DateTime, ChartCountEntity> entity in entitiesGroupCreated)
-                    {
-                        result[i] = new ChartCountEntity(entity.Key, entity.Count());
-                        i++;
-                    }
-                    break;
-                case ShareEnums.DbField.ModifiedDate:
-                    List<ChartCountEntity> entitiesDateModified = new();
-                    foreach (NomenclatureEntity entity in entities)
-                    {
-                        if (entity.ModifiedDate != null)
-                            entitiesDateModified.Add(new ChartCountEntity(((DateTime)entity.ModifiedDate).Date, 1));
-                        i++;
-                    }
-
-                    IGrouping<DateTime, ChartCountEntity>[] entitiesModied = entitiesDateModified.GroupBy(entity => entity.Date).ToArray();
-                    result = new ChartCountEntity[entitiesModied.Length];
-                    i = 0;
-                    foreach (IGrouping<DateTime, ChartCountEntity> entity in entitiesModied)
-                    {
-                        result[i] = new ChartCountEntity(entity.Key, entity.Count());
-                        i++;
-                    }
-
-                    break;
-            }
-            return result;
         }
 
         public async Task HotKeysMenuRoot()
@@ -658,18 +550,18 @@ namespace BlazorCore.Models
         private string RouteItemNavigatePage()
         {
             string page = string.Empty;
-            if (Table is TableSystemEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableSystem tableSystem))
+            if (Table is TableSystemEntity)
             {
-                switch (tableSystem)
+                switch (ProjectsEnums.GetTableSystem(Table.Name))
                 {
                     case ProjectsEnums.TableSystem.Logs:
                         page = LocalizationData.DeviceControl.UriRouteItem.Log;
                         break;
                 }
             }
-            else if (Table is TableScaleEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScale))
+            else if (Table is TableScaleEntity)
             {
-                switch (tableScale)
+                switch (ProjectsEnums.GetTableScale(Table.Name))
                 {
                     case ProjectsEnums.TableScale.Contragents:
                         page = LocalizationData.DeviceControl.UriRouteItem.Contragent;
@@ -756,9 +648,9 @@ namespace BlazorCore.Models
         private string RouteSectionNavigatePage()
         {
             string page = string.Empty;
-            if (Table is TableSystemEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableSystem tableSystem))
+            if (Table is TableSystemEntity)
             {
-                switch (tableSystem)
+                switch (ProjectsEnums.GetTableSystem(Table.Name))
                 {
                     case ProjectsEnums.TableSystem.Accesses:
                         page = LocalizationData.DeviceControl.UriRouteSection.Access;
@@ -768,9 +660,9 @@ namespace BlazorCore.Models
                         break;
                 }
             }
-            else if (Table is TableScaleEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScale))
+            else if (Table is TableScaleEntity)
             {
-                switch (tableScale)
+                switch (ProjectsEnums.GetTableScale(Table.Name))
                 {
                     case ProjectsEnums.TableScale.BarcodeTypes:
                         page = LocalizationData.DeviceControl.UriRouteSection.BarCodeTypes;
@@ -819,11 +711,11 @@ namespace BlazorCore.Models
                         break;
                 }
             }
-            else if (Table is TableSystemEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableSystem _))
+            else if (Table is TableSystemEntity)
             {
                 //
             }
-            else if (Table is TableDwhEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableDwh _))
+            else if (Table is TableDwhEntity)
             {
                 //
             }
@@ -863,8 +755,8 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Contragents:
                     break;
                 case ProjectsEnums.TableScale.Hosts:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Host(NotificationService, (HostEntity)ParentRazor?.Item);
+                    if (ParentRazor.Item != null)
+                        ItemSaveCheck.Host(NotificationService, (HostEntity)ParentRazor.Item);
                     break;
                 case ProjectsEnums.TableScale.Labels:
                     break;
@@ -939,17 +831,17 @@ namespace BlazorCore.Models
                 {
                     lock (Locker)
                     {
-                        if (Table is TableSystemEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableSystem tableSystem))
+                        if (Table is TableSystemEntity)
                         {
-                            ItemSaveSystem(tableSystem);
+                            ItemSaveSystem(ProjectsEnums.GetTableSystem(Table.Name));
                         }
-                        else if (Table is TableScaleEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScalse))
+                        else if (Table is TableScaleEntity)
                         {
-                            ItemSaveScale(tableScalse);
+                            ItemSaveScale(ProjectsEnums.GetTableScale(Table.Name));
                         }
-                        else if (Table is TableDwhEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableDwh tableDwh))
+                        else if (Table is TableDwhEntity)
                         {
-                            ItemSaveDwh(tableDwh);
+                            ItemSaveDwh(ProjectsEnums.GetTableDwh(Table.Name));
                         }
                         RouteSectionNavigate(isNewWindow);
                     }
@@ -970,20 +862,17 @@ namespace BlazorCore.Models
                         case ShareEnums.DbTableAction.Copy:
                             if (userSettings.Identity.AccessLevel == true)
                             {
-                                if (Enum.TryParse(Table?.Name, out ProjectsEnums.TableScale tableScale))
+                                switch (ProjectsEnums.GetTableScale(Table.Name))
                                 {
-                                    switch (tableScale)
-                                    {
-                                        case ProjectsEnums.TableScale.Scales:
-                                        case ProjectsEnums.TableScale.Plus:
-                                        case ProjectsEnums.TableScale.Printers:
-                                        case ProjectsEnums.TableScale.PrinterTypes:
-                                        case ProjectsEnums.TableScale.Tasks:
-                                        case ProjectsEnums.TableScale.TasksTypes:
-                                        case ProjectsEnums.TableScale.Hosts:
-                                            RouteItemNavigate(isNewWindow);
-                                            break;
-                                    }
+                                    case ProjectsEnums.TableScale.Scales:
+                                    case ProjectsEnums.TableScale.Plus:
+                                    case ProjectsEnums.TableScale.Printers:
+                                    case ProjectsEnums.TableScale.PrinterTypes:
+                                    case ProjectsEnums.TableScale.Tasks:
+                                    case ProjectsEnums.TableScale.TasksTypes:
+                                    case ProjectsEnums.TableScale.Hosts:
+                                        RouteItemNavigate(isNewWindow);
+                                        break;
                                 }
                             }
                             break;

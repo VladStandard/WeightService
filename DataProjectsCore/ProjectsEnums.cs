@@ -1,6 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
+
 namespace DataProjectsCore
 {
     public class ProjectsEnums
@@ -57,12 +59,21 @@ namespace DataProjectsCore
 
         public enum TableSystem
         {
+            Default,
             Accesses,
             Logs,
         }
 
+        public static TableSystem GetTableSystem(string tableName)
+        {
+            if (Enum.TryParse(tableName, out TableSystem tableSystem))
+                return tableSystem;
+            return TableSystem.Default;
+        }
+
         public enum TableScale
         {
+            Default,
             BarcodeTypes,
             Contragents,
             Hosts,
@@ -86,6 +97,13 @@ namespace DataProjectsCore
             Workshops,
         }
         
+        public static TableScale GetTableScale(string tableName)
+        {
+            if (Enum.TryParse(tableName, out TableScale tableScale))
+                return tableScale;
+            return TableScale.Default;
+        }
+
         public enum TableDwh
         {
             Default,
@@ -93,6 +111,13 @@ namespace DataProjectsCore
             Nomenclature,
             NomenclatureMaster,
             NomenclatureNonNormalize,
+        }
+
+        public static TableDwh GetTableDwh(string tableName)
+        {
+            if (Enum.TryParse(tableName, out TableDwh tableDwh))
+                return tableDwh;
+            return TableDwh.Default;
         }
 
         public enum WpfActivePage

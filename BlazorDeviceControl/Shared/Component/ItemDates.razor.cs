@@ -7,7 +7,6 @@ using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Component
@@ -30,13 +29,13 @@ namespace BlazorDeviceControl.Shared.Component
                 new Task(async() => {
                     lock (Locker)
                     {
-                        if (Table is TableSystemEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableSystem tableSystem))
+                        if (Table is TableSystemEntity)
                         {
                             //
                         }
-                        else if (Table is TableScaleEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableScale tableScalse))
+                        else if (Table is TableScaleEntity)
                         {
-                            switch (tableScalse)
+                            switch (ProjectsEnums.GetTableScale(Table.Name))
                             {
                                 case ProjectsEnums.TableScale.Hosts:
                                     HostEntity host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>((int)Id);
@@ -55,7 +54,7 @@ namespace BlazorDeviceControl.Shared.Component
                                     break;
                             }
                         }
-                        else if (Table is TableDwhEntity && Enum.TryParse(Table.Name, out ProjectsEnums.TableDwh tableDwh))
+                        else if (Table is TableDwhEntity)
                         {
                             //
                         }

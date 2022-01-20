@@ -547,7 +547,7 @@ namespace DataProjectsCore
             {
                 string result = string.Empty;
 
-                if (Enum.TryParse(table.Name, out ProjectsEnums.TableSystem tableSystem))
+                ProjectsEnums.TableSystem tableSystem = ProjectsEnums.GetTableSystem(table.Name);
                 {
                     switch (tableSystem)
                     {
@@ -560,7 +560,7 @@ namespace DataProjectsCore
                     }
                 }
 
-                if (Enum.TryParse(table.Name, out ProjectsEnums.TableScale tableScale))
+                ProjectsEnums.TableScale tableScale = ProjectsEnums.GetTableScale(table.Name);
                 {
                     switch (tableScale)
                     {
@@ -641,7 +641,7 @@ namespace DataProjectsCore
             {
                 string result = string.Empty;
 
-                if (Enum.TryParse(table.Name, out ProjectsEnums.TableSystem tableSystem))
+                ProjectsEnums.TableSystem tableSystem = ProjectsEnums.GetTableSystem(table.Name);
                 {
                     switch (tableSystem)
                     {
@@ -654,7 +654,7 @@ namespace DataProjectsCore
                     }
                 }
 
-                if (Enum.TryParse(table.Name, out ProjectsEnums.TableScale tableScale))
+                ProjectsEnums.TableScale tableScale = ProjectsEnums.GetTableScale(table.Name);
                 {
                     switch (tableScale)
                     {

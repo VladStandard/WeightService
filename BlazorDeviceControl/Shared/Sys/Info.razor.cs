@@ -2,9 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore;
+using DataProjectsCore.DAL;
 using DataShareCore;
 using DataShareCore.Models;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,6 +21,12 @@ namespace BlazorDeviceControl.Shared.Sys
         public string IsDebug => $@"{LocalizationCore.Strings.Main.IsEnableHe(AppSettings.IsDebug)}";
         public List<TypeEntity<ShareEnums.Lang>> TemplateLanguages { get; set; }
         public List<TypeEntity<bool>> TemplateIsDebug { get; set; }
+        private uint DbCurSize { get; set; } = 0;
+        private string DbCurSizeAsString => $"{DbCurSize:### ###} MB";
+        private uint DbMaxSize { get; set; } = 10240;
+        private string DbMaxSizeAsString => $"{DbMaxSize:### ###} MB";
+        private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
+        private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
 
         #endregion
 
@@ -33,6 +41,19 @@ namespace BlazorDeviceControl.Shared.Sys
                     {
                         TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
                         TemplateIsDebug = AppSettings.DataSource.GetTemplateIsDebug();
+
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
+                        DbCurSize = 0;
+                        foreach (object obj in objects)
+                        {
+                            if (obj is object[] { Length: 5 } item)
+                            {
+                                if (uint.TryParse(Convert.ToString(item[2]), out uint dbSizeMb))
+                                {
+                                    DbCurSize += dbSizeMb;
+                                }
+                            }
+                        }
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
