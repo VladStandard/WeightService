@@ -33,13 +33,6 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
-                        Item = null;
-                        Items = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts);
                         Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)

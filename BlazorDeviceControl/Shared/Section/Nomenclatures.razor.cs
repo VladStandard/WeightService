@@ -33,13 +33,6 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                        Item = null;
-                        Items = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
                         Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
                         //new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                         null,

@@ -5,5 +5,6 @@ namespace BlazorDeviceControl.Shared.Section
 {
     public partial class ProductSeries
     {
+        //
     }
 }

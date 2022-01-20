@@ -36,14 +36,6 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                        Item = null;
-                        Items = null;
-                        TemplateCategories = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
                         // Filter.
                         TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
                         if (string.IsNullOrEmpty(TemplateCategory))

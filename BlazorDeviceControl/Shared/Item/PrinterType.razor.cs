@@ -31,12 +31,6 @@ namespace BlazorDeviceControl.Shared.Item
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterTypes);
-                        PrinterTypeItem = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
                         PrinterTypeItem = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                     }

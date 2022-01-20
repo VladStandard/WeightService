@@ -32,13 +32,6 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterTypes);
-                        Item = null;
-                        Items = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
                         Items = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)
                         .OrderBy(x => x.Name).ToList<BaseEntity>();
                     }

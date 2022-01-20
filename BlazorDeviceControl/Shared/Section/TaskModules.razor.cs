@@ -45,14 +45,7 @@ namespace BlazorDeviceControl.Shared.Section
                 {
                     lock (Locker)
                     {
-                        TaskItem = null;
-                        Items = null;
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
                         TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
                             { ShareEnums.DbField.Uid.ToString(), Uid },
                         }), null);

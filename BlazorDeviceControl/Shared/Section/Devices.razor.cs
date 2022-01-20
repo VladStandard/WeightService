@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore.DAL.DataModels;
+using DataShareCore;
 using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -23,11 +24,14 @@ namespace BlazorDeviceControl.Shared.Section
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
-            await GetDataAsync(new Task(delegate
-            {
-                Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<BaseEntity>();
-            }), false).ConfigureAwait(false);
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+                new Task(async () => {
+                    lock (Locker)
+                    {
+                        Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<BaseEntity>();
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true); 
         }
 
         #endregion

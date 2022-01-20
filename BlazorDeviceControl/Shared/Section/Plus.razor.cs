@@ -34,13 +34,6 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
-                        Item = null;
-                        Items = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
                         Items = AppSettings.DataAccess.PlusCrud.GetEntities<PluEntity>(
                             new FieldListEntity(
                             new Dictionary<string, object> {

@@ -41,7 +41,6 @@ namespace BlazorDeviceControl.Shared.Sys
                     {
                         TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
                         TemplateIsDebug = AppSettings.DataSource.GetTemplateIsDebug();
-
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
                         DbCurSize = 0;
                         foreach (object obj in objects)

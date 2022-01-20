@@ -80,7 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <Watch Remove="Shared\Component\DataFilter.razor" />
-    <Watch Remove="Shared\Component\ItemActions.razor" />
     <Watch Remove="Shared\Component\ItemDates.razor" />
     <Watch Remove="Shared\Component\ItemSave.razor" />
     <Watch Remove="Shared\Component\SectionActions.razor" />

@@ -43,8 +43,6 @@ namespace BlazorDeviceControl.Shared.Item
                         ScaleItems = null;
                         TemplateItems = null;
                         NomenclatureItems = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
 
                     //ScaleEntity[] scalesEntities = AppSettings.DataAccess.ScalesCrud.GetEntities(null, null);
                     //ScaleItems = new List<ScaleEntity>();
@@ -83,8 +81,8 @@ namespace BlazorDeviceControl.Shared.Item
                     //    {
                     //        PluItem.Plu = pluEntity.Plu + 1;
                     //    }
-                    //}
-                    //await GuiRefreshWithWaitAsync();
+                    }
+                    await GuiRefreshWithWaitAsync();
                 }), true);
         }
 

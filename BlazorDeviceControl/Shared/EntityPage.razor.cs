@@ -22,22 +22,12 @@ namespace BlazorDeviceControl.Shared
 
         #region Public and private methods
 
-        private async Task SaveAsync(MouseEventArgs args,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        private async Task SaveAsync(MouseEventArgs args)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             //bool success = true;
             //    switch (Table)
             //    {
-            //        case ProjectsEnums.TableScale.Hosts:
-            //            HostEntity hosts = (HostEntity)Item;
-            //            hosts.CreateDate ??= DateTime.Now;
-            //            hosts.ModifiedDate = DateTime.Now;
-            //            if (TableAction == ShareEnums.DbTableAction.Add)
-            //                AppSettings.DataAccess.HostsCrud.SaveEntity(hosts);
-            //            else
-            //                AppSettings.DataAccess.HostsCrud.UpdateEntity(hosts);
-            //            break;
             //        case ProjectsEnums.TableScale.Contragents:
             //            ContragentEntity contragents = (ContragentEntity)Item;
             //            contragents.CreateDate ??= DateTime.Now;

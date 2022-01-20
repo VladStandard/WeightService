@@ -42,19 +42,14 @@ namespace BlazorDeviceControl.Shared.Item
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
-                        ScaleItem = null;
-                        ComPorts = null;
-                        PluItems = null;
-                        TemplatesDefaultItems = null;
-                        TemplatesSeriesItems = null;
-                        WorkshopItems = null;
-                        PrinterItems = null;
-                        HostItems = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
+                        //ScaleItem = null;
+                        //ComPorts = null;
+                        //PluItems = null;
+                        //TemplatesDefaultItems = null;
+                        //TemplatesSeriesItems = null;
+                        //WorkshopItems = null;
+                        //PrinterItems = null;
+                        //HostItems = null;
                         ScaleItem = AppSettings.DataAccess.ScalesCrud.GetEntity<ScaleEntity>(new FieldListEntity(new Dictionary<string, object> {
                             { ShareEnums.DbField.Id.ToString(), Id },
                         }), null);
@@ -69,9 +64,9 @@ namespace BlazorDeviceControl.Shared.Item
                         // PLU.
                         PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{LocalizationCore.Strings.Main.DataLoading}]";
                         PluItems = AppSettings.DataAccess.PlusCrud.GetEntities<PluEntity>(new FieldListEntity(new Dictionary<string, object> {
-                        { ShareEnums.DbField.Marked.ToString(), false },
-                        { "Scale.Id", ScaleItem.Id },
-                    }), new FieldOrderEntity(ShareEnums.DbField.Plu, ShareEnums.DbOrderDirection.Asc)).ToList();
+                            { ShareEnums.DbField.Marked.ToString(), false },
+                            { "Scale.Id", ScaleItem.Id },
+                        }), new FieldOrderEntity(ShareEnums.DbField.Plu, ShareEnums.DbOrderDirection.Asc)).ToList();
                         PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{PluItems.Count} {LocalizationData.DeviceControl.DataRecords}]";
                         // Other.
                         TemplatesDefaultItems = AppSettings.DataAccess.TemplatesCrud.GetEntities<TemplateEntity>(

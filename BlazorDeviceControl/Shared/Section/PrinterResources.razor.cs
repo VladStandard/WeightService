@@ -34,13 +34,6 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterResources);
-                        Item = null;
-                        Items = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
                         Items = AppSettings.DataAccess.PrinterResourcesCrud.GetEntities<PrinterResourceEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
                             new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))

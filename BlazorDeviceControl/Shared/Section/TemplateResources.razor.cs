@@ -30,13 +30,6 @@ namespace BlazorDeviceControl.Shared.Section
                 {
                     lock (Locker)
                     {
-                        Item = null;
-                        Items = null;
-                    }
-                    await GuiRefreshWithWaitAsync();
-
-                    lock (Locker)
-                    {
                         Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             new FieldOrderEntity(ShareEnums.DbField.Type, ShareEnums.DbOrderDirection.Asc))

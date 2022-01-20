@@ -5,5 +5,6 @@ namespace BlazorDeviceControl.Shared.Component
 {
     public partial class SectionActions
     {
+        //
     }
 }

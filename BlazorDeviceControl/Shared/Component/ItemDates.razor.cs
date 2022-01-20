@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Component
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(() => {
                     lock (Locker)
                     {
                         if (Table is TableSystemEntity)
@@ -59,7 +59,7 @@ namespace BlazorDeviceControl.Shared.Component
                             //
                         }
                     }
-                    await GuiRefreshWithWaitAsync();
+                    //await GuiRefreshWithWaitAsync();
                 }), true);
         }
 
