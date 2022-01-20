@@ -9,20 +9,14 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
+<DataReload Title=@LocalizationData.DeviceControl.ItemTaskModule SetParameters=@SetParametersAsync />
+
+@if (Item == null)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.ItemTaskModule SetParameters=@SetParametersAsync />
-    @if (Item == null)
-    {
-        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
-    }
-    else
-    {
-        <TaskModules Uid=@TaskItem.Uid />
-        <ItemSave Table=@Table Uid=@TaskItem.Uid />
-    }
+    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+    <TaskModules Uid=@TaskItem.Uid />
+    <ItemSave Table=@Table Uid=@TaskItem.Uid />
 }

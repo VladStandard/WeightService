@@ -10,36 +10,35 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
+<DataReload Title=@LocalizationData.DeviceControl.ItemPrinter SetParameters=@SetParametersAsync />
+
+@if (Item == null)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.ItemPrinter SetParameters=@SetParametersAsync />
-    @if (Item == null)
-    {
-        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
-    }
-    else
-    {
-        <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-            <thead>
-                <tr>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                    <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@LocalizationData.DeviceControl.TableFieldName</td>
-                    <td>
-                        <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
-                            TValue="string" @bind-Value=@PrinterItem.Name />
-				    </td>
-                    <td>@LocalizationData.DeviceControl.TableFieldPrinterMac</td>
-                    <td>
-                        <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
-                            TValue="string" @bind-Value=@PrinterItem.Mac />
-				    </td>
+    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <thead>
+            <tr>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
+                        TValue="string" @bind-Value=@PrinterItem.Name />
+                </td>
+                <td>@LocalizationData.DeviceControl.TableFieldPrinterMac</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
+                        TValue="string" @bind-Value=@PrinterItem.Mac />
+                </td>
                 </tr>
                 <tr>
                     <td>@LocalizationData.DeviceControl.TableFieldPrinter</td>
@@ -47,24 +46,24 @@
                         <RadzenLink Style="width: 100%; text-align: center; margin-left: 5px; " Disabled="false" 
                             TValue="string" Target="_blank" Path=@PrinterItem.Link 
                             Text=@LocalizationData.DeviceControl.TableFieldPrinterControlPanel />
-				    </td>
+                    </td>
                     <td>@LocalizationData.DeviceControl.TableFieldPrinterPort</td>
                     <td>
                         <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="false" 
                             TValue="short" @bind-Value=@PrinterItem.Port />
-				    </td>
+                    </td>
                 </tr>
                 <tr>
                     <td>@LocalizationData.DeviceControl.TableFieldPrinterPassword</td>
                     <td>
                         <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
                             TValue="string" @bind-Value=@PrinterItem.Password />
-				    </td>
+                    </td>
                     <td>@LocalizationData.DeviceControl.TableFieldPrinterIp</td>
                     <td>
                         <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
                             TValue="string" @bind-Value=@PrinterItem.Ip />
-				    </td>
+                    </td>
                 </tr>
                 <tr>
                     <td>@LocalizationData.DeviceControl.TableFieldPrinterType</td>
@@ -81,19 +80,17 @@
                                 AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                 Data=@PrinterTypeItems PageSize="10"
                                 TextProperty="Name" ValueProperty="Id"
-                                Value=@PrinterItem.PrinterType?.PrimaryColumn
-                                Change=@(args => OnChange(args, nameof(PrinterTypeEntity), PrinterItem)) />
+                                Value=@PrinterItem.PrinterType.Id
+                                Change=@(args => OnChange(args, Table, Item))
+                            />
                         }
-				    </td>
+                    </td>
                 </tr>
-            </tbody>
-        </MudSimpleTable>
-        <PrinterResources Table=@Table PrinterId=@Id />
-        <ItemSave Table=@Table Id=@Id />
-        <ItemDates Table=@Table Id=@Id />
-    }
-}
-else
-{
-    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+        </tbody>
+    </MudSimpleTable>
+    
+    <PrinterResources Table=@Table PrinterId=@Id />
+    
+    <ItemSave Table=@Table Id=@Id ParentRazor=@this />
+    <ItemDates Table=@Table Id=@Id ParentRazor=@this />
 }

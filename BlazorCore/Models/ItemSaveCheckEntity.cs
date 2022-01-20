@@ -144,17 +144,17 @@ namespace BlazorCore.Models
         {
             if (host.Id == 0)
             {
-                AppSettings.DataAccess.Crud.SaveEntity(host);
                 host.CreateDate = DateTime.Now;
                 host.ModifiedDate = DateTime.Now;
+                AppSettings.DataAccess.Crud.SaveEntity(host);
             }
             else
             {
                 host.ModifiedDate = DateTime.Now;
-                bool _ = AppSettings.DataAccess.Crud.ExistsEntity<HostEntity>(
-                    new FieldListEntity(new Dictionary<string, object>
-                        {{ShareEnums.DbField.Id.ToString(), host.Id}}),
-                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
+                //bool _ = AppSettings.DataAccess.Crud.ExistsEntity<HostEntity>(
+                //    new FieldListEntity(new Dictionary<string, object>
+                //        {{ShareEnums.DbField.Id.ToString(), host.Id}}),
+                //    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
                 AppSettings.DataAccess.Crud.UpdateEntity(host);
             }
         }
@@ -203,17 +203,22 @@ namespace BlazorCore.Models
                 AppSettings.DataAccess.WorkshopsCrud.UpdateEntity(workshop);
         }
 
-        public void Printer(NotificationService notificationService, PrinterEntity item)
+        public void Printer(NotificationService notificationService, PrinterEntity printer)
         {
-            item.CreateDate = DateTime.Now;
-            item.ModifiedDate = DateTime.Now;
-            bool success = FieldControlDeny(notificationService, item.PrinterType, "Тип принтера");
+            bool success = FieldControlDeny(notificationService, printer.PrinterType, "Тип принтера");
             if (success)
             {
-                if (item.Id == 0)
-                    AppSettings.DataAccess.PrintersCrud.SaveEntity(item);
+                if (printer.Id == 0)
+                {
+                    printer.CreateDate = DateTime.Now;
+                    printer.ModifiedDate = DateTime.Now;
+                    AppSettings.DataAccess.Crud.SaveEntity(printer);
+                }
                 else
-                    AppSettings.DataAccess.PrintersCrud.UpdateEntity(item);
+                {
+                    printer.ModifiedDate = DateTime.Now;
+                    AppSettings.DataAccess.Crud.UpdateEntity(printer);
+                }
             }
         }
 

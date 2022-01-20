@@ -2,15 +2,8 @@
 @using DataShareCore.Utils
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
-{
-    <p>The current authenticated user:</p>
-    <div id="jsonRender"></div>
+<p>The current authenticated user:</p>
+<div id="jsonRender"></div>
 
-    <p>Invoke secured api with the current identity: </p>
-    <button @onclick="@InvokeSecuredApi">Invoke</button>
-}
-else
-{
-    <RadzenLabel Text=@DataShareCore.LocalizationCore.Strings.MenuAccessDeny></RadzenLabel>
-}
+<p>Invoke secured api with the current identity: </p>
+<button @onclick="@InvokeSecuredApi">Invoke</button>

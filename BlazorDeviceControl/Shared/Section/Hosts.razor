@@ -11,44 +11,38 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
+<DataReload Title=@LocalizationData.DeviceControl.SectionHosts SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+
+<RadzenGrid Style="margin-top: 5px;"
+    Data=@ItemsCast TItem="HostEntity"
+    RowSelect=@(args => ItemSelectAsync(args)) 
+    RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
+    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+    AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
+    <Columns>
+        <RadzenGridColumn 
+            TItem="HostEntity" Property="Id" TextAlign="TextAlign.Center"
+            Title=@LocalizationData.DeviceControl.TableFieldId
+            Type="int" Width="6%" />
+        <RadzenGridColumn 
+            TItem="HostEntity" Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName
+            Type="string" Width="23.5%" />
+        <RadzenGridColumn 
+            TItem="HostEntity" Property="Ip" Title=@LocalizationData.DeviceControl.TableFieldDeviceIp
+            Type="string" Width="23.5%" />
+        <RadzenGridColumn 
+            TItem="HostEntity" Property="IdRRef" Title=@LocalizationData.DeviceControl.TableFieldIdRRef
+            Type="string" Width="23.5%" />
+        <RadzenGridColumn 
+            TItem="HostEntity" TextAlign="TextAlign.Center" Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldDeviceMac
+            Type="string" Width="23.5%" />
+    </Columns>
+</RadzenGrid>
+@if (Items == null)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionHosts SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
-    <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="HostEntity"
-        RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
-        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
-        <Columns>
-            <RadzenGridColumn 
-                TItem="HostEntity" Property="Id" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldId
-                Type="int" Width="6%" />
-            <RadzenGridColumn 
-                TItem="HostEntity" Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName
-                Type="string" Width="23.5%" />
-            <RadzenGridColumn 
-                TItem="HostEntity" Property="Ip" Title=@LocalizationData.DeviceControl.TableFieldDeviceIp
-                Type="string" Width="23.5%" />
-            <RadzenGridColumn 
-                TItem="HostEntity" Property="IdRRef" Title=@LocalizationData.DeviceControl.TableFieldIdRRef
-                Type="string" Width="23.5%" />
-            <RadzenGridColumn 
-                TItem="HostEntity" TextAlign="TextAlign.Center" Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldDeviceMac
-                Type="string" Width="23.5%" />
-        </Columns>
-    </RadzenGrid>
-    @if (Items == null)
-    {
-        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
-    }
-    else
-    {
-        <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
-    }
+    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+    <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
 }

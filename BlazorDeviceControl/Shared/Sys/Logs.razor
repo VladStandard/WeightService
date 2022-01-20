@@ -10,63 +10,57 @@
 @using DataShareCore.DAL.DataModels
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
+<DataReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+
+<RadzenGrid Style="margin-top: 5px; "
+    Data=@ItemsCast TItem="LogSummaryEntity"
+    RowSelect=@(args => ItemSelectAsync(args))
+    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+    AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+    <Columns >
+        <RadzenGridColumn 
+            TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
+            Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
+            <Template Context="logItem" >
+                <RadzenDatePicker 
+                    TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn 
+            TItem="LogSummaryEntity" Property="Host" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldHost Type="string" Width="12%" />
+        <RadzenGridColumn 
+            TItem="LogSummaryEntity" Property="App" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldApp Type="string" Width="7%" />
+        <RadzenGridColumn 
+            TItem="LogSummaryEntity" Property="File" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="12%" />
+        <RadzenGridColumn 
+            TItem="LogSummaryEntity" Property="Line" TextAlign="TextAlign.Center"
+            Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="5%">
+        </RadzenGridColumn>
+        <RadzenGridColumn 
+            TItem="LogSummaryEntity" Property="Member" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="14%" />
+        <RadzenGridColumn 
+            TItem="LogSummaryEntity" Property="Icon" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldIcon Type="string" Width="7%" />
+        <RadzenGridColumn 
+            TItem="LogSummaryEntity" Property="Message" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldMessage Type="string" Width="28%">
+            <Template Context="logItem">
+                <RadzenLabel 
+                    Style="height: 80%; width=80%; white-space: pre-wrap; " 
+                    Text=@logItem.Message Disabled="false" />
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+@if (Items == null)
 {
-    <DataReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
-    <RadzenGrid Style="margin-top: 5px; "
-        Data=@ItemsCast TItem="LogSummaryEntity"
-        RowSelect=@(args => ItemSelectAsync(args))
-        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
-        <Columns >
-            <RadzenGridColumn 
-                TItem="LogSummaryEntity" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
-                <Template Context="logItem" >
-                    <RadzenDatePicker 
-                        TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
-                TItem="LogSummaryEntity" Property="Host" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldHost Type="string" Width="12%" />
-            <RadzenGridColumn 
-                TItem="LogSummaryEntity" Property="App" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldApp Type="string" Width="7%" />
-            <RadzenGridColumn 
-                TItem="LogSummaryEntity" Property="File" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="12%" />
-            <RadzenGridColumn 
-                TItem="LogSummaryEntity" Property="Line" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="5%">
-            </RadzenGridColumn>
-            <RadzenGridColumn 
-                TItem="LogSummaryEntity" Property="Member" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="14%" />
-            <RadzenGridColumn 
-                TItem="LogSummaryEntity" Property="Icon" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldIcon Type="string" Width="7%" />
-            <RadzenGridColumn 
-                TItem="LogSummaryEntity" Property="Message" TextAlign="TextAlign.Left"
-                Title=@LocalizationData.DeviceControl.TableFieldMessage Type="string" Width="28%">
-                <Template Context="logItem">
-                    <RadzenLabel 
-                        Style="height: 80%; width=80%; white-space: pre-wrap; " 
-                        Text=@logItem.Message Disabled="false" />
-                </Template>
-            </RadzenGridColumn>
-        </Columns>
-    </RadzenGrid>
-    @if (Items == null)
-    {
-        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
-    }
-    else
-    {
-        <SectionActions Table=@Table Id=@Id />
-    }
+    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+    <SectionActions Table=@Table Id=@Id />
 }

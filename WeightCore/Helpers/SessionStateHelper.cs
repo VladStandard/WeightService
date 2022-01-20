@@ -161,7 +161,6 @@ namespace WeightCore.Helpers
 
         #region CurrentBox
 
-
         private int _labelsCurrent;
         public int LabelsCurrent
         {

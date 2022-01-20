@@ -9,34 +9,28 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
+<DataReload Title=@LocalizationData.DeviceControl.SectionPrinterResources SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+
+<RadzenGrid Style="margin-top: 5px;"
+    Data=@ItemsCast TItem="PrinterResourceEntity"
+    RowSelect=@(args => ItemSelectAsync(args)) 
+    RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
+    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+    AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+    <Columns>
+        <RadzenGridColumn TItem="PrinterResourceEntity" Property="Id"
+                            Title=@LocalizationData.DeviceControl.TableFieldId Type="int" Width="10%" />
+        <RadzenGridColumn TItem="PrinterResourceEntity" Property="Description"
+                            Title=@LocalizationData.DeviceControl.TableFieldDescription Type="string" Width="30%" />
+        <RadzenGridColumn TItem="PrinterResourceEntity" Property="Resource.Name"
+                            Title=@LocalizationData.DeviceControl.TableFieldResource Type="string" Width="30%" />
+    </Columns>
+</RadzenGrid>
+@if (Items == null)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionPrinterResources SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
-    <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PrinterResourceEntity"
-        RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
-        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
-        <Columns>
-            <RadzenGridColumn TItem="PrinterResourceEntity" Property="Id"
-                                Title=@LocalizationData.DeviceControl.TableFieldId Type="int" Width="10%" />
-            <RadzenGridColumn TItem="PrinterResourceEntity" Property="Description"
-                                Title=@LocalizationData.DeviceControl.TableFieldDescription Type="string" Width="30%" />
-            <RadzenGridColumn TItem="PrinterResourceEntity" Property="Resource.Name"
-                                Title=@LocalizationData.DeviceControl.TableFieldResource Type="string" Width="30%" />
-        </Columns>
-    </RadzenGrid>
-    @if (Items == null)
-    {
-        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
-    }
-    else
-    {
-        <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
-    }
+    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+    <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
 }

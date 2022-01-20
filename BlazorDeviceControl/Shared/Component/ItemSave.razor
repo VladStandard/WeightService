@@ -8,29 +8,22 @@
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-        @if (UserSettings.Identity.AccessLevel is true or false)
+        @if (Id == null && Uid == null)
         {
-            @if (Id == null && Uid == null)
-            {
-                <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
-            }
-            else
-            {
-                <RadzenButton Click=@(args => ItemSaveAsync(true, false)) 
-                    ButtonStyle="ButtonStyle.Primary"
-                    Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
-                    Text=@LocalizationData.DeviceControl.TableActionSave 
-                />
-                <RadzenButton Click=@(args => ItemCancelAsync(false))
-                    ButtonStyle="ButtonStyle.Secondary"
-                    Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
-                    Text=@LocalizationData.DeviceControl.TableActionCancel 
-                />
-            }
+            <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
         }
         else
         {
-            <RadzenLabel Text=@LocalizationCore.Strings.ActionAccessDeny />
+            <RadzenButton Click=@(args => ItemSaveAsync(true, false)) 
+                ButtonStyle="ButtonStyle.Primary"
+                Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
+                Text=@LocalizationData.DeviceControl.TableActionSave 
+            />
+            <RadzenButton Click=@(args => ItemCancelAsync(false))
+                ButtonStyle="ButtonStyle.Secondary"
+                Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
+                Text=@LocalizationData.DeviceControl.TableActionCancel 
+            />
         }
     </div>
 </MudPaper>

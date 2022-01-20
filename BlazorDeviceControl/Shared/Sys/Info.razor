@@ -5,264 +5,255 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
-{
-    <DataReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync Items=@Items />
-    <br />
+<DataReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync Items=@Items />
     
-    <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.AppSettings</MudElement>
-    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <thead>
-            <tr>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingValue</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@LocalizationCore.Strings.Main.ProgramVer</td>
-                @if (string.IsNullOrEmpty(ProgramVer))
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td><MudElement HtmlTag="a" Class="ma-0">@ProgramVer</MudElement></td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.Main.CoreVer</td>
-                @if (string.IsNullOrEmpty(CoreVer))
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td><MudElement HtmlTag="a" Class="ma-0">@CoreVer</MudElement></td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.Main.HostName</td>
-                @if (string.IsNullOrEmpty(Environment.MachineName))
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td><MudElement HtmlTag="a" Class="ma-0">@Environment.MachineName</MudElement></td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.SqlServer</td>
-                @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Server))
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Server</MudElement></td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.SqlDb</td>
-                @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Db))
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Db</MudElement></td>
-                }
-            </tr>
-            <tr>
-                @if (AppSettings.JsonAppSettings.Trusted)
-                {
-                    <td>@LocalizationCore.Strings.WindowsUser</td>
-                }
-                else
-                {
-                    <td>@LocalizationCore.Strings.SqlUser</td>
-                }
-                @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Username))
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Username</MudElement></td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.SqlDbCurSize</td>
-                @if (DbCurSize == 0)
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td><MudElement HtmlTag="a" Class="ma-0">@DbCurSizeAsString</MudElement></td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.SqlDbMaxSize</td>
-                <td><MudElement HtmlTag="a" Class="ma-0">@DbMaxSizeAsString</MudElement></td>
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.SqlDbFillSize</td>
-                @if (DbFillSize == 0)
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td>
-                        <RadzenProgressBar 
-                            Style="margin-top: 4px; margin-left: 0%; width: 90%; height: 22px; "
-                            Value=@DbFillSize ShowValue="true" 
-                        />
-                    </td>
-                }
-            </tr>
-        </tbody>
-    </MudSimpleTable>
-    <br />
+<MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.AppSettings</MudElement>
+<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+    <thead>
+        <tr>
+            <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingName</th>
+            <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingValue</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@LocalizationCore.Strings.Main.ProgramVer</td>
+            @if (string.IsNullOrEmpty(ProgramVer))
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement HtmlTag="a" Class="ma-0">@ProgramVer</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.Main.CoreVer</td>
+            @if (string.IsNullOrEmpty(CoreVer))
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement HtmlTag="a" Class="ma-0">@CoreVer</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.Main.HostName</td>
+            @if (string.IsNullOrEmpty(Environment.MachineName))
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement HtmlTag="a" Class="ma-0">@Environment.MachineName</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.SqlServer</td>
+            @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Server))
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Server</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.SqlDb</td>
+            @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Db))
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Db</MudElement></td>
+            }
+        </tr>
+        <tr>
+            @if (AppSettings.JsonAppSettings.Trusted)
+            {
+                <td>@LocalizationCore.Strings.WindowsUser</td>
+            }
+            else
+            {
+                <td>@LocalizationCore.Strings.SqlUser</td>
+            }
+            @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Username))
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Username</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.SqlDbCurSize</td>
+            @if (DbCurSize == 0)
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement HtmlTag="a" Class="ma-0">@DbCurSizeAsString</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.SqlDbMaxSize</td>
+            <td><MudElement HtmlTag="a" Class="ma-0">@DbMaxSizeAsString</MudElement></td>
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.SqlDbFillSize</td>
+            @if (DbFillSize == 0)
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td>
+                    <RadzenProgressBar 
+                        Style="margin-top: 4px; margin-left: 0%; width: 90%; height: 22px; "
+                        Value=@DbFillSize ShowValue="true" 
+                    />
+                </td>
+            }
+        </tr>
+    </tbody>
+</MudSimpleTable>
+<br />
 
-    <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.UserSettings</MudElement>
-    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
-        <thead>
-            <tr>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingValue</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@LocalizationCore.Strings.Main.AuthorizingUserName</td>
-                @if (string.IsNullOrEmpty(UserSettings.Identity.Name))
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td><MudElement HtmlTag="a" Class="ma-0">@UserSettings.Identity.Name</MudElement></td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.Main.AuthorizingAccessLevel</td>
-                @switch (UserSettings.Identity.AccessLevel)
-                {
-                    case null:
-                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelNull</MudElement></td>
-                        break;
-                    case false:
-                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelFalse</MudElement></td>
-                        break;
-                    case true:
-                        <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelTrue</MudElement></td>
-                        break;
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.Main.Language</td>
-                @if (TemplateLanguages == null)
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td>
-                        <RadzenDropDown Style="width: 20%;" TValue="ShareEnums.Lang" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                        AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                                        Data=@TemplateLanguages PageSize="5" TextProperty="Name" ValueProperty="Value"
-                                        Value=@LocalizationCore.Lang Change=@(args => OnChange(args, nameof(TemplateLanguages))) 
-                                        Disabled=false />
-                    </td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Strings.Main.DebugMode</td>
-                @if (TemplateIsDebug == null)
-                {
-                    <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td>
-                        <RadzenDropDown Style="width: 20%;" TValue="bool" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                        AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                                        Data=@TemplateIsDebug PageSize="5" TextProperty="Name" ValueProperty="Value"
-                                        Value=@AppSettings.JsonAppSettings.IsDebug Change=@(args => OnChange(args, nameof(TemplateIsDebug)))
-                                        Disabled=true />
-                    </td>
-                }
-            </tr>
+<MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.UserSettings</MudElement>
+<MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+    <thead>
+        <tr>
+            <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingName</th>
+            <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.SettingValue</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@LocalizationCore.Strings.Main.AuthorizingUserName</td>
+            @if (string.IsNullOrEmpty(UserSettings.Identity.Name))
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement HtmlTag="a" Class="ma-0">@UserSettings.Identity.Name</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.Main.AuthorizingAccessLevel</td>
+            @switch (UserSettings.Identity.AccessLevel)
+            {
+                case null:
+                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelNull</MudElement></td>
+                    break;
+                case false:
+                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelFalse</MudElement></td>
+                    break;
+                case true:
+                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelTrue</MudElement></td>
+                    break;
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.Main.Language</td>
+            @if (TemplateLanguages == null)
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td>
+                    <RadzenDropDown Style="width: 20%;" TValue="ShareEnums.Lang" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                    AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
+                                    Data=@TemplateLanguages PageSize="5" TextProperty="Name" ValueProperty="Value"
+                                    Value=@LocalizationCore.Lang Change=@(args => OnChange(args, nameof(TemplateLanguages))) 
+                                    Disabled=false />
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.Main.DebugMode</td>
+            @if (TemplateIsDebug == null)
+            {
+                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td>
+                    <RadzenDropDown Style="width: 20%;" TValue="bool" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                    AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
+                                    Data=@TemplateIsDebug PageSize="5" TextProperty="Name" ValueProperty="Value"
+                                    Value=@AppSettings.JsonAppSettings.IsDebug Change=@(args => OnChange(args, nameof(TemplateIsDebug)))
+                                    Disabled=true />
+                </td>
+            }
+        </tr>
 @*            
-            <tr>
-                <td>@LocalizationCore.Share.SectionRowCount</td>
-                @if (AppSettings.JsonAppSettings == null)
-                {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td>
-                        <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.JsonAppSettings.SectionRowCount 
-                            Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.SectionRowCount)))
-                        />
-                    </td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Share.ItemRowCount</td>
-                @if (AppSettings.JsonAppSettings == null)
-                {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td>
-                        <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.JsonAppSettings.ItemRowCount 
-                            Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ItemRowCount)))
-                        />
-                    </td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Share.ButtonWidth</td>
-                @if (AppSettings.JsonAppSettings == null)
-                {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td>
-                        <RadzenTextBox Style="width: 20%;" TValue="string" @bind-value=@AppSettings.JsonAppSettings.ButtonWidth 
-                            Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ButtonWidth)))
-                        />
-                    </td>
-                }
-            </tr>
-            <tr>
-                <td>@LocalizationCore.Share.ButtonHeight</td>
-                @if (AppSettings.JsonAppSettings == null)
-                {
-                    <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
-                }
-                else
-                {
-                    <td>
-                        <RadzenTextBox Style="width: 20%;" TValue="string" @bind-value=@AppSettings.JsonAppSettings.ButtonHeight 
-                            Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ButtonHeight)))
-                        />
-                    </td>
-                }
-            </tr>
+        <tr>
+            <td>@LocalizationCore.Share.SectionRowCount</td>
+            @if (AppSettings.JsonAppSettings == null)
+            {
+                <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td>
+                    <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.JsonAppSettings.SectionRowCount 
+                        Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.SectionRowCount)))
+                    />
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Share.ItemRowCount</td>
+            @if (AppSettings.JsonAppSettings == null)
+            {
+                <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td>
+                    <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.JsonAppSettings.ItemRowCount 
+                        Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ItemRowCount)))
+                    />
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Share.ButtonWidth</td>
+            @if (AppSettings.JsonAppSettings == null)
+            {
+                <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td>
+                    <RadzenTextBox Style="width: 20%;" TValue="string" @bind-value=@AppSettings.JsonAppSettings.ButtonWidth 
+                        Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ButtonWidth)))
+                    />
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Share.ButtonHeight</td>
+            @if (AppSettings.JsonAppSettings == null)
+            {
+                <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td>
+                    <RadzenTextBox Style="width: 20%;" TValue="string" @bind-value=@AppSettings.JsonAppSettings.ButtonHeight 
+                        Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ButtonHeight)))
+                    />
+                </td>
+            }
+        </tr>
 *@
-        </tbody>
-    </MudSimpleTable>
-    <br />
-}
-else
-{
-    <RadzenLabel Text=@LocalizationCore.Strings.MenuAccessDeny></RadzenLabel>
-}
+    </tbody>
+</MudSimpleTable>

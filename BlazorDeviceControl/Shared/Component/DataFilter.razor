@@ -18,6 +18,7 @@
                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                         Data=@Items PageSize="5" TextProperty="Name" ValueProperty="Value"
                         Value=@Item 
-                        Change=@(args => OnChange(args, ItemTypeName, Item)) />
+                        Change=@(args => OnChange(args, Table, Item))
+        />
     }
 </MudElement>

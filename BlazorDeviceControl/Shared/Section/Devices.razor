@@ -7,35 +7,28 @@
 @using Microsoft.VisualBasic.CompilerServices
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
-{
-    <h2>
-        @LocalizationData.DeviceControl.DevicesTitle
-            <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                          ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
-                          class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
-                          MouseEnter="@(args => TooltipService.Open(args, LocalizationData.DeviceControl.TableReadData))" />
-    </h2>
+<h2>
+    @LocalizationData.DeviceControl.DevicesTitle
+        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
+                        ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
+                        class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
+                        MouseEnter="@(args => TooltipService.Open(args, LocalizationData.DeviceControl.TableReadData))" />
+</h2>
 
-    <br style="margin-top: 50px" />
-    <p>
-        <RadzenGrid Data=@ItemsCast TItem="DeviceEntity" 
-                    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                    AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
-            <Columns>
-                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Description" Title=@LocalizationData.DeviceControl.TableFieldName
-                                  Type="string" Width="20%" />
-                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Id" Title=@LocalizationData.DeviceControl.TableFieldId
-                                  Type="System.Guid" Width="10%" />
-                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Storage" Title=@LocalizationData.DeviceControl.TableFieldStorage
-                                  Type="string" Width="35%" />
-                <RadzenGridColumn TItem="DeviceEntity" Property="Scales.State" Title=@LocalizationData.DeviceControl.TableFieldState
-                                  Type="bool" Width="35%" />
-            </Columns>
-        </RadzenGrid>
-    </p>
-}
-else
-{
-    <RadzenLabel Text=@LocalizationCore.Strings.MenuAccessDeny></RadzenLabel>
-}
+<br style="margin-top: 50px" />
+<p>
+    <RadzenGrid Data=@ItemsCast TItem="DeviceEntity" 
+                AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+        <Columns>
+            <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Description" Title=@LocalizationData.DeviceControl.TableFieldName
+                                Type="string" Width="20%" />
+            <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Id" Title=@LocalizationData.DeviceControl.TableFieldId
+                                Type="System.Guid" Width="10%" />
+            <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Storage" Title=@LocalizationData.DeviceControl.TableFieldStorage
+                                Type="string" Width="35%" />
+            <RadzenGridColumn TItem="DeviceEntity" Property="Scales.State" Title=@LocalizationData.DeviceControl.TableFieldState
+                                Type="bool" Width="35%" />
+        </Columns>
+    </RadzenGrid>
+</p>

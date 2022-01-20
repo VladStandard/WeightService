@@ -11,48 +11,42 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
+<DataReload Title=@LocalizationData.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+
+<RadzenGrid Style="margin-top: 5px;" 
+    Data=@ItemsCast TItem="TemplateResourceEntity"
+    RowSelect=@(args => ItemSelectAsync(args)) 
+    RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
+    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+    AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
+    <Columns >
+        <RadzenGridColumn 
+            TItem="TemplateResourceEntity" Property="Id" TextAlign="TextAlign.Center"
+            Title=@LocalizationData.DeviceControl.TableFieldId 
+            Type="int" Width="6%" />
+        <RadzenGridColumn 
+            TItem="TemplateResourceEntity" Property="Type" TextAlign="TextAlign.Center"
+            Title=@LocalizationData.DeviceControl.TableFieldType 
+            Type="string" Width="10%" />
+        <RadzenGridColumn 
+            TItem="TemplateResourceEntity" Property="Name"
+            Title=@LocalizationData.DeviceControl.TableFieldName 
+            Type="string" Width="26%" />
+        <RadzenGridColumn 
+            TItem="TemplateResourceEntity" Property="Description"
+            Title=@LocalizationData.DeviceControl.TableFieldDescription 
+            Type="string" Width="33%" />
+        <RadzenGridColumn 
+            TItem="TemplateResourceEntity" Property="ImageDataInfo"
+            Title=@LocalizationData.DeviceControl.TableFieldImageDataInfo 
+            Type="string" Width="25%" />
+    </Columns>
+</RadzenGrid>
+@if (Items == null)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
-    <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="TemplateResourceEntity"
-        RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
-        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
-        <Columns >
-            <RadzenGridColumn 
-                TItem="TemplateResourceEntity" Property="Id" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldId 
-                Type="int" Width="6%" />
-            <RadzenGridColumn 
-                TItem="TemplateResourceEntity" Property="Type" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldType 
-                Type="string" Width="10%" />
-            <RadzenGridColumn 
-                TItem="TemplateResourceEntity" Property="Name"
-                Title=@LocalizationData.DeviceControl.TableFieldName 
-                Type="string" Width="26%" />
-            <RadzenGridColumn 
-                TItem="TemplateResourceEntity" Property="Description"
-                Title=@LocalizationData.DeviceControl.TableFieldDescription 
-                Type="string" Width="33%" />
-            <RadzenGridColumn 
-                TItem="TemplateResourceEntity" Property="ImageDataInfo"
-                Title=@LocalizationData.DeviceControl.TableFieldImageDataInfo 
-                Type="string" Width="25%" />
-        </Columns>
-    </RadzenGrid>
-    @if (Items == null)
-    {
-        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
-    }
-    else
-    {
-        <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
-    }
+    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+    <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
 }

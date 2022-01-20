@@ -11,52 +11,46 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-@if (UserSettings.Identity.AccessLevel is true or false)
+<DataReload Title=@LocalizationData.DeviceControl.SectionTaskModules SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+
+<RadzenGrid Style="margin-top: 5px;" 
+    Data=@ItemsCast TItem="TaskEntity"
+    RowSelect=@(args => ItemSelectAsync(args)) 
+    RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
+    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+    AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
+    <Columns >
+        <RadzenGridColumn 
+            TItem="TaskEntity" Property="Uid" TextAlign="TextAlign.Left" Type="int" Width="26%" 
+            Title=@LocalizationData.DeviceControl.TableFieldUid/>
+        <RadzenGridColumn 
+            TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
+            Title=@LocalizationData.DeviceControl.TableFieldHost >
+            <Template Context="item">
+                <RadzenLabel Text=@item.Scale?.Host?.Name Disabled="true" Style="white-space: pre-wrap;" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn 
+            TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
+            Title=@LocalizationData.DeviceControl.TableFieldTaskType >
+            <Template Context="item">
+                <RadzenLabel Text=@item.TaskType?.Name Disabled="true" Style="white-space: pre-wrap;" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn 
+            TItem="TaskEntity" Property="Enabled" TextAlign="TextAlign.Center" Width="10%" 
+            Title=@LocalizationData.DeviceControl.TableFieldEnabled >
+            <Template Context="item">
+                <RadzenCheckBox TValue="bool" @bind-Value="@item.Enabled" Disabled=@Disabled />
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+@if (Items == null)
 {
-    <DataReload Title=@LocalizationData.DeviceControl.SectionTaskModules SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
-    <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="TaskEntity"
-        RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
-        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
-        <Columns >
-            <RadzenGridColumn 
-                TItem="TaskEntity" Property="Uid" TextAlign="TextAlign.Left" Type="int" Width="26%" 
-                Title=@LocalizationData.DeviceControl.TableFieldUid/>
-            <RadzenGridColumn 
-                TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
-                Title=@LocalizationData.DeviceControl.TableFieldHost >
-                <Template Context="item">
-                    <RadzenLabel Text=@item.Scale?.Host?.Name Disabled="true" Style="white-space: pre-wrap;" />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
-                TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
-                Title=@LocalizationData.DeviceControl.TableFieldTaskType >
-                <Template Context="item">
-                    <RadzenLabel Text=@item.TaskType?.Name Disabled="true" Style="white-space: pre-wrap;" />
-                </Template>
-            </RadzenGridColumn>
-            <RadzenGridColumn 
-                TItem="TaskEntity" Property="Enabled" TextAlign="TextAlign.Center" Width="10%" 
-                Title=@LocalizationData.DeviceControl.TableFieldEnabled >
-                <Template Context="item">
-                    <RadzenCheckBox TValue="bool" @bind-Value="@item.Enabled" Disabled=@Disabled />
-                </Template>
-            </RadzenGridColumn>
-        </Columns>
-    </RadzenGrid>
-    @if (Items == null)
-    {
-        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
-    }
-    else
-    {
-        <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
-    }
+    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <RadzenLabel Text=@LocalizationCore.Strings.SectionAccessDeny></RadzenLabel>
+    <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
 }

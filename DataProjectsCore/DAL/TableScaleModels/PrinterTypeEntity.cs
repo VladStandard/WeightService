@@ -18,7 +18,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                   $"{nameof(Name)}: {Name}. ";
+                $"{nameof(Name)}: {Name}. ";
         }
 
         public virtual bool Equals(PrinterTypeEntity entity)

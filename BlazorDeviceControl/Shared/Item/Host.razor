@@ -7,36 +7,43 @@
 @using Microsoft.VisualBasic.CompilerServices
 @inherits RazorDisposable
 
-<div class="row col-sm-12 col-md-12 col-lg-12">
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldName />
-        <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="string" @bind-Value=@HostItem.Name />
+@if (Item == null)
+{
+    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <div class="row col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldName />
+            <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="string" @bind-Value=@HostItem.Name />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldMarked />
+            <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value=@HostItem.Marked />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldDeviceIp />
+            <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="string" @bind-Value=@HostItem.Ip />
+            <br />
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldIdRRef />
+            <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="string" @bind-Value=@HostItem.IdRRefAsString />
+            <br />
+            <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldDeviceMac />
+            <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="string" @bind-Value=@HostItem.MacAddress.Value />
+            <br />
+        </div>
+    </div>
+
+    <br />
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <RadzenLabel Style="width: 100%;" Text=@LocalizationData.DeviceControl.TableFieldSettingsFile />
         <br />
-        <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldMarked />
-        <RadzenCheckBox Disabled="false" TValue="bool" @bind-Value=@HostItem.Marked />
-        <br />
-        <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldDeviceIp />
-        <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="string" @bind-Value=@HostItem.Ip />
+        <RadzenTextArea Style="width: 100%; height: 500px; font-size: 14px; line-height: 20px;"
+                        Disabled="false" TValue="string" @bind-Value=@HostItem.SettingsFile />
         <br />
     </div>
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldIdRRef />
-        <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="string" @bind-Value=@HostItem.IdRRefAsString />
-        <br />
-        <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldDeviceMac />
-        <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="string" @bind-Value=@HostItem.MacAddress.Value />
-        <br />
-    </div>
-</div>
 
-<br />
-<div class="col-sm-12 col-md-12 col-lg-12">
-    <RadzenLabel Style="width: 100%;" Text=@LocalizationData.DeviceControl.TableFieldSettingsFile />
-    <br />
-    <RadzenTextArea Style="width: 100%; height: 500px; font-size: 14px; line-height: 20px;"
-                    Disabled="false" TValue="string" @bind-Value=@HostItem.SettingsFile />
-    <br />
-</div>
-
-<ItemSave Table=@Table Id=@Id ParentRazor=@this />
-<ItemDates Table=@Table Id=@Id ParentRazor=@this />
+    <ItemSave Table=@Table Id=@Id ParentRazor=@this />
+    <ItemDates Table=@Table Id=@Id ParentRazor=@this />
+}
