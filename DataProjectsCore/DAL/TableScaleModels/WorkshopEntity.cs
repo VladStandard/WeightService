@@ -6,6 +6,9 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Цеха".
+    /// </summary>
     public class WorkshopEntity : BaseEntity
     {
         #region Public and private fields and properties

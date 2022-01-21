@@ -8,7 +8,6 @@ using DataShareCore;
 using DataShareCore.DAL.Models;
 using Radzen;
 using System;
-using System.Collections.Generic;
 
 namespace BlazorCore.Models
 {
@@ -25,105 +24,88 @@ namespace BlazorCore.Models
         public bool FieldControlDeny(NotificationService notificationService, BaseEntity item, string field)
         {
             bool result = item != null;
-            if (item is BarcodeTypeEntity barCodeTypesEntity)
+            switch (item)
             {
-                if (barCodeTypesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is ContragentEntity contragentsEntity)
-            {
-                if (contragentsEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is HostEntity hostsEntity)
-            {
-                if (hostsEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is LabelEntity labelsEntity)
-            {
-                if (labelsEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is NomenclatureEntity nomenclatureEntity)
-            {
-                if (nomenclatureEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is OrderEntity ordersEntity)
-            {
-                if (ordersEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is OrderStatusEntity orderStatusEntity)
-            {
-                if (orderStatusEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is OrderTypeEntity orderTypesEntity)
-            {
-                if (orderTypesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is PluEntity pluEntity)
-            {
-                if (pluEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is ProductionFacilityEntity productionFacilityEntity)
-            {
-                if (productionFacilityEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is ProductSeriesEntity productSeriesEntity)
-            {
-                if (productSeriesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is ScaleEntity scalesEntity)
-            {
-                if (scalesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is TaskTypeEntity taskTypeEntity)
-            {
-                if (taskTypeEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is TemplateResourceEntity templateResourcesEntity)
-            {
-                if (templateResourcesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is TemplateEntity templatesEntity)
-            {
-                if (templatesEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is WeithingFactEntity weithingFactEntity)
-            {
-                if (weithingFactEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is WorkshopEntity workshopEntity)
-            {
-                if (workshopEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is PrinterEntity zebraPrinterEntity)
-            {
-                if (zebraPrinterEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is PrinterResourceEntity zebraPrinterResourceRefEntity)
-            {
-                if (zebraPrinterResourceRefEntity.EqualsDefault())
-                    result = false;
-            }
-            else if (item is PrinterTypeEntity zebraPrinterTypeEntity)
-            {
-                if (zebraPrinterTypeEntity.EqualsDefault())
-                    result = false;
+                case BarcodeTypeEntity barCodeTypesEntity:
+                    if (barCodeTypesEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case ContragentEntity contragentsEntity:
+                    if (contragentsEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case HostEntity hostsEntity:
+                    if (hostsEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case LabelEntity labelsEntity:
+                    if (labelsEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case NomenclatureEntity nomenclatureEntity:
+                    if (nomenclatureEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case OrderEntity ordersEntity:
+                    if (ordersEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case OrderStatusEntity orderStatusEntity:
+                    if (orderStatusEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case OrderTypeEntity orderTypesEntity:
+                    if (orderTypesEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case PluEntity pluEntity:
+                    if (pluEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case ProductionFacilityEntity productionFacilityEntity:
+                    if (productionFacilityEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case ProductSeriesEntity productSeriesEntity:
+                    if (productSeriesEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case ScaleEntity scalesEntity:
+                    if (scalesEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case TaskTypeEntity taskTypeEntity:
+                    if (taskTypeEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case TemplateResourceEntity templateResourcesEntity:
+                    if (templateResourcesEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case TemplateEntity templatesEntity:
+                    if (templatesEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case WeithingFactEntity weithingFactEntity:
+                    if (weithingFactEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case WorkshopEntity workshopEntity:
+                    if (workshopEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case PrinterEntity zebraPrinterEntity:
+                    if (zebraPrinterEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case PrinterResourceEntity zebraPrinterResourceRefEntity:
+                    if (zebraPrinterResourceRefEntity.EqualsDefault())
+                        result = false;
+                    break;
+                case PrinterTypeEntity zebraPrinterTypeEntity:
+                    if (zebraPrinterTypeEntity.EqualsDefault())
+                        result = false;
+                    break;
             }
             if (!result)
             {
@@ -142,141 +124,152 @@ namespace BlazorCore.Models
         
         public void Host(NotificationService notificationService, HostEntity host)
         {
-            if (host.Id == 0)
-            {
-                host.CreateDate = DateTime.Now;
-                host.ModifiedDate = DateTime.Now;
-                AppSettings.DataAccess.Crud.SaveEntity(host);
-            }
-            else
+            bool success = FieldControlDeny(notificationService, host, "Хост");
+            if (success)
             {
                 host.ModifiedDate = DateTime.Now;
-                //bool _ = AppSettings.DataAccess.Crud.ExistsEntity<HostEntity>(
-                //    new FieldListEntity(new Dictionary<string, object>
-                //        {{ShareEnums.DbField.Id.ToString(), host.Id}}),
-                //    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
-                AppSettings.DataAccess.Crud.UpdateEntity(host);
+                if (host.Id == 0)
+                {
+                    host.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess.Crud.SaveEntity(host);
+                }
+                else
+                    AppSettings.DataAccess.Crud.UpdateEntity(host);
             }
         }
 
         public void PrinterResource(NotificationService notificationService, PrinterResourceEntity printerResource)
         {
-            printerResource.CreateDate = DateTime.Now;
-            printerResource.ModifiedDate = DateTime.Now;
-            if (printerResource.Id == 0)
+            bool success = FieldControlDeny(notificationService, printerResource, "Ресурс принтера");
+            if (success)
             {
-                AppSettings.DataAccess.PrinterResourcesCrud.SaveEntity(printerResource);
-            }
-            else
-            {
-                bool _ = AppSettings.DataAccess.PrinterResourcesCrud.ExistsEntity<PrinterResourceEntity>(
-                    new FieldListEntity(new Dictionary<string, object>
-                        {{ShareEnums.DbField.Id.ToString(), printerResource.Id}}),
-                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
-                //if (existsEntity)
-                //{
-                //    int idLast = AppSettings.DataAccess.PrinterResourcesCrud.GetEntity(
-                //        new FieldListEntity(new Dictionary<string, object>
-                //            { { "Printer.Id", printerResourceItem.Printer.Id }}),
-                //        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-                //    printerResourceItem.Id = idLast + 1;
-                //}
-                AppSettings.DataAccess.PrinterResourcesCrud.UpdateEntity(printerResource);
+                printerResource.ModifiedDate = DateTime.Now;
+                if (printerResource.Id == 0)
+                {
+                    printerResource.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess.Crud.SaveEntity(printerResource);
+                }
+                else
+                    AppSettings.DataAccess.Crud.UpdateEntity(printerResource);
             }
         }
 
         public void Template(NotificationService notificationService, TemplateEntity template)
         {
-            if (template.Id == 0)
-                AppSettings.DataAccess.TemplatesCrud.SaveEntity(template);
-            else
-                AppSettings.DataAccess.TemplatesCrud.UpdateEntity(template);
+            bool success = FieldControlDeny(notificationService, template, "Шаблон");
+            if (success)
+            {
+                if (template.Id == 0)
+                {
+                    template.ModifiedDate = DateTime.Now;
+                    AppSettings.DataAccess.Crud.SaveEntity(template);
+                }
+                else
+                    AppSettings.DataAccess.Crud.UpdateEntity(template);
+            }
         }
 
         public void Workshop(NotificationService notificationService, WorkshopEntity workshop)
         {
-            workshop.CreateDate ??= DateTime.Now;
             workshop.ModifiedDate = DateTime.Now;
-            if (workshop.Id == 0)
-                AppSettings.DataAccess.WorkshopsCrud.SaveEntity(workshop);
-            else
-                AppSettings.DataAccess.WorkshopsCrud.UpdateEntity(workshop);
+            bool success = FieldControlDeny(notificationService, workshop, "Цех");
+            if (success)
+            {
+                if (workshop.Id == 0)
+                {
+                    workshop.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess.Crud.SaveEntity(workshop);
+                }
+                else
+                    AppSettings.DataAccess.Crud.UpdateEntity(workshop);
+            }
         }
 
         public void Printer(NotificationService notificationService, PrinterEntity printer)
         {
-            bool success = FieldControlDeny(notificationService, printer.PrinterType, "Тип принтера");
+            printer.ModifiedDate = DateTime.Now;
+            bool success = FieldControlDeny(notificationService, printer, "Принтер");
+            if (success)
+                success = FieldControlDeny(notificationService, printer.PrinterType, "Тип принтера");
             if (success)
             {
                 if (printer.Id == 0)
                 {
                     printer.CreateDate = DateTime.Now;
-                    printer.ModifiedDate = DateTime.Now;
                     AppSettings.DataAccess.Crud.SaveEntity(printer);
                 }
                 else
-                {
-                    printer.ModifiedDate = DateTime.Now;
                     AppSettings.DataAccess.Crud.UpdateEntity(printer);
-                }
             }
         }
 
-        public void PrinterType(NotificationService notificationService, PrinterTypeEntity item)
+        public void PrinterType(NotificationService notificationService, PrinterTypeEntity printerType)
         {
-            int idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null,
-                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-            item.Id = idLast + 1;
-            if (item.Id == 0)
-                AppSettings.DataAccess.Crud.SaveEntity(item);
-            else
-                AppSettings.DataAccess.Crud.UpdateEntity(item);
-        }
-
-        public void Scale(NotificationService notificationService, ScaleEntity item)
-        {
-            item.CreateDate = DateTime.Now;
-            item.ModifiedDate = DateTime.Now;
-            bool success = FieldControlDeny(notificationService, item.Printer, "Принтер");
-            if (success)
-                success = FieldControlDeny(notificationService, item.Host, "Хост");
-            if (success)
-                success = FieldControlDeny(notificationService, item.TemplateDefault, "Шаблон по-умолчанию");
-            if (success)
-                success = FieldControlDeny(notificationService, item.WorkShop, "Цех");
+            bool success = FieldControlDeny(notificationService, printerType, "Тип принтера");
             if (success)
             {
-                if (item.Id == 0)
+                int idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null,
+                    new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                printerType.Id = idLast + 1;
+                if (printerType.Id == 0)
+                    AppSettings.DataAccess.Crud.SaveEntity(printerType);
+                else
+                    AppSettings.DataAccess.Crud.UpdateEntity(printerType);
+            }
+        }
+
+        public void Scale(NotificationService notificationService, ScaleEntity scale)
+        {
+            scale.ModifiedDate = DateTime.Now;
+            bool success = FieldControlDeny(notificationService, scale, "Устройство");
+            if (success)
+                success = FieldControlDeny(notificationService, scale.Printer, "Принтер");
+            if (success)
+                success = FieldControlDeny(notificationService, scale.Host, "Хост");
+            if (success)
+                success = FieldControlDeny(notificationService, scale.TemplateDefault, "Шаблон по-умолчанию");
+            if (success)
+                success = FieldControlDeny(notificationService, scale.WorkShop, "Цех");
+            if (success)
+            {
+                if (scale.Id == 0)
                 {
-                    if (item.TemplateSeries != null && item.TemplateSeries.EqualsDefault())
-                        item.TemplateSeries = null;
-                    AppSettings.DataAccess.ScalesCrud.SaveEntity(item);
+                    scale.CreateDate = DateTime.Now;
+                    if (scale.TemplateSeries != null && scale.TemplateSeries.EqualsDefault())
+                        scale.TemplateSeries = null;
+                    AppSettings.DataAccess.Crud.SaveEntity(scale);
                 }
                 else
-                    AppSettings.DataAccess.ScalesCrud.UpdateEntity(item);
+                    AppSettings.DataAccess.Crud.UpdateEntity(scale);
             }
         }
 
-        public void Task(NotificationService notificationService, TaskEntity item)
+        public void Task(NotificationService notificationService, TaskEntity task)
         {
-            bool success = FieldControlDeny(notificationService, item.TaskType, "Тип задачи");
+            bool success = FieldControlDeny(notificationService, task, "Модуль задачи");
             if (success)
-                success = FieldControlDeny(notificationService, item.Scale, "Устройство");
+                success = FieldControlDeny(notificationService, task.TaskType, "Тип задачи");
+            if (success)
+                success = FieldControlDeny(notificationService, task.Scale, "Устройство");
             if (success)
             {
-                if (item.Uid == Guid.Empty)
-                    AppSettings.DataAccess.Crud.SaveEntity(item);
+                if (task.Uid == Guid.Empty)
+                    AppSettings.DataAccess.Crud.SaveEntity(task);
                 else
-                    AppSettings.DataAccess.Crud.UpdateEntity(item);
+                    AppSettings.DataAccess.Crud.UpdateEntity(task);
             }
         }
 
-        public void TaskType(NotificationService notificationService, TaskTypeEntity item)
+        public void TaskType(NotificationService notificationService, TaskTypeEntity taskType)
         {
-            if (item.Uid == Guid.Empty)
-                AppSettings.DataAccess.Crud.SaveEntity(item);
-            else
-                AppSettings.DataAccess.Crud.UpdateEntity(item);
+            bool success = FieldControlDeny(notificationService, taskType, "Тип модуля задачи");
+            if (success)
+            {
+                if (taskType.Uid == Guid.Empty)
+                    AppSettings.DataAccess.Crud.SaveEntity(taskType);
+                else
+                    AppSettings.DataAccess.Crud.UpdateEntity(taskType);
+            }
         }
 
         #endregion

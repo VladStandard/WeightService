@@ -1,5 +1,4 @@
-﻿using DataProjectsCore.Utils;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
 
 namespace DataProjectsCore.DAL.TableModels
 {

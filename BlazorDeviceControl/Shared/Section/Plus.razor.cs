@@ -34,7 +34,7 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
-                        Items = AppSettings.DataAccess.PlusCrud.GetEntities<PluEntity>(
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                             new FieldListEntity(
                             new Dictionary<string, object> {
                                 { "Scale.Id", ScaleId },

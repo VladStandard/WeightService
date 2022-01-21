@@ -6,6 +6,9 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Принтеры".
+    /// </summary>
     public class PrinterEntity : BaseEntity
     {
         #region Public and private fields and properties

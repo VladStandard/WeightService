@@ -9,6 +9,9 @@ using System.Runtime.CompilerServices;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "ПЛУ".
+    /// </summary>
     public class PluEntity : BaseEntity
     {
         #region Public and private fields and properties

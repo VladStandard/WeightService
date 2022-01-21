@@ -5,6 +5,9 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Типы принтеров".
+    /// </summary>
     public class PrinterTypeEntity : BaseEntity
     {
         #region Public and private fields and properties

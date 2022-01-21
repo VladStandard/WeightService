@@ -6,6 +6,9 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Заказы".
+    /// </summary>
     public class OrderEntity : BaseEntity
     {
         #region Public and private fields and properties

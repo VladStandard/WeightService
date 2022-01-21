@@ -5,6 +5,9 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Типы заказов".
+    /// </summary>
     public class OrderTypeEntity : BaseEntity
     {
         #region Public and private fields and properties

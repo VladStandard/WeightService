@@ -6,6 +6,9 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Контрагенты".
+    /// </summary>
     public class ContragentEntity : BaseEntity
     {
         #region Public and private fields and properties

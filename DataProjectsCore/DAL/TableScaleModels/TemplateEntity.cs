@@ -7,6 +7,9 @@ using System.Text;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Шаблоны этикеток".
+    /// </summary>
     public class TemplateEntity : BaseEntity
     {
         #region Public and private fields and properties

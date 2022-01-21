@@ -32,7 +32,7 @@ namespace BlazorDeviceControl.Shared.Item
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                        TemplateItem = AppSettings.DataAccess.TemplatesCrud.GetEntity<TemplateEntity>(new FieldListEntity(new Dictionary<string, object>
+                        TemplateItem = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
                     }

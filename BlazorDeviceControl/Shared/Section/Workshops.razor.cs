@@ -33,7 +33,7 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
-                        Items = AppSettings.DataAccess.WorkshopsCrud.GetEntities<WorkshopEntity>(
+                        Items = AppSettings.DataAccess.Crud.GetEntities<WorkshopEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                             .OrderBy(x => x.ProductionFacility.Name)

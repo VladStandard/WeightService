@@ -2,9 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore.DAL.TableModels;
-using DataProjectsCore.Utils;
 using Microsoft.Data.SqlClient;
-using System;
 
 namespace DataProjectsCore.DAL.Utils
 {

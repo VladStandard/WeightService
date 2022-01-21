@@ -14,21 +14,20 @@ using System.Runtime.CompilerServices;
 
 namespace DataProjectsCore.DAL.Models
 {
-    //public class CrudBase<T> where T : BaseEntity, new()
     public class CrudController
     {
         #region Public and private fields and properties
 
         public DataAccessEntity DataAccess { get; private set; }
         public DataConfigurationEntity DataConfig { get; private set; }
-        public ISessionFactory SessionFactory { get; private set; }
+        public ISessionFactory? SessionFactory { get; private set; }
         private delegate void ExecCallback(ISession session);
 
         #endregion
 
         #region Constructor and destructor
 
-        public CrudController(DataAccessEntity dataAccess, ISessionFactory sessionFactory)
+        public CrudController(DataAccessEntity dataAccess, ISessionFactory? sessionFactory)
         {
             DataAccess = dataAccess;
             DataConfig = new DataConfigurationEntity();
@@ -39,7 +38,7 @@ namespace DataProjectsCore.DAL.Models
 
         #region Public and private methods
 
-        public ISession GetSession() => SessionFactory.OpenSession();
+        public ISession? GetSession() => SessionFactory?.OpenSession();
 
         public void LogException(Exception ex, string filePath, int lineNumber, string memberName)
         {
@@ -98,7 +97,7 @@ namespace DataProjectsCore.DAL.Models
             return result;
         }
 
-        private ICriteria GetCriteria<T>(ISession session, FieldListEntity? fieldList, FieldOrderEntity order, int maxResults) where T : IBaseEntity, new()
+        private ICriteria GetCriteria<T>(ISession session, FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults) where T : IBaseEntity, new()
         {
             Type type = typeof(T);
             ICriteria criteria = session.CreateCriteria(type);
@@ -111,7 +110,7 @@ namespace DataProjectsCore.DAL.Models
                 AbstractCriterion fieldsWhere = Restrictions.AllEq(fieldList.Fields);
                 criteria.Add(fieldsWhere);
             }
-            if (order is { Use: true })
+            if (order != null && order is { Use: true })
             {
                 Order fieldOrder = order.Direction == ShareEnums.DbOrderDirection.Asc
                     ? Order.Asc(order.Name.ToString()) : Order.Desc(order.Name.ToString());
@@ -188,7 +187,7 @@ namespace DataProjectsCore.DAL.Models
             return session.CreateSQLQuery(query);
         }
 
-        public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity fieldList, FieldOrderEntity order, int maxResults, string filePath, int lineNumber, string memberName)
+        public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity fieldList, FieldOrderEntity? order, int maxResults, string filePath, int lineNumber, string memberName)
             where T : IBaseEntity, new()
         {
             T[]? result = new T[0];
@@ -524,7 +523,7 @@ namespace DataProjectsCore.DAL.Models
             }
         }
 
-        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity order,
+        public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity? order,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             T? item = new();
@@ -591,11 +590,8 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public T[] GetEntitiesNativeMapping<T>(string query,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
-        {
-            //return DataAccess.GetEntitiesNativeMapping<T>(query, filePath, lineNumber, memberName);
-            return GetEntitiesNativeMappingInside<T>(query, filePath, lineNumber, memberName);
-        }
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new() 
+            => GetEntitiesNativeMappingInside<T>(query, filePath, lineNumber, memberName);
 
         public object[] GetEntitiesNativeObject(string query,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
@@ -640,18 +636,13 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public int ExecQueryNative(string query, Dictionary<string, object> parameters,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            //return DataAccess.ExecQueryNative(query, parameters, filePath, lineNumber, memberName);
-            return ExecQueryNativeInside(query, parameters, filePath, lineNumber, memberName);
-        }
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            => ExecQueryNativeInside(query, parameters, filePath, lineNumber, memberName);
 
         public void SaveEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
-            ExecTransaction((session) => {
-                session.Save(item);
-            }, filePath, lineNumber, memberName);
+            ExecTransaction((session) => { session.Save(item); }, filePath, lineNumber, memberName);
         }
 
         public void SaveEntity<T>(T item,
@@ -662,33 +653,29 @@ namespace DataProjectsCore.DAL.Models
             {
                 if (!item.Equals(GetEntity<T>(baseItem.Uid)))
                 {
-                    if (item is TableScaleModels.ContragentEntity)
+                    switch (item)
                     {
-                        throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
-                    }
-                    if (item is TableScaleModels.NomenclatureEntity)
-                    {
-                        throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
-                    }
-                    if (item is TableScaleModels.PrinterTypeEntity)
-                    {
-                        Console.WriteLine($"SaveEntity: {item}");
+                        case TableScaleModels.ContragentEntity:
+                            throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
+                        case TableScaleModels.NomenclatureEntity:
+                            throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
+                        case TableScaleModels.PrinterTypeEntity:
+                            Console.WriteLine($"SaveEntity: {item}");
+                            break;
                     }
                     SaveEntityInside(item, filePath, lineNumber, memberName);
                 }
                 else if (!item.Equals(GetEntity<T>(baseItem.Id)))
                 {
-                    if (item is TableScaleModels.ContragentEntity)
+                    switch (item)
                     {
-                        throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
-                    }
-                    if (item is TableScaleModels.NomenclatureEntity)
-                    {
-                        throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
-                    }
-                    if (item is TableScaleModels.PrinterTypeEntity)
-                    {
-                        Console.WriteLine($"SaveEntity: {item}");
+                        case TableScaleModels.ContragentEntity:
+                            throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
+                        case TableScaleModels.NomenclatureEntity:
+                            throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
+                        case TableScaleModels.PrinterTypeEntity:
+                            Console.WriteLine($"SaveEntity: {item}");
+                            break;
                     }
                     SaveEntityInside(item, filePath, lineNumber, memberName);
                 }
@@ -698,9 +685,7 @@ namespace DataProjectsCore.DAL.Models
         public void UpdateEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
-            ExecTransaction((session) => {
-                session.SaveOrUpdate(item);
-            }, filePath, lineNumber, memberName);
+            ExecTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
         }
 
         public void UpdateEntity<T>(T item,
@@ -708,116 +693,71 @@ namespace DataProjectsCore.DAL.Models
         {
             if (item.EqualsEmpty()) return;
 
-            // SYSTEM.
-            if (item is TableSystemModels.AppEntity)
+            switch (item)
             {
-                //
-            }
-            else if (item is TableSystemModels.LogEntity)
-            {
-                //
-            }
-            else if (item is TableSystemModels.HostEntity host)
-            {
-                host.ModifiedDate = DateTime.Now;
-            }
-            // SCALES.
-            else if (item is TableScaleModels.BarcodeTypeEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.ContragentEntity contragent)
-            {
-                contragent.ModifiedDate = DateTime.Now;
-            }
-            else if (item is TableScaleModels.LabelEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.OrderEntity order)
-            {
-                order.ModifiedDate = DateTime.Now;
-            }
-            else if (item is TableScaleModels.OrderStatusEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.OrderTypeEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.PluEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.ProductionFacilityEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.ProductSeriesEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.ScaleEntity scale)
-            {
-                scale.ModifiedDate = DateTime.Now;
-            }
-            else if (item is TableScaleModels.TemplateEntity template)
-            {
-                template.ModifiedDate = DateTime.Now;
-            }
-            else if (item is TableScaleModels.TemplateResourceEntity templateResource)
-            {
-                templateResource.ModifiedDate = DateTime.Now;
-            }
-            else if (item is TableScaleModels.WeithingFactEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.WorkshopEntity workshop)
-            {
-                workshop.ModifiedDate = DateTime.Now;
-            }
-            else if (item is TableScaleModels.PrinterEntity printer)
-            {
-                printer.ModifiedDate = DateTime.Now;
-            }
-            else if (item is TableScaleModels.PrinterResourceEntity printerResource)
-            {
-                printerResource.ModifiedDate = DateTime.Now;
-            }
-            else if (item is TableScaleModels.PrinterTypeEntity)
-            {
-                //
-            }
-            // DWH.
-            else if (item is TableDwhModels.BrandEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.InformationSystemEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.NomenclatureEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.NomenclatureGroupEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.NomenclatureLightEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.NomenclatureTypeEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.StatusEntity)
-            {
-                //
+                case TableSystemModels.AppEntity:
+                    break;
+                case TableSystemModels.LogEntity:
+                    break;
+                case TableSystemModels.HostEntity host:
+                    host.ModifiedDate = DateTime.Now;
+                    break;
+                case TableScaleModels.BarcodeTypeEntity:
+                    break;
+                case TableScaleModels.ContragentEntity contragent:
+                    contragent.ModifiedDate = DateTime.Now;
+                    break;
+                case TableScaleModels.LabelEntity:
+                    break;
+                case TableScaleModels.OrderEntity order:
+                    order.ModifiedDate = DateTime.Now;
+                    break;
+                case TableScaleModels.OrderStatusEntity:
+                    break;
+                case TableScaleModels.OrderTypeEntity:
+                    break;
+                case TableScaleModels.PluEntity:
+                    break;
+                case TableScaleModels.ProductionFacilityEntity:
+                    break;
+                case TableScaleModels.ProductSeriesEntity:
+                    break;
+                case TableScaleModels.ScaleEntity scale:
+                    scale.ModifiedDate = DateTime.Now;
+                    break;
+                case TableScaleModels.TemplateEntity template:
+                    template.ModifiedDate = DateTime.Now;
+                    break;
+                case TableScaleModels.TemplateResourceEntity templateResource:
+                    templateResource.ModifiedDate = DateTime.Now;
+                    break;
+                case TableScaleModels.WeithingFactEntity:
+                    break;
+                case TableScaleModels.WorkshopEntity workshop:
+                    workshop.ModifiedDate = DateTime.Now;
+                    break;
+                case TableScaleModels.PrinterEntity printer:
+                    printer.ModifiedDate = DateTime.Now;
+                    break;
+                case TableScaleModels.PrinterResourceEntity printerResource:
+                    printerResource.ModifiedDate = DateTime.Now;
+                    break;
+                case TableScaleModels.PrinterTypeEntity:
+                    break;
+                case TableDwhModels.BrandEntity:
+                    break;
+                case TableDwhModels.InformationSystemEntity:
+                    break;
+                case TableDwhModels.NomenclatureEntity:
+                    break;
+                case TableDwhModels.NomenclatureGroupEntity:
+                    break;
+                case TableDwhModels.NomenclatureLightEntity:
+                    break;
+                case TableDwhModels.NomenclatureTypeEntity:
+                    break;
+                case TableDwhModels.StatusEntity:
+                    break;
             }
 
             //DataAccess.UpdateEntity(item, filePath, lineNumber, memberName);
@@ -828,9 +768,7 @@ namespace DataProjectsCore.DAL.Models
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
-            ExecTransaction((session) => {
-                session.Delete(item);
-            }, filePath, lineNumber, memberName);
+            ExecTransaction((session) => { session.Delete(item); }, filePath, lineNumber, memberName);
         }
 
         public void MarkedEntity<T>(T item,
@@ -838,118 +776,71 @@ namespace DataProjectsCore.DAL.Models
         {
             if (item.EqualsEmpty()) return;
 
-            // SYSTEM.
-            if (item is TableSystemModels.AppEntity)
+            switch (item)
             {
-                //
-            }
-            else if (item is TableSystemModels.LogEntity)
-            {
-                //
-            }
-            else if (item is TableSystemModels.HostEntity host)
-            {
-                host.Marked = true;
-            }
-
-            // SCALES.
-            else if (item is TableScaleModels.BarcodeTypeEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.ContragentEntity contragent)
-            {
-                contragent.Marked = true;
-            }
-            else if (item is TableScaleModels.LabelEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.OrderEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.OrderStatusEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.OrderTypeEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.PluEntity plu)
-            {
-                plu.Marked = true;
-            }
-            else if (item is TableScaleModels.ProductionFacilityEntity productionFacility)
-            {
-                productionFacility.Marked = true;
-            }
-            else if (item is TableScaleModels.ProductSeriesEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.ScaleEntity scale)
-            {
-                scale.Marked = true;
-            }
-            else if (item is TableScaleModels.TemplateResourceEntity templateResource)
-            {
-                templateResource.Marked = true;
-            }
-            else if (item is TableScaleModels.TemplateEntity template)
-            {
-                template.Marked = true;
-            }
-            else if (item is TableScaleModels.WeithingFactEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.WorkshopEntity workshop)
-            {
-                workshop.Marked = true;
-            }
-            else if (item is TableScaleModels.PrinterEntity printer)
-            {
-                printer.Marked = true;
-            }
-            else if (item is TableScaleModels.PrinterResourceEntity)
-            {
-                //
-            }
-            else if (item is TableScaleModels.PrinterTypeEntity)
-            {
-                //
-            }
-            
-            // DWH.
-            else if (item is TableDwhModels.BrandEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.InformationSystemEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.NomenclatureEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.NomenclatureGroupEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.NomenclatureLightEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.NomenclatureTypeEntity)
-            {
-                //
-            }
-            else if (item is TableDwhModels.StatusEntity)
-            {
-                //
+                case TableSystemModels.AppEntity:
+                    break;
+                case TableSystemModels.LogEntity:
+                    break;
+                case TableSystemModels.HostEntity host:
+                    host.Marked = true;
+                    break;
+                case TableScaleModels.BarcodeTypeEntity:
+                    break;
+                case TableScaleModels.ContragentEntity contragent:
+                    contragent.Marked = true;
+                    break;
+                case TableScaleModels.LabelEntity:
+                    break;
+                case TableScaleModels.OrderEntity:
+                    break;
+                case TableScaleModels.OrderStatusEntity:
+                    break;
+                case TableScaleModels.OrderTypeEntity:
+                    break;
+                case TableScaleModels.PluEntity plu:
+                    plu.Marked = true;
+                    break;
+                case TableScaleModels.ProductionFacilityEntity productionFacility:
+                    productionFacility.Marked = true;
+                    break;
+                case TableScaleModels.ProductSeriesEntity:
+                    break;
+                case TableScaleModels.ScaleEntity scale:
+                    scale.Marked = true;
+                    break;
+                case TableScaleModels.TemplateResourceEntity templateResource:
+                    templateResource.Marked = true;
+                    break;
+                case TableScaleModels.TemplateEntity template:
+                    template.Marked = true;
+                    break;
+                case TableScaleModels.WeithingFactEntity:
+                    break;
+                case TableScaleModels.WorkshopEntity workshop:
+                    workshop.Marked = true;
+                    break;
+                case TableScaleModels.PrinterEntity printer:
+                    printer.Marked = true;
+                    break;
+                case TableScaleModels.PrinterResourceEntity:
+                    break;
+                case TableScaleModels.PrinterTypeEntity:
+                    break;
+                case TableDwhModels.BrandEntity:
+                    break;
+                case TableDwhModels.InformationSystemEntity:
+                    break;
+                case TableDwhModels.NomenclatureEntity:
+                    break;
+                case TableDwhModels.NomenclatureGroupEntity:
+                    break;
+                case TableDwhModels.NomenclatureLightEntity:
+                    break;
+                case TableDwhModels.NomenclatureTypeEntity:
+                    break;
+                case TableDwhModels.StatusEntity:
+                    break;
             }
 
             //DataAccess.UpdateEntity(item, filePath, lineNumber, memberName);
@@ -973,7 +864,8 @@ namespace DataProjectsCore.DAL.Models
             return ExistsEntityInside(item, filePath, lineNumber, memberName);
         }
 
-        public bool ExistsEntityInside<T>(FieldListEntity fieldList, FieldOrderEntity order, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
+        public bool ExistsEntityInside<T>(FieldListEntity fieldList, FieldOrderEntity? order, 
+            string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
             bool result = false;
             ExecTransaction((session) => {
@@ -982,7 +874,7 @@ namespace DataProjectsCore.DAL.Models
             return result;
         }
 
-        public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity order,
+        public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity? order,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
         {
             //return DataAccess.ExistsEntity<T>(fieldList, order, filePath, lineNumber, memberName);
@@ -1019,7 +911,8 @@ namespace DataProjectsCore.DAL.Models
 
             if (id > 0 && items.Select(x => x).Where(x => Equals(x.Id, id)).ToList().Count == 0)
             {
-                items.Add(GetEntity<TableSystemModels.HostEntity>(new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }), null));
+                items.Add(GetEntity<TableSystemModels.HostEntity>(
+                    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }), null));
             }
             return items;
         }

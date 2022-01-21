@@ -37,7 +37,7 @@ namespace BlazorDeviceControl.Shared.Item
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                        WorkshopItem = AppSettings.DataAccess.WorkshopsCrud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
+                        WorkshopItem = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         ProductionFacilityEntities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
                     }

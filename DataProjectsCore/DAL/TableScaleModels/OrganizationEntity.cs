@@ -3,10 +3,12 @@
 
 using DataShareCore.DAL.Models;
 using System;
-using System.Text;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Организации".
+    /// </summary>
     public class OrganizationEntity : BaseEntity
     {
         #region Public and private fields and properties

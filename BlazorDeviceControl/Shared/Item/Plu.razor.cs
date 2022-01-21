@@ -96,7 +96,7 @@ namespace BlazorDeviceControl.Shared.Item
                     case "Scale":
                         if (value is int idScale)
                         {
-                            PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity<ScaleEntity>(
+                            PluItem.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
                                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
                                 null);
                         }
@@ -117,7 +117,7 @@ namespace BlazorDeviceControl.Shared.Item
                                 PluItem.Templates = null;
                             else
                             {
-                                PluItem.Templates = AppSettings.DataAccess.TemplatesCrud.GetEntity<TemplateEntity>(
+                                PluItem.Templates = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
                                     new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
                                     null);
                             }

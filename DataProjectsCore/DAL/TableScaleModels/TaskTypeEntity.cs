@@ -5,6 +5,9 @@ using DataShareCore.DAL.Models;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Типы модулей задач".
+    /// </summary>
     public class TaskTypeEntity : BaseEntity
     {
         #region Public and private fields and properties

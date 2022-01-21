@@ -6,6 +6,9 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Взвешивания".
+    /// </summary>
     public class WeithingFactEntity : BaseEntity
     {
         #region Public and private fields and properties

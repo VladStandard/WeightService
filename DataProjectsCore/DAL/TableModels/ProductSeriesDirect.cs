@@ -4,9 +4,6 @@
 using DataShareCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
-using System.IO;
-using System.Text;
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace DataProjectsCore.DAL.TableModels

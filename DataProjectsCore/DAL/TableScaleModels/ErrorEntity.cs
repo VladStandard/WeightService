@@ -6,6 +6,9 @@ using System;
 
 namespace DataProjectsCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Таблица "Ошибки".
+    /// </summary>
     public class ErrorEntity : BaseEntity
     {
         #region Public and private fields and properties
