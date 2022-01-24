@@ -32,7 +32,6 @@ namespace DataProjectsCore.DAL.TableScaleModels
                 { "imagedata", imagedata },
                 { "marked", marked },
             };
-            Console.WriteLine($"LoadResource imagedata.Length: {imagedata.Length}");
             return ExecQueryNative(
                 "exec [db_scales].[LoadResourceToDB] :id, :name, :description, :type, :imagedata, :marked", parameters);
         }

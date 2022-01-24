@@ -9,6 +9,7 @@
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using DataShareCore
+@using static DataShareCore.ShareEnums
 @inherits RazorDisposable
 
 <DataReload Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
@@ -16,7 +17,7 @@
 <RadzenGrid Style="margin-top: 5px;"
     Data=@ItemsCast TItem="PrinterEntity"
     RowSelect=@(args => ItemSelectAsync(args)) 
-    RowDoubleClick=@(args => ActionAsync(UserSettings, ShareEnums.DbTableAction.Edit, false))
+    RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
     AllowPaging="true" PageSize=15 AllowSorting="true" ColumnWidth="100px">
     <Columns>
@@ -37,11 +38,4 @@
     </Columns>
 </RadzenGrid>
 
-@if (Items == null)
-{
-    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
-}
-else
-{
-    <SectionActions Table=@Table Id=@Id IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />
-}
+<SectionActions ParentRazor=@this IsShowNew=true IsShowEdit=true IsShowCopy=true IsShowMark=true IsShowDelete=true />

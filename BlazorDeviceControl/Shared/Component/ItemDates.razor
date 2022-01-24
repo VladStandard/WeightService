@@ -4,11 +4,12 @@
 @using DataProjectsCore
 @using DataProjectsCore.Utils
 @using DataShareCore
+@using static DataShareCore.ShareEnums
 @inherits RazorDisposable
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-        @if (Id == null && Uid == null)
+        @if (Id == null && Uid == null && TableAction != DbTableAction.New)
         {
             <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
         }

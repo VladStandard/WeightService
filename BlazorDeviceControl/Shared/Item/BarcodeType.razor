@@ -1,5 +1,6 @@
-﻿@page "/item/printertype"
-@page "/item/printertype/{Id:int}"
+﻿@page "/item/barcodetype"
+@page "/item/barcodetype/{Id:int}"
+@page "/item/barcodetype/{TableAction:DbTableAction}"
 @using BlazorCore.Models
 @using DataProjectsCore
 @using DataProjectsCore.DAL.TableModels
@@ -31,12 +32,12 @@ else
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
-                        TValue="int" @bind-Value=@PrinterTypeItem.Id />
+                        TValue="int" @bind-Value=@BarcodeTypeItem.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
                     <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" 
-                        TValue="string" @bind-Value=@PrinterTypeItem.Name />
+                        TValue="string" @bind-Value=@BarcodeTypeItem.Name />
 				</td>
             </tr>
         </tbody>

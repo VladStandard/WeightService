@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
 {
-    public partial class Nomenclature
+    public partial class BarcodeType
     {
         #region Public and private fields and properties
 
-        public NomenclatureEntity NomenclatureItem { get => (NomenclatureEntity)Item; set => Item = value; }
+        public BarcodeTypeEntity BarcodeTypeItem { get => (BarcodeTypeEntity)Item; set => Item = value; }
 
         #endregion
 
@@ -26,14 +26,15 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-                        NomenclatureItem = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(new FieldListEntity(new Dictionary<string, object>
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodeTypes);
+                        BarcodeTypeItem = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (NomenclatureItem.EqualsNew())
-                            NomenclatureItem.Id = (int)Id;
+                        //if (BarcodeTypeItem.EqualsNew())
+                        //    BarcodeTypeItem.Id = (int)Id;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

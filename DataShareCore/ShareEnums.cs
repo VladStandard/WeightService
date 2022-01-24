@@ -61,6 +61,7 @@ namespace DataShareCore
 
         public enum DbTableAction
         {
+            Default,
             New,
             Edit,
             Copy,

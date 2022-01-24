@@ -5,6 +5,10 @@ namespace BlazorDeviceControl.Shared.Component
 {
     public partial class ItemSave
     {
+        #region Public and private methods
+
         //
+
+        #endregion
     }
 }

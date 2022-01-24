@@ -48,6 +48,8 @@ namespace BlazorDeviceControl.Shared.Item
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplateResources);
                         TemplateResourcesItem = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        if (TemplateResourcesItem.EqualsNew())
+                            TemplateResourcesItem.Id = (int)Id;
                         ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
                     }
                     await GuiRefreshWithWaitAsync();

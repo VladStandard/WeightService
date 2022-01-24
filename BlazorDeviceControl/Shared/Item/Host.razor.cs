@@ -2,10 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore;
+using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -28,8 +30,10 @@ namespace BlazorDeviceControl.Shared.Item
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
-                        if (Id != null)
-                            Item = AppSettings.DataAccess.Crud.GetEntity<HostEntity>((int)Id);
+                        HostItem = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(new FieldListEntity(new Dictionary<string, object>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        if (HostItem.EqualsNew())
+                            HostItem.Id = (int)Id;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

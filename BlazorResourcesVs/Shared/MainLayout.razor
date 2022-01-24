@@ -1,11 +1,6 @@
 ﻿@using DataProjectsCore
 @inherits LayoutComponentBase
 
-<RadzenDialog />
-<RadzenNotification />
-<RadzenContextMenu />
-<RadzenTooltip />
-
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -13,8 +8,8 @@
     
     <div class="main">
         <div class="top-row px-4 auth">
-            <RadzenLink Icon="email" Text="@LocalizationData.Share.CallbackTitle" 
-                Path="@LocalizationData.Resources.CallbackEmail" />
+            <RadzenLink Icon="email" Text=@LocalizationData.Share.CallbackTitle
+                Path=@LocalizationData.Resources.CallbackEmail />
         </div>
 
         <div class="content px-4">

@@ -504,6 +504,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="README.md" />
     <None Include="Resources\exit_1.png" />
     <None Include="Resources\exit_2.png" />
     <Content Include="ScalesUI.ico" />

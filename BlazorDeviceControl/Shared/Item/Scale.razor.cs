@@ -51,8 +51,9 @@ namespace BlazorDeviceControl.Shared.Item
                         //PrinterItems = null;
                         //HostItems = null;
                         ScaleItem = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(new FieldListEntity(new Dictionary<string, object> {
-                            { ShareEnums.DbField.Id.ToString(), Id },
-                        }), null);
+                            { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        if (ScaleItem.EqualsNew())
+                            ScaleItem.Id = (int)Id;
                         // ComPorts
                         ComPorts = new List<TypeEntity<string>>();
                         for (int i = 1; i < 256; i++)
@@ -97,7 +98,7 @@ namespace BlazorDeviceControl.Shared.Item
         //        {
         //            PluItem = pluEntity;
         //            //await EntityActions.ActionEditAsync(ShareEnums.TableDwh.Plu, PluItem, ScaleItem).ConfigureAwait(true);
-        //            Action(EnumTableScales.Plu, ShareEnums.DbTableAction.Edit, ScaleItem, false, PluItem);
+        //            Action(EnumTableScales.Plu, DbTableAction.Edit, ScaleItem, false, PluItem);
         //            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
         //        }
         //    }

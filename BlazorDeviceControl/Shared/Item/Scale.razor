@@ -172,7 +172,9 @@ else
             </tr>
         </tbody>
     </MudSimpleTable>
+    
     <Plus Table=@Table ScaleId=@ScaleItem.Id />
-    <ItemSave Table=@Table Id=@Id />
-    <ItemDates Table=@Table Id=@Id />
+    
+    <ItemSave ParentRazor=@this />
+    <ItemDates ParentRazor=@this />
 }

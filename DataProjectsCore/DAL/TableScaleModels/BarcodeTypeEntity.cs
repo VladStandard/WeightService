@@ -16,6 +16,15 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         #endregion
 
+        #region Constructor and destructor
+
+        public BarcodeTypeEntity()
+        {
+            Name = string.Empty;
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public override string ToString()

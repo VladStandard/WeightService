@@ -40,23 +40,8 @@ namespace DataProjectsCore.DAL.Models
 
         public ISession? GetSession() => SessionFactory?.OpenSession();
 
-        public void LogException(Exception ex, string filePath, int lineNumber, string memberName)
-        {
-            Console.WriteLine("Catch exception.");
-            Console.WriteLine($"{nameof(filePath)}: {filePath}");
-            Console.WriteLine($"{nameof(lineNumber)}: {lineNumber}");
-            Console.WriteLine($"{nameof(memberName)}: {memberName}");
-            Console.WriteLine($"{memberName}. {ex.Message}");
-            if (ex.InnerException != null)
-                Console.WriteLine($"{memberName}. {ex.InnerException.Message}");
-
-            LogExceptionToSql(ex, filePath, lineNumber, memberName);
-        }
-
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
-            //if (ErrorsCrud == null)
-            //    return;
             int idLast = GetEntity<TableScaleModels.ErrorEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             TableScaleModels.ErrorEntity error = new()
             {
@@ -67,12 +52,10 @@ namespace DataProjectsCore.DAL.Models
                 LineNumber = lineNumber,
                 MemberName = memberName,
                 Exception = ex.Message,
-                InnerException = ex.InnerException.Message,
+                InnerException = ex.InnerException?.Message,
             };
-            //ErrorsCrud.SaveEntity(error);
-            SaveEntityInside(error, filePath, lineNumber, memberName);
+            ExecTransaction((session) => { session.Save(error); }, filePath, lineNumber, memberName, true);
         }
-
 
         public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
         {
@@ -119,9 +102,10 @@ namespace DataProjectsCore.DAL.Models
             return criteria;
         }
 
-        private void ExecTransaction(ExecCallback callback, string filePath, int lineNumber, string memberName)
+        private void ExecTransaction(ExecCallback callback, string filePath, int lineNumber, string memberName, bool isException = false)
         {
             using ISession? session = GetSession();
+            Exception? exception = null;
             if (session != null)
             {
                 using ITransaction? transaction = session.BeginTransaction();
@@ -134,13 +118,17 @@ namespace DataProjectsCore.DAL.Models
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    LogException(ex, filePath, lineNumber, memberName);
-                    throw;
+                    exception = ex;
+                    //throw;
                 }
                 finally
                 {
                     session.Disconnect();
                 }
+            }
+            if (!isException && exception != null)
+            {
+                LogExceptionToSql(exception, filePath, lineNumber, memberName);
             }
         }
 
@@ -639,53 +627,24 @@ namespace DataProjectsCore.DAL.Models
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
             => ExecQueryNativeInside(query, parameters, filePath, lineNumber, memberName);
 
-        public void SaveEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
-        {
-            if (item.EqualsEmpty()) return;
-            ExecTransaction((session) => { session.Save(item); }, filePath, lineNumber, memberName);
-        }
-
         public void SaveEntity<T>(T item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            where T : IBaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
-            if (item is BaseEntity baseItem)
+            switch (item)
             {
-                if (!item.Equals(GetEntity<T>(baseItem.Uid)))
-                {
-                    switch (item)
-                    {
-                        case TableScaleModels.ContragentEntity:
-                            throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
-                        case TableScaleModels.NomenclatureEntity:
-                            throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
-                        case TableScaleModels.PrinterTypeEntity:
-                            Console.WriteLine($"SaveEntity: {item}");
-                            break;
-                    }
-                    SaveEntityInside(item, filePath, lineNumber, memberName);
-                }
-                else if (!item.Equals(GetEntity<T>(baseItem.Id)))
-                {
-                    switch (item)
-                    {
-                        case TableScaleModels.ContragentEntity:
-                            throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
-                        case TableScaleModels.NomenclatureEntity:
-                            throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
-                        case TableScaleModels.PrinterTypeEntity:
-                            Console.WriteLine($"SaveEntity: {item}");
-                            break;
-                    }
-                    SaveEntityInside(item, filePath, lineNumber, memberName);
-                }
+                case TableScaleModels.BarcodeTypeEntity barcodeType:
+                    ExecTransaction((session) => { session.Save(item); }, filePath, lineNumber, memberName);
+                    break;
+                case TableScaleModels.ContragentEntity:
+                    throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
+                case TableScaleModels.NomenclatureEntity:
+                    throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
+                case TableScaleModels.PrinterTypeEntity:
+                    Console.WriteLine($"SaveEntity: {item}");
+                    break;
             }
-        }
-
-        public void UpdateEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
-        {
-            if (item.EqualsEmpty()) return;
-            ExecTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
         }
 
         public void UpdateEntity<T>(T item,
@@ -760,8 +719,7 @@ namespace DataProjectsCore.DAL.Models
                     break;
             }
 
-            //DataAccess.UpdateEntity(item, filePath, lineNumber, memberName);
-            UpdateEntityInside(item, filePath, lineNumber, memberName);
+            ExecTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
         }
 
         public void DeleteEntity<T>(T item,
@@ -843,8 +801,7 @@ namespace DataProjectsCore.DAL.Models
                     break;
             }
 
-            //DataAccess.UpdateEntity(item, filePath, lineNumber, memberName);
-            UpdateEntityInside(item, filePath, lineNumber, memberName);
+            ExecTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
         }
 
         public bool ExistsEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()

@@ -233,7 +233,9 @@ else
             </tr>
         </tbody>
     </MudSimpleTable>
+    
     <PrinterResources Table=@Table PrinterId=@Id />
-    <ItemSave Table=@Table Id=@Id />
-    <ItemDates Table=@Table Id=@Id />
+    
+    <ItemSave ParentRazor=@this />
+    <ItemDates ParentRazor=@this />
 }

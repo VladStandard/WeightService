@@ -31,7 +31,7 @@ namespace BlazorDeviceControl.Shared.Section
                 new Task(async() => {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodeTypes);
                         Items = AppSettings.DataAccess.Crud.GetEntities<BarcodeTypeEntity>(
                         null,
                         new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))

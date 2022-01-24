@@ -30,6 +30,7 @@ namespace DataProjectsCore
             public static class UriRouteItem
             {
                 public const string Access = "/item/access";
+                public const string BarCodeType = "/item/barcodetype";
                 public const string Contragent = "/item/contragent";
                 public const string Device = "/item/device";
                 public const string Host = "/item/host";

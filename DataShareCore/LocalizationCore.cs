@@ -123,11 +123,17 @@ namespace DataShareCore
             public static string TableIncludes => Lang == ShareEnums.Lang.English ? @"Included records" : @"Вложенные записи";
             public static string TableRecordSave => Lang == ShareEnums.Lang.English ? @"Save record" : @"Сохранить запись";
             public static string TableRecordCancel => Lang == ShareEnums.Lang.English ? @"Close record" : @"Закрыть запись";
+            public static string TablePluHavingPlu => Lang == ShareEnums.Lang.English ? @"The PLU table already has this number" : @"Таблица PLU уже имеет такой номер";
             #endregion
             #region Table fields
+            public static string FieldCategory => Lang == ShareEnums.Lang.English ? @"Category" : @"Категория";
             public static string FieldCount => Lang == ShareEnums.Lang.English ? @"Count" : @"Количество";
             public static string FieldCreated => Lang == ShareEnums.Lang.English ? @"Created" : @"Создано";
+            public static string FieldIdRRef => Lang == ShareEnums.Lang.English ? @"ID 1C" : @"ID 1С";
+            public static string FieldIpAddress => Lang == ShareEnums.Lang.English ? @"Ip-address" : @"IP-адрес";
+            public static string FieldIsEmpty => Lang == ShareEnums.Lang.English ? @"Empty field" : @"Пустое поле";
             public static string FieldModified => Lang == ShareEnums.Lang.English ? @"Modified" : @"Изменено";
+            public static string FieldName => Lang == ShareEnums.Lang.English ? @"Name" : @"Наименование";
             #endregion
             #region Dialog
             public static string DialogQuestion => Lang == ShareEnums.Lang.English ? @"Perform the operation?" : @"Выполнить операцию?";

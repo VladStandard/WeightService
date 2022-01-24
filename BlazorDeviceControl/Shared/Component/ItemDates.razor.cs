@@ -29,37 +29,37 @@ namespace BlazorDeviceControl.Shared.Component
                 new Task(() => {
                     lock (Locker)
                     {
-                        if (Table is TableSystemEntity)
+                        switch (Table)
                         {
-                            //
-                        }
-                        else if (Table is TableScaleEntity)
-                        {
-                            switch (ProjectsEnums.GetTableScale(Table.Name))
-                            {
-                                case ProjectsEnums.TableScale.Hosts:
-                                    HostEntity host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>((int)Id);
-                                    DtCreate = host.CreateDate.ToString();
-                                    DtModify = host.ModifiedDate.ToString();
+                            case TableSystemEntity:
+                                break;
+                            case TableScaleEntity:
+                                {
+                                    switch (ProjectsEnums.GetTableScale(Table.Name))
+                                    {
+                                        case ProjectsEnums.TableScale.Hosts:
+                                            HostEntity host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>((int)Id);
+                                            DtCreate = host.CreateDate.ToString();
+                                            DtModify = host.ModifiedDate.ToString();
+                                            break;
+                                        case ProjectsEnums.TableScale.Scales:
+                                            ScaleEntity scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>((int)Id);
+                                            DtCreate = scale.CreateDate.ToString();
+                                            DtModify = scale.ModifiedDate.ToString();
+                                            break;
+                                        case ProjectsEnums.TableScale.Printers:
+                                            PrinterEntity printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>((int)Id);
+                                            DtCreate = printer.CreateDate.ToString();
+                                            DtModify = printer.ModifiedDate.ToString();
+                                            break;
+                                    }
+
                                     break;
-                                case ProjectsEnums.TableScale.Scales:
-                                    ScaleEntity scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>((int)Id);
-                                    DtCreate = scale.CreateDate.ToString();
-                                    DtModify = scale.ModifiedDate.ToString();
-                                    break;
-                                case ProjectsEnums.TableScale.Printers:
-                                    PrinterEntity printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>((int)Id);
-                                    DtCreate = printer.CreateDate.ToString();
-                                    DtModify = printer.ModifiedDate.ToString();
-                                    break;
-                            }
-                        }
-                        else if (Table is TableDwhEntity)
-                        {
-                            //
+                                }
+                            case TableDwhEntity:
+                                break;
                         }
                     }
-                    //await GuiRefreshWithWaitAsync();
                 }), true);
         }
 
