@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.050] - 2022-01-20
+## [0.6.060] - 2022-01-24
+### Added
+- 
+
+## [0.6.050] - 2022-01-21
 ### Added
 - WS-T-57. Info DB size
 

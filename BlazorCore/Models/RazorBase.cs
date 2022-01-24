@@ -830,7 +830,8 @@ namespace BlazorCore.Models
                         ItemSaveCheck.Printer(NotificationService, (PrinterEntity)ParentRazor.Item);
                     break;
                 case ProjectsEnums.TableScale.PrinterTypes:
-                    ItemSaveCheck.PrinterType(NotificationService, AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>((int)Id));
+                    if (ParentRazor.Item != null)
+                        ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeEntity)ParentRazor.Item);
                     break;
                 case ProjectsEnums.TableScale.ProductionFacilities:
                     break;
@@ -845,7 +846,8 @@ namespace BlazorCore.Models
                         ItemSaveCheck.Task(NotificationService, (TaskEntity)ParentRazor.Item);
                     break;
                 case ProjectsEnums.TableScale.TasksTypes:
-                    ItemSaveCheck.TaskType(NotificationService, AppSettings.DataAccess.Crud.GetEntity<TaskTypeEntity>((Guid)Uid));
+                    if (ParentRazor.Item != null)
+                        ItemSaveCheck.TaskType(NotificationService, (TaskTypeEntity)ParentRazor.Item);
                     break;
                 case ProjectsEnums.TableScale.TemplateResources:
                     break;
