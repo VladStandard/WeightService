@@ -30,7 +30,7 @@ namespace BlazorDeviceControl.Shared.Item
                 {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodeTypes);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodesTypes);
                         BarcodeTypeItem = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         //if (BarcodeTypeItem.EqualsNew())

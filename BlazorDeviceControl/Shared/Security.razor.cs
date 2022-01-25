@@ -33,8 +33,11 @@ namespace BlazorDeviceControl.Shared
 
         private void InvokeSecuredApi()
         {
-            string url = "api/requireauthentication";
-            _ = JsRuntime.InvokeVoidAsync("open", url, "_blank");
+            _ = Task.Run(async () =>
+            {
+                string url = "api/requireauthentication";
+                await JsRuntime.InvokeVoidAsync("open", url, "_blank");
+            }).ConfigureAwait(true);
         }
 
         #endregion

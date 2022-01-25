@@ -29,6 +29,7 @@ namespace BlazorDeviceControl.Shared.Section
                     : Items.Select(x => (TaskEntity)x).ToList();
                 //ItemsCast.Sort(delegate (TaskEntity a, TaskEntity b) { return string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name); });
                 items.Sort((a, b) => string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name));
+                ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true);
                 return items;
             }
         }
@@ -45,7 +46,7 @@ namespace BlazorDeviceControl.Shared.Section
                 {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
                         TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
                             { ShareEnums.DbField.Uid.ToString(), Uid },
                         }), null);

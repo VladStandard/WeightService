@@ -107,14 +107,14 @@ namespace WeightCore.Gui
                         PluList = new PagePluList();
                         PluList.InitializeComponent();
                         ElementHost.Child = PluList;
-                        PluList.Loaded += PluListOnLoaded;
+                        //PluList.Loaded += PluListOnLoaded;
                         SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.SqlSettings:
                         SqlSettings = new PageSqlSettings();
                         SqlSettings.InitializeComponent();
                         ElementHost.Child = SqlSettings;
-                        SqlSettings.Loaded += SqlSettingsOnLoaded;
+                        //SqlSettings.Loaded += SqlSettingsOnLoaded;
                         SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.MessageBox:
@@ -122,49 +122,13 @@ namespace WeightCore.Gui
                         PageMessageBoxItem.InitializeComponent();
                         ElementHost.Child = PageMessageBoxItem;
                         PageMessageBoxItem.MessageBox = MessageBox;
-                        PageMessageBoxItem.Loaded += MessageBoxOnLoaded;
+                        //PageMessageBoxItem.Loaded += MessageBoxOnLoaded;
                         SessionState.WpfPageLoader_OnClose += WpfPageLoader_OnClose;
                         break;
                     case ProjectsEnums.Page.Default:
                     default:
                         break;
                 }
-            }
-            catch (Exception ex)
-            {
-                Exception.Catch(this, ref ex, false);
-            }
-        }
-
-        private void PluListOnLoaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // 
-            }
-            catch (Exception ex)
-            {
-                Exception.Catch(this, ref ex, true);
-            }
-        }
-
-        private void SqlSettingsOnLoaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // 
-            }
-            catch (Exception ex)
-            {
-                Exception.Catch(this, ref ex, true);
-            }
-        }
-
-        private void MessageBoxOnLoaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //
             }
             catch (Exception ex)
             {

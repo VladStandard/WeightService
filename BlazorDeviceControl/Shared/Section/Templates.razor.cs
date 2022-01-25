@@ -56,6 +56,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
                                 .ToList<BaseEntity>();
                         }
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

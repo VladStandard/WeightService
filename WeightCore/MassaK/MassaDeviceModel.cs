@@ -101,9 +101,7 @@ namespace WeightCore.MassaK
                 {
                     throw new ArgumentNullException(PortName);
                 }
-
-                if (!string.IsNullOrEmpty(PortName))
-                    SerialPortController.OpenPort(PortName, ReadTimeout, WriteTimeout);
+                SerialPortController.OpenPort(PortName, ReadTimeout, WriteTimeout);
             }
             catch (Exception)
             {

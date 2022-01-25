@@ -49,6 +49,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 });
                             }
                         }
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

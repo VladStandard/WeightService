@@ -30,7 +30,7 @@ namespace BlazorDeviceControl.Shared.Item
                 {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterTypes);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
                         PrinterTypeItem = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (PrinterTypeItem.EqualsNew())

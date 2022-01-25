@@ -84,11 +84,11 @@ namespace BlazorDeviceControl
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            
+
             // Authentication & Authorization after app.UseRouting().
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             // Last step.
             app.UseEndpoints(endpoints =>
             {

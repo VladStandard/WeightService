@@ -61,7 +61,11 @@ namespace DataProjectsCore
         {
             Default,
             Accesses,
+            Errors,
             Logs,
+            LogTypes,
+            Tasks,
+            TasksTypes,
         }
 
         public static TableSystem GetTableSystem(string tableName)
@@ -74,25 +78,24 @@ namespace DataProjectsCore
         public enum TableScale
         {
             Default,
-            BarcodeTypes,
+            BarcodesTypes,
             Contragents,
             Hosts,
             Labels,
             Nomenclatures,
             Orders,
-            OrderStatuses,
-            OrderTypes,
+            OrdersStatuses,
+            OrdersTypes,
+            Organizations,
             Plus,
-            PrinterResources,
             Printers,
-            PrinterTypes,
+            PrintersResources,
+            PrintersTypes,
             ProductionFacilities,
             ProductSeries,
             Scales,
-            Tasks,
-            TasksTypes,
-            TemplateResources,
             Templates,
+            TemplatesResources,
             WeithingFacts,
             Workshops,
         }

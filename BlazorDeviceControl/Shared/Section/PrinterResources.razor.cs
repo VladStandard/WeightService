@@ -33,11 +33,12 @@ namespace BlazorDeviceControl.Shared.Section
                 {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrinterResources);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
                         Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
                             new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
                             .ToList<BaseEntity>();
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

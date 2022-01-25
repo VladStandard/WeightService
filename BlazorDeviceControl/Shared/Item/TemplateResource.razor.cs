@@ -45,7 +45,7 @@ namespace BlazorDeviceControl.Shared.Item
                 new Task(async() => {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplateResources);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
                         TemplateResourcesItem = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (TemplateResourcesItem.EqualsNew())

@@ -565,7 +565,7 @@ namespace DataProjectsCore
                 {
                     switch (tableScale)
                     {
-                        case ProjectsEnums.TableScale.BarcodeTypes:
+                        case ProjectsEnums.TableScale.BarcodesTypes:
                             result = DeviceControl.ItemBarCodeType;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
@@ -580,10 +580,10 @@ namespace DataProjectsCore
                         case ProjectsEnums.TableScale.Nomenclatures:
                             result = DeviceControl.ItemNomenclature;
                             break;
-                        case ProjectsEnums.TableScale.OrderStatuses:
+                        case ProjectsEnums.TableScale.OrdersStatuses:
                             result = DeviceControl.ItemOrderStatus;
                             break;
-                        case ProjectsEnums.TableScale.OrderTypes:
+                        case ProjectsEnums.TableScale.OrdersTypes:
                             result = DeviceControl.ItemOrderType;
                             break;
                         case ProjectsEnums.TableScale.Orders:
@@ -595,10 +595,10 @@ namespace DataProjectsCore
                         case ProjectsEnums.TableScale.Printers:
                             result = DeviceControl.ItemPrinter;
                             break;
-                        case ProjectsEnums.TableScale.PrinterResources:
+                        case ProjectsEnums.TableScale.PrintersResources:
                             result = DeviceControl.ItemPrinterResource;
                             break;
-                        case ProjectsEnums.TableScale.PrinterTypes:
+                        case ProjectsEnums.TableScale.PrintersTypes:
                             result = DeviceControl.ItemPrinterType;
                             break;
                         case ProjectsEnums.TableScale.ProductSeries:
@@ -610,7 +610,7 @@ namespace DataProjectsCore
                         case ProjectsEnums.TableScale.Scales:
                             result = DeviceControl.ItemScale;
                             break;
-                        case ProjectsEnums.TableScale.TemplateResources:
+                        case ProjectsEnums.TableScale.TemplatesResources:
                             result = DeviceControl.ItemTemplateResource;
                             break;
                         case ProjectsEnums.TableScale.Templates:
@@ -659,7 +659,7 @@ namespace DataProjectsCore
                 {
                     switch (tableScale)
                     {
-                        case ProjectsEnums.TableScale.BarcodeTypes:
+                        case ProjectsEnums.TableScale.BarcodesTypes:
                             result = DeviceControl.SectionBarcodes;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
@@ -674,10 +674,10 @@ namespace DataProjectsCore
                         case ProjectsEnums.TableScale.Nomenclatures:
                             result = DeviceControl.SectionNomenclatures;
                             break;
-                        case ProjectsEnums.TableScale.OrderStatuses:
+                        case ProjectsEnums.TableScale.OrdersStatuses:
                             result = DeviceControl.SectionOrderStatuses;
                             break;
-                        case ProjectsEnums.TableScale.OrderTypes:
+                        case ProjectsEnums.TableScale.OrdersTypes:
                             result = DeviceControl.SectionOrderTypes;
                             break;
                         case ProjectsEnums.TableScale.Orders:
@@ -689,10 +689,10 @@ namespace DataProjectsCore
                         case ProjectsEnums.TableScale.Printers:
                             result = DeviceControl.SectionPrinters;
                             break;
-                        case ProjectsEnums.TableScale.PrinterResources:
+                        case ProjectsEnums.TableScale.PrintersResources:
                             result = DeviceControl.SectionPrinterResources;
                             break;
-                        case ProjectsEnums.TableScale.PrinterTypes:
+                        case ProjectsEnums.TableScale.PrintersTypes:
                             result = DeviceControl.SectionPrinterTypes;
                             break;
                         case ProjectsEnums.TableScale.ProductSeries:
@@ -704,7 +704,7 @@ namespace DataProjectsCore
                         case ProjectsEnums.TableScale.Scales:
                             result = DeviceControl.SectionScales;
                             break;
-                        case ProjectsEnums.TableScale.TemplateResources:
+                        case ProjectsEnums.TableScale.TemplatesResources:
                             result = DeviceControl.SectionTemplateResources;
                             break;
                         case ProjectsEnums.TableScale.Templates:

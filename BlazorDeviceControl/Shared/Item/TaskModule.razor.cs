@@ -30,7 +30,7 @@ namespace BlazorDeviceControl.Shared.Item
                 {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Tasks);
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
                         TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
                             { ShareEnums.DbField.Uid.ToString(), Uid },
                         }), null);

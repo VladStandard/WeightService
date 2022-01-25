@@ -38,15 +38,10 @@ namespace BlazorCore.Models
         [Parameter] public Guid? Uid { get; set; } = null;
         [Parameter] public RazorBase ParentRazor { get; set; } = null;
         [Parameter] public DbTableAction TableAction { get; set; } = DbTableAction.Default;
-        public BaseEntity Item { get; set; }
-        [Parameter] public List<BaseEntity> Items { get; set; }
-        [Parameter] public TableBase Table { get; set; }
-        //[Parameter] public bool IsNewItem { get; set; }
-        [Parameter] public bool IsShowNew { get; set; }
-        [Parameter] public bool IsShowEdit { get; set; }
-        [Parameter] public bool IsShowCopy { get; set; }
-        [Parameter] public bool IsShowMark { get; set; }
-        [Parameter] public bool IsShowDelete { get; set; }
+        public BaseEntity Item { get; set; } = null;
+        [Parameter] public List<BaseEntity> Items { get; set; } = new List<BaseEntity>();
+        [Parameter] public TableBase Table { get; set; } = new TableBase(string.Empty);
+        [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; } = new ButtonSettingsEntity();
 
         #endregion
 
@@ -56,6 +51,15 @@ namespace BlazorCore.Models
         public UserSettingsHelper UserSettings { get; private set; } = UserSettingsHelper.Instance;
         private ItemSaveCheckEntity ItemSaveCheck { get; set; } = new ItemSaveCheckEntity();
         public object Locker { get; private set; } = new();
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public RazorBase()
+        {
+            //
+        }
 
         #endregion
 
@@ -75,6 +79,26 @@ namespace BlazorCore.Models
                             case TableSystemEntity:
                                 switch (ProjectsEnums.GetTableSystem(table.Name))
                                 {
+                                    case ProjectsEnums.TableSystem.Default:
+                                        break;
+                                    case ProjectsEnums.TableSystem.Accesses:
+                                        break;
+                                    case ProjectsEnums.TableSystem.Errors:
+                                        break;
+                                    case ProjectsEnums.TableSystem.Logs:
+                                        break;
+                                    case ProjectsEnums.TableSystem.LogTypes:
+                                        break;
+                                    case ProjectsEnums.TableSystem.Tasks:
+                                        if (value is Guid uidTask)
+                                        {
+                                            //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
+                                            //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
+                                            //    null);
+                                        }
+                                        break;
+                                    case ProjectsEnums.TableSystem.TasksTypes:
+                                        break;
                                     default:
                                         break;
                                 }
@@ -91,7 +115,7 @@ namespace BlazorCore.Models
                                                 //    null);
                                             }
                                             break;
-                                        case ProjectsEnums.TableScale.PrinterTypes:
+                                        case ProjectsEnums.TableScale.PrintersTypes:
                                             if (Item is PrinterEntity printerItem)
                                             {
                                                 if (value is int id)
@@ -115,14 +139,6 @@ namespace BlazorCore.Models
                                                 //    null);
                                             }
                                             break;
-                                        case ProjectsEnums.TableScale.Tasks:
-                                            if (value is Guid uidTask)
-                                            {
-                                                //PluItem.Scale = AppSettings.DataAccess.ScalesCrud.GetEntity(
-                                                //    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
-                                                //    null);
-                                            }
-                                            break;
                                         case ProjectsEnums.TableScale.Templates:
                                             if (value is int idTemplate)
                                             {
@@ -135,6 +151,40 @@ namespace BlazorCore.Models
                                                 //        null);
                                                 //}
                                             }
+                                            break;
+                                        case ProjectsEnums.TableScale.Default:
+                                            break;
+                                        case ProjectsEnums.TableScale.BarcodesTypes:
+                                            break;
+                                        case ProjectsEnums.TableScale.Contragents:
+                                            break;
+                                        case ProjectsEnums.TableScale.Hosts:
+                                            break;
+                                        case ProjectsEnums.TableScale.Labels:
+                                            break;
+                                        case ProjectsEnums.TableScale.Orders:
+                                            break;
+                                        case ProjectsEnums.TableScale.OrdersStatuses:
+                                            break;
+                                        case ProjectsEnums.TableScale.OrdersTypes:
+                                            break;
+                                        case ProjectsEnums.TableScale.Organizations:
+                                            break;
+                                        case ProjectsEnums.TableScale.Plus:
+                                            break;
+                                        case ProjectsEnums.TableScale.Printers:
+                                            break;
+                                        case ProjectsEnums.TableScale.PrintersResources:
+                                            break;
+                                        case ProjectsEnums.TableScale.ProductionFacilities:
+                                            break;
+                                        case ProjectsEnums.TableScale.ProductSeries:
+                                            break;
+                                        case ProjectsEnums.TableScale.TemplatesResources:
+                                            break;
+                                        case ProjectsEnums.TableScale.WeithingFacts:
+                                            break;
+                                        case ProjectsEnums.TableScale.Workshops:
                                             break;
                                     }
 
@@ -221,6 +271,8 @@ namespace BlazorCore.Models
         {
             switch (table)
             {
+                case ProjectsEnums.TableSystem.Default:
+                    break;
                 case ProjectsEnums.TableSystem.Accesses:
                     if (parameters.TryGetValue(DbField.Uid.ToString(), out Guid? uidAccess))
                     {
@@ -237,6 +289,14 @@ namespace BlazorCore.Models
                         Item = logEntity;
                     }
                     break;
+                case ProjectsEnums.TableSystem.Errors:
+                    break;
+                case ProjectsEnums.TableSystem.LogTypes:
+                    break;
+                case ProjectsEnums.TableSystem.Tasks:
+                    break;
+                case ProjectsEnums.TableSystem.TasksTypes:
+                    break;
             }
         }
 
@@ -244,7 +304,9 @@ namespace BlazorCore.Models
         {
             switch (table)
             {
-                case ProjectsEnums.TableScale.BarcodeTypes:
+                case ProjectsEnums.TableScale.Default:
+                    break;
+                case ProjectsEnums.TableScale.BarcodesTypes:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idBarcodeType))
                     {
                         BarcodeTypeEntity barcodeTypeEntity = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
@@ -284,22 +346,6 @@ namespace BlazorCore.Models
                         Item = nomenclatureEntity;
                     }
                     break;
-                case ProjectsEnums.TableScale.OrderStatuses:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out int? idOrderStatus))
-                    {
-                        OrderStatusEntity orderStatusEntity = AppSettings.DataAccess.Crud.GetEntity<OrderStatusEntity>(
-                            new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idOrderStatus }, }), null);
-                        Item = orderStatusEntity;
-                    }
-                    break;
-                case ProjectsEnums.TableScale.OrderTypes:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out int? idOrderType))
-                    {
-                        OrderTypeEntity orderTypeEntity = AppSettings.DataAccess.Crud.GetEntity<OrderTypeEntity>(
-                            new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idOrderType }, }), null);
-                        Item = orderTypeEntity;
-                    }
-                    break;
                 case ProjectsEnums.TableScale.Orders:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idOrder))
                     {
@@ -307,6 +353,24 @@ namespace BlazorCore.Models
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idOrder }, }), null);
                         Item = orderEntity;
                     }
+                    break;
+                case ProjectsEnums.TableScale.OrdersStatuses:
+                    if (parameters.TryGetValue(DbField.Id.ToString(), out int? idOrderStatus))
+                    {
+                        OrderStatusEntity orderStatusEntity = AppSettings.DataAccess.Crud.GetEntity<OrderStatusEntity>(
+                            new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idOrderStatus }, }), null);
+                        Item = orderStatusEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.OrdersTypes:
+                    if (parameters.TryGetValue(DbField.Id.ToString(), out int? idOrderType))
+                    {
+                        OrderTypeEntity orderTypeEntity = AppSettings.DataAccess.Crud.GetEntity<OrderTypeEntity>(
+                            new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idOrderType }, }), null);
+                        Item = orderTypeEntity;
+                    }
+                    break;
+                case ProjectsEnums.TableScale.Organizations:
                     break;
                 case ProjectsEnums.TableScale.Plus:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idPlu))
@@ -324,7 +388,7 @@ namespace BlazorCore.Models
                         Item = printerEntity;
                     }
                     break;
-                case ProjectsEnums.TableScale.PrinterResources:
+                case ProjectsEnums.TableScale.PrintersResources:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idPrinterResource))
                     {
                         PrinterResourceEntity printerResourceEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
@@ -332,7 +396,7 @@ namespace BlazorCore.Models
                         Item = printerResourceEntity;
                     }
                     break;
-                case ProjectsEnums.TableScale.PrinterTypes:
+                case ProjectsEnums.TableScale.PrintersTypes:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idPrinterType))
                     {
                         PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
@@ -364,7 +428,7 @@ namespace BlazorCore.Models
                         Item = scaleEntity;
                     }
                     break;
-                case ProjectsEnums.TableScale.TemplateResources:
+                case ProjectsEnums.TableScale.TemplatesResources:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idTemplateResource))
                     {
                         TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
@@ -403,7 +467,15 @@ namespace BlazorCore.Models
         {
             switch (table)
             {
-                default:
+                case ProjectsEnums.TableDwh.Default:
+                    break;
+                case ProjectsEnums.TableDwh.InformationSystem:
+                    break;
+                case ProjectsEnums.TableDwh.Nomenclature:
+                    break;
+                case ProjectsEnums.TableDwh.NomenclatureMaster:
+                    break;
+                case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
                     break;
             }
         }
@@ -552,15 +624,27 @@ namespace BlazorCore.Models
                 case TableSystemEntity:
                     switch (ProjectsEnums.GetTableSystem(Table.Name))
                     {
+                        case ProjectsEnums.TableSystem.Default:
+                            break;
                         case ProjectsEnums.TableSystem.Logs:
                             page = LocalizationData.DeviceControl.UriRouteItem.Log;
+                            break;
+                        case ProjectsEnums.TableSystem.Accesses:
+                            break;
+                        case ProjectsEnums.TableSystem.Errors:
+                            break;
+                        case ProjectsEnums.TableSystem.LogTypes:
+                            break;
+                        case ProjectsEnums.TableSystem.Tasks:
+                            break;
+                        case ProjectsEnums.TableSystem.TasksTypes:
                             break;
                     }
                     break;
                 case TableScaleEntity:
                     switch (ProjectsEnums.GetTableScale(Table.Name))
                     {
-                        case ProjectsEnums.TableScale.BarcodeTypes:
+                        case ProjectsEnums.TableScale.BarcodesTypes:
                             page = LocalizationData.DeviceControl.UriRouteItem.BarCodeType;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
@@ -575,13 +659,13 @@ namespace BlazorCore.Models
                         case ProjectsEnums.TableScale.Plus:
                             page = LocalizationData.DeviceControl.UriRouteItem.Plu;
                             break;
-                        case ProjectsEnums.TableScale.PrinterResources:
+                        case ProjectsEnums.TableScale.PrintersResources:
                             page = LocalizationData.DeviceControl.UriRouteItem.PrinterResource;
                             break;
                         case ProjectsEnums.TableScale.Printers:
                             page = LocalizationData.DeviceControl.UriRouteItem.Printer;
                             break;
-                        case ProjectsEnums.TableScale.PrinterTypes:
+                        case ProjectsEnums.TableScale.PrintersTypes:
                             page = LocalizationData.DeviceControl.UriRouteItem.PrinterType;
                             break;
                         case ProjectsEnums.TableScale.ProductionFacilities:
@@ -590,13 +674,7 @@ namespace BlazorCore.Models
                         case ProjectsEnums.TableScale.Scales:
                             page = LocalizationData.DeviceControl.UriRouteItem.Scale;
                             break;
-                        case ProjectsEnums.TableScale.Tasks:
-                            page = LocalizationData.DeviceControl.UriRouteItem.TaskModule;
-                            break;
-                        case ProjectsEnums.TableScale.TasksTypes:
-                            page = LocalizationData.DeviceControl.UriRouteItem.TaskTypeModule;
-                            break;
-                        case ProjectsEnums.TableScale.TemplateResources:
+                        case ProjectsEnums.TableScale.TemplatesResources:
                             page = LocalizationData.DeviceControl.UriRouteItem.TemplateResource;
                             break;
                         case ProjectsEnums.TableScale.Templates:
@@ -623,7 +701,19 @@ namespace BlazorCore.Models
                     case TableSystemEntity:
                         switch (ProjectsEnums.GetTableSystem(Table.Name))
                         {
-                            default:
+                            case ProjectsEnums.TableSystem.Default:
+                                break;
+                            case ProjectsEnums.TableSystem.Accesses:
+                                break;
+                            case ProjectsEnums.TableSystem.Errors:
+                                break;
+                            case ProjectsEnums.TableSystem.Logs:
+                                break;
+                            case ProjectsEnums.TableSystem.LogTypes:
+                                break;
+                            case ProjectsEnums.TableSystem.Tasks:
+                                break;
+                            case ProjectsEnums.TableSystem.TasksTypes:
                                 break;
                         }
                         break;
@@ -632,7 +722,7 @@ namespace BlazorCore.Models
                             int idLast;
                             switch (ProjectsEnums.GetTableScale(Table.Name))
                             {
-                                case ProjectsEnums.TableScale.BarcodeTypes:
+                                case ProjectsEnums.TableScale.BarcodesTypes:
                                     idLast = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                                     Id = idLast + 1;
                                     break;
@@ -648,11 +738,11 @@ namespace BlazorCore.Models
                                     idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                                     Id = idLast + 1;
                                     break;
-                                case ProjectsEnums.TableScale.PrinterResources:
+                                case ProjectsEnums.TableScale.PrintersResources:
                                     idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                                     Id = idLast + 1;
                                     break;
-                                case ProjectsEnums.TableScale.PrinterTypes:
+                                case ProjectsEnums.TableScale.PrintersTypes:
                                     idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                                     Id = idLast + 1;
                                     break;
@@ -668,7 +758,7 @@ namespace BlazorCore.Models
                                     idLast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                                     Id = idLast + 1;
                                     break;
-                                case ProjectsEnums.TableScale.TemplateResources:
+                                case ProjectsEnums.TableScale.TemplatesResources:
                                     idLast = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                                     Id = idLast + 1;
                                     break;
@@ -716,10 +806,13 @@ namespace BlazorCore.Models
 
         private void RouteItemNavigateNewPage(string page)
         {
-            if (Uid != null && Uid != Guid.Empty)
-                _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{Uid}", "_blank").ConfigureAwait(false);
-            else if (Id != null)
-                _ = JsRuntime.InvokeAsync<object>("open", $"{page}/{Id}", "_blank").ConfigureAwait(false);
+            _ = Task.Run(async () =>
+            {
+                if (Uid != null && Uid != Guid.Empty)
+                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{Uid}", "_blank").ConfigureAwait(false);
+                else if (Id != null)
+                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{Id}", "_blank").ConfigureAwait(false);
+            }).ConfigureAwait(true);
         }
 
         public void RouteSectionNavigate(bool isNewWindow)
@@ -734,7 +827,10 @@ namespace BlazorCore.Models
             }
             else
             {
-                _ = JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                _ = Task.Run(async () =>
+                {
+                    await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                }).ConfigureAwait(true);
             }
         }
 
@@ -746,18 +842,30 @@ namespace BlazorCore.Models
                 case TableSystemEntity:
                     switch (ProjectsEnums.GetTableSystem(Table.Name))
                     {
+                        case ProjectsEnums.TableSystem.Default:
+                            break;
                         case ProjectsEnums.TableSystem.Accesses:
                             page = LocalizationData.DeviceControl.UriRouteSection.Access;
                             break;
                         case ProjectsEnums.TableSystem.Logs:
                             page = LocalizationData.DeviceControl.UriRouteSection.Logs;
                             break;
+                        case ProjectsEnums.TableSystem.Errors:
+                            break;
+                        case ProjectsEnums.TableSystem.LogTypes:
+                            break;
+                        case ProjectsEnums.TableSystem.Tasks:
+                            page = LocalizationData.DeviceControl.UriRouteSection.TaskModules;
+                            break;
+                        case ProjectsEnums.TableSystem.TasksTypes:
+                            page = LocalizationData.DeviceControl.UriRouteSection.TaskTypeModules;
+                            break;
                     }
                     break;
                 case TableScaleEntity:
                     switch (ProjectsEnums.GetTableScale(Table.Name))
                     {
-                        case ProjectsEnums.TableScale.BarcodeTypes:
+                        case ProjectsEnums.TableScale.BarcodesTypes:
                             page = LocalizationData.DeviceControl.UriRouteSection.BarCodeTypes;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
@@ -769,13 +877,13 @@ namespace BlazorCore.Models
                         case ProjectsEnums.TableScale.Nomenclatures:
                             page = LocalizationData.DeviceControl.UriRouteSection.Nomenclatures;
                             break;
-                        case ProjectsEnums.TableScale.PrinterResources:
+                        case ProjectsEnums.TableScale.PrintersResources:
                             page = LocalizationData.DeviceControl.UriRouteSection.PrinterResources;
                             break;
                         case ProjectsEnums.TableScale.Printers:
                             page = LocalizationData.DeviceControl.UriRouteSection.Printers;
                             break;
-                        case ProjectsEnums.TableScale.PrinterTypes:
+                        case ProjectsEnums.TableScale.PrintersTypes:
                             page = LocalizationData.DeviceControl.UriRouteSection.PrinterTypes;
                             break;
                         case ProjectsEnums.TableScale.ProductionFacilities:
@@ -784,13 +892,7 @@ namespace BlazorCore.Models
                         case ProjectsEnums.TableScale.Scales:
                             page = LocalizationData.DeviceControl.UriRouteSection.Scales;
                             break;
-                        case ProjectsEnums.TableScale.Tasks:
-                            page = LocalizationData.DeviceControl.UriRouteSection.TaskModules;
-                            break;
-                        case ProjectsEnums.TableScale.TasksTypes:
-                            page = LocalizationData.DeviceControl.UriRouteSection.TaskTypeModules;
-                            break;
-                        case ProjectsEnums.TableScale.TemplateResources:
+                        case ProjectsEnums.TableScale.TemplatesResources:
                             page = LocalizationData.DeviceControl.UriRouteSection.TemplateResources;
                             break;
                         case ProjectsEnums.TableScale.Templates:
@@ -825,9 +927,23 @@ namespace BlazorCore.Models
         {
             switch (tableSystem)
             {
+                case ProjectsEnums.TableSystem.Default:
+                    break;
                 case ProjectsEnums.TableSystem.Accesses:
                     break;
                 case ProjectsEnums.TableSystem.Logs:
+                    break;
+                case ProjectsEnums.TableSystem.Errors:
+                    break;
+                case ProjectsEnums.TableSystem.LogTypes:
+                    break;
+                case ProjectsEnums.TableSystem.Tasks:
+                    if (ParentRazor?.Item != null)
+                        ItemSaveCheck.Task(NotificationService, (TaskEntity)ParentRazor.Item, (Guid)Uid, TableAction);
+                    break;
+                case ProjectsEnums.TableSystem.TasksTypes:
+                    if (ParentRazor?.Item != null)
+                        ItemSaveCheck.TaskType(NotificationService, (TaskTypeEntity)ParentRazor.Item, (Guid)Uid, TableAction);
                     break;
             }
         }
@@ -836,15 +952,17 @@ namespace BlazorCore.Models
         {
             switch (tableScale)
             {
-                case ProjectsEnums.TableScale.BarcodeTypes:
+                case ProjectsEnums.TableScale.Default:
+                    break;
+                case ProjectsEnums.TableScale.BarcodesTypes:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.BarcodeType(NotificationService, (BarcodeTypeEntity)ParentRazor?.Item, (int)Id, TableAction);
+                        ItemSaveCheck.BarcodeType(NotificationService, (BarcodeTypeEntity)ParentRazor.Item, (int)Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Contragents:
                     break;
                 case ProjectsEnums.TableScale.Hosts:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Host(NotificationService, (HostEntity)ParentRazor?.Item, (int)Id, TableAction);
+                        ItemSaveCheck.Host(NotificationService, (HostEntity)ParentRazor.Item, (int)Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Labels:
                     break;
@@ -852,25 +970,27 @@ namespace BlazorCore.Models
                     break;
                 case ProjectsEnums.TableScale.Orders:
                     break;
-                case ProjectsEnums.TableScale.OrderStatuses:
+                case ProjectsEnums.TableScale.OrdersStatuses:
                     break;
-                case ProjectsEnums.TableScale.OrderTypes:
+                case ProjectsEnums.TableScale.OrdersTypes:
+                    break;
+                case ProjectsEnums.TableScale.Organizations:
                     break;
                 case ProjectsEnums.TableScale.Plus:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Plu(NotificationService, (PluEntity)ParentRazor?.Item, (int)Id, TableAction);
+                        ItemSaveCheck.Plu(NotificationService, (PluEntity)ParentRazor.Item, (int)Id, TableAction);
                     break;
-                case ProjectsEnums.TableScale.PrinterResources:
+                case ProjectsEnums.TableScale.PrintersResources:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity)ParentRazor?.Item, (int)Id, TableAction);
+                        ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity)ParentRazor.Item, (int)Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Printers:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Printer(NotificationService, (PrinterEntity)ParentRazor?.Item, (int)Id, TableAction);
+                        ItemSaveCheck.Printer(NotificationService, (PrinterEntity)ParentRazor.Item, (int)Id, TableAction);
                     break;
-                case ProjectsEnums.TableScale.PrinterTypes:
+                case ProjectsEnums.TableScale.PrintersTypes:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeEntity)ParentRazor?.Item, (int)Id, TableAction);
+                        ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeEntity)ParentRazor.Item, (int)Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.ProductionFacilities:
                     break;
@@ -878,27 +998,19 @@ namespace BlazorCore.Models
                     break;
                 case ProjectsEnums.TableScale.Scales:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Scale(NotificationService, (ScaleEntity)ParentRazor?.Item, (int)Id, TableAction);
+                        ItemSaveCheck.Scale(NotificationService, (ScaleEntity)ParentRazor.Item, (int)Id, TableAction);
                     break;
-                case ProjectsEnums.TableScale.Tasks:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Task(NotificationService, (TaskEntity)ParentRazor?.Item, (Guid)Uid, TableAction);
-                    break;
-                case ProjectsEnums.TableScale.TasksTypes:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.TaskType(NotificationService, (TaskTypeEntity)ParentRazor?.Item, (Guid)Uid, TableAction);
-                    break;
-                case ProjectsEnums.TableScale.TemplateResources:
+                case ProjectsEnums.TableScale.TemplatesResources:
                     break;
                 case ProjectsEnums.TableScale.Templates:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Template(NotificationService, (TemplateEntity)ParentRazor?.Item, (int)Id, TableAction);
+                        ItemSaveCheck.Template(NotificationService, (TemplateEntity)ParentRazor.Item, (int)Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.WeithingFacts:
                     break;
                 case ProjectsEnums.TableScale.Workshops:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Workshop(NotificationService, (WorkshopEntity)ParentRazor?.Item, (int)Id, TableAction);
+                        ItemSaveCheck.Workshop(NotificationService, (WorkshopEntity)ParentRazor.Item, (int)Id, TableAction);
                     break;
             }
         }
@@ -957,6 +1069,8 @@ namespace BlazorCore.Models
                         return;
                     switch (tableAction)
                     {
+                        case DbTableAction.Default:
+                            break;
                         case DbTableAction.New:
                             TableAction = DbTableAction.New;
                             Id = null;
@@ -972,6 +1086,10 @@ namespace BlazorCore.Models
                             break;
                         case DbTableAction.Mark:
                             AppSettings.DataAccess.ActionMarkedEntity(Item);
+                            break;
+                        case DbTableAction.Save:
+                            break;
+                        case DbTableAction.Cancel:
                             break;
                     }
                     await GuiRefreshWithWaitAsync();

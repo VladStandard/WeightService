@@ -9,6 +9,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using System;
+using static DataShareCore.ShareEnums;
 
 namespace DataProjectsCore.DAL.Models
 {
@@ -181,18 +182,18 @@ namespace DataProjectsCore.DAL.Models
 
         #region Public and private methods - CRUD share
 
-        public T ActionGetIdEntity<T>(T item, ShareEnums.DbTableAction tableAction) where T : BaseEntity, new()
+        public T ActionGetIdEntity<T>(T item, DbTableAction tableAction) where T : BaseEntity, new()
         {
             T result = tableAction switch
             {
-                ShareEnums.DbTableAction.New => new T(),
-                ShareEnums.DbTableAction.Edit => item,
-                ShareEnums.DbTableAction.Copy => (T)item.Clone(),
-                ShareEnums.DbTableAction.Delete => item,
-                ShareEnums.DbTableAction.Mark => item,
+                DbTableAction.New => new T(),
+                DbTableAction.Edit => item,
+                DbTableAction.Copy => (T)item.Clone(),
+                DbTableAction.Delete => item,
+                DbTableAction.Mark => item,
                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
             };
-            if (tableAction == ShareEnums.DbTableAction.New || tableAction == ShareEnums.DbTableAction.Copy)
+            if (tableAction == DbTableAction.New || tableAction == DbTableAction.Copy)
             {
                 int nextId = 0;
                 nextId = ActionGetIdEntityForScales(item, nextId);
@@ -203,40 +204,40 @@ namespace DataProjectsCore.DAL.Models
             return result;
         }
 
-        public T ActionGetUidEntity<T>(T item, ShareEnums.DbTableAction tableAction) where T : BaseEntity, new()
+        public T ActionGetUidEntity<T>(T item, DbTableAction tableAction) where T : BaseEntity, new()
         {
             T result = tableAction switch
             {
-                ShareEnums.DbTableAction.New => new T(),
-                ShareEnums.DbTableAction.Edit => item,
-                ShareEnums.DbTableAction.Copy => (T)item.Clone(),
-                ShareEnums.DbTableAction.Delete => item,
-                ShareEnums.DbTableAction.Mark => item,
+                DbTableAction.New => new T(),
+                DbTableAction.Edit => item,
+                DbTableAction.Copy => (T)item.Clone(),
+                DbTableAction.Delete => item,
+                DbTableAction.Mark => item,
                 _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
             };
-            if (tableAction == ShareEnums.DbTableAction.New || tableAction == ShareEnums.DbTableAction.Copy)
+            if (tableAction == DbTableAction.New || tableAction == DbTableAction.Copy)
             {
                 switch (item)
                 {
                     case TableSystemModels.AccessEntity:
                         _ = Crud.GetEntity<TableSystemModels.AccessEntity>(null, 
-                            new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                            new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
                         break;
                     case TableSystemModels.AppEntity:
                         _ = Crud.GetEntity<TableSystemModels.AppEntity>(null, 
-                            new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                            new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
                         break;
                     case TableSystemModels.LogEntity:
                         _ = Crud.GetEntity<TableSystemModels.LogEntity>(null, 
-                            new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                            new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
                         break;
                     case TableSystemModels.LogTypeEntity:
                         _ = Crud.GetEntity<TableSystemModels.LogTypeEntity>(null, 
-                            new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                            new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
                         break;
                     case DataShareCore.DAL.DataModels.LogSummaryEntity:
                         _ = Crud.GetEntity<DataShareCore.DAL.DataModels.LogSummaryEntity>(null, 
-                            new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc)).Uid;
+                            new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
                         break;
                     case DataModels.WeithingFactSummaryEntity:
                         break;
@@ -252,79 +253,79 @@ namespace DataProjectsCore.DAL.Models
             {
                 case TableSystemModels.HostEntity:
                     nextId = Crud.GetEntity<TableSystemModels.HostEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.BarcodeTypeEntity:
                     nextId = Crud.GetEntity<TableScaleModels.BarcodeTypeEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.ContragentEntity:
                     nextId = Crud.GetEntity<TableScaleModels.ContragentEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.LabelEntity:
                     nextId = Crud.GetEntity<TableScaleModels.LabelEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.NomenclatureEntity:
                     nextId = Crud.GetEntity<TableScaleModels.NomenclatureEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.OrderEntity:
                     nextId = Crud.GetEntity<TableScaleModels.OrderEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.OrderStatusEntity:
                     nextId = Crud.GetEntity<TableScaleModels.OrderStatusEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.OrderTypeEntity:
                     nextId = Crud.GetEntity<TableScaleModels.OrderTypeEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.PluEntity:
                     nextId = Crud.GetEntity<TableScaleModels.PluEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.ProductionFacilityEntity:
                     nextId = Crud.GetEntity<TableScaleModels.ProductionFacilityEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.ProductSeriesEntity:
                     nextId = Crud.GetEntity<TableScaleModels.ProductSeriesEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.ScaleEntity:
                     nextId = Crud.GetEntity<TableScaleModels.ScaleEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.TemplateResourceEntity:
                     nextId = Crud.GetEntity<TableScaleModels.TemplateResourceEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.TemplateEntity:
                     nextId = Crud.GetEntity<TableScaleModels.TemplateEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.WeithingFactEntity:
                     nextId = Crud.GetEntity<TableScaleModels.WeithingFactEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.WorkshopEntity:
                     nextId = Crud.GetEntity<TableScaleModels.WorkshopEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.PrinterEntity:
                     nextId = Crud.GetEntity<TableScaleModels.PrinterEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.PrinterResourceEntity:
                     nextId = Crud.GetEntity<TableScaleModels.PrinterResourceEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableScaleModels.PrinterTypeEntity:
                     nextId = Crud.GetEntity<TableScaleModels.PrinterTypeEntity>(null, 
-                        new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
             }
             return nextId;
@@ -335,25 +336,25 @@ namespace DataProjectsCore.DAL.Models
             switch (item)
             {
                 case TableDwhModels.BrandEntity:
-                    nextId = Crud.GetEntity<TableDwhModels.BrandEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    nextId = Crud.GetEntity<TableDwhModels.BrandEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableDwhModels.InformationSystemEntity:
-                    nextId = Crud.GetEntity<TableDwhModels.InformationSystemEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    nextId = Crud.GetEntity<TableDwhModels.InformationSystemEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableDwhModels.NomenclatureEntity:
-                    nextId = Crud.GetEntity<TableDwhModels.NomenclatureEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    nextId = Crud.GetEntity<TableDwhModels.NomenclatureEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableDwhModels.NomenclatureGroupEntity:
-                    nextId = Crud.GetEntity<TableDwhModels.NomenclatureGroupEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    nextId = Crud.GetEntity<TableDwhModels.NomenclatureGroupEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableDwhModels.NomenclatureLightEntity:
-                    nextId = Crud.GetEntity<TableDwhModels.NomenclatureLightEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    nextId = Crud.GetEntity<TableDwhModels.NomenclatureLightEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableDwhModels.NomenclatureTypeEntity:
-                    nextId = Crud.GetEntity<TableDwhModels.NomenclatureTypeEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    nextId = Crud.GetEntity<TableDwhModels.NomenclatureTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
                 case TableDwhModels.StatusEntity:
-                    nextId = Crud.GetEntity<TableDwhModels.StatusEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+                    nextId = Crud.GetEntity<TableDwhModels.StatusEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
                     break;
             }
             return nextId;

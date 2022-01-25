@@ -31,11 +31,11 @@ namespace BlazorDeviceControl.Shared.Section
                 new Task(async() => {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodeTypes);
-                        Items = AppSettings.DataAccess.Crud.GetEntities<BarcodeTypeEntity>(
-                        null,
-                        new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                        .ToList<BaseEntity>();
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodesTypes);
+                        Items = AppSettings.DataAccess.Crud.GetEntities<BarcodeTypeEntity>(null,
+                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
+                            .ToList<BaseEntity>();
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
