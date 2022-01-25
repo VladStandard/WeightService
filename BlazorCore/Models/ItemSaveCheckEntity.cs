@@ -167,7 +167,7 @@ namespace BlazorCore.Models
             return true;
         }
 
-        public void BarcodeType(NotificationService notificationService, BarcodeTypeEntity barcodeType, int id, DbTableAction tableAction)
+        public void BarcodeType(NotificationService notificationService, BarcodeTypeEntity barcodeType, int? id, DbTableAction tableAction)
         {
             bool success = FieldControlDeny(notificationService, barcodeType, "Тип штрихкода");
             if (success)
@@ -178,7 +178,8 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    barcodeType.Id = id;
+                    if (int.TryParse(id?.ToString(), out int getId))
+                        barcodeType.Id = getId;
                     AppSettings.DataAccess.Crud.UpdateEntity(barcodeType);
                 }
             }

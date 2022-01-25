@@ -37,10 +37,25 @@ namespace BlazorCore.Models
         [Parameter] public int? Id { get; set; } = null;
         [Parameter] public Guid? Uid { get; set; } = null;
         [Parameter] public RazorBase ParentRazor { get; set; } = null;
-        [Parameter] public DbTableAction TableAction { get; set; } = DbTableAction.Default;
         public BaseEntity Item { get; set; } = null;
         [Parameter] public List<BaseEntity> Items { get; set; } = new List<BaseEntity>();
         [Parameter] public TableBase Table { get; set; } = new TableBase(string.Empty);
+        [Parameter] public DbTableAction TableAction { get; set; } = DbTableAction.Default;
+        [Parameter] public string TableActionString
+        {
+            get => TableAction.ToString().ToLower();
+            set
+            {
+                if (!string.IsNullOrEmpty(value) && Enum.TryParse(value, out DbTableAction dbTableAction))
+                {
+                    TableAction = dbTableAction;
+                }
+                else
+                {
+                    TableAction = DbTableAction.Default;
+                }
+            }
+        }
         [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; } = new ButtonSettingsEntity();
 
         #endregion
@@ -58,7 +73,7 @@ namespace BlazorCore.Models
 
         public RazorBase()
         {
-            //
+            TableActionString = string.Empty;
         }
 
         #endregion
@@ -250,8 +265,22 @@ namespace BlazorCore.Models
                 Id = ParentRazor.Id;
             if (Uid == null && ParentRazor?.Uid != null)
                 Uid = ParentRazor.Uid;
-            if (Table == null && ParentRazor?.Table != null)
-                Table = ParentRazor.Table;
+            if (Table == null || string.IsNullOrEmpty(Table.Name))
+            {
+                if (ParentRazor != null)
+                {
+                    if (ParentRazor.Table != null)
+                        Table = ParentRazor.Table;
+                }
+            }
+            if (TableAction == DbTableAction.Default)
+            {
+                if (ParentRazor != null)
+                {
+                    if (ParentRazor.TableAction != DbTableAction.Default)
+                        TableAction = ParentRazor.TableAction;
+                }
+            }
 
             switch (Table)
             {
@@ -617,7 +646,7 @@ namespace BlazorCore.Models
         private string RouteItemNavigatePage()
         {
             string page = string.Empty;
-            if (Table == null)
+            if (Table == null || string.IsNullOrEmpty(Table.Name))
                 Table = ParentRazor.Table;
             switch (Table)
             {
@@ -723,8 +752,8 @@ namespace BlazorCore.Models
                             switch (ProjectsEnums.GetTableScale(Table.Name))
                             {
                                 case ProjectsEnums.TableScale.BarcodesTypes:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    //idLast = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
+                                    //Id = idLast + 1;
                                     break;
                                 case ProjectsEnums.TableScale.Hosts:
                                     idLast = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
@@ -956,7 +985,7 @@ namespace BlazorCore.Models
                     break;
                 case ProjectsEnums.TableScale.BarcodesTypes:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.BarcodeType(NotificationService, (BarcodeTypeEntity)ParentRazor.Item, (int)Id, TableAction);
+                        ItemSaveCheck.BarcodeType(NotificationService, (BarcodeTypeEntity)ParentRazor.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Contragents:
                     break;
