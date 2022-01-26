@@ -33,8 +33,8 @@ namespace BlazorDeviceControl.Shared.Item
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodesTypes);
                         BarcodeTypeItem = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        //if (BarcodeTypeItem.EqualsNew())
-                        //    BarcodeTypeItem.Id = (int)Id;
+                        if (Id != null && BarcodeTypeItem.EqualsNew())
+                            BarcodeTypeItem.Id = (int)Id;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

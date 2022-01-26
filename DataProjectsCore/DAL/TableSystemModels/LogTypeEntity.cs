@@ -14,6 +14,15 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         #endregion
 
+        #region Constructor and destructor
+
+        public LogTypeEntity()
+        {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public override string ToString()

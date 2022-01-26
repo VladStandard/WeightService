@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore.DAL.TableSystemModels;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
@@ -42,8 +43,8 @@ namespace DataProjectsCore.DAL.Models
 
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
-            int idLast = GetEntity<TableScaleModels.ErrorEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-            TableScaleModels.ErrorEntity error = new()
+            int idLast = GetEntity<ErrorEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+            ErrorEntity error = new()
             {
                 Id = idLast + 1,
                 CreatedDate = DateTime.Now,
@@ -57,7 +58,7 @@ namespace DataProjectsCore.DAL.Models
             ExecTransaction((session) => { session.Save(error); }, filePath, lineNumber, memberName, true);
         }
 
-        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
+        public T[] GetEntitiesWithConfig<T>(string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             T[]? result = new T[0];
             ExecTransaction((session) => {
@@ -80,7 +81,8 @@ namespace DataProjectsCore.DAL.Models
             return result;
         }
 
-        private ICriteria GetCriteria<T>(ISession session, FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults) where T : IBaseEntity, new()
+        private ICriteria GetCriteria<T>(ISession session, FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults) 
+            where T : BaseEntity, new()
         {
             Type type = typeof(T);
             ICriteria criteria = session.CreateCriteria(type);
@@ -176,7 +178,7 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity fieldList, FieldOrderEntity? order, int maxResults, string filePath, int lineNumber, string memberName)
-            where T : IBaseEntity, new()
+            where T : BaseEntity, new()
         {
             T[]? result = new T[0];
             ExecTransaction((session) => {
@@ -228,7 +230,7 @@ namespace DataProjectsCore.DAL.Models
 
         #region Public and private methods
 
-        public void FillReferences<T>(T item) where T : IBaseEntity, new()
+        public void FillReferences<T>(T item) where T : BaseEntity, new()
         {
             FillReferencesSystem(item);
             FillReferencesDatas(item);
@@ -236,25 +238,25 @@ namespace DataProjectsCore.DAL.Models
             FillReferencesDwh(item);
         }
 
-        private void FillReferencesSystem<T>(T item) where T : IBaseEntity, new()
+        private void FillReferencesSystem<T>(T item) where T : BaseEntity, new()
         {
-            if (item is TableSystemModels.AppEntity)
+            if (item is AppEntity)
             {
                 //
             }
-            else if (item is TableSystemModels.LogEntity logEntity)
+            else if (item is LogEntity logEntity)
             {
                 if (!logEntity.EqualsEmpty())
                 {
                     if (logEntity.App != null)
-                        logEntity.App = GetEntity<TableSystemModels.AppEntity>(logEntity.App.Uid);
+                        logEntity.App = GetEntity<AppEntity>(logEntity.App.Uid);
                     if (logEntity.Host != null)
-                        logEntity.Host = GetEntity<TableSystemModels.HostEntity> (logEntity.Host.Id);
+                        logEntity.Host = GetEntity<HostEntity> (logEntity.Host.Id);
                 }
             }
         }
 
-        private void FillReferencesDatas<T>(T item) where T : IBaseEntity, new()
+        private void FillReferencesDatas<T>(T item) where T : BaseEntity, new()
         {
             if (item is DataModels.DeviceEntity)
             {
@@ -267,7 +269,7 @@ namespace DataProjectsCore.DAL.Models
             }
         }
 
-        private void FillReferencesScales<T>(T item) where T : IBaseEntity, new()
+        private void FillReferencesScales<T>(T item) where T : BaseEntity, new()
         {
             if (item is TableScaleModels.BarcodeTypeEntity)
             {
@@ -374,7 +376,7 @@ namespace DataProjectsCore.DAL.Models
                     if (scale.Printer != null)
                         scale.Printer = GetEntity<TableScaleModels.PrinterEntity>(scale.Printer.Id);
                     if (scale.Host != null)
-                        scale.Host = GetEntity<TableSystemModels.HostEntity>(scale.Host.Id);
+                        scale.Host = GetEntity<HostEntity>(scale.Host.Id);
                 }
             }
             else if (item is TableScaleModels.TaskEntity task)
@@ -457,7 +459,7 @@ namespace DataProjectsCore.DAL.Models
             }
         }
 
-        private void FillReferencesDwh<T>(T item) where T : IBaseEntity, new()
+        private void FillReferencesDwh<T>(T item) where T : BaseEntity, new()
         {
             if (item is TableDwhModels.BrandEntity brand)
             {
@@ -512,7 +514,8 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public T GetEntity<T>(FieldListEntity? fieldList, FieldOrderEntity? order,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            where T : BaseEntity, new()
         {
             T? item = new();
             ExecTransaction((session) => {
@@ -524,14 +527,14 @@ namespace DataProjectsCore.DAL.Models
             return item;
         }
 
-        public T GetEntity<T>(int id) where T : IBaseEntity, new()
+        public T GetEntity<T>(int id) where T : BaseEntity, new()
         {
             return GetEntity<T>(
                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
                 new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
         }
 
-        public T GetEntity<T>(Guid uid) where T : IBaseEntity, new()
+        public T GetEntity<T>(Guid uid) where T : BaseEntity, new()
         {
             return GetEntity<T>(
                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Uid.ToString(), uid } }),
@@ -539,7 +542,8 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public T[]? GetEntities<T>(FieldListEntity fieldList, FieldOrderEntity order, int maxResults = 0,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            where T : BaseEntity, new()
         {
             T[]? items = GetEntitiesWithoutReferences<T>(fieldList, order, maxResults, filePath, lineNumber, memberName);
             if (items != null)
@@ -558,7 +562,7 @@ namespace DataProjectsCore.DAL.Models
         //    return DataAccess.GetEntitiesNative<T>(fieldsSelect, from, valuesParams, filePath, lineNumber, memberName);
         //}
 
-        public T[] GetEntitiesNativeMappingInside<T>(string query, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
+        public T[] GetEntitiesNativeMappingInside<T>(string query, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             T[]? result = new T[0];
             ExecTransaction((session) => {
@@ -578,7 +582,8 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public T[] GetEntitiesNativeMapping<T>(string query,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new() 
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            where T : BaseEntity, new() 
             => GetEntitiesNativeMappingInside<T>(query, filePath, lineNumber, memberName);
 
         public object[] GetEntitiesNativeObject(string query,
@@ -629,7 +634,7 @@ namespace DataProjectsCore.DAL.Models
 
         public void SaveEntity<T>(T item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
-            where T : IBaseEntity, new()
+            where T : BaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
             switch (item)
@@ -648,7 +653,8 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public void UpdateEntity<T>(T item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            where T : BaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
 
@@ -658,7 +664,7 @@ namespace DataProjectsCore.DAL.Models
                     break;
                 case TableSystemModels.LogEntity:
                     break;
-                case TableSystemModels.HostEntity host:
+                case HostEntity host:
                     host.ModifiedDate = DateTime.Now;
                     break;
                 case TableScaleModels.BarcodeTypeEntity:
@@ -723,14 +729,16 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public void DeleteEntity<T>(T item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            where T : BaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
             ExecTransaction((session) => { session.Delete(item); }, filePath, lineNumber, memberName);
         }
 
         public void MarkedEntity<T>(T item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            where T : BaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
 
@@ -740,7 +748,7 @@ namespace DataProjectsCore.DAL.Models
                     break;
                 case TableSystemModels.LogEntity:
                     break;
-                case TableSystemModels.HostEntity host:
+                case HostEntity host:
                     host.Marked = true;
                     break;
                 case TableScaleModels.BarcodeTypeEntity:
@@ -804,7 +812,7 @@ namespace DataProjectsCore.DAL.Models
             ExecTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
         }
 
-        public bool ExistsEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
+        public bool ExistsEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             bool result = false;
             ExecTransaction((session) => {
@@ -814,7 +822,8 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public bool ExistsEntity<T>(T item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            where T : BaseEntity, new()
         {
             if (item.EqualsEmpty()) return false;
             //return DataAccess.ExistsEntity(item, filePath, lineNumber, memberName);
@@ -822,7 +831,7 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public bool ExistsEntityInside<T>(FieldListEntity fieldList, FieldOrderEntity? order, 
-            string filePath, int lineNumber, string memberName) where T : IBaseEntity, new()
+            string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             bool result = false;
             ExecTransaction((session) => {
@@ -832,7 +841,8 @@ namespace DataProjectsCore.DAL.Models
         }
 
         public bool ExistsEntity<T>(FieldListEntity fieldList, FieldOrderEntity? order,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") where T : IBaseEntity, new()
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") 
+            where T : BaseEntity, new()
         {
             //return DataAccess.ExistsEntity<T>(fieldList, order, filePath, lineNumber, memberName);
             return ExistsEntityInside<T>(fieldList, order, filePath, lineNumber, memberName);
@@ -842,16 +852,16 @@ namespace DataProjectsCore.DAL.Models
 
         #region Public and private methods - HostEntity
 
-        public List<TableSystemModels.HostEntity> GetFreeHosts(int? id,
+        public List<HostEntity> GetFreeHosts(int? id,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
-            List<TableSystemModels.HostEntity>? items = new();
+            List<HostEntity>? items = new();
             foreach (object? entity in entities)
             {
                 if (entity is object[] { Length: 9 } ent)
                 {
-                    items.Add(new TableSystemModels.HostEntity
+                    items.Add(new HostEntity
                     {
                         Id = Convert.ToInt32(ent[0]),
                         CreateDate = Convert.ToDateTime(ent[1]),
@@ -868,22 +878,22 @@ namespace DataProjectsCore.DAL.Models
 
             if (id > 0 && items.Select(x => x).Where(x => Equals(x.Id, id)).ToList().Count == 0)
             {
-                items.Add(GetEntity<TableSystemModels.HostEntity>(
+                items.Add(GetEntity<HostEntity>(
                     new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }), null));
             }
             return items;
         }
 
-        public List<TableSystemModels.HostEntity> GetBusyHosts(
+        public List<HostEntity> GetBusyHosts(
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
-            List<TableSystemModels.HostEntity>? items = new();
+            List<HostEntity>? items = new();
             foreach (object? entity in entities)
             {
                 if (entity is object[] { Length: 9 } ent)
                 {
-                    items.Add(new TableSystemModels.HostEntity
+                    items.Add(new HostEntity
                     {
                         Id = Convert.ToInt32(ent[0]),
                         CreateDate = Convert.ToDateTime(ent[1]),

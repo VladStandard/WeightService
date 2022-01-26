@@ -40,8 +40,21 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         #endregion
 
+        #region Public and private fields and properties - Helpers
+
         private XmlProductHelper Product { get; set; } = XmlProductHelper.Instance;
         private BarcodeHelper Barcode { get; set; } = BarcodeHelper.Instance;
+
+        #endregion
+        
+        #region Constructor and destructor
+
+        public PluEntity()
+        {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+        }
+
+        #endregion
 
         #region Public and private fields and properties - XML
 

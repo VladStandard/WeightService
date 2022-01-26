@@ -20,7 +20,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public TaskTypeEntity()
         {
-            PrimaryColumn.Name = ColumnName.Uid;
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
         }
 
         #endregion

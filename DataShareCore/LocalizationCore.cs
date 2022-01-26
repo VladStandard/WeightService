@@ -129,11 +129,14 @@ namespace DataShareCore
             public static string FieldCategory => Lang == ShareEnums.Lang.English ? @"Category" : @"Категория";
             public static string FieldCount => Lang == ShareEnums.Lang.English ? @"Count" : @"Количество";
             public static string FieldCreated => Lang == ShareEnums.Lang.English ? @"Created" : @"Создано";
+            public static string FieldDescription => Lang == ShareEnums.Lang.English ? @"Description" : @"Описание";
             public static string FieldIdRRef => Lang == ShareEnums.Lang.English ? @"ID 1C" : @"ID 1С";
             public static string FieldIpAddress => Lang == ShareEnums.Lang.English ? @"Ip-address" : @"IP-адрес";
             public static string FieldIsEmpty => Lang == ShareEnums.Lang.English ? @"Empty field" : @"Пустое поле";
+            public static string FieldLabel => Lang == ShareEnums.Lang.English ? @"Label" : @"Этикетка";
             public static string FieldModified => Lang == ShareEnums.Lang.English ? @"Modified" : @"Изменено";
             public static string FieldName => Lang == ShareEnums.Lang.English ? @"Name" : @"Наименование";
+            public static string FieldTitle=> Lang == ShareEnums.Lang.English ? @"Title" : @"Заголовок";
             #endregion
             #region Dialog
             public static string DialogQuestion => Lang == ShareEnums.Lang.English ? @"Perform the operation?" : @"Выполнить операцию?";

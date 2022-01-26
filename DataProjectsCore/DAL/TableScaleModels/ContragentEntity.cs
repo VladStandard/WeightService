@@ -26,6 +26,16 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ContragentEntity()
+        {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            Name = string.Empty;
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public override string ToString()

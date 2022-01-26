@@ -3,7 +3,7 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataProjectsCore.DAL.TableScaleModels
+namespace DataProjectsCore.DAL.TableSystemModels
 {
     public class ErrorMap : ClassMap<ErrorEntity>
     {

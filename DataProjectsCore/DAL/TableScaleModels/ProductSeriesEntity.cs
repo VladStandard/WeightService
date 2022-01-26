@@ -7,7 +7,7 @@ using System;
 namespace DataProjectsCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "".
+    /// Таблица "Серии продуктов".
     /// </summary>
     public class ProductSeriesEntity : BaseEntity
     {
@@ -38,6 +38,15 @@ namespace DataProjectsCore.DAL.TableScaleModels
             set => IsClose = value;
         }
         public virtual string Sscc { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public ProductSeriesEntity()
+        {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+        }
 
         #endregion
 

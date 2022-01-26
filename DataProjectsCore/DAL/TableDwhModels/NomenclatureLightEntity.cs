@@ -31,6 +31,15 @@ namespace DataProjectsCore.DAL.TableDwhModels
 
         #endregion
 
+        #region Constructor and destructor
+
+        public NomenclatureLightEntity()
+        {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public override string ToString()

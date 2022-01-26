@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Interfaces;
@@ -140,7 +141,7 @@ namespace DataProjectsCore.DAL.Models
 
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarcodeTypeMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ErrorMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<ErrorMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LabelMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.NomenclatureMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
@@ -360,9 +361,9 @@ namespace DataProjectsCore.DAL.Models
             return nextId;
         }
 
-        public void ActionDeleteEntity<T>(T item) where T : IBaseEntity, new() => Crud.DeleteEntity(item);
+        public void ActionDeleteEntity<T>(T item) where T : BaseEntity, new() => Crud.DeleteEntity(item);
 
-        public void ActionMarkedEntity<T>(T item) where T : IBaseEntity, new() => Crud.MarkedEntity(item);
+        public void ActionMarkedEntity<T>(T item) where T : BaseEntity, new() => Crud.MarkedEntity(item);
 
         #endregion
     }

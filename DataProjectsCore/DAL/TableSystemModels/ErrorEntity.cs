@@ -4,7 +4,7 @@
 using DataShareCore.DAL.Models;
 using System;
 
-namespace DataProjectsCore.DAL.TableScaleModels
+namespace DataProjectsCore.DAL.TableSystemModels
 {
     /// <summary>
     /// Таблица "Ошибки".
@@ -20,6 +20,15 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public virtual string? MemberName { get; set; }
         public virtual string? Exception { get; set; }
         public virtual string? InnerException { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public ErrorEntity()
+        {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+        }
 
         #endregion
 

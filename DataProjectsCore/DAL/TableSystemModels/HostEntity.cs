@@ -36,6 +36,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         public HostEntity()
         {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
             MacAddress = new MacAddressEntity();
         }
 

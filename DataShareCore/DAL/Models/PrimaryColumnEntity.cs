@@ -7,6 +7,7 @@ namespace DataShareCore.DAL.Models
 {
     public enum ColumnName
     {
+        Default,
         Id = 0,
         Uid = 1,
     }
@@ -23,6 +24,13 @@ namespace DataShareCore.DAL.Models
         #endregion
 
         #region Public and private methods
+
+        public PrimaryColumnEntity(ColumnName columnName)
+        {
+            Name = columnName;
+            Id = default;
+            Uid = default;
+        }
 
         public PrimaryColumnEntity(int id)
         {
@@ -83,7 +91,7 @@ namespace DataShareCore.DAL.Models
             };
         }
 
-        public virtual object Clone() => new PrimaryColumnEntity(Id) { Name = Name, Uid = Uid };
+        public virtual object Clone() => new PrimaryColumnEntity(Name) { Id = Id, Uid = Uid };
 
         #endregion
     }

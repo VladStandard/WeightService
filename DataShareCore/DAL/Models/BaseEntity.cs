@@ -14,7 +14,7 @@ namespace DataShareCore.DAL.Models
     {
         #region Public and private fields and properties
 
-        public virtual PrimaryColumnEntity PrimaryColumn { get; set; } = new PrimaryColumnEntity(0);
+        public virtual PrimaryColumnEntity PrimaryColumn { get; set; } = new PrimaryColumnEntity(ColumnName.Default);
         public virtual int Id { get => PrimaryColumn.Id; set { PrimaryColumn.Id = value; } }
         public virtual Guid Uid { get => PrimaryColumn.Uid; set { PrimaryColumn.Uid = value; } }
 

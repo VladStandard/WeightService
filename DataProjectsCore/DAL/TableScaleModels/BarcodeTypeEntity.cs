@@ -20,6 +20,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public BarcodeTypeEntity()
         {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
             Name = string.Empty;
         }
 

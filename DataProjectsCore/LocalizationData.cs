@@ -105,6 +105,9 @@ namespace DataProjectsCore
             #region Sections
             public static string SectionBarcodes => Lang == ShareEnums.Lang.English ? @"Barcodes" : @"Штрихкоды";
             public static string SectionBarCodeTypes => Lang == ShareEnums.Lang.English ? @"Barcodes types" : @"Типы штрихкодов";
+            public static string SectionBarCodeTypesShort => Lang == ShareEnums.Lang.English ? @"BC types" : @"Типы ШК";
+            public static string SectionBarCodes => Lang == ShareEnums.Lang.English ? @"Barcodes" : @"Штрихкоды";
+            public static string SectionBarCodesShort => Lang == ShareEnums.Lang.English ? @"BC" : @"ШК";
             public static string SectionContragents => Lang == ShareEnums.Lang.English ? @"Counterparties" : @"Контрагенты";
             public static string SectionFonts => Lang == ShareEnums.Lang.English ? @"Fonts" : @"Шрифты";
             public static string SectionHosts => Lang == ShareEnums.Lang.English ? @"Hosts" : @"Хосты";

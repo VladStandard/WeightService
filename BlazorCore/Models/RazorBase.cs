@@ -748,56 +748,43 @@ namespace BlazorCore.Models
                         break;
                     case TableScaleEntity:
                         {
-                            int idLast;
                             switch (ProjectsEnums.GetTableScale(Table.Name))
                             {
                                 case ProjectsEnums.TableScale.BarcodesTypes:
-                                    //idLast = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    //Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.Hosts:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.Plus:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.Printers:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.PrintersResources:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.PrintersTypes:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.ProductionFacilities:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.ProductSeries:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.Scales:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.TemplatesResources:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.Templates:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.Workshops:
-                                    idLast = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-                                    Id = idLast + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 default:
                                     break;
@@ -817,18 +804,19 @@ namespace BlazorCore.Models
 
         private void RouteItemNavigateWork(string page)
         {
-            if (Id != null)
+            if (TableAction == DbTableAction.New)
             {
-                if (TableAction == DbTableAction.New)
-                    NavigationManager.NavigateTo($"{page}/{TableAction}");
-                else
-                    NavigationManager.NavigateTo($"{page}/{Id}");
+                //NavigationManager.NavigateTo($"{page}/{TableAction}");
+                if (Id != null)
+                    NavigationManager.NavigateTo($"{page}/{Id}/{TableAction}");
+                else if (Uid != null && !Equals(Uid, Guid.Empty))
+                    NavigationManager.NavigateTo($"{page}/{Uid}/{TableAction}");
             }
-            else if (Uid != null && !Equals(Uid, Guid.Empty))
+            else
             {
-                if (TableAction == DbTableAction.New)
-                    NavigationManager.NavigateTo($"{page}/{TableAction}");
-                else
+                if (Id != null)
+                    NavigationManager.NavigateTo($"{page}/{Id}");
+                else if (Uid != null && !Equals(Uid, Guid.Empty))
                     NavigationManager.NavigateTo($"{page}/{Uid}");
             }
         }

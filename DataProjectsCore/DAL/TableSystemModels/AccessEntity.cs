@@ -17,6 +17,15 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         #endregion
 
+        #region Constructor and destructor
+
+        public AccessEntity()
+        {
+            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public override string ToString()
