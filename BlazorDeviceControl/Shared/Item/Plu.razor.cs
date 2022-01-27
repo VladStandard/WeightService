@@ -45,7 +45,7 @@ namespace BlazorDeviceControl.Shared.Item
                         //NomenclatureItems = null;
                         PluItem = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (PluItem.EqualsNew())
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             PluItem.Id = (int)Id;
 
                         //ScaleEntity[] scalesEntities = AppSettings.DataAccess.ScalesCrud.GetEntities(null, null);

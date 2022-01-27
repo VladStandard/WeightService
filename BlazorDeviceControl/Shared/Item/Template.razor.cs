@@ -34,7 +34,7 @@ namespace BlazorDeviceControl.Shared.Item
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
                         TemplateItem = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (TemplateItem.EqualsNew())
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             TemplateItem.Id = (int)Id;
                         TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
                     }

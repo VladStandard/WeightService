@@ -17,13 +17,15 @@ namespace DataShareCore.DAL.Models
             }
         }
 
-        public string ValuePrettyLookSpace =>
-            $"{Value[0]}{Value[1]} {Value[2]}{Value[3]} {Value[4]}{Value[5]} " +
-            $"{Value[6]}{Value[7]} {Value[8]}{Value[9]} {Value[10]}{Value[11]}";
+        public string ValuePrettyLookSpace => !string.IsNullOrEmpty(Value) 
+            ? $"{Value[0]}{Value[1]} {Value[2]}{Value[3]} {Value[4]}{Value[5]} " +
+              $"{Value[6]}{Value[7]} {Value[8]}{Value[9]} {Value[10]}{Value[11]}"
+            : string.Empty;
 
-        public string ValuePrettyLookMinus =>
-            $"{Value[0]}{Value[1]}-{Value[2]}{Value[3]}-{Value[4]}{Value[5]}-" +
-            $"{Value[6]}{Value[7]}-{Value[8]}{Value[9]}-{Value[10]}{Value[11]}";
+        public string ValuePrettyLookMinus => !string.IsNullOrEmpty(Value)
+            ? $"{Value[0]}{Value[1]}-{Value[2]}{Value[3]}-{Value[4]}{Value[5]}-" +
+              $"{Value[6]}{Value[7]}-{Value[8]}{Value[9]}-{Value[10]}{Value[11]}"
+            : string.Empty;
 
         public string ValuePrettyLookColon =>
             $"{Value[0]}{Value[1]}:{Value[2]}{Value[3]}:{Value[4]}{Value[5]}:" +
@@ -89,6 +91,11 @@ namespace DataShareCore.DAL.Models
             {
                 Value = Value,
             };
+        }
+
+        public void Default()
+        {
+            Value = "000000000000";
         }
 
         #endregion

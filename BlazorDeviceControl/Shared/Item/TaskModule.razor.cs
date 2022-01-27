@@ -34,7 +34,7 @@ namespace BlazorDeviceControl.Shared.Item
                         TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
                             { ShareEnums.DbField.Uid.ToString(), Uid },
                         }), null);
-                        if (TaskItem.EqualsNew())
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             TaskItem.Id = (int)Id;
                     }
                     await GuiRefreshWithWaitAsync();

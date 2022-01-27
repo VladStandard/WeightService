@@ -52,7 +52,7 @@ namespace BlazorDeviceControl.Shared.Item
                         //HostItems = null;
                         ScaleItem = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(new FieldListEntity(new Dictionary<string, object> {
                             { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (ScaleItem.EqualsNew())
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             ScaleItem.Id = (int)Id;
                         // ComPorts
                         ComPorts = new List<TypeEntity<string>>();

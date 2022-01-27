@@ -8,15 +8,15 @@ namespace DataShareCore.DAL.Models
     public enum ColumnName
     {
         Default,
-        Id = 0,
-        Uid = 1,
+        Id,
+        Uid,
     }
 
     public class PrimaryColumnEntity
     {
         #region Public and private fields and properties
 
-        public ColumnName Name { get; set; }
+        public ColumnName Name { get; private set; }
 
         public int Id { get; set; }
         public Guid Uid { get; set; }

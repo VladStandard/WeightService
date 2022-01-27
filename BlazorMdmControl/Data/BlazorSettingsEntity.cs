@@ -134,10 +134,10 @@ namespace MdmControlBlazor.Data
                         }
                         break;
                     case ShareEnums.DbTableAction.Delete:
-                        SqlDataAccess.ActionDeleteEntity(entity);
+                        SqlDataAccess.Crud.DeleteEntity(entity);
                         break;
-                    case ShareEnums.DbTableAction.Marked:
-                        SqlDataAccess.ActionMarkedEntity(entity);
+                    case ShareEnums.DbTableAction.Mark:
+                        SqlDataAccess.Crud.MarkedEntity(entity);
                         break;
                 }
             }

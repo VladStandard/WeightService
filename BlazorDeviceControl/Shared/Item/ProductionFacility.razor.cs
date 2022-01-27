@@ -32,7 +32,7 @@ namespace BlazorDeviceControl.Shared.Item
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
                         ProductionFacilityItem = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (ProductionFacilityItem.EqualsNew())
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             ProductionFacilityItem.Id = (int)Id;
                     }
                     await GuiRefreshWithWaitAsync();

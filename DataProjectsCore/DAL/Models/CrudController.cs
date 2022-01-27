@@ -1,9 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.DAL.TableSystemModels;
 using DataShareCore;
-using DataShareCore.DAL.Interfaces;
 using DataShareCore.DAL.Models;
 using FluentNHibernate.Conventions;
 using NHibernate;
@@ -43,8 +41,8 @@ namespace DataProjectsCore.DAL.Models
 
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
-            int idLast = GetEntity<ErrorEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-            ErrorEntity error = new()
+            int idLast = GetEntity<TableSystemModels.ErrorEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+            TableSystemModels.ErrorEntity error = new()
             {
                 Id = idLast + 1,
                 CreatedDate = DateTime.Now,
@@ -240,276 +238,261 @@ namespace DataProjectsCore.DAL.Models
 
         private void FillReferencesSystem<T>(T item) where T : BaseEntity, new()
         {
-            if (item is AppEntity)
+            switch (item)
             {
-                //
-            }
-            else if (item is LogEntity logEntity)
-            {
-                if (!logEntity.EqualsEmpty())
-                {
-                    if (logEntity.App != null)
-                        logEntity.App = GetEntity<AppEntity>(logEntity.App.Uid);
-                    if (logEntity.Host != null)
-                        logEntity.Host = GetEntity<HostEntity> (logEntity.Host.Id);
-                }
+                case TableSystemModels.AppEntity:
+                    break;
+                case TableSystemModels.LogEntity logEntity:
+                    if (!logEntity.EqualsEmpty())
+                    {
+                        if (logEntity.App != null)
+                            logEntity.App = GetEntity<TableSystemModels.AppEntity>(logEntity.App.Uid);
+                        if (logEntity.Host != null)
+                            logEntity.Host = GetEntity<TableSystemModels.HostEntity>(logEntity.Host.Id);
+                    }
+                    break;
             }
         }
 
         private void FillReferencesDatas<T>(T item) where T : BaseEntity, new()
         {
-            if (item is DataModels.DeviceEntity)
+            switch (item)
             {
-                DataModels.DeviceEntity? deviceEntity = (DataModels.DeviceEntity)(object)item;
-                if (!deviceEntity.EqualsEmpty())
-                {
-                    if (deviceEntity.Scales != null)
-                        deviceEntity.Scales = GetEntity<TableScaleModels.ScaleEntity>(deviceEntity.Scales.Id);
-                }
+                case DataModels.DeviceEntity device:
+                    if (!device.EqualsEmpty())
+                    {
+                        if (device.Scales != null)
+                            device.Scales = GetEntity<TableScaleModels.ScaleEntity>(device.Scales.Id);
+                    }
+                    break;
             }
         }
 
         private void FillReferencesScales<T>(T item) where T : BaseEntity, new()
         {
-            if (item is TableScaleModels.BarcodeTypeEntity)
+            switch (item)
             {
-                TableScaleModels.BarcodeTypeEntity? barCodeTypesEntity = (TableScaleModels.BarcodeTypeEntity)(object)item;
-                if (!barCodeTypesEntity.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.ContragentEntity)
-            {
-                TableScaleModels.ContragentEntity? contragentsEntity = (TableScaleModels.ContragentEntity)(object)item;
-                if (!contragentsEntity.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.LabelEntity label)
-            {
-                if (!label.EqualsEmpty())
-                {
-                    if (label.WeithingFact != null)
-                        label.WeithingFact = GetEntity<TableScaleModels.WeithingFactEntity> (label.WeithingFact.Id);
-                }
-            }
-            else if (item is TableScaleModels.NomenclatureEntity nomenclature)
-            {
-                if (!nomenclature.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.OrganizationEntity organization)
-            {
-                if (!organization.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.OrderEntity order)
-            {
-                if (!order.EqualsEmpty())
-                {
-                    if (order.OrderTypes != null)
-                        order.OrderTypes = GetEntity<TableScaleModels.OrderTypeEntity>(order.OrderTypes.Id);
-                    if (order.Scales != null)
-                        order.Scales = GetEntity<TableScaleModels.ScaleEntity>(order.Scales.Id);
-                    if (order.Plu != null)
-                        order.Plu = GetEntity<TableScaleModels.PluEntity>(order.Plu.Id);
-                    if (order.Templates != null)
-                        order.Templates = GetEntity<TableScaleModels.TemplateEntity>(order.Templates.Id);
-                }
-            }
-            else if (item is TableScaleModels.OrderStatusEntity orderStatus)
-            {
-                if (!orderStatus.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.OrderTypeEntity orderType)
-            {
-                if (!orderType.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.PluEntity plu)
-            {
-                if (!plu.EqualsEmpty())
-                {
-                    if (plu.Templates != null)
-                        plu.Templates = GetEntity<TableScaleModels.TemplateEntity>(plu.Templates.Id);
-                    if (plu.Scale != null)
-                        plu.Scale = GetEntity<TableScaleModels.ScaleEntity>(plu.Scale.Id);
-                    if (plu.Nomenclature != null)
-                        plu.Nomenclature = GetEntity<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.Id);
-                }
-            }
-            else if (item is TableScaleModels.ProductionFacilityEntity ProductionFacility)
-            {
-                if (!ProductionFacility.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.ProductSeriesEntity product)
-            {
-                if (!product.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.ScaleEntity scale)
-            {
-                if (!scale.EqualsEmpty())
-                {
-                    if (scale.TemplateDefault != null)
-                        scale.TemplateDefault = GetEntity<TableScaleModels.TemplateEntity>(scale.TemplateDefault.Id);
-                    if (scale.TemplateSeries != null)
-                        scale.TemplateSeries = GetEntity<TableScaleModels.TemplateEntity>(scale.TemplateSeries.Id);
-                    if (scale.WorkShop != null)
-                        scale.WorkShop = GetEntity<TableScaleModels.WorkshopEntity>(scale.WorkShop.Id);
-                    if (scale.Printer != null)
-                        scale.Printer = GetEntity<TableScaleModels.PrinterEntity>(scale.Printer.Id);
-                    if (scale.Host != null)
-                        scale.Host = GetEntity<HostEntity>(scale.Host.Id);
-                }
-            }
-            else if (item is TableScaleModels.TaskEntity task)
-            {
-                if (!task.EqualsEmpty())
-                {
-                    if (task.TaskType != null)
-                        task.TaskType = GetEntity<TableScaleModels.TaskTypeEntity>(task.TaskType.Uid);
-                    if (task.Scale != null)
-                        task.Scale = GetEntity<TableScaleModels.ScaleEntity>(task.Scale.Id);
-                }
-            }
-            else if (item is TableScaleModels.TaskTypeEntity taskType)
-            {
-                if (!taskType.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.TemplateEntity template)
-            {
-                if (!template.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.TemplateResourceEntity templateResource)
-            {
-                if (!templateResource.EqualsEmpty())
-                {
-                    //
-                }
-            }
-            else if (item is TableScaleModels.WeithingFactEntity weithingFact)
-            {
-                if (!weithingFact.EqualsEmpty())
-                {
-                    if (weithingFact.Plu != null)
-                        weithingFact.Plu = GetEntity<TableScaleModels.PluEntity>(weithingFact.Plu.Id);
-                    if (weithingFact.Scales != null)
-                        weithingFact.Scales = GetEntity<TableScaleModels.ScaleEntity>(weithingFact.Scales.Id);
-                    if (weithingFact.Series != null)
-                        weithingFact.Series = GetEntity<TableScaleModels.ProductSeriesEntity>(weithingFact.Series.Id);
-                    if (weithingFact.Orders != null)
-                        weithingFact.Orders = GetEntity<TableScaleModels.OrderEntity>(weithingFact.Orders.Id);
-                }
-            }
-            else if (item is TableScaleModels.WorkshopEntity workshop)
-            {
-                if (!workshop.EqualsEmpty())
-                {
-                    if (workshop.ProductionFacility != null)
-                        workshop.ProductionFacility = GetEntity<TableScaleModels.ProductionFacilityEntity>(workshop.ProductionFacility.Id);
-                }
-            }
-            else if (item is TableScaleModels.PrinterEntity printer)
-            {
-                if (!printer.EqualsEmpty())
-                {
-                    if (printer.PrinterType != null)
-                        printer.PrinterType = GetEntity<TableScaleModels.PrinterTypeEntity>(printer.PrinterType.Id);
-                }
-            }
-            else if (item is TableScaleModels.PrinterResourceEntity printerResource)
-            {
-                if (!printerResource.EqualsEmpty())
-                {
-                    if (printerResource.Printer != null)
-                        printerResource.Printer = GetEntity<TableScaleModels.PrinterEntity>(printerResource.Printer.Id);
-                    if (printerResource.Resource != null)
-                        printerResource.Resource = GetEntity<TableScaleModels.TemplateResourceEntity>(printerResource.Resource.Id);
-                }
-            }
-            else if (item is TableScaleModels.PrinterTypeEntity printerType)
-            {
-                if (!printerType.EqualsEmpty())
-                {
-                    //
-                }
+                case TableScaleModels.BarcodeTypeEntity:
+                    {
+                        TableScaleModels.BarcodeTypeEntity? barCodeTypesEntity = (TableScaleModels.BarcodeTypeEntity)(object)item;
+                        if (!barCodeTypesEntity.EqualsEmpty())
+                        {
+                            //
+                        }
+                        break;
+                    }
+                case TableScaleModels.ContragentEntity:
+                    {
+                        TableScaleModels.ContragentEntity? contragentsEntity = (TableScaleModels.ContragentEntity)(object)item;
+                        if (!contragentsEntity.EqualsEmpty())
+                        {
+                            //
+                        }
+                        break;
+                    }
+                case TableScaleModels.LabelEntity label:
+                    if (!label.EqualsEmpty())
+                    {
+                        if (label.WeithingFact != null)
+                            label.WeithingFact = GetEntity<TableScaleModels.WeithingFactEntity>(label.WeithingFact.Id);
+                    }
+                    break;
+                case TableScaleModels.NomenclatureEntity nomenclature:
+                    if (!nomenclature.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableScaleModels.OrganizationEntity organization:
+                    if (!organization.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableScaleModels.OrderEntity order:
+                    if (!order.EqualsEmpty())
+                    {
+                        if (order.OrderTypes != null)
+                            order.OrderTypes = GetEntity<TableScaleModels.OrderTypeEntity>(order.OrderTypes.Id);
+                        if (order.Scales != null)
+                            order.Scales = GetEntity<TableScaleModels.ScaleEntity>(order.Scales.Id);
+                        if (order.Plu != null)
+                            order.Plu = GetEntity<TableScaleModels.PluEntity>(order.Plu.Id);
+                        if (order.Templates != null)
+                            order.Templates = GetEntity<TableScaleModels.TemplateEntity>(order.Templates.Id);
+                    }
+                    break;
+                case TableScaleModels.OrderStatusEntity orderStatus:
+                    if (!orderStatus.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableScaleModels.OrderTypeEntity orderType:
+                    if (!orderType.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableScaleModels.PluEntity plu:
+                    if (!plu.EqualsEmpty())
+                    {
+                        if (plu.Templates != null)
+                            plu.Templates = GetEntity<TableScaleModels.TemplateEntity>(plu.Templates.Id);
+                        if (plu.Scale != null)
+                            plu.Scale = GetEntity<TableScaleModels.ScaleEntity>(plu.Scale.Id);
+                        if (plu.Nomenclature != null)
+                            plu.Nomenclature = GetEntity<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.Id);
+                    }
+                    break;
+                case TableScaleModels.ProductionFacilityEntity ProductionFacility:
+                    if (!ProductionFacility.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableScaleModels.ProductSeriesEntity product:
+                    if (!product.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableScaleModels.ScaleEntity scale:
+                    if (!scale.EqualsEmpty())
+                    {
+                        if (scale.TemplateDefault != null)
+                            scale.TemplateDefault = GetEntity<TableScaleModels.TemplateEntity>(scale.TemplateDefault.Id);
+                        if (scale.TemplateSeries != null)
+                            scale.TemplateSeries = GetEntity<TableScaleModels.TemplateEntity>(scale.TemplateSeries.Id);
+                        if (scale.WorkShop != null)
+                            scale.WorkShop = GetEntity<TableScaleModels.WorkshopEntity>(scale.WorkShop.Id);
+                        if (scale.Printer != null)
+                            scale.Printer = GetEntity<TableScaleModels.PrinterEntity>(scale.Printer.Id);
+                        if (scale.Host != null)
+                            scale.Host = GetEntity<TableSystemModels.HostEntity>(scale.Host.Id);
+                    }
+                    break;
+                case TableScaleModels.TaskEntity task:
+                    if (!task.EqualsEmpty())
+                    {
+                        if (task.TaskType != null)
+                            task.TaskType = GetEntity<TableScaleModels.TaskTypeEntity>(task.TaskType.Uid);
+                        if (task.Scale != null)
+                            task.Scale = GetEntity<TableScaleModels.ScaleEntity>(task.Scale.Id);
+                    }
+                    break;
+                case TableScaleModels.TaskTypeEntity taskType:
+                    if (!taskType.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableScaleModels.TemplateEntity template:
+                    if (!template.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableScaleModels.TemplateResourceEntity templateResource:
+                    if (!templateResource.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableScaleModels.WeithingFactEntity weithingFact:
+                    if (!weithingFact.EqualsEmpty())
+                    {
+                        if (weithingFact.Plu != null)
+                            weithingFact.Plu = GetEntity<TableScaleModels.PluEntity>(weithingFact.Plu.Id);
+                        if (weithingFact.Scales != null)
+                            weithingFact.Scales = GetEntity<TableScaleModels.ScaleEntity>(weithingFact.Scales.Id);
+                        if (weithingFact.Series != null)
+                            weithingFact.Series = GetEntity<TableScaleModels.ProductSeriesEntity>(weithingFact.Series.Id);
+                        if (weithingFact.Orders != null)
+                            weithingFact.Orders = GetEntity<TableScaleModels.OrderEntity>(weithingFact.Orders.Id);
+                    }
+                    break;
+                case TableScaleModels.WorkshopEntity workshop:
+                    if (!workshop.EqualsEmpty())
+                    {
+                        if (workshop.ProductionFacility != null)
+                            workshop.ProductionFacility = GetEntity<TableScaleModels.ProductionFacilityEntity>(workshop.ProductionFacility.Id);
+                    }
+                    break;
+                case TableScaleModels.PrinterEntity printer:
+                    if (!printer.EqualsEmpty())
+                    {
+                        if (printer.PrinterType != null)
+                            printer.PrinterType = GetEntity<TableScaleModels.PrinterTypeEntity>(printer.PrinterType.Id);
+                    }
+                    break;
+                case TableScaleModels.PrinterResourceEntity printerResource:
+                    if (!printerResource.EqualsEmpty())
+                    {
+                        if (printerResource.Printer != null)
+                            printerResource.Printer = GetEntity<TableScaleModels.PrinterEntity>(printerResource.Printer.Id);
+                        if (printerResource.Resource != null)
+                            printerResource.Resource = GetEntity<TableScaleModels.TemplateResourceEntity>(printerResource.Resource.Id);
+                    }
+                    break;
+                case TableScaleModels.PrinterTypeEntity printerType:
+                    if (!printerType.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
             }
         }
 
         private void FillReferencesDwh<T>(T item) where T : BaseEntity, new()
         {
-            if (item is TableDwhModels.BrandEntity brand)
+            switch (item)
             {
-                if (!brand.EqualsEmpty())
-                {
-                    if (brand.InformationSystem != null)
-                        brand.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(brand.InformationSystem.Id);
-                }
-            }
-            else if (item is TableDwhModels.NomenclatureEntity nomenclature)
-            {
-                if (!nomenclature.EqualsEmpty())
-                {
-                    //if (nomenclatureEntity.BrandBytes != null && nomenclatureEntity.BrandBytes.Length > 0)
-                    //    nomenclatureEntity.Brand = DataAccess.BrandCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.BrandBytes);
-                    //if (nomenclatureEntity.InformationSystem != null)
-                    //    nomenclatureEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureEntity.InformationSystem.Id);
-                    //if (nomenclatureEntity.NomenclatureGroupCostBytes != null && nomenclatureEntity.NomenclatureGroupCostBytes.Length > 0)
-                    //    nomenclatureEntity.NomenclatureGroupCost = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupCostBytes);
-                    //if (nomenclatureEntity.NomenclatureGroupBytes != null && nomenclatureEntity.NomenclatureGroupBytes.Length > 0)
-                    //    nomenclatureEntity.NomenclatureGroup = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
-                    //if (nomenclatureEntity.NomenclatureTypeBytes != null && nomenclatureEntity.NomenclatureTypeBytes.Length > 0)
-                    //    nomenclatureEntity.NomenclatureType = DataAccess.NomenclatureTypeCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
-                    if (nomenclature.Status != null)
-                        nomenclature.Status = GetEntity<TableDwhModels.StatusEntity>(nomenclature.Status.Id);
-                }
-            }
-            else if (item is TableDwhModels.NomenclatureLightEntity nomenclatureLight)
-            {
-                if (!nomenclatureLight.EqualsEmpty())
-                {
-                    if (nomenclatureLight.InformationSystem != null)
-                        nomenclatureLight.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureLight.InformationSystem.Id);
-                }
-            }
-            else if (item is TableDwhModels.NomenclatureGroupEntity nomenclatureGroup)
-            {
-                if (!nomenclatureGroup.EqualsEmpty())
-                {
-                    if (nomenclatureGroup.InformationSystem != null)
-                        nomenclatureGroup.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureGroup.InformationSystem.Id);
-                }
-            }
-            else if (item is TableDwhModels.NomenclatureTypeEntity nomenclatureType)
-            {
-                if (!nomenclatureType.EqualsEmpty())
-                {
-                    if (nomenclatureType.InformationSystem != null)
-                        nomenclatureType.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity> (nomenclatureType.InformationSystem.Id);
-                }
+                case TableDwhModels.BrandEntity brand:
+                    if (!brand.EqualsEmpty())
+                    {
+                        if (brand.InformationSystem != null)
+                            brand.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(brand.InformationSystem.Id);
+                    }
+                    break;
+                case TableDwhModels.NomenclatureEntity nomenclature:
+                    if (!nomenclature.EqualsEmpty())
+                    {
+                        //if (nomenclatureEntity.BrandBytes != null && nomenclatureEntity.BrandBytes.Length > 0)
+                        //    nomenclatureEntity.Brand = DataAccess.BrandCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.BrandBytes);
+                        //if (nomenclatureEntity.InformationSystem != null)
+                        //    nomenclatureEntity.InformationSystem = DataAccess.InformationSystemCrud.GetEntity(nomenclatureEntity.InformationSystem.Id);
+                        //if (nomenclatureEntity.NomenclatureGroupCostBytes != null && nomenclatureEntity.NomenclatureGroupCostBytes.Length > 0)
+                        //    nomenclatureEntity.NomenclatureGroupCost = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupCostBytes);
+                        //if (nomenclatureEntity.NomenclatureGroupBytes != null && nomenclatureEntity.NomenclatureGroupBytes.Length > 0)
+                        //    nomenclatureEntity.NomenclatureGroup = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
+                        //if (nomenclatureEntity.NomenclatureTypeBytes != null && nomenclatureEntity.NomenclatureTypeBytes.Length > 0)
+                        //    nomenclatureEntity.NomenclatureType = DataAccess.NomenclatureTypeCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
+                        if (nomenclature.Status != null)
+                            nomenclature.Status = GetEntity<TableDwhModels.StatusEntity>(nomenclature.Status.Id);
+                    }
+                    break;
+                case TableDwhModels.NomenclatureLightEntity nomenclatureLight:
+                    if (!nomenclatureLight.EqualsEmpty())
+                    {
+                        if (nomenclatureLight.InformationSystem != null)
+                            nomenclatureLight.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureLight.InformationSystem.Id);
+                    }
+                    break;
+                case TableDwhModels.NomenclatureGroupEntity nomenclatureGroup:
+                    if (!nomenclatureGroup.EqualsEmpty())
+                    {
+                        if (nomenclatureGroup.InformationSystem != null)
+                            nomenclatureGroup.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureGroup.InformationSystem.Id);
+                    }
+                    break;
+                case TableDwhModels.NomenclatureTypeEntity nomenclatureType:
+                    if (!nomenclatureType.EqualsEmpty())
+                    {
+                        if (nomenclatureType.InformationSystem != null)
+                            nomenclatureType.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureType.InformationSystem.Id);
+                    }
+                    break;
             }
         }
 
@@ -637,17 +620,50 @@ namespace DataProjectsCore.DAL.Models
             where T : BaseEntity, new()
         {
             if (item.EqualsEmpty()) return;
+
+            //ExecTransaction((session) => {
+            //    int idLast = GetEntity<TableSystemModels.HostEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+            //    TableSystemModels.HostEntity foo = new()
+            //    {
+            //        Id = idLast + 1,
+            //        CreateDate = DateTime.Now,
+            //        ModifiedDate = DateTime.Now,
+            //        Name = "Тест",
+            //        Ip = "127.0.0.1",
+            //        MacAddress = new MacAddressEntity(),
+            //        IdRRef = Guid.NewGuid(),
+            //        Marked = false,
+            //        //SettingsFile = Convert.ToString(ent[8]),
+            //    };
+            //    Console.WriteLine(foo);
+            //    session.Save(foo);
+            //}, filePath, lineNumber, memberName);
+
             switch (item)
             {
                 case TableScaleModels.BarcodeTypeEntity barcodeType:
-                    ExecTransaction((session) => { session.Save(item); }, filePath, lineNumber, memberName);
+                    ExecTransaction((session) => {
+                        Console.WriteLine(barcodeType);
+                        session.Save(barcodeType);
+                    }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.ContragentEntity:
+                case TableScaleModels.ContragentEntity contragent:
+                    Console.WriteLine(contragent);
                     throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
-                case TableScaleModels.NomenclatureEntity:
+                case TableSystemModels.HostEntity host:
+                    ExecTransaction((session) => {
+                        Console.WriteLine(host);
+                        session.Save(host);
+                    }, filePath, lineNumber, memberName);
+                    break;
+                case TableScaleModels.NomenclatureEntity nomenclature:
+                    Console.WriteLine(nomenclature);
                     throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
-                case TableScaleModels.PrinterTypeEntity:
-                    Console.WriteLine($"SaveEntity: {item}");
+                case TableScaleModels.PrinterTypeEntity printerType:
+                    ExecTransaction((session) => {
+                        Console.WriteLine(printerType);
+                        session.Save(printerType);
+                    }, filePath, lineNumber, memberName);
                     break;
             }
         }
@@ -664,7 +680,7 @@ namespace DataProjectsCore.DAL.Models
                     break;
                 case TableSystemModels.LogEntity:
                     break;
-                case HostEntity host:
+                case TableSystemModels.HostEntity host:
                     host.ModifiedDate = DateTime.Now;
                     break;
                 case TableScaleModels.BarcodeTypeEntity:
@@ -748,7 +764,7 @@ namespace DataProjectsCore.DAL.Models
                     break;
                 case TableSystemModels.LogEntity:
                     break;
-                case HostEntity host:
+                case TableSystemModels.HostEntity host:
                     host.Marked = true;
                     break;
                 case TableScaleModels.BarcodeTypeEntity:
@@ -852,16 +868,16 @@ namespace DataProjectsCore.DAL.Models
 
         #region Public and private methods - HostEntity
 
-        public List<HostEntity> GetFreeHosts(int? id,
+        public List<TableSystemModels.HostEntity> GetFreeHosts(int? id,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
-            List<HostEntity>? items = new();
+            List<TableSystemModels.HostEntity>? items = new();
             foreach (object? entity in entities)
             {
                 if (entity is object[] { Length: 9 } ent)
                 {
-                    items.Add(new HostEntity
+                    items.Add(new TableSystemModels.HostEntity
                     {
                         Id = Convert.ToInt32(ent[0]),
                         CreateDate = Convert.ToDateTime(ent[1]),
@@ -878,22 +894,22 @@ namespace DataProjectsCore.DAL.Models
 
             if (id > 0 && items.Select(x => x).Where(x => Equals(x.Id, id)).ToList().Count == 0)
             {
-                items.Add(GetEntity<HostEntity>(
+                items.Add(GetEntity<TableSystemModels.HostEntity>(
                     new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }), null));
             }
             return items;
         }
 
-        public List<HostEntity> GetBusyHosts(
+        public List<TableSystemModels.HostEntity> GetBusyHosts(
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
-            List<HostEntity>? items = new();
+            List<TableSystemModels.HostEntity>? items = new();
             foreach (object? entity in entities)
             {
                 if (entity is object[] { Length: 9 } ent)
                 {
-                    items.Add(new HostEntity
+                    items.Add(new TableSystemModels.HostEntity
                     {
                         Id = Convert.ToInt32(ent[0]),
                         CreateDate = Convert.ToDateTime(ent[1]),

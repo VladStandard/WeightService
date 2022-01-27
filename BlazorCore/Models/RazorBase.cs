@@ -227,8 +227,9 @@ namespace BlazorCore.Models
                 {
                     lock (Locker)
                     {
-                        Uid = item.Uid;
+                        Item = item;
                         Id = item.Id;
+                        Uid = item.Uid;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -305,17 +306,15 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableSystem.Accesses:
                     if (parameters.TryGetValue(DbField.Uid.ToString(), out Guid? uidAccess))
                     {
-                        AccessEntity accessEntity = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Uid.ToString(), uidAccess }, }), null);
-                        Item = accessEntity;
                     }
                     break;
                 case ProjectsEnums.TableSystem.Logs:
                     if (parameters.TryGetValue(DbField.Uid.ToString(), out Guid? uidLog))
                     {
-                        LogEntity logEntity = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Uid.ToString(), uidLog }, }), null);
-                        Item = logEntity;
                     }
                     break;
                 case ProjectsEnums.TableSystem.Errors:
@@ -338,65 +337,57 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.BarcodesTypes:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idBarcodeType))
                     {
-                        BarcodeTypeEntity barcodeTypeEntity = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idBarcodeType }, }), null);
-                        Item = barcodeTypeEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Contragents:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idContragent))
                     {
-                        ContragentEntity contragentEntity = AppSettings.DataAccess.Crud.GetEntity<ContragentEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<ContragentEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idContragent }, }), null);
-                        Item = contragentEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Hosts:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idHost))
                     {
-                        HostEntity hostEntity = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idHost }, }), null);
-                        Item = hostEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Labels:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idLabel))
                     {
-                        LabelEntity labelEntity = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idLabel }, }), null);
-                        Item = labelEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Nomenclatures:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idNomenclature))
                     {
-                        NomenclatureEntity nomenclatureEntity = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idNomenclature }, }), null);
-                        Item = nomenclatureEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Orders:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idOrder))
                     {
-                        OrderEntity orderEntity = AppSettings.DataAccess.Crud.GetEntity<OrderEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<OrderEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idOrder }, }), null);
-                        Item = orderEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.OrdersStatuses:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idOrderStatus))
                     {
-                        OrderStatusEntity orderStatusEntity = AppSettings.DataAccess.Crud.GetEntity<OrderStatusEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<OrderStatusEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idOrderStatus }, }), null);
-                        Item = orderStatusEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.OrdersTypes:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idOrderType))
                     {
-                        OrderTypeEntity orderTypeEntity = AppSettings.DataAccess.Crud.GetEntity<OrderTypeEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<OrderTypeEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idOrderType }, }), null);
-                        Item = orderTypeEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Organizations:
@@ -404,17 +395,15 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Plus:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idPlu))
                     {
-                        PluEntity pluEntity = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idPlu }, }), null);
-                        Item = pluEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Printers:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out int? idPrinter))
                     {
-                        PrinterEntity printerEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { DbField.Id.ToString(), idPrinter }, }), null);
-                        Item = printerEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.PrintersResources:
@@ -1052,7 +1041,7 @@ namespace BlazorCore.Models
         public async Task ItemSaveAsync(bool continueOnCapturedContext, bool isNewWindow)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasksWithQeustion(LocalizationCore.Strings.TableRecordSave, LocalizationCore.Strings.DialogResultSuccess,
+            RunTasksWithQeustion(LocalizationCore.Strings.TableSave, LocalizationCore.Strings.DialogResultSuccess,
                 LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, "",
                 new Task(async () =>
                 {
@@ -1079,38 +1068,56 @@ namespace BlazorCore.Models
         public async Task ActionAsync(UserSettingsHelper userSettings, DbTableAction tableAction, bool isNewWindow)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async () =>
-                {
-                    if (userSettings.Identity.AccessLevel != true)
-                        return;
-                    switch (tableAction)
-                    {
-                        case DbTableAction.Default:
-                            break;
-                        case DbTableAction.New:
-                            TableAction = DbTableAction.New;
-                            Id = null;
-                            Uid = null;
-                            RouteItemNavigate(isNewWindow);
-                            break;
-                        case DbTableAction.Edit:
-                        case DbTableAction.Copy:
-                            RouteItemNavigate(isNewWindow);
-                            break;
-                        case DbTableAction.Delete:
-                            AppSettings.DataAccess.ActionDeleteEntity(Item);
-                            break;
-                        case DbTableAction.Mark:
-                            AppSettings.DataAccess.ActionMarkedEntity(Item);
-                            break;
-                        case DbTableAction.Save:
-                            break;
-                        case DbTableAction.Cancel:
-                            break;
-                    }
-                    await GuiRefreshWithWaitAsync();
-                }), true);
+
+            if (userSettings.Identity.AccessLevel != true)
+                return;
+            switch (tableAction)
+            {
+                case DbTableAction.Delete:
+                    RunTasksWithQeustion(LocalizationCore.Strings.TableDelete, LocalizationCore.Strings.DialogResultSuccess,
+                        LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, "",
+                        new Task(async () =>
+                        {
+                            if (ParentRazor?.Item == null) return;
+                            AppSettings.DataAccess.Crud.DeleteEntity(ParentRazor.Item);
+                            await GuiRefreshWithWaitAsync();
+                        }), true);
+                    break;
+                default:
+                    RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+                        new Task(async () =>
+                        {
+                            if (userSettings.Identity.AccessLevel != true)
+                                return;
+                            switch (tableAction)
+                            {
+                                case DbTableAction.Default:
+                                    break;
+                                case DbTableAction.New:
+                                    TableAction = DbTableAction.New;
+                                    Id = null;
+                                    Uid = null;
+                                    RouteItemNavigate(isNewWindow);
+                                    break;
+                                case DbTableAction.Edit:
+                                case DbTableAction.Copy:
+                                    RouteItemNavigate(isNewWindow);
+                                    break;
+                                case DbTableAction.Mark:
+                                    if (ParentRazor?.Item == null) return;
+                                    AppSettings.DataAccess.Crud.MarkedEntity(ParentRazor.Item);
+                                    break;
+                                case DbTableAction.Save:
+                                    if (ParentRazor?.Item == null) return;
+                                    break;
+                                case DbTableAction.Cancel:
+                                    break;
+                                case DbTableAction.Reload:
+                                    break;
+                            }
+                            await GuiRefreshWithWaitAsync();
+                        }), true); break;
+            }
         }
 
         #endregion

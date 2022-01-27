@@ -62,13 +62,14 @@ namespace DataShareCore
         public enum DbTableAction
         {
             Default,
-            New,
-            Edit,
-            Copy,
-            Mark,
-            Delete,
-            Save,
             Cancel,
+            Copy,
+            Delete,
+            Edit,
+            Mark,
+            New,
+            Reload,
+            Save,
         }
 
         public enum MemoryLimitAction

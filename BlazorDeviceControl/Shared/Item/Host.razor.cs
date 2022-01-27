@@ -32,8 +32,14 @@ namespace BlazorDeviceControl.Shared.Item
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
                         HostItem = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (HostItem.EqualsNew())
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        {
                             HostItem.Id = (int)Id;
+                            HostItem.Name = "NEW HOST";
+                            HostItem.IdRRef = System.Guid.NewGuid();
+                            HostItem.Ip = "127.0.0.1";
+                            HostItem.MacAddress.Default();
+                        }
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

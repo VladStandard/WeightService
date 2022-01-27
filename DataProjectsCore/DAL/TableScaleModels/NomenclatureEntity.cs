@@ -13,10 +13,19 @@ namespace DataProjectsCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
+        /// <summary>
+        /// Дата создания.
+        /// </summary>
         public virtual DateTime? CreateDate { get; set; }
+        /// <summary>
+        /// Дата изменения.
+        /// </summary>
         public virtual DateTime? ModifiedDate { get; set; }
-        public virtual string Code { get; set; }
+        /// <summary>
+        /// Наименование.
+        /// </summary>
         public virtual string Name { get; set; }
+        public virtual string Code { get; set; }
         public virtual string SerializedRepresentationObject { get; set; }
 
         #endregion

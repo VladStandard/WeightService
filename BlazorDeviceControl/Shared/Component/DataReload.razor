@@ -2,6 +2,7 @@
 @using BlazorCore.Models
 @using DataProjectsCore
 @using DataProjectsCore.Utils
+@using static DataShareCore.ShareEnums
 @inherits RazorDisposable
 
 <MudElement HtmlTag="h3" Class="ma-0">
@@ -11,7 +12,7 @@
         class="oi oi-reload"
         ButtonStyle="ButtonStyle.Primary"
         Disabled=@AppSettings.DataAccess.IsDisabled 
-        Click=@(args => SetParameters.InvokeAsync())
+        Click=@(args => ActionAsync(UserSettings, DbTableAction.Reload, false))
         MouseEnter="@(args => TooltipService.Open(args, LocalizationData.DeviceControl.TableReadData))"
     />
     @if (IsShowItemsCount)
@@ -22,3 +23,5 @@
         />
     }
 </MudElement>
+
+@*Click=@(args => SetParameters.InvokeAsync())*@

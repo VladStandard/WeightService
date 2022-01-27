@@ -121,8 +121,8 @@ namespace DataShareCore
             public static string TableDelete => Lang == ShareEnums.Lang.English ? @"Delete record" : @"Удалить запись";
             public static string TableSelect => Lang == ShareEnums.Lang.English ? @"Highlight record" : @"Выделить запись";
             public static string TableIncludes => Lang == ShareEnums.Lang.English ? @"Included records" : @"Вложенные записи";
-            public static string TableRecordSave => Lang == ShareEnums.Lang.English ? @"Save record" : @"Сохранить запись";
-            public static string TableRecordCancel => Lang == ShareEnums.Lang.English ? @"Close record" : @"Закрыть запись";
+            public static string TableSave => Lang == ShareEnums.Lang.English ? @"Save record" : @"Сохранить запись";
+            public static string TableCancel => Lang == ShareEnums.Lang.English ? @"Close record" : @"Закрыть запись";
             public static string TablePluHavingPlu => Lang == ShareEnums.Lang.English ? @"The PLU table already has this number" : @"Таблица PLU уже имеет такой номер";
             #endregion
             #region Table fields
