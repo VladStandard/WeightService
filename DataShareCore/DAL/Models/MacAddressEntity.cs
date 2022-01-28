@@ -13,23 +13,30 @@ namespace DataShareCore.DAL.Models
             get => _value;
             set
             {
-                _value = value.Length == 12 ? value : string.Empty;
+                if (value == null || string.IsNullOrEmpty(value))
+                {
+                    _value = string.Empty;
+                }
+                else
+                {
+                    _value = value.Length switch
+                    {
+                        // 000000000000
+                        12 => value,
+                        // 00-00-00-00-00-00 // 00:00:00:00:00:00
+                        17 => $"{value[0]}{value[1]}{value[3]}{value[4]}{value[6]}{value[7]}" +
+                              $"{value[9]}{value[10]}{value[12]}{value[13]}{value[15]}{value[16]}",
+                        _ => value,
+                    };
+                }
             }
         }
 
-        public string ValuePrettyLookSpace => !string.IsNullOrEmpty(Value) 
-            ? $"{Value[0]}{Value[1]} {Value[2]}{Value[3]} {Value[4]}{Value[5]} " +
-              $"{Value[6]}{Value[7]} {Value[8]}{Value[9]} {Value[10]}{Value[11]}"
-            : string.Empty;
+        public string ValuePrettyLookSpace => GetValueAsString(' ');
 
-        public string ValuePrettyLookMinus => !string.IsNullOrEmpty(Value)
-            ? $"{Value[0]}{Value[1]}-{Value[2]}{Value[3]}-{Value[4]}{Value[5]}-" +
-              $"{Value[6]}{Value[7]}-{Value[8]}{Value[9]}-{Value[10]}{Value[11]}"
-            : string.Empty;
+        public string ValuePrettyLookMinus => GetValueAsString('-');
 
-        public string ValuePrettyLookColon =>
-            $"{Value[0]}{Value[1]}:{Value[2]}{Value[3]}:{Value[4]}{Value[5]}:" +
-            $"{Value[6]}{Value[7]}:{Value[8]}{Value[9]}:{Value[10]}{Value[11]}";
+        public string ValuePrettyLookColon => GetValueAsString(':');
 
         #endregion
 
@@ -96,6 +103,20 @@ namespace DataShareCore.DAL.Models
         public void Default()
         {
             Value = "000000000000";
+        }
+
+        private string GetValueAsString(char ch)
+        {
+            if (Value == null || string.IsNullOrEmpty(Value))
+                return string.Empty;
+            return Value.Length switch
+            {
+                12 => $"{Value[0]}{Value[1]}{ch}{Value[2]}{Value[3]}{ch}{Value[4]}{Value[5]}{ch}" +
+                      $"{Value[6]}{Value[7]}{ch}{Value[8]}{Value[9]}{ch}{Value[10]}{Value[11]}",
+                17 => $"{Value[0]}{Value[1]}{ch}{Value[3]}{Value[4]}{ch}{Value[6]}{Value[7]}{ch}" +
+                      $"{Value[9]}{Value[10]}{ch}{Value[12]}{Value[13]}{ch}{Value[15]}{Value[16]}",
+                _ => Value,
+            };
         }
 
         #endregion

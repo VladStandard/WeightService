@@ -17,7 +17,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
             Map(x => x.Port).CustomSqlType("SMALLINT").Column("Port").Nullable();
             Map(x => x.Password).CustomSqlType("VARCHAR(15)").Length(15).Column("Password").Nullable();
             References(x => x.PrinterType).Column("PrinterTypeId").Not.Nullable();
-            Map(x => x.Mac).CustomSqlType("VARCHAR(20)").Length(20).Column("Mac").Nullable();
+            Map(x => x.MacAddressValue).CustomSqlType("VARCHAR(20)").Column("Mac").Length(20).Nullable();
             Map(x => x.PeelOffSet).CustomSqlType("BIT").Column("PeelOffSet").Nullable();
             Map(x => x.DarknessLevel).CustomSqlType("SMALLINT").Column("DarknessLevel").Nullable();
             Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();

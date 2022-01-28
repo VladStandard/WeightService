@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Memory optimization
 ### Added
-- Shared.DataLoad.razor
+- Shared.ActionsLoad.razor
 
 ## [0.2.320] - 2021-07-28
 ### Changed

@@ -10,7 +10,7 @@
 
 @if (Item == null)
 {
-    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
 }
 else
 {
@@ -71,6 +71,6 @@ else
         </tbody>
     </MudSimpleTable>
     
-    <ItemSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this />
     <ItemDates ParentRazor=@this />
 }

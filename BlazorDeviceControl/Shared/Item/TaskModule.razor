@@ -10,14 +10,14 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-<DataReload Title=@LocalizationData.DeviceControl.ItemTaskModule SetParameters=@SetParametersAsync />
+<ActionsReload Title=@LocalizationData.DeviceControl.ItemTaskModule SetParameters=@SetParametersAsync />
 
 @if (Item == null)
 {
-    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
 }
 else
 {
     <TaskModules Uid=@TaskItem.Uid />
-    <ItemSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this />
 }

@@ -203,6 +203,8 @@ namespace DataProjectsCore
             public static string TableFieldLowerWeightThreshold => Lang == ShareEnums.Lang.English ? @"___" : @"Нижнее значение веса короба";
             public static string TableFieldMarked => Lang == ShareEnums.Lang.English ? @"___" : @"В архиве";
             public static string TableFieldMember => Lang == ShareEnums.Lang.English ? @"___" : @"Метод";
+            public static string TableFieldException => Lang == ShareEnums.Lang.English ? @"Exception" : @"Исключение";
+            public static string TableFieldInnerException => Lang == ShareEnums.Lang.English ? @"Inner exception" : @"Вложенное исключение";
             public static string TableFieldMessage => Lang == ShareEnums.Lang.English ? @"___" : @"Сообщение";
             public static string TableFieldModifiedDate => Lang == ShareEnums.Lang.English ? @"___" : @"Дата редактирования";
             public static string TableFieldName => Lang == ShareEnums.Lang.English ? @"___" : @"Наименование";

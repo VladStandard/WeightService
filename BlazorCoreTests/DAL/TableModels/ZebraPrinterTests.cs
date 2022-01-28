@@ -39,7 +39,7 @@ namespace BlazorCoreTests.DAL.TableModels
                         Port = sh,
                         Password = s,
                         PrinterType = new PrinterTypeEntity(),
-                        Mac = s,
+                        MacAddress = new DataShareCore.DAL.Models.MacAddressEntity(s),
                         PeelOffSet = b,
                         DarknessLevel = sh,
                     };
@@ -73,7 +73,7 @@ namespace BlazorCoreTests.DAL.TableModels
                         Port = default,
                         Password = null,
                         PrinterType = zebraPrinterTypeEntity,
-                        Mac = default,
+                        MacAddress = new DataShareCore.DAL.Models.MacAddressEntity(),
                         PeelOffSet = default,
                         DarknessLevel = default,
                     };

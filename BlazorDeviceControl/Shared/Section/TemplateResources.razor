@@ -12,7 +12,7 @@
 @using static DataShareCore.ShareEnums
 @inherits RazorDisposable
 
-<DataReload Title=@LocalizationData.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+<ActionsReload Title=@LocalizationData.DeviceControl.SectionTemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
 
 <RadzenGrid Style="margin-top: 5px;" 
     Data=@ItemsCast TItem="TemplateResourceEntity"
@@ -44,4 +44,4 @@
     </Columns>
 </RadzenGrid>
 
-<SectionActions ParentRazor=@this ButtonSettings=@ButtonSettings />
+<ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />

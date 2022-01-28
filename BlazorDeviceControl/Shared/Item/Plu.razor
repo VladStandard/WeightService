@@ -10,11 +10,11 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-<DataReload Title=@LocalizationData.DeviceControl.ItemPlu SetParameters=@SetParametersAsync />
+<ActionsReload Title=@LocalizationData.DeviceControl.ItemPlu SetParameters=@SetParametersAsync />
 
 @if (Item == null)
 {
-    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
 }
 else
 {
@@ -33,7 +33,7 @@ else
                 <td>
                     @if (ScaleItems == null)
                     {
-                        <DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -51,7 +51,7 @@ else
                 <td>
                     @if (TemplateItems == null)
                     {
-                        <DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -71,7 +71,7 @@ else
                 <td>
                     @if (NomenclatureItems == null)
                     {
-                        <DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -237,6 +237,6 @@ else
     
     <PrinterResources Table=@Table PrinterId=@Id />
     
-    <ItemSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this />
     <ItemDates ParentRazor=@this />
 }

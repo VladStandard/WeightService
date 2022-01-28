@@ -1,4 +1,4 @@
-﻿@page "/component/sectionactions"
+﻿@page "/component/actionsbuttons"
 @using BlazorCore.Models
 @using DataProjectsCore
 @using DataProjectsCore.Utils
@@ -12,35 +12,35 @@
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.New, false))
                 ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
+                Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                 Text=@LocalizationData.DeviceControl.TableActionNew Disabled=@AppSettings.DataAccess.IsDisabled />
         }
         @if (ButtonSettings.IsShowEdit)
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
                 ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
+                Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                 Text=@LocalizationData.DeviceControl.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
         }
         @if (ButtonSettings.IsShowCopy && AppSettings.IsDebug)
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.Copy, false))
                 ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
+                Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                 Text=@LocalizationData.DeviceControl.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
         }
         @if (ButtonSettings.IsShowMark)
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.Mark, false))
                 ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
+                Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                 Text=@LocalizationData.DeviceControl.TableActionMark Disabled=@AppSettings.DataAccess.IsDisabled />
         }
         @if (ButtonSettings.IsShowDelete && AppSettings.IsDebug)
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.Delete, false))
                 ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 175px; height: 25px; font-size: 14px; "
+                Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                 Text=@LocalizationData.DeviceControl.TableActionDelete Disabled=@AppSettings.DataAccess.IsDisabled />
         }
     </div>

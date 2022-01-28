@@ -5,7 +5,7 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-<DataReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync Items=@Items />
+<ActionsReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync Items=@Items />
     
 <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.AppSettings</MudElement>
 <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -20,7 +20,7 @@
             <td>@LocalizationCore.Strings.Main.ProgramVer</td>
             @if (string.IsNullOrEmpty(ProgramVer))
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -31,7 +31,7 @@
             <td>@LocalizationCore.Strings.Main.CoreVer</td>
             @if (string.IsNullOrEmpty(CoreVer))
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -42,7 +42,7 @@
             <td>@LocalizationCore.Strings.Main.HostName</td>
             @if (string.IsNullOrEmpty(Environment.MachineName))
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -53,7 +53,7 @@
             <td>@LocalizationCore.Strings.SqlServer</td>
             @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Server))
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -64,7 +64,7 @@
             <td>@LocalizationCore.Strings.SqlDb</td>
             @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Db))
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -82,7 +82,7 @@
             }
             @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Username))
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -93,7 +93,7 @@
             <td>@LocalizationCore.Strings.SqlDbCurSize</td>
             @if (DbCurSize == 0)
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -108,7 +108,7 @@
             <td>@LocalizationCore.Strings.SqlDbFillSize</td>
             @if (DbFillSize == 0)
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -137,7 +137,7 @@
             <td>@LocalizationCore.Strings.Main.AuthorizingUserName</td>
             @if (string.IsNullOrEmpty(UserSettings.Identity.Name))
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -163,7 +163,7 @@
             <td>@LocalizationCore.Strings.Main.Language</td>
             @if (TemplateLanguages == null)
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -180,7 +180,7 @@
             <td>@LocalizationCore.Strings.Main.DebugMode</td>
             @if (TemplateIsDebug == null)
             {
-                <td><DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -198,7 +198,7 @@
             <td>@LocalizationCore.Share.SectionRowCount</td>
             @if (AppSettings.JsonAppSettings == null)
             {
-                <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=BlazorCore.ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -213,7 +213,7 @@
             <td>@LocalizationCore.Share.ItemRowCount</td>
             @if (AppSettings.JsonAppSettings == null)
             {
-                <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=BlazorCore.ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -228,7 +228,7 @@
             <td>@LocalizationCore.Share.ButtonWidth</td>
             @if (AppSettings.JsonAppSettings == null)
             {
-                <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=BlazorCore.ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -243,7 +243,7 @@
             <td>@LocalizationCore.Share.ButtonHeight</td>
             @if (AppSettings.JsonAppSettings == null)
             {
-                <td><DataLoad DataLoadItem=BlazorCore.ShareEnums.DataLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=BlazorCore.ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {

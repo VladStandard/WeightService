@@ -12,7 +12,7 @@
 @using static DataShareCore.ShareEnums
 @inherits RazorDisposable
 
-<DataReload Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+<ActionsReload Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
 
 <RadzenGrid Style="margin-top: 5px;"
     Data=@ItemsCast TItem="PrinterEntity"
@@ -33,9 +33,9 @@
                             Type="string" Width="20%" />
         <RadzenGridColumn TItem="PrinterEntity" Property="Port" Title=@LocalizationData.DeviceControl.TableFieldPrinterPort
                             Type="string" Width="20%" />
-        <RadzenGridColumn TItem="PrinterEntity" Property="Mac" Title=@LocalizationData.DeviceControl.TableFieldPrinterMac
+        <RadzenGridColumn TItem="PrinterEntity" Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldPrinterMac
                             Type="string" Width="20%" />
     </Columns>
 </RadzenGrid>
 
-<SectionActions ParentRazor=@this ButtonSettings=@ButtonSettings />
+<ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />

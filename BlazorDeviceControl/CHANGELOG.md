@@ -6,9 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.070] - 2022-01-26
-### Added
-- 
+## [0.6.080] - 2022-01-28
+### Chaned
+- ActionsButtons
+- ActionsFilter
+- ActionsLoad
+- ActionsReload
+- ActionsSave
+- ItemDates
 
 ## [0.6.050] - 2022-01-21
 ### Added
@@ -45,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - BlazorDeviceControl.Shared.Section.Scales
 ### Added
 - BlazorDeviceControl.Shared.Item.EntityActions
-- BlazorDeviceControl.Shared.Section.SectionActions
+- BlazorDeviceControl.Shared.Section.ActionsButtons
 
 ## [0.5.380] - 2021-08-13
 ### Changed

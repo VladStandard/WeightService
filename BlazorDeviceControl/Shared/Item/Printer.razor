@@ -11,11 +11,11 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-<DataReload Title=@LocalizationData.DeviceControl.ItemPrinter SetParameters=@SetParametersAsync />
+<ActionsReload Title=@LocalizationData.DeviceControl.ItemPrinter SetParameters=@SetParametersAsync />
 
 @if (Item == null)
 {
-    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
 }
 else
 {
@@ -30,35 +30,35 @@ else
         </thead>
         <tbody>
             <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="true" 
+                        TValue="int" @bind-Value=@PrinterItem.Id />
+				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
                         TValue="string" @bind-Value=@PrinterItem.Name />
                 </td>
-                <td>@LocalizationData.DeviceControl.TableFieldPrinterMac</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
-                        TValue="string" @bind-Value=@PrinterItem.Mac />
-                </td>
             </tr>
             <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldPrinterMac</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                        TValue="string" @bind-Value=@PrinterItem.MacAddress.Value />
+                </td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinter</td>
                 <td>
                     <RadzenLink Style="width: 100%; text-align: center; margin-left: 5px; " Disabled="false" 
                         TValue="string" Target="_blank" Path=@PrinterItem.Link 
                         Text=@LocalizationData.DeviceControl.TableFieldPrinterControlPanel />
                 </td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterPort</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="false" 
                         TValue="short" @bind-Value=@PrinterItem.Port />
-                </td>
-            </tr>
-            <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldPrinterPassword</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
-                        TValue="string" @bind-Value=@PrinterItem.Password />
                 </td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterIp</td>
                 <td>
@@ -67,11 +67,16 @@ else
                 </td>
             </tr>
             <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldPrinterPassword</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                        TValue="string" @bind-Value=@PrinterItem.Password />
+                </td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterType</td>
                 <td>
                     @if (PrinterTypeItems == null)
                     {
-                        <DataLoad DataLoadItem=ShareEnums.DataLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -92,6 +97,6 @@ else
     
     <PrinterResources Table=@Table PrinterId=@Id />
     
-    <ItemSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this />
     <ItemDates ParentRazor=@this />
 }

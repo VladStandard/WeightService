@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorDeviceControl.Shared.Component
 {
-    public partial class DataReload
+    public partial class ActionsReload
     {
         #region Public and private fields and properties
 

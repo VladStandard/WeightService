@@ -8,8 +8,8 @@
     <AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-    <AssemblyVersion>0.6.070</AssemblyVersion>
-    <FileVersion>0.6.070</FileVersion>
+    <AssemblyVersion>0.6.080</AssemblyVersion>
+    <FileVersion>0.6.080</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
@@ -79,14 +79,17 @@
       <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
   </ItemGroup>
   <ItemGroup>
-    <Watch Remove="Shared\Component\DataFilter.razor" />
+    <Watch Remove="Shared\Component\ActionsButtons.razor" />
+    <Watch Remove="Shared\Component\ActionsFilter.razor" />
+    <Watch Remove="Shared\Component\ActionsLoad.razor" />
+    <Watch Remove="Shared\Component\ActionsReload.razor" />
+    <Watch Remove="Shared\Component\ActionsSave.razor" />
     <Watch Remove="Shared\Component\ItemDates.razor" />
-    <Watch Remove="Shared\Component\ItemSave.razor" />
-    <Watch Remove="Shared\Component\SectionActions.razor" />
     <Watch Remove="Shared\Item\BarcodeType.razor" />
     <Watch Remove="Shared\Item\TaskModule.razor" />
     <Watch Remove="Shared\Section\SectionIdActions.razor" />
     <Watch Remove="Shared\Section\TaskModules.razor" />
+    <Watch Remove="Shared\Sys\Errors.razor" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />

@@ -19,7 +19,7 @@ namespace BlazorDeviceControl.Shared.Sys
     {
         #region Public and private fields and properties
 
-        private List<LogSummaryEntity> ItemsCast => Items == null ? new List<LogSummaryEntity>() : Items.Select(x => (LogSummaryEntity)x).ToList();
+        private List<LogQuickEntity> ItemsCast => Items == null ? new List<LogQuickEntity>() : Items.Select(x => (LogQuickEntity)x).ToList();
 
         #endregion
 
@@ -34,14 +34,14 @@ namespace BlazorDeviceControl.Shared.Sys
                     {
                         Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs);
-                        Items = new List<LogSummaryEntity>().ToList<BaseEntity>();
+                        Items = new List<LogQuickEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {
                             if (obj is object[] { Length: 11 } item)
                             {
                                 if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                                 {
-                                    Items.Add(new LogSummaryEntity()
+                                    Items.Add(new LogQuickEntity()
                                     {
                                         Uid = uid,
                                         CreateDt = Convert.ToDateTime(item[1]),

@@ -21,7 +21,12 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public virtual short Port { get; set; }
         public virtual string Password { get; set; } = string.Empty;
         public virtual PrinterTypeEntity PrinterType { get; set; } = new PrinterTypeEntity();
-        public virtual string Mac { get; set; } = string.Empty;
+        public virtual MacAddressEntity MacAddress { get; set; }
+        public virtual string MacAddressValue
+        {
+            get => MacAddress.Value;
+            set => MacAddress.Value = value;
+        }
         public virtual bool PeelOffSet { get; set; }
         public virtual short DarknessLevel { get; set; }
         public virtual bool Marked { get; set; }
@@ -33,6 +38,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public PrinterEntity()
         {
             PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            MacAddress = new MacAddressEntity();
         }
 
         #endregion
@@ -50,7 +56,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
                    $"{nameof(Port)}: {Port}. " +
                    $"{nameof(Password)}: {Password}. " +
                    $"{nameof(PrinterType)}: {strPrinterType}. " +
-                   $"{nameof(Mac)}: {Mac}. " +
+                   $"{nameof(MacAddress)}: {MacAddress}. " +
                    $"{nameof(PeelOffSet)}: {PeelOffSet}. " +
                    $"{nameof(DarknessLevel)}: {DarknessLevel}. " +
                    $"{nameof(Marked)}: {Marked}. ";
@@ -68,7 +74,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
                    Equals(Port, entity.Port) &&
                    Equals(Password, entity.Password) &&
                    Equals(PrinterType, entity.PrinterType) &&
-                   Equals(Mac, entity.Mac) &&
+                   Equals(MacAddress, entity.MacAddress) &&
                    Equals(PeelOffSet, entity.PeelOffSet) &&
                    Equals(DarknessLevel, entity.DarknessLevel) &&
                    Equals(Marked, entity.Marked);
@@ -96,6 +102,8 @@ namespace DataProjectsCore.DAL.TableScaleModels
         {
             if (PrinterType != null && !PrinterType.EqualsDefault())
                 return false;
+            if (MacAddress != null && !MacAddress.EqualsDefault())
+                return false;
             return base.EqualsDefault() &&
                    Equals(CreateDate, default(DateTime)) &&
                    Equals(ModifiedDate, default(DateTime)) &&
@@ -103,7 +111,6 @@ namespace DataProjectsCore.DAL.TableScaleModels
                    Equals(Ip, default(string)) &&
                    Equals(Port, default(short)) &&
                    Equals(Password, default(string)) &&
-                   Equals(Mac, default(string)) &&
                    Equals(PeelOffSet, default(bool)) &&
                    Equals(DarknessLevel, default(short)) &&
                    Equals(Marked, default(bool));
@@ -122,7 +129,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
                 Port = Port,
                 Password = Password,
                 PrinterType = (PrinterTypeEntity)PrinterType.Clone(),
-                Mac = Mac,
+                MacAddress = (MacAddressEntity)MacAddress.Clone(),
                 PeelOffSet = PeelOffSet,
                 DarknessLevel = DarknessLevel,
                 Marked = Marked,

@@ -6,7 +6,7 @@ using System;
 
 namespace DataShareCore.DAL.DataModels
 {
-    public class LogSummaryEntity : BaseEntity
+    public class LogQuickEntity : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -41,7 +41,7 @@ namespace DataShareCore.DAL.DataModels
                    $"{nameof(Message)}: {Message}. ";
         }
 
-        public virtual bool Equals(LogSummaryEntity entity)
+        public virtual bool Equals(LogQuickEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
@@ -64,7 +64,7 @@ namespace DataShareCore.DAL.DataModels
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((LogSummaryEntity)obj);
+            return Equals((LogQuickEntity)obj);
         }
 
         public override int GetHashCode()
@@ -74,7 +74,7 @@ namespace DataShareCore.DAL.DataModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new LogSummaryEntity());
+            return Equals(new LogQuickEntity());
         }
 
         public new virtual bool EqualsDefault()
@@ -95,7 +95,7 @@ namespace DataShareCore.DAL.DataModels
 
         public override object Clone()
         {
-            return new LogSummaryEntity
+            return new LogQuickEntity
             {
                 Uid = Uid,
                 CreateDt = CreateDt,

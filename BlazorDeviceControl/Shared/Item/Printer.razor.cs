@@ -37,6 +37,13 @@ namespace BlazorDeviceControl.Shared.Item
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             PrinterItem.Id = (int)Id;
                         PrinterTypeItems = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null).ToList();
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        {
+                            PrinterItem.Id = (int)Id;
+                            PrinterItem.Name = "NEW PRINTER";
+                            PrinterItem.Ip = "127.0.0.1";
+                            PrinterItem.MacAddress.Default();
+                        }
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

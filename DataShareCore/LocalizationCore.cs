@@ -107,8 +107,9 @@ namespace DataShareCore
             #region System
             public static string SysAccess => Lang == ShareEnums.Lang.English ? @"Access" : @"Доступ";
             public static string SysAccount => Lang == ShareEnums.Lang.English ? @"Account" : @"Аккаунт";
-            public static string SysLogin => Lang == ShareEnums.Lang.English ? @"Log in" : @"Вход";
+            public static string SysErrors => Lang == ShareEnums.Lang.English ? @"Errors" : @"Ошибки";
             public static string SysInfo => Lang == ShareEnums.Lang.English ? @"Info" : @"Информация";
+            public static string SysLogin => Lang == ShareEnums.Lang.English ? @"Log in" : @"Вход";
             public static string SysLogs => Lang == ShareEnums.Lang.English ? @"Logs" : @"Логи";
             #endregion
             #region Table
@@ -162,11 +163,12 @@ namespace DataShareCore
             #endregion
             #region URI system
             public const string UriRouteRoot = "/";
-            public const string UriRouteSystemAccount = "/account";
-            public const string UriRouteSystemLogs = "/system/logs";
             public const string UriRouteSystemAccess = "/system/access";
+            public const string UriRouteSystemAccount = "/account";
             public const string UriRouteSystemDocs = "/system/docs";
+            public const string UriRouteSystemErrors = "/system/errors";
             public const string UriRouteSystemInfo = "/system/info";
+            public const string UriRouteSystemLogs = "/system/logs";
             public const string UriRouteSystemSecurity = "/system/security";
             #endregion
             #region Input control

@@ -93,7 +93,7 @@ namespace DataShareCore
             NotSubjectNormalization = 3,
         }
 
-        public enum DataLoad
+        public enum ActionsLoad
         {
             None,
             Loading,

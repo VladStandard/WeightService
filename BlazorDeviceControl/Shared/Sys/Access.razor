@@ -11,7 +11,7 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-<DataReload Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+<ActionsReload Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
 
 <RadzenGrid Style="margin-top: 5px; "
     Data=@ItemsCast TItem="AccessEntity"
@@ -55,4 +55,4 @@
     </Columns>
 </RadzenGrid>
 
-<SectionActions ParentRazor=@this />
+<ActionsButtons ParentRazor=@this />

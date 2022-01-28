@@ -3,20 +3,22 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableScaleModels;
+using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
+using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Item
+namespace BlazorDeviceControl.Shared.Sys
 {
-    public partial class PrinterType
+    public partial class Errors
     {
         #region Public and private fields and properties
 
-        public PrinterTypeEntity PrinterTypeItem { get => (PrinterTypeEntity)Item; set => Item = value; }
+        private List<ErrorEntity> ItemsCast => Items == null ? new List<ErrorEntity>() : Items.Select(x => (ErrorEntity)x).ToList();
 
         #endregion
 
@@ -30,14 +32,11 @@ namespace BlazorDeviceControl.Shared.Item
                 {
                     lock (Locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
-                        PrinterTypeItem = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                        {
-                            PrinterTypeItem.Id = (int)Id;
-                            PrinterTypeItem.Name = "NEW PRINTER_TYPE";
-                        }
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Errors);
+                        Items = AppSettings.DataAccess.Crud.GetEntities<ErrorEntity>(null,
+                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
+                            .ToList<BaseEntity>();
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

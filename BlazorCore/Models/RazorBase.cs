@@ -591,13 +591,15 @@ namespace BlazorCore.Models
             AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
 
-        public void RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel, string questionAdd,
-            Task task, bool continueOnCapturedContext,
+        public void RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel, 
+            string questionAdd, Task task, bool continueOnCapturedContext,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
-                string question = string.IsNullOrEmpty(questionAdd) ? LocalizationCore.Strings.DialogQuestion : questionAdd;
+                string question = string.IsNullOrEmpty(questionAdd) 
+                    ? LocalizationCore.Strings.DialogQuestion 
+                    : questionAdd;
                 Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
                 bool? result = dialog.Result;
                 if (result == true)
@@ -929,7 +931,19 @@ namespace BlazorCore.Models
                 }), false);
         }
 
-        private void ItemSaveSystem(ProjectsEnums.TableSystem tableSystem)
+        private string GetQuestionAdd()
+        {
+            if (ParentRazor?.Item != null)
+            {
+                if (ParentRazor.Item.PrimaryColumn.Name == ColumnName.Id)
+                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"ID: {ParentRazor.Item.Id}";
+                else if (ParentRazor.Item.PrimaryColumn.Name == ColumnName.Uid)
+                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"UID: {ParentRazor.Item.Uid}";
+            }
+            return string.Empty;
+        }
+
+        private void ItemSystemSave(ProjectsEnums.TableSystem tableSystem)
         {
             switch (tableSystem)
             {
@@ -954,7 +968,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void ItemSaveScale(ProjectsEnums.TableScale tableScale)
+        private void ItemScaleSave(ProjectsEnums.TableScale tableScale)
         {
             switch (tableScale)
             {
@@ -1021,7 +1035,7 @@ namespace BlazorCore.Models
             }
         }
 
-        private void ItemSaveDwh(ProjectsEnums.TableDwh tableDwh)
+        private void ItemDwhSave(ProjectsEnums.TableDwh tableDwh)
         {
             switch (tableDwh)
             {
@@ -1042,7 +1056,7 @@ namespace BlazorCore.Models
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasksWithQeustion(LocalizationCore.Strings.TableSave, LocalizationCore.Strings.DialogResultSuccess,
-                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, "",
+                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
                     lock (Locker)
@@ -1050,13 +1064,13 @@ namespace BlazorCore.Models
                         switch (Table)
                         {
                             case TableSystemEntity:
-                                ItemSaveSystem(ProjectsEnums.GetTableSystem(Table.Name));
+                                ItemSystemSave(ProjectsEnums.GetTableSystem(Table.Name));
                                 break;
                             case TableScaleEntity:
-                                ItemSaveScale(ProjectsEnums.GetTableScale(Table.Name));
+                                ItemScaleSave(ProjectsEnums.GetTableScale(Table.Name));
                                 break;
                             case TableDwhEntity:
-                                ItemSaveDwh(ProjectsEnums.GetTableDwh(Table.Name));
+                                ItemDwhSave(ProjectsEnums.GetTableDwh(Table.Name));
                                 break;
                         }
                         RouteSectionNavigate(isNewWindow);
@@ -1075,7 +1089,7 @@ namespace BlazorCore.Models
             {
                 case DbTableAction.Delete:
                     RunTasksWithQeustion(LocalizationCore.Strings.TableDelete, LocalizationCore.Strings.DialogResultSuccess,
-                        LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, "",
+                        LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
                         new Task(async () =>
                         {
                             if (ParentRazor?.Item == null) return;

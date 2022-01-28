@@ -117,7 +117,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
                 ModifiedDate = ModifiedDate,
                 Name = Name,
                 Ip = Ip,
-                MacAddress = MacAddress,
+                MacAddress = (MacAddressEntity)MacAddress.Clone(),
                 IdRRef = IdRRef,
                 Marked = Marked,
                 SettingsFile = SettingsFile,

@@ -10,11 +10,11 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-<DataReload Title=@LocalizationData.DeviceControl.ItemPrinterType SetParameters=@SetParametersAsync />
+<ActionsReload Title=@LocalizationData.DeviceControl.ItemPrinterType SetParameters=@SetParametersAsync />
 
 @if (Item == null)
 {
-    <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
 }
 else
 {
@@ -36,13 +36,13 @@ else
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
-                    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
                         TValue="string" @bind-Value=@PrinterTypeItem.Name />
 				</td>
             </tr>
         </tbody>
     </MudSimpleTable>
     
-    <ItemSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this />
     <ItemDates ParentRazor=@this />
 }

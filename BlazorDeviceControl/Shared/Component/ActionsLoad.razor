@@ -1,4 +1,4 @@
-﻿@page "/component/dataload"
+﻿@page "/component/actionsload"
 @using BlazorCore.Models
 @using DataProjectsCore.Utils
 @using DataShareCore
@@ -6,7 +6,7 @@
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-        @if (DataLoadItem == ShareEnums.DataLoad.None)
+        @if (DataLoadItem == ShareEnums.ActionsLoad.None)
         {
             @if (IsShowProgress)
             {
@@ -20,19 +20,19 @@
         {
             @switch (DataLoadItem)
             {
-                case ShareEnums.DataLoad.Loading:
+                case ShareEnums.ActionsLoad.Loading:
                     <RadzenLabel 
                         Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
                         Text=@LocalizationCore.Strings.Main.DataLoading
                     />
                     break;
-                case ShareEnums.DataLoad.Success:
+                case ShareEnums.ActionsLoad.Success:
                     <RadzenLabel 
                         Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
                         Text=@LocalizationCore.Strings.Main.DataLoadComplete 
                     />
                     break;
-                case ShareEnums.DataLoad.Error:
+                case ShareEnums.ActionsLoad.Error:
                     <RadzenLabel 
                         Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
                         Text=@LocalizationCore.Strings.Main.DataLoadError

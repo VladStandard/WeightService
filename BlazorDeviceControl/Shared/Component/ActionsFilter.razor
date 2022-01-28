@@ -1,4 +1,4 @@
-﻿@page "/component/datafilter"
+﻿@page "/component/actionsfilter"
 @using BlazorCore.Models
 @using DataProjectsCore
 @using DataProjectsCore.Utils
@@ -8,7 +8,7 @@
 <MudElement HtmlTag="h3" Class="ma-0">
     @if (Items == null)
     {
-        <DataLoad DataLoadItem=ShareEnums.DataLoad.Loading IsShowProgress=true />
+        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
     }
     else
     {
