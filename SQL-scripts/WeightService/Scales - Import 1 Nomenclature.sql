@@ -1,5 +1,6 @@
+------------------------------------------------------------------------------------------------------------------------
 -- Scales - Import 1 Nomenclature
--- 1. Connect from PALYCH\LUTON
+------------------------------------------------------------------------------------------------------------------------
 -- use [ScalesDB]
 -- After all see the script: Scales - PLU insert new
 set nocount on
@@ -192,3 +193,4 @@ end
 set nocount off
 -- Committed local data.
 select * from [db_scales].[Nomenclature] [N] where [N].[Code] in (select [Code] from @products) order by [Id]
+------------------------------------------------------------------------------------------------------------------------

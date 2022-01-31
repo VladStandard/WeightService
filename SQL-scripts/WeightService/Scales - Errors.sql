@@ -1,12 +1,14 @@
 ------------------------------------------------------------------------------------------------------------------------
--- Scales - Access diagram summary
+-- Scales - Errors
 ------------------------------------------------------------------------------------------------------------------------
-SELECT
-	[UID]
-   ,[CREATE_DT]
-   ,[CHANGE_DT]
-   ,[user]
-   ,[LEVEL]
-FROM [db_scales].[ACCESS]
-ORDER BY [user] DESC
+SELECT [Id]
+      ,[CreatedDate]
+      ,[ModifiedDate]
+      ,[FilePath]
+      ,[LineNumber]
+      ,[MemberName]
+      ,[Exception]
+      ,[InnerException]
+FROM [db_scales].[Errors]
+ORDER BY [CreatedDate] DESC
 ------------------------------------------------------------------------------------------------------------------------

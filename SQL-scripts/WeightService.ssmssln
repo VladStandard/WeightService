@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Scales - Access diagram summary.sql = WeightService\Scales - Access diagram summary.sql
 		WeightService\Scales - Access insert new user.sql = WeightService\Scales - Access insert new user.sql
 		WeightService\Scales - Duplicates Nomenclature.sql = WeightService\Scales - Duplicates Nomenclature.sql
+		WeightService\Scales - Errors.sql = WeightService\Scales - Errors.sql
 		WeightService\Scales - Import 1 Nomenclature.sql = WeightService\Scales - Import 1 Nomenclature.sql
 		WeightService\Scales - Import 2 PLU.sql = WeightService\Scales - Import 2 PLU.sql
 		WeightService\Scales - Labels.sql = WeightService\Scales - Labels.sql
@@ -90,7 +91,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AAE754EA-AE82-4F8B-8F4B-69C538086E2F}.Default|Default.ActiveCfg = Default
+		{1D1E4D32-5A89-4856-9F3F-3605C3FD248E}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

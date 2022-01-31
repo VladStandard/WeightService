@@ -1,5 +1,6 @@
+------------------------------------------------------------------------------------------------------------------------
 -- Scales - Import 2 PLU
--- 1. Connect from PALYCH\LUTON
+------------------------------------------------------------------------------------------------------------------------
 -- Before see the script: Scales - Import nomenclatures
 set nocount on
 use [ScalesDB]
@@ -287,3 +288,4 @@ end
 set nocount off
 -- Committed local data.
 select * from [db_scales].[PLU] where [ScaleId]=@scale_id order by [Id]
+------------------------------------------------------------------------------------------------------------------------
