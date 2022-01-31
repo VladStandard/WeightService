@@ -3,7 +3,6 @@
 
 using DataProjectsCore.DAL.Models;
 using NHibernate;
-using System;
 using System.Collections.Generic;
 
 namespace DataProjectsCore.DAL.TableScaleModels

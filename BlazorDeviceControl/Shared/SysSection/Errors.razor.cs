@@ -13,13 +13,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Sys
+namespace BlazorDeviceControl.Shared.SysSection
 {
-    public partial class Access
+    public partial class Errors
     {
         #region Public and private fields and properties
 
-        private List<AccessEntity> ItemsCast => Items == null ? new List<AccessEntity>() : Items.Select(x => (AccessEntity)x).ToList();
+        private List<ErrorEntity> ItemsCast => Items == null ? new List<ErrorEntity>() : Items.Select(x => (ErrorEntity)x).ToList();
 
         #endregion
 
@@ -33,26 +33,30 @@ namespace BlazorDeviceControl.Shared.Sys
                 {
                     lock (Locker)
                     {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess);
-                        Items = new List<AccessEntity>().ToList<BaseEntity>();
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Errors);
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Errors.GetErrors);
+                        Items = new List<ErrorEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {
-                            if (obj is object[] { Length: 5 } item)
+                            if (obj is object[] { Length: 8 } item)
                             {
-                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                                if (int.TryParse(Convert.ToString(item[0]), out int id))
                                 {
-                                    Items.Add(new AccessEntity()
+                                    Items.Add(new ErrorEntity()
                                     {
-                                        Uid = uid,
-                                        CreateDt = Convert.ToDateTime(item[1]),
-                                        ChangeDt = Convert.ToDateTime(item[2]),
-                                        User = Convert.ToString(item[3]),
-                                        Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
+                                        Id = id,
+                                        CreatedDate = Convert.ToDateTime(item[1]),
+                                        ModifiedDate = Convert.ToDateTime(item[2]),
+                                        FilePath = Convert.ToString(item[3]),
+                                        LineNumber = Convert.ToInt32(item[4]),
+                                        MemberName = Convert.ToString(item[5]),
+                                        Exception = Convert.ToString(item[6]),
+                                        InnerException = Convert.ToString(item[7]),
                                     });
                                 }
                             }
                         }
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

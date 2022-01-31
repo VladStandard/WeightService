@@ -650,14 +650,19 @@ namespace BlazorCore.Models
                             page = LocalizationData.DeviceControl.UriRouteItem.Log;
                             break;
                         case ProjectsEnums.TableSystem.Accesses:
+                            page = LocalizationData.DeviceControl.UriRouteItem.Access;
                             break;
                         case ProjectsEnums.TableSystem.Errors:
+                            page = LocalizationData.DeviceControl.UriRouteItem.Error;
                             break;
                         case ProjectsEnums.TableSystem.LogTypes:
+                            page = LocalizationData.DeviceControl.UriRouteItem.LogType;
                             break;
                         case ProjectsEnums.TableSystem.Tasks:
+                            page = LocalizationData.DeviceControl.UriRouteItem.TaskModule;
                             break;
                         case ProjectsEnums.TableSystem.TasksTypes:
+                            page = LocalizationData.DeviceControl.UriRouteItem.TaskTypeModule;
                             break;
                     }
                     break;
@@ -724,16 +729,22 @@ namespace BlazorCore.Models
                             case ProjectsEnums.TableSystem.Default:
                                 break;
                             case ProjectsEnums.TableSystem.Accesses:
+                                Uid = Guid.NewGuid();
                                 break;
                             case ProjectsEnums.TableSystem.Errors:
+                                Id = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                 break;
                             case ProjectsEnums.TableSystem.Logs:
+                                Uid = Guid.NewGuid();
                                 break;
                             case ProjectsEnums.TableSystem.LogTypes:
+                                Uid = Guid.NewGuid();
                                 break;
                             case ProjectsEnums.TableSystem.Tasks:
+                                Uid = Guid.NewGuid();
                                 break;
                             case ProjectsEnums.TableSystem.TasksTypes:
+                                Uid = Guid.NewGuid();
                                 break;
                         }
                         break;
@@ -797,17 +808,16 @@ namespace BlazorCore.Models
         {
             if (TableAction == DbTableAction.New)
             {
-                //NavigationManager.NavigateTo($"{page}/{TableAction}");
-                if (Id != null)
+                if (Item.PrimaryColumn.Name == ColumnName.Id)
                     NavigationManager.NavigateTo($"{page}/{Id}/{TableAction}");
-                else if (Uid != null && !Equals(Uid, Guid.Empty))
+                else if (Item.PrimaryColumn.Name == ColumnName.Uid)
                     NavigationManager.NavigateTo($"{page}/{Uid}/{TableAction}");
             }
             else
             {
-                if (Id != null)
+                if (Item.PrimaryColumn.Name == ColumnName.Id)
                     NavigationManager.NavigateTo($"{page}/{Id}");
-                else if (Uid != null && !Equals(Uid, Guid.Empty))
+                else if (Item.PrimaryColumn.Name == ColumnName.Uid)
                     NavigationManager.NavigateTo($"{page}/{Uid}");
             }
         }

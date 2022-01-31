@@ -9,6 +9,7 @@
 @using BlazorDeviceControl.Shared.Section
 @using DataShareCore
 @using DataShareCore.DAL.DataModels
+@using static DataShareCore.ShareEnums
 @inherits RazorDisposable
 
 <ActionsReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
@@ -16,6 +17,7 @@
 <RadzenGrid Style="margin-top: 5px; "
     Data=@ItemsCast TItem="ErrorEntity"
     RowSelect=@(args => ItemSelectAsync(args))
+    RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
     AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
     <Columns >
@@ -28,22 +30,19 @@
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
-            TItem="ErrorEntity" Property="FilePath" TextAlign="TextAlign.Left"
-            Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="12%" />
+            TItem="ErrorEntity" Property="FilePathShort" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="13%" />
         <RadzenGridColumn 
-            TItem="ErrorEntity" Property="LineNumber" TextAlign="TextAlign.Left"
-            Title=@LocalizationData.DeviceControl.TableFieldLine Type="int" Width="7%" />
+            TItem="ErrorEntity" Property="LineNumber" TextAlign="TextAlign.Center"
+            Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="4%" />
         <RadzenGridColumn 
             TItem="ErrorEntity" Property="MemberName" TextAlign="TextAlign.Left"
             Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="12%" />
         <RadzenGridColumn 
-            TItem="ErrorEntity" Property="Exception" TextAlign="TextAlign.Center"
-            Title=@LocalizationData.DeviceControl.TableFieldException Type="int" Width="5%">
+            TItem="ErrorEntity" Property="Exception" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldException Type="int" Width="56%">
         </RadzenGridColumn>
-        <RadzenGridColumn 
-            TItem="ErrorEntity" Property="InnerException" TextAlign="TextAlign.Left"
-            Title=@LocalizationData.DeviceControl.TableFieldInnerException Type="string" Width="14%" />
     </Columns>
 </RadzenGrid>
 
-<ActionsButtons ParentRazor=@this />
+<ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />

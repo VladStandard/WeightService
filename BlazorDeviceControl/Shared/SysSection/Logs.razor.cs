@@ -1,0 +1,70 @@
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+using DataProjectsCore;
+using DataProjectsCore.DAL;
+using DataProjectsCore.Models;
+using DataShareCore;
+using DataShareCore.DAL.DataModels;
+using DataShareCore.DAL.Models;
+using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace BlazorDeviceControl.Shared.SysSection
+{
+    public partial class Logs
+    {
+        #region Public and private fields and properties
+
+        private List<LogQuickEntity> ItemsCast => Items == null ? new List<LogQuickEntity>() : Items.Select(x => (LogQuickEntity)x).ToList();
+
+        #endregion
+
+        #region Public and private methods
+
+        public override async Task SetParametersAsync(ParameterView parameters)
+        {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+                new Task(async () =>
+                {
+                    lock (Locker)
+                    {
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs);
+                        Items = new List<LogQuickEntity>().ToList<BaseEntity>();
+                        foreach (object obj in objects)
+                        {
+                            if (obj is object[] { Length: 11 } item)
+                            {
+                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                                {
+                                    Items.Add(new LogQuickEntity()
+                                    {
+                                        Uid = uid,
+                                        CreateDt = Convert.ToDateTime(item[1]),
+                                        Scale = Convert.ToString(item[2]),
+                                        Host = Convert.ToString(item[3]),
+                                        App = Convert.ToString(item[4]),
+                                        Version = Convert.ToString(item[5]),
+                                        File = Convert.ToString(item[6]),
+                                        Line = Convert.ToInt32(item[7]),
+                                        Member = Convert.ToString(item[8]),
+                                        Icon = Convert.ToString(item[9]),
+                                        Message = Convert.ToString(item[10]),
+                                    });
+                                }
+                            }
+                        }
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, true, true, false, false);
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true);
+        }
+
+        #endregion
+    }
+}

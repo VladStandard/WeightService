@@ -175,8 +175,8 @@ namespace DataProjectsCore.DAL.Models
             return session.CreateSQLQuery(query);
         }
 
-        public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity fieldList, FieldOrderEntity? order, int maxResults, string filePath, int lineNumber, string memberName)
-            where T : BaseEntity, new()
+        public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity fieldList, FieldOrderEntity? order, int maxResults, 
+            string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             T[]? result = new T[0];
             ExecTransaction((session) => {
@@ -242,13 +242,19 @@ namespace DataProjectsCore.DAL.Models
             {
                 case TableSystemModels.AppEntity:
                     break;
-                case TableSystemModels.LogEntity logEntity:
-                    if (!logEntity.EqualsEmpty())
+                case TableSystemModels.ErrorEntity error:
+                    if (!error.EqualsEmpty())
                     {
-                        if (logEntity.App != null)
-                            logEntity.App = GetEntity<TableSystemModels.AppEntity>(logEntity.App.Uid);
-                        if (logEntity.Host != null)
-                            logEntity.Host = GetEntity<TableSystemModels.HostEntity>(logEntity.Host.Id);
+                        //
+                    }
+                    break;
+                case TableSystemModels.LogEntity log:
+                    if (!log.EqualsEmpty())
+                    {
+                        if (log.App != null)
+                            log.App = GetEntity<TableSystemModels.AppEntity>(log.App.Uid);
+                        if (log.Host != null)
+                            log.Host = GetEntity<TableSystemModels.HostEntity>(log.Host.Id);
                     }
                     break;
             }
@@ -676,72 +682,109 @@ namespace DataProjectsCore.DAL.Models
 
             switch (item)
             {
-                case TableSystemModels.AppEntity:
+                case TableSystemModels.AccessEntity access:
+                    ExecTransaction((session) => { session.SaveOrUpdate(access); }, filePath, lineNumber, memberName);
                     break;
-                case TableSystemModels.LogEntity:
+                case TableSystemModels.AppEntity app:
+                    ExecTransaction((session) => { session.SaveOrUpdate(app); }, filePath, lineNumber, memberName);
+                    break;
+                case TableSystemModels.ErrorEntity error:
+                    ExecTransaction((session) => { session.SaveOrUpdate(error); }, filePath, lineNumber, memberName);
                     break;
                 case TableSystemModels.HostEntity host:
+                    ExecTransaction((session) => { session.SaveOrUpdate(host); }, filePath, lineNumber, memberName);
                     host.ModifiedDate = DateTime.Now;
                     break;
-                case TableScaleModels.BarcodeTypeEntity:
+                case TableSystemModels.LogEntity log:
+                    ExecTransaction((session) => { session.SaveOrUpdate(log); }, filePath, lineNumber, memberName);
+                    break;
+                case TableSystemModels.LogTypeEntity logType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(logType); }, filePath, lineNumber, memberName);
+                    break;
+                case TableScaleModels.BarcodeTypeEntity barcodeType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(barcodeType); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.ContragentEntity contragent:
                     contragent.ModifiedDate = DateTime.Now;
+                    ExecTransaction((session) => { session.SaveOrUpdate(contragent); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.LabelEntity:
+                case TableScaleModels.LabelEntity label:
+                    ExecTransaction((session) => { session.SaveOrUpdate(label); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.OrderEntity order:
                     order.ModifiedDate = DateTime.Now;
+                    ExecTransaction((session) => { session.SaveOrUpdate(order); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.OrderStatusEntity:
+                case TableScaleModels.OrderStatusEntity orderStatus:
+                    ExecTransaction((session) => { session.SaveOrUpdate(orderStatus); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.OrderTypeEntity:
+                case TableScaleModels.OrderTypeEntity orderType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(orderType); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.PluEntity:
+                case TableScaleModels.PluEntity plu:
+                    ExecTransaction((session) => { session.SaveOrUpdate(plu); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.ProductionFacilityEntity:
+                case TableScaleModels.ProductionFacilityEntity productionFacility:
+                    ExecTransaction((session) => { session.SaveOrUpdate(productionFacility); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.ProductSeriesEntity:
+                case TableScaleModels.ProductSeriesEntity productSeries:
+                    ExecTransaction((session) => { session.SaveOrUpdate(productSeries); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.ScaleEntity scale:
                     scale.ModifiedDate = DateTime.Now;
+                    ExecTransaction((session) => { session.SaveOrUpdate(scale); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.TemplateEntity template:
                     template.ModifiedDate = DateTime.Now;
+                    ExecTransaction((session) => { session.SaveOrUpdate(template); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.TemplateResourceEntity templateResource:
                     templateResource.ModifiedDate = DateTime.Now;
+                    ExecTransaction((session) => { session.SaveOrUpdate(templateResource); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.WeithingFactEntity:
+                case TableScaleModels.WeithingFactEntity weithingFact:
+                    ExecTransaction((session) => { session.SaveOrUpdate(weithingFact); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.WorkshopEntity workshop:
                     workshop.ModifiedDate = DateTime.Now;
+                    ExecTransaction((session) => { session.SaveOrUpdate(workshop); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.PrinterEntity printer:
                     printer.ModifiedDate = DateTime.Now;
+                    ExecTransaction((session) => { session.SaveOrUpdate(printer); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.PrinterResourceEntity printerResource:
                     printerResource.ModifiedDate = DateTime.Now;
+                    ExecTransaction((session) => { session.SaveOrUpdate(printerResource); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.PrinterTypeEntity:
+                case TableScaleModels.PrinterTypeEntity printerType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(printerType); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.BrandEntity:
+                case TableDwhModels.BrandEntity brand:
+                    ExecTransaction((session) => { session.SaveOrUpdate(brand); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.InformationSystemEntity:
+                case TableDwhModels.InformationSystemEntity informationSystem:
+                    ExecTransaction((session) => { session.SaveOrUpdate(informationSystem); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.NomenclatureEntity:
+                case TableDwhModels.NomenclatureEntity nomenclature:
+                    ExecTransaction((session) => { session.SaveOrUpdate(nomenclature); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.NomenclatureGroupEntity:
+                case TableDwhModels.NomenclatureGroupEntity nomenclatureGroup:
+                    ExecTransaction((session) => { session.SaveOrUpdate(nomenclatureGroup); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.NomenclatureLightEntity:
+                case TableDwhModels.NomenclatureLightEntity nomenclatureLight:
+                    ExecTransaction((session) => { session.SaveOrUpdate(nomenclatureLight); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.NomenclatureTypeEntity:
+                case TableDwhModels.NomenclatureTypeEntity nomenclatureType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(nomenclatureType); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.StatusEntity:
+                case TableDwhModels.StatusEntity status:
+                    ExecTransaction((session) => { session.SaveOrUpdate(status); }, filePath, lineNumber, memberName);
+                    break;
+                default:
+                    ExecTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
                     break;
             }
-
-            ExecTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
         }
 
         public void DeleteEntity<T>(T item,
@@ -760,72 +803,109 @@ namespace DataProjectsCore.DAL.Models
 
             switch (item)
             {
-                case TableSystemModels.AppEntity:
+                case TableSystemModels.AccessEntity access:
+                    ExecTransaction((session) => { session.SaveOrUpdate(access); }, filePath, lineNumber, memberName);
                     break;
-                case TableSystemModels.LogEntity:
+                case TableSystemModels.AppEntity app:
+                    ExecTransaction((session) => { session.SaveOrUpdate(app); }, filePath, lineNumber, memberName);
+                    break;
+                case TableSystemModels.ErrorEntity error:
+                    ExecTransaction((session) => { session.SaveOrUpdate(error); }, filePath, lineNumber, memberName);
                     break;
                 case TableSystemModels.HostEntity host:
                     host.Marked = true;
+                    ExecTransaction((session) => { session.SaveOrUpdate(host); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.BarcodeTypeEntity:
+                case TableSystemModels.LogEntity log:
+                    ExecTransaction((session) => { session.SaveOrUpdate(log); }, filePath, lineNumber, memberName);
+                    break;
+                case TableSystemModels.LogTypeEntity logType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(logType); }, filePath, lineNumber, memberName);
+                    break;
+                case TableScaleModels.BarcodeTypeEntity barcodeType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(barcodeType); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.ContragentEntity contragent:
                     contragent.Marked = true;
+                    ExecTransaction((session) => { session.SaveOrUpdate(contragent); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.LabelEntity:
+                case TableScaleModels.LabelEntity label:
+                    ExecTransaction((session) => { session.SaveOrUpdate(label); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.OrderEntity:
+                case TableScaleModels.OrderEntity order:
+                    ExecTransaction((session) => { session.SaveOrUpdate(order); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.OrderStatusEntity:
+                case TableScaleModels.OrderStatusEntity orderStatus:
+                    ExecTransaction((session) => { session.SaveOrUpdate(orderStatus); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.OrderTypeEntity:
+                case TableScaleModels.OrderTypeEntity orderType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(orderType); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.PluEntity plu:
                     plu.Marked = true;
+                    ExecTransaction((session) => { session.SaveOrUpdate(plu); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.ProductionFacilityEntity productionFacility:
                     productionFacility.Marked = true;
+                    ExecTransaction((session) => { session.SaveOrUpdate(productionFacility); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.ProductSeriesEntity:
+                case TableScaleModels.ProductSeriesEntity productSeries:
+                    ExecTransaction((session) => { session.SaveOrUpdate(productSeries); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.ScaleEntity scale:
                     scale.Marked = true;
+                    ExecTransaction((session) => { session.SaveOrUpdate(scale); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.TemplateResourceEntity templateResource:
                     templateResource.Marked = true;
+                    ExecTransaction((session) => { session.SaveOrUpdate(templateResource); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.TemplateEntity template:
                     template.Marked = true;
+                    ExecTransaction((session) => { session.SaveOrUpdate(template); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.WeithingFactEntity:
+                case TableScaleModels.WeithingFactEntity weithingFact:
+                    ExecTransaction((session) => { session.SaveOrUpdate(weithingFact); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.WorkshopEntity workshop:
                     workshop.Marked = true;
+                    ExecTransaction((session) => { session.SaveOrUpdate(workshop); }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.PrinterEntity printer:
                     printer.Marked = true;
+                    ExecTransaction((session) => { session.SaveOrUpdate(printer); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.PrinterResourceEntity:
+                case TableScaleModels.PrinterResourceEntity printerResource:
+                    ExecTransaction((session) => { session.SaveOrUpdate(printerResource); }, filePath, lineNumber, memberName);
                     break;
-                case TableScaleModels.PrinterTypeEntity:
+                case TableScaleModels.PrinterTypeEntity printerType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(printerType); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.BrandEntity:
+                case TableDwhModels.BrandEntity brand:
+                    ExecTransaction((session) => { session.SaveOrUpdate(brand); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.InformationSystemEntity:
+                case TableDwhModels.InformationSystemEntity informationSystem:
+                    ExecTransaction((session) => { session.SaveOrUpdate(informationSystem); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.NomenclatureEntity:
+                case TableDwhModels.NomenclatureEntity nomenclature:
+                    ExecTransaction((session) => { session.SaveOrUpdate(nomenclature); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.NomenclatureGroupEntity:
+                case TableDwhModels.NomenclatureGroupEntity nomenclatureGroup:
+                    ExecTransaction((session) => { session.SaveOrUpdate(nomenclatureGroup); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.NomenclatureLightEntity:
+                case TableDwhModels.NomenclatureLightEntity nomenclatureLight:
+                    ExecTransaction((session) => { session.SaveOrUpdate(nomenclatureLight); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.NomenclatureTypeEntity:
+                case TableDwhModels.NomenclatureTypeEntity nomenclatureType:
+                    ExecTransaction((session) => { session.SaveOrUpdate(nomenclatureType); }, filePath, lineNumber, memberName);
                     break;
-                case TableDwhModels.StatusEntity:
+                case TableDwhModels.StatusEntity status:
+                    ExecTransaction((session) => { session.SaveOrUpdate(status); }, filePath, lineNumber, memberName);
+                    break;
+                default:
+                    ExecTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
                     break;
             }
-
-            ExecTransaction((session) => { session.SaveOrUpdate(item); }, filePath, lineNumber, memberName);
         }
 
         public bool ExistsEntityInside<T>(T item, string filePath, int lineNumber, string memberName) where T : BaseEntity, new()

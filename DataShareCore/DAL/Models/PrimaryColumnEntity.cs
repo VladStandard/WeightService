@@ -17,7 +17,6 @@ namespace DataShareCore.DAL.Models
         #region Public and private fields and properties
 
         public ColumnName Name { get; private set; }
-
         public int Id { get; set; }
         public Guid Uid { get; set; }
 
@@ -50,12 +49,12 @@ namespace DataShareCore.DAL.Models
 
         #region Public and private methods
 
-        public override string ToString()
+        public override string ToString() => Name switch
         {
-            return Id != default 
-                ? $"{nameof(Id)}: {Id}. "
-                : $"{nameof(Uid)}: {Uid}. ";
-        }
+            ColumnName.Id => $"{nameof(Name)}: {Name}. {nameof(Id)}: {Id}. ",
+            ColumnName.Uid => $"{nameof(Name)}: {Name}. {nameof(Uid)}: {Uid}. ",
+            _ => $"{nameof(Name)}: {Name}. {nameof(Id)}: {Id}. {nameof(Uid)}: {Uid}. ",
+        };
 
         public override int GetHashCode()
         {

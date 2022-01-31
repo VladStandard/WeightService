@@ -32,6 +32,31 @@ namespace BlazorDeviceControl.Shared.Component
                         switch (Table)
                         {
                             case TableSystemEntity:
+                                switch (ProjectsEnums.GetTableSystem(Table.Name))
+                                {
+                                    case ProjectsEnums.TableSystem.Default:
+                                        break;
+                                    case ProjectsEnums.TableSystem.Accesses:
+                                        AccessEntity access = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>((int)Id);
+                                        DtCreate = access.CreateDt.ToString();
+                                        DtModify = access.ChangeDt.ToString();
+                                        break;
+                                    case ProjectsEnums.TableSystem.Errors:
+                                        ErrorEntity error = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>((int)Id);
+                                        DtCreate = error.CreatedDate.ToString();
+                                        DtModify = error.ModifiedDate.ToString();
+                                        break;
+                                    case ProjectsEnums.TableSystem.Logs:
+                                        LogEntity log = AppSettings.DataAccess.Crud.GetEntity<LogEntity>((int)Id);
+                                        DtCreate = log.CreateDt.ToString();
+                                        break;
+                                    case ProjectsEnums.TableSystem.LogTypes:
+                                        break;
+                                    case ProjectsEnums.TableSystem.Tasks:
+                                        break;
+                                    case ProjectsEnums.TableSystem.TasksTypes:
+                                        break;
+                                }
                                 break;
                             case TableScaleEntity:
                                 {

@@ -3,6 +3,7 @@
 
 using DataShareCore.DAL.Models;
 using System;
+using System.IO;
 
 namespace DataProjectsCore.DAL.TableSystemModels
 {
@@ -16,6 +17,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
         public virtual DateTime CreatedDate { get; set; }
         public virtual DateTime ModifiedDate { get; set; }
         public virtual string? FilePath { get; set; }
+        public virtual string? FilePathShort => !string.IsNullOrEmpty(FilePath) ? Path.GetFileName(FilePath) : string.Empty;
         public virtual int LineNumber { get; set; }
         public virtual string? MemberName { get; set; }
         public virtual string? Exception { get; set; }

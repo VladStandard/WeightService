@@ -67,7 +67,23 @@ where [NAME]=@app
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
 
-                public static class Logs
+				public static class Errors
+				{
+					public static string GetErrors => @"
+SELECT [Id]
+      ,[CreatedDate]
+      ,[ModifiedDate]
+      ,[FilePath]
+      ,[LineNumber]
+      ,[MemberName]
+      ,[Exception]
+      ,[InnerException]
+FROM [db_scales].[Errors]
+ORDER BY [CreatedDate] DESC
+        ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				}
+				
+				public static class Logs
                 {
                     public static string AddLog => @"
 declare @log_type_uid uniqueidentifier = (select [UID] from [db_scales].[LOG_TYPES] where [NUMBER]=@logNumber)

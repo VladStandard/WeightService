@@ -3,9 +3,9 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL;
+using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
-using DataShareCore.DAL.DataModels;
 using DataShareCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -13,13 +13,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Sys
+namespace BlazorDeviceControl.Shared.SysSection
 {
-    public partial class Logs
+    public partial class Access
     {
         #region Public and private fields and properties
 
-        private List<LogQuickEntity> ItemsCast => Items == null ? new List<LogQuickEntity>() : Items.Select(x => (LogQuickEntity)x).ToList();
+        private List<AccessEntity> ItemsCast => Items == null ? new List<AccessEntity>() : Items.Select(x => (AccessEntity)x).ToList();
 
         #endregion
 
@@ -29,31 +29,26 @@ namespace BlazorDeviceControl.Shared.Sys
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     lock (Locker)
                     {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs);
-                        Items = new List<LogQuickEntity>().ToList<BaseEntity>();
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess);
+                        Items = new List<AccessEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {
-                            if (obj is object[] { Length: 11 } item)
+                            if (obj is object[] { Length: 5 } item)
                             {
                                 if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                                 {
-                                    Items.Add(new LogQuickEntity()
+                                    Items.Add(new AccessEntity()
                                     {
                                         Uid = uid,
                                         CreateDt = Convert.ToDateTime(item[1]),
-                                        Scale = Convert.ToString(item[2]),
-                                        Host = Convert.ToString(item[3]),
-                                        App = Convert.ToString(item[4]),
-                                        Version = Convert.ToString(item[5]),
-                                        File = Convert.ToString(item[6]),
-                                        Line = Convert.ToInt32(item[7]),
-                                        Member = Convert.ToString(item[8]),
-                                        Icon = Convert.ToString(item[9]),
-                                        Message = Convert.ToString(item[10]),
+                                        ChangeDt = Convert.ToDateTime(item[2]),
+                                        User = Convert.ToString(item[3]),
+                                        Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
                                     });
                                 }
                             }

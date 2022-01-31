@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Sys
+namespace BlazorDeviceControl.Shared.SysSection
 {
     public partial class Info
     {
@@ -36,7 +36,8 @@ namespace BlazorDeviceControl.Shared.Sys
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     lock (Locker)
                     {
                         TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();

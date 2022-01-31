@@ -2,12 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataProjectsCore.Models;
-using DataShareCore.DAL.Models;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using System;
-using static DataShareCore.ShareEnums;
 
 namespace DataProjectsCore.DAL.Models
 {
