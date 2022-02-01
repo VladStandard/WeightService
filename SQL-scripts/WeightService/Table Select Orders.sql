@@ -1,14 +1,19 @@
 ------------------------------------------------------------------------------------------------------------------------
--- Scales - Errors
+-- Table Select Orders
 ------------------------------------------------------------------------------------------------------------------------
-SELECT [Id]
-      ,[CreatedDate]
-      ,[ModifiedDate]
-      ,[FilePath]
-      ,[LineNumber]
-      ,[MemberName]
-      ,[Exception]
-      ,[InnerException]
-FROM [db_scales].[Errors]
-ORDER BY [CreatedDate] DESC
+SELECT
+	[ID]
+   ,[ORDERTYPE]
+   ,[PRODUCTDATE]
+   ,[PLANEBOXCOUNT]
+   ,[PLANEPALLETCOUNT]
+   ,[PLANEPACKINGOPERATIONBEGINDATE]
+   ,[PLANEPACKINGOPERATIONENDDATE]
+   ,[SCALEID]
+   ,[PLU]
+   ,[IDRREF]
+   ,[TEMPLATEID]
+   ,[CREATEDATE]
+   ,[MODIFIEDDATE]
+FROM [DB_SCALES].[ORDERS]
 ------------------------------------------------------------------------------------------------------------------------

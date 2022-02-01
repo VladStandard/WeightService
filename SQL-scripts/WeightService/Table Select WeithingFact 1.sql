@@ -1,12 +1,20 @@
 ------------------------------------------------------------------------------------------------------------------------
--- Scales - Access diagram summary
+-- Table Select WeithingFact 1
 ------------------------------------------------------------------------------------------------------------------------
 SELECT
-	[UID]
-   ,[CREATE_DT]
-   ,[CHANGE_DT]
-   ,[user]
-   ,[LEVEL]
-FROM [db_scales].[ACCESS]
-ORDER BY [user] DESC
+	[ID]
+   ,[PLUID]
+   ,[SCALEID]
+   ,[SERIESID]
+   ,[ORDERID]
+   ,[SSCC]
+   ,[WEITHINGDATE]
+   ,[NETWEIGHT]
+   ,[TAREWEIGHT]
+   ,[UUID]
+   ,[PRODUCTDATE]
+   ,[REGNUM]
+   ,[KNEADING]
+FROM [DB_SCALES].[WEITHINGFACT]
+ORDER BY [WEITHINGDATE] DESC
 ------------------------------------------------------------------------------------------------------------------------

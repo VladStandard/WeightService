@@ -1,4 +1,6 @@
--- Table WeithingFact diagram summary
+------------------------------------------------------------------------------------------------------------------------
+-- Table Select WeithingFact 2
+------------------------------------------------------------------------------------------------------------------------
 SELECT
 	CAST([wf].[WeithingDate] AS DATE) [WeithingDate]
    ,[s].[Description] [Scale]
@@ -13,3 +15,4 @@ LEFT JOIN [db_scales].[Hosts] [h]
 LEFT JOIN [db_scales].[ZebraPrinter] [p]
 	ON [s].[ZebraPrinterId] = [p].[Id]
 ORDER BY [wf].[WeithingDate] DESC
+------------------------------------------------------------------------------------------------------------------------

@@ -1,5 +1,6 @@
--- Таблица TemplateResourceRef
-use [ScalesDB]
+------------------------------------------------------------------------------------------------------------------------
+-- Table Select TemplateResourceRef
+------------------------------------------------------------------------------------------------------------------------
 declare @id int = 0
 declare @delete bit = 0
 set nocount on
@@ -23,3 +24,4 @@ left join [db_scales].[TemplateResources] [Res] on [Ref].[ResourceID]=[Res].[Id]
 left join [db_scales].[Templates] [Tem] on [Ref].[TemplateID]=[Tem].[Id]
 order by [Ref].[id]
 set nocount off
+------------------------------------------------------------------------------------------------------------------------

@@ -1,8 +1,7 @@
--- Таблица ZebraPrinterResourceRef
-use [ScalesDB]
+------------------------------------------------------------------------------------------------------------------------
+-- Table Select ZebraPrinterResourceRef
 ------------------------------------------------------------------------------------------------------------------------
 --insert into [db_scales].[ZebraPrinterResourceRef]([CreateDate],[ModifiedDate],[PrinterID],[ResourceID],[Description]) values(getdate(), getdate(), 127, 44, 'Description')
-------------------------------------------------------------------------------------------------------------------------
 select
 	 [ZebraPrinterResourceRef].[Id]
 	,[ZebraPrinterResourceRef].[CreateDate]
@@ -17,3 +16,4 @@ from [db_scales].[ZebraPrinterResourceRef]
 left join [db_scales].[ZebraPrinter] on [ZebraPrinterResourceRef].[PrinterID] = [ZebraPrinter].[Id]
 left join [db_scales].[TemplateResources] on [ZebraPrinterResourceRef].[ResourceID] = [TemplateResources].[Id]
 order by [ZebraPrinter].[Name]
+------------------------------------------------------------------------------------------------------------------------
