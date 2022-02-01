@@ -44,6 +44,7 @@ namespace BlazorDeviceControl.Shared.Item
                             PrinterItem.Ip = "127.0.0.1";
                             PrinterItem.MacAddress.Default();
                         }
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

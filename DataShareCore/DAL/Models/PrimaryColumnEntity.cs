@@ -24,24 +24,14 @@ namespace DataShareCore.DAL.Models
 
         #region Public and private methods
 
-        public PrimaryColumnEntity(ColumnName columnName)
+        public PrimaryColumnEntity() : this(ColumnName.Default, default, Guid.Empty) { }
+
+        public PrimaryColumnEntity(ColumnName columnName) : this(columnName, default, Guid.Empty) { }
+
+        public PrimaryColumnEntity(ColumnName columnName, int id, Guid uid)
         {
             Name = columnName;
-            Id = default;
-            Uid = default;
-        }
-
-        public PrimaryColumnEntity(int id)
-        {
-            Name = ColumnName.Id;
             Id = id;
-            Uid = default;
-        }
-
-        public PrimaryColumnEntity(Guid uid)
-        {
-            Name = ColumnName.Uid;
-            Id = default;
             Uid = uid;
         }
 

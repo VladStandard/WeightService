@@ -38,6 +38,7 @@ namespace BlazorDeviceControl.Shared.Item
                             PrinterTypeItem.Id = (int)Id;
                             PrinterTypeItem.Name = "NEW PRINTER_TYPE";
                         }
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

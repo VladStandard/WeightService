@@ -7,14 +7,14 @@
 
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldName />
-    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@WorkshopItem.Name />
+    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled=false TValue="string" @bind-Value=@WorkshopItem.Name />
     <br />
 </div>
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldProductionFacilityName />
     @if (Item == null)
     {
-        <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+        <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
     else

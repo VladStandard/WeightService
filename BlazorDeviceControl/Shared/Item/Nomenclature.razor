@@ -9,16 +9,16 @@
 <div class="row col-sm-12 col-md-12 col-lg-12">
     <div class="col-sm-6 col-md-6 col-lg-6">
         <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldName />
-        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@NomenclatureItem.Name />
+        <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@NomenclatureItem.Name />
         <br />
         <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldCode />
-        <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@NomenclatureItem.Code />
+        <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@NomenclatureItem.Code />
         <br />
     </div>
     <br />
     <div class="col-sm-6 col-md-6 col-lg-6">
         <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldXml />
-        <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@NomenclatureItem.SerializedRepresentationObject />
+        <RadzenTextBox Style="width: 63%; " Disabled=false TValue="string" @bind-Value=@NomenclatureItem.SerializedRepresentationObject />
         <br />
     </div>
 </div>

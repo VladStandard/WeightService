@@ -26,7 +26,7 @@
             Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
             <Template Context="errorItem" >
                 <RadzenDatePicker 
-                    TValue="string" Value=@errorItem.CreatedDate Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
+                    TValue="string" Value=@errorItem.CreatedDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 

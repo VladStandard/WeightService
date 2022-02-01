@@ -176,7 +176,7 @@
                     <RadzenGridColumn TItem="NomenclatureLightEntity" Property="ParentConvert" Title=@LocalizationStrings.TableFieldRelevanceStatus
                                       Type="string" Width="5%" Sortable="false">
                         <Template Context="nomenclature">
-                            <RadzenCheckBox Value=@UtilsEnum.GetEnumRelevanceStatusBool(nomenclature.RelevanceStatus) TValue="bool?" Disabled="true"
+                            <RadzenCheckBox Value=@UtilsEnum.GetEnumRelevanceStatusBool(nomenclature.RelevanceStatus) TValue="bool?" Disabled=false ReadOnly=true 
                                             Style="text-align: center;" />
                         </Template>
                     </RadzenGridColumn>

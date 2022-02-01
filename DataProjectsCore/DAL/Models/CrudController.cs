@@ -240,10 +240,26 @@ namespace DataProjectsCore.DAL.Models
         {
             switch (item)
             {
-                case TableSystemModels.AppEntity:
+                case TableSystemModels.AccessEntity access:
+                    if (!access.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableSystemModels.AppEntity app:
+                    if (!app.EqualsEmpty())
+                    {
+                        //
+                    }
                     break;
                 case TableSystemModels.ErrorEntity error:
                     if (!error.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
+                case TableSystemModels.HostEntity host:
+                    if (!host.EqualsEmpty())
                     {
                         //
                     }
@@ -255,6 +271,14 @@ namespace DataProjectsCore.DAL.Models
                             log.App = GetEntity<TableSystemModels.AppEntity>(log.App.Uid);
                         if (log.Host != null)
                             log.Host = GetEntity<TableSystemModels.HostEntity>(log.Host.Id);
+                        if (log.LogType != null)
+                            log.LogType = GetEntity<TableSystemModels.LogTypeEntity>(log.LogType.Uid);
+                    }
+                    break;
+                case TableSystemModels.LogTypeEntity logType:
+                    if (!logType.EqualsEmpty())
+                    {
+                        //
                     }
                     break;
             }
@@ -278,19 +302,17 @@ namespace DataProjectsCore.DAL.Models
         {
             switch (item)
             {
-                case TableScaleModels.BarcodeTypeEntity:
+                case TableScaleModels.BarcodeTypeEntity barcodeType:
                     {
-                        TableScaleModels.BarcodeTypeEntity? barCodeTypesEntity = (TableScaleModels.BarcodeTypeEntity)(object)item;
-                        if (!barCodeTypesEntity.EqualsEmpty())
+                        if (!barcodeType.EqualsEmpty())
                         {
                             //
                         }
                         break;
                     }
-                case TableScaleModels.ContragentEntity:
+                case TableScaleModels.ContragentEntity contragent:
                     {
-                        TableScaleModels.ContragentEntity? contragentsEntity = (TableScaleModels.ContragentEntity)(object)item;
-                        if (!contragentsEntity.EqualsEmpty())
+                        if (!contragent.EqualsEmpty())
                         {
                             //
                         }
@@ -305,12 +327,6 @@ namespace DataProjectsCore.DAL.Models
                     break;
                 case TableScaleModels.NomenclatureEntity nomenclature:
                     if (!nomenclature.EqualsEmpty())
-                    {
-                        //
-                    }
-                    break;
-                case TableScaleModels.OrganizationEntity organization:
-                    if (!organization.EqualsEmpty())
                     {
                         //
                     }
@@ -340,6 +356,12 @@ namespace DataProjectsCore.DAL.Models
                         //
                     }
                     break;
+                case TableScaleModels.OrganizationEntity organization:
+                    if (!organization.EqualsEmpty())
+                    {
+                        //
+                    }
+                    break;
                 case TableScaleModels.PluEntity plu:
                     if (!plu.EqualsEmpty())
                     {
@@ -349,6 +371,28 @@ namespace DataProjectsCore.DAL.Models
                             plu.Scale = GetEntity<TableScaleModels.ScaleEntity>(plu.Scale.Id);
                         if (plu.Nomenclature != null)
                             plu.Nomenclature = GetEntity<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.Id);
+                    }
+                    break;
+                case TableScaleModels.PrinterEntity printer:
+                    if (!printer.EqualsEmpty())
+                    {
+                        if (printer.PrinterType != null)
+                            printer.PrinterType = GetEntity<TableScaleModels.PrinterTypeEntity>(printer.PrinterType.Id);
+                    }
+                    break;
+                case TableScaleModels.PrinterResourceEntity printerResource:
+                    if (!printerResource.EqualsEmpty())
+                    {
+                        if (printerResource.Printer != null)
+                            printerResource.Printer = GetEntity<TableScaleModels.PrinterEntity>(printerResource.Printer.Id);
+                        if (printerResource.Resource != null)
+                            printerResource.Resource = GetEntity<TableScaleModels.TemplateResourceEntity>(printerResource.Resource.Id);
+                    }
+                    break;
+                case TableScaleModels.PrinterTypeEntity printerType:
+                    if (!printerType.EqualsEmpty())
+                    {
+                        //
                     }
                     break;
                 case TableScaleModels.ProductionFacilityEntity ProductionFacility:
@@ -425,28 +469,6 @@ namespace DataProjectsCore.DAL.Models
                             workshop.ProductionFacility = GetEntity<TableScaleModels.ProductionFacilityEntity>(workshop.ProductionFacility.Id);
                     }
                     break;
-                case TableScaleModels.PrinterEntity printer:
-                    if (!printer.EqualsEmpty())
-                    {
-                        if (printer.PrinterType != null)
-                            printer.PrinterType = GetEntity<TableScaleModels.PrinterTypeEntity>(printer.PrinterType.Id);
-                    }
-                    break;
-                case TableScaleModels.PrinterResourceEntity printerResource:
-                    if (!printerResource.EqualsEmpty())
-                    {
-                        if (printerResource.Printer != null)
-                            printerResource.Printer = GetEntity<TableScaleModels.PrinterEntity>(printerResource.Printer.Id);
-                        if (printerResource.Resource != null)
-                            printerResource.Resource = GetEntity<TableScaleModels.TemplateResourceEntity>(printerResource.Resource.Id);
-                    }
-                    break;
-                case TableScaleModels.PrinterTypeEntity printerType:
-                    if (!printerType.EqualsEmpty())
-                    {
-                        //
-                    }
-                    break;
             }
         }
 
@@ -459,6 +481,12 @@ namespace DataProjectsCore.DAL.Models
                     {
                         if (brand.InformationSystem != null)
                             brand.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(brand.InformationSystem.Id);
+                    }
+                    break;
+                case TableDwhModels.InformationSystemEntity informationSystem:
+                    if (!informationSystem.EqualsEmpty())
+                    {
+                        //
                     }
                     break;
                 case TableDwhModels.NomenclatureEntity nomenclature:
@@ -478,13 +506,6 @@ namespace DataProjectsCore.DAL.Models
                             nomenclature.Status = GetEntity<TableDwhModels.StatusEntity>(nomenclature.Status.Id);
                     }
                     break;
-                case TableDwhModels.NomenclatureLightEntity nomenclatureLight:
-                    if (!nomenclatureLight.EqualsEmpty())
-                    {
-                        if (nomenclatureLight.InformationSystem != null)
-                            nomenclatureLight.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureLight.InformationSystem.Id);
-                    }
-                    break;
                 case TableDwhModels.NomenclatureGroupEntity nomenclatureGroup:
                     if (!nomenclatureGroup.EqualsEmpty())
                     {
@@ -492,11 +513,27 @@ namespace DataProjectsCore.DAL.Models
                             nomenclatureGroup.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureGroup.InformationSystem.Id);
                     }
                     break;
+                case TableDwhModels.NomenclatureLightEntity nomenclatureLight:
+                    if (!nomenclatureLight.EqualsEmpty())
+                    {
+                        if (nomenclatureLight.InformationSystem != null)
+                            nomenclatureLight.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureLight.InformationSystem.Id);
+                    }
+                    break;
+                case TableDwhModels.NomenclatureParentEntity nomenclatureParent:
+                    //
+                    break;
                 case TableDwhModels.NomenclatureTypeEntity nomenclatureType:
                     if (!nomenclatureType.EqualsEmpty())
                     {
                         if (nomenclatureType.InformationSystem != null)
                             nomenclatureType.InformationSystem = GetEntity<TableDwhModels.InformationSystemEntity>(nomenclatureType.InformationSystem.Id);
+                    }
+                    break;
+                case TableDwhModels.StatusEntity status:
+                    if (!status.EqualsEmpty())
+                    {
+                        //
                     }
                     break;
             }

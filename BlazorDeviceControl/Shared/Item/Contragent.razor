@@ -9,7 +9,7 @@
     <div class="col-sm-6 col-md-6 col-lg-6">
         <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
         <RadzenLabel Style="width: 20%; height: 35px;" Text=@LocalizationData.DeviceControl.TableFieldName />
-        <RadzenTextBox Style="height: 35px; width: 77%;" Disabled="false" TValue="string"
+        <RadzenTextBox Style="height: 35px; width: 77%;" Disabled=false TValue="string"
                        @bind-value=@ContragentItem.Name />
         <br />
     </div>
@@ -17,7 +17,7 @@
     <div class="col-sm-6 col-md-6 col-lg-6">
         <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
         <RadzenLabel Style="width: 20%; height: 25px;" Text=@LocalizationData.DeviceControl.TableFieldMarked />
-        <RadzenCheckBox Style="height: 35px; " Disabled="false" TValue="bool"
+        <RadzenCheckBox Style="height: 35px; " Disabled=false TValue="bool"
                         @bind-Value=@ContragentItem.MarkedGui />
         <br />
     </div>

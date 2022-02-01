@@ -1,5 +1,5 @@
-﻿@*@page "/system/erroritem"
-@page "/system/erroritem/{Id:int}"
+﻿@page "/item/error"
+@page "/item/error/{Id:int}"
 @using BlazorCore.Models
 @using DataProjectsCore
 @using DataProjectsCore.DAL.TableModels
@@ -26,49 +26,55 @@ else
                 <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
-                <tbody>
+        <tbody>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
+                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true
                         TValue="int" @bind-Value=@ErrorItem.Id />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td>@LocalizationData.DeviceControl.TableFieldCreateDt</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenDatePicker 
+                        TValue="string" Value=@ErrorItem.CreatedDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldFilePath</td>
+                <td colspan=3>
+                    <RadzenTextBox Style="width: 100%; text-align: left;" Disabled=false ReadOnly=true
                         TValue="string" @bind-Value=@ErrorItem.FilePath />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldRow</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
+                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true
                         TValue="int" @bind-Value=@ErrorItem.LineNumber />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMember</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
                         TValue="string" @bind-Value=@ErrorItem.MemberName />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldException</td>
-                <td rowspan=3>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
-                        TValue="string" @bind-Value=@ErrorItem.Exception />
+                <td colspan=3 >
+                    <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true
+                        TValue="string" @bind-Value=@ErrorItem.Exception Rows="3" />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldInnerException</td>
-                <td rowspan=3>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
-                        TValue="string" @bind-Value=@ErrorItem.InnerException />
+                <td colspan=3 rowspan=3>
+                    <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true
+                        TValue="string" @bind-Value=@ErrorItem.InnerException Rows="3" />
 				</td>
             </tr>
         </tbody>
     </MudSimpleTable>
     
-    <ActionsSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />
 }
-*@

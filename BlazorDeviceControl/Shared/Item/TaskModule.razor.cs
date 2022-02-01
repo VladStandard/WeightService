@@ -36,6 +36,7 @@ namespace BlazorDeviceControl.Shared.Item
                         }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             TaskItem.Id = (int)Id;
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

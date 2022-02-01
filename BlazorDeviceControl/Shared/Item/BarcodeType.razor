@@ -31,18 +31,18 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
+                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true
                         TValue="int" @bind-Value=@BarcodeTypeItem.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@BarcodeTypeItem.Name />
 				</td>
             </tr>
         </tbody>
     </MudSimpleTable>
     
-    <ActionsSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />
 }

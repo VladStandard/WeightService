@@ -28,14 +28,14 @@
             TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
             Title=@LocalizationData.DeviceControl.TableFieldHost >
             <Template Context="item">
-                <RadzenLabel Text=@item.Scale?.Host?.Name Disabled="true" Style="white-space: pre-wrap;" />
+                <RadzenLabel Text=@item.Scale?.Host?.Name Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
             TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
             Title=@LocalizationData.DeviceControl.TableFieldTaskType >
             <Template Context="item">
-                <RadzenLabel Text=@item.TaskType?.Name Disabled="true" Style="white-space: pre-wrap;" />
+                <RadzenLabel Text=@item.TaskType?.Name Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 

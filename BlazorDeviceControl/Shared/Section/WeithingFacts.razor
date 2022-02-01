@@ -21,7 +21,7 @@
                 Title=@LocalizationData.DeviceControl.TableFieldWeithingDate
                 Type="date" Width="15%">
                 <Template Context="weithingFactItem">
-                    <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled="true" DateFormat="d" />
+                    <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled=false ReadOnly=true DateFormat="d" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"

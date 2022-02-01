@@ -15,77 +15,77 @@
         @* Left side *@
         <div class="col-sm-6 col-md-6 col-lg-6">
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldId />
-            <RadzenNumeric Style="width: 63%; text-align: center; " Disabled="true" TValue="int" Value=@Item.Id />
+            <RadzenNumeric Style="width: 63%; text-align: center; " Disabled=false ReadOnly=true TValue="int" Value=@Item.Id />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldCode />
-            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Code />
+            <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@Item.Code />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldMarked />
-            <RadzenCheckBox @bind-Value=@Item.Marked TValue="bool?" Disabled="true" />
+            <RadzenCheckBox @bind-Value=@Item.Marked TValue="bool?" Disabled=false ReadOnly=true />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldName />
-            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Name />
+            <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@Item.Name />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldNameFull />
-            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.NameFull />
+            <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@Item.NameFull />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldParent />
             @if (Item.ParentConvert?.Parents == null)
             {
-                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+                <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
             }
             else
             {
-                <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-Value=@Item.ParentConvert.Parents[0] />
+                <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-Value=@Item.ParentConvert.Parents[0] />
             }
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldArticle />
-            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.Article />
+            <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@Item.Article />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldWeighted />
-            <RadzenCheckBox @bind-Value=@Item.Weighted TValue="bool?" Disabled="true" />
+            <RadzenCheckBox @bind-Value=@Item.Weighted TValue="bool?" Disabled=false ReadOnly=true />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldGuidMercury />
-            <RadzenTextBox Style="width: 63%; text-align: center; " Disabled="false" TValue="Guid" @bind-value=@Item.GuidMercury />
+            <RadzenTextBox Style="width: 63%; text-align: center; " Disabled=false TValue="Guid" @bind-value=@Item.GuidMercury />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldKeepTrackOfCharacteristics />
-            <RadzenCheckBox @bind-Value=@Item.KeepTrackOfCharacteristics TValue="bool?" Disabled="true" />
+            <RadzenCheckBox @bind-Value=@Item.KeepTrackOfCharacteristics TValue="bool?" Disabled=false ReadOnly=true />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldComment />
-            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="Guid" @bind-value=@Item.Comment />
+            <RadzenTextBox Style="width: 63%;" Disabled=false TValue="Guid" @bind-value=@Item.Comment />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldIsService />
-            <RadzenCheckBox @bind-Value=@Item.IsService TValue="bool?" Disabled="true" />
+            <RadzenCheckBox @bind-Value=@Item.IsService TValue="bool?" Disabled=false ReadOnly=true />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldIsProduct />
-            <RadzenCheckBox @bind-Value=@Item.IsProduct TValue="bool?" Disabled="true" />
+            <RadzenCheckBox @bind-Value=@Item.IsProduct TValue="bool?" Disabled=false ReadOnly=true />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldAdditionalDescriptionOfNomenclature />
-            <RadzenTextBox Style="width: 63%;" Disabled="false" TValue="string" @bind-value=@Item.AdditionalDescriptionOfNomenclature />
+            <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@Item.AdditionalDescriptionOfNomenclature />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldBoxTypeId />
-            <RadzenTextBox Style="width: 63%; " Disabled="true" TValue="string" Value=@Convert.ToString(Item.BoxTypeId) />
+            <RadzenTextBox Style="width: 63%; " Disabled=false ReadOnly=true TValue="string" Value=@Convert.ToString(Item.BoxTypeId) />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldBoxType />
-            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.BoxTypeName />
+            <RadzenTextBox Style="width: 63%; " Disabled=false TValue="string" @bind-Value=@Item.BoxTypeName />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldPackTypeId />
-            <RadzenTextBox Style="width: 63%; " Disabled="true" TValue="string" Value=@Convert.ToString(Item.PackTypeId) />
+            <RadzenTextBox Style="width: 63%; " Disabled=false ReadOnly=true TValue="string" Value=@Convert.ToString(Item.PackTypeId) />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldPackType />
-            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.PackTypeName />
+            <RadzenTextBox Style="width: 63%; " Disabled=false TValue="string" @bind-Value=@Item.PackTypeName />
             <br />
         </div>
         <br />
         @* Right side *@
         <div class="col-sm-6 col-md-6 col-lg-6">
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldXml />
-            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.SerializedRepresentationObject />
+            <RadzenTextBox Style="width: 63%; " Disabled=false TValue="string" @bind-Value=@Item.SerializedRepresentationObject />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldNomenclatureGroupCost />
             @if (Item.NomenclatureGroupCost == null)
             {
-                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+                <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
             }
             else
             {
@@ -111,7 +111,7 @@
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldNomenclatureGroup />
             @if (Item.NomenclatureGroup == null)
             {
-                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+                <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
             }
             else
             {
@@ -136,12 +136,12 @@
             }
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldArticleCost />
-            <RadzenTextBox Style="width: 63%; " Disabled="true" TValue="string" Value=@Convert.ToString(Item.ArticleCost) />
+            <RadzenTextBox Style="width: 63%; " Disabled=false ReadOnly=true TValue="string" Value=@Convert.ToString(Item.ArticleCost) />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldBrand />
             @if (Item.Brand == null)
             {
-                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+                <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
             }
             else
             {
@@ -168,7 +168,7 @@
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldNomenclatureType />
             @if (Item.NomenclatureType == null)
             {
-                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+                <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
             }
             else
             {
@@ -193,18 +193,18 @@
             }
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldVatRate />
-            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.VatRate />
+            <RadzenTextBox Style="width: 63%; " Disabled=false TValue="string" @bind-Value=@Item.VatRate />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldUnit />
-            <RadzenTextBox Style="width: 63%; " Disabled="false" TValue="string" @bind-Value=@Item.Unit />
+            <RadzenTextBox Style="width: 63%; " Disabled=false TValue="string" @bind-Value=@Item.Unit />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldWeight />
-            <RadzenNumeric Style="width: 63%; text-align: center; " Disabled="false" TValue="decimal" @bind-Value=@Item.Weight />
+            <RadzenNumeric Style="width: 63%; text-align: center; " Disabled=false TValue="decimal" @bind-Value=@Item.Weight />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldStatus />
             @if (Item.Status == null)
             {
-                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+                <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
             }
             else
             {
@@ -231,7 +231,7 @@
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldInformationSystem />
             @if (Item.InformationSystem == null)
             {
-                <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+                <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
             }
             else
             {
@@ -247,7 +247,7 @@
                                             TextProperty="Name" ValueProperty="Id"
                                             Value=@Item.InformationSystem.Id
                                             Change=@(args => OnChange(args, "InformationSystems"))
-                                            Disabled="true">
+                                            Disabled=false ReadOnly=true >
                         <Columns>
                             <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationStrings.TableFieldName Width="50%" />
                             <RadzenDropDownDataGridColumn Property="InformationSystem.Name" Title=@LocalizationStrings.TableFieldInformationSystem Width="50%" />
@@ -269,7 +269,7 @@
                                         TextProperty="Name" ValueProperty="Value"
                                         Value=@Item.RelevanceStatus
                                         Change=@(args => OnChange(args, "RelevanceStatuses"))
-                                        Disabled="false">
+                                        Disabled=false>
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="RelevanceStatus.Name" Title=@LocalizationStrings.TableFieldRelevanceStatus Width="100%" />
                     </Columns>
@@ -289,7 +289,7 @@
                                         TextProperty="Name" ValueProperty="Value"
                                         Value=@Item.NormalizationStatus
                                         Change=@(args => OnChange(args, "NormilizationStatuses"))
-                                        Disabled="false">
+                                        Disabled=false>
                     <Columns>
                         <RadzenDropDownDataGridColumn Property="NormalizationStatus.Name" Title=@LocalizationStrings.TableFieldNormalizationStatus Width="100%" />
                     </Columns>

@@ -83,6 +83,7 @@ namespace BlazorDeviceControl.Shared.Item
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             null).ToList();
                         HostItems = AppSettings.DataAccess.Crud.GetFreeHosts(ScaleItem.Host?.Id);
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

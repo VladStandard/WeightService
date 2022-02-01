@@ -32,24 +32,24 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="true" 
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
                         TValue="int" @bind-Value=@PrinterItem.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.Name />
                 </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterMac</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.MacAddress.Value />
                 </td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinter</td>
                 <td>
-                    <RadzenLink Style="width: 100%; text-align: center; margin-left: 5px; " Disabled="false" 
+                    <RadzenLink Style="width: 100%; text-align: center; margin-left: 5px; " Disabled=false 
                         TValue="string" Target="_blank" Path=@PrinterItem.Link 
                         Text=@LocalizationData.DeviceControl.TableFieldPrinterControlPanel />
                 </td>
@@ -57,19 +57,19 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterPort</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="short" @bind-Value=@PrinterItem.Port />
                 </td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterIp</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.Ip />
                 </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterPassword</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.Password />
                 </td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterType</td>
@@ -97,6 +97,6 @@ else
     
     <PrinterResources Table=@Table PrinterId=@Id />
     
-    <ActionsSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />
 }

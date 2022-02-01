@@ -12,7 +12,7 @@
     <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldPrinter />
     @if (PrinterItems == null)
     {
-        <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+        <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
     else
@@ -21,19 +21,19 @@
                                 AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                 Data=@PrinterItems PageSize="10"
                                 TextProperty="Name" ValueProperty="Id"
-                                Value=@PrinterResourceItem.Printer?.Id Disabled="true"
+                                Value=@PrinterResourceItem.Printer?.Id Disabled=false ReadOnly=true
                                 Change=@(args => OnChange(args, nameof(PrinterEntity))) />
     }
     <br />
     <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldDescription />
-    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled="false" TValue="string" @bind-Value=@PrinterResourceItem.Description />
+    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled=false TValue="string" @bind-Value=@PrinterResourceItem.Description />
     <br />
 </div>
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldResource />
     @if (ResourceItems == null)
     {
-        <RadzenTextBox Style="width: 63%;" Disabled="true" TValue="string" Value="" />
+        <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
     else

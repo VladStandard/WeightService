@@ -15,16 +15,22 @@
         }
         else
         {
-            <RadzenButton Click=@(args => ItemSaveAsync(true, false)) 
-                ButtonStyle="ButtonStyle.Primary"
-                Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
-                Text=@LocalizationData.DeviceControl.TableActionSave 
-            />
-            <RadzenButton Click=@(args => ItemCancelAsync(false))
-                ButtonStyle="ButtonStyle.Secondary"
-                Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
-                Text=@LocalizationData.DeviceControl.TableActionCancel 
-            />
+            @if (ButtonSettings.IsShowSave)
+            {
+                <RadzenButton Click=@(args => ItemSaveAsync(true, false)) 
+                    ButtonStyle="ButtonStyle.Primary"
+                    Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
+                    Text=@LocalizationData.DeviceControl.TableActionSave 
+                />
+            }
+            @if (ButtonSettings.IsShowCancel)
+            {
+                <RadzenButton Click=@(args => ItemCancelAsync(false))
+                    ButtonStyle="ButtonStyle.Secondary"
+                    Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
+                    Text=@LocalizationData.DeviceControl.TableActionCancel 
+                />
+            }
         }
     </div>
 </MudPaper>

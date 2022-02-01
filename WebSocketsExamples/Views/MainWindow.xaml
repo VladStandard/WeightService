@@ -28,6 +28,6 @@
         <Button Name="buttonServerStart" Content="Server start" Grid.Row="1" Grid.Column="0" Margin="5" Click="ButtonServerStart_OnClick"></Button>
         <Button Name="buttonServerStop" Content="Server stop" Grid.Row="1" Grid.Column="1" Margin="5" Click="ButtonServerStop_OnClick"></Button>
 
-        <TextBox Name="fieldOut" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Visible" IsReadOnly="True"></TextBox>
+        <TextBox Name="fieldOut" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Visible" IsReadOnly=true></TextBox>
     </Grid>
 </Window>

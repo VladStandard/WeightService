@@ -7,7 +7,7 @@
 
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldTitle />
-    <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@TemplateItem.Title />
+    <RadzenTextBox Style="width: 70%; text-align: center;" Disabled=false TValue="string" @bind-value=@TemplateItem.Title />
     <br />
     <RadzenLabel Style="width: 27%; " Text=@LocalizationData.DeviceControl.TableFieldImageData />
     <br />
@@ -17,7 +17,7 @@
     <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldCategoryName />
     @if (TemplateCategories == null)
     {
-        <RadzenTextBox Style="width: 70%;" Disabled="true" TValue="string" Value="" />
+        <RadzenTextBox Style="width: 70%;" Disabled=false ReadOnly=true TValue="string" Value="" />
         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
     else

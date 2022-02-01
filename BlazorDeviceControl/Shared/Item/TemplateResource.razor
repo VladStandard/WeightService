@@ -9,10 +9,10 @@
 
 <div class="col-sm-6 col-md-6 col-lg-6">
     <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldName />
-    <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@TemplateResourcesItem.Name />
+    <RadzenTextBox Style="width: 70%; text-align: center;" Disabled=false TValue="string" @bind-value=@TemplateResourcesItem.Name />
     <br />
     <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldDescription />
-    <RadzenTextBox Style="width: 70%; text-align: center;" Disabled="false" TValue="string" @bind-value=@TemplateResourcesItem.Description />
+    <RadzenTextBox Style="width: 70%; text-align: center;" Disabled=false TValue="string" @bind-value=@TemplateResourcesItem.Description />
     <br />
     <RadzenLabel Style="width: 97%;" Text=@FileInfo />
     <br />
@@ -30,7 +30,7 @@
     <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldType />
     @if (ResourceTypes == null)
     {
-        <RadzenTextBox Style="width: 70%;" Disabled="true" TValue="string" Value="" />
+        <RadzenTextBox Style="width: 70%;" Disabled=false ReadOnly=true TValue="string" Value="" />
         <RadzenProgressBar Value=@ProgressValue Unit=@FileInfo
                             ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
@@ -43,6 +43,6 @@
     }
     <br />
     <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldImageData />
-    <RadzenTextBox Style="width: 70%; text-align: center;" ReadOnly="true" TValue="string" @bind-value=@TemplateResourcesItem.ImageDataInfo />
+    <RadzenTextBox Style="width: 70%; text-align: center;" ReadOnly=true TValue="string" @bind-value=@TemplateResourcesItem.ImageDataInfo />
     <br />
 </div>

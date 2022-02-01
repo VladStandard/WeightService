@@ -56,7 +56,7 @@ namespace BlazorDeviceControl.Shared.SysSection
                                 }
                             }
                         }
-                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, true, true, false, false);
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, true, true, false, false, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

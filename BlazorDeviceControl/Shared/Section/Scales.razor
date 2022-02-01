@@ -42,7 +42,7 @@
             Title=@LocalizationData.DeviceControl.TableFieldIdRRef
             Type="string" Width="15%">
             <Template Context="item">
-                <RadzenLabel Text=@item.Host?.IdRRef.ToString() Disabled="true" Style="white-space: pre-wrap;" />
+                <RadzenLabel Text=@item.Host?.IdRRef.ToString() Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
@@ -58,7 +58,7 @@
             Title=@LocalizationData.DeviceControl.TableFieldTemplateDefault 
             Type="string" Width="26%">
             <Template Context="item">
-                <RadzenLabel Text=@item.TemplateDefault.Title Disabled="true" Style="white-space: pre-wrap;" />
+                <RadzenLabel Text=@item.TemplateDefault.Title Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
             </Template>
         </RadzenGridColumn>
     </Columns>

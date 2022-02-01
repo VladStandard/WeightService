@@ -23,12 +23,12 @@
         <RadzenGridColumn TItem="PluEntity" Property="Plu" Title=@LocalizationData.DeviceControl.TableFieldPlu Width="6%" TextAlign="TextAlign.Center" />
         <RadzenGridColumn TItem="PluEntity" Property="Active" Title=@LocalizationData.DeviceControl.TableFieldActive Width="4%" TextAlign="TextAlign.Center">
             <Template Context="pluEntity">
-                <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.Active Disabled="true" />
+                <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.Active Disabled=false ReadOnly=true />
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Title=@LocalizationData.DeviceControl.TableFieldCheckWeight Width="4%" TextAlign="TextAlign.Center">
             <Template Context="pluEntity">
-                <RadzenCheckBox TValue="bool?" @bind-Value="@pluEntity.CheckWeight" Disabled="true" />
+                <RadzenCheckBox TValue="bool?" @bind-Value="@pluEntity.CheckWeight" Disabled=false ReadOnly=true />
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem="PluEntity" Title=@LocalizationData.DeviceControl.TableFieldGoodsName Width="16%">
@@ -46,11 +46,11 @@
             <Template Context="pluEntity">
                 @if (pluEntity.GtinCheck())
                 {
-                    <RadzenIcon Icon="" Disabled="true" />
+                    <RadzenIcon Icon="" Disabled=false ReadOnly=true />
                 }
                 else
                 {
-                    <RadzenIcon Icon="announcement" Disabled="true" />
+                    <RadzenIcon Icon="announcement" Disabled=false ReadOnly=true />
                 }
             </Template>
         </RadzenGridColumn>

@@ -868,9 +868,11 @@ namespace BlazorCore.Models
                         case ProjectsEnums.TableSystem.Logs:
                             page = LocalizationData.DeviceControl.UriRouteSection.Logs;
                             break;
-                        case ProjectsEnums.TableSystem.Errors:
-                            break;
                         case ProjectsEnums.TableSystem.LogTypes:
+                            page = LocalizationData.DeviceControl.UriRouteSection.LogTypes;
+                            break;
+                        case ProjectsEnums.TableSystem.Errors:
+                            page = LocalizationData.DeviceControl.UriRouteSection.Errors;
                             break;
                         case ProjectsEnums.TableSystem.Tasks:
                             page = LocalizationData.DeviceControl.UriRouteSection.TaskModules;

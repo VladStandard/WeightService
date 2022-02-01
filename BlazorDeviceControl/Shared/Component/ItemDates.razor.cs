@@ -7,6 +7,7 @@ using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Component
@@ -47,7 +48,7 @@ namespace BlazorDeviceControl.Shared.Component
                                         DtModify = error.ModifiedDate.ToString();
                                         break;
                                     case ProjectsEnums.TableSystem.Logs:
-                                        LogEntity log = AppSettings.DataAccess.Crud.GetEntity<LogEntity>((int)Id);
+                                        LogEntity log = AppSettings.DataAccess.Crud.GetEntity<LogEntity>((Guid)Uid);
                                         DtCreate = log.CreateDt.ToString();
                                         break;
                                     case ProjectsEnums.TableSystem.LogTypes:

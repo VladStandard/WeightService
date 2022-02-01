@@ -32,15 +32,15 @@ FROM [SYS].[DATABASE_FILES]
                 public static class Access
                 {
                     public static string GetAccess => @"
--- Table Access diagram summary
-select
-	 [UID]
-	,[CREATE_DT]
-	,[CHANGE_DT]
-	,[USER]
-	,[LEVEL]
-from [db_scales].[ACCESS]
-order by [USER] desc
+-- Table Access
+SELECT
+	[UID]
+   ,[CREATE_DT]
+   ,[CHANGE_DT]
+   ,[USER]
+   ,[LEVEL]
+FROM [DB_SCALES].[ACCESS]
+ORDER BY [USER] ASC
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetAccessUser(string userName) => @$"

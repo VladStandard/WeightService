@@ -31,12 +31,12 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldDescription</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ScaleItem.Description />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldDeviceSendTimeout</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; " Disabled="false" 
+                    <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="short?" @bind-Value=@ScaleItem.DeviceSendTimeout />
 				</td>
             </tr>
@@ -58,7 +58,7 @@ else
                 <td>@LocalizationData.DeviceControl.TableFieldDeviceReceiveTimeout</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" 
-                        Disabled="false" TValue="short?" @bind-Value=@ScaleItem.DeviceReceiveTimeout />
+                        Disabled=false TValue="short?" @bind-Value=@ScaleItem.DeviceReceiveTimeout />
 				</td>
             </tr>
             <tr>
@@ -103,7 +103,7 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldDeviceNumber</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="int?" Name="fieldDeviceNumber" @bind-Value=@ScaleItem.DeviceNumber />
                     <RadzenNumericRangeValidator 
                         Component="fieldDeviceNumber" Min="0"
@@ -111,7 +111,7 @@ else
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldUseOrder</td>
                 <td>
-                    <RadzenCheckBox Disabled="false" TValue="bool?" @bind-Value=@ScaleItem.UseOrder />
+                    <RadzenCheckBox Disabled=false TValue="bool?" @bind-Value=@ScaleItem.UseOrder />
 				</td>
             </tr>
             <tr>
@@ -167,7 +167,7 @@ else
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldScaleFactor</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="int?" @bind-Value=@ScaleItem.ScaleFactor />
 				</td>
             </tr>
@@ -176,6 +176,6 @@ else
     
     <Plus Table=@Table ScaleId=@ScaleItem.Id />
     
-    <ActionsSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />
 }

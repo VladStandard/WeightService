@@ -38,7 +38,7 @@ namespace BlazorDeviceControl.Shared.Section
                             new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                             .OrderBy(x => x.ProductionFacility.Name)
                             .ToList<BaseEntity>();
-                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true);
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

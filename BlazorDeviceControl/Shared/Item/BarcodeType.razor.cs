@@ -38,6 +38,7 @@ namespace BlazorDeviceControl.Shared.Item
                             BarcodeTypeItem.Id = (int)Id;
                             BarcodeTypeItem.Name = "NEW BARCODE";
                         }
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

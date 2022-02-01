@@ -85,6 +85,7 @@ namespace BlazorDeviceControl.Shared.Item
                         //    {
                         //        PluItem.Plu = pluEntity.Plu + 1;
                         //    }
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

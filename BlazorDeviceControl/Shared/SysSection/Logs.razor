@@ -25,7 +25,7 @@
             Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
             <Template Context="logItem" >
                 <RadzenDatePicker 
-                    TValue="string" Value=@logItem.CreateDt Disabled="true" DateFormat="yyyy-MM-dd HH:mm:ss" />
+                    TValue="string" Value=@logItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
@@ -53,7 +53,7 @@
             <Template Context="logItem">
                 <RadzenLabel 
                     Style="height: 80%; width=80%; white-space: pre-wrap; " 
-                    Text=@logItem.Message Disabled="false" />
+                    Text=@logItem.Message Disabled=false />
             </Template>
         </RadzenGridColumn>
     </Columns>

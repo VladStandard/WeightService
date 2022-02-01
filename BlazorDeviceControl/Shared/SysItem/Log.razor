@@ -1,5 +1,5 @@
-﻿@*@page "/system/logitem"
-@page "/system/logitem/{Uid:Guid}"
+﻿@page "/item/log"
+@page "/item/log/{UidStr}"
 @using BlazorCore.Models
 @using DataProjectsCore
 @using DataProjectsCore.DAL.TableModels
@@ -9,7 +9,7 @@
 @using DataShareCore
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.ItemError SetParameters=@SetParametersAsync />
+<ActionsReload Title=@LocalizationData.DeviceControl.ItemLog SetParameters=@SetParametersAsync />
 
 @if (Item == null)
 {
@@ -30,45 +30,67 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldUid</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
-                        TValue="Guid" @bind-Value=@LogItem.Uid />
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@UidStr />
 				</td>
+                <td>
+                    <RadzenDatePicker 
+                        TValue="string" Value=@LogItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldHost</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@LogItem.Host.Name />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldApp</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@LogItem.App.Name />
+				</td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldVersion</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@LogItem.Version />
 				</td>
-            </tr>
-            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldFile</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled="false" 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@LogItem.File />
-				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldRow</td>
-                <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
-                        TValue="int" @bind-Value=@LogItem.Line />
 				</td>
             </tr>
             <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldRow</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
+                        TValue="int" @bind-Value=@LogItem.Line />
+				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMember</td>
-                <td rowspan=3>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@LogItem.Member />
 				</td>
             </tr>
             <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldLogType</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@LogItem.LogType.Icon />
+				</td>
+            </tr>
+            <tr >
                 <td>@LocalizationData.DeviceControl.TableFieldMessage</td>
-                <td rowspan=3>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled="true" 
-                        TValue="string" @bind-Value=@LogItem.Message />
+                <td colspan=3 rowspan=3>
+                    <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@LogItem.Message Rows=3 />
 				</td>
             </tr>
         </tbody>
     </MudSimpleTable>
     
-    <ActionsSave ParentRazor=@this />
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />
 }
-*@

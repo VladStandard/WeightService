@@ -59,8 +59,10 @@ namespace DataProjectsCore
                 public const string BarCodeTypes = "/section/barcodetypes";
                 public const string Contragents = "/section/contragents";
                 public const string Devices = "/section/devices";
+                public const string Errors = "/system/errors";
                 public const string Hosts = "/section/hosts";
-                public const string Logs = "/section/logs";
+                public const string Logs = "/system/logs";
+                public const string LogTypes = "/section/logtypes";
                 public const string Nomenclatures = "/section/nomenclatures";
                 public const string PrinterResources = "/section/printerresources";
                 public const string Printers = "/section/printers";
@@ -83,6 +85,7 @@ namespace DataProjectsCore
             public static string ItemFont => Lang == ShareEnums.Lang.English ? @"Font" : @"Шрифт";
             public static string ItemHost => Lang == ShareEnums.Lang.English ? @"Host" : @"Хост";
             public static string ItemLabel => Lang == ShareEnums.Lang.English ? @"Label" : @"Этикетка";
+            public static string ItemLog => Lang == ShareEnums.Lang.English ? @"Log" : @"Лог";
             public static string ItemLogo => Lang == ShareEnums.Lang.English ? @"Logo" : @"Логотип";
             public static string ItemModule => Lang == ShareEnums.Lang.English ? @"Module" : @"Модуль";
             public static string ItemNomenclature => Lang == ShareEnums.Lang.English ? @"Nomenclature" : @"Номенклатура";
@@ -182,7 +185,9 @@ namespace DataProjectsCore
             public static string TableFieldDeviceSendTimeout => Lang == ShareEnums.Lang.English ? @"Send timeout" : @"Таймаут отправки";
             public static string TableFieldEan13 => @"EAN13";
             public static string TableFieldEnabled = Lang == ShareEnums.Lang.English ? @"Enabled" : @"Активно";
+            public static string TableFieldException => Lang == ShareEnums.Lang.English ? @"Exception" : @"Исключение";
             public static string TableFieldFile => Lang == ShareEnums.Lang.English ? @"File" : @"Файл";
+            public static string TableFieldFilePath => Lang == ShareEnums.Lang.English ? @"File path" : @"Путь к файлу";
             public static string TableFieldGln => @"GLN";
             public static string TableFieldGoodsBoxQuantly => Lang == ShareEnums.Lang.English ? @"___" : @"Вложений в короб";
             public static string TableFieldGoodsBruttoWeight => Lang == ShareEnums.Lang.English ? @"___" : @"Вес брутто";
@@ -198,17 +203,16 @@ namespace DataProjectsCore
             public static string TableFieldIdRRef => @"ID 1C";
             public static string TableFieldImageData => Lang == ShareEnums.Lang.English ? @"___" : @"ImageData";
             public static string TableFieldImageDataInfo => Lang == ShareEnums.Lang.English ? @"Info" : @"Информация";
+            public static string TableFieldInnerException => Lang == ShareEnums.Lang.English ? @"Inner exception" : @"Вложенное исключение";
             public static string TableFieldIsClose => Lang == ShareEnums.Lang.English ? @"Is close" : @"Закрыто";
             public static string TableFieldItf14 => @"ITF14";
             public static string TableFieldKneding => Lang == ShareEnums.Lang.English ? @"Is kneading" : @"Взвешено";
             public static string TableFieldLevel => Lang == ShareEnums.Lang.English ? @"Level" : @"Уровень";
             public static string TableFieldLine => Lang == ShareEnums.Lang.English ? @"Line" : @"Линия";
-            public static string TableFieldRow => Lang == ShareEnums.Lang.English ? @"Row" : @"Строка";
+            public static string TableFieldLogType => Lang == ShareEnums.Lang.English ? @"Log type" : @"Тип лога";
             public static string TableFieldLowerWeightThreshold => Lang == ShareEnums.Lang.English ? @"___" : @"Нижнее значение веса короба";
             public static string TableFieldMarked => Lang == ShareEnums.Lang.English ? @"___" : @"В архиве";
             public static string TableFieldMember => Lang == ShareEnums.Lang.English ? @"___" : @"Метод";
-            public static string TableFieldException => Lang == ShareEnums.Lang.English ? @"Exception" : @"Исключение";
-            public static string TableFieldInnerException => Lang == ShareEnums.Lang.English ? @"Inner exception" : @"Вложенное исключение";
             public static string TableFieldMessage => Lang == ShareEnums.Lang.English ? @"___" : @"Сообщение";
             public static string TableFieldModifiedDate => Lang == ShareEnums.Lang.English ? @"___" : @"Дата редактирования";
             public static string TableFieldName => Lang == ShareEnums.Lang.English ? @"___" : @"Наименование";
@@ -237,6 +241,7 @@ namespace DataProjectsCore
             public static string TableFieldProductionFacilityName => Lang == ShareEnums.Lang.English ? @"___" : @"Площадка";
             public static string TableFieldRegNum => Lang == ShareEnums.Lang.English ? @"___" : @"#";
             public static string TableFieldResource => Lang == ShareEnums.Lang.English ? @"___" : @"Ресурс";
+            public static string TableFieldRow => Lang == ShareEnums.Lang.English ? @"Row" : @"Строка";
             public static string TableFieldScale => Lang == ShareEnums.Lang.English ? @"___" : @"Устройство";
             public static string TableFieldScaleFactor => Lang == ShareEnums.Lang.English ? @"___" : @"Scale factor";
             public static string TableFieldScaleId => Lang == ShareEnums.Lang.English ? @"___" : @"ID весов";

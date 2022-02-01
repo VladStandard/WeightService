@@ -35,7 +35,7 @@ namespace BlazorDeviceControl.Shared.Section
                         Items = AppSettings.DataAccess.Crud.GetEntities<BarcodeTypeEntity>(null,
                             new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                             .ToList<BaseEntity>();
-                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true);
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
