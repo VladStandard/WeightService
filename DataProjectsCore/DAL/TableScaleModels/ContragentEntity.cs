@@ -15,14 +15,14 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public virtual DateTime? CreateDate { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
-        public virtual string Name { get; set; }
-        public virtual bool? Marked { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
+        public virtual bool? Marked { get; set; } = null;
         public virtual bool MarkedGui
         {
             get => Marked == true;
             set => Marked = value;
         }
-        public virtual string SerializedRepresentationObject { get; set; }
+        public virtual string SerializedRepresentationObject { get; set; } = string.Empty;
 
         #endregion
 
@@ -31,7 +31,6 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public ContragentEntity()
         {
             PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
-            Name = string.Empty;
         }
 
         #endregion

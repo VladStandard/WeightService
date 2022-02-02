@@ -4,7 +4,7 @@
 using DataShareCore.DAL.Models;
 using System;
 
-namespace DataProjectsCore.DAL.TableSystemModels
+namespace DataProjectsCore.DAL.TableScaleModels
 {
     public class HostEntity : BaseEntity
     {
@@ -12,8 +12,8 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         public virtual DateTime? CreateDate { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Ip { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Ip { get; set; } = string.Empty;
         public virtual MacAddressEntity MacAddress { get; set; }
         public virtual string MacAddressValue
         {
@@ -28,7 +28,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
             set => IdRRef = Guid.Parse(value);
         }
         public virtual bool Marked { get; set; }
-        public virtual string SettingsFile { get; set; }
+        public virtual string SettingsFile { get; set; } = string.Empty;
 
         #endregion
 

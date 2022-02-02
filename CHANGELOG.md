@@ -9,14 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - http://192.168.0.50/projects/support_palych/roadmap
 
 ## [Unreleased]
-- БД. Добавить поля "Дата последней поверки".
-- Email. Уведомление о датах поверки весов.
-- RFID-считыватель "ФИО оператора весов". Положить в БД.
-- Redmine 1559. BlazorDeviceControl, Страница редактирования номенклатуры
-- Redmine 1600. Подготовить шаблон инструкции "Действия при ошибках печати"
-- Redmine 1608. DbScales. Таблица Labels. Удалить поле Label
 
-## [0.6.090] - 2022-01-31
+## [0.6.110] - 2022-02-02
+### Changed
+- BlazorDeviceControl v.0.6.110
+- BlazorCore v.0.6.100
+- DataProjectCore v.0.6.100
+- DataShareCore v.0.6.100
+- WeightCore v.0.6.100
+
+## [0.6.090] - 2022-02-01
 ### Changed
 - BlazorDeviceControl v.0.6.090
 - BlazorCore v.0.6.090

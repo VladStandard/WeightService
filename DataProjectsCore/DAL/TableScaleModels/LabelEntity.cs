@@ -15,10 +15,10 @@ namespace DataProjectsCore.DAL.TableScaleModels
         #region Public and private fields and properties
 
         public virtual WeithingFactEntity WeithingFact { get; set; } = new WeithingFactEntity();
-        public virtual byte[] Label { get; set; }
+        public virtual byte[] Label { get; set; } = new byte[0];
         public virtual string LabelString
         {
-            get => Label == null ? string.Empty : Encoding.Default.GetString(Label);
+            get => Label == null || Label.Length == 0 ? string.Empty : Encoding.Default.GetString(Label);
             set => Label = Encoding.Default.GetBytes(value);
         }
         public virtual DateTime? CreateDate { get; set; }

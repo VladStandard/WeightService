@@ -9,18 +9,33 @@ namespace DataProjectsCore.DAL
 {
     public class SqlConnectFactory
     {
+        #region Design pattern "Lazy Singleton"
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static SqlConnectFactory _instance;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. 
+        
+        #endregion
+
+        #region Public and private fields and properties
 
         public string ConnectionString { get; }
-
         private static readonly object _locker = new();
+        public delegate void ExecuteReaderCallback(SqlDataReader reader);
+        public delegate T? ExecuteReaderCallback<T>(SqlDataReader reader);
+
+        #endregion
+
+        #region Constructor and destructor
 
         protected SqlConnectFactory(string connectionString)
         {
             ConnectionString = connectionString;
         }
+
+        #endregion
+
+        #region Public and private methods
 
         protected SqlConnection GetSqlConnection()
         {
@@ -40,22 +55,15 @@ namespace DataProjectsCore.DAL
 
         public static SqlConnection GetConnection()
         {
-            if (_instance == null)
+            lock (_locker)
             {
-                throw new Exception(@"Factory not initialized. Call this method with param _connectionString");
+                if (_instance == null)
+                {
+                    throw new Exception(@"Factory not initialized. Call this method with param _connectionString");
+                }
             }
 
             return _instance.GetSqlConnection();
-        }
-
-        [Obsolete(@"Deprecated method")]
-        public static T? GetValue<T>(IDataReader reader, string fieldName)
-        {
-            //object value = reader[fieldName];
-            //Type t = typeof(T);
-            //t = Nullable.GetUnderlyingType(t) ?? t;
-            //return (value == null || DBNull.Value.Equals(value)) ? default : (T)Convert.ChangeType(value, t);
-            return GetValueAsNullable<T>(reader, fieldName);
         }
 
         public static T GetValueAsNotNullable<T>(IDataReader reader, string fieldName) where T : struct
@@ -75,61 +83,60 @@ namespace DataProjectsCore.DAL
             return (value == null || DBNull.Value.Equals(value)) ? default : (T)Convert.ChangeType(value, t);
         }
 
+        public static string GetValueAsString(IDataReader reader, string fieldName)
+        {
+            object value = reader[fieldName];
+            Type t = typeof(string);
+            t = Nullable.GetUnderlyingType(t) ?? t;
+            return (value == null || DBNull.Value.Equals(value)) ? string.Empty : (string)Convert.ChangeType(value, t);
+        }
+
         #region Public and private methods - Wrappers execute
 
-        public delegate void ExecuteReaderInside(SqlDataReader reader);
-
-        public static void ExecuteReader(string query, SqlParameter[] parameters, ExecuteReaderInside methodInside)
+        public static void ExecuteReader(string query, SqlParameter[] parameters, ExecuteReaderCallback callback)
         {
-            lock (_locker)
+            using SqlConnection con = GetConnection();
+            con.Open();
+            using (SqlCommand cmd = new(query))
             {
-                using SqlConnection con = GetConnection();
-                con.Open();
-                using (SqlCommand cmd = new(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                if (parameters != null)
                     cmd.Parameters.AddRange(parameters);
-                    //cmd.CommandType = CommandType.TableDirect;
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        methodInside?.Invoke(reader);
-                    }
-                    reader.Close();
+                //cmd.CommandType = CommandType.TableDirect;
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    callback?.Invoke(reader);
                 }
-                con.Close();
+                reader.Close();
             }
+            con.Close();
         }
 
-        public delegate T? ExecuteReaderInside<T>(SqlDataReader reader);
-
-        public static T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderInside<T> methodInside)
+        public static T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback)
         {
-            lock (_locker)
+            T? result = default;
+            using SqlConnection con = GetConnection();
+            con.Open();
+            using (SqlCommand cmd = new(query))
             {
-                T? result = default;
-                using SqlConnection con = GetConnection();
-                con.Open();
-                using (SqlCommand cmd = new(query))
+                cmd.Connection = con;
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddRange(parameters);
+                //cmd.CommandType = CommandType.TableDirect;
+                using SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.AddRange(parameters);
-                    //cmd.CommandType = CommandType.TableDirect;
-                    using SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        result = methodInside(reader);
-                    }
-                    reader.Close();
+                    result = callback(reader);
                 }
-                con.Close();
-                return result;
+                reader.Close();
             }
+            con.Close();
+            return result;
         }
 
-        public static T ExecuteReaderForEntity<T>(string query, SqlParameter[] parameters, ExecuteReaderInside<T> methodInside) where T : new()
+        public static T ExecuteReaderForEntity<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback) where T : new()
         {
             lock (_locker)
             {
@@ -145,7 +152,7 @@ namespace DataProjectsCore.DAL
                     using SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
-                        result = methodInside(reader) ?? new T();
+                        result = callback(reader) ?? new T();
                     }
                     reader.Close();
                 }
@@ -171,6 +178,8 @@ namespace DataProjectsCore.DAL
                 con.Close();
             }
         }
+
+        #endregion
 
         #endregion
     }

@@ -11,15 +11,16 @@ namespace DataProjectsCore.DAL.TableModels
     [Serializable]
     public class ContregentDirect : BaseSerializeEntity<ContregentDirect>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; } = default;
+        public string Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public string RRefID { get; set; }
+        public string RRefID { get; set; } = string.Empty;
         public bool Marked { get; set; }
 
         public ContregentDirect()
         {
+            Load();
         }
 
         public ContregentDirect(int _Id)
@@ -31,6 +32,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
+            if (Id == default) return;
             using SqlConnection con = SqlConnectFactory.GetConnection();
             con.Open();
             string query = "SELECT * FROM [db_scales].[GetContragent](@Id);";
@@ -43,12 +45,12 @@ namespace DataProjectsCore.DAL.TableModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-                        CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
-                        RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID");
-                        Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked");
+                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                        Name = SqlConnectFactory.GetValueAsString(reader, "Name");
+                        CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnectFactory.GetValueAsString(reader, "1CRRefID");
+                        Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked");
                     }
                 }
                 reader.Close();
@@ -80,7 +82,7 @@ namespace DataProjectsCore.DAL.TableModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValue<int>(reader, "Id");
+                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id");
                     }
                 }
                 reader.Close();
@@ -105,12 +107,12 @@ namespace DataProjectsCore.DAL.TableModels
                         {
                             ContregentDirect contregent = new()
                             {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID"),
-                                Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked")
+                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
+                                Name = SqlConnectFactory.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnectFactory.GetValueAsString(reader, "1CRRefID"),
+                                Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked")
                             };
                             result.Add(contregent);
                         }

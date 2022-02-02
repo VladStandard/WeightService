@@ -11,10 +11,12 @@ namespace CoreTests
     /// </summary>
     public static class TestsUtils
     {
-        public static string ConectionStringDevelop =
-            @"Data Source=CREATIO\INS1;Initial Catalog=Scales;Persist Security Info=True;User ID=scale01;Password=scale01";
-        public static string ConectionStringProduct =
-            @"Data Source=PALYCH\LUTON;Initial Catalog=ScalesDB;Persist Security Info=True;User ID=scale01;Password=scale01";
+        public static string ConectionStringDevelop(bool isTrusted) => isTrusted
+            ? @"Data Source=CREATIO\INS1;Initial Catalog=Scales;Persist Security Info=True;Trusted Connection=True;TrustServerCertificate=True;"
+            : @"Data Source=CREATIO\INS1;Initial Catalog=Scales;Persist Security Info=True;User ID=scale01;Password=scale01;TrustServerCertificate=True;";
+        public static string ConectionStringProduct(bool isTrusted) => isTrusted
+            ? @"Data Source=PALYCH\LUTON;Initial Catalog=ScalesDB;Persist Security Info=True;Trusted Connection=True;TrustServerCertificate=True;"
+            : @"Data Source=PALYCH\LUTON;Initial Catalog=ScalesDB;Persist Security Info=True;User ID=scale01;Password=scale01;TrustServerCertificate=True;";
 
         public static void MethodStart([CallerMemberName] string memberName = "")
         {

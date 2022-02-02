@@ -57,7 +57,7 @@ namespace DataProjectsCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
+                            result = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
                         }
                     }
                     reader.Close();
@@ -86,10 +86,10 @@ namespace DataProjectsCore.DAL.Utils
                         {
                             result = new TaskDirect
                             {
-                                Uid = SqlConnectFactory.GetValue<Guid>(reader, "TASK_UID"),
-                                TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValue<Guid>(reader, "TASK_TYPE_UID")),
-                                Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValue<int>(reader, "SCALE_ID")),
-                                Enabled = SqlConnectFactory.GetValue<bool>(reader, "ENABLED")
+                                Uid = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
+                                TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
+                                Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+                                Enabled = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "ENABLED")
                             };
                         }
                     }
@@ -118,10 +118,10 @@ namespace DataProjectsCore.DAL.Utils
                         {
                             result = new TaskDirect
                             {
-                                Uid = SqlConnectFactory.GetValue<Guid>(reader, "TASK_UID"),
-                                TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValue<Guid>(reader, "TASK_TYPE_UID")),
-                                Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValue<int>(reader, "SCALE_ID")),
-                                Enabled = SqlConnectFactory.GetValue<bool>(reader, "ENABLED")
+                                Uid = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
+                                TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
+                                Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+                                Enabled = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "ENABLED")
                             };
                         }
                     }

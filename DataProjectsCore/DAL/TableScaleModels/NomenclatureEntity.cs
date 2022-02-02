@@ -24,9 +24,9 @@ namespace DataProjectsCore.DAL.TableScaleModels
         /// <summary>
         /// Наименование.
         /// </summary>
-        public virtual string Name { get; set; }
-        public virtual string Code { get; set; }
-        public virtual string SerializedRepresentationObject { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Code { get; set; } = string.Empty;
+        public virtual string SerializedRepresentationObject { get; set; } = string.Empty;
 
         #endregion
 

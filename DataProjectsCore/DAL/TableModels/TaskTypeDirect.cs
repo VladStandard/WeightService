@@ -12,8 +12,8 @@ namespace DataProjectsCore.DAL.TableModels
     {
         #region Public and private fields and properties
 
-        public Guid Uid { get; set; }
-        public string Name { get; set; }
+        public Guid Uid { get; set; } = default;
+        public string Name { get; set; } = string.Empty;
 
         #endregion
 

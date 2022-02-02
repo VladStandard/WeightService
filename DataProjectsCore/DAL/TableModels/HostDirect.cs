@@ -13,11 +13,11 @@ namespace DataProjectsCore.DAL.TableModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; }
-        public int ScaleId { get; set; }
-        public string? Name { get; set; }
-        public string? Ip { get; set; }
-        public string? Mac { get; set; }
+        public int Id { get; set; } = default;
+        public int ScaleId { get; set; } = default;
+        public string? Name { get; set; } = string.Empty;
+        public string? Ip { get; set; } = string.Empty;
+        public string? Mac { get; set; } = string.Empty;
         public Guid IdRRef { get; set; }
         public bool Marked { get; set; }
         [XmlIgnore]

@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.DAL.TableSystemModels;
 using DataShareCore.DAL.Models;
 using System;
 
@@ -21,19 +20,19 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public virtual WorkshopEntity WorkShop { get; set; } = new WorkshopEntity();
         public virtual PrinterEntity Printer { get; set; } = new PrinterEntity();
         public virtual HostEntity Host { get; set; } = new HostEntity();
-        public virtual string Description { get; set; }
-        public virtual Guid? IdRRef { get; set; }
-        public virtual string DeviceIp { get; set; }
+        public virtual string Description { get; set; } = string.Empty;
+        public virtual Guid? IdRRef { get; set; } = null;
+        public virtual string DeviceIp { get; set; } = string.Empty;
         public virtual short? DevicePort { get; set; }
-        public virtual string DeviceMac { get; set; }
+        public virtual string DeviceMac { get; set; } = string.Empty;
         public virtual short? DeviceSendTimeout { get; set; }
         public virtual short? DeviceReceiveTimeout { get; set; }
-        public virtual string DeviceComPort { get; set; }
-        public virtual string ZebraIp { get; set; }
+        public virtual string DeviceComPort { get; set; } = string.Empty;
+        public virtual string ZebraIp { get; set; } = string.Empty;
         public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
         public virtual short? ZebraPort { get; set; }
         public virtual bool? UseOrder { get; set; }
-        public virtual string VerScalesUi { get; set; }
+        public virtual string VerScalesUi { get; set; } = string.Empty;
         public virtual int? DeviceNumber { get; set; }
         public virtual int? ScaleFactor { get; set; }
         public virtual bool Marked { get; set; }

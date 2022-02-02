@@ -3,7 +3,7 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL;
-using DataProjectsCore.DAL.TableSystemModels;
+using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Models;
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.SysSection
+namespace BlazorDeviceControl.Shared.Section
 {
     public partial class Errors
     {

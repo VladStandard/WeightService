@@ -3,7 +3,7 @@
 
 using FluentNHibernate.Mapping;
 
-namespace DataProjectsCore.DAL.TableSystemModels
+namespace DataProjectsCore.DAL.TableScaleModels
 {
     public class AccessMap : ClassMap<AccessEntity>
     {

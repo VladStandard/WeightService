@@ -68,12 +68,12 @@
 //                    {
 //                        while (reader.Read())
 //                        {
-//                            Ip = SqlConnectFactory.GetValue<string>(reader, "Ip");
+//                            Ip = SqlConnectFactory.GetValueAsString(reader, "Ip");
 //                            Port = SqlConnectFactory.GetValue<short>(reader, "Port");
-//                            Mac = SqlConnectFactory.GetValue<string>(reader, "Mac");
-//                            Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-//                            Password = SqlConnectFactory.GetValue<string>(reader, "Password");
-//                            PrinterType = SqlConnectFactory.GetValue<string>(reader, "PrinterType");
+//                            Mac = SqlConnectFactory.GetValueAsString(reader, "Mac");
+//                            Name = SqlConnectFactory.GetValueAsString(reader, "Name");
+//                            Password = SqlConnectFactory.GetValueAsString(reader, "Password");
+//                            PrinterType = SqlConnectFactory.GetValueAsString(reader, "PrinterType");
 //                        }
 //                    }
 //                    reader.Close();

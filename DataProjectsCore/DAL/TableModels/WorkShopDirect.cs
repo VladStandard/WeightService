@@ -11,17 +11,38 @@ namespace DataProjectsCore.DAL.TableModels
     [Serializable]
     public class WorkShopDirect : BaseSerializeEntity<WorkShopDirect>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        #region Public and private fields and properties
 
-        public ProductionFacilityDirect ProductionFacility { get; set; }
+        public int Id { get; set; } = default;
+        public string Name { get; set; } = string.Empty;
+
+        public ProductionFacilityDirect ProductionFacility { get; set; } = new ProductionFacilityDirect();
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public string RRefID { get; set; }
+        public string RRefID { get; set; } = string.Empty;
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public WorkShopDirect()
+        {
+            Load();
+        }
+
+        public WorkShopDirect(int _Id)
+        {
+            Id = _Id;
+            Load();
+        }
+
+        #endregion
+
+        #region Public and private methods
 
         public override bool Equals(object obj)
         {
-            if (!(obj is WorkShopDirect item))
+            if (obj is not WorkShopDirect item)
             {
                 return false;
             }
@@ -31,16 +52,6 @@ namespace DataProjectsCore.DAL.TableModels
         public override int GetHashCode()
         {
             return Id.GetHashCode();
-        }
-
-        public WorkShopDirect()
-        {
-        }
-
-        public WorkShopDirect(int _Id)
-        {
-            Id = _Id;
-            Load();
         }
 
         public void Load()
@@ -57,14 +68,14 @@ namespace DataProjectsCore.DAL.TableModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-                        CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
-                        RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID");
+                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                        Name = SqlConnectFactory.GetValueAsString(reader, "Name");
+                        CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnectFactory.GetValueAsString(reader, "RRefID");
                     }
                 }
-                ProductionFacility = new ProductionFacilityDirect(SqlConnectFactory.GetValue<int>(reader, "ProductionFacilityID"));
+                ProductionFacility = new ProductionFacilityDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ProductionFacilityID"));
                 reader.Close();
             }
             con.Close();
@@ -95,7 +106,7 @@ namespace DataProjectsCore.DAL.TableModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValue<int>(reader, "Id");
+                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id");
                     }
                 }
                 reader.Close();
@@ -122,11 +133,11 @@ namespace DataProjectsCore.DAL.TableModels
                         {
                             WorkShopDirect workShop = new()
                             {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID")
+                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
+                                Name = SqlConnectFactory.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnectFactory.GetValueAsString(reader, "1CRRefID")
                             };
                             workShop.ProductionFacility = productionFacility;
                             result.Add(workShop);
@@ -138,5 +149,7 @@ namespace DataProjectsCore.DAL.TableModels
             }
             return result;
         }
+
+        #endregion
     }
 }

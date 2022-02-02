@@ -16,18 +16,18 @@ namespace DataProjectsCore.DAL.TableModels
     {
         #region Public and private fields and properties
 
-        public string Title { get; set; }
-        public string XslContent { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string XslContent { get; set; } = string.Empty;
         public int? TemplateId { get; set; }
 
         [XmlIgnore]
-        public string CategoryId { get; set; }
+        public string CategoryId { get; set; } = string.Empty;
 
         [XmlIgnore]
-        public Dictionary<string, string> Fonts { get; set; }
+        public Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>();
 
         [XmlIgnore]
-        public Dictionary<string, string> Logo { get; set; }
+        public Dictionary<string, string> Logo { get; set; } = new Dictionary<string, string>();
 
         #endregion
 
@@ -201,22 +201,6 @@ where [Title] = @Title
                     }
                 }
                 reader.Close();
-            }
-            con.Close();
-        }
-
-        [Obsolete(@"Deprecated method")]
-        private void GetTemplateFromDb(string templateId)
-        {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
-            con.Open();
-            string query = "SELECT [db_scales].[GetTemplateByID] ( @ID )";
-            using (SqlCommand cmd = new(query))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@ID", templateId);
-                //var buf = (byte[])cmd.ExecuteScalar();
-                //var tmplate = Encoding.UTF8.GetString(buf, 0, buf.Length);
             }
             con.Close();
         }

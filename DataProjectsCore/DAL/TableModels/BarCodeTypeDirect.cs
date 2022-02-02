@@ -10,11 +10,12 @@ namespace DataProjectsCore.DAL.TableModels
     [Serializable]
     public class BarCodeTypeDirect : BaseSerializeEntity<BarCodeTypeDirect>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; } = default;
+        public string Name { get; set; } = string.Empty;
 
-        public BarCodeTypeDirect()
+        public BarCodeTypeDirect() 
         {
+            Load();
         }
 
         public BarCodeTypeDirect(int _Id)
@@ -25,6 +26,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
+            if (Id == default) return;
             using SqlConnection con = SqlConnectFactory.GetConnection();
             con.Open();
             string query = "SELECT * FROM [db_scales].[GetBarCodeType](@Id);";
@@ -37,8 +39,8 @@ namespace DataProjectsCore.DAL.TableModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
+                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                        Name = SqlConnectFactory.GetValueAsString(reader, "Name");
                     }
                 }
                 reader.Close();

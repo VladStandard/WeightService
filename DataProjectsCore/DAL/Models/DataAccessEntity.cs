@@ -115,33 +115,29 @@ namespace DataProjectsCore.DAL.Models
             if (configuration == null || coreSettings == null || string.IsNullOrEmpty(coreSettings.Db))
                 return;
 
-            if (string.Equals(coreSettings.Db, "ScalesDB", StringComparison.InvariantCultureIgnoreCase) ||
-                string.Equals(coreSettings.Db, "SCALES", StringComparison.InvariantCultureIgnoreCase))
+            switch (coreSettings.Db.ToUpper())
             {
-                AddConfigurationMappingsForSystem(configuration);
-                AddConfigurationMappingsForScale(configuration);
+                case "SCALESDB":
+                case "SCALES":
+                    AddConfigurationMappingsForScale(configuration);
+                    break;
+                case "VSDWH":
+                    AddConfigurationMappingsForDwh(configuration);
+                    break;
             }
-            else if (string.Equals(coreSettings.Db, "VSDWH", StringComparison.InvariantCultureIgnoreCase))
-            {
-                AddConfigurationMappingsForDwh(configuration);
-            }
-        }
-
-        private void AddConfigurationMappingsForSystem(FluentConfiguration configuration)
-        {
-            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.AccessMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.AppMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.ErrorMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.HostMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.LogMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<TableSystemModels.LogTypeMap>());
         }
 
         private void AddConfigurationMappingsForScale(FluentConfiguration configuration)
         {
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AccessMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.AppMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.BarcodeTypeMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ContragentMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.ErrorMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.HostMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LabelMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogMap>());
+            configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.LogTypeMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.NomenclatureMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderMap>());
             configuration.Mappings(m => m.FluentMappings.Add<TableScaleModels.OrderTypeMap>());
@@ -177,192 +173,6 @@ namespace DataProjectsCore.DAL.Models
         #region Public and private methods - Share
 
         public ISession? GetSession() => SessionFactory?.OpenSession();
-
-        #endregion
-
-        #region Public and private methods - CRUD share
-
-        //public T ActionGetIdEntity<T>(T item, DbTableAction tableAction) where T : BaseEntity, new()
-        //{
-        //    T result = tableAction switch
-        //    {
-        //        DbTableAction.New => new T(),
-        //        DbTableAction.Edit => item,
-        //        DbTableAction.Copy => (T)item.Clone(),
-        //        DbTableAction.Delete => item,
-        //        DbTableAction.Mark => item,
-        //        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-        //    };
-        //    if (tableAction == DbTableAction.New || tableAction == DbTableAction.Copy)
-        //    {
-        //        int nextId = 0;
-        //        nextId = ActionGetIdEntityForScales(item, nextId);
-        //        if (nextId == 0)
-        //            nextId = ActionGetIdEntityForDwh(item, nextId);
-        //        result.Id = nextId + 1;
-        //    }
-        //    return result;
-        //}
-
-        //public T ActionGetUidEntity<T>(T item, DbTableAction tableAction) where T : BaseEntity, new()
-        //{
-        //    T result = tableAction switch
-        //    {
-        //        DbTableAction.New => new T(),
-        //        DbTableAction.Edit => item,
-        //        DbTableAction.Copy => (T)item.Clone(),
-        //        DbTableAction.Delete => item,
-        //        DbTableAction.Mark => item,
-        //        _ => throw new ArgumentOutOfRangeException(nameof(tableAction), tableAction, null)
-        //    };
-        //    if (tableAction == DbTableAction.New || tableAction == DbTableAction.Copy)
-        //    {
-        //        switch (item)
-        //        {
-        //            case TableSystemModels.AccessEntity:
-        //                _ = Crud.GetEntity<TableSystemModels.AccessEntity>(null, 
-        //                    new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
-        //                break;
-        //            case TableSystemModels.AppEntity:
-        //                _ = Crud.GetEntity<TableSystemModels.AppEntity>(null, 
-        //                    new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
-        //                break;
-        //            case TableSystemModels.LogEntity:
-        //                _ = Crud.GetEntity<TableSystemModels.LogEntity>(null, 
-        //                    new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
-        //                break;
-        //            case TableSystemModels.LogTypeEntity:
-        //                _ = Crud.GetEntity<TableSystemModels.LogTypeEntity>(null, 
-        //                    new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
-        //                break;
-        //            case DataShareCore.DAL.DataModels.LogSummaryEntity:
-        //                _ = Crud.GetEntity<DataShareCore.DAL.DataModels.LogSummaryEntity>(null, 
-        //                    new FieldOrderEntity(DbField.Uid, DbOrderDirection.Desc)).Uid;
-        //                break;
-        //            case DataModels.WeithingFactSummaryEntity:
-        //                break;
-        //        }
-        //        result.Uid = Guid.NewGuid();
-        //    }
-        //    return result;
-        //}
-
-        //private int ActionGetIdEntityForScales<T>(T item, int nextId) where T : BaseEntity, new()
-        //{
-        //    switch (item)
-        //    {
-        //        case TableSystemModels.HostEntity:
-        //            nextId = Crud.GetEntity<TableSystemModels.HostEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.BarcodeTypeEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.BarcodeTypeEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.ContragentEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.ContragentEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.LabelEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.LabelEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.NomenclatureEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.NomenclatureEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.OrderEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.OrderEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.OrderStatusEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.OrderStatusEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.OrderTypeEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.OrderTypeEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.PluEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.PluEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.ProductionFacilityEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.ProductionFacilityEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.ProductSeriesEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.ProductSeriesEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.ScaleEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.ScaleEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.TemplateResourceEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.TemplateResourceEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.TemplateEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.TemplateEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.WeithingFactEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.WeithingFactEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.WorkshopEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.WorkshopEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.PrinterEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.PrinterEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.PrinterResourceEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.PrinterResourceEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableScaleModels.PrinterTypeEntity:
-        //            nextId = Crud.GetEntity<TableScaleModels.PrinterTypeEntity>(null, 
-        //                new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //    }
-        //    return nextId;
-        //}
-
-        //private int ActionGetIdEntityForDwh<T>(T item, int nextId) where T : BaseEntity, new()
-        //{
-        //    switch (item)
-        //    {
-        //        case TableDwhModels.BrandEntity:
-        //            nextId = Crud.GetEntity<TableDwhModels.BrandEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableDwhModels.InformationSystemEntity:
-        //            nextId = Crud.GetEntity<TableDwhModels.InformationSystemEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableDwhModels.NomenclatureEntity:
-        //            nextId = Crud.GetEntity<TableDwhModels.NomenclatureEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableDwhModels.NomenclatureGroupEntity:
-        //            nextId = Crud.GetEntity<TableDwhModels.NomenclatureGroupEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableDwhModels.NomenclatureLightEntity:
-        //            nextId = Crud.GetEntity<TableDwhModels.NomenclatureLightEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableDwhModels.NomenclatureTypeEntity:
-        //            nextId = Crud.GetEntity<TableDwhModels.NomenclatureTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //        case TableDwhModels.StatusEntity:
-        //            nextId = Crud.GetEntity<TableDwhModels.StatusEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id;
-        //            break;
-        //    }
-        //    return nextId;
-        //}
-
-        //public void ActionDeleteEntity<T>(T item) where T : BaseEntity, new() => Crud.DeleteEntity(item);
-
-        //public void ActionMarkedEntity<T>(T item) where T : BaseEntity, new() => Crud.MarkedEntity(item);
 
         #endregion
     }

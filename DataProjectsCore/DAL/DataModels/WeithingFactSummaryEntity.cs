@@ -12,10 +12,10 @@ namespace DataProjectsCore.DAL.DataModels
 
         public virtual string WeithingDay => WeithingDate == default || WeithingDate == DateTime.MaxValue || WeithingDate == DateTime.MinValue
             ? string.Empty : EnumUtils.GetDayOfWeekRu(WeithingDate.DayOfWeek);
-        public virtual int Count { get; set; }
-        public virtual string Scale { get; set; }
-        public virtual string Host { get; set; }
-        public virtual string Printer { get; set; }
+        public virtual int Count { get; set; } = default;
+        public virtual string Scale { get; set; } = string.Empty;
+        public virtual string Host { get; set; } = string.Empty;
+        public virtual string Printer { get; set; } = string.Empty;
 
         #endregion
 

@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.SysSection
+namespace BlazorDeviceControl.Shared.Section
 {
     public partial class Info
     {

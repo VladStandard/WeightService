@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -124,7 +125,7 @@ namespace DataShareCore.DAL.Models
                 _ => throw GetArgumentException(nameof(format)),
             };
         }
-        
+
         #endregion
     }
 }

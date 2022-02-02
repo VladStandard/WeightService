@@ -29,6 +29,17 @@ else
         </thead>
         <tbody>
             <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
+                        TValue="int" @bind-Value=@ScaleItem.Id />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ScaleItem.Marked />
+                </td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldDescription</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 

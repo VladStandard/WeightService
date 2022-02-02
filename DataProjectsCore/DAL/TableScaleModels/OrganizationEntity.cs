@@ -15,10 +15,10 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public virtual DateTime? CreateDate { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
-        public virtual string Name { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
         public virtual bool? Marked { get; set; }
         public virtual int Gln { get; set; }
-        public virtual string SerializedRepresentationObject { get; set; }
+        public virtual string SerializedRepresentationObject { get; set; } = string.Empty;
 
         #endregion
 

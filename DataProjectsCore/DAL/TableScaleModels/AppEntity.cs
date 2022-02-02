@@ -3,13 +3,13 @@
 
 using DataShareCore.DAL.Models;
 
-namespace DataProjectsCore.DAL.TableSystemModels
+namespace DataProjectsCore.DAL.TableScaleModels
 {
     public class AppEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
 
         #endregion
 
@@ -18,7 +18,6 @@ namespace DataProjectsCore.DAL.TableSystemModels
         public AppEntity()
         {
             PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
-            Name = string.Empty;
         }
 
         #endregion

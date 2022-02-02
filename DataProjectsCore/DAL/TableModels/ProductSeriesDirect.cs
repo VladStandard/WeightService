@@ -11,12 +11,7 @@ namespace DataProjectsCore.DAL.TableModels
     [Serializable]
     public class ProductSeriesDirect : BaseSerializeEntity<ProductSeriesDirect>
     {
-        public ProductSeriesDirect() { }
-
-        public ProductSeriesDirect(ScaleDirect _Scale)
-        {
-            Scale = _Scale;
-        }
+        #region Public and private fields and properties
 
         public int Id { get; set; }
         public Guid UUID { get; set; }
@@ -24,14 +19,30 @@ namespace DataProjectsCore.DAL.TableModels
         public DateTime CreateDate { get; set; }
         public SsccDirect Sscc { get; set; }
         public PluDirect Plu { get; set; }
-
-        //public string TemplateID { get; set; }
-
         [XmlIgnore]
         public TemplateDirect Template { get; set; }
         public int CountUnit { get; set; }
         public decimal TotalNetWeight { get; set; }
         public decimal TotalTareWeight { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public ProductSeriesDirect()
+        {
+            Load();
+        }
+
+        public ProductSeriesDirect(ScaleDirect scale)
+        {
+            Scale = scale;
+            Load();
+        }
+
+        #endregion
+
+        #region Public and private methods
 
         public void LoadTemplate(int id)
         {
@@ -79,6 +90,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
+            if (Scale == null || Scale.Id == default) return;
             using SqlConnection con = SqlConnectFactory.GetConnection();
             con.Open();
             string query =
@@ -106,5 +118,7 @@ namespace DataProjectsCore.DAL.TableModels
             }
             con.Close();
         }
+
+        #endregion
     }
 }

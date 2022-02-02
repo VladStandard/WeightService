@@ -14,7 +14,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public Guid Uid { get; set; }
         public byte Number { get; set; }
-        public string Icon { get; set; }
+        public string Icon { get; set; } = string.Empty;
 
         #endregion
 
@@ -22,7 +22,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public LogTypeDirect()
         {
-
+            //
         }
 
         public LogTypeDirect(Guid uid, byte number, string icon) : this()

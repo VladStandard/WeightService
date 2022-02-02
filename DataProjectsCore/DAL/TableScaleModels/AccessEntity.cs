@@ -2,21 +2,24 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataShareCore.DAL.Models;
+using System;
 
-namespace DataProjectsCore.DAL.TableSystemModels
+namespace DataProjectsCore.DAL.TableScaleModels
 {
-    public class LogTypeEntity : BaseEntity
+    public class AccessEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual byte Number { get; set; }
-        public virtual string Icon { get; set; }
+        public virtual DateTime CreateDt { get; set; }
+        public virtual DateTime ChangeDt { get; set; }
+        public virtual string? User { get; set; } = null;
+        public virtual bool? Level { get; set; } = null;
 
         #endregion
 
         #region Constructor and destructor
 
-        public LogTypeEntity()
+        public AccessEntity()
         {
             PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
         }
@@ -28,17 +31,22 @@ namespace DataProjectsCore.DAL.TableSystemModels
         public override string ToString()
         {
             return base.ToString() +
-                   $"{nameof(Number)}: {Number}. " +
-                   $"{nameof(Icon)}: {Icon}. ";
+                   $"{nameof(Uid)}: {Uid}. " +
+                   $"{nameof(CreateDt)}: {CreateDt}. " +
+                   $"{nameof(ChangeDt)}: {ChangeDt}. " +
+                   $"{nameof(User)}: {User}. " +
+                   $"{nameof(Level)}: {Level}. ";
         }
 
-        public virtual bool Equals(LogTypeEntity entity)
+        public virtual bool Equals(AccessEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(Number, entity.Number) &&
-                   Equals(Icon, entity.Icon);
+                   Equals(CreateDt, entity.CreateDt) &&
+                   Equals(ChangeDt, entity.ChangeDt) &&
+                   Equals(User, entity.User) &&
+                   Equals(Level, entity.Level);
         }
 
         public override bool Equals(object obj)
@@ -46,7 +54,7 @@ namespace DataProjectsCore.DAL.TableSystemModels
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((LogTypeEntity)obj);
+            return Equals((AccessEntity)obj);
         }
 
         public override int GetHashCode()
@@ -56,24 +64,28 @@ namespace DataProjectsCore.DAL.TableSystemModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new LogTypeEntity());
+            return Equals(new AccessEntity());
         }
 
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Number, default(byte)) &&
-                   Equals(Icon, default(string));
+                   Equals(CreateDt, default(DateTime)) &&
+                   Equals(ChangeDt, default(DateTime)) &&
+                   Equals(User, default(string)) &&
+                   Equals(Level, default(bool?));
         }
 
         public override object Clone()
         {
-            return new LogTypeEntity
+            return new AccessEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Uid = Uid,
-                Number = Number,
-                Icon = Icon,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                User = User,
+                Level = Level,
             };
         }
 

@@ -17,11 +17,11 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public virtual ScaleEntity Scales { get; set; } = new ScaleEntity();
         public virtual ProductSeriesEntity Series { get; set; } = new ProductSeriesEntity();
         public virtual OrderEntity Orders { get; set; } = new OrderEntity();
-        public virtual string Sscc { get; set; }
+        public virtual string Sscc { get; set; } = string.Empty;
         public virtual DateTime? WeithingDate { get; set; }
         public virtual decimal NetWeight { get; set; }
         public virtual decimal TareWeight { get; set; }
-        public virtual Guid Uid { get; set; }
+        //public virtual Guid Uid { get; set; }
         public virtual DateTime? ProductDate { get; set; }
         public virtual int? RegNum { get; set; }
         public virtual int? Kneading { get; set; }

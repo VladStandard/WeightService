@@ -27,7 +27,7 @@ namespace DataProjectsCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result = SqlConnectFactory.GetValue<int>(reader, "ID");
+                            result = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
                         }
                     }
                     reader.Close();
@@ -55,20 +55,20 @@ namespace DataProjectsCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                            result.Description = SqlConnectFactory.GetValue<string>(reader, "Description");
-                            result.DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
-                            result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
-                            result.DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
-                            result.DeviceWriteTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
-                            result.DeviceReadTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
-                            result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
-                            //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
-                            result.ZebraPrinter.Load(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
-                            result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
-                            result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
-                            result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
-                            result.ScaleFactor = SqlConnectFactory.GetValue<int?>(reader, "ScaleFactor");
+                            result.Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                            result.Description = SqlConnectFactory.GetValueAsString(reader, "Description");
+                            result.DeviceIP = SqlConnectFactory.GetValueAsString(reader, "DeviceIP");
+                            result.DevicePort = SqlConnectFactory.GetValueAsNotNullable<short>(reader, "DevicePort");
+                            result.DeviceMac = SqlConnectFactory.GetValueAsString(reader, "DeviceMAC");
+                            result.DeviceWriteTimeout = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "DeviceSendTimeout");
+                            result.DeviceReadTimeout = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "DeviceReceiveTimeout");
+                            result.DeviceComPort = SqlConnectFactory.GetValueAsString(reader, "DeviceComPort");
+                            //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValueAsNullable<int?>(reader, "ZebraPrinterId"));
+                            result.ZebraPrinter.Load(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ZebraPrinterId"));
+                            result.UseOrder = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "UseOrder");
+                            result.TemplateIdDefault = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "TemplateIdDefault");
+                            result.TemplateIdSeries = SqlConnectFactory.GetValueAsNullable<int?>(reader, "TemplateIdSeries");
+                            result.ScaleFactor = SqlConnectFactory.GetValueAsNullable<int?>(reader, "ScaleFactor");
                         }
                     }
                     reader.Close();
@@ -94,20 +94,20 @@ namespace DataProjectsCore.DAL.Utils
         //            {
         //                while (reader.Read())
         //                {
-        //                    result.Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-        //                    result.Description = SqlConnectFactory.GetValue<string>(reader, "Description");
-        //                    result.DeviceIP = SqlConnectFactory.GetValue<string>(reader, "DeviceIP");
+        //                    result.Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+        //                    result.Description = SqlConnectFactory.GetValueAsString(reader, "Description");
+        //                    result.DeviceIP = SqlConnectFactory.GetValueAsString(reader, "DeviceIP");
         //                    result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
-        //                    result.DeviceMac = SqlConnectFactory.GetValue<string>(reader, "DeviceMAC");
-        //                    result.DeviceSendTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceSendTimeout");
-        //                    result.DeviceReceiveTimeout = SqlConnectFactory.GetValue<int>(reader, "DeviceReceiveTimeout");
-        //                    result.DeviceComPort = SqlConnectFactory.GetValue<string>(reader, "DeviceComPort");
-        //                    //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
-        //                    result.ZebraPrinter.Load(SqlConnectFactory.GetValue<int?>(reader, "ZebraPrinterId"));
-        //                    result.UseOrder = SqlConnectFactory.GetValue<bool>(reader, "UseOrder");
-        //                    result.TemplateIdDefault = SqlConnectFactory.GetValue<int>(reader, "TemplateIdDefault");
-        //                    result.TemplateIdSeries = SqlConnectFactory.GetValue<int?>(reader, "TemplateIdSeries");
-        //                    result.ScaleFactor = SqlConnectFactory.GetValue<int?>(reader, "ScaleFactor");
+        //                    result.DeviceMac = SqlConnectFactory.GetValueAsString(reader, "DeviceMAC");
+        //                    result.DeviceSendTimeout = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "DeviceSendTimeout");
+        //                    result.DeviceReceiveTimeout = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "DeviceReceiveTimeout");
+        //                    result.DeviceComPort = SqlConnectFactory.GetValueAsString(reader, "DeviceComPort");
+        //                    //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValueAsNullable<int?>(reader, "ZebraPrinterId"));
+        //                    result.ZebraPrinter.Load(SqlConnectFactory.GetValueAsNullable<int?>(reader, "ZebraPrinterId"));
+        //                    result.UseOrder = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "UseOrder");
+        //                    result.TemplateIdDefault = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "TemplateIdDefault");
+        //                    result.TemplateIdSeries = SqlConnectFactory.GetValueAsNullable<int?>(reader, "TemplateIdSeries");
+        //                    result.ScaleFactor = SqlConnectFactory.GetValueAsNullable<int?>(reader, "ScaleFactor");
         //                }
         //            }
         //            reader.Close();

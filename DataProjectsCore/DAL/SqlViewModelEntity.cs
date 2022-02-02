@@ -196,7 +196,7 @@ namespace DataProjectsCore.DAL
                         {
                             if (reader.Read())
                             {
-                                result = SqlConnectFactory.GetValue<string>(reader, "InstanceName");
+                                result = SqlConnectFactory.GetValueAsString(reader, "InstanceName");
                             }
                         }
                         reader.Close();

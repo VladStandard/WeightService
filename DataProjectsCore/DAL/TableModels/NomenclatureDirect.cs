@@ -12,22 +12,23 @@ namespace DataProjectsCore.DAL.TableModels
     public class NomenclatureDirect : BaseSerializeEntity<NomenclatureDirect>
     {
         public int Id { get; set; } = default;
-        public string? Name { get; set; } = default;
+        public string? Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; } = default;
         public DateTime ModifiedDate { get; set; } = default;
         public string? RRefID { get; set; } = default;
         public string? Code { get; set; } = default;
         public bool Marked { get; set; } = default;
         public string NameFull { get; set; } = "";
-        public string Description { get; set; } = default;
-        public string Comment { get; set; } = default;
-        public string Brand { get; set; } = default;
-        public string GUID_Mercury { get; set; } = default;
-        public string NomenclatureType { get; set; } = default;
-        public string VATRate { get; set; } = default;
+        public string Description { get; set; } = string.Empty;
+        public string Comment { get; set; } = string.Empty;
+        public string Brand { get; set; } = string.Empty;
+        public string GUID_Mercury { get; set; } = string.Empty;
+        public string NomenclatureType { get; set; } = string.Empty;
+        public string VATRate { get; set; } = string.Empty;
 
         public NomenclatureDirect()
         {
+            Load();
         }
 
         public NomenclatureDirect(int id)
@@ -38,7 +39,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public override bool Equals(object obj)
         {
-            if (!(obj is NomenclatureDirect item))
+            if (obj is not NomenclatureDirect item)
             {
                 return false;
             }
@@ -52,6 +53,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
+            if (Id == default) return;
             using SqlConnection con = SqlConnectFactory.GetConnection();
             con.Open();
             string query = "SELECT * FROM [db_scales].[GetNomenclature] (@Id);";
@@ -64,20 +66,20 @@ namespace DataProjectsCore.DAL.TableModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-                        CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
-                        RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID");
-                        Code = SqlConnectFactory.GetValue<string>(reader, "Code");
-                        Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked");
-                        NameFull = SqlConnectFactory.GetValue<string>(reader, "NameFull");
-                        Description = SqlConnectFactory.GetValue<string>(reader, "Description");
-                        Comment = SqlConnectFactory.GetValue<string>(reader, "Comment");
-                        Brand = SqlConnectFactory.GetValue<string>(reader, "Brand");
-                        GUID_Mercury = SqlConnectFactory.GetValue<string>(reader, "GUID_Mercury");
-                        NomenclatureType = SqlConnectFactory.GetValue<string>(reader, "NomenclatureType");
-                        VATRate = SqlConnectFactory.GetValue<string>(reader, "VATRate");
+                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                        Name = SqlConnectFactory.GetValueAsString(reader, "Name");
+                        CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnectFactory.GetValueAsString(reader, "RRefID");
+                        Code = SqlConnectFactory.GetValueAsString(reader, "Code");
+                        Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked");
+                        NameFull = SqlConnectFactory.GetValueAsString(reader, "NameFull");
+                        Description = SqlConnectFactory.GetValueAsString(reader, "Description");
+                        Comment = SqlConnectFactory.GetValueAsString(reader, "Comment");
+                        Brand = SqlConnectFactory.GetValueAsString(reader, "Brand");
+                        GUID_Mercury = SqlConnectFactory.GetValueAsString(reader, "GUID_Mercury");
+                        NomenclatureType = SqlConnectFactory.GetValueAsString(reader, "NomenclatureType");
+                        VATRate = SqlConnectFactory.GetValueAsString(reader, "VATRate");
                     }
                 }
                 reader.Close();
@@ -127,7 +129,7 @@ namespace DataProjectsCore.DAL.TableModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
+                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
                     }
                 }
                 reader.Close();
@@ -152,20 +154,20 @@ namespace DataProjectsCore.DAL.TableModels
                         {
                             NomenclatureDirect nomenclature = new()
                             {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID"),
-                                Code = SqlConnectFactory.GetValue<string>(reader, "Code"),
-                                Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked"),
-                                NameFull = SqlConnectFactory.GetValue<string>(reader, "NameFull"),
-                                Description = SqlConnectFactory.GetValue<string>(reader, "Description"),
-                                Comment = SqlConnectFactory.GetValue<string>(reader, "Comment"),
-                                Brand = SqlConnectFactory.GetValue<string>(reader, "Brand"),
-                                GUID_Mercury = SqlConnectFactory.GetValue<string>(reader, "GUID_Mercury"),
-                                NomenclatureType = SqlConnectFactory.GetValue<string>(reader, "NomenclatureType"),
-                                VATRate = SqlConnectFactory.GetValue<string>(reader, "VATRate")
+                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
+                                Name = SqlConnectFactory.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnectFactory.GetValueAsString(reader, "1CRRefID"),
+                                Code = SqlConnectFactory.GetValueAsString(reader, "Code"),
+                                Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked"),
+                                NameFull = SqlConnectFactory.GetValueAsString(reader, "NameFull"),
+                                Description = SqlConnectFactory.GetValueAsString(reader, "Description"),
+                                Comment = SqlConnectFactory.GetValueAsString(reader, "Comment"),
+                                Brand = SqlConnectFactory.GetValueAsString(reader, "Brand"),
+                                GUID_Mercury = SqlConnectFactory.GetValueAsString(reader, "GUID_Mercury"),
+                                NomenclatureType = SqlConnectFactory.GetValueAsString(reader, "NomenclatureType"),
+                                VATRate = SqlConnectFactory.GetValueAsString(reader, "VATRate")
                             };
                             result.Add(nomenclature);
                         }

@@ -11,21 +11,21 @@ namespace DataProjectsCore.DAL.TableModels
     [Serializable]
     public class NomenclatureUnitDirect : BaseSerializeEntity<NomenclatureUnitDirect>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; } = default;
+        public string Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public string RRefID { get; set; }
+        public string RRefID { get; set; } = string.Empty;
 
-        public NomenclatureDirect Nomenclature { get; set; }
+        public NomenclatureDirect Nomenclature { get; set; } = new NomenclatureDirect();
         public bool Marked { get; set; }
         public decimal PackWeight { get; set; }
         public int PackQuantly { get; set; }
-        public NomenclatureDirect PackType { get; set; }
+        public NomenclatureDirect PackType { get; set; } = new NomenclatureDirect();
 
         public override bool Equals(object obj)
         {
-            if (!(obj is NomenclatureUnitDirect item))
+            if (obj is not NomenclatureUnitDirect item)
             {
                 return false;
             }
@@ -39,6 +39,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public NomenclatureUnitDirect()
         {
+            Load();
         }
 
         public NomenclatureUnitDirect(int _Id)
@@ -49,6 +50,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public void Load()
         {
+            if (Id == default) return;
             using SqlConnection con = SqlConnectFactory.GetConnection();
             con.Open();
             string query = "SELECT * FROM [db_scales].[GetNomenclatureUnit] (@Id);";
@@ -61,16 +63,16 @@ namespace DataProjectsCore.DAL.TableModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValue<int>(reader, "ID");
-                        Name = SqlConnectFactory.GetValue<string>(reader, "Name");
-                        CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate");
-                        RRefID = SqlConnectFactory.GetValue<string>(reader, "RRefID");
-                        Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked");
-                        PackWeight = SqlConnectFactory.GetValue<decimal>(reader, "PackWeight");
-                        PackQuantly = SqlConnectFactory.GetValue<int>(reader, "PackQuantly");
-                        PackType = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "PackTypeId"));
-                        Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId"));
+                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                        Name = SqlConnectFactory.GetValueAsString(reader, "Name");
+                        CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnectFactory.GetValueAsString(reader, "RRefID");
+                        Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked");
+                        PackWeight = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "PackWeight");
+                        PackQuantly = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PackQuantly");
+                        PackType = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PackTypeId"));
+                        Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureId"));
                     }
                 }
                 reader.Close();
@@ -110,7 +112,7 @@ namespace DataProjectsCore.DAL.TableModels
                 {
                     if (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValue<int>(reader, "Id");
+                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id");
                     }
                 }
                 reader.Close();
@@ -135,16 +137,16 @@ namespace DataProjectsCore.DAL.TableModels
                         {
                             NomenclatureUnitDirect pFacility = new()
                             {
-                                Id = SqlConnectFactory.GetValue<int>(reader, "Id"),
-                                Name = SqlConnectFactory.GetValue<string>(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValue<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValue<DateTime>(reader, "ModifiedDate"),
-                                RRefID = SqlConnectFactory.GetValue<string>(reader, "1CRRefID"),
-                                Marked = SqlConnectFactory.GetValue<bool>(reader, "Marked"),
-                                PackWeight = SqlConnectFactory.GetValue<decimal>(reader, "PackWeight"),
-                                PackQuantly = SqlConnectFactory.GetValue<int>(reader, "PackQuantly"),
-                                PackType = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "PackTypeId")),
-                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValue<int>(reader, "NomenclatureId")),
+                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
+                                Name = SqlConnectFactory.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnectFactory.GetValueAsString(reader, "1CRRefID"),
+                                Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked"),
+                                PackWeight = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "PackWeight"),
+                                PackQuantly = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PackQuantly"),
+                                PackType = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PackTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
                             };
                             result.Add(pFacility);
                         }

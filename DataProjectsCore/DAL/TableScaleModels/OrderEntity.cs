@@ -21,7 +21,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public virtual DateTime? PlanePackingOperationEndDate { get; set; }
         public virtual ScaleEntity Scales { get; set; } = new ScaleEntity();
         public virtual PluEntity Plu { get; set; } = new PluEntity();
-        public virtual Guid? IdRRef { get; set; }
+        public virtual Guid? IdRRef { get; set; } = null;
         public virtual TemplateEntity Templates { get; set; } = new TemplateEntity();
         public virtual DateTime? CreateDate { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }

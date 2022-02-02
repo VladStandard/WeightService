@@ -30,6 +30,7 @@ namespace DataProjectsCore
             public static class UriRouteItem
             {
                 public const string Access = "/item/access";
+                public const string Account = "/item/account";
                 public const string BarCodeType = "/item/barcodetype";
                 public const string Contragent = "/item/contragent";
                 public const string Device = "/item/device";
@@ -59,16 +60,20 @@ namespace DataProjectsCore
                 public const string BarCodeTypes = "/section/barcodetypes";
                 public const string Contragents = "/section/contragents";
                 public const string Devices = "/section/devices";
-                public const string Errors = "/system/errors";
+                public const string Docs = "/section/docs";
+                public const string Errors = "/section/errors";
                 public const string Hosts = "/section/hosts";
-                public const string Logs = "/system/logs";
+                public const string Info = "/section/info";
+                public const string Logs = "/section/logs";
                 public const string LogTypes = "/section/logtypes";
                 public const string Nomenclatures = "/section/nomenclatures";
                 public const string PrinterResources = "/section/printerresources";
                 public const string Printers = "/section/printers";
                 public const string PrinterTypes = "/section/printertypes";
                 public const string ProductionFacilities = "/section/productionfacilities";
+                public const string Root = "/";
                 public const string Scales = "/section/scales";
+                public const string Security = "/section/security";
                 public const string TaskModules = "/section/taskmodules";
                 public const string TaskTypeModules = "/section/tasktypemodules";
                 public const string TemplateResources = "/section/templateresources";
@@ -77,7 +82,7 @@ namespace DataProjectsCore
                 public const string Workshops = "/section/workshops";
             }
             #endregion
-            #region Items scales
+            #region Items
             public static string ItemBarcode => Lang == ShareEnums.Lang.English ? @"Barcode" : @"Штрихкод";
             public static string ItemBarCodeType => Lang == ShareEnums.Lang.English ? @"Barcodes type" : @"Тип штрихкода";
             public static string ItemContragent => Lang == ShareEnums.Lang.English ? @"Counterparty" : @"Контрагент";
@@ -93,6 +98,7 @@ namespace DataProjectsCore
             public static string ItemOrder => Lang == ShareEnums.Lang.English ? @"Order" : @"Заказ";
             public static string ItemOrderStatus => Lang == ShareEnums.Lang.English ? @"Order status" : @"Статус заказа";
             public static string ItemOrderType => Lang == ShareEnums.Lang.English ? @"Order type" : @"Типы заказа";
+            public static string ItemOrganization => Lang == ShareEnums.Lang.English ? @"Organization" : @"Организация";
             public static string ItemPlu => Lang == ShareEnums.Lang.English ? @"PLU" : @"ПЛУ";
             public static string ItemPrinter => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
             public static string ItemPrinterResource => Lang == ShareEnums.Lang.English ? @"Printer resource" : @"Ресурс принтера";
@@ -110,10 +116,10 @@ namespace DataProjectsCore
             #endregion
             #region Sections
             public static string SectionBarcodes => Lang == ShareEnums.Lang.English ? @"Barcodes" : @"Штрихкоды";
-            public static string SectionBarCodeTypes => Lang == ShareEnums.Lang.English ? @"Barcodes types" : @"Типы штрихкодов";
-            public static string SectionBarCodeTypesShort => Lang == ShareEnums.Lang.English ? @"BC types" : @"Типы ШК";
             public static string SectionBarCodes => Lang == ShareEnums.Lang.English ? @"Barcodes" : @"Штрихкоды";
             public static string SectionBarCodesShort => Lang == ShareEnums.Lang.English ? @"BC" : @"ШК";
+            public static string SectionBarCodeTypes => Lang == ShareEnums.Lang.English ? @"Barcodes types" : @"Типы штрихкодов";
+            public static string SectionBarCodeTypesShort => Lang == ShareEnums.Lang.English ? @"BC types" : @"Типы ШК";
             public static string SectionContragents => Lang == ShareEnums.Lang.English ? @"Counterparties" : @"Контрагенты";
             public static string SectionFonts => Lang == ShareEnums.Lang.English ? @"Fonts" : @"Шрифты";
             public static string SectionHosts => Lang == ShareEnums.Lang.English ? @"Hosts" : @"Хосты";
@@ -126,6 +132,7 @@ namespace DataProjectsCore
             public static string SectionOrders => Lang == ShareEnums.Lang.English ? @"Orders" : @"Заказы";
             public static string SectionOrderStatuses => Lang == ShareEnums.Lang.English ? @"Order statuses" : @"Статусы заказов";
             public static string SectionOrderTypes => Lang == ShareEnums.Lang.English ? @"Order types" : @"Типы заказов";
+            public static string SectionOrganizations => Lang == ShareEnums.Lang.English ? @"Organizations" : @"Организации";
             public static string SectionPlus => Lang == ShareEnums.Lang.English ? @"PLU" : @"ПЛУ";
             public static string SectionPrinterResources => Lang == ShareEnums.Lang.English ? @"Printer resources" : @"Ресурсы принтера";
             public static string SectionPrinters => Lang == ShareEnums.Lang.English ? @"Printers" : @"Принтеры";
@@ -635,6 +642,11 @@ namespace DataProjectsCore
                         case ProjectsEnums.TableScale.Workshops:
                             result = DeviceControl.ItemWorkshop;
                             break;
+                        case ProjectsEnums.TableScale.Default:
+                            break;
+                        case ProjectsEnums.TableScale.Organizations:
+                            result = DeviceControl.ItemOrganization;
+                            break;
                     }
                 }
 
@@ -672,6 +684,8 @@ namespace DataProjectsCore
                 {
                     switch (tableScale)
                     {
+                        case ProjectsEnums.TableScale.Default:
+                            break;
                         case ProjectsEnums.TableScale.BarcodesTypes:
                             result = DeviceControl.SectionBarcodes;
                             break;
@@ -728,6 +742,9 @@ namespace DataProjectsCore
                             break;
                         case ProjectsEnums.TableScale.Workshops:
                             result = DeviceControl.SectionWorkshops;
+                            break;
+                        case ProjectsEnums.TableScale.Organizations:
+                            result = DeviceControl.SectionOrganizations;
                             break;
                     }
                 }

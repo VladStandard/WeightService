@@ -4,7 +4,6 @@
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
-using DataProjectsCore.DAL.TableSystemModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Models;
@@ -501,7 +500,7 @@ namespace BlazorCore.Models
         public async Task HotKeysMenuRoot()
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            NavigationManager.NavigateTo(LocalizationCore.Strings.UriRouteRoot);
+            NavigationManager.NavigateTo(LocalizationData.DeviceControl.UriRouteSection.Root);
         }
 
         public static ConfirmOptions GetConfirmOptions() => new()

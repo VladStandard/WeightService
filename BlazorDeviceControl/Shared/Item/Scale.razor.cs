@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using DataProjectsCore;
-using DataProjectsCore.DAL.TableSystemModels;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item

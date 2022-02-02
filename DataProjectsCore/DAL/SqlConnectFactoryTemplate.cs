@@ -12,31 +12,18 @@ namespace DataProjectsCore.DAL.TableModels
 
         #region Public and private methods
 
-        public static void ExecuteReaderTemplateReader(SqlDataReader reader)
-        {
-            Result = string.Empty;
-            if (reader.Read())
-            {
-                Result = reader.GetString(0);
-            }
-        }
-
         public static void ExecuteReaderTemplate(int scaleId)
         {
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@scale_id", System.Data.SqlDbType.Int) { Value = scaleId },
             };
-            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, ExecuteReaderTemplateReader);
-        }
-
-        public static string ExecuteReaderAsStringReader(SqlDataReader reader)
-        {
-            string result = string.Empty;
-            if (reader.Read())
-            {
-                result = reader.GetString(0);
-            }
-            return result;
+            Result = string.Empty;
+            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, delegate(SqlDataReader reader) {
+                if (reader.Read())
+                {
+                    Result = reader.GetString(0);
+                }
+            });
         }
 
         public static string? ExecuteReaderAsStringTemplate(int scaleId)
@@ -44,7 +31,14 @@ namespace DataProjectsCore.DAL.TableModels
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@scale_id", System.Data.SqlDbType.Int) { Value = scaleId },
             };
-            return SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, ExecuteReaderAsStringReader);
+            string result = string.Empty;
+            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, delegate(SqlDataReader reader) { 
+                if (reader.Read())
+                {
+                    result = reader.GetString(0);
+                }
+            });
+            return result;
         }
 
         public static void UpdateTemplate(ScaleDirect scale)

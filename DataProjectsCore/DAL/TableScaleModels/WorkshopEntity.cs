@@ -16,8 +16,8 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public virtual DateTime? CreateDate { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
         public virtual ProductionFacilityEntity ProductionFacility { get; set; } = new ProductionFacilityEntity();
-        public virtual string Name { get; set; }
-        public virtual Guid? IdRRef { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
+        public virtual Guid? IdRRef { get; set; } = null;
         public virtual bool Marked { get; set; }
 
         #endregion

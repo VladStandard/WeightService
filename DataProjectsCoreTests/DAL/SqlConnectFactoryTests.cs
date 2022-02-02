@@ -3,7 +3,7 @@
 
 using CoreTests;
 using DataProjectsCore.DAL;
-using DataProjectsCore.DAL.TableModels;
+using Microsoft.Data.SqlClient;
 using NUnit.Framework;
 
 namespace DataProjectsCoreTests.DAL
@@ -11,14 +11,16 @@ namespace DataProjectsCoreTests.DAL
     [TestFixture]
     internal class SqlConnectFactoryTests
     {
+        public SqlConnection SqlCon { get; private set; }
+
         public void SqlPrepare()
         {
-            _ = SqlConnectFactory.GetConnection(TestsUtils.ConectionStringDevelop);
-            TestContext.WriteLine($"{nameof(SqlConnectFactory)}: {SqlConnectFactory.GetConnection().ConnectionString}");
+            SqlCon = SqlConnectFactory.GetConnection(TestsUtils.ConectionStringDevelop(false));
+            TestContext.WriteLine($"{nameof(SqlConnectFactory)}: {SqlCon.ConnectionString}");
         }
 
         [Test]
-        public void ExecuteReader_DoesNotThrow()
+        public void SqlConnectFactory_ExecuteReader_DoesNotThrow()
         {
             TestsUtils.MethodStart();
 
@@ -26,11 +28,15 @@ namespace DataProjectsCoreTests.DAL
             {
                 SqlPrepare();
                 TestContext.WriteLine($"[db_scales].[Scales]");
-                for (int id = 0; id < 10; id++)
+                SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes, null, delegate (SqlDataReader reader)
                 {
-                    SqlConnectFactoryTemplate.ExecuteReaderTemplate(id);
-                    TestContext.WriteLine($"SCALE. ID: {id}. Description: {SqlConnectFactoryTemplate.Result}");
-                }
+                    while (reader.Read())
+                    {
+                        //TestContext.WriteLine($"UID: {reader.GetV(0)}. NAME: {reader.GetString(1)}");
+                        TestContext.WriteLine($"NAME: {reader.GetString(1)}");
+                    }
+                });
+                Assert.AreEqual(1, 1);
             });
             TestContext.WriteLine();
 

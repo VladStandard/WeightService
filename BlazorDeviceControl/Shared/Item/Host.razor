@@ -30,17 +30,17 @@ else
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
                         TValue="int" @bind-Value=@HostItem.Id />
 				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@HostItem.Marked />
+                </td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@HostItem.Name />
 				</td>
-            </tr>
-            <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
-                <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@HostItem.Marked />
-                </td>
                 <td>@LocalizationData.DeviceControl.TableFieldDeviceIp</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
@@ -59,13 +59,13 @@ else
                         TValue="string" @bind-Value=@HostItem.MacAddress.Value />
                 </td>
             </tr>
-            <tr style="height: 25%; ">
+            <tr >
                 <td>
                     <RadzenLabel Style="width: 100%;" Text=@LocalizationData.DeviceControl.TableFieldSettingsFile />
                 </td>
-                <td colspan=3 rowspan=3>
+                <td colspan=3 >
                     <RadzenTextArea Style="width: 100%; height: 50%; font-size: 14px; line-height: 20px;"
-                        Disabled=false TValue="string" @bind-Value=@HostItem.SettingsFile Rows="3" />
+                        Disabled=false TValue="string" @bind-Value=@HostItem.SettingsFile Rows="5" />
                 </td>
             </tr>
         </tbody>

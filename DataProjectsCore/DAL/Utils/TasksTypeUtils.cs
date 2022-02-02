@@ -29,7 +29,7 @@ namespace DataProjectsCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
+                            result = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
                         }
                     }
                     reader.Close();
@@ -55,8 +55,8 @@ namespace DataProjectsCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result.Uid = SqlConnectFactory.GetValue<Guid>(reader, "UID");
-                            result.Name = SqlConnectFactory.GetValue<string>(reader, "NAME");
+                            result.Uid = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
+                            result.Name = SqlConnectFactory.GetValueAsString(reader, "NAME");
                         }
                     }
                     reader.Close();
@@ -82,8 +82,8 @@ namespace DataProjectsCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result.Uid = SqlConnectFactory.GetValue<Guid>(reader, "UID");
-                            result.Name = SqlConnectFactory.GetValue<string>(reader, "NAME");
+                            result.Uid = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
+                            result.Name = SqlConnectFactory.GetValueAsString(reader, "NAME");
                         }
                     }
                     reader.Close();
@@ -109,7 +109,7 @@ namespace DataProjectsCore.DAL.Utils
                         while (reader.Read())
                         {
                             result.Add(new TaskTypeDirect(
-                                SqlConnectFactory.GetValue<Guid>(reader, "UID"), SqlConnectFactory.GetValue<string>(reader, "NAME")));
+                                SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID"), SqlConnectFactory.GetValueAsString(reader, "NAME")));
                         }
                     }
                     reader.Close();

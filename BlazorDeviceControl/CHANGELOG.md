@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.110] - 2022-02-02
+### Chaned
+- Moved system sections and items componennts
+
 ## [0.6.080] - 2022-01-28
 ### Chaned
 - ActionsButtons

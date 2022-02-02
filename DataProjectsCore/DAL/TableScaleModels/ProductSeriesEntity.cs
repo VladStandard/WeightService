@@ -37,7 +37,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
             get => IsClose == true;
             set => IsClose = value;
         }
-        public virtual string Sscc { get; set; }
+        public virtual string Sscc { get; set; } = string.Empty;
 
         #endregion
 

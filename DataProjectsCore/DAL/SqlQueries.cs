@@ -372,25 +372,25 @@ update [db_scales].[TASKS] set [ENABLED]=@enabled where [UID]=@uid
                 public static class TaskTypes
                 {
                     public static string GetTaskTypeUid => @"
-select [UID]
-from [db_scales].[TASKS_TYPES] 
-where [NAME]=@task_type
+SELECT [UID]
+FROM [DB_SCALES].[TASKS_TYPES] 
+WHERE [NAME]=@task_type
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 					public static string GetTasksTypes => @"
-select
-		[UID]
+SELECT
+	 [UID]
 	,[NAME]
-from [db_scales].[TASKS_TYPES]
-order by [NAME]
+FROM [DB_SCALES].[TASKS_TYPES]
+ORDER BY [NAME]
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 					public static string GetTasksTypesByName => @"
-select
-		[UID]
+SELECT
+	 [UID]
 	,[NAME]
-from [db_scales].[TASKS_TYPES]
-where [NAME]=@task_name
+FROM [DB_SCALES].[TASKS_TYPES]
+WHERE [NAME]=@task_name
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
 					public static string GetTasksTypesByUid => @"

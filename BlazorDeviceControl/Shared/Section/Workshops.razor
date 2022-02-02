@@ -22,17 +22,13 @@
     AllowPaging="true" PageSize=@AppSettings.JsonAppSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
     <Columns >
         <RadzenGridColumn 
-            TItem="WorkshopEntity" Property="Id" TextAlign="TextAlign.Center"
-            Title=@LocalizationData.DeviceControl.TableFieldId 
-            Type="int" Width="6%" />
-        <RadzenGridColumn 
             TItem="WorkshopEntity" Property="Name" 
             Title=@LocalizationData.DeviceControl.TableFieldWorkShopName
-            Type="string" Width="47%" />
+            Type="string" Width="50%" />
         <RadzenGridColumn 
             TItem="WorkshopEntity" Property="ProductionFacility.Name"
             Title=@LocalizationData.DeviceControl.TableFieldProductionFacilityName
-            Type="int" Width="47%" />
+            Type="int" Width="50%" />
     </Columns>
 </RadzenGrid>
 

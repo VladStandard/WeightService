@@ -3,14 +3,14 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableSystemModels;
+using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.SysItem
+namespace BlazorDeviceControl.Shared.Item
 {
     public partial class Error
     {

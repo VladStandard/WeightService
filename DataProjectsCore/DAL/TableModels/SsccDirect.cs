@@ -11,6 +11,8 @@ namespace DataProjectsCore.DAL.TableModels
     [Serializable]
     public class SsccDirect : BaseSerializeEntity<SsccDirect>
     {
+        #region Public and private fields and properties
+
 
         [XmlElement("SSCC")]
         public string SSCC { get; set; }
@@ -30,18 +32,25 @@ namespace DataProjectsCore.DAL.TableModels
         [XmlElement("Check")]
         public int Check { get; set; }
 
+        #endregion
+
+        #region Constructor and destructor
+
         public SsccDirect() { }
 
-        public SsccDirect(string _sscc)
+        public SsccDirect(string sscc)
         {
-            SSCC = _sscc;
-            GLN = _sscc.Substring(3, 9);
-            UnitID = int.Parse(_sscc.Substring(12, 7));
-            UnitType = byte.Parse(_sscc.Substring(2, 1));
-            SynonymSSCC = $"(00){_sscc.Substring(3, 17)}";
-            Check = int.Parse(_sscc.Substring(19, 1));
+            SSCC = sscc;
+            GLN = sscc.Substring(3, 9);
+            UnitID = int.Parse(sscc.Substring(12, 7));
+            UnitType = byte.Parse(sscc.Substring(2, 1));
+            SynonymSSCC = $"(00){sscc.Substring(3, 17)}";
+            Check = int.Parse(sscc.Substring(19, 1));
         }
 
+        #endregion
+
+        #region Public and private methods
 
         public override string ToString()
         {
@@ -49,5 +58,7 @@ namespace DataProjectsCore.DAL.TableModels
             sb.Append($"{SynonymSSCC}");
             return sb.ToString();
         }
+
+        #endregion
     }
 }

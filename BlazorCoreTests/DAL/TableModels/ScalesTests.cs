@@ -1,7 +1,6 @@
 ﻿using CoreTests;
 using DataProjectsCore.DAL.Models;
 using DataProjectsCore.DAL.TableScaleModels;
-using DataProjectsCore.DAL.TableSystemModels;
 using DataShareCore;
 using NUnit.Framework;
 

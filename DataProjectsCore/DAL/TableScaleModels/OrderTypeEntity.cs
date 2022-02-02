@@ -12,7 +12,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual string Description { get; set; }
+        public virtual string Description { get; set; } = string.Empty;
 
         #endregion
 

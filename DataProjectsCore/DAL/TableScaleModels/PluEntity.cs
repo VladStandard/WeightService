@@ -21,12 +21,12 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public virtual TemplateEntity Templates { get; set; } = new TemplateEntity();
         public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
         public virtual NomenclatureEntity Nomenclature { get; set; } = new NomenclatureEntity();
-        public virtual string GoodsName { get; set; }
-        public virtual string GoodsFullName { get; set; }
-        public virtual string GoodsDescription { get; set; }
-        public virtual string Gtin { get; set; }
-        public virtual string Ean13 { get; set; }
-        public virtual string Itf14 { get; set; }
+        public virtual string GoodsName { get; set; } = string.Empty;
+        public virtual string GoodsFullName { get; set; } = string.Empty;
+        public virtual string GoodsDescription { get; set; } = string.Empty;
+        public virtual string Gtin { get; set; } = string.Empty;
+        public virtual string Ean13 { get; set; } = string.Empty;
+        public virtual string Itf14 { get; set; } = string.Empty;
         public virtual short GoodsShelfLifeDays { get; set; }
         public virtual decimal GoodsTareWeight { get; set; }
         public virtual int GoodsBoxQuantly { get; set; }

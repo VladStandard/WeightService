@@ -11,7 +11,7 @@ namespace DataProjectsCore.DAL.TableModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; }
+        public int Id { get; set; } = default;
         public string? Description { get; set; }
         public string? DeviceIP { get; set; }
         public short? DevicePort { get; set; }

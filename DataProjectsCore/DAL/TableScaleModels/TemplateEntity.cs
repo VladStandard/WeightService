@@ -16,18 +16,18 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public virtual DateTime? CreateDate { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
-        public virtual string CategoryId { get; set; }
+        public virtual string CategoryId { get; set; } = string.Empty;
         public virtual Guid? IdRRef { get; set; }
-        public virtual string Title { get; set; }
-        public virtual byte[] ImageData { get; set; }
+        public virtual string Title { get; set; } = string.Empty;
+        public virtual byte[] ImageData { get; set; } = new byte[0];
         public virtual string ImageDataStringAscii
         {
-            get => ImageData == null ? string.Empty : Encoding.Default.GetString(ImageData);
+            get => ImageData == null || ImageData.Length == 0 ? string.Empty : Encoding.Default.GetString(ImageData);
             set => ImageData = Encoding.Default.GetBytes(value);
         }
         public virtual string ImageDataStringUnicode
         {
-            get => ImageData == null ? string.Empty : Encoding.Unicode.GetString(ImageData);
+            get => ImageData == null || ImageData.Length == 0 ? string.Empty : Encoding.Unicode.GetString(ImageData);
             set => ImageData = Encoding.Unicode.GetBytes(value);
         }
         public virtual string ImageDataInfo

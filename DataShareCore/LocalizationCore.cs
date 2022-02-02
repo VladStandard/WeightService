@@ -161,16 +161,6 @@ namespace DataShareCore
             #region Windows
             public static string WindowsUser => Lang == ShareEnums.Lang.English ? @"Windows-user" : @"Windows-пользователь";
             #endregion
-            #region URI system
-            public const string UriRouteRoot = "/";
-            public const string UriRouteSystemAccess = "/system/access";
-            public const string UriRouteSystemAccount = "/account";
-            public const string UriRouteSystemDocs = "/system/docs";
-            public const string UriRouteSystemErrors = "/system/errors";
-            public const string UriRouteSystemInfo = "/system/info";
-            public const string UriRouteSystemLogs = "/system/logs";
-            public const string UriRouteSystemSecurity = "/system/security";
-            #endregion
             #region Input control
             public const string InputControlMuchZero = @"Значение должно быть больше 0";
             #endregion

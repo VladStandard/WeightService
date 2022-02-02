@@ -21,18 +21,18 @@
     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
     AllowPaging="true" PageSize=20 AllowSorting="true" ColumnWidth="100px">
     <Columns >
-        <RadzenGridColumn 
+@*        <RadzenGridColumn 
             TItem="TaskEntity" Property="Uid" TextAlign="TextAlign.Left" Type="int" Width="26%" 
-            Title=@LocalizationData.DeviceControl.TableFieldUid/>
+            Title=@LocalizationData.DeviceControl.TableFieldUid/>*@
         <RadzenGridColumn 
-            TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
+            TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="45%"
             Title=@LocalizationData.DeviceControl.TableFieldHost >
             <Template Context="item">
                 <RadzenLabel Text=@item.Scale?.Host?.Name Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn 
-            TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="32%"
+            TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="45%"
             Title=@LocalizationData.DeviceControl.TableFieldTaskType >
             <Template Context="item">
                 <RadzenLabel Text=@item.TaskType?.Name Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />

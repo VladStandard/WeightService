@@ -3,7 +3,7 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableSystemModels;
+using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using Microsoft.AspNetCore.Components;
@@ -11,13 +11,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.SysItem
+namespace BlazorDeviceControl.Shared.Item
 {
     public partial class Log
     {
         #region Public and private fields and properties
 
-        [Parameter] public string UidStr
+        [Parameter]
+        public string UidStr
         {
             get => Item == null ? string.Empty : Item.Uid.ToString();
             set

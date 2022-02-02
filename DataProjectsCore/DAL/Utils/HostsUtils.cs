@@ -98,8 +98,6 @@ namespace DataProjectsCore.DAL.Utils
             return tokenSalt;
         }
 
-        public static bool GetHostIdReader(SqlDataReader reader) => reader.Read();
-
         public static bool TokenExist()
         {
             if (!File.Exists(FilePathToken))
@@ -112,7 +110,12 @@ namespace DataProjectsCore.DAL.Utils
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref },
             };
-            return SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, GetHostIdReader);
+
+            bool result = default;
+            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, delegate (SqlDataReader reader) {
+                result = reader.Read();
+            });
+            return result;
         }
 
         #endregion

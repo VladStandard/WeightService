@@ -14,11 +14,11 @@ namespace DataProjectsCore.DAL.TableModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; }
-        public TemplateDirect Temp { get; set; }
-        public int ScaleId { get; set; }
-        public ScaleDirect Scale { get; set; }
-        public string ProductSeries { get; set; }
+        public int Id { get; set; } = default;
+        public TemplateDirect Temp { get; set; } = new TemplateDirect();
+        public int ScaleId { get; set; } = default;
+        public ScaleDirect Scale { get; set; } = new ScaleDirect();
+        public string ProductSeries { get; set; } = string.Empty;
 
         private PluDirect _plu;
         public PluDirect PLU
@@ -43,7 +43,7 @@ namespace DataProjectsCore.DAL.TableModels
 
         public DateTime ExpirationDate { get; set; }
 
-        public int KneadingNumber { get; set; }
+        public int KneadingNumber { get; set; } = default;
 
         private decimal _netWeight = 0;
         public decimal NetWeight

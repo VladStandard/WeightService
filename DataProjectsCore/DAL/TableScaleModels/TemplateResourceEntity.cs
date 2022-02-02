@@ -16,13 +16,13 @@ namespace DataProjectsCore.DAL.TableScaleModels
 
         public virtual DateTime? CreateDate { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
-        public virtual string Name { get; set; }
-        public virtual string Description { get; set; }
-        public virtual string Type { get; set; }
-        public virtual byte[] ImageData { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Description { get; set; } = string.Empty;
+        public virtual string Type { get; set; } = string.Empty;
+        public virtual byte[] ImageData { get; set; } = new byte[0];
         public virtual string ImageDataString
         {
-            get => ImageData == null ? string.Empty : Encoding.Default.GetString(ImageData);
+            get => ImageData == null || ImageData.Length == 0 ? string.Empty : Encoding.Default.GetString(ImageData);
             set => ImageData = Encoding.Default.GetBytes(value);
         }
         public virtual string ImageDataInfo

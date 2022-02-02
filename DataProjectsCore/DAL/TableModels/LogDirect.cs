@@ -13,9 +13,9 @@ namespace DataProjectsCore.DAL.TableModels
     {
         #region Public and private fields and properties
 
-        public int? HostId { get; set; }
-        public Guid? AppUid { get; set; }
-        public string Version { get; set; }
+        public int? HostId { get; set; } = default!;
+        public Guid? AppUid { get; set; } = default;
+        public string Version { get; set; } = string.Empty;
 
         #endregion
 
@@ -84,32 +84,20 @@ namespace DataProjectsCore.DAL.TableModels
             Save(message, ShareEnums.LogType.Question, filePath, memberName, lineNumber);
         }
 
-        public static Guid? SaveAppReader(SqlDataReader reader)
-        {
-            Guid? result = default;
-            if (reader.Read())
-            {
-                result = SqlConnectFactory.GetValue<Guid>(reader, "UID");
-            }
-            return result;
-        }
-
         public Guid? SaveApp(string app)
         {
             DataShareCore.Utils.StringUtils.SetStringValueTrim(ref app, 32);
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@app", System.Data.SqlDbType.NVarChar, 32) { Value = app },
             };
-            return SqlConnectFactory.ExecuteReader(SqlQueries.DbServiceManaging.Tables.Apps.AddApp, parameters, SaveAppReader);
-        }
 
-        public static int? GetHostIdReader(SqlDataReader reader)
-        {
-            int? result = default;
-            if (reader.Read())
-            {
-                result = SqlConnectFactory.GetValue<int>(reader, "ID");
-            }
+            Guid? result = default;
+            SqlConnectFactory.ExecuteReader(SqlQueries.DbServiceManaging.Tables.Apps.AddApp, parameters, delegate (SqlDataReader reader) {
+                if (reader.Read())
+                {
+                    result = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
+                }
+            });
             return result;
         }
 
@@ -120,7 +108,15 @@ namespace DataProjectsCore.DAL.TableModels
                 new SqlParameter("@host", System.Data.SqlDbType.NVarChar, 150) { Value = host },
                 new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idRref },
             };
-            return SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostId, parameters, GetHostIdReader);
+
+            int? result = default;
+            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostId, parameters, delegate (SqlDataReader reader) {
+                if (reader.Read())
+                {
+                    result = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                }
+            });
+            return result;
         }
 
         #endregion

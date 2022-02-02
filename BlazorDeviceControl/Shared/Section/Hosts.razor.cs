@@ -3,7 +3,7 @@
 
 using DataProjectsCore;
 using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableSystemModels;
+using DataProjectsCore.DAL.TableScaleModels;
 using DataProjectsCore.Models;
 using DataShareCore;
 using DataShareCore.DAL.Models;

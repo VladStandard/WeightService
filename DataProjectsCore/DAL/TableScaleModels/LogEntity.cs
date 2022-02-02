@@ -4,7 +4,7 @@
 using DataShareCore.DAL.Models;
 using System;
 
-namespace DataProjectsCore.DAL.TableSystemModels
+namespace DataProjectsCore.DAL.TableScaleModels
 {
     public class LogEntity : BaseEntity
     {

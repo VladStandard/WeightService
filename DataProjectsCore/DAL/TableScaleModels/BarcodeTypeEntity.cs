@@ -12,7 +12,7 @@ namespace DataProjectsCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
 
         #endregion
 
@@ -21,7 +21,6 @@ namespace DataProjectsCore.DAL.TableScaleModels
         public BarcodeTypeEntity()
         {
             PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
-            Name = string.Empty;
         }
 
         #endregion

@@ -11,10 +11,10 @@ namespace DataProjectsCore.DAL.TableModels
     {
         #region Public and private fields and properties
 
-        public Guid Uid { get; set; }
-        public TaskTypeDirect TaskType { get; set; }
-        public ScaleDirect Scale { get;  set; }
-        public bool Enabled { get; set; }
+        public Guid Uid { get; set; } = default;
+        public TaskTypeDirect TaskType { get; set; } = new TaskTypeDirect();
+        public ScaleDirect Scale { get;  set; } = new ScaleDirect();
+        public bool Enabled { get; set; } = default;
 
         #endregion
 
