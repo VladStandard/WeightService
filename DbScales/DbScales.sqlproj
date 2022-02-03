@@ -168,6 +168,8 @@
     <Build Include="Tables\db_scales_ACCESS_APPS.sql" />
     <Build Include="Tables\db_scales_TASKS.sql" />
     <Build Include="SP\db_scales_UpdateScale.sql" />
+    <Build Include="Tables\db_scales_BarCodes.sql" />
+    <Build Include="Tables\db_scales_NomenclatureUnits.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ScalesDB.refactorlog" />

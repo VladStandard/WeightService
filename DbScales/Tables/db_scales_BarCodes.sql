@@ -8,7 +8,6 @@
 	[NomenclatureUnitId]	INT  NULL FOREIGN KEY REFERENCES [db_scales].[NomenclatureUnits] (Id),
 	[ContragentId]			INT  NULL FOREIGN KEY REFERENCES [db_scales].[Contragents] (Id),
 	[Value]					NVARCHAR(150) NOT NULL
-
 ) ON [ScalesFileGroup]
 
 GO

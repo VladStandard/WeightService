@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataCore.Utils;
+using System;
 using System.IO;
 
 namespace FontLoader
@@ -39,7 +40,7 @@ namespace FontLoader
                 byte[] b = File.ReadAllBytes(filePath);
                 //ushort crc = Crc16.ComputeChecksum(b);
                 //string converted = Convert.ToBase64String(b);
-                string converted = DataShareCore.Utils.StringUtils.ByteArrayToString(b);
+                string converted = StringUtils.ByteArrayToString(b);
 
                 string ZPLCommand = $"^XA^IDE:{namettf}.TTF^FS^XZ";
                 RawPrinterHelper.SendStringToPrinter(printerName, ZPLCommand);

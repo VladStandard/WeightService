@@ -61,3 +61,10 @@ grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[TASKS_TYPES] to [db_scales_us
 go
 grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[Organization] to [db_scales_users]
 go
+---------------------------------------------------------------------
+-- Added from 2022-02-03
+---------------------------------------------------------------------
+grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[NomenclatureUnits] to [db_scales_users]
+go
+grant SELECT,INSERT,UPDATE, DELETE ON [db_scales].[BarCodes] to [db_scales_users]
+go

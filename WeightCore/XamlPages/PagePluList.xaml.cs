@@ -1,8 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.DAL;
-using DataProjectsCore.DAL.TableModels;
+using DataCore.DAL;
+using DataCore.DAL.TableDirectModels;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
@@ -17,7 +17,7 @@ namespace WeightCore.XamlPages
     {
         #region Private fields and properties
 
-        public SessionStateHelper _sessionState { get; private set; } = SessionStateHelper.Instance;
+        public SessionStateHelper SessionState { get; private set; } = SessionStateHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; }
         private readonly List<PluDirect> _pluList;
         public int RowCount { get; } = 5;
@@ -34,14 +34,14 @@ namespace WeightCore.XamlPages
             InitializeComponent();
 
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            _pluList = PluDirect.GetPluList(_sessionState.CurrentScale);
+            _pluList = PluDirect.GetPluList(SessionState.CurrentScale);
             
             object context = FindResource("SqlViewModel");
             if (context is SqlViewModelEntity sqlViewModel)
             {
                 sqlViewModel = SqlViewModel;
             }
-            SqlViewModel = _sessionState.SqlViewModel;
+            SqlViewModel = SessionState.SqlViewModel;
         }
 
         #endregion

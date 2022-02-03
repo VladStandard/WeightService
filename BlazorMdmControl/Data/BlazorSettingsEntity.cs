@@ -15,9 +15,9 @@ using System.Threading.Tasks;
 using MdmControlBlazor.Utils;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
-using DataShareCore;
 using DataProjectsCore.DAL.TableDwhModels;
 using DataProjectsCore.DAL.Models;
+using DataCore;
 
 namespace MdmControlBlazor.Data
 {
@@ -34,7 +34,7 @@ namespace MdmControlBlazor.Data
         public ShareEnums.AccessRights AccessRights { get; set; }
         public bool ChartSmooth { get; set; }
         public int Delay { get; } = 5_000;
-        public DataShareCore.MemoryEntity Memory { get; set; }
+        public DataCore.MemoryEntity Memory { get; set; }
         public delegate Task DelegateGuiRefresh();
         public int GridPageSize { get; set; } = 20;
         public AuthenticationState State { get; set; }
@@ -435,7 +435,7 @@ namespace MdmControlBlazor.Data
 
         #region Public and private methods - Memory manager
 
-        public void MemoryOpen(DataShareCore.MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)
+        public void MemoryOpen(DataCore.MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)
         {
             if (Memory != null)
                 return;
@@ -448,7 +448,7 @@ namespace MdmControlBlazor.Data
 
         #region Public and private methods - Authentication
 
-        public void AuthenticationOpen(AuthenticationStateProvider stateProvider, DataShareCore.MemoryEntity.DelegateGuiRefresh callRefresh)
+        public void AuthenticationOpen(AuthenticationStateProvider stateProvider, DataCore.MemoryEntity.DelegateGuiRefresh callRefresh)
         {
             if (stateProvider == null)
                 return;

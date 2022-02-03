@@ -6,43 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.020] - 2022-01-14
+## [0.6.120] - 2022-02-03
 ### Changed
-- Union with BlazorProjectsCore project
-- WS-T-61. Authentication & Authorization
+- Union with BlazorCore project
+
+## [0.6.110] - 2022-02-02
+### Changed
+- Moved DAL.TableSystemModels inside to DAL.TableScaleModels
+- DAL.TableScaleModels
+
+## [0.6.050] - 2022-01-20
+### Changed
+- ProjectsEnums
 
 ## [0.5.910] - 2021-12-03
 ### Changed
 - Fixed issues
 
-## [0.5.470] - 2021-09-01
+## [0.5.550] - 2021-09-08
 ### Changed
-- BlazorCore.Models.BaseRazorEntity
-
-## [0.5.440] - 2021-08-23
-### Changed
-- BlazorCore.Models.BaseRazorEntity
-### Added
-- BlazorCore.DAL.IBaseIdEntity
-- BlazorCore.Models.BaseRazorActionsEntity
-
-## [0.5.380] - 2021-08-13
-### Changed
-- Memory optimization
-### Added
-- Shared.ActionsLoad.razor
-
-## [0.2.320] - 2021-07-28
-### Changed
-- Logs section
-
-## [0.2.280] - 2021-07-20
-### Added
-- Access section
-
-## [0.2.270] - 2021-07-19
-### Changed
-- Scales section
-### Added
-- Apps section
-- Logs section
+- ProjectsEnums

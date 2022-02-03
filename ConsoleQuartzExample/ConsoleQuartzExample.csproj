@@ -102,12 +102,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj">
-      <Project>{8BA404FC-5E08-44F6-9C55-6D52C4FD0846}</Project>
-      <Name>DataShareCore</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>

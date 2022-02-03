@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorResourcesVs\BlazorResourcesVs.csproj" />
-    <ProjectReference Include="..\CoreTests\CoreTests.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

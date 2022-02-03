@@ -71,14 +71,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj">
-      <Project>{AFE4E2B7-D50D-4CEB-BA92-BBFD6116495F}</Project>
-      <Name>DataProjectsCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj">
-      <Project>{8BA404FC-5E08-44F6-9C55-6D52C4FD0846}</Project>
-      <Name>DataShareCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WeightCore\WeightCore.csproj">
       <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
       <Name>WeightCore</Name>

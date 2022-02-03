@@ -152,9 +152,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj">
-      <Project>{8ba404fc-5e08-44f6-9c55-6d52c4fd0846}</Project>
-      <Name>DataShareCore</Name>
+    <ProjectReference Include="..\DataCore\DataCore.csproj">
+      <Project>{2A3AF48B-DC5B-4359-B056-3605631440F5}</Project>
+      <Name>DataCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

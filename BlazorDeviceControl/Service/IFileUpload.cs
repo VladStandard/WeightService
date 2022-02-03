@@ -2,8 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorInputFile;
-using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableScaleModels;
+using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using System.IO;
 using System.Threading.Tasks;
 

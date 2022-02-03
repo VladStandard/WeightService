@@ -4,18 +4,16 @@
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
 using BlazorInputFile;
-using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableScaleModels;
-using DataProjectsCore.Models;
-using DataShareCore;
-using DataShareCore.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Radzen;
 using System.Collections.Generic;
-using DataProjectsCore;
 using System.Threading.Tasks;
+using DataCore;
+using DataCore.Models;
+using DataCore.DAL.TableScaleModels;
 using BlazorCore.Models;
+using DataCore.DAL.Models;
 
 namespace BlazorDeviceControl.Shared.Item
 {

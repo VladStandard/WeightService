@@ -33,11 +33,6 @@
     <PackageReference Include="Radzen.Blazor" Version="3.9.9" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj" />
-    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj" />
-  </ItemGroup>
-
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
   </PropertyGroup>

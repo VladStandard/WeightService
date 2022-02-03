@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.DAL.DataModels;
-using DataShareCore;
-using DataShareCore.DAL.Models;
+using DataCore;
+using DataCore.DAL.DataModels;
+using DataCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +25,14 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async () => {
+                new Task(async () =>
+                {
                     lock (Locker)
                     {
                         Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<BaseEntity>();
                     }
                     await GuiRefreshWithWaitAsync();
-                }), true); 
+                }), true);
         }
 
         #endregion

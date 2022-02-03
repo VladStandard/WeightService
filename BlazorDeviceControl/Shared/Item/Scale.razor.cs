@@ -1,15 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableScaleModels;
-using DataProjectsCore.Models;
-using DataShareCore;
-using DataShareCore.Models;
+using BlazorCore.Models;
+using DataCore;
+using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
+using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Components;
-using DataProjectsCore;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -37,7 +36,8 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async () => {
+                new Task(async () =>
+                {
                     lock (Locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
@@ -82,7 +82,7 @@ namespace BlazorDeviceControl.Shared.Item
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             null).ToList();
                         HostItems = AppSettings.DataAccess.Crud.GetFreeHosts(ScaleItem.Host?.Id);
-                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

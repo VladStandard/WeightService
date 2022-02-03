@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataShareCore.Helpers;
+using DataCore.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,7 +14,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using WebApiTerra1000.Common;
 using WebApiTerra1000.Utils;
-using static DataShareCore.ShareEnums;
+using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {

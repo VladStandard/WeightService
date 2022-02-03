@@ -1,10 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataShareCore.Models;
+using DataCore.Models;
 using MDSoft.SerialPorts;
 using System;
-using System.IO.Ports;
 
 namespace WeightCore.MassaK
 {
@@ -24,7 +23,7 @@ namespace WeightCore.MassaK
         public int SendBytesCount { get; private set; } = 0;
         public int ReceiveBytesCount { get; private set; } = 0;
         public delegate void ResponseCallback(MassaExchangeEntity massaExchange, byte[] response);
-        private ResponseCallback _responseCallback = null;
+        private readonly ResponseCallback _responseCallback = null;
         private MassaExchangeEntity _massaExchange = null;
         private readonly object _locker = new();
 

@@ -1,10 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore;
-using DataProjectsCore.DAL;
-using DataShareCore;
-using DataShareCore.Models;
+using DataCore;
+using DataCore.DAL;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -117,18 +116,6 @@ namespace BlazorDeviceControl.Shared.Section
                     if (value is int itemRowCount)
                     {
                         AppSettings.JsonAppSettings.ItemRowCount = itemRowCount;
-                    }
-                    break;
-                case nameof(AppSettings.JsonAppSettings.ButtonWidth):
-                    if (value is string buttonWidth)
-                    {
-                        AppSettings.JsonAppSettings.ButtonWidth = buttonWidth;
-                    }
-                    break;
-                case nameof(AppSettings.JsonAppSettings.ButtonHeight):
-                    if (value is string buttonHeight)
-                    {
-                        AppSettings.JsonAppSettings.ButtonHeight = buttonHeight;
                     }
                     break;
             }

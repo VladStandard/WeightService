@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.120] - 2022-02-03
+### Added
+- Tables\db_scales_NomenclatureUnits.sql
+- Tables\db_scales_BarCodes.sql.sql
+- Security\db_scales_users_Role.sql
+
 ## [0.5.950] - 2021-12-20
 ### Changed
 - Security\db_scales_users_Role.sql

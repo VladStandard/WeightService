@@ -1,12 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore;
-using DataProjectsCore.DAL;
-using DataProjectsCore.DAL.DataModels;
-using DataProjectsCore.Models;
-using DataShareCore;
-using DataShareCore.DAL.Models;
+using BlazorCore.Models;
+using DataCore;
+using DataCore.DAL;
+using DataCore.DAL.DataModels;
+using DataCore.DAL.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -49,7 +48,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 });
                             }
                         }
-                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true, false, false);
+                        ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

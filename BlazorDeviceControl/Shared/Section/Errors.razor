@@ -1,15 +1,14 @@
 ﻿@page "/section/errors"
-@using DataProjectsCore.DAL.TableScaleModels
+@using DataCore.DAL.TableScaleModels
 @using BlazorCore.Models
-@using DataProjectsCore
-@using DataProjectsCore.DAL.DataModels
-@using DataProjectsCore.Utils
+@using DataCore
+@using DataCore.DAL.DataModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
-@using DataShareCore
-@using DataShareCore.DAL.DataModels
-@using static DataShareCore.ShareEnums
+@using BlazorCore
+@using static DataCore.ShareEnums
 @inherits RazorDisposable
 
 <ActionsReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />

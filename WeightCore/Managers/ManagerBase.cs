@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore;
-using DataProjectsCore.DAL;
-using DataProjectsCore.Helpers;
-using DataShareCore.Models;
+using DataCore;
+using DataCore.DAL;
+using DataCore.DAL.DataModels;
+using DataCore.Models;
 using Nito.AsyncEx;
 using System;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using WeightCore.Helpers;
-using static DataShareCore.Models.IDisposableBase;
+using static DataCore.Models.IDisposableBase;
 
 namespace WeightCore.Managers
 {

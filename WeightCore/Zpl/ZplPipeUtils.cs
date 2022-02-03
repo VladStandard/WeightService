@@ -1,7 +1,8 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.DAL.TableModels;
+using DataCore.DAL.TableDirectModels;
+using DataCore.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -143,7 +144,7 @@ namespace WeightCore.Zpl
 
         public static string ZplFontDownloadCommand(string ttfName, byte[] b, bool addHeaderFooter = true)
         {
-            string converted = DataShareCore.Utils.StringUtils.ByteArrayToString(b);
+            string converted = StringUtils.ByteArrayToString(b);
             // так чейт по сети не работает
             //string zplCode = $"~DUE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,{b.Length},{converted}";
             string zplCode = $"~DYE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,B,T,{b.Length},,{converted}";
@@ -159,7 +160,7 @@ namespace WeightCore.Zpl
             //var binaryData = Convert.FromBase64String(Value);
             //return ZplFontDownloadCommand(ttfName, binaryData);
             byte[] b = Convert.FromBase64String(Value);
-            string converted = DataShareCore.Utils.StringUtils.ByteArrayToString(b);
+            string converted = StringUtils.ByteArrayToString(b);
             //string zplCode = $"~DUE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,{b.Length},{converted}";
             string zplCode = $"~DYE:{ttfName.ToUpper().Replace(".TTF", "")}.TTF,B,T,{b.Length},,{converted}";
             if (addHeaderFooter)

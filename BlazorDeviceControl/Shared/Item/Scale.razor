@@ -2,12 +2,11 @@
 @page "/item/scale/{Id:int}"
 @page "/item/scale/{Id:int}/{TableActionString}"
 @using BlazorCore.Models
-@using DataProjectsCore
-@using DataProjectsCore.DAL.TableModels
-@using DataProjectsCore.Utils
+@using DataCore
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
-@using DataShareCore
+@using BlazorCore
 @inherits RazorDisposable
 
 <ActionsReload Title=@LocalizationData.DeviceControl.ItemScale SetParameters=@SetParametersAsync />

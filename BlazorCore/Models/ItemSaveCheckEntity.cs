@@ -1,12 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore.DAL.TableScaleModels;
-using DataShareCore;
-using DataShareCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using Radzen;
 using System;
-using static DataShareCore.ShareEnums;
+using static DataCore.ShareEnums;
 
 namespace BlazorCore.Models
 {

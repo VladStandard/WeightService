@@ -1,15 +1,14 @@
 ﻿@page "/section/nomenclatures"
 @using BlazorCore.Models
-@using DataProjectsCore
-@using DataProjectsCore.DAL
-@using DataProjectsCore.DAL.DataModels
-@using DataProjectsCore.DAL.TableScaleModels
-@using DataProjectsCore.DAL.TableModels
-@using DataProjectsCore.Utils
+@using DataCore
+@using DataCore.DAL
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableScaleModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
-@using DataShareCore
-@using static DataShareCore.ShareEnums
+@using BlazorCore
+@using static DataCore.ShareEnums
 @inherits RazorDisposable
 
 <ActionsReload Title=@LocalizationData.DeviceControl.SectionNomenclatures SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />

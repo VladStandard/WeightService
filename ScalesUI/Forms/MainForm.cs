@@ -1,11 +1,12 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore;
-using DataProjectsCore.Helpers;
-using DataShareCore;
-using DataShareCore.Helpers;
-using DataShareCore.Schedulers;
+using DataCore;
+using DataCore.DAL.DataModels;
+using DataCore.Helpers;
+using DataCore.Schedulers;
+using DataCore.Utils;
+using DataCore.Wmi;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -494,7 +495,7 @@ namespace ScalesUI.Forms
                     );
                 }
             }
-            SessionState.Manager.Print.ProgressString = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Print.ProgressString);
+            SessionState.Manager.Print.ProgressString = StringUtils.GetProgressString(SessionState.Manager.Print.ProgressString);
         }
 
         private void ScheduleMemoryManager()
@@ -524,7 +525,7 @@ namespace ScalesUI.Forms
                     ? (int)(SessionState.Manager.Memory.MemorySize.PhysicalTotal.MegaBytes -
                     SessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes) : 0);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldTasks, $"{LocalizationData.ScalesUI.Threads}: {Process.GetCurrentProcess().Threads.Count}");
-                SessionState.Manager.Memory.ProgressString = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Memory.ProgressString);
+                SessionState.Manager.Memory.ProgressString = StringUtils.GetProgressString(SessionState.Manager.Memory.ProgressString);
             }
         }
 
@@ -552,7 +553,7 @@ namespace ScalesUI.Forms
                   $"{LocalizationData.ScalesUI.UnitKg} {SessionState.Manager.Massa.ProgressString}"
                 : $"{LocalizationData.ScalesUI.WeightingStable}: { SessionState.Manager.Massa.WeightNet:0.000} " +
                   $"{LocalizationData.ScalesUI.UnitKg} {SessionState.Manager.Massa.ProgressString}");
-            SessionState.Manager.Massa.ProgressString = DataShareCore.Utils.StringUtils.GetProgressString(
+            SessionState.Manager.Massa.ProgressString = StringUtils.GetProgressString(
                 SessionState.Manager.Massa.ProgressString);
             // Состояние COM-порта.
             if (SessionState.Manager.Massa.MassaDevice != null)
@@ -570,7 +571,7 @@ namespace ScalesUI.Forms
             // Очередь сообщений весов.
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaQueries,
                 $"{LocalizationData.ScalesUI.ScaleQueue}: {SessionState.Manager.Massa.Requests?.Count} {SessionState.Manager.Massa.ProgressStringQueries}");
-            SessionState.Manager.Massa.ProgressStringQueries = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringQueries);
+            SessionState.Manager.Massa.ProgressStringQueries = StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringQueries);
             MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldMassaQueriesProgress, SessionState.Manager.Massa.Requests != null
                 ? SessionState.Manager.Massa.Requests.Count : 0);
 
@@ -613,7 +614,7 @@ namespace ScalesUI.Forms
                     (SessionState.Manager.Massa.ResponseParseGet.IsValidAll
                     ? $"{LocalizationData.ScalesUI.StateCorrect} {SessionState.Manager.Massa.ProgressStringRequest}" 
                     : $"{LocalizationData.ScalesUI.StateError}! {SessionState.Manager.Massa.ProgressStringRequest}"));
-                SessionState.Manager.Massa.ProgressStringRequest = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringRequest);
+                SessionState.Manager.Massa.ProgressStringRequest = StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringRequest);
             }
         }
 
@@ -634,7 +635,7 @@ namespace ScalesUI.Forms
                     (SessionState.Manager.Massa.ResponseParseSet.IsValidAll
                     ? $"{LocalizationData.ScalesUI.StateCorrect} {SessionState.Manager.Massa.ProgressStringResponse}"
                     : $"{LocalizationData.ScalesUI.StateError}! {SessionState.Manager.Massa.ProgressStringResponse}"));
-                SessionState.Manager.Massa.ProgressStringResponse = DataShareCore.Utils.StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringResponse);
+                SessionState.Manager.Massa.ProgressStringResponse = StringUtils.GetProgressString(SessionState.Manager.Massa.ProgressStringResponse);
             }
         }
 
@@ -658,7 +659,7 @@ namespace ScalesUI.Forms
 
         private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
         {
-            DataShareCore.Wmi.WmiWin32PrinterEntity win32Printer = SessionState.Manager.Print.Win32Printer();
+            WmiWin32PrinterEntity win32Printer = SessionState.Manager.Print.Win32Printer();
             if (win32Printer == null)
                 return;
             using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };

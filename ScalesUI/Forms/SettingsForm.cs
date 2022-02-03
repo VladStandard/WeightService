@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore;
-using DataProjectsCore.DAL.Utils;
-using DataProjectsCore.Helpers;
-using DataShareCore.Helpers;
+using DataCore;
+using DataCore.DAL.DataModels;
+using DataCore.DAL.Utils;
+using DataCore.Helpers;
 using Microsoft.Data.SqlClient;
 using System;
 using System.IO.Ports;
@@ -15,7 +15,7 @@ using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Zpl;
-using static DataShareCore.ShareEnums;
+using static DataCore.ShareEnums;
 
 namespace ScalesUI.Forms
 {

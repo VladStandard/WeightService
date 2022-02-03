@@ -1,13 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore;
-using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableScaleModels;
-using DataProjectsCore.Models;
-using DataShareCore;
-using DataShareCore.DAL.Models;
-using DataShareCore.Models;
+using DataCore;
+using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
@@ -15,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using static DataShareCore.ShareEnums;
+using static DataCore.ShareEnums;
 
 namespace BlazorCore.Models
 {
@@ -40,7 +37,8 @@ namespace BlazorCore.Models
         [Parameter] public List<BaseEntity> Items { get; set; } = new List<BaseEntity>();
         [Parameter] public TableBase Table { get; set; } = new TableBase(string.Empty);
         [Parameter] public DbTableAction TableAction { get; set; } = DbTableAction.Default;
-        [Parameter] public string TableActionString
+        [Parameter]
+        public string TableActionString
         {
             get => TableAction.ToString().ToLower();
             set
@@ -590,14 +588,14 @@ namespace BlazorCore.Models
             AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
         }
 
-        public void RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel, 
+        public void RunTasksWithQeustion(string title, string detailSuccess, string detailFail, string detailCancel,
             string questionAdd, Task task, bool continueOnCapturedContext,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
-                string question = string.IsNullOrEmpty(questionAdd) 
-                    ? LocalizationCore.Strings.DialogQuestion 
+                string question = string.IsNullOrEmpty(questionAdd)
+                    ? LocalizationCore.Strings.DialogQuestion
                     : questionAdd;
                 Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
                 bool? result = dialog.Result;
@@ -1138,6 +1136,8 @@ namespace BlazorCore.Models
                                 case DbTableAction.Cancel:
                                     break;
                                 case DbTableAction.Reload:
+                                    break;
+                                case DbTableAction.Delete:
                                     break;
                             }
                             await GuiRefreshWithWaitAsync();

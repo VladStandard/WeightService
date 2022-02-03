@@ -1,14 +1,13 @@
 ﻿@page "/section/access"
-@using DataProjectsCore.DAL.TableScaleModels
+@using DataCore.DAL.TableScaleModels
 @using BlazorCore.Models
-@using DataProjectsCore
-@using DataProjectsCore.DAL.DataModels
-@using DataProjectsCore.DAL.TableModels
-@using DataProjectsCore.Utils
+@using DataCore
+@using DataCore.DAL.DataModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
-@using DataShareCore
+@using BlazorCore
 @inherits RazorDisposable
 
 <ActionsReload Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />

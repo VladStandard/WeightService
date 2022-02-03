@@ -1,13 +1,12 @@
 ﻿@page "/section/printerresources"
 @page "/section/printerresources/{PrinterId:int}"
 @using BlazorCore.Models
-@using DataProjectsCore
-@using DataProjectsCore.DAL.TableModels
-@using DataProjectsCore.DAL.TableScaleModels
-@using DataProjectsCore.Utils
+@using DataCore
+@using DataCore.DAL.TableScaleModels
+@using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
-@using DataShareCore
-@using static DataShareCore.ShareEnums
+@using BlazorCore
+@using static DataCore.ShareEnums
 @inherits RazorDisposable
 
 <ActionsReload Title=@LocalizationData.DeviceControl.SectionPrinterResources SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />

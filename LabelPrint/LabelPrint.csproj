@@ -248,16 +248,6 @@
       <Link>Resources\update_1.png</Link>
     </Resource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj">
-      <Project>{AFE4E2B7-D50D-4CEB-BA92-BBFD6116495F}</Project>
-      <Name>DataProjectsCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj">
-      <Project>{8ba404fc-5e08-44f6-9c55-6d52c4fd0846}</Project>
-      <Name>DataShareCore</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>

@@ -1,37 +1,24 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Version>$(VersionPrefix)</Version>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Company>Владимирский стандарт</Company>
     <Product>WeightService</Product>
-    <Copyright>Copyright © 2020 - 2022</Copyright>
-    <AssemblyVersion>0.5.550</AssemblyVersion>
-    <AssemblyName>BlazorCoreTests</AssemblyName>
-    <RootNamespace>BlazorCoreTests</RootNamespace>
-    <Configurations>Debug;Release;Dev</Configurations>
-    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Copyright © 2020  - 2022</Copyright>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0-release-20220113-05" />
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
-    <ProjectReference Include="..\CoreTests\CoreTests.csproj" />
+    <ProjectReference Include="..\DataCoreTests\DataCoreTests.csproj" />
+    <ProjectReference Include="..\DataCore\DataCore.csproj" />
   </ItemGroup>
-
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>
+    <AssemblyVersion>0.6.120</AssemblyVersion>
+    <FileVersion>0.6.120</FileVersion>
   </PropertyGroup>
-
 </Project>

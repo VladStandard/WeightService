@@ -8,7 +8,7 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using static DataShareCore.ShareEnums;
+using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Common
 {

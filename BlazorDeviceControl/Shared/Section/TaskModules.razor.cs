@@ -1,12 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataProjectsCore;
-using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableScaleModels;
-using DataProjectsCore.Models;
-using DataShareCore;
-using DataShareCore.DAL.Models;
+using BlazorCore.Models;
+using DataCore;
+using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +27,7 @@ namespace BlazorDeviceControl.Shared.Section
                     : Items.Select(x => (TaskEntity)x).ToList();
                 //ItemsCast.Sort(delegate (TaskEntity a, TaskEntity b) { return string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name); });
                 items.Sort((a, b) => string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name));
-                ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true, false, false);
+                ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                 return items;
             }
         }

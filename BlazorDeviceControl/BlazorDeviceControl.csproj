@@ -8,8 +8,8 @@
     <AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-    <AssemblyVersion>0.6.110</AssemblyVersion>
-    <FileVersion>0.6.110</FileVersion>
+    <AssemblyVersion>0.6.120</AssemblyVersion>
+    <FileVersion>0.6.120</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
@@ -57,11 +57,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
     <PackageReference Include="MudBlazor" Version="6.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.10" />
-    <PackageReference Include="Radzen.Blazor" Version="3.14.7" />
+    <PackageReference Include="Radzen.Blazor" Version="3.14.11" />
   </ItemGroup>
   <ItemGroup>
     <None Include="appsettings.json" />
@@ -92,8 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
-    <ProjectReference Include="..\DataProjectsCore\DataProjectsCore.csproj" />
-    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj" />
+    <ProjectReference Include="..\DataCore\DataCore.csproj" />
   </ItemGroup>
   <Target Name="AfterBuild" BeforeTargets="PrepareForBuild">
     <TransformXml Source="appsettings.json" Transform="appsettings.$(Configuration).json" Destination="appsettings.json" StackTrace="true" />

@@ -23,7 +23,6 @@
     <PackageReference Include="Toolbelt.Blazor.HotKeys" Version="12.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataShareCore\DataShareCore.csproj" />
     <ProjectReference Include="..\MdmControlCore\MdmControlCore.csproj" />
   </ItemGroup>
   <PropertyGroup>

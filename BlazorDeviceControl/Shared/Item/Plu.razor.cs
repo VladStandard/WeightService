@@ -2,11 +2,10 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using BlazorCore.Models;
-using DataProjectsCore;
-using DataProjectsCore.DAL.Models;
-using DataProjectsCore.DAL.TableScaleModels;
-using DataProjectsCore.Models;
-using DataShareCore;
+using DataCore;
+using DataCore.DAL.DataModels;
+using DataCore.DAL.Models;
+using DataCore.DAL.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -85,7 +84,7 @@ namespace BlazorDeviceControl.Shared.Item
                         //    {
                         //        PluItem.Plu = pluEntity.Plu + 1;
                         //    }
-                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
