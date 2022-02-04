@@ -12,8 +12,9 @@ namespace DataCore.DAL.TableScaleModels
             Table("[db_scales].[Hosts]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-            Map(x => x.ModifiedDate).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+            Map(x => x.AccessDt).CustomSqlType("DATETIME").Column("ACCESS_DT").Not.Nullable();
             Map(x => x.Name).CustomSqlType("NVARCHAR(150)").Column("Name").Length(150).Nullable();
             Map(x => x.Ip).CustomSqlType("VARCHAR(15)").Column("IP").Length(15).Nullable();
             Map(x => x.MacAddressValue).CustomSqlType("VARCHAR(35)").Column("MAC").Length(35).Nullable();

@@ -41,9 +41,9 @@ namespace DataCore.DAL.Models
 
         public override string ToString() => Name switch
         {
-            ColumnName.Id => $"{nameof(Name)}: {Name}. {nameof(Id)}: {Id}. ",
-            ColumnName.Uid => $"{nameof(Name)}: {Name}. {nameof(Uid)}: {Uid}. ",
-            _ => $"{nameof(Name)}: {Name}. {nameof(Id)}: {Id}. {nameof(Uid)}: {Uid}. ",
+            ColumnName.Id => $"{nameof(Id)}: {Id}. ",
+            ColumnName.Uid => $"{nameof(Uid)}: {Uid}. ",
+            _ => $"{nameof(Name)}: {Name}. ",
         };
 
         public override int GetHashCode()

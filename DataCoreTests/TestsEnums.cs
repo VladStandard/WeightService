@@ -21,6 +21,15 @@ namespace DataCoreTests
         }
 
         /// <summary>
+        /// List of bool values with null value.
+        /// </summary>
+        /// <returns></returns>
+        public static List<bool?> GetBoolNullable()
+        {
+            return new List<bool?>() { null, false, true };
+        }
+
+        /// <summary>
         /// List of string values.
         /// </summary>
         /// <returns></returns>
@@ -29,11 +38,19 @@ namespace DataCoreTests
             return new List<string>() { null, "", string.Empty };
         }
 
+        /// <summary>
+        /// List of Guid values.
+        /// </summary>
+        /// <returns></returns>
         public static List<Guid> GetGuid()
         {
             return new List<Guid> { Guid.Empty, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), };
         }
 
+        /// <summary>
+        /// List of decimal values.
+        /// </summary>
+        /// <returns></returns>
         public static List<decimal> GetDecimal()
         {
             return new List<decimal> { decimal.MinValue, decimal.MinValue / 2, 0, 1, decimal.MaxValue / 2, decimal.MaxValue };
@@ -82,6 +99,15 @@ namespace DataCoreTests
         public static List<int> GetInt()
         {
             return new List<int>() { int.MinValue, 1, int.MaxValue / 2, int.MaxValue };
+        }
+
+        /// <summary>
+        /// List of int values with null value.
+        /// </summary>
+        /// <returns></returns>
+        public static List<int?> GetIntNullable()
+        {
+            return new List<int?>() { null, int.MinValue, 1, int.MaxValue / 2, int.MaxValue };
         }
 
         /// <summary>

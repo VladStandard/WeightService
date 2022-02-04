@@ -10,8 +10,8 @@ namespace MdmControlBlazor.Components
     {
         #region Public and private fields and properties
 
-        private string SqlUserEng => JsonAppSettings.Trusted ? "windows-account" : $"sql-account: {JsonAppSettings.Username}";
-        private string SqlUserRus => JsonAppSettings.Trusted ? "windows-аккаунт" : $"sql-аккаунт: {JsonAppSettings.Username}";
+        private string SqlUserEng => JsonSettings.Trusted ? "windows-account" : $"sql-account: {JsonAppSettings.Username}";
+        private string SqlUserRus => JsonSettings.Trusted ? "windows-аккаунт" : $"sql-аккаунт: {JsonAppSettings.Username}";
 
         public string GetDocEng()
         {

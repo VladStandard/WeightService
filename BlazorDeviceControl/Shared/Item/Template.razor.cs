@@ -36,7 +36,7 @@ namespace BlazorDeviceControl.Shared.Item
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             TemplateItem.Id = (int)Id;
-                        TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
+                        TemplateCategories = AppSettings.DataReference.GetTemplateCategories();
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

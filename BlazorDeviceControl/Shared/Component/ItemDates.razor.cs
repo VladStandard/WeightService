@@ -69,8 +69,8 @@ namespace BlazorDeviceControl.Shared.Component
                                             break;
                                         case ProjectsEnums.TableScale.Hosts:
                                             HostEntity host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>((int)Id);
-                                            DtCreate = host.CreateDate.ToString();
-                                            DtModify = host.ModifiedDate.ToString();
+                                            DtCreate = host.CreateDt.ToString();
+                                            DtModify = host.ChangeDt.ToString();
                                             break;
                                         case ProjectsEnums.TableScale.Labels:
                                             break;

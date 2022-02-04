@@ -25,11 +25,21 @@ namespace ScalesUI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CREATIO\\INS1;Initial Catalog=SCALES;Persist Security Info=True;User I" +
+            "D=scale01;Password=scale01;TrustServerCertificate=True")]
+        public string ConnectionStringDebug {
+            get {
+                return ((string)(this["ConnectionStringDebug"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PALYCH\\LUTON;Initial Catalog=ScalesDB;Persist Security Info=True;User" +
             " ID=scale01;Password=scale01;TrustServerCertificate=True")]
-        public string ConnectionString {
+        public string ConnectionStringRelease {
             get {
-                return ((string)(this["ConnectionString"]));
+                return ((string)(this["ConnectionStringRelease"]));
             }
         }
     }

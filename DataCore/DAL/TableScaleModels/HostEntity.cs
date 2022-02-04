@@ -10,8 +10,9 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime? CreateDate { get; set; }
-        public virtual DateTime? ModifiedDate { get; set; }
+        public virtual DateTime CreateDt { get; set; }
+        public virtual DateTime ChangeDt { get; set; }
+        public virtual DateTime AccessDt { get; set; }
         public virtual string Name { get; set; } = string.Empty;
         public virtual string Ip { get; set; } = string.Empty;
         public virtual MacAddressEntity MacAddress { get; set; }
@@ -46,12 +47,14 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strCreateDate = CreateDate != null ? CreateDate.ToString() : "null";
-            string? strModifiedDate = ModifiedDate != null ? ModifiedDate.ToString() : "null";
+            string? strCreateDt = CreateDt != null ? CreateDt.ToString() : "null";
+            string? strChangeDt = ChangeDt != null ? ChangeDt.ToString() : "null";
+            string? strAccessDt = AccessDt != null ? AccessDt.ToString() : "null";
             string? strSettingsFileString = SettingsFile != null ? SettingsFile.Length.ToString() : "null";
             return base.ToString() +
-                   $"{nameof(CreateDate)}: {strCreateDate}. " +
-                   $"{nameof(ModifiedDate)}: {strModifiedDate}. " +
+                   $"{nameof(CreateDt)}: {strCreateDt}. " +
+                   $"{nameof(ChangeDt)}: {strChangeDt}. " +
+                   $"{nameof(AccessDt)}: {strAccessDt}. " +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(Ip)}: {Ip}. " +
                    $"{nameof(MacAddress)}: {MacAddress}. " +
@@ -65,8 +68,9 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate) &&
+                   Equals(CreateDt, entity.CreateDt) &&
+                   Equals(ChangeDt, entity.ChangeDt) &&
+                   Equals(AccessDt, entity.AccessDt) &&
                    Equals(Name, entity.Name) &&
                    Equals(Ip, entity.Ip) &&
                    Equals(MacAddress, entity.MacAddress) &&
@@ -98,8 +102,9 @@ namespace DataCore.DAL.TableScaleModels
             if (MacAddress != null && !MacAddress.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime?)) &&
-                   Equals(ModifiedDate, default(DateTime?)) &&
+                   Equals(CreateDt, default(DateTime)) &&
+                   Equals(ChangeDt, default(DateTime)) &&
+                   Equals(AccessDt, default(DateTime)) &&
                    Equals(Name, default(string)) &&
                    Equals(Ip, default(string)) &&
                    Equals(IdRRef, default(Guid)) &&
@@ -113,8 +118,9 @@ namespace DataCore.DAL.TableScaleModels
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                AccessDt = AccessDt,
                 Name = Name,
                 Ip = Ip,
                 MacAddress = (MacAddressEntity)MacAddress.Clone(),

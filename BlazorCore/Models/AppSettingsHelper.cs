@@ -15,18 +15,19 @@ namespace BlazorCore.Models
     {
         #region Design pattern "Lazy Singleton"
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private static AppSettingsHelper _instance;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public static AppSettingsHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
         #region Public and private fields and properties
 
-        public DataAccessEntity DataAccess { get; private set; }
-        public DataSourceEntity DataSource { get; private init; } = new();
-        public JsonSettingsEntity JsonAppSettings { get; private set; }
-        public MemoryEntity Memory { get; set; }
-        public bool IsDebug => JsonAppSettings != null && JsonAppSettings.IsDebug;
+        public DataAccessEntity? DataAccess { get; private set; } = null;
+        public DataReferenceEntity DataReference { get; private init; } = new();
+        public bool IsDebug => DataAccess?.JsonSettings?.IsDebug == true;
+        public MemoryEntity? Memory { get; set; } = null;
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
         public static int Delay => 5_000;
@@ -34,12 +35,12 @@ namespace BlazorCore.Models
             Memory.MemorySize.PhysicalCurrent != null
             ? $"{LocalizationCore.Strings.MemoryUsed}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
             : $"{LocalizationCore.Strings.MemoryUsed}: - MB";
-        public string SqlServerDescription => JsonAppSettings is { Server: { } }
-            ? JsonAppSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
+        public string SqlServerDescription => DataAccess?.JsonSettings is { Server: { } }
+            ? DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
                 ? LocalizationCore.Strings.Main.ServerRelease : LocalizationCore.Strings.Main.ServerDevelop
             : LocalizationCore.Strings.Main.NotLoad;
-        public bool IsSqlServerRelease => JsonAppSettings is { Server: { } } && JsonAppSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-        public bool IsSqlServerDebug => JsonAppSettings is { Server: { } } && JsonAppSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerRelease => DataAccess?.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerDebug => DataAccess?.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
         #endregion
 
@@ -58,7 +59,7 @@ namespace BlazorCore.Models
         public void SetupJsonSettings(JsonSettingsEntity jsonAppSettings)
         {
             if (jsonAppSettings == null) return;
-            DataAccess = new DataAccessEntity(JsonAppSettings = jsonAppSettings);
+            DataAccess = new DataAccessEntity(jsonAppSettings);
         }
 
         public void Dispose()

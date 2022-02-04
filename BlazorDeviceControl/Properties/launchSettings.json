@@ -3,8 +3,11 @@
     "windowsAuthentication": true,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:64610",
-      "sslPort": 44356
+      "sqlDebugging": true,
+      "applicationUrl": "https://localhost:5009",
+      "dotnetRunMessages": true,
+      "nativeDebugging": true,
+      "sslPort": 5009
     }
   },
   "profiles": {
@@ -12,7 +15,7 @@
       "commandName": "IISExpress",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
+      }
     },
     "BlazorDeviceControl": {
       "commandName": "Project",

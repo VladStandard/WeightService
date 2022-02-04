@@ -39,8 +39,8 @@ namespace BlazorDeviceControl.Shared.Section
                 {
                     lock (Locker)
                     {
-                        TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
-                        TemplateIsDebug = AppSettings.DataSource.GetTemplateIsDebug();
+                        TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
+                        TemplateIsDebug = AppSettings.DataReference.GetTemplateIsDebug();
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
                         DbCurSize = 0;
                         foreach (object obj in objects)
@@ -62,34 +62,34 @@ namespace BlazorDeviceControl.Shared.Section
         {
             switch (name)
             {
-                case nameof(AppSettings.JsonAppSettings.Server):
+                case nameof(AppSettings.DataAccess.JsonSettings.Server):
                     if (value is string server)
                     {
-                        AppSettings.JsonAppSettings.Server = server;
+                        AppSettings.DataAccess.JsonSettings.Server = server;
                     }
                     break;
-                case nameof(AppSettings.JsonAppSettings.Db):
+                case nameof(AppSettings.DataAccess.JsonSettings.Db):
                     if (value is string db)
                     {
-                        AppSettings.JsonAppSettings.Db = db;
+                        AppSettings.DataAccess.JsonSettings.Db = db;
                     }
                     break;
-                case nameof(AppSettings.JsonAppSettings.Trusted):
+                case nameof(AppSettings.DataAccess.JsonSettings.Trusted):
                     if (value is bool trusted)
                     {
-                        AppSettings.JsonAppSettings.Trusted = trusted;
+                        AppSettings.DataAccess.JsonSettings.Trusted = trusted;
                     }
                     break;
-                case nameof(AppSettings.JsonAppSettings.Username):
+                case nameof(AppSettings.DataAccess.JsonSettings.Username):
                     if (value is string username)
                     {
-                        AppSettings.JsonAppSettings.Username = username;
+                        AppSettings.DataAccess.JsonSettings.Username = username;
                     }
                     break;
-                case nameof(AppSettings.JsonAppSettings.Password):
+                case nameof(AppSettings.DataAccess.JsonSettings.Password):
                     if (value is string password)
                     {
-                        AppSettings.JsonAppSettings.Password = password;
+                        AppSettings.DataAccess.JsonSettings.Password = password;
                     }
                     break;
                 case nameof(TemplateLanguages):
@@ -98,24 +98,24 @@ namespace BlazorDeviceControl.Shared.Section
                         LocalizationCore.Lang = lang;
                         LocalizationData.Lang = lang;
                     }
-                    TemplateLanguages = AppSettings.DataSource.GetTemplateLanguages();
+                    TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
                     break;
                 case nameof(TemplateIsDebug):
                     if (value is bool isDebug)
                     {
-                        AppSettings.JsonAppSettings.IsDebug = isDebug;
+                        AppSettings.DataAccess.JsonSettings.IsDebug = isDebug;
                     }
                     break;
-                case nameof(AppSettings.JsonAppSettings.SectionRowCount):
+                case nameof(AppSettings.DataAccess.JsonSettings.SectionRowCount):
                     if (value is int sectionRowCount)
                     {
-                        AppSettings.JsonAppSettings.SectionRowCount = sectionRowCount;
+                        AppSettings.DataAccess.JsonSettings.SectionRowCount = sectionRowCount;
                     }
                     break;
-                case nameof(AppSettings.JsonAppSettings.ItemRowCount):
+                case nameof(AppSettings.DataAccess.JsonSettings.ItemRowCount):
                     if (value is int itemRowCount)
                     {
-                        AppSettings.JsonAppSettings.ItemRowCount = itemRowCount;
+                        AppSettings.DataAccess.JsonSettings.ItemRowCount = itemRowCount;
                     }
                     break;
             }

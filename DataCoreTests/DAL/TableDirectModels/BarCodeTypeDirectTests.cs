@@ -20,9 +20,8 @@ namespace DataCoreTests.DAL.TableDirectModels
 
             Assert.DoesNotThrow(() =>
             {
-                SqlConnectFactoryTests.SqlPrepare();
                 TestContext.WriteLine($"[db_scales].[BarCodeTypes]");
-                List<int> listId = new List<int>();
+                List<int> listId = new();
                 SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetAllItems, null, delegate (SqlDataReader reader)
                 {
                     while (reader.Read())

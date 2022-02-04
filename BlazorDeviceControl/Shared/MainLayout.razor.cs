@@ -14,7 +14,7 @@ namespace BlazorDeviceControl.Shared
         #region Public and private fields and properties
 
         [Inject] public HotKeys HotKeysItem { get; private set; }
-        [Inject] public JsonSettingsEntity JsonAppSettings { get; private set; }
+        [Inject] public JsonSettingsEntity JsonSettings { get; private set; }
 
         #endregion
 
@@ -29,7 +29,7 @@ namespace BlazorDeviceControl.Shared
                 {
                     lock (Locker)
                     {
-                        AppSettings.SetupJsonSettings(JsonAppSettings);
+                        AppSettings.SetupJsonSettings(JsonSettings);
                         UserSettings.SetupHotKeys(HotKeysItem);
                         if (UserSettings.HotKeys != null)
                             UserSettings.HotKeysContext = UserSettings.HotKeys.CreateContext()

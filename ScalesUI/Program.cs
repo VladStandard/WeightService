@@ -70,8 +70,11 @@ namespace ScalesUI
         internal static void Main()
         {
             AppVersion.Setup(Assembly.GetExecutingAssembly());
-
-            string conectionString = Properties.Settings.Default.ConnectionString;
+#if DEBUG
+            string conectionString = Properties.Settings.Default.ConnectionStringDebug;
+#else
+            string conectionString = Properties.Settings.Default.ConnectionStringRelease;
+#endif
             try
             {
                 _ = SqlConnectFactory.GetConnection(conectionString);

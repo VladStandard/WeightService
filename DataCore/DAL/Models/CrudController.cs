@@ -1,8 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
-using DataCore.DAL;
 using DataCore.DAL.DataModels;
 using DataCore.DAL.TableDwhModels;
 using DataCore.DAL.TableScaleModels;
@@ -742,7 +740,7 @@ namespace DataCore.DAL.Models
                     break;
                 case HostEntity host:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(host); }, filePath, lineNumber, memberName);
-                    host.ModifiedDate = DateTime.Now;
+                    host.ChangeDt = DateTime.Now;
                     break;
                 case LogEntity log:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(log); }, filePath, lineNumber, memberName);
@@ -999,59 +997,59 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods - HostEntity
 
-        public List<HostEntity> GetFreeHosts(int? id,
+        public List<HostEntity> GetFreeHosts(int? id, bool? isMarked,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
             List<HostEntity>? items = new();
             foreach (object? entity in entities)
             {
-                if (entity is object[] { Length: 9 } ent)
+                if (entity is object[] { Length: 10 } ent)
                 {
-                    items.Add(new HostEntity
+                    HostEntity host = new()
                     {
                         Id = Convert.ToInt32(ent[0]),
-                        CreateDate = Convert.ToDateTime(ent[1]),
-                        ModifiedDate = Convert.ToDateTime(ent[2]),
-                        Name = Convert.ToString(ent[3]),
-                        Ip = Convert.ToString(ent[4]),
-                        MacAddress = new MacAddressEntity(Convert.ToString(ent[5])),
-                        IdRRef = Guid.Parse(Convert.ToString(ent[6])),
-                        Marked = Convert.ToBoolean(ent[7]),
-                        SettingsFile = Convert.ToString(ent[8]),
-                    });
+                        CreateDt = Convert.ToDateTime(ent[1]),
+                        ChangeDt = Convert.ToDateTime(ent[2]),
+                        AccessDt = Convert.ToDateTime(ent[3]),
+                        Name = Convert.ToString(ent[4]),
+                        Ip = Convert.ToString(ent[5]),
+                        MacAddress = new MacAddressEntity(Convert.ToString(ent[6])),
+                        IdRRef = Guid.Parse(Convert.ToString(ent[7])),
+                        Marked = Convert.ToBoolean(ent[8]),
+                        SettingsFile = Convert.ToString(ent[9]),
+                    };
+                    if ((id == null || Equals(host.Id, id)) && (isMarked == null || Equals(host.Marked, isMarked)))
+                        items.Add(host);
                 }
-            }
-
-            if (id > 0 && items.Select(x => x).Where(x => Equals(x.Id, id)).ToList().Count == 0)
-            {
-                items.Add(GetEntity<HostEntity>(
-                    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }), null));
             }
             return items;
         }
 
-        public List<HostEntity> GetBusyHosts(
+        public List<HostEntity> GetBusyHosts(int? id, bool? isMarked,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);
             List<HostEntity>? items = new();
             foreach (object? entity in entities)
             {
-                if (entity is object[] { Length: 9 } ent)
+                if (entity is object[] { Length: 12 } ent)
                 {
-                    items.Add(new HostEntity
+                    HostEntity host = new()
                     {
                         Id = Convert.ToInt32(ent[0]),
-                        CreateDate = Convert.ToDateTime(ent[1]),
-                        ModifiedDate = Convert.ToDateTime(ent[2]),
-                        Name = Convert.ToString(ent[3]),
-                        Ip = Convert.ToString(ent[4]),
-                        MacAddress = new MacAddressEntity(Convert.ToString(ent[5])),
-                        IdRRef = Guid.Parse(Convert.ToString(ent[6])),
-                        Marked = Convert.ToBoolean(ent[7]),
-                        SettingsFile = Convert.ToString(ent[8]),
-                    });
+                        CreateDt = Convert.ToDateTime(ent[1]),
+                        ChangeDt = Convert.ToDateTime(ent[2]),
+                        AccessDt = Convert.ToDateTime(ent[3]),
+                        Name = Convert.ToString(ent[4]),
+                        Ip = Convert.ToString(ent[7]),
+                        MacAddress = new MacAddressEntity(Convert.ToString(ent[8])),
+                        IdRRef = Guid.Parse(Convert.ToString(ent[9])),
+                        Marked = Convert.ToBoolean(ent[10]),
+                        SettingsFile = Convert.ToString(ent[11]),
+                    };
+                    if ((id == null || Equals(host.Id, id)) && (isMarked == null || Equals(host.Marked, isMarked)))
+                        items.Add(host);
                 }
             }
             return items;

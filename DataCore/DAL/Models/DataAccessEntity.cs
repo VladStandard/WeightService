@@ -15,7 +15,7 @@ namespace DataCore.DAL.Models
     {
         #region Public and private fields and properties
 
-        public JsonSettingsEntity JsonSettings { get; set; }
+        public JsonSettingsEntity? JsonSettings { get; private set; } = null;
         private readonly object _locker = new();
 
         // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
@@ -109,8 +109,10 @@ namespace DataCore.DAL.Models
         //        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
 
         private string GetConnectionString() => JsonSettings.Trusted
-            ? $"Data Source={JsonSettings.Server};Initial Catalog={JsonSettings.Db};Persist Security Info=True;Trusted Connection=True;TrustServerCertificate=True;"
-            : $"Data Source={JsonSettings.Server};Initial Catalog={JsonSettings.Db};Persist Security Info=True;User ID={JsonSettings.Username};Password={JsonSettings.Password};TrustServerCertificate=True;";
+            ? $"Data Source={JsonSettings.Server};Initial Catalog={JsonSettings.Db};Persist Security Info=True;" +
+              $"Trusted Connection=True;TrustServerCertificate={JsonSettings.TrustServerCertificate};"
+            : $"Data Source={JsonSettings.Server};Initial Catalog={JsonSettings.Db};Persist Security Info=True;" +
+              $"User ID={JsonSettings.Username};Password={JsonSettings.Password};TrustServerCertificate={JsonSettings.TrustServerCertificate};";
 
         private void AddConfigurationMappings(FluentConfiguration configuration, JsonSettingsEntity jsonSettings)
         {
@@ -178,7 +180,7 @@ namespace DataCore.DAL.Models
 
         public void Dispose()
         {
-            _sessionFactory.Dispose();
+            _sessionFactory?.Dispose();
         }
 
         #endregion

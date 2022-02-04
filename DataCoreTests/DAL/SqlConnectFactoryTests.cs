@@ -11,14 +11,6 @@ namespace DataProjectsCoreTests.DAL
     [TestFixture]
     internal class SqlConnectFactoryTests
     {
-        public static SqlConnection SqlCon { get; private set; }
-
-        public static void SqlPrepare()
-        {
-            SqlCon = SqlConnectFactory.GetConnection(TestsUtils.ConectionStringDevelop(false));
-            TestContext.WriteLine($"{nameof(SqlConnectFactory)}: {SqlCon.ConnectionString}");
-        }
-
         [Test]
         public void SqlConnectFactory_ExecuteReader_DoesNotThrow()
         {
@@ -26,7 +18,6 @@ namespace DataProjectsCoreTests.DAL
 
             Assert.DoesNotThrow(() =>
             {
-                SqlPrepare();
                 TestContext.WriteLine($"[db_scales].[Scales]");
                 SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes, null, delegate (SqlDataReader reader)
                 {

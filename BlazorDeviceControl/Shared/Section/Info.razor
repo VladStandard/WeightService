@@ -51,28 +51,28 @@
         </tr>
         <tr>
             <td>@LocalizationCore.Strings.SqlServer</td>
-            @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Server))
+            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings.Server))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Server</MudElement></td>
+                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.DataAccess.JsonSettings.Server</MudElement></td>
             }
         </tr>
         <tr>
             <td>@LocalizationCore.Strings.SqlDb</td>
-            @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Db))
+            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings.Db))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Db</MudElement></td>
+                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.DataAccess.JsonSettings.Db</MudElement></td>
             }
         </tr>
         <tr>
-            @if (AppSettings.JsonAppSettings.Trusted)
+            @if (AppSettings.DataAccess.JsonSettings.Trusted)
             {
                 <td>@LocalizationCore.Strings.WindowsUser</td>
             }
@@ -80,13 +80,13 @@
             {
                 <td>@LocalizationCore.Strings.SqlUser</td>
             }
-            @if (string.IsNullOrEmpty(AppSettings.JsonAppSettings.Username))
+            @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings.Username))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.JsonAppSettings.Username</MudElement></td>
+                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.DataAccess.JsonSettings.Username</MudElement></td>
             }
         </tr>
         <tr>
@@ -188,7 +188,7 @@
                     <RadzenDropDown Style="width: 20%;" TValue="bool" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                     AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
                                     Data=@TemplateIsDebug PageSize="5" TextProperty="Name" ValueProperty="Value"
-                                    Value=@AppSettings.JsonAppSettings.IsDebug Change=@(args => OnChange(args, nameof(TemplateIsDebug)))
+                                    Value=@AppSettings.DataAccess.JsonSettings.IsDebug Change=@(args => OnChange(args, nameof(TemplateIsDebug)))
                                     Disabled=true />
                 </td>
             }
@@ -196,60 +196,60 @@
 @*            
         <tr>
             <td>@LocalizationCore.Share.SectionRowCount</td>
-            @if (AppSettings.JsonAppSettings == null)
+            @if (AppSettings.DataAccess.JsonSettings == null)
             {
                 <td><ActionsLoad DataLoadItem=BlazorCore.ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
                 <td>
-                    <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.JsonAppSettings.SectionRowCount 
-                        Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.SectionRowCount)))
+                    <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.DataAccess.JsonSettings.SectionRowCount 
+                        Change=@(args => OnChange(args, nameof(AppSettings.DataAccess.JsonSettings.SectionRowCount)))
                     />
                 </td>
             }
         </tr>
         <tr>
             <td>@LocalizationCore.Share.ItemRowCount</td>
-            @if (AppSettings.JsonAppSettings == null)
+            @if (AppSettings.DataAccess.JsonSettings == null)
             {
                 <td><ActionsLoad DataLoadItem=BlazorCore.ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
                 <td>
-                    <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.JsonAppSettings.ItemRowCount 
-                        Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ItemRowCount)))
+                    <RadzenNumeric Style="width: 20%;" TValue="int" @bind-value=@AppSettings.DataAccess.JsonSettings.ItemRowCount 
+                        Change=@(args => OnChange(args, nameof(AppSettings.DataAccess.JsonSettings.ItemRowCount)))
                     />
                 </td>
             }
         </tr>
         <tr>
             <td>@LocalizationCore.Share.ButtonWidth</td>
-            @if (AppSettings.JsonAppSettings == null)
+            @if (AppSettings.DataAccess.JsonSettings == null)
             {
                 <td><ActionsLoad DataLoadItem=BlazorCore.ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
                 <td>
-                    <RadzenTextBox Style="width: 20%;" TValue="string" @bind-value=@AppSettings.JsonAppSettings.ButtonWidth 
-                        Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ButtonWidth)))
+                    <RadzenTextBox Style="width: 20%;" TValue="string" @bind-value=@AppSettings.DataAccess.JsonSettings.ButtonWidth 
+                        Change=@(args => OnChange(args, nameof(AppSettings.DataAccess.JsonSettings.ButtonWidth)))
                     />
                 </td>
             }
         </tr>
         <tr>
             <td>@LocalizationCore.Share.ButtonHeight</td>
-            @if (AppSettings.JsonAppSettings == null)
+            @if (AppSettings.DataAccess.JsonSettings == null)
             {
                 <td><ActionsLoad DataLoadItem=BlazorCore.ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
             }
             else
             {
                 <td>
-                    <RadzenTextBox Style="width: 20%;" TValue="string" @bind-value=@AppSettings.JsonAppSettings.ButtonHeight 
-                        Change=@(args => OnChange(args, nameof(AppSettings.JsonAppSettings.ButtonHeight)))
+                    <RadzenTextBox Style="width: 20%;" TValue="string" @bind-value=@AppSettings.DataAccess.JsonSettings.ButtonHeight 
+                        Change=@(args => OnChange(args, nameof(AppSettings.DataAccess.JsonSettings.ButtonHeight)))
                     />
                 </td>
             }

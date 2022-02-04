@@ -155,65 +155,81 @@ WHERE [Id]=@ID
 				public static class Hosts
                 {
                     public static string GetBusyHosts => @"
--- Get busy hosts
-select [h].[Id]
-      ,[h].[CreateDate]
-      ,[h].[ModifiedDate]
-      ,[h].[Name]
-      ,[s].[Description]
-      ,[h].[IP]
-      ,[h].[MAC]
-      ,[h].[IdRRef]
-      ,[h].[Marked]
-      ,[h].[SettingsFile]
-from [db_scales].[Hosts] [h]
-left join [db_scales].[Scales] [s] on [h].[Id] = [s].[HostId]
-where [h].[Id] in (select [HostId] from [db_scales].[Scales] where [Scales].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
-order by [h].[Name]
+------------------------------------------------------------------------------------------------------------------------
+-- Table Select Hosts Get Busy
+------------------------------------------------------------------------------------------------------------------------
+SELECT
+	[H].[Id]
+   ,[H].[CreateDate]
+   ,[H].[ModifiedDate]
+   ,[H].[ACCESS_DT]
+   ,[H].[Name]
+   ,[S].[Id] [SCALE_ID]
+   ,[S].[DESCRIPTION] [SCALE_DESCRIPTION]
+   ,[H].[IP]
+   ,[H].[MAC]
+   ,[H].[IdRRef]
+   ,[H].[Marked]
+   ,[H].[SettingsFile]
+FROM [db_scales].[Hosts] [H]
+LEFT JOIN [db_scales].[Scales] [S] ON [H].[Id] = [S].[HOSTID]
+WHERE [H].[Id] IN (SELECT [HOSTID]
+	FROM [db_scales].[Scales]
+	WHERE [Scales].[HOSTID] IS NOT NULL)
+ORDER BY [H].[Name]
+------------------------------------------------------------------------------------------------------------------------
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetFreeHosts => @"
--- Get free hosts
-select [h].[Id]
-      ,[h].[CreateDate]
-      ,[h].[ModifiedDate]
-      ,[h].[Name]
-      ,[h].[IP]
-      ,[h].[MAC]
-      ,[h].[IdRRef]
-      ,[h].[Marked]
-      ,[h].[SettingsFile]
-from [db_scales].[Hosts] [h]
-where [h].[Id] not in (select [HostId] from [db_scales].[Scales] [s] where [s].[HostId] is not null and [s].[Marked] = 0) and [h].[Marked] = 0
-order by [h].[Name]
+------------------------------------------------------------------------------------------------------------------------
+-- Table Select Hosts Get Free
+------------------------------------------------------------------------------------------------------------------------
+SELECT
+	[H].[ID]
+   ,[H].[CREATEDATE]
+   ,[H].[MODIFIEDDATE]
+   ,[H].[ACCESS_DT]
+   ,[H].[NAME]
+   ,[H].[IP]
+   ,[H].[MAC]
+   ,[H].[IDRREF]
+   ,[H].[MARKED]
+   ,[H].[SETTINGSFILE]
+FROM [DB_SCALES].[HOSTS] [H]
+WHERE [H].[ID] NOT IN (SELECT [HOSTID]
+	FROM [DB_SCALES].[SCALES] [S]
+	WHERE [S].[HOSTID] IS NOT NULL)
+ORDER BY [H].[NAME]
+------------------------------------------------------------------------------------------------------------------------
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetHostId => @"
-select [ID]
-from [db_scales].[Hosts] 
+SELECT [ID]
+FROM [DB_SCALES].[HOSTS] 
 where [Name]=@host and [IdRRef]=@idrref
 				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetHostIdByIdRRef => @"
-select [ID]
-from [db_scales].[Hosts] 
+SELECT [ID]
+FROM [DB_SCALES].[HOSTS] 
 where [IdRRef]=@idrref
 				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
                     public static string GetHostByUid => @"
 select
-		[HOSTS].[ID]
-	,[HOSTS].[NAME]
-	,[HOSTS].[IP]
-	,[HOSTS].[MAC]
-	,[HOSTS].[IDRREF]
-	,[HOSTS].[MARKED]
-	,[HOSTS].[SETTINGSFILE]
+	 [H].[ID]
+	,[H].[NAME]
+	,[H].[IP]
+	,[H].[MAC]
+	,[H].[IDRREF]
+	,[H].[MARKED]
+	,[H].[SETTINGSFILE]
+	,[H].[ACCESS_DT]
 	,[SCALES].[ID] [SCALE_ID]
 	,[SCALES].[DESCRIPTION] [SCALE_DESCRIPTION]
-from [db_scales].[HOSTS] [HOSTS]
-left join [db_scales].[SCALES] [SCALES] on [HOSTS].[ID] = [SCALES].[HOSTID]
-where [HOSTS].[MARKED]=0 and [HOSTS].[IDRREF]=@idrref
+from [db_scales].[HOSTS] [H]
+left join [db_scales].[SCALES] [SCALES] on [H].[ID] = [SCALES].[HOSTID]
+where [H].[MARKED]=0 and [H].[IDRREF]=@idrref
 				".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
 

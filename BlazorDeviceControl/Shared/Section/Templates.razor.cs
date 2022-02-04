@@ -35,7 +35,7 @@ namespace BlazorDeviceControl.Shared.Section
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
                         // Filter.
-                        TemplateCategories = AppSettings.DataSource.GetTemplateCategories();
+                        TemplateCategories = AppSettings.DataReference.GetTemplateCategories();
                         if (string.IsNullOrEmpty(TemplateCategory))
                         {
                             TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;

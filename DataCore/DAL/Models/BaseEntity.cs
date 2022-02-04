@@ -70,7 +70,7 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods - override
 
-        public override string ToString() => PrimaryColumn == null ? string.Empty : PrimaryColumn.ToString();
+        public override string ToString() => PrimaryColumn == null ? "NULL" : PrimaryColumn.ToString();
 
         public override int GetHashCode() => PrimaryColumn == null ? -1 : PrimaryColumn.GetHashCode();
 

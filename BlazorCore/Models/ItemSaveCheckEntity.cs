@@ -42,10 +42,10 @@ namespace BlazorCore.Models
             bool success = FieldControl.ProcessChecks(notificationService, host, "Хост");
             if (success)
             {
-                host.ModifiedDate = DateTime.Now;
+                host.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    host.CreateDate = DateTime.Now;
+                    host.CreateDt = DateTime.Now;
                     AppSettings.DataAccess.Crud.SaveEntity(host);
                 }
                 else

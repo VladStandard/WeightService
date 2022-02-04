@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.130] - 2022-02-04
+### Changed
+- Tables\db_scales_HOSTS.sql
+### Added
+- Updates\Update-2022-02-04.sql
+
 ## [0.6.120] - 2022-02-03
 ### Added
 - Tables\db_scales_NomenclatureUnits.sql

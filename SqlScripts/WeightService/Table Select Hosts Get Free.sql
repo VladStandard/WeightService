@@ -1,15 +1,20 @@
 ------------------------------------------------------------------------------------------------------------------------
--- Table Select Hosts
+-- Table Select Hosts Get Free
 ------------------------------------------------------------------------------------------------------------------------
 SELECT
-	[ID]
-   ,[CREATEDATE]
-   ,[MODIFIEDDATE]
-   ,[NAME]
-   ,[IP]
-   ,[MAC]
-   ,[IDRREF]
-   ,[MARKED]
-   ,[SETTINGSFILE]
-FROM [DB_SCALES].[HOSTS]
+	[H].[ID]
+   ,[H].[CREATEDATE]
+   ,[H].[MODIFIEDDATE]
+   ,[H].[ACCESS_DT]
+   ,[H].[NAME]
+   ,[H].[IP]
+   ,[H].[MAC]
+   ,[H].[IDRREF]
+   ,[H].[MARKED]
+   ,[H].[SETTINGSFILE]
+FROM [DB_SCALES].[HOSTS] [H]
+WHERE [H].[ID] NOT IN (SELECT [HOSTID]
+	FROM [DB_SCALES].[SCALES] [S]
+	WHERE [S].[HOSTID] IS NOT NULL)
+ORDER BY [H].[NAME]
 ------------------------------------------------------------------------------------------------------------------------

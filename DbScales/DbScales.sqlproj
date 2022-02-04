@@ -79,6 +79,7 @@
     <Folder Include="CLR" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Migrate" />
+    <Folder Include="Updated" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\db_scales_Schema.sql" />
@@ -157,7 +158,7 @@
     <Build Include="SP\UploadLogo.sql" />
     <Build Include="SP\UploadFont.sql" />
     <Build Include="SP\LoadResourceToDB.sql" />
-    <Build Include="Tables\db_scales_Hosts.sql" />
+    <Build Include="Tables\db_scales_HOSTS.sql" />
     <Build Include="SP\ArchiveIrrelevantData.sql" />
     <Build Include="Tables\db_scales_LOGS.sql" />
     <None Include="Scripts\Properties.sql" />
@@ -185,6 +186,7 @@
     <None Include="ScalesDB_LUTON.publish.xml" />
     <None Include="CHANGELOG.md" />
     <None Include="DiagramScales.dbd" />
+    <None Include="Updated\Update-2022-02-04.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />

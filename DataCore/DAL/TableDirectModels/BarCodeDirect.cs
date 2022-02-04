@@ -66,20 +66,6 @@ namespace DataCore.DAL.TableDirectModels
                     Contragent = new ContregentDirect(SqlConnectFactory.GetValueAsNullable<int>(reader, "ContragentId"));
                 }
             });
-            //using SqlConnection con = SqlConnectFactory.GetConnection();
-            //con.Open();
-            //using (SqlCommand cmd = new(query))
-            //{
-            //    cmd.Connection = con;
-            //    cmd.Parameters.AddWithValue("@Id", Id);
-            //    using SqlDataReader reader = cmd.ExecuteReader();
-            //    if (reader.HasRows)
-            //    {
-
-            //    }
-            //    reader.Close();
-            //}
-            //con.Close();
         }
 
         public void Save()

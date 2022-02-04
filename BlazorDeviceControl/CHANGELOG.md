@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.130] - 2022-02-03
+### Chaned
+- 
+
 ## [0.6.110] - 2022-02-02
 ### Chaned
 - Moved system sections and items componennts

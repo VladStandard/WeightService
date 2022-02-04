@@ -81,7 +81,7 @@ namespace BlazorDeviceControl.Shared.Item
                         PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             null).ToList();
-                        HostItems = AppSettings.DataAccess.Crud.GetFreeHosts(ScaleItem.Host?.Id);
+                        HostItems = AppSettings.DataAccess.Crud.GetFreeHosts(ScaleItem.Host?.Id, false);
                         ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

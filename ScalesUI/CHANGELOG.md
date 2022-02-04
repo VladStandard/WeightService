@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.130] - 2022-02-03
+### Added
+- Loading references Properties.Settings.Default.ConnectionString depending on debugging mode
+
 ## [0.6.030] - 2022-01-17
 ### Fixed
 - PVS-Studio analyze

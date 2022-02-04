@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace BlazorCore.Models
 {
-    public class DataSourceEntity
+    public class DataReferenceEntity
     {
         #region Public and private methods
 
