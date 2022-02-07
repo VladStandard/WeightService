@@ -45,16 +45,32 @@ SELECT[IIS].[fnGetContragentChangesList] (:StartDate, :EndDate, :Offset, :RowCou
 SELECT [IIS].[fnGetNomenclatureByCode] (:code)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
+        public static string GetNomenclatureFromCodePreview => @"
+SELECT [IIS].[fnGetNomenclatureByCodePreview] (:code)
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
         public static string GetNomenclatureFromId => @"
 SELECT [IIS].[fnGetNomenclatureByID] (:id)
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+        public static string GetNomenclatureFromIdPreview => @"
+SELECT [IIS].[fnGetNomenclatureByID_Preview] (:id)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetNomenclatures => @"
 SELECT [IIS].[fnGetNomenclatureChangesList] (:StartDate, :EndDate, :Offset, :RowCount)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
+        public static string GetNomenclaturesPreview => @"
+SELECT [IIS].[fnGetNomenclatureChangesListPreview] (:StartDate, :EndDate, :Offset, :RowCount)
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
         public static string GetNomenclaturesCosts => @"
 SELECT [IIS].[fnGetNomenclatureList] (:StartDate, :EndDate, :Offset, :RowCount)
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+
+        public static string GetNomenclaturesCostsPreview => @"
+SELECT [IIS].[fnGetNomenclatureList_preview] (:StartDate, :EndDate, :Offset, :RowCount)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetShipment => @"

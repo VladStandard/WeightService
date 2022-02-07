@@ -48,7 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Table Select BarCodeTypes.sql = WeightService\Table Select BarCodeTypes.sql
 		WeightService\Table Select Contragents.sql = WeightService\Table Select Contragents.sql
 		WeightService\Table Select Errors.sql = WeightService\Table Select Errors.sql
-		WeightService\Table Select Hosts Get busy.sql = WeightService\Table Select Hosts Get busy.sql
+		WeightService\Table Select Hosts Get Busy.sql = WeightService\Table Select Hosts Get Busy.sql
 		WeightService\Table Select Hosts Get Free.sql = WeightService\Table Select Hosts Get Free.sql
 		WeightService\Table Select Hosts.sql = WeightService\Table Select Hosts.sql
 		WeightService\Table Select Labels.sql = WeightService\Table Select Labels.sql
@@ -92,7 +92,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{50C41EB3-8FFA-4089-8C09-F3A961AAB355}.Default|Default.ActiveCfg = Default
+		{691A4A9D-2F6E-4056-B93E-F580FB32BF54}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

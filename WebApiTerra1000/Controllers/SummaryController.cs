@@ -22,6 +22,7 @@ namespace WebApiTerra1000.Controllers
 
         public SummaryController(ILogger<SummaryController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
+            //
         }
 
         #endregion

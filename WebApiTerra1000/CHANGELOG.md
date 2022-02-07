@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.140] - 2022-02-07
+### Fixed
+- TC-T-35. Redmine 1731. Изменение в загрузке себестоимости продукта
+### Added
+- GetNomenclaturePreview (api/nomenclature_preview)
+- GetNomenclaturesPreview (api/nomenclatures_preview)
+- GetNomenclaturesCostsPreview (api/nomenclaturescosts_preview)
+
 ## [0.1.670] - 2021-10-13
 ### Fixed
 - TC-T-7. WebApiTerra1000 поднять тайм-аут запроса до 15 минут

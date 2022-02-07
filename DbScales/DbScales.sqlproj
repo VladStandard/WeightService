@@ -79,7 +79,7 @@
     <Folder Include="CLR" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Migrate" />
-    <Folder Include="Updated" />
+    <Folder Include="Updates" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\db_scales_Schema.sql" />
@@ -186,7 +186,7 @@
     <None Include="ScalesDB_LUTON.publish.xml" />
     <None Include="CHANGELOG.md" />
     <None Include="DiagramScales.dbd" />
-    <None Include="Updated\Update-2022-02-04.sql" />
+    <None Include="Updates\Update-2022-02-04.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />

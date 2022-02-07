@@ -47,7 +47,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/contragents/")]
-        public ContentResult GetContragents(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, 
+        public ContentResult GetContragents(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
             FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
