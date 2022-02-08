@@ -19,6 +19,6 @@
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.1.680")]
-[assembly: AssemblyFileVersion("0.1.680")]
+[assembly: AssemblyVersion("0.6.140")]
+[assembly: AssemblyFileVersion("0.6.140")]
 [assembly: System.Resources.NeutralResourcesLanguage("en")]

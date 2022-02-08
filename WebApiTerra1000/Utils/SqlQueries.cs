@@ -54,7 +54,7 @@ SELECT [IIS].[fnGetNomenclatureByID] (:id)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetNomenclatureFromIdPreview => @"
-SELECT [IIS].[fnGetNomenclatureByID_Preview] (:id)
+SELECT [IIS].[fnGetNomenclatureByIDPreview] (:id)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetNomenclatures => @"
@@ -70,7 +70,7 @@ SELECT [IIS].[fnGetNomenclatureList] (:StartDate, :EndDate, :Offset, :RowCount)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetNomenclaturesCostsPreview => @"
-SELECT [IIS].[fnGetNomenclatureList_preview] (:StartDate, :EndDate, :Offset, :RowCount)
+SELECT [IIS].[fnGetNomenclatureListPreview] (:StartDate, :EndDate, :Offset, :RowCount)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
         public static string GetShipment => @"

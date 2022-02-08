@@ -265,6 +265,10 @@
     <Build Include="DBO\Functions\fnGetXmlSimpleV4.sql" />
     <None Include="DBO\Functions\fnGetXmlError.sql" />
     <None Include="DBO\Functions\fnGetXmlMessage.sql" />
+    <Build Include="IIS\Functions\fnGetNomenclatureByCodePreview.sql" />
+    <Build Include="IIS\Functions\fnGetNomenclatureByIDPreview.sql" />
+    <Build Include="IIS\Functions\fnGetNomenclatureChangesListPreview.sql" />
+    <Build Include="IIS\Functions\fnGetNomenclatureListPreview.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="VSDWH.publish.publish.xml" />
