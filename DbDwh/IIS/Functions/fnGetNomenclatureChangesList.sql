@@ -96,8 +96,8 @@ GRANT EXECUTE ON [IIS].[fnGetNomenclatureChangesList] TO [TerraSoftRole]
 GO
 
 -- CHECK FUNCTION
-DECLARE @StartDate DATETIME = '2021-01-01T00:00:00'
-DECLARE @EndDate DATETIME = '2021-12-30T00:00:00'
+DECLARE @StartDate DATETIME = '2022-02-09T00:00:00'
+DECLARE @EndDate DATETIME = '2022-02-10T00:00:00'
 DECLARE @Offset INT = 0
 DECLARE @RowCount INT = 10
 SELECT [IIS].[fnGetNomenclatureChangesList] (@StartDate, @EndDate, @Offset, @RowCount) [fnGetNomenclatureChangesList]
