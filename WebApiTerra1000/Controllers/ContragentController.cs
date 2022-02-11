@@ -33,11 +33,20 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/contragent/")]
-        public ContentResult GetContragent(int id, FormatType format = FormatType.Xml)
+        public ContentResult GetContragent(int id, FormatType format = FormatType.Xml) =>
+            GetContragentWork(SqlQueries.GetContragent, id, format);
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/contragent_preview/")]
+        public ContentResult GetContragentPreview(int id, FormatType format = FormatType.Xml) =>
+            GetContragentWork(SqlQueries.GetContragentPreview, id, format);
+
+        private ContentResult GetContragentWork(string url, int id, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragent, new SqlParameter("ID", id));
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
                 return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
@@ -48,11 +57,22 @@ namespace WebApiTerra1000.Controllers
         [HttpGet()]
         [Route("api/contragents/")]
         public ContentResult GetContragents(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Xml) =>
+            GetContragentsWork(SqlQueries.GetContragents, startDate, endDate, offset, rowCount, format);
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/contragents_preview/")]
+        public ContentResult GetContragentsPreview(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Xml) =>
+            GetContragentsWork(SqlQueries.GetContragentsPreview, startDate, endDate, offset, rowCount, format);
+
+        private ContentResult GetContragentsWork(string url, DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
             FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragents,
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url,
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));

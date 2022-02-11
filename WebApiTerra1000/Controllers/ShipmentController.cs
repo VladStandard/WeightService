@@ -34,11 +34,20 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/shipment/")]
-        public ContentResult GetShipment(long id, FormatType format = FormatType.Xml)
+        public ContentResult GetShipment(long id, FormatType format = FormatType.Xml) => 
+            GetShipmentWork(SqlQueries.GetShipment, id, format);
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/shipment_preview/")]
+        public ContentResult GetShipmentPreview(long id, FormatType format = FormatType.Xml) => 
+            GetShipmentWork(SqlQueries.GetShipmentPreview, id, format);
+
+        private ContentResult GetShipmentWork(string url, long id, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipment, new SqlParameter("ID", id));
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
                 XDocument xml = XDocument.Parse($"<{TerraConsts.Shipments} />", LoadOptions.None);
                 if (response != null)
                 {
@@ -71,13 +80,24 @@ namespace WebApiTerra1000.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/shipmentsbydocdate/")]
         [Route("api/shipments/")]
-        public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatType format = FormatType.Xml)
+        public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Xml) =>
+            GetShipmentsWork(SqlQueries.GetShipments, startDate, endDate, offset, rowCount, format);
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/shipments_preview/")]
+        public ContentResult GetShipmentsPreview(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Xml) =>
+            GetShipmentsWork(SqlQueries.GetShipmentsPreview, startDate, endDate, offset, rowCount, format);
+
+        private ContentResult GetShipmentsWork(string url, DateTime startDate, DateTime endDate, 
+            int offset = 0, int rowCount = 10, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipments, 
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, 
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
                 XDocument xml = xml = XDocument.Parse($"<{TerraConsts.Shipments} />", LoadOptions.None);
                 if (response != null)

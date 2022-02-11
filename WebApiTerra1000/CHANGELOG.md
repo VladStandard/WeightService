@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.160] - 2022-02-11
+### Fixed
+- Controllers preview methods
+### Added
+- Controllers preview methods
+
 ## [0.6.140] - 2022-02-07
 ### Fixed
 - TC-T-35. Redmine 1731. »зменение в загрузке себестоимости продукта

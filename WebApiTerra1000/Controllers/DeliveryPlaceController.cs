@@ -33,11 +33,22 @@ namespace WebApiTerra1000.Controllers
         [HttpGet()]
         [Route("api/deliveryplaces/")]
         public ContentResult GetDeliveryPlaces(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
+            FormatType format = FormatType.Xml) =>
+            GetDeliveryPlacesWork(SqlQueries.GetDeliveryPlaces, startDate, endDate, offset, rowCount, format);
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/deliveryplaces_preview/")]
+        public ContentResult GetDeliveryPlacesPreview(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
+            FormatType format = FormatType.Xml) =>
+            GetDeliveryPlacesWork(SqlQueries.GetDeliveryPlacesPreview, startDate, endDate, offset, rowCount, format);
+
+        private ContentResult GetDeliveryPlacesWork(string url, DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 100,
             FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetDeliveryPlaces,
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url,
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.DeliveryPlaces} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+	<Company>Владимирский стандарт</Company>
+	<Product>WeightService</Product>
+	<Copyright>Copyright © 2020 - 2022</Copyright>
+	<FileVersion>0.6.160</FileVersion>
+    <AssemblyVersion>0.6.160</AssemblyVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0-preview-20220131-20" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="RestSharp" Version="107.2.2-alpha.0.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebApiTerra1000\WebApiTerra1000.csproj" />
+  </ItemGroup>
+	<PropertyGroup>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
+</Project>

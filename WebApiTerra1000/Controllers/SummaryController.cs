@@ -34,9 +34,22 @@ namespace WebApiTerra1000.Controllers
         [Route("api/summary/")]
         public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
         {
+            return GetSummaryWork(SqlQueries.GetSummary, startDate, endDate, format);
+        }
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/summary_preview/")]
+        public ContentResult GetSummaryPreview(DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
+        {
+            return GetSummaryWork(SqlQueries.GetSummaryPreview, startDate, endDate, format);
+        }
+
+        private ContentResult GetSummaryWork(string url, DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
+        {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetSummary,
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url,
                     TerraUtils.Sql.GetParameters(startDate, endDate));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Summary} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));

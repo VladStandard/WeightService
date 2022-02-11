@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.160] - 2022-02-11
+### Changed
+- DbDwh v.0.6.160
+- WebApiTerra1000 v.0.6.160
+### Added
+- WebApiTerra1000Tests v.0.6.160
+
 ## [0.6.120] - 2022-02-03
 ### Changed
 - BlazorCore v.0.6.120
