@@ -8,7 +8,8 @@ GO
 CREATE VIEW [DW].[vwSelfCosts] AS
 (
 	SELECT TOP 1 WITH TIES
-		 CASE WHEN [FP].[PriceTypeID]=0x9FD1001A4D872B0E11E085DB174FF51D THEN 'Week' ELSE '' END [PriceType]
+		 [FP].[PriceTypeID]
+		,CASE WHEN [FP].[PriceTypeID]=0x9FD1001A4D872B0E11E085DB174FF51D THEN 'Month' ELSE '' END [PriceType]
 		,[FP].[DateID]
 		,[DN].[ID] [NomenclatureID]
 		,[DN].[Name] [Nomenclature]
@@ -18,13 +19,14 @@ CREATE VIEW [DW].[vwSelfCosts] AS
 		,[FP].[DLM]
 	FROM [DW].[FactPrices] [FP]
 	LEFT JOIN [DW].[DimNomenclatures] [DN] ON [DN].[ID]=[FP].[_NomenclatureID]
-		AND [FP].[PriceTypeID]=0x9FD1001A4D872B0E11E085DB174FF51D -- Плановая себестоимость => недельная с/с
+		AND [FP].[PriceTypeID]=0x9FD1001A4D872B0E11E085DB174FF51D -- Плановая себестоимость => месячная с/с
 	WHERE [FP].[PriceTypeID]=0x9FD1001A4D872B0E11E085DB174FF51D 
 		AND ([DN].[ID] IS NOT NULL AND [DN].[Name] IS NOT NULL)
 	ORDER BY ROW_NUMBER() OVER(PARTITION BY [DN].[ID] ORDER BY [FP].[DateID] DESC)
 	UNION
 	SELECT TOP 1 WITH TIES
-		 CASE WHEN [FP].[PriceTypeID]=0x80DFA4BF01016D5011E7E6E13ECE5C99 THEN 'Month' ELSE '' END [PriceType]
+		 [FP].[PriceTypeID]
+		,CASE WHEN [FP].[PriceTypeID]=0x80DFA4BF01016D5011E7E6E13ECE5C99 THEN 'Week' ELSE '' END [PriceType]
 		,[FP].[DateID]
 		,[DN].[ID] [NomenclatureID]
 		,[DN].[Name] [Nomenclature]
@@ -34,7 +36,7 @@ CREATE VIEW [DW].[vwSelfCosts] AS
 		,[FP].[DLM]
 	FROM [DW].[FactPrices] [FP]
 	LEFT JOIN [DW].[DimNomenclatures] [DN] ON [DN].[ID]=[FP].[_NomenclatureID]
-		AND [FP].[PriceTypeID]=0x80DFA4BF01016D5011E7E6E13ECE5C99 -- яПлановая с/с для Ф.О. => месячная с/с
+		AND [FP].[PriceTypeID]=0x80DFA4BF01016D5011E7E6E13ECE5C99 -- яПлановая с/с для Ф.О. => недельная с/с
 	WHERE [FP].[PriceTypeID]=0x80DFA4BF01016D5011E7E6E13ECE5C99
 		AND ([DN].[ID] IS NOT NULL AND [DN].[Name] IS NOT NULL)
 	ORDER BY ROW_NUMBER() OVER(PARTITION BY [DN].[ID] ORDER BY [FP].[DateID] DESC)

@@ -39,7 +39,8 @@ AS BEGIN
 		,[StartDate] DATETIME, [DLM] DATETIME)
 	INSERT INTO @tableSalfeCosts
 		SELECT [PriceType], [DateID], [NomenclatureID], [Nomenclature], [Price], [StartDate], [DLM]
-		FROM [VSDWH].[DW].[vwSelfCosts] READUNCOMMITTED 
+		FROM [VSDWH].[DW].[vwSelfCosts] READUNCOMMITTED
+		ORDER BY [PriceType] ASC
 	-- Переменная с таблицей фактических прайсов
 	DECLARE @tableFactPrices TABLE 
 		([DateID] INT, [DocNum] NVARCHAR(15), [DocDate] DATETIME, [DocType] NVARCHAR(100), [Marked] BIT, [Posted] BIT, [NomenclatureID] VARBINARY(16)
@@ -75,12 +76,11 @@ AS BEGIN
 			,[N].[Unit] "Unit"
 			-- Раздел <PlannedCost>
 			,[vCPC].[Price] [PlannedCost]
-			,(SELECT [FPC].[DLM] FROM [DW].[FactPlannedCost] [FPC] WHERE [FPC].[ID]=[vCPC].[ID]) [PlannedCostDlm]
 			-- Раздел <SelfCosts>
 			,CAST((SELECT * FROM ((
 				SELECT [PriceType] [@PriceType], [Price] [@Price], [StartDate] [@StartDate], [DLM] [@DLM]
 				FROM @tableSalfeCosts
-				WHERE [N].[ID]=[NomenclatureId]
+				WHERE [N].[ID]=[NomenclatureID]
 			)) [SelfCost] FOR XML PATH ('SelfCost'), BINARY BASE64) AS XML) [SelfCosts]
 			-- Раздел <Prices>
 			,CAST((SELECT
@@ -108,7 +108,7 @@ AS BEGIN
 			--FOR XML PATH ('Nomenclature'), BINARY BASE64)
 	) [DATA] FOR XML PATH ('Nomenclature'), ROOT('Goods'), BINARY BASE64)
 	-- RESULT.
-	DECLARE @Version NVARCHAR(100) = 'v.0.6.150'
+	DECLARE @Version NVARCHAR(100) = 'v.0.6.160'
 	DECLARE @Api NVARCHAR(1000) = '/api/nomenclature/?id=' + CAST(@ID AS NVARCHAR(100))
 	IF (@xml IS NULL) BEGIN
 		SET @xml = (SELECT '' FOR XML PATH(''), ROOT('Response'), BINARY BASE64)

@@ -47,7 +47,8 @@ AS BEGIN
 			,[StartDate] DATETIME, [DLM] DATETIME)
 		INSERT INTO @tableSalfeCosts
 			SELECT [PriceType], [DateID], [NomenclatureID], [Nomenclature], [Price], [StartDate], [DLM]
-			FROM [VSDWH].[DW].[vwSelfCosts] READUNCOMMITTED 
+			FROM [VSDWH].[DW].[vwSelfCosts] READUNCOMMITTED
+			ORDER BY [PriceType] ASC
 		-- Переменная с таблицей брендов
 		DECLARE @tableBrands TABLE 
 			([Code] NVARCHAR(15), [Name] NVARCHAR(150), [ID] INT, [CreateDate] DATETIME, [DLM] DATETIME, [StatusID] INT, [InformationSystemID] INT, [CodeInIS] VARBINARY(16))
@@ -99,7 +100,6 @@ AS BEGIN
 			,[N].[Unit] "Unit"
 			-- Раздел <PlannedCost>
 			,[vCPC].[Price] [PlannedCost]
-			,(SELECT [FPC].[DLM] FROM [DW].[FactPlannedCost] [FPC] WHERE [FPC].[ID]=[vCPC].[ID]) [PlannedCostDlm]
 			-- Раздел <SelfCosts>
 			,CAST((SELECT * FROM ((
 				SELECT [PriceType] [@PriceType], [Price] [@Price], [StartDate] [@StartDate], [DLM] [@DLM]
@@ -133,7 +133,7 @@ AS BEGIN
 		) [DATA] FOR XML PATH ('Nomenclature'), ROOT('Goods'), BINARY BASE64)
 	END
 	-- RESULT.
-	DECLARE @Version NVARCHAR(100) = 'v.0.6.150'
+	DECLARE @Version NVARCHAR(100) = 'v.0.6.160'
 	DECLARE @Api NVARCHAR(1000) = '/api/nomenclatures/?StartDate=' + CONVERT(NVARCHAR(255), @StartDate, 126) + 
 		'&EndDate=' + CONVERT(NVARCHAR(255), @EndDate, 126) + '&Offset=' + CAST(@Offset AS NVARCHAR(100)) + '&RowCount=' + CAST(@RowCount AS NVARCHAR(100))
 	IF (@xml IS NULL) BEGIN

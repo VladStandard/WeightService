@@ -39,7 +39,8 @@ AS BEGIN
 		,[StartDate] DATETIME, [DLM] DATETIME)
 	INSERT INTO @tableSalfeCosts
 		SELECT [PriceType], [DateID], [NomenclatureID], [Nomenclature], [Price], [StartDate], [DLM]
-		FROM [VSDWH].[DW].[vwSelfCosts] READUNCOMMITTED 
+		FROM [VSDWH].[DW].[vwSelfCosts] READUNCOMMITTED
+		ORDER BY [PriceType] ASC
 	-- Переменная с таблицей фактических прайсов
 	DECLARE @tableFactPrices TABLE 
 		([DateID] INT, [DocNum] NVARCHAR(15), [DocDate] DATETIME, [DocType] NVARCHAR(100), [Marked] BIT, [Posted] BIT, [NomenclatureID] VARBINARY(16)
@@ -75,7 +76,6 @@ AS BEGIN
 			,[N].[Unit]					"Unit"
 			-- Раздел <PlannedCost>
 			,[vCPC].[Price] [PlannedCost]
-			,(SELECT [FPC].[DLM] FROM [DW].[FactPlannedCost] [FPC] WHERE [FPC].[ID]=[vCPC].[ID]) [PlannedCostDlm]
 			-- Раздел <SelfCosts>
 			,CAST((SELECT * FROM ((
 				SELECT [PriceType] [@PriceType], [Price] [@Price], [StartDate] [@StartDate], [DLM] [@DLM]
@@ -108,7 +108,7 @@ AS BEGIN
 			and [N].[Code] = @code
 	) [DATA] FOR XML PATH ('Nomenclature'), ROOT('Goods'), BINARY BASE64)
 	-- RESULT.
-	DECLARE @Version NVARCHAR(100) = 'v.0.6.150'
+	DECLARE @Version NVARCHAR(100) = 'v.0.6.160'
 	DECLARE @Api NVARCHAR(1000) = '/api/nomenclature/?code=' + @code
 	IF (@xml IS NULL) BEGIN
 		SET @xml = (SELECT '' FOR XML PATH(''), ROOT('Response'), BINARY BASE64)
