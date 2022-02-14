@@ -17,11 +17,11 @@ using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {
-    public class ContragentController : BaseController
+    public class ContragentControllerV2 : BaseController
     {
         #region Constructor and destructor
 
-        public ContragentController(ILogger<ContragentController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public ContragentControllerV2(ILogger<ContragentControllerV2> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
             //
         }
@@ -32,12 +32,21 @@ namespace WebApiTerra1000.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/contragent/")]
-        public ContentResult GetContragent(int id, FormatType format = FormatType.Xml)
+        [Route("api/v2/contragent/")]
+        public ContentResult GetContragent(int id, FormatType format = FormatType.Xml) =>
+            GetContragentWork(SqlQueriesV2.GetContragent, id, format);
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/v2/contragent_preview/")]
+        public ContentResult GetContragentPreview(int id, FormatType format = FormatType.Xml) =>
+            GetContragentWork(SqlQueriesV2.GetContragentPreview, id, format);
+
+        private ContentResult GetContragentWork(string url, int id, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragent, new SqlParameter("ID", id));
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));
                 return BaseSerializeEntity<XDocument>.GetResult(format, doc, HttpStatusCode.OK);
@@ -46,13 +55,24 @@ namespace WebApiTerra1000.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/contragents/")]
+        [Route("api/v2/contragents/")]
         public ContentResult GetContragents(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Xml) =>
+            GetContragentsWork(SqlQueriesV2.GetContragents, startDate, endDate, offset, rowCount, format);
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/v2/contragents_preview/")]
+        public ContentResult GetContragentsPreview(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Xml) =>
+            GetContragentsWork(SqlQueriesV2.GetContragentsPreview, startDate, endDate, offset, rowCount, format);
+
+        private ContentResult GetContragentsWork(string url, DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
             FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetContragents,
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url,
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Contragents} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));

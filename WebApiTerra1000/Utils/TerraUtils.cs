@@ -60,7 +60,7 @@ namespace WebApiTerra1000.Common
                 return response;
             }
             
-            public static T GetResponse<T>(ISessionFactory sessionFactory, string query, List<Microsoft.Data.SqlClient.SqlParameter> parameters)
+            public static T GetResponse<T>(ISessionFactory sessionFactory, string query, List<SqlParameter> parameters)
             {
                 using ISession session = sessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
@@ -78,7 +78,7 @@ namespace WebApiTerra1000.Common
                 return response;
             }
             
-            public static T GetResponse<T>(ISessionFactory sessionFactory, string query, Microsoft.Data.SqlClient.SqlParameter parameter)
+            public static T GetResponse<T>(ISessionFactory sessionFactory, string query, SqlParameter parameter)
             {
                 using ISession session = sessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
@@ -94,23 +94,52 @@ namespace WebApiTerra1000.Common
             }
 
             public static List<SqlParameter> GetParameters(DateTime startDate, DateTime endDate, int offset, int rowCount) => new()
-                {
-                    new SqlParameter("StartDate", startDate),
-                    new SqlParameter("EndDate", endDate),
-                    new SqlParameter("Offset", offset),
-                    new SqlParameter("RowCount", rowCount),
-                };
+            {
+                new SqlParameter("StartDate", startDate),
+                new SqlParameter("EndDate", endDate),
+                new SqlParameter("Offset", offset),
+                new SqlParameter("RowCount", rowCount),
+            };
 
             public static List<SqlParameter> GetParameters(DateTime startDate, DateTime endDate) => new()
+            {
+                new SqlParameter("StartDate", startDate),
+                new SqlParameter("EndDate", endDate),
+            };
+
+            public static List<SqlParameter> GetParameters(int offset, int rowCount) => new()
+            {
+                new SqlParameter("Offset", offset),
+                new SqlParameter("RowCount", rowCount),
+            };
+
+            public static List<SqlParameter> GetParametersV2(DateTime? startDate, DateTime? endDate, int? offset, int? rowCount) => new()
+            {
+                new SqlParameter("start_date", startDate == null ? DBNull.Value : startDate),
+                new SqlParameter("end_date", endDate == null ? DBNull.Value : endDate),
+                new SqlParameter("offset", offset == null ? DBNull.Value : offset),
+                new SqlParameter("row_count", rowCount == null ? DBNull.Value : rowCount),
+            };
+
+            public static List<SqlParameter> GetParametersV2(DateTime? startDate) => new()
+            {
+                new SqlParameter("start_date", startDate == null ? DBNull.Value : startDate),
+            };
+
+            public static List<SqlParameter> GetParametersV2(DateTime? startDate, DateTime? endDate) => new()
+            {
+                new SqlParameter("start_date", startDate == null ? DBNull.Value : startDate),
+                new SqlParameter("end_date", endDate == null ? DBNull.Value : endDate),
+            };
+
+            public static List<SqlParameter> GetParametersV2(string code) => new()
                 {
-                    new SqlParameter("StartDate", startDate),
-                    new SqlParameter("EndDate", endDate),
+                    new SqlParameter("code", code == null ? DBNull.Value : code),
                 };
             
-            public static List<SqlParameter> GetParameters(int offset, int rowCount) => new()
+            public static List<SqlParameter> GetParametersV2(int? id) => new()
                 {
-                    new SqlParameter("Offset", offset),
-                    new SqlParameter("RowCount", rowCount),
+                    new SqlParameter("id", id == null ? DBNull.Value : id),
                 };
         }
     }

@@ -16,11 +16,11 @@ using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {
-    public class SummaryController : BaseController
+    public class SummaryControllerV2 : BaseController
     {
         #region Constructor and destructor
 
-        public SummaryController(ILogger<SummaryController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public SummaryControllerV2(ILogger<SummaryControllerV2> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
             //
         }
@@ -31,12 +31,25 @@ namespace WebApiTerra1000.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/summary/")]
+        [Route("api/v2/summary/")]
         public ContentResult GetSummary(DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
+        {
+            return GetSummaryWork(SqlQueriesV2.GetSummary, startDate, endDate, format);
+        }
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/v2/summary_preview/")]
+        public ContentResult GetSummaryPreview(DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
+        {
+            return GetSummaryWork(SqlQueriesV2.GetSummaryPreview, startDate, endDate, format);
+        }
+
+        private ContentResult GetSummaryWork(string url, DateTime startDate, DateTime endDate, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetSummary,
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url,
                     TerraUtils.Sql.GetParameters(startDate, endDate));
                 XDocument xml = XDocument.Parse(response ?? $"<{TerraConsts.Summary} />", LoadOptions.None);
                 XDocument doc = new(new XElement(TerraConsts.Response, xml.Root));

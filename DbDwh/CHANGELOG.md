@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.170] - 2022-02-14
+### Added
+- IIS\Functions\fnGetNomenclature
+
 ## [0.6.140] - 2022-02-08
 ### Changed
 - IIS\Functions\fnGetNomenclatureByCode

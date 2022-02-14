@@ -18,11 +18,11 @@ using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {
-    public class ShipmentController : BaseController
+    public class ShipmentControllerV2 : BaseController
     {
         #region Constructor and destructor
 
-        public ShipmentController(ILogger<ShipmentController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public ShipmentControllerV2(ILogger<ShipmentControllerV2> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
             //
         }
@@ -33,12 +33,21 @@ namespace WebApiTerra1000.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/shipment/")]
-        public ContentResult GetShipment(long id, FormatType format = FormatType.Xml)
+        [Route("api/v2/shipment/")]
+        public ContentResult GetShipment(long id, FormatType format = FormatType.Xml) => 
+            GetShipmentWork(SqlQueriesV2.GetShipment, id, format);
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/v2/shipment_preview/")]
+        public ContentResult GetShipmentPreview(long id, FormatType format = FormatType.Xml) => 
+            GetShipmentWork(SqlQueriesV2.GetShipmentPreview, id, format);
+
+        private ContentResult GetShipmentWork(string url, long id, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipment, new SqlParameter("ID", id));
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, new SqlParameter("ID", id));
                 XDocument xml = XDocument.Parse($"<{TerraConsts.Shipments} />", LoadOptions.None);
                 if (response != null)
                 {
@@ -46,7 +55,7 @@ namespace WebApiTerra1000.Controllers
                     using ITransaction transaction = session.BeginTransaction();
                     IDbCommand command = new SqlCommand()
                     {
-                        Connection = session.Connection as Microsoft.Data.SqlClient.SqlConnection,
+                        Connection = session.Connection as SqlConnection,
                         CommandTimeout = session.Connection.ConnectionTimeout,
                         CommandType = CommandType.StoredProcedure,
                         CommandText = "[IIS].[GetShipments]",
@@ -71,13 +80,24 @@ namespace WebApiTerra1000.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/shipmentsbydocdate/")]
-        [Route("api/shipments/")]
-        public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10, FormatType format = FormatType.Xml)
+        [Route("api/v2/shipments/")]
+        public ContentResult GetShipments(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Xml) =>
+            GetShipmentsWork(SqlQueriesV2.GetShipments, startDate, endDate, offset, rowCount, format);
+
+        [AllowAnonymous]
+        [HttpGet()]
+        [Route("api/v2/shipments_preview/")]
+        public ContentResult GetShipmentsPreview(DateTime startDate, DateTime endDate, int offset = 0, int rowCount = 10,
+            FormatType format = FormatType.Xml) =>
+            GetShipmentsWork(SqlQueriesV2.GetShipmentsPreview, startDate, endDate, offset, rowCount, format);
+
+        private ContentResult GetShipmentsWork(string url, DateTime startDate, DateTime endDate, 
+            int offset = 0, int rowCount = 10, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetShipments,
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, url, 
                     TerraUtils.Sql.GetParameters(startDate, endDate, offset, rowCount));
                 XDocument xml = xml = XDocument.Parse($"<{TerraConsts.Shipments} />", LoadOptions.None);
                 if (response != null)
@@ -86,7 +106,7 @@ namespace WebApiTerra1000.Controllers
                     using ITransaction transaction = session.BeginTransaction();
                     IDbCommand command = new SqlCommand()
                     {
-                        Connection = session.Connection as Microsoft.Data.SqlClient.SqlConnection,
+                        Connection = session.Connection as SqlConnection,
                         CommandTimeout = session.Connection.ConnectionTimeout,
                         CommandType = CommandType.StoredProcedure,
                         CommandText = "[IIS].[GetShipments]",

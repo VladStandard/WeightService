@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.170] - 2022-02-14
+### Fixed
+- NomenclatureController
+### Added
+- /api/v2/nomenclature/?code=@code
+- /api/v2/nomenclature/?id=@id
+- /api/v2/nomenclatures/?StartDate=@start_date;EndDate=@end_date;Offset=@offset;RowCount=@row_count
+- /api/v2/nomenclatures/?StartDate=@start_date;EndDate=@end_date
+- /api/v2/nomenclatures/?StartDate=@start_date
+- /api/v2/nomenclatures/
+
 ## [0.6.160] - 2022-02-11
 ### Fixed
 - Controllers preview methods

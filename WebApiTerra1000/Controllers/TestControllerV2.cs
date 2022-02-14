@@ -18,7 +18,7 @@ using static DataCore.ShareEnums;
 
 namespace WebApiTerra1000.Controllers
 {
-    public class TestController : BaseController
+    public class TestControllerV2 : BaseController
     {
         #region Public and private fields and properties
 
@@ -28,7 +28,7 @@ namespace WebApiTerra1000.Controllers
 
         #region Constructor and destructor
 
-        public TestController(ILogger<TestController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public TestControllerV2(ILogger<TestControllerV2> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
         {
         }
 
@@ -38,7 +38,7 @@ namespace WebApiTerra1000.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/info/")]
+        [Route("api/v2/info/")]
         public ContentResult GetInfo(FormatType format = FormatType.Xml) =>
             Controller.RunTask(new Task<ContentResult>(() =>
             {
@@ -46,7 +46,7 @@ namespace WebApiTerra1000.Controllers
 
                 using ISession session = SessionFactory.OpenSession();
                 using ITransaction transaction = session.BeginTransaction();
-                ISQLQuery sqlQuery = session.CreateSQLQuery(SqlQueries.GetDateTimeNow);
+                ISQLQuery sqlQuery = session.CreateSQLQuery(SqlQueriesV2.GetDateTimeNow);
                 sqlQuery.SetTimeout(session.Connection.ConnectionTimeout);
                 string response = sqlQuery.UniqueResult<string>();
                 transaction.Commit();
@@ -66,18 +66,18 @@ namespace WebApiTerra1000.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/exception/")]
+        [Route("api/v2/exception/")]
         public ContentResult GetException(FormatType format = FormatType.Xml) =>
             Controller.RunTask(new Task<ContentResult>(() =>
             {
-                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetException);
+                string response = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetException);
 
                 return new SqlSimpleV1Entity(response).GetResult(format, HttpStatusCode.OK);
             }), format);
 
         [AllowAnonymous]
         [HttpGet()]
-        [Route("api/simple/")]
+        [Route("api/v2/simple/")]
         public ContentResult GetSimple(FormatType format = FormatType.Xml, int version = 0)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
@@ -85,16 +85,16 @@ namespace WebApiTerra1000.Controllers
                 switch (version)
                 {
                     case 1:
-                        string response1 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV1);
+                        string response1 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV1);
                         return SqlSimpleV1Entity.DeserializeFromXml(response1).GetResult(format, HttpStatusCode.OK);
                     case 2:
-                        string response2 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV2);
+                        string response2 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV2);
                         return SqlSimpleV2Entity.DeserializeFromXml(response2).GetResult(format, HttpStatusCode.OK);
                     case 3:
-                        string response3 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV3);
+                        string response3 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV3);
                         return SqlSimpleV3Entity.DeserializeFromXml(response3).GetResult(format, HttpStatusCode.OK);
                     case 4:
-                        string response4 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueries.GetXmlSimpleV4);
+                        string response4 = TerraUtils.Sql.GetResponse<string>(SessionFactory, SqlQueriesV2.GetXmlSimpleV4);
                         return SqlSimpleV4Entity.DeserializeFromXml(response4).GetResult(format, HttpStatusCode.OK);
                 }
                 
