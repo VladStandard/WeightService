@@ -155,7 +155,7 @@
     <Build Include="Storage\ETLFileGroup.sql" />
     <Build Include="Storage\FACTFileGrooup.sql" />
     <Build Include="DW\Tables\DimConsolidateContragents.sql" />
-    <Build Include="IIS\Functions\fnGetContragentChangesList.sql" />
+    <Build Include="IIS\Functions\fnGetContragentChangesList-2022-02-14.sql" />
     <Build Include="Security\_TerraSoftRole.sql" />
     <Build Include="Security\Schemas\IIS.sql" />
     <Build Include="IIS\Functions\fnGetNomenclatureChangesList-2022-02-14.sql" />
@@ -284,6 +284,8 @@
     <Build Include="IIS\Functions\fnGetNomenclature.sql" />
     <Build Include="IIS\Functions\fnGetNomenclaturesPreviewV2.sql" />
     <Build Include="IIS\Functions\fnGetNomenclaturesV2.sql" />
+    <Build Include="IIS\Functions\fnGetContragentsV2.sql" />
+    <Build Include="IIS\Functions\fnGetContragentsPreviewV2.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="VSDWH.publish.publish.xml" />

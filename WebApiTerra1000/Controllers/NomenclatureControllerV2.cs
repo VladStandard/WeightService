@@ -5,7 +5,6 @@ using DataCore.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Logging;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,8 @@ namespace WebApiTerra1000.Controllers
     {
         #region Constructor and destructor
 
-        public NomenclatureControllerV2(ILogger<NomenclatureController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        //public NomenclatureControllerV2(ILogger<NomenclatureController> logger, ISessionFactory sessionFactory) : base(logger, sessionFactory)
+        public NomenclatureControllerV2(ISessionFactory sessionFactory) : base(sessionFactory)
         {
             //
         }
@@ -36,7 +36,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/v2/nomenclature/")]
         public ContentResult GetNomenclatureFromCodeIdProd(string code, int id, FormatType format = FormatType.Xml) =>
             GetNomenclatureFromCodeIdWork(code != null 
-                ? SqlQueriesV2.GetNomenclatureFromCodeProd : SqlQueriesV2.GetNomenclatureFromIdProd,
+                ? SqlQueriesNomenclaturesV2.GetNomenclatureFromCodeProd : SqlQueriesNomenclaturesV2.GetNomenclatureFromIdProd,
                 code, id, format);
 
         [AllowAnonymous]
@@ -44,7 +44,7 @@ namespace WebApiTerra1000.Controllers
         [Route("api/v2/nomenclature_preview/")]
         public ContentResult GetNomenclatureFromCodeIdPreview(string code, int id, FormatType format = FormatType.Xml) =>
             GetNomenclatureFromCodeIdWork(code != null 
-                ? SqlQueriesV2.GetNomenclatureFromCodePreview : SqlQueriesV2.GetNomenclatureFromIdPreview,
+                ? SqlQueriesNomenclaturesV2.GetNomenclatureFromCodePreview : SqlQueriesNomenclaturesV2.GetNomenclatureFromIdPreview,
                 code, id, format);
 
         private ContentResult GetNomenclatureFromCodeIdWork(string url, string code, int id, FormatType format = FormatType.Xml)
@@ -66,12 +66,12 @@ namespace WebApiTerra1000.Controllers
             int? offset = null, int? rowCount = null, FormatType format = FormatType.Xml)
         {
             if (startDate != null && endDate != null && offset != null && rowCount != null)
-                return GetNomenclaturesWork(SqlQueriesV2.GetNomenclaturesFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
+                return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetProd, startDate, endDate, offset, rowCount, format);
             else if (startDate != null && endDate != null)
-                return GetNomenclaturesWork(SqlQueriesV2.GetNomenclaturesFromDatesProd, startDate, endDate, offset, rowCount, format);
+                return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesProd, startDate, endDate, offset, rowCount, format);
             else if (startDate != null && endDate == null)
-                return GetNomenclaturesWork(SqlQueriesV2.GetNomenclaturesFromStartDateProd, startDate, endDate, offset, rowCount, format);
-            return GetNomenclaturesEmptyWork(SqlQueriesV2.GetNomenclaturesEmptyProd, format);
+                return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDateProd, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesEmptyWork(SqlQueriesNomenclaturesV2.GetNomenclaturesEmptyProd, format);
         }
 
         [AllowAnonymous]
@@ -91,12 +91,12 @@ namespace WebApiTerra1000.Controllers
             int? offset = null, int? rowCount = null, FormatType format = FormatType.Xml)
         {
             if (startDate != null && endDate != null && offset != null && rowCount != null)
-                return GetNomenclaturesWork(SqlQueriesV2.GetNomenclaturesFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
+                return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesOffsetPreview, startDate, endDate, offset, rowCount, format);
             else if (startDate != null && endDate != null)
-                return GetNomenclaturesWork(SqlQueriesV2.GetNomenclaturesFromDatesPreview, startDate, endDate, offset, rowCount, format);
+                return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromDatesPreview, startDate, endDate, offset, rowCount, format);
             else if (startDate != null && endDate == null)
-                return GetNomenclaturesWork(SqlQueriesV2.GetNomenclaturesFromStartDatePreview, startDate, endDate, offset, rowCount, format);
-            return GetNomenclaturesEmptyWork(SqlQueriesV2.GetNomenclaturesEmptyPreview, format);
+                return GetNomenclaturesWork(SqlQueriesNomenclaturesV2.GetNomenclaturesFromStartDatePreview, startDate, endDate, offset, rowCount, format);
+            return GetNomenclaturesEmptyWork(SqlQueriesNomenclaturesV2.GetNomenclaturesEmptyPreview, format);
         }
 
         [AllowAnonymous]

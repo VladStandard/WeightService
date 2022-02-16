@@ -2,8 +2,12 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCoreTests;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
+using System.Net;
+using System.Threading.Tasks;
+using WebApiTerra1000.Common;
 
 namespace DataProjectsCoreTests.DAL
 {
@@ -11,30 +15,52 @@ namespace DataProjectsCoreTests.DAL
     internal class TestControllerTests
     {
         [Test]
-        public void GetInfo_Execute_DoesNotThrow()
+        public void GetInfoV1_Execute_DoesNotThrow()
         {
-            TestsUtils.MethodStart();
-
             Assert.DoesNotThrowAsync(async () =>
             {
-                RestSharp.RestClientOptions options = new(TestsUtils.GetUrlDev) {
-                    UseDefaultCredentials = true,
-                    ThrowOnAnyError = true,
-                    Timeout = 60_000,
-                };
-                RestSharp.RestClient client = new(options);
-                //client.AddDefaultHeader(KnownHeaders.Accept, "application/vnd.github.v3+json");
-                //RestRequest request = new RestSharp.RestRequest().AddQueryParameter("format", "json");//.AddJsonBody(someObject);
-                RestRequest request = new RestSharp.RestRequest().AddQueryParameter("format", "json");//.AddJsonBody(someObject);
-                //var response = await client.PostAsync<MyResponse>(request, cancellationToken);
-                //var response = await client.PostAsync<MyResponse>(request, cancellationToken);
-                RestResponse response = await client.PostAsync(request);
-
-                Assert.AreEqual(1, 1);
+                foreach (string url in TestsUtils.GetListUrlInfoV1)
+                {
+                    await GetInfoAsync(url);
+                }
             });
-            TestContext.WriteLine();
+        }
 
-            TestsUtils.MethodComplete();
+        [Test]
+        public void GetInfoV2_Execute_DoesNotThrow()
+        {
+            Assert.DoesNotThrowAsync(async () =>
+            {
+                foreach (string url in TestsUtils.GetListUrlInfoV2)
+                {
+                    await GetInfoAsync(url);
+                }
+            });
+        }
+
+        private async Task GetInfoAsync(string url)
+        {
+            RestSharp.RestClientOptions options = new(url)
+            {
+                UseDefaultCredentials = true,
+                ThrowOnAnyError = true,
+                Timeout = 60_000,
+            };
+            RestSharp.RestClient client = new(options);
+            RestRequest request = new RestSharp.RestRequest()
+                .AddQueryParameter("format", "json");
+            RestResponse response = await client.GetAsync(request);
+
+            TestContext.WriteLine($"{nameof(response.ResponseUri)}: {response.ResponseUri}");
+            TestContext.WriteLine($"{nameof(response)}: {response.Content}");
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            if (!string.IsNullOrEmpty(response.Content))
+            {
+                ServiceInfoEntity? serviceInfo = JsonConvert.DeserializeObject<ServiceInfoEntity>(response.Content);
+                Assert.IsTrue(serviceInfo != null);
+                Assert.AreEqual(serviceInfo?.App, "WebApiTerra1000");
+            }
+            TestContext.WriteLine();
         }
     }
 }

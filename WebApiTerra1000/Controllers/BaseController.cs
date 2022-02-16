@@ -16,8 +16,8 @@ namespace WebApiTerra1000.Controllers
         #region Public and private fields and properties
 
         public ControllerHelper Controller { get; set; } = ControllerHelper.Instance;
-        public readonly ILogger<BaseController> Logger;
-        public readonly ISessionFactory SessionFactory;
+        public readonly ILogger<BaseController> Logger = null;
+        public readonly ISessionFactory SessionFactory = null;
 
         #endregion
 
@@ -26,6 +26,11 @@ namespace WebApiTerra1000.Controllers
         public BaseController(ILogger<BaseController> logger, ISessionFactory sessionFactory)
         {
             Logger = logger;
+            SessionFactory = sessionFactory;
+        }
+
+        public BaseController(ISessionFactory sessionFactory)
+        {
             SessionFactory = sessionFactory;
         }
 

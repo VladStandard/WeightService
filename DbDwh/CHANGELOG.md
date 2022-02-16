@@ -6,9 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.180] - 2022-02-16
+### Added
+- IIS\Functions\fnGetContragentsV2
+- IIS\Functions\fnGetContragentsPreviewV2
+### Changed
+- IIS\Functions\fnGetNomenclaturesV2
+- IIS\Functions\fnGetNomenclaturesPreviewV2
+
 ## [0.6.170] - 2022-02-14
 ### Added
-- IIS\Functions\fnGetNomenclature
+- IIS\Functions\fnGetNomenclaturesV2
+- IIS\Functions\fnGetNomenclaturesPreviewV2
 
 ## [0.6.140] - 2022-02-08
 ### Changed

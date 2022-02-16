@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.180] - 2022-02-16
+### Changed
+- DbDwh v.0.6.180
+- WebApiTerra1000 v.0.6.180
+- WebApiTerra1000Tests v.0.6.180
+
 ## [0.6.160] - 2022-02-11
 ### Changed
 - DbDwh v.0.6.160

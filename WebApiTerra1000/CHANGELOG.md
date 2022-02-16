@@ -6,10 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.180] - 2022-02-16
+### Added
+- ContragentControllerV2
+- /api/v2/contragents/?code=@code
+- /api/v2/contragents/?id=@id
+- /api/v2/contragents/?StartDate=@start_date;EndDate=@end_date;Offset=@offset;RowCount=@row_count
+- /api/v2/contragents/?StartDate=@start_date;EndDate=@end_date
+- /api/v2/contragents/?StartDate=@start_date
+- /api/v2/contragents/
+
 ## [0.6.170] - 2022-02-14
 ### Fixed
 - NomenclatureController
 ### Added
+- NomenclatureControllerV2
 - /api/v2/nomenclature/?code=@code
 - /api/v2/nomenclature/?id=@id
 - /api/v2/nomenclatures/?StartDate=@start_date;EndDate=@end_date;Offset=@offset;RowCount=@row_count

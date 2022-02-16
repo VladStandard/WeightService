@@ -76,7 +76,7 @@ BEGIN
 		,[StartDate] DATETIME, [DLM] DATETIME);
 	INSERT INTO @tableSalfeCosts
 		SELECT [PriceType], [DateID], [NomenclatureID], [Nomenclature], [Price], [StartDate], [DLM]
-		FROM [VSDWH].[DW].[vwSelfCosts] READUNCOMMITTED
+		FROM [DW].[vwSelfCosts] READUNCOMMITTED
 		ORDER BY [PriceType] ASC;
 	-- Переменная с таблицей брендов
 	DECLARE @tableBrands TABLE 
