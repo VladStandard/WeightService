@@ -72,7 +72,11 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldPrinter</td>
+                <td>
+                    <NavLink class="nav-link" href=@PagePrinter Style="width: 100%; text-align: left;"  >
+                        @LocalizationData.DeviceControl.TableFieldPrinter
+                    </NavLink>
+                </td>
                 <td>
                     @if (PrinterItems == null)
                     {
@@ -88,7 +92,11 @@ else
                             Change=@(args => OnChange(args, "Printers")) />
                     }
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldHost</td>
+                <td>
+                    <NavLink class="nav-link" href=@PageHost Style="width: 100%; text-align: left;"  >
+                        @LocalizationData.DeviceControl.TableFieldHost
+                    </NavLink>
+                </td>
                 <td>
                     @if (HostItems == null)
                     {
@@ -103,8 +111,7 @@ else
                             Value=@ScaleItem.Host?.Id
                             Change=@(args => OnChange(args, "Hosts"))>
                             <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="30%" />
-                                <RadzenDropDownDataGridColumn Property="IdRRef" Title=@LocalizationData.DeviceControl.TableFieldIdRRef Width="70%" />
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
                             </Columns>
                         </RadzenDropDownDataGrid>
                     }

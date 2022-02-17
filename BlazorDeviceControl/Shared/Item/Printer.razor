@@ -46,11 +46,14 @@ else
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.MacAddress.Value />
                 </td>
-                <td>@LocalizationData.DeviceControl.TableFieldPrinter</td>
                 <td>
                     <RadzenLink Style="width: 100%; text-align: center; margin-left: 5px; " Disabled=false 
                         TValue="string" Target="_blank" Path=@PrinterItem.Link 
                         Text=@LocalizationData.DeviceControl.TableFieldPrinterControlPanel />
+                </td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
+                        TValue="string" @bind-Value=@PrinterItem.Ip />
                 </td>
             </tr>
             <tr>
@@ -59,18 +62,13 @@ else
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="short" @bind-Value=@PrinterItem.Port />
                 </td>
-                <td>@LocalizationData.DeviceControl.TableFieldPrinterIp</td>
-                <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@PrinterItem.Ip />
-                </td>
-            </tr>
-            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterPassword</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.Password />
                 </td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterType</td>
                 <td>
                     @if (PrinterTypeItems == null)

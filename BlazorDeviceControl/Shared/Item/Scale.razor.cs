@@ -27,6 +27,8 @@ namespace BlazorDeviceControl.Shared.Item
         public List<WorkshopEntity> WorkshopItems { get; set; } = null;
         public List<TypeEntity<string>> ComPorts { get; set; }
         public List<HostEntity> HostItems { get; set; } = null;
+        public virtual string PageHost => $"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{ScaleItem.Host.Id}";
+        public virtual string PagePrinter => $"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{ScaleItem.Printer.Id}";
 
         #endregion
 
@@ -81,7 +83,9 @@ namespace BlazorDeviceControl.Shared.Item
                         PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             null).ToList();
-                        HostItems = AppSettings.DataAccess.Crud.GetFreeHosts(ScaleItem.Host?.Id, false);
+                        HostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(new FieldListEntity(new Dictionary<string, object> {
+                            { ShareEnums.DbField.Marked.ToString(), false },
+                        }), new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc)).ToList();
                         ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

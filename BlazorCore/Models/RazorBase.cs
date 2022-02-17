@@ -614,9 +614,10 @@ namespace BlazorCore.Models
 
         #region Public and private methods - Actions
 
-        public void RouteItemNavigate(bool isNewWindow)
+        public void RouteItemNavigate(bool isNewWindow, string page)
         {
-            string page = RouteItemNavigatePage();
+            if (string.IsNullOrEmpty(page))
+                page = RouteItemNavigatePage();
             if (string.IsNullOrEmpty(page))
                 return;
 
@@ -1120,11 +1121,11 @@ namespace BlazorCore.Models
                                     TableAction = DbTableAction.New;
                                     Id = null;
                                     Uid = null;
-                                    RouteItemNavigate(isNewWindow);
+                                    RouteItemNavigate(isNewWindow, null);
                                     break;
                                 case DbTableAction.Edit:
                                 case DbTableAction.Copy:
-                                    RouteItemNavigate(isNewWindow);
+                                    RouteItemNavigate(isNewWindow, null);
                                     break;
                                 case DbTableAction.Mark:
                                     if (ParentRazor?.Item == null) return;
