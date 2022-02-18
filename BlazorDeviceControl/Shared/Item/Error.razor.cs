@@ -27,13 +27,10 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (Locker)
-                    {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Errors);
-                        ErrorItem = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, false, true);
-                    }
+                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Errors);
+                    ErrorItem = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, false, true);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

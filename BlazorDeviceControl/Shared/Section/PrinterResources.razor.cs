@@ -29,15 +29,12 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (Locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                            new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
-                            new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<BaseEntity>();
-                        ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
-                    }
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
+                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                        new FieldListEntity(new Dictionary<string, object> { { "Printer.Id", PrinterId } }),
+                        new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
+                        .ToList<BaseEntity>();
+                    ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

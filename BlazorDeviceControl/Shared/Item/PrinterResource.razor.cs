@@ -29,16 +29,13 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    lock (Locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                        PrinterResourceItem = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            PrinterResourceItem.Id = (int)Id;
-                        PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(null, null).ToList();
-                        ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null).ToList();
-                    }
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                    PrinterResourceItem = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        PrinterResourceItem.Id = (int)Id;
+                    PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(null, null).ToList();
+                    ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null).ToList();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

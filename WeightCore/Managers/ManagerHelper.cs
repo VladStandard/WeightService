@@ -13,7 +13,7 @@ namespace WeightCore.Managers
 
         public ManagerMassa Massa { get; private set; } = new ManagerMassa();
         public ManagerMemory Memory { get; private set; } = new ManagerMemory();
-        public ManagerPrint Print { get; private set; } = new ManagerPrint();
+        public ManagerPrintV2 Print { get; private set; } = new ManagerPrintV2();
 
         #endregion
 

@@ -62,7 +62,7 @@ namespace BlazorCore.Models
         public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
         public UserSettingsHelper UserSettings { get; private set; } = UserSettingsHelper.Instance;
         private ItemSaveCheckEntity ItemSaveCheck { get; set; } = new ItemSaveCheckEntity();
-        public object Locker { get; private set; } = new();
+        private object _locker { get; set; } = new();
 
         #endregion
 
@@ -84,7 +84,7 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (Locker)
+                    lock (_locker)
                     {
                         switch (table)
                         {
@@ -222,7 +222,7 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (Locker)
+                    lock (_locker)
                     {
                         Item = item;
                         Id = item.Id;
@@ -1069,7 +1069,7 @@ namespace BlazorCore.Models
                 LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
-                    lock (Locker)
+                    lock (_locker)
                     {
                         switch (Table)
                         {

@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.190] - 2022-02-17
+## [0.6.200] - 2022-02-18
 ### Chaned
 - BlazorDeviceControl.Shared.Item.Printer
 - BlazorDeviceControl.Shared.Item.Scale
+- BlazorDeviceControl.Shared.Section.Info
 
 ## [0.6.110] - 2022-02-02
 ### Chaned

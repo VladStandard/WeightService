@@ -41,15 +41,13 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    lock (Locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
-                        TemplateResourcesItem = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            TemplateResourcesItem.Id = (int)Id;
-                        ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
-                    }
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
+                    TemplateResourcesItem = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        TemplateResourcesItem.Id = (int)Id;
+                    ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
+                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

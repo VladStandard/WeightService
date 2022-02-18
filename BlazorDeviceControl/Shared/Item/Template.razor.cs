@@ -29,15 +29,13 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (Locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                        TemplateItem = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            TemplateItem.Id = (int)Id;
-                        TemplateCategories = AppSettings.DataReference.GetTemplateCategories();
-                    }
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+                    TemplateItem = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        TemplateItem.Id = (int)Id;
+                    TemplateCategories = AppSettings.DataReference.GetTemplateCategories();
+                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

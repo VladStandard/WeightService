@@ -370,13 +370,12 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSettings, visible);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonRunScalesTerminal, visible);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonScalesInit, visible && isTaskEnabled);
-            //MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectOrder, visible);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonNewPallet, visible);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonAddKneading, visible && isTaskEnabled);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonSelectPlu, visible && isTaskEnabled);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonKneading, visible && isTaskEnabled);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonPrint, visible && isTaskEnabled);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldCountBox, visible && isTaskEnabled);
+            MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
         }
 
         private void ScheduleControlsVisible(bool visible)
@@ -422,8 +421,6 @@ namespace ScalesUI.Forms
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaGet, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueries, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSet, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryManager, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryManagerTotal, false);
                     
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldResolution, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(pictureBoxClose, false);
@@ -432,7 +429,6 @@ namespace ScalesUI.Forms
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaSetCrc, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldCountBox, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaQueriesProgress, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryProgress, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLang, false);
                     break;
                 default:
@@ -464,8 +460,9 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetText(fieldLabelsCount, 
                 $"{LocalizationData.ScalesUI.Labels}: {SessionState.LabelsCurrent} / {SessionState.LabelsCount}");
 
-            SessionState.LabelsCurrent = SessionState.Manager.Print.UserLabelCount < SessionState.LabelsCount
-                ? SessionState.Manager.Print.UserLabelCount : SessionState.LabelsCount;
+            //SessionState.LabelsCurrent = SessionState.Manager.Print.UserLabelCount < SessionState.LabelsCount
+            //    ? SessionState.Manager.Print.UserLabelCount : SessionState.LabelsCount;
+            
             // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
             if (SessionState.LabelsCurrent == 0)
                 SessionState.LabelsCurrent = 1;
@@ -480,8 +477,6 @@ namespace ScalesUI.Forms
             // Zebra printers.
             else
             {
-                SessionState.LabelsCurrent = SessionState.Manager.Print.UserLabelCount < SessionState.LabelsCount
-                    ? SessionState.Manager.Print.UserLabelCount : SessionState.LabelsCount;
                 // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
                 if (SessionState.LabelsCurrent == 0)
                     SessionState.LabelsCurrent = 1;
@@ -501,7 +496,8 @@ namespace ScalesUI.Forms
         private void ScheduleMemoryManager()
         {
             SetVisible(ProjectsEnums.TaskType.MemoryManager, fieldMemoryManager);
-
+            SetVisible(ProjectsEnums.TaskType.MemoryManager, fieldMemoryManagerTotal);
+            SetVisible(ProjectsEnums.TaskType.MemoryManager, fieldMemoryProgress);
             if (SessionState.SqlViewModel.IsTaskEnabled(ProjectsEnums.TaskType.MemoryManager))
             {
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManager,
@@ -1070,8 +1066,6 @@ namespace ScalesUI.Forms
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldResolution, IsShowInfoLabels);
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldLang, IsShowInfoLabels);
             // MemoryManager.
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryManagerTotal, IsShowInfoLabels);
-            MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMemoryProgress, IsShowInfoLabels);
             // PrintManager.
             // MassaManager.
             MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldMassaScalePar, IsShowInfoLabels);

@@ -31,15 +31,12 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    lock (Locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                        WorkshopItem = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            WorkshopItem.Id = (int)Id;
-                        ProductionFacilityEntities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
-                    }
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                    WorkshopItem = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        WorkshopItem.Id = (int)Id;
+                    ProductionFacilityEntities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

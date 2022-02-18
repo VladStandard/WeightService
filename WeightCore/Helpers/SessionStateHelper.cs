@@ -474,7 +474,7 @@ namespace WeightCore.Helpers
                     return;
 
                 // Send doc to the printrer.
-                Manager.Print.Send(printCmd);
+                Manager.Print.SendCmd(printCmd);
             }
             catch (Exception ex)
             {

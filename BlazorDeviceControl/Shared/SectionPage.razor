@@ -32,7 +32,7 @@
                                 }
                                 <RadzenGrid Data=@contragentsEntities TItem="ContragentEntity"
                                             AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                                            AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                            AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCountAllowSorting="true" ColumnWidth="200px">
                                     <Columns>
                                         <RadzenGridColumn TItem="ContragentEntity" Property="Id" TextAlign="TextAlign.Center"
                                                           Title=@LocalizationStrings.DeviceControl.TableFieldId
@@ -50,7 +50,7 @@
                                 }
                                 <RadzenGrid Data=@productSeries TItem="ProductSeriesEntity"
                                             AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                                            AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                                            AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCountAllowSorting="true" ColumnWidth="200px">
                                     <Columns>
                                         <RadzenGridColumn TItem="ProductSeriesEntity" Property="Id" TextAlign="TextAlign.Center"
                                                           Title=@LocalizationStrings.DeviceControl.TableFieldId

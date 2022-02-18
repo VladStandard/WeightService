@@ -28,23 +28,20 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    lock (Locker)
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                    PrinterItem = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        PrinterItem.Id = (int)Id;
+                    PrinterTypeItems = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null).ToList();
+                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                        PrinterItem = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            PrinterItem.Id = (int)Id;
-                        PrinterTypeItems = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null).ToList();
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                        {
-                            PrinterItem.Id = (int)Id;
-                            PrinterItem.Name = "NEW PRINTER";
-                            PrinterItem.Ip = "127.0.0.1";
-                            PrinterItem.MacAddress.Default();
-                        }
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        PrinterItem.Id = (int)Id;
+                        PrinterItem.Name = "NEW PRINTER";
+                        PrinterItem.Ip = "127.0.0.1";
+                        PrinterItem.MacAddress.Default();
                     }
+                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

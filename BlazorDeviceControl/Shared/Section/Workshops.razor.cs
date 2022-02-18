@@ -28,16 +28,13 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (Locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
-                        Items = AppSettings.DataAccess.Crud.GetEntities<WorkshopEntity>(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                            .OrderBy(x => x.ProductionFacility.Name)
-                            .ToList<BaseEntity>();
-                        ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
-                    }
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
+                    Items = AppSettings.DataAccess.Crud.GetEntities<WorkshopEntity>(
+                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                        new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
+                        .OrderBy(x => x.ProductionFacility.Name)
+                        .ToList<BaseEntity>();
+                    ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

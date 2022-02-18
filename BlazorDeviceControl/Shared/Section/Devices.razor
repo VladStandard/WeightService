@@ -19,7 +19,7 @@
 <p>
     <RadzenGrid Data=@ItemsCast TItem="DeviceEntity" 
                 AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                AllowPaging="true" PageSize="25" AllowSorting="true" ColumnWidth="200px">
+                AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
         <Columns>
             <RadzenGridColumn TItem="DeviceEntity" Property="Scales.Description" Title=@LocalizationData.DeviceControl.TableFieldName
                                 Type="string" Width="20%" />

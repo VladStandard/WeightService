@@ -19,7 +19,7 @@ namespace MDSoft.SerialPorts
 
         private void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (SerialPort.BytesToRead <= 0)
+            if (!SerialPort.IsOpen || SerialPort.BytesToRead <= 0)
             {
                 return;
             }

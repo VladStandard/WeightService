@@ -26,99 +26,102 @@ namespace BlazorDeviceControl.Shared.Component
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(() => {
-                    lock (Locker)
+                    switch (Table)
                     {
-                        switch (Table)
-                        {
-                            case TableSystemEntity:
-                                switch (ProjectsEnums.GetTableSystem(Table.Name))
-                                {
-                                    case ProjectsEnums.TableSystem.Default:
-                                        break;
-                                    case ProjectsEnums.TableSystem.Accesses:
-                                        AccessEntity access = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>((int)Id);
-                                        DtCreate = access.CreateDt.ToString();
-                                        DtModify = access.ChangeDt.ToString();
-                                        break;
-                                    case ProjectsEnums.TableSystem.Errors:
-                                        ErrorEntity error = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>((int)Id);
-                                        DtCreate = error.CreatedDate.ToString();
-                                        DtModify = error.ModifiedDate.ToString();
-                                        break;
-                                    case ProjectsEnums.TableSystem.Logs:
-                                        LogEntity log = AppSettings.DataAccess.Crud.GetEntity<LogEntity>((Guid)Uid);
-                                        DtCreate = log.CreateDt.ToString();
-                                        break;
-                                    case ProjectsEnums.TableSystem.LogTypes:
-                                        break;
-                                    case ProjectsEnums.TableSystem.Tasks:
-                                        break;
-                                    case ProjectsEnums.TableSystem.TasksTypes:
-                                        break;
-                                }
-                                break;
-                            case TableScaleEntity:
-                                {
-                                    switch (ProjectsEnums.GetTableScale(Table.Name))
-                                    {
-                                        case ProjectsEnums.TableScale.Default:
-                                            break;
-                                        case ProjectsEnums.TableScale.BarcodesTypes:
-                                            break;
-                                        case ProjectsEnums.TableScale.Contragents:
-                                            break;
-                                        case ProjectsEnums.TableScale.Hosts:
-                                            HostEntity host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>((int)Id);
-                                            DtCreate = host.CreateDt.ToString();
-                                            DtModify = host.ChangeDt.ToString();
-                                            break;
-                                        case ProjectsEnums.TableScale.Labels:
-                                            break;
-                                        case ProjectsEnums.TableScale.Nomenclatures:
-                                            break;
-                                        case ProjectsEnums.TableScale.Orders:
-                                            break;
-                                        case ProjectsEnums.TableScale.OrdersStatuses:
-                                            break;
-                                        case ProjectsEnums.TableScale.OrdersTypes:
-                                            break;
-                                        case ProjectsEnums.TableScale.Organizations:
-                                            break;
-                                        case ProjectsEnums.TableScale.Plus:
-                                            break;
-                                        case ProjectsEnums.TableScale.Printers:
-                                            PrinterEntity printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>((int)Id);
-                                            DtCreate = printer.CreateDate.ToString();
-                                            DtModify = printer.ModifiedDate.ToString();
-                                            break;
-                                        case ProjectsEnums.TableScale.PrintersResources:
-                                            break;
-                                        case ProjectsEnums.TableScale.PrintersTypes:
-                                            break;
-                                        case ProjectsEnums.TableScale.ProductionFacilities:
-                                            break;
-                                        case ProjectsEnums.TableScale.ProductSeries:
-                                            break;
-                                        case ProjectsEnums.TableScale.Scales:
-                                            ScaleEntity scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>((int)Id);
-                                            DtCreate = scale.CreateDate.ToString();
-                                            DtModify = scale.ModifiedDate.ToString();
-                                            break;
-                                        case ProjectsEnums.TableScale.Templates:
-                                            break;
-                                        case ProjectsEnums.TableScale.TemplatesResources:
-                                            break;
-                                        case ProjectsEnums.TableScale.WeithingFacts:
-                                            break;
-                                        case ProjectsEnums.TableScale.Workshops:
-                                            break;
-                                    }
-
+                        case TableSystemEntity:
+                            switch (ProjectsEnums.GetTableSystem(Table.Name))
+                            {
+                                case ProjectsEnums.TableSystem.Default:
                                     break;
+                                case ProjectsEnums.TableSystem.Accesses:
+                                    AccessEntity access = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>((int)Id);
+                                    DtCreate = access.CreateDt.ToString();
+                                    DtModify = access.ChangeDt.ToString();
+                                    break;
+                                case ProjectsEnums.TableSystem.Errors:
+                                    ErrorEntity error = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>((int)Id);
+                                    DtCreate = error.CreatedDate.ToString();
+                                    DtModify = error.ModifiedDate.ToString();
+                                    break;
+                                case ProjectsEnums.TableSystem.Logs:
+                                    LogEntity log = AppSettings.DataAccess.Crud.GetEntity<LogEntity>((Guid)Uid);
+                                    DtCreate = log.CreateDt.ToString();
+                                    break;
+                                case ProjectsEnums.TableSystem.LogTypes:
+                                    break;
+                                case ProjectsEnums.TableSystem.Tasks:
+                                    break;
+                                case ProjectsEnums.TableSystem.TasksTypes:
+                                    break;
+                            }
+                            break;
+                        case TableScaleEntity:
+                            {
+                                switch (ProjectsEnums.GetTableScale(Table.Name))
+                                {
+                                    case ProjectsEnums.TableScale.Default:
+                                        break;
+                                    case ProjectsEnums.TableScale.BarcodesTypes:
+                                        break;
+                                    case ProjectsEnums.TableScale.Contragents:
+                                        break;
+                                    case ProjectsEnums.TableScale.Hosts:
+                                        HostEntity host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>((int)Id);
+                                        DtCreate = host.CreateDt.ToString();
+                                        DtModify = host.ChangeDt.ToString();
+                                        break;
+                                    case ProjectsEnums.TableScale.Labels:
+                                        break;
+                                    case ProjectsEnums.TableScale.Nomenclatures:
+                                        break;
+                                    case ProjectsEnums.TableScale.Orders:
+                                        break;
+                                    case ProjectsEnums.TableScale.OrdersStatuses:
+                                        break;
+                                    case ProjectsEnums.TableScale.OrdersTypes:
+                                        break;
+                                    case ProjectsEnums.TableScale.Organizations:
+                                        break;
+                                    case ProjectsEnums.TableScale.Plus:
+                                        break;
+                                    case ProjectsEnums.TableScale.Printers:
+                                        PrinterEntity printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>((int)Id);
+                                        DtCreate = printer.CreateDate.ToString();
+                                        DtModify = printer.ModifiedDate.ToString();
+                                        break;
+                                    case ProjectsEnums.TableScale.PrintersResources:
+                                        break;
+                                    case ProjectsEnums.TableScale.PrintersTypes:
+                                        break;
+                                    case ProjectsEnums.TableScale.ProductionFacilities:
+                                        break;
+                                    case ProjectsEnums.TableScale.ProductSeries:
+                                        break;
+                                    case ProjectsEnums.TableScale.Scales:
+                                        ScaleEntity scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>((int)Id);
+                                        DtCreate = scale.CreateDate.ToString();
+                                        DtModify = scale.ModifiedDate.ToString();
+                                        break;
+                                    case ProjectsEnums.TableScale.Templates:
+                                        TemplateEntity template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>((int)Id);
+                                        DtCreate = template.CreateDate.ToString();
+                                        DtModify = template.ModifiedDate.ToString();
+                                        break;
+                                    case ProjectsEnums.TableScale.TemplatesResources:
+                                        TemplateResourceEntity templateResource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>((int)Id);
+                                        DtCreate = templateResource.CreateDate.ToString();
+                                        DtModify = templateResource.ModifiedDate.ToString();
+                                        break;
+                                    case ProjectsEnums.TableScale.WeithingFacts:
+                                        break;
+                                    case ProjectsEnums.TableScale.Workshops:
+                                        break;
                                 }
-                            case TableDwhEntity:
+
                                 break;
-                        }
+                            }
+                        case TableDwhEntity:
+                            break;
                     }
                 }), true);
         }

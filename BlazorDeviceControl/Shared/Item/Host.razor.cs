@@ -26,21 +26,18 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () => {
-                    lock (Locker)
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
+                    HostItem = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
-                        HostItem = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(new FieldListEntity(new Dictionary<string, object>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                        {
-                            HostItem.Id = (int)Id;
-                            HostItem.Name = "NEW HOST";
-                            HostItem.IdRRef = System.Guid.NewGuid();
-                            HostItem.Ip = "127.0.0.1";
-                            HostItem.MacAddress.Default();
-                        }
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        HostItem.Id = (int)Id;
+                        HostItem.Name = "NEW HOST";
+                        HostItem.IdRRef = System.Guid.NewGuid();
+                        HostItem.Ip = "127.0.0.1";
+                        HostItem.MacAddress.Default();
                     }
+                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

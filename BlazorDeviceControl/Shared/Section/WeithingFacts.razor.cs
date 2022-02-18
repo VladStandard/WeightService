@@ -29,27 +29,24 @@ namespace BlazorDeviceControl.Shared.Section
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    lock (Locker)
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts);
+                    Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
+                    foreach (object obj in objects)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts);
-                        Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
-                        foreach (object obj in objects)
+                        if (obj is object[] { Length: 5 } item)
                         {
-                            if (obj is object[] { Length: 5 } item)
+                            Items.Add(new WeithingFactSummaryEntity
                             {
-                                Items.Add(new WeithingFactSummaryEntity
-                                {
-                                    WeithingDate = Convert.ToDateTime(item[0]),
-                                    Count = Convert.ToInt32(item[1]),
-                                    Scale = Convert.ToString(item[2]),
-                                    Host = Convert.ToString(item[3]),
-                                    Printer = Convert.ToString(item[4]),
-                                });
-                            }
+                                WeithingDate = Convert.ToDateTime(item[0]),
+                                Count = Convert.ToInt32(item[1]),
+                                Scale = Convert.ToString(item[2]),
+                                Host = Convert.ToString(item[3]),
+                                Printer = Convert.ToString(item[4]),
+                            });
                         }
-                        ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                     }
+                    ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

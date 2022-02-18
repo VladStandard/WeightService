@@ -21,10 +21,12 @@ namespace BlazorDeviceControl.Shared.Section
         public List<TypeEntity<ShareEnums.Lang>> TemplateLanguages { get; set; }
         public List<TypeEntity<bool>> TemplateIsDebug { get; set; }
         private uint DbCurSize { get; set; } = 0;
-        private string DbCurSizeAsString => $"{DbCurSize:### ###} MB";
+        private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocalizationCore.Strings.Main.From} {DbMaxSize:### ###} MB";
         private uint DbMaxSize { get; set; } = 10240;
-        private string DbMaxSizeAsString => $"{DbMaxSize:### ###} MB";
-        private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
+        private float DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
+        //private float DbFillSize => DbCurSize == 0 ? 0 : (float)Convert.ToDecimal($"{(decimal)(DbCurSize * 100) / DbMaxSize:0.00}");
+        //private float DbFillSize => DbCurSize == 0 ? 0 : (float)Math.Floor((double)(DbCurSize * 100) / DbMaxSize);
+        //private float DbFillSize => DbCurSize == 0 ? 0 : (float)Math.Floor((double)(DbCurSize * 100) / DbMaxSize * Math.Pow(10, 2) / Math.Pow(10, 2));
         private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
 
         #endregion
@@ -37,20 +39,17 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (Locker)
+                    TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
+                    TemplateIsDebug = AppSettings.DataReference.GetTemplateIsDebug();
+                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
+                    DbCurSize = 0;
+                    foreach (object obj in objects)
                     {
-                        TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
-                        TemplateIsDebug = AppSettings.DataReference.GetTemplateIsDebug();
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
-                        DbCurSize = 0;
-                        foreach (object obj in objects)
+                        if (obj is object[] { Length: 5 } item)
                         {
-                            if (obj is object[] { Length: 5 } item)
+                            if (uint.TryParse(Convert.ToString(item[2]), out uint dbSizeMb))
                             {
-                                if (uint.TryParse(Convert.ToString(item[2]), out uint dbSizeMb))
-                                {
-                                    DbCurSize += dbSizeMb;
-                                }
+                                DbCurSize += dbSizeMb;
                             }
                         }
                     }

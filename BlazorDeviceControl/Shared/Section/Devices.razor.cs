@@ -27,10 +27,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (Locker)
-                    {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<BaseEntity>();
-                    }
+                    Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<BaseEntity>();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

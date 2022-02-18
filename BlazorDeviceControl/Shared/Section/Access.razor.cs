@@ -30,26 +30,23 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (Locker)
+                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess);
+                    Items = new List<AccessEntity>().ToList<BaseEntity>();
+                    foreach (object obj in objects)
                     {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Access.GetAccess);
-                        Items = new List<AccessEntity>().ToList<BaseEntity>();
-                        foreach (object obj in objects)
+                        if (obj is object[] { Length: 5 } item)
                         {
-                            if (obj is object[] { Length: 5 } item)
+                            if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                             {
-                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                                Items.Add(new AccessEntity()
                                 {
-                                    Items.Add(new AccessEntity()
-                                    {
-                                        Uid = uid,
-                                        CreateDt = Convert.ToDateTime(item[1]),
-                                        ChangeDt = Convert.ToDateTime(item[2]),
-                                        User = Convert.ToString(item[3]),
-                                        Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
-                                    });
-                                }
+                                    Uid = uid,
+                                    CreateDt = Convert.ToDateTime(item[1]),
+                                    ChangeDt = Convert.ToDateTime(item[2]),
+                                    User = Convert.ToString(item[3]),
+                                    Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
+                                });
                             }
                         }
                     }

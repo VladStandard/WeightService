@@ -354,6 +354,7 @@
     <Compile Include="Helpers\XamlHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
+    <Compile Include="Managers\ManagerPrintV2.cs" />
     <Compile Include="Managers\ManagerPrint.cs" />
     <Compile Include="Managers\ManagerMassa.cs" />
     <Compile Include="Managers\ManagerMemory.cs" />

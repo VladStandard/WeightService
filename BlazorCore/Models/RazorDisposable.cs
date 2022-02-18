@@ -11,7 +11,7 @@ namespace BlazorCore.Models
 
         public void Dispose()
         {
-            lock (Locker)
+            lock (this)
             {
                 DialogService?.Dispose();
                 TooltipService?.Dispose();

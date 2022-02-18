@@ -14,50 +14,49 @@ namespace DataCore
         {
             public static class Main
             {
-                public static string PageError => Lang == ShareEnums.Lang.English ? @"Sorry, there's nothing at this address." : @"Извините, по этому адресу ничего нет.";
-                public static string Company => Lang == ShareEnums.Lang.English ? @"Vladimir Standard" : @"Владимирский стандарт";
-                public static string Index => Lang == ShareEnums.Lang.English ? @"Inside resources" : @"Внутренние ресурсы";
-                public static string IndexDescription => Lang == ShareEnums.Lang.English ?
-                    @"The site was created to help you navigate through the company's internal resources" :
-                    @"Сайт создан для помощи в навигации по внутренним ресурсам компании";
-                public static string CallbackTitle => Lang == ShareEnums.Lang.English ? @"Feedback" : @"Обратная связь";
-                public static string DataLoading => Lang == ShareEnums.Lang.English ? @"Loading data..." : @"Загрузка данных...";
-                public static string DataLoadComplete => Lang == ShareEnums.Lang.English ? @"Data downloaded successfully." : @"Данные загружены успешно.";
-                public static string DataLoadError => Lang == ShareEnums.Lang.English ? @"Error loading data!" : @"Ошибка загрузки данных!";
-                public static string IdentityError => Lang == ShareEnums.Lang.English ? @"User error!" : @"Ошибка пользователя";
-                public static string NotLoad => Lang == ShareEnums.Lang.English ? @"Not load!" : @"Не загружено";
-                public static string DebugMode => Lang == ShareEnums.Lang.English ? @"Debug mode" : @"Режим отладки";
-                public static string ItemsCount => Lang == ShareEnums.Lang.English ? @"Count of records" : @"Количество записей";
-                public static string ButtonWidth => Lang == ShareEnums.Lang.English ? @"Buttons width" : @"Ширина кнопок";
-                public static string ButtonHeight => Lang == ShareEnums.Lang.English ? @"Buttons height" : @"Высота кнопок";
-                public static string ServerDevelop => Lang == ShareEnums.Lang.English ? @"Debug server" : @"Сервер разработки";
-                public static string ServerRelease => Lang == ShareEnums.Lang.English ? @"Debug release" : @"Промышленный сервер";
-                public static string Authorization => Lang == ShareEnums.Lang.English ? @"Authorization" : @"Авторизация";
-                public static string Doc => Lang == ShareEnums.Lang.English ? @"Documentation" : @"Документация";
-                public static string ProgramVer => Lang == ShareEnums.Lang.English ? @"Program version" : @"Версия программы";
-                public static string CoreVer => Lang == ShareEnums.Lang.English ? @"Core version" : @"Версия ядра";
                 public static string AppSettings => Lang == ShareEnums.Lang.English ? @"App settings" : @"Настройки приложения";
-                public static string DbInfo => Lang == ShareEnums.Lang.English ? @"Information about the DB" : @"Информация о БД";
-                public static string UserSettings => Lang == ShareEnums.Lang.English ? @"User settings" : @"Пользовательские настройки";
-                public static string SettingName => Lang == ShareEnums.Lang.English ? @"Setting name" : @"Название настройки";
-                public static string SettingValue => Lang == ShareEnums.Lang.English ? @"Setting value" : @"Значение настройки";
-                public static string RecordName => Lang == ShareEnums.Lang.English ? @"Setting name" : @"Название записи";
-                public static string RecordValue => Lang == ShareEnums.Lang.English ? @"Setting value" : @"Значение записи";
-                public static string HostName => Lang == ShareEnums.Lang.English ? @"Host name" : @"Имя хоста";
-                public static string Language => Lang == ShareEnums.Lang.English ? @"Language" : @"Язык";
-                public static string LanguageDetect => Lang == ShareEnums.Lang.English ? @"English" : @"Русский";
-                public static string IsYes(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
-                public static string IsEnableIt(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
-                public static string IsEnableShe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
-                public static string IsEnableHe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
+                public static string Authorization => Lang == ShareEnums.Lang.English ? @"Authorization" : @"Авторизация";
+                public static string AuthorizingAccessLevel => Lang == ShareEnums.Lang.English ? "Access level" : "Уровень доступа";
+                public static string AuthorizingAccessLevelFalse => Lang == ShareEnums.Lang.English ? "Read only" : "Только чтение";
+                public static string AuthorizingAccessLevelNull => Lang == ShareEnums.Lang.English ? "No access" : "Нет доступа";
+                public static string AuthorizingAccessLevelTrue => Lang == ShareEnums.Lang.English ? "Read and write" : "Чтение и запись";
+                public static string AuthorizingNot => Lang == ShareEnums.Lang.English ? "Not authorized!" : "Авторизация провалена!";
                 public static string AuthorizingProcess => Lang == ShareEnums.Lang.English ? "Authorizing ..." : "Авторизация ...";
                 public static string AuthorizingSuccess => Lang == ShareEnums.Lang.English ? "Success authorized" : "Успешная авторизация";
-                public static string AuthorizingNot => Lang == ShareEnums.Lang.English ? "Not authorized!" : "Авторизация провалена!";
                 public static string AuthorizingUserName => Lang == ShareEnums.Lang.English ? "User name" : "Имя пользователя";
-                public static string AuthorizingAccessLevel => Lang == ShareEnums.Lang.English ? "Access level" : "Уровень доступа";
-                public static string AuthorizingAccessLevelNull => Lang == ShareEnums.Lang.English ? "No access" : "Нет доступа";
-                public static string AuthorizingAccessLevelFalse => Lang == ShareEnums.Lang.English ? "Read only" : "Только чтение";
-                public static string AuthorizingAccessLevelTrue => Lang == ShareEnums.Lang.English ? "Read and write" : "Чтение и запись";
+                public static string ButtonHeight => Lang == ShareEnums.Lang.English ? @"Buttons height" : @"Высота кнопок";
+                public static string ButtonWidth => Lang == ShareEnums.Lang.English ? @"Buttons width" : @"Ширина кнопок";
+                public static string CallbackTitle => Lang == ShareEnums.Lang.English ? @"Feedback" : @"Обратная связь";
+                public static string Company => Lang == ShareEnums.Lang.English ? @"Vladimir Standard" : @"Владимирский стандарт";
+                public static string CoreVer => Lang == ShareEnums.Lang.English ? @"Core version" : @"Версия ядра";
+                public static string DataLoadComplete => Lang == ShareEnums.Lang.English ? @"Data downloaded successfully." : @"Данные загружены успешно.";
+                public static string DataLoadError => Lang == ShareEnums.Lang.English ? @"Error loading data!" : @"Ошибка загрузки данных!";
+                public static string DataLoading => Lang == ShareEnums.Lang.English ? @"Loading data..." : @"Загрузка данных...";
+                public static string DbInfo => Lang == ShareEnums.Lang.English ? @"Information about the DB" : @"Информация о БД";
+                public static string DebugMode => Lang == ShareEnums.Lang.English ? @"Debug mode" : @"Режим отладки";
+                public static string Doc => Lang == ShareEnums.Lang.English ? @"Documentation" : @"Документация";
+                public static string From => Lang == ShareEnums.Lang.English ? @"from" : @"из";
+                public static string HostName => Lang == ShareEnums.Lang.English ? @"Host name" : @"Имя хоста";
+                public static string IdentityError => Lang == ShareEnums.Lang.English ? @"User error!" : @"Ошибка пользователя";
+                public static string Index => Lang == ShareEnums.Lang.English ? @"Inside resources" : @"Внутренние ресурсы";
+                public static string IndexDescription => Lang == ShareEnums.Lang.English ? @"The site was created to help you navigate through the company's internal resources" : @"Сайт создан для помощи в навигации по внутренним ресурсам компании";
+                public static string IsEnableHe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включен" : @"Отключен";
+                public static string IsEnableIt(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включено" : @"Отключено";
+                public static string IsEnableShe(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Enable" : @"Disable" : isTrue ? @"Включена" : @"Отключена";
+                public static string IsYes(bool isTrue) => Lang == ShareEnums.Lang.English ? isTrue ? @"Yes" : @"No" : isTrue ? @"Да" : @"Нет";
+                public static string ItemsCount => Lang == ShareEnums.Lang.English ? @"Count of records" : @"Количество записей";
+                public static string Language => Lang == ShareEnums.Lang.English ? @"Language" : @"Язык";
+                public static string LanguageDetect => Lang == ShareEnums.Lang.English ? @"English" : @"Русский";
+                public static string NotLoad => Lang == ShareEnums.Lang.English ? @"Not load!" : @"Не загружено";
+                public static string PageError => Lang == ShareEnums.Lang.English ? @"Sorry, there's nothing at this address." : @"Извините, по этому адресу ничего нет.";
+                public static string ProgramVer => Lang == ShareEnums.Lang.English ? @"Program version" : @"Версия программы";
+                public static string RecordName => Lang == ShareEnums.Lang.English ? @"Setting name" : @"Название записи";
+                public static string RecordValue => Lang == ShareEnums.Lang.English ? @"Setting value" : @"Значение записи";
+                public static string ServerDevelop => Lang == ShareEnums.Lang.English ? @"Debug server" : @"Сервер разработки";
+                public static string ServerRelease => Lang == ShareEnums.Lang.English ? @"Debug release" : @"Промышленный сервер";
+                public static string SettingName => Lang == ShareEnums.Lang.English ? @"Setting name" : @"Название настройки";
+                public static string SettingValue => Lang == ShareEnums.Lang.English ? @"Setting value" : @"Значение настройки";
+                public static string UserSettings => Lang == ShareEnums.Lang.English ? @"User settings" : @"Пользовательские настройки";
             }
             #region Menu
             public static string MenuReferences => Lang == ShareEnums.Lang.English ? @"References" : @"Справочники";
@@ -156,6 +155,7 @@ namespace DataCore
             public static string SqlDbCurSize => Lang == ShareEnums.Lang.English ? @"DB size" : @"Размер БД";
             public static string SqlDbMaxSize => Lang == ShareEnums.Lang.English ? @"DB size" : @"Максимальный размер БД";
             public static string SqlDbFillSize => Lang == ShareEnums.Lang.English ? @"DB fill percentage" : @"Процент заполнения БД";
+            public static string MemoryFillSize => Lang == ShareEnums.Lang.English ? @"Memory fill percentage" : @"Процент заполнения памяти";
             public static string SqlUser => Lang == ShareEnums.Lang.English ? @"SQL-user" : @"SQL-пользователь";
             #endregion
             #region Windows

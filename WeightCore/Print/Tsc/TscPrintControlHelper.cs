@@ -20,33 +20,34 @@ namespace WeightCore.Print.Tsc
 
         #region Public and private fields and properties
 
-        private string _name;
-        public string Name
+        private TSCSDK.driver _tscDriver = new();
+        private string _printName;
+        public string PrintName
         {
-            get => _name;
+            get => _printName;
             set
             {
-                _name = value;
+                _printName = value;
                 OnPropertyChanged();
             }
         }
-        private string _ipAddress;
-        public string IpAddress
+        private string _printIp;
+        public string PrintIp
         {
-            get => _ipAddress;
+            get => _printIp;
             set
             {
-                _ipAddress = value;
+                _printIp = value;
                 OnPropertyChanged();
             }
         }
-        private int _port;
-        public int Port
+        private int _printPort;
+        public int PrintPort
         {
-            get => _port;
+            get => _printPort;
             set
             {
-                _port = value;
+                _printPort = value;
                 OnPropertyChanged();
             }
         }
@@ -127,13 +128,27 @@ namespace WeightCore.Print.Tsc
 
         #region Constructor
 
-        public void Init(string name, string ip, int port = 9100, PrintLabelSize size = PrintLabelSize.Size80x100, PrintDpi dpi = PrintDpi.Dpi300)
+        public void Init(string printIp, int printPort, PrintLabelSize size = PrintLabelSize.Size80x100, 
+            PrintDpi dpi = PrintDpi.Dpi300)
         {
-            Name = name;
-            IpAddress = ip;
-            Port = port;
+            Init(size, dpi);
+
+            PrintIp = printIp;
+            PrintPort = printPort;
+        }
+
+        public void Init(string printName, PrintLabelSize size = PrintLabelSize.Size80x100, PrintDpi dpi = PrintDpi.Dpi300)
+        {
+            Init(size, dpi);
+
+            PrintName = printName;
+        }
+
+        public void Init(PrintLabelSize size = PrintLabelSize.Size80x100, PrintDpi dpi = PrintDpi.Dpi300)
+        {
             Size = size;
             Dpi = dpi;
+
             TscPrintSetup.Init(Size);
             IsClearBuffer = true;
         }
@@ -142,20 +157,12 @@ namespace WeightCore.Print.Tsc
 
         #region Public and private methods - Base
 
-        //public void SetupHardware(PrintLabelSize size, bool isResetGap)
-        public void SetupHardware(PrintLabelSize size)
+        public void SetupHardware(PrintLabelSize size = PrintLabelSize.Size80x100)
         {
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(PrintName))
                 return;
-            //TSCSDK.driver tscDriver = new();
-            //if (!tscDriver.openport(Name))
-            //    return;
-            //tscDriver.clearbuffer();
 
             TscPrintSetup.Init(size);
-            //if (isResetGap)
-            //    CmdSetGap();
-
             //tscDriver.setup(
             //    TscPrintSetup.Width,
             //    TscPrintSetup.Height,
@@ -164,7 +171,6 @@ namespace WeightCore.Print.Tsc
             //    TscPrintSetup.Sensor,
             //    TscPrintSetup.Vertical,
             //    TscPrintSetup.Offset);
-
             //tscDriver.closeport();
         }
 
@@ -303,19 +309,30 @@ namespace WeightCore.Print.Tsc
 
         public void SendCmd(string cmd)
         {
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(PrintName))
                 return;
             Cmd = cmd;
 
-            TSCSDK.driver tscDriver = new();
-            if (!tscDriver.openport(Name))
+            if (!_tscDriver.openport(PrintName))
                 return;
-            tscDriver.clearbuffer();
+            _tscDriver.clearbuffer();
 
             if (!string.IsNullOrEmpty(Cmd))
-                tscDriver.sendcommand(Cmd);
+                _tscDriver.sendcommand(Cmd);
 
-            tscDriver.closeport();
+            _tscDriver.closeport();
+        }
+        
+        public void ClearBuffer()
+        {
+            if (string.IsNullOrEmpty(PrintName))
+                return;
+
+            if (!_tscDriver.openport(PrintName))
+                return;
+            _tscDriver.clearbuffer();
+
+            _tscDriver.closeport();
         }
 
         public void CmdConvertZpl(bool isUsePicReplace)

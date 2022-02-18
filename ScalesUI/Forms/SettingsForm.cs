@@ -259,7 +259,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Manager.Print.Send(ZplPipeUtils.ZplPowerOnReset());
+                SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplPowerOnReset());
             }
             catch (Exception ex)
             {
@@ -282,7 +282,7 @@ namespace ScalesUI.Forms
             {
                 //_taskManager.PrintManager.PrintControl.CmdCalibrate();
                 if (!SessionState.IsTscPrinter)
-                    SessionState.Manager.Print.Send(ZplPipeUtils.ZplCalibration());
+                    SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplCalibration());
             }
             catch (Exception ex)
             {
@@ -298,7 +298,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Manager.Print.Send(ZplPipeUtils.ZplPrintConfigurationLabel());
+                SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplPrintConfigurationLabel());
             }
             catch (Exception ex)
             {
@@ -426,7 +426,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Manager.Print.Send(ZplPipeUtils.ZplClearPrintBuffer());
+                SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplClearPrintBuffer());
             }
             catch (Exception ex)
             {

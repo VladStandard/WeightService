@@ -1,36 +1,70 @@
 ﻿@page "/item/template"
 @page "/item/template/{Id:int}"
 @page "/item/template/{Id:int}/{TableActionString}"
+@using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
 @inherits RazorDisposable
 
-<div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldTitle />
-    <RadzenTextBox Style="width: 70%; text-align: center;" Disabled=false TValue="string" @bind-value=@TemplateItem.Title />
-    <br />
-    <RadzenLabel Style="width: 27%; " Text=@LocalizationData.DeviceControl.TableFieldImageData />
-    <br />
-</div>
-<br />
-<div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 27%;" Text=@LocalizationData.DeviceControl.TableFieldCategoryName />
-    @if (TemplateCategories == null)
-    {
-        <RadzenTextBox Style="width: 70%;" Disabled=false ReadOnly=true TValue="string" Value="" />
-        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-    }
-    else
-    {
-        <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                        Data=@TemplateCategories PageSize="5" TextProperty="Name" ValueProperty="Value"
-                        Value=@TemplateItem.CategoryId Change=@(args => OnChange(args, "TemlateCategories")) />
-    }
-    <br />
-</div>
-
-<div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 0px; height: 550px;">
-    <RadzenTextArea Style="width: 100%; height: 100%; font-size: 13px; line-height: 18px;"
-                    ReadOnly="false" TValue="string" @bind-value=@TemplateItem.ImageDataStringUnicode />
-</div>
+@if (Item == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <thead>
+            <tr>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
+                        TValue="int" @bind-Value=@TemplateItem.Id />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@TemplateItem.Marked />
+                </td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldTitle</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
+                        TValue="string" @bind-Value=@TemplateItem.Title />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldCategoryName</td>
+                <td>
+                    @if (TemplateCategories == null)
+                    {
+                        <RadzenTextBox Style="width: 70%;" Disabled=false ReadOnly=true TValue="string" Value="" />
+                        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+                    }
+                    else
+                    {
+                        <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                        AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                        Data=@TemplateCategories PageSize="5" TextProperty="Name" ValueProperty="Value"
+                                        Value=@TemplateItem.CategoryId Change=@(args => OnChange(args, "TemlateCategories")) />
+                    }
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldImageData</td>
+                <td colspan=3 >
+                    <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=false
+                        TValue="string" @bind-Value=@TemplateItem.ImageDataStringUnicode Rows="17" />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}

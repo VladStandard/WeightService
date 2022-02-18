@@ -30,7 +30,7 @@ namespace WeightCore.MassaK
             // сюда надо вставить логику
             int i = 6;
             using MemoryStream memStream = new();
-            while (response[i] != 0x0D)
+            while (response.Length > i || response[i] != 0x0D)
             {
                 memStream.WriteByte(response[i++]);
             }

@@ -101,10 +101,6 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.SqlDbMaxSize</td>
-            <td><MudElement HtmlTag="a" Class="ma-0">@DbMaxSizeAsString</MudElement></td>
-        </tr>
-        <tr>
             <td>@LocalizationCore.Strings.SqlDbFillSize</td>
             @if (DbFillSize == 0)
             {
@@ -116,6 +112,33 @@
                     <RadzenProgressBar 
                         Style="margin-top: 4px; margin-left: 0%; width: 90%; height: 22px; "
                         Value=@DbFillSize ShowValue="true" 
+                    />
+                </td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.MemoryUsed</td>
+            @if (AppSettings.Memory == null)
+            {
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.MemoryInfo2</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.MemoryFillSize</td>
+            @if (AppSettings.Memory == null)
+            {
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td>
+                    <RadzenProgressBar 
+                        Style="margin-top: 4px; margin-left: 0%; width: 90%; height: 22px; "
+                        Value=@AppSettings.MemoryFillSize ShowValue="true" 
                     />
                 </td>
             }

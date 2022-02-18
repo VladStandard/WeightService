@@ -30,8 +30,8 @@ namespace TscBarcode.Views
             if (context is TscPrintControlHelper printControl)
             {
                 PrintControl = printControl;
-                if (string.IsNullOrEmpty(PrintControl.IpAddress))
-                    PrintControl.IpAddress = "192.168.7.41";
+                if (string.IsNullOrEmpty(PrintControl.PrintIp))
+                    PrintControl.PrintIp = "192.168.7.41";
             }
         }
 
@@ -126,7 +126,7 @@ namespace TscBarcode.Views
 
         private void ButtonPrintSetupReset_Click(object sender, RoutedEventArgs e)
         {
-            PrintControl.SetupHardware(PrintLabelSize.Size80x100);
+            PrintControl.SetupHardware();
         }
 
         private void ButtonPrintSetup_Click(object sender, RoutedEventArgs e)
@@ -150,7 +150,7 @@ namespace TscBarcode.Views
                 PrintDpi.Dpi1000 => 40 * PrintControl.FeedMm,
                 PrintDpi.Dpi1100 => 44 * PrintControl.FeedMm,
                 PrintDpi.Dpi1200 => 48 * PrintControl.FeedMm,
-                _ => throw new ArgumentOutOfRangeException(nameof(dpi), dpi, null),
+                _ => throw new ArgumentOutOfRangeException(nameof(PrintControl.Dpi), PrintControl.Dpi, null),
             };
             if (value > 0)
                 PrintControl.SendCmd($"FEED {value}");
