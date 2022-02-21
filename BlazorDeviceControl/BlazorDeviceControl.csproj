@@ -87,7 +87,9 @@
     <Watch Remove="Shared\Component\ActionsSave.razor" />
     <Watch Remove="Shared\Component\ItemDates.razor" />
     <Watch Remove="Shared\Item\BarcodeType.razor" />
+    <Watch Remove="Shared\Item\Label.razor" />
     <Watch Remove="Shared\Item\TaskModule.razor" />
+    <Watch Remove="Shared\Section\Labels.razor" />
     <Watch Remove="Shared\Section\SectionIdActions.razor" />
     <Watch Remove="Shared\Section\TaskModules.razor" />
   </ItemGroup>

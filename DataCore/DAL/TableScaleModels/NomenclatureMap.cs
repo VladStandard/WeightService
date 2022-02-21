@@ -17,6 +17,7 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.Code).CustomSqlType("NVARCHAR(30)").Column("Code").Length(30);
             Map(x => x.Name).CustomSqlType("NVARCHAR(300)").Column("Name").Length(300);
             Map(x => x.SerializedRepresentationObject).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
+            Map(x => x.Weighted).CustomSqlType("BIT").Column("Weighted").Not.Nullable();
         }
     }
 }

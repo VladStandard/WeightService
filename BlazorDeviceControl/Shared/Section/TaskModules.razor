@@ -20,9 +20,6 @@
     AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
     AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
     <Columns >
-@*        <RadzenGridColumn 
-            TItem="TaskEntity" Property="Uid" TextAlign="TextAlign.Left" Type="int" Width="26%" 
-            Title=@LocalizationData.DeviceControl.TableFieldUid/>*@
         <RadzenGridColumn 
             TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="45%"
             Title=@LocalizationData.DeviceControl.TableFieldHost >
@@ -41,7 +38,7 @@
             TItem="TaskEntity" Property="Enabled" TextAlign="TextAlign.Center" Width="10%" 
             Title=@LocalizationData.DeviceControl.TableFieldEnabled >
             <Template Context="item">
-                <RadzenCheckBox TValue="bool" @bind-Value="@item.Enabled" Disabled=@Disabled />
+                <RadzenCheckBox TValue="bool" @bind-Value=@item.Enabled Disabled=@Disabled />
             </Template>
         </RadzenGridColumn>
     </Columns>

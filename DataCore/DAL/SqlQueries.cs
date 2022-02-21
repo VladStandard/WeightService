@@ -244,7 +244,30 @@ INSERT INTO [db_scales].[Labels] ([WeithingFactId], [Label])
 INSERT INTO [db_scales].[Labels] ([WeithingFactId], [ZPL])
 	VALUES (@ID, @ZPL)
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-                }
+
+					public static string GetLabels => @"
+-- Table Select Labels
+SELECT
+	[L].[ID]
+   ,[L].[CREATEDATE]
+   ,[L].[LABEL]
+   ,[WF].[SCALEID]
+   ,[S].[DESCRIPTION]
+   ,[WF].[PLUID]
+   ,[WF].[WEITHINGDATE]
+   ,[WF].[NETWEIGHT]
+   ,[WF].[TAREWEIGHT]
+   ,[WF].[PRODUCTDATE]
+   ,[WF].[REGNUM]
+   ,[WF].[KNEADING]
+   ,[L].[ZPL]
+   ,REPLACE(REPLACE([L].[ZPL], CHAR(13), ''), CHAR(10), '') [ZPL_STR]
+FROM [DB_SCALES].[LABELS] [L]
+LEFT JOIN [DB_SCALES].[WEITHINGFACT] [WF] ON [L].[WEITHINGFACTID] = [WF].[ID]
+LEFT JOIN [DB_SCALES].[SCALES] [S] ON [WF].[SCALEID] = [S].[ID]
+ORDER BY [CREATEDATE] DESC
+            ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				}
 
                 public static class Scales
                 {

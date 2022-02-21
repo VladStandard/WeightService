@@ -15,13 +15,24 @@ namespace DataCore.DAL.TableScaleModels
         #region Public and private fields and properties
 
         public virtual WeithingFactEntity WeithingFact { get; set; } = new WeithingFactEntity();
+        public virtual DateTime? CreateDate { get; set; }
         public virtual byte[] Label { get; set; } = new byte[0];
         public virtual string LabelString
         {
             get => Label == null || Label.Length == 0 ? string.Empty : Encoding.Default.GetString(Label);
             set => Label = Encoding.Default.GetBytes(value);
         }
-        public virtual DateTime? CreateDate { get; set; }
+        public virtual string LabelInfo
+        {
+            get => GetBytesLength(Label);
+            set => _ = value;
+        }
+        public virtual string Zpl { get; set; } = string.Empty;
+        public virtual string ZplInfo
+        {
+            get => GetStringLength(Zpl);
+            set => _ = value;
+        }
 
         #endregion
 
@@ -42,6 +53,7 @@ namespace DataCore.DAL.TableScaleModels
             return base.ToString() +
                    $"{nameof(WeithingFact)}: {strWeithingFact}. " +
                    $"{nameof(Label)}: {LabelString}. " +
+                   $"{nameof(Zpl)}: {ZplInfo}. " +
                    $"{nameof(CreateDate)}: {CreateDate}. ";
         }
 
@@ -51,8 +63,9 @@ namespace DataCore.DAL.TableScaleModels
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
                    WeithingFact.Equals(entity.WeithingFact) &&
+                   Equals(CreateDate, entity.CreateDate) &&
                    Equals(Label, entity.Label) &&
-                   Equals(CreateDate, entity.CreateDate);
+                   Equals(Zpl, entity.Zpl);
         }
 
         public override bool Equals(object obj)
@@ -78,8 +91,9 @@ namespace DataCore.DAL.TableScaleModels
             if (WeithingFact != null && !WeithingFact.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
+                   Equals(CreateDate, default(DateTime?)) &&
                    Equals(Label, default(byte[])) &&
-                   Equals(CreateDate, default(DateTime?));
+                   Equals(Zpl, default(string));
         }
 
         public override object Clone()
@@ -90,8 +104,9 @@ namespace DataCore.DAL.TableScaleModels
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
                 WeithingFact = (WeithingFactEntity)WeithingFact.Clone(),
-                Label = CloneBytes(Label),
                 CreateDate = CreateDate,
+                Label = CloneBytes(Label),
+                Zpl = Zpl,
             };
         }
 

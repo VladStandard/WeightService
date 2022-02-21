@@ -32,7 +32,7 @@ public partial class StoredProcedures
         //SendToPrinter(ip, port, zplCommand.Split('\n'));
         //SqlContext.Pipe.Send("--------------------------");
 
-        string errorMessage = String.Empty;
+        string errorMessage = string.Empty;
         string info = InterplayToPrinter(ip, port, zpl.Split('\n'), out errorMessage);
 
         SqlContext.Pipe.Send(zpl);
@@ -66,7 +66,7 @@ public partial class StoredProcedures
         zpl = ToCodePoints(zpl);
 
         //SendToPrinter(ip, port, zpl.Replace("\n","").Split('\n'));
-        string errorMessage = String.Empty;
+        string errorMessage = string.Empty;
         string info = InterplayToPrinter(ip, port, zpl.Split('\n'), out errorMessage);
 
         SqlContext.Pipe.Send(zpl);
@@ -117,7 +117,7 @@ public partial class StoredProcedures
             "END " +
             "~JC^XA^JUS^XZ\n";
         //SendToPrinter(ip, port, zplCommand.Split('\n'));
-        string errorMessage = String.Empty;
+        string errorMessage = string.Empty;
         string info = InterplayToPrinter(ip, port, zplCommand.Split('\n'), out errorMessage);
         SqlContext.Pipe.Send(zplCommand);
         SqlContext.Pipe.Send(@"-------------");
@@ -138,7 +138,7 @@ public partial class StoredProcedures
     {
         var zplCommand = "~HS";
         SqlContext.Pipe.Send(zplCommand);
-        string errorMessage = String.Empty;
+        string errorMessage = string.Empty;
         string info = InterplayToPrinter(ip, port, zplCommand.Split('\n'), out errorMessage);
         SqlContext.Pipe.Send(info);
         SqlContext.Pipe.Send(@"-------------");
@@ -159,7 +159,7 @@ public partial class StoredProcedures
         var zplCommand = $"^XA^ID{mask}^FS^XZ";
         //   SendToPrinter(ip, port, zplCommand.Split('\n'));
 
-        string errorMessage = String.Empty;
+        string errorMessage = string.Empty;
         string info = InterplayToPrinter(ip, port, zplCommand.Split('\n'), out errorMessage);
 
         SqlContext.Pipe.Send(zplCommand);

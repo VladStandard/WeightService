@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace BlazorCore.Models
 {
-    public class AppSettingsHelper : LayoutComponentBase, IDisposable
+    public class AppSettingsHelper : LayoutComponentBase
     {
         #region Design pattern "Lazy Singleton"
 
@@ -26,7 +26,7 @@ namespace BlazorCore.Models
 
         public DataAccessEntity? DataAccess { get; private set; } = null;
         public DataReferenceEntity DataReference { get; private init; } = new();
-        public bool IsDebug => DataAccess?.JsonSettings?.IsDebug == true;
+        public bool IsDebug => DataAccess?.JsonSettings.IsDebug == true;
         public MemoryEntity? Memory { get; set; } = null;
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
@@ -65,15 +65,9 @@ namespace BlazorCore.Models
             Memory.MemorySize.Open();
         }
 
-        public void SetupJsonSettings(JsonSettingsEntity jsonAppSettings)
+        public void SetupJsonSettings(JsonSettingsEntity jsonSettings)
         {
-            if (jsonAppSettings == null) return;
-            DataAccess = new DataAccessEntity(jsonAppSettings);
-        }
-
-        public void Dispose()
-        {
-            DataAccess?.Dispose();
+            DataAccess = new DataAccessEntity(jsonSettings);
         }
 
         #endregion

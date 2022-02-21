@@ -7,16 +7,15 @@ using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Section
+namespace BlazorDeviceControl.Shared.Item
 {
-    public partial class Nomenclatures
+    public partial class Label
     {
         #region Public and private fields and properties
 
-        private List<NomenclatureEntity> ItemsCast => Items == null ? new List<NomenclatureEntity>() : Items.Select(x => (NomenclatureEntity)x).ToList();
+        public LabelEntity LabelItem { get => (LabelEntity)Item; set => Item = value; }
         private readonly object _locker = new();
 
         #endregion
@@ -31,13 +30,11 @@ namespace BlazorDeviceControl.Shared.Section
                 {
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-                        Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                            //new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<BaseEntity>();
-                        ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
-
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+                        LabelItem = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
+                            new FieldListEntity(new Dictionary<string, object>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, false, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

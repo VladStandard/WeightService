@@ -27,6 +27,10 @@ namespace DataCore.DAL.TableScaleModels
         public virtual string Name { get; set; } = string.Empty;
         public virtual string Code { get; set; } = string.Empty;
         public virtual string SerializedRepresentationObject { get; set; } = string.Empty;
+        /// <summary>
+        /// Весовая или штучка.
+        /// </summary>
+        public virtual bool Weighted { get; set; } = default;
 
         #endregion
 
@@ -47,7 +51,8 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(CreateDate)}: {CreateDate}. " +
                 $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
                 $"{nameof(Code)}: {Code}. " +
-                $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}.";
+                $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. " + 
+                $"{nameof(Weighted)}: {Weighted}. ";
         }
 
         public virtual bool Equals(NomenclatureEntity entity)
@@ -59,7 +64,8 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(Code, entity.Code) &&
                    Equals(Name, entity.Name) &&
-                   Equals(SerializedRepresentationObject, entity.SerializedRepresentationObject);
+                   Equals(SerializedRepresentationObject, entity.SerializedRepresentationObject) &&
+                   Equals(Weighted, entity.Weighted);
         }
 
         public override bool Equals(object obj)
@@ -87,7 +93,8 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(ModifiedDate, default(DateTime?)) &&
                    Equals(Code, default(string)) &&
                    Equals(Name, default(string)) &&
-                   Equals(SerializedRepresentationObject, default(string));
+                   Equals(SerializedRepresentationObject, default(string)) &&
+                   Equals(Weighted, default(bool));
         }
 
         public override object Clone()
@@ -101,6 +108,7 @@ namespace DataCore.DAL.TableScaleModels
                 Code = Code,
                 Name = Name,
                 SerializedRepresentationObject = SerializedRepresentationObject,
+                Weighted = Weighted,
             };
         }
 

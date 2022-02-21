@@ -1,0 +1,52 @@
+﻿@page "/section/labels"
+@using BlazorCore.Models
+@using DataCore
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableScaleModels
+@using DataCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using BlazorDeviceControl.Shared.Section
+@using BlazorCore
+@using static DataCore.ShareEnums
+@inherits RazorDisposable
+
+<ActionsReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+
+<RadzenGrid Style="margin-top: 5px; "
+    Data=@ItemsCast TItem="LabelQuickEntity"
+    RowSelect=@(args => ItemSelectAsync(args))
+    RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
+    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+    <Columns >
+        <RadzenGridColumn 
+            TItem="LabelQuickEntity" TextAlign="TextAlign.Center"
+            Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
+            <Template Context="labelItem" >
+                <RadzenDatePicker 
+                    TValue="string" Value=@labelItem.CreateDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn 
+            TItem="LabelQuickEntity" Property="ScaleDescription" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldScale Type="string" Width="30%" />
+        <RadzenGridColumn 
+            TItem="LabelQuickEntity" Property="PluId" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldPlu Type="int" Width="10%" />
+        <RadzenGridColumn 
+            TItem="LabelQuickEntity" Property="NetWeight" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldNetWeight Type="decimal" Width="10%" />
+        <RadzenGridColumn 
+            TItem="LabelQuickEntity" Property="TareWeight" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldTareWeight Type="decimal" Width="10%" />
+        <RadzenGridColumn 
+            TItem="LabelQuickEntity" Property="RegNum" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldRegNum Type="int" Width="10%" />
+        <RadzenGridColumn 
+            TItem="LabelQuickEntity" Property="ZplInfo" TextAlign="TextAlign.Left"
+            Title=@LocalizationData.DeviceControl.TableFieldImageDataInfo Type="string" Width="15%" />
+    </Columns>
+</RadzenGrid>
+
+<ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />

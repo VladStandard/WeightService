@@ -32,10 +32,20 @@ namespace DataCore.DAL.Models
 
         public virtual string GetBytesLength(byte[] bytes)
         {
-            return bytes == null ? "Объём данных: 0 байт" :
-                Encoding.Default.GetString(bytes).Length > 1024
-                    ? $"Объём данных: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} Кбайт"
-                    : $"Объём данных: {Encoding.Default.GetString(bytes).Length:### ###} байт";
+            if (bytes == null)
+                return $"{LocalizationCore.Strings.Main.DataSizeVolume}: 0 {LocalizationCore.Strings.Main.DataSizeBytes}";
+            if (Encoding.Default.GetString(bytes).Length > 1024 * 1024)
+                return $"{LocalizationCore.Strings.Main.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024 / 1024:### ###.###} {LocalizationCore.Strings.Main.DataSizeMBytes}";
+            if (Encoding.Default.GetString(bytes).Length > 1024)
+                return $"{LocalizationCore.Strings.Main.DataSizeVolume}: {(float)Encoding.Default.GetString(bytes).Length / 1024:### ###.###} {LocalizationCore.Strings.Main.DataSizeKBytes}";
+            return $"{LocalizationCore.Strings.Main.DataSizeVolume}: {Encoding.Default.GetString(bytes).Length:### ###} {LocalizationCore.Strings.Main.DataSizeBytes}";
+        }
+
+        public virtual string GetStringLength(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return $"{LocalizationCore.Strings.Main.DataSizeLength}: 0 {LocalizationCore.Strings.Main.DataSizeChars}";
+            return $"{LocalizationCore.Strings.Main.DataSizeLength}: {str.Length:### ###} {LocalizationCore.Strings.Main.DataSizeChars}";
         }
 
         public virtual object? GetDefaultValue(Type t)

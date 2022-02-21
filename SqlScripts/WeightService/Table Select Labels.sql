@@ -4,9 +4,10 @@
 SELECT
 	[L].[ID]
    ,[L].[CREATEDATE]
+   ,[L].[LABEL]
+   ,[WF].[SCALEID]
    ,[S].[DESCRIPTION]
    ,[WF].[PLUID]
-   ,[WF].[SCALEID]
    ,[WF].[WEITHINGDATE]
    ,[WF].[NETWEIGHT]
    ,[WF].[TAREWEIGHT]

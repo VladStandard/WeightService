@@ -14,12 +14,16 @@ namespace BlazorDeviceControl.Shared
         #region Public and private fields and properties
 
         [Inject] public HotKeys HotKeysItem { get; private set; }
-        [Inject] public JsonSettingsEntity JsonSettings { get; private set; }
         private readonly object _locker = new();
 
         #endregion
 
         #region Public and private methods
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -30,7 +34,7 @@ namespace BlazorDeviceControl.Shared
                 {
                     lock (_locker)
                     {
-                        AppSettings.SetupJsonSettings(JsonSettings);
+                        //AppSettings.SetupJsonSettings(JsonSettings);
                         UserSettings.SetupHotKeys(HotKeysItem);
                         if (UserSettings.HotKeys != null)
                             UserSettings.HotKeysContext = UserSettings.HotKeys.CreateContext()

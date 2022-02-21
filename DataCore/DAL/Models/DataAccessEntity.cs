@@ -15,7 +15,7 @@ namespace DataCore.DAL.Models
     {
         #region Public and private fields and properties
 
-        public JsonSettingsEntity? JsonSettings { get; private set; } = null;
+        public JsonSettingsEntity JsonSettings { get; private set; }
         private readonly object _locker = new();
 
         // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
@@ -29,7 +29,7 @@ namespace DataCore.DAL.Models
                 lock (_locker)
                 {
                     if (JsonSettings == null)
-                        throw new ArgumentException("CoreSettings is null!");
+                        throw new ArgumentException($"{nameof(JsonSettings)} is null!");
                     if (!JsonSettings.Trusted && (string.IsNullOrEmpty(JsonSettings.Username) || string.IsNullOrEmpty(JsonSettings.Password)))
                         throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
                     MsSqlConfiguration config = MsSqlConfiguration.MsSql2012.ConnectionString(GetConnectionString());
@@ -41,14 +41,8 @@ namespace DataCore.DAL.Models
                     //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaUpdate(cfg).Execute(false, true));
                     //configuration.ExposeConfiguration(cfg => new NHibernate.Tool.hbm2ddl.SchemaExport(cfg).Create(false, true));
                     configuration.ExposeConfiguration(cfg => cfg.SetProperty("hbm2ddl.keywords", "auto-quote"));
-                    try
-                    {
-                        _sessionFactory = configuration.BuildSessionFactory();
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
+                    // Be careful. If there are errors in the mapping, this line will make an Exception!
+                    _sessionFactory = configuration.BuildSessionFactory();
                     return _sessionFactory;
                 }
             }
@@ -95,6 +89,7 @@ namespace DataCore.DAL.Models
 
         public DataAccessEntity(JsonSettingsEntity jsonSettings)
         {
+            if (jsonSettings == null) throw new ArgumentException("jsonAppSettings must be not null!");
             JsonSettings = jsonSettings;
             Crud = new CrudController(this, SessionFactory);
         }

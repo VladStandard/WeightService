@@ -614,7 +614,7 @@ namespace BlazorCore.Models
 
         #region Public and private methods - Actions
 
-        public void RouteItemNavigate(bool isNewWindow, string page)
+        public void RouteItemNavigate(bool isNewWindow, string? page)
         {
             if (string.IsNullOrEmpty(page))
                 page = RouteItemNavigatePage();
@@ -675,6 +675,9 @@ namespace BlazorCore.Models
                             break;
                         case ProjectsEnums.TableScale.Hosts:
                             page = LocalizationData.DeviceControl.UriRouteItem.Host;
+                            break;
+                        case ProjectsEnums.TableScale.Labels:
+                            page = LocalizationData.DeviceControl.UriRouteItem.Label;
                             break;
                         case ProjectsEnums.TableScale.Nomenclatures:
                             page = LocalizationData.DeviceControl.UriRouteItem.Nomenclature;

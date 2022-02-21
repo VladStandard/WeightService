@@ -4,7 +4,7 @@
 using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL.Models;
-using DataCore.DAL.TableDwhModels;
+using DataCore.DAL.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,10 +30,11 @@ namespace BlazorDeviceControl.Shared.Item
                     lock (_locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-                        NomenclatureItem = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            NomenclatureItem.Id = (int)Id;
+                        NomenclatureItem = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+                            new FieldListEntity(new Dictionary<string, object>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        //if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        //    NomenclatureItem.Id = (int)Id;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

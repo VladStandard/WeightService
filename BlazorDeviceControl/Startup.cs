@@ -1,6 +1,7 @@
 // This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.Models;
 using BlazorDeviceControl.Service;
 using BlazorDownloadFile;
 using DataCore.Models;
@@ -22,6 +23,7 @@ namespace BlazorDeviceControl
 
         public IConfiguration Configuration { get; }
         public static IWebHostEnvironment WebHostEnvironment { get; private set; }
+        public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
 
         #endregion
 
@@ -95,6 +97,9 @@ namespace BlazorDeviceControl
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            JsonSettingsEntity jsonSettings = new(Configuration);
+            AppSettings.SetupJsonSettings(jsonSettings);
         }
 
         #endregion

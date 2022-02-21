@@ -74,8 +74,13 @@ namespace BlazorDeviceControl.Shared.Component
                                             DtModify = host.ChangeDt.ToString();
                                             break;
                                         case ProjectsEnums.TableScale.Labels:
+                                            LabelEntity label = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>((int)Id);
+                                            DtCreate = label.CreateDate.ToString();
                                             break;
                                         case ProjectsEnums.TableScale.Nomenclatures:
+                                            NomenclatureEntity nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>((int)Id);
+                                            DtCreate = nomenclature.CreateDate.ToString();
+                                            DtModify = nomenclature.ModifiedDate.ToString();
                                             break;
                                         case ProjectsEnums.TableScale.Orders:
                                             break;

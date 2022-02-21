@@ -35,6 +35,7 @@ namespace DataCore
                 public const string Device = "/item/device";
                 public const string Error = "/item/error";
                 public const string Host = "/item/host";
+                public const string Label = "/item/label";
                 public const string Log = "/item/log";
                 public const string LogType = "/item/logtype";
                 public const string Nomenclature = "/item/nomenclature";
@@ -63,9 +64,11 @@ namespace DataCore
                 public const string Errors = "/section/errors";
                 public const string Hosts = "/section/hosts";
                 public const string Info = "/section/info";
+                public const string Labels = "/section/labels";
                 public const string Logs = "/section/logs";
                 public const string LogTypes = "/section/logtypes";
                 public const string Nomenclatures = "/section/nomenclatures";
+                public const string Plus = "/section/plus";
                 public const string PrinterResources = "/section/printerresources";
                 public const string Printers = "/section/printers";
                 public const string PrinterTypes = "/section/printertypes";
@@ -273,10 +276,12 @@ namespace DataCore
             public static string TableFieldValue => Lang == ShareEnums.Lang.English ? @"___" : @"Значение";
             public static string TableFieldVatRate => Lang == ShareEnums.Lang.English ? @"___" : @"Ставка НДС";
             public static string TableFieldVersion => Lang == ShareEnums.Lang.English ? @"___" : @"Версия";
+            public static string TableFieldWeighted => Lang == ShareEnums.Lang.English ? @"Weighted" : @"Весовая";
             public static string TableFieldWeithingDate => Lang == ShareEnums.Lang.English ? @"___" : @"Дата взвешивания";
             public static string TableFieldWorkShopId => Lang == ShareEnums.Lang.English ? @"___" : @"ID цеха";
             public static string TableFieldWorkShopName => Lang == ShareEnums.Lang.English ? @"___" : @"Цех";
             public static string TableFieldXml => Lang == ShareEnums.Lang.English ? @"___" : @"XML";
+            public static string TableFieldZpl => @"ZPL";
             public static string TableReadData => Lang == ShareEnums.Lang.English ? @"Read data" : @"Прочитать данные";
             #endregion
         }

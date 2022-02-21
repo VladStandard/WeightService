@@ -1,0 +1,101 @@
+﻿@page "/item/label"
+@page "/item/label/{Id:int}"
+@page "/item/label/{Id:int}/{TableActionString}"
+@using BlazorCore.Models
+@using DataCore
+@using DataCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Section
+@using BlazorCore
+@inherits RazorDisposable
+
+<ActionsReload Title=@LocalizationData.DeviceControl.ItemLog SetParameters=@SetParametersAsync />
+
+@if (Item == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <thead>
+            <tr>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
+                        TValue="int" @bind-Value=@LabelItem.Id />
+				</td>
+                <td>
+                    <RadzenDatePicker 
+                        TValue="string" Value=@LabelItem.CreateDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldScale</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@LabelItem.WeithingFact.Scales.Description />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldPlu</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
+                        TValue="int" @bind-Value=@LabelItem.WeithingFact.Plu.Id />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldWeithingDate</td>
+                <td>
+                    <RadzenDatePicker 
+                        TValue="string" Value=@LabelItem.WeithingFact.WeithingDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldProductDate</td>
+                <td>
+                    <RadzenDatePicker 
+                        TValue="string" Value=@LabelItem.WeithingFact.ProductDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldNetWeight</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
+                        TValue="decimal" @bind-Value=@LabelItem.WeithingFact.NetWeight />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldTareWeight</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
+                        TValue="decimal" @bind-Value=@LabelItem.WeithingFact.TareWeight />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldRegNum</td>
+                <td >
+                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
+                        TValue="int?" @bind-Value=@LabelItem.WeithingFact.RegNum />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldKneding</td>
+                <td >
+                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
+                        TValue="int?" @bind-Value=@LabelItem.WeithingFact.Kneading />
+				</td>
+            </tr>
+            <tr >
+                <td>@LocalizationData.DeviceControl.TableFieldZpl</td>
+                <td colspan=3 rowspan=3>
+                    <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@LabelItem.Zpl Rows=13 />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}

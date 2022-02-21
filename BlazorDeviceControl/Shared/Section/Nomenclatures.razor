@@ -25,9 +25,32 @@
             Title=@LocalizationData.DeviceControl.TableFieldId 
             Type="int" Width="10%" />
         <RadzenGridColumn 
+            TItem="NomenclatureEntity" TextAlign="TextAlign.Center"
+            Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
+            <Template Context="item" >
+                <RadzenDatePicker 
+                    TValue="string" Value=@item.CreateDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn 
+            TItem="NomenclatureEntity" TextAlign="TextAlign.Center"
+            Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="15%" >
+            <Template Context="item" >
+                <RadzenDatePicker 
+                    TValue="string" Value=@item.ModifiedDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn 
             TItem="NomenclatureEntity" Property="Code" 
             Title=@LocalizationData.DeviceControl.TableFieldCode
-            Type="string" Width="45%" />
+            Type="string" Width="10%" />
+        <RadzenGridColumn 
+            TItem="NomenclatureEntity" TextAlign="TextAlign.Center" Width="5%" 
+            Title=@LocalizationData.DeviceControl.TableFieldWeighted >
+            <Template Context="item">
+                <RadzenCheckBox TValue="bool" @bind-Value=@item.Weighted Disabled=true />
+            </Template>
+        </RadzenGridColumn>
         <RadzenGridColumn 
             TItem="NomenclatureEntity" Property="Name" 
             Title=@LocalizationData.DeviceControl.TableFieldName

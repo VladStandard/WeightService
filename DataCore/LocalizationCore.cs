@@ -32,6 +32,13 @@ namespace DataCore
                 public static string DataLoadComplete => Lang == ShareEnums.Lang.English ? @"Data downloaded successfully." : @"Данные загружены успешно.";
                 public static string DataLoadError => Lang == ShareEnums.Lang.English ? @"Error loading data!" : @"Ошибка загрузки данных!";
                 public static string DataLoading => Lang == ShareEnums.Lang.English ? @"Loading data..." : @"Загрузка данных...";
+                public static string DataSizeChars => Lang == ShareEnums.Lang.English ? @"chars" : @"символов";
+                public static string DataSizeBytes => Lang == ShareEnums.Lang.English ? @"Bytes" : @"Байтов";
+                public static string DataSizeGBytes => Lang == ShareEnums.Lang.English ? @"Gbytes" : @"ГБайтов";
+                public static string DataSizeKBytes => Lang == ShareEnums.Lang.English ? @"Kbytes" : @"КБайтов";
+                public static string DataSizeMBytes => Lang == ShareEnums.Lang.English ? @"Mbytes" : @"МБайтов";
+                public static string DataSizeVolume => Lang == ShareEnums.Lang.English ? @"Data volume" : @"Объём данных";
+                public static string DataSizeLength => Lang == ShareEnums.Lang.English ? @"Length" : @"Длина";
                 public static string DbInfo => Lang == ShareEnums.Lang.English ? @"Information about the DB" : @"Информация о БД";
                 public static string DebugMode => Lang == ShareEnums.Lang.English ? @"Debug mode" : @"Режим отладки";
                 public static string Doc => Lang == ShareEnums.Lang.English ? @"Documentation" : @"Документация";

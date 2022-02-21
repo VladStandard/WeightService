@@ -12,8 +12,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using MvvmHelpers;
-using static DataProjectsCore.ProjectsEnums;
-using DataShareCore;
 // ReSharper disable CommentTypo
 // ReSharper disable StringLiteralTypo
 
