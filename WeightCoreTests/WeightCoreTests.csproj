@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk">
-      <Version>17.0.0</Version>
+      <Version>17.2.0-preview-20220131-20</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.13.2</Version>
@@ -71,6 +71,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MDSoft.SerialPorts\MDSoft.SerialPorts.csproj">
+      <Project>{7859DB5A-22A2-44A4-A4E8-4F341C8D3E4E}</Project>
+      <Name>MDSoft.SerialPorts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WeightCore\WeightCore.csproj">
       <Project>{51c1aa1f-3104-4438-93ea-9e348f18ead7}</Project>
       <Name>WeightCore</Name>

@@ -18,7 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="RestSharp" Version="107.2.2-alpha.0.6" />
+    <PackageReference Include="RestSharp" Version="107.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebApiTerra1000\WebApiTerra1000.csproj" />

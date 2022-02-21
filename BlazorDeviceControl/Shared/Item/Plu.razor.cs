@@ -25,6 +25,7 @@ namespace BlazorDeviceControl.Shared.Item
         public List<NomenclatureEntity> NomenclatureItems { get; set; } = null;
         private XmlProductHelper Product { get; set; } = XmlProductHelper.Instance;
         private BarcodeHelper Barcode { get; set; } = BarcodeHelper.Instance;
+        private readonly object _locker = new();
 
         #endregion
 
@@ -35,54 +36,57 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
-                    //Item = null;
-                    //ScaleItems = null;
-                    //TemplateItems = null;
-                    //NomenclatureItems = null;
-                    PluItem = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(new FieldListEntity(new Dictionary<string, object>
+                    lock (_locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
+                        //Item = null;
+                        //ScaleItems = null;
+                        //TemplateItems = null;
+                        //NomenclatureItems = null;
+                        PluItem = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                        PluItem.Id = (int)Id;
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                            PluItem.Id = (int)Id;
 
-                    //ScaleEntity[] scalesEntities = AppSettings.DataAccess.ScalesCrud.GetEntities(null, null);
-                    //ScaleItems = new List<ScaleEntity>();
-                    //foreach (ScaleEntity scalesEntity in scalesEntities)
-                    //{
-                    //    ScaleItems.Add(scalesEntity);
-                    //}
+                        //ScaleEntity[] scalesEntities = AppSettings.DataAccess.ScalesCrud.GetEntities(null, null);
+                        //ScaleItems = new List<ScaleEntity>();
+                        //foreach (ScaleEntity scalesEntity in scalesEntities)
+                        //{
+                        //    ScaleItems.Add(scalesEntity);
+                        //}
 
-                    //TemplateEntity[] templatesEntities = AppSettings.DataAccess.TemplatesCrud.GetEntities(null, null);
-                    //TemplateItems = new List<TemplateEntity>();
-                    //foreach (TemplateEntity templatesEntity in templatesEntities)
-                    //{
-                    //    TemplateItems.Add(templatesEntity);
-                    //}
+                        //TemplateEntity[] templatesEntities = AppSettings.DataAccess.TemplatesCrud.GetEntities(null, null);
+                        //TemplateItems = new List<TemplateEntity>();
+                        //foreach (TemplateEntity templatesEntity in templatesEntities)
+                        //{
+                        //    TemplateItems.Add(templatesEntity);
+                        //}
 
-                    //NomenclatureEntity[] nomenclatureEntities = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(null, null);
-                    //NomenclatureItems = new List<NomenclatureEntity>();
-                    //foreach (NomenclatureEntity templatesEntity in nomenclatureEntities)
-                    //{
-                    //    NomenclatureItems.Add(templatesEntity);
-                    //}
+                        //NomenclatureEntity[] nomenclatureEntities = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(null, null);
+                        //NomenclatureItems = new List<NomenclatureEntity>();
+                        //foreach (NomenclatureEntity templatesEntity in nomenclatureEntities)
+                        //{
+                        //    NomenclatureItems.Add(templatesEntity);
+                        //}
 
-                    //// Проверка шаблона.
-                    //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
-                    //{
-                    //    PluItem.Templates = (TemplateEntity)PluItem.Scale.TemplateDefault.Clone();
-                    //}
+                        //// Проверка шаблона.
+                        //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
+                        //{
+                        //    PluItem.Templates = (TemplateEntity)PluItem.Scale.TemplateDefault.Clone();
+                        //}
 
-                    //// Номер PLU.
-                    //if (PluItem.Plu == 0)
-                    //{
-                    //    PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
-                    //        new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", PluItem.Scale.Id } }),
-                    //        new FieldOrderEntity { Direction = ShareEnums.DbOrderDirection.Desc, Name = ShareEnums.DbField.Plu, Use = true });
-                    //    if (pluEntity != null && !pluEntity.EqualsDefault())
-                    //    {
-                    //        PluItem.Plu = pluEntity.Plu + 1;
-                    //    }
-                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        //// Номер PLU.
+                        //if (PluItem.Plu == 0)
+                        //{
+                        //    PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
+                        //        new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", PluItem.Scale.Id } }),
+                        //        new FieldOrderEntity { Direction = ShareEnums.DbOrderDirection.Desc, Name = ShareEnums.DbField.Plu, Use = true });
+                        //    if (pluEntity != null && !pluEntity.EqualsDefault())
+                        //    {
+                        //        PluItem.Plu = pluEntity.Plu + 1;
+                        //    }
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -92,38 +96,41 @@ namespace BlazorDeviceControl.Shared.Item
         {
             try
             {
-                switch (name)
+                lock (_locker)
                 {
-                    case "Scale":
-                        if (value is int idScale)
-                        {
-                            PluItem.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
-                                null);
-                        }
-                        break;
-                    case "Nomenclature":
-                        if (value is int idNomenclature)
-                        {
-                            PluItem.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
-                                null);
-                            OnClickFieldsFill("Entity");
-                        }
-                        break;
-                    case "Templates":
-                        if (value is int idTemplate)
-                        {
-                            if (idTemplate <= 0)
-                                PluItem.Templates = null;
-                            else
+                    switch (name)
+                    {
+                        case "Scale":
+                            if (value is int idScale)
                             {
-                                PluItem.Templates = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
+                                PluItem.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
+                                    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
                                     null);
                             }
-                        }
-                        break;
+                            break;
+                        case "Nomenclature":
+                            if (value is int idNomenclature)
+                            {
+                                PluItem.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+                                    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
+                                    null);
+                                OnClickFieldsFill("Entity");
+                            }
+                            break;
+                        case "Templates":
+                            if (value is int idTemplate)
+                            {
+                                if (idTemplate <= 0)
+                                    PluItem.Templates = null;
+                                else
+                                {
+                                    PluItem.Templates = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
+                                        null);
+                                }
+                            }
+                            break;
+                    }
                 }
             }
             catch (Exception ex)
@@ -131,12 +138,11 @@ namespace BlazorDeviceControl.Shared.Item
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{nameof(OnChange)}]!",
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };
                 NotificationService.Notify(msg);
-                Console.WriteLine($"{msg.Summary}. {msg.Detail}");
                 AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }
             finally
@@ -234,7 +240,7 @@ namespace BlazorDeviceControl.Shared.Item
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{nameof(OnClickFieldsFill)}]!",
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnClickFieldsFill)}]!",
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };

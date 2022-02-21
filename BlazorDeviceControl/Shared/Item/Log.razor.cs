@@ -28,6 +28,7 @@ namespace BlazorDeviceControl.Shared.Item
             }
         }
         public LogEntity LogItem { get => (LogEntity)Item; set => Item = value; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -39,10 +40,13 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                    LogItem = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(new FieldListEntity(new Dictionary<string, object>
+                    lock (_locker)
+                    {
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+                        LogItem = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Uid.ToString(), Uid } }), null);
-                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, false, true);
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, false, true);
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

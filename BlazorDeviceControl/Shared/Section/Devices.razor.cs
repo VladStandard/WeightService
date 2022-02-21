@@ -16,6 +16,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<DeviceEntity> ItemsCast => Items == null ? new List<DeviceEntity>() : Items.Select(x => (DeviceEntity)x).ToList();
+        private readonly object _locker = new();
 
         #endregion
 
@@ -27,7 +28,10 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<BaseEntity>();
+                    lock (_locker)
+                    {
+                        Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<BaseEntity>();
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

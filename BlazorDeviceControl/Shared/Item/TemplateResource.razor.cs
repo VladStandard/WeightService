@@ -14,6 +14,8 @@ using DataCore.Models;
 using DataCore.DAL.TableScaleModels;
 using BlazorCore.Models;
 using DataCore.DAL.Models;
+using System.Runtime.CompilerServices;
+using System;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -31,6 +33,7 @@ namespace BlazorDeviceControl.Shared.Item
         public string FileComplete { get; set; }
         private int ProgressValue { get; set; }
         public IFileListEntry File { get; private set; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -41,28 +44,53 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
-                    TemplateResourcesItem = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(new FieldListEntity(new Dictionary<string, object>
+                    lock (_locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
+                        TemplateResourcesItem = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                        TemplateResourcesItem.Id = (int)Id;
-                    ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
-                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                            TemplateResourcesItem.Id = (int)Id;
+                        ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
 
-        private void OnChange(object value, string name)
+        private void OnChange(object value, string name,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            switch (name)
+            try
             {
-                case "ResourceTypes":
-                    if (value is string strValue)
+                lock (_locker)
+                {
+                    switch (name)
                     {
-                        TemplateResourcesItem.Type = strValue;
+                        case "ResourceTypes":
+                            if (value is string strValue)
+                            {
+                                TemplateResourcesItem.Type = strValue;
+                            }
+                            break;
                     }
-                    StateHasChanged();
-                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                NotificationMessage msg = new()
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
+                    Detail = ex.Message,
+                    Duration = AppSettingsHelper.Delay
+                };
+                NotificationService.Notify(msg);
+                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            }
+            finally
+            {
+                StateHasChanged();
             }
         }
 
@@ -71,7 +99,7 @@ namespace BlazorDeviceControl.Shared.Item
             NotificationMessage msg = new()
             {
                 Severity = NotificationSeverity.Error,
-                Summary = $"Ошибка метода [{name}]!",
+                Summary = $"{LocalizationCore.Strings.Main.MethodError} [{name}]!",
                 Detail = args.Message,
                 Duration = AppSettingsHelper.Delay
             };

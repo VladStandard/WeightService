@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DataCore;
 using DataCore.DAL.Models;
-using DataProjectsCore.DAL.TableDwhModels;
 using MdmControlBlazor.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -84,7 +83,7 @@ namespace MdmControlBlazor.Components
                 NotificationMessage msg = new NotificationMessage
                 {
                     Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{memberName}]!",
                     Detail = ex.Message,
                     Duration = LocalizationStrings.Timeout
                 };

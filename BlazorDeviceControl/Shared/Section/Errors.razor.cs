@@ -19,6 +19,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<ErrorEntity> ItemsCast => Items == null ? new List<ErrorEntity>() : Items.Select(x => (ErrorEntity)x).ToList();
+        private readonly object _locker = new();
 
         #endregion
 
@@ -30,30 +31,33 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Errors);
-                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Errors.GetErrors);
-                    Items = new List<ErrorEntity>().ToList<BaseEntity>();
-                    foreach (object obj in objects)
+                    lock (_locker)
                     {
-                        if (obj is object[] { Length: 8 } item)
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Errors);
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Errors.GetErrors);
+                        Items = new List<ErrorEntity>().ToList<BaseEntity>();
+                        foreach (object obj in objects)
                         {
-                            if (int.TryParse(Convert.ToString(item[0]), out int id))
+                            if (obj is object[] { Length: 8 } item)
                             {
-                                Items.Add(new ErrorEntity()
+                                if (int.TryParse(Convert.ToString(item[0]), out int id))
                                 {
-                                    Id = id,
-                                    CreatedDate = Convert.ToDateTime(item[1]),
-                                    ModifiedDate = Convert.ToDateTime(item[2]),
-                                    FilePath = Convert.ToString(item[3]),
-                                    LineNumber = Convert.ToInt32(item[4]),
-                                    MemberName = Convert.ToString(item[5]),
-                                    Exception = Convert.ToString(item[6]),
-                                    InnerException = Convert.ToString(item[7]),
-                                });
+                                    Items.Add(new ErrorEntity()
+                                    {
+                                        Id = id,
+                                        CreatedDate = Convert.ToDateTime(item[1]),
+                                        ModifiedDate = Convert.ToDateTime(item[2]),
+                                        FilePath = Convert.ToString(item[3]),
+                                        LineNumber = Convert.ToInt32(item[4]),
+                                        MemberName = Convert.ToString(item[5]),
+                                        Exception = Convert.ToString(item[6]),
+                                        InnerException = Convert.ToString(item[7]),
+                                    });
+                                }
                             }
                         }
+                        ButtonSettings = new ButtonSettingsEntity(false, true, true, false, false, false, false);
                     }
-                    ButtonSettings = new ButtonSettingsEntity(false, true, true, false, false, false, false);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

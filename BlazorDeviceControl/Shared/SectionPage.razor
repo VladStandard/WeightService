@@ -1,149 +1,117 @@
 ﻿@*
-@page "/sectionpage"
-@inherits BaseRazorDisposableEntity
-
-@if (AppSettings.IdentityItem.AccessLevel is true or false)
-{
-    <h2 style="font-size: @AppSettings.FontSizeHeader;">
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                        ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
-                        class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
-                        MouseEnter="@(args => Tooltip.Open(args, LocalizationStrings.DeviceControl.TableReadData))" />
-    </h2>
-
-    <RadzenTabs>
-        <Tabs>
-            <RadzenTabsItem Text=@LocalizationStrings.DeviceControl.Table>
-                <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 5px;">
-                    @if (Items == null)
-                    {
-                        <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-                        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-                    }
-                    else
-                    {
-                        switch (Table)
-                        {
-                            case ProjectsEnums.TableScale.Contragents:
-                                List<ContragentEntity> contragentsEntities = new List<ContragentEntity>();
-                                foreach (BaseIdEntity entity in Items)
-                                {
-                                    contragentsEntities.Add((ContragentEntity)entity);
-                                }
-                                <RadzenGrid Data=@contragentsEntities TItem="ContragentEntity"
-                                            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                                            AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCountAllowSorting="true" ColumnWidth="200px">
-                                    <Columns>
-                                        <RadzenGridColumn TItem="ContragentEntity" Property="Id" TextAlign="TextAlign.Center"
-                                                          Title=@LocalizationStrings.DeviceControl.TableFieldId
-                                                          Type="int" Width="6%" />
-                                        <RadzenGridColumn TItem="ContragentEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldName
-                                                          Type="string" Width="85%" />
-                                    </Columns>
-                                </RadzenGrid>
-                                break;
-                            case ProjectsEnums.TableScale.ProductSeries:
-                                List<ProductSeriesEntity> productSeries = new List<ProductSeriesEntity>();
-                                foreach (BaseIdEntity entity in Items)
-                                {
-                                    productSeries.Add((ProductSeriesEntity)entity);
-                                }
-                                <RadzenGrid Data=@productSeries TItem="ProductSeriesEntity"
-                                            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-                                            AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCountAllowSorting="true" ColumnWidth="200px">
-                                    <Columns>
-                                        <RadzenGridColumn TItem="ProductSeriesEntity" Property="Id" TextAlign="TextAlign.Center"
-                                                          Title=@LocalizationStrings.DeviceControl.TableFieldId
-                                                          Type="int" Width="6%" />
-                                        <RadzenGridColumn TItem="ProductSeriesEntity" Property="ScaleId" Title=@LocalizationStrings.DeviceControl.TableFieldScaleId
-                                                          Type="string" Width="12.5%" />
-                                        <RadzenGridColumn TItem="ProductSeriesEntity" Property="Uid" Title=@LocalizationStrings.DeviceControl.TableFieldUid
-                                                          Type="Guid" Width="25%" />
-                                        <RadzenGridColumn TItem="ProductSeriesEntity" Property="IsClose" Title=@LocalizationStrings.DeviceControl.TableFieldIsClose
-                                                          Type="bool" Width="25%" />
-                                        <RadzenGridColumn TItem="ProductSeriesEntity" Property="Sscc" Title=@LocalizationStrings.DeviceControl.TableFieldSscc
-                                                          Type="string" Width="30%" />
-                                    </Columns>
-                                </RadzenGrid>
-                                break;
-                        }
-                    }
-                </div>
-            </RadzenTabsItem>
-            <RadzenTabsItem Text=@LocalizationStrings.Share.Chart>
-                @switch (Table)
-                {
-                    case ProjectsEnums.TableScale.Contragents:
-                        @if (ContragentsChartCreated == null || ContragentsChartCreated.Length == 0 ||
-                    ContragentsChartModified == null || ContragentsChartModified.Length == 0)
-                        {
-                            <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-                            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-                        }
-                        else
-                        {
-                            <RadzenLabel Style="width: 80px" Text=@LocalizationStrings.Share.ChartSmooth>
-                            </RadzenLabel>
-                            <RadzenCheckBox Style="height: 30px" @bind-Value=@AppSettings.IsChartSmooth></RadzenCheckBox>
-                            <br />
-                            <RadzenChart>
-                                <RadzenLineSeries Smooth=@AppSettings.IsChartSmooth Data=@ContragentsChartCreated CategoryProperty="Date"
-                                                  Title=@LocalizationStrings.Share.FieldCreated
-                                                  LineType="LineType.Dashed" ValueProperty="Count">
-                                    <RadzenMarkers MarkerType="MarkerType.Square" />
-                                </RadzenLineSeries>
-                                <RadzenLineSeries Smooth=@AppSettings.IsChartSmooth Data=@ContragentsChartModified CategoryProperty="Date"
-                                                  Title=@LocalizationStrings.Share.FieldModified
-                                                  LineType="LineType.Dashed" ValueProperty="Count">
-                                    <RadzenMarkers MarkerType="MarkerType.Square" />
-                                </RadzenLineSeries>
-                                <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}{0:dd}" />
-                                <RadzenValueAxis>
-                                    <RadzenGridLines Visible="true" />
-                                    <RadzenAxisTitle Text=@LocalizationStrings.Share.FieldCount />
-                                </RadzenValueAxis>
-                            </RadzenChart>
-                        }
-                        break;
-                    case ProjectsEnums.TableScale.Nomenclatures:
-                        @if (NomenclaturesChartCreated == null || NomenclaturesChartCreated.Length == 0 ||
-                    NomenclaturesChartModified == null || NomenclaturesChartModified.Length == 0)
-                        {
-                            <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
-                            <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-                        }
-                        else
-                        {
-                            <RadzenLabel Style="width: 80px" Text=@LocalizationStrings.Share.ChartSmooth>
-                            </RadzenLabel>
-                            <RadzenCheckBox Style="height: 30px" @bind-Value=@AppSettings.IsChartSmooth></RadzenCheckBox>
-                            <br />
-                            <RadzenChart>
-                                <RadzenLineSeries Smooth=@AppSettings.IsChartSmooth Data=@NomenclaturesChartCreated CategoryProperty="Date"
-                                                  Title=@LocalizationStrings.Share.FieldCreated
-                                                  LineType="LineType.Dashed" ValueProperty="Count">
-                                    <RadzenMarkers MarkerType="MarkerType.Square" />
-                                </RadzenLineSeries>
-                                <RadzenLineSeries Smooth=@AppSettings.IsChartSmooth Data=@NomenclaturesChartModified CategoryProperty="Date"
-                                                  Title=@LocalizationStrings.Share.FieldModified
-                                                  LineType="LineType.Dashed" ValueProperty="Count">
-                                    <RadzenMarkers MarkerType="MarkerType.Square" />
-                                </RadzenLineSeries>
-                                <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}{0:dd}" />
-                                <RadzenValueAxis>
-                                    <RadzenGridLines Visible="true" />
-                                    <RadzenAxisTitle Text=@LocalizationStrings.Share.FieldCount />
-                                </RadzenValueAxis>
-                            </RadzenChart>
-                        }
-                        break;
-                }
-            </RadzenTabsItem>
-        </Tabs>
-    </RadzenTabs>
+    switch (Table)
+    {
+        case ProjectsEnums.TableScale.Contragents:
+            List<ContragentEntity> contragentsEntities = new List<ContragentEntity>();
+            foreach (BaseIdEntity entity in Items)
+            {
+                contragentsEntities.Add((ContragentEntity)entity);
+            }
+            <RadzenGrid Data=@contragentsEntities TItem="ContragentEntity"
+                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCountAllowSorting="true" ColumnWidth="200px">
+                <Columns>
+                    <RadzenGridColumn TItem="ContragentEntity" Property="Id" TextAlign="TextAlign.Center"
+                                        Title=@LocalizationStrings.DeviceControl.TableFieldId
+                                        Type="int" Width="6%" />
+                    <RadzenGridColumn TItem="ContragentEntity" Property="Name" Title=@LocalizationStrings.DeviceControl.TableFieldName
+                                        Type="string" Width="85%" />
+                </Columns>
+            </RadzenGrid>
+            break;
+        case ProjectsEnums.TableScale.ProductSeries:
+            List<ProductSeriesEntity> productSeries = new List<ProductSeriesEntity>();
+            foreach (BaseIdEntity entity in Items)
+            {
+                productSeries.Add((ProductSeriesEntity)entity);
+            }
+            <RadzenGrid Data=@productSeries TItem="ProductSeriesEntity"
+                        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+                        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCountAllowSorting="true" ColumnWidth="200px">
+                <Columns>
+                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="Id" TextAlign="TextAlign.Center"
+                                        Title=@LocalizationStrings.DeviceControl.TableFieldId
+                                        Type="int" Width="6%" />
+                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="ScaleId" Title=@LocalizationStrings.DeviceControl.TableFieldScaleId
+                                        Type="string" Width="12.5%" />
+                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="Uid" Title=@LocalizationStrings.DeviceControl.TableFieldUid
+                                        Type="Guid" Width="25%" />
+                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="IsClose" Title=@LocalizationStrings.DeviceControl.TableFieldIsClose
+                                        Type="bool" Width="25%" />
+                    <RadzenGridColumn TItem="ProductSeriesEntity" Property="Sscc" Title=@LocalizationStrings.DeviceControl.TableFieldSscc
+                                        Type="string" Width="30%" />
+                </Columns>
+            </RadzenGrid>
+            break;
+    }
 }
-else
+</div>
+</RadzenTabsItem>
+<RadzenTabsItem Text=@LocalizationStrings.Share.Chart>
+@switch (Table)
 {
-    <RadzenLabel Text=@LocalizationStrings.Share.MenuAccessDeny></RadzenLabel>
-}
+case ProjectsEnums.TableScale.Contragents:
+    @if (ContragentsChartCreated == null || ContragentsChartCreated.Length == 0 ||
+ContragentsChartModified == null || ContragentsChartModified.Length == 0)
+    {
+        <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
+        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    }
+    else
+    {
+        <RadzenLabel Style="width: 80px" Text=@LocalizationStrings.Share.ChartSmooth>
+        </RadzenLabel>
+        <RadzenCheckBox Style="height: 30px" @bind-Value=@AppSettings.IsChartSmooth></RadzenCheckBox>
+        <br />
+        <RadzenChart>
+            <RadzenLineSeries Smooth=@AppSettings.IsChartSmooth Data=@ContragentsChartCreated CategoryProperty="Date"
+                                Title=@LocalizationStrings.Share.FieldCreated
+                                LineType="LineType.Dashed" ValueProperty="Count">
+                <RadzenMarkers MarkerType="MarkerType.Square" />
+            </RadzenLineSeries>
+            <RadzenLineSeries Smooth=@AppSettings.IsChartSmooth Data=@ContragentsChartModified CategoryProperty="Date"
+                                Title=@LocalizationStrings.Share.FieldModified
+                                LineType="LineType.Dashed" ValueProperty="Count">
+                <RadzenMarkers MarkerType="MarkerType.Square" />
+            </RadzenLineSeries>
+            <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}{0:dd}" />
+            <RadzenValueAxis>
+                <RadzenGridLines Visible="true" />
+                <RadzenAxisTitle Text=@LocalizationStrings.Share.FieldCount />
+            </RadzenValueAxis>
+        </RadzenChart>
+    }
+    break;
+case ProjectsEnums.TableScale.Nomenclatures:
+    @if (NomenclaturesChartCreated == null || NomenclaturesChartCreated.Length == 0 ||
+NomenclaturesChartModified == null || NomenclaturesChartModified.Length == 0)
+    {
+        <RadzenLabel Text=@LocalizationStrings.Share.DataLoading Style="width: 20%" />
+        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+    }
+    else
+    {
+        <RadzenLabel Style="width: 80px" Text=@LocalizationStrings.Share.ChartSmooth>
+        </RadzenLabel>
+        <RadzenCheckBox Style="height: 30px" @bind-Value=@AppSettings.IsChartSmooth></RadzenCheckBox>
+        <br />
+        <RadzenChart>
+            <RadzenLineSeries Smooth=@AppSettings.IsChartSmooth Data=@NomenclaturesChartCreated CategoryProperty="Date"
+                                Title=@LocalizationStrings.Share.FieldCreated
+                                LineType="LineType.Dashed" ValueProperty="Count">
+                <RadzenMarkers MarkerType="MarkerType.Square" />
+            </RadzenLineSeries>
+            <RadzenLineSeries Smooth=@AppSettings.IsChartSmooth Data=@NomenclaturesChartModified CategoryProperty="Date"
+                                Title=@LocalizationStrings.Share.FieldModified
+                                LineType="LineType.Dashed" ValueProperty="Count">
+                <RadzenMarkers MarkerType="MarkerType.Square" />
+            </RadzenLineSeries>
+            <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}{0:dd}" />
+            <RadzenValueAxis>
+                <RadzenGridLines Visible="true" />
+                <RadzenAxisTitle Text=@LocalizationStrings.Share.FieldCount />
+            </RadzenValueAxis>
+        </RadzenChart>
+    }
+    break;
 *@

@@ -7,7 +7,10 @@ using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
+using Radzen;
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -18,6 +21,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public TemplateEntity TemplateItem { get => (TemplateEntity)Item; set => Item = value; }
         public List<TypeEntity<string>> TemplateCategories { get; set; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -29,29 +33,54 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                    TemplateItem = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(new FieldListEntity(new Dictionary<string, object>
+                    lock (_locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+                        TemplateItem = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                        TemplateItem.Id = (int)Id;
-                    TemplateCategories = AppSettings.DataReference.GetTemplateCategories();
-                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                            TemplateItem.Id = (int)Id;
+                        TemplateCategories = AppSettings.DataReference.GetTemplateCategories();
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
 
-        private void OnChange(object value, string name)
+        private void OnChange(object value, string name,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            switch (name)
+            try
             {
-                case "TemlateCategories":
-                    if (value is string strValue)
+                lock (_locker)
+                {
+                    switch (name)
                     {
-                        TemplateItem.CategoryId = strValue;
+                        case "TemlateCategories":
+                            if (value is string strValue)
+                            {
+                                TemplateItem.CategoryId = strValue;
+                            }
+                            break;
                     }
-                    break;
+                }
             }
-            StateHasChanged();
+            catch (Exception ex)
+            {
+                NotificationMessage msg = new()
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
+                    Detail = ex.Message,
+                    Duration = AppSettingsHelper.Delay
+                };
+                NotificationService.Notify(msg);
+                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            }
+            finally
+            {
+                StateHasChanged();
+            }
         }
 
         #endregion

@@ -14,6 +14,7 @@ namespace BlazorDeviceControl.Shared
         #region Public and private fields and properties
 
         [Inject] public AuthenticationStateProvider AuthenticationState { get; private set; }
+        private readonly object _locker = new();
 
         #endregion
 

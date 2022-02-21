@@ -17,6 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<NomenclatureEntity> ItemsCast => Items == null ? new List<NomenclatureEntity>() : Items.Select(x => (NomenclatureEntity)x).ToList();
+        private readonly object _locker = new();
 
         #endregion
 
@@ -28,12 +29,16 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                    Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                        //new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                        new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                        .ToList<BaseEntity>();
-                    ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
+                    lock (_locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                        Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
+                            //new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
+                            .ToList<BaseEntity>();
+                        ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
+
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

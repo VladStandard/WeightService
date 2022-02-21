@@ -17,6 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<PrinterTypeEntity> ItemsCast => Items == null ? new List<PrinterTypeEntity>() : Items.Select(x => (PrinterTypeEntity)x).ToList();
+        private readonly object _locker = new();
 
         #endregion
 
@@ -28,10 +29,13 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
-                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)
-                        .OrderBy(x => x.Name).ToList<BaseEntity>();
-                    ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
+                    lock (_locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)
+                            .OrderBy(x => x.Name).ToList<BaseEntity>();
+                        ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

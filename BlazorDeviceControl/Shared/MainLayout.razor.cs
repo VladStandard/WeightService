@@ -15,6 +15,7 @@ namespace BlazorDeviceControl.Shared
 
         [Inject] public HotKeys HotKeysItem { get; private set; }
         [Inject] public JsonSettingsEntity JsonSettings { get; private set; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -27,20 +28,26 @@ namespace BlazorDeviceControl.Shared
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(() =>
                 {
-                    AppSettings.SetupJsonSettings(JsonSettings);
-                    UserSettings.SetupHotKeys(HotKeysItem);
-                    if (UserSettings.HotKeys != null)
-                        UserSettings.HotKeysContext = UserSettings.HotKeys.CreateContext()
-                            .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
-                    //UserSettings.SetupIdentity();
-                    UserSettings.SetupUserAccessLevel(AppSettings.DataAccess);
+                    lock (_locker)
+                    {
+                        AppSettings.SetupJsonSettings(JsonSettings);
+                        UserSettings.SetupHotKeys(HotKeysItem);
+                        if (UserSettings.HotKeys != null)
+                            UserSettings.HotKeysContext = UserSettings.HotKeys.CreateContext()
+                                .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
+                        //UserSettings.SetupIdentity();
+                        UserSettings.SetupUserAccessLevel(AppSettings.DataAccess);
+                    }
                 }), true);
 
             // Don't change it, because GuiRefreshAsync can get exception!
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(() =>
                 {
-                    AppSettings.SetupMemory(GuiRefreshAsync);
+                    lock (_locker)
+                    {
+                        AppSettings.SetupMemory(GuiRefreshAsync);
+                    }
                 }), true);
         }
 

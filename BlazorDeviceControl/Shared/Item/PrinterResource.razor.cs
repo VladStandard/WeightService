@@ -6,8 +6,11 @@ using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using Microsoft.AspNetCore.Components;
+using Radzen;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -19,6 +22,7 @@ namespace BlazorDeviceControl.Shared.Item
         public PrinterResourceEntity PrinterResourceItem { get => (PrinterResourceEntity)Item; set => Item = value; }
         public List<PrinterEntity> PrinterItems { get; set; } = null;
         public List<TemplateResourceEntity> ResourceItems { get; set; } = null;
+        private readonly object _locker = new();
 
         #endregion
 
@@ -29,53 +33,78 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                    PrinterResourceItem = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(new FieldListEntity(new Dictionary<string, object>
+                    lock (_locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                        PrinterResourceItem = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                        PrinterResourceItem.Id = (int)Id;
-                    PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(null, null).ToList();
-                    ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null).ToList();
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                            PrinterResourceItem.Id = (int)Id;
+                        PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(null, null).ToList();
+                        ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null).ToList();
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
 
-        private void OnChange(object value, string name)
+        private void OnChange(object value, string name,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            switch (name)
+            try
             {
-                case nameof(PrinterEntity):
-                    if (value is int idZebraPrinter)
+                lock (_locker)
+                {
+                    switch (name)
                     {
-                        if (idZebraPrinter <= 0)
-                            PrinterResourceItem.Printer = null;
-                        else
-                        {
-                            PrinterResourceItem.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idZebraPrinter } }),
-                            null);
-                        }
-                    }
-                    break;
-                case nameof(TemplateResourceEntity):
-                    if (value is int idTemplateResource)
-                    {
-                        if (idTemplateResource <= 0)
-                            PrinterResourceItem.Printer = null;
-                        else
-                        {
-                            PrinterResourceItem.Resource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplateResource } }),
-                            null);
-                            if (string.IsNullOrEmpty(PrinterResourceItem.Description))
+                        case nameof(PrinterEntity):
+                            if (value is int idZebraPrinter)
                             {
-                                PrinterResourceItem.Description = PrinterResourceItem.Resource.Name;
+                                if (idZebraPrinter <= 0)
+                                    PrinterResourceItem.Printer = null;
+                                else
+                                {
+                                    PrinterResourceItem.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idZebraPrinter } }),
+                                    null);
+                                }
                             }
-                        }
+                            break;
+                        case nameof(TemplateResourceEntity):
+                            if (value is int idTemplateResource)
+                            {
+                                if (idTemplateResource <= 0)
+                                    PrinterResourceItem.Printer = null;
+                                else
+                                {
+                                    PrinterResourceItem.Resource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplateResource } }),
+                                    null);
+                                    if (string.IsNullOrEmpty(PrinterResourceItem.Description))
+                                    {
+                                        PrinterResourceItem.Description = PrinterResourceItem.Resource.Name;
+                                    }
+                                }
+                            }
+                            break;
                     }
-                    break;
+                }
             }
-            StateHasChanged();
+            catch (Exception ex)
+            {
+                NotificationMessage msg = new()
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
+                    Detail = ex.Message,
+                    Duration = AppSettingsHelper.Delay
+                };
+                NotificationService.Notify(msg);
+                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            }
+            finally
+            {
+                StateHasChanged();
+            }
         }
 
         #endregion

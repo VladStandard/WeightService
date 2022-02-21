@@ -16,6 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public TaskEntity TaskItem { get => (TaskEntity)Item; set => Item = value; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -27,13 +28,16 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
-                    TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
+                    lock (_locker)
+                    {
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
+                        TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
                         { ShareEnums.DbField.Uid.ToString(), Uid },
                     }), null);
-                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                        TaskItem.Id = (int)Id;
-                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                            TaskItem.Id = (int)Id;
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

@@ -14,8 +14,8 @@ namespace BlazorDeviceControl.Shared.Item
         public DeviceEntity DeviceItem { get => (DeviceEntity)Item; set => Item = value; }
         [Parameter] public EventCallback CallbackActionSaveAsync { get; set; }
         [Parameter] public EventCallback CallbackActionCancelAsync { get; set; }
-
         private string _state = @"Отключено";
+        private readonly object _locker = new();
 
         #endregion
 

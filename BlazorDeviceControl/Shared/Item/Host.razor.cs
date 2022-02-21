@@ -16,6 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public HostEntity HostItem { get => (HostEntity)Item; set => Item = value; }
+        private readonly object _locker = new();
 
         #endregion
 
@@ -26,18 +27,21 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
-                    HostItem = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                    lock (_locker)
                     {
-                        HostItem.Id = (int)Id;
-                        HostItem.Name = "NEW HOST";
-                        HostItem.IdRRef = System.Guid.NewGuid();
-                        HostItem.Ip = "127.0.0.1";
-                        HostItem.MacAddress.Default();
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
+                        HostItem = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(new FieldListEntity(new Dictionary<string, object>
+                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        {
+                            HostItem.Id = (int)Id;
+                            HostItem.Name = "NEW HOST";
+                            HostItem.IdRRef = System.Guid.NewGuid();
+                            HostItem.Ip = "127.0.0.1";
+                            HostItem.MacAddress.Default();
+                        }
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
-                    ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

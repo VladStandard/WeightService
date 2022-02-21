@@ -8,8 +8,8 @@
     <AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-    <AssemblyVersion>0.6.200</AssemblyVersion>
-    <FileVersion>0.6.200</FileVersion>
+    <AssemblyVersion>0.6.210</AssemblyVersion>
+    <FileVersion>0.6.210</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
@@ -47,22 +47,22 @@
     <Folder Include="wwwroot\static\lib\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BlazorDownloadFile" Version="2.3.1" />
+    <PackageReference Include="BlazorDownloadFile" Version="2.3.1.1" />
     <PackageReference Include="BlazorInputFile" Version="0.2.0" />
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.2" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
-    <PackageReference Include="MudBlazor" Version="6.0.5" />
+    <PackageReference Include="MudBlazor" Version="6.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NHibernate" Version="5.3.10" />
-    <PackageReference Include="Radzen.Blazor" Version="3.14.11" />
+    <PackageReference Include="NHibernate" Version="5.3.11" />
+    <PackageReference Include="Radzen.Blazor" Version="3.15.5" />
   </ItemGroup>
   <ItemGroup>
     <None Include="appsettings.json" />

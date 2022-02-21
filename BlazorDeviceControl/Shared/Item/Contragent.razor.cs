@@ -10,6 +10,7 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public ContragentEntity ContragentItem { get => (ContragentEntity)Item; set => Item = value; }
+        private readonly object _locker = new();
 
         #endregion
 

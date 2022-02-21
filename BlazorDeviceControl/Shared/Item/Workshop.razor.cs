@@ -21,6 +21,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public WorkshopEntity WorkshopItem { get => (WorkshopEntity)Item; set => Item = value; }
         public List<ProductionFacilityEntity> ProductionFacilityEntities { get; set; } = null;
+        private readonly object _locker = new();
 
         #endregion
 
@@ -31,12 +32,15 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                    WorkshopItem = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
+                    lock (_locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                        WorkshopItem = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                    if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                        WorkshopItem.Id = (int)Id;
-                    ProductionFacilityEntities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
+                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                            WorkshopItem.Id = (int)Id;
+                        ProductionFacilityEntities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -54,7 +58,7 @@ namespace BlazorDeviceControl.Shared.Item
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{memberName}]!",
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };
@@ -77,7 +81,7 @@ namespace BlazorDeviceControl.Shared.Item
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{memberName}]!",
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };
@@ -87,25 +91,47 @@ namespace BlazorDeviceControl.Shared.Item
             }
         }
 
-        private void OnChange(object value, string name)
+        private void OnChange(object value, string name,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            switch (name)
+            try
             {
-                case "ProductionFacilities":
-                    if (value is int id)
+                lock (_locker)
+                {
+                    switch (name)
                     {
-                        if (id <= 0)
-                            WorkshopItem.ProductionFacility = null;
-                        else
-                        {
-                            WorkshopItem.ProductionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
-                            null);
-                        }
+                        case "ProductionFacilities":
+                            if (value is int id)
+                            {
+                                if (id <= 0)
+                                    WorkshopItem.ProductionFacility = null;
+                                else
+                                {
+                                    WorkshopItem.ProductionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
+                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
+                                    null);
+                                }
+                            }
+                            break;
                     }
-                    break;
+                }
             }
-            StateHasChanged();
+            catch (Exception ex)
+            {
+                NotificationMessage msg = new()
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
+                    Detail = ex.Message,
+                    Duration = AppSettingsHelper.Delay
+                };
+                NotificationService.Notify(msg);
+                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            }
+            finally
+            {
+                StateHasChanged();
+            }
         }
 
         #endregion

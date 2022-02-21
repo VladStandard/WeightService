@@ -47,6 +47,7 @@ namespace DataCore
                 public static string ItemsCount => Lang == ShareEnums.Lang.English ? @"Count of records" : @"Количество записей";
                 public static string Language => Lang == ShareEnums.Lang.English ? @"Language" : @"Язык";
                 public static string LanguageDetect => Lang == ShareEnums.Lang.English ? @"English" : @"Русский";
+                public static string MethodError => Lang == ShareEnums.Lang.English ? @"Method error" : @"Ошибка метода";
                 public static string NotLoad => Lang == ShareEnums.Lang.English ? @"Not load!" : @"Не загружено";
                 public static string PageError => Lang == ShareEnums.Lang.English ? @"Sorry, there's nothing at this address." : @"Извините, по этому адресу ничего нет.";
                 public static string ProgramVer => Lang == ShareEnums.Lang.English ? @"Program version" : @"Версия программы";

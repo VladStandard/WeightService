@@ -17,6 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<TemplateResourceEntity> ItemsCast => Items == null ? new List<TemplateResourceEntity>() : Items.Select(x => (TemplateResourceEntity)x).ToList();
+        private readonly object _locker = new();
 
         #endregion
 
@@ -28,12 +29,15 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
-                    Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
-                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                        new FieldOrderEntity(ShareEnums.DbField.Type, ShareEnums.DbOrderDirection.Asc))
-                        .ToList<BaseEntity>();
-                    ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true, false, false);
+                    lock (_locker)
+                    {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
+                        Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
+                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            new FieldOrderEntity(ShareEnums.DbField.Type, ShareEnums.DbOrderDirection.Asc))
+                            .ToList<BaseEntity>();
+                        ButtonSettings = new BlazorCore.Models.ButtonSettingsEntity(true, true, true, true, true, false, false);
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

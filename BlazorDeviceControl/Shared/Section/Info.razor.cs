@@ -1,12 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
+using Radzen;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Section
@@ -23,11 +26,12 @@ namespace BlazorDeviceControl.Shared.Section
         private uint DbCurSize { get; set; } = 0;
         private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocalizationCore.Strings.Main.From} {DbMaxSize:### ###} MB";
         private uint DbMaxSize { get; set; } = 10240;
-        private float DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
+        private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
         //private float DbFillSize => DbCurSize == 0 ? 0 : (float)Convert.ToDecimal($"{(decimal)(DbCurSize * 100) / DbMaxSize:0.00}");
         //private float DbFillSize => DbCurSize == 0 ? 0 : (float)Math.Floor((double)(DbCurSize * 100) / DbMaxSize);
         //private float DbFillSize => DbCurSize == 0 ? 0 : (float)Math.Floor((double)(DbCurSize * 100) / DbMaxSize * Math.Pow(10, 2) / Math.Pow(10, 2));
         private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
+        private readonly object _locker = new();
 
         #endregion
 
@@ -39,17 +43,20 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
-                    TemplateIsDebug = AppSettings.DataReference.GetTemplateIsDebug();
-                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
-                    DbCurSize = 0;
-                    foreach (object obj in objects)
+                    lock (_locker)
                     {
-                        if (obj is object[] { Length: 5 } item)
+                        TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
+                        TemplateIsDebug = AppSettings.DataReference.GetTemplateIsDebug();
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
+                        DbCurSize = 0;
+                        foreach (object obj in objects)
                         {
-                            if (uint.TryParse(Convert.ToString(item[2]), out uint dbSizeMb))
+                            if (obj is object[] { Length: 5 } item)
                             {
-                                DbCurSize += dbSizeMb;
+                                if (uint.TryParse(Convert.ToString(item[2]), out uint dbSizeMb))
+                                {
+                                    DbCurSize += dbSizeMb;
+                                }
                             }
                         }
                     }
@@ -57,66 +64,89 @@ namespace BlazorDeviceControl.Shared.Section
                 }), true);
         }
 
-        private void OnChange(object value, string name)
+        private void OnChange(object value, string name,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            switch (name)
+            try
             {
-                case nameof(AppSettings.DataAccess.JsonSettings.Server):
-                    if (value is string server)
+                lock (_locker)
+                {
+                    switch (name)
                     {
-                        AppSettings.DataAccess.JsonSettings.Server = server;
+                        case nameof(AppSettings.DataAccess.JsonSettings.Server):
+                            if (value is string server)
+                            {
+                                AppSettings.DataAccess.JsonSettings.Server = server;
+                            }
+                            break;
+                        case nameof(AppSettings.DataAccess.JsonSettings.Db):
+                            if (value is string db)
+                            {
+                                AppSettings.DataAccess.JsonSettings.Db = db;
+                            }
+                            break;
+                        case nameof(AppSettings.DataAccess.JsonSettings.Trusted):
+                            if (value is bool trusted)
+                            {
+                                AppSettings.DataAccess.JsonSettings.Trusted = trusted;
+                            }
+                            break;
+                        case nameof(AppSettings.DataAccess.JsonSettings.Username):
+                            if (value is string username)
+                            {
+                                AppSettings.DataAccess.JsonSettings.Username = username;
+                            }
+                            break;
+                        case nameof(AppSettings.DataAccess.JsonSettings.Password):
+                            if (value is string password)
+                            {
+                                AppSettings.DataAccess.JsonSettings.Password = password;
+                            }
+                            break;
+                        case nameof(TemplateLanguages):
+                            if (value is ShareEnums.Lang lang)
+                            {
+                                LocalizationCore.Lang = lang;
+                                LocalizationData.Lang = lang;
+                            }
+                            TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
+                            break;
+                        case nameof(TemplateIsDebug):
+                            if (value is bool isDebug)
+                            {
+                                AppSettings.DataAccess.JsonSettings.IsDebug = isDebug;
+                            }
+                            break;
+                        case nameof(AppSettings.DataAccess.JsonSettings.SectionRowCount):
+                            if (value is int sectionRowCount)
+                            {
+                                AppSettings.DataAccess.JsonSettings.SectionRowCount = sectionRowCount;
+                            }
+                            break;
+                        case nameof(AppSettings.DataAccess.JsonSettings.ItemRowCount):
+                            if (value is int itemRowCount)
+                            {
+                                AppSettings.DataAccess.JsonSettings.ItemRowCount = itemRowCount;
+                            }
+                            break;
                     }
-                    break;
-                case nameof(AppSettings.DataAccess.JsonSettings.Db):
-                    if (value is string db)
-                    {
-                        AppSettings.DataAccess.JsonSettings.Db = db;
-                    }
-                    break;
-                case nameof(AppSettings.DataAccess.JsonSettings.Trusted):
-                    if (value is bool trusted)
-                    {
-                        AppSettings.DataAccess.JsonSettings.Trusted = trusted;
-                    }
-                    break;
-                case nameof(AppSettings.DataAccess.JsonSettings.Username):
-                    if (value is string username)
-                    {
-                        AppSettings.DataAccess.JsonSettings.Username = username;
-                    }
-                    break;
-                case nameof(AppSettings.DataAccess.JsonSettings.Password):
-                    if (value is string password)
-                    {
-                        AppSettings.DataAccess.JsonSettings.Password = password;
-                    }
-                    break;
-                case nameof(TemplateLanguages):
-                    if (value is ShareEnums.Lang lang)
-                    {
-                        LocalizationCore.Lang = lang;
-                        LocalizationData.Lang = lang;
-                    }
-                    TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
-                    break;
-                case nameof(TemplateIsDebug):
-                    if (value is bool isDebug)
-                    {
-                        AppSettings.DataAccess.JsonSettings.IsDebug = isDebug;
-                    }
-                    break;
-                case nameof(AppSettings.DataAccess.JsonSettings.SectionRowCount):
-                    if (value is int sectionRowCount)
-                    {
-                        AppSettings.DataAccess.JsonSettings.SectionRowCount = sectionRowCount;
-                    }
-                    break;
-                case nameof(AppSettings.DataAccess.JsonSettings.ItemRowCount):
-                    if (value is int itemRowCount)
-                    {
-                        AppSettings.DataAccess.JsonSettings.ItemRowCount = itemRowCount;
-                    }
-                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                NotificationMessage msg = new()
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
+                    Detail = ex.Message,
+                    Duration = AppSettingsHelper.Delay
+                };
+                NotificationService.Notify(msg);
+                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
+            }
+            finally
+            {
+                StateHasChanged();
             }
         }
 

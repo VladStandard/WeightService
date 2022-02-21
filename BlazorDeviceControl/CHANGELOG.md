@@ -6,18 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.210] - 2022-02-21
+### Changed
+- BlazorDeviceControl.Shared.Section: _locker object
+- BlazorDeviceControl.Shared.Item: _locker object
+
 ## [0.6.200] - 2022-02-18
-### Chaned
+### Changed
 - BlazorDeviceControl.Shared.Item.Printer
 - BlazorDeviceControl.Shared.Item.Scale
 - BlazorDeviceControl.Shared.Section.Info
 
 ## [0.6.110] - 2022-02-02
-### Chaned
+### Changed
 - Moved system sections and items componennts
 
 ## [0.6.080] - 2022-01-28
-### Chaned
+### Changed
 - ActionsButtons
 - ActionsFilter
 - ActionsLoad

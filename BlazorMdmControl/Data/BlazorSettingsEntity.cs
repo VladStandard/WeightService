@@ -146,7 +146,7 @@ namespace MdmControlBlazor.Data
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Error,
-                    Summary = $"Ошибка метода [{memberName}]!",
+                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{memberName}]!",
                     Detail = ex.Message,
                     Duration = LocalizationStrings.Timeout
                 };
