@@ -1,6 +1,6 @@
 ﻿@page "/item/template"
-@page "/item/template/{Id:int}"
-@page "/item/template/{Id:int}/{TableActionString}"
+@page "/item/template/{Id:long}"
+@page "/item/template/{Id:long}/{TableActionString}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
@@ -25,8 +25,9 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
-                        TValue="int" @bind-Value=@TemplateItem.Id />
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@TemplateItem.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>
@@ -43,12 +44,12 @@ else
                 <td>
                     @if (TemplateCategories == null)
                     {
-                        <RadzenTextBox Style="width: 70%;" Disabled=false ReadOnly=true TValue="string" Value="" />
+                        <RadzenTextBox Style="width: 100%;" Disabled=false ReadOnly=true TValue="string" Value="" />
                         <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
                     }
                     else
                     {
-                        <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDown Style="width: 100%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                         Data=@TemplateCategories PageSize="5" TextProperty="Name" ValueProperty="Value"
                                         Value=@TemplateItem.CategoryId Change=@(args => OnChange(args, "TemlateCategories")) />

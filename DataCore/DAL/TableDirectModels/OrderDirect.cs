@@ -14,12 +14,12 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; } = default;
+        public long Id { get; set; } = default;
         public int OrderType { get; set; } = 1;
         public string RRefID { get; set; } = string.Empty;
 
         public PluDirect PLU { get; set; } = new PluDirect();
-        public int TemplateID { get; set; } = default;
+        public long TemplateID { get; set; } = default;
         public TemplateDirect Template { get; set; } = new TemplateDirect();
         public int PlaneBoxCount { get; set; } = default;
         public int FactBoxCount { get; set; } = default;
@@ -30,6 +30,7 @@ namespace DataCore.DAL.TableDirectModels
         public DateTime ProductDate { get; set; }
         public DateTime? CreateDate { get; set; }
         public ProjectsEnums.OrderStatus Status { get; set; }
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -72,7 +73,7 @@ namespace DataCore.DAL.TableDirectModels
             return sb.ToString();
         }
 
-        public static IDictionary<string, object> ObjectToDictionary<T>(T item)
+        public IDictionary<string, object> ObjectToDictionary<T>(T item)
             where T : class
         {
             Type myObjectType = item.GetType();
@@ -87,7 +88,7 @@ namespace DataCore.DAL.TableDirectModels
             return dict;
         }
 
-        public static T ObjectFromDictionary<T>(IDictionary<string, object> dict)
+        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
             where T : class
         {
             Type type = typeof(T);
@@ -106,7 +107,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public void SetStatus(ProjectsEnums.OrderStatus orderStatus)
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query =
                 "DECLARE @Status tinyint;" +
@@ -125,7 +126,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public ProjectsEnums.OrderStatus GetStatus()
         {
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "SELECT [db_scales].[GetOrderStatus](@OrderId, DEFAULT);";
@@ -141,10 +142,10 @@ namespace DataCore.DAL.TableDirectModels
             return Status;
         }
 
-        public static int GetOrderPercentCompletion(OrderDirect order)
+        public int GetOrderPercentCompletion(OrderDirect order)
         {
             int result = 0;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "SELECT [db_scales].[GetOrderPercentCompletion] (@OrderID)";
@@ -159,10 +160,10 @@ namespace DataCore.DAL.TableDirectModels
             return result;
         }
 
-        public static List<OrderDirect> GetOrderList(ScaleDirect scale)
+        public List<OrderDirect> GetOrderList(ScaleDirect scale)
         {
             List<OrderDirect> res = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "" +
@@ -201,21 +202,21 @@ namespace DataCore.DAL.TableDirectModels
                                                                          // или CustomEnum enm = (CustomEnum)Enum.ToObject(typeof(CustomEnum), number);
                             }
                             int pluCode = reader.GetInt32(2);
-                            //PluEntity PLU = new PluEntity(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PLU"), pluCode);
+                            //PluEntity PLU = new PluEntity(SqlConnect.GetValueAsNotNullable<int>(reader, "PLU"), pluCode);
                             PluDirect PLU = new(scale, pluCode);
                             PLU.Load();
                             OrderDirect order = new()
                             {
-                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                //RRefID = SqlConnectFactory.GetValueAsString(reader, "RRefID"),
-                                PlaneBoxCount = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PlaneBoxCount"),
-                                PlanePalletCount = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PlanePalletCount"),
-                                PlanePackingOperationBeginDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "PlanePackingOperationBeginDate"),
-                                PlanePackingOperationEndDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "PlanePackingOperationEndDate"),
-                                ProductDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ProductDate"),
-                                TemplateID = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "TemplateID"),
-                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                OrderType = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "OrderType"),
+                                Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id"),
+                                //RRefID = SqlConnect.GetValueAsString(reader, "RRefID"),
+                                PlaneBoxCount = SqlConnect.GetValueAsNotNullable<int>(reader, "PlaneBoxCount"),
+                                PlanePalletCount = SqlConnect.GetValueAsNotNullable<int>(reader, "PlanePalletCount"),
+                                PlanePackingOperationBeginDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "PlanePackingOperationBeginDate"),
+                                PlanePackingOperationEndDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "PlanePackingOperationEndDate"),
+                                ProductDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ProductDate"),
+                                TemplateID = SqlConnect.GetValueAsNotNullable<int>(reader, "TemplateID"),
+                                CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                OrderType = SqlConnect.GetValueAsNotNullable<int>(reader, "OrderType"),
                                 Scale = scale,
                                 Status = enm,
                                 PLU = PLU
@@ -232,10 +233,10 @@ namespace DataCore.DAL.TableDirectModels
             return res;
         }
 
-        public static List<OrderDirect> GetOrderList(ScaleDirect scale, DateTime startDate, DateTime endDate)
+        public List<OrderDirect> GetOrderList(ScaleDirect scale, DateTime startDate, DateTime endDate)
         {
             List<OrderDirect> res = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "" +
@@ -278,16 +279,16 @@ namespace DataCore.DAL.TableDirectModels
                             PLU.Load();
                             OrderDirect order = new()
                             {
-                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                RRefID = SqlConnectFactory.GetValueAsString(reader, "RRefID"),
-                                PlaneBoxCount = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PlaneBoxCount"),
-                                PlanePalletCount = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PlanePalletCount"),
-                                PlanePackingOperationBeginDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "PlanePackingOperationBeginDate"),
-                                PlanePackingOperationEndDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "PlanePackingOperationEndDate"),
-                                ProductDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ProductDate"),
-                                TemplateID = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "TemplateID"),
-                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                OrderType = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "OrderType"),
+                                Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id"),
+                                RRefID = SqlConnect.GetValueAsString(reader, "RRefID"),
+                                PlaneBoxCount = SqlConnect.GetValueAsNotNullable<int>(reader, "PlaneBoxCount"),
+                                PlanePalletCount = SqlConnect.GetValueAsNotNullable<int>(reader, "PlanePalletCount"),
+                                PlanePackingOperationBeginDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "PlanePackingOperationBeginDate"),
+                                PlanePackingOperationEndDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "PlanePackingOperationEndDate"),
+                                ProductDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ProductDate"),
+                                TemplateID = SqlConnect.GetValueAsNotNullable<long>(reader, "TemplateID"),
+                                CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                OrderType = SqlConnect.GetValueAsNotNullable<int>(reader, "OrderType"),
                                 Scale = scale,
                                 Status = orderStatus,
                                 PLU = PLU

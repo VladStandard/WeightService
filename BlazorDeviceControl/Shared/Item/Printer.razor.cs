@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public PrinterEntity PrinterItem { get => (PrinterEntity)Item; set => Item = value; }
-        public List<PrinterTypeEntity> PrinterTypeItems { get; set; } = null;
+        public List<PrinterTypeEntity> PrinterTypes { get; set; } = null;
         private readonly object _locker = new();
 
         #endregion
@@ -36,7 +36,7 @@ namespace BlazorDeviceControl.Shared.Item
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             PrinterItem.Id = (int)Id;
-                        PrinterTypeItems = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null).ToList();
+                        PrinterTypes = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null).ToList();
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                         {
                             PrinterItem.Id = (int)Id;

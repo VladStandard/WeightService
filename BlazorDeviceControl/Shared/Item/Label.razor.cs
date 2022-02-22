@@ -30,7 +30,7 @@ namespace BlazorDeviceControl.Shared.Item
                 {
                     lock (_locker)
                     {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
                         LabelItem = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
                             new FieldListEntity(new Dictionary<string, object>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);

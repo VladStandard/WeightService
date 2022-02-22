@@ -16,6 +16,7 @@ namespace DataCore.DAL.Utils
         #region Public and private fields and properties
 
         private static readonly string FilePathToken = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\scalesui.xml";
+        public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -27,15 +28,15 @@ namespace DataCore.DAL.Utils
             if (reader.Read())
             {
                 //result.IdRRef = idrref;
-                result.Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
-                result.Name = SqlConnectFactory.GetValueAsNullable<string>(reader, "NAME");
-                result.Ip = SqlConnectFactory.GetValueAsNullable<string>(reader, "IP");
-                result.Mac = SqlConnectFactory.GetValueAsNullable<string>(reader, "MAC");
-                result.Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "MARKED");
-                string? settingFile = SqlConnectFactory.GetValueAsNullable<string>(reader, "SETTINGSFILE");
+                result.Id = SqlConnect.GetValueAsNotNullable<int>(reader, "ID");
+                result.Name = SqlConnect.GetValueAsNullable<string>(reader, "NAME");
+                result.Ip = SqlConnect.GetValueAsNullable<string>(reader, "IP");
+                result.Mac = SqlConnect.GetValueAsNullable<string>(reader, "MAC");
+                result.Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "MARKED");
+                string? settingFile = SqlConnect.GetValueAsNullable<string>(reader, "SETTINGSFILE");
                 if (settingFile is string sf)
                     result.SettingsFile = XDocument.Parse(sf);
-                result.ScaleId = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "SCALE_ID");
+                result.ScaleId = SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID");
             }
             return result;
         }
@@ -45,7 +46,7 @@ namespace DataCore.DAL.Utils
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref },
             };
-            HostDirect result = SqlConnectFactory.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByUid, parameters, LoadReader);
+            HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByUid, parameters, LoadReader);
             if (result == null)
                 result = new HostDirect();
             result.IdRRef = idrref;
@@ -112,7 +113,7 @@ namespace DataCore.DAL.Utils
             };
 
             bool result = default;
-            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, delegate (SqlDataReader reader)
             {
                 result = reader.Read();
             });

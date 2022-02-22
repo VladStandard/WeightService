@@ -18,6 +18,6 @@ SELECT
    ,REPLACE(REPLACE([L].[ZPL], CHAR(13), ''), CHAR(10), '') [ZPL_STR]
 FROM [DB_SCALES].[LABELS] [L]
 LEFT JOIN [DB_SCALES].[WEITHINGFACT] [WF] ON [L].[WEITHINGFACTID] = [WF].[ID]
-LEFT JOIN [DB_SCALES].[SCALES] [S] ON [WF].[SCALEID] = [S].[ID]
+LEFT JOIN [DB_SCALES].[SCALES] [S] ON [WF].[SCALEID] = [S].[Id]
 ORDER BY [CREATEDATE] DESC
 ------------------------------------------------------------------------------------------------------------------------

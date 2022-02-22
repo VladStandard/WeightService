@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore;
 using DataCore.DAL.TableScaleModels;
 using Radzen;
 using System;
@@ -19,225 +20,301 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public void BarcodeType(NotificationService notificationService, BarcodeTypeEntity barcodeType, int? id, DbTableAction tableAction)
+        public void BarcodeType(NotificationService notificationService, BarcodeTypeEntity barcodeType, long? id, DbTableAction tableAction)
         {
-            bool success = FieldControl.ProcessChecks(notificationService, barcodeType, "Тип штрихкода");
+            if (id == null)
+                return;
+            bool success = FieldControl.ProcessChecks(notificationService, barcodeType, LocalizationCore.Strings.TableItem.BarcodeType);
             if (success)
             {
+                //barcodeType.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    AppSettings.DataAccess.Crud.SaveEntity(barcodeType);
+                    //barcodeType.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(barcodeType);
                 }
                 else
                 {
-                    if (int.TryParse(id?.ToString(), out int getId))
-                        barcodeType.Id = getId;
-                    AppSettings.DataAccess.Crud.UpdateEntity(barcodeType);
+                    barcodeType.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(barcodeType);
                 }
             }
         }
 
-        public void Host(NotificationService notificationService, HostEntity host, int id, DbTableAction tableAction)
+        public void Host(NotificationService notificationService, HostEntity host, long? id, DbTableAction tableAction)
         {
-            bool success = FieldControl.ProcessChecks(notificationService, host, "Хост");
+            if (id == null)
+                return;
+            bool success = FieldControl.ProcessChecks(notificationService, host, LocalizationCore.Strings.TableItem.Host);
             if (success)
             {
                 host.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
                     host.CreateDt = DateTime.Now;
-                    AppSettings.DataAccess.Crud.SaveEntity(host);
+                    AppSettings.DataAccess?.Crud.SaveEntity(host);
                 }
                 else
                 {
-                    host.Id = id;
-                    AppSettings.DataAccess.Crud.UpdateEntity(host);
+                    host.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(host);
                 }
             }
         }
 
-        public void Plu(NotificationService notificationService, PluEntity plu, int id, DbTableAction tableAction)
+        public void Nomenclature(NotificationService notificationService, NomenclatureEntity nomenclature, 
+            long? id, DbTableAction tableAction)
         {
-            plu.ModifiedDate = DateTime.Now;
-            bool success = FieldControl.ProcessChecks(notificationService, plu, "ПЛУ");
-            if (success)
-                success = FieldControl.ProcessChecks(notificationService, plu.Scale, "Устройство");
-            if (success)
-                success = FieldControl.ProcessChecks(notificationService, plu.Templates, "Шаблон этикетки");
-            if (success)
-                success = FieldControl.ProcessChecks(notificationService, plu.Nomenclature, "Продукт");
+            if (id == null)
+                return;
+            bool success = FieldControl.ProcessChecks(notificationService, nomenclature, LocalizationCore.Strings.TableItem.Nomenclature);
             if (success)
             {
+                nomenclature.ModifiedDate = DateTime.Now;
+                if (tableAction == DbTableAction.New)
+                {
+                    nomenclature.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(nomenclature);
+                }
+                else
+                {
+                    nomenclature.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(nomenclature);
+                }
+            }
+        }
+
+        public void Plu(NotificationService notificationService, PluEntity plu, long? id, DbTableAction tableAction)
+        {
+            if (id == null)
+                return;
+            plu.ModifiedDate = DateTime.Now;
+            bool success = FieldControl.ProcessChecks(notificationService, plu, LocalizationCore.Strings.TableItem.Plu);
+            if (success)
+                success = FieldControl.ProcessChecks(notificationService, plu.Scale, LocalizationCore.Strings.TableItem.Device);
+            if (success)
+                success = FieldControl.ProcessChecks(notificationService, plu.Templates, LocalizationCore.Strings.TableItem.LabelTemplate);
+            if (success)
+                success = FieldControl.ProcessChecks(notificationService, plu.Nomenclature, LocalizationCore.Strings.TableItem.Product);
+            if (success)
+            {
+                plu.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
                     plu.CreateDate = DateTime.Now;
-                    AppSettings.DataAccess.Crud.SaveEntity(plu);
+                    AppSettings.DataAccess?.Crud.SaveEntity(plu);
                 }
                 else
                 {
-                    plu.Id = id;
-                    AppSettings.DataAccess.Crud.UpdateEntity(plu);
+                    plu.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(plu);
                 }
             }
         }
 
-        public void Printer(NotificationService notificationService, PrinterEntity printer, int id, DbTableAction tableAction)
+        public void Printer(NotificationService notificationService, PrinterEntity printer, long? id, DbTableAction tableAction)
         {
+            if (id == null)
+                return;
             printer.ModifiedDate = DateTime.Now;
-            bool success = FieldControl.ProcessChecks(notificationService, printer, "Принтер");
+            bool success = FieldControl.ProcessChecks(notificationService, printer, LocalizationCore.Strings.TableItem.Printer);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, printer.PrinterType, "Тип принтера");
+                success = FieldControl.ProcessChecks(notificationService, printer.PrinterType, LocalizationCore.Strings.TableItem.PrinterType);
             if (success)
             {
+                printer.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
                     printer.CreateDate = DateTime.Now;
-                    AppSettings.DataAccess.Crud.SaveEntity(printer);
+                    AppSettings.DataAccess?.Crud.SaveEntity(printer);
                 }
                 else
                 {
-                    printer.Id = id;
-                    AppSettings.DataAccess.Crud.UpdateEntity(printer);
+                    printer.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(printer);
                 }
             }
         }
 
-        public void PrinterResource(NotificationService notificationService, PrinterResourceEntity printerResource, int id, DbTableAction tableAction)
+        public void PrinterResource(NotificationService notificationService, PrinterResourceEntity printerResource, 
+            long? id, DbTableAction tableAction)
         {
-            bool success = FieldControl.ProcessChecks(notificationService, printerResource, "Ресурс принтера");
+            if (id == null)
+                return;
+            bool success = FieldControl.ProcessChecks(notificationService, printerResource, LocalizationCore.Strings.TableItem.PrinterResource);
             if (success)
             {
                 printerResource.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
                     printerResource.CreateDate = DateTime.Now;
-                    AppSettings.DataAccess.Crud.SaveEntity(printerResource);
+                    AppSettings.DataAccess?.Crud.SaveEntity(printerResource);
                 }
                 else
                 {
-                    printerResource.Id = id;
-                    AppSettings.DataAccess.Crud.UpdateEntity(printerResource);
+                    printerResource.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(printerResource);
                 }
             }
         }
 
-        public void PrinterType(NotificationService notificationService, PrinterTypeEntity printerType, int id, DbTableAction tableAction)
+        public void PrinterType(NotificationService notificationService, PrinterTypeEntity printerType, 
+            long? id, DbTableAction tableAction)
         {
-            bool success = FieldControl.ProcessChecks(notificationService, printerType, "Тип принтера");
+            if (id == null)
+                return;
+            bool success = FieldControl.ProcessChecks(notificationService, printerType, LocalizationCore.Strings.TableItem.PrinterType);
             if (success)
             {
+                //printerType.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    AppSettings.DataAccess.Crud.SaveEntity(printerType);
+                    //printerType.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(printerType);
                 }
                 else
                 {
-                    printerType.Id = id;
-                    AppSettings.DataAccess.Crud.UpdateEntity(printerType);
+                    printerType.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(printerType);
                 }
             }
         }
 
-        public void Scale(NotificationService notificationService, ScaleEntity scale, int id, DbTableAction tableAction)
+        public void ProductionFacility(NotificationService notificationService, ProductionFacilityEntity productionFacility, 
+            long? id, DbTableAction tableAction)
         {
-            scale.ModifiedDate = DateTime.Now;
-            bool success = FieldControl.ProcessChecks(notificationService, scale, "Устройство");
-            if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.Printer, "Принтер");
-            if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.Host, "Хост");
-            if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, "Шаблон по-умолчанию");
-            if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, "Цех");
+            if (id == null)
+                return;
+            bool success = FieldControl.ProcessChecks(notificationService, productionFacility, LocalizationCore.Strings.TableItem.ProductionFacility);
             if (success)
             {
+                productionFacility.ModifiedDate = DateTime.Now;
+                if (tableAction == DbTableAction.New)
+                {
+                    productionFacility.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(productionFacility);
+                }
+                else
+                {
+                    productionFacility.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(productionFacility);
+                }
+            }
+        }
+
+        public void Scale(NotificationService notificationService, ScaleEntity scale, long? id, DbTableAction tableAction)
+        {
+            if (id == null)
+                return;
+            scale.ModifiedDate = DateTime.Now;
+            bool success = FieldControl.ProcessChecks(notificationService, scale, LocalizationCore.Strings.TableItem.Device);
+            if (success)
+                success = FieldControl.ProcessChecks(notificationService, scale.Printer, LocalizationCore.Strings.TableItem.Printer);
+            if (success)
+                success = FieldControl.ProcessChecks(notificationService, scale.Host, LocalizationCore.Strings.TableItem.Host);
+            if (success)
+                success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocalizationCore.Strings.TableItem.TemplateDefault);
+            if (success)
+                success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocalizationCore.Strings.TableItem.Workshop);
+            if (success)
+            {
+                scale.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
                     scale.CreateDate = DateTime.Now;
                     if (scale.TemplateSeries != null && scale.TemplateSeries.EqualsDefault())
                         scale.TemplateSeries = null;
-                    AppSettings.DataAccess.Crud.SaveEntity(scale);
+                    AppSettings.DataAccess?.Crud.SaveEntity(scale);
                 }
                 else
                 {
-                    scale.Id = id;
-                    AppSettings.DataAccess.Crud.UpdateEntity(scale);
+                    scale.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(scale);
                 }
             }
         }
 
         public void Task(NotificationService notificationService, TaskEntity task, Guid uid, DbTableAction tableAction)
         {
-            bool success = FieldControl.ProcessChecks(notificationService, task, "Модуль задачи");
+            bool success = FieldControl.ProcessChecks(notificationService, task, LocalizationCore.Strings.TableItem.TaskModule);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, task.TaskType, "Тип задачи");
+                success = FieldControl.ProcessChecks(notificationService, task.TaskType, LocalizationCore.Strings.TableItem.TaskType);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, task.Scale, "Устройство");
+                success = FieldControl.ProcessChecks(notificationService, task.Scale, LocalizationCore.Strings.TableItem.Device);
             if (success)
             {
+                //task.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    AppSettings.DataAccess.Crud.SaveEntity(task);
+                    //task.CrateDate = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(task);
                 }
                 else
                 {
                     task.Uid = uid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(task);
+                    AppSettings.DataAccess?.Crud.UpdateEntity(task);
                 }
             }
         }
 
         public void TaskType(NotificationService notificationService, TaskTypeEntity taskType, Guid uid, DbTableAction tableAction)
         {
-            bool success = FieldControl.ProcessChecks(notificationService, taskType, "Тип модуля задачи");
+            bool success = FieldControl.ProcessChecks(notificationService, taskType, LocalizationCore.Strings.TableItem.TaskModuleType);
             if (success)
             {
+                //taskType.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    AppSettings.DataAccess.Crud.SaveEntity(taskType);
+                    //taskType.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(taskType);
                 }
                 else
                 {
                     taskType.Uid = uid;
-                    AppSettings.DataAccess.Crud.UpdateEntity(taskType);
+                    AppSettings.DataAccess?.Crud.UpdateEntity(taskType);
                 }
             }
         }
 
-        public void Template(NotificationService notificationService, TemplateEntity template, int id, DbTableAction tableAction)
+        public void Template(NotificationService notificationService, TemplateEntity template, long? id, DbTableAction tableAction)
         {
-            bool success = FieldControl.ProcessChecks(notificationService, template, "Шаблон");
+            if (id == null)
+                return;
+            bool success = FieldControl.ProcessChecks(notificationService, template, LocalizationCore.Strings.TableItem.Template);
             if (success)
             {
+                template.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    template.ModifiedDate = DateTime.Now;
-                    AppSettings.DataAccess.Crud.SaveEntity(template);
+                    template.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(template);
                 }
                 else
                 {
-                    template.Id = id;
-                    AppSettings.DataAccess.Crud.UpdateEntity(template);
+                    template.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(template);
                 }
             }
         }
 
-        public void Workshop(NotificationService notificationService, WorkshopEntity workshop, int id, DbTableAction tableAction)
+        public void Workshop(NotificationService notificationService, WorkshopEntity workshop, long? id, DbTableAction tableAction)
         {
+            if (id == null)
+                return;
             workshop.ModifiedDate = DateTime.Now;
-            bool success = FieldControl.ProcessChecks(notificationService, workshop, "Цех");
+            bool success = FieldControl.ProcessChecks(notificationService, workshop, LocalizationCore.Strings.TableItem.Workshop);
             if (success)
             {
+                workshop.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
                     workshop.CreateDate = DateTime.Now;
-                    AppSettings.DataAccess.Crud.SaveEntity(workshop);
+                    AppSettings.DataAccess?.Crud.SaveEntity(workshop);
                 }
                 else
                 {
-                    workshop.Id = id;
-                    AppSettings.DataAccess.Crud.UpdateEntity(workshop);
+                    workshop.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(workshop);
                 }
             }
         }

@@ -102,17 +102,6 @@ namespace WeightCore.Helpers
         }
 
         /// <summary>
-        /// Файл библиотеки log4net.
-        /// </summary>
-        /// <returns></returns>
-        public string Log4netDll =>
-#if DEBUG
-            @"..\ScalesUI2\bin\Debug\log4net.dll";
-#else 
-            @"..\ScalesUI2\bin\Release\log4net.dll";
-#endif
-
-        /// <summary>
         /// Файл библиотеки ядра весовой платформы.
         /// </summary>
         /// <returns></returns>

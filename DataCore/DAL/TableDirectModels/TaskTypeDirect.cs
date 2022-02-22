@@ -14,6 +14,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public Guid Uid { get; set; } = default;
         public string Name { get; set; } = string.Empty;
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -36,7 +37,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public void Save(string name)
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.AddTaskType))
             {

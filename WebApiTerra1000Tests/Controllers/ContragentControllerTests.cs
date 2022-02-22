@@ -51,7 +51,7 @@ namespace DataProjectsCoreTests.DAL
                 foreach (string url in TestsUtils.GetListUrlContragentV1)
                 {
                     if (url.Contains("-dev")) continue;
-                    foreach (int id in TestsUtils.GetListContragentId)
+                    foreach (long id in TestsUtils.GetListContragentId)
                     {
                         await GetContragentAsync(url, null, id);
                     }
@@ -68,7 +68,7 @@ namespace DataProjectsCoreTests.DAL
                 foreach (string url in TestsUtils.GetListUrlContragentV2)
                 {
                     if (url.Contains("-dev")) continue;
-                    foreach (int id in TestsUtils.GetListContragentId)
+                    foreach (long id in TestsUtils.GetListContragentId)
                     {
                         await GetContragentAsync(url, null, id);
                     }
@@ -76,7 +76,7 @@ namespace DataProjectsCoreTests.DAL
             });
         }
 
-        private async Task GetContragentAsync(string url, string? code, int? id)
+        private async Task GetContragentAsync(string url, string? code, long? id)
         {
             RestSharp.RestClientOptions options = new(url)
             {

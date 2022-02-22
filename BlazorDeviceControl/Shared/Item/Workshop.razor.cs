@@ -20,7 +20,7 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public WorkshopEntity WorkshopItem { get => (WorkshopEntity)Item; set => Item = value; }
-        public List<ProductionFacilityEntity> ProductionFacilityEntities { get; set; } = null;
+        public List<ProductionFacilityEntity> ProductionFacilities { get; set; } = null;
         private readonly object _locker = new();
 
         #endregion
@@ -34,104 +34,16 @@ namespace BlazorDeviceControl.Shared.Item
                 new Task(async() => {
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
                         WorkshopItem = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            WorkshopItem.Id = (int)Id;
-                        ProductionFacilityEntities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
+                            WorkshopItem.Id = (long)Id;
+                        ProductionFacilities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null).ToList();
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
-        }
-
-        private async Task RowSelectAsync(BaseEntity item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                //
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsHelper.Delay
-                };
-                NotificationService.Notify(msg);
-                Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-        }
-
-        private async Task RowDoubleClickAsync(BaseEntity item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            try
-            {
-                //
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{memberName}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsHelper.Delay
-                };
-                NotificationService.Notify(msg);
-                Console.WriteLine(msg.Detail);
-                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-        }
-
-        private void OnChange(object value, string name,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                lock (_locker)
-                {
-                    switch (name)
-                    {
-                        case "ProductionFacilities":
-                            if (value is int id)
-                            {
-                                if (id <= 0)
-                                    WorkshopItem.ProductionFacility = null;
-                                else
-                                {
-                                    WorkshopItem.ProductionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
-                                    null);
-                                }
-                            }
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsHelper.Delay
-                };
-                NotificationService.Notify(msg);
-                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-            finally
-            {
-                StateHasChanged();
-            }
         }
 
         #endregion

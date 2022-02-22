@@ -54,6 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Table Select Labels.sql = WeightService\Table Select Labels.sql
 		WeightService\Table Select Logs.sql = WeightService\Table Select Logs.sql
 		WeightService\Table Select Nomenclature Duplicates.sql = WeightService\Table Select Nomenclature Duplicates.sql
+		WeightService\Table Select Nomenclature.sql = WeightService\Table Select Nomenclature.sql
 		WeightService\Table Select Orders.sql = WeightService\Table Select Orders.sql
 		WeightService\Table Select OrderTypes.sql = WeightService\Table Select OrderTypes.sql
 		WeightService\Table Select Organization.sql = WeightService\Table Select Organization.sql
@@ -92,7 +93,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{691A4A9D-2F6E-4056-B93E-F580FB32BF54}.Default|Default.ActiveCfg = Default
+		{700B3A5E-1149-4119-A532-7E1632769062}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

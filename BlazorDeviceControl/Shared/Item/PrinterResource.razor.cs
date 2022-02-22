@@ -39,9 +39,10 @@ namespace BlazorDeviceControl.Shared.Item
                         PrinterResourceItem = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            PrinterResourceItem.Id = (int)Id;
+                            PrinterResourceItem.Id = (long)Id;
                         PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(null, null).ToList();
                         ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null).ToList();
+                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -57,7 +58,7 @@ namespace BlazorDeviceControl.Shared.Item
                     switch (name)
                     {
                         case nameof(PrinterEntity):
-                            if (value is int idZebraPrinter)
+                            if (value is long idZebraPrinter)
                             {
                                 if (idZebraPrinter <= 0)
                                     PrinterResourceItem.Printer = null;
@@ -70,7 +71,7 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case nameof(TemplateResourceEntity):
-                            if (value is int idTemplateResource)
+                            if (value is long idTemplateResource)
                             {
                                 if (idTemplateResource <= 0)
                                     PrinterResourceItem.Printer = null;

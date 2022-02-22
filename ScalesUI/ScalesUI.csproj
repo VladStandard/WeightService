@@ -426,7 +426,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <None Include="App.Creatio.config" />
     <None Include="CHANGELOG.md" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />

@@ -19,7 +19,7 @@
 //    [Serializable]
 //    public class OrderEntity
 //    {
-//        public int Id               { get; set; }
+//        public long Id               { get; set; }
 //        public int OrderType        { get; set; } = 1;
 //        public string RRefID        { get; set; }
 
@@ -71,7 +71,7 @@
 //            return sb.ToString();
 //        }
 
-//        public static IDictionary<string, object> ObjectToDictionary<T>(T item)
+//        public IDictionary<string, object> ObjectToDictionary<T>(T item)
 //            where T : class
 //        {
 //            Type myObjectType = item.GetType();
@@ -86,7 +86,7 @@
 //            return dict;
 //        }
 
-//        public static T ObjectFromDictionary<T>(IDictionary<string, object> dict)
+//        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
 //            where T : class
 //        {
 //            Type type = typeof(T);

@@ -10,8 +10,8 @@
 //    {
 //        #region Design pattern "Singleton"
 
-//        private static readonly Lazy<SsccHelper> _instance = new Lazy<SsccHelper>(() => new SsccHelper());
-//        public static SsccHelper Instance => _instance.Value;
+//        private readonly Lazy<SsccHelper> _instance = new Lazy<SsccHelper>(() => new SsccHelper());
+//        public SsccHelper Instance => _instance.Value;
 //        protected SsccHelper()
 //        {
 //            if (_ssccStack.Count() < 5)

@@ -11,7 +11,9 @@ namespace DataCore.DAL.TableDirectModels
     [Serializable]
     public class BarCodeDirect : BaseSerializeEntity<BarCodeDirect>
     {
-        public int Id { get; set; } = default;
+        #region Public and private fields and properties
+
+        public long Id { get; set; } = default;
         public string Value { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
@@ -19,16 +21,23 @@ namespace DataCore.DAL.TableDirectModels
         public NomenclatureDirect Nomenclature { get; set; } = new NomenclatureDirect();
         public NomenclatureUnitDirect NomenclatureUnit { get; set; } = new NomenclatureUnitDirect();
         public ContregentDirect Contragent { get; set; } = new ContregentDirect();
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        #endregion
+
+        #region Constructor and destructor
 
         public BarCodeDirect()
         {
             Load(default);
         }
 
-        public BarCodeDirect(int id)
+        public BarCodeDirect(long id)
         {
             Load(id);
         }
+
+        #endregion
 
         public override bool Equals(object obj)
         {
@@ -44,33 +53,33 @@ namespace DataCore.DAL.TableDirectModels
             return Id.GetHashCode();
         }
 
-        public void Load(int id)
+        public void Load(long id)
         {
             if (id == default) return;
             Id = id;
             string query = "SELECT * FROM [db_scales].[GetBarCode] (default,default,default,default,@ID);";
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@ID", System.Data.SqlDbType.Int) { Value = Id },
+                new SqlParameter("@ID", System.Data.SqlDbType.BigInt) { Value = Id },
             };
-            //SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetItemById, parameters, delegate (SqlDataReader reader)
-            SqlConnectFactory.ExecuteReader(query, parameters, delegate (SqlDataReader reader)
+            //SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetItemById, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(query, parameters, delegate (SqlDataReader reader)
             {
                 while (reader.Read())
                 {
-                    Value = SqlConnectFactory.GetValueAsString(reader, "Value");
-                    CreateDate = SqlConnectFactory.GetValueAsNullable<DateTime>(reader, "CreateDate");
-                    ModifiedDate = SqlConnectFactory.GetValueAsNullable<DateTime>(reader, "ModifiedDate");
-                    BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValueAsNullable<int>(reader, "BarCodeTypeId"));
-                    Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValueAsNullable<int>(reader, "NomenclatureId"));
-                    NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValueAsNullable<int>(reader, "NomenclatureUnitId"));
-                    Contragent = new ContregentDirect(SqlConnectFactory.GetValueAsNullable<int>(reader, "ContragentId"));
+                    Value = SqlConnect.GetValueAsString(reader, "Value");
+                    CreateDate = SqlConnect.GetValueAsNullable<DateTime>(reader, "CreateDate");
+                    ModifiedDate = SqlConnect.GetValueAsNullable<DateTime>(reader, "ModifiedDate");
+                    BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNullable<int>(reader, "BarCodeTypeId"));
+                    Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNullable<int>(reader, "NomenclatureId"));
+                    NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNullable<int>(reader, "NomenclatureUnitId"));
+                    Contragent = new ContregentDirect(SqlConnect.GetValueAsNullable<int>(reader, "ContragentId"));
                 }
             });
         }
 
         public void Save()
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = @"
                     DECLARE @ID int; 
@@ -99,7 +108,7 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                        Id = SqlConnect.GetValueAsNotNullable<int>(reader, "ID");
                     }
                 }
                 reader.Close();
@@ -107,10 +116,10 @@ namespace DataCore.DAL.TableDirectModels
             con.Close();
         }
 
-        public static List<BarCodeDirect> GetList(NomenclatureDirect nomenclature)
+        public List<BarCodeDirect> GetList(NomenclatureDirect nomenclature)
         {
             List<BarCodeDirect> result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetBarCode] (@NomenclatureId,default,default,default,default);";
@@ -125,14 +134,14 @@ namespace DataCore.DAL.TableDirectModels
                         {
                             BarCodeDirect barCode = new()
                             {
-                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                Value = SqlConnectFactory.GetValueAsString(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
-                                BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
-                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
-                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
-                                Contragent = new ContregentDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ContragentId")),
+                                Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
+                                Value = SqlConnect.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
+                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
+                                Contragent = new ContregentDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "ContragentId")),
                             };
                             result.Add(barCode);
                         }
@@ -144,10 +153,10 @@ namespace DataCore.DAL.TableDirectModels
             return result;
         }
 
-        public static List<BarCodeDirect> GetList(NomenclatureDirect nomenclature, BarCodeTypeDirect barCodeType)
+        public List<BarCodeDirect> GetList(NomenclatureDirect nomenclature, BarCodeTypeDirect barCodeType)
         {
             List<BarCodeDirect> result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetBarCode] (@NomenclatureId,@BarCodeTypeId,default,default,default);";
@@ -163,14 +172,14 @@ namespace DataCore.DAL.TableDirectModels
                         {
                             BarCodeDirect barCode = new()
                             {
-                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                Value = SqlConnectFactory.GetValueAsString(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
-                                BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
-                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
-                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
-                                Contragent = new ContregentDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ContragentId")),
+                                Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
+                                Value = SqlConnect.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
+                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
+                                Contragent = new ContregentDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "ContragentId")),
                             };
                             result.Add(barCode);
                         }
@@ -182,10 +191,10 @@ namespace DataCore.DAL.TableDirectModels
             return result;
         }
 
-        public static List<BarCodeDirect> GetList(NomenclatureDirect nomenclature, BarCodeTypeDirect barCodeType, NomenclatureUnitDirect nomenclatureUnit)
+        public List<BarCodeDirect> GetList(NomenclatureDirect nomenclature, BarCodeTypeDirect barCodeType, NomenclatureUnitDirect nomenclatureUnit)
         {
             List<BarCodeDirect> result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetBarCode] (@NomenclatureId,@BarCodeTypeId,@NomenclatureUnitId,default,default);";
@@ -202,14 +211,14 @@ namespace DataCore.DAL.TableDirectModels
                         {
                             BarCodeDirect barCode = new()
                             {
-                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                Value = SqlConnectFactory.GetValueAsString(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
-                                BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
-                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
-                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
-                                Contragent = new ContregentDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ContragentId")),
+                                Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
+                                Value = SqlConnect.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
+                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
+                                Contragent = new ContregentDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "ContragentId")),
                             };
                             result.Add(barCode);
                         }
@@ -221,10 +230,10 @@ namespace DataCore.DAL.TableDirectModels
             return result;
         }
 
-        public static List<BarCodeDirect> GetList(NomenclatureDirect nomenclature, ContregentDirect contregent)
+        public List<BarCodeDirect> GetList(NomenclatureDirect nomenclature, ContregentDirect contregent)
         {
             List<BarCodeDirect> result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetBarCode] (@NomenclatureId,default,default,@ContragentId,default);";
@@ -240,14 +249,14 @@ namespace DataCore.DAL.TableDirectModels
                         {
                             BarCodeDirect barCode = new()
                             {
-                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                Value = SqlConnectFactory.GetValueAsString(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
-                                BarCodeType = new BarCodeTypeDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
-                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
-                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
-                                Contragent = new ContregentDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ContragentId")),
+                                Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
+                                Value = SqlConnect.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
+                                NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
+                                Contragent = new ContregentDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "ContragentId")),
                             };
                             result.Add(barCode);
                         }

@@ -29,13 +29,9 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldUid</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@UidStr />
-				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldCreateDt</td>
-                <td>
-                    <RadzenDatePicker 
-                        TValue="string" Value=@LogItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
 				</td>
             </tr>
             <tr>

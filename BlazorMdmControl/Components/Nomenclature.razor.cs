@@ -1,16 +1,17 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using DataCore;
-using DataProjectsCore.DAL.TableDwhModels;
+using DataCore.DAL.TableDwhModels;
+using DataCore.DAL.TableScaleModels;
 using MdmControlBlazor.Utils;
 using MdmControlCore;
 using MdmControlCore.Utils;
 using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Toolbelt.Blazor.HotKeys;
 
 namespace MdmControlBlazor.Components
@@ -20,7 +21,7 @@ namespace MdmControlBlazor.Components
         #region Public and private fields and properties
 
         [Parameter]
-        public int? ItemId { get; set; }
+        public long? ItemId { get; set; }
         public NomenclatureEntity Item { get; set; }
         public IEnumerable<BrandEntity> BrandEntities { get; set; }
         public IEnumerable<InformationSystemEntity> InformationSystemEntities { get; set; }
@@ -109,7 +110,7 @@ namespace MdmControlBlazor.Components
             switch (name)
             {
                 case "Brands":
-                    if (value is int idBrand)
+                    if (value is long idBrand)
                     {
                         Item.Brand = BlazorSettings.SqlDataAccess.BrandCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idBrand } }), null);
@@ -117,7 +118,7 @@ namespace MdmControlBlazor.Components
                     }
                     break;
                 case "NomenclatureGroups":
-                    if (value is int idNomenclatureGroup)
+                    if (value is long idNomenclatureGroup)
                     {
                         Item.NomenclatureGroup = BlazorSettings.SqlDataAccess.NomenclatureGroupCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclatureGroup } }), null);
@@ -125,7 +126,7 @@ namespace MdmControlBlazor.Components
                     }
                     break;
                 case "NomenclatureGroupsCost":
-                    if (value is int idNomenclatureGroupCost)
+                    if (value is long idNomenclatureGroupCost)
                     {
                         Item.NomenclatureGroupCost = BlazorSettings.SqlDataAccess.NomenclatureGroupCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclatureGroupCost } }), null);
@@ -133,7 +134,7 @@ namespace MdmControlBlazor.Components
                     }
                     break;
                 case "NomenclatureTypes":
-                    if (value is int idNomenclatureTypes)
+                    if (value is long idNomenclatureTypes)
                     {
                         Item.NomenclatureType = BlazorSettings.SqlDataAccess.NomenclatureTypeCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclatureTypes } }), null);
@@ -141,14 +142,14 @@ namespace MdmControlBlazor.Components
                     }
                     break;
                 case "Statuses":
-                    if (value is int idStatus)
+                    if (value is long idStatus)
                     {
                         Item.Status = BlazorSettings.SqlDataAccess.StatusCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idStatus } }), null);
                     }
                     break;
                 case "InformationSystems":
-                    if (value is int idInformationSystem)
+                    if (value is long idInformationSystem)
                     {
                         Item.InformationSystem = BlazorSettings.SqlDataAccess.InformationSystemCrud.GetEntity(
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idInformationSystem } }), null);

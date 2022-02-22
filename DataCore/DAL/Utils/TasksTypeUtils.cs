@@ -11,12 +11,18 @@ namespace DataCore.DAL.Utils
 {
     public static class TasksTypeUtils
     {
+        #region Public and private fields and properties
+
+        public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        #endregion
+
         #region Public and private methods
 
         public static Guid GetTaskTypeUid(string taskTypeName)
         {
             Guid result = Guid.Empty;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 StringUtils.SetStringValueTrim(ref taskTypeName, 32);
@@ -30,7 +36,7 @@ namespace DataCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
+                            result = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
                         }
                     }
                     reader.Close();
@@ -43,7 +49,7 @@ namespace DataCore.DAL.Utils
         public static TaskTypeDirect GetTaskType(string name)
         {
             TaskTypeDirect result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByName))
@@ -56,8 +62,8 @@ namespace DataCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result.Uid = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
-                            result.Name = SqlConnectFactory.GetValueAsString(reader, "NAME");
+                            result.Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
+                            result.Name = SqlConnect.GetValueAsString(reader, "NAME");
                         }
                     }
                     reader.Close();
@@ -70,7 +76,7 @@ namespace DataCore.DAL.Utils
         public static TaskTypeDirect GetTaskType(Guid uid)
         {
             TaskTypeDirect result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypesByUid))
@@ -83,8 +89,8 @@ namespace DataCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result.Uid = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
-                            result.Name = SqlConnectFactory.GetValueAsString(reader, "NAME");
+                            result.Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
+                            result.Name = SqlConnect.GetValueAsString(reader, "NAME");
                         }
                     }
                     reader.Close();
@@ -97,7 +103,7 @@ namespace DataCore.DAL.Utils
         public static List<TaskTypeDirect> GetTasksTypes()
         {
             List<TaskTypeDirect> result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes))
@@ -110,7 +116,7 @@ namespace DataCore.DAL.Utils
                         while (reader.Read())
                         {
                             result.Add(new TaskTypeDirect(
-                                SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID"), SqlConnectFactory.GetValueAsString(reader, "NAME")));
+                                SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID"), SqlConnect.GetValueAsString(reader, "NAME")));
                         }
                     }
                     reader.Close();

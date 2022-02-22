@@ -1,6 +1,6 @@
 ﻿@page "/item/templateresource"
-@page "/item/templateresource/{Id:int}"
-@page "/item/templateresource/{Id:int}/{TableActionString}"
+@page "/item/templateresource/{Id:long}"
+@page "/item/templateresource/{Id:long}/{TableActionString}"
 @using BlazorCore.Models
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
@@ -27,8 +27,9 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
-                        TValue="int" @bind-Value=@TemplateResourcesItem.Id />
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@TemplateResourcesItem.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>

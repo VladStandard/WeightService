@@ -34,7 +34,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/v2/nomenclature/")]
-        public ContentResult GetNomenclatureFromCodeIdProd(string code, int id, FormatType format = FormatType.Xml) =>
+        public ContentResult GetNomenclatureFromCodeIdProd(string code, long id, FormatType format = FormatType.Xml) =>
             GetNomenclatureFromCodeIdWork(code != null 
                 ? SqlQueriesNomenclaturesV2.GetNomenclatureFromCodeProd : SqlQueriesNomenclaturesV2.GetNomenclatureFromIdProd,
                 code, id, format);
@@ -42,12 +42,12 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/v2/nomenclature_preview/")]
-        public ContentResult GetNomenclatureFromCodeIdPreview(string code, int id, FormatType format = FormatType.Xml) =>
+        public ContentResult GetNomenclatureFromCodeIdPreview(string code, long id, FormatType format = FormatType.Xml) =>
             GetNomenclatureFromCodeIdWork(code != null 
                 ? SqlQueriesNomenclaturesV2.GetNomenclatureFromCodePreview : SqlQueriesNomenclaturesV2.GetNomenclatureFromIdPreview,
                 code, id, format);
 
-        private ContentResult GetNomenclatureFromCodeIdWork(string url, string code, int id, FormatType format = FormatType.Xml)
+        private ContentResult GetNomenclatureFromCodeIdWork(string url, string code, long id, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {

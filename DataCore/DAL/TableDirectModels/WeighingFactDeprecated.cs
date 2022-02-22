@@ -58,26 +58,6 @@
 //        public ScaleEntity Scale { get; set; }
 //        public string ProductSeries { get; set; }
 
-
-//        private DateTime _productDate;
-//        public DateTime ProductDate
-//        {
-//            get { return _productDate; }
-//            set
-//            {
-//                _productDate = value;
-//                if (PLU.GoodsShelfLifeDays != null)
-//                {
-//                    ExpirationDate = _productDate.AddDays((int)PLU.GoodsShelfLifeDays);
-//                }
-//                else
-//                {
-//                    ExpirationDate = _productDate.AddDays(30);
-//                }
-//            }
-//        }
-
-//        public DateTime ExpirationDate { get; set; }
 //        //[XmlElement(ElementName = "gs1BarCode")]
 //        //public string Gs1BarCode {
 //        //    get
@@ -153,7 +133,7 @@
 //            return (WeightTare / (double)Calibre).ToString("0.000");
 //        }
 
-//        public static IDictionary<string, object> ObjectToDictionary<T>(T item) where T : class
+//        public IDictionary<string, object> ObjectToDictionary<T>(T item) where T : class
 //        {
 //            Type myObjectType = item.GetType();
 //            IDictionary<string, object> dict = new Dictionary<string, object>();
@@ -167,7 +147,7 @@
 //            return dict;
 //        }
 
-//        public static T ObjectFromDictionary<T>(IDictionary<string, object> dict)
+//        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
 //            where T : class
 //        {
 //            Type type = typeof(T);
@@ -357,7 +337,7 @@
 //            return doc;
 //        }
 
-//        public static string GetXSLTTransform(string xslInput, string xmlInput)
+//        public string GetXSLTTransform(string xslInput, string xmlInput)
 //        {
 //            string result;
 //            using (var srt = new StringReader(xslInput)) // xslInput is a string that contains xsl
@@ -379,7 +359,7 @@
 //            return result;
 //        }
 
-//        public static string ToCodePoints(string zplInput)
+//        public string ToCodePoints(string zplInput)
 //        {
 //            var ret = new StringBuilder();
 //            var unicodeCharacterList = new Dictionary<char, string>();
@@ -409,7 +389,7 @@
 //            return ret.ToString();
 //        }
 
-//        public static string Utf16ToUtf8(string utf16String)
+//        public string Utf16ToUtf8(string utf16String)
 //        {
 //            /**************************************************************
 //             * Every .NET string will store text with the UTF16 encoding, *
@@ -455,7 +435,7 @@
 //            return utf8String;
 //        }
 
-//        public static string AnsiToUtf8(string text)
+//        public string AnsiToUtf8(string text)
 //        {
 //            // encode the string as an ASCII byte array
 //            byte[] myASCIIBytes = Encoding.ASCII.GetBytes(text);

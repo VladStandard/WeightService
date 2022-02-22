@@ -17,7 +17,7 @@ namespace DataCoreTests.DAL.TableDirectModels
 
             Assert.DoesNotThrow(() =>
             {
-                foreach (int? id in TestsEnums.GetIntNullable())
+                foreach (long? id in TestsEnums.GetLongNullable())
                 {
                     foreach (bool? isMarked in TestsEnums.GetBoolNullable())
                     {

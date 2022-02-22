@@ -13,9 +13,10 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int WeighingFactId { get; set; }
+        public long WeighingFactId { get; set; }
         public string? Label { get; set; }
         public string? Zpl { get; set; }
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -35,10 +36,10 @@ namespace DataCore.DAL.TableDirectModels
         public void Save()
         {
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@ID", SqlDbType.Int) { Value = WeighingFactId },
+                new SqlParameter("@ID", SqlDbType.BigInt) { Value = WeighingFactId },
                 new SqlParameter("@LABEL", SqlDbType.NVarChar) { Value = Label },
             };
-            SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.Save, parameters);
+            SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.Save, parameters);
         }
 
         public void SaveZpl()
@@ -47,7 +48,7 @@ namespace DataCore.DAL.TableDirectModels
                 new SqlParameter("@ID", SqlDbType.Int) { Value = WeighingFactId },
                 new SqlParameter("@Zpl", SqlDbType.NVarChar) { Value = Zpl },
             };
-            SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.SaveZpl, parameters);
+            SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Labels.SaveZpl, parameters);
         }
 
         #endregion

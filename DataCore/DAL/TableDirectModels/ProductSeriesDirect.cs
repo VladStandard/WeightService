@@ -13,7 +13,7 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public Guid UUID { get; set; }
         public ScaleDirect Scale { get; set; }
         public DateTime CreateDate { get; set; }
@@ -24,6 +24,7 @@ namespace DataCore.DAL.TableDirectModels
         public int CountUnit { get; set; }
         public decimal TotalNetWeight { get; set; }
         public decimal TotalTareWeight { get; set; }
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -44,7 +45,7 @@ namespace DataCore.DAL.TableDirectModels
 
         #region Public and private methods
 
-        public void LoadTemplate(int id)
+        public void LoadTemplate(long id)
         {
             Template = new TemplateDirect(id);
         }
@@ -56,7 +57,7 @@ namespace DataCore.DAL.TableDirectModels
                 throw new Exception("Equipment instance not identified. Set [Scale].");
             }
 
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query =
                 "DECLARE @SSCC varchar(50);\n" +
@@ -74,7 +75,7 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     while (reader.Read())
                     {
-                        Id = reader.GetInt32(0);
+                        Id = reader.GetInt64(0);
                         CreateDate = reader.GetDateTime(1);
                         UUID = reader.GetGuid(2);
                         CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
@@ -91,7 +92,7 @@ namespace DataCore.DAL.TableDirectModels
         public void Load()
         {
             if (Scale == null || Scale.Id == default) return;
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query =
                 "SELECT Id, CreateDate, UUID, SSCC, CountUnit,TotalNetWeight, TotalTareWeight " +

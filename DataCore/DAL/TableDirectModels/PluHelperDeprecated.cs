@@ -4,12 +4,12 @@
 
 //namespace DataCore.DAL.TableDirectModels
 //{
-//    public static class PLUHelper
+//    public class PLUHelper
 //    {
 //        // Помощник SQL.
-//        private static SqlHelper _sql { get; set; } = SqlHelper.Instance;
+//        private SqlHelper _sql { get; set; } = SqlHelper.Instance;
 
-//        public static PluEntity GetPLU(string scaleGuid, int plu)
+//        public PluEntity GetPLU(string scaleGuid, int plu)
 //        {
 //            PluEntity pluEntity = null;
 //            using (SqlConnection con = new SqlConnection(_sql.ConnectionString))
@@ -71,7 +71,7 @@
 //        }
 
 
-//        public static List<PluEntity> GetPLUList(string scaleGuid)
+//        public List<PluEntity> GetPLUList(string scaleGuid)
 //        {
 //            List<PluEntity> res = new List<PluEntity>();
 //            using (SqlConnection con = new SqlConnection(_sql.ConnectionString))

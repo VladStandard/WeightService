@@ -70,7 +70,7 @@
 //            GetTemplateObjFromDB();
 //        }
 
-//        public static IDictionary<string, object> ObjectToDictionary<T>(T item) where T : class
+//        public IDictionary<string, object> ObjectToDictionary<T>(T item) where T : class
 //        {
 //            Type myObjectType = item.GetType();
 //            IDictionary<string, object> dict = new Dictionary<string, object>();
@@ -84,7 +84,7 @@
 //            return dict;
 //        }
 
-//        public static T ObjectFromDictionary<T>(IDictionary<string, object> dict)
+//        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
 //            where T : class
 //        {
 //            Type type = typeof(T);

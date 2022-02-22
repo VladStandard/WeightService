@@ -52,6 +52,15 @@ namespace BlazorCore.Models
 
         #endregion
 
+        #region Constructor and destructor
+
+        public AppSettingsHelper()
+        {
+            //
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public void SetupMemory(MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)

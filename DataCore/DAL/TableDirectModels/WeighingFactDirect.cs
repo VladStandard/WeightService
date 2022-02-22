@@ -14,9 +14,9 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; } = default;
+        public long Id { get; set; } = default;
         public TemplateDirect Temp { get; set; } = new TemplateDirect();
-        public int ScaleId { get; set; } = default;
+        public long ScaleId { get; set; } = default;
         public ScaleDirect Scale { get; set; } = new ScaleDirect();
         public string ProductSeries { get; set; } = string.Empty;
 
@@ -88,6 +88,7 @@ namespace DataCore.DAL.TableDirectModels
         public int? ScaleFactor { get; set; }
         public DateTime RegDate { get; set; }
         public SsccDirect Sscc { get; set; }
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -108,6 +109,19 @@ namespace DataCore.DAL.TableDirectModels
             Scale = new ScaleDirect();
             ProductSeries = string.Empty;
             Sscc = new SsccDirect();
+        }
+
+        public WeighingFactDirect(ScaleDirect scale, PluDirect plu, DateTime productDate, int kneadingNumber,
+            int? scaleFactor, decimal netWeight, decimal tareWeight)
+        {
+            ScaleId = scale.Id;
+            ScaleFactor = scaleFactor;
+            Scale = scale;
+            PLU = plu;
+            ProductDate = productDate;
+            KneadingNumber = kneadingNumber;
+            NetWeight = netWeight;
+            TareWeight = tareWeight;
         }
 
         #endregion
@@ -143,12 +157,12 @@ namespace DataCore.DAL.TableDirectModels
                 new SqlParameter("@ProductDate", SqlDbType.Date) { Value = ProductDate },
                 new SqlParameter("@Kneading", SqlDbType.Int) { Value = KneadingNumber },
             };
-            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.WeithingFacts.Save, parameters, SaveReader);
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.WeithingFacts.Save, parameters, SaveReader);
         }
 
         //public void SaveDeprecated()
         //{
-        //    using (SqlConnection con = SqlConnectFactory.GetConnection())
+        //    using (SqlConnection con = SqlConnect.GetConnection())
         //    {
         //        con.Open();
         //        using (SqlCommand cmd = new SqlCommand())
@@ -189,7 +203,7 @@ namespace DataCore.DAL.TableDirectModels
         //    }
         //}
 
-        public static WeighingFactDirect New(ScaleDirect scale, PluDirect plu, DateTime productDate, int kneadingNumber,
+        public WeighingFactDirect New(ScaleDirect scale, PluDirect plu, DateTime productDate, int kneadingNumber,
             int? scaleFactor, decimal netWeight, decimal tareWeight)
         {
             WeighingFactDirect weighingFact = new()

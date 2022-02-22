@@ -58,7 +58,7 @@ namespace BlazorDeviceControl.Shared.Item
                         ScaleItem = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(new FieldListEntity(new Dictionary<string, object> {
                         { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            ScaleItem.Id = (int)Id;
+                            ScaleItem.Id = (long)Id;
                         // ComPorts
                         ComPorts = new List<TypeEntity<string>>();
                         for (int i = 1; i < 256; i++)
@@ -88,8 +88,8 @@ namespace BlazorDeviceControl.Shared.Item
                             new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             null).ToList();
                         HostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(new FieldListEntity(new Dictionary<string, object> {
-                        { ShareEnums.DbField.Marked.ToString(), false },
-                    }), new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc)).ToList();
+                            { ShareEnums.DbField.Marked.ToString(), false },
+                        }), new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc)).ToList();
                         ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
@@ -141,7 +141,7 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case "TemplatesDefault":
-                            if (value is int idDefault)
+                            if (value is long idDefault)
                             {
                                 if (idDefault <= 0)
                                     ScaleItem.TemplateDefault = null;
@@ -154,7 +154,7 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case "TemplatesSeries":
-                            if (value is int idSeries)
+                            if (value is long idSeries)
                             {
                                 if (idSeries <= 0)
                                     ScaleItem.TemplateSeries = null;
@@ -167,7 +167,7 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case "WorkShops":
-                            if (value is int idWorkShop)
+                            if (value is long idWorkShop)
                             {
                                 if (idWorkShop <= 0)
                                     ScaleItem.WorkShop = null;
@@ -180,7 +180,7 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case "Printers":
-                            if (value is int idPrinter)
+                            if (value is long idPrinter)
                             {
                                 if (idPrinter <= 0)
                                     ScaleItem.Printer = null;
@@ -193,7 +193,7 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case "Hosts":
-                            if (value is int idHost)
+                            if (value is long idHost)
                             {
                                 if (idHost <= 0)
                                     ScaleItem.Host = null;

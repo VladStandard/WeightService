@@ -35,7 +35,7 @@ namespace ScalesUI.Forms
             InitializeComponent();
             
             //GridCustomizatorClass.GridCustomizator(PluListGrid, ColumnCount, RowCount);
-            PluList = PluDirect.GetPluList(SessionState.CurrentScale);
+            PluList = new PluDirect().GetPluList(SessionState.CurrentScale);
         }
 
         #endregion
@@ -53,7 +53,7 @@ namespace ScalesUI.Forms
                 Top = Owner.Top;
                 //StartPosition = FormStartPosition.CenterParent;
 
-                OrderList = PluDirect.GetPluList(SessionState.CurrentScale);
+                OrderList = new PluDirect().GetPluList(SessionState.CurrentScale);
 
                 PluDirect[] pluEntities = PluList.Skip(CurrentPage * PageSize).Take(PageSize).ToArray();
                 Control[,] controls = CreateControls(pluEntities, ColumnCount, RowCount);

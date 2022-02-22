@@ -21,77 +21,6 @@ namespace DataCore.DAL
 
         #endregion
 
-        #region Constructor and destructor
-
-        public SqlViewModelEntity()
-        {
-            DataSource = string.Empty;
-            DataBase = string.Empty;
-            Host = string.Empty;
-            PublishType = ShareEnums.PublishType.Default;
-            PublishDescription = "Неизвестный сервер";
-
-            SqlInstance = GetInstance();
-            if (SqlInstance.Equals("INS1"))
-            {
-                PublishType = ShareEnums.PublishType.Debug;
-                PublishDescription = "Тестовый сервер";
-            }
-            else if (SqlInstance.Equals("SQL2019"))
-            {
-                PublishType = ShareEnums.PublishType.Dev;
-                PublishDescription = "Сервер разработки";
-            }
-            else if (SqlInstance.Equals("LUTON"))
-            {
-                PublishType = ShareEnums.PublishType.Release;
-                PublishDescription = "Продуктовый сервер";
-            }
-
-            TaskTypes = new List<TaskTypeDirect>();
-            Tasks = new List<TaskDirect>();
-        }
-
-        public void SetupTasks(int? scaleId)
-        {
-            if (scaleId == null)
-                return;
-
-            TaskTypes = TasksTypeUtils.GetTasksTypes();
-
-            Tasks = new List<TaskDirect>();
-            foreach (TaskTypeDirect taskType in TaskTypes)
-            {
-                TaskDirect task = TasksUtils.GetTask(taskType.Uid, (int)scaleId);
-                if (task == null)
-                {
-                    TasksUtils.SaveNullTask(taskType, (int)scaleId, true);
-                    task = TasksUtils.GetTask(taskType.Uid, (int)scaleId);
-                }
-                Tasks.Add(task);
-            }
-        }
-
-        public bool IsTaskEnabled(ProjectsEnums.TaskType taskType)
-        {
-            if (Tasks == null)
-                return false;
-            // Table [TASKS] dont has records.
-            if (Tasks.Count == 0)
-                return true;
-
-            foreach (TaskDirect task in Tasks)
-            {
-                if (string.Equals(task.TaskType.Name, taskType.ToString(), System.StringComparison.InvariantCultureIgnoreCase))
-                {
-                    return task.Enabled;
-                }
-            }
-            return false;
-        }
-
-        #endregion
-
         #region Public and private fields and properties
 
         private ShareEnums.PublishType _publishType = ShareEnums.PublishType.Default;
@@ -174,6 +103,78 @@ namespace DataCore.DAL
                 OnPropertyChanged();
             }
         }
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public SqlViewModelEntity()
+        {
+            DataSource = string.Empty;
+            DataBase = string.Empty;
+            Host = string.Empty;
+            PublishType = ShareEnums.PublishType.Default;
+            PublishDescription = "Неизвестный сервер";
+
+            SqlInstance = GetInstance();
+            if (SqlInstance.Equals("INS1"))
+            {
+                PublishType = ShareEnums.PublishType.Debug;
+                PublishDescription = "Тестовый сервер";
+            }
+            else if (SqlInstance.Equals("SQL2019"))
+            {
+                PublishType = ShareEnums.PublishType.Dev;
+                PublishDescription = "Сервер разработки";
+            }
+            else if (SqlInstance.Equals("LUTON"))
+            {
+                PublishType = ShareEnums.PublishType.Release;
+                PublishDescription = "Продуктовый сервер";
+            }
+
+            TaskTypes = new List<TaskTypeDirect>();
+            Tasks = new List<TaskDirect>();
+        }
+
+        public void SetupTasks(long? scaleId)
+        {
+            if (scaleId == null)
+                return;
+
+            TaskTypes = TasksTypeUtils.GetTasksTypes();
+
+            Tasks = new List<TaskDirect>();
+            foreach (TaskTypeDirect taskType in TaskTypes)
+            {
+                TaskDirect task = TasksUtils.GetTask(taskType.Uid, (long)scaleId);
+                if (task == null)
+                {
+                    TasksUtils.SaveNullTask(taskType, (long)scaleId, true);
+                    task = TasksUtils.GetTask(taskType.Uid, (long)scaleId);
+                }
+                Tasks.Add(task);
+            }
+        }
+
+        public bool IsTaskEnabled(ProjectsEnums.TaskType taskType)
+        {
+            if (Tasks == null)
+                return false;
+            // Table [TASKS] dont has records.
+            if (Tasks.Count == 0)
+                return true;
+
+            foreach (TaskDirect task in Tasks)
+            {
+                if (string.Equals(task.TaskType.Name, taskType.ToString(), System.StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return task.Enabled;
+                }
+            }
+            return false;
+        }
 
         #endregion
 
@@ -182,7 +183,7 @@ namespace DataCore.DAL
         private string GetInstance()
         {
             string result = string.Empty;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 using (SqlCommand cmd = new(SqlQueries.DbSystem.Properties.GetInstance))
@@ -195,7 +196,7 @@ namespace DataCore.DAL
                         {
                             if (reader.Read())
                             {
-                                result = SqlConnectFactory.GetValueAsString(reader, "InstanceName");
+                                result = SqlConnect.GetValueAsString(reader, "InstanceName");
                             }
                         }
                         reader.Close();

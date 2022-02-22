@@ -216,7 +216,7 @@ namespace DataCore.DAL.TableDwhModels
                    Equals(CodeInIs, default(byte[])) &&
                    Equals(RelevanceStatus, default(short?)) &&
                    Equals(NormalizationStatus, default(short?)) &&
-                   Equals(MasterId, default(int?));
+                   Equals(MasterId, default(long?));
         }
 
         public override object Clone()

@@ -22,6 +22,7 @@ namespace ScalesUI
     internal static class Program
     {
         private static AppVersionHelper AppVersion { get; set; } = AppVersionHelper.Instance;
+        public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         internal static void TokenWrite(string conectionString, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0,
             [CallerMemberName] string memberName = "")
@@ -77,7 +78,7 @@ namespace ScalesUI
 #endif
             try
             {
-                _ = SqlConnectFactory.GetConnection(conectionString);
+                _ = SqlConnect.GetConnection(conectionString);
             }
             catch (Exception ex)
             {

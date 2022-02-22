@@ -1,6 +1,6 @@
 ﻿@page "/item/barcodetype"
-@page "/item/barcodetype/{Id:int}"
-@page "/item/barcodetype/{Id:int}/{TableActionString}"
+@page "/item/barcodetype/{Id:long}"
+@page "/item/barcodetype/{Id:long}/{TableActionString}"
 @using BlazorCore.Models
 @using DataCore
 @using DataCore.Utils
@@ -30,8 +30,9 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true
-                        TValue="int" @bind-Value=@BarcodeTypeItem.Id />
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@BarcodeTypeItem.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>

@@ -25,7 +25,7 @@ namespace DataCore.DAL.TableDirectModels
             //
         }
 
-        public TaskDirect(Guid uid, int scaleId, string scaleDescription, Guid taskTypeUid, string taskType, bool enabled) : this()
+        public TaskDirect(Guid uid, long scaleId, string scaleDescription, Guid taskTypeUid, string taskType, bool enabled) : this()
         {
             Uid = uid;
             Scale = new ScaleDirect(scaleId, scaleDescription);

@@ -111,6 +111,15 @@ namespace DataCoreTests
         }
 
         /// <summary>
+        /// List of int values with null value.
+        /// </summary>
+        /// <returns></returns>
+        public static List<long?> GetLongNullable()
+        {
+            return new List<long?>() { null, long.MinValue, 1, long.MaxValue / 2, long.MaxValue };
+        }
+
+        /// <summary>
         /// List of long values.
         /// </summary>
         /// <returns></returns>

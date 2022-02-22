@@ -16,6 +16,7 @@ namespace DataCore.DAL.TableDirectModels
         public Guid Uid { get; set; }
         public byte Number { get; set; }
         public string Icon { get; set; } = string.Empty;
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -39,7 +40,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public void Save(byte number, string icon)
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             StringUtils.SetStringValueTrim(ref icon, 32);
             using (SqlCommand cmd = new(SqlQueries.DbServiceManaging.Tables.Logs.AddLogType))

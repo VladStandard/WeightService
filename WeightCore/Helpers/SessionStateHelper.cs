@@ -335,7 +335,7 @@ namespace WeightCore.Helpers
         /// </summary>
         /// <param name="printCmd"></param>
         /// <param name="weithingFactId"></param>
-        public void PrintSaveLabel(string printCmd, int weithingFactId)
+        public void PrintSaveLabel(string printCmd, long weithingFactId)
         {
             ZplLabelDirect zplLabel = new()
             {
@@ -354,7 +354,7 @@ namespace WeightCore.Helpers
         private void PrintCountLabel(IWin32Window owner, TemplateDirect template)
         {
             // Вывести серию этикеток по заданному размеру паллеты.
-            CurrentWeighingFact = WeighingFactDirect.New(CurrentScale, CurrentPlu, ProductDate, Kneading,
+            CurrentWeighingFact = new WeighingFactDirect(CurrentScale, CurrentPlu, ProductDate, Kneading,
                 CurrentPlu.Scale.ScaleFactor, CurrentPlu.NominalWeight, CurrentPlu.GoodsTareWeight);
 
             // Указан номинальный вес.
@@ -437,7 +437,7 @@ namespace WeightCore.Helpers
                 return;
             }
 
-            CurrentWeighingFact = WeighingFactDirect.New(CurrentScale, CurrentPlu, ProductDate, Kneading, CurrentPlu.Scale.ScaleFactor,
+            CurrentWeighingFact = new WeighingFactDirect(CurrentScale, CurrentPlu, ProductDate, Kneading, CurrentPlu.Scale.ScaleFactor,
                 Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
 
             // Указан номинальный вес.

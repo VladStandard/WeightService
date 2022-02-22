@@ -13,8 +13,8 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; } = default;
-        public int ScaleId { get; set; } = default;
+        public long Id { get; set; } = default;
+        public long ScaleId { get; set; } = default;
         public string? Name { get; set; } = string.Empty;
         public string? Ip { get; set; } = string.Empty;
         public string? Mac { get; set; } = string.Empty;

@@ -78,7 +78,7 @@ namespace terra.Controllers
         }
 
         // GET: api/Contragent/id
-        public HttpResponseMessage Get(int id)
+        public HttpResponseMessage Get(long id)
         {
             XDocument doc = new(new XElement("response"));
 

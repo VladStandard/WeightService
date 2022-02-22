@@ -13,7 +13,7 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; } = default;
+        public long Id { get; set; } = default;
         public string Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
@@ -23,6 +23,7 @@ namespace DataCore.DAL.TableDirectModels
         public decimal PackWeight { get; set; }
         public int PackQuantly { get; set; }
         public NomenclatureDirect PackType { get; set; } = new NomenclatureDirect();
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -33,7 +34,7 @@ namespace DataCore.DAL.TableDirectModels
             Load(default);
         }
 
-        public NomenclatureUnitDirect(int id)
+        public NomenclatureUnitDirect(long id)
         {
             Load(id);
         }
@@ -56,11 +57,11 @@ namespace DataCore.DAL.TableDirectModels
             return Id.GetHashCode();
         }
 
-        public void Load(int id)
+        public void Load(long id)
         {
             if (id == default) return;
             Id = id;
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = "SELECT * FROM [db_scales].[GetNomenclatureUnit] (@Id);";
             using (SqlCommand cmd = new(query))
@@ -72,16 +73,16 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
-                        Name = SqlConnectFactory.GetValueAsString(reader, "Name");
-                        CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
-                        RRefID = SqlConnectFactory.GetValueAsString(reader, "RRefID");
-                        Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked");
-                        PackWeight = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "PackWeight");
-                        PackQuantly = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PackQuantly");
-                        PackType = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PackTypeId"));
-                        Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureId"));
+                        Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+                        Name = SqlConnect.GetValueAsString(reader, "Name");
+                        CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
+                        Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
+                        PackWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "PackWeight");
+                        PackQuantly = SqlConnect.GetValueAsNotNullable<int>(reader, "PackQuantly");
+                        PackType = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "PackTypeId"));
+                        Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId"));
                     }
                 }
                 reader.Close();
@@ -91,20 +92,20 @@ namespace DataCore.DAL.TableDirectModels
 
         public void Save()
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = @"
-                    DECLARE @ID int; 
-                    EXECUTE [db_scales].[SetNomenclatureUnit]
-                       @1CRRefID,
-                       @Name,
-                       @NomenclatureId  ,
-                       @Marked          ,
-                       @PackWeight      ,
-                       @PackQuantly     ,
-                       @PackTypeId      ,
-                       @ID OUTPUT;
-                    SELECT @ID";
+DECLARE @ID int; 
+EXECUTE [db_scales].[SetNomenclatureUnit]
+    @1CRRefID,
+    @Name,
+    @NomenclatureId  ,
+    @Marked          ,
+    @PackWeight      ,
+    @PackQuantly     ,
+    @PackTypeId      ,
+    @ID OUTPUT;
+SELECT @ID";
             using (SqlCommand cmd = new(query))
             {
                 cmd.Connection = con;
@@ -121,7 +122,7 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     if (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id");
+                        Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id");
                     }
                 }
                 reader.Close();
@@ -129,10 +130,10 @@ namespace DataCore.DAL.TableDirectModels
             con.Close();
         }
 
-        public static List<NomenclatureUnitDirect> GetList()
+        public List<NomenclatureUnitDirect> GetList()
         {
             List<NomenclatureUnitDirect> result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetNomenclatureUnit] (default);";
@@ -146,16 +147,16 @@ namespace DataCore.DAL.TableDirectModels
                         {
                             NomenclatureUnitDirect pFacility = new()
                             {
-                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                Name = SqlConnectFactory.GetValueAsString(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
-                                RRefID = SqlConnectFactory.GetValueAsString(reader, "1CRRefID"),
-                                Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked"),
-                                PackWeight = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "PackWeight"),
-                                PackQuantly = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PackQuantly"),
-                                PackType = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PackTypeId")),
-                                Nomenclature = new NomenclatureDirect(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
+                                Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
+                                Name = SqlConnect.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
+                                Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
+                                PackWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "PackWeight"),
+                                PackQuantly = SqlConnect.GetValueAsNotNullable<int>(reader, "PackQuantly"),
+                                PackType = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "PackTypeId")),
+                                Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
                             };
                             result.Add(pFacility);
                         }

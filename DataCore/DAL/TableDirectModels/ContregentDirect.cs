@@ -11,29 +11,40 @@ namespace DataCore.DAL.TableDirectModels
     [Serializable]
     public class ContregentDirect : BaseSerializeEntity<ContregentDirect>
     {
-        public int Id { get; set; } = default;
+        #region Public and private fields and properties
+
+        public long Id { get; set; } = default;
         public string Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string RRefID { get; set; } = string.Empty;
         public bool Marked { get; set; }
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        #endregion
+
+        #region Constructor and destructor
 
         public ContregentDirect()
         {
             Load();
         }
 
-        public ContregentDirect(int id)
+        public ContregentDirect(long id)
         {
             Id = id;
             Marked = false;
             Load();
         }
 
+        #endregion
+
+        #region Public and private methods
+
         public void Load()
         {
             if (Id == default) return;
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = "SELECT * FROM [db_scales].[GetContragent](@Id);";
             using (SqlCommand cmd = new(query))
@@ -45,12 +56,12 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
-                        Name = SqlConnectFactory.GetValueAsString(reader, "Name");
-                        CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
-                        RRefID = SqlConnectFactory.GetValueAsString(reader, "1CRRefID");
-                        Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked");
+                        Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+                        Name = SqlConnect.GetValueAsString(reader, "Name");
+                        CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID");
+                        Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
                     }
                 }
                 reader.Close();
@@ -60,7 +71,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public void Save()
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = @"
                     DECLARE @ID int; 
@@ -82,7 +93,7 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id");
+                        Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id");
                     }
                 }
                 reader.Close();
@@ -90,10 +101,10 @@ namespace DataCore.DAL.TableDirectModels
             con.Close();
         }
 
-        public static List<ContregentDirect> GetList()
+        public List<ContregentDirect> GetList()
         {
             List<ContregentDirect> result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "SELECT * FROM [db_scales].[GetContragent] (default);";
@@ -107,12 +118,12 @@ namespace DataCore.DAL.TableDirectModels
                         {
                             ContregentDirect contregent = new()
                             {
-                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                Name = SqlConnectFactory.GetValueAsString(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
-                                RRefID = SqlConnectFactory.GetValueAsString(reader, "1CRRefID"),
-                                Marked = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "Marked")
+                                Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id"),
+                                Name = SqlConnect.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
+                                Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked")
                             };
                             result.Add(contregent);
                         }
@@ -123,5 +134,7 @@ namespace DataCore.DAL.TableDirectModels
             }
             return result;
         }
+
+        #endregion
     }
 }

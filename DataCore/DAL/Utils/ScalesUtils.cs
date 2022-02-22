@@ -9,12 +9,18 @@ namespace DataCore.DAL.Utils
 {
     public static class ScalesUtils
     {
+        #region Public and private fields and properties
+
+        public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        #endregion
+
         #region Public and private methods
 
-        public static int GetScaleId(string scaleName)
+        public static long GetScaleId(string scaleName)
         {
-            int result = 0;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            long result = 0;
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 StringUtils.SetStringValueTrim(ref scaleName, 150);
@@ -28,7 +34,7 @@ namespace DataCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                            result = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
                         }
                     }
                     reader.Close();
@@ -38,12 +44,12 @@ namespace DataCore.DAL.Utils
             return result;
         }
 
-        public static ScaleDirect GetScale(int? scaleId)
+        public static ScaleDirect GetScale(long? scaleId)
         {
             ScaleDirect result = new();
             if (scaleId == null)
                 return result;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Scales.GetScaleById))
@@ -56,20 +62,20 @@ namespace DataCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result.Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
-                            result.Description = SqlConnectFactory.GetValueAsString(reader, "Description");
-                            result.DeviceIP = SqlConnectFactory.GetValueAsString(reader, "DeviceIP");
-                            result.DevicePort = SqlConnectFactory.GetValueAsNotNullable<short>(reader, "DevicePort");
-                            result.DeviceMac = SqlConnectFactory.GetValueAsString(reader, "DeviceMAC");
-                            result.DeviceWriteTimeout = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "DeviceSendTimeout");
-                            result.DeviceReadTimeout = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "DeviceReceiveTimeout");
-                            result.DeviceComPort = SqlConnectFactory.GetValueAsString(reader, "DeviceComPort");
-                            //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValueAsNullable<int?>(reader, "ZebraPrinterId"));
-                            result.ZebraPrinter.Load(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ZebraPrinterId"));
-                            result.UseOrder = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "UseOrder");
-                            result.TemplateIdDefault = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "TemplateIdDefault");
-                            result.TemplateIdSeries = SqlConnectFactory.GetValueAsNullable<int?>(reader, "TemplateIdSeries");
-                            result.ScaleFactor = SqlConnectFactory.GetValueAsNullable<int?>(reader, "ScaleFactor");
+                            result.Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+                            result.Description = SqlConnect.GetValueAsString(reader, "Description");
+                            result.DeviceIP = SqlConnect.GetValueAsString(reader, "DeviceIP");
+                            result.DevicePort = SqlConnect.GetValueAsNotNullable<short>(reader, "DevicePort");
+                            result.DeviceMac = SqlConnect.GetValueAsString(reader, "DeviceMAC");
+                            result.DeviceWriteTimeout = SqlConnect.GetValueAsNotNullable<int>(reader, "DeviceSendTimeout");
+                            result.DeviceReadTimeout = SqlConnect.GetValueAsNotNullable<int>(reader, "DeviceReceiveTimeout");
+                            result.DeviceComPort = SqlConnect.GetValueAsString(reader, "DeviceComPort");
+                            //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnect.GetValueAsNullable<long?>(reader, "ZebraPrinterId"));
+                            result.ZebraPrinter.Load(SqlConnect.GetValueAsNotNullable<long>(reader, "ZebraPrinterId"));
+                            result.UseOrder = SqlConnect.GetValueAsNotNullable<bool>(reader, "UseOrder");
+                            result.TemplateIdDefault = SqlConnect.GetValueAsNotNullable<long>(reader, "TemplateIdDefault");
+                            result.TemplateIdSeries = SqlConnect.GetValueAsNullable<long?>(reader, "TemplateIdSeries");
+                            result.ScaleFactor = SqlConnect.GetValueAsNullable<int?>(reader, "ScaleFactor");
                         }
                     }
                     reader.Close();
@@ -80,10 +86,10 @@ namespace DataCore.DAL.Utils
         }
 
         //[Obsolete(@"Deprecated method")]
-        //public static ScaleDirect Load(int scaleId)
+        //public static ScaleDirect Load(long scaleId)
         //{
         //    ScaleDirect result = new();
-        //    using (SqlConnection con = SqlConnectFactory.GetConnection())
+        //    using (SqlConnection con = SqlConnect.GetConnection())
         //    {
         //        con.Open();
         //        using (SqlCommand cmd = new("SELECT * FROM [db_scales].[GetScaleByID] (@ScaleID);"))
@@ -95,20 +101,20 @@ namespace DataCore.DAL.Utils
         //            {
         //                while (reader.Read())
         //                {
-        //                    result.Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
-        //                    result.Description = SqlConnectFactory.GetValueAsString(reader, "Description");
-        //                    result.DeviceIP = SqlConnectFactory.GetValueAsString(reader, "DeviceIP");
-        //                    result.DevicePort = SqlConnectFactory.GetValue<short>(reader, "DevicePort");
-        //                    result.DeviceMac = SqlConnectFactory.GetValueAsString(reader, "DeviceMAC");
-        //                    result.DeviceSendTimeout = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "DeviceSendTimeout");
-        //                    result.DeviceReceiveTimeout = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "DeviceReceiveTimeout");
-        //                    result.DeviceComPort = SqlConnectFactory.GetValueAsString(reader, "DeviceComPort");
-        //                    //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnectFactory.GetValueAsNullable<int?>(reader, "ZebraPrinterId"));
-        //                    result.ZebraPrinter.Load(SqlConnectFactory.GetValueAsNullable<int?>(reader, "ZebraPrinterId"));
-        //                    result.UseOrder = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "UseOrder");
-        //                    result.TemplateIdDefault = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "TemplateIdDefault");
-        //                    result.TemplateIdSeries = SqlConnectFactory.GetValueAsNullable<int?>(reader, "TemplateIdSeries");
-        //                    result.ScaleFactor = SqlConnectFactory.GetValueAsNullable<int?>(reader, "ScaleFactor");
+        //                    result.Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+        //                    result.Description = SqlConnect.GetValueAsString(reader, "Description");
+        //                    result.DeviceIP = SqlConnect.GetValueAsString(reader, "DeviceIP");
+        //                    result.DevicePort = SqlConnect.GetValue<short>(reader, "DevicePort");
+        //                    result.DeviceMac = SqlConnect.GetValueAsString(reader, "DeviceMAC");
+        //                    result.DeviceSendTimeout = SqlConnect.GetValueAsNotNullable<int>(reader, "DeviceSendTimeout");
+        //                    result.DeviceReceiveTimeout = SqlConnect.GetValueAsNotNullable<int>(reader, "DeviceReceiveTimeout");
+        //                    result.DeviceComPort = SqlConnect.GetValueAsString(reader, "DeviceComPort");
+        //                    //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnect.GetValueAsNullable<long?>(reader, "ZebraPrinterId"));
+        //                    result.ZebraPrinter.Load(SqlConnect.GetValueAsNullable<long?>(reader, "ZebraPrinterId"));
+        //                    result.UseOrder = SqlConnect.GetValueAsNotNullable<bool>(reader, "UseOrder");
+        //                    result.TemplateIdDefault = SqlConnect.GetValueAsNotNullable<int>(reader, "TemplateIdDefault");
+        //                    result.TemplateIdSeries = SqlConnect.GetValueAsNullable<int?>(reader, "TemplateIdSeries");
+        //                    result.ScaleFactor = SqlConnect.GetValueAsNullable<int?>(reader, "ScaleFactor");
         //                }
         //            }
         //            reader.Close();
@@ -121,7 +127,7 @@ namespace DataCore.DAL.Utils
         public static void Update(ScaleDirect scale)
         {
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@ID", System.Data.SqlDbType.Int) { Value = scale.Id },
+                new SqlParameter("@ID", System.Data.SqlDbType.BigInt) { Value = scale.Id },
                 new SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 150) { Value = scale.Description },
                 //new SqlParameter("@IP", System.Data.SqlDbType.VarChar, 15) { Value = StringUtils.GetStringNullValueTrim(scale.DeviceIP, 15) },
                 new SqlParameter("@Port", System.Data.SqlDbType.SmallInt) { Value = scale.DevicePort },
@@ -133,7 +139,7 @@ namespace DataCore.DAL.Utils
                 new SqlParameter("@VerScalesUI", System.Data.SqlDbType.VarChar, 30) { Value = StringUtils.GetStringNullValueTrim(scale.VerScalesUI, 30) },
                 new SqlParameter("@ScaleFactor", System.Data.SqlDbType.Int) { Value = scale.ScaleFactor },
             };
-            SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbScales.Tables.Scales.UpdateScaleDirect, parameters);
+            SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Scales.UpdateScaleDirect, parameters);
         }
 
         #endregion

@@ -10,11 +10,17 @@ namespace DataCore.DAL.Utils
 {
     public static class TasksUtils
     {
+        #region Public and private fields and properties
+
+        public static SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        #endregion
+
         #region Public and private methods
 
-        public static void SaveNullTask(TaskTypeDirect taskType, int scaleId, bool enabled)
+        public static void SaveNullTask(TaskTypeDirect taskType, long scaleId, bool enabled)
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             using SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.InsertTask);
             cmd.Connection = con;
@@ -30,7 +36,7 @@ namespace DataCore.DAL.Utils
         {
             if (task == null)
                 return;
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             using SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.UpdateTask);
             cmd.Connection = con;
@@ -44,7 +50,7 @@ namespace DataCore.DAL.Utils
         public static Guid GetTaskUid(string taskName)
         {
             Guid result = Guid.Empty;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 StringUtils.SetStringValueTrim(ref taskName, 32);
@@ -58,7 +64,7 @@ namespace DataCore.DAL.Utils
                     {
                         if (reader.Read())
                         {
-                            result = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
+                            result = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
                         }
                     }
                     reader.Close();
@@ -68,10 +74,10 @@ namespace DataCore.DAL.Utils
             return result;
         }
 
-        public static TaskDirect GetTask(Guid taskTypeUid, int scaleId)
+        public static TaskDirect GetTask(Guid taskTypeUid, long scaleId)
         {
             TaskDirect result = null;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskByTypeAndScale))
@@ -87,10 +93,10 @@ namespace DataCore.DAL.Utils
                         {
                             result = new TaskDirect
                             {
-                                Uid = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
-                                TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
-                                Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                                Enabled = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "ENABLED")
+                                Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
+                                TaskType = TasksTypeUtils.GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
+                                Scale = ScalesUtils.GetScale(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+                                Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
                             };
                         }
                     }
@@ -104,7 +110,7 @@ namespace DataCore.DAL.Utils
         public static TaskDirect GetTask(Guid taskUid)
         {
             TaskDirect result = null;
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 using (SqlCommand cmd = new(SqlQueries.DbScales.Tables.Tasks.GetTaskByUid))
@@ -119,10 +125,10 @@ namespace DataCore.DAL.Utils
                         {
                             result = new TaskDirect
                             {
-                                Uid = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
-                                TaskType = TasksTypeUtils.GetTaskType(SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
-                                Scale = ScalesUtils.GetScale(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
-                                Enabled = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "ENABLED")
+                                Uid = SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_UID"),
+                                TaskType = TasksTypeUtils.GetTaskType(SqlConnect.GetValueAsNotNullable<Guid>(reader, "TASK_TYPE_UID")),
+                                Scale = ScalesUtils.GetScale(SqlConnect.GetValueAsNotNullable<int>(reader, "SCALE_ID")),
+                                Enabled = SqlConnect.GetValueAsNotNullable<bool>(reader, "ENABLED")
                             };
                         }
                     }

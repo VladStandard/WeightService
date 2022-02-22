@@ -1,6 +1,6 @@
 ﻿@page "/item/scale"
-@page "/item/scale/{Id:int}"
-@page "/item/scale/{Id:int}/{TableActionString}"
+@page "/item/scale/{Id:long}"
+@page "/item/scale/{Id:long}/{TableActionString}"
 @using BlazorCore.Models
 @using DataCore
 @using DataCore.Utils
@@ -30,8 +30,9 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
-                        TValue="int" @bind-Value=@ScaleItem.Id />
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@ScaleItem.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>

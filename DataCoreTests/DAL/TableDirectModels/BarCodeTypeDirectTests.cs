@@ -13,6 +13,8 @@ namespace DataCoreTests.DAL.TableDirectModels
     [TestFixture]
     internal class BarCodeTypeDirectTests
     {
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
         [Test]
         public void BarCodeTypeDirect_ExecuteReader_DoesNotThrow()
         {
@@ -21,16 +23,16 @@ namespace DataCoreTests.DAL.TableDirectModels
             Assert.DoesNotThrow(() =>
             {
                 TestContext.WriteLine($"[db_scales].[BarCodeTypes]");
-                List<int> listId = new();
-                SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetAllItems, null, delegate (SqlDataReader reader)
+                List<long> listId = new();
+                SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetAllItems, null, delegate (SqlDataReader reader)
                 {
                     while (reader.Read())
                     {
-                        listId.Add(SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID"));
+                        listId.Add(SqlConnect.GetValueAsNotNullable<long>(reader, "ID"));
                     }
                 });
 
-                foreach (int id in listId)
+                foreach (long id in listId)
                 {
                     BarCodeTypeDirect barCodeType = new(id);
                     TestContext.WriteLine($"{barCodeType}");

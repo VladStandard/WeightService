@@ -1,6 +1,6 @@
 ﻿@page "/item/printertype"
-@page "/item/printertype/{Id:int}"
-@page "/item/printertype/{Id:int}/{TableActionString}"
+@page "/item/printertype/{Id:long}"
+@page "/item/printertype/{Id:long}/{TableActionString}"
 @using BlazorCore.Models
 @using DataCore
 @using DataCore.Utils
@@ -30,8 +30,9 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true
-                        TValue="int" @bind-Value=@PrinterTypeItem.Id />
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@PrinterTypeItem.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>

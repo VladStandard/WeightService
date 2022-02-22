@@ -39,7 +39,7 @@ namespace ScalesUI.Forms
             {
                 TopMost = !Debug.IsDebug;
 
-                OrdList = OrderDirect.GetOrderList(SessionState.CurrentScale);
+                OrdList = new OrderDirect().GetOrderList(SessionState.CurrentScale);
                 if (OrdList.Count < Offset)
                 {
                     btnLeftRoll.Visible = false;

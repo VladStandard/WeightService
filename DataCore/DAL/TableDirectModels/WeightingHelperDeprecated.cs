@@ -8,19 +8,19 @@
 //    /// <summary>
 //    /// Помощник весов.
 //    /// </summary>
-//    public static class WeightingHelper
+//    public class WeightingHelper
 //    {
 //        /// <summary>
 //        /// Помощник SQL.
 //        /// </summary>
-//        private static SqlHelper _sql { get; set; } = SqlHelper.Instance;
+//        private SqlHelper _sql { get; set; } = SqlHelper.Instance;
 
 //        /// <summary>
 //        /// Выполнить ХП SetWeithingFact.
 //        /// Редактировал: 2020-06-23 Морозов Дамиан.
 //        /// </summary>
 //        /// <param name="weighingFact"></param>
-//        public static void SaveWeighingFact(WeighingFactEntity weighingFact)
+//        public void SaveWeighingFact(WeighingFactEntity weighingFact)
 //        {
 //            using (SqlConnection con = new SqlConnection(_sql.ConnectionString))
 //            {
@@ -68,7 +68,7 @@
 //        /// Редактировал: 2020-06-23 Морозов Дамиан.
 //        /// </summary>
 //        /// <returns></returns>
-//        public static string SaveWeighingFactGetQuery()
+//        public string SaveWeighingFactGetQuery()
 //        {
 //            return @"
 //DECLARE @SSCC varchar(50)

@@ -66,6 +66,26 @@ namespace DataCore
                 public static string SettingValue => Lang == ShareEnums.Lang.English ? @"Setting value" : @"Значение настройки";
                 public static string UserSettings => Lang == ShareEnums.Lang.English ? @"User settings" : @"Пользовательские настройки";
             }
+            public static class TableItem
+            {
+                public static string BarcodeType => Lang == ShareEnums.Lang.English ? "Barcode type" : "Тип штрихкода";
+                public static string Device => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
+                public static string Host => Lang == ShareEnums.Lang.English ? "Host" : "Хост";
+                public static string LabelTemplate => Lang == ShareEnums.Lang.English ? "Label template" : "Шаблон этикетки";
+                public static string Nomenclature => Lang == ShareEnums.Lang.English ? "Nomenclature" : "Номенклатура";
+                public static string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
+                public static string Printer => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
+                public static string PrinterResource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
+                public static string PrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
+                public static string Product => Lang == ShareEnums.Lang.English ? "Product" : "Продукт";
+                public static string ProductionFacility => Lang == ShareEnums.Lang.English ? "Production facility" : "Производственная площадка";
+                public static string TaskModule => Lang == ShareEnums.Lang.English ? "Task module" : "Модуль задачи";
+                public static string TaskModuleType => Lang == ShareEnums.Lang.English ? "Task module type" : "Тип модуля задачи";
+                public static string TaskType => Lang == ShareEnums.Lang.English ? "Task type" : "Тип задачи";
+                public static string Template  => Lang == ShareEnums.Lang.English ? "Template" : "Шаблон";
+                public static string TemplateDefault => Lang == ShareEnums.Lang.English ? "Default template" : "Шаблон по-умолчанию";
+                public static string Workshop => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
+            }
             #region Menu
             public static string MenuReferences => Lang == ShareEnums.Lang.English ? @"References" : @"Справочники";
             public static string FileChoose => Lang == ShareEnums.Lang.English ? @"Select a file" : @"Выбрать файл";

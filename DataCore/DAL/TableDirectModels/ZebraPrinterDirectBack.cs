@@ -12,17 +12,8 @@
 //    [Serializable]
 //    public class ZebraPrinterDirect : BaseSerializeEntity<ZebraPrinterDirect>
 //    {
-//        public int Id { get; set; }
-//        public virtual string Name { get; set; }
-//        public virtual string Ip { get; set; }
-//        public virtual short Port { get; set; }
-//        public virtual string Mac { get; set; }
-//        public virtual string Password { get; set; }
-//        public virtual string PrinterType { get; set; }
-
 //        [XmlIgnore]
 //        public Dictionary<string, string> Fonts { get; set; }
-
 //        [XmlIgnore]
 //        public Dictionary<string, string> Logo { get; set; }
 
@@ -31,7 +22,7 @@
 //            Init();
 //        }
 
-//        public ZebraPrinterDirect(int? id)
+//        public ZebraPrinterDirect(long? id)
 //        {
 //            Init();
 //            if (id != null)

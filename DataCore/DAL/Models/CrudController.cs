@@ -42,7 +42,7 @@ namespace DataCore.DAL.Models
 
         public void LogExceptionToSql(Exception ex, string filePath, int lineNumber, string memberName)
         {
-            int idLast = GetEntity<ErrorEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
+            long idLast = GetEntity<ErrorEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
             ErrorEntity error = new()
             {
                 Id = idLast + 1,
@@ -557,7 +557,7 @@ namespace DataCore.DAL.Models
             return item;
         }
 
-        public T GetEntity<T>(int id) where T : BaseEntity, new()
+        public T GetEntity<T>(long id) where T : BaseEntity, new()
         {
             return GetEntity<T>(
                 new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
@@ -997,7 +997,7 @@ namespace DataCore.DAL.Models
 
         #region Public and private methods - HostEntity
 
-        public List<HostEntity> GetFreeHosts(int? id, bool? isMarked,
+        public List<HostEntity> GetFreeHosts(long? id, bool? isMarked,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetFreeHosts, filePath, lineNumber, memberName);
@@ -1026,7 +1026,7 @@ namespace DataCore.DAL.Models
             return items;
         }
 
-        public List<HostEntity> GetBusyHosts(int? id, bool? isMarked,
+        public List<HostEntity> GetBusyHosts(long? id, bool? isMarked,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             object[]? entities = DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Hosts.GetBusyHosts, filePath, lineNumber, memberName);

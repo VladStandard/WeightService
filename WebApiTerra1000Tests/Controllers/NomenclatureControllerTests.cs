@@ -51,7 +51,7 @@ namespace DataProjectsCoreTests.DAL
                 foreach (string url in TestsUtils.GetListUrlNomenclatureV1)
                 {
                     if (url.Contains("-dev")) continue;
-                    foreach (int id in TestsUtils.GetListNomenclatureId)
+                    foreach (long id in TestsUtils.GetListNomenclatureId)
                     {
                         await GetNomenclatureAsync(url, null, id);
                     }
@@ -68,7 +68,7 @@ namespace DataProjectsCoreTests.DAL
                 foreach (string url in TestsUtils.GetListUrlNomenclatureV2)
                 {
                     if (url.Contains("-dev")) continue;
-                    foreach (int id in TestsUtils.GetListNomenclatureId)
+                    foreach (long id in TestsUtils.GetListNomenclatureId)
                     {
                         await GetNomenclatureAsync(url, null, id);
                     }
@@ -76,7 +76,7 @@ namespace DataProjectsCoreTests.DAL
             });
         }
 
-        private async Task GetNomenclatureAsync(string url, string? code, int? id)
+        private async Task GetNomenclatureAsync(string url, string? code, long? id)
         {
             RestSharp.RestClientOptions options = new(url)
             {

@@ -13,9 +13,10 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int? HostId { get; set; } = default!;
+        public long? HostId { get; set; } = default!;
         public Guid? AppUid { get; set; } = default;
         public string Version { get; set; } = string.Empty;
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -47,7 +48,7 @@ namespace DataCore.DAL.TableDirectModels
             byte logNumber = (byte)logType;
             StringUtils.SetStringValueTrim(ref message, 1024);
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@hostId", System.Data.SqlDbType.Int) { Value = HostId },
+                new SqlParameter("@hostId", System.Data.SqlDbType.BigInt) { Value = HostId },
                 new SqlParameter("@appUid", System.Data.SqlDbType.UniqueIdentifier) { Value = AppUid },
                 new SqlParameter("@version", System.Data.SqlDbType.NVarChar, 12) { Value = Version },
                 new SqlParameter("@file", System.Data.SqlDbType.NVarChar, 32) { Value = filePath },
@@ -56,7 +57,7 @@ namespace DataCore.DAL.TableDirectModels
                 new SqlParameter("@logNumber", System.Data.SqlDbType.TinyInt) { Value = logNumber },
                 new SqlParameter("@message", System.Data.SqlDbType.NVarChar, 1024) { Value = message },
             };
-            SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbServiceManaging.Tables.Logs.AddLog, parameters);
+            SqlConnect.ExecuteNonQuery(SqlQueries.DbServiceManaging.Tables.Logs.AddLog, parameters);
         }
 
         public void SaveInformation(string message, string filePath, string memberName, int lineNumber)
@@ -92,17 +93,17 @@ namespace DataCore.DAL.TableDirectModels
             };
 
             Guid? result = default;
-            SqlConnectFactory.ExecuteReader(SqlQueries.DbServiceManaging.Tables.Apps.AddApp, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbServiceManaging.Tables.Apps.AddApp, parameters, delegate (SqlDataReader reader)
             {
                 if (reader.Read())
                 {
-                    result = SqlConnectFactory.GetValueAsNotNullable<Guid>(reader, "UID");
+                    result = SqlConnect.GetValueAsNotNullable<Guid>(reader, "UID");
                 }
             });
             return result;
         }
 
-        public int? GetHostId(string host, Guid idRref)
+        public long? GetHostId(string host, Guid idRref)
         {
             StringUtils.SetStringValueTrim(ref host, 150);
             SqlParameter[] parameters = new SqlParameter[] {
@@ -111,11 +112,11 @@ namespace DataCore.DAL.TableDirectModels
             };
 
             int? result = default;
-            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostId, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostId, parameters, delegate (SqlDataReader reader)
             {
                 if (reader.Read())
                 {
-                    result = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
+                    result = SqlConnect.GetValueAsNotNullable<int>(reader, "ID");
                 }
             });
             return result;

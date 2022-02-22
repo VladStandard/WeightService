@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        [Parameter] public int ScaleId { get; set; }
+        [Parameter] public long ScaleId { get; set; }
         private List<PluEntity> ItemsCast => Items == null ? new List<PluEntity>() : Items.Select(x => (PluEntity)x).ToList();
         private readonly object _locker = new();
 

@@ -1,5 +1,5 @@
 ﻿@page "/item/error"
-@page "/item/error/{Id:int}"
+@page "/item/error/{Id:long}"
 @using BlazorCore.Models
 @using DataCore
 @using DataCore.Utils
@@ -29,13 +29,9 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true
-                        TValue="int" @bind-Value=@ErrorItem.Id />
-				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldCreateDt</td>
-                <td>
-                    <RadzenDatePicker 
-                        TValue="string" Value=@ErrorItem.CreatedDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@ErrorItem.Id />
 				</td>
             </tr>
             <tr>
@@ -59,16 +55,16 @@ else
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldException</td>
-                <td colspan=3 >
+                <td colspan=3 rowspan=1>
                     <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true
-                        TValue="string" @bind-Value=@ErrorItem.Exception Rows="3" />
+                        TValue="string" @bind-Value=@ErrorItem.Exception Rows="5" />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldInnerException</td>
-                <td colspan=3 rowspan=3>
+                <td colspan=3 rowspan=1>
                     <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true
-                        TValue="string" @bind-Value=@ErrorItem.InnerException Rows="3" />
+                        TValue="string" @bind-Value=@ErrorItem.InnerException Rows="5" />
 				</td>
             </tr>
         </tbody>

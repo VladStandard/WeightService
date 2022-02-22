@@ -15,11 +15,11 @@ namespace DataCore.DAL.TableScaleModels
 
         public virtual DateTime? CreateDate { get; set; }
         public virtual DateTime? ModifiedDate { get; set; }
-        public virtual TemplateEntity TemplateDefault { get; set; } = new TemplateEntity();
-        public virtual TemplateEntity TemplateSeries { get; set; } = new TemplateEntity();
+        public virtual TemplateEntity? TemplateDefault { get; set; } = new TemplateEntity();
+        public virtual TemplateEntity? TemplateSeries { get; set; } = new TemplateEntity();
         public virtual WorkshopEntity WorkShop { get; set; } = new WorkshopEntity();
-        public virtual PrinterEntity Printer { get; set; } = new PrinterEntity();
-        public virtual HostEntity Host { get; set; } = new HostEntity();
+        public virtual PrinterEntity? Printer { get; set; } = new PrinterEntity();
+        public virtual HostEntity? Host { get; set; } = new HostEntity();
         public virtual string Description { get; set; } = string.Empty;
         public virtual Guid? IdRRef { get; set; } = null;
         public virtual string DeviceIp { get; set; } = string.Empty;
@@ -91,8 +91,8 @@ namespace DataCore.DAL.TableScaleModels
             return base.Equals(entity) &&
                    Equals(CreateDate, entity.CreateDate) &&
                    Equals(ModifiedDate, entity.ModifiedDate) &&
-                   TemplateDefault.Equals(entity.TemplateDefault) &&
-                   TemplateSeries.Equals(entity.TemplateSeries) &&
+                   TemplateDefault != null && entity.TemplateDefault != null && TemplateDefault.Equals(entity.TemplateDefault) &&
+                   TemplateSeries != null && entity.TemplateSeries != null && TemplateSeries.Equals(entity.TemplateSeries) &&
                    Equals(Description, entity.Description) &&
                    Equals(IdRRef, entity.IdRRef) &&
                    Equals(DeviceIp, entity.DeviceIp) &&
@@ -108,9 +108,9 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(DeviceNumber, entity.DeviceNumber) &&
                    Equals(ScaleFactor, entity.ScaleFactor) &&
                    WorkShop.Equals(entity.WorkShop) &&
-                   Printer.Equals(entity.Printer) &&
+                   Printer != null && entity.Printer != null && Printer.Equals(entity.Printer) &&
                    Equals(Marked, entity.Marked) &&
-                   Host.Equals(entity.Host);
+                   Host != null && entity.Host != null && Host.Equals(entity.Host);
         }
 
         public override bool Equals(object obj)
@@ -171,11 +171,11 @@ namespace DataCore.DAL.TableScaleModels
                 Id = Id,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,
-                TemplateDefault = (TemplateEntity)TemplateDefault?.Clone(),
-                TemplateSeries = (TemplateEntity)TemplateSeries?.Clone(),
-                WorkShop = (WorkshopEntity)WorkShop?.Clone(),
-                Printer = (PrinterEntity)Printer?.Clone(),
-                Host = (HostEntity)Host?.Clone(),
+                TemplateDefault = TemplateDefault != null ? (TemplateEntity)TemplateDefault.Clone() : null,
+                TemplateSeries = TemplateSeries != null ? (TemplateEntity)TemplateSeries.Clone() : null,
+                WorkShop = (WorkshopEntity)WorkShop.Clone(),
+                Printer = Printer != null ? (PrinterEntity)Printer.Clone() : null,
+                Host = Host != null ? (HostEntity)Host.Clone() : null,
                 Description = Description,
                 IdRRef = IdRRef,
                 DeviceIp = DeviceIp,

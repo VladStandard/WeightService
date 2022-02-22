@@ -43,7 +43,7 @@ namespace DataCore
                 public const string Printer = "/item/printer";
                 public const string PrinterResource = "/item/printerresource";
                 public const string PrinterType = "/item/printertype";
-                public const string ProductionFacility = "/item/productionfacily";
+                public const string ProductionFacility = "/item/productionfacility";
                 public const string Scale = "/item/scale";
                 public const string TaskModule = "/item/taskmodule";
                 public const string TaskTypeModule = "/item/tasktypemodule";
@@ -247,7 +247,7 @@ namespace DataCore
             public static string TableFieldPrinterPort => Lang == ShareEnums.Lang.English ? @"Printer port" : @"Порт принтера";
             public static string TableFieldPrinterType => Lang == ShareEnums.Lang.English ? @"Printer type" : @"Тип принтера";
             public static string TableFieldProductDate => Lang == ShareEnums.Lang.English ? @"___" : @"Дата продукции";
-            public static string TableFieldProductionFacilityName => Lang == ShareEnums.Lang.English ? @"___" : @"Площадка";
+            public static string TableFieldProductionFacilityName => Lang == ShareEnums.Lang.English ? @"Production facility" : @"Производственная площадка";
             public static string TableFieldRegNum => Lang == ShareEnums.Lang.English ? @"___" : @"#";
             public static string TableFieldResource => Lang == ShareEnums.Lang.English ? @"___" : @"Ресурс";
             public static string TableFieldRow => Lang == ShareEnums.Lang.English ? @"Row" : @"Строка";

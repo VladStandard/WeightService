@@ -12,7 +12,7 @@
 //    [Serializable]
 //    public class PluEntity
 //    {
-//        public int Id { get; set; }
+//        public long Id { get; set; }
 //        public int PLU { get; set; }
 //        public string RRefGoods { get; set; }
 //        public string ScaleId { get; set; }
@@ -73,7 +73,7 @@
 //            return doc;
 //        }
 
-//        public static IDictionary<string, object> ObjectToDictionary<T>(T item) 
+//        public IDictionary<string, object> ObjectToDictionary<T>(T item) 
 //            where T : class
 //        {
 //            Type myObjectType = item.GetType();
@@ -89,7 +89,7 @@
 //        }
 
 
-//        public static T ObjectFromDictionary<T>(IDictionary<string, object> dict)
+//        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
 //            where T : class
 //        {
 //            Type type = typeof(T);

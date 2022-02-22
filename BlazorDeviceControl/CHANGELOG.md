@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.220] - 2022-02-22
+### Changed
+- BlazorDeviceControl.Shared.Section.Nomenclatures
+- BlazorDeviceControl.Shared.Section.Plus
+- BlazorDeviceControl.Shared.Item.Nomenclature
+- BlazorDeviceControl.Shared.Item.Plu
+
 ## [0.6.210] - 2022-02-21
 ### Changed
 - BlazorDeviceControl.Shared.Section: _locker object

@@ -33,11 +33,9 @@ namespace BlazorDeviceControl.Shared.Section
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
                         Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                            //new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
                             new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
                             .ToList<BaseEntity>();
                         ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
-
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

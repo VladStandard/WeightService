@@ -12,8 +12,9 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; } = default;
+        public long Id { get; set; } = default;
         public string Name { get; set; } = string.Empty;
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -24,7 +25,7 @@ namespace DataCore.DAL.TableDirectModels
             Load(default);
         }
 
-        public BarCodeTypeDirect(int id)
+        public BarCodeTypeDirect(long id)
         {
             Load(id);
         }
@@ -40,23 +41,23 @@ namespace DataCore.DAL.TableDirectModels
                 $"{nameof(Name)}: {Name}. ";
         }
 
-        public void Load(int id)
+        public void Load(long id)
         {
             if (id == default) return;
             Id = id;
 
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@ID", System.Data.SqlDbType.Int) { Value = Id },
+                new SqlParameter("@ID", System.Data.SqlDbType.BigInt) { Value = Id },
             };
-            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetItemById, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetItemById, parameters, delegate (SqlDataReader reader)
             {
                 while (reader.Read())
                 {
-                    Name = SqlConnectFactory.GetValueAsString(reader, "NAME");
+                    Name = SqlConnect.GetValueAsString(reader, "NAME");
                 }
             });
 
-            //using SqlConnection con = SqlConnectFactory.GetConnection();
+            //using SqlConnection con = SqlConnect.GetConnection();
             //con.Open();
             //string query = "SELECT * FROM [db_scales].[GetBarCodeType](@Id);";
             //using (SqlCommand cmd = new(query))
@@ -68,8 +69,8 @@ namespace DataCore.DAL.TableDirectModels
             //    {
             //        while (reader.Read())
             //        {
-            //            Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
-            //            Name = SqlConnectFactory.GetValueAsString(reader, "Name");
+            //            Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+            //            Name = SqlConnect.GetValueAsString(reader, "Name");
             //        }
             //    }
             //    reader.Close();

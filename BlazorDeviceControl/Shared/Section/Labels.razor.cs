@@ -6,7 +6,6 @@ using DataCore;
 using DataCore.DAL;
 using DataCore.DAL.DataModels;
 using DataCore.DAL.Models;
-using DataCore.DAL.TableScaleModels;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -41,14 +40,14 @@ namespace BlazorDeviceControl.Shared.Section
                         {
                             if (obj is object[] { Length: 14 } item)
                             {
-                                if (int.TryParse(Convert.ToString(item[0]), out int id))
+                                if (long.TryParse(Convert.ToString(item[0]), out long id))
                                 {
                                     Items.Add(new LabelQuickEntity()
                                     {
                                         Id = id,
                                         CreateDate = Convert.ToDateTime(item[1]),
                                         //Label = Convert.ToByte(item[2]),
-                                        ScaleId = Convert.ToInt32(item[3]),
+                                        ScaleId = Convert.ToInt64(item[3]),
                                         ScaleDescription = Convert.ToString(item[4]),
                                         PluId = Convert.ToInt32(item[5]),
                                         WeithingDate = Convert.ToDateTime(item[6]),

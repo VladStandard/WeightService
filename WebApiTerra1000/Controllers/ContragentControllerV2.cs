@@ -34,7 +34,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/v2/contragent/")]
-        public ContentResult GetContragentFromCodeIdProd(string code, int id, FormatType format = FormatType.Xml) =>
+        public ContentResult GetContragentFromCodeIdProd(string code, long id, FormatType format = FormatType.Xml) =>
             GetContragentFromCodeIdWork(code != null
                 ? SqlQueriesContragentsV2.GetContragentFromCodeProd : SqlQueriesContragentsV2.GetContragentFromIdProd,
                 code, id, format);
@@ -42,12 +42,12 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/v2/contragent_preview/")]
-        public ContentResult GetContragentFromCodeIdPreview(string code, int id, FormatType format = FormatType.Xml) =>
+        public ContentResult GetContragentFromCodeIdPreview(string code, long id, FormatType format = FormatType.Xml) =>
             GetContragentFromCodeIdWork(code != null
                 ? SqlQueriesContragentsV2.GetContragentFromCodePreview : SqlQueriesContragentsV2.GetContragentFromIdPreview,
                 code, id, format);
 
-        private ContentResult GetContragentFromCodeIdWork(string url, string code, int id, FormatType format = FormatType.Xml)
+        private ContentResult GetContragentFromCodeIdWork(string url, string code, long id, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {

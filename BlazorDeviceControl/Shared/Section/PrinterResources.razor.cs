@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        [Parameter] public int? PrinterId { get; set; }
+        [Parameter] public long? PrinterId { get; set; }
         private List<PrinterResourceEntity> ItemsCast => Items == null ? new List<PrinterResourceEntity>() : Items.Select(x => (PrinterResourceEntity)x).ToList();
         private readonly object _locker = new();
 

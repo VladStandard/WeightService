@@ -1,6 +1,6 @@
 ﻿@page "/item/label"
-@page "/item/label/{Id:int}"
-@page "/item/label/{Id:int}/{TableActionString}"
+@page "/item/label/{Id:long}"
+@page "/item/label/{Id:long}/{TableActionString}"
 @using BlazorCore.Models
 @using DataCore
 @using DataCore.Utils
@@ -30,12 +30,9 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
-                        TValue="int" @bind-Value=@LabelItem.Id />
-				</td>
-                <td>
-                    <RadzenDatePicker 
-                        TValue="string" Value=@LabelItem.CreateDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true 
+                        TValue="long" @bind-Value=@LabelItem.Id />
 				</td>
             </tr>
             <tr>
@@ -47,18 +44,18 @@ else
                 <td>@LocalizationData.DeviceControl.TableFieldPlu</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
-                        TValue="int" @bind-Value=@LabelItem.WeithingFact.Plu.Id />
+                        TValue="long" @bind-Value=@LabelItem.WeithingFact.Plu.Id />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldWeithingDate</td>
                 <td>
-                    <RadzenDatePicker 
+                    <RadzenDatePicker Style="width: 100%; text-align: center;" 
                         TValue="string" Value=@LabelItem.WeithingFact.WeithingDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldProductDate</td>
                 <td>
-                    <RadzenDatePicker 
+                    <RadzenDatePicker Style="width: 100%; text-align: center;" 
                         TValue="string" Value=@LabelItem.WeithingFact.ProductDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
 				</td>
             </tr>
@@ -88,9 +85,9 @@ else
             </tr>
             <tr >
                 <td>@LocalizationData.DeviceControl.TableFieldZpl</td>
-                <td colspan=3 rowspan=3>
+                <td colspan=3 rowspan=1>
                     <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LabelItem.Zpl Rows=13 />
+                        TValue="string" @bind-Value=@LabelItem.Zpl Rows=11 />
 				</td>
             </tr>
         </tbody>

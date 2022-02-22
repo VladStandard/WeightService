@@ -46,7 +46,7 @@ namespace BlazorDeviceControl.Shared.Item
                         PluItem = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(new FieldListEntity(new Dictionary<string, object>
                         { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            PluItem.Id = (int)Id;
+                            PluItem.Id = (long)Id;
 
                         //ScaleEntity[] scalesEntities = AppSettings.DataAccess.ScalesCrud.GetEntities(null, null);
                         //ScaleItems = new List<ScaleEntity>();
@@ -101,7 +101,7 @@ namespace BlazorDeviceControl.Shared.Item
                     switch (name)
                     {
                         case "Scale":
-                            if (value is int idScale)
+                            if (value is long idScale)
                             {
                                 PluItem.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
                                     new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idScale } }),
@@ -109,7 +109,7 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case "Nomenclature":
-                            if (value is int idNomenclature)
+                            if (value is long idNomenclature)
                             {
                                 PluItem.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
                                     new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
@@ -118,7 +118,7 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case "Templates":
-                            if (value is int idTemplate)
+                            if (value is long idTemplate)
                             {
                                 if (idTemplate <= 0)
                                     PluItem.Templates = null;

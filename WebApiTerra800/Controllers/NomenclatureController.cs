@@ -79,7 +79,7 @@ namespace terra.Controllers
         }
 
         // GET: api/Nomenclature/?id=1
-        public HttpResponseMessage Get(int id)
+        public HttpResponseMessage Get(long id)
         {
             XDocument doc = new(new XElement("response"));
 

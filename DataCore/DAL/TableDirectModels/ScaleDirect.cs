@@ -11,7 +11,7 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; } = default;
+        public long Id { get; set; } = default;
         public string? Description { get; set; }
         public string? DeviceIP { get; set; }
         public short? DevicePort { get; set; }
@@ -22,8 +22,8 @@ namespace DataCore.DAL.TableDirectModels
         public bool? UseOrder { get; set; }
         public string? VerScalesUI { get; set; }
         public int? ScaleFactor { get; set; }
-        public int? TemplateIdDefault { get; set; }
-        public int? TemplateIdSeries { get; set; }
+        public long? TemplateIdDefault { get; set; }
+        public long? TemplateIdSeries { get; set; }
         public ZebraPrinterHelper ZebraPrinter = ZebraPrinterHelper.Instance;
 
         #endregion
@@ -47,12 +47,12 @@ namespace DataCore.DAL.TableDirectModels
             TemplateIdSeries = 0;
         }
 
-        public ScaleDirect(int scaleId) : this()
+        public ScaleDirect(long scaleId) : this()
         {
             Id = scaleId;
         }
 
-        public ScaleDirect(int scaleId, string? description) : this(scaleId)
+        public ScaleDirect(long scaleId, string? description) : this(scaleId)
         {
             Description = description;
         }

@@ -1,6 +1,6 @@
 ﻿@page "/item/nomenclature"
-@page "/item/nomenclature/{Id:int}"
-@page "/item/nomenclature/{Id:int}/{TableActionString}"
+@page "/item/nomenclature/{Id:long}"
+@page "/item/nomenclature/{Id:long}/{TableActionString}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
@@ -27,8 +27,9 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
-                        TValue="int" @bind-Value=@NomenclatureItem.Id />
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true 
+                        TValue="long" @bind-Value=@NomenclatureItem.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldWeighted</td>
                 <td>
@@ -38,20 +39,20 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=false 
                         TValue="string" @bind-Value=@NomenclatureItem.Name />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldPlu</td>
+                <td>@LocalizationData.DeviceControl.TableFieldCode</td>
                 <td>
-                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=false 
                         TValue="string" @bind-Value=@NomenclatureItem.Code />
 				</td>
             </tr>
             <tr >
                 <td>@LocalizationData.DeviceControl.TableFieldXml</td>
-                <td colspan=3 rowspan=3>
-                    <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@NomenclatureItem.SerializedRepresentationObject Rows=13 />
+                <td colspan=3 rowspan=1>
+                    <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=false 
+                        TValue="string" @bind-Value=@NomenclatureItem.SerializedRepresentationObject Rows=15 />
 				</td>
             </tr>
         </tbody>

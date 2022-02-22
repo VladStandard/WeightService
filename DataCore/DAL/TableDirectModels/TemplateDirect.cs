@@ -18,16 +18,14 @@ namespace DataCore.DAL.TableDirectModels
 
         public string Title { get; set; } = string.Empty;
         public string XslContent { get; set; } = string.Empty;
-        public int? TemplateId { get; set; }
-
+        public long? TemplateId { get; set; }
         [XmlIgnore]
         public string CategoryId { get; set; } = string.Empty;
-
         [XmlIgnore]
         public Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>();
-
         [XmlIgnore]
         public Dictionary<string, string> Logo { get; set; } = new Dictionary<string, string>();
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -42,7 +40,7 @@ namespace DataCore.DAL.TableDirectModels
             Logo = new Dictionary<string, string>();
         }
 
-        public TemplateDirect(int? templateId) : this()
+        public TemplateDirect(long? templateId) : this()
         {
             TemplateId = templateId;
             GetTemplateObjFromDb();
@@ -78,7 +76,7 @@ namespace DataCore.DAL.TableDirectModels
             return sb.ToString();
         }
 
-        public static IDictionary<string, object> ObjectToDictionary<T>(T item) where T : class
+        public IDictionary<string, object> ObjectToDictionary<T>(T item) where T : class
         {
             Type myObjectType = item.GetType();
             IDictionary<string, object> dict = new Dictionary<string, object>();
@@ -92,7 +90,7 @@ namespace DataCore.DAL.TableDirectModels
             return dict;
         }
 
-        public static T ObjectFromDictionary<T>(IDictionary<string, object> dict)
+        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
             where T : class
         {
             Type type = typeof(T);
@@ -111,7 +109,7 @@ namespace DataCore.DAL.TableDirectModels
 
         private void GetTemplateObjFromDb()
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = "SELECT TOP(1) CategoryID,Title,XslContent FROM [db_scales].[GetTemplatesObjByID] (@TemplateID);";
             using (SqlCommand cmd = new(query))
@@ -137,7 +135,7 @@ namespace DataCore.DAL.TableDirectModels
             // Тут они не нужны.
             // потому и закомментировано
             // 
-            //using (SqlConnection con = SqlConnectFactory.GetConnection())
+            //using (SqlConnection con = SqlConnect.GetConnection())
             //{
             //    string query = "SELECT [Name],MAX([ImageData]) [ImageData] FROM [db_scales].[GetTemplateResources] (@TemplateID,@Type) GROUP BY [Name]; ";
             //    using (var cmd = new SqlCommand(query))
@@ -156,7 +154,7 @@ namespace DataCore.DAL.TableDirectModels
             //    }
             //}
 
-            //using (SqlConnection con = SqlConnectFactory.GetConnection())
+            //using (SqlConnection con = SqlConnect.GetConnection())
             //{
             //    string query = "SELECT [Name], [ImageData] FROM [db_scales].[GetTemplateResources] (@TemplateID,@Type); ";
             //    using (SqlCommand cmd = new SqlCommand(query))
@@ -178,7 +176,7 @@ namespace DataCore.DAL.TableDirectModels
 
         private void GetTemplateObjFromDb(string title)
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = @"
 select top (1) [Id], [CategoryId], convert(nvarchar(max),[ImageData],0) [XslContent]

@@ -40,7 +40,7 @@ namespace BlazorDeviceControl.Shared.Section
                         {
                             if (obj is object[] { Length: 8 } item)
                             {
-                                if (int.TryParse(Convert.ToString(item[0]), out int id))
+                                if (long.TryParse(Convert.ToString(item[0]), out long id))
                                 {
                                     Items.Add(new ErrorEntity()
                                     {

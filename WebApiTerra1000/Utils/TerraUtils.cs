@@ -137,7 +137,7 @@ namespace WebApiTerra1000.Common
                     new SqlParameter("code", code == null ? DBNull.Value : code),
                 };
             
-            public static List<SqlParameter> GetParametersV2(int? id) => new()
+            public static List<SqlParameter> GetParametersV2(long? id) => new()
                 {
                     new SqlParameter("id", id == null ? DBNull.Value : id),
                 };

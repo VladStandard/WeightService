@@ -1,6 +1,6 @@
 ﻿@page "/item/printer"
-@page "/item/printer/{Id:int}"
-@page "/item/printer/{Id:int}/{TableActionString}"
+@page "/item/printer/{Id:long}"
+@page "/item/printer/{Id:long}/{TableActionString}"
 @using BlazorCore.Models
 @using DataCore
 @using DataCore.DAL.TableScaleModels
@@ -31,21 +31,24 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldId</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
-                        TValue="int" @bind-Value=@PrinterItem.Id />
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@PrinterItem.Id />
 				</td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.Name />
                 </td>
-            </tr>
-            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterMac</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.MacAddress.Value />
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <RadzenLink Style="width: 100%; text-align: center; margin-left: 5px; " Disabled=false 
                         TValue="string" Target="_blank" Path=@PrinterItem.Link 
@@ -54,6 +57,25 @@ else
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.Ip />
+                </td>
+                <td>@LocalizationData.DeviceControl.TableFieldPrinterType</td>
+                <td>
+                    @if (PrinterTypes == null)
+                    {
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                    }
+                    else
+                    {
+                        <RadzenDropDownDataGrid 
+                            Style="width: 100%;" TValue="int"
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                            Data=@PrinterTypes PageSize="10"
+                            TextProperty="Name" ValueProperty="Id"
+                            Value=@PrinterItem.PrinterType.Id
+                            Change=@(args => OnChange(args, Table, Item))
+                        />
+                    }
                 </td>
             </tr>
             <tr>
@@ -66,27 +88,6 @@ else
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@PrinterItem.Password />
-                </td>
-            </tr>
-            <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldPrinterType</td>
-                <td>
-                    @if (PrinterTypeItems == null)
-                    {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
-                    }
-                    else
-                    {
-                        <RadzenDropDownDataGrid 
-                            Style="width: 100%;" TValue="int"
-                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@PrinterTypeItems PageSize="10"
-                            TextProperty="Name" ValueProperty="Id"
-                            Value=@PrinterItem.PrinterType.Id
-                            Change=@(args => OnChange(args, Table, Item))
-                        />
-                    }
                 </td>
             </tr>
         </tbody>

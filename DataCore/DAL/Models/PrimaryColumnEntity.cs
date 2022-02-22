@@ -17,7 +17,7 @@ namespace DataCore.DAL.Models
         #region Public and private fields and properties
 
         public ColumnName Name { get; private set; }
-        public int Id { get; set; }
+        public long Id { get; set; }
         public Guid Uid { get; set; }
 
         #endregion

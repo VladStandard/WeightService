@@ -33,7 +33,7 @@ namespace WebApiTerra1000.Controllers
         [AllowAnonymous]
         [HttpGet()]
         [Route("api/contragent/")]
-        public ContentResult GetContragent(int id, FormatType format = FormatType.Xml)
+        public ContentResult GetContragent(long id, FormatType format = FormatType.Xml)
         {
             return Controller.RunTask(new Task<ContentResult>(() =>
             {

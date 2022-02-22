@@ -1,5 +1,5 @@
 ﻿@page "/section/printerresources"
-@page "/section/printerresources/{PrinterId:int}"
+@page "/section/printerresources/{PrinterId:long}"
 @using BlazorCore.Models
 @using DataCore
 @using DataCore.DAL.TableScaleModels
@@ -19,11 +19,11 @@
     AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
     <Columns>
         <RadzenGridColumn TItem="PrinterResourceEntity" Property="Id"
-                            Title=@LocalizationData.DeviceControl.TableFieldId Type="int" Width="10%" />
+            Title=@LocalizationData.DeviceControl.TableFieldId Type="int" Width="10%" />
         <RadzenGridColumn TItem="PrinterResourceEntity" Property="Description"
-                            Title=@LocalizationData.DeviceControl.TableFieldDescription Type="string" Width="30%" />
+            Title=@LocalizationData.DeviceControl.TableFieldDescription Type="string" Width="30%" />
         <RadzenGridColumn TItem="PrinterResourceEntity" Property="Resource.Name"
-                            Title=@LocalizationData.DeviceControl.TableFieldResource Type="string" Width="30%" />
+            Title=@LocalizationData.DeviceControl.TableFieldResource Type="string" Width="30%" />
     </Columns>
 </RadzenGrid>
 

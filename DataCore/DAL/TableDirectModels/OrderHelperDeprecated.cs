@@ -4,12 +4,12 @@
 
 //namespace DataCore.DAL.TableDirectModels
 //{
-//    public static class OrderHelper
+//    public class OrderHelper
 //    {
 //        // Помощник SQL.
-//        private static readonly SqlHelper _sql { get; set; } = SqlHelper.Instance;
+//        private readonly SqlHelper _sql { get; set; } = SqlHelper.Instance;
 
-//        public static void SetStatus(OrderEntity order, OrderStatus orderStatus)
+//        public void SetStatus(OrderEntity order, OrderStatus orderStatus)
 //        {
 //            using (SqlConnection con = new SqlConnection(_sql.ConnectionString))
 //            {
@@ -30,7 +30,7 @@
 //            }
 //        }
 
-//        public static OrderStatus GetStatus(OrderEntity order)
+//        public OrderStatus GetStatus(OrderEntity order)
 //        {
 
 //            using (SqlConnection con = new SqlConnection(_sql.ConnectionString))
@@ -48,7 +48,7 @@
 //            }
 //        }
 
-//        public static int GetOrderPercentCompletion(OrderEntity order)
+//        public int GetOrderPercentCompletion(OrderEntity order)
 //        {
 //            using (SqlConnection con = new SqlConnection(_sql.ConnectionString))
 //            {
@@ -65,7 +65,7 @@
 //            }
 //        }
 
-//        public static List<OrderEntity> GetOrderList(string ScaleId)
+//        public List<OrderEntity> GetOrderList(string ScaleId)
 //        {
 //            List<OrderEntity> res = new List<OrderEntity>();
 //            using (SqlConnection con = new SqlConnection(_sql.ConnectionString))
@@ -135,7 +135,7 @@
 //            return res;
 //        }
 
-//        public static List<OrderEntity> GetOrderList(string ScaleId, DateTime startDate, DateTime endDate)
+//        public List<OrderEntity> GetOrderList(string ScaleId, DateTime startDate, DateTime endDate)
 //        {
 //            List<OrderEntity> res = new List<OrderEntity>();
 //            using (SqlConnection con = new SqlConnection(_sql.ConnectionString))

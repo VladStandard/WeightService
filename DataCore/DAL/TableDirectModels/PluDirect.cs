@@ -16,8 +16,10 @@ namespace DataCore.DAL.TableDirectModels
     [Serializable]
     public class PluDirect : BaseSerializeEntity<PluDirect>
     {
+        #region Public and private fields and properties
+
         public ScaleDirect Scale { get; set; } = new ScaleDirect();
-        public int Id { get; set; } = default;
+        public long Id { get; set; } = default;
         public int PLU { get; set; } = default;
         public string RRefGoods { get; set; } = string.Empty;
         public string GoodsName { get; set; } = string.Empty;
@@ -26,7 +28,6 @@ namespace DataCore.DAL.TableDirectModels
         public string GTIN { get; set; } = string.Empty;
         public string EAN13 { get; set; } = string.Empty;
         public string ITF14 { get; set; } = string.Empty;
-
         public int? GoodsShelfLifeDays { get; set; }
         public decimal GoodsTareWeight { get; set; }
         public decimal GoodsFixWeight { get; set; }
@@ -50,10 +51,30 @@ namespace DataCore.DAL.TableDirectModels
         /// <summary>
         /// ID шаблона.
         /// </summary>
-        public int? TemplateID { get; set; }
-
+        public long? TemplateID { get; set; }
         //  [XmlIgnoreAttribute]
         public TemplateDirect Template { get; set; }
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public PluDirect()
+        {
+            Load();
+        }
+
+        public PluDirect(ScaleDirect scale, int plu)
+        {
+            Scale = scale;
+            PLU = plu;
+            Load();
+        }
+
+        #endregion
+
+        #region Public and private methods
 
         public override bool Equals(object obj)
         {
@@ -68,18 +89,6 @@ namespace DataCore.DAL.TableDirectModels
         public override int GetHashCode()
         {
             return Id.GetHashCode();
-        }
-
-        public PluDirect()
-        {
-            Load();
-        }
-
-        public PluDirect(ScaleDirect scale, int plu)
-        {
-            Scale = scale;
-            PLU = plu;
-            Load();
         }
 
         public XDocument GetBtXmlNamedSubString()
@@ -101,7 +110,7 @@ namespace DataCore.DAL.TableDirectModels
             return doc;
         }
 
-        public static IDictionary<string, object> ObjectToDictionary<T>(T item)
+        public IDictionary<string, object> ObjectToDictionary<T>(T item)
             where T : class
         {
             Type myObjectType = item.GetType();
@@ -116,7 +125,7 @@ namespace DataCore.DAL.TableDirectModels
             return dict;
         }
 
-        public static T ObjectFromDictionary<T>(IDictionary<string, object> dict)
+        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
             where T : class
         {
             Type type = typeof(T);
@@ -148,7 +157,7 @@ namespace DataCore.DAL.TableDirectModels
         {
             if (TemplateID != null)
             {
-                Template = new TemplateDirect((int)TemplateID);
+                Template = new TemplateDirect((long)TemplateID);
             }
             else
             {
@@ -185,7 +194,7 @@ select
 from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
                     ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             SqlCommand cmd = new(query, con);
-            cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.Int) { Value = Scale.Id });
+            cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.BigInt) { Value = Scale.Id });
             cmd.Parameters.Add(new SqlParameter("@PLU", SqlDbType.Int) { Value = PLU });
             cmd.Prepare();
             return cmd;
@@ -194,7 +203,7 @@ from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
         public void Load()
         {
             if (Id == default) return;
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             SqlCommand cmd = GetLoadCmd(con);
             if (cmd != null)
@@ -204,23 +213,23 @@ from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id");
-                        GoodsName = SqlConnectFactory.GetValueAsString(reader, "GoodsName");
-                        GoodsFullName = SqlConnectFactory.GetValueAsString(reader, "GoodsFullName");
-                        GoodsDescription = SqlConnectFactory.GetValueAsString(reader, "GoodsDescription");
-                        TemplateID = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "TemplateID");
-                        GTIN = SqlConnectFactory.GetValueAsString(reader, "GTIN");
-                        EAN13 = SqlConnectFactory.GetValueAsString(reader, "EAN13");
-                        ITF14 = SqlConnectFactory.GetValueAsString(reader, "ITF14");
-                        GoodsShelfLifeDays = SqlConnectFactory.GetValueAsNotNullable<byte>(reader, "GoodsShelfLifeDays");
-                        GoodsTareWeight = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "GoodsTareWeight");
-                        GoodsBoxQuantly = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "GoodsBoxQuantly");
-                        //RRefGoods = SqlConnectFactory.GetValueAsString(reader, "RRefGoods");
-                        //PLU = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PLU");
-                        UpperWeightThreshold = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "UpperWeightThreshold");
-                        NominalWeight = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "NominalWeight");
-                        LowerWeightThreshold = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "LowerWeightThreshold");
-                        CheckWeight = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "CheckWeight");
+                        Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id");
+                        GoodsName = SqlConnect.GetValueAsString(reader, "GoodsName");
+                        GoodsFullName = SqlConnect.GetValueAsString(reader, "GoodsFullName");
+                        GoodsDescription = SqlConnect.GetValueAsString(reader, "GoodsDescription");
+                        TemplateID = SqlConnect.GetValueAsNotNullable<long>(reader, "TemplateID");
+                        GTIN = SqlConnect.GetValueAsString(reader, "GTIN");
+                        EAN13 = SqlConnect.GetValueAsString(reader, "EAN13");
+                        ITF14 = SqlConnect.GetValueAsString(reader, "ITF14");
+                        GoodsShelfLifeDays = SqlConnect.GetValueAsNotNullable<byte>(reader, "GoodsShelfLifeDays");
+                        GoodsTareWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "GoodsTareWeight");
+                        GoodsBoxQuantly = SqlConnect.GetValueAsNotNullable<int>(reader, "GoodsBoxQuantly");
+                        //RRefGoods = SqlConnect.GetValueAsString(reader, "RRefGoods");
+                        //PLU = SqlConnect.GetValueAsNotNullable<int>(reader, "PLU");
+                        UpperWeightThreshold = SqlConnect.GetValueAsNotNullable<decimal>(reader, "UpperWeightThreshold");
+                        NominalWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "NominalWeight");
+                        LowerWeightThreshold = SqlConnect.GetValueAsNotNullable<decimal>(reader, "LowerWeightThreshold");
+                        CheckWeight = SqlConnect.GetValueAsNotNullable<bool>(reader, "CheckWeight");
                     }
                 }
                 reader.Close();
@@ -228,7 +237,7 @@ from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
             con.Close();
         }
 
-        public static SqlCommand GetPluListCmd(SqlConnection con, int scaleId)
+        public SqlCommand GetPluListCmd(SqlConnection con, long scaleId)
         {
             if (con == null)
                 return null;
@@ -255,15 +264,15 @@ from [db_scales].[GetPLU] (@ScaleID)
 order by [PLU]
                     ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             SqlCommand cmd = new(query, con);
-            cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.Int) { Value = scaleId });
+            cmd.Parameters.Add(new SqlParameter("@ScaleID", SqlDbType.BigInt) { Value = scaleId });
             cmd.Prepare();
             return cmd;
         }
 
-        public static List<PluDirect> GetPluList(ScaleDirect scale)
+        public List<PluDirect> GetPluList(ScaleDirect scale)
         {
             List<PluDirect> result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 if (scale != null)
@@ -279,24 +288,24 @@ order by [PLU]
                                 PluDirect pluEntity = new()
                                 {
                                     Scale = scale,
-                                    //ScaleId = SqlConnectFactory.GetValueAsString(reader, "GoodsName");
-                                    Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                    GoodsName = SqlConnectFactory.GetValueAsString(reader, "GoodsName"),
-                                    GoodsFullName = SqlConnectFactory.GetValueAsString(reader, "GoodsFullName"),
-                                    GoodsDescription = SqlConnectFactory.GetValueAsString(reader, "GoodsDescription"),
-                                    TemplateID = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "TemplateID"),
-                                    GTIN = SqlConnectFactory.GetValueAsString(reader, "GTIN"),
-                                    EAN13 = SqlConnectFactory.GetValueAsString(reader, "EAN13"),
-                                    ITF14 = SqlConnectFactory.GetValueAsString(reader, "ITF14"),
-                                    GoodsShelfLifeDays = SqlConnectFactory.GetValueAsNotNullable<byte>(reader, "GoodsShelfLifeDays"),
-                                    GoodsTareWeight = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "GoodsTareWeight"),
-                                    GoodsBoxQuantly = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "GoodsBoxQuantly"),
-                                    //RRefGoods = SqlConnectFactory.GetValueAsString(reader, "RRefGoods"),
-                                    PLU = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "PLU"),
-                                    UpperWeightThreshold = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "UpperWeightThreshold"),
-                                    NominalWeight = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "NominalWeight"),
-                                    LowerWeightThreshold = SqlConnectFactory.GetValueAsNotNullable<decimal>(reader, "LowerWeightThreshold"),
-                                    CheckWeight = SqlConnectFactory.GetValueAsNotNullable<bool>(reader, "CheckWeight")
+                                    //ScaleId = SqlConnect.GetValueAsString(reader, "GoodsName");
+                                    Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id"),
+                                    GoodsName = SqlConnect.GetValueAsString(reader, "GoodsName"),
+                                    GoodsFullName = SqlConnect.GetValueAsString(reader, "GoodsFullName"),
+                                    GoodsDescription = SqlConnect.GetValueAsString(reader, "GoodsDescription"),
+                                    TemplateID = SqlConnect.GetValueAsNotNullable<long>(reader, "TemplateID"),
+                                    GTIN = SqlConnect.GetValueAsString(reader, "GTIN"),
+                                    EAN13 = SqlConnect.GetValueAsString(reader, "EAN13"),
+                                    ITF14 = SqlConnect.GetValueAsString(reader, "ITF14"),
+                                    GoodsShelfLifeDays = SqlConnect.GetValueAsNotNullable<byte>(reader, "GoodsShelfLifeDays"),
+                                    GoodsTareWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "GoodsTareWeight"),
+                                    GoodsBoxQuantly = SqlConnect.GetValueAsNotNullable<int>(reader, "GoodsBoxQuantly"),
+                                    //RRefGoods = SqlConnect.GetValueAsString(reader, "RRefGoods"),
+                                    PLU = SqlConnect.GetValueAsNotNullable<int>(reader, "PLU"),
+                                    UpperWeightThreshold = SqlConnect.GetValueAsNotNullable<decimal>(reader, "UpperWeightThreshold"),
+                                    NominalWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "NominalWeight"),
+                                    LowerWeightThreshold = SqlConnect.GetValueAsNotNullable<decimal>(reader, "LowerWeightThreshold"),
+                                    CheckWeight = SqlConnect.GetValueAsNotNullable<bool>(reader, "CheckWeight")
                                 };
                                 result.Add(pluEntity);
                             }
@@ -308,5 +317,7 @@ order by [PLU]
             }
             return result;
         }
+
+        #endregion
     }
 }

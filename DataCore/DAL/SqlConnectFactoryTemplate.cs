@@ -12,18 +12,19 @@ namespace DataCore.DAL
         #region Public and private fields and properties
 
         public static string Result = string.Empty;
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
         #region Public and private methods
 
-        public static void ExecuteReaderTemplate(int scaleId)
+        public void ExecuteReaderTemplate(long scaleId)
         {
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@scale_id", System.Data.SqlDbType.Int) { Value = scaleId },
+                new SqlParameter("@scale_id", System.Data.SqlDbType.BigInt) { Value = scaleId },
             };
             Result = string.Empty;
-            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, delegate (SqlDataReader reader)
             {
                 if (reader.Read())
                 {
@@ -32,13 +33,13 @@ namespace DataCore.DAL
             });
         }
 
-        public static string? ExecuteReaderAsStringTemplate(int scaleId)
+        public string? ExecuteReaderAsStringTemplate(long scaleId)
         {
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@scale_id", System.Data.SqlDbType.Int) { Value = scaleId },
+                new SqlParameter("@scale_id", System.Data.SqlDbType.BigInt) { Value = scaleId },
             };
             string result = string.Empty;
-            SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, delegate (SqlDataReader reader)
             {
                 if (reader.Read())
                 {
@@ -48,10 +49,10 @@ namespace DataCore.DAL
             return result;
         }
 
-        public static void UpdateTemplate(ScaleDirect scale)
+        public void UpdateTemplate(ScaleDirect scale)
         {
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@ID", System.Data.SqlDbType.Int) { Value = scale.Id },
+                new SqlParameter("@ID", System.Data.SqlDbType.BigInt) { Value = scale.Id },
                 new SqlParameter("@Description", System.Data.SqlDbType.NVarChar, 150) { Value = scale.Description },
                 new SqlParameter("@Port", System.Data.SqlDbType.SmallInt) { Value = scale.DevicePort },
                 new SqlParameter("@SendTimeout", System.Data.SqlDbType.SmallInt) { Value = scale.DeviceWriteTimeout },
@@ -61,7 +62,7 @@ namespace DataCore.DAL
                 new SqlParameter("@VerScalesUI", System.Data.SqlDbType.VarChar, 30) { Value = StringUtils.GetStringNullValueTrim(scale.VerScalesUI, 30) },
                 new SqlParameter("@ScaleFactor", System.Data.SqlDbType.Int) { Value = scale.ScaleFactor },
             };
-            SqlConnectFactory.ExecuteNonQuery(SqlQueries.DbScales.Tables.Scales.UpdateScaleDirect, parameters);
+            SqlConnect.ExecuteNonQuery(SqlQueries.DbScales.Tables.Scales.UpdateScaleDirect, parameters);
         }
 
         #endregion

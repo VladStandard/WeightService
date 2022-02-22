@@ -12,7 +12,7 @@ namespace DataCore.DAL.DataModels
         #region Public and private fields and properties
 
         public virtual DateTime CreateDate { get; set; }
-        public virtual int ScaleId { get; set; } = default;
+        public virtual long ScaleId { get; set; } = default;
         public virtual string ScaleDescription { get; set; } = string.Empty;
         public virtual int PluId { get; set; } = default;
         public virtual DateTime WeithingDate { get; set; } = default;
@@ -112,7 +112,7 @@ namespace DataCore.DAL.DataModels
             return base.EqualsDefault() &&
                    Equals(Id, default(int)) &&
                    Equals(CreateDate, default(DateTime)) &&
-                   Equals(ScaleId, default(int)) &&
+                   Equals(ScaleId, default(long)) &&
                    Equals(ScaleDescription, default(string)) &&
                    Equals(PluId, default(int)) &&
                    Equals(WeithingDate, default(DateTime)) &&

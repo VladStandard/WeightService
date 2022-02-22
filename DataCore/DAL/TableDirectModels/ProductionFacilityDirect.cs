@@ -13,11 +13,12 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public int Id { get; set; } = default;
+        public long Id { get; set; } = default;
         public string Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string RRefID { get; set; } = string.Empty;
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -28,7 +29,7 @@ namespace DataCore.DAL.TableDirectModels
             Load();
         }
 
-        public ProductionFacilityDirect(int id)
+        public ProductionFacilityDirect(long id)
         {
             Id = id;
             Load();
@@ -55,7 +56,7 @@ namespace DataCore.DAL.TableDirectModels
         public void Load()
         {
             if (Id == default) return;
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = "SELECT * FROM [db_scales].[GetProductionFacility] (@Id);";
             using (SqlCommand cmd = new(query))
@@ -67,11 +68,11 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "ID");
-                        Name = SqlConnectFactory.GetValueAsString(reader, "Name");
-                        CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
-                        RRefID = SqlConnectFactory.GetValueAsString(reader, "RRefID");
+                        Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
+                        Name = SqlConnect.GetValueAsString(reader, "Name");
+                        CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
+                        ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
                     }
                 }
                 reader.Close();
@@ -81,15 +82,15 @@ namespace DataCore.DAL.TableDirectModels
 
         public void Save()
         {
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = @"
-                    DECLARE @ID int; 
-                    EXECUTE [db_scales].[SetProductionFacility]
-                       @1CRRefID,
-                       @Name,
-                       @ID OUTPUT;
-                    SELECT @ID";
+DECLARE @ID int; 
+EXECUTE [db_scales].[SetProductionFacility]
+    @1CRRefID,
+    @Name,
+    @ID OUTPUT;
+SELECT @ID";
             using (SqlCommand cmd = new(query))
             {
                 cmd.Connection = con;
@@ -101,7 +102,7 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     while (reader.Read())
                     {
-                        Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id");
+                        Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id");
                     }
                 }
                 reader.Close();
@@ -109,10 +110,10 @@ namespace DataCore.DAL.TableDirectModels
             con.Close();
         }
 
-        public static List<ProductionFacilityDirect> GetList()
+        public List<ProductionFacilityDirect> GetList()
         {
             List<ProductionFacilityDirect> result = new();
-            using (SqlConnection con = SqlConnectFactory.GetConnection())
+            using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
                 string query = "SELECT [Id],[Name],[CreateDate],[ModifiedDate],[1CRRefID] FROM [db_scales].[GetProductionFacility] (default);";
@@ -126,11 +127,11 @@ namespace DataCore.DAL.TableDirectModels
                         {
                             ProductionFacilityDirect pFacility = new()
                             {
-                                Id = SqlConnectFactory.GetValueAsNotNullable<int>(reader, "Id"),
-                                Name = SqlConnectFactory.GetValueAsString(reader, "Name"),
-                                CreateDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnectFactory.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
-                                RRefID = SqlConnectFactory.GetValueAsString(reader, "1CRRefID")
+                                Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id"),
+                                Name = SqlConnect.GetValueAsString(reader, "Name"),
+                                CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
+                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID")
                             };
                             result.Add(pFacility);
                         }

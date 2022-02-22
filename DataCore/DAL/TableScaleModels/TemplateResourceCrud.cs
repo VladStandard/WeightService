@@ -20,7 +20,7 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private methods
 
-        public int LoadResource(int id, string name, string description, string type, byte[] imagedata, bool marked = false)
+        public int LoadResource(long id, string name, string description, string type, byte[] imagedata, bool marked = false)
         {
             Dictionary<string, object>? parameters = new()
             {

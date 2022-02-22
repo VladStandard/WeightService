@@ -22,13 +22,14 @@ namespace DataCore.DAL.TableDirectModels
 
         #region Public and private fields and properties
 
-        public int Id { get; set; } = default;
+        public long Id { get; set; } = default;
         public virtual string Name { get; set; } = string.Empty;
         public virtual string Ip { get; set; } = string.Empty;
         public virtual short Port { get; set; } = default;
         public virtual string Mac { get; set; } = string.Empty;
         public virtual string Password { get; set; } = string.Empty;
         public virtual string PrinterType { get; set; } = string.Empty;
+        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -39,7 +40,7 @@ namespace DataCore.DAL.TableDirectModels
             Load(default);
         }
 
-        public ZebraPrinterHelper(int id)
+        public ZebraPrinterHelper(long id)
         {
             Load(id);
         }
@@ -48,11 +49,11 @@ namespace DataCore.DAL.TableDirectModels
 
         #region Public and private methods
 
-        public void Load(int id)
+        public void Load(long id)
         {
             Id = id;
             if (Id == default) return;
-            using SqlConnection con = SqlConnectFactory.GetConnection();
+            using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
             string query = @"
 SELECT x.Id,x.Name,x.Ip,x.Port,x.Password,x.Mac,y.Name as PrinterType
@@ -70,12 +71,12 @@ WHERE x.[Id] = @ID;
                 {
                     while (reader.Read())
                     {
-                        Ip = SqlConnectFactory.GetValueAsString(reader, "Ip");
-                        Port = SqlConnectFactory.GetValueAsNotNullable<short>(reader, "Port");
-                        Mac = SqlConnectFactory.GetValueAsString(reader, "Mac");
-                        Name = SqlConnectFactory.GetValueAsString(reader, "Name");
-                        Password = SqlConnectFactory.GetValueAsString(reader, "Password");
-                        PrinterType = SqlConnectFactory.GetValueAsString(reader, "PrinterType");
+                        Ip = SqlConnect.GetValueAsString(reader, "Ip");
+                        Port = SqlConnect.GetValueAsNotNullable<short>(reader, "Port");
+                        Mac = SqlConnect.GetValueAsString(reader, "Mac");
+                        Name = SqlConnect.GetValueAsString(reader, "Name");
+                        Password = SqlConnect.GetValueAsString(reader, "Password");
+                        PrinterType = SqlConnect.GetValueAsString(reader, "PrinterType");
                     }
                 }
                 reader.Close();

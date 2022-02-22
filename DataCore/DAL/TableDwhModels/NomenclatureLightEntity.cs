@@ -27,7 +27,7 @@ namespace DataCore.DAL.TableDwhModels
         public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
         public virtual short? RelevanceStatus { get; set; }
         public virtual short? NormalizationStatus { get; set; }
-        public virtual int? MasterId { get; set; }
+        public virtual long? MasterId { get; set; }
 
         #endregion
 
@@ -115,7 +115,7 @@ namespace DataCore.DAL.TableDwhModels
                    Equals(Dlm, default(DateTime)) &&
                    Equals(RelevanceStatus, default(short?)) &&
                    Equals(NormalizationStatus, default(short?)) &&
-                   Equals(MasterId, default(int?));
+                   Equals(MasterId, default(long?));
         }
 
         public override object Clone()

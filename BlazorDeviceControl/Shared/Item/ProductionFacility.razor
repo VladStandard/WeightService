@@ -1,18 +1,58 @@
 ﻿@page "/item/productionfacility"
-@page "/item/productionfacility/{Id:int}"
-@page "/item/productionfacility/{Id:int}/{TableActionString}"
+@page "/item/productionfacility/{Id:long}"
+@page "/item/productionfacility/{Id:long}/{TableActionString}"
+@using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
 @inherits RazorDisposable
 
-<div class="row col-sm-12 col-md-12 col-lg-12">
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldName />
-        <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@ProductionFacilityItem.Name />
-        <br />
-    </div>
-    <br />
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <br />
-    </div>
-</div>
+<ActionsReload Title=@LocalizationData.DeviceControl.ItemError SetParameters=@SetParametersAsync />
+
+@if (Item == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <thead>
+            <tr>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@ProductionFacilityItem.Id />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ProductionFacilityItem.Marked />
+                </td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: left;" 
+                        Disabled=false ReadOnly=false
+                        TValue="string" @bind-Value=@ProductionFacilityItem.Name />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldIdRRef</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: center; " 
+                        Disabled=false ReadOnly=false
+                        TValue="string" @Value=@ProductionFacilityItem.IdRRef />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}
