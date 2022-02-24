@@ -14,7 +14,7 @@ namespace DataCore.DAL.TableScaleModels
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Nullable();
             Map(x => x.ModifiedDate).CustomSqlType("DATETIME").Column("ModifiedDate").Nullable();
-            References(x => x.Templates).Column("TemplateID").Nullable();
+            References(x => x.Template).Column("TemplateID").Nullable();
             References(x => x.Scale).Column("ScaleId").Not.Nullable();
             References(x => x.Nomenclature).Column("NomenclatureId").Not.Nullable();
             Map(x => x.GoodsName).CustomSqlType("NVARCHAR(150)").Column("GoodsName").Length(150).Nullable();

@@ -89,7 +89,7 @@ namespace DataCore.DAL.Models
 
         public DataAccessEntity(JsonSettingsEntity jsonSettings)
         {
-            if (jsonSettings == null) throw new ArgumentException("jsonAppSettings must be not null!");
+            JsonSettings = jsonSettings ?? throw new ArgumentException("jsonAppSettings must be not null!");
             JsonSettings = jsonSettings;
             Crud = new CrudController(this, SessionFactory);
         }

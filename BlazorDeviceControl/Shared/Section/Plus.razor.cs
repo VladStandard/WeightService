@@ -16,8 +16,8 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        [Parameter] public long ScaleId { get; set; }
-        private List<PluEntity> ItemsCast => Items == null ? new List<PluEntity>() : Items.Select(x => (PluEntity)x).ToList();
+        [Parameter] public long? ScaleId { get; set; }
+        private List<PluEntity>? ItemsCast => Items?.Select(x => (PluEntity)x).ToList();
         private readonly object _locker = new();
 
         #endregion
@@ -33,14 +33,14 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                            new FieldListEntity(
-                            new Dictionary<string, object> {
-                            { "Scale.Id", ScaleId },
-                            { ShareEnums.DbField.Marked.ToString(), false },
-                            }),
-                            new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<BaseEntity>();
+                        if (AppSettings.DataAccess != null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                ScaleId != null
+                                ? new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", ScaleId }, 
+                                    { ShareEnums.DbField.Marked.ToString(), false } })
+                                : new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                                new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))?
+                                .ToList<BaseEntity>();
                         ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();

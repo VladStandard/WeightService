@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<WeithingFactSummaryEntity> ItemsCast => Items == null ? new List<WeithingFactSummaryEntity>() : Items.Select(x => (WeithingFactSummaryEntity)x).ToList();
+        private List<WeithingFactSummaryEntity>? ItemsCast => Items?.Select(x => (WeithingFactSummaryEntity)x).ToList();
         private readonly object _locker = new();
 
         #endregion
@@ -33,20 +33,24 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts);
-                        Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
-                        foreach (object obj in objects)
+                        if (AppSettings.DataAccess != null)
                         {
-                            if (obj is object[] { Length: 5 } item)
+                            object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
+                                SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts);
+                            Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
+                            foreach (object obj in objects)
                             {
-                                Items.Add(new WeithingFactSummaryEntity
+                                if (obj is object[] { Length: 5 } item)
                                 {
-                                    WeithingDate = Convert.ToDateTime(item[0]),
-                                    Count = Convert.ToInt32(item[1]),
-                                    Scale = Convert.ToString(item[2]),
-                                    Host = Convert.ToString(item[3]),
-                                    Printer = Convert.ToString(item[4]),
-                                });
+                                    Items.Add(new WeithingFactSummaryEntity
+                                    {
+                                        WeithingDate = Convert.ToDateTime(item[0]),
+                                        Count = Convert.ToInt32(item[1]),
+                                        Scale = Convert.ToString(item[2]),
+                                        Host = Convert.ToString(item[3]),
+                                        Printer = Convert.ToString(item[4]),
+                                    });
+                                }
                             }
                         }
                         ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);

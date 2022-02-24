@@ -121,10 +121,10 @@ namespace BlazorDeviceControl.Shared.Item
                             if (value is long idTemplate)
                             {
                                 if (idTemplate <= 0)
-                                    PluItem.Templates = null;
+                                    PluItem.Template = null;
                                 else
                                 {
-                                    PluItem.Templates = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                                    PluItem.Template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
                                         new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
                                         null);
                                 }

@@ -215,7 +215,7 @@ namespace DataCore
             public static string TableFieldInnerException => Lang == ShareEnums.Lang.English ? @"Inner exception" : @"Вложенное исключение";
             public static string TableFieldIsClose => Lang == ShareEnums.Lang.English ? @"Is close" : @"Закрыто";
             public static string TableFieldItf14 => @"ITF14";
-            public static string TableFieldKneding => Lang == ShareEnums.Lang.English ? @"Is kneading" : @"Взвешено";
+            public static string TableFieldKneding => Lang == ShareEnums.Lang.English ? @"Kneading" : @"Замес";
             public static string TableFieldLevel => Lang == ShareEnums.Lang.English ? @"Level" : @"Уровень";
             public static string TableFieldLine => Lang == ShareEnums.Lang.English ? @"Line" : @"Линия";
             public static string TableFieldLogType => Lang == ShareEnums.Lang.English ? @"Log type" : @"Тип лога";

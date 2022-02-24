@@ -18,16 +18,13 @@ namespace BlazorDeviceControl.Shared.Section
 
         public bool Disabled { get => TaskItem == null || TaskItem.EqualsDefault() == true; }
         public TaskEntity TaskItem { get => (TaskEntity)Item; set => Item = value; }
-        private List<TaskEntity> ItemsCast
+        private List<TaskEntity>? ItemsCast
         {
             get
             {
-                List<TaskEntity> items = Items == null
-                    ? new List<TaskEntity>()
-                    : Items.Select(x => (TaskEntity)x).ToList();
+                List<TaskEntity>? items = Items?.Select(x => (TaskEntity)x).ToList();
                 //ItemsCast.Sort(delegate (TaskEntity a, TaskEntity b) { return string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name); });
-                items.Sort((a, b) => string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name));
-                ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
+                items?.Sort((a, b) => string.Compare(a.Scale.Host?.Name, b.Scale.Host?.Name));
                 return items;
             }
         }
@@ -46,22 +43,18 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
-                        TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
-                        { ShareEnums.DbField.Uid.ToString(), Uid },
-                    }), null);
-                        Items = TaskItem == null || TaskItem.EqualsDefault() == true
-                            ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)
-                                //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
-                                .ToList<BaseEntity>()
-                            : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
-                                new FieldListEntity(
-                                new Dictionary<string, object> {
-                            { "Scale.Id", TaskItem.Scale.Id },
-                                }),
-                                null)
-                                //new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Asc))
-                                .ToList<BaseEntity>()
-                            ;
+                        if (AppSettings.DataAccess != null)
+                        {
+                            TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
+                                { ShareEnums.DbField.Uid.ToString(), Uid },
+                            }), null);
+                            Items = TaskItem == null || TaskItem.EqualsDefault() == true
+                                ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)?.ToList<BaseEntity>()
+                                : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
+                                    new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", TaskItem.Scale.Id } }), null)
+                                    ?.ToList<BaseEntity>();
+                        }
+                            ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

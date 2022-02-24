@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<LogQuickEntity> ItemsCast => Items == null ? new List<LogQuickEntity>() : Items.Select(x => (LogQuickEntity)x).ToList();
+        private List<LogQuickEntity>? ItemsCast => Items?.Select(x => (LogQuickEntity)x).ToList();
         private readonly object _locker = new();
 
         #endregion
@@ -34,28 +34,32 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbServiceManaging.Tables.Logs.GetLogs);
-                        Items = new List<LogQuickEntity>().ToList<BaseEntity>();
-                        foreach (object obj in objects)
+                        if (AppSettings.DataAccess != null)
                         {
-                            if (obj is object[] { Length: 11 } item)
+                            object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
+                                SqlQueries.DbServiceManaging.Tables.Logs.GetLogs);
+                            Items = new List<LogQuickEntity>().ToList<BaseEntity>();
+                            foreach (object obj in objects)
                             {
-                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                                if (obj is object[] { Length: 11 } item)
                                 {
-                                    Items.Add(new LogQuickEntity()
+                                    if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                                     {
-                                        Uid = uid,
-                                        CreateDt = Convert.ToDateTime(item[1]),
-                                        Scale = Convert.ToString(item[2]),
-                                        Host = Convert.ToString(item[3]),
-                                        App = Convert.ToString(item[4]),
-                                        Version = Convert.ToString(item[5]),
-                                        File = Convert.ToString(item[6]),
-                                        Line = Convert.ToInt32(item[7]),
-                                        Member = Convert.ToString(item[8]),
-                                        Icon = Convert.ToString(item[9]),
-                                        Message = Convert.ToString(item[10]),
-                                    });
+                                        Items.Add(new LogQuickEntity()
+                                        {
+                                            Uid = uid,
+                                            CreateDt = Convert.ToDateTime(item[1]),
+                                            Scale = Convert.ToString(item[2]),
+                                            Host = Convert.ToString(item[3]),
+                                            App = Convert.ToString(item[4]),
+                                            Version = Convert.ToString(item[5]),
+                                            File = Convert.ToString(item[6]),
+                                            Line = Convert.ToInt32(item[7]),
+                                            Member = Convert.ToString(item[8]),
+                                            Icon = Convert.ToString(item[9]),
+                                            Message = Convert.ToString(item[10]),
+                                        });
+                                    }
                                 }
                             }
                         }

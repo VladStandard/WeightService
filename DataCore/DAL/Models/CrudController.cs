@@ -177,7 +177,7 @@ namespace DataCore.DAL.Models
             return session.CreateSQLQuery(query);
         }
 
-        public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity fieldList, FieldOrderEntity? order, int maxResults,
+        public T[]? GetEntitiesWithoutReferences<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults,
             string filePath, int lineNumber, string memberName) where T : BaseEntity, new()
         {
             T[]? result = new T[0];
@@ -368,8 +368,8 @@ namespace DataCore.DAL.Models
                 case PluEntity plu:
                     if (!plu.EqualsEmpty())
                     {
-                        if (plu.Templates != null)
-                            plu.Templates = GetEntity<TemplateEntity>(plu.Templates.Id);
+                        if (plu.Template != null)
+                            plu.Template = GetEntity<TemplateEntity>(plu.Template.Id);
                         if (plu.Scale != null)
                             plu.Scale = GetEntity<ScaleEntity>(plu.Scale.Id);
                         if (plu.Nomenclature != null)
@@ -571,7 +571,7 @@ namespace DataCore.DAL.Models
                 new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc));
         }
 
-        public T[]? GetEntities<T>(FieldListEntity fieldList, FieldOrderEntity order, int maxResults = 0,
+        public T[]? GetEntities<T>(FieldListEntity? fieldList, FieldOrderEntity? order, int maxResults = 0,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
             where T : BaseEntity, new()
         {
@@ -671,50 +671,27 @@ namespace DataCore.DAL.Models
         {
             if (item.EqualsEmpty()) return;
 
-            //ExecuteTransaction((session) => {
-            //    int idLast = GetEntity<HostEntity>(null, new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc)).Id;
-            //    HostEntity foo = new()
-            //    {
-            //        Id = idLast + 1,
-            //        CreateDate = DateTime.Now,
-            //        ModifiedDate = DateTime.Now,
-            //        Name = "Тест",
-            //        Ip = "127.0.0.1",
-            //        MacAddress = new MacAddressEntity(),
-            //        IdRRef = Guid.NewGuid(),
-            //        Marked = false,
-            //        //SettingsFile = Convert.ToString(ent[8]),
-            //    };
-            //    Console.WriteLine(foo);
-            //    session.Save(foo);
-            //}, filePath, lineNumber, memberName);
-
             switch (item)
             {
                 case BarcodeTypeEntity barcodeType:
                     ExecuteTransaction((session) =>
                     {
-                        Console.WriteLine(barcodeType);
                         session.Save(barcodeType);
                     }, filePath, lineNumber, memberName);
                     break;
                 case ContragentEntity contragent:
-                    Console.WriteLine(contragent);
                     throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
                 case HostEntity host:
                     ExecuteTransaction((session) =>
                     {
-                        Console.WriteLine(host);
                         session.Save(host);
                     }, filePath, lineNumber, memberName);
                     break;
                 case TableScaleModels.NomenclatureEntity nomenclature:
-                    Console.WriteLine(nomenclature);
                     throw new Exception("SaveEntity for [NomenclatureEntity] is deny!");
                 case PrinterTypeEntity printerType:
                     ExecuteTransaction((session) =>
                     {
-                        Console.WriteLine(printerType);
                         session.Save(printerType);
                     }, filePath, lineNumber, memberName);
                     break;

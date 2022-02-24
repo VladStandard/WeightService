@@ -15,6 +15,7 @@ SELECT
    ,[PRODUCTDATE]
    ,[REGNUM]
    ,[KNEADING]
-FROM [DB_SCALES].[WEITHINGFACT]
+FROM [DB_SCALES].[WeithingFact]
+--WHERE Kneading<>1
 ORDER BY [WEITHINGDATE] DESC
 ------------------------------------------------------------------------------------------------------------------------

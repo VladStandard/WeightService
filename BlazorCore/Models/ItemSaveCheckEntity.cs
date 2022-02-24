@@ -93,7 +93,7 @@ namespace BlazorCore.Models
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, plu.Scale, LocalizationCore.Strings.TableItem.Device);
             if (success)
-                success = FieldControl.ProcessChecks(notificationService, plu.Templates, LocalizationCore.Strings.TableItem.LabelTemplate);
+                success = FieldControl.ProcessChecks(notificationService, plu.Template, LocalizationCore.Strings.TableItem.LabelTemplate);
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, plu.Nomenclature, LocalizationCore.Strings.TableItem.Product);
             if (success)

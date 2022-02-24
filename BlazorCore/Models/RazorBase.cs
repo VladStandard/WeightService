@@ -20,11 +20,11 @@ namespace BlazorCore.Models
     {
         #region Public and private fields and properties - Inject
 
-        [Inject] public DialogService DialogService { get; set; }
-        [Inject] public IJSRuntime JsRuntime { get; set; }
-        [Inject] public NavigationManager NavigationManager { get; set; }
-        [Inject] public NotificationService NotificationService { get; set; }
-        [Inject] public TooltipService TooltipService { get; set; }
+        [Inject] public DialogService? DialogService { get; set; }
+        [Inject] public IJSRuntime? JsRuntime { get; set; }
+        [Inject] public NavigationManager? NavigationManager { get; set; }
+        [Inject] public NotificationService? NotificationService { get; set; }
+        [Inject] public TooltipService? TooltipService { get; set; }
 
         #endregion
 
@@ -34,7 +34,7 @@ namespace BlazorCore.Models
         [Parameter] public Guid? Uid { get; set; } = null;
         [Parameter] public RazorBase? ParentRazor { get; set; } = null;
         public BaseEntity? Item { get; set; } = null;
-        [Parameter] public List<BaseEntity> Items { get; set; } = new List<BaseEntity>();
+        [Parameter] public List<BaseEntity>? Items { get; set; } = null;// new List<BaseEntity>();
         [Parameter] public TableBase Table { get; set; } = new TableBase(string.Empty);
         [Parameter] public DbTableAction TableAction { get; set; } = DbTableAction.Default;
         [Parameter]
@@ -71,6 +71,11 @@ namespace BlazorCore.Models
         public RazorBase()
         {
             TableActionString = string.Empty;
+            DialogService = null;
+            JsRuntime = null;
+            NavigationManager = null;
+            NotificationService = null;
+            TooltipService = null;
         }
 
         #endregion

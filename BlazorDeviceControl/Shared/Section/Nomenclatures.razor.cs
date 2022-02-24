@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<NomenclatureEntity> ItemsCast => Items == null ? new List<NomenclatureEntity>() : Items.Select(x => (NomenclatureEntity)x).ToList();
+        private List<NomenclatureEntity>? ItemsCast => Items?.Select(x => (NomenclatureEntity)x).ToList();
         private readonly object _locker = new();
 
         #endregion
@@ -32,9 +32,10 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-                        Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<BaseEntity>();
+                        if (AppSettings.DataAccess != null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
+                                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
+                            ?.ToList<BaseEntity>();
                         ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();

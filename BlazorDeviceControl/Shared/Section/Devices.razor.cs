@@ -15,7 +15,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<DeviceEntity> ItemsCast => Items == null ? new List<DeviceEntity>() : Items.Select(x => (DeviceEntity)x).ToList();
+        private List<DeviceEntity>? ItemsCast => Items?.Select(x => (DeviceEntity)x).ToList();
         private readonly object _locker = new();
 
         #endregion
@@ -30,7 +30,8 @@ namespace BlazorDeviceControl.Shared.Section
                 {
                     lock (_locker)
                     {
-                        Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null).ToList<BaseEntity>();
+                        if (AppSettings.DataAccess != null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<DeviceEntity>(null, null)?.ToList<BaseEntity>();
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

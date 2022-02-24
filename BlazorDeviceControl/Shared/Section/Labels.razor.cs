@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<LabelQuickEntity> ItemsCast => Items == null ? new List<LabelQuickEntity>() : Items.Select(x => (LabelQuickEntity)x).ToList();
+        private List<LabelQuickEntity>? ItemsCast => Items?.Select(x => (LabelQuickEntity)x).ToList();
         private readonly object _locker = new();
 
         #endregion
@@ -34,30 +34,34 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbScales.Tables.Labels.GetLabels);
-                        Items = new List<LabelQuickEntity>().ToList<BaseEntity>();
-                        foreach (object obj in objects)
+                        if (AppSettings.DataAccess != null)
                         {
-                            if (obj is object[] { Length: 14 } item)
+                            object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
+                                SqlQueries.DbScales.Tables.Labels.GetLabels);
+                            Items = new List<LabelQuickEntity>().ToList<BaseEntity>();
+                            foreach (object obj in objects)
                             {
-                                if (long.TryParse(Convert.ToString(item[0]), out long id))
+                                if (obj is object[] { Length: 14 } item)
                                 {
-                                    Items.Add(new LabelQuickEntity()
+                                    if (long.TryParse(Convert.ToString(item[0]), out long id))
                                     {
-                                        Id = id,
-                                        CreateDate = Convert.ToDateTime(item[1]),
-                                        //Label = Convert.ToByte(item[2]),
-                                        ScaleId = Convert.ToInt64(item[3]),
-                                        ScaleDescription = Convert.ToString(item[4]),
-                                        PluId = Convert.ToInt32(item[5]),
-                                        WeithingDate = Convert.ToDateTime(item[6]),
-                                        NetWeight = Convert.ToDecimal(item[7]),
-                                        TareWeight = Convert.ToDecimal(item[8]),
-                                        ProductDate = Convert.ToDateTime(item[9]),
-                                        RegNum = Convert.ToInt32(item[10]),
-                                        Kneading = Convert.ToInt32(item[11]),
-                                        Zpl = Convert.ToString(item[12]),
-                                    });
+                                        Items.Add(new LabelQuickEntity()
+                                        {
+                                            Id = id,
+                                            CreateDate = Convert.ToDateTime(item[1]),
+                                            //Label = Convert.ToByte(item[2]),
+                                            ScaleId = Convert.ToInt64(item[3]),
+                                            ScaleDescription = Convert.ToString(item[4]),
+                                            PluId = Convert.ToInt32(item[5]),
+                                            WeithingDate = Convert.ToDateTime(item[6]),
+                                            NetWeight = Convert.ToDecimal(item[7]),
+                                            TareWeight = Convert.ToDecimal(item[8]),
+                                            ProductDate = Convert.ToDateTime(item[9]),
+                                            RegNum = Convert.ToInt32(item[10]),
+                                            Kneading = Convert.ToInt32(item[11]),
+                                            Zpl = Convert.ToString(item[12]),
+                                        });
+                                    }
                                 }
                             }
                         }

@@ -17,8 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<TypeEntity<string>> TemplateCategories { get; set; }
-        private List<PrinterEntity> ItemsCast => Items == null ? new List<PrinterEntity>() : Items.Select(x => (PrinterEntity)x).ToList();
+        private List<PrinterEntity>? ItemsCast => Items?.Select(x => (PrinterEntity)x).ToList();
         private readonly object _locker = new();
 
         #endregion
@@ -34,10 +33,11 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
-                            .ToList<BaseEntity>();
+                        if (AppSettings.DataAccess != null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
+                                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
+                            ?.ToList<BaseEntity>();
                         ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();

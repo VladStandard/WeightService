@@ -61,7 +61,7 @@ else
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                             Data=@TemplateItems PageSize="5"
                             TextProperty="Title" ValueProperty="Id"
-                            Value=@PluItem.Templates?.Id
+                            Value=@PluItem.Template?.Id
                             Change=@(args => OnChange(args, nameof(TemplateDirect))) />
                     }
 				</td>
@@ -86,7 +86,7 @@ else
                     }
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldActive</td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@PluItem.Active />
+                    <RadzenCheckBox Disabled=false TValue="bool?" @bind-Value=@PluItem.Active />
                 <td>
 				</td>
             </tr>
