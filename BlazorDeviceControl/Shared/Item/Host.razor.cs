@@ -5,6 +5,7 @@ using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public HostEntity HostItem { get => (HostEntity)Item; set => Item = value; }
+        public HostEntity? ItemCast { get => Item == null ? null : (HostEntity)Item; set => Item = value; }
         private readonly object _locker = new();
 
         #endregion
@@ -27,20 +28,29 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
+
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
-                        HostItem = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        ItemCast = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
+                            new FieldListEntity(new Dictionary<string, object?>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                         {
-                            HostItem.Id = (int)Id;
-                            HostItem.Name = "NEW HOST";
-                            HostItem.IdRRef = System.Guid.NewGuid();
-                            HostItem.Ip = "127.0.0.1";
-                            HostItem.MacAddress.Default();
+                            ItemCast.Id = (int)Id;
+                            ItemCast.Name = "NEW HOST";
+                            ItemCast.IdRRef = System.Guid.NewGuid();
+                            ItemCast.Ip = "127.0.0.1";
+                            ItemCast.MacAddress.Default();
                         }
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

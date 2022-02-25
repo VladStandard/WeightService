@@ -24,10 +24,10 @@ namespace BlazorCore.Models
 
         #region Public and private fields and properties
 
-        public DataAccessEntity? DataAccess { get; private set; } = null;
-        public DataReferenceEntity DataReference { get; private init; } = new();
-        public bool IsDebug => DataAccess?.JsonSettings.IsDebug == true;
-        public MemoryEntity? Memory { get; set; } = null;
+        public DataAccessEntity DataAccess { get; private set; } = new DataAccessEntity();
+        public DataSourceDicsEntity DataSourceDics { get; private init; } = new();
+        public bool IsDebug => DataAccess.JsonSettings.IsDebug == true;
+        public MemoryEntity Memory { get; set; } = new();
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
         public static int Delay => 5_000;
@@ -43,12 +43,12 @@ namespace BlazorCore.Models
         public float MemoryFillSize => Memory?.MemorySize?.PhysicalCurrent == null || Memory?.MemorySize?.PhysicalTotal == null
             || Memory.MemorySize.PhysicalTotal.MegaBytes == 0 
             ? 0 : Memory.MemorySize.PhysicalCurrent.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
-        public string SqlServerDescription => DataAccess?.JsonSettings is { Server: { } }
+        public string SqlServerDescription => DataAccess.JsonSettings is { Server: { } }
             ? DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
                 ? LocalizationCore.Strings.Main.ServerRelease : LocalizationCore.Strings.Main.ServerDevelop
             : LocalizationCore.Strings.Main.NotLoad;
-        public bool IsSqlServerRelease => DataAccess?.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
-        public bool IsSqlServerDebug => DataAccess?.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerRelease => DataAccess.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
+        public bool IsSqlServerDebug => DataAccess.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 
         #endregion
 

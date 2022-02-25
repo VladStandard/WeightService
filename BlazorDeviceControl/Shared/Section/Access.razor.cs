@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
 using BlazorCore.Models;
 
 namespace BlazorDeviceControl.Shared.Section
@@ -31,9 +32,17 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
+                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+
                     lock (_locker)
                     {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+                        Items = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+                    
+                    lock (_locker)
+                    {
                         if (AppSettings.DataAccess != null)
                         {
                             object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
@@ -57,6 +66,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 }
                             }
                         }
+                        ButtonSettings = new(false, false, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

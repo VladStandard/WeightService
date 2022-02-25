@@ -34,6 +34,8 @@ namespace DataCore
             ExceptionMsg = string.Empty;
         }
 
+        public MemoryEntity() : this(1_000, 1_000) { }
+
         ~MemoryEntity()
         {
             MemorySize?.Dispose(false);

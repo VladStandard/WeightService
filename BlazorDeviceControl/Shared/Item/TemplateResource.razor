@@ -29,42 +29,42 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@TemplateResourcesItem.Id />
+                        TValue="long" @bind-Value=@ItemCast.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@TemplateResourcesItem.Marked />
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Marked />
                 </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@TemplateResourcesItem.Name />
+                        TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldDescription</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@TemplateResourcesItem.Description />
+                        TValue="string" @bind-Value=@ItemCast.Description />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldType</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@TemplateResourcesItem.Type />
+                        TValue="string" @bind-Value=@ItemCast.Type />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldIdRRef</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false ReadOnly=true
-                        TValue="string" @Value=@TemplateResourcesItem.IdRRef />
+                        TValue="string" @Value=@ItemCast.IdRRef />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldImageData</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@TemplateResourcesItem.ImageDataInfo />
+                        TValue="string" @bind-Value=@ItemCast.ImageDataInfo />
 				</td>
             </tr>
         </tbody>

@@ -15,7 +15,7 @@ namespace DataCore.DAL.TableScaleModels
         #region Public and private fields and properties
 
         public virtual WeithingFactEntity WeithingFact { get; set; } = new WeithingFactEntity();
-        public virtual DateTime? CreateDate { get; set; }
+        public virtual DateTime CreateDate { get; set; } = default;
         public virtual byte[] Label { get; set; } = new byte[0];
         public virtual string LabelString
         {
@@ -91,7 +91,7 @@ namespace DataCore.DAL.TableScaleModels
             if (WeithingFact != null && !WeithingFact.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime?)) &&
+                   Equals(CreateDate, default(DateTime)) &&
                    Equals(Label, default(byte[])) &&
                    Equals(Zpl, default(string));
         }

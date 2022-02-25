@@ -5,6 +5,7 @@ using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public ProductionFacilityEntity ProductionFacilityItem { get => (ProductionFacilityEntity)Item; set => Item = value; }
+        public ProductionFacilityEntity? ItemCast { get => Item == null ? null : (ProductionFacilityEntity)Item; set => Item = value; }
         private readonly object _locker = new();
 
         #endregion
@@ -27,14 +28,23 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
+
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
-                        ProductionFacilityItem = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(new FieldListEntity(new Dictionary<string, object>
+                        ItemCast = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
+                            new FieldListEntity(new Dictionary<string, object?>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            ProductionFacilityItem.Id = (long)Id;
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                            ItemCast.Id = (long)Id;
+                        ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

@@ -19,8 +19,8 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public TemplateEntity TemplateItem { get => (TemplateEntity)Item; set => Item = value; }
-        public List<TypeEntity<string>> TemplateCategories { get; set; }
+        public TemplateEntity? ItemCast { get => Item == null ? null : (TemplateEntity)Item; set => Item = value; }
+        public List<TypeEntity<string>>? TemplateCategories { get; set; }
         private readonly object _locker = new();
 
         #endregion
@@ -33,15 +33,24 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+                    TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
+
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                        TemplateItem = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        ItemCast = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                            new FieldListEntity(new Dictionary<string, object?>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            TemplateItem.Id = (int)Id;
-                        TemplateCategories = AppSettings.DataReference.GetTemplateCategories();
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                            ItemCast.Id = (int)Id;
+                        ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -59,7 +68,7 @@ namespace BlazorDeviceControl.Shared.Item
                         case "TemlateCategories":
                             if (value is string strValue)
                             {
-                                TemplateItem.CategoryId = strValue;
+                                ItemCast.CategoryId = strValue;
                             }
                             break;
                     }

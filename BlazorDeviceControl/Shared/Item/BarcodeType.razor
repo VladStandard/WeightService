@@ -9,14 +9,14 @@
 @using BlazorCore
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.ItemPrinterType SetParameters=@SetParametersAsync />
-
-@if (Item == null)
+@if (ItemCast == null)
 {
     <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
 }
 else
 {
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemPrinterType SetParameters=@SetParametersAsync />
+
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
@@ -32,12 +32,12 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@BarcodeTypeItem.Id />
+                        TValue="long" @bind-Value=@ItemCast.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@BarcodeTypeItem.Name />
+                        TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
             </tr>
         </tbody>

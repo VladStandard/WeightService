@@ -5,6 +5,7 @@ using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         public bool Disabled { get => TaskItem == null || TaskItem.EqualsDefault() == true; }
-        public TaskEntity TaskItem { get => (TaskEntity)Item; set => Item = value; }
+        public TaskEntity? TaskItem { get => Item == null ? null : (TaskEntity)Item; set => Item = value; }
         private List<TaskEntity>? ItemsCast
         {
             get
@@ -40,21 +41,31 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
+                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
+
                     lock (_locker)
                     {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
+                        TaskItem = null;
+                        Items = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
                         if (AppSettings.DataAccess != null)
                         {
-                            TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(new FieldListEntity(new Dictionary<string, object> {
+                            TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
+                                new FieldListEntity(new Dictionary<string, object?> {
                                 { ShareEnums.DbField.Uid.ToString(), Uid },
                             }), null);
                             Items = TaskItem == null || TaskItem.EqualsDefault() == true
                                 ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)?.ToList<BaseEntity>()
                                 : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
-                                    new FieldListEntity(new Dictionary<string, object> { { "Scale.Id", TaskItem.Scale.Id } }), null)
+                                    new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", TaskItem.Scale.Id } }), null)
                                     ?.ToList<BaseEntity>();
                         }
-                            ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
+                        ButtonSettings = new(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

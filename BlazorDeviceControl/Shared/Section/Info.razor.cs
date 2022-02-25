@@ -21,7 +21,7 @@ namespace BlazorDeviceControl.Shared.Section
         public string ProgramVer => LocalizationCore.Methods.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
         public string CoreVer => LocalizationCore.Methods.GetCoreVersion();
         public string IsDebug => $@"{LocalizationCore.Strings.Main.IsEnableHe(AppSettings.IsDebug)}";
-        public List<TypeEntity<ShareEnums.Lang>> TemplateLanguages { get; set; }
+        public List<TypeEntity<ShareEnums.Lang>>? TemplateLanguages { get; set; }
         public List<TypeEntity<bool>> TemplateIsDebug { get; set; }
         private uint DbCurSize { get; set; } = 0;
         private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocalizationCore.Strings.Main.From} {DbMaxSize:### ###} MB";
@@ -45,8 +45,8 @@ namespace BlazorDeviceControl.Shared.Section
                 {
                     lock (_locker)
                     {
-                        TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
-                        TemplateIsDebug = AppSettings.DataReference.GetTemplateIsDebug();
+                        TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
+                        TemplateIsDebug = DataSourceDicsEntity.GetTemplateIsDebug();
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
                         DbCurSize = 0;
                         foreach (object obj in objects)
@@ -109,7 +109,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 LocalizationCore.Lang = lang;
                                 LocalizationData.Lang = lang;
                             }
-                            TemplateLanguages = AppSettings.DataReference.GetTemplateLanguages();
+                            TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
                             break;
                         case nameof(TemplateIsDebug):
                             if (value is bool isDebug)

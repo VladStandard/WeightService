@@ -27,18 +27,18 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@TemplateItem.Id />
+                        TValue="long" @bind-Value=@ItemCast.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@TemplateItem.Marked />
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Marked />
                 </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldTitle</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@TemplateItem.Title />
+                        TValue="string" @bind-Value=@ItemCast.Title />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldCategoryName</td>
                 <td>
@@ -52,7 +52,7 @@ else
                         <RadzenDropDown Style="width: 100%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                         AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                         Data=@TemplateCategories PageSize="5" TextProperty="Name" ValueProperty="Value"
-                                        Value=@TemplateItem.CategoryId Change=@(args => OnChange(args, "TemlateCategories")) />
+                                        Value=@ItemCast.CategoryId Change=@(args => OnChange(args, "TemlateCategories")) />
                     }
 				</td>
             </tr>
@@ -60,7 +60,7 @@ else
                 <td>@LocalizationData.DeviceControl.TableFieldImageData</td>
                 <td colspan=3 >
                     <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=false
-                        TValue="string" @bind-Value=@TemplateItem.ImageDataStringUnicode Rows="17" />
+                        TValue="string" @bind-Value=@ItemCast.ImageDataStringUnicode Rows="17" />
 				</td>
             </tr>
         </tbody>

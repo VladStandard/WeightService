@@ -15,8 +15,8 @@ namespace DataCore.DAL.Models
     {
         #region Public and private fields and properties
 
-        public JsonSettingsEntity JsonSettings { get; private set; }
         private readonly object _locker = new();
+        public JsonSettingsEntity JsonSettings { get; private set; }
 
         // https://github.com/nhibernate/fluent-nhibernate/wiki/Database-configuration
         private ISessionFactory? _sessionFactory = null;
@@ -24,17 +24,15 @@ namespace DataCore.DAL.Models
         {
             get
             {
-                if (_sessionFactory != null)
-                    return _sessionFactory;
                 lock (_locker)
                 {
-                    if (JsonSettings == null)
-                        throw new ArgumentException($"{nameof(JsonSettings)} is null!");
+                    if (_sessionFactory != null)
+                        return _sessionFactory;
+                    if (!JsonSettings.CheckProperties(false))
+                        return null;
                     if (!JsonSettings.Trusted && (string.IsNullOrEmpty(JsonSettings.Username) || string.IsNullOrEmpty(JsonSettings.Password)))
                         throw new ArgumentException("CoreSettings.Username or CoreSettings.Password is null!");
                     MsSqlConfiguration config = MsSqlConfiguration.MsSql2012.ConnectionString(GetConnectionString());
-                    //config.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>().DefaultSchema(CoreSettings.Schema).ShowSql();
-                    //config.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>().DefaultSchema(CoreSettings.Schema);
                     config.Driver<NHibernate.Driver.MicrosoftDataSqlClientDriver>();
                     FluentConfiguration configuration = Fluently.Configure().Database(config);
                     AddConfigurationMappings(configuration, JsonSettings);
@@ -58,40 +56,17 @@ namespace DataCore.DAL.Models
                 return session == null || !session.IsConnected;
             }
         }
-        public bool IsOpen
-        {
-            get
-            {
-                ISession? session = GetSession();
-                return session == null || session.IsOpen;
-            }
-        }
-        public bool IsConnected
-        {
-            get
-            {
-                ISession? session = GetSession();
-                return session == null || session.IsConnected;
-            }
-        }
-        public bool IsDirty
-        {
-            get
-            {
-                ISession? session = GetSession();
-                return session == null || session.IsDirty();
-            }
-        }
 
         #endregion
 
         #region Constructor and destructor
 
+        public DataAccessEntity() : this(new()) { }
+
         public DataAccessEntity(JsonSettingsEntity jsonSettings)
         {
-            JsonSettings = jsonSettings ?? throw new ArgumentException("jsonAppSettings must be not null!");
             JsonSettings = jsonSettings;
-            Crud = new CrudController(this, SessionFactory);
+            Crud = new(this, SessionFactory);
         }
 
         // This code have exception: 
@@ -103,7 +78,7 @@ namespace DataCore.DAL.Models
         //    : MsSqlConfiguration.MsSql2012.ConnectionString(c => c
         //        .Server(CoreSettings.Server).Database(CoreSettings.Db).Username(CoreSettings.Username).Password(CoreSettings.Password));
 
-        private string GetConnectionString() => JsonSettings.Trusted
+        private string GetConnectionString() => JsonSettings == null ? string.Empty : JsonSettings.Trusted
             ? $"Data Source={JsonSettings.Server};Initial Catalog={JsonSettings.Db};Persist Security Info=True;" +
               $"Trusted Connection=True;TrustServerCertificate={JsonSettings.TrustServerCertificate};"
             : $"Data Source={JsonSettings.Server};Initial Catalog={JsonSettings.Db};Persist Security Info=True;" +

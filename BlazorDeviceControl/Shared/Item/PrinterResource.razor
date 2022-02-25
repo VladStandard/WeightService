@@ -20,12 +20,12 @@
                                 AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                 Data=@PrinterItems PageSize="10"
                                 TextProperty="Name" ValueProperty="Id"
-                                Value=@PrinterResourceItem.Printer?.Id Disabled=false ReadOnly=true
+                                Value=@ItemCast.Printer?.Id Disabled=false ReadOnly=true
                                 Change=@(args => OnChange(args, nameof(PrinterEntity))) />
     }
     <br />
     <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldDescription />
-    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled=false TValue="string" @bind-Value=@PrinterResourceItem.Description />
+    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled=false TValue="string" @bind-Value=@ItemCast.Description />
     <br />
 </div>
 <div class="col-sm-6 col-md-6 col-lg-6">
@@ -41,7 +41,7 @@
                                 AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                                 Data=@ResourceItems PageSize="5"
                                 TextProperty="Name" ValueProperty="Id"
-                                Value=@PrinterResourceItem.Resource?.Id
+                                Value=@ItemCast.Resource?.Id
                                 Change=@(args => OnChange(args, nameof(TemplateResourceEntity))) />
     }
     <br />

@@ -32,17 +32,25 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+                    TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
+
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                        // Filter.
-                        TemplateCategories = AppSettings.DataReference.GetTemplateCategories();
+                        TemplateCategory = null;
+                        Items = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
                         if (string.IsNullOrEmpty(TemplateCategory))
                         {
                             TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
                             if (AppSettings.DataAccess != null)
                                 Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                                    new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                                    new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
                                     new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
                                 ?.ToList<BaseEntity>();
                         }
@@ -50,14 +58,14 @@ namespace BlazorDeviceControl.Shared.Section
                         {
                             if (AppSettings.DataAccess != null)
                                 Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                                    new FieldListEntity(new Dictionary<string, object> {
+                                    new FieldListEntity(new Dictionary<string, object?> {
                                         { ShareEnums.DbField.Marked.ToString(), false },
                                         { ShareEnums.DbField.CategoryId.ToString(), TemplateCategory },
                                     }),
                                     new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
                                 ?.ToList<BaseEntity>();
                         }
-                        ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
+                        ButtonSettings = new(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

@@ -10,48 +10,55 @@
 @using BlazorCore
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
 
-<RadzenGrid Style="margin-top: 5px; "
-    Data=@ItemsCast TItem="AccessEntity"
-    RowSelect=@(args => ItemSelectAsync(args))
-    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
-    <Columns >
-        <RadzenGridColumn 
-            TItem="AccessEntity" TextAlign="TextAlign.Center"
-            Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
-            <Template Context="logItem">
-                <RadzenDatePicker 
-                    TValue="string" Value=@logItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
-            </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
-                Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
-            <Template Context="logItem">
-                <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
-            </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
-            Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="30%" />
-        <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
-            Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="30%">
-            <Template Context="accessItem">
-                @if (accessItem.Level == null)
-                {
-                    <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelNo Disabled=false ReadOnly=true />
-                }
-                else if (accessItem.Level == false)
-                {
-                    <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelRead Disabled=false ReadOnly=true />
-                }
-                else if (accessItem.Level == true)
-                {
-                    <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelWrite Disabled=false ReadOnly=true />
-                }
-            </Template>
-        </RadzenGridColumn>
-    </Columns>
-</RadzenGrid>
+    <RadzenGrid Style="margin-top: 5px; "
+        Data=@ItemsCast TItem="AccessEntity"
+        RowSelect=@(args => ItemSelectAsync(args))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="AccessEntity" TextAlign="TextAlign.Center"
+                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
+                <Template Context="logItem">
+                    <RadzenDatePicker 
+                        TValue="string" Value=@logItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
+                    Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
+                <Template Context="logItem">
+                    <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
+                Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="30%" />
+            <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
+                Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="30%">
+                <Template Context="accessItem">
+                    @if (accessItem.Level == null)
+                    {
+                        <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelNo Disabled=false ReadOnly=true />
+                    }
+                    else if (accessItem.Level == false)
+                    {
+                        <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelRead Disabled=false ReadOnly=true />
+                    }
+                    else if (accessItem.Level == true)
+                    {
+                        <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelWrite Disabled=false ReadOnly=true />
+                    }
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
 
-<ActionsButtons ParentRazor=@this />
+    <ActionsButtons ParentRazor=@this />
+}

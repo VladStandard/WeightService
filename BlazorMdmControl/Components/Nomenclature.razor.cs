@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.DAL.Models;
 using DataCore.DAL.TableDwhModels;
 using DataCore.DAL.TableScaleModels;
 using MdmControlBlazor.Utils;
@@ -72,7 +73,7 @@ namespace MdmControlBlazor.Components
 
         private void GetData()
         {
-            Item = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntity(new FieldListEntity(new Dictionary<string, object>
+            Item = BlazorSettings.SqlDataAccess.NomenclatureCrud.GetEntity(new FieldListEntity(new Dictionary<string, object?>
             { { ShareEnums.DbField.Id.ToString(), ItemId } }), null);
 
             BrandEntities = BlazorSettings.SqlDataAccess.BrandCrud.GetEntities(null,

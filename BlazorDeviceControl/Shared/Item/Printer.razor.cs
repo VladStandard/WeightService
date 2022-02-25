@@ -5,6 +5,7 @@ using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public PrinterEntity PrinterItem { get => (PrinterEntity)Item; set => Item = value; }
-        public List<PrinterTypeEntity> PrinterTypes { get; set; } = null;
+        public PrinterEntity? ItemCast { get => Item == null ? null : (PrinterEntity)Item; set => Item = value; }
+        public List<PrinterTypeEntity>? PrinterTypes { get; set; } = null;
         private readonly object _locker = new();
 
         #endregion
@@ -29,22 +30,32 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                        PrinterItem = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        ItemCast = null;
+                        PrinterTypes = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+                            new FieldListEntity(new Dictionary<string, object?>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            PrinterItem.Id = (int)Id;
-                        PrinterTypes = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null).ToList();
+                            ItemCast.Id = (int)Id;
+                        PrinterTypes = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)?.ToList();
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                         {
-                            PrinterItem.Id = (int)Id;
-                            PrinterItem.Name = "NEW PRINTER";
-                            PrinterItem.Ip = "127.0.0.1";
-                            PrinterItem.MacAddress.Default();
+                            ItemCast.Id = (int)Id;
+                            ItemCast.Name = "NEW PRINTER";
+                            ItemCast.Ip = "127.0.0.1";
+                            ItemCast.MacAddress.Default();
                         }
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

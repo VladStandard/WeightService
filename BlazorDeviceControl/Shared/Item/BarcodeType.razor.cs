@@ -5,6 +5,7 @@ using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public BarcodeTypeEntity BarcodeTypeItem { get => (BarcodeTypeEntity)Item; set => Item = value; }
+        public BarcodeTypeEntity? ItemCast { get => Item == null ? null : (BarcodeTypeEntity)Item; set => Item = value; }
         private readonly object _locker = new();
 
         #endregion
@@ -28,17 +29,26 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodesTypes);
+
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodesTypes);
-                        BarcodeTypeItem = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        ItemCast = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
+                            new FieldListEntity(new Dictionary<string, object?>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                         {
-                            BarcodeTypeItem.Id = (int)Id;
-                            BarcodeTypeItem.Name = "NEW BARCODE";
+                            ItemCast.Id = (int)Id;
+                            ItemCast.Name = "NEW BARCODE";
                         }
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                        ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

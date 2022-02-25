@@ -11,22 +11,29 @@
 @using static DataCore.ShareEnums
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.SectionTemplates SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationData.DeviceControl.SectionTemplates SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
 
-<RadzenGrid Style="margin-top: 5px;"
-    Data=@ItemsCast TItem="TemplateEntity"
-    RowSelect=@(args => ItemSelectAsync(args)) 
-    RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
-    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
-    <Columns>
-        <RadzenGridColumn 
-            TItem="TemplateEntity" Property="CategoryId" TextAlign="TextAlign.Center"
-            Title=@LocalizationData.DeviceControl.TableFieldCategoryName Width="15%" />
-        <RadzenGridColumn 
-            TItem="TemplateEntity" Property="Title" 
-            Title=@LocalizationData.DeviceControl.TableFieldTitle Width="85%" />
-    </Columns>
-</RadzenGrid>
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem="TemplateEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn 
+                TItem="TemplateEntity" Property="CategoryId" TextAlign="TextAlign.Center"
+                Title=@LocalizationData.DeviceControl.TableFieldCategoryName Width="15%" />
+            <RadzenGridColumn 
+                TItem="TemplateEntity" Property="Title" 
+                Title=@LocalizationData.DeviceControl.TableFieldTitle Width="85%" />
+        </Columns>
+    </RadzenGrid>
 
-<ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

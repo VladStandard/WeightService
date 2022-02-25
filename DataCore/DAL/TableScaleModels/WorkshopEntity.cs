@@ -13,8 +13,8 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime? CreateDate { get; set; }
-        public virtual DateTime? ModifiedDate { get; set; }
+        public virtual DateTime CreateDate { get; set; } = default;
+        public virtual DateTime ModifiedDate { get; set; } = default;
         public virtual ProductionFacilityEntity ProductionFacility { get; set; } = new ProductionFacilityEntity();
         public virtual string Name { get; set; } = string.Empty;
         public virtual Guid? IdRRef { get; set; } = null;
@@ -81,8 +81,8 @@ namespace DataCore.DAL.TableScaleModels
             if (ProductionFacility != null && !ProductionFacility.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime?)) &&
-                   Equals(ModifiedDate, default(DateTime?)) &&
+                   Equals(CreateDate, default(DateTime)) &&
+                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(Name, default(string)) &&
                    Equals(IdRRef, default(Guid?)) &&
                    Equals(Marked, default(bool));

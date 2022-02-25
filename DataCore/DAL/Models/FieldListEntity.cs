@@ -10,13 +10,13 @@ namespace DataCore.DAL.Models
         #region Public and private fields and properties
 
         public bool Use { get; set; }
-        public Dictionary<string, object> Fields { get; set; }
+        public Dictionary<string, object?> Fields { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public FieldListEntity(Dictionary<string, object> fields)
+        public FieldListEntity(Dictionary<string, object?> fields)
         {
             Use = true;
             Fields = fields;
@@ -25,6 +25,7 @@ namespace DataCore.DAL.Models
         public FieldListEntity()
         {
             Use = false;
+            Fields = new Dictionary<string, object?>();
         }
 
         #endregion
@@ -35,7 +36,7 @@ namespace DataCore.DAL.Models
         {
             string? strFields = string.Empty;
             int i = 0;
-            foreach (KeyValuePair<string, object> field in Fields)
+            foreach (KeyValuePair<string, object?> field in Fields)
             {
                 strFields += $"Field[{i}]: {field.Key} = {field.Value}. ";
                 i++;

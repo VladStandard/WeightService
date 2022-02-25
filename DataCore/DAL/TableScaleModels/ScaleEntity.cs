@@ -13,8 +13,8 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime? CreateDate { get; set; }
-        public virtual DateTime? ModifiedDate { get; set; }
+        public virtual DateTime CreateDate { get; set; } = default;
+        public virtual DateTime ModifiedDate { get; set; } = default;
         public virtual TemplateEntity? TemplateDefault { get; set; } = new TemplateEntity();
         public virtual TemplateEntity? TemplateSeries { get; set; } = new TemplateEntity();
         public virtual WorkshopEntity WorkShop { get; set; } = new WorkshopEntity();
@@ -144,8 +144,8 @@ namespace DataCore.DAL.TableScaleModels
             if (Host != null && !Host.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime?)) &&
-                   Equals(ModifiedDate, default(DateTime?)) &&
+                   Equals(CreateDate, default(DateTime)) &&
+                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(Description, default(string)) &&
                    Equals(IdRRef, default(Guid?)) &&
                    Equals(DeviceIp, default(string)) &&

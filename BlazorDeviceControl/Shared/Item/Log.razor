@@ -38,50 +38,50 @@ else
                 <td>@LocalizationData.DeviceControl.TableFieldHost</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LogItem.Host.Name />
+                        TValue="string" @bind-Value=@ItemCast.Host.Name />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldApp</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LogItem.App.Name />
+                        TValue="string" @bind-Value=@ItemCast.App.Name />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldVersion</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LogItem.Version />
+                        TValue="string" @bind-Value=@ItemCast.Version />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldFile</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LogItem.File />
+                        TValue="string" @bind-Value=@ItemCast.File />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldRow</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
-                        TValue="int" @bind-Value=@LogItem.Line />
+                        TValue="int" @bind-Value=@ItemCast.Line />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMember</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LogItem.Member />
+                        TValue="string" @bind-Value=@ItemCast.Member />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldLogType</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center" Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LogItem.LogType.Icon />
+                        TValue="string" @bind-Value=@ItemCast.LogType.Icon />
 				</td>
             </tr>
             <tr >
                 <td>@LocalizationData.DeviceControl.TableFieldMessage</td>
                 <td colspan=3 rowspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LogItem.Message Rows=3 />
+                        TValue="string" @bind-Value=@ItemCast.Message Rows=3 />
 				</td>
             </tr>
         </tbody>

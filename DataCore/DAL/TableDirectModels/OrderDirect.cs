@@ -24,11 +24,11 @@ namespace DataCore.DAL.TableDirectModels
         public int PlaneBoxCount { get; set; } = default;
         public int FactBoxCount { get; set; } = default;
         public int PlanePalletCount { get; set; } = default;
-        public DateTime? PlanePackingOperationBeginDate { get; set; }
-        public DateTime? PlanePackingOperationEndDate { get; set; }
+        public DateTime PlanePackingOperationBeginDate { get; set; } = default;
+        public DateTime PlanePackingOperationEndDate { get; set; } = default;
         public ScaleDirect Scale { get; set; } = new ScaleDirect();
-        public DateTime ProductDate { get; set; }
-        public DateTime? CreateDate { get; set; }
+        public DateTime ProductDate { get; set; } = default;
+        public DateTime CreateDate { get; set; } = default;
         public ProjectsEnums.OrderStatus Status { get; set; }
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 

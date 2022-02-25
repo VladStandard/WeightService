@@ -14,8 +14,8 @@ namespace DataCore.DAL.TableScaleModels
         #region Public and private fields and properties
 
         public virtual string OrderId { get; set; } = string.Empty;
-        public virtual DateTime? CurrentDate { get; set; }
-        public virtual byte? CurrentStatus { get; set; }
+        public virtual DateTime CurrentDate { get; set; } = default;
+        public virtual byte? CurrentStatus { get; set; } = null;
 
         #endregion
 
@@ -70,7 +70,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             return base.EqualsDefault() &&
                    Equals(OrderId, default(string)) &&
-                   Equals(CurrentDate, default(DateTime?)) &&
+                   Equals(CurrentDate, default(DateTime)) &&
                    Equals(CurrentStatus, default(byte?));
         }
 

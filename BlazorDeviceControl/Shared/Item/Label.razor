@@ -32,7 +32,7 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="long" @bind-Value=@LabelItem.Id />
+                        TValue="long" @bind-Value=@ItemCast.Id />
 				</td>
             </tr>
             <tr>
@@ -40,26 +40,26 @@ else
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LabelItem.WeithingFact.Scales.Description />
+                        TValue="string" @bind-Value=@ItemCast.WeithingFact.Scales.Description />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldPlu</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="long" @bind-Value=@LabelItem.WeithingFact.Plu.Id />
+                        TValue="long" @bind-Value=@ItemCast.WeithingFact.Plu.Id />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldWeithingDate</td>
                 <td>
                     <RadzenDatePicker Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        TValue="string" Value=@LabelItem.WeithingFact.WeithingDate 
+                        TValue="string" Value=@ItemCast.WeithingFact.WeithingDate 
                         Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldProductDate</td>
                 <td>
                     <RadzenDatePicker Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        TValue="string" Value=@LabelItem.WeithingFact.ProductDate 
+                        TValue="string" Value=@ItemCast.WeithingFact.ProductDate 
                         Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
 				</td>
             </tr>
@@ -68,13 +68,13 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="decimal" @bind-Value=@LabelItem.WeithingFact.NetWeight />
+                        TValue="decimal" @bind-Value=@ItemCast.WeithingFact.NetWeight />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldTareWeight</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="decimal" @bind-Value=@LabelItem.WeithingFact.TareWeight />
+                        TValue="decimal" @bind-Value=@ItemCast.WeithingFact.TareWeight />
 				</td>
             </tr>
             <tr>
@@ -82,13 +82,13 @@ else
                 <td >
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="int?" @bind-Value=@LabelItem.WeithingFact.RegNum />
+                        TValue="int?" @bind-Value=@ItemCast.WeithingFact.RegNum />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldKneding</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="int?" @bind-Value=@LabelItem.WeithingFact.Kneading />
+                        TValue="int?" @bind-Value=@ItemCast.WeithingFact.Kneading />
                 </td>
             </tr>
             <tr >
@@ -96,7 +96,7 @@ else
                 <td colspan=3 rowspan=1>
                     <RadzenTextArea Style="width: 100%; text-align: left;  background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@LabelItem.Zpl Rows=11 />
+                        TValue="string" @bind-Value=@ItemCast.Zpl Rows=11 />
 				</td>
             </tr>
         </tbody>

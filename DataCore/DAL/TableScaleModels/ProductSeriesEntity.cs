@@ -13,7 +13,7 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime? CreateDate { get; set; }
+        public virtual DateTime CreateDate { get; set; } = default;
         public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
         //public virtual Guid? Uid { get; set; }
         public virtual string UidGui
@@ -98,7 +98,7 @@ namespace DataCore.DAL.TableScaleModels
             if (Scale != null && !Scale.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime?)) &&
+                   Equals(CreateDate, default(DateTime)) &&
                    Equals(Uid, default(Guid?)) &&
                    Equals(IsClose, default(bool?)) &&
                    Equals(Sscc, default(string));

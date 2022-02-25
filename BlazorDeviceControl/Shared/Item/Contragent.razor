@@ -1,24 +1,34 @@
 ﻿@page "/item/contragent"
 @page "/item/contragent/{Id:long}"
 @page "/item/contragent/{Id:long}/{TableActionString}"
+@using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
 @inherits RazorDisposable
 
-<div class="row col-sm-12 col-md-12 col-lg-12">
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
-        <RadzenLabel Style="width: 20%; height: 35px;" Text=@LocalizationData.DeviceControl.TableFieldName />
-        <RadzenTextBox Style="height: 35px; width: 77%;" Disabled=false TValue="string"
-                       @bind-value=@ContragentItem.Name />
+@if (ItemCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemContragent SetParameters=@SetParametersAsync />
+
+    <div class="row col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
+            <RadzenLabel Style="width: 20%; height: 35px;" Text=@LocalizationData.DeviceControl.TableFieldName />
+            <RadzenTextBox Style="height: 35px; width: 77%;" Disabled=false TValue="string"
+                           @bind-value=@ItemCast.Name />
+            <br />
+        </div>
         <br />
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
+            <RadzenLabel Style="width: 20%; height: 25px;" Text=@LocalizationData.DeviceControl.TableFieldMarked />
+            <RadzenCheckBox Style="height: 35px; " Disabled=false TValue="bool"
+                            @bind-Value=@ItemCast.MarkedGui />
+            <br />
+        </div>
     </div>
-    <br />
-    <div class="col-sm-6 col-md-6 col-lg-6">
-        <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
-        <RadzenLabel Style="width: 20%; height: 25px;" Text=@LocalizationData.DeviceControl.TableFieldMarked />
-        <RadzenCheckBox Style="height: 35px; " Disabled=false TValue="bool"
-                        @bind-Value=@ContragentItem.MarkedGui />
-        <br />
-    </div>
-</div>
+}

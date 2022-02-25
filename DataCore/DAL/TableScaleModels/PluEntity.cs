@@ -16,9 +16,9 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime? CreateDate { get; set; }
-        public virtual DateTime? ModifiedDate { get; set; }
-        public virtual TemplateEntity? Template { get; set; } = new TemplateEntity();
+        public virtual DateTime CreateDate { get; set; } = default;
+        public virtual DateTime ModifiedDate { get; set; } = default;
+        public virtual TemplateEntity Template { get; set; } = new TemplateEntity();
         public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
         public virtual NomenclatureEntity Nomenclature { get; set; } = new NomenclatureEntity();
         public virtual string GoodsName { get; set; } = string.Empty;
@@ -294,8 +294,8 @@ namespace DataCore.DAL.TableScaleModels
             if (Nomenclature != null && !Nomenclature.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime?)) &&
-                   Equals(ModifiedDate, default(DateTime?)) &&
+                   Equals(CreateDate, default(DateTime)) &&
+                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(GoodsName, default(string)) &&
                    Equals(GoodsFullName, default(string)) &&
                    Equals(GoodsDescription, default(string)) &&

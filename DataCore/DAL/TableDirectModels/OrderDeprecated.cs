@@ -30,11 +30,11 @@
 //        public int PlaneBoxCount    { get; set; }
 //        public int FactBoxCount     { get; set; } = 0;
 //        public int PlanePalletCount { get; set; }
-//        public DateTime? PlanePackingOperationBeginDate { get; set; }
-//        public DateTime? PlanePackingOperationEndDate   { get; set; }
+//        public DateTime PlanePackingOperationBeginDate { get; set; }
+//        public DateTime PlanePackingOperationEndDate   { get; set; }
 //        public string ScaleID           { get; set; }
 //        public DateTime ProductDate     { get; set; }
-//        public DateTime? CreateDate     { get; set; }
+//        public DateTime CreateDate     { get; set; }
 //        public OrderStatus Status       { get; set; }
 
 

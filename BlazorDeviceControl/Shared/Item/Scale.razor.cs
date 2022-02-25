@@ -20,18 +20,18 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public ScaleEntity ScaleItem { get => (ScaleEntity)Item; set => Item = value; }
-        public string PluTitle { get; set; }
-        public PluEntity PluItem { get; set; }
-        public List<PluEntity> PluItems { get; set; } = null;
-        public List<PrinterEntity> PrinterItems { get; set; } = null;
-        public List<TemplateEntity> TemplatesDefaultItems { get; set; } = null;
-        public List<TemplateEntity> TemplatesSeriesItems { get; set; } = null;
-        public List<WorkshopEntity> WorkshopItems { get; set; } = null;
-        public List<TypeEntity<string>> ComPorts { get; set; }
-        public List<HostEntity> HostItems { get; set; } = null;
-        public virtual string PageHost => $"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{ScaleItem.Host.Id}";
-        public virtual string PagePrinter => $"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{ScaleItem.Printer.Id}";
+        public ScaleEntity? ItemCast { get => Item == null ? null : (ScaleEntity)Item; set => Item = value; }
+        public string PluTitle { get; set; } = string.Empty;
+        public PluEntity? PluItem { get; set; } = null;
+        public List<PluEntity>? PluItems { get; set; } = null;
+        public List<PrinterEntity>? PrinterItems { get; set; } = null;
+        public List<TemplateEntity>? TemplatesDefaultItems { get; set; } = null;
+        public List<TemplateEntity>? TemplatesSeriesItems { get; set; } = null;
+        public List<WorkshopEntity>? WorkshopItems { get; set; } = null;
+        public List<TypeEntity<string>>? ComPorts { get; set; }
+        public List<HostEntity>? HostItems { get; set; } = null;
+        public virtual string PageHost => $"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{ItemCast?.Host?.Id}";
+        public virtual string PagePrinter => $"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{ItemCast?.Printer?.Id}";
         private readonly object _locker = new();
 
         #endregion
@@ -44,9 +44,24 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
+
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
+                        ItemCast = null;
+                        ComPorts = null;
+                        PluItems = null;
+                        TemplatesDefaultItems = null;
+                        TemplatesSeriesItems = null;
+                        WorkshopItems = null;
+                        PrinterItems = null;
+                        HostItems = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
                         //ScaleItem = null;
                         //ComPorts = null;
                         //PluItems = null;
@@ -55,10 +70,11 @@ namespace BlazorDeviceControl.Shared.Item
                         //WorkshopItems = null;
                         //PrinterItems = null;
                         //HostItems = null;
-                        ScaleItem = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(new FieldListEntity(new Dictionary<string, object> {
-                        { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> {
+                            { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            ScaleItem.Id = (long)Id;
+                            ItemCast.Id = (long)Id;
                         // ComPorts
                         ComPorts = new List<TypeEntity<string>>();
                         for (int i = 1; i < 256; i++)
@@ -66,31 +82,34 @@ namespace BlazorDeviceControl.Shared.Item
                             ComPorts.Add(new TypeEntity<string>($"COM{i}", $"COM{i}"));
                         }
                         // ScaleFactor
-                        ScaleItem.ScaleFactor ??= 1000;
+                        ItemCast.ScaleFactor ??= 1000;
                         // PLU.
                         PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{LocalizationCore.Strings.Main.DataLoading}]";
-                        PluItems = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(new FieldListEntity(new Dictionary<string, object> {
-                        { ShareEnums.DbField.Marked.ToString(), false },
-                        { "Scale.Id", ScaleItem.Id },
-                    }), new FieldOrderEntity(ShareEnums.DbField.Plu, ShareEnums.DbOrderDirection.Asc)).ToList();
-                        PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{PluItems.Count} {LocalizationData.DeviceControl.DataRecords}]";
+                        PluItems = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> {
+                            { ShareEnums.DbField.Marked.ToString(), false },
+                            { "Scale.Id", ItemCast.Id },
+                            }), new FieldOrderEntity(ShareEnums.DbField.Plu, ShareEnums.DbOrderDirection.Asc))?.ToList();
+                        PluTitle = $"{LocalizationData.DeviceControl.SectionPlus}  [{PluItems?.Count} {LocalizationData.DeviceControl.DataRecords}]";
                         // Other.
                         TemplatesDefaultItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            null).ToList();
+                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            null)?.ToList();
                         TemplatesSeriesItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            null).ToList();
+                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            null)?.ToList();
                         WorkshopItems = AppSettings.DataAccess.Crud.GetEntities<WorkshopEntity>(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            null).ToList();
+                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            null)?.ToList();
                         PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                            new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                            null).ToList();
-                        HostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(new FieldListEntity(new Dictionary<string, object> {
+                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            null)?.ToList();
+                        HostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> {
                             { ShareEnums.DbField.Marked.ToString(), false },
-                        }), new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc)).ToList();
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                            }), new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
+                        ?.ToList();
+                        ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -137,18 +156,18 @@ namespace BlazorDeviceControl.Shared.Item
                         case "DeviceComPort":
                             if (value is string strValue)
                             {
-                                ScaleItem.DeviceComPort = strValue;
+                                ItemCast.DeviceComPort = strValue;
                             }
                             break;
                         case "TemplatesDefault":
                             if (value is long idDefault)
                             {
                                 if (idDefault <= 0)
-                                    ScaleItem.TemplateDefault = null;
+                                    ItemCast.TemplateDefault = null;
                                 else
                                 {
-                                    ScaleItem.TemplateDefault = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idDefault } }),
+                                    ItemCast.TemplateDefault = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idDefault } }),
                                         null);
                                 }
                             }
@@ -157,11 +176,11 @@ namespace BlazorDeviceControl.Shared.Item
                             if (value is long idSeries)
                             {
                                 if (idSeries <= 0)
-                                    ScaleItem.TemplateSeries = null;
+                                    ItemCast.TemplateSeries = null;
                                 else
                                 {
-                                    ScaleItem.TemplateSeries = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idSeries } }),
+                                    ItemCast.TemplateSeries = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idSeries } }),
                                         null);
                                 }
                             }
@@ -170,11 +189,11 @@ namespace BlazorDeviceControl.Shared.Item
                             if (value is long idWorkShop)
                             {
                                 if (idWorkShop <= 0)
-                                    ScaleItem.WorkShop = null;
+                                    ItemCast.WorkShop = null;
                                 else
                                 {
-                                    ScaleItem.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
-                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idWorkShop } }),
+                                    ItemCast.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idWorkShop } }),
                                         null);
                                 }
                             }
@@ -183,11 +202,11 @@ namespace BlazorDeviceControl.Shared.Item
                             if (value is long idPrinter)
                             {
                                 if (idPrinter <= 0)
-                                    ScaleItem.Printer = null;
+                                    ItemCast.Printer = null;
                                 else
                                 {
-                                    ScaleItem.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idPrinter } }),
+                                    ItemCast.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idPrinter } }),
                                         null);
                                 }
                             }
@@ -196,11 +215,11 @@ namespace BlazorDeviceControl.Shared.Item
                             if (value is long idHost)
                             {
                                 if (idHost <= 0)
-                                    ScaleItem.Host = null;
+                                    ItemCast.Host = null;
                                 else
                                 {
-                                    ScaleItem.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-                                        new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), idHost } }),
+                                    ItemCast.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idHost } }),
                                         null);
                                 }
                             }

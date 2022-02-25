@@ -9,7 +9,7 @@ namespace BlazorDeviceControl.Shared.Component
     {
         #region Public and private fields and properties
 
-        [Parameter] public string ItemTypeName { get; set; }
+        [Parameter] public string ItemTypeName { get; set; } = string.Empty;
 
         #endregion
 

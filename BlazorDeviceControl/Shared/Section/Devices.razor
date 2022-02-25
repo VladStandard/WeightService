@@ -1,5 +1,6 @@
 ﻿@page "/section/devices"
 @using BlazorCore.Models
+@using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.DAL.DataModels
 @using DataCore.Utils
@@ -7,16 +8,15 @@
 @using Microsoft.VisualBasic.CompilerServices
 @inherits RazorDisposable
 
-<h2>
-    @LocalizationData.DeviceControl.DevicesTitle
-        <RadzenButton Click=@(args => SetParametersAsync(new ParameterView()))
-                        ButtonStyle="ButtonStyle.Primary" Style="margin-top: 10px; width: 80px; margin-left: 25px"
-                        class="oi oi-reload" Disabled=@AppSettings.DataAccess.IsDisabled 
-                        MouseEnter="@(args => TooltipService.Open(args, LocalizationData.DeviceControl.TableReadData))" />
-</h2>
-
-<br style="margin-top: 50px" />
-<p>
+@*
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationData.DeviceControl.SectionDevices SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+    
     <RadzenGrid Data=@ItemsCast TItem="DeviceEntity" 
                 AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
                 AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
@@ -31,4 +31,7 @@
                                 Type="bool" Width="35%" />
         </Columns>
     </RadzenGrid>
-</p>
+    
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}
+*@

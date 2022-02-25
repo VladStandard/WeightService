@@ -557,17 +557,17 @@ namespace DataCore.DAL.Models
             return item;
         }
 
-        public T GetEntity<T>(long id) where T : BaseEntity, new()
+        public T GetEntity<T>(long? id) where T : BaseEntity, new()
         {
             return GetEntity<T>(
-                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Id.ToString(), id } }),
+                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), id } }),
                 new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
         }
 
-        public T GetEntity<T>(Guid uid) where T : BaseEntity, new()
+        public T GetEntity<T>(Guid? uid) where T : BaseEntity, new()
         {
             return GetEntity<T>(
-                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Uid.ToString(), uid } }),
+                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Uid.ToString(), uid } }),
                 new FieldOrderEntity(ShareEnums.DbField.Uid, ShareEnums.DbOrderDirection.Desc));
         }
 

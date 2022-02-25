@@ -11,37 +11,44 @@
 @using static DataCore.ShareEnums
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
 
-<RadzenGrid Style="margin-top: 5px; "
-    Data=@ItemsCast TItem="ErrorEntity"
-    RowSelect=@(args => ItemSelectAsync(args))
-    RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
-    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
-    <Columns >
-        <RadzenGridColumn 
-            TItem="ErrorEntity" TextAlign="TextAlign.Center"
-            Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
-            <Template Context="errorItem" >
-                <RadzenDatePicker 
-                    TValue="string" Value=@errorItem.CreatedDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
-            </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn 
-            TItem="ErrorEntity" Property="FilePathShort" TextAlign="TextAlign.Left"
-            Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="13%" />
-        <RadzenGridColumn 
-            TItem="ErrorEntity" Property="LineNumber" TextAlign="TextAlign.Center"
-            Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="6%" />
-        <RadzenGridColumn 
-            TItem="ErrorEntity" Property="MemberName" TextAlign="TextAlign.Left"
-            Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="12%" />
-        <RadzenGridColumn 
-            TItem="ErrorEntity" Property="Exception" TextAlign="TextAlign.Left"
-            Title=@LocalizationData.DeviceControl.TableFieldException Type="int" Width="54%">
-        </RadzenGridColumn>
-    </Columns>
-</RadzenGrid>
+    <RadzenGrid Style="margin-top: 5px; "
+        Data=@ItemsCast TItem="ErrorEntity"
+        RowSelect=@(args => ItemSelectAsync(args))
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="ErrorEntity" TextAlign="TextAlign.Center"
+                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
+                <Template Context="errorItem" >
+                    <RadzenDatePicker 
+                        TValue="string" Value=@errorItem.CreatedDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="ErrorEntity" Property="FilePathShort" TextAlign="TextAlign.Left"
+                Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="13%" />
+            <RadzenGridColumn 
+                TItem="ErrorEntity" Property="LineNumber" TextAlign="TextAlign.Center"
+                Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="6%" />
+            <RadzenGridColumn 
+                TItem="ErrorEntity" Property="MemberName" TextAlign="TextAlign.Left"
+                Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="12%" />
+            <RadzenGridColumn 
+                TItem="ErrorEntity" Property="Exception" TextAlign="TextAlign.Left"
+                Title=@LocalizationData.DeviceControl.TableFieldException Type="int" Width="54%">
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
 
-<ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

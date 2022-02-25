@@ -9,31 +9,38 @@
 @using BlazorCore
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationData.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
 
-<RadzenGrid Style="margin-top: 5px;"
-    Data=@ItemsCast TItem="WeithingFactSummaryEntity"
-    RowSelect=@(args => ItemSelectAsync(args)) 
-    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
-    <Columns>
-        <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign="TextAlign.Center"
-            Title=@LocalizationData.DeviceControl.TableFieldWeithingDate
-            Type="date" Width="15%">
-            <Template Context="weithingFactItem">
-                <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled=false ReadOnly=true DateFormat="d" />
-            </Template>
-        </RadzenGridColumn>
-        <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
-                            Title=@LocalizationData.DeviceControl.TableFieldDayOfWeek
-                            Type="string" Width="15%" />
-        <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
-                            Title=@LocalizationData.DeviceControl.TableFieldCount
-                            Type="int" Width="15%" />
-        <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
-                            Title=@LocalizationData.DeviceControl.TableFieldScale
-                            Type="string" Width="55%" />
-    </Columns>
-</RadzenGrid>
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem="WeithingFactSummaryEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign="TextAlign.Center"
+                Title=@LocalizationData.DeviceControl.TableFieldWeithingDate
+                Type="date" Width="15%">
+                <Template Context="weithingFactItem">
+                    <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled=false ReadOnly=true DateFormat="d" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign="TextAlign.Center"
+                                Title=@LocalizationData.DeviceControl.TableFieldDayOfWeek
+                                Type="string" Width="15%" />
+            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign="TextAlign.Center"
+                                Title=@LocalizationData.DeviceControl.TableFieldCount
+                                Type="int" Width="15%" />
+            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign="TextAlign.Left"
+                                Title=@LocalizationData.DeviceControl.TableFieldScale
+                                Type="string" Width="55%" />
+        </Columns>
+    </RadzenGrid>
 
-<ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

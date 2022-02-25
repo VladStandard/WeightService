@@ -22,7 +22,6 @@ namespace BlazorDeviceControl
         #region Public and private fields and properties
 
         public IConfiguration Configuration { get; }
-        public static IWebHostEnvironment WebHostEnvironment { get; private set; }
         public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
 
         #endregion
@@ -70,8 +69,6 @@ namespace BlazorDeviceControl
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            WebHostEnvironment = env;
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -98,7 +95,7 @@ namespace BlazorDeviceControl
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-            JsonSettingsEntity jsonSettings = new(Configuration);
+            JsonSettingsEntity jsonSettings = new(Configuration, true);
             AppSettings.SetupJsonSettings(jsonSettings);
         }
 

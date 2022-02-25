@@ -9,14 +9,14 @@
 @using static DataCore.ShareEnums
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
-
 @if (ItemsCast == null)
 {
     <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
 }
 else
 {
+    <ActionsReload Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 

@@ -1,11 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Component
@@ -14,8 +13,8 @@ namespace BlazorDeviceControl.Shared.Component
     {
         #region Public and private fields and properties
 
-        [Parameter] public string DtCreate { get; set; }
-        [Parameter] public string DtModify { get; set; }
+        [Parameter] public string DtCreate { get; set; } = string.Empty;
+        [Parameter] public string DtModify { get; set; } = string.Empty;
         private readonly object _locker = new();
 
         #endregion
@@ -26,7 +25,8 @@ namespace BlazorDeviceControl.Shared.Component
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async () => {
+                new Task(async () =>
+                {
                     lock (_locker)
                     {
                         switch (Table)
@@ -53,92 +53,153 @@ namespace BlazorDeviceControl.Shared.Component
                 case ProjectsEnums.TableScale.Default:
                     break;
                 case ProjectsEnums.TableScale.BarcodesTypes:
-                    BarcodeTypeEntity barcodeType = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>((long)Id);
+                    BarcodeTypeEntity? barcodeType = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(Id);
+                    if (barcodeType != null)
+                    {
+                        //
+                    }
                     break;
                 case ProjectsEnums.TableScale.Contragents:
-                    ContragentEntity contragent = AppSettings.DataAccess.Crud.GetEntity<ContragentEntity>((long)Id);
-                    DtCreate = contragent.CreateDate.ToString();
-                    DtModify = contragent.ModifiedDate.ToString();
+                    ContragentEntity? contragent = AppSettings.DataAccess.Crud.GetEntity<ContragentEntity>(Id);
+                    if (contragent != null)
+                    {
+                        DtCreate = contragent.CreateDate.ToString();
+                        DtModify = contragent.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.Hosts:
-                    HostEntity host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>((long)Id);
-                    DtCreate = host.CreateDt.ToString();
-                    DtModify = host.ChangeDt.ToString();
+                    HostEntity? host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(Id);
+                    if (host != null)
+                    {
+                        DtCreate = host.CreateDt.ToString();
+                        DtModify = host.ChangeDt.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.Labels:
-                    LabelEntity label = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>((long)Id);
-                    DtCreate = label.CreateDate.ToString();
+                    LabelEntity? label = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(Id);
+                    if (label != null)
+                    {
+                        DtCreate = label.CreateDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.Nomenclatures:
-                    NomenclatureEntity nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>((long)Id);
-                    DtCreate = nomenclature.CreateDate.ToString();
-                    DtModify = nomenclature.ModifiedDate.ToString();
+                    NomenclatureEntity? nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(Id);
+                    if (nomenclature != null)
+                    {
+                        DtCreate = nomenclature.CreateDate.ToString();
+                        DtModify = nomenclature.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.Orders:
-                    OrderEntity order = AppSettings.DataAccess.Crud.GetEntity<OrderEntity>((long)Id);
-                    DtCreate = order.CreateDate.ToString();
-                    DtModify = order.ModifiedDate.ToString();
+                    OrderEntity? order = AppSettings.DataAccess.Crud.GetEntity<OrderEntity>(Id);
+                    if (order != null)
+                    {
+                        DtCreate = order.CreateDate.ToString();
+                        DtModify = order.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.OrdersStatuses:
-                    OrderStatusEntity orderStatus = AppSettings.DataAccess.Crud.GetEntity<OrderStatusEntity>((long)Id);
+                    OrderStatusEntity? orderStatus = AppSettings.DataAccess.Crud.GetEntity<OrderStatusEntity>(Id);
+                    if (orderStatus != null)
+                    {
+                    }
                     break;
                 case ProjectsEnums.TableScale.OrdersTypes:
-                    OrderTypeEntity orderType = AppSettings.DataAccess.Crud.GetEntity<OrderTypeEntity>((long)Id);
+                    OrderTypeEntity? orderType = AppSettings.DataAccess.Crud.GetEntity<OrderTypeEntity>(Id);
+                    if (orderType != null)
+                    {
+                    }
                     break;
                 case ProjectsEnums.TableScale.Organizations:
-                    OrganizationEntity organization = AppSettings.DataAccess.Crud.GetEntity<OrganizationEntity>((long)Id);
-                    DtCreate = organization.CreateDate.ToString();
-                    DtModify = organization.ModifiedDate.ToString();
+                    OrganizationEntity? organization = AppSettings.DataAccess.Crud.GetEntity<OrganizationEntity>(Id);
+                    if (organization != null)
+                    {
+                        DtCreate = organization.CreateDate.ToString();
+                        DtModify = organization.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.Plus:
-                    PluEntity plu = AppSettings.DataAccess.Crud.GetEntity<PluEntity>((long)Id);
-                    DtCreate = plu.CreateDate.ToString();
-                    DtModify = plu.ModifiedDate.ToString();
+                    PluEntity? plu = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(Id);
+                    if (plu != null)
+                    {
+                        DtCreate = plu.CreateDate.ToString();
+                        DtModify = plu.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.Printers:
-                    PrinterEntity printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>((long)Id);
-                    DtCreate = printer.CreateDate.ToString();
-                    DtModify = printer.ModifiedDate.ToString();
+                    PrinterEntity? printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(Id);
+                    if (printer != null)
+                    {
+                        DtCreate = printer.CreateDate.ToString();
+                        DtModify = printer.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.PrintersResources:
-                    PrinterResourceEntity printerResource = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>((long)Id);
-                    DtCreate = printerResource.CreateDate.ToString();
-                    DtModify = printerResource.ModifiedDate.ToString();
+                    PrinterResourceEntity? printerResource = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(Id);
+                    if (printerResource != null)
+                    {
+                        DtCreate = printerResource.CreateDate.ToString();
+                        DtModify = printerResource.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.PrintersTypes:
-                    PrinterTypeEntity printerType = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>((long)Id);
+                    PrinterTypeEntity? printerType = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(Id);
+                    if (printerType != null)
+                    {
+                    }
                     break;
                 case ProjectsEnums.TableScale.ProductionFacilities:
-                    ProductionFacilityEntity productionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>((long)Id);
-                    DtCreate = productionFacility.CreateDate.ToString();
-                    DtModify = productionFacility.ModifiedDate.ToString();
+                    ProductionFacilityEntity? productionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(Id);
+                    if (productionFacility != null)
+                    {
+                        DtCreate = productionFacility.CreateDate.ToString();
+                        DtModify = productionFacility.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.ProductSeries:
-                    ProductSeriesEntity productSeries = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>((long)Id);
-                    DtCreate = productSeries.CreateDate.ToString();
+                    ProductSeriesEntity? productSeries = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(Id);
+                    if (productSeries != null)
+                    {
+                        DtCreate = productSeries.CreateDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.Scales:
-                    ScaleEntity scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>((long)Id);
-                    DtCreate = scale.CreateDate.ToString();
-                    DtModify = scale.ModifiedDate.ToString();
+                    ScaleEntity? scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(Id);
+                    if (scale != null)
+                    {
+                        DtCreate = scale.CreateDate.ToString();
+                        DtModify = scale.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.Templates:
-                    TemplateEntity template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>((long)Id);
-                    DtCreate = template.CreateDate.ToString();
-                    DtModify = template.ModifiedDate.ToString();
+                    TemplateEntity? template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(Id);
+                    if (template != null)
+                    {
+                        DtCreate = template.CreateDate.ToString();
+                        DtModify = template.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.TemplatesResources:
-                    TemplateResourceEntity templateResource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>((long)Id);
-                    DtCreate = templateResource.CreateDate.ToString();
-                    DtModify = templateResource.ModifiedDate.ToString();
+                    TemplateResourceEntity? templateResource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(Id);
+                    if (templateResource != null)
+                    {
+                        DtCreate = templateResource.CreateDate.ToString();
+                        DtModify = templateResource.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableScale.WeithingFacts:
-                    WeithingFactEntity weithingFact = AppSettings.DataAccess.Crud.GetEntity<WeithingFactEntity>((long)Id);
+                    WeithingFactEntity? weithingFact = AppSettings.DataAccess.Crud.GetEntity<WeithingFactEntity>(Id);
+                    if (weithingFact != null)
+                    {
+                    }
                     break;
                 case ProjectsEnums.TableScale.Workshops:
-                    WorkshopEntity workshop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>((long)Id);
-                    DtCreate = workshop.CreateDate.ToString();
-                    DtModify = workshop.ModifiedDate.ToString();
+                    WorkshopEntity? workshop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(Id);
+                    if (workshop != null)
+                    {
+                        DtCreate = workshop.CreateDate.ToString();
+                        DtModify = workshop.ModifiedDate.ToString();
+                    }
                     break;
             }
         }
@@ -150,34 +211,84 @@ namespace BlazorDeviceControl.Shared.Component
                 case ProjectsEnums.TableSystem.Default:
                     break;
                 case ProjectsEnums.TableSystem.Accesses:
-                    AccessEntity access = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>((long)Id);
-                    DtCreate = access.CreateDt.ToString();
-                    DtModify = access.ChangeDt.ToString();
+                    AccessEntity? access = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(Id);
+                    if (access != null)
+                    {
+                        DtCreate = access.CreateDt.ToString();
+                        DtModify = access.ChangeDt.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableSystem.Errors:
-                    ErrorEntity error = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>((long)Id);
-                    DtCreate = error.CreatedDate.ToString();
-                    DtModify = error.ModifiedDate.ToString();
+                    ErrorEntity? error = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>(Id);
+                    if (error != null)
+                    {
+                        DtCreate = error.CreatedDate.ToString();
+                        DtModify = error.ModifiedDate.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableSystem.Logs:
-                    LogEntity log = AppSettings.DataAccess.Crud.GetEntity<LogEntity>((Guid)Uid);
-                    DtCreate = log.CreateDt.ToString();
+                    LogEntity? log = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(Uid);
+                    if (log != null)
+                    {
+                        DtCreate = log.CreateDt.ToString();
+                    }
                     break;
                 case ProjectsEnums.TableSystem.LogTypes:
-                    LogTypeEntity logType = AppSettings.DataAccess.Crud.GetEntity<LogTypeEntity>((long)Id);
+                    LogTypeEntity? logType = AppSettings.DataAccess.Crud.GetEntity<LogTypeEntity>(Id);
+                    if (logType != null)
+                    {
+                    }
                     break;
                 case ProjectsEnums.TableSystem.Tasks:
-                    TaskEntity task = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>((long)Id);
+                    TaskEntity? task = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(Id);
+                    if (task != null)
+                    {
+                    }
                     break;
                 case ProjectsEnums.TableSystem.TasksTypes:
-                    TaskTypeEntity taskType = AppSettings.DataAccess.Crud.GetEntity<TaskTypeEntity>((long)Id);
+                    TaskTypeEntity? taskType = AppSettings.DataAccess.Crud.GetEntity<TaskTypeEntity>(Id);
+                    if (taskType != null)
+                    {
+                    }
                     break;
             }
         }
 
         private void SetDtFromTableDwh()
         {
-            throw new NotImplementedException();
+            switch (ProjectsEnums.GetTableDwh(Table.Name))
+            {
+                case ProjectsEnums.TableDwh.Default:
+                    break;
+                case ProjectsEnums.TableDwh.InformationSystem:
+                    DataCore.DAL.TableDwhModels.InformationSystemEntity? informationSystem = 
+                        AppSettings.DataAccess.Crud.GetEntity<DataCore.DAL.TableDwhModels.InformationSystemEntity>(Id);
+                    if (informationSystem != null)
+                    {
+                    }
+                    break;
+                case ProjectsEnums.TableDwh.Nomenclature:
+                    DataCore.DAL.TableDwhModels.NomenclatureEntity? nomenclature =
+                        AppSettings.DataAccess.Crud.GetEntity<DataCore.DAL.TableDwhModels.NomenclatureEntity>(Id);
+                    if (nomenclature != null)
+                    {
+                    }
+                    break;
+                case ProjectsEnums.TableDwh.NomenclatureMaster:
+                    DataCore.DAL.TableDwhModels.NomenclatureEntity? nomenclatureMaster =
+                        AppSettings.DataAccess.Crud.GetEntity<DataCore.DAL.TableDwhModels.NomenclatureEntity>(Id);
+                    if (nomenclatureMaster != null)
+                    {
+                    }
+                    break;
+                case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
+                    DataCore.DAL.TableDwhModels.NomenclatureEntity? nomenclatureNonNormilize =
+                        AppSettings.DataAccess.Crud.GetEntity<DataCore.DAL.TableDwhModels.NomenclatureEntity>(Id);
+                    if (nomenclatureNonNormilize != null)
+                    {
+                    }
+                    break;
+            }
         }
 
         #endregion

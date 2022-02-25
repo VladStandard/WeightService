@@ -18,11 +18,11 @@ namespace DataCore.DAL.TableScaleModels
         public virtual ProductSeriesEntity Series { get; set; } = new ProductSeriesEntity();
         public virtual OrderEntity Orders { get; set; } = new OrderEntity();
         public virtual string Sscc { get; set; } = string.Empty;
-        public virtual DateTime? WeithingDate { get; set; }
+        public virtual DateTime WeithingDate { get; set; } = default;
         public virtual decimal NetWeight { get; set; }
         public virtual decimal TareWeight { get; set; }
         //public virtual Guid Uid { get; set; }
-        public virtual DateTime? ProductDate { get; set; }
+        public virtual DateTime ProductDate { get; set; } = default;
         public virtual int? RegNum { get; set; }
         public virtual int? Kneading { get; set; }
 
@@ -109,11 +109,11 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             return base.EqualsDefault() &&
                    Equals(Sscc, default(string)) &&
-                   Equals(WeithingDate, default(DateTime?)) &&
+                   Equals(WeithingDate, default(DateTime)) &&
                    Equals(NetWeight, default(decimal)) &&
                    Equals(TareWeight, default(decimal)) &&
                    Equals(Uid, default(Guid?)) &&
-                   Equals(ProductDate, default(DateTime?)) &&
+                   Equals(ProductDate, default(DateTime)) &&
                    Equals(RegNum, default(int?)) &&
                    Equals(Kneading, default(int?));
         }

@@ -33,30 +33,30 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@PrinterItem.Id />
+                        TValue="long" @bind-Value=@ItemCast.Id />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="string" @bind-Value=@PrinterItem.Name />
+                        TValue="string" @bind-Value=@ItemCast.Name />
                 </td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterMac</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@PrinterItem.MacAddress.Value />
+                        TValue="string" @bind-Value=@ItemCast.MacAddress.Value />
                 </td>
             </tr>
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; text-align: center; margin-left: 5px; " Disabled=false 
-                        TValue="string" Target="_blank" Path=@PrinterItem.Link 
+                        TValue="string" Target="_blank" Path=@ItemCast.Link 
                         Text=@LocalizationData.DeviceControl.TableFieldPrinterControlPanel />
                 </td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@PrinterItem.Ip />
+                        TValue="string" @bind-Value=@ItemCast.Ip />
                 </td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterType</td>
                 <td>
@@ -72,7 +72,7 @@ else
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                             Data=@PrinterTypes PageSize="10"
                             TextProperty="Name" ValueProperty="Id"
-                            Value=@PrinterItem.PrinterType.Id
+                            Value=@ItemCast.PrinterType.Id
                             Change=@(args => OnChange(args, Table, Item))
                         />
                     }
@@ -82,12 +82,12 @@ else
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterPort</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="short" @bind-Value=@PrinterItem.Port />
+                        TValue="short" @bind-Value=@ItemCast.Port />
                 </td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinterPassword</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@PrinterItem.Password />
+                        TValue="string" @bind-Value=@ItemCast.Password />
                 </td>
             </tr>
         </tbody>

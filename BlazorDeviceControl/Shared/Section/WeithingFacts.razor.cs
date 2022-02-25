@@ -6,6 +6,7 @@ using DataCore;
 using DataCore.DAL;
 using DataCore.DAL.DataModels;
 using DataCore.DAL.Models;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,17 @@ namespace BlazorDeviceControl.Shared.Section
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+                        Items = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
                         if (AppSettings.DataAccess != null)
                         {
                             object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
@@ -53,7 +62,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 }
                             }
                         }
-                        ButtonSettings = new ButtonSettingsEntity(true, true, true, true, true, false, false);
+                        ButtonSettings = new(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

@@ -11,27 +11,34 @@
 @using static DataCore.ShareEnums
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
 
-<RadzenGrid Style="margin-top: 5px;"
-    Data=@ItemsCast TItem="PrinterEntity"
-    RowSelect=@(args => ItemSelectAsync(args)) 
-    RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
-    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
-    <Columns>
-        <RadzenGridColumn TItem="PrinterEntity" Property="Name" Title=@LocalizationData.DeviceControl.TableFieldPrinter
-                            Type="string" Width="20%" />
-        <RadzenGridColumn TItem="PrinterEntity" Property="PrinterType.Name"
-                            Title=@LocalizationData.DeviceControl.TableFieldPrinterType
-                            Type="string" Width="20%" />
-        <RadzenGridColumn TItem="PrinterEntity" Property="Ip" Title=@LocalizationData.DeviceControl.TableFieldPrinterIp
-                            Type="string" Width="20%" />
-        <RadzenGridColumn TItem="PrinterEntity" Property="Port" Title=@LocalizationData.DeviceControl.TableFieldPrinterPort
-                            Type="string" Width="20%" />
-        <RadzenGridColumn TItem="PrinterEntity" Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldPrinterMac
-                            Type="string" Width="20%" />
-    </Columns>
-</RadzenGrid>
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem="PrinterEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn TItem="PrinterEntity" Property="Name" Title=@LocalizationData.DeviceControl.TableFieldPrinter
+                                Type="string" Width="20%" />
+            <RadzenGridColumn TItem="PrinterEntity" Property="PrinterType.Name"
+                                Title=@LocalizationData.DeviceControl.TableFieldPrinterType
+                                Type="string" Width="20%" />
+            <RadzenGridColumn TItem="PrinterEntity" Property="Ip" Title=@LocalizationData.DeviceControl.TableFieldPrinterIp
+                                Type="string" Width="20%" />
+            <RadzenGridColumn TItem="PrinterEntity" Property="Port" Title=@LocalizationData.DeviceControl.TableFieldPrinterPort
+                                Type="string" Width="20%" />
+            <RadzenGridColumn TItem="PrinterEntity" Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldPrinterMac
+                                Type="string" Width="20%" />
+        </Columns>
+    </RadzenGrid>
 
-<ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

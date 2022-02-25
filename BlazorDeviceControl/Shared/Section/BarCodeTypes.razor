@@ -11,20 +11,27 @@
 @using static DataCore.ShareEnums
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.SectionBarCodeTypes SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationData.DeviceControl.SectionBarCodeTypes SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+    
+    <RadzenGrid Style="margin-top: 5px;" 
+        Data=@ItemsCast TItem="BarcodeTypeEntity"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="BarcodeTypeEntity" Property="Name" TextAlign="TextAlign.Left"
+                Title=@LocalizationData.DeviceControl.TableFieldName
+                Type="string" Width="100%" />
+        </Columns>
+    </RadzenGrid>
 
-<RadzenGrid Style="margin-top: 5px;" 
-    Data=@ItemsCast TItem="BarcodeTypeEntity"
-    RowSelect=@(args => ItemSelectAsync(args)) 
-    RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
-    AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
-    AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
-    <Columns >
-        <RadzenGridColumn 
-            TItem="BarcodeTypeEntity" Property="Name" TextAlign="TextAlign.Left"
-            Title=@LocalizationData.DeviceControl.TableFieldName
-            Type="string" Width="100%" />
-    </Columns>
-</RadzenGrid>
-
-<ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

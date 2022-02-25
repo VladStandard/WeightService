@@ -13,18 +13,18 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
+        public virtual DateTime CreateDate { get; set; } = default;
+        public virtual DateTime ModifiedDate { get; set; } = default;
         public virtual OrderTypeEntity OrderTypes { get; set; } = new OrderTypeEntity();
-        public virtual DateTime? ProductDate { get; set; }
+        public virtual DateTime ProductDate { get; set; } = default;
         public virtual int? PlaneBoxCount { get; set; }
         public virtual int? PlanePalletCount { get; set; }
-        public virtual DateTime? PlanePackingOperationBeginDate { get; set; }
-        public virtual DateTime? PlanePackingOperationEndDate { get; set; }
+        public virtual DateTime PlanePackingOperationBeginDate { get; set; } = default;
+        public virtual DateTime PlanePackingOperationEndDate { get; set; } = default;
         public virtual ScaleEntity Scales { get; set; } = new ScaleEntity();
         public virtual PluEntity Plu { get; set; } = new PluEntity();
         public virtual Guid? IdRRef { get; set; } = null;
         public virtual TemplateEntity Templates { get; set; } = new TemplateEntity();
-        public virtual DateTime? CreateDate { get; set; }
-        public virtual DateTime? ModifiedDate { get; set; }
 
         #endregion
 
@@ -108,14 +108,14 @@ namespace DataCore.DAL.TableScaleModels
             if (Templates != null && !Templates.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(ProductDate, default(DateTime?)) &&
+                   Equals(ProductDate, default(DateTime)) &&
                    Equals(PlaneBoxCount, default(int?)) &&
                    Equals(PlanePalletCount, default(int?)) &&
-                   Equals(PlanePackingOperationBeginDate, default(DateTime?)) &&
-                   Equals(PlanePackingOperationEndDate, default(DateTime?)) &&
+                   Equals(PlanePackingOperationBeginDate, default(DateTime)) &&
+                   Equals(PlanePackingOperationEndDate, default(DateTime)) &&
                    Equals(IdRRef, default(Guid?)) &&
-                   Equals(CreateDate, default(DateTime?)) &&
-                   Equals(ModifiedDate, default(DateTime?));
+                   Equals(CreateDate, default(DateTime)) &&
+                   Equals(ModifiedDate, default(DateTime));
         }
 
         public override object Clone()

@@ -23,15 +23,15 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public TemplateResourceEntity TemplateResourcesItem { get => (TemplateResourceEntity)Item; set => Item = value; }
-        public List<TypeEntity<string>> ResourceTypes { get; set; }
+        public TemplateResourceEntity? ItemCast { get => Item == null ? null : (TemplateResourceEntity)Item; set => Item = value; }
+        public List<TypeEntity<string>>? ResourceTypes { get; set; }
         [Inject] private IFileUpload FileUpload { get; set; }
         [Inject] private IFileDownload FileDownload { get; set; }
         [Inject] private IBlazorDownloadFileService DownloadFileService { get; set; }
-        public string FileInfo { get; set; }
-        public double FileProgress { get; set; }
-        public string FileComplete { get; set; }
-        private int ProgressValue { get; set; }
+        public string FileInfo { get; set; } = string.Empty;
+        public double FileProgress { get; set; } = default;
+        public string FileComplete { get; set; } = string.Empty;
+        private int ProgressValue { get; set; } = default;
         public IFileListEntry File { get; private set; }
         private readonly object _locker = new();
 
@@ -44,15 +44,24 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
+                    ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
+
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
-                        TemplateResourcesItem = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(new FieldListEntity(new Dictionary<string, object>
-                        { { ShareEnums.DbField.Id.ToString(), Id } }), null);
+                        ItemCast = null;
+                        ButtonSettings = new();
+                    }
+                    await GuiRefreshWithWaitAsync();
+
+                    lock (_locker)
+                    {
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+                            new FieldListEntity(new Dictionary<string, object?>
+                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            TemplateResourcesItem.Id = (int)Id;
-                        ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
-                        ButtonSettings = new ButtonSettingsEntity(false, false, false, false, false, true, true);
+                            ItemCast.Id = (int)Id;
+                        ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -70,7 +79,7 @@ namespace BlazorDeviceControl.Shared.Item
                         case "ResourceTypes":
                             if (value is string strValue)
                             {
-                                TemplateResourcesItem.Type = strValue;
+                                ItemCast.Type = strValue;
                             }
                             break;
                     }
@@ -110,14 +119,14 @@ namespace BlazorDeviceControl.Shared.Item
         {
             foreach (IBrowserFile file in e.GetMultipleFiles(e.FileCount))
             {
-                await FileUpload.UploadAsync(AppSettings.DataAccess, TemplateResourcesItem, file.OpenReadStream(10_000_000));
+                await FileUpload.UploadAsync(AppSettings.DataAccess, ItemCast, file.OpenReadStream(10_000_000));
             }
             await InvokeAsync(StateHasChanged);
         }
 
         private async Task OnFileDownload()
         {
-            await FileDownload.DownloadAsync(DownloadFileService, TemplateResourcesItem);
+            await FileDownload.DownloadAsync(DownloadFileService, ItemCast);
 
             await InvokeAsync(StateHasChanged);
         }

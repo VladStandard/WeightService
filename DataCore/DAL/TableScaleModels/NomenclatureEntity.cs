@@ -16,11 +16,11 @@ namespace DataCore.DAL.TableScaleModels
         /// <summary>
         /// Дата создания.
         /// </summary>
-        public virtual DateTime? CreateDate { get; set; }
+        public virtual DateTime CreateDate { get; set; } = default;
         /// <summary>
         /// Дата изменения.
         /// </summary>
-        public virtual DateTime? ModifiedDate { get; set; }
+        public virtual DateTime ModifiedDate { get; set; } = default;
         /// <summary>
         /// Наименование.
         /// </summary>
@@ -89,8 +89,8 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime?)) &&
-                   Equals(ModifiedDate, default(DateTime?)) &&
+                   Equals(CreateDate, default(DateTime)) &&
+                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(Code, default(string)) &&
                    Equals(Name, default(string)) &&
                    Equals(SerializedRepresentationObject, default(string)) &&

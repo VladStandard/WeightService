@@ -1,1 +1,20 @@
 ﻿@page "/section/contragents"
+@using BlazorCore.Models
+@using BlazorDeviceControl.Shared.Component
+@using DataCore
+@using DataCore.DAL.DataModels
+@using DataCore.Utils
+@using BlazorCore
+@using Microsoft.VisualBasic.CompilerServices
+@inherits RazorDisposable
+
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationData.DeviceControl.SectionContragents SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+    
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

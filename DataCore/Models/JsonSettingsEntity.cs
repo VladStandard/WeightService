@@ -13,66 +13,109 @@ namespace DataCore.Models
     {
         #region Public and private fields and properties
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration? Configuration { get; }
+
         public string Server
         {
-            get => Configuration[$"Sql:{nameof(Server)}"];
-            set => Configuration[$"Sql:{nameof(Server)}"] = value;
+            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Server)}"];
+            set
+            {
+                if (Configuration != null)
+                    Configuration[$"Sql:{nameof(Server)}"] = value;
+            }
         }
         public string Db
         {
-            get => Configuration[$"Sql:{nameof(Db)}"];
-            set => Configuration[$"Sql:{nameof(Db)}"] = value;
+            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Db)}"];
+            set
+            {
+                if (Configuration != null) 
+                    Configuration[$"Sql:{nameof(Db)}"] = value;
+            }
         }
         public bool Trusted
         {
-            get => Convert.ToBoolean(Configuration[$"Sql:{nameof(Trusted)}"]);
-            set => Configuration[$"Sql:{nameof(Trusted)}"] = value.ToString();
+            get => Configuration == null ? false : Convert.ToBoolean(Configuration[$"Sql:{nameof(Trusted)}"]);
+            set
+            {
+                if (Configuration != null) 
+                    Configuration[$"Sql:{nameof(Trusted)}"] = value.ToString();
+            }
         }
         public string Username
         {
-            get => Configuration[$"Sql:{nameof(Username)}"];
-            set => Configuration[$"Sql:{nameof(Username)}"] = value;
+            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Username)}"];
+            set
+            {
+                if (Configuration != null)
+                    Configuration[$"Sql:{nameof(Username)}"] = value;
+            }
         }
         public string Password
         {
-            get => Configuration[$"Sql:{nameof(Password)}"];
-            set => Configuration[$"Sql:{nameof(Password)}"] = value;
+            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Password)}"];
+            set
+            {
+                if (Configuration != null)
+                    Configuration[$"Sql:{nameof(Password)}"] = value;
+            }
         }
         public string Schema
         {
-            get => Configuration[$"Sql:{nameof(Schema)}"];
-            set => Configuration[$"Sql:{nameof(Schema)}"] = value;
+            get => Configuration == null ? string.Empty : Configuration[$"Sql:{nameof(Schema)}"];
+            set
+            {
+                if (Configuration != null)
+                    Configuration[$"Sql:{nameof(Schema)}"] = value;
+            }
         }
         public bool TrustServerCertificate
         {
-            get => Convert.ToBoolean(Configuration[$"Sql:{nameof(TrustServerCertificate)}"]);
-            set => Configuration[$"Sql:{nameof(TrustServerCertificate)}"] = value.ToString();
+            get => Configuration == null ? false : Convert.ToBoolean(Configuration[$"Sql:{nameof(TrustServerCertificate)}"]);
+            set
+            {
+                if (Configuration != null)
+                    Configuration[$"Sql:{nameof(TrustServerCertificate)}"] = value.ToString();
+            }
         }
         public bool IsDebug
         {
-            get => Convert.ToBoolean(Configuration[$"{nameof(IsDebug)}"]);
-            set => Configuration[$"{nameof(IsDebug)}"] = value.ToString();
+            get => Configuration == null ? false : Convert.ToBoolean(Configuration[$"{nameof(IsDebug)}"]);
+            set
+            {
+                if (Configuration != null)
+                    Configuration[$"{nameof(IsDebug)}"] = value.ToString();
+            }
         }
         public int SectionRowCount
         {
-            get => Convert.ToInt32(Configuration[$"{nameof(SectionRowCount)}"]);
-            set => Configuration[$"{nameof(SectionRowCount)}"] = value.ToString();
+            get => Configuration == null ? 0 : Convert.ToInt32(Configuration[$"{nameof(SectionRowCount)}"]);
+            set
+            {
+                if (Configuration != null)
+                    Configuration[$"{nameof(SectionRowCount)}"] = value.ToString();
+            }
         }
         public int ItemRowCount
         {
-            get => Convert.ToInt32(Configuration[$"{nameof(ItemRowCount)}"]);
-            set => Configuration[$"{nameof(ItemRowCount)}"] = value.ToString();
+            get => Configuration == null ? 0 : Convert.ToInt32(Configuration[$"{nameof(ItemRowCount)}"]);
+            set
+            {
+                if (Configuration != null)
+                    Configuration[$"{nameof(ItemRowCount)}"] = value.ToString();
+            }
         }
 
         #endregion
 
         #region Constructor and destructor
 
-        public JsonSettingsEntity(IConfiguration configuration)
+        public JsonSettingsEntity() : this(null, false) { }
+
+        public JsonSettingsEntity(IConfiguration? configuration, bool isGenerateException)
         {
             Configuration = configuration;
-            CheckProperties();
+            CheckProperties(isGenerateException);
         }
 
         #endregion
@@ -91,18 +134,34 @@ namespace DataCore.Models
                    $"{nameof(ItemRowCount)}: {ItemRowCount}. ";
         }
 
-        public bool CheckProperties()
+        public bool CheckProperties(bool isGenerateException)
         {
             if (string.IsNullOrEmpty(Server))
-                throw new ArgumentNullException(Server, $"{nameof(Server)} must be fill!");
+            {
+                if (isGenerateException)
+                    throw new ArgumentNullException(Server, $"{nameof(Server)} must be fill!");
+                return false;
+            }
             if (string.IsNullOrEmpty(Db))
-                throw new ArgumentNullException(Db, $"{nameof(Db)} must be fill!");
+            {
+                if (isGenerateException)
+                    throw new ArgumentNullException(Db, $"{nameof(Db)} must be fill!");
+                return false;
+            }
             if (!Trusted)
             {
                 if (string.IsNullOrEmpty(Username))
-                    throw new ArgumentNullException(Username, $"{nameof(Username)} must be fill!");
+                {
+                    if (isGenerateException)
+                        throw new ArgumentNullException(Username, $"{nameof(Username)} must be fill!");
+                    return false;
+                }
                 if (string.IsNullOrEmpty(Password))
-                    throw new ArgumentNullException(Password, $"{nameof(Password)} must be fill!");
+                {
+                    if (isGenerateException)
+                        throw new ArgumentNullException(Password, $"{nameof(Password)} must be fill!");
+                    return false;
+                }
             }
             return true;
         }

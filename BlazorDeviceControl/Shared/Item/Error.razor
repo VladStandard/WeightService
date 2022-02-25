@@ -10,12 +10,14 @@
 
 <ActionsReload Title=@LocalizationData.DeviceControl.ItemError SetParameters=@SetParametersAsync />
 
-@if (Item == null)
+@if (ItemCast == null)
 {
     <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
 }
 else
 {
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemError SetParameters=@SetParametersAsync />
+
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
@@ -31,40 +33,40 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@ErrorItem.Id />
+                        TValue="long" @bind-Value=@ItemCast.Id />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldFilePath</td>
                 <td colspan=3>
                     <RadzenTextBox Style="width: 100%; text-align: left;" Disabled=false ReadOnly=true
-                        TValue="string" @bind-Value=@ErrorItem.FilePath />
+                        TValue="string" @bind-Value=@ItemCast.FilePath />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldRow</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center" Disabled=false ReadOnly=true
-                        TValue="int" @bind-Value=@ErrorItem.LineNumber />
+                        TValue="int" @bind-Value=@ItemCast.LineNumber />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMember</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false ReadOnly=true
-                        TValue="string" @bind-Value=@ErrorItem.MemberName />
+                        TValue="string" @bind-Value=@ItemCast.MemberName />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldException</td>
                 <td colspan=3 rowspan=1>
                     <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true
-                        TValue="string" @bind-Value=@ErrorItem.Exception Rows="5" />
+                        TValue="string" @bind-Value=@ItemCast.Exception Rows="5" />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldInnerException</td>
                 <td colspan=3 rowspan=1>
                     <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=true
-                        TValue="string" @bind-Value=@ErrorItem.InnerException Rows="5" />
+                        TValue="string" @bind-Value=@ItemCast.InnerException Rows="5" />
 				</td>
             </tr>
         </tbody>

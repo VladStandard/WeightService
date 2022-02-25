@@ -32,12 +32,12 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@PrinterTypeItem.Id />
+                        TValue="long" @bind-Value=@ItemCast.Id />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@PrinterTypeItem.Name />
+                        TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
             </tr>
         </tbody>

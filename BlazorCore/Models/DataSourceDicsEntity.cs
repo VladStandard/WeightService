@@ -7,7 +7,10 @@ using System.Collections.Generic;
 
 namespace BlazorCore.Models
 {
-    public class DataReferenceEntity
+    /// <summary>
+    /// Data source dictionaries.
+    /// </summary>
+    public class DataSourceDicsEntity
     {
         #region Public and private methods
 
@@ -20,7 +23,7 @@ namespace BlazorCore.Models
                 $"{nameof(GetTemplateIsDebug)}: {GetTemplateIsDebug().Count}. ";
         }
 
-        public List<TypeEntity<string>> GetTemplateCategories()
+        public static List<TypeEntity<string>> GetTemplateCategories()
         {
             return new()
             {
@@ -46,7 +49,7 @@ namespace BlazorCore.Models
             };
         }
 
-        private List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguagesEng()
+        private static List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguagesEng()
         {
             return new()
             {
@@ -55,7 +58,7 @@ namespace BlazorCore.Models
             };
         }
 
-        private List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguagesRus()
+        private static List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguagesRus()
         {
             return new()
             {
@@ -64,7 +67,7 @@ namespace BlazorCore.Models
             };
         }
 
-        public List<TypeEntity<bool>> GetTemplateIsDebug()
+        public static List<TypeEntity<bool>> GetTemplateIsDebug()
         {
             return new()
             {

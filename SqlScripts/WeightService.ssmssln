@@ -38,7 +38,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Table Nomenclature. Чудо печка Scales.sql = WeightService\Table Nomenclature. Чудо печка Scales.sql
 		WeightService\Table Nomenclature. Чудо печка. Insert.sql = WeightService\Table Nomenclature. Чудо печка. Insert.sql
 		WeightService\Table Nomenclature. ЧудоПечка.sql = WeightService\Table Nomenclature. ЧудоПечка.sql
-		WeightService\Table Nomenclature.sql = WeightService\Table Nomenclature.sql
 		WeightService\Table ProductionFacility.sql = WeightService\Table ProductionFacility.sql
 		WeightService\Table Scales. АРМ фасовщика.sql = WeightService\Table Scales. АРМ фасовщика.sql
 		WeightService\Table Scales. Заполнить данные.sql = WeightService\Table Scales. Заполнить данные.sql
@@ -58,6 +57,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		WeightService\Table Select Orders.sql = WeightService\Table Select Orders.sql
 		WeightService\Table Select OrderTypes.sql = WeightService\Table Select OrderTypes.sql
 		WeightService\Table Select Organization.sql = WeightService\Table Select Organization.sql
+		WeightService\Table Select Plu Duplicates.sql = WeightService\Table Select Plu Duplicates.sql
 		WeightService\Table Select Tasks.sql = WeightService\Table Select Tasks.sql
 		WeightService\Table Select TASKS_TYPES.sql = WeightService\Table Select TASKS_TYPES.sql
 		WeightService\Table Select TemplateResourceRef.sql = WeightService\Table Select TemplateResourceRef.sql
@@ -93,7 +93,7 @@ Global
 		Default|Default = Default|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{700B3A5E-1149-4119-A532-7E1632769062}.Default|Default.ActiveCfg = Default
+		{9F954521-0E97-43DA-9F25-ECA14E8E50FA}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

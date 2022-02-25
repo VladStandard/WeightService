@@ -6,9 +6,9 @@
 @inherits RazorDisposable
 
 <MudElement HtmlTag="h3" Class="ma-0">
-    @Title
+    <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 20px; font-style: unset" Text=@Title />
     <RadzenButton 
-        Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
+        Style="margin-top: 0px; margin-left: 50px; min-width: 80px; width: 5%; height: 30px; font-size: 12px; "
         class="oi oi-reload"
         ButtonStyle="ButtonStyle.Primary"
         Disabled=@AppSettings.DataAccess.IsDisabled 
@@ -17,10 +17,7 @@
     />
     @if (IsShowItemsCount)
     {
-        <RadzenLabel 
-            Style="margin-top: 3px; margin-left: 2%; font-size: 14px; "
-            Text=@ItemsCountResult
-        />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Text=@ItemsCountResult />
     }
 </MudElement>
 

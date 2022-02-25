@@ -32,7 +32,6 @@ namespace DataCore
                 public const string Account = "/item/account";
                 public const string BarCodeType = "/item/barcodetype";
                 public const string Contragent = "/item/contragent";
-                public const string Device = "/item/device";
                 public const string Error = "/item/error";
                 public const string Host = "/item/host";
                 public const string Label = "/item/label";
@@ -59,7 +58,6 @@ namespace DataCore
                 public const string Access = "/section/access";
                 public const string BarCodeTypes = "/section/barcodetypes";
                 public const string Contragents = "/section/contragents";
-                public const string Devices = "/section/devices";
                 public const string Docs = "/section/docs";
                 public const string Errors = "/section/errors";
                 public const string Hosts = "/section/hosts";
@@ -88,6 +86,7 @@ namespace DataCore
             public static string ItemBarcode => Lang == ShareEnums.Lang.English ? @"Barcode" : @"Штрихкод";
             public static string ItemBarCodeType => Lang == ShareEnums.Lang.English ? @"Barcodes type" : @"Тип штрихкода";
             public static string ItemContragent => Lang == ShareEnums.Lang.English ? @"Counterparty" : @"Контрагент";
+            public static string ItemDevice => Lang == ShareEnums.Lang.English ? @"Device" : @"Устройство";
             public static string ItemError => Lang == ShareEnums.Lang.English ? @"Error" : @"Ошибка";
             public static string ItemFont => Lang == ShareEnums.Lang.English ? @"Font" : @"Шрифт";
             public static string ItemHost => Lang == ShareEnums.Lang.English ? @"Host" : @"Хост";
@@ -123,6 +122,7 @@ namespace DataCore
             public static string SectionBarCodeTypes => Lang == ShareEnums.Lang.English ? @"Barcodes types" : @"Типы штрихкодов";
             public static string SectionBarCodeTypesShort => Lang == ShareEnums.Lang.English ? @"BC types" : @"Типы ШК";
             public static string SectionContragents => Lang == ShareEnums.Lang.English ? @"Counterparties" : @"Контрагенты";
+            public static string SectionDevices => Lang == ShareEnums.Lang.English ? @"Devices" : @"Устройства";
             public static string SectionFonts => Lang == ShareEnums.Lang.English ? @"Fonts" : @"Шрифты";
             public static string SectionHosts => Lang == ShareEnums.Lang.English ? @"Hosts" : @"Хосты";
             public static string SectionLabels => Lang == ShareEnums.Lang.English ? @"Labels" : @"Этикетки";

@@ -49,7 +49,7 @@
 //            //// Не сохранять.
 //            //DataAccessUtils.DataAccess.BarCodeTypesCrud.SaveEntity(entity);
 //            return DataAccessUtilsTests.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
-//                new FieldListEntity(new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }),
+//                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Name.ToString(), name } }),
 //                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
 //        }
 

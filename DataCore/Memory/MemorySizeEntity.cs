@@ -12,7 +12,7 @@ namespace DataCore.Memory
     {
         #region Public and private fields and properties
 
-        public DateTime? DtChanged { get; private set; }
+        public DateTime DtChanged { get; private set; } = default;
         public MemorySizeConvertEntity? VirtualCurrent { get; private set; }
         public MemorySizeConvertEntity? PhysicalCurrent { get; private set; }
         public MemorySizeConvertEntity? VirtualFree { get; private set; }
@@ -70,7 +70,7 @@ namespace DataCore.Memory
 
         public void ReleaseManaged()
         {
-            DtChanged = null;
+            DtChanged = default;
             VirtualCurrent = null;
             PhysicalCurrent = null;
             VirtualFree = null;

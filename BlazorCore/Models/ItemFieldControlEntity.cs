@@ -195,12 +195,12 @@ namespace BlazorCore.Models
         {
             if (plu.EqualsDefault())
                 result = false;
-            PluEntity[] pluEntities = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                new FieldListEntity(new Dictionary<string, object> {
-                            { "Scale.Id", plu.Scale.Id },
-                            { DbField.Plu.ToString(), plu.Plu }
+            PluEntity[]? pluEntities = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                new FieldListEntity(new Dictionary<string, object?> {
+                    { "Scale.Id", plu.Scale.Id },
+                    { DbField.Plu.ToString(), plu.Plu }
                 }), null);
-            if (pluEntities.Any() && !pluEntities.Where(x => x.Id.Equals(plu.Id)).Select(x => x).Any())
+            if (pluEntities != null && pluEntities.Any() && !pluEntities.Where(x => x.Id.Equals(plu.Id)).Select(x => x).Any())
             {
                 detailAddition += $"{LocalizationCore.Strings.TablePluHavingPlu}: {plu.Plu}" + Environment.NewLine;
                 result = false;
