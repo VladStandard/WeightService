@@ -9,21 +9,22 @@
 @using BlazorCore
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.ItemScale SetParameters=@SetParametersAsync />
-
 @if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemScale SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false />
+
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
@@ -56,7 +57,7 @@ else
                 <td>
                     @if (ComPorts == null)
                     {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -81,7 +82,7 @@ else
                 <td>
                     @if (PrinterItems == null)
                     {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -101,7 +102,7 @@ else
                 <td>
                     @if (HostItems == null)
                     {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -133,11 +134,15 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldTemplateDefault</td>
+                <td>
+                    <NavLink class="nav-link" href=@PageTemplateDefault Style="width: 100%; text-align: left;"  >
+                        @LocalizationData.DeviceControl.TableFieldTemplateDefault
+                    </NavLink>
+                </td>
                 <td>
                     @if (TemplatesDefaultItems == null)
                     {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -149,15 +154,19 @@ else
                             Change=@(args => OnChange(args, "TemplatesDefault")) />
                     }
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldTemplateSeries</td>
+                <td>
+                    <NavLink class="nav-link" href=@PageTemplateSeries Style="width: 100%; text-align: left;"  >
+                        @LocalizationData.DeviceControl.TableFieldTemplateSeries
+                    </NavLink>
+                </td>
                 <td>
                     @if (TemplatesSeriesItems == null)
                     {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 200%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                             Data=@TemplatesSeriesItems PageSize="5"
                             TextProperty="Title" ValueProperty="Id"
@@ -171,7 +180,7 @@ else
                 <td>
                     @if (WorkshopItems == null)
                     {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {

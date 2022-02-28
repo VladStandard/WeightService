@@ -12,11 +12,12 @@
 
 @if (ItemsCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+    <ActionsReload Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync 
+        Items=@Items IsShowItemsCount=true IsShowMarkedFilter=true />
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="AccessEntity"

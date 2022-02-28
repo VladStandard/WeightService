@@ -34,7 +34,7 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                    Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
 
                     lock (_locker)
                     {
@@ -52,7 +52,9 @@ namespace BlazorDeviceControl.Shared.Item
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             ItemCast.Id = (long)Id;
-                        PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(null, null)?.ToList();
+                        PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            null)?.ToList();
                         ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null)?.ToList();
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }

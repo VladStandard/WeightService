@@ -9,14 +9,15 @@
 @using BlazorCore
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.ItemTaskModule SetParameters=@SetParametersAsync />
-
-@if (Item == null)
+@if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <TaskModules Uid=@ItemCast.Uid />
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemTaskModule SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false />
+
+    <TaskModules Uid=@ItemCast?.Uid />
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
 }

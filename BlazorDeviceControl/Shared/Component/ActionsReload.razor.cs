@@ -16,5 +16,21 @@ namespace BlazorDeviceControl.Shared.Component
         public string ItemsCountResult => $"{LocalizationCore.Strings.Main.ItemsCount}: {(Items == null ? 0 : Items.Count):### ### ###}";
 
         #endregion
+
+        #region Public and private methods
+
+        private void OnChange(bool value, string name)
+        {
+            switch (name)
+            {
+                case nameof(IsShowMarkedItems):
+                    IsShowMarkedItems = value;
+                    break;
+            }
+            //SetParameters.InvokeAsync();
+        }
+
+        #endregion
+
     }
 }

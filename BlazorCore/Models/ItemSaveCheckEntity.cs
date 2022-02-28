@@ -234,7 +234,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Task(NotificationService notificationService, TaskEntity task, Guid uid, DbTableAction tableAction)
+        public void Task(NotificationService notificationService, TaskEntity task, Guid? uid, DbTableAction tableAction)
         {
             bool success = FieldControl.ProcessChecks(notificationService, task, LocalizationCore.Strings.TableItem.TaskModule);
             if (success)
@@ -251,13 +251,16 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    task.Uid = uid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(task);
+                    if (uid is Guid guid)
+                    {
+                        task.Uid = guid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(task);
+                    }
                 }
             }
         }
 
-        public void TaskType(NotificationService notificationService, TaskTypeEntity taskType, Guid uid, DbTableAction tableAction)
+        public void TaskType(NotificationService notificationService, TaskTypeEntity taskType, Guid? uid, DbTableAction tableAction)
         {
             bool success = FieldControl.ProcessChecks(notificationService, taskType, LocalizationCore.Strings.TableItem.TaskModuleType);
             if (success)
@@ -270,8 +273,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    taskType.Uid = uid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(taskType);
+                    if (uid is Guid guid)
+                    {
+                        taskType.Uid = guid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(taskType);
+                    }
                 }
             }
         }

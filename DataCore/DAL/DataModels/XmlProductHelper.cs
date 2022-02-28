@@ -22,16 +22,18 @@ namespace DataCore.DAL.DataModels
 
         #region Public and private methods
 
-        public string GetXmlWrapp(string value)
+        public string? GetXmlWrapp(string? value)
         {
+            if (string.IsNullOrEmpty(value))
+                return value;
             string? xmlBegin = @"<?xml version=""1.0"" encoding=""utf-8""?>";
             string? xmlRootBegin = "<root>";
             string? xmlRootEnd = "</root>";
-            if (!value.StartsWith(xmlRootBegin) && !value.EndsWith(xmlRootEnd))
+            if (value != null && !value.StartsWith(xmlRootBegin) && !value.EndsWith(xmlRootEnd))
             {
                 value = xmlRootBegin + Environment.NewLine + value + Environment.NewLine + xmlRootEnd;
             }
-            if (!value.StartsWith(xmlBegin))
+            if (value != null && !value.StartsWith(xmlBegin))
             {
                 value = xmlBegin + Environment.NewLine + value;
             }
@@ -125,7 +127,7 @@ namespace DataCore.DAL.DataModels
             return entities;
         }
 
-        public XmlProductEntity GetProductEntity(string value)
+        public XmlProductEntity GetProductEntity(string? value)
         {
             XmlProductEntity? productEntity = new();
             if (string.IsNullOrEmpty(value))

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -51,43 +52,25 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        //Item = null;
-                        //ScaleItems = null;
-                        //TemplateItems = null;
-                        //NomenclatureItems = null;
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
                             new FieldListEntity(new Dictionary<string, object?>
                             { { ShareEnums.DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == ShareEnums.DbTableAction.New)
                             ItemCast.Id = (long)Id;
-
-                        //ScaleEntity[] scalesEntities = AppSettings.DataAccess.ScalesCrud.GetEntities(null, null);
-                        //ScaleItems = new List<ScaleEntity>();
-                        //foreach (ScaleEntity scalesEntity in scalesEntities)
-                        //{
-                        //    ScaleItems.Add(scalesEntity);
-                        //}
-
-                        //TemplateEntity[] templatesEntities = AppSettings.DataAccess.TemplatesCrud.GetEntities(null, null);
-                        //TemplateItems = new List<TemplateEntity>();
-                        //foreach (TemplateEntity templatesEntity in templatesEntities)
-                        //{
-                        //    TemplateItems.Add(templatesEntity);
-                        //}
-
-                        //NomenclatureEntity[] nomenclatureEntities = AppSettings.DataAccess.NomenclaturesCrud.GetEntities(null, null);
-                        //NomenclatureItems = new List<NomenclatureEntity>();
-                        //foreach (NomenclatureEntity templatesEntity in nomenclatureEntities)
-                        //{
-                        //    NomenclatureItems.Add(templatesEntity);
-                        //}
-
+                        ScaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }), 
+                            null)?.ToList();
+                        TemplateItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            null)?.ToList();
+                        NomenclatureItems = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
+                            null,
+                            null)?.ToList();
                         //// Проверка шаблона.
                         //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
                         //{
                         //    PluItem.Templates = (TemplateEntity)PluItem.Scale.TemplateDefault.Clone();
                         //}
-
                         //// Номер PLU.
                         //if (PluItem.Plu == 0)
                         //{
@@ -114,7 +97,7 @@ namespace BlazorDeviceControl.Shared.Item
                     switch (name)
                     {
                         case "Scale":
-                            if (value is long idScale)
+                            if (ItemCast != null && value is long idScale)
                             {
                                 ItemCast.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idScale } }),
@@ -122,7 +105,7 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case "Nomenclature":
-                            if (value is long idNomenclature)
+                            if (ItemCast != null && value is long idNomenclature)
                             {
                                 ItemCast.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
@@ -131,10 +114,10 @@ namespace BlazorDeviceControl.Shared.Item
                             }
                             break;
                         case "Templates":
-                            if (value is long idTemplate)
+                            if (ItemCast != null && value is long idTemplate)
                             {
                                 if (idTemplate <= 0)
-                                    ItemCast.Template = null;
+                                    ItemCast.Template = new();
                                 else
                                 {
                                     ItemCast.Template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
@@ -169,11 +152,11 @@ namespace BlazorDeviceControl.Shared.Item
         {
             try
             {
-                if (ItemCast.Nomenclature == null)
+                if (ItemCast?.Nomenclature == null)
                     return;
                 if (name.Equals("clear", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    ItemCast.Nomenclature = null;
+                    ItemCast.Nomenclature = new();
                     ItemCast.GoodsName = string.Empty;
                     ItemCast.GoodsFullName = string.Empty;
                     ItemCast.GoodsDescription = string.Empty;
@@ -185,7 +168,7 @@ namespace BlazorDeviceControl.Shared.Item
                     ItemCast.GoodsTareWeight = 0;
                 }
 
-                XmlProductEntity productEntity = Product.GetProductEntity(ItemCast.Nomenclature?.SerializedRepresentationObject);
+                XmlProductEntity productEntity = Product.GetProductEntity(ItemCast?.Nomenclature?.SerializedRepresentationObject);
                 if (productEntity != null && !productEntity.EqualsNew())
                 {
                     if (name.Equals("Entity", StringComparison.InvariantCultureIgnoreCase))
@@ -230,7 +213,7 @@ namespace BlazorDeviceControl.Shared.Item
                                 break;
                             case "getgtin":
                                 if (ItemCast.Gtin.Length > 12)
-                                    ItemCast.Gtin = Barcode.GetGtin(ItemCast.Gtin.Substring(0, 13));
+                                    ItemCast.Gtin = Barcode.GetGtin(ItemCast.Gtin[..13]);
                                 break;
                             case "ean13":
                                 ItemCast.Ean13 = ItemCast.XmlEan13;

@@ -20,7 +20,7 @@
             <td>@LocalizationCore.Strings.Main.ProgramVer</td>
             @if (string.IsNullOrEmpty(ProgramVer))
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -31,7 +31,7 @@
             <td>@LocalizationCore.Strings.Main.CoreVer</td>
             @if (string.IsNullOrEmpty(CoreVer))
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -42,7 +42,7 @@
             <td>@LocalizationCore.Strings.Main.HostName</td>
             @if (string.IsNullOrEmpty(Environment.MachineName))
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -53,7 +53,7 @@
             <td>@LocalizationCore.Strings.SqlServer</td>
             @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings.Server))
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -64,7 +64,7 @@
             <td>@LocalizationCore.Strings.SqlDb</td>
             @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings.Db))
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -82,7 +82,7 @@
             }
             @if (string.IsNullOrEmpty(AppSettings.DataAccess.JsonSettings.Username))
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -93,7 +93,7 @@
             <td>@LocalizationCore.Strings.SqlDbCurSize</td>
             @if (DbCurSize == 0)
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -104,7 +104,7 @@
             <td>@LocalizationCore.Strings.SqlDbFillSize</td>
             @if (DbFillSize == 0)
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -120,7 +120,7 @@
             <td>@LocalizationCore.Strings.MemoryUsed</td>
             @if (AppSettings.Memory == null)
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -131,7 +131,7 @@
             <td>@LocalizationCore.Strings.MemoryFillSize</td>
             @if (AppSettings.Memory == null)
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -160,7 +160,7 @@
             <td>@LocalizationCore.Strings.Main.AuthorizingUserName</td>
             @if (string.IsNullOrEmpty(UserSettings.Identity.Name))
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -186,7 +186,7 @@
             <td>@LocalizationCore.Strings.Main.Language</td>
             @if (TemplateLanguages == null)
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
@@ -203,7 +203,7 @@
             <td>@LocalizationCore.Strings.Main.DebugMode</td>
             @if (TemplateIsDebug == null)
             {
-                <td><ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true /></td>
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {

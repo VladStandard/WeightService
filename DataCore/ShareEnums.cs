@@ -93,7 +93,7 @@ namespace DataCore
             NotSubjectNormalization = 3,
         }
 
-        public enum ActionsLoad
+        public enum ActionLoad
         {
             None,
             Loading,

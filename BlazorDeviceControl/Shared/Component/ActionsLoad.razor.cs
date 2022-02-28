@@ -10,7 +10,7 @@ namespace BlazorDeviceControl.Shared.Component
     {
         #region Public and private fields and properties
 
-        [Parameter] public ShareEnums.ActionsLoad DataLoadItem { get; set; }
+        [Parameter] public ShareEnums.ActionLoad DataLoadItem { get; set; }
         [Parameter] public bool IsShowProgress { get; set; }
 
         #endregion

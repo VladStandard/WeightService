@@ -8,19 +8,22 @@
 @using Microsoft.VisualBasic.CompilerServices
 @inherits RazorDisposable
 
-@if (Item == null)
+@if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemHost SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false />
+
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
@@ -66,7 +69,7 @@ else
                 </td>
                 <td colspan=3 >
                     <RadzenTextArea Style="width: 100%; height: 50%; font-size: 14px; line-height: 20px;"
-                        Disabled=false TValue="string" @bind-Value=@ItemCast.SettingsFile Rows="5" />
+                        Disabled=false TValue="string" @bind-Value=@ItemCast.SettingsFile Rows=6 />
                 </td>
             </tr>
         </tbody>

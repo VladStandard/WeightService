@@ -2,47 +2,85 @@
 @page "/item/printerresource/{Id:long}"
 @page "/item/printerresource/{Id:long}/{TableActionString}"
 @using System.Globalization
+@using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
 @inherits RazorDisposable
 
-<div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldPrinter />
-    @if (PrinterItems == null)
-    {
-        <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
-        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-    }
-    else
-    {
-        <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                                Data=@PrinterItems PageSize="10"
-                                TextProperty="Name" ValueProperty="Id"
-                                Value=@ItemCast.Printer?.Id Disabled=false ReadOnly=true
-                                Change=@(args => OnChange(args, nameof(PrinterEntity))) />
-    }
-    <br />
-    <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldDescription />
-    <RadzenTextBox Style="width: 63%; text-align: center;" Disabled=false TValue="string" @bind-Value=@ItemCast.Description />
-    <br />
-</div>
-<div class="col-sm-6 col-md-6 col-lg-6">
-    <RadzenLabel Style="width: 35%;" Text=@LocalizationData.DeviceControl.TableFieldResource />
-    @if (ResourceItems == null)
-    {
-        <RadzenTextBox Style="width: 63%;" Disabled=false ReadOnly=true TValue="string" Value="" />
-        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
-    }
-    else
-    {
-        <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                                Data=@ResourceItems PageSize="5"
-                                TextProperty="Name" ValueProperty="Id"
-                                Value=@ItemCast.Resource?.Id
-                                Change=@(args => OnChange(args, nameof(TemplateResourceEntity))) />
-    }
-    <br />
-</div>
+@if (ItemCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemPrinterResource SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <thead>
+            <tr>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 15%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 35%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@ItemCast.Id />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldPrinter</td>
+                <td>
+                    @if (PrinterItems == null)
+                    {
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    }
+                    else
+                    {
+                        <RadzenDropDownDataGrid 
+                            Style="width: 100%; height: 35px;" TValue="int" 
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                            Data=@PrinterItems PageSize=10
+                            TextProperty="Name" ValueProperty="Id"
+                            Value=@ItemCast.Printer.Id
+                            Change=@(args => OnChange(args, nameof(PrinterEntity))) />
+                    }
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldDescription</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
+                        TValue="string" @bind-Value=@ItemCast.Description />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldResource</td>
+                <td>
+                    @if (ResourceItems == null)
+                    {
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    }
+                    else
+                    {
+                        <RadzenDropDownDataGrid 
+                            Style="width: 100%; height: 35px;" TValue="int" 
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                            Data=@ResourceItems PageSize=10
+                            TextProperty="Name" ValueProperty="Id"
+                            Value=@ItemCast.Resource.Id
+                            Change=@(args => OnChange(args, nameof(TemplateResourceEntity))) />
+                    }
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}

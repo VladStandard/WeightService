@@ -108,6 +108,7 @@ namespace DataCore
             public static string Method => Lang == ShareEnums.Lang.English ? @"Method" : @"Метод";
             public static string DataControl => Lang == ShareEnums.Lang.English ? @"Data control" : @"Контроль данных";
             public static string DataControlField => Lang == ShareEnums.Lang.English ? @"Need to fill in the field" : @"Необходимо заполнить поле";
+            public static string ActionIsShowMarked => Lang == ShareEnums.Lang.English ? @"Show marked" : @"Отображать удалённые";
             #endregion
             #region Section
             public static string SectionAccessNone => Lang == ShareEnums.Lang.English ? @"No access to the section" : @"Доступ к разделу не предусмотрен";
@@ -217,7 +218,7 @@ namespace DataCore
                 FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
                 string result = fieVersionInfo.FileVersion;
                 if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
-                    result = result.Substring(0, result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase));
+                    result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
                 return result;
             }
 
@@ -226,7 +227,7 @@ namespace DataCore
                 FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 string result = fieVersionInfo.FileVersion;
                 if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
-                    result = result.Substring(0, result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase));
+                    result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
                 return result;
             }
 

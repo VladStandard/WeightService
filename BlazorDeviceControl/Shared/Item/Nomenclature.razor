@@ -6,21 +6,22 @@
 @using DataCore.Utils
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.ItemLog SetParameters=@SetParametersAsync />
-
-@if (Item == null)
+@if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemNomenclature SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false />
+
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +51,7 @@ else
             </tr>
             <tr >
                 <td>@LocalizationData.DeviceControl.TableFieldXml</td>
-                <td colspan=3 rowspan=1>
+                <td colspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left" Disabled=false ReadOnly=false 
                         TValue="string" @bind-Value=@ItemCast.SerializedRepresentationObject Rows=15 />
 				</td>

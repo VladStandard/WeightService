@@ -6,7 +6,12 @@
 @inherits RazorDisposable
 
 <MudElement HtmlTag="h3" Class="ma-0">
-    <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 20px; font-style: unset" Text=@Title />
+    <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 20px; " Text=@Title />
+    @if (IsShowMarkedFilter)
+    {
+        <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Text=@LocalizationCore.Strings.ActionIsShowMarked />
+        <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@IsShowMarkedItems Change=@(args => OnChange(args, nameof(IsShowMarkedItems))) />
+    }
     <RadzenButton 
         Style="margin-top: 0px; margin-left: 50px; min-width: 80px; width: 5%; height: 30px; font-size: 12px; "
         class="oi oi-reload"
@@ -20,8 +25,3 @@
         <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Text=@ItemsCountResult />
     }
 </MudElement>
-
-@*
-    Click=@(args => SetParameters.InvokeAsync())
-    Click=@(args => ActionAsync(UserSettings, DbTableAction.Reload, false))
-*@

@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.250] - 2022-02-28
+### Changed
+- DataCore v.0.6.250
+- BlazorCore v.0.6.250
+- WeightCore v.0.6.250
+- BlazorDeviceControl v.0.6.250
+- ScalesUI v.0.6.250
+
 ## [0.6.240] - 2022-02-25
 ### Changed
 - DataCore v.0.6.240

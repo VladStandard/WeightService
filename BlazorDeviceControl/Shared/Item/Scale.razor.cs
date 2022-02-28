@@ -30,8 +30,15 @@ namespace BlazorDeviceControl.Shared.Item
         public List<WorkshopEntity>? WorkshopItems { get; set; } = null;
         public List<TypeEntity<string>>? ComPorts { get; set; }
         public List<HostEntity>? HostItems { get; set; } = null;
-        public virtual string PageHost => $"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{ItemCast?.Host?.Id}";
-        public virtual string PagePrinter => $"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{ItemCast?.Printer?.Id}";
+        public string PageSelf => ItemCast == null ? string.Empty : $"{@LocalizationData.DeviceControl.UriRouteItem.Scale}/{ItemCast.Id}";
+        public virtual string PageHost =>
+            ItemCast?.Host == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{ItemCast?.Host?.Id}";
+        public virtual string PagePrinter =>
+            ItemCast?.Printer == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{ItemCast?.Printer?.Id}";
+        public virtual string PageTemplateDefault =>
+            ItemCast?.TemplateDefault == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast?.TemplateDefault?.Id}";
+        public virtual string PageTemplateSeries =>
+            ItemCast?.TemplateSeries == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast?.TemplateSeries?.Id}";
         private readonly object _locker = new();
 
         #endregion
@@ -151,79 +158,82 @@ namespace BlazorDeviceControl.Shared.Item
             {
                 lock (_locker)
                 {
-                    switch (name)
+                    if (ItemCast != null)
                     {
-                        case "DeviceComPort":
-                            if (value is string strValue)
-                            {
-                                ItemCast.DeviceComPort = strValue;
-                            }
-                            break;
-                        case "TemplatesDefault":
-                            if (value is long idDefault)
-                            {
-                                if (idDefault <= 0)
-                                    ItemCast.TemplateDefault = null;
-                                else
+                        switch (name)
+                        {
+                            case "DeviceComPort":
+                                if (value is string strValue)
                                 {
-                                    ItemCast.TemplateDefault = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idDefault } }),
-                                        null);
+                                    ItemCast.DeviceComPort = strValue;
                                 }
-                            }
-                            break;
-                        case "TemplatesSeries":
-                            if (value is long idSeries)
-                            {
-                                if (idSeries <= 0)
-                                    ItemCast.TemplateSeries = null;
-                                else
+                                break;
+                            case "TemplatesDefault":
+                                if (value is long idDefault)
                                 {
-                                    ItemCast.TemplateSeries = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idSeries } }),
-                                        null);
+                                    if (idDefault <= 0)
+                                        ItemCast.TemplateDefault = null;
+                                    else
+                                    {
+                                        ItemCast.TemplateDefault = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idDefault } }),
+                                            null);
+                                    }
                                 }
-                            }
-                            break;
-                        case "WorkShops":
-                            if (value is long idWorkShop)
-                            {
-                                if (idWorkShop <= 0)
-                                    ItemCast.WorkShop = null;
-                                else
+                                break;
+                            case "TemplatesSeries":
+                                if (value is long idSeries)
                                 {
-                                    ItemCast.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idWorkShop } }),
-                                        null);
+                                    if (idSeries <= 0)
+                                        ItemCast.TemplateSeries = null;
+                                    else
+                                    {
+                                        ItemCast.TemplateSeries = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idSeries } }),
+                                            null);
+                                    }
                                 }
-                            }
-                            break;
-                        case "Printers":
-                            if (value is long idPrinter)
-                            {
-                                if (idPrinter <= 0)
-                                    ItemCast.Printer = null;
-                                else
+                                break;
+                            case "WorkShops":
+                                if (value is long idWorkShop)
                                 {
-                                    ItemCast.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idPrinter } }),
-                                        null);
+                                    if (idWorkShop <= 0)
+                                        ItemCast.WorkShop = null;
+                                    else
+                                    {
+                                        ItemCast.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
+                                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idWorkShop } }),
+                                            null);
+                                    }
                                 }
-                            }
-                            break;
-                        case "Hosts":
-                            if (value is long idHost)
-                            {
-                                if (idHost <= 0)
-                                    ItemCast.Host = null;
-                                else
+                                break;
+                            case "Printers":
+                                if (value is long idPrinter)
                                 {
-                                    ItemCast.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idHost } }),
-                                        null);
+                                    if (idPrinter <= 0)
+                                        ItemCast.Printer = null;
+                                    else
+                                    {
+                                        ItemCast.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+                                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idPrinter } }),
+                                            null);
+                                    }
                                 }
-                            }
-                            break;
+                                break;
+                            case "Hosts":
+                                if (value is long idHost)
+                                {
+                                    if (idHost <= 0)
+                                        ItemCast.Host = null;
+                                    else
+                                    {
+                                        ItemCast.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
+                                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idHost } }),
+                                            null);
+                                    }
+                                }
+                                break;
+                        }
                     }
                 }
             }

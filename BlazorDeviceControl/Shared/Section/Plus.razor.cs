@@ -32,6 +32,7 @@ namespace BlazorDeviceControl.Shared.Section
                 new Task(async () =>
                 {
                     Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
+                    IsShowMarkedFilter = true;
 
                     lock (_locker)
                     {
@@ -43,13 +44,20 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         if (AppSettings.DataAccess != null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                ScaleId != null
-                                ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", ScaleId }, 
-                                    { ShareEnums.DbField.Marked.ToString(), false } })
-                                : new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                                new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))?
-                                .ToList<BaseEntity>();
+                        {
+                            Items = !IsShowMarkedItems
+                                ? AppSettings.DataAccess.Crud.GetEntities<PluEntity>(ScaleId != null
+                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", ScaleId }, { ShareEnums.DbField.Marked.ToString(), false } })
+                                    : new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                                        new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))?
+                                    .ToList<BaseEntity>()
+                                : AppSettings.DataAccess.Crud.GetEntities<PluEntity>(ScaleId != null
+                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", ScaleId } })
+                                    : new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                                        new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))?
+                                    .ToList<BaseEntity>()
+                                ;
+                        }
                         ButtonSettings = new(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();

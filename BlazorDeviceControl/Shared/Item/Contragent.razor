@@ -8,11 +8,12 @@
 
 @if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.ItemContragent SetParameters=@SetParametersAsync />
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemContragent SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <div class="row col-sm-12 col-md-12 col-lg-12">
         <div class="col-sm-6 col-md-6 col-lg-6">

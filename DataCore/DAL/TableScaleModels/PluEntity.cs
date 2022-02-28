@@ -31,11 +31,11 @@ namespace DataCore.DAL.TableScaleModels
         public virtual decimal GoodsTareWeight { get; set; }
         public virtual int GoodsBoxQuantly { get; set; }
         public virtual int Plu { get; set; }
-        public virtual bool? Active { get; set; }
-        public virtual decimal? UpperWeightThreshold { get; set; }
-        public virtual decimal? NominalWeight { get; set; }
-        public virtual decimal? LowerWeightThreshold { get; set; }
-        public virtual bool? CheckWeight { get; set; }
+        public virtual bool Active { get; set; }
+        public virtual decimal UpperWeightThreshold { get; set; }
+        public virtual decimal NominalWeight { get; set; }
+        public virtual decimal LowerWeightThreshold { get; set; }
+        public virtual bool CheckWeight { get; set; }
         public virtual bool Marked { get; set; }
 
         #endregion
@@ -210,11 +210,6 @@ namespace DataCore.DAL.TableScaleModels
             string strTemplates = Template != null ? Template.Id.ToString() : "null";
             string strScale = Scale != null ? Scale.Id.ToString() : "null";
             string strNomenclature = Nomenclature != null ? Nomenclature.Id.ToString() : "null";
-            string strUpperWeightThreshold = UpperWeightThreshold != null ? UpperWeightThreshold.ToString() : "null";
-            string strNominalWeight = NominalWeight != null ? NominalWeight.ToString() : "null";
-            string strLowerWeightThreshold = LowerWeightThreshold != null ? LowerWeightThreshold.ToString() : "null";
-            string strActive = Active != null ? Active.ToString() : "null";
-            string strWeightControlWithout = CheckWeight != null ? CheckWeight.ToString() : "null";
             return base.ToString() +
                    $"{nameof(CreateDate)}: {CreateDate}. " +
                    $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
@@ -231,11 +226,11 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(GoodsTareWeight)}: {GoodsTareWeight}. " +
                    $"{nameof(GoodsBoxQuantly)}: {GoodsBoxQuantly}. " +
                    $"{nameof(Plu)}: {Plu}. " +
-                   $"{nameof(Active)}: {strActive}. " +
-                   $"{nameof(UpperWeightThreshold)}: {strUpperWeightThreshold}. " +
-                   $"{nameof(NominalWeight)}: {strNominalWeight}. " +
-                   $"{nameof(LowerWeightThreshold)}: {strLowerWeightThreshold}. " +
-                   $"{nameof(CheckWeight)}: {strWeightControlWithout}. " +
+                   $"{nameof(Active)}: {Active}. " +
+                   $"{nameof(UpperWeightThreshold)}: {UpperWeightThreshold}. " +
+                   $"{nameof(NominalWeight)}: {NominalWeight}. " +
+                   $"{nameof(LowerWeightThreshold)}: {LowerWeightThreshold}. " +
+                   $"{nameof(CheckWeight)}: {CheckWeight}. " +
                    $"{nameof(Marked)}: {Marked}. ";
         }
 
@@ -306,11 +301,11 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(GoodsTareWeight, default(decimal)) &&
                    Equals(GoodsBoxQuantly, default(int)) &&
                    Equals(Plu, default(int)) &&
-                   Equals(Active, default(bool?)) &&
-                   Equals(UpperWeightThreshold, default(decimal?)) &&
-                   Equals(NominalWeight, default(decimal?)) &&
-                   Equals(LowerWeightThreshold, default(decimal?)) &&
-                   Equals(CheckWeight, default(bool?)) &&
+                   Equals(Active, default(bool)) &&
+                   Equals(UpperWeightThreshold, default(decimal)) &&
+                   Equals(NominalWeight, default(decimal)) &&
+                   Equals(LowerWeightThreshold, default(decimal)) &&
+                   Equals(CheckWeight, default(bool)) &&
                    Equals(Marked, default(bool));
         }
 
@@ -322,7 +317,7 @@ namespace DataCore.DAL.TableScaleModels
                 Id = Id,
                 CreateDate = CreateDate,
                 ModifiedDate = ModifiedDate,
-                Template = Template != null ? (TemplateEntity)Template.Clone() : null,
+                Template = (TemplateEntity)Template.Clone(),
                 Scale = (ScaleEntity)Scale.Clone(),
                 Nomenclature = (NomenclatureEntity)Nomenclature.Clone(),
                 GoodsName = GoodsName,
@@ -474,7 +469,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             if (Gtin?.Length > 12)
             {
-                string gtin = Barcode.GetGtin(Gtin.Substring(0, 13));
+                string gtin = Barcode.GetGtin(Gtin[..13]);
                 return Equals(Gtin, gtin);
             }
             return false;

@@ -83,12 +83,12 @@ namespace DataCore.Utils
 
         public static string GetStringValueTrim(string value, int length)
         {
-            return value.Length > length ? value.Substring(0, length) : value;
+            return value.Length > length ? value[..length] : value;
         }
 
         public static string? GetStringNullValueTrim(string? value, int length)
         {
-            return value != null && value.Length > length ? value.Substring(0, length) : value;
+            return value != null && value.Length > length ? value[..length] : value;
         }
 
         public static void SetStringValueTrim(ref string value, int length, bool isGetFileName = false)
@@ -98,7 +98,7 @@ namespace DataCore.Utils
             if (isGetFileName)
                 value = Path.GetFileName(value);
             if (value.Length > length)
-                value = value.Substring(0, length);
+                value = value[..length];
         }
 
         public static string Utf16ToUtf8(string utf16String)

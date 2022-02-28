@@ -2,7 +2,6 @@
 @page "/item/plu/{Id:long}"
 @page "/item/plu/{Id:long}/{TableActionString}"
 @using BlazorCore.Models
-@using DataCore
 @using DataCore.DAL.TableDirectModels
 @using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
@@ -10,30 +9,31 @@
 @using BlazorCore
 @inherits RazorDisposable
 
-<ActionsReload Title=@LocalizationData.DeviceControl.ItemPlu SetParameters=@SetParametersAsync />
-
-@if (Item == null)
+@if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
+    <ActionsReload Title=@LocalizationData.DeviceControl.ItemPlu SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=@IsShowMarkedFilter IsShowMarkedItems=@IsShowMarkedItems />
+
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold;">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldLine</td>
+                <td>@LocalizationData.DeviceControl.TableFieldScale</td>
                 <td>
                     @if (ScaleItems == null)
                     {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -41,9 +41,9 @@ else
                             Style="width: 100%; height: 35px;" TValue="int" 
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@ScaleItems PageSize="5"
+                            Data=@ScaleItems PageSize=10
                             TextProperty="Description" ValueProperty="Id"
-                            Value=@ItemCast.Scale?.Id Disabled=false ReadOnly=true
+                            Value=@ItemCast.Scale.Id Disabled=false ReadOnly=true
                             Change=@(args => OnChange(args, nameof(ScaleDirect))) />
                     }
 				</td>
@@ -51,7 +51,7 @@ else
                 <td>
                     @if (TemplateItems == null)
                     {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -59,9 +59,9 @@ else
                             Style="width: 100%; height: 35px;" TValue="int" 
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@TemplateItems PageSize="5"
+                            Data=@TemplateItems PageSize=10
                             TextProperty="Title" ValueProperty="Id"
-                            Value=@ItemCast.Template?.Id
+                            Value=@ItemCast.Template.Id
                             Change=@(args => OnChange(args, nameof(TemplateDirect))) />
                     }
 				</td>
@@ -71,7 +71,7 @@ else
                 <td>
                     @if (NomenclatureItems == null)
                     {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.None IsShowProgress=true />
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
@@ -79,122 +79,106 @@ else
                             Style="width: 100%; height: 35px;" TValue="int" 
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@NomenclatureItems PageSize="5"
+                            Data=@NomenclatureItems PageSize=10
                             TextProperty="Name" ValueProperty="Id"
-                            Value=@ItemCast.Nomenclature?.Id
+                            Value=@ItemCast.Nomenclature.Id
                             Change=@(args => OnChange(args, nameof(Nomenclature))) />
                     }
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldActive</td>
-                    <RadzenCheckBox Disabled=false TValue="bool?" @bind-Value=@ItemCast.Active />
                 <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Active />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldUpperWeightThreshold</td>
                 <td>
-                    <RadzenNumeric Style="width: 68%; text-align: center;" Disabled=false 
-                        TValue="decimal?" @bind-Value=@ItemCast.UpperWeightThreshold />
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
+                        TValue="decimal" @bind-Value=@ItemCast.UpperWeightThreshold />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldNominalWeight</td>
                 <td>
-                    <RadzenNumeric Style="width: 68%; text-align: center;" Disabled=false 
-                        TValue="decimal?" @bind-Value=@ItemCast.NominalWeight />
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
+                        TValue="decimal" @bind-Value=@ItemCast.NominalWeight />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldLowerWeightThreshold</td>
                 <td>
-                    <RadzenNumeric Style="width: 68%; text-align: center;" Disabled=false 
-                        TValue="decimal?" @bind-Value=@ItemCast.LowerWeightThreshold />
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
+                        TValue="decimal" @bind-Value=@ItemCast.LowerWeightThreshold />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldCheckWeight</td>
                 <td>
-                    <RadzenCheckBox Disabled=false TValue="bool?" @bind-Value=@ItemCast.CheckWeight />
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.CheckWeight />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldPlu</td>
                 <td>
-                    <RadzenNumeric Style="width: 63%; text-align: center;" Disabled=false TValue="int" @bind-Value=@ItemCast.Plu />
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false TValue="int" @bind-Value=@ItemCast.Plu />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldShelfLifeDays</td>
                 <td>
-                    <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled=false Icon="autorenew"
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill("GoodsShelfLifeDays")) />
-                    <RadzenNumeric Style="width: 70%; text-align: center;" Disabled=false 
+                    <RadzenNumeric Style="width: 80%; text-align: center;" Disabled=false 
                         TValue="short" @bind-Value=@ItemCast.GoodsShelfLifeDays />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldGoodsTareWeight</td>
-                    <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled=false Icon="autorenew"
+                <td>
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill("GoodsTareWeight")) />
-                    <RadzenNumeric Style="width: 70%; text-align: center;" Disabled=false 
+                    <RadzenNumeric Style="width: 80%; margin-right: 1%; text-align: center;" Disabled=false 
                         TValue="decimal" @bind-Value=@ItemCast.GoodsTareWeight />
-                <td>
-				</td>
+                </td>
                 <td>@LocalizationData.DeviceControl.TableFieldGoodsBoxQuantly</td>
-                    <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled=false Icon="autorenew"
-                        Click=@(args => OnClickFieldsFill("GoodsBoxQuantly")) />
-                    <RadzenNumeric Style="width: 70%; text-align: center;" Disabled=false 
-                        TValue="int" @bind-Value=@ItemCast.GoodsBoxQuantly />
                 <td>
-				</td>
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
+                        Click=@(args => OnClickFieldsFill("GoodsBoxQuantly")) />
+                    <RadzenNumeric Style="width: 80%; margin-right: 1%; text-align: center;" Disabled=false 
+                        TValue="int" @bind-Value=@ItemCast.GoodsBoxQuantly />
+                </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldEan13</td>
-                    <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled=false Icon="autorenew"
+                <td colspan=3 >
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill("EAN13")) />
-                    <RadzenTextBox Style="width: 60%; text-align: center;" Disabled=false 
+                    <RadzenTextBox Style="width: 65%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Ean13 />
-                    @if (ItemCast?.Ean13 == null)
-                    {
-                        <RadzenLabel Style="width: 10%; text-align: center; " Text="0" />
-                    }
-                    else
-                    {
-                        <RadzenLabel Style="width: 10%; text-align: center; " Text=@ItemCast.Ean13.Length.ToString() />
-                    }
-                <td>
-				</td>
+                    <RadzenLabel Style="width: 8%; margin-right: 1%; text-align: center; " 
+                        Text=@ItemCast.Ean13.Length.ToString() />
+                </td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldGtin</td>
-                    <RadzenButton Style="width: 15%; margin-right: 0.75%;" Disabled=false Icon="aspect_ratio"
+                <td colspan=3>
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="aspect_ratio"
                         ButtonStyle="ButtonStyle.Secondary" Click=@(args => OnClickFieldsFill("getgtin")) />
-                    <RadzenButton Style="width: 15%; margin-right: 0.75%;" Disabled=false Icon="autorenew"
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill("GTIN")) />
-                    <RadzenTextBox Style="width: 60%; text-align: center;" Disabled=false 
+                    <RadzenTextBox Style="width: 50%; margin-right: 1%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Gtin />
-                    @if (ItemCast?.Gtin == null)
-                    {
-                        <RadzenLabel Style="width: 10%; text-align: center; " Text="0" />
-                    }
-                    else
-                    {
-                        <RadzenLabel Style="width: 10%; text-align: center; " Text=@ItemCast.Gtin.Length.ToString() />
-                    }
-                <td>
-				</td>
+                    <RadzenLabel Style="width: 8%; margin-right: 1%; text-align: center; " 
+                        Text=@ItemCast.Gtin.Length.ToString() />
+                </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldItf14</td>
-                    <RadzenButton Style="width: 30%; margin-right: 1%;" Disabled=false Icon="autorenew"
+                <td colspan=3>
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill("ITF14")) />
-                    <RadzenTextBox Style="width: 60%; text-align: center;" Disabled=false 
+                    <RadzenTextBox Style="width: 65%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Itf14 />
-                    @if (ItemCast?.Itf14 == null)
-                    {
-                        <RadzenLabel Style="width: 10%; text-align: center; " Text="0" />
-                    }
-                    else
-                    {
-                        <RadzenLabel Style="width: 10%; text-align: center; " Text=@ItemCast.Itf14.Length.ToString() />
-                    }
+                    <RadzenLabel Style="width: 8%; margin-right: 1%; text-align: center; " Text=@ItemCast.Itf14.Length.ToString() />
+                </td>
+            </tr>
+            <tr>
                 <td>
-				</td>
-                <td></td>
-                <td>
-                    <RadzenButton Style="width: 50%; " Disabled=false Icon="autorenew" 
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Text=@LocalizationData.DeviceControl.TableActionFill
                         Click=@(args => OnClickFieldsFill("Entity")) />
                     <RadzenButton Style="width: 50%; " Disabled=false Icon="clear" 
@@ -205,37 +189,35 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
-                    <RadzenButton Style="width: 30%; margin-right: 0.5%;" Disabled=false Icon="autorenew" 
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill("GoodsName")) />
-                    <RadzenTextArea Style="width: 70%; height: 30px;" Disabled=false 
+                    <RadzenTextBox Style="width: 65%; margin-right: 1%; " Disabled=false 
                         TValue="string" @bind-value=@ItemCast.GoodsName />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldGoodsFullName</td>
                 <td>
-                    <RadzenButton Style="width: 30%; margin-right: 0.5%;" Disabled=false Icon="autorenew" 
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill("GoodsFullName")) />
-                    <RadzenTextArea Style="width: 70%; height: 60px;" Disabled=false 
+                    <RadzenTextBox Style="width: 65%; margin-right: 1%; " Disabled=false 
                         TValue="string" @bind-value=@ItemCast.GoodsFullName />
 				</td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldGoodsDescription</td>
                 <td>
-                    <RadzenButton Style="width: 30%; margin-right: 0.5%;" Disabled=false Icon="autorenew" 
+                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill("GoodsDescription")) />
-                    <RadzenTextArea Style="width: 70%; height: 60px;" Disabled=false 
+                    <RadzenTextArea Style="width: 65%; height: 60px;" Disabled=false 
                         TValue="string" @bind-value=@ItemCast.GoodsDescription />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldPluDescription</td>
                 <td>
-                    <RadzenTextBox Style="width: 60%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.GoodsDescription />
+                    <RadzenTextBox Style="width: 65%; text-align: center;" Disabled=false 
+                        TValue="string" @bind-Value=@ItemCast.XmlGoodsDescription />
 				</td>
             </tr>
         </tbody>
     </MudSimpleTable>
-    
-    <PrinterResources Table=@Table PrinterId=@Id />
     
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />

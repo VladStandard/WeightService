@@ -45,6 +45,8 @@ namespace BlazorCore.Models
                 ? dbTableAction : DbTableAction.Default;
         }
         [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; } = new ButtonSettingsEntity();
+        [Parameter] public bool IsShowMarkedItems { get; set; } = false;
+        [Parameter] public bool IsShowMarkedFilter { get; set; } = false;
 
         #endregion
 
@@ -68,7 +70,7 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public void OnChange(object value, TableBase table, BaseEntity item,
+        public void OnChange(object value, TableBase table, BaseEntity? item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
@@ -142,7 +144,7 @@ namespace BlazorCore.Models
                         if (value is long id)
                         {
                             if (id <= 0)
-                                printerItem.PrinterType = null;
+                                printerItem.PrinterType = new();
                             else
                             {
                                 printerItem.PrinterType = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
@@ -209,11 +211,11 @@ namespace BlazorCore.Models
                         if (value is long id)
                         {
                             if (id <= 0)
-                                workshop.ProductionFacility = null;
+                                workshop.ProductionFacility = new();
                             else
                             {
                                 workshop.ProductionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), id } }),
+                                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), id } }),
                                 null);
                             }
                         }
@@ -651,7 +653,8 @@ namespace BlazorCore.Models
         {
             string page = string.Empty;
             if (Table == null || string.IsNullOrEmpty(Table.Name))
-                Table = ParentRazor.Table;
+                if (ParentRazor != null)
+                    Table = ParentRazor.Table;
             switch (Table)
             {
                 case TableSystemEntity:
@@ -824,16 +827,16 @@ namespace BlazorCore.Models
         {
             if (TableAction == DbTableAction.New)
             {
-                if (Item.PrimaryColumn.Name == ColumnName.Id)
+                if (Item?.PrimaryColumn.Name == ColumnName.Id)
                     NavigationManager.NavigateTo($"{page}/{Id}/{TableAction}");
-                else if (Item.PrimaryColumn.Name == ColumnName.Uid)
+                else if (Item?.PrimaryColumn.Name == ColumnName.Uid)
                     NavigationManager.NavigateTo($"{page}/{Uid}/{TableAction}");
             }
             else
             {
-                if (Item.PrimaryColumn.Name == ColumnName.Id)
+                if (Item?.PrimaryColumn.Name == ColumnName.Id)
                     NavigationManager.NavigateTo($"{page}/{Id}");
-                else if (Item.PrimaryColumn.Name == ColumnName.Uid)
+                else if (Item?.PrimaryColumn.Name == ColumnName.Uid)
                     NavigationManager.NavigateTo($"{page}/{Uid}");
             }
         }
@@ -916,8 +919,11 @@ namespace BlazorCore.Models
                         case ProjectsEnums.TableScale.Nomenclatures:
                             page = LocalizationData.DeviceControl.UriRouteSection.Nomenclatures;
                             break;
+                        case ProjectsEnums.TableScale.Plus:
+                            page = LocalizationData.DeviceControl.UriRouteSection.Plus;
+                            break;
                         case ProjectsEnums.TableScale.PrintersResources:
-                            page = LocalizationData.DeviceControl.UriRouteSection.PrinterResources;
+                            page = LocalizationData.DeviceControl.UriRouteSection.Printers;
                             break;
                         case ProjectsEnums.TableScale.Printers:
                             page = LocalizationData.DeviceControl.UriRouteSection.Printers;
@@ -990,11 +996,11 @@ namespace BlazorCore.Models
                     break;
                 case ProjectsEnums.TableSystem.Tasks:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Task(NotificationService, (TaskEntity)ParentRazor.Item, (Guid)Uid, TableAction);
+                        ItemSaveCheck.Task(NotificationService, (TaskEntity)ParentRazor.Item, Uid, TableAction);
                     break;
                 case ProjectsEnums.TableSystem.TasksTypes:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.TaskType(NotificationService, (TaskTypeEntity)ParentRazor.Item, (Guid)Uid, TableAction);
+                        ItemSaveCheck.TaskType(NotificationService, (TaskTypeEntity)ParentRazor.Item, Uid, TableAction);
                     break;
             }
         }

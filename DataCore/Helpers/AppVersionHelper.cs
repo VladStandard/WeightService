@@ -77,7 +77,7 @@ namespace DataCore.Helpers
             string result = string.Empty;
             int idx = input.LastIndexOf('.');
             if (idx >= 0)
-                result = input.Substring(0, idx);
+                result = input[..idx];
             return result;
         }
 

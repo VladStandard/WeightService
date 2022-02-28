@@ -11,11 +11,12 @@
 
 @if (ItemsCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+    <ActionsReload Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync 
+        Items=@Items IsShowItemsCount=true IsShowMarkedFilter=@IsShowMarkedFilter IsShowMarkedItems=@IsShowMarkedItems />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluEntity"
@@ -29,13 +30,13 @@ else
             <RadzenGridColumn TItem="PluEntity" Property="Active" Width="4%" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldActive >
                 <Template Context="pluEntity">
-                    <RadzenCheckBox TValue="bool?" @bind-Value=@pluEntity.Active Disabled=false ReadOnly=true />
+                    <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.Active Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Width="4%" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldCheckWeight >
                 <Template Context="pluEntity">
-                    <RadzenCheckBox TValue="bool?" @bind-Value="@pluEntity.CheckWeight" Disabled=false ReadOnly=true />
+                    <RadzenCheckBox TValue="bool" @bind-Value="@pluEntity.CheckWeight" Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="20%"
