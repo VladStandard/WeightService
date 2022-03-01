@@ -26,7 +26,7 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.GoodsShelfLifeDays).CustomSqlType("TINYINT").Column("GoodsShelfLifeDays").Nullable();
             Map(x => x.GoodsTareWeight).CustomSqlType("DECIMAL(10,3)").Column("GoodsTareWeight").Nullable();
             Map(x => x.GoodsBoxQuantly).CustomSqlType("INT").Column("GoodsBoxQuantly").Nullable();
-            Map(x => x.Plu).CustomSqlType("INT").Column("Plu").Not.Nullable();
+            Map(x => x.Plu).CustomSqlType("INT").Column("Plu").Not.Nullable().Check("C_PLU_PLU");
             Map(x => x.Active).CustomSqlType("BIT").Column("Active").Nullable();
             Map(x => x.UpperWeightThreshold).CustomSqlType("DECIMAL(10,3)").Column("UpperWeightThreshold").Nullable();
             Map(x => x.NominalWeight).CustomSqlType("DECIMAL(10,3)").Column("NominalWeight").Nullable();

@@ -42,7 +42,7 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private fields and properties - Helpers
 
-        private XmlProductHelper Product { get; set; } = XmlProductHelper.Instance;
+        private XmlProductHelper ProductHelper { get; set; } = XmlProductHelper.Instance;
         private BarcodeHelper Barcode { get; set; } = BarcodeHelper.Instance;
 
         #endregion
@@ -62,11 +62,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             get
             {
-                XmlProductHelper product = XmlProductHelper.Instance;
-                XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-                if (productEntity != null && !productEntity.EqualsNew())
+                XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+                if (xmlProduct != null && !xmlProduct.EqualsNew())
                 {
-                    return GetXmlValue<string>(productEntity, "GoodsName");
+                    return GetXmlValue<string>(xmlProduct, "GoodsName");
                 }
                 return GoodsName;
             }
@@ -77,11 +76,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             get
             {
-                XmlProductHelper product = XmlProductHelper.Instance;
-                XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-                if (productEntity != null && !productEntity.EqualsNew())
+                XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+                if (xmlProduct != null && !xmlProduct.EqualsNew())
                 {
-                    return GetXmlValue<string>(productEntity, "GoodsFullName");
+                    return GetXmlValue<string>(xmlProduct, "GoodsFullName");
                 }
                 return GoodsFullName;
             }
@@ -92,11 +90,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             get
             {
-                XmlProductHelper product = XmlProductHelper.Instance;
-                XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-                if (productEntity != null && !productEntity.EqualsNew())
+                XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+                if (xmlProduct != null && !xmlProduct.EqualsNew())
                 {
-                    return GetXmlValue<string>(productEntity, "GoodsDescription");
+                    return GetXmlValue<string>(xmlProduct, "GoodsDescription");
                 }
                 return GoodsDescription;
             }
@@ -107,19 +104,18 @@ namespace DataCore.DAL.TableScaleModels
         {
             get
             {
-                XmlProductHelper product = XmlProductHelper.Instance;
-                XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-                if (productEntity != null && !productEntity.EqualsNew())
+                XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+                if (xmlProduct != null && !xmlProduct.EqualsNew())
                 {
-                    string strProductShelfLife = GetXmlValue<string>(productEntity, "ProductShelfLife");
+                    string strProductShelfLife = GetXmlValue<string>(xmlProduct, "ProductShelfLife");
                     string[] arr = strProductShelfLife.Split(' ');
                     if (arr.Length > 1)
                     {
-                        _ = short.TryParse(arr[0], out short productShelfLife2);
-                        return productShelfLife2;
+                        if (short.TryParse(arr[0], out short productShelfLife2))
+                            return productShelfLife2;
                     }
-                    _ = short.TryParse(strProductShelfLife, out short productShelfLife1);
-                    return productShelfLife1;
+                    if (short.TryParse(strProductShelfLife, out short productShelfLife1))
+                        return productShelfLife1;
                 }
                 return GoodsShelfLifeDays;
             }
@@ -130,11 +126,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             get
             {
-                XmlProductHelper product = XmlProductHelper.Instance;
-                XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-                if (productEntity != null && !productEntity.EqualsNew())
+                XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+                if (xmlProduct != null && !xmlProduct.EqualsNew())
                 {
-                    return GetXmlValue<string>(productEntity, "GTIN");
+                    return GetXmlValue<string>(xmlProduct, "GTIN");
                 }
                 return Gtin;
             }
@@ -145,11 +140,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             get
             {
-                XmlProductHelper product = XmlProductHelper.Instance;
-                XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-                if (productEntity != null && !productEntity.EqualsNew())
+                XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+                if (xmlProduct != null && !xmlProduct.EqualsNew())
                 {
-                    return GetXmlValue<string>(productEntity, "EAN13");
+                    return GetXmlValue<string>(xmlProduct, "EAN13");
                 }
                 return Ean13;
             }
@@ -160,11 +154,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             get
             {
-                XmlProductHelper product = XmlProductHelper.Instance;
-                XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-                if (productEntity != null && !productEntity.EqualsNew())
+                XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+                if (xmlProduct != null && !xmlProduct.EqualsNew())
                 {
-                    return GetXmlValue<string>(productEntity, "ITF14");
+                    return GetXmlValue<string>(xmlProduct, "ITF14");
                 }
                 return Itf14;
             }
@@ -175,11 +168,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             get
             {
-                XmlProductHelper product = XmlProductHelper.Instance;
-                XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-                if (productEntity != null && !productEntity.EqualsNew())
+                XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+                if (xmlProduct != null && !xmlProduct.EqualsNew())
                 {
-                    return GetXmlValue<int>(productEntity, "GoodsBoxQuantly");
+                    return GetXmlValue<int>(xmlProduct, "GoodsBoxQuantly");
                 }
                 return GoodsBoxQuantly;
             }
@@ -190,11 +182,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             get
             {
-                XmlProductHelper product = XmlProductHelper.Instance;
-                XmlProductEntity productEntity = product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-                if (productEntity != null && !productEntity.EqualsNew())
+                XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
+                if (xmlProduct != null && !xmlProduct.EqualsNew())
                 {
-                    return GetXmlValue<decimal>(productEntity, "GoodsTareWeight");
+                    return GetXmlValue<decimal>(xmlProduct, "GoodsTareWeight");
                 }
                 return GoodsTareWeight;
             }
@@ -339,27 +330,27 @@ namespace DataCore.DAL.TableScaleModels
             };
         }
 
-        private T GetXmlValue<T>(XmlProductEntity productEntity, string name,
+        private T GetXmlValue<T>(XmlProductEntity xmlProduct, string name,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
-                if (Nomenclature == null || productEntity == null || string.IsNullOrEmpty(name))
+                if (Nomenclature == null || xmlProduct == null || string.IsNullOrEmpty(name))
                     return (T)Convert.ChangeType(string.Empty, typeof(string));
                 switch (name)
                 {
                     case "GoodsName":
-                        return (T)Convert.ChangeType(productEntity.Description, typeof(string));
+                        return (T)Convert.ChangeType(xmlProduct.Description, typeof(string));
                     case "GoodsFullName":
-                        return (T)Convert.ChangeType(productEntity.NameFull, typeof(string));
+                        return (T)Convert.ChangeType(xmlProduct.NameFull, typeof(string));
                     case "GoodsDescription":
-                        return (T)Convert.ChangeType(productEntity.AdditionalDescriptionOfNomenclature, typeof(string));
+                        return (T)Convert.ChangeType(xmlProduct.AdditionalDescriptionOfNomenclature, typeof(string));
                     case "ProductShelfLife":
-                        return (T)Convert.ChangeType(productEntity.ProductShelfLifeShort, typeof(string));
+                        return (T)Convert.ChangeType(xmlProduct.ProductShelfLifeShort, typeof(string));
                     case "GTIN":
-                        if (productEntity.Barcodes != null && productEntity.Barcodes.Count > 0)
+                        if (xmlProduct.Barcodes != null && xmlProduct.Barcodes.Count > 0)
                         {
-                            ProductBarcodeEntity barcodeGtin = productEntity.Barcodes.FirstOrDefault(
+                            ProductBarcodeEntity barcodeGtin = xmlProduct.Barcodes.FirstOrDefault(
                                 x => x.Type.Equals("EAN13"));
                             if (barcodeGtin != null)
                             {
@@ -368,9 +359,9 @@ namespace DataCore.DAL.TableScaleModels
                         }
                         break;
                     case "EAN13":
-                        if (productEntity.Barcodes != null && productEntity.Barcodes.Count > 0)
+                        if (xmlProduct.Barcodes != null && xmlProduct.Barcodes.Count > 0)
                         {
-                            ProductBarcodeEntity barcodeEan13 = productEntity.Barcodes.FirstOrDefault(
+                            ProductBarcodeEntity barcodeEan13 = xmlProduct.Barcodes.FirstOrDefault(
                                 x => x.Type.Equals("EAN13"));
                             if (barcodeEan13 != null)
                             {
@@ -379,16 +370,16 @@ namespace DataCore.DAL.TableScaleModels
                         }
                         break;
                     case "ITF14":
-                        if (productEntity.Barcodes != null && productEntity.Barcodes.Count > 0)
+                        if (xmlProduct.Barcodes != null && xmlProduct.Barcodes.Count > 0)
                         {
-                            ProductBarcodeEntity barcodeItf14 = productEntity.Barcodes.FirstOrDefault(
+                            ProductBarcodeEntity barcodeItf14 = xmlProduct.Barcodes.FirstOrDefault(
                             x => x.Type.Equals("ITF14"));
                             if (barcodeItf14 != null)
                                 return (T)Convert.ChangeType(barcodeItf14.Barcode, typeof(string));
                         }
                         break;
                     case "GoodsBoxQuantly":
-                        decimal? rate1 = productEntity.Units
+                        decimal? rate1 = xmlProduct.Units
                             .OrderByDescending(x => x.Rate)
                             .FirstOrDefault(x => x.Description.Equals("Кор"))?
                             .Rate;
@@ -396,17 +387,17 @@ namespace DataCore.DAL.TableScaleModels
                             return (T)Convert.ChangeType((int)goodsBoxQuantly2, typeof(int));
                         break;
                     case "GoodsTareWeight":
-                        decimal? rate = productEntity.Units
+                        decimal? rate = xmlProduct.Units
                             .OrderByDescending(x => x.Rate)
                             .FirstOrDefault(x => x.Description.Equals("Кор"))?
                             .Rate;
                         if (decimal.TryParse(rate.ToString(), out decimal rate2))
                         {
-                            decimal? boxHeft = productEntity.Boxes.FirstOrDefault(
+                            decimal? boxHeft = xmlProduct.Boxes.FirstOrDefault(
                                 x => x.Unit.Equals("шт"))?.Heft;
                             if (decimal.TryParse(boxHeft.ToString(), out decimal boxHeft2))
                             {
-                                decimal? packHeft = productEntity.Packs.FirstOrDefault(
+                                decimal? packHeft = xmlProduct.Packs.FirstOrDefault(
                                     x => x.Unit.Equals("шт"))?.Heft;
                                 if (decimal.TryParse(packHeft.ToString(), out decimal packHeft2))
                                 {
@@ -426,43 +417,79 @@ namespace DataCore.DAL.TableScaleModels
             return (T)Convert.ChangeType(string.Empty, typeof(string));
         }
 
-        public virtual decimal CalcGoodsTareWeight()
+        /// <summary>
+        /// Вес коробки.
+        /// </summary>
+        /// <returns></returns>
+        public virtual decimal CalcGoodWeightBox(XmlProductEntity xmlProduct)
         {
-            XmlProductEntity productEntity = Product.GetProductEntity(Nomenclature?.SerializedRepresentationObject);
-            if (productEntity != null && !productEntity.EqualsNew() && Nomenclature != null)
+            if (!xmlProduct.EqualsNew() && !Nomenclature.EqualsNew())
             {
-                // Вес коробки.
-                decimal? weightBoxSource = productEntity.Boxes
+                decimal? weightBoxSource = xmlProduct.Boxes
                     .OrderByDescending(x => x.Heft)
                     .FirstOrDefault(x => x.Unit.Equals("шт"))?
                     .Heft;
-                _ = decimal.TryParse(weightBoxSource.ToString(), out decimal weightBox);
+                if (decimal.TryParse(weightBoxSource.ToString(), out decimal weightBox))
+                    return weightBox;
+            }
+            return 0M;
+        }
 
-                // Вес пакета.
-                decimal? weightPackSource = productEntity.Packs
+        /// <summary>
+        /// Вес пакета.
+        /// </summary>
+        /// <returns></returns>
+        public virtual decimal CalcGoodWeightPack(XmlProductEntity xmlProduct)
+        {
+            if (!xmlProduct.EqualsNew() && !Nomenclature.EqualsNew())
+            {
+                decimal? weightPackSource = xmlProduct.Packs
                     .OrderByDescending(x => x.Heft)
                     .FirstOrDefault(x => x.Unit.Equals("шт"))?
                     .Heft;
-                _ = decimal.TryParse(weightPackSource.ToString(), out decimal weightPack);
+                if (decimal.TryParse(weightPackSource.ToString(), out decimal weightPack))
+                    return weightPack;
+            }
+            return 0M;
+        }
 
-                // Кол-во вложений.
-                decimal? rateUnitSource = productEntity.Units
+        /// <summary>
+        /// Кол-во вложений.
+        /// </summary>
+        /// <returns></returns>
+        public virtual decimal CalcGoodRateUnit(XmlProductEntity xmlProduct)
+        {
+            if (!xmlProduct.EqualsNew() && !Nomenclature.EqualsNew())
+            {
+                decimal? rateUnitSource = xmlProduct.Units
                     .OrderByDescending(x => x.Rate)
                     .FirstOrDefault(x => x.Description.Equals("Кор"))?
                     .Rate;
-                decimal.TryParse(rateUnitSource.ToString(), out decimal rateUnit);
+                if (decimal.TryParse(rateUnitSource.ToString(), out decimal rateUnit))
+                    return rateUnit;
+            }
+            return 0M;
+        }
 
+        public virtual decimal CalcGoodsTareWeight()
+        {
+            XmlProductEntity xmlProduct = ProductHelper.GetProductEntity(Nomenclature.SerializedRepresentationObject);
+            if (!xmlProduct.EqualsNew() && !Nomenclature.EqualsNew())
+            {
+                // Вес коробки.
+                decimal weightBox = CalcGoodWeightBox(xmlProduct);
+                // Вес пакета.
+                decimal weightPack = CalcGoodWeightPack(xmlProduct);
+                // Кол-во вложений.
+                decimal rateUnit = CalcGoodRateUnit(xmlProduct);
                 // Вес клипсы.
                 decimal weightClip = 0M;
-
-                // вес тары = вес коробки + (вес пакета * кол. вложений) + (вес клипсы * кол. вложений * 2).
+                // Вес тары = вес коробки + (вес пакета * кол. вложений) + (вес клипсы * кол. вложений * 2).
                 decimal result = weightBox + weightPack * rateUnit + weightClip * rateUnit * 2;
-                decimal.TryParse($"{result:F3}", out decimal resultF3);
-                //Console.WriteLine("вес тары = вес коробки + (вес пакета * кол. вложений) + (вес клипсы * кол. вложений * 2)");
-                //Console.WriteLine($"{resultF3} = {weightBox} + ({weightPack} * {rateUnit}) + {weightKlipsa} * {rateUnit} * 2)");
-                return resultF3;
+                if (decimal.TryParse($"{result:F3}", out decimal resultF3))
+                    return resultF3;
             }
-            return 0;
+            return 0M;
         }
 
         public virtual bool GtinCheck()

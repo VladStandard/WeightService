@@ -144,8 +144,8 @@ namespace DataCore.DAL.DataModels
         public decimal Capacity { get; set; }
         public decimal Rate { get; set; }
         public int Threshold { get; set; }
-        public string Okei { get; set; }
-        public string Description { get; set; }
+        public string Okei { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         public override string ToString()
         {
@@ -182,8 +182,8 @@ namespace DataCore.DAL.DataModels
     /// </summary>
     public class ProductBarcodeEntity
     {
-        public string Type { get; set; }
-        public string Barcode { get; set; }
+        public string Type { get; set; } = string.Empty;
+        public string Barcode { get; set; } = string.Empty;
 
         public override string ToString()
         {
@@ -212,13 +212,13 @@ namespace DataCore.DAL.DataModels
     /// </summary>
     public class ProductBoxEntity
     {
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
         public decimal Heft { get; set; }
         public decimal Capacity { get; set; }
         public decimal Rate { get; set; }
         public int Threshold { get; set; }
-        public string Okei { get; set; }
-        public string Unit { get; set; }
+        public string Okei { get; set; } = string.Empty;
+        public string Unit { get; set; } = string.Empty;
 
         public override string ToString()
         {

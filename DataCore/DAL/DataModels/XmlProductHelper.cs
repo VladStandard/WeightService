@@ -112,7 +112,8 @@ namespace DataCore.DAL.DataModels
                             ProductBoxEntity? entity = new()
                             {
                                 Description = GetAttribute<string>(xmlChild, "Description"),
-                                Heft = GetAttribute<decimal>(xmlChild, "Heft"),
+                                //Heft = GetAttribute<decimal>(xmlChild, "Heft"),
+                                Heft = Convert.ToDecimal(GetAttribute<string>(xmlChild, "Heft")),
                                 Capacity = GetAttribute<decimal>(xmlChild, "Capacity"),
                                 Rate = GetAttribute<decimal>(xmlChild, "Rate"),
                                 Threshold = GetAttribute<int>(xmlChild, "Threshold"),
@@ -129,7 +130,7 @@ namespace DataCore.DAL.DataModels
 
         public XmlProductEntity GetProductEntity(string? value)
         {
-            XmlProductEntity? productEntity = new();
+            XmlProductEntity productEntity = new();
             if (string.IsNullOrEmpty(value))
                 return productEntity;
 

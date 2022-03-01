@@ -30,16 +30,16 @@ namespace BlazorDeviceControl.Shared.Item
         public List<WorkshopEntity>? WorkshopItems { get; set; } = null;
         public List<TypeEntity<string>>? ComPorts { get; set; }
         public List<HostEntity>? HostItems { get; set; } = null;
-        public string PageSelf => ItemCast == null ? string.Empty : $"{@LocalizationData.DeviceControl.UriRouteItem.Scale}/{ItemCast.Id}";
-        public virtual string PageHost =>
-            ItemCast?.Host == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{ItemCast?.Host?.Id}";
-        public virtual string PagePrinter =>
-            ItemCast?.Printer == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{ItemCast?.Printer?.Id}";
-        public virtual string PageTemplateDefault =>
-            ItemCast?.TemplateDefault == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast?.TemplateDefault?.Id}";
-        public virtual string PageTemplateSeries =>
-            ItemCast?.TemplateSeries == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast?.TemplateSeries?.Id}";
         private readonly object _locker = new();
+        public string PageSelf => ItemCast == null ? string.Empty : $"{@LocalizationData.DeviceControl.UriRouteItem.Scale}/{ItemCast.Id}";
+        public string PageHost =>
+            ItemCast?.Host == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{ItemCast.Host.Id}";
+        public string PagePrinter =>
+            ItemCast?.Printer == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{ItemCast.Printer.Id}";
+        public string PageTemplateDefault =>
+            ItemCast?.TemplateDefault == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast.TemplateDefault.Id}";
+        public string PageTemplateSeries =>
+            ItemCast?.TemplateSeries == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast.TemplateSeries.Id}";
 
         #endregion
 
