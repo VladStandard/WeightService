@@ -53,16 +53,16 @@ namespace DataCore.DAL.DataModels
                     {
                         foreach (XElement? xmlChild in xmlChilds)
                         {
-                            ProductUnitEntity? entity = new()
+                            ProductUnitEntity? item = new()
                             {
-                                Heft = GetAttribute<decimal>(xmlChild, "Heft"),
-                                Capacity = GetAttribute<decimal>(xmlChild, "Capacity"),
-                                Rate = GetAttribute<decimal>(xmlChild, "Rate"),
+                                Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
+                                Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
+                                Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
                                 Threshold = GetAttribute<int>(xmlChild, "Threshold"),
                                 Okei = GetAttribute<string>(xmlChild, "OKEI"),
                                 Description = GetAttribute<string>(xmlChild, "Description")
                             };
-                            entities.Add(entity);
+                            entities.Add(item);
                         }
                     }
                 }
@@ -83,12 +83,12 @@ namespace DataCore.DAL.DataModels
                     {
                         foreach (XElement? xmlChild in xmlChilds)
                         {
-                            ProductBarcodeEntity? entity = new()
+                            ProductBarcodeEntity? item = new()
                             {
                                 Type = GetAttribute<string>(xmlChild, "Type"),
                                 Barcode = GetAttribute<string>(xmlChild, "Barcode"),
                             };
-                            entities.Add(entity);
+                            entities.Add(item);
                         }
                     }
                 }
@@ -109,18 +109,18 @@ namespace DataCore.DAL.DataModels
                     {
                         foreach (XElement? xmlChild in xmlChilds)
                         {
-                            ProductBoxEntity? entity = new()
+                            ProductBoxEntity? item = new()
                             {
                                 Description = GetAttribute<string>(xmlChild, "Description"),
-                                //Heft = GetAttribute<decimal>(xmlChild, "Heft"),
-                                Heft = Convert.ToDecimal(GetAttribute<string>(xmlChild, "Heft")),
-                                Capacity = GetAttribute<decimal>(xmlChild, "Capacity"),
-                                Rate = GetAttribute<decimal>(xmlChild, "Rate"),
+                                Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
+                                Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
+                                Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
                                 Threshold = GetAttribute<int>(xmlChild, "Threshold"),
                                 Okei = GetAttribute<string>(xmlChild, "OKEI"),
                                 Unit = GetAttribute<string>(xmlChild, "Unit")
                             };
-                            entities.Add(entity);
+                            entities.Add(item);
+                            Console.WriteLine($"{nameof(item)}: {item}");
                         }
                     }
                 }

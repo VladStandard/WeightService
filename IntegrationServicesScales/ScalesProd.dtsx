@@ -7,38 +7,37 @@
   DTS:CreatorName="KOLBASA-VS\DVIvakin"
   DTS:DTSID="{0D72BB0F-F8FD-42DB-B35B-10B6A4BC003D}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="15.0.2000.132"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="1049"
   DTS:ObjectName="ScalesSync"
   DTS:PackageType="5"
-  DTS:VersionBuild="20"
-  DTS:VersionGUID="{54558CE9-0A35-4A9C-A9AB-DC5A35E51035}">
+  DTS:VersionBuild="22"
+  DTS:VersionGUID="{8EE30F33-AF18-4303-BCE7-1106390C91CE}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DEST]"
+      DTS:refId="Package.ConnectionManagers[ConnectDestination]"
       DTS:CreationName="OLEDB"
       DTS:DTSID="{0A393A43-A5EB-417A-B9B2-815CABBC0962}"
-      DTS:ObjectName="DEST">
+      DTS:ObjectName="ConnectDestination">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=SQLDBEP04.kolbasa-vs.local\LUTON;User ID=SsisUserRW;Initial Catalog=ScalesDB;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
-          <DTS:Password
-            DTS:Name="Password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAaBiH85YNXkiX5F5nGsBWhgAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAB7MCt0yoGL0ymflowFpcpAAAAAAASAAACgAAAAEAAAABia+HFZQt4kS81ZboolXugYAAAAmemRnX1CgiMWfzg+vr7pKcXSGPmHZ/2pFAAAAGk/pZ4QVNlELfcKKmut2pZIcSoM</DTS:Password>
-        </DTS:ConnectionManager>
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=PALYCH\LUTON;Initial Catalog=ScalesDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[SRC]"
+      DTS:refId="Package.ConnectionManagers[ConnectSource]"
       DTS:CreationName="OLEDB"
       DTS:DTSID="{733B6DB5-95EF-4283-9227-59367FC3879A}"
-      DTS:ObjectName="SRC">
+      DTS:ObjectName="ConnectSource">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=SQLSRSP01.kolbasa-vs.local\LEEDS;Initial Catalog=VSDWH;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=SQLSRSP01\LEEDS;Initial Catalog=VSDWH;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -127,8 +126,8 @@
                   <connections>
                     <connection
                       refId="Package\Sequence Container\Contragents\INSERT.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[DEST]"
-                      connectionManagerRefId="Package.ConnectionManagers[DEST]"
+                      connectionManagerID="Package.ConnectionManagers[ConnectDestination]"
+                      connectionManagerRefId="Package.ConnectionManagers[ConnectDestination]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -295,8 +294,8 @@ where [refTable].[Id] = ?</property>
                   <connections>
                     <connection
                       refId="Package\Sequence Container\Contragents\Lookup.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[DEST]"
-                      connectionManagerRefId="Package.ConnectionManagers[DEST]"
+                      connectionManagerID="Package.ConnectionManagers[ConnectDestination]"
+                      connectionManagerRefId="Package.ConnectionManagers[ConnectDestination]"
                       description="Connection manager used to access lookup data."
                       name="OleDbConnection" />
                   </connections>
@@ -460,8 +459,8 @@ where [refTable].[Id] = ?</property>
                   <connections>
                     <connection
                       refId="Package\Sequence Container\Contragents\OLE DB Command.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[DEST]"
-                      connectionManagerRefId="Package.ConnectionManagers[DEST]"
+                      connectionManagerID="Package.ConnectionManagers[ConnectDestination]"
+                      connectionManagerRefId="Package.ConnectionManagers[ConnectDestination]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -636,8 +635,8 @@ WHERE IsBuyer = 1</property>
                   <connections>
                     <connection
                       refId="Package\Sequence Container\Contragents\OLE DB Source.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[SRC]"
-                      connectionManagerRefId="Package.ConnectionManagers[SRC]"
+                      connectionManagerID="Package.ConnectionManagers[ConnectSource]"
+                      connectionManagerRefId="Package.ConnectionManagers[ConnectSource]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -842,8 +841,8 @@ WHERE IsBuyer = 1</property>
                   <connections>
                     <connection
                       refId="Package\Sequence Container\Products\INSERT.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[DEST]"
-                      connectionManagerRefId="Package.ConnectionManagers[DEST]"
+                      connectionManagerID="Package.ConnectionManagers[ConnectDestination]"
+                      connectionManagerRefId="Package.ConnectionManagers[ConnectDestination]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -1018,8 +1017,8 @@ where [refTable].[Id] = ?</property>
                   <connections>
                     <connection
                       refId="Package\Sequence Container\Products\Lookup.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[DEST]"
-                      connectionManagerRefId="Package.ConnectionManagers[DEST]"
+                      connectionManagerID="Package.ConnectionManagers[ConnectDestination]"
+                      connectionManagerRefId="Package.ConnectionManagers[ConnectDestination]"
                       description="Connection manager used to access lookup data."
                       name="OleDbConnection" />
                   </connections>
@@ -1223,8 +1222,8 @@ where [refTable].[Id] = ?</property>
                   <connections>
                     <connection
                       refId="Package\Sequence Container\Products\OLE DB Source.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[SRC]"
-                      connectionManagerRefId="Package.ConnectionManagers[SRC]"
+                      connectionManagerID="Package.ConnectionManagers[ConnectSource]"
+                      connectionManagerRefId="Package.ConnectionManagers[ConnectSource]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -1405,8 +1404,8 @@ where [refTable].[Id] = ?</property>
                   <connections>
                     <connection
                       refId="Package\Sequence Container\Products\UPDATE.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[DEST]"
-                      connectionManagerRefId="Package.ConnectionManagers[DEST]"
+                      connectionManagerID="Package.ConnectionManagers[ConnectDestination]"
+                      connectionManagerRefId="Package.ConnectionManagers[ConnectDestination]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -1758,25 +1757,12 @@ where [refTable].[Id] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container\Contragents\INSERT">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Sequence Container\Contragents\Lookup">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1786,10 +1772,23 @@ where [refTable].[Id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Contragents\INSERT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -1912,8 +1911,23 @@ where [refTable].[Id] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container\Products\OLE DB Source">
+    design-time-name="Package\Sequence Container\Products\Lookup">
     <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[db_scales].[Nomenclature]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>
@@ -1933,23 +1947,8 @@ where [refTable].[Id] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Sequence Container\Products\Lookup">
+    design-time-name="Package\Sequence Container\Products\OLE DB Source">
     <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[db_scales].[Nomenclature]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
       <Property>
         <Name>DataSourceViewID</Name>
       </Property>

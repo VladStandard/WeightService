@@ -1,0 +1,505 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/2/2022"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PC208"
+  DTS:CreatorName="KOLBASA-VS\Morozov_DV"
+  DTS:DTSID="{45604623-BB2C-4319-BEAB-C0E7BE11C739}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{423C72EC-B2BC-4854-868C-53CD41CFBFBB}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AdventureWorksDestination]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{14E3FA05-3F54-4DCA-9B20-31889F10F0F8}"
+      DTS:ObjectName="AdventureWorksDestination">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AdventureWorks2017;Integrated Security=True;Application Name=SSIS-Package-{14E3FA05-3F54-4DCA-9B20-31889F10F0F8}(localdb)\MSSQLLocalDB.AdventureWorks2016;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AdventureWorksSource]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{0BDED10E-0225-4AFE-8638-85A246647060}"
+      DTS:ObjectName="AdventureWorksSource">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Package::CREATIOINS1AdventureWorks2017_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=CREATIO\INS1;Initial Catalog=AdventureWorks2017;Integrated Security=True;Application Name=SSIS-Package-{0BDED10E-0225-4AFE-8638-85A246647060}CREATIO\INS1.AdventureWorks2017;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{F9D0F58F-49E4-4A00-9799-E27874351FB1}"
+      DTS:ObjectName="CREATIOINS1AdventureWorks2017_ConnectionString">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Data Source=CREATIO\INS1;Initial Catalog=AdventureWorks2017;Integrated Security=True;Application Name=SSIS-Package-{0BDED10E-0225-4AFE-8638-85A246647060}CREATIO\INS1.AdventureWorks2017;</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{84DFF265-F595-4940-8720-FB25E1F570C1}"
+      DTS:ObjectName="CREATIOINS1AdventureWorks2017_ConnectionString1">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Data Source=CREATIO\INS1;Initial Catalog=AdventureWorks2017;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{044C6B52-171E-45C4-8322-D47A9BBCC5F8}"
+      DTS:ObjectName="LocaldbMSSQLLocalDBAdventureWorks2016_ConnectionString">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=AdventureWorks2016;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Trunc data"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{23FB7B36-0AA8-432D-B3DF-6DCA8EFA5DB7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="1049"
+      DTS:ObjectName="Trunc data"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{14E3FA05-3F54-4DCA-9B20-31889F10F0F8}"
+          SQLTask:SqlStatementSource="DELETE FROM [HumanResources].[Department]&#xA;DBCC CHECKIDENT('[HumanResources].[Department]', RESEED, 0);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Upload data"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{EF2A7057-4BB7-412F-81CB-9FCC8F1485D2}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="1049"
+      DTS:ObjectName="Upload data"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Upload data\ADO NET Destination"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="ADO NET Destination"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"HumanResources"."Department"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Upload data\ADO NET Destination.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDestination]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDestination]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].Columns[DepartmentID]"
+                      cachedDataType="i2"
+                      cachedName="DepartmentID"
+                      externalMetadataColumnId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].ExternalColumns[DepartmentID]"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[DepartmentID]" />
+                    <inputColumn
+                      refId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].ExternalColumns[Name]"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].Columns[GroupName]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="GroupName"
+                      externalMetadataColumnId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].ExternalColumns[GroupName]"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[GroupName]" />
+                    <inputColumn
+                      refId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].Columns[ModifiedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="ModifiedDate"
+                      externalMetadataColumnId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[ModifiedDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].ExternalColumns[DepartmentID]"
+                      dataType="i2"
+                      name="DepartmentID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].ExternalColumns[GroupName]"
+                      dataType="wstr"
+                      length="50"
+                      name="GroupName" />
+                    <externalMetadataColumn
+                      refId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input].ExternalColumns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Upload data\ADO NET Destination.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Destination.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Upload data\ADO NET Destination.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Destination.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Upload data\ADO NET Destination.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Upload data\ADO NET Source"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="ADO NET Source"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"HumanResources"."Department"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">0</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Upload data\ADO NET Source.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksSource]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksSource]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[DepartmentID]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[DepartmentID]"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[DepartmentID]"
+                      name="DepartmentID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Name]"
+                      length="50"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[GroupName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[GroupName]"
+                      length="50"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[GroupName]"
+                      name="GroupName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[ModifiedDate]"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].Columns[ModifiedDate]"
+                      name="ModifiedDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[DepartmentID]"
+                      dataType="i2"
+                      name="DepartmentID" />
+                    <externalMetadataColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="50"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[GroupName]"
+                      dataType="wstr"
+                      length="50"
+                      name="GroupName" />
+                    <externalMetadataColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      name="ModifiedDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[DepartmentID]"
+                      dataType="i2"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[DepartmentID]"
+                      name="DepartmentID" />
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Name]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[GroupName]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[GroupName]"
+                      name="GroupName" />
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ModifiedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ModifiedDate]"
+                      name="ModifiedDate" />
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Upload data.Paths[ADO NET Source Output]"
+              endId="Package\Upload data\ADO NET Destination.Inputs[ADO NET Destination Input]"
+              name="ADO NET Source Output"
+              startId="Package\Upload data\ADO NET Source.Outputs[ADO NET Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{7859B5C5-23C0-4693-B899-862099CA032A}"
+      DTS:From="Package\Trunc data"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Upload data" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="140,42"
+          Id="Package\Trunc data"
+          TopLeft="109,34" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Upload data"
+          TopLeft="110,130" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="178.5,76">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Upload data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Upload data\ADO NET Source"
+          TopLeft="78,25" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Upload data\ADO NET Destination"
+          TopLeft="68,136" />
+        <EdgeLayout
+          Id="Package\Upload data.Paths[ADO NET Source Output]"
+          TopLeft="157.25,67">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,69"
+              Start="0,0"
+              End="0,61.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,61.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Upload data\ADO NET Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Upload data\ADO NET Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

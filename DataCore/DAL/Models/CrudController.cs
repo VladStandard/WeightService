@@ -202,7 +202,7 @@ namespace DataCore.DAL.Models
         //            query.AddEntity(typeof(TU));
         //            if (items != null)
         //            {
-        //                var listEntities = items.List<T>();
+        //                List<T> listEntities = items.List<T>();
         //                result = new T[listEntities.Count];
         //                for (int i = 0; i < result.Length; i++)
         //                {

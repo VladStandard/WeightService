@@ -27,7 +27,7 @@ namespace DataCore.DAL.DataModels
                 if (ProductShelfLife.EndsWith(" сут.", StringComparison.InvariantCultureIgnoreCase) ||
                     ProductShelfLife.EndsWith(" сут,", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    //short.TryParse(ProductShelfLife[0..^5], out var value);
+                    //short.TryParse(ProductShelfLife[0..^5], out short value);
                     short.TryParse(ProductShelfLife.AsSpan()[0..^5].ToString(), out short value);
                     return value;
                 }
@@ -213,8 +213,17 @@ namespace DataCore.DAL.DataModels
     public class ProductBoxEntity
     {
         public string Description { get; set; } = string.Empty;
+        /// <summary>
+        /// Вес.
+        /// </summary>
         public decimal Heft { get; set; }
+        /// <summary>
+        /// .
+        /// </summary>
         public decimal Capacity { get; set; }
+        /// <summary>
+        /// .
+        /// </summary>
         public decimal Rate { get; set; }
         public int Threshold { get; set; }
         public string Okei { get; set; } = string.Empty;

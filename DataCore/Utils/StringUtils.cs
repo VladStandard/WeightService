@@ -184,5 +184,14 @@ namespace DataCore.Utils
             // reconstitute a string from the UTF-8 byte array 
             return Encoding.UTF8.GetString(myUTF8Bytes);
         }
+
+        public static decimal GetDecimalValue(string value)
+        {
+            //System.Globalization.CultureInfo cultureInfo = System.Globalization.CultureInfo.InvariantCulture;
+            string convert = value.Replace(',', '.');
+            if (decimal.TryParse(convert, out decimal result))
+                return result;
+            return 0M;
+        }
     }
 }

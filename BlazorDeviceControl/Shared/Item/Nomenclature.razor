@@ -18,10 +18,10 @@ else
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
                 <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
                 <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
@@ -53,7 +53,7 @@ else
                 <td>@LocalizationData.DeviceControl.TableFieldXml</td>
                 <td colspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; " Disabled=false ReadOnly=false 
-                        TValue="string" @bind-Value=@ItemCast.SerializedRepresentationObject Rows=15 />
+                        TValue="string" @bind-Value=@ItemCast.SerializedRepresentationObject Rows=20 />
 				</td>
             </tr>
         </tbody>

@@ -64,9 +64,9 @@ namespace MdmControlCore.XML
                         {
                             var entity = new ProductUnitEntity
                             {
-                                Heft = GetAttribute<decimal>(xmlChild, "Heft"),
-                                Capacity = GetAttribute<decimal>(xmlChild, "Capacity"),
-                                Rate = GetAttribute<decimal>(xmlChild, "Rate"),
+                                Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
+                                Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
+                                Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
                                 Threshold = GetAttribute<int>(xmlChild, "Threshold"),
                                 Okei = GetAttribute<string>(xmlChild, "OKEI"),
                                 Description = GetAttribute<string>(xmlChild, "Description")
@@ -121,9 +121,9 @@ namespace MdmControlCore.XML
                             var entity = new ProductBoxEntity
                             {
                                 Description = GetAttribute<string>(xmlChild, "Description"),
-                                Heft = GetAttribute<decimal>(xmlChild, "Heft"),
-                                Capacity = GetAttribute<decimal>(xmlChild, "Capacity"),
-                                Rate = GetAttribute<decimal>(xmlChild, "Rate"),
+                                Heft = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Heft")),
+                                Capacity = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Capacity")),
+                                Rate = DataCore.Utils.StringUtils.GetDecimalValue(GetAttribute<string>(xmlChild, "Rate")),
                                 Threshold = GetAttribute<int>(xmlChild, "Threshold"),
                                 Okei = GetAttribute<string>(xmlChild, "OKEI"),
                                 Unit = GetAttribute<string>(xmlChild, "Unit")
