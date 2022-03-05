@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.270] - 2022-03-05
+### Added
+- IntegrationServicesAdventureWorks
+- IntegrationServicesDwh
+- IntegrationServicesScales
+
 ## [0.6.250] - 2022-02-28
 ### Changed
 - DataCore v.0.6.250

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="PALYCH_LUTON.ScalesDB.ssis"
+  DTS:DTSID="{9A31CA34-E539-496C-B4BB-47D61CC9594F}"
+  DTS:CreationName="OLEDB"
+  p1:Salt="GuhdlfOeUr0="
+  p1:IV="8I57CHd+EKq8YZpaqgMTpg=="
+  p1:Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc" xmlns:p1="www.microsoft.com/SqlServer/SSIS">ERB4lCz7nxNFCuzMn/E9lLjoYbU5q21YvWuRNjmeJpKoOBJXzLuvOAubXm4c61OoXee6/JUQPqdcYGIoocvm5HAg7yDMD8zh9Qa9sdHCswY7556lryOMRcGJalXpJ8MksDE436wfjML0UrqSMaOfSmqTe9nu1VPpu7OlTEE/QzL8UGfzx1UievlCTFnvblijGcVPHS8tFwt+CxEZHEUN4a4v/uQi1hT1ukg34fCM3SYEMUQUhK32boZo5vLEfbVw55TTgOwGwZMkpBSEBOADqi3rumNAxd8b/GZamnO85bVkqtPV1EcSfVCOunbub4xQjh7T4dnzZqYie4B6XAPPDvf9u8lZ3vvTFYRQb48UYqkZt/V588k92qpzNfttkRWdksRcrnnVg70Qo0RXGzQyV7LYOHZTOvRBrojS7MtPI/KWzAMeiZ7sEZpNeWYJCe90h0xp5IEjoQHYfBNsIn+YIepKmPk19XemAtJHAyCrYOk/5Obi6q4mOW7SGvNeWiyBe0hV33D2ffd5C0MNfGzQQgfdMLhPKux7tB7n9lV4nq2g8uwFMcLQJ+n9vDowg6e1BoSxVUfHNTXgQZYtnKk9nRP6Js0jGNz+0SwxHRfi8Vey8K4df4MG6XSw2K0sjorIJBecdtUOTTmsVOuhhLoAqvPDmz5B3MM+P4adlHCHM5eqNg3p6KyGC9LiQz2aofpNKfkk2MfIVYDdqiqRBU9Nu+jrtcbfvtisigsrJlvuxjU2Mr4jOShb4nQq852F49lkLNFQoRZ5XowzH7Pn75DpsA==</DTS:ConnectionManager>

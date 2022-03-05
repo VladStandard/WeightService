@@ -7,13 +7,13 @@
   DTS:CreatorName="KOLBASA-VS\Morozov_DV"
   DTS:DTSID="{45604623-BB2C-4319-BEAB-C0E7BE11C739}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="14"
-  DTS:VersionGUID="{1DFE063D-50BA-49FD-A254-5E6DB3006D83}">
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{B5429EDD-4F69-465A-9F6B-5C956DA817B4}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -72,13 +72,13 @@
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Trunc data"
+      DTS:refId="Package\Delete data"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
       DTS:DTSID="{23FB7B36-0AA8-432D-B3DF-6DCA8EFA5DB7}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="1049"
-      DTS:ObjectName="Trunc data"
+      DTS:ObjectName="Delete data"
       DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
@@ -398,7 +398,7 @@
       DTS:refId="Package.PrecedenceConstraints[Constraint]"
       DTS:CreationName=""
       DTS:DTSID="{7859B5C5-23C0-4693-B899-862099CA032A}"
-      DTS:From="Package\Trunc data"
+      DTS:From="Package\Delete data"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
       DTS:To="Package\Upload data" />
@@ -416,8 +416,8 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="140,42"
-          Id="Package\Trunc data"
+          Size="133,42"
+          Id="Package\Delete data"
           TopLeft="109,34" />
         <NodeLayout
           Size="136,42"
@@ -425,7 +425,7 @@
           TopLeft="110,130" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="178.5,76">
+          TopLeft="176.75,76">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"

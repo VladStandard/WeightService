@@ -17,6 +17,8 @@ Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "IntegrationServicesScales",
 EndProject
 Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "IntegrationServicesAdventureWorks", "IntegrationServicesAdventureWorks\IntegrationServicesAdventureWorks.dtproj", "{41848B15-0135-4D50-9C1B-DF97280EAEB0}"
 EndProject
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "IntegrationServicesDwh", "IntegrationServicesDwh\IntegrationServicesDwh.dtproj", "{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,30 @@ Global
 		{41848B15-0135-4D50-9C1B-DF97280EAEB0}.Release|x64.Build.0 = Development
 		{41848B15-0135-4D50-9C1B-DF97280EAEB0}.Release|x86.ActiveCfg = Development
 		{41848B15-0135-4D50-9C1B-DF97280EAEB0}.Release|x86.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Debug|Any CPU.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Debug|Any CPU.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Debug|x64.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Debug|x64.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Debug|x86.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Debug|x86.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Dev|Any CPU.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Dev|Any CPU.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Dev|x64.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Dev|x64.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Dev|x86.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Dev|x86.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Development|Any CPU.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Development|Any CPU.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Development|x64.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Development|x64.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Development|x86.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Development|x86.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Release|Any CPU.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Release|Any CPU.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Release|x64.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Release|x64.Build.0 = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Release|x86.ActiveCfg = Development
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A}.Release|x86.Build.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,9 +114,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{2174335D-107D-494E-9D13-3195A7C13C70} = {0B5EDA20-9D65-4E6E-90F8-2C57BEEE4463}
 		{41848B15-0135-4D50-9C1B-DF97280EAEB0} = {0B5EDA20-9D65-4E6E-90F8-2C57BEEE4463}
+		{0DAA4CB0-783E-4816-B81E-AC4C66925C8A} = {0B5EDA20-9D65-4E6E-90F8-2C57BEEE4463}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
