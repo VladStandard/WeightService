@@ -1,49 +1,27 @@
 ------------------------------------------------------------------------------------------------------------------------
---Update-2022-03-05 - Contragents
+--Update-2022-03-11 - NomenclatureGroups
 ------------------------------------------------------------------------------------------------------------------------
 -- SQLSRSP01\LEEDS OR CREATIO\INS1
 DECLARE @LAST_ID BIGINT
 SET @LAST_ID = -9223372036633886334
-DECLARE @SELECT_FN_GET_CONTRAGENTS BIT = 1
+DECLARE @SELECT_FN_GET_NOMENCLATURE_GROUPS BIT = 1
 DECLARE @SELECT_DIM_CONTRAGENTS BIT = 0
 DECLARE @TEST_INSERT BIT = 0
 DECLARE @UPDATE_DIM_CONTRAGENTS BIT = 0
 ------------------------------------------------------------------------------------------------------------------------
 -- SQLDBEP01\YORK + [meat_vs_prod]
-IF (@SELECT_FN_GET_CONTRAGENTS = 1) BEGIN
-	SELECT 
-		 CAST([ID] AS VARBINARY(36)) [MEAT_CODE_IN_IS]
-		,[Marked] [MEAT_MARKED]
-		,[Code] [MEAT_CODE]
-		,[Description] [MEAT_DESCRIPTION]
-		,[FullName] [MEAT_FULL_NAME]
-		,[IsBuyer] [MEAT_IS_BUYER]
-		,[IsSupplier] [MEAT_IS_SUPPLIER]
-		,[GLN] [MEAT_GLN]
-		,[GUID_Mercury] [MEAT_GUID_MERCURY]
-		,[INN] [MEAT_INN]
-		,[KPP] [MEAT_KPP]
-		,[Comment] [MEAT_COMMENT]
-		,[Parents] [MEAT_PARENTS]
-		,CAST([OKPO] AS NVARCHAR(10)) [MEAT_OKPO_LEN10]
-		,CAST([ContragentType] AS NVARCHAR(10)) [MEAT_CONTRAGENT_TYPE_LEN10]
-		,[VerID] [MEAT_VER_ID]
-		,[ManagerID] [MEAT_MANAGER_ID]
-		,[ContactInfo] [MEAT_CONTACT_INFO]
-		,CAST([ContactInfo] AS XML) [MEAT_CONTACT_INFO_XML]
-		,[NumberDebtDays] [MEAT_NUMBER_DEBT_DAYS]
-		,[AmountDue] [MEAT_AMOUNT_DUE]
-		,[DaysDeferment] [MEAT_DAYS_DEFERMENT]
-		,[CommercialNetworkName] [MEAT_COMMERCIAL_NETWORK_NAME]
-		,[CommercialNetworkID] [MEAT_COMMERCIAL_NETWORK_ID]
-		,0 [MEAT_RELEVANCE_STATUS] -- Unknown
-		,0 [MEAT_NORMALIZATION_STATUS] -- NotNormilized
-		,1 [MEAT_INFORMATION_SYSTEM_ID]
-		,GETDATE() [MEAT_CREATE_DT]
-		,GETDATE() [MEAT_CHANGE_DT]
-	FROM [Source1C].[fnGetContragents](9223372036854775807) [FN_GET_CONTRAGENTS]
-	--WHERE [FN_GET_CONTRAGENTS].[Code] = 'жад001627'
-	ORDER BY [MEAT_DESCRIPTION]
+IF (@SELECT_FN_GET_NOMENCLATURE_GROUPS = 1) BEGIN
+SELECT 
+	 CAST([ID] AS VARBINARY(16)) [MEAT_CODE_IN_IS]
+	,[Code] [MEAT_CODE]
+	,[Description] [MEAT_DESCRIPTION]
+	,[VerID] [MEAT_VER_ID]
+	,1 [MEAT_STATUS_ID]
+	,1 [MEAT_INFORMATION_SYSTEM_ID]
+	,GETDATE() [MEAT_CREATE_DT]
+	,GETDATE() [MEAT_CHANGE_DT]
+FROM [Source1C].[fnGetNomenclatureGroups](9223372036854775807) [FN_GET_NOMENCLATURE_GROUPS]
+ORDER BY [MEAT_DESCRIPTION]
 END
 ------------------------------------------------------------------------------------------------------------------------
 -- CREATIO\INS1 + VSDWH
