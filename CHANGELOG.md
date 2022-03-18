@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.300] - 2022-03-18
+### Removed
+- IntegrationServices
+- SqlScripts
+
 ## [0.6.270] - 2022-03-05
 ### Added
 - IntegrationServicesAdventureWorks
