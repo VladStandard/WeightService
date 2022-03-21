@@ -165,9 +165,6 @@ namespace DataCore
             public static string TableActionSave => Lang == ShareEnums.Lang.English ? @"Save" : @"Сохранить";
             public static string TableActionsIsDeny => Lang == ShareEnums.Lang.English ? @"___" : @"Действия недоступны";
             public static string TableFieldAccessLevel => Lang == ShareEnums.Lang.English ? @"___" : @"Уровень доступа";
-            public static string TableFieldAccessLevelNo => Lang == ShareEnums.Lang.English ? @"No access" : @"Нет доступа";
-            public static string TableFieldAccessLevelRead => Lang == ShareEnums.Lang.English ? @"Read access" : @"Доступ на чтение";
-            public static string TableFieldAccessLevelWrite => Lang == ShareEnums.Lang.English ? @"Write access" : @"Доступ на запись";
             public static string TableFieldActive => Lang == ShareEnums.Lang.English ? @"___" : @"Активно";
             public static string TableFieldApp => Lang == ShareEnums.Lang.English ? @"___" : @"Программа";
             public static string TableFieldBarCodeTypeId => Lang == ShareEnums.Lang.English ? @"___" : @"ID типа ШК";
@@ -222,6 +219,7 @@ namespace DataCore
             public static string TableFieldLogType => Lang == ShareEnums.Lang.English ? @"Log type" : @"Тип лога";
             public static string TableFieldLowerWeightThreshold => Lang == ShareEnums.Lang.English ? @"Lower value of the box weight" : @"Нижнее значение веса короба";
             public static string TableFieldMarked => Lang == ShareEnums.Lang.English ? @"In the archive" : @"В архиве";
+            public static string TableFieldMarkedShort => Lang == ShareEnums.Lang.English ? @"x" : @"х";
             public static string TableFieldMember => Lang == ShareEnums.Lang.English ? @"Method" : @"Метод";
             public static string TableFieldMessage => Lang == ShareEnums.Lang.English ? @"Message" : @"Сообщение";
             public static string TableFieldModifiedDate => Lang == ShareEnums.Lang.English ? @"Edit date" : @"Дата редактирования";
@@ -237,8 +235,8 @@ namespace DataCore
             public static string TableFieldPackTypeId => Lang == ShareEnums.Lang.English ? @"Package type ID" : @"ID типа упаковки";
             public static string TableFieldPackWeight => Lang == ShareEnums.Lang.English ? @"Package weight" : @"Вес упаковки";
             public static string TableFieldPlu => Lang == ShareEnums.Lang.English ? @"PLU" : @"ПЛУ";
-            public static string TableFieldPluNumber => Lang == ShareEnums.Lang.English ? @"# PLU" : @"№ ПЛУ";
             public static string TableFieldPluDescription => Lang == ShareEnums.Lang.English ? @"Use the `|` symbol to move the line." : @"Для переноса строки используйте символ `|`";
+            public static string TableFieldPluNumber => Lang == ShareEnums.Lang.English ? @"# PLU" : @"№ ПЛУ";
             public static string TableFieldPrinter => Lang == ShareEnums.Lang.English ? @"Printer" : @"Принтер";
             public static string TableFieldPrinterControlPanel => Lang == ShareEnums.Lang.English ? @"Printer control panel" : @"Панель управления принтером";
             public static string TableFieldPrinterDarknessLevel => Lang == ShareEnums.Lang.English ? @"Level of darkness" : @"Уровень темноты";

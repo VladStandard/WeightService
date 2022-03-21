@@ -10,7 +10,9 @@
     @if (IsShowMarkedFilter)
     {
         <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Text=@LocalizationCore.Strings.ActionIsShowMarked />
-        <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@IsShowMarkedItems Change=@(args => OnChange(args, nameof(IsShowMarkedItems))) />
+        <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@IsShowMarkedItems
+            Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
+        />
     }
     <RadzenButton 
         Style="margin-top: 0px; margin-left: 50px; min-width: 80px; width: 5%; height: 30px; font-size: 12px; "

@@ -8,35 +8,35 @@
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-        @if (ButtonSettings.IsShowNew && AppSettings.IsDebug)
+        @if (ButtonSettings.IsShowNew && (byte)UserSettings.Identity.AccessRights > (byte)AccessRights.Write)
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.New, false))
                 ButtonStyle="ButtonStyle.Primary"
                 Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                 Text=@LocalizationData.DeviceControl.TableActionNew Disabled=@AppSettings.DataAccess.IsDisabled />
         }
-        @if (ButtonSettings.IsShowEdit)
+        @if (ButtonSettings.IsShowEdit && (byte)UserSettings.Identity.AccessRights > (byte)AccessRights.Read)
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
                 ButtonStyle="ButtonStyle.Primary"
                 Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                 Text=@LocalizationData.DeviceControl.TableActionEdit Disabled=@AppSettings.DataAccess.IsDisabled />
         }
-        @if (ButtonSettings.IsShowCopy && AppSettings.IsDebug)
+        @if (ButtonSettings.IsShowCopy && (byte)UserSettings.Identity.AccessRights > (byte)AccessRights.Write)
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.Copy, false))
                 ButtonStyle="ButtonStyle.Primary"
                 Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                 Text=@LocalizationData.DeviceControl.TableActionCopy Disabled=@AppSettings.DataAccess.IsDisabled />
         }
-        @if (ButtonSettings.IsShowMark)
+        @if (ButtonSettings.IsShowMark && (byte)UserSettings.Identity.AccessRights > (byte)AccessRights.Read)
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.Mark, false))
                 ButtonStyle="ButtonStyle.Primary"
                 Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                 Text=@LocalizationData.DeviceControl.TableActionMark Disabled=@AppSettings.DataAccess.IsDisabled />
         }
-        @if (ButtonSettings.IsShowDelete && AppSettings.IsDebug)
+        @if (ButtonSettings.IsShowDelete && (byte)UserSettings.Identity.AccessRights > (byte)AccessRights.Write)
         {
             <RadzenButton Click=@(args => ActionAsync(UserSettings, DbTableAction.Delete, false))
                 ButtonStyle="ButtonStyle.Primary"

@@ -673,6 +673,12 @@ namespace DataCore.DAL.Models
 
             switch (item)
             {
+                case AccessEntity access:
+                    ExecuteTransaction((session) =>
+                    {
+                        session.Save(access);
+                    }, filePath, lineNumber, memberName);
+                    break;
                 case BarcodeTypeEntity barcodeType:
                     ExecuteTransaction((session) =>
                     {

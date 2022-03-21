@@ -3,6 +3,7 @@
 @using DataCore.Utils
 @using BlazorDeviceControl.Shared.Component
 @using BlazorCore
+@using static DataCore.ShareEnums
 @inherits RazorDisposable
 
 <ActionsReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync Items=@Items />
@@ -168,17 +169,20 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.Main.AuthorizingAccessLevel</td>
-            @switch (UserSettings.Identity.AccessLevel)
+            <td>@LocalizationCore.Strings.Main.AccessRights</td>
+            @switch (UserSettings.Identity.AccessRights)
             {
-                case null:
-                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelNull</MudElement></td>
+                case AccessRights.None:
+                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AccessRightsNone</MudElement></td>
                     break;
-                case false:
-                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelFalse</MudElement></td>
+                case AccessRights.Read:
+                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AccessRightsRead</MudElement></td>
                     break;
-                case true:
-                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AuthorizingAccessLevelTrue</MudElement></td>
+                case AccessRights.Write:
+                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AccessRightsWrite</MudElement></td>
+                    break;
+                case AccessRights.Admin:
+                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AccessRightsAdmin</MudElement></td>
                     break;
             }
         </tr>
@@ -191,11 +195,12 @@
             else
             {
                 <td>
-                    <RadzenDropDown Style="width: 20%;" TValue="ShareEnums.Lang" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                    AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                                    Data=@TemplateLanguages PageSize="5" TextProperty="Name" ValueProperty="Value"
-                                    Value=@LocalizationCore.Lang Change=@(args => OnChange(args, nameof(TemplateLanguages))) 
-                                    Disabled=false />
+                    <RadzenDropDown Style="width: 20%;" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        Disabled=false TValue=@ShareEnums.Lang
+                        AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
+                        Data=@TemplateLanguages PageSize="5" TextProperty="Name" ValueProperty="Value"
+                        Value=@LocalizationCore.Lang Change=@(args => OnChange(args, nameof(TemplateLanguages))) 
+                    />
                 </td>
             }
         </tr>
@@ -208,11 +213,13 @@
             else
             {
                 <td>
-                    <RadzenDropDown Style="width: 20%;" TValue="bool" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                    AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                                    Data=@TemplateIsDebug PageSize="5" TextProperty="Name" ValueProperty="Value"
-                                    Value=@AppSettings.DataAccess.JsonSettings.IsDebug Change=@(args => OnChange(args, nameof(TemplateIsDebug)))
-                                    Disabled=true />
+                    <RadzenDropDown Style="width: 20%;" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        Disabled=true TValue="bool" 
+                        AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
+                        Data=@TemplateIsDebug PageSize="5" TextProperty="Name" ValueProperty="Value"
+                        Value=@AppSettings.DataAccess.JsonSettings.IsDebug 
+                        Change=@(args => OnChange(args, nameof(TemplateIsDebug)))
+                    />
                 </td>
             }
         </tr>

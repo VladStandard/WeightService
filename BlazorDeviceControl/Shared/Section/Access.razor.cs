@@ -3,15 +3,12 @@
 
 using DataCore;
 using DataCore.DAL.Models;
-using DataCore.DAL;
+using DataCore.DAL.TableScaleModels;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataCore.DAL.TableScaleModels;
-using DataCore.Models;
-using BlazorCore.Models;
 
 namespace BlazorDeviceControl.Shared.Section
 {
@@ -40,33 +37,18 @@ namespace BlazorDeviceControl.Shared.Section
                         ButtonSettings = new();
                     }
                     await GuiRefreshWithWaitAsync();
-                    
+
                     lock (_locker)
                     {
                         if (AppSettings.DataAccess != null)
                         {
-                            object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                                SqlQueries.DbServiceManaging.Tables.Access.GetAccess);
-                            Items = new List<AccessEntity>().ToList<BaseEntity>();
-                            foreach (object obj in objects)
-                            {
-                                if (obj is object[] { Length: 5 } item)
-                                {
-                                    if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
-                                    {
-                                        Items.Add(new AccessEntity()
-                                        {
-                                            Uid = uid,
-                                            CreateDt = Convert.ToDateTime(item[1]),
-                                            ChangeDt = Convert.ToDateTime(item[2]),
-                                            User = Convert.ToString(item[3]),
-                                            Level = item[4] == null ? null : Convert.ToBoolean(item[4]),
-                                        });
-                                    }
-                                }
-                            }
+                            Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
+                                (IsShowMarkedItems == true) ? null
+                                    : new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.IsMarked.ToString(), false } }),
+                                new FieldOrderEntity(ShareEnums.DbField.User, ShareEnums.DbOrderDirection.Asc)
+                            )?.ToList<BaseEntity>();
                         }
-                        ButtonSettings = new(false, false, true, true, true, false, false);
+                        ButtonSettings = new(true, false, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

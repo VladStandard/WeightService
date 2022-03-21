@@ -1,0 +1,65 @@
+﻿@page "/item/access"
+@page "/item/access/{UidStr}"
+@page "/item/access/{UidStr}/{TableActionString}"
+@using BlazorCore.Models
+@using DataCore
+@using DataCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Section
+@using BlazorCore
+@inherits RazorDisposable
+
+@if (ItemCast == null)
+{
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemPrinterType SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <thead>
+            <tr>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldUid</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@UidStr />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
+                </td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldUser</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@ItemCast.User />
+				</td>
+                <td>@LocalizationCore.Strings.Main.AccessRights</td>
+                <td>
+                    <RadzenDropDown Style="width: 100%;" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        Disabled=false TValue=@ShareEnums.AccessRights
+                        AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
+                        Data=@TemplateAccessRights PageSize="5" TextProperty="Name" ValueProperty="Value"
+                        Value=@Rights Change=@(args => OnChange(args, Table, ItemCast)) 
+                    />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}

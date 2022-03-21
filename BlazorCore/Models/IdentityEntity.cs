@@ -2,28 +2,36 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System;
+using static DataCore.ShareEnums;
 
 namespace BlazorCore.Models
 {
     public class IdentityEntity
     {
         public string Name { get; set; }
-        public bool? AccessLevel { get; set; }
-        public bool IsAccess => AccessLevel == true;
-
-        public IdentityEntity(string name, bool? accessLevel = null)
+        public AccessRights AccessRights { get; private set; }
+        public void SetAccessRights(AccessRights accessRights)
         {
-            Name = name;
-            AccessLevel = accessLevel;
+            AccessRights = accessRights;
+        }
+        public void SetAccessRights(byte accessRights)
+        {
+            AccessRights = (AccessRights)accessRights;
         }
 
-        public IdentityEntity() : this(string.Empty, null) { }
+        public IdentityEntity(string name, AccessRights accessRights)
+        {
+            Name = name;
+            AccessRights = accessRights;
+        }
+
+        public IdentityEntity() : this(string.Empty, AccessRights.None) { }
 
         public override string ToString()
         {
             return
                 $"{nameof(Name)}: {Name}. " + Environment.NewLine +
-                AccessLevel == null ? $"{nameof(AccessLevel)}: null. " : $"{nameof(AccessLevel)}: {AccessLevel}. ";
+                AccessRights == null ? $"{nameof(AccessRights)}: null. " : $"{nameof(AccessRights)}: {AccessRights}. ";
         }
     }
 }

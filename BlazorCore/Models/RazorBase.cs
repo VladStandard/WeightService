@@ -32,6 +32,11 @@ namespace BlazorCore.Models
 
         [Parameter] public long? Id { get; set; } = null;
         [Parameter] public Guid? Uid { get; set; } = null;
+        [Parameter] public string UidStr
+        {
+            get => Item == null ? string.Empty : Item.Uid.ToString();
+            set => Uid = string.IsNullOrEmpty(value) ? null : Guid.Parse(value);
+        }
         [Parameter] public RazorBase? ParentRazor { get; set; } = null;
         public BaseEntity? Item { get; set; } = null;
         [Parameter] public List<BaseEntity>? Items { get; set; } = null;
@@ -70,8 +75,26 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public void OnChange(object value, TableBase table, BaseEntity? item,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void OnChangeCheckBox(object value, string name)
+        {
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
+                new Task(async () =>
+                {
+                    lock (_locker)
+                    {
+                        switch (name)
+                        {
+                            case nameof(IsShowMarkedItems):
+                                if (value is bool isShowMarkedItems)
+                                    IsShowMarkedItems = isShowMarkedItems;
+                                break;
+                        }
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true);
+        }
+
+        public void OnChange(object value, TableBase table, BaseEntity? item)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
@@ -102,6 +125,13 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableSystem.Default:
                     break;
                 case ProjectsEnums.TableSystem.Accesses:
+                    if (Item is AccessEntity access)
+                    {
+                        if (value is AccessRights rights)
+                        {
+                            access.Rights = (byte)rights;
+                        }
+                    }
                     break;
                 case ProjectsEnums.TableSystem.Errors:
                     break;
@@ -987,6 +1017,8 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableSystem.Default:
                     break;
                 case ProjectsEnums.TableSystem.Accesses:
+                    if (ParentRazor?.Item != null)
+                        ItemSaveCheck.Access(NotificationService, (AccessEntity)ParentRazor.Item, Uid, TableAction);
                     break;
                 case ProjectsEnums.TableSystem.Logs:
                     break;
@@ -1124,9 +1156,9 @@ namespace BlazorCore.Models
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            if (userSettings.Identity.AccessLevel != true)
+            if ((byte)userSettings.Identity.AccessRights < (byte)AccessRights.Write)
                 return;
-            switch (tableAction)
+            switch (TableAction = tableAction)
             {
                 case DbTableAction.Delete:
                     RunTasksWithQeustion(LocalizationCore.Strings.TableDelete, LocalizationCore.Strings.DialogResultSuccess,
@@ -1142,7 +1174,7 @@ namespace BlazorCore.Models
                     RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                         new Task(async () =>
                         {
-                            if (userSettings.Identity.AccessLevel != true)
+                            if ((byte)userSettings.Identity.AccessRights < (byte)AccessRights.Write)
                                 return;
                             switch (tableAction)
                             {

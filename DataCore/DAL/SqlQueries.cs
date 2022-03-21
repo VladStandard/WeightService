@@ -31,27 +31,30 @@ FROM [SYS].[DATABASE_FILES]
             {
                 public static class Access
                 {
-                    public static string GetAccess => @"
+                    public static string GetAccessRightsAll => @"
 -- Table Access
 SELECT
-	[UID]
-   ,[CREATE_DT]
-   ,[CHANGE_DT]
-   ,[USER]
-   ,[LEVEL]
+	 [UID]
+	,[CREATE_DT]
+	,[CHANGE_DT]
+	,[IS_MARKED]
+	,[USER]
+	,[RIGHTS]
 FROM [DB_SCALES].[ACCESS]
 ORDER BY [USER] ASC
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                    public static string GetAccessUser(string userName) => @$"
-select
+                    public static string GetAccessRights(string userName) => @$"
+-- Table Access
+SELECT
 	 [UID]
 	,[CREATE_DT]
 	,[CHANGE_DT]
+	,[IS_MARKED]
 	,[USER]
-	,[LEVEL]
-from [db_scales].[ACCESS]
-where [USER]=N'{userName}'
+	,[RIGHTS]
+FROM [DB_SCALES].[ACCESS]
+WHERE [USER]=N'{userName}'
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
 

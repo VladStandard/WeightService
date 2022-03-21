@@ -39,6 +39,17 @@ namespace BlazorCore.Models
             };
         }
 
+        public List<TypeEntity<ShareEnums.AccessRights>> GetTemplateAccessRights()
+        {
+            return new()
+            {
+                new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.None}", ShareEnums.AccessRights.None),
+                new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Read}", ShareEnums.AccessRights.Read),
+                new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Write}", ShareEnums.AccessRights.Write),
+                new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Admin}", ShareEnums.AccessRights.Admin),
+            };
+        }
+
         public List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguages()
         {
             return LocalizationCore.Lang switch
@@ -53,8 +64,8 @@ namespace BlazorCore.Models
         {
             return new()
             {
-                new TypeEntity<ShareEnums.Lang>("English", ShareEnums.Lang.English),
-                new TypeEntity<ShareEnums.Lang>("Russian", ShareEnums.Lang.Russian),
+                new TypeEntity<ShareEnums.Lang>($"{ShareEnums.Lang.English}", ShareEnums.Lang.English),
+                new TypeEntity<ShareEnums.Lang>($"{ShareEnums.Lang.Russian}", ShareEnums.Lang.Russian),
             };
         }
 

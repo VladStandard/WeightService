@@ -8,15 +8,23 @@ using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
 {
-    public partial class Nomenclature
+    public partial class Access
     {
         #region Public and private fields and properties
 
-        public NomenclatureEntity? ItemCast { get => Item == null ? null : (NomenclatureEntity)Item; set => Item = value; }
+        public AccessEntity? ItemCast { get => Item == null ? null : (AccessEntity)Item; set => Item = value; }
         private readonly object _locker = new();
+        public List<TypeEntity<AccessRights>>? TemplateAccessRights { get; set; }
+        public AccessRights Rights
+        {
+            get => ItemCast == null ? AccessRights.None : (AccessRights)ItemCast.Rights;
+            set { if (ItemCast != null) ItemCast.Rights = (byte)value; }
+        }
+
 
         #endregion
 
@@ -26,8 +34,10 @@ namespace BlazorDeviceControl.Shared.Item
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
+                new Task(async () =>
+                {
+                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+                    TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
 
                     lock (_locker)
                     {
@@ -38,11 +48,9 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
                             new FieldListEntity(new Dictionary<string, object?>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
-                            ItemCast.Id = (long)Id;
+                            { { ShareEnums.DbField.Uid.ToString(), Uid } }), null);
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

@@ -33,13 +33,11 @@ namespace BlazorDeviceControl.Shared
                 {
                     lock (_locker)
                     {
-                        //AppSettings.SetupJsonSettings(JsonSettings);
                         UserSettings.SetupHotKeys(HotKeysItem);
                         if (UserSettings.HotKeys != null)
                             UserSettings.HotKeysContext = UserSettings.HotKeys.CreateContext()
                                 .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
-                        //UserSettings.SetupIdentity();
-                        UserSettings.SetupUserAccessLevel(AppSettings.DataAccess);
+                        UserSettings.SetupAccessRights(AppSettings.DataAccess);
                     }
                 }), true);
 

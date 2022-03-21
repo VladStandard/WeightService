@@ -11,6 +11,14 @@ namespace DataCore
             Russian
         }
 
+        public enum AccessRights
+        {
+            None = 0,
+            Read = 1,
+            Write = 2,
+            Admin = 3,
+        }
+
         // https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxicon?view=net-5.0
         // SELECT * FROM [SCALES].[db_scales].[LOG_TYPES]
         // https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
@@ -50,13 +58,6 @@ namespace DataCore
             Dev,
             Debug,
             Release
-        }
-
-        public enum AccessRights
-        {
-            Admin,
-            User,
-            Guest
         }
 
         public enum DbTableAction
@@ -115,6 +116,7 @@ namespace DataCore
             Description,
             GoodsName,
             Id,
+            IsMarked,
             Marked,
             ModifiedDate,
             Name,
@@ -126,6 +128,7 @@ namespace DataCore
             Title,
             Type,
             Uid,
+            User,
             Value,
             WeithingDate,
         }

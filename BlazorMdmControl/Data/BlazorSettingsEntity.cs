@@ -31,7 +31,7 @@ namespace MdmControlBlazor.Data
         public TooltipService Tooltip { get; private set; }
         public DataAccessEntity SqlDataAccess { get; set; }
         public IJSRuntime JsRuntime { get; set; }
-        public ShareEnums.AccessRights AccessRights { get; set; }
+        //public ShareEnums.AccessRights AccessRights { get; set; }
         public bool ChartSmooth { get; set; }
         public int Delay { get; } = 5_000;
         public DataCore.MemoryEntity Memory { get; set; }
@@ -94,7 +94,7 @@ namespace MdmControlBlazor.Data
             AppSettingsEntity appSettings = new(dataAccessService.Server, dataAccessService.Db, dataAccessService.Trusted, dataAccessService.Username, dataAccessService.Password);
             SqlDataAccess = new DataAccessEntity(appSettings);
             Notification = notification;
-            AccessRights = ShareEnums.AccessRights.Guest;
+            //AccessRights = ShareEnums.AccessRights.Guest;
             Dialog = dialog;
             Navigation = navigation;
             ChartSmooth = false;

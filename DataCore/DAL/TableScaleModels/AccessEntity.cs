@@ -12,8 +12,9 @@ namespace DataCore.DAL.TableScaleModels
 
         public virtual DateTime CreateDt { get; set; }
         public virtual DateTime ChangeDt { get; set; }
-        public virtual string? User { get; set; } = null;
-        public virtual bool? Level { get; set; } = null;
+        public virtual bool IsMarked { get; set; } = false;
+        public virtual string User { get; set; } = string.Empty;
+        public virtual byte Rights { get; set; } = 0;
 
         #endregion
 
@@ -34,8 +35,9 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Uid)}: {Uid}. " +
                    $"{nameof(CreateDt)}: {CreateDt}. " +
                    $"{nameof(ChangeDt)}: {ChangeDt}. " +
+                   $"{nameof(IsMarked)}: {IsMarked}. " +
                    $"{nameof(User)}: {User}. " +
-                   $"{nameof(Level)}: {Level}. ";
+                   $"{nameof(Rights)}: {Rights}. ";
         }
 
         public virtual bool Equals(AccessEntity entity)
@@ -45,8 +47,9 @@ namespace DataCore.DAL.TableScaleModels
             return base.Equals(entity) &&
                    Equals(CreateDt, entity.CreateDt) &&
                    Equals(ChangeDt, entity.ChangeDt) &&
+                   Equals(IsMarked, entity.IsMarked) &&
                    Equals(User, entity.User) &&
-                   Equals(Level, entity.Level);
+                   Equals(Rights, entity.Rights);
         }
 
         public override bool Equals(object obj)
@@ -72,8 +75,9 @@ namespace DataCore.DAL.TableScaleModels
             return base.EqualsDefault() &&
                    Equals(CreateDt, default(DateTime)) &&
                    Equals(ChangeDt, default(DateTime)) &&
-                   Equals(User, default(string)) &&
-                   Equals(Level, default(bool?));
+                   Equals(IsMarked, false) &&
+                   Equals(User, string.Empty) &&
+                   Equals(Rights, 0);
         }
 
         public override object Clone()
@@ -84,8 +88,9 @@ namespace DataCore.DAL.TableScaleModels
                 Uid = Uid,
                 CreateDt = CreateDt,
                 ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 User = User,
-                Level = Level,
+                Rights = Rights,
             };
         }
 

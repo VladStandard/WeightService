@@ -20,6 +20,27 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
+        public void Access(NotificationService notificationService, AccessEntity access, Guid? uid, DbTableAction tableAction)
+        {
+            if (uid == null)
+                return;
+            bool success = FieldControl.ProcessChecks(notificationService, access, LocalizationCore.Strings.Main.AccessRights);
+            if (success)
+            {
+                access.ChangeDt = DateTime.Now;
+                if (tableAction == DbTableAction.New)
+                {
+                    access.CreateDt = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(access);
+                }
+                else
+                {
+                    access.Uid = (Guid)uid;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(access);
+                }
+            }
+        }
+
         public void BarcodeType(NotificationService notificationService, BarcodeTypeEntity barcodeType, long? id, DbTableAction tableAction)
         {
             if (id == null)

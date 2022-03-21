@@ -8,20 +8,23 @@
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
 @using BlazorCore
+@using static DataCore.ShareEnums
 @inherits RazorDisposable
 
 @if (ItemsCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this 
+        Title=@LocalizationCore.Strings.SysAccess SetParameters=@SetParametersAsync 
         Items=@Items IsShowItemsCount=true IsShowMarkedFilter=true />
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="AccessEntity"
         RowSelect=@(args => ItemSelectAsync(args))
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns >
@@ -41,25 +44,37 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" Property="User" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="30%" />
+            @if (IsShowMarkedItems)
+            {
+                <RadzenGridColumn TItem="AccessEntity" Property="IsMarked" TextAlign="TextAlign.Center"
+                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="string" Width="5%">
+                    <Template Context="accessItem">
+                        <RadzenCheckBox Disabled=true TValue="bool" @bind-Value=@accessItem.IsMarked />
+                    </Template>
+                </RadzenGridColumn>
+            }
             <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="30%">
                 <Template Context="accessItem">
-                    @if (accessItem.Level == null)
+                    @switch(accessItem.Rights)
                     {
-                        <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelNo Disabled=false ReadOnly=true />
-                    }
-                    else if (accessItem.Level == false)
-                    {
-                        <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelRead Disabled=false ReadOnly=true />
-                    }
-                    else if (accessItem.Level == true)
-                    {
-                        <RadzenLabel Text=@LocalizationData.DeviceControl.TableFieldAccessLevelWrite Disabled=false ReadOnly=true />
+                        default:
+                            <RadzenLabel Text=@LocalizationCore.Strings.Main.AccessRightsNone Disabled=false ReadOnly=true />
+                            break;
+                        case 1:
+                            <RadzenLabel Text=@LocalizationCore.Strings.Main.AccessRightsRead Disabled=false ReadOnly=true />
+                            break;
+                        case 2:
+                            <RadzenLabel Text=@LocalizationCore.Strings.Main.AccessRightsWrite Disabled=false ReadOnly=true />
+                            break;
+                        case 3:
+                            <RadzenLabel Text=@LocalizationCore.Strings.Main.AccessRightsAdmin Disabled=false ReadOnly=true />
+                            break;
                     }
                 </Template>
             </RadzenGridColumn>
         </Columns>
     </RadzenGrid>
 
-    <ActionsButtons ParentRazor=@this />
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
 }

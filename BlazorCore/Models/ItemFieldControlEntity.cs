@@ -28,6 +28,9 @@ namespace BlazorCore.Models
             string detailAddition = Environment.NewLine;
             switch (item)
             {
+                case AccessEntity access:
+                    Access(ref result, ref detailAddition, access);
+                    break;
                 case BarcodeTypeEntity barCodeType:
                     BarcodeType(ref result, ref detailAddition, barCodeType);
                     break;
@@ -106,6 +109,22 @@ namespace BlazorCore.Models
                 return false;
             }
             return true;
+        }
+
+        public void Access(ref bool result, ref string detailAddition, AccessEntity access)
+        {
+            if (access.EqualsDefault())
+                result = false;
+            if (string.IsNullOrEmpty(access.User))
+            {
+                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldUser}" + Environment.NewLine;
+                result = false;
+            }
+            if (access.Rights < 0 || access.Rights > 3)
+            {
+                detailAddition += $"{LocalizationCore.Strings.FieldIsNotInRange}: {LocalizationCore.Strings.Main.AccessRights}" + Environment.NewLine;
+                result = false;
+            }
         }
 
         public void BarcodeType(ref bool result, ref string detailAddition, BarcodeTypeEntity barCodeType)
