@@ -1,6 +1,0 @@
-﻿CREATE USER [OwnerUser]
-	WITHOUT LOGIN
-	WITH DEFAULT_SCHEMA = dbo
-
-GO
-

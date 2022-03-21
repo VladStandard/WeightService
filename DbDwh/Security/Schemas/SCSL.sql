@@ -1,5 +1,0 @@
-﻿CREATE SCHEMA [SCSL]
-AUTHORIZATION [OwnerUser];
-
-GO
-
