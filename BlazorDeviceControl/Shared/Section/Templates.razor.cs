@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
 {
@@ -50,8 +51,8 @@ namespace BlazorDeviceControl.Shared.Section
                             TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
                             if (AppSettings.DataAccess != null)
                                 Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                                    new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
+                                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
+                                    new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))
                                 ?.ToList<BaseEntity>();
                         }
                         else
@@ -59,10 +60,10 @@ namespace BlazorDeviceControl.Shared.Section
                             if (AppSettings.DataAccess != null)
                                 Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> {
-                                        { ShareEnums.DbField.Marked.ToString(), false },
-                                        { ShareEnums.DbField.CategoryId.ToString(), TemplateCategory },
+                                        { DbField.Marked.ToString(), false },
+                                        { DbField.CategoryId.ToString(), TemplateCategory },
                                     }),
-                                    new FieldOrderEntity(ShareEnums.DbField.CategoryId, ShareEnums.DbOrderDirection.Asc))
+                                    new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))
                                 ?.ToList<BaseEntity>();
                         }
                         ButtonSettings = new(true, true, true, true, true, false, false);

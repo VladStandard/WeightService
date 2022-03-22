@@ -13,7 +13,7 @@ namespace DataCore.DAL.TableScaleModels
             LazyLoad();
             Id(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
             Map(x => x.Number).CustomSqlType("tinyint").Column("NUMBER").Not.Nullable();
-            Map(x => x.Icon).CustomSqlType("NVARCHAR(32)").Column("ICON").Length(32).Not.Nullable();
+            Map(x => x.Icon).CustomSqlType("NVARCHAR").Column("ICON").Length(32).Not.Nullable();
         }
     }
 }

@@ -1,0 +1,69 @@
+﻿@page "/section/barcodes"
+@using BlazorCore.Models
+@using DataCore
+@using DataCore.DAL
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableScaleModels
+@using DataCore.Utils
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using BlazorCore
+@using static DataCore.ShareEnums
+@inherits RazorDisposable
+
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload ParentRazor=@this Items=@Items 
+        Title=@LocalizationData.DeviceControl.SectionBarCodeTypes SetParameters=@SetParametersAsync 
+        IsShowItemsCount=true IsShowMarkedFilter=true />
+    
+    <RadzenGrid Style="margin-top: 5px;" 
+        Data=@ItemsCast TItem="BarcodeTypeEntityV2"
+        RowSelect=@(args => ItemSelectAsync(args)) 
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
+        <Columns >
+            @if (@IsShowMarkedItems)
+            {
+                <RadzenGridColumn TItem="BarcodeTypeEntityV2" TextAlign="TextAlign.Center" 
+                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    <Template Context="itemCast">
+                        @if (itemCast.IsMarked)
+                        {
+                            <RadzenIcon Disabled=false ReadOnly=true Icon="delete" />
+                        }
+                        else
+                        {
+                            <RadzenIcon Disabled=false ReadOnly=true Icon="" />
+                        }
+                    </Template>
+                </RadzenGridColumn>
+            }
+            <RadzenGridColumn 
+                TItem="BarcodeTypeEntityV2" TextAlign="TextAlign.Center"
+                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
+                <Template Context="logItem">
+                    <RadzenDatePicker 
+                        TValue="string" Value=@logItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="BarcodeTypeEntityV2" TextAlign="TextAlign.Center"
+                    Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
+                <Template Context="logItem">
+                    <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="BarcodeTypeEntityV2" Property="Name" TextAlign="TextAlign.Left"
+                Title=@LocalizationData.DeviceControl.TableFieldName
+                Type="string" Width="60%" />
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

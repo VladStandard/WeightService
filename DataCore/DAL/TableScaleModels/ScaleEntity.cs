@@ -15,11 +15,12 @@ namespace DataCore.DAL.TableScaleModels
 
         public virtual DateTime CreateDate { get; set; } = default;
         public virtual DateTime ModifiedDate { get; set; } = default;
-        public virtual TemplateEntity? TemplateDefault { get; set; } = new TemplateEntity();
-        public virtual TemplateEntity? TemplateSeries { get; set; } = new TemplateEntity();
-        public virtual WorkshopEntity WorkShop { get; set; } = new WorkshopEntity();
-        public virtual PrinterEntity? Printer { get; set; } = new PrinterEntity();
-        public virtual HostEntity? Host { get; set; } = new HostEntity();
+        public virtual bool IsMarked { get; set; }
+        public virtual TemplateEntity? TemplateDefault { get; set; } = new();
+        public virtual TemplateEntity? TemplateSeries { get; set; } = new();
+        public virtual WorkshopEntity WorkShop { get; set; } = new();
+        public virtual PrinterEntity? Printer { get; set; } = new();
+        public virtual HostEntity? Host { get; set; } = new();
         public virtual string Description { get; set; } = string.Empty;
         public virtual Guid? IdRRef { get; set; } = null;
         public virtual string DeviceIp { get; set; } = string.Empty;
@@ -35,7 +36,6 @@ namespace DataCore.DAL.TableScaleModels
         public virtual string VerScalesUi { get; set; } = string.Empty;
         public virtual int? DeviceNumber { get; set; }
         public virtual int? ScaleFactor { get; set; }
-        public virtual bool Marked { get; set; }
 
         #endregion
 
@@ -80,7 +80,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(ScaleFactor)}: {ScaleFactor}. " +
                    $"{nameof(WorkShop)}: {strWorkShop}. " +
                    $"{nameof(Printer)}: {strPrinter}. " +
-                   $"{nameof(Marked)}: {Marked}. " +
+                   $"{nameof(IsMarked)}: {IsMarked}. " +
                    $"{nameof(Host)}: {strHost}. ";
         }
 
@@ -109,7 +109,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(ScaleFactor, entity.ScaleFactor) &&
                    WorkShop.Equals(entity.WorkShop) &&
                    Printer != null && entity.Printer != null && Printer.Equals(entity.Printer) &&
-                   Equals(Marked, entity.Marked) &&
+                   Equals(IsMarked, entity.IsMarked) &&
                    Host != null && entity.Host != null && Host.Equals(entity.Host);
         }
 
@@ -160,7 +160,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(VerScalesUi, default(string)) &&
                    Equals(DeviceNumber, default(int?)) &&
                    Equals(ScaleFactor, default(int?)) &&
-                   Equals(Marked, default(bool));
+                   Equals(IsMarked, default(bool));
         }
 
         public override object Clone()
@@ -190,7 +190,7 @@ namespace DataCore.DAL.TableScaleModels
                 VerScalesUi = VerScalesUi,
                 DeviceNumber = DeviceNumber,
                 ScaleFactor = ScaleFactor,
-                Marked = Marked,
+                IsMarked = IsMarked,
             };
         }
 

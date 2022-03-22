@@ -17,12 +17,13 @@
 }
 else
 {
-    <ActionsReload Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+    <ActionsReload ParentRazor=@this Items=@Items 
+        Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true />
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="ErrorEntity"
         RowSelect=@(args => ItemSelectAsync(args))
-        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns >

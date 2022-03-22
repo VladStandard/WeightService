@@ -9,11 +9,11 @@
 @*
 @if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionsLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.ItemDevice SetParameters=@SetParametersAsync />
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemDevice SetParameters=@SetParametersAsync />
 
     <RadzenCard Style="margin-bottom: 0px;">
         <div class="row" Style="margin-top: 0px; margin-left: 0px; margin-right: 0px; ">

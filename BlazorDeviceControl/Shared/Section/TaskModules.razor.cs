@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
 {
@@ -56,7 +57,7 @@ namespace BlazorDeviceControl.Shared.Section
                         {
                             TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
                                 new FieldListEntity(new Dictionary<string, object?> {
-                                { ShareEnums.DbField.Uid.ToString(), Uid },
+                                { DbField.Uid.ToString(), Uid },
                             }), null);
                             Items = TaskItem == null || TaskItem.EqualsDefault() == true
                                 ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)?.ToList<BaseEntity>()

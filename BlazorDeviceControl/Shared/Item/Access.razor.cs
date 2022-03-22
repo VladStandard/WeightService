@@ -6,6 +6,7 @@ using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
@@ -50,7 +51,12 @@ namespace BlazorDeviceControl.Shared.Item
                     {
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
                             new FieldListEntity(new Dictionary<string, object?>
-                            { { ShareEnums.DbField.Uid.ToString(), Uid } }), null);
+                            { { DbField.Uid.ToString(), Uid } }), null);
+                        if (Uid != null && TableAction == DbTableAction.New)
+                        {
+                            ItemCast.Uid = (Guid)Uid;
+                            ItemCast.User = "NEW USER";
+                        }
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

@@ -2,12 +2,14 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
     /// Таблица "ШК".
     /// </summary>
+    [Obsolete(@"Use BarcodeTypeEntityV2")]
     public class BarcodeTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
@@ -71,7 +73,7 @@ namespace DataCore.DAL.TableScaleModels
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Id = Id,
-                Name = Name
+                Name = Name,
             };
         }
 

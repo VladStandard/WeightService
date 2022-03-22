@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
 {
@@ -46,14 +47,14 @@ namespace BlazorDeviceControl.Shared.Section
                         {
                             Items = !IsShowMarkedItems
                                 ? AppSettings.DataAccess.Crud.GetEntities<PluEntity>(ScaleId != null
-                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", ScaleId }, { ShareEnums.DbField.Marked.ToString(), false } })
-                                    : new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                                        new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))?
+                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", ScaleId }, { DbField.Marked.ToString(), false } })
+                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
+                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))?
                                     .ToList<BaseEntity>()
                                 : AppSettings.DataAccess.Crud.GetEntities<PluEntity>(ScaleId != null
                                     ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", ScaleId } })
-                                    : new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                                        new FieldOrderEntity(ShareEnums.DbField.GoodsName, ShareEnums.DbOrderDirection.Asc))?
+                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
+                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))?
                                     .ToList<BaseEntity>()
                                 ;
                         }

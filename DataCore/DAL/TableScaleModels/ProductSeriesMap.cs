@@ -16,7 +16,7 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.CreateDate).CustomSqlType("DATETIME(2,7)").Column("CreateDate").Not.Nullable();
             Map(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UUID").Nullable();
             Map(x => x.IsClose).CustomSqlType("BIT").Column("IsClose").Nullable();
-            Map(x => x.Sscc).CustomSqlType("VARCHAR(50)").Column("SSCC").Length(50).Nullable();
+            Map(x => x.Sscc).CustomSqlType("VARCHAR").Column("SSCC").Length(50).Nullable();
         }
     }
 }

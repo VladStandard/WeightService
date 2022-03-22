@@ -31,10 +31,10 @@ namespace BlazorCore.Models
                 case AccessEntity access:
                     Access(ref result, ref detailAddition, access);
                     break;
-                case BarcodeTypeEntity barCodeType:
+                case BarcodeTypeEntityV2 barCodeType:
                     BarcodeType(ref result, ref detailAddition, barCodeType);
                     break;
-                case ContragentEntity contragent:
+                case ContragentEntityV2 contragent:
                     Contragent(ref result, ref detailAddition, contragent);
                     break;
                 case HostEntity host:
@@ -127,7 +127,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void BarcodeType(ref bool result, ref string detailAddition, BarcodeTypeEntity barCodeType)
+        public void BarcodeType(ref bool result, ref string detailAddition, BarcodeTypeEntityV2 barCodeType)
         {
             if (barCodeType.EqualsDefault())
                 result = false;
@@ -138,7 +138,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Contragent(ref bool result, ref string detailAddition, ContragentEntity contragent)
+        public void Contragent(ref bool result, ref string detailAddition, ContragentEntityV2 contragent)
         {
             if (contragent.EqualsDefault())
                 result = false;

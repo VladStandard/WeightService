@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -60,15 +61,14 @@ namespace BlazorDeviceControl.Shared.Item
                     lock (_locker)
                     {
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.Id.ToString(), Id } }), null);
+                        if (Id != null && TableAction == DbTableAction.New)
                             ItemCast.Id = (long)Id;
                         ScaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }), 
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }), 
                             null)?.ToList();
                         TemplateItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
                             null)?.ToList();
                         NomenclatureItems = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
                             null,
@@ -83,7 +83,7 @@ namespace BlazorDeviceControl.Shared.Item
                         //{
                         //    PluEntity pluEntity = AppSettings.DataAccess.PlusCrud.GetEntity(
                         //        new FieldListEntity(new Dictionary<string, object,> { { "Scale.Id", PluItem.Scale.Id } }),
-                        //        new FieldOrderEntity { Direction = ShareEnums.DbOrderDirection.Desc, Name = ShareEnums.DbField.Plu, Use = true });
+                        //        new FieldOrderEntity { Direction = DbOrderDirection.Desc, Name = DbField.Plu, Use = true });
                         //    if (pluEntity != null && !pluEntity.EqualsDefault())
                         //    {
                         //        PluItem.Plu = pluEntity.Plu + 1;
@@ -107,7 +107,7 @@ namespace BlazorDeviceControl.Shared.Item
                             if (ItemCast != null && value is long idScale)
                             {
                                 ItemCast.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idScale } }),
+                                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idScale } }),
                                     null);
                             }
                             break;
@@ -115,7 +115,7 @@ namespace BlazorDeviceControl.Shared.Item
                             if (ItemCast != null && value is long idNomenclature)
                             {
                                 ItemCast.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idNomenclature } }),
+                                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idNomenclature } }),
                                     null);
                                 OnClickFieldsFill("Entity");
                             }
@@ -128,7 +128,7 @@ namespace BlazorDeviceControl.Shared.Item
                                 else
                                 {
                                     ItemCast.Template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idTemplate } }),
+                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idTemplate } }),
                                         null);
                                 }
                             }

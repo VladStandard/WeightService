@@ -41,23 +41,44 @@ namespace BlazorCore.Models
             }
         }
 
-        public void BarcodeType(NotificationService notificationService, BarcodeTypeEntity barcodeType, long? id, DbTableAction tableAction)
+        public void BarcodeType(NotificationService notificationService, BarcodeTypeEntityV2 barcodeType, Guid? uid, DbTableAction tableAction)
         {
-            if (id == null)
+            if (uid == null)
                 return;
             bool success = FieldControl.ProcessChecks(notificationService, barcodeType, LocalizationCore.Strings.TableItem.BarcodeType);
             if (success)
             {
-                //barcodeType.ModifiedDate = DateTime.Now;
+                barcodeType.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    //barcodeType.CreateDate = DateTime.Now;
+                    barcodeType.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(barcodeType);
                 }
                 else
                 {
-                    barcodeType.Id = (long)id;
+                    barcodeType.Uid = (Guid)uid;
                     AppSettings.DataAccess?.Crud.UpdateEntity(barcodeType);
+                }
+            }
+        }
+
+        public void Contragent(NotificationService notificationService, ContragentEntityV2 contragent, Guid? uid, DbTableAction tableAction)
+        {
+            if (uid == null)
+                return;
+            bool success = FieldControl.ProcessChecks(notificationService, contragent, LocalizationCore.Strings.TableItem.Contragent);
+            if (success)
+            {
+                contragent.ChangeDt = DateTime.Now;
+                if (tableAction == DbTableAction.New)
+                {
+                    contragent.CreateDt = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(contragent);
+                }
+                else
+                {
+                    contragent.Uid = (Guid)uid;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(contragent);
                 }
             }
         }
@@ -233,8 +254,8 @@ namespace BlazorCore.Models
                 success = FieldControl.ProcessChecks(notificationService, scale.Printer, LocalizationCore.Strings.TableItem.Printer);
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, scale.Host, LocalizationCore.Strings.TableItem.Host);
-            if (success)
-                success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocalizationCore.Strings.TableItem.TemplateDefault);
+            //if (success)
+            //    success = FieldControl.ProcessChecks(notificationService, scale.TemplateDefault, LocalizationCore.Strings.TableItem.TemplateDefault);
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocalizationCore.Strings.TableItem.Workshop);
             if (success)

@@ -11,12 +11,12 @@
 
 @if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.ItemScale SetParameters=@SetParametersAsync 
-        IsShowItemsCount=false IsShowMarkedFilter=false />
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemScale SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false IsMarked=@ItemCast.IsMarked />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
@@ -37,7 +37,7 @@ else
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Marked />
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>

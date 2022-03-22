@@ -6,23 +6,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.320] - 2022-03-22
+### Changed
+- Shared.Section.Access
+- Shared.Section.Barcodes
+- Shared.Section.BarcodeTypes
+- Shared.Section.Contragents
+- Shared.Item.Access
+- Shared.Item.Barcodes
+- Shared.Item.BarcodeTypes
+- Shared.Item.Contragents
+
 ## [0.6.220] - 2022-02-22
 ### Changed
-- BlazorDeviceControl.Shared.Section.Nomenclatures
-- BlazorDeviceControl.Shared.Section.Plus
-- BlazorDeviceControl.Shared.Item.Nomenclature
-- BlazorDeviceControl.Shared.Item.Plu
+- Shared.Section.Nomenclatures
+- Shared.Section.Plus
+- Shared.Item.Nomenclature
+- Shared.Item.Plu
 
 ## [0.6.210] - 2022-02-21
 ### Changed
-- BlazorDeviceControl.Shared.Section: _locker object
-- BlazorDeviceControl.Shared.Item: _locker object
+- Shared.Section: _locker object
+- Shared.Item: _locker object
 
 ## [0.6.200] - 2022-02-18
 ### Changed
-- BlazorDeviceControl.Shared.Item.Printer
-- BlazorDeviceControl.Shared.Item.Scale
-- BlazorDeviceControl.Shared.Section.Info
+- Shared.Item.Printer
+- Shared.Item.Scale
+- Shared.Section.Info
 
 ## [0.6.110] - 2022-02-02
 ### Changed
@@ -66,13 +77,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.440] - 2021-08-23
 ### Changed
 - BlazorCore.Utils.LocalizationStrings
-- BlazorDeviceControl.Shared.Item.Scale
-- BlazorDeviceControl.Shared.Sys.Info
-- BlazorDeviceControl.Shared.Sys.Logs
-- BlazorDeviceControl.Shared.Section.Scales
+- Shared.Item.Scale
+- Shared.Sys.Info
+- Shared.Sys.Logs
+- Shared.Section.Scales
 ### Added
-- BlazorDeviceControl.Shared.Item.EntityActions
-- BlazorDeviceControl.Shared.Section.ActionsButtons
+- Shared.Item.EntityActions
+- Shared.Section.ActionsButtons
 
 ## [0.5.380] - 2021-08-13
 ### Changed

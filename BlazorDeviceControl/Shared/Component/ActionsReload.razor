@@ -10,7 +10,7 @@
     @if (IsShowMarkedFilter)
     {
         <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Text=@LocalizationCore.Strings.ActionIsShowMarked />
-        <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@IsShowMarkedItems
+        <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarkedItems
             Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
         />
     }
@@ -26,4 +26,13 @@
     {
         <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Text=@ItemsCountResult />
     }
+    @if (IsMarked)
+    {
+        <RadzenIcon Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Disabled=false ReadOnly=true Icon="delete" />
+    }
+    else
+    {
+        <RadzenIcon Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Disabled=false ReadOnly=true Icon="" />
+    }
+
 </MudElement>

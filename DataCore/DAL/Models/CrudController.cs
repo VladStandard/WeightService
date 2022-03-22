@@ -305,7 +305,7 @@ namespace DataCore.DAL.Models
         {
             switch (item)
             {
-                case BarcodeTypeEntity barcodeType:
+                case BarcodeTypeEntityV2 barcodeType:
                     {
                         if (!barcodeType.EqualsEmpty())
                         {
@@ -313,7 +313,7 @@ namespace DataCore.DAL.Models
                         }
                         break;
                     }
-                case ContragentEntity contragent:
+                case ContragentEntityV2 contragent:
                     {
                         if (!contragent.EqualsEmpty())
                         {
@@ -679,13 +679,13 @@ namespace DataCore.DAL.Models
                         session.Save(access);
                     }, filePath, lineNumber, memberName);
                     break;
-                case BarcodeTypeEntity barcodeType:
+                case BarcodeTypeEntityV2 barcodeType:
                     ExecuteTransaction((session) =>
                     {
                         session.Save(barcodeType);
                     }, filePath, lineNumber, memberName);
                     break;
-                case ContragentEntity contragent:
+                case ContragentEntityV2 contragent:
                     throw new Exception("SaveEntity for [ContragentsEntity] is deny!");
                 case HostEntity host:
                     ExecuteTransaction((session) =>
@@ -731,11 +731,11 @@ namespace DataCore.DAL.Models
                 case LogTypeEntity logType:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(logType); }, filePath, lineNumber, memberName);
                     break;
-                case BarcodeTypeEntity barcodeType:
+                case BarcodeTypeEntityV2 barcodeType:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(barcodeType); }, filePath, lineNumber, memberName);
                     break;
-                case ContragentEntity contragent:
-                    contragent.ModifiedDate = DateTime.Now;
+                case ContragentEntityV2 contragent:
+                    contragent.ChangeDt = DateTime.Now;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(contragent); }, filePath, lineNumber, memberName);
                     break;
                 case LabelEntity label:
@@ -843,7 +843,7 @@ namespace DataCore.DAL.Models
                     ExecuteTransaction((session) => { session.SaveOrUpdate(error); }, filePath, lineNumber, memberName);
                     break;
                 case HostEntity host:
-                    host.Marked = true;
+                    host.IsMarked = true;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(host); }, filePath, lineNumber, memberName);
                     break;
                 case LogEntity log:
@@ -852,11 +852,11 @@ namespace DataCore.DAL.Models
                 case LogTypeEntity logType:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(logType); }, filePath, lineNumber, memberName);
                     break;
-                case BarcodeTypeEntity barcodeType:
+                case BarcodeTypeEntityV2 barcodeType:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(barcodeType); }, filePath, lineNumber, memberName);
                     break;
-                case ContragentEntity contragent:
-                    contragent.Marked = true;
+                case ContragentEntityV2 contragent:
+                    contragent.IsMarked = true;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(contragent); }, filePath, lineNumber, memberName);
                     break;
                 case LabelEntity label:
@@ -883,7 +883,7 @@ namespace DataCore.DAL.Models
                     ExecuteTransaction((session) => { session.SaveOrUpdate(productSeries); }, filePath, lineNumber, memberName);
                     break;
                 case ScaleEntity scale:
-                    scale.Marked = true;
+                    scale.IsMarked = true;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(scale); }, filePath, lineNumber, memberName);
                     break;
                 case TemplateResourceEntity templateResource:
@@ -999,10 +999,10 @@ namespace DataCore.DAL.Models
                         Ip = Convert.ToString(ent[5]),
                         MacAddress = new MacAddressEntity(Convert.ToString(ent[6])),
                         IdRRef = Guid.Parse(Convert.ToString(ent[7])),
-                        Marked = Convert.ToBoolean(ent[8]),
+                        IsMarked = Convert.ToBoolean(ent[8]),
                         SettingsFile = Convert.ToString(ent[9]),
                     };
-                    if ((id == null || Equals(host.Id, id)) && (isMarked == null || Equals(host.Marked, isMarked)))
+                    if ((id == null || Equals(host.Id, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
                         items.Add(host);
                 }
             }
@@ -1028,10 +1028,10 @@ namespace DataCore.DAL.Models
                         Ip = Convert.ToString(ent[7]),
                         MacAddress = new MacAddressEntity(Convert.ToString(ent[8])),
                         IdRRef = Guid.Parse(Convert.ToString(ent[9])),
-                        Marked = Convert.ToBoolean(ent[10]),
+                        IsMarked = Convert.ToBoolean(ent[10]),
                         SettingsFile = Convert.ToString(ent[11]),
                     };
-                    if ((id == null || Equals(host.Id, id)) && (isMarked == null || Equals(host.Marked, isMarked)))
+                    if ((id == null || Equals(host.Id, id)) && (isMarked == null || Equals(host.IsMarked, isMarked)))
                         items.Add(host);
                 }
             }

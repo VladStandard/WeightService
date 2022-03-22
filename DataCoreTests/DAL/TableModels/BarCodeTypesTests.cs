@@ -17,7 +17,7 @@
 
 //            Assert.DoesNotThrow(() =>
 //            {
-//                BarcodeTypeEntity entityNew = new();
+//                BarcodeTypeEntityV2 entityNew = new();
 //                Assert.AreEqual(true, entityNew.EqualsNew());
 //                Assert.AreEqual(true, entityNew.EqualsDefault());
 //                object entityCopy = entityNew.Clone();
@@ -26,7 +26,7 @@
 //                foreach (int i in TestsEnums.GetInt())
 //                    foreach (string s in TestsEnums.GetString())
 //                    {
-//                        BarcodeTypeEntity entity = new()
+//                        BarcodeTypeEntityV2 entity = new()
 //                        {
 //                            Id = i,
 //                            Name = s
@@ -39,7 +39,7 @@
 //            TestsUtils.MethodComplete();
 //        }
 
-//        public BarcodeTypeEntity EntityCreate(string name)
+//        public BarcodeTypeEntityV2 EntityCreate(string name)
 //        {
 //            //var entity = new BarCodeTypesEntity
 //            //{
@@ -48,7 +48,7 @@
 //            //};
 //            //// Не сохранять.
 //            //DataAccessUtils.DataAccess.BarCodeTypesCrud.SaveEntity(entity);
-//            return DataAccessUtilsTests.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
+//            return DataAccessUtilsTests.DataAccess.Crud.GetEntity<BarcodeTypeEntityV2>(
 //                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Name.ToString(), name } }),
 //                new FieldOrderEntity(ShareEnums.DbField.Id, ShareEnums.DbOrderDirection.Desc));
 //        }
@@ -61,14 +61,14 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                string name = "Code128";
-//                BarcodeTypeEntity entityNew = EntityCreate(name);
+//                BarcodeTypeEntityV2 entityNew = EntityCreate(name);
 //                // UpdateEntity - Не изменять
 //                //entityNew.Name += " changed";
 //                //DataAccessUtils.DataAccess.BarCodeTypesCrud.UpdateEntity(entityNew);
 //                // GetEntities
-//                BarcodeTypeEntity[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<BarcodeTypeEntity>(null, null);
+//                BarcodeTypeEntityV2[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<BarcodeTypeEntityV2>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
-//                foreach (BarcodeTypeEntity entity in entities)
+//                foreach (BarcodeTypeEntityV2 entity in entities)
 //                {
 //                    if (entity.Name.Equals(name + " changed"))
 //                    {

@@ -70,6 +70,7 @@ namespace DataCore
             public static class TableItem
             {
                 public static string BarcodeType => Lang == ShareEnums.Lang.English ? "Barcode type" : "Тип штрихкода";
+                public static string Contragent => Lang == ShareEnums.Lang.English ? "Contragent" : "Контрагент";
                 public static string Device => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
                 public static string Host => Lang == ShareEnums.Lang.English ? "Host" : "Хост";
                 public static string LabelTemplate => Lang == ShareEnums.Lang.English ? "Label template" : "Шаблон этикетки";
@@ -109,7 +110,7 @@ namespace DataCore
             public static string Method => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
             public static string DataControl => Lang == ShareEnums.Lang.English ? "Data control" : "Контроль данных";
             public static string DataControlField => Lang == ShareEnums.Lang.English ? "Need to fill in the field" : "Необходимо заполнить поле";
-            public static string ActionIsShowMarked => Lang == ShareEnums.Lang.English ? "Show marked" : "Отображать удалённые";
+            public static string ActionIsShowMarked => Lang == ShareEnums.Lang.English ? "Show marked records" : "Отображать архивные записи";
             #endregion
             #region Section
             public static string SectionAccessNone => Lang == ShareEnums.Lang.English ? "No access to the section" : "Доступ к разделу не предусмотрен";

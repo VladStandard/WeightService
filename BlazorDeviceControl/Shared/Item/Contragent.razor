@@ -1,6 +1,6 @@
 ﻿@page "/item/contragent"
-@page "/item/contragent/{Id:long}"
-@page "/item/contragent/{Id:long}/{TableActionString}"
+@page "/item/contragent/{UidStr}"
+@page "/item/contragent/{UidStr}/{TableActionString}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
@@ -8,28 +8,74 @@
 
 @if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.ItemContragent SetParameters=@SetParametersAsync 
-        IsShowItemsCount=false IsShowMarkedFilter=false />
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemContragent SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false IsMarked=@ItemCast.IsMarked />
 
-    <div class="row col-sm-12 col-md-12 col-lg-12">
-        <div class="col-sm-6 col-md-6 col-lg-6">
-            <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
-            <RadzenLabel Style="width: 20%; height: 35px;" Text=@LocalizationData.DeviceControl.TableFieldName />
-            <RadzenTextBox Style="height: 35px; width: 77%;" Disabled=false TValue="string"
-                           @bind-value=@ItemCast.Name />
-            <br />
-        </div>
-        <br />
-        <div class="col-sm-6 col-md-6 col-lg-6">
-            <br style="margin-top: 10px; margin-left: 10px; margin-right: 10px; " />
-            <RadzenLabel Style="width: 20%; height: 25px;" Text=@LocalizationData.DeviceControl.TableFieldMarked />
-            <RadzenCheckBox Style="height: 35px; " Disabled=false TValue="bool"
-                            @bind-Value=@ItemCast.MarkedGui />
-            <br />
-        </div>
-    </div>
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <thead>
+            <tr>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldUid</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true 
+                        TValue="string" @bind-Value=@UidStr />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
+                </td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td colspan=3>
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
+                        TValue="string" @bind-Value=@ItemCast.Name />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldFullName</td>
+                <td colspan=3>
+                    <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
+                        TValue="string" @bind-Value=@ItemCast.FullName />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldIdRRef</td>
+                <td>
+                    <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; "
+                        Disabled=false ReadOnly=true
+                        TValue="string" @bind-Value=@ItemCast.IdRRefAsString />
+                </td>
+                <td>@LocalizationData.DeviceControl.TableFieldIdDwh</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="int" @bind-Value=@ItemCast.DwhId />
+				</td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldXml</td>
+                <td colspan=3>
+                    <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="string" @bind-Value=@ItemCast.Xml Rows=6 />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
 }

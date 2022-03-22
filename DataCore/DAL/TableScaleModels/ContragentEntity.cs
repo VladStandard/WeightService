@@ -9,6 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Таблица "Контрагенты".
     /// </summary>
+    [Obsolete(@"Use ContragentEntityV2")]
     public class ContragentEntity : BaseEntity
     {
         #region Public and private fields and properties
@@ -42,8 +43,8 @@ namespace DataCore.DAL.TableScaleModels
             return base.ToString() +
                 $"{nameof(CreateDate)}: {CreateDate}. " +
                 $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
-                $"{nameof(Name)}: {Name}. " +
                 $"{nameof(Marked)}: {Marked}." +
+                $"{nameof(Name)}: {Name}. " +
                 $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. ";
         }
 
@@ -82,9 +83,9 @@ namespace DataCore.DAL.TableScaleModels
             return base.EqualsDefault() &&
                    Equals(CreateDate, default(DateTime)) &&
                    Equals(ModifiedDate, default(DateTime)) &&
-                   Equals(Name, default(string)) &&
+                   Equals(Name, string.Empty) &&
                    Equals(Marked, default(bool?)) &&
-                   Equals(SerializedRepresentationObject, default(string));
+                   Equals(SerializedRepresentationObject, string.Empty);
         }
 
         public override object Clone()

@@ -26,18 +26,20 @@ namespace BlazorCore.Models
         public ChartCountEntity[] GetContragentsChartEntities(ShareEnums.DbField field)
         {
             ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-            ContragentEntity[] entities = AppSettings.DataAccess.Crud.GetEntities<ContragentEntity>(null,
-                new FieldOrderEntity(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc));
+            ContragentEntityV2[]? items = AppSettings.DataAccess.Crud.GetEntities<ContragentEntityV2>(null,
+                new FieldOrderEntity(ShareEnums.DbField.CreateDt, ShareEnums.DbOrderDirection.Asc));
             int i = 0;
             switch (field)
             {
                 case ShareEnums.DbField.CreateDate:
                     List<ChartCountEntity> entitiesDateCreated = new();
-                    foreach (ContragentEntity entity in entities)
+                    if (items?.Any() == true)
                     {
-                        if (entity.CreateDate != null)
-                            entitiesDateCreated.Add(new ChartCountEntity(((DateTime)entity.CreateDate).Date, 1));
-                        i++;
+                        foreach (ContragentEntityV2 item in items)
+                        {
+                            entitiesDateCreated.Add(new ChartCountEntity((item.CreateDt).Date, 1));
+                            i++;
+                        }
                     }
                     IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(entity => entity.Date).ToArray();
                     result = new ChartCountEntity[entitiesGroupCreated.Length];
@@ -50,11 +52,13 @@ namespace BlazorCore.Models
                     break;
                 case ShareEnums.DbField.ModifiedDate:
                     List<ChartCountEntity> entitiesDateModified = new();
-                    foreach (ContragentEntity entity in entities)
+                    if (items?.Any() == true)
                     {
-                        if (entity.ModifiedDate != null)
-                            entitiesDateModified.Add(new ChartCountEntity(((DateTime)entity.ModifiedDate).Date, 1));
-                        i++;
+                        foreach (ContragentEntityV2 item in items)
+                        {
+                            entitiesDateModified.Add(new ChartCountEntity((item.ChangeDt).Date, 1));
+                            i++;
+                        }
                     }
                     IGrouping<DateTime, ChartCountEntity>[] entitiesGroupModified = entitiesDateModified.GroupBy(entity => entity.Date).ToArray();
                     result = new ChartCountEntity[entitiesGroupModified.Length];

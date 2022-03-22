@@ -14,10 +14,10 @@ namespace DataCore.DAL.TableDwhModels
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
             Map(x => x.Dlm).CustomSqlType("DATETIME").Column("DLM").Not.Nullable();
-            Map(x => x.Name).CustomSqlType("NVARCHAR(150)").Length(150).Column("Name").Nullable();
+            Map(x => x.Name).CustomSqlType("NVARCHAR").Length(150).Column("Name").Nullable();
             Map(x => x.StatusId).CustomSqlType("INT").Column("StatusID").Not.Nullable();
             References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();
-            Map(x => x.CodeInIs).CustomSqlType("VARBINARY(16)").Length(16).Column("CodeInIS").Not.Nullable();
+            Map(x => x.CodeInIs).CustomSqlType("VARBINARY").Length(16).Column("CodeInIS").Not.Nullable();
         }
     }
 }

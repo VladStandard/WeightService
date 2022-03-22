@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
 {
@@ -41,8 +42,9 @@ namespace BlazorDeviceControl.Shared.Section
                     {
                         if (AppSettings.DataAccess != null)
                             Items = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                                new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
-                                new FieldOrderEntity(ShareEnums.DbField.Description, ShareEnums.DbOrderDirection.Asc))
+                                (IsShowMarkedItems == true) ? null
+                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                                new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
                             ?.ToList<BaseEntity>();
                         ButtonSettings = new(true, true, true, true, true, false, false);
                     }

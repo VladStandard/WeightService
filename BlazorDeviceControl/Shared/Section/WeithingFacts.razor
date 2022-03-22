@@ -15,7 +15,8 @@
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+    <ActionsReload ParentRazor=@this Items=@Items 
+        Title=@LocalizationData.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="WeithingFactSummaryEntity"

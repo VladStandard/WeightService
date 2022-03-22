@@ -12,22 +12,26 @@
     <ul class="nav flex-column">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSection.Info>
-                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.MenuInfo
+                <RadzenIcon Icon="label" />
+                <RadzenLabel Style="margin-left: 10px; font-size: 14px; " Text=@LocalizationCore.Strings.MenuInfo />
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSection.Access>
-                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.SysAccess
+                <RadzenIcon Icon="account_box" />
+                <RadzenLabel Style="margin-left: 10px; font-size: 14px; " Text=@LocalizationCore.Strings.SysAccess />
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSection.Logs>
-                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.SysLogs
+                <RadzenIcon Icon="label" />
+                <RadzenLabel Style="margin-left: 10px; font-size: 14px; " Text=@LocalizationCore.Strings.SysLogs />
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSection.Errors>
-                <span class="oi oi-menu" aria-hidden="true"></span> @LocalizationCore.Strings.SysErrors
+                <RadzenIcon Icon="label" />
+                <RadzenLabel Style="margin-left: 10px; font-size: 14px; " Text=@LocalizationCore.Strings.SysErrors />
             </NavLink>
         </li>
         <li class="nav-item px-3">
@@ -76,6 +80,11 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSection.BarCodes>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionBarCodes
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
             <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSection.BarCodeTypes>
                 <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionBarCodeTypesShort
             </NavLink>
@@ -98,6 +107,11 @@
         <li class="nav-item px-3">
             <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSection.TaskModules>
                 <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionTaskModules
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href=@LocalizationData.DeviceControl.UriRouteSection.Contragents>
+                <span class="oi oi-list" aria-hidden="true"></span> @LocalizationData.DeviceControl.SectionContragents
             </NavLink>
         </li>
     </ul>

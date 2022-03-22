@@ -8,11 +8,11 @@
 
 @if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.ItemNomenclature SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemNomenclature SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -69,7 +69,7 @@ else
     @if (NomenclatureUnitsEntities == null)
     {
         <RadzenLabel Text=@LocalizationData.DeviceControl.DataLoading />
-        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+        <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
     else
     {
@@ -105,7 +105,7 @@ else
 @if (BarCodesEntities == null)
     {
         <RadzenLabel Text=@LocalizationData.DeviceControl.DataLoading />
-        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+        <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
     }
     else
     {

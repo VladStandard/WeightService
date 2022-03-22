@@ -8,6 +8,7 @@ using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -40,9 +41,8 @@ namespace BlazorDeviceControl.Shared.Item
                     lock (_locker)
                     {
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.Id.ToString(), Id } }), null);
+                        if (Id != null && TableAction == DbTableAction.New)
                         {
                             ItemCast.Id = (int)Id;
                             ItemCast.Name = "NEW PRINTER_TYPE";

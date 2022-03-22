@@ -17,12 +17,12 @@ namespace DataCore.DAL.TableScaleModels
             References(x => x.Template).Column("TemplateID").Nullable();
             References(x => x.Scale).Column("ScaleId").Not.Nullable();
             References(x => x.Nomenclature).Column("NomenclatureId").Not.Nullable();
-            Map(x => x.GoodsName).CustomSqlType("NVARCHAR(150)").Column("GoodsName").Length(150).Nullable();
+            Map(x => x.GoodsName).CustomSqlType("NVARCHAR").Column("GoodsName").Length(150).Nullable();
             Map(x => x.GoodsFullName).CustomSqlType("NVARCHAR(MAX)").Column("GoodsFullName").Nullable();
             Map(x => x.GoodsDescription).CustomSqlType("NVARCHAR(MAX)").Column("GoodsDescription").Nullable();
-            Map(x => x.Gtin).CustomSqlType("VARCHAR(150)").Column("GTIN").Length(150).Not.Nullable().Default(string.Empty);
-            Map(x => x.Ean13).CustomSqlType("VARCHAR(150)").Column("EAN13").Length(150).Not.Nullable().Default(string.Empty);
-            Map(x => x.Itf14).CustomSqlType("VARCHAR(150)").Column("ITF14").Length(150).Not.Nullable().Default(string.Empty);
+            Map(x => x.Gtin).CustomSqlType("VARCHAR").Column("GTIN").Length(150).Not.Nullable().Default(string.Empty);
+            Map(x => x.Ean13).CustomSqlType("VARCHAR").Column("EAN13").Length(150).Not.Nullable().Default(string.Empty);
+            Map(x => x.Itf14).CustomSqlType("VARCHAR").Column("ITF14").Length(150).Not.Nullable().Default(string.Empty);
             Map(x => x.GoodsShelfLifeDays).CustomSqlType("TINYINT").Column("GoodsShelfLifeDays").Nullable();
             Map(x => x.GoodsTareWeight).CustomSqlType("DECIMAL(10,3)").Column("GoodsTareWeight").Nullable();
             Map(x => x.GoodsBoxQuantly).CustomSqlType("INT").Column("GoodsBoxQuantly").Nullable();

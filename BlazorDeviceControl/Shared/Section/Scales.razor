@@ -17,15 +17,33 @@
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.SectionScales SetParameters=@SetParametersAsync IsShowItemsCount=true Items=@Items />
+    <ActionsReload ParentRazor=@this Items=@Items 
+        Title=@LocalizationData.DeviceControl.SectionScales SetParameters=@SetParametersAsync 
+        IsShowItemsCount=true IsShowMarkedFilter=true />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ScaleEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">
         <Columns >
+            @if (@IsShowMarkedItems)
+            {
+                <RadzenGridColumn TItem="ScaleEntity" TextAlign="TextAlign.Center" 
+                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    <Template Context="itemCast">
+                        @if (itemCast.IsMarked)
+                        {
+                            <RadzenIcon Disabled=false ReadOnly=true Icon="delete" />
+                        }
+                        else
+                        {
+                            <RadzenIcon Disabled=false ReadOnly=true Icon="" />
+                        }
+                    </Template>
+                </RadzenGridColumn>
+            }
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Description" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldDescription 

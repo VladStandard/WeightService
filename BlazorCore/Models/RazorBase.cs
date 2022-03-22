@@ -66,10 +66,10 @@ namespace BlazorCore.Models
 
         #region Constructor and destructor
 
-        public RazorBase()
-        {
-            //
-        }
+        //public RazorBase()
+        //{
+        //    //
+        //}
 
         #endregion
 
@@ -381,14 +381,14 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.BarcodesTypes:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out long? idBarcodeType))
                     {
-                        Item = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntityV2>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idBarcodeType }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.Contragents:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out long? idContragent))
                     {
-                        Item = AppSettings.DataAccess.Crud.GetEntity<ContragentEntity>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<ContragentEntityV2>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idContragent }, }), null);
                     }
                     break;
@@ -661,21 +661,20 @@ namespace BlazorCore.Models
 
         #region Public and private methods - Actions
 
-        public void RouteItemNavigate(bool isNewWindow, string? page)
+        public void RouteItemNavigate(bool isNewWindow, BaseEntity? item)
         {
-            if (string.IsNullOrEmpty(page))
-                page = RouteItemNavigatePage();
+            string page = RouteItemNavigatePage();
             if (string.IsNullOrEmpty(page))
                 return;
 
             if (!isNewWindow)
             {
-                RouteItemNavigatePrepare();
-                RouteItemNavigateWork(page);
+                RouteItemNavigatePrepareForNew();
+                RouteItemNavigateForItem(item, page);
             }
             else
             {
-                RouteItemNavigateNewPage(page);
+                RouteItemNavigateUsingJsRuntime(page);
             }
         }
 
@@ -766,7 +765,7 @@ namespace BlazorCore.Models
             return page;
         }
 
-        private void RouteItemNavigatePrepare()
+        private void RouteItemNavigatePrepareForNew()
         {
             if (TableAction == DbTableAction.New)
             {
@@ -802,7 +801,7 @@ namespace BlazorCore.Models
                             switch (ProjectsEnums.GetTableScale(Table.Name))
                             {
                                 case ProjectsEnums.TableScale.BarcodesTypes:
-                                    Id = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntityV2>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.Hosts:
                                     Id = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
@@ -853,25 +852,27 @@ namespace BlazorCore.Models
             }
         }
 
-        private void RouteItemNavigateWork(string page)
+        private void RouteItemNavigateForItem(BaseEntity? item, string page)
         {
+            if (item == null)
+                return;
             if (TableAction == DbTableAction.New)
             {
-                if (Item?.PrimaryColumn.Name == ColumnName.Id)
+                if (item.PrimaryColumn.Name == ColumnName.Id)
                     NavigationManager.NavigateTo($"{page}/{Id}/{TableAction}");
-                else if (Item?.PrimaryColumn.Name == ColumnName.Uid)
+                else if (item.PrimaryColumn.Name == ColumnName.Uid)
                     NavigationManager.NavigateTo($"{page}/{Uid}/{TableAction}");
             }
             else
             {
-                if (Item?.PrimaryColumn.Name == ColumnName.Id)
+                if (item.PrimaryColumn.Name == ColumnName.Id)
                     NavigationManager.NavigateTo($"{page}/{Id}");
-                else if (Item?.PrimaryColumn.Name == ColumnName.Uid)
+                else if (item.PrimaryColumn.Name == ColumnName.Uid)
                     NavigationManager.NavigateTo($"{page}/{Uid}");
             }
         }
 
-        private void RouteItemNavigateNewPage(string page)
+        private void RouteItemNavigateUsingJsRuntime(string page)
         {
             _ = Task.Run(async () =>
             {
@@ -1045,9 +1046,11 @@ namespace BlazorCore.Models
                     break;
                 case ProjectsEnums.TableScale.BarcodesTypes:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.BarcodeType(NotificationService, (BarcodeTypeEntity)ParentRazor.Item, Id, TableAction);
+                        ItemSaveCheck.BarcodeType(NotificationService, (BarcodeTypeEntityV2)ParentRazor.Item, Uid, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Contragents:
+                    if (ParentRazor?.Item != null)
+                        ItemSaveCheck.Contragent(NotificationService, (ContragentEntityV2)ParentRazor.Item, Uid, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Hosts:
                     if (ParentRazor?.Item != null)
@@ -1152,7 +1155,7 @@ namespace BlazorCore.Models
                 }), continueOnCapturedContext);
         }
 
-        public async Task ActionAsync(UserSettingsHelper userSettings, DbTableAction tableAction, bool isNewWindow)
+        public async Task ActionAsync(UserSettingsHelper userSettings, DbTableAction tableAction, bool isNewWindow, bool isParentRazor)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
@@ -1161,52 +1164,64 @@ namespace BlazorCore.Models
             switch (TableAction = tableAction)
             {
                 case DbTableAction.Delete:
-                    RunTasksWithQeustion(LocalizationCore.Strings.TableDelete, LocalizationCore.Strings.DialogResultSuccess,
-                        LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
-                        new Task(async () =>
-                        {
-                            if (ParentRazor?.Item == null) return;
-                            AppSettings.DataAccess.Crud.DeleteEntity(ParentRazor.Item);
-                            await GuiRefreshWithWaitAsync();
-                        }), true);
+                    ActionAsyncDelete();
                     break;
                 default:
-                    RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                        new Task(async () =>
-                        {
-                            if ((byte)userSettings.Identity.AccessRights < (byte)AccessRights.Write)
-                                return;
-                            switch (tableAction)
-                            {
-                                case DbTableAction.Default:
-                                    break;
-                                case DbTableAction.New:
-                                    TableAction = DbTableAction.New;
-                                    Id = null;
-                                    Uid = null;
-                                    RouteItemNavigate(isNewWindow, null);
-                                    break;
-                                case DbTableAction.Edit:
-                                case DbTableAction.Copy:
-                                    RouteItemNavigate(isNewWindow, null);
-                                    break;
-                                case DbTableAction.Mark:
-                                    if (ParentRazor?.Item == null) return;
-                                    AppSettings.DataAccess.Crud.MarkedEntity(ParentRazor.Item);
-                                    break;
-                                case DbTableAction.Save:
-                                    if (ParentRazor?.Item == null) return;
-                                    break;
-                                case DbTableAction.Cancel:
-                                    break;
-                                case DbTableAction.Reload:
-                                    break;
-                                case DbTableAction.Delete:
-                                    break;
-                            }
-                            await GuiRefreshWithWaitAsync();
-                        }), true); break;
+                    ActionAsyncDefault(userSettings, tableAction, isNewWindow, isParentRazor);
+                    break;
             }
+        }
+
+        private void ActionAsyncDelete()
+        {
+            RunTasksWithQeustion(LocalizationCore.Strings.TableDelete, LocalizationCore.Strings.DialogResultSuccess,
+                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
+                new Task(async () =>
+                {
+                    if (ParentRazor?.Item == null) return;
+                    AppSettings.DataAccess.Crud.DeleteEntity(ParentRazor.Item);
+                    await GuiRefreshWithWaitAsync();
+                }), true);
+        }
+
+        private void ActionAsyncDefault(UserSettingsHelper userSettings, DbTableAction tableAction, bool isNewWindow, bool isParentRazor)
+        {
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+                new Task(async () =>
+                {
+                    BaseEntity? item = isParentRazor ? ParentRazor?.Item : Item;
+                    if ((byte)userSettings.Identity.AccessRights < (byte)AccessRights.Write)
+                        return;
+                    switch (tableAction)
+                    {
+                        case DbTableAction.Default:
+                            break;
+                        case DbTableAction.New:
+                            TableAction = DbTableAction.New;
+                            Id = null;
+                            Uid = null;
+                            RouteItemNavigate(isNewWindow, item);
+                            break;
+                        case DbTableAction.Edit:
+                        case DbTableAction.Copy:
+                            RouteItemNavigate(isNewWindow, item);
+                            break;
+                        case DbTableAction.Mark:
+                            if (item != null)
+                                AppSettings.DataAccess.Crud.MarkedEntity(item);
+                            break;
+                        case DbTableAction.Save:
+                            if (ParentRazor?.Item == null) return;
+                            break;
+                        case DbTableAction.Cancel:
+                            break;
+                        case DbTableAction.Reload:
+                            break;
+                        case DbTableAction.Delete:
+                            break;
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

@@ -13,6 +13,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual DateTime CreateDt { get; set; }
         public virtual DateTime ChangeDt { get; set; }
         public virtual DateTime AccessDt { get; set; }
+        public virtual bool IsMarked { get; set; }
         public virtual string Name { get; set; } = string.Empty;
         public virtual string Ip { get; set; } = string.Empty;
         public virtual MacAddressEntity MacAddress { get; set; }
@@ -28,7 +29,6 @@ namespace DataCore.DAL.TableScaleModels
             get => IdRRef.ToString();
             set => IdRRef = Guid.Parse(value);
         }
-        public virtual bool Marked { get; set; }
         public virtual string SettingsFile { get; set; } = string.Empty;
 
         #endregion
@@ -59,7 +59,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Ip)}: {Ip}. " +
                    $"{nameof(MacAddress)}: {MacAddress}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +
-                   $"{nameof(Marked)}: {Marked}. " +
+                   $"{nameof(IsMarked)}: {IsMarked}. " +
                    $"{nameof(SettingsFile)}: {strSettingsFileString}. ";
         }
 
@@ -75,7 +75,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Ip, entity.Ip) &&
                    Equals(MacAddress, entity.MacAddress) &&
                    Equals(IdRRef, entity.IdRRef) &&
-                   Equals(Marked, entity.Marked) &&
+                   Equals(IsMarked, entity.IsMarked) &&
                    Equals(SettingsFile, entity.SettingsFile);
         }
 
@@ -108,7 +108,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Name, default(string)) &&
                    Equals(Ip, default(string)) &&
                    Equals(IdRRef, default(Guid)) &&
-                   Equals(Marked, default(bool)) &&
+                   Equals(IsMarked, default(bool)) &&
                    Equals(SettingsFile, default(byte[]));
         }
 
@@ -125,7 +125,7 @@ namespace DataCore.DAL.TableScaleModels
                 Ip = Ip,
                 MacAddress = (MacAddressEntity)MacAddress.Clone(),
                 IdRRef = IdRRef,
-                Marked = Marked,
+                IsMarked = IsMarked,
                 SettingsFile = SettingsFile,
             };
         }

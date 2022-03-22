@@ -12,7 +12,7 @@ namespace DataCore.DAL.TableDwhModels
             Table("[ETL].[Statuses]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("StatusID").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.Name).CustomSqlType("NVARCHAR(25)").Length(25).Column("Name").Not.Nullable();
+            Map(x => x.Name).CustomSqlType("NVARCHAR").Length(25).Column("Name").Not.Nullable();
         }
     }
 }

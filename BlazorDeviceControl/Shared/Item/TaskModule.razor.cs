@@ -8,6 +8,7 @@ using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -40,10 +41,9 @@ namespace BlazorDeviceControl.Shared.Item
                     lock (_locker)
                     {
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> {
-                            { ShareEnums.DbField.Uid.ToString(), Uid },
+                            new FieldListEntity(new Dictionary<string, object?> {{ DbField.Uid.ToString(), Uid },
                         }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        if (Id != null && TableAction == DbTableAction.New)
                             ItemCast.Id = (int)Id;
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }

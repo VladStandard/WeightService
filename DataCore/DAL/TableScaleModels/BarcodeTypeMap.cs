@@ -2,9 +2,11 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using FluentNHibernate.Mapping;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
+    [Obsolete(@"Use BarcodeTypeMapV2")]
     public class BarcodeTypeMap : ClassMap<BarcodeTypeEntity>
     {
         public BarcodeTypeMap()
@@ -12,7 +14,7 @@ namespace DataCore.DAL.TableScaleModels
             Table("[db_scales].[BarCodeTypes]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.Name).CustomSqlType("NVARCHAR(150)").Column("Name").Length(150).Nullable();
+            Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(150).Nullable();
         }
     }
 }

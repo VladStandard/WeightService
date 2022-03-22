@@ -15,13 +15,14 @@
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync 
-        Items=@Items IsShowItemsCount=true IsShowMarkedFilter=@IsShowMarkedFilter IsShowMarkedItems=@IsShowMarkedItems />
+    <ActionsReload ParentRazor=@this Items=@Items 
+        Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync 
+        IsShowItemsCount=true IsShowMarkedFilter=@IsShowMarkedFilter IsShowMarkedItems=@IsShowMarkedItems />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluEntity"
         RowSelect=@(args => ItemSelectAsync(args)) 
-        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false))
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns>
@@ -36,7 +37,7 @@ else
             <RadzenGridColumn TItem="PluEntity" Property="CheckWeight" Width="4%" TextAlign="TextAlign.Center"
                 Title=@LocalizationData.DeviceControl.TableFieldCheckWeight >
                 <Template Context="pluEntity">
-                    <RadzenCheckBox TValue="bool" @bind-Value="@pluEntity.CheckWeight" Disabled=false ReadOnly=true />
+                    <RadzenCheckBox TValue="bool" @bind-Value=@pluEntity.CheckWeight Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="20%"

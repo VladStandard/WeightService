@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -49,11 +50,11 @@ namespace BlazorDeviceControl.Shared.Item
                     {
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
                             new FieldListEntity(new Dictionary<string, object?>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                            { { DbField.Id.ToString(), Id } }), null);
+                        if (Id != null && TableAction == DbTableAction.New)
                             ItemCast.Id = (long)Id;
                         PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Marked.ToString(), false } }),
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
                             null)?.ToList();
                         ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null)?.ToList();
                         ButtonSettings = new(false, false, false, false, false, true, true);
@@ -72,27 +73,27 @@ namespace BlazorDeviceControl.Shared.Item
                     switch (name)
                     {
                         case nameof(PrinterEntity):
-                            if (value is long idZebraPrinter)
+                            if (value is long idZebraPrinter && ItemCast != null)
                             {
                                 if (idZebraPrinter <= 0)
                                     ItemCast.Printer = null;
                                 else
                                 {
                                     ItemCast.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idZebraPrinter } }),
+                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idZebraPrinter } }),
                                     null);
                                 }
                             }
                             break;
                         case nameof(TemplateResourceEntity):
-                            if (value is long idTemplateResource)
+                            if (value is long idTemplateResource && ItemCast != null)
                             {
                                 if (idTemplateResource <= 0)
                                     ItemCast.Printer = null;
                                 else
                                 {
                                     ItemCast.Resource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { ShareEnums.DbField.Id.ToString(), idTemplateResource } }),
+                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idTemplateResource } }),
                                     null);
                                     if (string.IsNullOrEmpty(ItemCast.Description))
                                     {

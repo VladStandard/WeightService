@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
 {
@@ -16,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<BarcodeTypeEntity>? ItemsCast => Items?.Select(x => (BarcodeTypeEntity)x).ToList();
+        private List<BarcodeTypeEntityV2>? ItemsCast => Items?.Select(x => (BarcodeTypeEntityV2)x).ToList();
         private readonly object _locker = new();
 
         #endregion
@@ -40,8 +41,10 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         if (AppSettings.DataAccess != null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<BarcodeTypeEntity>(null,
-                                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc))
+                            Items = AppSettings.DataAccess.Crud.GetEntities<BarcodeTypeEntityV2>(
+                                (IsShowMarkedItems == true) ? null
+                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                                new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
                             ?.ToList<BaseEntity>();
                         ButtonSettings = new(true, true, true, true, true, false, false);
                     }

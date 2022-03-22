@@ -6,8 +6,10 @@ using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
 {
@@ -15,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public BarcodeTypeEntity? ItemCast { get => Item == null ? null : (BarcodeTypeEntity)Item; set => Item = value; }
+        public BarcodeTypeEntityV2? ItemCast { get => Item == null ? null : (BarcodeTypeEntityV2)Item; set => Item = value; }
         private readonly object _locker = new();
 
         #endregion
@@ -39,12 +41,11 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>
-                            { { ShareEnums.DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == ShareEnums.DbTableAction.New)
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntityV2>(
+                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.Uid.ToString(), Uid } }), null);
+                        if (Uid != null && TableAction == DbTableAction.New)
                         {
-                            ItemCast.Id = (int)Id;
+                            ItemCast.Uid = (Guid)Uid;
                             ItemCast.Name = "NEW BARCODE";
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);

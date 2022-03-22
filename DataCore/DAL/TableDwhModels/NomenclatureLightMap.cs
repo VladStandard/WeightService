@@ -12,11 +12,11 @@ namespace DataCore.DAL.TableDwhModels
             Table("[DW].[DimNomenclatures]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.Code).CustomSqlType("NVARCHAR(15)").Length(15).Column("Code").Nullable();
+            Map(x => x.Code).CustomSqlType("NVARCHAR").Length(15).Column("Code").Nullable();
             Map(x => x.Marked).CustomSqlType("BIT").Column("Marked").Nullable();
-            Map(x => x.Name).CustomSqlType("NVARCHAR(150)").Length(150).Column("Name").Nullable();
-            Map(x => x.Parents).CustomSqlType("NVARCHAR(1024)").Length(1024).Column("Parents").Nullable();
-            Map(x => x.NameFull).CustomSqlType("NVARCHAR(512)").Length(512).Column("NameFull").Nullable();
+            Map(x => x.Name).CustomSqlType("NVARCHAR").Length(150).Column("Name").Nullable();
+            Map(x => x.Parents).CustomSqlType("NVARCHAR").Length(1024).Column("Parents").Nullable();
+            Map(x => x.NameFull).CustomSqlType("NVARCHAR").Length(512).Column("NameFull").Nullable();
             Map(x => x.IsService).CustomSqlType("BIT").Column("IsService").Nullable();
             Map(x => x.IsProduct).CustomSqlType("BIT").Column("IsProduct").Nullable();
             Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();

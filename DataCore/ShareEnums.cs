@@ -112,6 +112,7 @@ namespace DataCore
         {
             CategoryId,
             CodeInIs,
+            CreateDt,
             CreateDate,
             Description,
             GoodsName,

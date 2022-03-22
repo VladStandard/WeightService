@@ -18,7 +18,7 @@
 
 //            Assert.DoesNotThrow(() =>
 //            {
-//                ContragentEntity entityNew = new();
+//                ContragentEntityV2 entityNew = new();
 //                Assert.AreEqual(true, entityNew.EqualsNew());
 //                Assert.AreEqual(true, entityNew.EqualsDefault());
 //                object entityCopy = entityNew.Clone();
@@ -29,7 +29,7 @@
 //                        foreach (bool b in TestsEnums.GetBool())
 //                            foreach (string s in TestsEnums.GetString())
 //                            {
-//                                ContragentEntity entity = new()
+//                                ContragentEntityV2 entity = new()
 //                                {
 //                                    Id = i,
 //                                    CreateDate = dt,
@@ -53,7 +53,7 @@
 
 //            Assert.Throws<Exception>(() =>
 //            {
-//                ContragentEntity entity = new()
+//                ContragentEntityV2 entity = new()
 //                {
 //                    Id = -1,
 //                    CreateDate = DateTime.Now,
@@ -76,7 +76,7 @@
 //            Assert.DoesNotThrow(() =>
 //            {
 //                string name = "ContragentsEntity test";
-//                ContragentEntity entityExists = DataAccessUtilsTests.DataAccess.Crud.GetEntity<ContragentEntity>(new FieldListEntity(
+//                ContragentEntityV2 entityExists = DataAccessUtilsTests.DataAccess.Crud.GetEntity<ContragentEntityV2>(new FieldListEntity(
 //                    new Dictionary<string, object> { { ShareEnums.DbField.Name.ToString(), name } }), null);
 //                if (entityExists.EqualsDefault())
 //                    return;
@@ -89,9 +89,9 @@
 //            {
 //                string name = "ContragentsEntity test";
 //                // GetEntities
-//                ContragentEntity[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<ContragentEntity>(null, null);
+//                ContragentEntityV2[] entities = DataAccessUtilsTests.DataAccess.Crud.GetEntities<ContragentEntityV2>(null, null);
 //                Assert.AreEqual(true, entities.Length > 0);
-//                foreach (ContragentEntity entity in entities)
+//                foreach (ContragentEntityV2 entity in entities)
 //                {
 //                    if (entity.Name.Equals(name))
 //                    {

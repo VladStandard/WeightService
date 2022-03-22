@@ -1,8 +1,8 @@
 ﻿//// ChartDataCreated.
-//ContragentsChartCreated = GetContragentsChartEntities(ShareEnums.DbField.CreateDate);
+//ContragentsChartCreated = GetContragentsChartEntities(DbField.CreateDate);
 //// ChartDataModified.
-//ContragentsChartModified = GetContragentsChartEntities(ShareEnums.DbField.ModifiedDate);
+//ContragentsChartModified = GetContragentsChartEntities(DbField.ModifiedDate);
 //// ChartDataCreated.
-//NomenclaturesChartCreated = GetNomenclaturesChartEntities(ShareEnums.DbField.CreateDate);
+//NomenclaturesChartCreated = GetNomenclaturesChartEntities(DbField.CreateDate);
 //// ChartDataModified.
-//NomenclaturesChartModified = GetNomenclaturesChartEntities(ShareEnums.DbField.ModifiedDate);
+//NomenclaturesChartModified = GetNomenclaturesChartEntities(DbField.ModifiedDate);

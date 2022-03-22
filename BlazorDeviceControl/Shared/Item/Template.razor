@@ -8,11 +8,11 @@
 
 @if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.ItemTemplate SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemTemplate SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -48,7 +48,7 @@ else
                     @if (TemplateCategories == null)
                     {
                         <RadzenTextBox Style="width: 100%; " Disabled=false ReadOnly=true TValue="string" Value="" />
-                        <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
+                        <RadzenProgressBar Value=100 ShowValue="false" Mode="ProgressBarMode.Indeterminate" Style="width: 77%; height: 15px" />
                     }
                     else
                     {

@@ -10,11 +10,11 @@
 
 @if (ItemCast == null)
 {
-    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
 else
 {
-    <ActionsReload Title=@LocalizationData.DeviceControl.ItemLog SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemLog SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
