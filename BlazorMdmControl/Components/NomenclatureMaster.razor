@@ -2,16 +2,15 @@
 @page "/nomenclaturemaster/{ItemId:long}"
 @using MdmControlBlazor.Utils
 @using MdmControlCore.Utils
-@using MdmControlCore.DAL.TableModels
 @inherits MdmControlBlazor.Data.BaseRazorEntity
 
+@*
 <MdmControlBlazor.Components.Nomenclature ItemId=@ItemId />
 
 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: 40px">
     <div class="row col-sm-4 col-md-4 col-lg-4" style="margin-top: -5px; margin-left: -10px; margin-right: -10px; margin-bottom: -5px; ">
         <RadzenLabel Style="text-align: center; " Text=@LocalizationStrings.TableIncludes />
     </div>
-    @* Buttons *@
     <div class="row col-sm-3 col-md-3 col-lg-3" style="margin-top: -5px; margin-left: -10px; margin-right: -10px; margin-bottom: -5px; ">
         <RadzenButton Click=@(_ => GetDataAsync())
                       Style="margin-top: -5px; margin-left: 5px; width: 35px; height: 35px; text-align: center;"
@@ -81,3 +80,4 @@
         </RadzenGrid>
     }
 </div>
+*@

@@ -21,7 +21,7 @@ namespace WebApiExample.Controllers
 
         private readonly ILogger<PushController> _logger;
         private readonly ISessionFactory _sessionFactory;
-        private ErrorContainer _errors = new ErrorContainer();
+        private ErrorContainer _errors = new();
 
         public PushController(ILogger<PushController> logger, ISessionFactory sessionFactory)
         {

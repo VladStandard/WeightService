@@ -10,7 +10,7 @@ namespace WebApiExample.Common
     public class ErrorContainer
     {
 
-        private List<string> ErrorList = new List<string>();
+        private List<string> ErrorList = new();
 
         public void Add (string error)
         {

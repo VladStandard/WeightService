@@ -248,6 +248,12 @@
       <Link>Resources\update_1.png</Link>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataCore\DataCore.csproj">
+      <Project>{2A3AF48B-DC5B-4359-B056-3605631440F5}</Project>
+      <Name>DataCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>

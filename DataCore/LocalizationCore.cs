@@ -17,8 +17,8 @@ namespace DataCore
                 public static string AppSettings => Lang == ShareEnums.Lang.English ? "App settings" : "Настройки приложения";
                 public static string Authorization => Lang == ShareEnums.Lang.English ? "Authorization" : "Авторизация";
                 public static string AccessRights => Lang == ShareEnums.Lang.English ? "Access rights" : "Права доступа";
-                public static string AccessRightsAdmin => Lang == ShareEnums.Lang.English ? "Admin" : "Админ права";
-                public static string AccessRightsNone => Lang == ShareEnums.Lang.English ? "No access" : "Нет доступа";
+                public static string AccessRightsAdmin => Lang == ShareEnums.Lang.English ? "Admin rights" : "Админ права";
+                public static string AccessRightsNone => Lang == ShareEnums.Lang.English ? "No rights" : "Нет прав";
                 public static string AccessRightsRead => Lang == ShareEnums.Lang.English ? "Read rights" : "Права на чтение";
                 public static string AccessRightsWrite => Lang == ShareEnums.Lang.English ? "Write rights" : "Права на запись";
                 public static string AuthorizingNot => Lang == ShareEnums.Lang.English ? "Not authorized!" : "Авторизация провалена!";
@@ -89,19 +89,20 @@ namespace DataCore
                 public static string Workshop => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
             }
             #region Menu
-            public static string MenuReferences => Lang == ShareEnums.Lang.English ? "References" : "Справочники";
             public static string FileChoose => Lang == ShareEnums.Lang.English ? "Select a file" : "Выбрать файл";
-            public static string FileUpload => Lang == ShareEnums.Lang.English ? "Upload a file" : "Загрузить файл";
-            public static string FileDownload => Lang == ShareEnums.Lang.English ? "Download a file" : "Скачать файл";
             public static string FileDialog => Lang == ShareEnums.Lang.English ? "File dialog" : "Файловый диалог";
+            public static string FileDownload => Lang == ShareEnums.Lang.English ? "Download a file" : "Скачать файл";
             public static string FileSaveDialog => Lang == ShareEnums.Lang.English ? "Specify the file name to save" : "Указать имя файла для сохранения";
-            public static string ServerResponse => Lang == ShareEnums.Lang.English ? "Server response" : "Ответ сервера";
-            public static string MenuSecurity => Lang == ShareEnums.Lang.English ? "Security" : "Безопасность";
+            public static string FileUpload => Lang == ShareEnums.Lang.English ? "Upload a file" : "Загрузить файл";
             public static string Login => Lang == ShareEnums.Lang.English ? "Login" : "Логин";
             public static string MenuAccess => Lang == ShareEnums.Lang.English ? "Menu access" : "Доступ к меню";
-            public static string MenuAccessDeny => Lang == ShareEnums.Lang.English ? "Menu access denied" : "Доступ к меню запрещён";
             public static string MenuAccessAllow => Lang == ShareEnums.Lang.English ? "Menu access allowed" : "Доступ к меню разрешён";
+            public static string MenuAccessDeny => Lang == ShareEnums.Lang.English ? "Menu access denied" : "Доступ к меню запрещён";
             public static string MenuInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
+            public static string MenuReferences => Lang == ShareEnums.Lang.English ? "References" : "Справочники";
+            public static string MenuSecurity => Lang == ShareEnums.Lang.English ? "Security" : "Безопасность";
+            public static string MenuSystem => Lang == ShareEnums.Lang.English ? "System" : "Система";
+            public static string ServerResponse => Lang == ShareEnums.Lang.English ? "Server response" : "Ответ сервера";
             #endregion
             #region Action
             public static string ActionAccessNone => Lang == ShareEnums.Lang.English ? "No access to the actions" : "Доступ к действиям не предусмотрен";

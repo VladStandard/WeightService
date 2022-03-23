@@ -85,7 +85,7 @@ namespace DataProjectsCoreTests.DAL
                 Timeout = 60_000,
             };
             RestSharp.RestClient client = new(options);
-            RestRequest request = new RestSharp.RestRequest();
+            RestRequest request = new();
             if (code != null)
                 request.AddQueryParameter("code", code);
             else if (id != null)

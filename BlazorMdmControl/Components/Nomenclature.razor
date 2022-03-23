@@ -1,4 +1,5 @@
-﻿@page "/nomenclature"
+﻿@*
+@page "/nomenclature"
 @page "/nomenclature/{ItemId:long}"
 @using MdmControlBlazor.Utils
 @using MdmControlCore.Utils
@@ -12,7 +13,6 @@
     }
     else
     {
-        @* Left side *@
         <div class="col-sm-6 col-md-6 col-lg-6">
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldId />
             <RadzenNumeric Style="width: 63%; text-align: center; " Disabled=false ReadOnly=true TValue="int" Value=@Item.Id />
@@ -77,7 +77,6 @@
             <br />
         </div>
         <br />
-        @* Right side *@
         <div class="col-sm-6 col-md-6 col-lg-6">
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldXml />
             <RadzenTextBox Style="width: 63%; " Disabled=false TValue="string" @bind-Value=@Item.SerializedRepresentationObject />
@@ -325,3 +324,4 @@
     <RadzenButton Click=@(args => CancelAsync()) ButtonStyle="ButtonStyle.Secondary"
                   Text=@LocalizationStrings.TableActionCancel Style="margin-left: 30px; width: 250px; " />
 </div>
+*@

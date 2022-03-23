@@ -64,21 +64,7 @@ else
             <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Left"
                 Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="30%">
                 <Template Context="accessItem">
-                    @switch(accessItem.Rights)
-                    {
-                        default:
-                            <RadzenLabel Text=@LocalizationCore.Strings.Main.AccessRightsNone Disabled=false ReadOnly=true />
-                            break;
-                        case 1:
-                            <RadzenLabel Text=@LocalizationCore.Strings.Main.AccessRightsRead Disabled=false ReadOnly=true />
-                            break;
-                        case 2:
-                            <RadzenLabel Text=@LocalizationCore.Strings.Main.AccessRightsWrite Disabled=false ReadOnly=true />
-                            break;
-                        case 3:
-                            <RadzenLabel Text=@LocalizationCore.Strings.Main.AccessRightsAdmin Disabled=false ReadOnly=true />
-                            break;
-                    }
+                    <RadzenLabel Text=@BlazorCore.Models.IdentityEntity.GetDescriptionAccessRights(accessItem.Rights) Disabled=false ReadOnly=true />
                 </Template>
             </RadzenGridColumn>
         </Columns>

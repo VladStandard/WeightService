@@ -6,7 +6,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WeightCore.Zabbix;
+using ZabbixStubService.Zabbix;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZplSdkExamples.Models;
@@ -171,27 +171,15 @@ namespace ZplSdkExamples.Views
 
         private void SetAddressTextBlock()
         {
-            switch (connectionPrefixDropdown.SelectedValue)
+            AddressTextBlock.Text = connectionPrefixDropdown.SelectedValue switch
             {
-                case ConnectionPrefix.Tcp:
-                case ConnectionPrefix.TcpMulti:
-                case ConnectionPrefix.TcpStatus:
-                    AddressTextBlock.Text = "IP Address:";
-                    break;
-                case ConnectionPrefix.Bluetooth:
-                case ConnectionPrefix.BluetoothMulti:
-                    AddressTextBlock.Text = "BT Address:";
-                    break;
-                case ConnectionPrefix.Usb:
-                    AddressTextBlock.Text = "USB Driver:";
-                    break;
-                case ConnectionPrefix.UsbDirect:
-                    AddressTextBlock.Text = "Symbolic Name:";
-                    break;
-                default:
-                    AddressTextBlock.Text = "Address:";
-                    break;
+                ConnectionPrefix.Tcp or ConnectionPrefix.TcpMulti or ConnectionPrefix.TcpStatus => "IP Address:",
+                ConnectionPrefix.Bluetooth or ConnectionPrefix.BluetoothMulti => "BT Address:",
+                ConnectionPrefix.Usb => "USB Driver:",
+                ConnectionPrefix.UsbDirect => "Symbolic Name:",
+                _ => "Address:",
             };
+            ;
         }
 
         private void TestConnectionStringButton_Click(object sender, RoutedEventArgs e)

@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataShareCore.Utils;
+using DataCore.Utils;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
@@ -49,10 +49,10 @@ namespace WeightCoreTests.Models
             TestContext.WriteLine($@"{nameof(Constructor_Create_Error)} start.");
             Stopwatch sw = Stopwatch.StartNew();
 
-            Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new SqlTableField<string>(); });
+            Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new(); });
             foreach (string name in EnumValuesUtils.GetString())
             {
-                Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new SqlTableField<string>(name); });
+                Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new(name); });
             }
 
             sw.Stop();
@@ -66,7 +66,7 @@ namespace WeightCoreTests.Models
             TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
             Stopwatch sw = Stopwatch.StartNew();
 
-            SqlTableField<string> field = new SqlTableField<string>("FieldName");
+            SqlTableField<string> field = new("FieldName");
             Assert.AreEqual("FieldName", field.Name);
             Assert.AreEqual(string.Empty, field.Value);
             Assert.AreEqual(string.Empty, field.Default);

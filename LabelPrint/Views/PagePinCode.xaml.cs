@@ -6,7 +6,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using LabelPrint.Utils;
-using DataProjectsCore;
+using DataCore;
 // ReSharper disable CommentTypo
 
 namespace LabelPrint.Views

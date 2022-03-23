@@ -1,28 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <StartupObject>MdmControlBlazor.Program</StartupObject>
     <Version>$(VersionPrefix)</Version>
-    <UserSecretsId>3563a665-3c2d-469d-ba4c-f85bb5c0c1af</UserSecretsId>
+    <Authors>Владимирский стандарт</Authors>
     <Company>Владимирский стандарт</Company>
+    <UserSecretsId>3563a665-3c2d-469d-ba4c-f85bb5c0c1af</UserSecretsId>
+    <StartupObject>MdmControlBlazor.Program</StartupObject>
     <Product>WeightService</Product>
     <Copyright>Copyright © 2020 - 2022</Copyright>
-    <AssemblyVersion>0.5.920</AssemblyVersion>
-    <FileVersion>0.5.920</FileVersion>
+	<AssemblyName>BlazorMdmControl</AssemblyName>
+    <RootNamespace>BlazorMdmControl</RootNamespace>
+    <NeutralLanguage>ru-RU</NeutralLanguage>
+	<AssemblyVersion>0.6.330</AssemblyVersion>
+    <FileVersion>0.6.330</FileVersion>
     <Platforms>AnyCPU;x64</Platforms>
+    <Configurations>Debug;Release;Dev</Configurations>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="10.3.4" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0" />
-    <PackageReference Include="Radzen.Blazor" Version="3.12.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Negotiate" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.3" />
+    <PackageReference Include="Radzen.Blazor" Version="3.16.7" />
     <PackageReference Include="Radzen.Blazor.GridColumnVisibilityChooser" Version="2.2.0" />
-    <PackageReference Include="Toolbelt.Blazor.HotKeys" Version="12.0.0" />
+    <PackageReference Include="Toolbelt.Blazor.HotKeys" Version="12.1.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
+    <ProjectReference Include="..\DataCore\DataCore.csproj" />
     <ProjectReference Include="..\MdmControlCore\MdmControlCore.csproj" />
   </ItemGroup>
   <PropertyGroup>

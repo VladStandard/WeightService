@@ -18,6 +18,8 @@ namespace DataCore.DAL.TableScaleModels
         public virtual bool IsMarked { get; set; } = false;
         public virtual string Value { get; set; } = string.Empty;
         public virtual BarcodeTypeEntityV2? BarcodeType { get; set; } = new();
+        public virtual ContragentEntityV2? Contragent { get; set; } = new();
+        public virtual NomenclatureEntity? Nomenclature { get; set; } = new();
 
         #endregion
 
@@ -35,12 +37,16 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             string? strBarcodeType = BarcodeType != null ? BarcodeType.Uid.ToString() : "null";
+            string? strContragent = Contragent != null ? Contragent.Uid.ToString() : "null";
+            string? strNomenclature = Nomenclature != null ? Nomenclature.Id.ToString() : "null";
             return base.ToString() +
                 $"{nameof(CreateDt)}: {CreateDt}. " +
                 $"{nameof(ChangeDt)}: {ChangeDt}. " +
                 $"{nameof(IsMarked)}: {IsMarked}." +
                 $"{nameof(Value)}: {Value}. " +
-                $"{nameof(BarcodeType)}: {strBarcodeType}. ";
+                $"{nameof(BarcodeType)}: {strBarcodeType}. " + 
+                $"{nameof(Contragent)}: {strContragent}. " + 
+                $"{nameof(Nomenclature)}: {strNomenclature}. ";
         }
 
         public virtual bool Equals(BarcodeEntityV2 entity)
@@ -52,7 +58,9 @@ namespace DataCore.DAL.TableScaleModels
                 Equals(ChangeDt, entity.ChangeDt) &&
                 Equals(IsMarked, entity.IsMarked) &&
                 Equals(Value, entity.Value) &&
-                BarcodeType != null && entity.BarcodeType != null && BarcodeType.Equals(entity.BarcodeType);
+                BarcodeType != null && entity.BarcodeType != null && BarcodeType.Equals(entity.BarcodeType) &&
+                Contragent != null && entity.Contragent != null && Contragent.Equals(entity.Contragent) &&
+                Nomenclature != null && entity.Nomenclature != null && Nomenclature.Equals(entity.Nomenclature);
         }
 
         public override bool Equals(object obj)
@@ -77,6 +85,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             if (BarcodeType != null && !BarcodeType.EqualsDefault())
                 return false;
+            if (Contragent != null && !Contragent.EqualsDefault())
+                return false;
+            if (Nomenclature != null && !Nomenclature.EqualsDefault())
+                return false;
             return base.EqualsDefault() &&
                 Equals(CreateDt, default(DateTime)) &&
                 Equals(ChangeDt, default(DateTime)) &&
@@ -95,6 +107,8 @@ namespace DataCore.DAL.TableScaleModels
                 IsMarked = IsMarked,
                 Value = Value,
                 BarcodeType = BarcodeType != null ? (BarcodeTypeEntityV2)BarcodeType.Clone() : null,
+                Contragent = Contragent != null ? (ContragentEntityV2)Contragent.Clone() : null,
+                Nomenclature = Nomenclature != null ? (NomenclatureEntity)Nomenclature.Clone() : null,
             };
         }
 

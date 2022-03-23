@@ -11,7 +11,7 @@ namespace MdmControlBlazor.Data
         #region Public and private fields and properties - Inject
 
         [Inject] public AuthenticationStateProvider AuthenticationState { get; set; }
-        [Inject] public BlazorSettingsEntity BlazorSettings { get; set; }
+        //[Inject] public BlazorSettingsEntity BlazorSettings { get; set; }
         [Inject] public Data.JsonAppSettingsEntity JsonAppSettings { get; set; }
         [Inject] public DialogService Dialog { get; set; }
         [Inject] public HotKeys HotKeys { get; set; }

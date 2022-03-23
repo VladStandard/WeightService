@@ -5,7 +5,6 @@ using DataCore.Schedulers;
 using NUnit.Framework;
 using System;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace DataCoreTests.Schedulers
 {
@@ -18,7 +17,7 @@ namespace DataCoreTests.Schedulers
 
         #endregion
 
-        internal void Method([CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        internal static void Method([CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             TestContext.WriteLine($"{DateTime.Now}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}");
         }

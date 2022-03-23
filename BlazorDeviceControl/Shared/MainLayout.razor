@@ -53,31 +53,42 @@
                 <NavMenu />
             </div>
         }
+
         <div class="main">
             <div class="top-row px-4 auth">
                 <div class="col-sm-3 col-md-3 col-lg-3">
-                    <RadzenLabel Text=@AppSettings.SqlServerDescription Style="text-align: left;" />
+                    <RadzenMenu Style="align-content: center; margin-top: 10px; background-color: transparent; " >
+                        <RadzenMenuItem Text=@LocalizationCore.Strings.MenuSystem Icon="home">
+                            <RadzenMenuItem Icon="info" Text=@LocalizationCore.Strings.MenuInfo Path=@LocalizationData.DeviceControl.UriRouteSection.Info
+                            ></RadzenMenuItem>
+                            <RadzenMenuItem Icon="people" Text=@UserSettings.Identity.NameWithRights Path=@LocalizationData.DeviceControl.UriRouteSection.Access
+                                Click="OnChildClicked" ></RadzenMenuItem>
+                            <RadzenMenuItem Icon="info" Text=@LocalizationCore.Strings.SysLogs Path=@LocalizationData.DeviceControl.UriRouteSection.Logs
+                            ></RadzenMenuItem>
+                        </RadzenMenuItem>
+                    </RadzenMenu>
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3">
-                    @if (string.IsNullOrEmpty(@UserSettings.Identity.Name))
-                    {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
-                    } else {
-                        <RadzenLabel Text=@UserSettings.Identity.Name Style="text-align: center; margin-left: 50px; height: 10px;" />
-                    }
                 </div>
-                <div class="col-sm-4 col-md-4 col-lg-4">
-                    <RadzenLabel Text=@AppSettings.MemoryInfo Style="text-align: center; margin-left: 50px; height: 10px;" />
+                <div class="col-sm-3 col-md-3 col-lg-3">
                 </div>
-                <div class="col-sm-2 col-md-2 col-lg-2">
-                    <MudLink Icon="email" Typo="Typo.subtitle1" Href=@LocalizationData.DeviceControl.CallbackEmail 
-                        Style="text-align: right" rel="noopener noreferrer"
-                        >@LocalizationCore.Strings.Main.CallbackTitle </MudLink>
+                <div class="col-sm-3 col-md-3 col-lg-3">
                 </div>
             </div>
+
             <div class="content px-4">
                 @Body
             </div>
         </div>
     }
 </div>
+
+@*
+                            <RadzenMenuItem Icon="info" Text=@LocalizationCore.Strings.SysErrors Path=@LocalizationData.DeviceControl.UriRouteSection.Errors
+                            ></RadzenMenuItem>
+                            <RadzenMenuItem Icon="info" Text=@LocalizationCore.Strings.Main.CallbackTitle Path=@LocalizationData.DeviceControl.CallbackEmail
+                            ></RadzenMenuItem>
+                            <RadzenMenuItem Icon="email" Text=@AppSettings.MemoryInfo
+                            ></RadzenMenuItem>
+
+*@

@@ -305,6 +305,19 @@ namespace DataCore.DAL.Models
         {
             switch (item)
             {
+                case BarcodeEntityV2 barcode:
+                    {
+                        if (!barcode.EqualsEmpty())
+                        {
+                            if (barcode.BarcodeType != null)
+                                barcode.BarcodeType = GetEntity<BarcodeTypeEntityV2>(barcode.BarcodeType.Uid);
+                            if (barcode.Contragent != null)
+                                barcode.Contragent = GetEntity<ContragentEntityV2>(barcode.Contragent.Uid);
+                            if (barcode.Nomenclature != null)
+                                barcode.Nomenclature = GetEntity<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.Id);
+                        }
+                        break;
+                    }
                 case BarcodeTypeEntityV2 barcodeType:
                     {
                         if (!barcodeType.EqualsEmpty())

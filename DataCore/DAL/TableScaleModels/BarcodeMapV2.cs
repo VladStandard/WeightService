@@ -9,7 +9,8 @@ namespace DataCore.DAL.TableScaleModels
     {
         public BarcodeMapV2()
         {
-            Table("[db_scales].[BARCODES_V2]");
+            Table("BARCODES_V2");
+            Schema("db_scales");
             LazyLoad();
             Id(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();

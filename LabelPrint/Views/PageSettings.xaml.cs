@@ -145,17 +145,17 @@ namespace LabelPrint.Views
         /// <param name="enabled"></param>
         private void SetGuiSqlEnabled(bool enabled)
         {
-            WPF.Utils.InvokeControl.SetIsEnabled(LabeldSqlConnectionString, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(fieldSqlConnectionString, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(LabeldSqlServer, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(fieldSqlServer, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(LabeldSqlDb, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(fieldSqlDb, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(LabeldSqlUser, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(fieldSqlUser, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(LabeldSqlPassword, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(fieldSqlPassword, enabled);
-            WPF.Utils.InvokeControl.SetIsEnabled(fieldSqlIntegratedSecurity, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(LabeldSqlConnectionString, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(fieldSqlConnectionString, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(LabeldSqlServer, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(fieldSqlServer, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(LabeldSqlDb, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(fieldSqlDb, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(LabeldSqlUser, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(fieldSqlUser, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(LabeldSqlPassword, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(fieldSqlPassword, enabled);
+            MDSoft.WpfUtils.InvokeControl.SetIsEnabled(fieldSqlIntegratedSecurity, enabled);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace LabelPrint.Views
         {
             return Task.Run(() =>
             {
-                WPF.Utils.InvokeControl.SetBackground(fieldSqlConnectionString, Brushes.Yellow);
+                MDSoft.WpfUtils.InvokeControl.SetBackground(fieldSqlConnectionString, Brushes.Yellow);
                 // Задать доступ к GUI SQL.
                 SetGuiSqlEnabled(false);
                 // Проверить SQL-подключение.

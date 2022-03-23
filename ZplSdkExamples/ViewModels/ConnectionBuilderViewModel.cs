@@ -9,7 +9,7 @@ namespace ZplSdkExamples.ViewModels
 
         private string logData;
 
-        private readonly ObservableCollection<string> _connectionPrefixes = new ObservableCollection<string>() {
+        private readonly ObservableCollection<string> _connectionPrefixes = new() {
                 ConnectionPrefix.None,
                 ConnectionPrefix.TcpMulti,
                 ConnectionPrefix.Tcp,

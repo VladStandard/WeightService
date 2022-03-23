@@ -13,6 +13,7 @@ namespace BlazorDeviceControl.Shared
         #region Public and private fields and properties
 
         [Inject] public HotKeys HotKeysItem { get; private set; }
+        [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
         private readonly object _locker = new();
 
         #endregion
@@ -22,6 +23,18 @@ namespace BlazorDeviceControl.Shared
         protected override void OnInitialized()
         {
             base.OnInitialized();
+        }
+
+        //public async Task SetParametersAsync1(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
+        public async Task SetParametersAsync1()
+        {
+            await base.SetParametersAsync(new ParameterView()).ConfigureAwait(true);
+        }
+        
+        private async void OnChildClicked(Radzen.MenuItemEventArgs args)
+        {
+            //console.Log($"{args.Text} from child clicked");
+            await SetParametersAsync(new ParameterView()).ConfigureAwait(true);
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -50,6 +63,11 @@ namespace BlazorDeviceControl.Shared
                         AppSettings.SetupMemory(GuiRefreshAsync);
                     }
                 }), true);
+        }
+
+        public void OnClick(ChangeEventArgs args)
+        {
+
         }
 
         #endregion

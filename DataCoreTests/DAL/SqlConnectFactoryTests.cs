@@ -19,13 +19,13 @@ namespace DataProjectsCoreTests.DAL
             Assert.DoesNotThrow(() =>
             {
                 TestContext.WriteLine($"[db_scales].[Scales]");
-                SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes, null, delegate (SqlDataReader reader)
-                {
-                    while (reader.Read())
-                    {
-                        TestContext.WriteLine($"NAME: {reader.GetString(1)}");
-                    }
-                });
+                //SqlConnectFactory.ExecuteReader(SqlQueries.DbScales.Tables.TaskTypes.GetTasksTypes, null, delegate (SqlDataReader reader)
+                //{
+                //    while (reader.Read())
+                //    {
+                //        TestContext.WriteLine($"NAME: {reader.GetString(1)}");
+                //    }
+                //});
                 Assert.AreEqual(1, 1);
             });
             TestContext.WriteLine();

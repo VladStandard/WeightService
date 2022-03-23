@@ -1,12 +1,11 @@
 ﻿@page "/nomenclatures"
 @using MdmControlBlazor.Utils
 @using MdmControlCore
-@using MdmControlCore.DAL.TableModels
 @using MdmControlCore.Utils
 @inherits MdmControlBlazor.Data.BaseRazorEntity
 
+@*
 <div class="row col-sm-12 col-md-12 col-lg-12" style="margin-top: -5px; margin-left: -5px; margin-right: -5px; margin-bottom: -5px; ">
-    @* Master panel *@
     <div class="row col-sm-6 col-md-6 col-lg-6" style="margin-top: 10px; margin-left: -35px; margin-right: -35px; margin-bottom: -5px; ">
         <div class="row col-sm-11 col-md-11 col-lg-11" style="margin-top: -5px; margin-left: -35px; margin-right: -35px; margin-bottom: -5px; ">
             <div class="row col-sm-3 col-md-3 col-lg-3" style="margin-top: -5px; margin-left: -10px; margin-right: 0px; margin-bottom: 0px; ">
@@ -37,7 +36,6 @@
                 <h10 style="text-align: center; ">@ItemsMasterCount</h10>
             </div>
             <br />
-            @* RadzenGrid *@
             @if (ItemsMaster == null)
             {
                 <RadzenLabel Text=@LocalizationStrings.DataLoading
@@ -70,7 +68,6 @@
                 </RadzenGrid>
             }
         </div>
-        @* Buttons panel *@
         <div class="row col-sm-1 col-md-1 col-lg-1" style="margin-top: -5px; margin-left: 55px; margin-right: 0px; margin-bottom: -5px; ">
             <RadzenButton Click=@MasterRecordCreateAsync
                           Style="margin-top: 30px; margin-bottom: 0px; width: 35px; height: 35px; text-align: center;"
@@ -94,7 +91,6 @@
             <br />
         </div>
     </div>
-    @* NonNormilize panel *@
     <div class="row col-sm-6 col-md-6 col-lg-6" style="margin-top: 10px; margin-left: -15px; margin-right: -115px; margin-bottom: -5px; ">
         <div class="row col-sm-3 col-md-3 col-lg-3" style="margin-top: -5px; margin-left: -10px; margin-right: 0px; margin-bottom: 0px; ">
             <h10 style="text-align: center; ">@LocalizationStrings.TableTitleNomenclatureNonNormalize</h10>
@@ -142,7 +138,6 @@
             <h10 style="text-align: center; ">@ItemsNonNormilizeCount</h10>
         </div>
         <br />
-        @* RadzenGrid *@
         @if (ItemsNonNormilize == null)
         {
             <RadzenLabel Text=@LocalizationStrings.DataLoading
@@ -185,3 +180,4 @@
         }
     </div>
 </div>
+*@

@@ -1,11 +1,11 @@
-﻿using Ninja.WebSockets;
+﻿using MDSoft.WpfUtils;
+using Ninja.WebSockets;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WebSocketsExamples.Models;
-using WPF.Utils;
 
 namespace WebSocketsExamples.Views
 {

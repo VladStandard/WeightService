@@ -506,7 +506,7 @@ namespace ScalesUI.Forms
                         ? $"{SessionState.Manager.Memory.MemorySize.PhysicalCurrent.MegaBytes:N0}" : "-") +
                     (SessionState.Manager?.Memory != null ? $" MB {SessionState.Manager.Memory.ProgressString}" : $" MB "));
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMemoryManagerTotal, 
-                    SessionState.Manager?.Memory?.MemorySize?.DtChanged?.ToString(@"HH:mm:ss") +
+                    SessionState.Manager?.Memory?.MemorySize?.DtChanged.ToString(@"HH:mm:ss") +
                     $"  {LocalizationData.ScalesUI.MemoryPhysical}: {LocalizationData.ScalesUI.MemoryFree} " +
                     (SessionState.Manager?.Memory?.MemorySize?.PhysicalFree != null && SessionState.Manager.Memory.MemorySize.PhysicalTotal != null
                         ? $"{SessionState.Manager.Memory.MemorySize.PhysicalFree.MegaBytes:N0}" +

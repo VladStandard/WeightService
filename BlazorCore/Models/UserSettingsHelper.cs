@@ -47,8 +47,7 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public void SetupAccessRights(DataAccessEntity dataAccess,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
+        public void SetupAccessRights(DataAccessEntity dataAccess)
         {
             if (dataAccess != null)
             {

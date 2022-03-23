@@ -31,7 +31,7 @@ namespace LabelPrint.Views
             string fileName = "CHANGELOG.md";
             if (File.Exists(fileName))
             {
-                using (StreamReader sr = new StreamReader(fileName))
+                using (StreamReader sr = new(fileName))
                 {
                     TextBlockMain.Text = sr.ReadToEnd();
                 }

@@ -15,7 +15,7 @@ namespace DataCore
         public static class DeviceControl
         {
             #region Main
-            public static string CallbackEmail => "mailto:morozov_dv@kolbasa-vs.ru&subject=device-control.kolbasa-vs.local";
+            public static string CallbackEmail => "mailto:morozov_dv@kolbasa-vs.ru&subject=DeviceControl";
             public static string DataRecords => Lang == ShareEnums.Lang.English ? "records" : "записей";
             public static string Index => Lang == ShareEnums.Lang.English ? "DeviceControl" : "Управление устройствами";
             public static string IndexContinue => Lang == ShareEnums.Lang.English ? "Click on a menu section to continue." : "Нажмите на раздел меню, чтобы продолжить.";

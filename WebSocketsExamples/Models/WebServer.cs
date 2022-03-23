@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using MDSoft.WpfUtils;
 using Ninja.WebSockets;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using WPF.Utils;
 
 // ReSharper disable ArrangeTypeMemberModifiers
 // ReSharper disable InconsistentNaming
@@ -127,7 +127,7 @@ namespace WebSocketsExamples.Models
 
         private async Task ProcessTcpClientAsync(TcpClient tcpClient, TextBox textBox)
         {
-            CancellationTokenSource source = new CancellationTokenSource();
+            CancellationTokenSource source = new();
             try
             {
                 CheckIfDisposed();
@@ -195,7 +195,7 @@ namespace WebSocketsExamples.Models
 
         public async Task RespondToWebSocketRequestAsync(WebSocket webSocket, CancellationToken token)
         {
-            ArraySegment<byte> buffer = new ArraySegment<byte>(new byte[BUFFER_SIZE]);
+            ArraySegment<byte> buffer = new(new byte[BUFFER_SIZE]);
 
             while (true)
             {
@@ -216,7 +216,7 @@ namespace WebSocketsExamples.Models
 
                 // just echo the message back to the client
                 //ArraySegment<byte> toSend = new ArraySegment<byte>(buffer.Array, buffer.Offset, result.Count);
-                ArraySegment<byte> toSend = new ArraySegment<byte>(buffer.Array ?? Array.Empty<byte>(), buffer.Offset, result.Count);
+                ArraySegment<byte> toSend = new(buffer.Array ?? Array.Empty<byte>(), buffer.Offset, result.Count);
                 await webSocket.SendAsync(toSend, WebSocketMessageType.Binary, true, token);
             }
         }

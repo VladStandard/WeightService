@@ -182,10 +182,10 @@
             <Label Margin="0" Grid.Row="0" Grid.Column="1" Content="Cmd exception" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <TextBox Margin="2" Grid.Row="1" Grid.Column="0" 
                      VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" 
-                     IsReadOnly=true Text="{Binding Path=Exception.Message, Mode=OneWay, IsAsync=True }"/>
+                     IsReadOnly="True" Text="{Binding Path=Exception.Message, Mode=OneWay, IsAsync=True }"/>
             <TextBox Margin="2" Grid.Row="1" Grid.Column="1" 
                      VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" 
-                     IsReadOnly=true Text="{Binding Path=Cmd.Exception.Message, Mode=OneWay, IsAsync=True }"/>
+                     IsReadOnly="True" Text="{Binding Path=Cmd.Exception.Message, Mode=OneWay, IsAsync=True }"/>
         </Grid>
     </Grid>
 </Window>

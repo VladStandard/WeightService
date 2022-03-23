@@ -1,74 +1,74 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+﻿//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+//// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MdmControlBlazor.Utils;
-using Microsoft.AspNetCore.Components;
-using Toolbelt.Blazor.HotKeys;
+//using System;
+//using System.Collections.Generic;
+//using System.Threading.Tasks;
+//using MdmControlBlazor.Utils;
+//using Microsoft.AspNetCore.Components;
+//using Toolbelt.Blazor.HotKeys;
 
-namespace MdmControlBlazor.Components
-{
-    public partial class NomenclatureNonNormilise
-    {
-        #region Public and private fields and properties
+//namespace MdmControlBlazor.Components
+//{
+//    public partial class NomenclatureNonNormilise
+//    {
+//        #region Public and private fields and properties
 
-        [Parameter]
-        public int? ItemId { get; set; }
+//        [Parameter]
+//        public int? ItemId { get; set; }
 
-        #endregion
+//        #endregion
 
-        #region Public and private methods - Hotkeys
+//        #region Public and private methods - Hotkeys
 
-        private async Task HotKeysTabAsync()
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        }
+//        private async Task HotKeysTabAsync()
+//        {
+//            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+//        }
 
-        #endregion
+//        #endregion
 
-        #region Public and private methods
+//        #region Public and private methods
 
-        private async Task GuiRefreshAsync()
-        {
-            await InvokeAsync(StateHasChanged).ConfigureAwait(false);
-        }
+//        private async Task GuiRefreshAsync()
+//        {
+//            await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+//        }
 
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync().ConfigureAwait(true);
+//        protected override async Task OnInitializedAsync()
+//        {
+//            await base.OnInitializedAsync().ConfigureAwait(true);
 
-            HotKeysItem = HotKeys.CreateContext().Add(ModKeys.None, Keys.Tab, HotKeysTabAsync, LocalizationStrings.TableTab);
-            BlazorSettings.Setup(JsonAppSettings, Notification, Dialog, Navigation, Tooltip, JsRuntime);
-        }
+//            HotKeysItem = HotKeys.CreateContext().Add(ModKeys.None, Keys.Tab, HotKeysTabAsync, LocalizationStrings.TableTab);
+//            BlazorSettings.Setup(JsonAppSettings, Notification, Dialog, Navigation, Tooltip, JsRuntime);
+//        }
 
-        public override async Task SetParametersAsync(ParameterView parameters)
-        {
-            await base.SetParametersAsync(parameters);
+//        public override async Task SetParametersAsync(ParameterView parameters)
+//        {
+//            await base.SetParametersAsync(parameters);
 
-            ItemId ??= 0;
-            await GetDataAsync().ConfigureAwait(false);
-        }
+//            ItemId ??= 0;
+//            await GetDataAsync().ConfigureAwait(false);
+//        }
 
-        private void GetData()
-        {
-            //
-        }
+//        private void GetData()
+//        {
+//            //
+//        }
 
-        private async Task GetDataAsync()
-        {
-            Task task = new Task(GetData);
-            await BlazorSettings.RunTasks(LocalizationStrings.TableRead,
-                "", LocalizationStrings.DialogResultFail, "",
-                new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
-        }
+//        private async Task GetDataAsync()
+//        {
+//            Task task = new Task(GetData);
+//            await BlazorSettings.RunTasks(LocalizationStrings.TableRead,
+//                "", LocalizationStrings.DialogResultFail, "",
+//                new List<Task> { task }, GuiRefreshAsync).ConfigureAwait(false);
+//        }
 
-        private void OnChange(object value, string name)
-        {
-            StateHasChanged();
-        }
+//        private void OnChange(object value, string name)
+//        {
+//            StateHasChanged();
+//        }
 
-        #endregion
-    }
-}
+//        #endregion
+//    }
+//}

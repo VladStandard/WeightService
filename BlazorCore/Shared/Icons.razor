@@ -1,0 +1,40 @@
+﻿@page "/shared/icons"
+@using DataCore.DAL.TableScaleModels
+@using BlazorCore
+@using BlazorCore.Models
+@using BlazorCore.Shared
+@using DataCore
+@using DataCore.DAL.DataModels
+@using DataCore.Utils
+@using Radzen
+@using Radzen.Blazor
+@inherits RazorDisposable
+
+@*
+@if (@ListIcons != null)
+{
+    
+}
+{
+    <RadzenGrid>
+        Data=@ListIcons TItem="string"
+        AllowFiltering=false AllowPaging=true AllowSorting=true 
+        FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode=FilterMode.Advanced
+        PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount >
+        <Columns >
+            <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center" 
+                Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="50%">
+                <Template Context="icon">
+                    <RadzenIcon Disabled=false ReadOnly=true Icon=@icon />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="AccessEntity" TextAlign="TextAlign.Center"
+                Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="50%">
+                <Template Context="icon">
+                    <RadzenLabel Text=@icon Disabled=false ReadOnly=true />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+}
+*@

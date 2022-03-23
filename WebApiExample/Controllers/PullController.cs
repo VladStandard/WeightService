@@ -22,7 +22,7 @@ namespace WebApiExample.Controllers
 
         private readonly ILogger<PullController> _logger;
         private readonly ISessionFactory _sessionFactory;
-        private ErrorContainer _errors = new ErrorContainer();
+        private ErrorContainer _errors = new();
 
         public PullController(ILogger<PullController> logger, ISessionFactory sessionFactory)
         {

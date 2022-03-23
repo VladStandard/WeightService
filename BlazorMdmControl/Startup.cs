@@ -31,7 +31,7 @@ namespace MdmControlBlazor
             // appsettings.json
             services.AddSingleton<JsonAppSettingsEntity>();
             // User settings.
-            services.AddScoped<BlazorSettingsEntity>();
+            //services.AddScoped<BlazorSettingsEntity>();
             // Radzen.
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();

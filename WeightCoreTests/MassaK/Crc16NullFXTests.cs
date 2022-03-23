@@ -3,7 +3,6 @@
 // http://srecord.sourceforge.net/crc16-ccitt.html
 
 using NUnit.Framework;
-using System;
 using WeightCore.MassaK;
 using WeightCoreTests;
 
