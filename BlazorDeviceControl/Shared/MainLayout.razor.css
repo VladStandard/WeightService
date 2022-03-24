@@ -10,15 +10,19 @@
 
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    width: 14%;
 }
 .sidebarRelease {
     background-image: linear-gradient(90deg, blue 1%, blue);
+    width: 14%;
 }
 .sidebarDebug {
     background-image: linear-gradient(90deg, green 1%, green);
+    width: 14%;
 }
 .sidebarUnknown {
     background-image: linear-gradient(90deg, red 1%, red);
+    width: 14%;
 }
 
 .top-row {
@@ -40,7 +44,7 @@
         text-overflow: ellipsis;
     }
 
-@media (max-width: 640.98px) {
+@media (max-width: 640.0px) {
     .top-row:not(.auth) {
         display: none;
     }
@@ -54,13 +58,13 @@
     }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 50px) {
     .page {
         flex-direction: row;
     }
 
     .sidebar {
-        width: 250px;
+        width: 14%;
         height: 100vh;
         position: sticky;
         top: 0;

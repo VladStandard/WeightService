@@ -56,7 +56,7 @@ namespace BlazorDeviceControl.Shared.Item
                             ItemCast.Uid = (Guid)Uid;
                             ItemCast.User = "NEW USER";
                         }
-                        TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast?.Rights);
+                        TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

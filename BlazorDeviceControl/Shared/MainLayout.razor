@@ -69,7 +69,8 @@
                                     Text=@UserSettings.Identity.NameWithRights Path=@LocalizationData.DeviceControl.UriRouteSection.Access
                                     Click=@SetParametersInvokeAsync />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
-                                    Text=@AppSettings.MemoryInfo Path=@LocalizationData.DeviceControl.UriRouteSection.Root />
+                                    Text=@AppSettings.MemoryInfo Path=@LocalizationData.DeviceControl.UriRouteSection.Root 
+                                    Click=@MemoryClearAsync />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                                     Text=@StringUtils.FormatCurDtRus(true) Path=@LocalizationData.DeviceControl.UriRouteSection.Root />
                             </RadzenMenuItem>
@@ -83,7 +84,6 @@
                     }
                 </div>
             </div>
-
             <div class="content px-4">
                 @Body
             </div>

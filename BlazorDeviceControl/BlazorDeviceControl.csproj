@@ -42,9 +42,6 @@
     <None Remove="Upload\**" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="appsettings - Copy.Debug.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="wwwroot\Images\" />
     <Folder Include="wwwroot\static\lib\" />
   </ItemGroup>

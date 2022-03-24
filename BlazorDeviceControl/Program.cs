@@ -2,7 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace BlazorDeviceControl
 {
@@ -14,8 +16,19 @@ namespace BlazorDeviceControl
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder => {
-                    webBuilder.UseStartup<Startup>();
-            });
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            })
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                config.SetBasePath(Directory.GetCurrentDirectory());
+#if DEBUG
+                config.AddJsonFile("appsettings.Debug.json", optional: true, reloadOnChange: true);
+#else
+                config.AddJsonFile("appsettings.Release.json", optional: true, reloadOnChange: true);
+#endif
+            })
+            ;
     }
 }

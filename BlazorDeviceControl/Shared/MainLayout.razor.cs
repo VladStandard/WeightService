@@ -4,6 +4,7 @@
 using DataCore;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Threading.Tasks;
 using Toolbelt.Blazor.HotKeys;
 
@@ -24,6 +25,12 @@ namespace BlazorDeviceControl.Shared
         protected override void OnInitialized()
         {
             base.OnInitialized();
+        }
+
+        private async void MemoryClearAsync(Radzen.MenuItemEventArgs args)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+            GC.Collect();
         }
 
         private async void SetParametersInvokeAsync(Radzen.MenuItemEventArgs args)
