@@ -1,9 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using System;
-using System.Diagnostics;
-
 namespace DataCore
 {
     public static class LocalizationCore
@@ -14,22 +11,21 @@ namespace DataCore
         {
             public static class Main
             {
-                public static string AppSettings => Lang == ShareEnums.Lang.English ? "App settings" : "Настройки приложения";
-                public static string Authorization => Lang == ShareEnums.Lang.English ? "Authorization" : "Авторизация";
                 public static string AccessRights => Lang == ShareEnums.Lang.English ? "Access rights" : "Права доступа";
                 public static string AccessRightsAdmin => Lang == ShareEnums.Lang.English ? "Admin rights" : "Админ права";
                 public static string AccessRightsNone => Lang == ShareEnums.Lang.English ? "No rights" : "Нет прав";
                 public static string AccessRightsRead => Lang == ShareEnums.Lang.English ? "Read rights" : "Права на чтение";
                 public static string AccessRightsWrite => Lang == ShareEnums.Lang.English ? "Write rights" : "Права на запись";
+                public static string AppName => Lang == ShareEnums.Lang.English ? "Devices Control" : "Управление устройствами";
+                public static string AppSettings => Lang == ShareEnums.Lang.English ? "App settings" : "Настройки приложения";
+                public static string Authorization => Lang == ShareEnums.Lang.English ? "Authorization" : "Авторизация";
                 public static string AuthorizingNot => Lang == ShareEnums.Lang.English ? "Not authorized!" : "Авторизация провалена!";
                 public static string AuthorizingProcess => Lang == ShareEnums.Lang.English ? "Authorizing ..." : "Авторизация ...";
                 public static string AuthorizingSuccess => Lang == ShareEnums.Lang.English ? "Success authorized" : "Успешная авторизация";
                 public static string AuthorizingUserName => Lang == ShareEnums.Lang.English ? "User name" : "Имя пользователя";
                 public static string ButtonHeight => Lang == ShareEnums.Lang.English ? "Buttons height" : "Высота кнопок";
                 public static string ButtonWidth => Lang == ShareEnums.Lang.English ? "Buttons width" : "Ширина кнопок";
-                public static string CallbackTitle => Lang == ShareEnums.Lang.English ? "Feedback" : "Обратная связь";
                 public static string Company => Lang == ShareEnums.Lang.English ? "Vladimir Standard" : "Владимирский стандарт";
-                public static string CoreVer => Lang == ShareEnums.Lang.English ? "Core version" : "Версия ядра";
                 public static string DataLoadComplete => Lang == ShareEnums.Lang.English ? "Data downloaded successfully." : "Данные загружены успешно.";
                 public static string DataLoadError => Lang == ShareEnums.Lang.English ? "Error loading data!" : "Ошибка загрузки данных!";
                 public static string DataLoading => Lang == ShareEnums.Lang.English ? "Loading data..." : "Загрузка данных...";
@@ -43,6 +39,7 @@ namespace DataCore
                 public static string DbInfo => Lang == ShareEnums.Lang.English ? "Information about the DB" : "Информация о БД";
                 public static string DebugMode => Lang == ShareEnums.Lang.English ? "Debug mode" : "Режим отладки";
                 public static string Doc => Lang == ShareEnums.Lang.English ? "Documentation" : "Документация";
+                public static string Feedback => Lang == ShareEnums.Lang.English ? "Feedback" : "Обратная связь";
                 public static string From => Lang == ShareEnums.Lang.English ? "from" : "из";
                 public static string HostName => Lang == ShareEnums.Lang.English ? "Host name" : "Имя хоста";
                 public static string IdentityError => Lang == ShareEnums.Lang.English ? "User error!" : "Ошибка пользователя";
@@ -58,7 +55,6 @@ namespace DataCore
                 public static string MethodError => Lang == ShareEnums.Lang.English ? "Method error" : "Ошибка метода";
                 public static string NotLoad => Lang == ShareEnums.Lang.English ? "Not load!" : "Не загружено";
                 public static string PageError => Lang == ShareEnums.Lang.English ? "Sorry, there's nothing at this address." : "Извините, по этому адресу ничего нет.";
-                public static string ProgramVer => Lang == ShareEnums.Lang.English ? "Program version" : "Версия программы";
                 public static string RecordName => Lang == ShareEnums.Lang.English ? "Setting name" : "Название записи";
                 public static string RecordValue => Lang == ShareEnums.Lang.English ? "Setting value" : "Значение записи";
                 public static string ServerDevelop => Lang == ShareEnums.Lang.English ? "Debug server" : "Сервер разработки";
@@ -66,6 +62,11 @@ namespace DataCore
                 public static string SettingName => Lang == ShareEnums.Lang.English ? "Setting name" : "Название настройки";
                 public static string SettingValue => Lang == ShareEnums.Lang.English ? "Setting value" : "Значение настройки";
                 public static string UserSettings => Lang == ShareEnums.Lang.English ? "User settings" : "Пользовательские настройки";
+                public static string VerApp => Lang == ShareEnums.Lang.English ? "Application version" : "Версия приложения";
+                public static string VerCore => Lang == ShareEnums.Lang.English ? "Core version" : "Версия ядра";
+                public static string VerLibBlazorCore => Lang == ShareEnums.Lang.English ? "BlazorCore lib version" : "Версия библиотеки BlazorCore";
+                public static string VerLibDataCore => Lang == ShareEnums.Lang.English ? "DataCore lib version" : "Версия библиотеки DataCore";
+                public static string VerProgram => Lang == ShareEnums.Lang.English ? "Program version" : "Версия программы";
             }
             public static class TableItem
             {
@@ -98,8 +99,10 @@ namespace DataCore
             public static string MenuAccess => Lang == ShareEnums.Lang.English ? "Menu access" : "Доступ к меню";
             public static string MenuAccessAllow => Lang == ShareEnums.Lang.English ? "Menu access allowed" : "Доступ к меню разрешён";
             public static string MenuAccessDeny => Lang == ShareEnums.Lang.English ? "Menu access denied" : "Доступ к меню запрещён";
+            public static string MenuHome => Lang == ShareEnums.Lang.English ? "Home" : "Домой";
             public static string MenuInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
             public static string MenuReferences => Lang == ShareEnums.Lang.English ? "References" : "Справочники";
+            public static string MenuReports => Lang == ShareEnums.Lang.English ? "Reports" : "Журналы";
             public static string MenuSecurity => Lang == ShareEnums.Lang.English ? "Security" : "Безопасность";
             public static string MenuSystem => Lang == ShareEnums.Lang.English ? "System" : "Система";
             public static string ServerResponse => Lang == ShareEnums.Lang.English ? "Server response" : "Ответ сервера";
@@ -202,7 +205,8 @@ namespace DataCore
             public static string MemoryTitle => Lang == ShareEnums.Lang.English ? "Application memory manager" : "Менеджер памяти приложения";
             public static string MemoryLimit => Lang == ShareEnums.Lang.English ? "Memory limit" : "Лимит памяти";
             public static string MemoryLimitNotSet => Lang == ShareEnums.Lang.English ? "Memory limit not set!" : "Лимит памяти не задан!";
-            public static string MemoryUsed => Lang == ShareEnums.Lang.English ? "Memory" : "Память";
+            public static string Memory => Lang == ShareEnums.Lang.English ? "Memory" : "Память";
+            public static string MemoryUsed => Lang == ShareEnums.Lang.English ? "Memory used" : "Используемая память";
             public static string MemoryPhysical => Lang == ShareEnums.Lang.English ? "Physical memory" : "Физическая память";
             public static string MemoryVirtual => Lang == ShareEnums.Lang.English ? "Virtual memory" : "Виртуальная память";
             public static string MemoryIsExecute => Lang == ShareEnums.Lang.English ? "Application memory manager at work." : "Менеджер памяти приложения в работе.";
@@ -211,31 +215,6 @@ namespace DataCore
             public static string MemoryException => Lang == ShareEnums.Lang.English ? "Memory manager error" : "Ошибка менеджера памяти";
             public static string MemoryActionStart => Lang == ShareEnums.Lang.English ? "Run the memory manager" : "Запустить менеджер памяти";
             public static string MemoryActionStop => Lang == ShareEnums.Lang.English ? "Stop the memory manager" : "Остановить менеджер памяти";
-            #endregion
-        }
-
-        public static class Methods
-        {
-            #region Public and private methods
-
-            public static string GetAppVersion(System.Reflection.Assembly executingAssembly)
-            {
-                FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
-                string result = fieVersionInfo.FileVersion;
-                if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
-                    result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
-                return result;
-            }
-
-            public static string GetCoreVersion()
-            {
-                FileVersionInfo fieVersionInfo = FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                string result = fieVersionInfo.FileVersion;
-                if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
-                    result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
-                return result;
-            }
-
             #endregion
         }
     }

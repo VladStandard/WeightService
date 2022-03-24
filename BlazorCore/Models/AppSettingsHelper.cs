@@ -31,15 +31,19 @@ namespace BlazorCore.Models
         public int FontSizeHeader { get; set; }
         public int FontSize { get; set; }
         public static int Delay => 5_000;
+        public string MemoryInfoWithDt => Memory != null && Memory.MemorySize != null &&
+            Memory.MemorySize.PhysicalCurrent != null
+            ? $"{LocalizationCore.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
+            : $"{LocalizationCore.Strings.Memory}: - MB";
         public string MemoryInfo => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null
-            ? $"{LocalizationCore.Strings.MemoryUsed}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
-            : $"{LocalizationCore.Strings.MemoryUsed}: - MB";
-        public string MemoryInfo2 => Memory != null && Memory.MemorySize != null &&
+            ? $"{LocalizationCore.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB"
+            : $"{LocalizationCore.Strings.Memory}: - MB";
+        public string MemoryInfoShort => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null && Memory.MemorySize.PhysicalTotal != null
             ? $"{Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} " +
               $"{LocalizationCore.Strings.Main.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
-            : $"{LocalizationCore.Strings.MemoryUsed}: - MB";
+            : $"{LocalizationCore.Strings.Memory}: - MB";
         public float MemoryFillSize => Memory?.MemorySize?.PhysicalCurrent == null || Memory?.MemorySize?.PhysicalTotal == null
             || Memory.MemorySize.PhysicalTotal.MegaBytes == 0 
             ? 0 : Memory.MemorySize.PhysicalCurrent.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;

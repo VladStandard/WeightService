@@ -15,10 +15,12 @@ namespace DataCore
         public static class DeviceControl
         {
             #region Main
-            public static string CallbackEmail => "mailto:morozov_dv@kolbasa-vs.ru&subject=DeviceControl";
             public static string DataRecords => Lang == ShareEnums.Lang.English ? "records" : "записей";
             public static string Index => Lang == ShareEnums.Lang.English ? "DeviceControl" : "Управление устройствами";
+            public static string IndexAccessQuery => Lang == ShareEnums.Lang.English ? "Contact your system administrator to access." : "Свяжитесь с администратором системы, чтобы получить доступ.";
             public static string IndexContinue => Lang == ShareEnums.Lang.English ? "Click on a menu section to continue." : "Нажмите на раздел меню, чтобы продолжить.";
+            public static string LinkEmail => "morozov_dv@kolbasa-vs.ru";
+            public static string LinkEmailWithSubject => "mailto:morozov_dv@kolbasa-vs.ru&subject=device-control";
             public static string SqlServerDebug => "CREATIO";
             public static string SqlServerRelease => "PALYCH";
             #endregion

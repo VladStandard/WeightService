@@ -34,11 +34,10 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                    TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
-
                     lock (_locker)
                     {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+                        TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
                         ItemCast = null;
                         ButtonSettings = new();
                     }

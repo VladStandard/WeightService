@@ -4,7 +4,7 @@
 @using BlazorCore
 @inherits RazorDisposable
 
-<MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
+<MudPaper Width="100%" Height="30px" Square=false Color="Color.Transparent" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
         @switch (DataLoadItem)
         {
@@ -12,19 +12,19 @@
                 break;
             case ShareEnums.ActionLoad.Loading:
                 <RadzenLabel 
-                    Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
+                    Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "
                     Text=@LocalizationCore.Strings.Main.DataLoading
                 />
                 break;
             case ShareEnums.ActionLoad.Success:
                 <RadzenLabel 
-                    Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
+                    Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "
                     Text=@LocalizationCore.Strings.Main.DataLoadComplete 
                 />
                 break;
             case ShareEnums.ActionLoad.Error:
                 <RadzenLabel 
-                    Style="margin-top: 3px; margin-left: 2%; width: 10%; height: 25px; font-size: 14px; "
+                    Style="margin-top: 3px; margin-left: 2%; width: 25%; height: 25px; "
                     Text=@LocalizationCore.Strings.Main.DataLoadError
                 />
                 break;
@@ -32,7 +32,7 @@
         @if (IsShowProgress)
         {
             <RadzenProgressBar 
-                Style="margin-top: 3px; margin-left: 2%; width: 85%; height: 22px; "
+                Style="margin-top: 3px; margin-left: 2%; align-content: center; width: 70%; height: 22px; "
                 Value=100 ShowValue=false Mode=ProgressBarMode.Indeterminate
             />
         }

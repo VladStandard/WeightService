@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 using Toolbelt.Blazor.HotKeys;
@@ -25,49 +26,41 @@ namespace BlazorDeviceControl.Shared
             base.OnInitialized();
         }
 
-        //public async Task SetParametersAsync1(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
-        public async Task SetParametersAsync1()
+        private async void SetParametersInvokeAsync(Radzen.MenuItemEventArgs args)
         {
-            await base.SetParametersAsync(new ParameterView()).ConfigureAwait(true);
-        }
-        
-        private async void OnChildClicked(Radzen.MenuItemEventArgs args)
-        {
-            //console.Log($"{args.Text} from child clicked");
             await SetParametersAsync(new ParameterView()).ConfigureAwait(true);
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(() =>
+                new Task(async () =>
                 {
                     lock (_locker)
                     {
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Default);
+                        Items = null;
+                        ButtonSettings = new();
+                        AppSettings.SetupMemory(GuiRefreshAsync);
                         UserSettings.SetupHotKeys(HotKeysItem);
                         if (UserSettings.HotKeys != null)
                             UserSettings.HotKeysContext = UserSettings.HotKeys.CreateContext()
                                 .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
                         UserSettings.SetupAccessRights(AppSettings.DataAccess);
                     }
+                    await GuiRefreshWithWaitAsync();
                 }), true);
 
             // Don't change it, because GuiRefreshAsync can get exception!
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(() =>
-                {
-                    lock (_locker)
-                    {
-                        AppSettings.SetupMemory(GuiRefreshAsync);
-                    }
-                }), true);
-        }
-
-        public void OnClick(ChangeEventArgs args)
-        {
-
+            //RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            //    new Task(() =>
+            //    {
+            //        lock (_locker)
+            //        {
+            //            AppSettings.SetupMemory(GuiRefreshAsync);
+            //        }
+            //    }), true);
         }
 
         #endregion

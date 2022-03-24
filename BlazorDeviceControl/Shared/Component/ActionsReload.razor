@@ -6,10 +6,13 @@
 @inherits RazorDisposable
 
 <MudElement HtmlTag="h3" Class="ma-0">
-    <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 20px; " Text=@Title />
+    @if (!string.IsNullOrEmpty(@Title))
+    {
+        <RadzenLabel Style="margin-top: 3px; margin-left: 0%; font-size: 18px; " Text=@Title />
+    }
     @if (IsShowMarkedFilter)
     {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Text=@LocalizationCore.Strings.ActionIsShowMarked />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocalizationCore.Strings.ActionIsShowMarked />
         <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarkedItems
             Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
         />
@@ -24,15 +27,15 @@
     />
     @if (IsShowItemsCount)
     {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Text=@ItemsCountResult />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@ItemsCountResult />
     }
     @if (IsMarked)
     {
-        <RadzenIcon Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Disabled=false ReadOnly=true Icon="delete" />
+        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true Icon="delete" />
     }
     else
     {
-        <RadzenIcon Style="margin-top: 3px; margin-left: 2%; font-size: 14px; " Disabled=false ReadOnly=true Icon="" />
+        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true Icon="" />
     }
 
 </MudElement>

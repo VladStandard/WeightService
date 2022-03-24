@@ -5,6 +5,7 @@ using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL;
 using DataCore.Models;
+using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 using System;
@@ -18,11 +19,12 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        public string ProgramVer => LocalizationCore.Methods.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
-        public string CoreVer => LocalizationCore.Methods.GetCoreVersion();
+        public string VerApp => DataCoreUtuls.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
+        public string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
+        public string VerLibDataCore => DataCoreUtuls.GetLibVersion();
         public string IsDebug => $@"{LocalizationCore.Strings.Main.IsEnableHe(AppSettings.IsDebug)}";
         public List<TypeEntity<ShareEnums.Lang>>? TemplateLanguages { get; set; }
-        public List<TypeEntity<bool>> TemplateIsDebug { get; set; }
+        public List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
         private uint DbCurSize { get; set; } = 0;
         private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocalizationCore.Strings.Main.From} {DbMaxSize:### ###} MB";
         private uint DbMaxSize { get; set; } = 10240;

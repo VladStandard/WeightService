@@ -18,25 +18,36 @@
     </thead>
     <tbody>
         <tr>
-            <td>@LocalizationCore.Strings.Main.ProgramVer</td>
-            @if (string.IsNullOrEmpty(ProgramVer))
+            <td>@LocalizationCore.Strings.Main.VerApp</td>
+            @if (string.IsNullOrEmpty(VerApp))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@ProgramVer</MudElement></td>
+                <td><MudElement Class="ma-0">@VerApp</MudElement></td>
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.Main.CoreVer</td>
-            @if (string.IsNullOrEmpty(CoreVer))
+            <td>@LocalizationCore.Strings.Main.VerLibBlazorCore</td>
+            @if (string.IsNullOrEmpty(VerLibDataCore))
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@CoreVer</MudElement></td>
+                <td><MudElement Class="ma-0">@VerLibBlazorCore</MudElement></td>
+            }
+        </tr>
+        <tr>
+            <td>@LocalizationCore.Strings.Main.VerLibDataCore</td>
+            @if (string.IsNullOrEmpty(VerLibDataCore))
+            {
+                <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
+            }
+            else
+            {
+                <td><MudElement Class="ma-0">@VerLibDataCore</MudElement></td>
             }
         </tr>
         <tr>
@@ -47,7 +58,7 @@
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@Environment.MachineName</MudElement></td>
+                <td><MudElement Class="ma-0">@Environment.MachineName</MudElement></td>
             }
         </tr>
         <tr>
@@ -58,7 +69,7 @@
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.DataAccess.JsonSettings.Server</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.Server</MudElement></td>
             }
         </tr>
         <tr>
@@ -69,7 +80,7 @@
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.DataAccess.JsonSettings.Db</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.Db</MudElement></td>
             }
         </tr>
         <tr>
@@ -87,7 +98,7 @@
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.DataAccess.JsonSettings.Username</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.DataAccess.JsonSettings.Username</MudElement></td>
             }
         </tr>
         <tr>
@@ -98,7 +109,7 @@
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@DbCurSizeAsString</MudElement></td>
+                <td><MudElement Class="ma-0">@DbCurSizeAsString</MudElement></td>
             }
         </tr>
         <tr>
@@ -118,14 +129,14 @@
             }
         </tr>
         <tr>
-            <td>@LocalizationCore.Strings.MemoryUsed</td>
+            <td>@LocalizationCore.Strings.Memory</td>
             @if (AppSettings.Memory == null)
             {
                 <td><ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true /></td>
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@AppSettings.MemoryInfo2</MudElement></td>
+                <td><MudElement Class="ma-0">@AppSettings.MemoryInfoShort</MudElement></td>
             }
         </tr>
         <tr>
@@ -165,26 +176,12 @@
             }
             else
             {
-                <td><MudElement HtmlTag="a" Class="ma-0">@UserSettings.Identity.Name</MudElement></td>
+                <td><MudElement Class="ma-0">@UserSettings.Identity.Name</MudElement></td>
             }
         </tr>
         <tr>
             <td>@LocalizationCore.Strings.Main.AccessRights</td>
-            @switch (UserSettings.Identity.AccessRights)
-            {
-                case AccessRights.None:
-                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AccessRightsNone</MudElement></td>
-                    break;
-                case AccessRights.Read:
-                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AccessRightsRead</MudElement></td>
-                    break;
-                case AccessRights.Write:
-                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AccessRightsWrite</MudElement></td>
-                    break;
-                case AccessRights.Admin:
-                    <td><MudElement HtmlTag="a" Class="ma-0">@LocalizationCore.Strings.Main.AccessRightsAdmin</MudElement></td>
-                    break;
-            }
+            <td><MudElement Class="ma-0">@IdentityEntity.GetDescriptionAccessRights(UserSettings.Identity.AccessRights)</MudElement></td>
         </tr>
         <tr>
             <td>@LocalizationCore.Strings.Main.Language</td>

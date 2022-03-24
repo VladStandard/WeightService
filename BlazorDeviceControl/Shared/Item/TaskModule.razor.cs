@@ -29,10 +29,9 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
-
                     lock (_locker)
                     {
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
                         ItemCast = null;
                         ButtonSettings = new();
                     }

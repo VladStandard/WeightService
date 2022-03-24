@@ -37,12 +37,11 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                    TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
-
                     lock (_locker)
                     {
+                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
                         ItemCast = null;
+                        TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
                         ButtonSettings = new();
                     }
                     await GuiRefreshWithWaitAsync();
@@ -57,6 +56,7 @@ namespace BlazorDeviceControl.Shared.Item
                             ItemCast.Uid = (Guid)Uid;
                             ItemCast.User = "NEW USER";
                         }
+                        TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast?.Rights);
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.330] - 2022-03-24
+### Changed
+- Shared.Index
+- Shared.MainLayout
+
 ## [0.6.320] - 2022-03-22
 ### Changed
 - Shared.Section.Access

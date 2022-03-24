@@ -35,10 +35,9 @@ namespace BlazorDeviceControl.Shared.Item
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
-
                     lock (_locker)
                     {
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
                         ItemCast = null;
                         PrinterItems = null;
                         ResourceItems = null;

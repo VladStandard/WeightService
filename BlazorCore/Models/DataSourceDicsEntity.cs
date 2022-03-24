@@ -39,15 +39,20 @@ namespace BlazorCore.Models
             };
         }
 
-        public List<TypeEntity<ShareEnums.AccessRights>> GetTemplateAccessRights()
+        public List<TypeEntity<ShareEnums.AccessRights>> GetTemplateAccessRights(byte? accessRights = null)
         {
-            return new()
-            {
-                new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.None}", ShareEnums.AccessRights.None),
-                new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Read}", ShareEnums.AccessRights.Read),
-                new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Write}", ShareEnums.AccessRights.Write),
-                new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Admin}", ShareEnums.AccessRights.Admin),
-            };
+            return (accessRights == null || accessRights < (byte)ShareEnums.AccessRights.Admin)
+                ? new() {
+                    new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.None}", ShareEnums.AccessRights.None),
+                    new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Read}", ShareEnums.AccessRights.Read),
+                    new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Write}", ShareEnums.AccessRights.Write),
+                }
+                : new() {
+                    new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.None}", ShareEnums.AccessRights.None),
+                    new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Read}", ShareEnums.AccessRights.Read),
+                    new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Write}", ShareEnums.AccessRights.Write),
+                    new TypeEntity<ShareEnums.AccessRights>($"{ShareEnums.AccessRights.Admin}", ShareEnums.AccessRights.Admin),
+                };
         }
 
         public List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguages()
