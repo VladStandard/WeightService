@@ -305,12 +305,12 @@ namespace DataCore.DAL.Models
         {
             switch (item)
             {
-                case BarcodeEntityV2 barcode:
+                case BarCodeEntityV2 barcode:
                     {
                         if (!barcode.EqualsEmpty())
                         {
                             if (barcode.BarcodeType != null)
-                                barcode.BarcodeType = GetEntity<BarcodeTypeEntityV2>(barcode.BarcodeType.Uid);
+                                barcode.BarcodeType = GetEntity<BarCodeTypeEntityV2>(barcode.BarcodeType.Uid);
                             if (barcode.Contragent != null)
                                 barcode.Contragent = GetEntity<ContragentEntityV2>(barcode.Contragent.Uid);
                             if (barcode.Nomenclature != null)
@@ -318,7 +318,7 @@ namespace DataCore.DAL.Models
                         }
                         break;
                     }
-                case BarcodeTypeEntityV2 barcodeType:
+                case BarCodeTypeEntityV2 barcodeType:
                     {
                         if (!barcodeType.EqualsEmpty())
                         {
@@ -692,7 +692,7 @@ namespace DataCore.DAL.Models
                         session.Save(access);
                     }, filePath, lineNumber, memberName);
                     break;
-                case BarcodeTypeEntityV2 barcodeType:
+                case BarCodeTypeEntityV2 barcodeType:
                     ExecuteTransaction((session) =>
                     {
                         session.Save(barcodeType);
@@ -744,7 +744,7 @@ namespace DataCore.DAL.Models
                 case LogTypeEntity logType:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(logType); }, filePath, lineNumber, memberName);
                     break;
-                case BarcodeTypeEntityV2 barcodeType:
+                case BarCodeTypeEntityV2 barcodeType:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(barcodeType); }, filePath, lineNumber, memberName);
                     break;
                 case ContragentEntityV2 contragent:
@@ -865,7 +865,7 @@ namespace DataCore.DAL.Models
                 case LogTypeEntity logType:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(logType); }, filePath, lineNumber, memberName);
                     break;
-                case BarcodeTypeEntityV2 barcodeType:
+                case BarCodeTypeEntityV2 barcodeType:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(barcodeType); }, filePath, lineNumber, memberName);
                     break;
                 case ContragentEntityV2 contragent:

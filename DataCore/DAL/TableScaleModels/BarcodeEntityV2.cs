@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableScaleModels
     /// <summary>
     /// Таблица "ШК".
     /// </summary>
-    public class BarcodeEntityV2 : BaseEntity
+    public class BarCodeEntityV2 : BaseEntity
     {
         #region Public and private fields and properties
 
@@ -17,7 +17,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual DateTime ChangeDt { get; set; } = default;
         public virtual bool IsMarked { get; set; } = false;
         public virtual string Value { get; set; } = string.Empty;
-        public virtual BarcodeTypeEntityV2? BarcodeType { get; set; } = new();
+        public virtual BarCodeTypeEntityV2? BarcodeType { get; set; } = new();
         public virtual ContragentEntityV2? Contragent { get; set; } = new();
         public virtual NomenclatureEntity? Nomenclature { get; set; } = new();
 
@@ -25,7 +25,7 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Constructor and destructor
 
-        public BarcodeEntityV2()
+        public BarCodeEntityV2()
         {
             PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
         }
@@ -49,7 +49,7 @@ namespace DataCore.DAL.TableScaleModels
                 $"{nameof(Nomenclature)}: {strNomenclature}. ";
         }
 
-        public virtual bool Equals(BarcodeEntityV2 entity)
+        public virtual bool Equals(BarCodeEntityV2 entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
@@ -68,7 +68,7 @@ namespace DataCore.DAL.TableScaleModels
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((BarcodeEntityV2)obj);
+            return Equals((BarCodeEntityV2)obj);
         }
 
         public override int GetHashCode()
@@ -78,7 +78,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new BarcodeEntityV2());
+            return Equals(new BarCodeEntityV2());
         }
 
         public new virtual bool EqualsDefault()
@@ -98,7 +98,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public override object Clone()
         {
-            return new BarcodeEntityV2
+            return new BarCodeEntityV2
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
                 Uid = Uid,
@@ -106,7 +106,7 @@ namespace DataCore.DAL.TableScaleModels
                 ChangeDt = ChangeDt,
                 IsMarked = IsMarked,
                 Value = Value,
-                BarcodeType = BarcodeType != null ? (BarcodeTypeEntityV2)BarcodeType.Clone() : null,
+                BarcodeType = BarcodeType != null ? (BarCodeTypeEntityV2)BarcodeType.Clone() : null,
                 Contragent = Contragent != null ? (ContragentEntityV2)Contragent.Clone() : null,
                 Nomenclature = Nomenclature != null ? (NomenclatureEntity)Nomenclature.Clone() : null,
             };

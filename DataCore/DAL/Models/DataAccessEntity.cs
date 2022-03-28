@@ -105,8 +105,8 @@ namespace DataCore.DAL.Models
         {
             configuration.Mappings(m => m.FluentMappings.Add<AccessMap>());
             configuration.Mappings(m => m.FluentMappings.Add<AppMap>());
-            configuration.Mappings(m => m.FluentMappings.Add<BarcodeMapV2>());
-            configuration.Mappings(m => m.FluentMappings.Add<BarcodeTypeMapV2>());
+            configuration.Mappings(m => m.FluentMappings.Add<BarCodeMapV2>());
+            configuration.Mappings(m => m.FluentMappings.Add<BarCodeTypeMapV2>());
             configuration.Mappings(m => m.FluentMappings.Add<ContragentMapV2>());
             configuration.Mappings(m => m.FluentMappings.Add<ErrorMap>());
             configuration.Mappings(m => m.FluentMappings.Add<HostMap>());

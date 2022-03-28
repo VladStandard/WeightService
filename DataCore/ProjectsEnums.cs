@@ -78,8 +78,8 @@ namespace DataCore
         public enum TableScale
         {
             Default,
-            Barcodes,
-            BarcodesTypes,
+            BarCodes,
+            BarCodeTypes,
             Contragents,
             Hosts,
             Labels,

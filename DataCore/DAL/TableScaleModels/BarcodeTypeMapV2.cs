@@ -5,9 +5,9 @@ using FluentNHibernate.Mapping;
 
 namespace DataCore.DAL.TableScaleModels
 {
-    public class BarcodeTypeMapV2 : ClassMap<BarcodeTypeEntityV2>
+    public class BarCodeTypeMapV2 : ClassMap<BarCodeTypeEntityV2>
     {
-        public BarcodeTypeMapV2()
+        public BarCodeTypeMapV2()
         {
             Table("[db_scales].[BARCODE_TYPES_V2]");
             LazyLoad();

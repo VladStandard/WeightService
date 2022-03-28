@@ -118,7 +118,6 @@ namespace DataCore
             public static string ItemWorkshop => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
             #endregion
             #region Sections
-            public static string SectionBarcodes => Lang == ShareEnums.Lang.English ? "Barcodes" : "Штрихкоды";
             public static string SectionBarCodes => Lang == ShareEnums.Lang.English ? "Barcodes" : "Штрихкоды";
             public static string SectionBarCodesShort => Lang == ShareEnums.Lang.English ? "BC" : "ШК";
             public static string SectionBarCodeTypes => Lang == ShareEnums.Lang.English ? "Barcodes types" : "Типы штрихкодов";
@@ -593,7 +592,7 @@ namespace DataCore
                 {
                     switch (tableScale)
                     {
-                        case ProjectsEnums.TableScale.BarcodesTypes:
+                        case ProjectsEnums.TableScale.BarCodeTypes:
                             result = DeviceControl.ItemBarCodeType;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
@@ -694,8 +693,11 @@ namespace DataCore
                     {
                         case ProjectsEnums.TableScale.Default:
                             break;
-                        case ProjectsEnums.TableScale.BarcodesTypes:
-                            result = DeviceControl.SectionBarcodes;
+                        case ProjectsEnums.TableScale.BarCodes:
+                            result = DeviceControl.SectionBarCodes;
+                            break;
+                        case ProjectsEnums.TableScale.BarCodeTypes:
+                            result = DeviceControl.SectionBarCodeTypes;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
                             result = DeviceControl.SectionContragents;
