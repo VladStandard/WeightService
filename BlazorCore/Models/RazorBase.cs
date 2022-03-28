@@ -8,6 +8,7 @@ using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
+using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -34,11 +35,18 @@ namespace BlazorCore.Models
         [Parameter] public Guid? Uid { get; set; } = null;
         [Parameter] public string UidStr
         {
-            get => Item == null ? string.Empty : Item.Uid.ToString();
-            set => Uid = string.IsNullOrEmpty(value) ? null : Guid.Parse(value);
+            get => Uid != null ? Uid.ToString() : Guid.Empty.ToString();
+            //get => Item == null ? string.Empty : Item.Uid.ToString();
+            set => Uid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
+            //set => Uid = string.IsNullOrEmpty(value) ? null : Guid.Parse(value);
         }
         [Parameter] public RazorBase? ParentRazor { get; set; } = null;
         public BaseEntity? Item { get; set; } = null;
+        public object? ItemObject
+        {
+            get => Item ?? null;
+            set => Item = (BaseEntity?)value;
+        }
         [Parameter] public List<BaseEntity>? Items { get; set; } = null;
         [Parameter] public TableBase Table { get; set; } = new TableBase(string.Empty);
         [Parameter] public DbTableAction TableAction { get; set; } = DbTableAction.Default;
@@ -61,15 +69,17 @@ namespace BlazorCore.Models
         public UserSettingsHelper UserSettings { get; private set; } = UserSettingsHelper.Instance;
         private ItemSaveCheckEntity ItemSaveCheck { get; set; } = new ItemSaveCheckEntity();
         private readonly object _locker = new();
+        public RadzenGrid<BaseEntity> GridItem { get; set; } = new RadzenGrid<BaseEntity>();
+        private bool RecentCollapse { get; set; } = false;
 
         #endregion
 
         #region Constructor and destructor
 
-        //public RazorBase()
-        //{
-        //    //
-        //}
+        public RazorBase()
+        {
+            //
+        }
 
         #endregion
 
@@ -205,7 +215,7 @@ namespace BlazorCore.Models
                         //}
                     }
                     break;
-                case ProjectsEnums.TableScale.BarcodesTypes:
+                case ProjectsEnums.TableScale.BarCodeTypes:
                     break;
                 case ProjectsEnums.TableScale.Contragents:
                     break;
@@ -267,16 +277,37 @@ namespace BlazorCore.Models
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemSelectAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async () =>
+                new Task(() =>
                 {
-                    lock (_locker)
-                    {
-                        Item = item;
-                        Id = item.Id;
-                        Uid = item.Uid;
-                    }
-                    await GuiRefreshWithWaitAsync();
+                    ItemSelect(item);
+                    //await GuiRefreshWithWaitAsync();
                 }), true);
+        }
+
+        public void ItemSelect(BaseEntity item)
+        {
+            lock (_locker)
+            {
+                if (!RecentCollapse)
+                {
+                    if (Item != item)
+                        Item = item;
+                    if (Id != item.Id)
+                        Id = item.Id;
+                    if (Uid != item.Uid)
+                        Uid = item.Uid;
+                }
+                //else
+                //{
+                //    GridItem?.Reset(false, true);
+                //    RecentCollapse = false;
+                //}
+            }
+        }
+
+        public void RowCollapse(BaseEntity item)
+        {
+            RecentCollapse = true;
         }
 
         public async Task GuiRefreshAsync(bool continueOnCapturedContext)
@@ -378,10 +409,10 @@ namespace BlazorCore.Models
             {
                 case ProjectsEnums.TableScale.Default:
                     break;
-                case ProjectsEnums.TableScale.BarcodesTypes:
+                case ProjectsEnums.TableScale.BarCodeTypes:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out long? idBarcodeType))
                     {
-                        Item = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntityV2>(
+                        Item = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idBarcodeType }, }), null);
                     }
                     break;
@@ -714,7 +745,7 @@ namespace BlazorCore.Models
                 case TableScaleEntity:
                     switch (ProjectsEnums.GetTableScale(Table.Name))
                     {
-                        case ProjectsEnums.TableScale.BarcodesTypes:
+                        case ProjectsEnums.TableScale.BarCodeTypes:
                             page = LocalizationData.DeviceControl.UriRouteItem.BarCodeType;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
@@ -800,8 +831,8 @@ namespace BlazorCore.Models
                         {
                             switch (ProjectsEnums.GetTableScale(Table.Name))
                             {
-                                case ProjectsEnums.TableScale.BarcodesTypes:
-                                    Id = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntityV2>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                                case ProjectsEnums.TableScale.BarCodeTypes:
+                                    Id = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
                                     break;
                                 case ProjectsEnums.TableScale.Hosts:
                                     Id = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(null, new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
@@ -859,16 +890,16 @@ namespace BlazorCore.Models
             if (TableAction == DbTableAction.New)
             {
                 if (item.PrimaryColumn.Name == ColumnName.Id)
-                    NavigationManager.NavigateTo($"{page}/{Id}/{TableAction}");
+                    NavigationManager.NavigateTo($"{page}/{item.Id}/{TableAction}");
                 else if (item.PrimaryColumn.Name == ColumnName.Uid)
-                    NavigationManager.NavigateTo($"{page}/{Uid}/{TableAction}");
+                    NavigationManager.NavigateTo($"{page}/{item.Uid}/{TableAction}");
             }
             else
             {
                 if (item.PrimaryColumn.Name == ColumnName.Id)
-                    NavigationManager.NavigateTo($"{page}/{Id}");
+                    NavigationManager.NavigateTo($"{page}/{item.Id}");
                 else if (item.PrimaryColumn.Name == ColumnName.Uid)
-                    NavigationManager.NavigateTo($"{page}/{Uid}");
+                    NavigationManager.NavigateTo($"{page}/{item.Uid}");
             }
         }
 
@@ -935,7 +966,7 @@ namespace BlazorCore.Models
                 case TableScaleEntity:
                     switch (ProjectsEnums.GetTableScale(Table.Name))
                     {
-                        case ProjectsEnums.TableScale.BarcodesTypes:
+                        case ProjectsEnums.TableScale.BarCodeTypes:
                             page = LocalizationData.DeviceControl.UriRouteSection.BarCodeTypes;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
@@ -1044,9 +1075,9 @@ namespace BlazorCore.Models
             {
                 case ProjectsEnums.TableScale.Default:
                     break;
-                case ProjectsEnums.TableScale.BarcodesTypes:
+                case ProjectsEnums.TableScale.BarCodeTypes:
                     if (ParentRazor?.Item != null)
-                        ItemSaveCheck.BarcodeType(NotificationService, (BarcodeTypeEntityV2)ParentRazor.Item, Uid, TableAction);
+                        ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntityV2)ParentRazor.Item, Uid, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Contragents:
                     if (ParentRazor?.Item != null)

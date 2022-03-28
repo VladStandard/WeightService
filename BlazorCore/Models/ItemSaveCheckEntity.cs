@@ -41,7 +41,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void BarcodeType(NotificationService notificationService, BarcodeTypeEntityV2 barcodeType, Guid? uid, DbTableAction tableAction)
+        public void BarcodeType(NotificationService notificationService, BarCodeTypeEntityV2 barcodeType, Guid? uid, DbTableAction tableAction)
         {
             if (uid == null)
                 return;
