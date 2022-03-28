@@ -26,7 +26,7 @@ else
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn 
-                TItem="TemplateEntity" Property="CategoryId" TextAlign="TextAlign.Center"
+                TItem="TemplateEntity" Property="CategoryId" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldCategoryName Width="15%" />
             <RadzenGridColumn 
                 TItem="TemplateEntity" Property="Title" 

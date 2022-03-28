@@ -27,7 +27,7 @@ else
         <Columns >
             @if (@IsShowMarkedItems)
             {
-                <RadzenGridColumn TItem="ContragentEntityV2" TextAlign="TextAlign.Center" 
+                <RadzenGridColumn TItem="ContragentEntityV2" TextAlign=TextAlign.Center 
                     Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         @if (itemCast.IsMarked)
@@ -42,25 +42,25 @@ else
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="ContragentEntityV2" TextAlign="TextAlign.Center"
+                TItem="ContragentEntityV2" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
                 <Template Context="logItem">
                     <RadzenDatePicker 
                         TValue="string" Value=@logItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="ContragentEntityV2" TextAlign="TextAlign.Center"
+            <RadzenGridColumn TItem="ContragentEntityV2" TextAlign=TextAlign.Center
                     Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
                 <Template Context="logItem">
                     <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ContragentEntityV2" Property="Name" TextAlign="TextAlign.Left"
+                TItem="ContragentEntityV2" Property="Name" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldName
                 Type="string" Width="25%" />
             <RadzenGridColumn 
-                TItem="ContragentEntityV2" Property="FullName" TextAlign="TextAlign.Left"
+                TItem="ContragentEntityV2" Property="FullName" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldName
                 Type="string" Width="35%" />
         </Columns>

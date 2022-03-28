@@ -52,7 +52,7 @@ else
                         Disabled=false TValue=@ShareEnums.AccessRights
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
                         Data=@TemplateAccessRights PageSize="5" TextProperty="Name" ValueProperty="Value"
-                        Value=@Rights Change=@(args => OnChange(args, Table, ItemCast)) 
+                        Value=@Rights Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Rights), args)) 
                     />
 				</td>
             </tr>

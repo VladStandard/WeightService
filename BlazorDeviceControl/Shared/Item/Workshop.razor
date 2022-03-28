@@ -60,15 +60,16 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid 
-                            Style="width: 100%;" TValue="int"
-                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@ProductionFacilities PageSize="10"
-                            TextProperty="Name" ValueProperty="Id"
+                            Data=@ProductionFacilities PageSize=10 TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.ProductionFacility.Id
-                            Change=@(args => OnChange(args, Table, Item))
-                        />
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.ProductionFacility), args)) >
+                            <Columns>
+                                <RadzenDropDownDataGridColumn Property="Id" TextAlign=TextAlign.Center Title=@LocalizationData.DeviceControl.TableFieldId Width="15%" />
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="85%" />
+                            </Columns>
+                        </RadzenDropDownDataGrid>
                     }
                 </td>
             </tr>

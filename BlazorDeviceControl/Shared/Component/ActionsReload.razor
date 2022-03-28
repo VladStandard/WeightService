@@ -2,6 +2,7 @@
 @page "/component/actionsreload"
 @using DataCore
 @using DataCore.Utils
+@using static DataCore.ProjectsEnums
 @using static DataCore.ShareEnums
 
 <MudElement HtmlTag="h3" Class="ma-0">
@@ -28,13 +29,14 @@
     {
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@ItemsCountResult />
     }
-    @if (IsMarked)
+    <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true Icon=@(IsMarked ? "delete" : "") />
+    @if (IsShowAdditionalFilter)
     {
-        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true Icon="delete" />
-    }
-    else
-    {
-        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true Icon="" />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@FilterCaption />
+        <RadzenDropDown Style="width: 100%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+            Data=@ItemsFilter PageSize=5 TextProperty="Name" ValueProperty="Value"
+            Value=@ItemFilter Change=@(args => OnItemValueChange(ItemFilter, FilterName, args)) />
     }
 
 </MudElement>

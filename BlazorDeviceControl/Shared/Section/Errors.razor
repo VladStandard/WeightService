@@ -26,7 +26,7 @@ else
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="ErrorEntity" TextAlign="TextAlign.Center"
+                TItem="ErrorEntity" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
                 <Template Context="errorItem" >
                     <RadzenDatePicker 
@@ -34,16 +34,16 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ErrorEntity" Property="FilePathShort" TextAlign="TextAlign.Left"
+                TItem="ErrorEntity" Property="FilePathShort" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="13%" />
             <RadzenGridColumn 
-                TItem="ErrorEntity" Property="LineNumber" TextAlign="TextAlign.Center"
+                TItem="ErrorEntity" Property="LineNumber" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="6%" />
             <RadzenGridColumn 
-                TItem="ErrorEntity" Property="MemberName" TextAlign="TextAlign.Left"
+                TItem="ErrorEntity" Property="MemberName" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="12%" />
             <RadzenGridColumn 
-                TItem="ErrorEntity" Property="Exception" TextAlign="TextAlign.Left"
+                TItem="ErrorEntity" Property="Exception" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldException Type="int" Width="54%">
             </RadzenGridColumn>
         </Columns>

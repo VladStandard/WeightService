@@ -1,17 +1,13 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
-using Radzen;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
@@ -33,14 +29,11 @@ namespace BlazorDeviceControl.Shared.Item
         public List<HostEntity>? HostItems { get; set; } = null;
         private readonly object _locker = new();
         public string PageSelf => ItemCast == null ? string.Empty : $"{@LocalizationData.DeviceControl.UriRouteItem.Scale}/{ItemCast.Id}";
-        public string PageHost =>
-            ItemCast?.Host == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{ItemCast.Host.Id}";
-        public string PagePrinter =>
-            ItemCast?.Printer == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{ItemCast.Printer.Id}";
-        public string PageTemplateDefault =>
-            ItemCast?.TemplateDefault == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast.TemplateDefault.Id}";
-        public string PageTemplateSeries =>
-            ItemCast?.TemplateSeries == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast.TemplateSeries.Id}";
+        public string PageHost => ItemCast?.Host == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{ItemCast.Host.Id}";
+        public string PagePrinter => ItemCast?.Printer == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{ItemCast.Printer.Id}";
+        public string PageTemplateDefault => ItemCast?.TemplateDefault == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast.TemplateDefault.Id}";
+        public string PageTemplateSeries => ItemCast?.TemplateSeries == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{ItemCast.TemplateSeries.Id}";
+        public string PageWorkShop => ItemCast?.WorkShop == null ? PageSelf : $"{@LocalizationData.DeviceControl.UriRouteItem.WorkShop}/{ItemCast.WorkShop.Id}";
 
         #endregion
 
@@ -69,14 +62,6 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        //ScaleItem = null;
-                        //ComPorts = null;
-                        //PluItems = null;
-                        //TemplatesDefaultItems = null;
-                        //TemplatesSeriesItems = null;
-                        //WorkshopItems = null;
-                        //PrinterItems = null;
-                        //HostItems = null;
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), Id } }), null);
                         if (Id != null && TableAction == DbTableAction.New)
@@ -111,147 +96,13 @@ namespace BlazorDeviceControl.Shared.Item
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
                             null)?.ToList();
                         HostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> {
-                            { DbField.Marked.ToString(), false },
-                            }), new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
                         ?.ToList();
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
-        }
-
-        //private async Task RowDoubleClickAsync(BaseIdEntity entity,
-        //    [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        //{
-        //    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-        //    try
-        //    {
-        //        if (entity is PluEntity pluEntity)
-        //        {
-        //            PluItem = pluEntity;
-        //            //await EntityActions.ActionEditAsync(ShareEnums.TableDwh.Plu, PluItem, ScaleItem).ConfigureAwait(true);
-        //            Action(EnumTableScales.Plu, DbTableAction.Edit, ScaleItem, false, PluItem);
-        //            await SetParametersAsync(new ParameterView()).ConfigureAwait(false);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        NotificationMessage msg = new()
-        //        {
-        //            Severity = NotificationSeverity.Error,
-        //            Summary = $"{LocalizationCore.Strings.Main.MethodError} [{memberName}]!",
-        //            Detail = ex.Message,
-        //            Duration = AppSettingsEntity.Delay
-        //        };
-        //        Notification.Notify(msg);
-        //        Console.WriteLine(msg.Detail);
-        //        AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-        //    }
-        //}
-
-        private void OnChange(object value, string name,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                lock (_locker)
-                {
-                    if (ItemCast != null)
-                    {
-                        switch (name)
-                        {
-                            case "DeviceComPort":
-                                if (value is string strValue)
-                                {
-                                    ItemCast.DeviceComPort = strValue;
-                                }
-                                break;
-                            case "TemplatesDefault":
-                                if (value is long idDefault)
-                                {
-                                    if (idDefault <= 0)
-                                        ItemCast.TemplateDefault = null;
-                                    else
-                                    {
-                                        ItemCast.TemplateDefault = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idDefault } }),
-                                            null);
-                                    }
-                                }
-                                break;
-                            case "TemplatesSeries":
-                                if (value is long idSeries)
-                                {
-                                    if (idSeries <= 0)
-                                        ItemCast.TemplateSeries = null;
-                                    else
-                                    {
-                                        ItemCast.TemplateSeries = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idSeries } }),
-                                            null);
-                                    }
-                                }
-                                break;
-                            case "WorkShops":
-                                if (value is long idWorkShop)
-                                {
-                                    if (idWorkShop <= 0)
-                                        ItemCast.WorkShop = null;
-                                    else
-                                    {
-                                        ItemCast.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
-                                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idWorkShop } }),
-                                            null);
-                                    }
-                                }
-                                break;
-                            case "Printers":
-                                if (value is long idPrinter)
-                                {
-                                    if (idPrinter <= 0)
-                                        ItemCast.Printer = null;
-                                    else
-                                    {
-                                        ItemCast.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idPrinter } }),
-                                            null);
-                                    }
-                                }
-                                break;
-                            case "Hosts":
-                                if (value is long idHost)
-                                {
-                                    if (idHost <= 0)
-                                        ItemCast.Host = null;
-                                    else
-                                    {
-                                        ItemCast.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-                                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idHost } }),
-                                            null);
-                                    }
-                                }
-                                break;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsHelper.Delay
-                };
-                NotificationService.Notify(msg);
-                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-            finally
-            {
-                StateHasChanged();
-            }
         }
 
         #endregion

@@ -60,10 +60,15 @@ else
                     }
                     else
                     {
-                        <RadzenDropDown Style="width: 100%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@ComPorts PageSize="5" TextProperty="Name" ValueProperty="Value"
-                            Value=@ItemCast.DeviceComPort Change=@(args => OnChange(args, "DeviceComPort")) />
+                            Data=@ComPorts PageSize=10 TextProperty="Name" ValueProperty="Value"
+                            Value=@ItemCast.DeviceComPort 
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.DeviceComPort), args)) >
+                            <Columns>
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
+                            </Columns>
+                        </RadzenDropDownDataGrid>
                     }
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldDeviceReceiveTimeout</td>
@@ -85,12 +90,15 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@PrinterItems PageSize="5"
-                            TextProperty="Name" ValueProperty="Id"
+                            Data=@PrinterItems PageSize=10 TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.Printer?.Id
-                            Change=@(args => OnChange(args, "Printers")) />
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.Printer), args)) >
+                            <Columns>
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
+                            </Columns>
+                        </RadzenDropDownDataGrid>
                     }
 				</td>
                 <td>
@@ -105,14 +113,14 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@HostItems PageSize="5"
-                            TextProperty="Name" ValueProperty="Id"
+                            Data=@HostItems PageSize=10 TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.Host?.Id
-                            Change=@(args => OnChange(args, "Hosts"))>
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.Host), args)) >
                             <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
+                                <RadzenDropDownDataGridColumn Property="Id" TextAlign=TextAlign.Center Title=@LocalizationData.DeviceControl.TableFieldId Width="15%" />
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="85%" />
                             </Columns>
                         </RadzenDropDownDataGrid>
                     }
@@ -145,12 +153,15 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@TemplatesDefaultItems PageSize="5"
-                            TextProperty="Title" ValueProperty="Id"
+                            Data=@TemplatesDefaultItems PageSize=10 TextProperty="Title" ValueProperty="Id"
                             Value=@ItemCast.TemplateDefault?.Id
-                            Change=@(args => OnChange(args, "TemplatesDefault")) />
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.TemplateDefault), args)) >
+                            <Columns>
+                                <RadzenDropDownDataGridColumn Property="Title" Title=@LocalizationData.DeviceControl.TableFieldTitle Width="100%" />
+                            </Columns>
+                        </RadzenDropDownDataGrid>
                     }
 				</td>
                 <td>
@@ -165,17 +176,24 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@TemplatesSeriesItems PageSize="5"
-                            TextProperty="Title" ValueProperty="Id"
+                            Data=@TemplatesSeriesItems PageSize=10 TextProperty="Title" ValueProperty="Id"
                             Value=@ItemCast.TemplateSeries?.Id
-                            Change=@(args => OnChange(args, "TemplatesSeries")) />
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.TemplateSeries), args)) >
+                            <Columns>
+                                <RadzenDropDownDataGridColumn Property="Title" Title=@LocalizationData.DeviceControl.TableFieldTitle Width="100%" />
+                            </Columns>
+                        </RadzenDropDownDataGrid>
                     }
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldWorkShopName</td>
+                <td>
+                    <NavLink class="nav-link" href=@PageWorkShop Style="width: 100%; text-align: left; margin-left: -15px; "  >
+                        @LocalizationData.DeviceControl.TableFieldWorkShopName
+                    </NavLink>
+                </td>
                 <td>
                     @if (WorkshopItems == null)
                     {
@@ -183,12 +201,15 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@WorkshopItems PageSize="5"
-                            TextProperty="Name" ValueProperty="Id"
+                            Data=@WorkshopItems PageSize=10 TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.WorkShop?.Id
-                            Change=@(args => OnChange(args, "WorkShops")) />
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.WorkShop), args)) >
+                            <Columns>
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
+                            </Columns>
+                        </RadzenDropDownDataGrid>
                     }
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldScaleFactor</td>
@@ -200,7 +221,7 @@ else
         </tbody>
     </MudSimpleTable>
     
-    <Plus Table=@Table ScaleId=@ItemCast.Id />
+    <Plus Table=@Table ItemFilter=@ItemCast IsShowAdditionalFilter=false />
     
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />

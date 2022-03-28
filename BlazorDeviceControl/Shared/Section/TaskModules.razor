@@ -26,21 +26,21 @@ else
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="45%"
+                TItem="TaskEntity" TextAlign=TextAlign.Left Type="string" Width="45%"
                 Title=@LocalizationData.DeviceControl.TableFieldHost >
                 <Template Context="item">
                     <RadzenLabel Text=@item.Scale?.Host?.Name Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="TaskEntity" TextAlign="TextAlign.Left" Type="string" Width="45%"
+                TItem="TaskEntity" TextAlign=TextAlign.Left Type="string" Width="45%"
                 Title=@LocalizationData.DeviceControl.TableFieldTaskType >
                 <Template Context="item">
                     <RadzenLabel Text=@item.TaskType?.Name Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="TaskEntity" Property="Enabled" TextAlign="TextAlign.Center" Width="10%" 
+                TItem="TaskEntity" Property="Enabled" TextAlign=TextAlign.Center Width="10%" 
                 Title=@LocalizationData.DeviceControl.TableFieldEnabled >
                 <Template Context="item">
                     <RadzenCheckBox TValue="bool" @bind-Value=@item.Enabled Disabled=@Disabled />

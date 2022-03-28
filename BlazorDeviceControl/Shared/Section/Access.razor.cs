@@ -6,7 +6,6 @@ using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
-using Radzen.Blazor;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

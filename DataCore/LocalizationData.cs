@@ -51,7 +51,7 @@ namespace DataCore
                 public const string Template = "/item/template";
                 public const string TemplateResource = "/item/templateresource";
                 public const string WeithingFact = "/item/weithingfact";
-                public const string Workshop = "/item/workshop";
+                public const string WorkShop = "/item/workshop";
             }
             #endregion
             #region URI route section
@@ -81,7 +81,7 @@ namespace DataCore
                 public const string TemplateResources = "/section/templateresources";
                 public const string Templates = "/section/templates";
                 public const string WeithingFacts = "/section/weithingfacts";
-                public const string Workshops = "/section/workshops";
+                public const string WorkShops = "/section/workshops";
             }
             #endregion
             #region Items

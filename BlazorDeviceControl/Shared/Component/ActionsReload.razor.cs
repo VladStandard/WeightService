@@ -12,8 +12,6 @@ namespace BlazorDeviceControl.Shared.Component
 
         [Parameter] public string Title { get; set; } = string.Empty;
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
-        [Parameter] public bool IsShowItemsCount { get; set; }
-        [Parameter] public bool IsMarked { get; set; }
         public string ItemsCountResult => $"{LocalizationCore.Strings.Main.ItemsCount}: {(Items == null ? 0 : Items.Count):### ### ###}";
 
         #endregion

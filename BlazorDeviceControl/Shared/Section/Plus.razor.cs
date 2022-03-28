@@ -17,7 +17,6 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        [Parameter] public long? ScaleId { get; set; }
         private List<PluEntity>? ItemsCast => Items?.Select(x => (PluEntity)x).ToList();
         private readonly object _locker = new();
 
@@ -44,14 +43,17 @@ namespace BlazorDeviceControl.Shared.Section
                     {
                         if (AppSettings.DataAccess != null)
                         {
+                            long? scaleId = null;
+                            if (ItemFilter is ScaleEntity scale)
+                                scaleId = scale.Id;
                             Items = !IsShowMarkedItems
-                                ? AppSettings.DataAccess.Crud.GetEntities<PluEntity>(ScaleId != null
-                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", ScaleId }, { DbField.Marked.ToString(), false } })
+                                ? AppSettings.DataAccess.Crud.GetEntities<PluEntity>(scaleId != null
+                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", scaleId }, { DbField.Marked.ToString(), false } })
                                     : new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
                                         new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))?
                                     .ToList<BaseEntity>()
-                                : AppSettings.DataAccess.Crud.GetEntities<PluEntity>(ScaleId != null
-                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", ScaleId } })
+                                : AppSettings.DataAccess.Crud.GetEntities<PluEntity>(scaleId != null
+                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", scaleId } })
                                     : new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
                                         new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))?
                                     .ToList<BaseEntity>()

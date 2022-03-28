@@ -28,7 +28,7 @@ else
         <Columns>
             @if (@IsShowMarkedItems)
             {
-                <RadzenGridColumn TItem="HostEntity" TextAlign="TextAlign.Center" 
+                <RadzenGridColumn TItem="HostEntity" TextAlign=TextAlign.Center 
                     Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         @if (itemCast.IsMarked)
@@ -52,7 +52,7 @@ else
                 TItem="HostEntity" Property="IdRRef" Title=@LocalizationData.DeviceControl.TableFieldIdRRef
                 Type="string" Width="25.0%" />
             <RadzenGridColumn 
-                TItem="HostEntity" TextAlign="TextAlign.Center" Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldDeviceMac
+                TItem="HostEntity" TextAlign=TextAlign.Center Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldDeviceMac
                 Type="string" Width="25.0%" />
         </Columns>
     </RadzenGrid>

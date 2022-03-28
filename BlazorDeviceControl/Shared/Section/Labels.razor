@@ -26,7 +26,7 @@ else
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" TextAlign="TextAlign.Center"
+                TItem="LabelQuickEntity" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
                 <Template Context="labelItem" >
                     <RadzenDatePicker 
@@ -34,22 +34,22 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Property="ScaleDescription" TextAlign="TextAlign.Left"
+                TItem="LabelQuickEntity" Property="ScaleDescription" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldScale Type="string" Width="30%" />
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Property="PluId" TextAlign="TextAlign.Left"
+                TItem="LabelQuickEntity" Property="PluId" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldPlu Type="int" Width="10%" />
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Property="NetWeight" TextAlign="TextAlign.Left"
+                TItem="LabelQuickEntity" Property="NetWeight" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldNetWeight Type="decimal" Width="10%" />
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Property="TareWeight" TextAlign="TextAlign.Left"
+                TItem="LabelQuickEntity" Property="TareWeight" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldTareWeight Type="decimal" Width="10%" />
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Property="RegNum" TextAlign="TextAlign.Left"
+                TItem="LabelQuickEntity" Property="RegNum" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldRegNum Type="int" Width="10%" />
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Property="ZplInfo" TextAlign="TextAlign.Left"
+                TItem="LabelQuickEntity" Property="ZplInfo" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldImageDataInfo Type="string" Width="15%" />
         </Columns>
     </RadzenGrid>

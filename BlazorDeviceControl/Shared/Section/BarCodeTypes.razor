@@ -28,7 +28,7 @@ else
         <Columns >
             @if (@IsShowMarkedItems)
             {
-                <RadzenGridColumn TItem="BarCodeTypeEntityV2" TextAlign="TextAlign.Center" 
+                <RadzenGridColumn TItem="BarCodeTypeEntityV2" TextAlign=TextAlign.Center 
                     Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         @if (itemCast.IsMarked)
@@ -43,14 +43,14 @@ else
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="BarCodeTypeEntityV2" TextAlign="TextAlign.Center"
+                TItem="BarCodeTypeEntityV2" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
                 <Template Context="logItem">
                     <RadzenDatePicker 
                         TValue="string" Value=@logItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="BarCodeTypeEntityV2" TextAlign="TextAlign.Center"
+            <RadzenGridColumn TItem="BarCodeTypeEntityV2" TextAlign=TextAlign.Center
                     Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
                 <Template Context="logItem">
                     <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
@@ -58,7 +58,7 @@ else
             </RadzenGridColumn>
 
             <RadzenGridColumn 
-                TItem="BarCodeTypeEntityV2" Property="Name" TextAlign="TextAlign.Left"
+                TItem="BarCodeTypeEntityV2" Property="Name" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldName
                 Type="string" Width="60%" />
         </Columns>

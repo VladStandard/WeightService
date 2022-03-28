@@ -25,7 +25,7 @@ else
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="LogQuickEntity" TextAlign="TextAlign.Center"
+                TItem="LogQuickEntity" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
                 <Template Context="logItem" >
                     <RadzenDatePicker 
@@ -33,26 +33,26 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Property="Host" TextAlign="TextAlign.Left"
+                TItem="LogQuickEntity" Property="Host" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldHost Type="string" Width="12%" />
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Property="App" TextAlign="TextAlign.Left"
+                TItem="LogQuickEntity" Property="App" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldApp Type="string" Width="7%" />
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Property="File" TextAlign="TextAlign.Left"
+                TItem="LogQuickEntity" Property="File" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="12%" />
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Property="Line" TextAlign="TextAlign.Center"
+                TItem="LogQuickEntity" Property="Line" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="5%">
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Property="Member" TextAlign="TextAlign.Left"
+                TItem="LogQuickEntity" Property="Member" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="14%" />
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Property="Icon" TextAlign="TextAlign.Left"
+                TItem="LogQuickEntity" Property="Icon" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldIcon Type="string" Width="7%" />
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Property="Message" TextAlign="TextAlign.Left"
+                TItem="LogQuickEntity" Property="Message" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldMessage Type="string" Width="28%">
                 <Template Context="logItem">
                     <RadzenLabel 
