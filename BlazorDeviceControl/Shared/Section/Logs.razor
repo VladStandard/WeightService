@@ -1,14 +1,13 @@
-﻿@page "/section/logs"
-@using BlazorCore.Models
-@using DataCore
-@using DataCore.DAL.DataModels
-@using DataCore.Utils
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/section/logs"
+@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
 @using BlazorDeviceControl.Shared.Section
-@using BlazorCore
+@using DataCore
+@using DataCore.DAL.DataModels
+@using DataCore.Utils
 @using static DataCore.ShareEnums
-@inherits RazorDisposable
 
 @if (ItemsCast == null)
 {
@@ -20,8 +19,7 @@ else
         Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true />
 
     <RadzenGrid Style="margin-top: 5px; "
-        Data=@ItemsCast TItem="LogQuickEntity"
-        RowSelect=@(args => ItemSelectAsync(args))
+        Data=@ItemsCast TItem="LogQuickEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">

@@ -1,10 +1,10 @@
-﻿@page "/item/contragent"
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/item/contragent"
 @page "/item/contragent/{UidStr}"
 @page "/item/contragent/{UidStr}/{TableActionString}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
-@inherits RazorDisposable
 
 @if (ItemCast == null)
 {

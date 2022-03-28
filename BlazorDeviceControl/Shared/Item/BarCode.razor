@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorDisposable
-@page "/item/barcodetype"
-@page "/item/barcodetype/{UidStr}"
-@page "/item/barcodetype/{UidStr}/{TableActionString}"
+@page "/item/barcode"
+@page "/item/barcode/{UidStr}"
+@page "/item/barcode/{UidStr}/{TableActionString}"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
@@ -40,10 +40,10 @@ else
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td>@LocalizationData.DeviceControl.TableFieldValue</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
-                        TValue="string" @bind-Value=@ItemCast.Name />
+                        TValue="string" @bind-Value=@ItemCast.Value />
 				</td>
             </tr>
         </tbody>

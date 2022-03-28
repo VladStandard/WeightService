@@ -1,15 +1,14 @@
-﻿@page "/section/scales"
-@using BlazorCore.Models
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/section/scales"
+@using BlazorCore
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
 @using DataCore
 @using DataCore.DAL
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
-@using BlazorDeviceControl.Shared.Component
-@using BlazorDeviceControl.Shared.Item
-@using BlazorCore
 @using static DataCore.ShareEnums
-@inherits RazorDisposable
 
 @if (ItemsCast == null)
 {
@@ -22,8 +21,7 @@ else
         IsShowItemsCount=true IsShowMarkedFilter=true />
 
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="ScaleEntity"
-        RowSelect=@(args => ItemSelectAsync(args)) 
+        Data=@ItemsCast TItem="ScaleEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">

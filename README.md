@@ -1,13 +1,9 @@
 # WeightService - Weight service
 
+- [CHANGELOG](CHANGELOG.md)
+- [LICENSE](LICENSE.md)
 
-## DeviceControl
+## Projects
 [BlazorDeviceControl](BlazorDeviceControl/README.md)
-
-
-## MdmControl
 [BlazorMdmControl](BlazorMdmControl/README.md)
-
-
-## ScalesUI
 [ScalesUI](ScalesUI/README.md)

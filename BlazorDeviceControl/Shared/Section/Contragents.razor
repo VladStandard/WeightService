@@ -1,14 +1,13 @@
-﻿@page "/section/contragents"
-@using BlazorCore.Models
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/section/contragents"
+@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
-@using BlazorCore
 @using Microsoft.VisualBasic.CompilerServices
 @using static DataCore.ShareEnums
-@inherits RazorDisposable
 
 @if (ItemsCast == null)
 {
@@ -21,8 +20,7 @@ else
         IsShowItemsCount=true IsShowMarkedFilter=true />
     
     <RadzenGrid Style="margin-top: 5px;" 
-        Data=@ItemsCast TItem="ContragentEntityV2"
-        RowSelect=@(args => ItemSelectAsync(args)) 
+        Data=@ItemsCast TItem="ContragentEntityV2" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="200px">

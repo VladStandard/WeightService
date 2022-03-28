@@ -1,10 +1,9 @@
-﻿@page "/section/info"
-@using BlazorCore.Models
-@using DataCore.Utils
-@using BlazorDeviceControl.Shared.Component
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/section/info"
 @using BlazorCore
+@using BlazorDeviceControl.Shared.Component
+@using DataCore.Utils
 @using static DataCore.ShareEnums
-@inherits RazorDisposable
 
 <ActionsReload Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync Items=@Items />
     
@@ -181,7 +180,7 @@
         </tr>
         <tr>
             <td>@LocalizationCore.Strings.Main.AccessRights</td>
-            <td><MudElement Class="ma-0">@IdentityEntity.GetDescriptionAccessRights(UserSettings.Identity.AccessRights)</MudElement></td>
+            <td><MudElement Class="ma-0">@BlazorCore.Models.IdentityEntity.GetDescriptionAccessRights(UserSettings.Identity.AccessRights)</MudElement></td>
         </tr>
         <tr>
             <td>@LocalizationCore.Strings.Main.Language</td>

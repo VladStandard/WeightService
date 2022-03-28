@@ -1,13 +1,12 @@
-﻿@page "/item/access"
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/item/access"
 @page "/item/access/{UidStr}"
 @page "/item/access/{UidStr}/{TableActionString}"
-@using BlazorCore.Models
-@using DataCore
-@using DataCore.Utils
+@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
-@using BlazorCore
-@inherits RazorDisposable
+@using DataCore
+@using DataCore.Utils
 
 @if (ItemCast == null)
 {

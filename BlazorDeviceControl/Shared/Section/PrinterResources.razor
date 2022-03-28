@@ -1,13 +1,12 @@
-﻿@page "/section/printerresources"
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/section/printerresources"
 @page "/section/printerresources/{PrinterId:long}"
-@using BlazorCore.Models
+@using BlazorCore
+@using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
-@using BlazorDeviceControl.Shared.Component
-@using BlazorCore
 @using static DataCore.ShareEnums
-@inherits RazorDisposable
 
 @if (ItemsCast == null)
 {
@@ -19,8 +18,7 @@ else
         Title=@LocalizationData.DeviceControl.SectionPrinterResources SetParameters=@SetParametersAsync IsShowItemsCount=true />
 
     <RadzenGrid Style="margin-top: 5px;"
-        Data=@ItemsCast TItem="PrinterResourceEntity"
-        RowSelect=@(args => ItemSelectAsync(args)) 
+        Data=@ItemsCast TItem="PrinterResourceEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">

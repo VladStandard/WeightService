@@ -13,11 +13,11 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Section
 {
-    public partial class BarcodeTypes
+    public partial class BarCodeTypes
     {
         #region Public and private fields and properties
 
-        private List<BarcodeTypeEntityV2>? ItemsCast => Items?.Select(x => (BarcodeTypeEntityV2)x).ToList();
+        private List<BarCodeTypeEntityV2>? ItemsCast => Items?.Select(x => (BarCodeTypeEntityV2)x).ToList();
         private readonly object _locker = new();
 
         #endregion
@@ -28,10 +28,11 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-                new Task(async() => {
+                new Task(async () =>
+                {
                     lock (_locker)
                     {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarcodesTypes);
+                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
                         Items = null;
                         ButtonSettings = new();
                     }
@@ -40,7 +41,7 @@ namespace BlazorDeviceControl.Shared.Section
                     lock (_locker)
                     {
                         if (AppSettings.DataAccess != null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<BarcodeTypeEntityV2>(
+                            Items = AppSettings.DataAccess.Crud.GetEntities<BarCodeTypeEntityV2>(
                                 (IsShowMarkedItems == true) ? null
                                     : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                                 new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))

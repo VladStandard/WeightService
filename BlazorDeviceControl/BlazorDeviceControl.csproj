@@ -79,22 +79,6 @@
       <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
   </ItemGroup>
   <ItemGroup>
-    <Watch Remove="Shared\Component\ActionsButtons.razor" />
-    <Watch Remove="Shared\Component\ActionsFilter.razor" />
-    <Watch Remove="Shared\Component\ActionsLoad.razor" />
-    <Watch Remove="Shared\Component\ActionsReload.razor" />
-    <Watch Remove="Shared\Component\ActionsSave.razor" />
-    <Watch Remove="Shared\Component\ItemDates.razor" />
-    <Watch Remove="Shared\Item\Access.razor" />
-    <Watch Remove="Shared\Item\BarcodeType.razor" />
-    <Watch Remove="Shared\Item\Label.razor" />
-    <Watch Remove="Shared\Item\TaskModule.razor" />
-    <Watch Remove="Shared\Section\Barcodes.razor" />
-    <Watch Remove="Shared\Section\Labels.razor" />
-    <Watch Remove="Shared\Section\SectionIdActions.razor" />
-    <Watch Remove="Shared\Section\TaskModules.razor" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
   </ItemGroup>

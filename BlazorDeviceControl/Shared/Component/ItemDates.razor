@@ -1,10 +1,9 @@
-﻿@page "/component/itemdates"
-@using BlazorCore.Models
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/component/itemdates"
+@using BlazorCore
 @using DataCore
 @using DataCore.Utils
-@using BlazorCore
 @using static DataCore.ShareEnums
-@inherits RazorDisposable
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >

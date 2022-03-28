@@ -1,9 +1,8 @@
-﻿@page "/component/actionsreload"
-@using BlazorCore.Models
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/component/actionsreload"
 @using DataCore
 @using DataCore.Utils
 @using static DataCore.ShareEnums
-@inherits RazorDisposable
 
 <MudElement HtmlTag="h3" Class="ma-0">
     @if (!string.IsNullOrEmpty(@Title))

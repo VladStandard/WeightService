@@ -1,15 +1,14 @@
-﻿@page "/section/labels"
-@using BlazorCore.Models
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/section/labels"
+@using BlazorCore
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using BlazorDeviceControl.Shared.Section
 @using DataCore
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
-@using BlazorDeviceControl.Shared.Component
-@using BlazorDeviceControl.Shared.Item
-@using BlazorDeviceControl.Shared.Section
-@using BlazorCore
 @using static DataCore.ShareEnums
-@inherits RazorDisposable
 
 @if (ItemsCast == null)
 {
@@ -21,8 +20,7 @@ else
         Title=@LocalizationCore.Strings.SysLogs SetParameters=@SetParametersAsync IsShowItemsCount=true />
 
     <RadzenGrid Style="margin-top: 5px; "
-        Data=@ItemsCast TItem="LabelQuickEntity"
-        RowSelect=@(args => ItemSelectAsync(args))
+        Data=@ItemsCast TItem="LabelQuickEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">

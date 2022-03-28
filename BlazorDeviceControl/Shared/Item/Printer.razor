@@ -1,14 +1,13 @@
-﻿@page "/item/printer"
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/item/printer"
 @page "/item/printer/{Id:long}"
 @page "/item/printer/{Id:long}/{TableActionString}"
-@using BlazorCore.Models
+@using BlazorCore
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Section
 @using DataCore
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
-@using BlazorDeviceControl.Shared.Component
-@using BlazorDeviceControl.Shared.Section
-@using BlazorCore
-@inherits RazorDisposable
 
 @if (ItemCast == null)
 {

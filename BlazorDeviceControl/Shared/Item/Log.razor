@@ -1,12 +1,11 @@
-﻿@page "/item/log"
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/item/log"
 @page "/item/log/{UidStr}"
-@using BlazorCore.Models
-@using DataCore
-@using DataCore.Utils
+@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
-@using BlazorCore
-@inherits RazorDisposable
+@using DataCore
+@using DataCore.Utils
 
 @if (ItemCast == null)
 {

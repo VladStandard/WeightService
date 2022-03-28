@@ -52,8 +52,8 @@ namespace BlazorDeviceControl.Shared.Component
             {
                 case ProjectsEnums.TableScale.Default:
                     break;
-                case ProjectsEnums.TableScale.BarcodesTypes:
-                    BarcodeTypeEntityV2? barcodeType = AppSettings.DataAccess.Crud.GetEntity<BarcodeTypeEntityV2>(Uid);
+                case ProjectsEnums.TableScale.BarCodeTypes:
+                    BarCodeTypeEntityV2? barcodeType = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(Uid);
                     if (barcodeType != null)
                     {
                         CreateDt = barcodeType.CreateDt.ToString();

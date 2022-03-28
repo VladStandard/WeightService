@@ -1,13 +1,12 @@
-﻿@page "/item/plu"
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/item/plu"
 @page "/item/plu/{Id:long}"
 @page "/item/plu/{Id:long}/{TableActionString}"
-@using BlazorCore.Models
-@using DataCore.DAL.TableDirectModels
-@using DataCore.Utils
+@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
-@using BlazorCore
-@inherits RazorDisposable
+@using DataCore.DAL.TableDirectModels
+@using DataCore.Utils
 
 @if (ItemCast == null)
 {

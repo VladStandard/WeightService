@@ -14,11 +14,11 @@ using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
 {
-    public partial class BarCodeType
+    public partial class BarCode
     {
         #region Public and private fields and properties
 
-        public BarCodeTypeEntityV2? ItemCast { get => Item == null ? null : (BarCodeTypeEntityV2)Item; set => Item = value; }
+        public BarCodeEntityV2? ItemCast { get => Item == null ? null : (BarCodeEntityV2)Item; set => Item = value; }
         private readonly object _locker = new();
 
         #endregion
@@ -41,12 +41,12 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeEntityV2>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.Uid.ToString(), Uid } }), null);
                         if (Uid != null && TableAction == DbTableAction.New)
                         {
                             ItemCast.Uid = (Guid)Uid;
-                            ItemCast.Name = "NEW BARCODE_TYPE";
+                            ItemCast.Value = "NEW BARCODE";
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }

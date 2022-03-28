@@ -1,13 +1,12 @@
-﻿@page "/item/label"
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/item/label"
 @page "/item/label/{Id:long}"
 @page "/item/label/{Id:long}/{TableActionString}"
-@using BlazorCore.Models
-@using DataCore
-@using DataCore.Utils
+@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
-@using BlazorCore
-@inherits RazorDisposable
+@using DataCore
+@using DataCore.Utils
 
 @if (ItemCast == null)
 {

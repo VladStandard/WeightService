@@ -1,9 +1,8 @@
-﻿@page "/component/actionsfilter"
-@using BlazorCore.Models
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/component/actionsfilter"
+@using BlazorCore
 @using DataCore
 @using DataCore.Utils
-@using BlazorCore
-@inherits RazorDisposable
 
 <MudElement HtmlTag="h3" Class="ma-0">
     @if (Items == null)

@@ -1,12 +1,11 @@
-﻿@page "/item/templateresource"
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/item/templateresource"
 @page "/item/templateresource/{Id:long}"
 @page "/item/templateresource/{Id:long}/{TableActionString}"
-@using BlazorCore.Models
+@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
-@using BlazorCore
-@inherits RazorDisposable
 
 @if (ItemCast == null)
 {
