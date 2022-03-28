@@ -19,6 +19,11 @@ namespace DataCore.DAL.Models
         public ColumnName Name { get; private set; }
         public long Id { get; set; }
         public Guid Uid { get; set; }
+        public string UidStr
+        {
+            get => Uid.ToString();
+            set => Uid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
+        }
 
         #endregion
 

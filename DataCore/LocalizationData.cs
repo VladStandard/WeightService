@@ -76,7 +76,6 @@ namespace DataCore
                 public const string ProductionFacilities = "/section/productionfacilities";
                 public const string Root = "/";
                 public const string Scales = "/section/scales";
-                public const string Security = "/section/security";
                 public const string TaskModules = "/section/taskmodules";
                 public const string TaskTypeModules = "/section/tasktypemodules";
                 public const string TemplateResources = "/section/templateresources";
