@@ -2,7 +2,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using RestSharp;
 using System;
+using System.Threading.Tasks;
 
 namespace DataCore.DAL.TableScaleModels
 {
@@ -30,6 +32,8 @@ namespace DataCore.DAL.TableScaleModels
         public virtual bool PeelOffSet { get; set; }
         public virtual short DarknessLevel { get; set; }
         public virtual bool Marked { get; set; }
+        public virtual System.Net.HttpStatusCode HttpStatusCode { get; set; } = System.Net.HttpStatusCode.BadRequest;
+        public virtual Exception? HttpStatusException { get; set; } = null;
 
         #endregion
 
@@ -59,7 +63,9 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(MacAddress)}: {MacAddress}. " +
                    $"{nameof(PeelOffSet)}: {PeelOffSet}. " +
                    $"{nameof(DarknessLevel)}: {DarknessLevel}. " +
-                   $"{nameof(Marked)}: {Marked}. ";
+                   $"{nameof(Marked)}: {Marked}. " + 
+                   $"{nameof(HttpStatusCode)}: {HttpStatusCode}. " + 
+                   $"{nameof(HttpStatusException)}: {HttpStatusException}. ";
         }
 
         public virtual bool Equals(PrinterEntity entity)
@@ -77,7 +83,9 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(MacAddress, entity.MacAddress) &&
                    Equals(PeelOffSet, entity.PeelOffSet) &&
                    Equals(DarknessLevel, entity.DarknessLevel) &&
-                   Equals(Marked, entity.Marked);
+                   Equals(Marked, entity.Marked) &&
+                   Equals(HttpStatusCode, entity.HttpStatusCode) &&
+                   Equals(HttpStatusException, entity.HttpStatusException);
         }
 
         public override bool Equals(object obj)
@@ -113,7 +121,9 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Password, default(string)) &&
                    Equals(PeelOffSet, default(bool)) &&
                    Equals(DarknessLevel, default(short)) &&
-                   Equals(Marked, default(bool));
+                   Equals(Marked, default(bool)) &&
+                   Equals(HttpStatusCode, System.Net.HttpStatusCode.BadRequest) &&
+                   Equals(HttpStatusException, null);
         }
 
         public override object Clone()
@@ -133,7 +143,32 @@ namespace DataCore.DAL.TableScaleModels
                 PeelOffSet = PeelOffSet,
                 DarknessLevel = DarknessLevel,
                 Marked = Marked,
+                HttpStatusCode = HttpStatusCode,
+                HttpStatusException = HttpStatusException,
             };
+        }
+
+        public virtual async Task SetHttpStatusAsync(int timeOut = 100, bool continueOnCapturedContext = true)
+        {
+            HttpStatusCode = System.Net.HttpStatusCode.BadRequest;
+            HttpStatusException = null;
+            RestSharp.RestClientOptions options = new(Link)
+            {
+                UseDefaultCredentials = true,
+                ThrowOnAnyError = true,
+                Timeout = timeOut,
+            };
+            RestSharp.RestClient client = new(options);
+            RestRequest request = new();
+            try
+            {
+                RestResponse response = await client.GetAsync(request).ConfigureAwait(continueOnCapturedContext);
+                HttpStatusCode = response.StatusCode;
+            }
+            catch (System.Exception ex)
+            {
+                HttpStatusException = ex;
+            }
         }
 
         #endregion

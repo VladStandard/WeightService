@@ -21,11 +21,11 @@ namespace BlazorCore.Models
     {
         #region Public and private fields and properties - Inject
 
-        [Inject] public DialogService DialogService { get; set; }
-        [Inject] public IJSRuntime JsRuntime { get; set; }
-        [Inject] public NavigationManager NavigationManager { get; set; }
-        [Inject] public NotificationService NotificationService { get; set; }
-        [Inject] public TooltipService TooltipService { get; set; }
+        [Inject] public DialogService? DialogService { get; set; }
+        [Inject] public IJSRuntime? JsRuntime { get; set; }
+        [Inject] public NavigationManager? NavigationManager { get; set; }
+        [Inject] public NotificationService? NotificationService { get; set; }
+        [Inject] public TooltipService? TooltipService { get; set; }
 
         #endregion
 
@@ -35,10 +35,8 @@ namespace BlazorCore.Models
         [Parameter] public Guid? Uid { get; set; } = null;
         [Parameter] public string UidStr
         {
-            get => Uid != null ? Uid.ToString() : Guid.Empty.ToString();
-            //get => Item == null ? string.Empty : Item.Uid.ToString();
+            get => Uid is Guid uid && !string.IsNullOrEmpty(uid.ToString()) ? uid.ToString() : Guid.Empty.ToString();
             set => Uid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
-            //set => Uid = string.IsNullOrEmpty(value) ? null : Guid.Parse(value);
         }
         [Parameter] public RazorBase? ParentRazor { get; set; } = null;
         public BaseEntity? Item { get; set; } = null;
@@ -48,7 +46,7 @@ namespace BlazorCore.Models
             set => Item = (BaseEntity?)value;
         }
         [Parameter] public List<BaseEntity>? Items { get; set; } = null;
-        [Parameter] public TableBase Table { get; set; } = new TableBase(string.Empty);
+        [Parameter] public TableBase Table { get; set; } = new(string.Empty);
         [Parameter] public DbTableAction TableAction { get; set; } = DbTableAction.Default;
         [Parameter] public string TableActionString
         {
@@ -76,16 +74,6 @@ namespace BlazorCore.Models
         private ItemSaveCheckEntity ItemSaveCheck { get; set; } = new ItemSaveCheckEntity();
         private readonly object _locker = new();
         public RadzenGrid<BaseEntity> GridItem { get; set; } = new RadzenGrid<BaseEntity>();
-        private bool RecentCollapse { get; set; } = false;
-
-        #endregion
-
-        #region Constructor and destructor
-
-        public RazorBase()
-        {
-            //
-        }
 
         #endregion
 
@@ -204,26 +192,13 @@ namespace BlazorCore.Models
         {
             lock (_locker)
             {
-                if (!RecentCollapse)
-                {
-                    if (Item != item)
-                        Item = item;
-                    if (Id != item.Id)
-                        Id = item.Id;
-                    if (Uid != item.Uid)
-                        Uid = item.Uid;
-                }
-                //else
-                //{
-                //    GridItem?.Reset(false, true);
-                //    RecentCollapse = false;
-                //}
+                if (Item != item)
+                    Item = item;
+                if (Id != item.Id)
+                    Id = item.Id;
+                if (Uid != item.Uid)
+                    Uid = item.Uid;
             }
-        }
-
-        public void RowCollapse(BaseEntity item)
-        {
-            RecentCollapse = true;
         }
 
         public async Task GuiRefreshAsync(bool continueOnCapturedContext)
@@ -492,7 +467,7 @@ namespace BlazorCore.Models
         public async Task HotKeysMenuRoot()
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            NavigationManager.NavigateTo(LocalizationData.DeviceControl.UriRouteSection.Root);
+            NavigationManager?.NavigateTo(LocalizationData.DeviceControl.UriRouteSection.Root);
         }
 
         public static ConfirmOptions GetConfirmOptions() => new()
@@ -552,11 +527,11 @@ namespace BlazorCore.Models
                 }
             }
             if (!string.IsNullOrEmpty(detailSuccess))
-                NotificationService.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsHelper.Delay);
+                NotificationService?.Notify(NotificationSeverity.Success, title + Environment.NewLine, detailSuccess, AppSettingsHelper.Delay);
             else
             {
                 if (!string.IsNullOrEmpty(detailCancel))
-                    NotificationService.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsHelper.Delay);
+                    NotificationService?.Notify(NotificationSeverity.Info, title + Environment.NewLine, detailCancel, AppSettingsHelper.Delay);
             }
         }
 
@@ -569,14 +544,14 @@ namespace BlazorCore.Models
             if (!string.IsNullOrEmpty(detailFail))
             {
                 if (!string.IsNullOrEmpty(msg))
-                    NotificationService.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettingsHelper.Delay);
+                    NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail + Environment.NewLine + msg, AppSettingsHelper.Delay);
                 else
-                    NotificationService.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettingsHelper.Delay);
+                    NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, detailFail, AppSettingsHelper.Delay);
             }
             else
             {
                 if (!string.IsNullOrEmpty(msg))
-                    NotificationService.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsHelper.Delay);
+                    NotificationService?.Notify(NotificationSeverity.Error, title + Environment.NewLine, msg, AppSettingsHelper.Delay);
             }
             // SQL log.
             AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
@@ -591,11 +566,14 @@ namespace BlazorCore.Models
                 string question = string.IsNullOrEmpty(questionAdd)
                     ? LocalizationCore.Strings.DialogQuestion
                     : questionAdd;
-                Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
-                bool? result = dialog.Result;
-                if (result == true)
+                if (DialogService != null)
                 {
-                    RunTasks(title, detailSuccess, detailFail, detailCancel, task, continueOnCapturedContext);
+                    Task<bool?> dialog = DialogService.Confirm(question, title, GetConfirmOptions());
+                    bool? result = dialog.Result;
+                    if (result == true)
+                    {
+                        RunTasks(title, detailSuccess, detailFail, detailCancel, task, continueOnCapturedContext);
+                    }
                 }
             }
             catch (Exception ex)
@@ -603,6 +581,12 @@ namespace BlazorCore.Models
                 RunTasksCatch(ex, title, detailFail, filePath, lineNumber, memberName);
             }
         }
+
+        public string GetPath(string uriItemRoute, BaseEntity? item, long? id) =>
+            item == null || id == null ? string.Empty : $"{uriItemRoute}/{id}";
+
+        public string GetPath(string uriItemRoute, BaseEntity? item, Guid? uid) =>
+            item == null || uid == null ? string.Empty : $"{uriItemRoute}/{uid}";
 
         #endregion
 
@@ -806,16 +790,16 @@ namespace BlazorCore.Models
             if (TableAction == DbTableAction.New)
             {
                 if (item.PrimaryColumn.Name == ColumnName.Id)
-                    NavigationManager.NavigateTo($"{page}/{item.Id}/{TableAction}");
+                    NavigationManager?.NavigateTo($"{page}/{item.Id}/{TableAction}");
                 else if (item.PrimaryColumn.Name == ColumnName.Uid)
-                    NavigationManager.NavigateTo($"{page}/{item.Uid}/{TableAction}");
+                    NavigationManager?.NavigateTo($"{page}/{item.Uid}/{TableAction}");
             }
             else
             {
                 if (item.PrimaryColumn.Name == ColumnName.Id)
-                    NavigationManager.NavigateTo($"{page}/{item.Id}");
+                    NavigationManager?.NavigateTo($"{page}/{item.Id}");
                 else if (item.PrimaryColumn.Name == ColumnName.Uid)
-                    NavigationManager.NavigateTo($"{page}/{item.Uid}");
+                    NavigationManager?.NavigateTo($"{page}/{item.Uid}");
             }
         }
 
@@ -823,9 +807,9 @@ namespace BlazorCore.Models
         {
             _ = Task.Run(async () =>
             {
-                if (Uid != null && Uid != Guid.Empty)
+                if (Uid != null && Uid != Guid.Empty && JsRuntime != null)
                     await JsRuntime.InvokeAsync<object>("open", $"{page}/{Uid}", "_blank").ConfigureAwait(false);
-                else if (Id != null)
+                else if (Id != null && JsRuntime != null)
                     await JsRuntime.InvokeAsync<object>("open", $"{page}/{Id}", "_blank").ConfigureAwait(false);
             }).ConfigureAwait(true);
         }
@@ -838,13 +822,14 @@ namespace BlazorCore.Models
 
             if (!isNewWindow)
             {
-                NavigationManager.NavigateTo(page);
+                NavigationManager?.NavigateTo(page);
             }
             else
             {
                 _ = Task.Run(async () =>
                 {
-                    await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
+                    if (JsRuntime != null)
+                        await JsRuntime.InvokeAsync<object>("open", $"{page}", "_blank").ConfigureAwait(false);
                 }).ConfigureAwait(true);
             }
         }

@@ -1,0 +1,62 @@
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/section/printers"
+@using BlazorCore
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using DataCore
+@using DataCore.DAL
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableScaleModels
+@using DataCore.Utils
+@using static DataCore.ShareEnums
+
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload ParentRazor=@this Items=@Items 
+        Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true />
+
+    <RadzenGrid Style="margin-top: 5px;"
+        Data=@ItemsCast TItem="PrinterEntity" @bind-Value=@ItemObject
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns>
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocalizationData.DeviceControl.TableFieldPrinter Width="20%" >
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{itemCast.Id}") Text=@itemCast.Name />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterEntity" Property="PrinterType.Name"
+                Title=@LocalizationData.DeviceControl.TableFieldPrinterType
+                Type="string" Width="18%" />
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocalizationData.DeviceControl.TableFieldPrinterIp Type="string" Width="15%" >
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; " Target="_blank" 
+                        Path=@itemCast.Link Text=@itemCast.Ip />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterEntity" Property="HttpStatusCode" TextAlign=TextAlign.Center
+                Title=@LocalizationData.DeviceControl.TableFieldHttpStatusCode Type="string" Width="8%" >
+                <Template Context="itemCast">
+                    <RadzenIcon 
+                        Icon=@(itemCast.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="PrinterEntity" Property="HttpStatusException.Message" 
+                Title=@LocalizationData.DeviceControl.TableFieldHttpStatusException Type="string" Width="15%" />
+            <RadzenGridColumn TItem="PrinterEntity" Property="Port" Title=@LocalizationData.DeviceControl.TableFieldPrinterPortShort
+                Type="string" Width="10%" />
+            <RadzenGridColumn TItem="PrinterEntity" Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldPrinterMac
+                Type="string" Width="11%" />
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}
+@*
+*@

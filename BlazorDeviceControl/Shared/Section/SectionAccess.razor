@@ -1,0 +1,70 @@
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/section/access"
+@using BlazorCore
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using BlazorDeviceControl.Shared.Section
+@using DataCore
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableScaleModels
+@using DataCore.Utils
+@using static DataCore.ShareEnums
+
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload ParentRazor=@this Items=@Items 
+        Title=@LocalizationCore.Strings.Main.AccessRights SetParameters=@SetParametersAsync 
+        IsShowItemsCount=true IsShowMarkedFilter=true />
+
+    <RadzenGrid Style="margin-top: 5px; " 
+        Data=@ItemsCast TItem="AccessEntity" @bind-Value=@ItemObject
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns >
+            @if (@IsShowMarkedItems)
+            {
+                <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center 
+                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    <Template Context="itemCast">
+                        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
+                    </Template>
+                </RadzenGridColumn>
+            }
+            <RadzenGridColumn 
+                TItem="AccessEntity" TextAlign=TextAlign.Center
+                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
+                <Template Context="logItem">
+                    <RadzenDatePicker 
+                        TValue="string" Value=@logItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
+                    Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
+                <Template Context="logItem">
+                    <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Left
+                Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="30%" >
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Access}/{itemCast.Uid}")
+                        Text=@itemCast.User />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Left
+                Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="30%">
+                <Template Context="accessItem">
+                    <RadzenLabel Text=@BlazorCore.Models.IdentityEntity.GetDescriptionAccessRights(accessItem.Rights) Disabled=false ReadOnly=true />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

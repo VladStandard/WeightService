@@ -22,7 +22,7 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public bool ProcessChecks(NotificationService notificationService, BaseEntity? item, string field)
+        public bool ProcessChecks(NotificationService? notificationService, BaseEntity? item, string field)
         {
             bool result = item != null;
             string detailAddition = Environment.NewLine;
@@ -105,7 +105,7 @@ namespace BlazorCore.Models
                         (Equals(detailAddition, Environment.NewLine) ? string.Empty : detailAddition),
                     Duration = AppSettingsHelper.Delay
                 };
-                notificationService.Notify(msg);
+                notificationService?.Notify(msg);
                 return false;
             }
             return true;

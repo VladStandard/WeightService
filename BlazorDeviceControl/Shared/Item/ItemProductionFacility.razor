@@ -1,0 +1,59 @@
+﻿@page "/item/productionfacility"
+@page "/item/productionfacility/{Id:long}"
+@page "/item/productionfacility/{Id:long}/{TableActionString}"
+@using BlazorDeviceControl.Shared.Component
+@using DataCore
+@using DataCore.Utils
+@inherits BlazorCore.Models.RazorDisposable
+
+@if (ItemCast == null)
+{
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemProductionFacility SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <thead>
+            <tr>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@ItemCast.Id />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Marked />
+                </td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: left;" 
+                        Disabled=false ReadOnly=false
+                        TValue="string" @bind-Value=@ItemCast.Name />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldIdRRef</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: center; " 
+                        Disabled=false ReadOnly=false
+                        TValue="string" @Value=@ItemCast.IdRRef />
+				</td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}

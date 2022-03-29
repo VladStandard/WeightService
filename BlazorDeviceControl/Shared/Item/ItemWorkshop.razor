@@ -1,0 +1,92 @@
+﻿@page "/item/workshop"
+@page "/item/workshop/{Id:long}"
+@page "/item/workshop/{Id:long}/{TableActionString}"
+@using BlazorDeviceControl.Shared.Component
+@using DataCore
+@using DataCore.Utils
+@inherits BlazorCore.Models.RazorDisposable
+
+@if (ItemCast == null)
+{
+    <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemWorkshop SetParameters=@SetParametersAsync 
+        IsShowItemsCount=false IsShowMarkedFilter=false />
+
+    <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
+        <thead>
+            <tr>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true
+                        TValue="long" @bind-Value=@ItemCast.Id />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Marked />
+                </td>
+            </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: left;" 
+                        Disabled=false ReadOnly=false
+                        TValue="string" @bind-Value=@ItemCast.Name />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldIdRRef</td>
+                <td >
+                    <RadzenTextBox Style="width: 100%; text-align: center; " 
+                        Disabled=false ReadOnly=false
+                        TValue="string" @Value=@ItemCast.IdRRef />
+				</td>
+            </tr>
+            <tr>
+                <td>
+                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
+                        Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.Id)
+                        Text=@LocalizationData.DeviceControl.TableFieldProductionFacilityName />
+                </td>
+                <td>
+                    @if (ProductionFacilities == null)
+                    {
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    }
+                    else
+                    {
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                            Data=@ProductionFacilities PageSize=10 TextProperty="Name" ValueProperty="Id"
+                            Value=@ItemCast.ProductionFacility.Id
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.ProductionFacility), args)) >
+                            <Columns>
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
+                            </Columns>
+                        </RadzenDropDownDataGrid>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+    
+    <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
+    <ItemDates ParentRazor=@this />
+}
+@*
+        <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                                Data=@ProductionFacilities PageSize="5"
+                                TextProperty="Name" ValueProperty="Id"
+                                Value=@WorkshopItem.ProductionFacility?.Id
+                                Change=@(args => OnChange(args, "ProductionFacilities")) />
+*@

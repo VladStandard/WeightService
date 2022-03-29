@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.360] - 2022-03-29
+### Fixed
+- Sections pages
+- Items pages
+
 ## [0.6.350] - 2022-03-24
 ### Fixed
 - WS-T-107. DeviceControl. Access rights hotfix

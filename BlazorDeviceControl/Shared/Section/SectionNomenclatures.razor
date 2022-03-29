@@ -1,0 +1,71 @@
+﻿@inherits BlazorCore.Models.RazorDisposable
+@page "/section/nomenclatures"
+@using BlazorCore
+@using BlazorDeviceControl.Shared.Component
+@using BlazorDeviceControl.Shared.Item
+@using DataCore
+@using DataCore.DAL
+@using DataCore.DAL.DataModels
+@using DataCore.DAL.TableScaleModels
+@using DataCore.Utils
+@using static DataCore.ShareEnums
+
+@if (ItemsCast == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
+}
+else
+{
+    <ActionsReload ParentRazor=@this Items=@Items 
+        Title=@LocalizationData.DeviceControl.SectionNomenclatures SetParameters=@SetParametersAsync IsShowItemsCount=true />
+
+    <RadzenGrid Style="margin-top: 5px;" 
+        Data=@ItemsCast TItem="NomenclatureEntity" @bind-Value=@ItemObject
+        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
+        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        <Columns >
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" Property="Id" TextAlign=TextAlign.Center
+                Title=@LocalizationData.DeviceControl.TableFieldId 
+                Type="int" Width="10%" />
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" TextAlign=TextAlign.Center
+                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
+                <Template Context="item" >
+                    <RadzenDatePicker 
+                        TValue="string" Value=@item.CreateDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" TextAlign=TextAlign.Center
+                Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="15%" >
+                <Template Context="item" >
+                    <RadzenDatePicker 
+                        TValue="string" Value=@item.ModifiedDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" Property="Code" 
+                Title=@LocalizationData.DeviceControl.TableFieldCode
+                Type="string" Width="10%" />
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" TextAlign=TextAlign.Center Width="5%" 
+                Title=@LocalizationData.DeviceControl.TableFieldWeighted >
+                <Template Context="itemCast">
+                    <RadzenCheckBox TValue="bool" @bind-Value=@itemCast.Weighted Disabled=true />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="NomenclatureEntity" Title=@LocalizationData.DeviceControl.TableFieldName Width="45%" >
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Nomenclature}/{itemCast.Id}")
+                        Text=@itemCast.Name />
+                </Template>
+            </RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+
+    <ActionsButtons ParentRazor=@this ButtonSettings=@ButtonSettings />
+}

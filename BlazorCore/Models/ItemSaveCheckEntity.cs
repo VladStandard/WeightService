@@ -20,7 +20,7 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public void Access(NotificationService notificationService, AccessEntity access, Guid? uid, DbTableAction tableAction)
+        public void Access(NotificationService? notificationService, AccessEntity access, Guid? uid, DbTableAction tableAction)
         {
             if (uid == null)
                 return;
@@ -41,7 +41,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void BarcodeType(NotificationService notificationService, BarCodeTypeEntityV2 barcodeType, Guid? uid, DbTableAction tableAction)
+        public void BarcodeType(NotificationService? notificationService, BarCodeTypeEntityV2 barcodeType, Guid? uid, DbTableAction tableAction)
         {
             if (uid == null)
                 return;
@@ -62,7 +62,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Contragent(NotificationService notificationService, ContragentEntityV2 contragent, Guid? uid, DbTableAction tableAction)
+        public void Contragent(NotificationService? notificationService, ContragentEntityV2 contragent, Guid? uid, DbTableAction tableAction)
         {
             if (uid == null)
                 return;
@@ -83,7 +83,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Host(NotificationService notificationService, HostEntity host, long? id, DbTableAction tableAction)
+        public void Host(NotificationService? notificationService, HostEntity host, long? id, DbTableAction tableAction)
         {
             if (id == null)
                 return;
@@ -104,7 +104,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Nomenclature(NotificationService notificationService, NomenclatureEntity nomenclature, 
+        public void Nomenclature(NotificationService? notificationService, NomenclatureEntity nomenclature, 
             long? id, DbTableAction tableAction)
         {
             if (id == null)
@@ -126,7 +126,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Plu(NotificationService notificationService, PluEntity plu, long? id, DbTableAction tableAction)
+        public void Plu(NotificationService? notificationService, PluEntity plu, long? id, DbTableAction tableAction)
         {
             if (id == null)
                 return;
@@ -154,7 +154,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Printer(NotificationService notificationService, PrinterEntity printer, long? id, DbTableAction tableAction)
+        public void Printer(NotificationService? notificationService, PrinterEntity printer, long? id, DbTableAction tableAction)
         {
             if (id == null)
                 return;
@@ -178,7 +178,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void PrinterResource(NotificationService notificationService, PrinterResourceEntity printerResource, 
+        public void PrinterResource(NotificationService? notificationService, PrinterResourceEntity printerResource, 
             long? id, DbTableAction tableAction)
         {
             if (id == null)
@@ -200,7 +200,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void PrinterType(NotificationService notificationService, PrinterTypeEntity printerType, 
+        public void PrinterType(NotificationService? notificationService, PrinterTypeEntity printerType, 
             long? id, DbTableAction tableAction)
         {
             if (id == null)
@@ -222,7 +222,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void ProductionFacility(NotificationService notificationService, ProductionFacilityEntity productionFacility, 
+        public void ProductionFacility(NotificationService? notificationService, ProductionFacilityEntity productionFacility, 
             long? id, DbTableAction tableAction)
         {
             if (id == null)
@@ -244,7 +244,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Scale(NotificationService notificationService, ScaleEntity scale, long? id, DbTableAction tableAction)
+        public void Scale(NotificationService? notificationService, ScaleEntity scale, long? id, DbTableAction tableAction)
         {
             if (id == null)
                 return;
@@ -276,7 +276,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Task(NotificationService notificationService, TaskEntity task, Guid? uid, DbTableAction tableAction)
+        public void Task(NotificationService? notificationService, TaskEntity task, Guid? uid, DbTableAction tableAction)
         {
             bool success = FieldControl.ProcessChecks(notificationService, task, LocalizationCore.Strings.TableItem.TaskModule);
             if (success)
@@ -302,7 +302,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void TaskType(NotificationService notificationService, TaskTypeEntity taskType, Guid? uid, DbTableAction tableAction)
+        public void TaskType(NotificationService? notificationService, TaskTypeEntity taskType, Guid? uid, DbTableAction tableAction)
         {
             bool success = FieldControl.ProcessChecks(notificationService, taskType, LocalizationCore.Strings.TableItem.TaskModuleType);
             if (success)
@@ -324,7 +324,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Template(NotificationService notificationService, TemplateEntity template, long? id, DbTableAction tableAction)
+        public void Template(NotificationService? notificationService, TemplateEntity template, long? id, DbTableAction tableAction)
         {
             if (id == null)
                 return;
@@ -345,7 +345,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Workshop(NotificationService notificationService, WorkshopEntity workshop, long? id, DbTableAction tableAction)
+        public void Workshop(NotificationService? notificationService, WorkshopEntity workshop, long? id, DbTableAction tableAction)
         {
             if (id == null)
                 return;

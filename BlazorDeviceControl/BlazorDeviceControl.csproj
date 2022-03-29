@@ -11,8 +11,8 @@
 	<AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<FileVersion>0.6.350</FileVersion>
-    <AssemblyVersion>0.6.350</AssemblyVersion>
+	<FileVersion>0.6.360</FileVersion>
+    <AssemblyVersion>0.6.360</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
 	<Nullable>enable</Nullable>
@@ -58,10 +58,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.3" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
-    <PackageReference Include="MudBlazor" Version="6.0.7" />
+    <PackageReference Include="MudBlazor" Version="6.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.11" />
     <PackageReference Include="Radzen.Blazor" Version="3.16.7" />
+    <PackageReference Include="RestSharp" Version="107.3.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="appsettings.json" />
@@ -77,6 +78,52 @@
   </ItemGroup>
   <ItemGroup>
       <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
+  </ItemGroup>
+  <ItemGroup>
+    <Watch Remove="Shared\Item\ItemAccess.razor" />
+    <Watch Remove="Shared\Item\ItemBarCode.razor" />
+    <Watch Remove="Shared\Item\ItemBarCodeType.razor" />
+    <Watch Remove="Shared\Item\ItemContragent.razor" />
+    <Watch Remove="Shared\Item\ItemError.razor" />
+    <Watch Remove="Shared\Item\ItemHost.razor" />
+    <Watch Remove="Shared\Item\ItemLabel.razor" />
+    <Watch Remove="Shared\Item\ItemLog.razor" />
+    <Watch Remove="Shared\Item\ItemNomenclature.razor" />
+    <Watch Remove="Shared\Item\ItemPlu.razor" />
+    <Watch Remove="Shared\Item\ItemPrinter.razor" />
+    <Watch Remove="Shared\Item\ItemPrinterResource.razor" />
+    <Watch Remove="Shared\Item\ItemPrinterType.razor" />
+    <Watch Remove="Shared\Item\ItemProductionFacility.razor" />
+    <Watch Remove="Shared\Item\ItemScale.razor" />
+    <Watch Remove="Shared\Item\ItemTaskModule.razor" />
+    <Watch Remove="Shared\Item\ItemTemplate.razor" />
+    <Watch Remove="Shared\Item\ItemTemplateResource.razor" />
+    <Watch Remove="Shared\Item\ItemWorkshop.razor" />
+    <Watch Remove="Shared\Section\SectionAccess.razor" />
+    <Watch Remove="Shared\Section\SectionBarCodes.razor" />
+    <Watch Remove="Shared\Section\SectionBarCodeTypes.razor" />
+    <Watch Remove="Shared\Section\SectionContragents.razor" />
+    <Watch Remove="Shared\Section\SectionErrors.razor" />
+    <Watch Remove="Shared\Section\SectionHosts.razor" />
+    <Watch Remove="Shared\Section\SectionInfo.razor" />
+    <Watch Remove="Shared\Section\SectionLabels.razor" />
+    <Watch Remove="Shared\Section\SectionLogs.razor" />
+    <Watch Remove="Shared\Section\SectionNomenclatures.razor" />
+    <Watch Remove="Shared\Section\SectionOrders.razor" />
+    <Watch Remove="Shared\Section\SectionOrderStatuses.razor" />
+    <Watch Remove="Shared\Section\SectionOrderTypes.razor" />
+    <Watch Remove="Shared\Section\SectionPlus.razor" />
+    <Watch Remove="Shared\Section\SectionPrinterResources.razor" />
+    <Watch Remove="Shared\Section\SectionPrinters.razor" />
+    <Watch Remove="Shared\Section\SectionPrinterTypes.razor" />
+    <Watch Remove="Shared\Section\SectionProductionFacilities.razor" />
+    <Watch Remove="Shared\Section\SectionProductSeries.razor" />
+    <Watch Remove="Shared\Section\SectionScales.razor" />
+    <Watch Remove="Shared\Section\SectionTaskModules.razor" />
+    <Watch Remove="Shared\Section\SectionTemplateResources.razor" />
+    <Watch Remove="Shared\Section\SectionTemplates.razor" />
+    <Watch Remove="Shared\Section\SectionWeithingFacts.razor" />
+    <Watch Remove="Shared\Section\SectionWorkshops.razor" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />

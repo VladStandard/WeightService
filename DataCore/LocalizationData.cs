@@ -107,6 +107,7 @@ namespace DataCore
             public static string ItemPrinterResource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
             public static string ItemPrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
             public static string ItemProductionFacility => Lang == ShareEnums.Lang.English ? "Prod. facility" : "Произв. площадка";
+            public static string ItemProductionFacilities => Lang == ShareEnums.Lang.English ? "Prod. facilities" : "Производственные площадки";
             public static string ItemProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серия продукта";
             public static string ItemResource => Lang == ShareEnums.Lang.English ? "Resource" : "Ресурс";
             public static string ItemScale => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
@@ -207,6 +208,9 @@ namespace DataCore
             public static string TableFieldGtin => Lang == ShareEnums.Lang.English ? "GTIN" : "ГТИН";
             public static string TableFieldGuidMercury => Lang == ShareEnums.Lang.English ? "GUID Mercury" : "GUID Меркурий";
             public static string TableFieldHost => Lang == ShareEnums.Lang.English ? "Host" : "Хост";
+            public static string TableFieldHttpStatusCode => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
+            public static string TableFieldHttpStatusException => Lang == ShareEnums.Lang.English ? "Exception" : "Ошибка";
+            public static string TableFieldHttpStatusNoException => Lang == ShareEnums.Lang.English ? "No exceptions" : "Ошибок нет";
             public static string TableFieldIcon => Lang == ShareEnums.Lang.English ? "Icon" : "Иконка";
             public static string TableFieldId => "ID";
             public static string TableFieldIdDwh => "ID DWH";
@@ -248,6 +252,7 @@ namespace DataCore
             public static string TableFieldPrinterPassword => Lang == ShareEnums.Lang.English ? "Printer password" : "Пароль принтера";
             public static string TableFieldPrinterPeelOffSet => Lang == ShareEnums.Lang.English ? "Offset" : "Смещение";
             public static string TableFieldPrinterPort => Lang == ShareEnums.Lang.English ? "Printer port" : "Порт принтера";
+            public static string TableFieldPrinterPortShort => Lang == ShareEnums.Lang.English ? "Port" : "Порт";
             public static string TableFieldPrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
             public static string TableFieldProductDate => Lang == ShareEnums.Lang.English ? "Product date" : "Дата продукции";
             public static string TableFieldProductionFacilityName => Lang == ShareEnums.Lang.English ? "Production facility" : "Производственная площадка";
