@@ -98,6 +98,71 @@ namespace BlazorCore.Models
                 }), true);
         }
 
+        public void OnLocalizationValueChange(List<TypeEntity<Lang>>? templateLanguages, object? value)
+        {
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
+                new Task(async () =>
+                {
+                    lock (_locker)
+                    {
+                        if (value is Lang lang)
+                        {
+                            LocalizationCore.Lang = lang;
+                            LocalizationData.Lang = lang;
+                        }
+                        templateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true);
+        }
+
+        public void OnJsonValueChange(JsonSettingsEntity jsonSettings, string? filterName, object? value)
+        {
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
+                new Task(async () =>
+                {
+                    lock (_locker)
+                    {
+                        switch (filterName)
+                        {
+                            case nameof(jsonSettings.IsDebug):
+                                if (value is bool isDebug)
+                                    AppSettings.DataAccess.JsonSettings.IsDebug = isDebug;
+                                break;
+                            case nameof(jsonSettings.ItemRowCount):
+                                if (value is int itemRowCount)
+                                    AppSettings.DataAccess.JsonSettings.ItemRowCount = itemRowCount;
+                                break;
+                            case nameof(jsonSettings.SectionRowCount):
+                                if (value is int sectionRowCount)
+                                    AppSettings.DataAccess.JsonSettings.SectionRowCount = sectionRowCount;
+                                break;
+                            case nameof(jsonSettings.Server):
+                                if (value is string server)
+                                    AppSettings.DataAccess.JsonSettings.Server = server;
+                                break;
+                            case nameof(jsonSettings.Db):
+                                if (value is string db)
+                                    AppSettings.DataAccess.JsonSettings.Db = db;
+                                break;
+                            case nameof(jsonSettings.Trusted):
+                                if (value is bool trusted)
+                                    AppSettings.DataAccess.JsonSettings.Trusted = trusted;
+                                break;
+                            case nameof(jsonSettings.Username):
+                                if (value is string username)
+                                    AppSettings.DataAccess.JsonSettings.Username = username;
+                                break;
+                            case nameof(jsonSettings.Password):
+                                if (value is string password)
+                                    AppSettings.DataAccess.JsonSettings.Password = password;
+                                break;
+                        }
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true);
+        }
+
         public void OnItemValueChange(BaseEntity? item, string? filterName, object? value)
         {
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
@@ -108,73 +173,148 @@ namespace BlazorCore.Models
                         switch (item)
                         {
                             case AccessEntity access:
-                                if (filterName == nameof(access.Rights) && value is AccessRights rights)
-                                {
-                                    access.Rights = (byte)rights;
-                                }
+                                OnItemValueChangeAccess(filterName, value, access);
                                 break;
                             case PrinterEntity printer:
-                                if (filterName == nameof(printer.PrinterType) && value is long PrinterTypeId)
-                                {
-                                    printer.PrinterType = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), PrinterTypeId } }),
-                                    null);
-                                }
+                                OnItemValueChangePrinter(filterName, value, printer);
+                                break;
+                            case PrinterResourceEntity printerResource:
+                                OnItemValueChangePrinterResource(filterName, value, printerResource);
+                                break;
+                            case PluEntity plu:
+                                OnItemValueChangePlu(filterName, value, plu);
                                 break;
                             case ScaleEntity scale:
-                                if (filterName == nameof(scale.Id) && value is long id)
-                                {
-                                    scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), id } }),
-                                    null);
-                                }
-                                if (filterName == nameof(scale.DeviceComPort) && value is string deviceComPort)
-                                {
-                                    scale.DeviceComPort = deviceComPort;
-                                }
-                                if (filterName == nameof(scale.Host) && value is long hostId)
-                                {
-                                    scale.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), hostId } }),
-                                        null);
-                                }
-                                if (filterName == nameof(scale.TemplateDefault) && value is long templateDefaultId)
-                                {
-                                    scale.TemplateDefault = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), templateDefaultId } }),
-                                        null);
-                                }
-                                if (filterName == nameof(scale.TemplateSeries) && value is long TemplateSeriesId)
-                                {
-                                    scale.TemplateSeries = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), TemplateSeriesId } }),
-                                        null);
-                                }
-                                if (filterName == nameof(scale.Printer) && value is long printerId)
-                                {
-                                    scale.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), printerId } }),
-                                        null);
-                                }
-                                if (filterName == nameof(scale.WorkShop) && value is long workShopId)
-                                {
-                                    scale.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), workShopId } }),
-                                        null);
-                                }
+                                OnItemValueChangeScale(filterName, value, scale);
                                 break;
-                            case WorkshopEntity workshop:
-                                if (filterName == nameof(workshop.ProductionFacility) && value is int ProductionFacilityId)
-                                {
-                                    workshop.ProductionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), ProductionFacilityId } }),
-                                    null);
-                                }
+                            case TemplateEntity template:
+                                OnItemValueChangeTemplate(filterName, value, template);
+                                break;
+                            case WorkshopEntity workShop:
+                                OnItemValueChangeWorkShop(filterName, value, workShop);
                                 break;
                         }
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
+        }
+
+        private static void OnItemValueChangeAccess(string? filterName, object? value, AccessEntity access)
+        {
+            if (filterName == nameof(access.Rights) && value is AccessRights rights)
+            {
+                access.Rights = (byte)rights;
+            }
+        }
+
+        private void OnItemValueChangePrinter(string? filterName, object? value, PrinterEntity printer)
+        {
+            if (filterName == nameof(printer.PrinterType) && value is long printerTypeId)
+            {
+                printer.PrinterType = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), printerTypeId } }),
+                null);
+            }
+        }
+
+        private void OnItemValueChangePrinterResource(string? filterName, object? value, PrinterResourceEntity printerResource)
+        {
+            if (filterName == nameof(printerResource.Printer) && value is long printerId)
+            {
+                printerResource.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), printerId } }),
+                null);
+            }
+            if (filterName == nameof(printerResource.Resource) && value is long resourceId)
+            {
+                printerResource.Resource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), resourceId } }),
+                null);
+            }
+        }
+
+        private void OnItemValueChangePlu(string? filterName, object? value, PluEntity plu)
+        {
+            if (filterName == nameof(plu.Nomenclature) && value is long nomenclatureId)
+            {
+                plu.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), nomenclatureId } }),
+                null);
+            }
+            if (filterName == nameof(plu.Scale) && value is long scaleId)
+            {
+                plu.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), scaleId } }),
+                null);
+            }
+            if (filterName == nameof(plu.Template) && value is long templateId)
+            {
+                plu.Template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), templateId } }),
+                null);
+            }
+        }
+
+        private void OnItemValueChangeScale(string? filterName, object? value, ScaleEntity scale)
+        {
+            if (filterName == nameof(scale.Id) && value is long id)
+            {
+                scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), id } }),
+                null);
+            }
+            if (filterName == nameof(scale.DeviceComPort) && value is string deviceComPort)
+            {
+                scale.DeviceComPort = deviceComPort;
+            }
+            if (filterName == nameof(scale.Host) && value is long hostId)
+            {
+                scale.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), hostId } }),
+                    null);
+            }
+            if (filterName == nameof(scale.TemplateDefault) && value is long templateDefaultId)
+            {
+                scale.TemplateDefault = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), templateDefaultId } }),
+                    null);
+            }
+            if (filterName == nameof(scale.TemplateSeries) && value is long TemplateSeriesId)
+            {
+                scale.TemplateSeries = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), TemplateSeriesId } }),
+                    null);
+            }
+            if (filterName == nameof(scale.Printer) && value is long printerId)
+            {
+                scale.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), printerId } }),
+                    null);
+            }
+            if (filterName == nameof(scale.WorkShop) && value is long workShopId)
+            {
+                scale.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), workShopId } }),
+                    null);
+            }
+        }
+
+        private void OnItemValueChangeTemplate(string? filterName, object? value, TemplateEntity template)
+        {
+            if (filterName == nameof(template.CategoryId) && value is string categoryId)
+            {
+                template.CategoryId = categoryId;
+            }
+        }
+
+        private void OnItemValueChangeWorkShop(string? filterName, object? value, WorkshopEntity workshop)
+        {
+            if (filterName == nameof(workshop.ProductionFacility) && value is int ProductionFacilityId)
+            {
+                workshop.ProductionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), ProductionFacilityId } }),
+                null);
+            }
         }
 
         public async Task ItemSelectAsync(BaseEntity item)
@@ -298,8 +438,6 @@ namespace BlazorCore.Models
         {
             switch (table)
             {
-                case ProjectsEnums.TableScale.Default:
-                    break;
                 case ProjectsEnums.TableScale.BarCodeTypes:
                     if (parameters.TryGetValue(DbField.Id.ToString(), out long? idBarcodeType))
                     {
@@ -443,6 +581,10 @@ namespace BlazorCore.Models
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idWorkshop }, }), null);
                         Item = workshopEntity;
                     }
+                    break;
+                case ProjectsEnums.TableScale.BarCodes:
+                case ProjectsEnums.TableScale.Default:
+                default:
                     break;
             }
         }
@@ -886,7 +1028,7 @@ namespace BlazorCore.Models
                             page = LocalizationData.DeviceControl.UriRouteSection.Plus;
                             break;
                         case ProjectsEnums.TableScale.PrintersResources:
-                            page = LocalizationData.DeviceControl.UriRouteSection.Printers;
+                            page = LocalizationData.DeviceControl.UriRouteSection.PrinterResources;
                             break;
                         case ProjectsEnums.TableScale.Printers:
                             page = LocalizationData.DeviceControl.UriRouteSection.Printers;
@@ -1039,6 +1181,8 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Workshops:
                     if (ParentRazor?.Item != null)
                         ItemSaveCheck.Workshop(NotificationService, (WorkshopEntity)ParentRazor.Item, Id, TableAction);
+                    break;
+                case ProjectsEnums.TableScale.BarCodes:
                     break;
             }
         }
