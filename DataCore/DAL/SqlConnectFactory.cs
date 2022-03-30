@@ -21,7 +21,7 @@ namespace DataCore.DAL
 
         #region Public and private fields and properties
 
-        public string ConnectionString { get; }
+        public string? ConnectionString { get; private set; }
         private readonly object _locker = new();
         public delegate void ExecuteReaderCallback(SqlDataReader reader);
         public delegate T? ExecuteReaderCallback<T>(SqlDataReader reader);
@@ -30,9 +30,14 @@ namespace DataCore.DAL
 
         #region Constructor and destructor
 
-        protected SqlConnectFactory(string connectionString)
+        public SqlConnectFactory()
         {
-            ConnectionString = connectionString;
+            SetConnection(string.Empty);
+        }
+
+        public SqlConnectFactory(string connectionString)
+        {
+            SetConnection(connectionString);
         }
 
         #endregion
@@ -44,27 +49,23 @@ namespace DataCore.DAL
             return new SqlConnection(ConnectionString);
         }
 
-        public SqlConnection GetConnection(string connectionString)
+        public void SetConnection(string connectionString)
         {
             lock (_locker)
             {
-                if (_instance == null)
-                    _instance = new SqlConnectFactory(connectionString);
+                ConnectionString = connectionString;
             }
-
-            return _instance.GetSqlConnection();
         }
 
         public SqlConnection GetConnection()
         {
             lock (_locker)
             {
-                if (_instance == null)
+                if (string.IsNullOrEmpty(ConnectionString))
                 {
-                    throw new Exception(@"Factory not initialized. Call this method with param _connectionString");
+                    throw new Exception($"Factory not initialized. Call this method with param {nameof(ConnectionString)}");
                 }
             }
-
             return _instance.GetSqlConnection();
         }
 

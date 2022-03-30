@@ -42,12 +42,12 @@ else
                     else
                     {
                         <RadzenDropDownDataGrid 
-                            Style="width: 100%; height: 35px;" TValue="int" 
+                            Style="width: 100%; height: 35px;" 
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@ScaleItems PageSize=10
+                            Data=@ScaleItems PageSize=10 
                             TextProperty="Description" ValueProperty="Id"
-                            Value=@ItemCast.Scale.Id Disabled=false ReadOnly=true
+                            TValue="long" Value=@ItemCast.Scale.Id 
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Scale), args)) />
                     }
 				</td>
@@ -64,12 +64,12 @@ else
                     else
                     {
                         <RadzenDropDownDataGrid 
-                            Style="width: 100%; height: 35px;" TValue="int" 
+                            Style="width: 100%; height: 35px;" 
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                             Data=@TemplateItems PageSize=10
                             TextProperty="Title" ValueProperty="Id"
-                            Value=@ItemCast.Template.Id
+                            TValue="long" Value=@ItemCast.Template.Id
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Template), args)) />
                     }
 				</td>
@@ -88,12 +88,12 @@ else
                     else
                     {
                         <RadzenDropDownDataGrid 
-                            Style="width: 100%; height: 35px;" TValue="int" 
+                            Style="width: 100%; height: 35px;" 
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                             Data=@NomenclatureItems PageSize=10
                             TextProperty="Name" ValueProperty="Id"
-                            Value=@ItemCast.Nomenclature.Id
+                            TValue="long" Value=@ItemCast.Nomenclature.Id
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Nomenclature), args)) />
                     }
 				</td>

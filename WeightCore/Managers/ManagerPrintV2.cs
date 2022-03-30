@@ -106,7 +106,7 @@ namespace WeightCore.Managers
 
         public void SendCmdToZebra(string printCmd)
         {
-            if (string.IsNullOrEmpty(printCmd))
+            if (string.IsNullOrEmpty(printCmd) || ZebraPrinter == null)
                 return;
             try
             {

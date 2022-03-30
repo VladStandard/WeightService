@@ -78,7 +78,8 @@ namespace ScalesUI
 #endif
             try
             {
-                _ = SqlConnect.GetConnection(conectionString);
+                SqlConnect.SetConnection(conectionString);
+                SqlConnect.GetConnection();
             }
             catch (Exception ex)
             {

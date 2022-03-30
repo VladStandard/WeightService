@@ -57,7 +57,7 @@ namespace BlazorDeviceControl.Shared.Item
                         if (Id != null && TableAction == DbTableAction.New)
                             ItemCast.Id = (long)Id;
                         ScaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }), 
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }), 
                             null)?.ToList();
                         TemplateItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),

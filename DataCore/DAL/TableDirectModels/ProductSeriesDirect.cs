@@ -59,13 +59,14 @@ namespace DataCore.DAL.TableDirectModels
 
             using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
-            string query =
-                "DECLARE @SSCC varchar(50);\n" +
-                "DECLARE @WeithingDate datetime;\n" +
-                "DECLARE @xmldata xml;\n" +
-                "EXECUTE [db_scales].[NewProductSeries] @ScaleID, @SSCC OUTPUT, @xmldata OUTPUT;\n " +
-                "SELECT Id, CreateDate, UUID, SSCC,CountUnit,TotalNetWeight, TotalTareWeight " +
-                " FROM [db_scales].[GetCurrentProductSeries](@ScaleId);";
+            string query = @"
+DECLARE @SSCC varchar(50)
+DECLARE @WeithingDate datetime
+DECLARE @xmldata xml
+EXECUTE [db_scales].[NewProductSeries] @ScaleID, @SSCC OUTPUT, @xmldata OUTPUT
+SELECT [Id], [CreateDate], [UUID], [SSCC], [CountUnit], [TotalNetWeight], [TotalTareWeight]
+FROM [db_scales].[GetCurrentProductSeries](@ScaleId)
+                ";
             using (SqlCommand cmd = new(query))
             {
                 cmd.Connection = con;
@@ -75,13 +76,16 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     while (reader.Read())
                     {
-                        Id = reader.GetInt64(0);
+                        if (reader[0] is long longId)
+                            Id = longId;
+                        else if (reader[0] is int intId)
+                            Id = intId;
                         CreateDate = reader.GetDateTime(1);
                         UUID = reader.GetGuid(2);
+                        Sscc = new SsccDirect(reader.GetString(3));
                         CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
                         TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
                         TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
-                        Sscc = new SsccDirect(reader.GetString(3));
                     }
                 }
                 reader.Close();

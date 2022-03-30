@@ -202,6 +202,8 @@ namespace BlazorDeviceControl.Shared.Component
                         ChangeDt = workshop.ModifiedDate.ToString();
                     }
                     break;
+                case ProjectsEnums.TableScale.BarCodes:
+                    break;
             }
         }
 
