@@ -1,4 +1,7 @@
-﻿//using Microsoft.Data.SqlClient;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
+//using Microsoft.Data.SqlClient;
 //using System;
 //using System.Collections.Generic;
 

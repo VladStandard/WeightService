@@ -206,16 +206,16 @@ namespace DataCore
             public static string TableFieldGoodsTareWeight => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
             public static string TableFieldGoodsTareWeightDescription => Lang == ShareEnums.Lang.English ? "Calculation formula: Tare weight = weight of box + (weight of package * number of inserts)" : "Расчётная формула: Вес тары = вес коробки + (вес пакета * кол. вложений)";
             public static string TableFieldGtin => Lang == ShareEnums.Lang.English ? "GTIN" : "ГТИН";
-            public static string TableFieldGuidMercury => Lang == ShareEnums.Lang.English ? "GUID Mercury" : "GUID Меркурий";
+            public static string TableFieldGuidMercury => Lang == ShareEnums.Lang.English ? "GUID Mercury" : "ГУИД Меркурий";
             public static string TableFieldHost => Lang == ShareEnums.Lang.English ? "Host" : "Хост";
             public static string TableFieldHttpStatusCode => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
             public static string TableFieldHttpStatusException => Lang == ShareEnums.Lang.English ? "Exception" : "Ошибка";
             public static string TableFieldHttpStatusNoException => Lang == ShareEnums.Lang.English ? "No exceptions" : "Ошибок нет";
             public static string TableFieldIcon => Lang == ShareEnums.Lang.English ? "Icon" : "Иконка";
-            public static string TableFieldId => "ID";
-            public static string TableFieldIdDwh => "ID DWH";
-            public static string TableFieldIdRRef => Lang == ShareEnums.Lang.English ? "ID 1C" : "ID 1С";
-            public static string TableFieldImageData => Lang == ShareEnums.Lang.English ? "Image data" : "Image data";
+            public static string TableFieldId => Lang == ShareEnums.Lang.English ? "ID" : "ИД";
+            public static string TableFieldIdDwh => Lang == ShareEnums.Lang.English ? "ID DWH" : "ИД ДВХ";
+            public static string TableFieldIdRRef => Lang == ShareEnums.Lang.English ? "ID 1C" : "ИД 1С";
+            public static string TableFieldImageData => Lang == ShareEnums.Lang.English ? "Image data" : "Данные";
             public static string TableFieldImageDataInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
             public static string TableFieldInnerException => Lang == ShareEnums.Lang.English ? "Inner exception" : "Вложенное исключение";
             public static string TableFieldIsClose => Lang == ShareEnums.Lang.English ? "Is close" : "Закрыто";
@@ -238,7 +238,7 @@ namespace DataCore
             public static string TableFieldNomenclatureType => Lang == ShareEnums.Lang.English ? "Type of nomenclature" : "Тип номенклатуры";
             public static string TableFieldNomenclatureUnitId => Lang == ShareEnums.Lang.English ? "Nomenclature unit ID" : "ID юнита номенклатуры";
             public static string TableFieldNominalWeight => Lang == ShareEnums.Lang.English ? "Nominal box weight" : "Номинальный вес короба";
-            public static string TableFieldPackQuantly => Lang == ShareEnums.Lang.English ? "PackQuantly" : "PackQuantly";
+            public static string TableFieldPackQuantly => Lang == ShareEnums.Lang.English ? "Pack quantly" : "Быстрота упаковки";
             public static string TableFieldPackTypeId => Lang == ShareEnums.Lang.English ? "Package type ID" : "ID типа упаковки";
             public static string TableFieldPackWeight => Lang == ShareEnums.Lang.English ? "Package weight" : "Вес упаковки";
             public static string TableFieldPlu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
@@ -264,7 +264,7 @@ namespace DataCore
             public static string TableFieldScaleId => Lang == ShareEnums.Lang.English ? "Scale ID" : "ID весов";
             public static string TableFieldSettingsFile => Lang == ShareEnums.Lang.English ? "Settings file" : "Файл настроек";
             public static string TableFieldShelfLifeDays => Lang == ShareEnums.Lang.English ? "Shelf life (days)" : "Срок годности (суток)";
-            public static string TableFieldSscc => Lang == ShareEnums.Lang.English ? "SSCC" : "SSCC";
+            public static string TableFieldSscc => Lang == ShareEnums.Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
             public static string TableFieldState => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
             public static string TableFieldStorage => Lang == ShareEnums.Lang.English ? "Storage" : "Склад";
             public static string TableFieldTareWeight => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
@@ -277,7 +277,7 @@ namespace DataCore
             public static string TableFieldTemplateSeries => Lang == ShareEnums.Lang.English ? "Summary label template" : "Шаблон суммарной этикетки";
             public static string TableFieldTitle => Lang == ShareEnums.Lang.English ? "Title" : "Заголовок";
             public static string TableFieldType = Lang == ShareEnums.Lang.English ? "Type" : "Тип";
-            public static string TableFieldUid => Lang == ShareEnums.Lang.English ? "UUID" : "UUID";
+            public static string TableFieldUid => Lang == ShareEnums.Lang.English ? "UID" : "УИД";
             public static string TableFieldUpperWeightThreshold => Lang == ShareEnums.Lang.English ? "Upper value of the box weight" : "Верхнее значение веса короба";
             public static string TableFieldUseOrder => Lang == ShareEnums.Lang.English ? "Use order" : "Использовать заказ";
             public static string TableFieldUser => Lang == ShareEnums.Lang.English ? "User" : "Пользователь";
@@ -659,9 +659,10 @@ namespace DataCore
                         case ProjectsEnums.TableScale.Organizations:
                             result = DeviceControl.ItemOrganization;
                             break;
+                        case ProjectsEnums.TableScale.BarCodes:
+                            break;
                     }
                 }
-
                 return result;
             }
 

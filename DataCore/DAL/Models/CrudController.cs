@@ -403,6 +403,10 @@ namespace DataCore.DAL.Models
                             printerResource.Printer = GetEntity<PrinterEntity>(printerResource.Printer.Id);
                         if (printerResource.Resource != null)
                             printerResource.Resource = GetEntity<TemplateResourceEntity>(printerResource.Resource.Id);
+                        if (printerResource.Resource != null && string.IsNullOrEmpty(printerResource.Resource.Description))
+                        {
+                            printerResource.Resource.Description = printerResource.Resource.Name;
+                        }
                     }
                     break;
                 case PrinterTypeEntity printerType:
