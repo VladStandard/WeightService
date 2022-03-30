@@ -23,7 +23,7 @@ else
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="ProductionFacilityEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
-        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns >
             @if (@IsShowMarkedItems)
@@ -39,7 +39,8 @@ else
                 TItem="ProductionFacilityEntity" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.Id}") Text=@itemCast.Name />
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.Id}")
+                        Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
         </Columns>

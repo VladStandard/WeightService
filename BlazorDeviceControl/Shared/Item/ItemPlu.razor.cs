@@ -86,66 +86,6 @@ namespace BlazorDeviceControl.Shared.Item
                 }), true);
         }
 
-        private void OnChange(object value, string name,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                lock (_locker)
-                {
-                    switch (name)
-                    {
-                        case "Scale":
-                            if (ItemCast != null && value is long idScale)
-                            {
-                                ItemCast.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idScale } }),
-                                    null);
-                            }
-                            break;
-                        case "Nomenclature":
-                            if (ItemCast != null && value is long idNomenclature)
-                            {
-                                ItemCast.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idNomenclature } }),
-                                    null);
-                                OnClickFieldsFill("Entity");
-                            }
-                            break;
-                        case "Templates":
-                            if (ItemCast != null && value is long idTemplate)
-                            {
-                                if (idTemplate <= 0)
-                                    ItemCast.Template = new();
-                                else
-                                {
-                                    ItemCast.Template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idTemplate } }),
-                                        null);
-                                }
-                            }
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsHelper.Delay
-                };
-                NotificationService.Notify(msg);
-                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-            finally
-            {
-                StateHasChanged();
-            }
-        }
-
         private void OnClickFieldsFill(string name,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
@@ -229,7 +169,7 @@ namespace BlazorDeviceControl.Shared.Item
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };
-                NotificationService.Notify(msg);
+                NotificationService?.Notify(msg);
                 Console.WriteLine($"{msg.Summary}. {msg.Detail}");
                 AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
             }

@@ -14,8 +14,6 @@ using DataCore.Models;
 using DataCore.DAL.TableScaleModels;
 using BlazorCore.Models;
 using DataCore.DAL.Models;
-using System.Runtime.CompilerServices;
-using System;
 using static DataCore.ShareEnums;
 
 namespace BlazorDeviceControl.Shared.Item
@@ -26,14 +24,14 @@ namespace BlazorDeviceControl.Shared.Item
 
         public TemplateResourceEntity? ItemCast { get => Item == null ? null : (TemplateResourceEntity)Item; set => Item = value; }
         public List<TypeEntity<string>>? ResourceTypes { get; set; }
-        [Inject] private IFileUpload FileUpload { get; set; }
-        [Inject] private IFileDownload FileDownload { get; set; }
-        [Inject] private IBlazorDownloadFileService DownloadFileService { get; set; }
+        [Inject] private IFileUpload? FileUpload { get; set; }
+        [Inject] private IFileDownload? FileDownload { get; set; }
+        [Inject] private IBlazorDownloadFileService? DownloadFileService { get; set; }
         public string FileInfo { get; set; } = string.Empty;
         public double FileProgress { get; set; } = default;
         public string FileComplete { get; set; } = string.Empty;
         private int ProgressValue { get; set; } = default;
-        public IFileListEntry File { get; private set; }
+        public IFileListEntry? File { get; private set; }
         private readonly object _locker = new();
 
         #endregion
@@ -66,42 +64,6 @@ namespace BlazorDeviceControl.Shared.Item
                 }), true);
         }
 
-        private void OnChange(object value, string name,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                lock (_locker)
-                {
-                    switch (name)
-                    {
-                        case "ResourceTypes":
-                            if (value is string strValue)
-                            {
-                                ItemCast.Type = strValue;
-                            }
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsHelper.Delay
-                };
-                NotificationService.Notify(msg);
-                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-            finally
-            {
-                StateHasChanged();
-            }
-        }
-
         private void OnError(UploadErrorEventArgs args, string name)
         {
             NotificationMessage msg = new()
@@ -111,21 +73,23 @@ namespace BlazorDeviceControl.Shared.Item
                 Detail = args.Message,
                 Duration = AppSettingsHelper.Delay
             };
-            NotificationService.Notify(msg);
+            NotificationService?.Notify(msg);
         }
 
         private async Task OnFileUpload(InputFileChangeEventArgs e)
         {
             foreach (IBrowserFile file in e.GetMultipleFiles(e.FileCount))
             {
-                await FileUpload.UploadAsync(AppSettings.DataAccess, ItemCast, file.OpenReadStream(10_000_000));
+                if (FileUpload != null)
+                    await FileUpload.UploadAsync(AppSettings.DataAccess, ItemCast, file.OpenReadStream(10_000_000));
             }
             await InvokeAsync(StateHasChanged);
         }
 
         private async Task OnFileDownload()
         {
-            await FileDownload.DownloadAsync(DownloadFileService, ItemCast);
+            if (FileDownload != null)
+                await FileDownload.DownloadAsync(DownloadFileService, ItemCast);
 
             await InvokeAsync(StateHasChanged);
         }

@@ -33,7 +33,7 @@
     @if (IsShowAdditionalFilter)
     {
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@FilterCaption />
-        <RadzenDropDown Style="width: 100%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+        <RadzenDropDown Style="width: 100%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
             Data=@ItemsFilter PageSize=5 TextProperty="Name" ValueProperty="Value"
             Value=@ItemFilter Change=@(args => OnItemValueChange(ItemFilter, FilterName, args)) />

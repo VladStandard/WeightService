@@ -92,9 +92,9 @@ else
 }
 else
 {
-    <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+    <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                     AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                    Data=@ResourceTypes PageSize="5" TextProperty="Name" ValueProperty="Value"
-                    Value=@TemplateResourcesItem.Type Change=@(args => OnChange(args, "ResourceTypes")) />
+                    Data=@ResourceTypes PageSize=10 TextProperty="Name" ValueProperty="Value"
+                    Value=@TemplateResourcesItem.Type Change=@(args => OnItemValueChange(args, "ResourceTypes")) />
 }
  *@

@@ -20,7 +20,7 @@ else
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterResourceEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
-        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn TItem="PrinterResourceEntity" Property="Id"

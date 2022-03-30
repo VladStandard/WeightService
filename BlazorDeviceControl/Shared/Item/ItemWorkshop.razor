@@ -4,6 +4,7 @@
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
+@using static DataCore.LocalizationData.DeviceControl
 @inherits BlazorCore.Models.RazorDisposable
 
 @if (ItemCast == null)
@@ -64,7 +65,7 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                             Data=@ProductionFacilities PageSize=10 TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.ProductionFacility.Id
@@ -83,10 +84,10 @@ else
     <ItemDates ParentRazor=@this />
 }
 @*
-        <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+        <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                                 AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                                Data=@ProductionFacilities PageSize="5"
+                                Data=@ProductionFacilities PageSize=10
                                 TextProperty="Name" ValueProperty="Id"
                                 Value=@WorkshopItem.ProductionFacility?.Id
-                                Change=@(args => OnChange(args, "ProductionFacilities")) />
+                                Change=@(args => OnItemValueChange("ProductionFacilities")) />
 *@

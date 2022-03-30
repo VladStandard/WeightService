@@ -22,22 +22,28 @@ else
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
-        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocalizationData.DeviceControl.TableFieldPrinter Width="20%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{itemCast.Id}") Text=@itemCast.Name />
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{itemCast.Id}") 
+                        Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="PrinterEntity" Property="PrinterType.Name"
-                Title=@LocalizationData.DeviceControl.TableFieldPrinterType
-                Type="string" Width="18%" />
+            <RadzenGridColumn TItem="PrinterEntity" Title=@LocalizationData.DeviceControl.TableFieldPrinterType Width="18%" >
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.PrinterType.Id}") 
+                        Text=@itemCast.PrinterType.Name />
+                </Template>
+            </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocalizationData.DeviceControl.TableFieldPrinterIp Type="string" Width="15%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; " Target="_blank" 
-                        Path=@itemCast.Link Text=@itemCast.Ip />
+                        Path=@itemCast.Link
+                        Text=@itemCast.Ip />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Property="HttpStatusCode" TextAlign=TextAlign.Center
@@ -49,10 +55,12 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Property="HttpStatusException.Message" 
                 Title=@LocalizationData.DeviceControl.TableFieldHttpStatusException Type="string" Width="15%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="Port" Title=@LocalizationData.DeviceControl.TableFieldPrinterPortShort
-                Type="string" Width="10%" />
-            <RadzenGridColumn TItem="PrinterEntity" Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldPrinterMac
-                Type="string" Width="11%" />
+            <RadzenGridColumn TItem="PrinterEntity" Property="Port" 
+                TextAlign=TextAlign.Center Type="string" Width="7%" 
+                Title=@LocalizationData.DeviceControl.TableFieldPrinterPortShort />
+            <RadzenGridColumn TItem="PrinterEntity" Property="MacAddress.ValuePrettyLookMinus" 
+                TextAlign=TextAlign.Center Type="string" Width="14%" 
+                Title=@LocalizationData.DeviceControl.TableFieldPrinterMac />
         </Columns>
     </RadzenGrid>
 

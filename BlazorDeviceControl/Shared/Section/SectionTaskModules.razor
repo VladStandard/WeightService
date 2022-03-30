@@ -22,7 +22,7 @@ else
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TaskEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
-        AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced"
+        AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 

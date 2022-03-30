@@ -44,12 +44,12 @@ else
                     {
                         <RadzenDropDownDataGrid 
                             Style="width: 100%; height: 35px;" TValue="int" 
-                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                             Data=@PrinterItems PageSize=10
                             TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.Printer.Id
-                            Change=@(args => OnChange(args, nameof(PrinterEntity))) />
+                            Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Printer), args)) />
                     }
 				</td>
             </tr>
@@ -69,12 +69,12 @@ else
                     {
                         <RadzenDropDownDataGrid 
                             Style="width: 100%; height: 35px;" TValue="int" 
-                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
                             Data=@ResourceItems PageSize=10
                             TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.Resource.Id
-                            Change=@(args => OnChange(args, nameof(TemplateResourceEntity))) />
+                            Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Resource), args)) />
                     }
 				</td>
             </tr>

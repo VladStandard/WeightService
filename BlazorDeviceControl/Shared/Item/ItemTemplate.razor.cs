@@ -7,10 +7,7 @@ using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
-using Radzen;
-using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
@@ -53,42 +50,6 @@ namespace BlazorDeviceControl.Shared.Item
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
-        }
-
-        private void OnChange(object value, string name,
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-        {
-            try
-            {
-                lock (_locker)
-                {
-                    switch (name)
-                    {
-                        case "TemlateCategories":
-                            if (value is string strValue)
-                            {
-                                ItemCast.CategoryId = strValue;
-                            }
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                NotificationMessage msg = new()
-                {
-                    Severity = NotificationSeverity.Error,
-                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnChange)}]!",
-                    Detail = ex.Message,
-                    Duration = AppSettingsHelper.Delay
-                };
-                NotificationService.Notify(msg);
-                AppSettings.DataAccess.Crud.LogExceptionToSql(ex, filePath, lineNumber, memberName);
-            }
-            finally
-            {
-                StateHasChanged();
-            }
         }
 
         #endregion
