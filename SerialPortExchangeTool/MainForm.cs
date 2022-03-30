@@ -233,7 +233,6 @@ namespace SerialPortExchangeTool
                 openCloseSpbtn.Enabled = true;
                 statuslabel.Text = "OK !";
             }
-
         }
 
         private void Sendbtn_Click(object sender, EventArgs e)

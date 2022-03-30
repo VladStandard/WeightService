@@ -210,14 +210,12 @@ namespace WeightCore.Helpers
                 Kneading--;
                 if (Kneading < KneadingMinValue)
                     Kneading = KneadingMinValue;
-
             }
             if (direction == ProjectsEnums.Direction.Forward)
             {
                 Kneading++;
                 if (Kneading > KneadingMaxValue)
                     Kneading = KneadingMaxValue;
-
             }
         }
         #endregion
@@ -248,7 +246,6 @@ namespace WeightCore.Helpers
                 ProductDate = ProductDate.AddDays(-1);
                 if (ProductDate < ProductDateMinValue)
                     ProductDate = ProductDateMinValue;
-
             }
             if (direction == ProjectsEnums.Direction.Forward)
             {

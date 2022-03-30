@@ -38,7 +38,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public OrderDirect()
         {
-
+            //
         }
 
         public OrderDirect(PluDirect _plu)
@@ -73,8 +73,7 @@ namespace DataCore.DAL.TableDirectModels
             return sb.ToString();
         }
 
-        public IDictionary<string, object> ObjectToDictionary<T>(T item)
-            where T : class
+        public IDictionary<string, object> ObjectToDictionary<T>(T item) where T : class
         {
             Type myObjectType = item.GetType();
             IDictionary<string, object> dict = new Dictionary<string, object>();
@@ -88,8 +87,7 @@ namespace DataCore.DAL.TableDirectModels
             return dict;
         }
 
-        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
-            where T : class
+        public T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : class
         {
             Type type = typeof(T);
             T result = (T)Activator.CreateInstance(type);

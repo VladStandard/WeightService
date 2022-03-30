@@ -58,8 +58,6 @@ namespace ZabbixStubService
             {
                 throw;
             }
-
-
         }
 
         protected override void OnStart(string[] args)

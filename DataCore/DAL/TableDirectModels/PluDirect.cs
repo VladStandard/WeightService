@@ -100,18 +100,15 @@ namespace DataCore.DAL.TableDirectModels
                 new XElement("Command",
                 new XElement("Print",
                     new XElement("Format", new XAttribute("TemplateID", TemplateID)),
-
                     dict.Select(x => new XElement("NameSubString",
                         new XAttribute("Key", x.Key),
                         new XElement("Value", x.Value)))
-
                 ))));
 
             return doc;
         }
 
-        public IDictionary<string, object> ObjectToDictionary<T>(T item)
-            where T : class
+        public IDictionary<string, object> ObjectToDictionary<T>(T item) where T : class
         {
             Type myObjectType = item.GetType();
             IDictionary<string, object> dict = new Dictionary<string, object>();
@@ -125,8 +122,7 @@ namespace DataCore.DAL.TableDirectModels
             return dict;
         }
 
-        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
-            where T : class
+        public T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : class
         {
             Type type = typeof(T);
             T result = (T)Activator.CreateInstance(type);
@@ -164,7 +160,6 @@ namespace DataCore.DAL.TableDirectModels
                 //Scale.Load();
                 Template = new TemplateDirect(Scale.TemplateIdDefault);
             }
-
         }
 
         public SqlCommand GetLoadCmd(SqlConnection con)
@@ -190,7 +185,6 @@ select
 	,[NominalWeight]			
 	,[LowerWeightThreshold]
 	,[CheckWeight]
-
 from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
                     ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             SqlCommand cmd = new(query, con);

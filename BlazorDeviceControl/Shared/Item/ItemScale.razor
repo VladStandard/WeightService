@@ -46,10 +46,29 @@ else
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Description />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldDeviceSendTimeout</td>
                 <td>
-                    <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
-                        TValue="short?" @bind-Value=@ItemCast.DeviceSendTimeout />
+                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
+                        Path=@GetPath(UriRouteItem.Host, ItemCast.Host, ItemCast.Host?.Id)
+                        Text=@LocalizationData.DeviceControl.TableFieldHost />
+                </td>
+                <td>
+                    @if (HostItems == null)
+                    {
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    }
+                    else
+                    {
+                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
+                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
+                            Data=@HostItems PageSize=10 TextProperty="Name" ValueProperty="Id"
+                            TValue="long" Value=@ItemCast.Host?.Id
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.Host), args)) >
+                            <Columns>
+                                <RadzenDropDownDataGridColumn Property="Id" TextAlign=TextAlign.Center Title=@LocalizationData.DeviceControl.TableFieldId Width="15%" />
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="85%" />
+                            </Columns>
+                        </RadzenDropDownDataGrid>
+                    }
 				</td>
             </tr>
             <tr>
@@ -102,29 +121,10 @@ else
                         </RadzenDropDownDataGrid>
                     }
 				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldDeviceSendTimeout</td>
                 <td>
-                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@GetPath(UriRouteItem.Host, ItemCast.Host, ItemCast.Host?.Id)
-                        Text=@LocalizationData.DeviceControl.TableFieldHost />
-                </td>
-                <td>
-                    @if (HostItems == null)
-                    {
-                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
-                    }
-                    else
-                    {
-                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@HostItems PageSize=10 TextProperty="Name" ValueProperty="Id"
-                            TValue="long" Value=@ItemCast.Host?.Id
-                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.Host), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property="Id" TextAlign=TextAlign.Center Title=@LocalizationData.DeviceControl.TableFieldId Width="15%" />
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="85%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
-                    }
+                    <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
+                        TValue="short?" @bind-Value=@ItemCast.DeviceSendTimeout />
 				</td>
             </tr>
             <tr>

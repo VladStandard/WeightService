@@ -68,6 +68,5 @@ SELECT [IIS].[GetRefShipmentsByDocDate] (:StartDate,:EndDate,:Offset,:RowCount)
         public static string GetSummary => @"
 SELECT [IIS].[fnGetSummaryList] (:StartDate, :EndDate)
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
-
     }
 }

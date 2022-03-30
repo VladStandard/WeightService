@@ -87,8 +87,7 @@
 //            return dict;
 //        }
 
-//        public T ObjectFromDictionary<T>(IDictionary<string, object> dict)
-//            where T : class
+//        public T ObjectFromDictionary<T>(IDictionary<string, object> dict) where T : class
 //        {
 //            Type type = typeof(T);
 //            T result = (T)Activator.CreateInstance(type);
