@@ -5,6 +5,7 @@ using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -19,10 +20,11 @@ namespace DataCore.DAL.TableDirectModels
         public DateTime ModifiedDate { get; set; }
         public string RRefID { get; set; } = string.Empty;
         public NomenclatureDirect Nomenclature { get; set; } = new NomenclatureDirect();
-        public bool Marked { get; set; }
+        public bool IsMarked { get; set; } = false;
         public decimal PackWeight { get; set; }
         public int PackQuantly { get; set; }
         public NomenclatureDirect PackType { get; set; } = new NomenclatureDirect();
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
@@ -78,7 +80,7 @@ namespace DataCore.DAL.TableDirectModels
                         CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
                         ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
                         RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
-                        Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
+                        IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
                         PackWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "PackWeight");
                         PackQuantly = SqlConnect.GetValueAsNotNullable<int>(reader, "PackQuantly");
                         PackType = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "PackTypeId"));
@@ -113,7 +115,7 @@ SELECT @ID";
                 cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
                 cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
                 cmd.Parameters.AddWithValue($"@NomenclatureId", Nomenclature.Id);  // 
-                cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
+                cmd.Parameters.AddWithValue($"@Marked", IsMarked);  // 
                 cmd.Parameters.AddWithValue($"@PackWeight", PackWeight);  // 
                 cmd.Parameters.AddWithValue($"@PackQuantly", PackQuantly);  // 
                 cmd.Parameters.AddWithValue($"@PackTypeId", PackType != null ? PackType.Id : DBNull.Value);  // 
@@ -152,7 +154,7 @@ SELECT @ID";
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
                                 ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
                                 RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
-                                Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
+                                IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
                                 PackWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "PackWeight"),
                                 PackQuantly = SqlConnect.GetValueAsNotNullable<int>(reader, "PackQuantly"),
                                 PackType = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "PackTypeId")),

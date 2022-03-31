@@ -105,4 +105,11 @@ namespace WeightCore.Print
         Dpi1100,
         Dpi1200,
     }
+
+    public enum PrintBrand
+    {
+        Default,
+        Zebra,
+        TSC,
+    }
 }

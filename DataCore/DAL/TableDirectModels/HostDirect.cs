@@ -19,7 +19,7 @@ namespace DataCore.DAL.TableDirectModels
         public string? Ip { get; set; } = string.Empty;
         public string? Mac { get; set; } = string.Empty;
         public Guid IdRRef { get; set; }
-        public bool Marked { get; set; }
+        public bool IsMarked { get; set; } = false;
         [XmlIgnore]
         public XDocument? SettingsFile { get; set; }
 

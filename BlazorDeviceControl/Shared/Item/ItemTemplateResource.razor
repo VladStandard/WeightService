@@ -35,7 +35,7 @@ else
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Marked />
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
@@ -93,8 +93,8 @@ else
 else
 {
     <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                    AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                    Data=@ResourceTypes PageSize=10 TextProperty="Name" ValueProperty="Value"
+                    AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+                    Data=@ResourceTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" ValueProperty="Value"
                     Value=@TemplateResourcesItem.Type Change=@(args => OnItemValueChange(args, "ResourceTypes")) />
 }
  *@

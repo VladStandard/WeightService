@@ -5,6 +5,7 @@ using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -18,7 +19,8 @@ namespace DataCore.DAL.TableDirectModels
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string RRefID { get; set; } = string.Empty;
-        public bool Marked { get; set; }
+        public bool IsMarked { get; set; } = false;
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
@@ -33,7 +35,7 @@ namespace DataCore.DAL.TableDirectModels
         public ContregentDirect(long id)
         {
             Id = id;
-            Marked = false;
+            IsMarked = false;
             Load();
         }
 
@@ -61,7 +63,7 @@ namespace DataCore.DAL.TableDirectModels
                         CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
                         ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
                         RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID");
-                        Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
+                        IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
                     }
                 }
                 reader.Close();
@@ -86,7 +88,7 @@ namespace DataCore.DAL.TableDirectModels
                 cmd.Connection = con;
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
-                cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
+                cmd.Parameters.AddWithValue($"@Marked", IsMarked);  // 
                 cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
@@ -123,7 +125,7 @@ namespace DataCore.DAL.TableDirectModels
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
                                 ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
                                 RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
-                                Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked")
+                                IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked")
                             };
                             result.Add(contregent);
                         }

@@ -25,6 +25,7 @@ namespace DataCore.DAL.TableDirectModels
         public Dictionary<string, string> Fonts { get; set; } = new Dictionary<string, string>();
         [XmlIgnore]
         public Dictionary<string, string> Logo { get; set; } = new Dictionary<string, string>();
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion

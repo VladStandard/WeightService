@@ -31,7 +31,7 @@ namespace DataCore.DAL.TableScaleModels
             set => _ = value;
         }
         public virtual Guid? IdRRef { get; set; }
-        public virtual bool Marked { get; set; }
+        public virtual bool IsMarked { get; set; } = false;
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Type)}: {Type}. " +
                    $"{nameof(ImageDataString)}: {ImageDataString}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +
-                   $"{nameof(Marked)}: {Marked}. ";
+                   $"{nameof(IsMarked)}: {IsMarked}. ";
         }
 
         public virtual bool Equals(TemplateResourceEntity entity)
@@ -71,7 +71,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Type, entity.Type) &&
                    Equals(IdRRef, entity.IdRRef) &&
                    Equals(ImageData, entity.ImageData) &&
-                   Equals(Marked, entity.Marked);
+                   Equals(IsMarked, entity.IsMarked);
         }
 
         public override bool Equals(object obj)
@@ -102,7 +102,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Type, default(string)) &&
                    Equals(ImageData, default(byte[])) &&
                    Equals(IdRRef, default(Guid?)) &&
-                   Equals(Marked, default(bool));
+                   Equals(IsMarked, false);
         }
 
         public override object Clone()
@@ -118,7 +118,7 @@ namespace DataCore.DAL.TableScaleModels
                 Type = Type,
                 ImageData = CloneBytes(ImageData),
                 IdRRef = IdRRef,
-                Marked = Marked,
+                IsMarked = IsMarked,
             };
         }
 

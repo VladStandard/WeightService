@@ -46,23 +46,58 @@ namespace BlazorDeviceControl.Shared.Section
                             long? scaleId = null;
                             if (ItemFilter is ScaleEntity scale)
                                 scaleId = scale.Id;
-                            Items = !IsShowMarkedItems
-                                ? AppSettings.DataAccess.Crud.GetEntities<PluEntity>(scaleId != null
-                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", scaleId }, { DbField.Marked.ToString(), false } })
-                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
-                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))?
-                                    .ToList<BaseEntity>()
-                                : AppSettings.DataAccess.Crud.GetEntities<PluEntity>(scaleId != null
-                                    ? new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", scaleId } })
-                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
-                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))?
-                                    .ToList<BaseEntity>()
-                                ;
+                            if (IsShowMarkedItems)
+                            {
+                                if (scaleId == null)
+                                    Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                        null,
+                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                        ?.ToList<BaseEntity>();
+                                else
+                                {
+                                    Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", scaleId } }),
+                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                        ?.ToList<BaseEntity>();
+                                    //SetFilterItems(items, scaleId);
+                                }
+                            }
+                            else
+                            {
+                                if (scaleId == null)
+                                    Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> { 
+                                            { DbField.IsMarked.ToString(), false } }),
+                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                        ?.ToList<BaseEntity>();
+                                else
+                                {
+                                    Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> {
+                                            { "Scale.Id", scaleId }, { DbField.IsMarked.ToString(), false } }),
+                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                        ?.ToList<BaseEntity>();
+                                    //SetFilterItems(items, scaleId);
+                                }
+                            }
                         }
                         ButtonSettings = new(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
+        }
+
+        private void SetFilterItems(List<BaseEntity>? items, long? scaleId)
+        {
+            if (items != null)
+            {
+                Items = new List<BaseEntity>();
+                foreach (BaseEntity item in items)
+                {
+                    if (item is PluEntity plu && plu.Scale.Id == scaleId)
+                        Items.Add(item);
+                }
+            }
         }
 
         #endregion

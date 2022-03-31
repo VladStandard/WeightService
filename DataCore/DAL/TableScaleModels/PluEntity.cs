@@ -36,7 +36,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual decimal NominalWeight { get; set; }
         public virtual decimal LowerWeightThreshold { get; set; }
         public virtual bool CheckWeight { get; set; }
-        public virtual bool Marked { get; set; }
+        public virtual bool IsMarked { get; set; } = false;
 
         #endregion
 
@@ -222,7 +222,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(NominalWeight)}: {NominalWeight}. " +
                    $"{nameof(LowerWeightThreshold)}: {LowerWeightThreshold}. " +
                    $"{nameof(CheckWeight)}: {CheckWeight}. " +
-                   $"{nameof(Marked)}: {Marked}. ";
+                   $"{nameof(IsMarked)}: {IsMarked}. ";
         }
 
         public virtual bool Equals(PluEntity entity)
@@ -250,7 +250,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(NominalWeight, entity.NominalWeight) &&
                    Equals(LowerWeightThreshold, entity.LowerWeightThreshold) &&
                    Equals(CheckWeight, entity.CheckWeight) &&
-                   Equals(Marked, entity.Marked);
+                   Equals(IsMarked, entity.IsMarked);
         }
 
         public override bool Equals(object obj)
@@ -297,7 +297,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(NominalWeight, default(decimal)) &&
                    Equals(LowerWeightThreshold, default(decimal)) &&
                    Equals(CheckWeight, default(bool)) &&
-                   Equals(Marked, default(bool));
+                   Equals(IsMarked, false);
         }
 
         public override object Clone()
@@ -326,7 +326,7 @@ namespace DataCore.DAL.TableScaleModels
                 NominalWeight = NominalWeight,
                 LowerWeightThreshold = LowerWeightThreshold,
                 CheckWeight = CheckWeight,
-                Marked = Marked,
+                IsMarked = IsMarked,
             };
         }
 

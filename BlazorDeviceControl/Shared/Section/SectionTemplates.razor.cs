@@ -50,7 +50,7 @@ namespace BlazorDeviceControl.Shared.Section
                             TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
                             if (AppSettings.DataAccess != null)
                                 Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
+                                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                                     new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))
                                 ?.ToList<BaseEntity>();
                         }
@@ -59,7 +59,7 @@ namespace BlazorDeviceControl.Shared.Section
                             if (AppSettings.DataAccess != null)
                                 Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> {
-                                        { DbField.Marked.ToString(), false },
+                                        { DbField.IsMarked.ToString(), false },
                                         { DbField.CategoryId.ToString(), TemplateCategory },
                                     }),
                                     new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))

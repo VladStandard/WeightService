@@ -15,7 +15,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public virtual DateTime CreateDate { get; set; } = default;
         public virtual DateTime ModifiedDate { get; set; } = default;
-        public virtual bool IsMarked { get; set; }
+        public virtual bool IsMarked { get; set; } = false;
         public virtual TemplateEntity? TemplateDefault { get; set; } = new();
         public virtual TemplateEntity? TemplateSeries { get; set; } = new();
         public virtual WorkshopEntity WorkShop { get; set; } = new();
@@ -160,7 +160,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(VerScalesUi, default(string)) &&
                    Equals(DeviceNumber, default(int?)) &&
                    Equals(ScaleFactor, default(int?)) &&
-                   Equals(IsMarked, default(bool));
+                   Equals(IsMarked, false);
         }
 
         public override object Clone()

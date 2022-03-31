@@ -4,6 +4,7 @@
 using DataCore.DAL;
 using DataCore.DAL.TableDirectModels;
 using DataCore.Models;
+using WeightCore.Print;
 
 namespace WeightCore.Managers
 {
@@ -35,11 +36,11 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(ScaleDirect currentScale, bool isTscPrinter)
+        public void Init(ScaleDirect currentScale, PrintBrand printBrand)
         {
             Massa.Init(currentScale);
             Memory.Init();
-            Print.Init(isTscPrinter, currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
+            Print.Init(printBrand, currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel)

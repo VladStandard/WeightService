@@ -74,8 +74,8 @@ else
                         <RadzenDropDownDataGrid 
                             Style="width: 100%;" TValue="int"
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@PrinterTypes PageSize=10 TextProperty="Name" ValueProperty="Id"
+                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+                            Data=@PrinterTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.PrinterType.Id
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.PrinterType), args)) >
                             <Columns>

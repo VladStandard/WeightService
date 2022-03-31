@@ -20,7 +20,7 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Public and private methods
 
-        public int LoadResource(long id, string name, string description, string type, byte[] imagedata, bool marked = false)
+        public int LoadResource(long id, string name, string description, string type, byte[] imagedata, bool isMarked = false)
         {
             Dictionary<string, object>? parameters = new()
             {
@@ -29,7 +29,7 @@ namespace DataCore.DAL.TableScaleModels
                 { "description", description },
                 { "type", type },
                 { "imagedata", imagedata },
-                { "marked", marked },
+                { "marked", isMarked },
             };
             return ExecQueryNative(
                 "exec [db_scales].[LoadResourceToDB] :id, :name, :description, :type, :imagedata, :marked", parameters);

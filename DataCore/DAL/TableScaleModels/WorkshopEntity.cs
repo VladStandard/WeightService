@@ -18,7 +18,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual ProductionFacilityEntity ProductionFacility { get; set; } = new ProductionFacilityEntity();
         public virtual string Name { get; set; } = string.Empty;
         public virtual Guid? IdRRef { get; set; } = null;
-        public virtual bool Marked { get; set; }
+        public virtual bool IsMarked { get; set; } = false;
 
         #endregion
 
@@ -42,7 +42,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(CreateDate)}: {CreateDate}. " +
                    $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +
-                   $"{nameof(Marked)}: {Marked}. ";
+                   $"{nameof(IsMarked)}: {IsMarked}. ";
         }
 
         public virtual bool Equals(WorkshopEntity entity)
@@ -55,7 +55,7 @@ namespace DataCore.DAL.TableScaleModels
                    ProductionFacility.Equals(entity.ProductionFacility) &&
                    Equals(Name, entity.Name) &&
                    Equals(IdRRef, entity.IdRRef) &&
-                   Equals(Marked, entity.Marked);
+                   Equals(IsMarked, entity.IsMarked);
         }
 
         public override bool Equals(object obj)
@@ -85,7 +85,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(ModifiedDate, default(DateTime)) &&
                    Equals(Name, default(string)) &&
                    Equals(IdRRef, default(Guid?)) &&
-                   Equals(Marked, default(bool));
+                   Equals(IsMarked, false);
         }
 
         public override object Clone()
@@ -99,7 +99,7 @@ namespace DataCore.DAL.TableScaleModels
                 ProductionFacility = (ProductionFacilityEntity)ProductionFacility?.Clone(),
                 Name = Name,
                 IdRRef = IdRRef,
-                Marked = Marked,
+                IsMarked = IsMarked,
             };
         }
 

@@ -18,8 +18,6 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public ScaleEntity? ItemCast { get => Item == null ? null : (ScaleEntity)Item; set => Item = value; }
-        public string PluTitle { get; set; } = string.Empty;
-        public List<PluEntity>? PluItems { get; set; } = null;
         public List<PrinterEntity>? PrinterItems { get; set; } = null;
         public List<TemplateEntity>? TemplatesDefaultItems { get; set; } = null;
         public List<TemplateEntity>? TemplatesSeriesItems { get; set; } = null;
@@ -43,7 +41,6 @@ namespace BlazorDeviceControl.Shared.Item
                         Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
                         ItemCast = null;
                         ComPorts = null;
-                        PluItems = null;
                         TemplatesDefaultItems = null;
                         TemplatesSeriesItems = null;
                         WorkshopItems = null;
@@ -67,31 +64,27 @@ namespace BlazorDeviceControl.Shared.Item
                         }
                         // ScaleFactor
                         ItemCast.ScaleFactor ??= 1000;
-                        // PLU.
-                        PluTitle = $"{@LocalizationData.DeviceControl.SectionPlus}  [{LocalizationCore.Strings.Main.DataLoading}]";
-                        PluItems = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> {
-                            { DbField.Marked.ToString(), false },
-                            { "Scale.Id", ItemCast.Id },
-                            }), new FieldOrderEntity(DbField.Plu, DbOrderDirection.Asc))?.ToList();
-                        PluTitle = $"{@LocalizationData.DeviceControl.SectionPlus}  [{PluItems?.Count} {@LocalizationData.DeviceControl.DataRecords}]";
                         // Other.
                         TemplatesDefaultItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
-                            null)?.ToList();
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
+                            ?.ToList();
                         TemplatesSeriesItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
-                            null)?.ToList();
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
+                            ?.ToList();
                         WorkshopItems = AppSettings.DataAccess.Crud.GetEntities<WorkshopEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
-                            null)?.ToList();
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            null)
+                            ?.ToList();
                         PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
-                            null)?.ToList();
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            null)
+                            ?.ToList();
                         HostItems = AppSettings.DataAccess.Crud.GetEntities<HostEntity>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                             new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
-                        ?.ToList();
+                            ?.ToList();
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

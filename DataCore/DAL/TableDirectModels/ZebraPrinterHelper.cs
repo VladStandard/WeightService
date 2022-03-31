@@ -5,6 +5,7 @@ using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Threading;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -29,6 +30,7 @@ namespace DataCore.DAL.TableDirectModels
         public virtual string Mac { get; set; } = string.Empty;
         public virtual string Password { get; set; } = string.Empty;
         public virtual string PrinterType { get; set; } = string.Empty;
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion

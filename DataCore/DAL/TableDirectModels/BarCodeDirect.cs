@@ -5,6 +5,7 @@ using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -21,6 +22,7 @@ namespace DataCore.DAL.TableDirectModels
         public NomenclatureDirect Nomenclature { get; set; } = new NomenclatureDirect();
         public NomenclatureUnitDirect NomenclatureUnit { get; set; } = new NomenclatureUnitDirect();
         public ContregentDirect Contragent { get; set; } = new ContregentDirect();
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion

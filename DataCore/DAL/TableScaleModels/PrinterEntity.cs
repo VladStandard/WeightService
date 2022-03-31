@@ -31,7 +31,7 @@ namespace DataCore.DAL.TableScaleModels
         }
         public virtual bool PeelOffSet { get; set; }
         public virtual short DarknessLevel { get; set; }
-        public virtual bool Marked { get; set; }
+        public virtual bool IsMarked { get; set; } = false;
         public virtual System.Net.HttpStatusCode HttpStatusCode { get; set; } = System.Net.HttpStatusCode.BadRequest;
         public virtual Exception? HttpStatusException { get; set; } = null;
 
@@ -63,7 +63,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(MacAddress)}: {MacAddress}. " +
                    $"{nameof(PeelOffSet)}: {PeelOffSet}. " +
                    $"{nameof(DarknessLevel)}: {DarknessLevel}. " +
-                   $"{nameof(Marked)}: {Marked}. " + 
+                   $"{nameof(IsMarked)}: {IsMarked}. " + 
                    $"{nameof(HttpStatusCode)}: {HttpStatusCode}. " + 
                    $"{nameof(HttpStatusException)}: {HttpStatusException}. ";
         }
@@ -83,7 +83,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(MacAddress, entity.MacAddress) &&
                    Equals(PeelOffSet, entity.PeelOffSet) &&
                    Equals(DarknessLevel, entity.DarknessLevel) &&
-                   Equals(Marked, entity.Marked) &&
+                   Equals(IsMarked, entity.IsMarked) &&
                    Equals(HttpStatusCode, entity.HttpStatusCode) &&
                    Equals(HttpStatusException, entity.HttpStatusException);
         }
@@ -121,7 +121,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(Password, default(string)) &&
                    Equals(PeelOffSet, default(bool)) &&
                    Equals(DarknessLevel, default(short)) &&
-                   Equals(Marked, default(bool)) &&
+                   Equals(IsMarked, default(bool)) &&
                    Equals(HttpStatusCode, System.Net.HttpStatusCode.BadRequest) &&
                    Equals(HttpStatusException, null);
         }
@@ -142,7 +142,7 @@ namespace DataCore.DAL.TableScaleModels
                 MacAddress = (MacAddressEntity)MacAddress.Clone(),
                 PeelOffSet = PeelOffSet,
                 DarknessLevel = DarknessLevel,
-                Marked = Marked,
+                IsMarked = IsMarked,
                 HttpStatusCode = HttpStatusCode,
                 HttpStatusException = HttpStatusException,
             };

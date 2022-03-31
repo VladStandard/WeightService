@@ -13,7 +13,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual DateTime CreateDt { get; set; }
         public virtual DateTime ChangeDt { get; set; }
         public virtual DateTime AccessDt { get; set; }
-        public virtual bool IsMarked { get; set; }
+        public virtual bool IsMarked { get; set; } = false;
         public virtual string Name { get; set; } = string.Empty;
         public virtual string Ip { get; set; } = string.Empty;
         public virtual MacAddressEntity MacAddress { get; set; }

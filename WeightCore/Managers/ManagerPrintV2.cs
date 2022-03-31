@@ -5,9 +5,12 @@ using DataCore;
 using DataCore.DAL;
 using DataCore.Wmi;
 using System;
+using WeightCore.Print;
 using WeightCore.Print.Tsc;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
+using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
+using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
 
 namespace WeightCore.Managers
 {
@@ -24,14 +27,17 @@ namespace WeightCore.Managers
             get
             {
                 if (ZebraConnection != null && _zebraPrinter == null)
+                {
                     _zebraPrinter = ZebraPrinterFactory.GetInstance(ZebraConnection);
+                }
+
                 return _zebraPrinter;
             }
         }
 
         public TscPrintControlHelper TscPrintControl { get; private set; } = TscPrintControlHelper.Instance;
         private WmiHelper Wmi { get; set; } = WmiHelper.Instance;
-        public bool IsTscPrinter { get; private set; }
+        public PrintBrand PrintBrand { get; private set; }
         public WmiWin32PrinterEntity Win32Printer() => Wmi.GetWin32Printer(TscPrintControl.PrintName);
 
         #endregion
@@ -47,14 +53,16 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(bool isTscPrinter, string name, string ip, int port)
+        public void Init(PrintBrand printBrand, string name, string ip, int port)
         {
             Init(ProjectsEnums.TaskType.MemoryManager, () =>
             {
-                IsTscPrinter = isTscPrinter;
-                if (!IsTscPrinter)
+                PrintBrand = printBrand;
+                if (PrintBrand == PrintBrand.Zebra)
                 {
-                    ZebraConnection = new TcpConnection(ip, port);
+                    //ZebraConnection = new TcpConnection(ip, port);
+                    ZebraConnection = ZebraConnectionBuilder.Build(ip);
+                    ZebraConnection.Open();
                 }
                 TscPrintControl.Init(name);
             }, 1_000);
@@ -78,7 +86,7 @@ namespace WeightCore.Managers
         {
             base.ReleaseManaged();
 
-            if (!IsTscPrinter)
+            if (PrintBrand == PrintBrand.Zebra)
             {
                 ZebraConnection?.Close();
             }
@@ -98,10 +106,18 @@ namespace WeightCore.Managers
         public void SendCmd(string printCmd)
         {
             CheckIsDisposed();
-            if (IsTscPrinter)
-                SendCmdToTsc(printCmd);
-            else
-                SendCmdToZebra(printCmd);
+            switch (PrintBrand)
+            {
+                case PrintBrand.Zebra:
+                    SendCmdToZebra(printCmd);
+                    break;
+                case PrintBrand.TSC:
+                    SendCmdToTsc(printCmd);
+                    break;
+                case PrintBrand.Default:
+                default:
+                    break;
+            }
         }
 
         public void SendCmdToZebra(string printCmd)
@@ -145,22 +161,39 @@ namespace WeightCore.Managers
             }
         }
 
-        public void ClearPrintBuffer(bool isTscPrinter)
+        public void ClearPrintBuffer(PrintBrand printBrand)
         {
             CheckIsDisposed();
 
-            if (isTscPrinter)
-                TscPrintControl.ClearBuffer();
-            else
-                SendCmdToZebra("^XA~JA^XZ");
+            switch (printBrand)
+            {
+                case PrintBrand.Default:
+                    break;
+                case PrintBrand.Zebra:
+                    SendCmdToZebra("^XA~JA^XZ");
+                    break;
+                case PrintBrand.TSC:
+                    TscPrintControl.ClearBuffer();
+                    break;
+            }
         }
 
         public void SetOdometorUserLabel(int value)
         {
             CheckIsDisposed();
 
-            if (!IsTscPrinter)
-                SendCmdToZebra($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+            switch (PrintBrand)
+            {
+                case PrintBrand.Default:
+                    break;
+                case PrintBrand.Zebra:
+                    SendCmdToZebra($"! U1 setvar \"odometer.user_label_count\" \"{value}\"\r\n");
+                    break;
+                case PrintBrand.TSC:
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion

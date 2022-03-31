@@ -6,6 +6,7 @@ using DataCore.DAL;
 using DataCore.Wmi;
 using System;
 using System.Collections.Concurrent;
+using WeightCore.Print;
 using WeightCore.Print.Tsc;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
@@ -35,7 +36,7 @@ namespace WeightCore.Managers
 
         public TscPrintControlHelper TscPrintControl { get; private set; } = TscPrintControlHelper.Instance;
         private WmiHelper Wmi { get; set; } = WmiHelper.Instance;
-        public bool IsTscPrinter { get; private set; }
+        public PrintBrand PrintBrand { get; private set; }
         public WmiWin32PrinterEntity Win32Printer() => Wmi?.GetWin32Printer(TscPrintControl.PrintName);
 
         #endregion
@@ -52,14 +53,22 @@ namespace WeightCore.Managers
 
         #region Public and private methods
 
-        public void Init(bool isTscPrinter, string name, string ip, int port)
+        public void Init(PrintBrand printBrand, string name, string ip, int port)
         {
             Init(ProjectsEnums.TaskType.MemoryManager,
             () => {
-                IsTscPrinter = isTscPrinter;
-                if (!IsTscPrinter)
-                { 
-                    ZebraConnection = new TcpConnection(ip, port);
+                PrintBrand = printBrand;
+                switch (PrintBrand)
+                {
+                    case PrintBrand.Default:
+                        break;
+                    case PrintBrand.Zebra:
+                        ZebraConnection = new TcpConnection(ip, port);
+                        break;
+                    case PrintBrand.TSC:
+                        break;
+                    default:
+                        break;
                 }
                 //TscPrintControl.Init(name, ip, port);
                 TscPrintControl.Init(name);
@@ -70,14 +79,19 @@ namespace WeightCore.Managers
         {
             Open(sqlViewModel,
             () => {
-                if (IsTscPrinter)
+                switch (PrintBrand)
                 {
-                    OpenTsc();
-                }
-                else
-                {
-                    ZebraConnection?.Open();
-                    OpenZebra();
+                    case PrintBrand.Default:
+                        break;
+                    case PrintBrand.Zebra:
+                        ZebraConnection?.Open();
+                        OpenZebra();
+                        break;
+                    case PrintBrand.TSC:
+                        OpenTsc();
+                        break;
+                    default:
+                        break;
                 }
             },
             null, null);
@@ -92,9 +106,17 @@ namespace WeightCore.Managers
         {
             base.ReleaseManaged();
 
-            if (!IsTscPrinter)
+            switch (PrintBrand)
             {
-                ZebraConnection?.Close();
+                case PrintBrand.Default:
+                    break;
+                case PrintBrand.Zebra:
+                    ZebraConnection?.Close();
+                    break;
+                case PrintBrand.TSC:
+                    break;
+                default:
+                    break;
             }
             
             CurrentStatus = null;
@@ -170,18 +192,23 @@ namespace WeightCore.Managers
             }
         }
 
-        public void ClearPrintBuffer(bool isTscPrinter)
+        public void ClearPrintBuffer(PrintBrand printBrand)
         {
             CheckIsDisposed();
 
             Documents = new BlockingCollection<string>();
-            if (isTscPrinter)
+            switch (printBrand)
             {
-                //TscPrintControl.CmdClearBuffer();
-            }
-            else
-            {
-                Documents.Add("^XA~JA^XZ");
+                case PrintBrand.Default:
+                    break;
+                case PrintBrand.Zebra:
+                    Documents.Add("^XA~JA^XZ");
+                    break;
+                case PrintBrand.TSC:
+                    //TscPrintControl.CmdClearBuffer();
+                    break;
+                default:
+                    break;
             }
         }
 

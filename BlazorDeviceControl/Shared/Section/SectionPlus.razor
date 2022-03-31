@@ -22,8 +22,8 @@ else
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PluEntity" @bind-Value=@ItemObject
         RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
-        AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn TItem="PluEntity" Title=@LocalizationData.DeviceControl.TableFieldPlu Type="string" Width="5%" >
                 <Template Context="itemCast">
@@ -46,8 +46,10 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="20%"
                 Title=@LocalizationData.DeviceControl.TableFieldGoodsName >
-                <Template Context="pluEntity">
-                    <RadzenLabel Style="white-space: pre-wrap;" Text=@pluEntity.GoodsName></RadzenLabel>
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Plu}/{itemCast.Id}")
+                        Text=@itemCast.GoodsName />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PluEntity" Width="20%"

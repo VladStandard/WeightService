@@ -194,7 +194,7 @@
                     <RadzenDropDown Style="width: 20%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                         Disabled=false TValue=@ShareEnums.Lang
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                        Data=@TemplateLanguages PageSize=10 TextProperty="Name" 
+                        Data=@TemplateLanguages PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
                         ValueProperty="Value" Value=@LocalizationCore.Lang
                         Change=@(args => OnLocalizationValueChange(TemplateLanguages, args)) 
                     />
@@ -213,7 +213,7 @@
                     <RadzenDropDown Style="width: 20%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                         Disabled=true TValue="bool" 
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
-                        Data=@TemplateIsDebug PageSize=10 TextProperty="Name" 
+                        Data=@TemplateIsDebug PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
                         ValueProperty="Value" Value=@AppSettings.DataAccess.JsonSettings.IsDebug 
                         Change=@(args => OnJsonValueChange(AppSettings.DataAccess.JsonSettings, nameof(AppSettings.DataAccess.JsonSettings.IsDebug ), args)) 
                     />

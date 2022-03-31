@@ -18,7 +18,7 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Nullable();
             Map(x => x.Title).CustomSqlType("NVARCHAR").Column("Title").Length(250).Nullable();
             Map(x => x.ImageData).CustomSqlType("VARBINARY(MAX)").Column("ImageData").Nullable().Length(int.MaxValue);
-            Map(x => x.Marked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
         }
     }
 }

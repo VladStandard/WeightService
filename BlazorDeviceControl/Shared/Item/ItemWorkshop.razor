@@ -35,7 +35,7 @@ else
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>
-                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Marked />
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
@@ -66,8 +66,8 @@ else
                     else
                     {
                         <RadzenDropDownDataGrid Style="width: 100%;" TValue="long" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@ProductionFacilities PageSize=10 TextProperty="Name" ValueProperty="Id"
+                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+                            Data=@ProductionFacilities PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.ProductionFacility.Id
                             Change=@(args => OnItemValueChange(Item, nameof(ItemCast.ProductionFacility), args)) >
                             <Columns>
@@ -85,8 +85,8 @@ else
 }
 @*
         <RadzenDropDownDataGrid Style="width: 63%;" TValue="int" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                                AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                                Data=@ProductionFacilities PageSize=10
+                                AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+                                Data=@ProductionFacilities PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
                                 TextProperty="Name" ValueProperty="Id"
                                 Value=@WorkshopItem.ProductionFacility?.Id
                                 Change=@(args => OnItemValueChange("ProductionFacilities")) />

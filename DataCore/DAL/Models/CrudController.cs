@@ -889,11 +889,11 @@ namespace DataCore.DAL.Models
                     ExecuteTransaction((session) => { session.SaveOrUpdate(orderType); }, filePath, lineNumber, memberName);
                     break;
                 case PluEntity plu:
-                    plu.Marked = true;
+                    plu.IsMarked = true;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(plu); }, filePath, lineNumber, memberName);
                     break;
                 case ProductionFacilityEntity productionFacility:
-                    productionFacility.Marked = true;
+                    productionFacility.IsMarked = true;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(productionFacility); }, filePath, lineNumber, memberName);
                     break;
                 case ProductSeriesEntity productSeries:
@@ -904,22 +904,22 @@ namespace DataCore.DAL.Models
                     ExecuteTransaction((session) => { session.SaveOrUpdate(scale); }, filePath, lineNumber, memberName);
                     break;
                 case TemplateResourceEntity templateResource:
-                    templateResource.Marked = true;
+                    templateResource.IsMarked = true;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(templateResource); }, filePath, lineNumber, memberName);
                     break;
                 case TemplateEntity template:
-                    template.Marked = true;
+                    template.IsMarked = true;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(template); }, filePath, lineNumber, memberName);
                     break;
                 case WeithingFactEntity weithingFact:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(weithingFact); }, filePath, lineNumber, memberName);
                     break;
                 case WorkshopEntity workshop:
-                    workshop.Marked = true;
+                    workshop.IsMarked = true;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(workshop); }, filePath, lineNumber, memberName);
                     break;
                 case PrinterEntity printer:
-                    printer.Marked = true;
+                    printer.IsMarked = true;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(printer); }, filePath, lineNumber, memberName);
                     break;
                 case PrinterResourceEntity printerResource:

@@ -20,10 +20,12 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public void Access(NotificationService? notificationService, AccessEntity access, Guid? uid, DbTableAction tableAction)
+        public void Access(NotificationService? notificationService, AccessEntity? access, 
+            Guid? uid, DbTableAction tableAction)
         {
-            if (uid == null)
+            if (access == null || uid == null)
                 return;
+
             bool success = FieldControl.ProcessChecks(notificationService, access, LocalizationCore.Strings.Main.AccessRights);
             if (success)
             {
@@ -41,10 +43,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void BarcodeType(NotificationService? notificationService, BarCodeTypeEntityV2 barcodeType, Guid? uid, DbTableAction tableAction)
+        public void BarcodeType(NotificationService? notificationService, BarCodeTypeEntityV2? barcodeType, 
+            Guid? uid, DbTableAction tableAction)
         {
-            if (uid == null)
+            if (barcodeType == null || uid == null)
                 return;
+
             bool success = FieldControl.ProcessChecks(notificationService, barcodeType, LocalizationCore.Strings.TableItem.BarcodeType);
             if (success)
             {
@@ -62,10 +66,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Contragent(NotificationService? notificationService, ContragentEntityV2 contragent, Guid? uid, DbTableAction tableAction)
+        public void Contragent(NotificationService? notificationService, ContragentEntityV2? contragent, 
+            Guid? uid, DbTableAction tableAction)
         {
-            if (uid == null)
+            if (contragent == null || uid == null)
                 return;
+
             bool success = FieldControl.ProcessChecks(notificationService, contragent, LocalizationCore.Strings.TableItem.Contragent);
             if (success)
             {
@@ -83,10 +89,11 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Host(NotificationService? notificationService, HostEntity host, long? id, DbTableAction tableAction)
+        public void Host(NotificationService? notificationService, HostEntity? host, long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (host == null || id == null)
                 return;
+
             bool success = FieldControl.ProcessChecks(notificationService, host, LocalizationCore.Strings.TableItem.Host);
             if (success)
             {
@@ -104,11 +111,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Nomenclature(NotificationService? notificationService, NomenclatureEntity nomenclature, 
+        public void Nomenclature(NotificationService? notificationService, NomenclatureEntity? nomenclature, 
             long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (nomenclature == null || id == null)
                 return;
+
             bool success = FieldControl.ProcessChecks(notificationService, nomenclature, LocalizationCore.Strings.TableItem.Nomenclature);
             if (success)
             {
@@ -126,10 +134,11 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Plu(NotificationService? notificationService, PluEntity plu, long? id, DbTableAction tableAction)
+        public void Plu(NotificationService? notificationService, PluEntity? plu, long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (plu == null || id == null)
                 return;
+
             plu.ModifiedDate = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, plu, LocalizationCore.Strings.TableItem.Plu);
             if (success)
@@ -154,10 +163,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Printer(NotificationService? notificationService, PrinterEntity printer, long? id, DbTableAction tableAction)
+        public void Printer(NotificationService? notificationService, PrinterEntity? printer, 
+            long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (printer == null || id == null)
                 return;
+
             printer.ModifiedDate = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, printer, LocalizationCore.Strings.TableItem.Printer);
             if (success)
@@ -178,11 +189,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void PrinterResource(NotificationService? notificationService, PrinterResourceEntity printerResource, 
+        public void PrinterResource(NotificationService? notificationService, PrinterResourceEntity? printerResource, 
             long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (printerResource == null || id == null)
                 return;
+
             bool success = FieldControl.ProcessChecks(notificationService, printerResource, LocalizationCore.Strings.TableItem.PrinterResource);
             if (success)
             {
@@ -200,11 +212,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void PrinterType(NotificationService? notificationService, PrinterTypeEntity printerType, 
+        public void PrinterType(NotificationService? notificationService, PrinterTypeEntity? printerType, 
             long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (printerType == null || id == null)
                 return;
+
             bool success = FieldControl.ProcessChecks(notificationService, printerType, LocalizationCore.Strings.TableItem.PrinterType);
             if (success)
             {
@@ -222,11 +235,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void ProductionFacility(NotificationService? notificationService, ProductionFacilityEntity productionFacility, 
+        public void ProductionFacility(NotificationService? notificationService, ProductionFacilityEntity? productionFacility, 
             long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (productionFacility == null || id == null)
                 return;
+
             bool success = FieldControl.ProcessChecks(notificationService, productionFacility, LocalizationCore.Strings.TableItem.ProductionFacility);
             if (success)
             {
@@ -244,10 +258,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Scale(NotificationService? notificationService, ScaleEntity scale, long? id, DbTableAction tableAction)
+        public void Scale(NotificationService? notificationService, ScaleEntity? scale, 
+            long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (scale == null || id == null)
                 return;
+
             scale.ModifiedDate = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, scale, LocalizationCore.Strings.TableItem.Device);
             if (success)
@@ -276,8 +292,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Task(NotificationService? notificationService, TaskEntity task, Guid? uid, DbTableAction tableAction)
+        public void Task(NotificationService? notificationService, TaskEntity? task, 
+            Guid? uid, DbTableAction tableAction)
         {
+            if (task == null || uid == null)
+                return;
+
             bool success = FieldControl.ProcessChecks(notificationService, task, LocalizationCore.Strings.TableItem.TaskModule);
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, task.TaskType, LocalizationCore.Strings.TableItem.TaskType);
@@ -302,8 +322,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void TaskType(NotificationService? notificationService, TaskTypeEntity taskType, Guid? uid, DbTableAction tableAction)
+        public void TaskType(NotificationService? notificationService, TaskTypeEntity? taskType, 
+            Guid? uid, DbTableAction tableAction)
         {
+            if (taskType == null || uid == null)
+                return;
+
             bool success = FieldControl.ProcessChecks(notificationService, taskType, LocalizationCore.Strings.TableItem.TaskModuleType);
             if (success)
             {
@@ -324,10 +348,12 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Template(NotificationService? notificationService, TemplateEntity template, long? id, DbTableAction tableAction)
+        public void Template(NotificationService? notificationService, TemplateEntity? template, 
+            long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (template == null || id == null)
                 return;
+
             bool success = FieldControl.ProcessChecks(notificationService, template, LocalizationCore.Strings.TableItem.Template);
             if (success)
             {
@@ -345,24 +371,26 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Workshop(NotificationService? notificationService, WorkshopEntity workshop, long? id, DbTableAction tableAction)
+        public void Workshop(NotificationService? notificationService, WorkshopEntity? workShop, 
+            long? id, DbTableAction tableAction)
         {
-            if (id == null)
+            if (workShop == null || id == null)
                 return;
-            workshop.ModifiedDate = DateTime.Now;
-            bool success = FieldControl.ProcessChecks(notificationService, workshop, LocalizationCore.Strings.TableItem.Workshop);
+
+            workShop.ModifiedDate = DateTime.Now;
+            bool success = FieldControl.ProcessChecks(notificationService, workShop, LocalizationCore.Strings.TableItem.Workshop);
             if (success)
             {
-                workshop.ModifiedDate = DateTime.Now;
+                workShop.ModifiedDate = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    workshop.CreateDate = DateTime.Now;
-                    AppSettings.DataAccess?.Crud.SaveEntity(workshop);
+                    workShop.CreateDate = DateTime.Now;
+                    AppSettings.DataAccess?.Crud.SaveEntity(workShop);
                 }
                 else
                 {
-                    workshop.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(workshop);
+                    workShop.Id = (long)id;
+                    AppSettings.DataAccess?.Crud.UpdateEntity(workShop);
                 }
             }
         }

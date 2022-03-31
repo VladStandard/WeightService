@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -30,6 +31,7 @@ namespace DataCore.DAL.TableDirectModels
         public DateTime ProductDate { get; set; } = default;
         public DateTime CreateDate { get; set; } = default;
         public ProjectsEnums.OrderStatus Status { get; set; }
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion

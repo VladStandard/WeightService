@@ -4,6 +4,7 @@
 using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
@@ -24,6 +25,7 @@ namespace DataCore.DAL.TableDirectModels
         public int CountUnit { get; set; }
         public decimal TotalNetWeight { get; set; }
         public decimal TotalTareWeight { get; set; }
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
@@ -50,7 +52,8 @@ namespace DataCore.DAL.TableDirectModels
             Template = new TemplateDirect(id);
         }
 
-        public void New()
+        public void New([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, 
+            [CallerMemberName] string memberName = "")
         {
             if (Scale == null)
             {
@@ -74,8 +77,12 @@ FROM [db_scales].[GetCurrentProductSeries](@ScaleId)
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
+                    byte count = 0;
                     while (reader.Read())
                     {
+                        if (count > 0)
+                            throw new Exception($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                        count++;
                         if (reader[0] is long longId)
                             Id = longId;
                         else if (reader[0] is int intId)

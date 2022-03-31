@@ -45,8 +45,8 @@ else
                         <RadzenDropDownDataGrid 
                             Style="width: 100%; height: 35px;" TValue="int" 
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@PrinterItems PageSize=10
+                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+                            Data=@PrinterItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
                             TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.Printer.Id
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Printer), args)) />
@@ -70,8 +70,8 @@ else
                         <RadzenDropDownDataGrid 
                             Style="width: 100%; height: 35px;" TValue="int" 
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@ResourceItems PageSize=10
+                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+                            Data=@ResourceItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
                             TextProperty="Name" ValueProperty="Id"
                             Value=@ItemCast.Resource.Id
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Resource), args)) />

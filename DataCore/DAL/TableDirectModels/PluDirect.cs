@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -54,6 +55,7 @@ namespace DataCore.DAL.TableDirectModels
         public long? TemplateID { get; set; }
         //  [XmlIgnoreAttribute]
         public TemplateDirect Template { get; set; }
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion

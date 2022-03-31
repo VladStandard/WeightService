@@ -44,8 +44,8 @@ else
                         <RadzenDropDownDataGrid 
                             Style="width: 100%; height: 35px;" 
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@ScaleItems PageSize=10 
+                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true AllowSorting=true
+                            Data=@ScaleItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
                             TextProperty="Description" ValueProperty="Id"
                             TValue="long" Value=@ItemCast.Scale.Id 
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Scale), args)) />
@@ -66,8 +66,8 @@ else
                         <RadzenDropDownDataGrid 
                             Style="width: 100%; height: 35px;" 
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@TemplateItems PageSize=10
+                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true AllowSorting=true
+                            Data=@TemplateItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
                             TextProperty="Title" ValueProperty="Id"
                             TValue="long" Value=@ItemCast.Template.Id
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Template), args)) />
@@ -90,8 +90,8 @@ else
                         <RadzenDropDownDataGrid 
                             Style="width: 100%; height: 35px;" 
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering="true" AllowClear="true" AllowFilteringByAllStringColumns="true"
-                            Data=@NomenclatureItems PageSize=10
+                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true AllowSorting=true
+                            Data=@NomenclatureItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
                             TextProperty="Name" ValueProperty="Id"
                             TValue="long" Value=@ItemCast.Nomenclature.Id
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Nomenclature), args)) />
@@ -151,14 +151,14 @@ else
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldGoodsTareWeight</td>
                 <td>
-                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
+                    <RadzenButton Style="width: 15%; margin-right: 1%; height: 25px; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.CalcGoodsTareWeight))) />
                     <RadzenNumeric Style="width: 80%; margin-right: 1%; text-align: center; " Disabled=false 
                         TValue="decimal" @bind-Value=@ItemCast.GoodsTareWeight />
                 </td>
                 <td>@LocalizationData.DeviceControl.TableFieldGoodsBoxQuantly</td>
                 <td>
-                    <RadzenButton Style="width: 15%; margin-right: 1%; " Disabled=false Icon="autorenew"
+                    <RadzenButton Style="width: 15%; margin-right: 1%; height: 25px; " Disabled=false Icon="autorenew"
                         Click=@(args => OnClickFieldsFill(nameof(ItemCast.XmlGoodsBoxQuantly))) />
                     <RadzenNumeric Style="width: 80%; margin-right: 1%; text-align: center; " Disabled=false 
                         TValue="int" @bind-Value=@ItemCast.GoodsBoxQuantly />

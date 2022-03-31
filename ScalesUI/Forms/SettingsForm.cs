@@ -281,8 +281,18 @@ namespace ScalesUI.Forms
             try
             {
                 //_taskManager.PrintManager.PrintControl.CmdCalibrate();
-                if (!SessionState.IsTscPrinter)
-                    SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplCalibration());
+                switch (SessionState.PrintBrand)
+                {
+                    case WeightCore.Print.PrintBrand.Default:
+                        break;
+                    case WeightCore.Print.PrintBrand.Zebra:
+                        SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplCalibration());
+                        break;
+                    case WeightCore.Print.PrintBrand.TSC:
+                        break;
+                    default:
+                        break;
+                }
             }
             catch (Exception ex)
             {

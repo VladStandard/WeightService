@@ -89,7 +89,7 @@ namespace ScalesUI.Forms
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
                 
-                SessionState.Manager.Init(SessionState.CurrentScale, SessionState.IsTscPrinter);
+                SessionState.Manager.Init(SessionState.CurrentScale, SessionState.PrintBrand);
                 SessionState.Manager.Open(SessionState.SqlViewModel);
                 ManagerBase.WaitSync(0_500);
                 ButtonScalesInit_Click(sender, e);
@@ -468,27 +468,32 @@ namespace ScalesUI.Forms
                 SessionState.LabelsCurrent = 1;
 
             // TSC printers.
-            if (SessionState.IsTscPrinter)
+            switch (SessionState.PrintBrand)
             {
-                MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
-                    $"{@LocalizationData.ScalesUI.PrinterTsc}: {SessionState.Manager.Print.Win32Printer()?.PrinterStatusDescription} " +
-                    $"{SessionState.Manager.Print.ProgressString}");
-            }
-            // Zebra printers.
-            else
-            {
-                // а когда зебра поддергивает ленту то счетчик увеличивается на 1 не может быть что-бы напечатано 3, а на форме 4
-                if (SessionState.LabelsCurrent == 0)
-                    SessionState.LabelsCurrent = 1;
-                if (SessionState.Manager.Print.CurrentStatus != null)
-                {
+                case WeightCore.Print.PrintBrand.Default:
+                    break;
+                case WeightCore.Print.PrintBrand.Zebra:
+                    // когда зебра поддергивает ленту то счетчик увеличивается на 1
+                    // не может быть что-бы напечатано 3, а на форме 4
+                    if (SessionState.LabelsCurrent == 0)
+                        SessionState.LabelsCurrent = 1;
+                    if (SessionState.Manager.Print.CurrentStatus != null)
+                    {
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
+                            $"{@LocalizationData.ScalesUI.PrinterZebra} {SessionState.CurrentScale.ZebraPrinter.Ip}: " +
+                            (SessionState.Manager.Print.CurrentStatus.isReadyToPrint 
+                            ? LocalizationData.ScalesUI.PrinterAvailable : LocalizationData.ScalesUI.PrinterUnavailable) + 
+                            $" {SessionState.Manager.Print.ProgressString}"
+                        );
+                    }
+                    break;
+                case WeightCore.Print.PrintBrand.TSC:
                     MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
-                        $"{@LocalizationData.ScalesUI.PrinterZebra} {SessionState.CurrentScale.ZebraPrinter.Ip}: " +
-                        (SessionState.Manager.Print.CurrentStatus.isReadyToPrint 
-                        ? LocalizationData.ScalesUI.PrinterAvailable : LocalizationData.ScalesUI.PrinterUnavailable) + 
-                        $" {SessionState.Manager.Print.ProgressString}"
-                    );
-                }
+                        $"{@LocalizationData.ScalesUI.PrinterTsc}: {SessionState.Manager.Print.Win32Printer()?.PrinterStatusDescription} " +
+                        $"{SessionState.Manager.Print.ProgressString}");
+                    break;
+                default:
+                    break;
             }
             SessionState.Manager.Print.ProgressString = StringUtils.GetProgressString(SessionState.Manager.Print.ProgressString);
         }
@@ -983,7 +988,8 @@ namespace ScalesUI.Forms
             {
                 if (buttonPrint.Enabled)
                     MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel, _sessionState.IsTscPrinter, _sessionState.CurrentScale);
+                //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel,
+                //_sessionState.PrintBrand, _sessionState.CurrentScale);
                 SessionState.Manager.Open(SessionState.SqlViewModel);
             }
         }

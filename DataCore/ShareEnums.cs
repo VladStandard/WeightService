@@ -118,7 +118,6 @@ namespace DataCore
             GoodsName,
             Id,
             IsMarked,
-            Marked,
             ModifiedDate,
             Name,
             Plu,

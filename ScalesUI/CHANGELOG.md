@@ -6,9 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.370] - 2022-02-30
+## [0.6.380] - 2022-02-31
 ### Fixed
-- 
+- HotFix для Чудо-Печка.
 
 ## [0.6.210] - 2022-02-21
 ### Fixed

@@ -32,7 +32,7 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.NominalWeight).CustomSqlType("DECIMAL(10,3)").Column("NominalWeight").Nullable();
             Map(x => x.LowerWeightThreshold).CustomSqlType("DECIMAL(10,3)").Column("LowerWeightThreshold").Nullable();
             Map(x => x.CheckWeight).CustomSqlType("BIT").Column("CheckWeight").Nullable();
-            Map(x => x.Marked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
         }
     }
 }

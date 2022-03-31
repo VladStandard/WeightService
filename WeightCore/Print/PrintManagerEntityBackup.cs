@@ -59,11 +59,11 @@
 //            CmdQueue.Enqueue(printCmd);
 //        }
 
-//        public void Open(bool isTscPrinter)
+//        public void Open(PrintBrand printBrand)
 //        {
 //            Con.Open();
 //            _isThreadWork = true;
-//            if (isTscPrinter)
+//            if (PrintBrand == PrintBrand.TSC)
 //                OpenTsc();
 //            else
 //                OpenZebra();
@@ -180,13 +180,13 @@
 //            Con.Close();
 //        }
 
-//        public void ClearPrintBuffer(bool isTscPrinter)
+//        public void ClearPrintBuffer(PrintBrand printBrand)
 //        {
 //            while (!CmdQueue.IsEmpty)
 //            {
 //                CmdQueue.TryDequeue(out _);
 //            }
-//            if (isTscPrinter)
+//            if (PrintBrand == PrintBrand.TSC)
 //            {
 //                PrintControl.Cmd.ClearBuffer(true);
 //            }

@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -88,6 +89,7 @@ namespace DataCore.DAL.TableDirectModels
         public int? ScaleFactor { get; set; }
         public DateTime RegDate { get; set; }
         public SsccDirect Sscc { get; set; }
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
@@ -117,11 +119,12 @@ namespace DataCore.DAL.TableDirectModels
             ScaleId = scale.Id;
             ScaleFactor = scaleFactor;
             Scale = scale;
-            PLU = plu;
+            PLU = _plu = plu;
             ProductDate = productDate;
             KneadingNumber = kneadingNumber;
             NetWeight = netWeight;
             TareWeight = tareWeight;
+            Sscc = new SsccDirect();
         }
 
         #endregion

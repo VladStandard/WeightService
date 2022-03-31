@@ -32,7 +32,7 @@ namespace DataCore.DAL.Utils
                 result.Name = SqlConnect.GetValueAsNullable<string>(reader, "NAME");
                 result.Ip = SqlConnect.GetValueAsNullable<string>(reader, "IP");
                 result.Mac = SqlConnect.GetValueAsNullable<string>(reader, "MAC");
-                result.Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "MARKED");
+                result.IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "MARKED");
                 string? settingFile = SqlConnect.GetValueAsNullable<string>(reader, "SETTINGSFILE");
                 if (settingFile is string sf)
                     result.SettingsFile = XDocument.Parse(sf);

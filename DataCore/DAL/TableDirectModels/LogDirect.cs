@@ -5,6 +5,7 @@ using DataCore.DAL.Models;
 using DataCore.Utils;
 using Microsoft.Data.SqlClient;
 using System;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -16,6 +17,7 @@ namespace DataCore.DAL.TableDirectModels
         public long? HostId { get; set; } = default!;
         public Guid? AppUid { get; set; } = default;
         public string Version { get; set; } = string.Empty;
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion

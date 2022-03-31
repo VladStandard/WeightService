@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using WeightCore.Gui;
 using WeightCore.Managers;
+using WeightCore.Print;
 using WeightCore.Zpl;
 
 namespace WeightCore.Helpers
@@ -52,7 +53,9 @@ namespace WeightCore.Helpers
             }
         }
 
-        public bool IsTscPrinter => CurrentScale != null && CurrentScale.ZebraPrinter.PrinterType.Contains("TSC ");
+        public PrintBrand PrintBrand => CurrentScale != null && CurrentScale.ZebraPrinter.PrinterType.Contains("TSC ")
+            ? PrintBrand.TSC : PrintBrand.Zebra;
+
         [XmlElement(IsNullable = true)]
         public WeighingFactDirect CurrentWeighingFact { get; set; }
 
@@ -177,9 +180,19 @@ namespace WeightCore.Helpers
             ProductSeries.New();
             if (Manager == null || Manager.Print == null)
                 return;
-            Manager.Print.ClearPrintBuffer(IsTscPrinter);
-            if (!IsTscPrinter)
-                Manager.Print.SetOdometorUserLabel(1);
+            Manager.Print.ClearPrintBuffer(PrintBrand);
+            switch (PrintBrand)
+            {
+                case PrintBrand.Default:
+                    break;
+                case PrintBrand.Zebra:
+                    Manager.Print.SetOdometorUserLabel(1);
+                    break;
+                case PrintBrand.TSC:
+                    break;
+                default:
+                    break;
+            }
         }
 
         #endregion
@@ -197,9 +210,19 @@ namespace WeightCore.Helpers
                 _kneading = value;
                 if (Manager == null || Manager.Print == null)
                     return;
-                Manager.Print.ClearPrintBuffer(IsTscPrinter);
-                if (!IsTscPrinter)
-                    Manager.Print.SetOdometorUserLabel(LabelsCurrent);
+                Manager.Print.ClearPrintBuffer(PrintBrand);
+                switch (PrintBrand)
+                {
+                    case PrintBrand.Default:
+                        break;
+                    case PrintBrand.Zebra:
+                        break;
+                    case PrintBrand.TSC:
+                        Manager.Print.SetOdometorUserLabel(LabelsCurrent);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -235,7 +258,7 @@ namespace WeightCore.Helpers
                 _productDate = value;
                 if (Manager == null || Manager.Print == null)
                     return;
-                Manager.Print.ClearPrintBuffer(IsTscPrinter);
+                Manager.Print.ClearPrintBuffer(PrintBrand);
             }
         }
 
@@ -271,7 +294,7 @@ namespace WeightCore.Helpers
                 if (Manager == null || Manager.Print == null)
                     return;
                 // если ПЛУ изменился - чистим очередь печати
-                Manager.Print.ClearPrintBuffer(IsTscPrinter);
+                Manager.Print.ClearPrintBuffer(PrintBrand);
                 Manager.Print.SetOdometorUserLabel(1);
             }
         }
@@ -316,14 +339,22 @@ namespace WeightCore.Helpers
         public void PrintCmdReplacePics(ref string value)
         {
             // Подменить картинки ZPL.
-            if (IsTscPrinter)
+            switch (PrintBrand)
             {
-                TemplateDirect templateEac = new("EAC_107x109_090");
-                TemplateDirect templateFish = new("FISH_94x115_000");
-                TemplateDirect templateTemp6 = new("TEMP6_116x113_090");
-                value = value.Replace("[EAC_107x109_090]", templateEac.XslContent);
-                value = value.Replace("[FISH_94x115_000]", templateFish.XslContent);
-                value = value.Replace("[TEMP6_116x113_090]", templateTemp6.XslContent);
+                case PrintBrand.Default:
+                    break;
+                case PrintBrand.Zebra:
+                    break;
+                case PrintBrand.TSC:
+                    TemplateDirect templateEac = new("EAC_107x109_090");
+                    TemplateDirect templateFish = new("FISH_94x115_000");
+                    TemplateDirect templateTemp6 = new("TEMP6_116x113_090");
+                    value = value.Replace("[EAC_107x109_090]", templateEac.XslContent);
+                    value = value.Replace("[FISH_94x115_000]", templateFish.XslContent);
+                    value = value.Replace("[TEMP6_116x113_090]", templateTemp6.XslContent);
+                    break;
+                default:
+                    break;
             }
         }
 

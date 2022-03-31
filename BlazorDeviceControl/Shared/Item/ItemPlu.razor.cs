@@ -57,14 +57,17 @@ namespace BlazorDeviceControl.Shared.Item
                         if (Id != null && TableAction == DbTableAction.New)
                             ItemCast.Id = (long)Id;
                         ScaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }), 
-                            null)?.ToList();
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                            ?.ToList();
                         TemplateItems = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
-                            null)?.ToList();
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
+                            ?.ToList();
                         NomenclatureItems = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(
                             null,
-                            null)?.ToList();
+                            new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
+                            ?.ToList();
                         //// Проверка шаблона.
                         //if ((PluItem.Templates == null || PluItem.Templates.EqualsDefault()) && PluItem.Scale.TemplateDefault != null)
                         //{

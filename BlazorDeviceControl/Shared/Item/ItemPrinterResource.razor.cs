@@ -49,7 +49,7 @@ namespace BlazorDeviceControl.Shared.Item
                         if (Id != null && TableAction == DbTableAction.New)
                             ItemCast.Id = (long)Id;
                         PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Marked.ToString(), false } }),
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                             null)?.ToList();
                         ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null)?.ToList();
                         ButtonSettings = new(false, false, false, false, false, true, true);

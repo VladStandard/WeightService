@@ -956,6 +956,11 @@ namespace BlazorCore.Models
             }).ConfigureAwait(true);
         }
 
+        public void RouteSectionNavigateToRoot()
+        {
+            NavigationManager?.NavigateTo(LocalizationData.DeviceControl.UriRouteSection.Root);
+        }
+
         public void RouteSectionNavigate(bool isNewWindow)
         {
             string page = RouteSectionNavigatePage();
@@ -1092,8 +1097,7 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableSystem.Default:
                     break;
                 case ProjectsEnums.TableSystem.Accesses:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Access(NotificationService, (AccessEntity)ParentRazor.Item, Uid, TableAction);
+                    ItemSaveCheck.Access(NotificationService, (AccessEntity?)ParentRazor?.Item, Uid, TableAction);
                     break;
                 case ProjectsEnums.TableSystem.Logs:
                     break;
@@ -1102,12 +1106,10 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableSystem.LogTypes:
                     break;
                 case ProjectsEnums.TableSystem.Tasks:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Task(NotificationService, (TaskEntity)ParentRazor.Item, Uid, TableAction);
+                    ItemSaveCheck.Task(NotificationService, (TaskEntity?)ParentRazor?.Item, Uid, TableAction);
                     break;
                 case ProjectsEnums.TableSystem.TasksTypes:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.TaskType(NotificationService, (TaskTypeEntity)ParentRazor.Item, Uid, TableAction);
+                    ItemSaveCheck.TaskType(NotificationService, (TaskTypeEntity?)ParentRazor?.Item, Uid, TableAction);
                     break;
             }
         }
@@ -1119,22 +1121,18 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Default:
                     break;
                 case ProjectsEnums.TableScale.BarCodeTypes:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntityV2)ParentRazor.Item, Uid, TableAction);
+                    ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntityV2?)ParentRazor?.Item, Uid, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Contragents:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Contragent(NotificationService, (ContragentEntityV2)ParentRazor.Item, Uid, TableAction);
+                    ItemSaveCheck.Contragent(NotificationService, (ContragentEntityV2?)ParentRazor?.Item, Uid, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Hosts:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Host(NotificationService, (HostEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.Host(NotificationService, (HostEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Labels:
                     break;
                 case ProjectsEnums.TableScale.Nomenclatures:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Orders:
                     break;
@@ -1145,42 +1143,34 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Organizations:
                     break;
                 case ProjectsEnums.TableScale.Plus:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Plu(NotificationService, (PluEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.PrintersResources:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.Printers:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Printer(NotificationService, (PrinterEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.Printer(NotificationService, (PrinterEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.PrintersTypes:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.ProductionFacilities:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.ProductSeries:
                     break;
                 case ProjectsEnums.TableScale.Scales:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Scale(NotificationService, (ScaleEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.Scale(NotificationService, (ScaleEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.TemplatesResources:
                     break;
                 case ProjectsEnums.TableScale.Templates:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Template(NotificationService, (TemplateEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.Template(NotificationService, (TemplateEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.WeithingFacts:
                     break;
                 case ProjectsEnums.TableScale.Workshops:
-                    if (ParentRazor?.Item != null)
-                        ItemSaveCheck.Workshop(NotificationService, (WorkshopEntity)ParentRazor.Item, Id, TableAction);
+                    ItemSaveCheck.Workshop(NotificationService, (WorkshopEntity?)ParentRazor?.Item, Id, TableAction);
                     break;
                 case ProjectsEnums.TableScale.BarCodes:
                     break;
@@ -1225,7 +1215,7 @@ namespace BlazorCore.Models
                                 ItemDwhSave(ProjectsEnums.GetTableDwh(Table.Name));
                                 break;
                         }
-                        RouteSectionNavigate(isNewWindow);
+                        RouteSectionNavigateToRoot();
                     }
                     await GuiRefreshWithWaitAsync();
                 }), continueOnCapturedContext);

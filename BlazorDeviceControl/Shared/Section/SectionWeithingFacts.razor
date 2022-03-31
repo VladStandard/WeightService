@@ -19,8 +19,8 @@ else
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="WeithingFactSummaryEntity" @bind-Value=@ItemObject
-        AllowFiltering="true" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
-        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting="true" ColumnWidth="100px">
+        AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
+        AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldWeithingDate

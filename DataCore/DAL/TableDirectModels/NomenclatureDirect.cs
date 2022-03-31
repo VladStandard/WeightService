@@ -5,6 +5,7 @@ using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -19,7 +20,7 @@ namespace DataCore.DAL.TableDirectModels
         public DateTime ModifiedDate { get; set; } = default;
         public string? RRefID { get; set; } = default;
         public string? Code { get; set; } = default;
-        public bool Marked { get; set; } = default;
+        public bool IsMarked { get; set; } = false;
         public string NameFull { get; set; } = "";
         public string Description { get; set; } = string.Empty;
         public string Comment { get; set; } = string.Empty;
@@ -27,6 +28,7 @@ namespace DataCore.DAL.TableDirectModels
         public string GUID_Mercury { get; set; } = string.Empty;
         public string NomenclatureType { get; set; } = string.Empty;
         public string VATRate { get; set; } = string.Empty;
+        [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
@@ -83,7 +85,7 @@ namespace DataCore.DAL.TableDirectModels
                         ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
                         RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
                         Code = SqlConnect.GetValueAsString(reader, "Code");
-                        Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
+                        IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
                         NameFull = SqlConnect.GetValueAsString(reader, "NameFull");
                         Description = SqlConnect.GetValueAsString(reader, "Description");
                         Comment = SqlConnect.GetValueAsString(reader, "Comment");
@@ -124,7 +126,7 @@ SELECT @ID as ID";
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue($"@1CRRefID", RRefID ?? (object)DBNull.Value);  // @1CRRefID
                 cmd.Parameters.AddWithValue($"@Code ", Code ?? (object)DBNull.Value);  // 
-                cmd.Parameters.AddWithValue($"@Marked", Marked);  // 
+                cmd.Parameters.AddWithValue($"@Marked", IsMarked);  // 
                 cmd.Parameters.AddWithValue($"@Name", Name ?? (object)DBNull.Value);  // 
                 cmd.Parameters.AddWithValue($"@NameFull", NameFull ?? (object)DBNull.Value);  // 
                 cmd.Parameters.AddWithValue($"@Description", Description ?? (object)DBNull.Value);  // 
@@ -169,7 +171,7 @@ SELECT @ID as ID";
                                 ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
                                 RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
                                 Code = SqlConnect.GetValueAsString(reader, "Code"),
-                                Marked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
+                                IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
                                 NameFull = SqlConnect.GetValueAsString(reader, "NameFull"),
                                 Description = SqlConnect.GetValueAsString(reader, "Description"),
                                 Comment = SqlConnect.GetValueAsString(reader, "Comment"),
