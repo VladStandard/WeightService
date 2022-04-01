@@ -43,11 +43,20 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>
-                            { { DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == DbTableAction.New)
-                            ItemCast.Id = (long)Id;
+                        switch (TableAction)
+                        {
+                            case DbTableAction.New:
+                                ItemCast = new();
+                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                                ItemCast.Description = "NEW RESOURCE";
+                                break;
+                            default:
+                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?>
+                                    { { DbField.Id.ToString(), Id } }), null);
+                                break;
+                        }
+
                         PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                             null)?.ToList();

@@ -17,7 +17,7 @@ namespace DataCore.DAL.TableDirectModels
         public long Id { get; set; } = default;
         public string Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ChangeDt { get; set; }
         public string RRefID { get; set; } = string.Empty;
         [XmlIgnore]
         public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
@@ -73,7 +73,7 @@ namespace DataCore.DAL.TableDirectModels
                         Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
                         Name = SqlConnect.GetValueAsString(reader, "Name");
                         CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt");
                         RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
                     }
                 }
@@ -118,7 +118,7 @@ SELECT @ID";
             using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
-                string query = "SELECT [Id],[Name],[CreateDate],[ModifiedDate],[1CRRefID] FROM [db_scales].[GetProductionFacility] (default);";
+                string query = "SELECT [Id],[Name],[CreateDate],[ChangeDt],[1CRRefID] FROM [db_scales].[GetProductionFacility] (default);";
                 using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;
@@ -132,7 +132,7 @@ SELECT @ID";
                                 Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id"),
                                 Name = SqlConnect.GetValueAsString(reader, "Name"),
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
                                 RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID")
                             };
                             result.Add(pFacility);

@@ -4,6 +4,7 @@
 using BlazorInputFile;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
+using DataCore.DAL.Utils;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.IO;
@@ -48,7 +49,7 @@ namespace BlazorDeviceControl.Service
 
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
 
-            entity.ImageData = await entity.GetBytes(stream, true);
+            entity.ImageData = new(DataUtils.GetBytes(stream, true));
             dataAccess.Crud.UpdateEntity(entity);
         }
     }

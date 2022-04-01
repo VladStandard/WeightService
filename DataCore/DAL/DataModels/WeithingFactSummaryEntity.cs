@@ -82,6 +82,9 @@ namespace DataCore.DAL.DataModels
             return new WeithingFactSummaryEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 WeithingDate = WeithingDate,
                 Count = Count,
                 Scale = Scale,

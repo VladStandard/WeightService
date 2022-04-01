@@ -120,10 +120,10 @@ namespace BlazorCore.Models
             bool success = FieldControl.ProcessChecks(notificationService, nomenclature, LocalizationCore.Strings.TableItem.Nomenclature);
             if (success)
             {
-                nomenclature.ModifiedDate = DateTime.Now;
+                nomenclature.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    nomenclature.CreateDate = DateTime.Now;
+                    nomenclature.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(nomenclature);
                 }
                 else
@@ -139,7 +139,7 @@ namespace BlazorCore.Models
             if (plu == null || id == null)
                 return;
 
-            plu.ModifiedDate = DateTime.Now;
+            plu.ChangeDt = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, plu, LocalizationCore.Strings.TableItem.Plu);
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, plu.Scale, LocalizationCore.Strings.TableItem.Device);
@@ -149,10 +149,10 @@ namespace BlazorCore.Models
                 success = FieldControl.ProcessChecks(notificationService, plu.Nomenclature, LocalizationCore.Strings.TableItem.Product);
             if (success)
             {
-                plu.ModifiedDate = DateTime.Now;
+                plu.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    plu.CreateDate = DateTime.Now;
+                    plu.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(plu);
                 }
                 else
@@ -169,16 +169,16 @@ namespace BlazorCore.Models
             if (printer == null || id == null)
                 return;
 
-            printer.ModifiedDate = DateTime.Now;
+            printer.ChangeDt = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, printer, LocalizationCore.Strings.TableItem.Printer);
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, printer.PrinterType, LocalizationCore.Strings.TableItem.PrinterType);
             if (success)
             {
-                printer.ModifiedDate = DateTime.Now;
+                printer.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    printer.CreateDate = DateTime.Now;
+                    printer.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(printer);
                 }
                 else
@@ -198,10 +198,10 @@ namespace BlazorCore.Models
             bool success = FieldControl.ProcessChecks(notificationService, printerResource, LocalizationCore.Strings.TableItem.PrinterResource);
             if (success)
             {
-                printerResource.ModifiedDate = DateTime.Now;
+                printerResource.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    printerResource.CreateDate = DateTime.Now;
+                    printerResource.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(printerResource);
                 }
                 else
@@ -221,10 +221,10 @@ namespace BlazorCore.Models
             bool success = FieldControl.ProcessChecks(notificationService, printerType, LocalizationCore.Strings.TableItem.PrinterType);
             if (success)
             {
-                //printerType.ModifiedDate = DateTime.Now;
+                printerType.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    //printerType.CreateDate = DateTime.Now;
+                    printerType.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(printerType);
                 }
                 else
@@ -244,10 +244,10 @@ namespace BlazorCore.Models
             bool success = FieldControl.ProcessChecks(notificationService, productionFacility, LocalizationCore.Strings.TableItem.ProductionFacility);
             if (success)
             {
-                productionFacility.ModifiedDate = DateTime.Now;
+                productionFacility.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    productionFacility.CreateDate = DateTime.Now;
+                    productionFacility.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(productionFacility);
                 }
                 else
@@ -264,7 +264,7 @@ namespace BlazorCore.Models
             if (scale == null || id == null)
                 return;
 
-            scale.ModifiedDate = DateTime.Now;
+            scale.ChangeDt = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, scale, LocalizationCore.Strings.TableItem.Device);
             if (success)
                 success = FieldControl.ProcessChecks(notificationService, scale.Printer, LocalizationCore.Strings.TableItem.Printer);
@@ -276,10 +276,10 @@ namespace BlazorCore.Models
                 success = FieldControl.ProcessChecks(notificationService, scale.WorkShop, LocalizationCore.Strings.TableItem.Workshop);
             if (success)
             {
-                scale.ModifiedDate = DateTime.Now;
+                scale.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    scale.CreateDate = DateTime.Now;
+                    scale.CreateDt = DateTime.Now;
                     if (scale.TemplateSeries != null && scale.TemplateSeries.EqualsDefault())
                         scale.TemplateSeries = null;
                     AppSettings.DataAccess?.Crud.SaveEntity(scale);
@@ -305,10 +305,10 @@ namespace BlazorCore.Models
                 success = FieldControl.ProcessChecks(notificationService, task.Scale, LocalizationCore.Strings.TableItem.Device);
             if (success)
             {
-                //task.ModifiedDate = DateTime.Now;
+                task.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    //task.CrateDate = DateTime.Now;
+                    task.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(task);
                 }
                 else
@@ -331,10 +331,10 @@ namespace BlazorCore.Models
             bool success = FieldControl.ProcessChecks(notificationService, taskType, LocalizationCore.Strings.TableItem.TaskModuleType);
             if (success)
             {
-                //taskType.ModifiedDate = DateTime.Now;
+                taskType.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    //taskType.CreateDate = DateTime.Now;
+                    taskType.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(taskType);
                 }
                 else
@@ -348,24 +348,25 @@ namespace BlazorCore.Models
             }
         }
 
-        public void Template(NotificationService? notificationService, TemplateEntity? template, 
-            long? id, DbTableAction tableAction)
+        public void Template(NotificationService? notificationService, TemplateEntity? template, long? id, 
+            DbTableAction? parentTableAction)
         {
-            if (template == null || id == null)
+            if (template == null)
                 return;
 
             bool success = FieldControl.ProcessChecks(notificationService, template, LocalizationCore.Strings.TableItem.Template);
             if (success)
             {
-                template.ModifiedDate = DateTime.Now;
-                if (tableAction == DbTableAction.New)
+                template.ChangeDt = DateTime.Now;
+                if (parentTableAction == DbTableAction.New)
                 {
-                    template.CreateDate = DateTime.Now;
+                    template.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(template);
                 }
                 else
                 {
-                    template.Id = (long)id;
+                    if (id is long lid)
+                        template.Id = lid;
                     AppSettings.DataAccess?.Crud.UpdateEntity(template);
                 }
             }
@@ -377,14 +378,13 @@ namespace BlazorCore.Models
             if (workShop == null || id == null)
                 return;
 
-            workShop.ModifiedDate = DateTime.Now;
             bool success = FieldControl.ProcessChecks(notificationService, workShop, LocalizationCore.Strings.TableItem.Workshop);
             if (success)
             {
-                workShop.ModifiedDate = DateTime.Now;
+                workShop.ChangeDt = DateTime.Now;
                 if (tableAction == DbTableAction.New)
                 {
-                    workShop.CreateDate = DateTime.Now;
+                    workShop.CreateDt = DateTime.Now;
                     AppSettings.DataAccess?.Crud.SaveEntity(workShop);
                 }
                 else

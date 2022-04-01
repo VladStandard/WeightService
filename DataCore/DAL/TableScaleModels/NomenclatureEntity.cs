@@ -13,17 +13,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        /// <summary>
-        /// Дата создания.
-        /// </summary>
-        public virtual DateTime CreateDate { get; set; } = default;
-        /// <summary>
-        /// Дата изменения.
-        /// </summary>
-        public virtual DateTime ModifiedDate { get; set; } = default;
-        /// <summary>
-        /// Наименование.
-        /// </summary>
         public virtual string Name { get; set; } = string.Empty;
         public virtual string Code { get; set; } = string.Empty;
         public virtual string SerializedRepresentationObject { get; set; } = string.Empty;
@@ -48,8 +37,6 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                $"{nameof(CreateDate)}: {CreateDate}. " +
-                $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
                 $"{nameof(Code)}: {Code}. " +
                 $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. " + 
                 $"{nameof(Weighted)}: {Weighted}. ";
@@ -60,8 +47,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(Code, entity.Code) &&
                    Equals(Name, entity.Name) &&
                    Equals(SerializedRepresentationObject, entity.SerializedRepresentationObject) &&
@@ -89,8 +74,6 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(Code, default(string)) &&
                    Equals(Name, default(string)) &&
                    Equals(SerializedRepresentationObject, default(string)) &&
@@ -102,9 +85,9 @@ namespace DataCore.DAL.TableScaleModels
             return new NomenclatureEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Code = Code,
                 Name = Name,
                 SerializedRepresentationObject = SerializedRepresentationObject,

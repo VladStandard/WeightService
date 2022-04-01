@@ -32,7 +32,7 @@
 //                                        {
 //                                            Id = i,
 //                                            CreateDate = dt,
-//                                            ModifiedDate = dt,
+//                                            ChangeDt = dt,
 //                                            Templates = new TemplateEntity(),
 //                                            Scale = new ScaleEntity(),
 //                                            Nomenclature = new NomenclatureEntity(),

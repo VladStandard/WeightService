@@ -17,7 +17,7 @@ namespace DataCore.DAL.TableDirectModels
         public long Id { get; set; } = default;
         public string Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ChangeDt { get; set; }
         public string RRefID { get; set; } = string.Empty;
         public NomenclatureDirect Nomenclature { get; set; } = new NomenclatureDirect();
         public bool IsMarked { get; set; } = false;
@@ -78,7 +78,7 @@ namespace DataCore.DAL.TableDirectModels
                         Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
                         Name = SqlConnect.GetValueAsString(reader, "Name");
                         CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt");
                         RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
                         IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
                         PackWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "PackWeight");
@@ -152,7 +152,7 @@ SELECT @ID";
                                 Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
                                 Name = SqlConnect.GetValueAsString(reader, "Name"),
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
                                 RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
                                 IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),
                                 PackWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "PackWeight"),

@@ -16,8 +16,6 @@ namespace DataCore.DAL.TableScaleModels
         public virtual PrinterEntity Printer { get; set; } = new PrinterEntity();
         public virtual TemplateResourceEntity Resource { get; set; } = new TemplateResourceEntity();
         public virtual string Description { get; set; } = string.Empty;
-        public virtual DateTime CreateDate { get; set; }
-        public virtual DateTime ModifiedDate { get; set; }
 
         #endregion
 
@@ -39,9 +37,7 @@ namespace DataCore.DAL.TableScaleModels
             return base.ToString() +
                    $"{nameof(Printer)}: {strPrinter}. " +
                    $"{nameof(Resource)}: {strResource}. " +
-                   $"{nameof(Description)}: {Description}. " +
-                   $"{nameof(CreateDate)}: {CreateDate}. " +
-                   $"{nameof(ModifiedDate)}: {ModifiedDate}. ";
+                   $"{nameof(Description)}: {Description}. ";
         }
 
         public virtual bool Equals(PrinterResourceEntity entity)
@@ -79,9 +75,7 @@ namespace DataCore.DAL.TableScaleModels
             if (Resource != null && !Resource.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Description, default(string)) &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime));
+                   Equals(Description, default(string));
         }
 
         public override object Clone()
@@ -89,12 +83,12 @@ namespace DataCore.DAL.TableScaleModels
             return new PrinterResourceEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Printer = (PrinterEntity)Printer.Clone(),
                 Resource = (TemplateResourceEntity)Resource.Clone(),
                 Description = Description,
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
             };
         }
 

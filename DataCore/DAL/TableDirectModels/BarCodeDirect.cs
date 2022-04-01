@@ -17,7 +17,7 @@ namespace DataCore.DAL.TableDirectModels
         public long Id { get; set; } = default;
         public string Value { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ChangeDt { get; set; }
         public BarCodeTypeDirect BarCodeType { get; set; } = new BarCodeTypeDirect();
         public NomenclatureDirect Nomenclature { get; set; } = new NomenclatureDirect();
         public NomenclatureUnitDirect NomenclatureUnit { get; set; } = new NomenclatureUnitDirect();
@@ -70,7 +70,7 @@ namespace DataCore.DAL.TableDirectModels
                 {
                     Value = SqlConnect.GetValueAsString(reader, "Value");
                     CreateDate = SqlConnect.GetValueAsNullable<DateTime>(reader, "CreateDate");
-                    ModifiedDate = SqlConnect.GetValueAsNullable<DateTime>(reader, "ModifiedDate");
+                    ChangeDt = SqlConnect.GetValueAsNullable<DateTime>(reader, "ChangeDt");
                     BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNullable<int>(reader, "BarCodeTypeId"));
                     Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNullable<int>(reader, "NomenclatureId"));
                     NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNullable<int>(reader, "NomenclatureUnitId"));
@@ -139,7 +139,7 @@ namespace DataCore.DAL.TableDirectModels
                                 Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
                                 Value = SqlConnect.GetValueAsString(reader, "Name"),
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
                                 BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
                                 Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
                                 NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
@@ -177,7 +177,7 @@ namespace DataCore.DAL.TableDirectModels
                                 Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
                                 Value = SqlConnect.GetValueAsString(reader, "Name"),
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
                                 BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
                                 Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
                                 NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
@@ -216,7 +216,7 @@ namespace DataCore.DAL.TableDirectModels
                                 Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
                                 Value = SqlConnect.GetValueAsString(reader, "Name"),
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
                                 BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
                                 Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
                                 NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),
@@ -254,7 +254,7 @@ namespace DataCore.DAL.TableDirectModels
                                 Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
                                 Value = SqlConnect.GetValueAsString(reader, "Name"),
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
                                 BarCodeType = new BarCodeTypeDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "BarCodeTypeId")),
                                 Nomenclature = new NomenclatureDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureId")),
                                 NomenclatureUnit = new NomenclatureUnitDirect(SqlConnect.GetValueAsNotNullable<int>(reader, "NomenclatureUnitId")),

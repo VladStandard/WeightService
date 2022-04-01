@@ -13,8 +13,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDate { get; set; } = default;
-        public virtual DateTime ModifiedDate { get; set; } = default;
         public virtual OrderTypeEntity OrderTypes { get; set; } = new OrderTypeEntity();
         public virtual DateTime ProductDate { get; set; } = default;
         public virtual int? PlaneBoxCount { get; set; }
@@ -55,9 +53,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Scales)}: {strScales}. " +
                    $"{nameof(Plu)}: {strPlu}." +
                    $"{nameof(IdRRef)}: {IdRRef}." +
-                   $"{nameof(Templates)}: {strTemplates}." +
-                   $"{nameof(CreateDate)}: {CreateDate}." +
-                   $"{nameof(ModifiedDate)}: {ModifiedDate}.";
+                   $"{nameof(Templates)}: {strTemplates}.";
         }
 
         public virtual bool Equals(OrderEntity entity)
@@ -74,9 +70,7 @@ namespace DataCore.DAL.TableScaleModels
                    Scales.Equals(entity.Scales) &&
                    Plu.Equals(entity.Plu) &&
                    Equals(IdRRef, entity.IdRRef) &&
-                   Templates.Equals(entity.Templates) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate);
+                   Templates.Equals(entity.Templates);
         }
 
         public override bool Equals(object obj)
@@ -113,9 +107,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(PlanePalletCount, default(int?)) &&
                    Equals(PlanePackingOperationBeginDate, default(DateTime)) &&
                    Equals(PlanePackingOperationEndDate, default(DateTime)) &&
-                   Equals(IdRRef, default(Guid?)) &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime));
+                   Equals(IdRRef, default(Guid?));
         }
 
         public override object Clone()
@@ -123,7 +115,9 @@ namespace DataCore.DAL.TableScaleModels
             return new OrderEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 OrderTypes = (OrderTypeEntity)OrderTypes.Clone(),
                 ProductDate = ProductDate,
                 PlaneBoxCount = PlaneBoxCount,
@@ -134,8 +128,6 @@ namespace DataCore.DAL.TableScaleModels
                 Plu = (PluEntity)Plu.Clone(),
                 IdRRef = IdRRef,
                 Templates = (TemplateEntity)Templates.Clone(),
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
             };
         }
 

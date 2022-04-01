@@ -30,7 +30,7 @@
 //                        ProductionFacility = new ProductionFacilityEntity(),
 //                        Name = s,
 //                        CreateDate = dt,
-//                        ModifiedDate = dt,
+//                        ChangeDt = dt,
 //                        IdRRef = guid
 //                    };
 //                    _ = entity.ToString();
@@ -58,7 +58,7 @@
 //                {
 //                    Name = nameFafility,
 //                    CreateDate = DateTime.Now,
-//                    ModifiedDate = DateTime.Now,
+//                    ChangeDt = DateTime.Now,
 //                    IdRRef = Guid.Empty,
 //                };
 //                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(facility);
@@ -70,7 +70,7 @@
 //                        ProductionFacility = facility,
 //                        Name = nameWorkshop1,
 //                        CreateDate = DateTime.Now,
-//                        ModifiedDate = DateTime.Now,
+//                        ChangeDt = DateTime.Now,
 //                        IdRRef = Guid.Empty,
 //                    };
 //                    DataAccessUtilsTests.DataAccess.WorkshopsCrud.SaveEntity(entity);

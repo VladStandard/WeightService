@@ -57,7 +57,9 @@ namespace DataCore.DAL.DataModels
             return new DeviceEntity()
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Scales = (ScaleEntity)Scales.Clone(),
             };
         }

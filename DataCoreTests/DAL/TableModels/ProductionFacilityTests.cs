@@ -34,7 +34,7 @@
 //                                    Id = i,
 //                                    Name = s,
 //                                    CreateDate = dt,
-//                                    ModifiedDate = dt,
+//                                    ChangeDt = dt,
 //                                    IdRRef = guid
 //                                };
 //                                _ = entity.ToString();
@@ -52,7 +52,7 @@
 //                Id = -1,
 //                Name = name,
 //                CreateDate = DateTime.Now,
-//                ModifiedDate = DateTime.Now,
+//                ChangeDt = DateTime.Now,
 //                IdRRef = Guid.Empty
 //            };
 //            DataAccessUtilsTests.DataAccess.Crud.SaveEntity(entity);

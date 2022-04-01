@@ -48,13 +48,19 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>
-                            { { DbField.Uid.ToString(), Uid } }), null);
-                        if (Uid != null && TableAction == DbTableAction.New)
+                        switch (TableAction)
                         {
-                            ItemCast.Uid = (Guid)Uid;
-                            ItemCast.User = "NEW USER";
+                            case DbTableAction.New:
+                                ItemCast = new();
+                                ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+                                ItemCast.IsMarked = false;
+                                ItemCast.User = "NEW USER";
+                                break;
+                            default:
+                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?>
+                                    { { DbField.Uid.ToString(), Uid } }), null);
+                                break;
                         }
                         TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);
                         ButtonSettings = new(false, false, false, false, false, true, true);

@@ -15,7 +15,7 @@
         {
             @if (ButtonSettings.IsShowSave)
             {
-                <RadzenButton Click=@(args => ItemSaveAsync(true, false)) 
+                <RadzenButton Click=@(args => ItemSaveAsync(true)) 
                     ButtonStyle="ButtonStyle.Primary"
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                     Text=@LocalizationData.DeviceControl.TableActionSave 

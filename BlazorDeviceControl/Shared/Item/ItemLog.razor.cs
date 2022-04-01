@@ -39,8 +39,18 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.Uid.ToString(), Uid } }), null);
+                        switch (TableAction)
+                        {
+                            case DbTableAction.New:
+                                ItemCast = new();
+                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                                break;
+                            default:
+                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> 
+                                    { { DbField.Uid.ToString(), Uid } }), null);
+                                break;
+                        }
                         ButtonSettings = new(false, false, false, false, false, false, true);
                     }
                     await GuiRefreshWithWaitAsync();

@@ -14,15 +14,7 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDate { get; set; } = default;
-        public virtual DateTime ModifiedDate { get; set; } = default;
         public virtual string Name { get; set; } = string.Empty;
-        public virtual bool? Marked { get; set; } = null;
-        public virtual bool MarkedGui
-        {
-            get => Marked == true;
-            set => Marked = value;
-        }
         public virtual string SerializedRepresentationObject { get; set; } = string.Empty;
 
         #endregion
@@ -41,9 +33,6 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                $"{nameof(CreateDate)}: {CreateDate}. " +
-                $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
-                $"{nameof(Marked)}: {Marked}." +
                 $"{nameof(Name)}: {Name}. " +
                 $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. ";
         }
@@ -53,10 +42,7 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(Name, entity.Name) &&
-                   Equals(Marked, entity.Marked) &&
                    Equals(SerializedRepresentationObject, entity.SerializedRepresentationObject);
         }
 
@@ -81,10 +67,7 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(Name, string.Empty) &&
-                   Equals(Marked, default(bool?)) &&
                    Equals(SerializedRepresentationObject, string.Empty);
         }
 
@@ -93,11 +76,10 @@ namespace DataCore.DAL.TableScaleModels
             return new ContragentEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Name = Name,
-                Marked = Marked,
                 SerializedRepresentationObject = SerializedRepresentationObject,
             };
         }

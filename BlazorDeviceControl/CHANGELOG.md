@@ -6,11 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.6.380] - 2022-03-31
+## [0.6.390] - 2022-04-01
 ### Fixed
 - Item PLU page
+- Item Template page
 ## Описание обновления:
 - Cтраница "ПЛУ": исправлена связь поля "Устройство"
+- Раздел и страница "Шаблоны": создание новой записи
 
 ## [0.6.370] - 2022-03-30
 ### Fixed

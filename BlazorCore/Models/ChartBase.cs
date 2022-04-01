@@ -31,13 +31,13 @@ namespace BlazorCore.Models
             int i = 0;
             switch (field)
             {
-                case ShareEnums.DbField.CreateDate:
+                case ShareEnums.DbField.CreateDt:
                     List<ChartCountEntity> entitiesDateCreated = new();
                     if (items?.Any() == true)
                     {
                         foreach (ContragentEntityV2 item in items)
                         {
-                            entitiesDateCreated.Add(new ChartCountEntity((item.CreateDt).Date, 1));
+                            entitiesDateCreated.Add(new ChartCountEntity(item.CreateDt.Date, 1));
                             i++;
                         }
                     }
@@ -50,13 +50,13 @@ namespace BlazorCore.Models
                         i++;
                     }
                     break;
-                case ShareEnums.DbField.ModifiedDate:
+                case ShareEnums.DbField.ChangeDt:
                     List<ChartCountEntity> entitiesDateModified = new();
                     if (items?.Any() == true)
                     {
                         foreach (ContragentEntityV2 item in items)
                         {
-                            entitiesDateModified.Add(new ChartCountEntity((item.ChangeDt).Date, 1));
+                            entitiesDateModified.Add(new ChartCountEntity(item.ChangeDt.Date, 1));
                             i++;
                         }
                     }
@@ -77,16 +77,16 @@ namespace BlazorCore.Models
         {
             ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
             NomenclatureEntity[] entities = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                new FieldOrderEntity(ShareEnums.DbField.CreateDate, ShareEnums.DbOrderDirection.Asc));
+                new FieldOrderEntity(ShareEnums.DbField.CreateDt, ShareEnums.DbOrderDirection.Asc));
             int i = 0;
             switch (field)
             {
-                case ShareEnums.DbField.CreateDate:
+                case ShareEnums.DbField.CreateDt:
                     List<ChartCountEntity> entitiesDateCreated = new();
                     foreach (NomenclatureEntity entity in entities)
                     {
-                        if (entity.CreateDate != null)
-                            entitiesDateCreated.Add(new ChartCountEntity(((DateTime)entity.CreateDate).Date, 1));
+                        if (entity.CreateDt != default)
+                            entitiesDateCreated.Add(new ChartCountEntity(entity.CreateDt.Date, 1));
                         i++;
                     }
                     IGrouping<DateTime, ChartCountEntity>[] entitiesGroupCreated = entitiesDateCreated.GroupBy(entity => entity.Date).ToArray();
@@ -98,12 +98,12 @@ namespace BlazorCore.Models
                         i++;
                     }
                     break;
-                case ShareEnums.DbField.ModifiedDate:
+                case ShareEnums.DbField.ChangeDt:
                     List<ChartCountEntity> entitiesDateModified = new();
                     foreach (NomenclatureEntity entity in entities)
                     {
-                        if (entity.ModifiedDate != null)
-                            entitiesDateModified.Add(new ChartCountEntity(((DateTime)entity.ModifiedDate).Date, 1));
+                        if (entity.ChangeDt != default)
+                            entitiesDateModified.Add(new ChartCountEntity(entity.ChangeDt.Date, 1));
                         i++;
                     }
 

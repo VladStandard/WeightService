@@ -19,7 +19,7 @@
 
 <div class=@NavMenuCssClass @onclick=@ToggleNavMenu>
     <ul class="nav flex-column">
-        @if ((byte)UserSettings.Identity.AccessRights > (byte)ShareEnums.AccessRights.None)
+        @if (UserSettings.Identity.AccessRightsIsRead)
         {
             <li class="nav-item px-1">
                 <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Hosts>

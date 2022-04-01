@@ -13,9 +13,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDt { get; set; } = default;
-        public virtual DateTime ChangeDt { get; set; } = default;
-        public virtual bool IsMarked { get; set; } = false;
         public virtual string Name { get; set; } = string.Empty;
         public virtual string FullName { get; set; } = string.Empty;
         public virtual Guid? IdRRef { get; set; } = null;
@@ -43,9 +40,6 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                $"{nameof(CreateDt)}: {CreateDt}. " +
-                $"{nameof(ChangeDt)}: {ChangeDt}. " +
-                $"{nameof(IsMarked)}: {IsMarked}." +
                 $"{nameof(Name)}: {Name}. " +
                 $"{nameof(FullName)}: {FullName}. " +
                 $"{nameof(IdRRef)}: {IdRRef}. " +
@@ -58,9 +52,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDt, entity.CreateDt) &&
-                   Equals(ChangeDt, entity.ChangeDt) &&
-                   Equals(IsMarked, entity.IsMarked) &&
                    Equals(Name, entity.Name) &&
                    Equals(FullName, entity.FullName) &&
                    Equals(IdRRef, entity.IdRRef) &&
@@ -89,9 +80,6 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(CreateDt, default(DateTime)) &&
-                   Equals(ChangeDt, default(DateTime)) &&
-                   Equals(IsMarked, false) &&
                    Equals(Name, string.Empty) &&
                    Equals(FullName, string.Empty) &&
                    Equals(IdRRef, null) &&
@@ -104,7 +92,6 @@ namespace DataCore.DAL.TableScaleModels
             return new ContragentEntityV2
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Uid = Uid,
                 CreateDt = CreateDt,
                 ChangeDt = ChangeDt,
                 IsMarked = IsMarked,

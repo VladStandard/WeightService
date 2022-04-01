@@ -17,7 +17,7 @@ namespace DataCore.DAL.TableDirectModels
         public long Id { get; set; } = default;
         public string? Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; } = default;
-        public DateTime ModifiedDate { get; set; } = default;
+        public DateTime ChangeDt { get; set; } = default;
         public string? RRefID { get; set; } = default;
         public string? Code { get; set; } = default;
         public bool IsMarked { get; set; } = false;
@@ -82,7 +82,7 @@ namespace DataCore.DAL.TableDirectModels
                         Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
                         Name = SqlConnect.GetValueAsString(reader, "Name");
                         CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt");
                         RRefID = SqlConnect.GetValueAsString(reader, "RRefID");
                         Code = SqlConnect.GetValueAsString(reader, "Code");
                         IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
@@ -168,7 +168,7 @@ SELECT @ID as ID";
                                 Id = SqlConnect.GetValueAsNotNullable<int>(reader, "Id"),
                                 Name = SqlConnect.GetValueAsString(reader, "Name"),
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
                                 RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
                                 Code = SqlConnect.GetValueAsString(reader, "Code"),
                                 IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked"),

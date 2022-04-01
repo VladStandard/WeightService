@@ -173,8 +173,7 @@ namespace DataCore
             public static string TableFieldBrand => Lang == ShareEnums.Lang.English ? "___" : "Brand";
             public static string TableFieldCategoryId => Lang == ShareEnums.Lang.English ? "___" : "ID категории";
             public static string TableFieldCategoryName => Lang == ShareEnums.Lang.English ? "Category" : "Категория";
-            public static string TableFieldChangeDt => Lang == ShareEnums.Lang.English ? "___" : "Дата измнения";
-            public static string TableFieldCheckGtin => Lang == ShareEnums.Lang.English ? "___" : "v";
+            public static string TableFieldCheckGtin => Lang == ShareEnums.Lang.English ? "GTIN" : "ГТИН";
             public static string TableFieldCheckWeight => Lang == ShareEnums.Lang.English ? "___" : "Весовая продукция";
             public static string TableFieldCode => Lang == ShareEnums.Lang.English ? "___" : "Код";
             public static string TableFieldComment => Lang == ShareEnums.Lang.English ? "___" : "Комментарий";
@@ -229,7 +228,7 @@ namespace DataCore
             public static string TableFieldMarkedShort => Lang == ShareEnums.Lang.English ? "x" : "х";
             public static string TableFieldMember => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
             public static string TableFieldMessage => Lang == ShareEnums.Lang.English ? "Message" : "Сообщение";
-            public static string TableFieldModifiedDate => Lang == ShareEnums.Lang.English ? "Edit date" : "Дата редактирования";
+            public static string TableFieldChangeDt => Lang == ShareEnums.Lang.English ? "Edit date" : "Дата редактирования";
             public static string TableFieldName => Lang == ShareEnums.Lang.English ? "Name" : "Наименование";
             public static string TableFieldNameFull => Lang == ShareEnums.Lang.English ? "Full name" : "Полное наименование";
             public static string TableFieldNetWeight => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";

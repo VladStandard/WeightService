@@ -123,7 +123,9 @@ namespace DataCore.DAL.TableScaleModels
             return new WeithingFactEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Plu = (PluEntity)Plu?.Clone(),
                 Scales = (ScaleEntity)Scales?.Clone(),
                 Series = (ProductSeriesEntity)Series?.Clone(),

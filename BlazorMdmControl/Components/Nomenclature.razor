@@ -21,7 +21,7 @@
             <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@Item.Code />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldMarked />
-            <RadzenCheckBox @bind-Value=@Item.Marked TValue="bool?" Disabled=false ReadOnly=true />
+            <RadzenCheckBox @bind-Value=@Item.IsMarked TValue="bool?" Disabled=false ReadOnly=true />
             <br />
             <RadzenLabel Style="width: 35%;" Text=@LocalizationStrings.TableFieldName />
             <RadzenTextBox Style="width: 63%;" Disabled=false TValue="string" @bind-value=@Item.Name />

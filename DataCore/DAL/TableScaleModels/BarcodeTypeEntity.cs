@@ -72,7 +72,9 @@ namespace DataCore.DAL.TableScaleModels
             return new BarcodeTypeEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Name = Name,
             };
         }

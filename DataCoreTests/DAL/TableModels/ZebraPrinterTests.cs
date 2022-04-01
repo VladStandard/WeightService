@@ -29,7 +29,7 @@
 //                                    {
 //                        Id = i,
 //                        CreateDate = dt,
-//                        ModifiedDate = dt,
+//                        ChangeDt = dt,
 //                        Name = s,
 //                        Ip = s,
 //                        Port = sh,
@@ -63,7 +63,7 @@
 //                    {
 //                        Id = -1,
 //                        CreateDate = DateTime.Now,
-//                        ModifiedDate = DateTime.Now,
+//                        ChangeDt = DateTime.Now,
 //                        Name = name,
 //                        Ip = default,
 //                        Port = default,

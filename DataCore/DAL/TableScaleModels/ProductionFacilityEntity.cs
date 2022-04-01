@@ -13,11 +13,8 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDate { get; set; } = default;
-        public virtual DateTime ModifiedDate { get; set; } = default;
         public virtual string Name { get; set; } = string.Empty;
         public virtual Guid? IdRRef { get; set; } = null;
-        public virtual bool IsMarked { get; set; } = false;
 
         #endregion
 
@@ -35,11 +32,8 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                $"{nameof(CreateDate)}: {CreateDate}. " +
-                $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
                 $"{nameof(Name)}: {Name}. " +
-                $"{nameof(IdRRef)}: {IdRRef}. " +
-                $"{nameof(IsMarked)}: {IsMarked}. ";
+                $"{nameof(IdRRef)}: {IdRRef}. ";
         }
 
         public virtual bool Equals(ProductionFacilityEntity entity)
@@ -47,11 +41,8 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(Name, entity.Name) &&
-                   Equals(IdRRef, entity.IdRRef) &&
-                   Equals(IsMarked, entity.IsMarked);
+                   Equals(IdRRef, entity.IdRRef);
         }
 
         public override bool Equals(object obj)
@@ -75,11 +66,8 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(Name, default(string)) &&
-                   Equals(IdRRef, default(Guid?)) &&
-                   Equals(IsMarked, false);
+                   Equals(IdRRef, default(Guid?));
         }
 
         public override object Clone()
@@ -87,12 +75,11 @@ namespace DataCore.DAL.TableScaleModels
             return new ProductionFacilityEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Name = Name,
                 IdRRef = IdRRef,
-                IsMarked = IsMarked,
             };
         }
 

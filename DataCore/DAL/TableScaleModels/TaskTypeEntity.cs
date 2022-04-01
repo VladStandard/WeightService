@@ -70,7 +70,9 @@ namespace DataCore.DAL.TableScaleModels
             return new TaskTypeEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Uid = Uid,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Name = Name,
             };
         }

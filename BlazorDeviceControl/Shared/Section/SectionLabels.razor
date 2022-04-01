@@ -21,7 +21,7 @@ else
 
     <RadzenGrid Style="margin-top: 5px; "
         Data=@ItemsCast TItem="LabelQuickEntity" @bind-Value=@ItemObject
-        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
+        RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns >

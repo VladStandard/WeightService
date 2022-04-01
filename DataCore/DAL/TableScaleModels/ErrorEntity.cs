@@ -14,8 +14,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreatedDate { get; set; }
-        public virtual DateTime ModifiedDate { get; set; }
         public virtual string? FilePath { get; set; } = null;
         public virtual string? FilePathShort => !string.IsNullOrEmpty(FilePath) ? Path.GetFileName(FilePath) : string.Empty;
         public virtual int LineNumber { get; set; }
@@ -39,8 +37,6 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                   $"{nameof(CreatedDate)}: {CreatedDate}. " +
-                   $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
                    $"{nameof(FilePath)}: {FilePath}. " +
                    $"{nameof(LineNumber)}: {LineNumber}. " +
                    $"{nameof(MemberName)}: {MemberName}. " +
@@ -53,8 +49,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreatedDate, entity.CreatedDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(FilePath, entity.FilePath) &&
                    Equals(LineNumber, entity.LineNumber) &&
                    Equals(MemberName, entity.MemberName) &&
@@ -83,8 +77,6 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(CreatedDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(FilePath, default(string)) &&
                    Equals(LineNumber, default(int)) &&
                    Equals(MemberName, default(string)) &&
@@ -97,9 +89,9 @@ namespace DataCore.DAL.TableScaleModels
             return new ErrorEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
-                CreatedDate = CreatedDate,
-                ModifiedDate = ModifiedDate,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 FilePath = FilePath,
                 LineNumber = LineNumber,
                 MemberName = MemberName,

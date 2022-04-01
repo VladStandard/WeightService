@@ -57,7 +57,7 @@
         <div class="main">
             <div class="top-row px-4 auth">
                 <div class="col-sm-12 col-md-12 col-lg-12">
-                    @if ((byte)UserSettings.Identity.AccessRights > (byte)ShareEnums.AccessRights.None)
+                    @if (UserSettings.Identity.AccessRightsIsRead)
                     {
                         <RadzenMenu Style="align-content: center; margin-top: 10px; background-color: transparent; " >
                             <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocalizationCore.Strings.MenuSystem >

@@ -111,14 +111,13 @@ namespace DataCore
         public enum DbField
         {
             CategoryId,
+            ChangeDt,
             CodeInIs,
             CreateDt,
-            CreateDate,
             Description,
             GoodsName,
             Id,
             IsMarked,
-            ModifiedDate,
             Name,
             Plu,
             PrinterId,

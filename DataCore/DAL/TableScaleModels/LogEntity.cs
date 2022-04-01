@@ -10,7 +10,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDt { get; set; }
         public virtual string Scale { get; set; } = string.Empty;
         public virtual HostEntity Host { get; set; } = new HostEntity();
         public virtual AppEntity App { get; set; } = new AppEntity();
@@ -40,7 +39,6 @@ namespace DataCore.DAL.TableScaleModels
             string? strApp = App != null ? App.Uid.ToString() : "null";
             string? strLogType = LogType != null ? LogType.Uid.ToString() : "null";
             return base.ToString() +
-                   $"{nameof(CreateDt)}: {CreateDt}. " +
                    $"{nameof(Scale)}: {Scale}. " +
                    $"{nameof(Host)}: {strHost}. " +
                    $"{nameof(App)}: {strApp}. " +
@@ -57,7 +55,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDt, entity.CreateDt) &&
                    Equals(Scale, entity.Scale) &&
                    Equals(Host, entity.Host) &&
                    Equals(App, entity.App) &&
@@ -96,7 +93,6 @@ namespace DataCore.DAL.TableScaleModels
             if (LogType != null && !LogType.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDt, default(DateTime)) &&
                    Equals(Scale, default(string)) &&
                    Equals(Version, default(string)) &&
                    Equals(File, default(string)) &&
@@ -110,16 +106,17 @@ namespace DataCore.DAL.TableScaleModels
             return new LogEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Uid = Uid,
                 CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Scale = Scale,
-                Host = (HostEntity)Host?.Clone(),
-                App = (AppEntity)App?.Clone(),
+                Host = (HostEntity)Host.Clone(),
+                App = (AppEntity)App.Clone(),
                 Version = Version,
                 File = File,
                 Line = Line,
                 Member = Member,
-                LogType = (LogTypeEntity)LogType?.Clone(),
+                LogType = (LogTypeEntity)LogType.Clone(),
                 Message = Message,
             };
         }

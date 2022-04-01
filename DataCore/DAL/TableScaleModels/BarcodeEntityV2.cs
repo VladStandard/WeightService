@@ -13,9 +13,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDt { get; set; } = default;
-        public virtual DateTime ChangeDt { get; set; } = default;
-        public virtual bool IsMarked { get; set; } = false;
         public virtual string Value { get; set; } = string.Empty;
         public virtual BarCodeTypeEntityV2? BarcodeType { get; set; } = new();
         public virtual ContragentEntityV2? Contragent { get; set; } = new();
@@ -40,9 +37,6 @@ namespace DataCore.DAL.TableScaleModels
             string? strContragent = Contragent != null ? Contragent.Uid.ToString() : "null";
             string? strNomenclature = Nomenclature != null ? Nomenclature.Id.ToString() : "null";
             return base.ToString() +
-                $"{nameof(CreateDt)}: {CreateDt}. " +
-                $"{nameof(ChangeDt)}: {ChangeDt}. " +
-                $"{nameof(IsMarked)}: {IsMarked}." +
                 $"{nameof(Value)}: {Value}. " +
                 $"{nameof(BarcodeType)}: {strBarcodeType}. " + 
                 $"{nameof(Contragent)}: {strContragent}. " + 
@@ -54,9 +48,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                Equals(CreateDt, entity.CreateDt) &&
-                Equals(ChangeDt, entity.ChangeDt) &&
-                Equals(IsMarked, entity.IsMarked) &&
                 Equals(Value, entity.Value) &&
                 BarcodeType != null && entity.BarcodeType != null && BarcodeType.Equals(entity.BarcodeType) &&
                 Contragent != null && entity.Contragent != null && Contragent.Equals(entity.Contragent) &&
@@ -90,9 +81,6 @@ namespace DataCore.DAL.TableScaleModels
             if (Nomenclature != null && !Nomenclature.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                Equals(CreateDt, default(DateTime)) &&
-                Equals(ChangeDt, default(DateTime)) &&
-                Equals(IsMarked, false) &&
                 Equals(Value, string.Empty);
         }
 
@@ -101,7 +89,6 @@ namespace DataCore.DAL.TableScaleModels
             return new BarCodeEntityV2
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Uid = Uid,
                 CreateDt = CreateDt,
                 ChangeDt = ChangeDt,
                 IsMarked = IsMarked,

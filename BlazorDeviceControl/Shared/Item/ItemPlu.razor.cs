@@ -52,10 +52,20 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == DbTableAction.New)
-                            ItemCast.Id = (long)Id;
+                        switch (TableAction)
+                        {
+                            case DbTableAction.New:
+                                ItemCast = new();
+                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                                ItemCast.IsMarked = false;
+                                break;
+                            default:
+                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> 
+                                    { { DbField.Id.ToString(), Id } }), null);
+                                break;
+                        }
+
                         ScaleItems = AppSettings.DataAccess.Crud.GetEntities<ScaleEntity>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                             new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))

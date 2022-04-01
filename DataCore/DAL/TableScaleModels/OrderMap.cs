@@ -12,6 +12,9 @@ namespace DataCore.DAL.TableScaleModels
             Table("[db_scales].[Orders]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable();
             References(x => x.OrderTypes).Column("OrderType");
             Map(x => x.ProductDate).CustomSqlType("DATETIME").Column("ProductDate").Nullable();
             Map(x => x.PlaneBoxCount).CustomSqlType("INT").Column("PlaneBoxCount").Nullable();
@@ -22,8 +25,6 @@ namespace DataCore.DAL.TableScaleModels
             References(x => x.Plu).Column("PLU");
             Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Nullable();
             References(x => x.Templates).Column("TemplateId");
-            Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-            Map(x => x.ModifiedDate).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         }
     }
 }

@@ -12,6 +12,9 @@ namespace DataCore.DAL.TableScaleModels
             Table("[db_scales].[ZebraPrinter]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
             Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(100).Nullable();
             Map(x => x.Ip).CustomSqlType("VARCHAR").Length(15).Column("IP").Nullable();
             Map(x => x.Port).CustomSqlType("SMALLINT").Column("Port").Nullable();
@@ -20,9 +23,6 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.MacAddressValue).CustomSqlType("VARCHAR").Column("Mac").Length(20).Nullable();
             Map(x => x.PeelOffSet).CustomSqlType("BIT").Column("PeelOffSet").Nullable();
             Map(x => x.DarknessLevel).CustomSqlType("SMALLINT").Column("DarknessLevel").Nullable();
-            Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-            Map(x => x.ModifiedDate).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
         }
     }
 }

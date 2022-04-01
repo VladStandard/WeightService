@@ -2,8 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.DAL.Utils;
 using Newtonsoft.Json;
-using System;
 
 namespace DataCore.DAL.TableDwhModels
 {
@@ -12,7 +12,6 @@ namespace DataCore.DAL.TableDwhModels
         #region Public and private fields and properties
 
         public virtual string Code { get; set; }
-        public virtual bool? Marked { get; set; }
         public virtual string Name { get; set; }
         public virtual string Parents { get; set; }
 
@@ -45,8 +44,6 @@ namespace DataCore.DAL.TableDwhModels
         public virtual byte[] PackTypeId { get; set; }
         public virtual string PackTypeName { get; set; }
         public virtual string SerializedRepresentationObject { get; set; }
-        public virtual DateTime CreateDate { get; set; }
-        public virtual DateTime Dlm { get; set; }
         public virtual StatusEntity Status { get; set; } = new StatusEntity();
         public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
         public virtual byte[] CodeInIs { get; set; }
@@ -68,7 +65,6 @@ namespace DataCore.DAL.TableDwhModels
             var strStatus = Status != null ? Status.Id.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Code)}: {Code}. " +
-                   $"{nameof(Marked)}: {Marked}. " +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(Parents)}: {Parents}. " +
                    $"{nameof(Article)}: {Article}. " +
@@ -97,8 +93,6 @@ namespace DataCore.DAL.TableDwhModels
                    $"{nameof(PackTypeId)}.Length: {PackTypeId?.Length ?? 0}. " +
                    $"{nameof(PackTypeName)}: {PackTypeName}. " +
                    $"{nameof(SerializedRepresentationObject)}.Length: {SerializedRepresentationObject?.Length ?? 0}. " +
-                   $"{nameof(CreateDate)}: {CreateDate}. " +
-                   $"{nameof(Dlm)}: {Dlm}. " +
                    $"{nameof(Status)}: {strStatus}. " +
                    $"{nameof(InformationSystem)}: {strInformationSystem}. " +
                    $"{nameof(CodeInIs)}.Length: {CodeInIs?.Length ?? 0}. " +
@@ -113,7 +107,6 @@ namespace DataCore.DAL.TableDwhModels
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
                    Equals(Code, entity.Code) &&
-                   Equals(Marked, entity.Marked) &&
                    Equals(Name, entity.Name) &&
                    Equals(Parents, entity.Parents) &&
                    Equals(Article, entity.Article) &&
@@ -142,8 +135,6 @@ namespace DataCore.DAL.TableDwhModels
                    Equals(PackTypeId, entity.PackTypeId) &&
                    Equals(PackTypeName, entity.PackTypeName) &&
                    Equals(SerializedRepresentationObject, entity.SerializedRepresentationObject) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(Dlm, entity.Dlm) &&
                    Equals(Status, entity.Status) &&
                    Equals(InformationSystem, entity.InformationSystem) &&
                    Equals(CodeInIs, entity.CodeInIs) &&
@@ -186,7 +177,6 @@ namespace DataCore.DAL.TableDwhModels
                 return false;
             return base.EqualsDefault() &&
                    Equals(Code, default(string)) &&
-                   Equals(Marked, default(bool?)) &&
                    Equals(Name, default(string)) &&
                    Equals(Parents, default(string)) &&
                    Equals(Article, default(string)) &&
@@ -211,8 +201,6 @@ namespace DataCore.DAL.TableDwhModels
                    Equals(PackTypeId, default(byte[])) &&
                    Equals(PackTypeName, default(string)) &&
                    Equals(SerializedRepresentationObject, default(string)) &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(Dlm, default(DateTime)) &&
                    Equals(CodeInIs, default(byte[])) &&
                    Equals(RelevanceStatus, default(short?)) &&
                    Equals(NormalizationStatus, default(short?)) &&
@@ -224,9 +212,10 @@ namespace DataCore.DAL.TableDwhModels
             return new NomenclatureEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Code = Code,
-                Marked = Marked,
                 Name = Name,
                 Parents = Parents,
                 Article = Article,
@@ -238,28 +227,26 @@ namespace DataCore.DAL.TableDwhModels
                 IsService = IsService,
                 IsProduct = IsProduct,
                 AdditionalDescriptionOfNomenclature = AdditionalDescriptionOfNomenclature,
-                NomenclatureGroupCostBytes = CloneBytes(NomenclatureGroupCostBytes),
+                NomenclatureGroupCostBytes = DataUtils.CloneBytes(NomenclatureGroupCostBytes),
                 NomenclatureGroupCost = (NomenclatureGroupEntity)NomenclatureGroupCost.Clone(),
-                NomenclatureGroupBytes = CloneBytes(NomenclatureGroupBytes),
+                NomenclatureGroupBytes = DataUtils.CloneBytes(NomenclatureGroupBytes),
                 NomenclatureGroup = (NomenclatureGroupEntity)NomenclatureGroup.Clone(),
-                ArticleCost = CloneBytes(ArticleCost),
-                BrandBytes = CloneBytes(BrandBytes),
+                ArticleCost = DataUtils.CloneBytes(ArticleCost),
+                BrandBytes = DataUtils.CloneBytes(BrandBytes),
                 Brand = (BrandEntity)Brand.Clone(),
-                NomenclatureTypeBytes = CloneBytes(NomenclatureTypeBytes),
+                NomenclatureTypeBytes = DataUtils.CloneBytes(NomenclatureTypeBytes),
                 NomenclatureType = (NomenclatureTypeEntity)NomenclatureType.Clone(),
                 VatRate = VatRate,
                 Unit = Unit,
                 Weight = Weight,
-                BoxTypeId = CloneBytes(BoxTypeId),
+                BoxTypeId = DataUtils.CloneBytes(BoxTypeId),
                 BoxTypeName = BoxTypeName,
-                PackTypeId = CloneBytes(PackTypeId),
+                PackTypeId = DataUtils.CloneBytes(PackTypeId),
                 PackTypeName = PackTypeName,
                 SerializedRepresentationObject = SerializedRepresentationObject,
-                CreateDate = CreateDate,
-                Dlm = Dlm,
                 Status = (StatusEntity)Status.Clone(),
                 InformationSystem = (InformationSystemEntity)InformationSystem.Clone(),
-                CodeInIs = CloneBytes(CodeInIs),
+                CodeInIs = DataUtils.CloneBytes(CodeInIs),
                 RelevanceStatus = RelevanceStatus,
                 NormalizationStatus = NormalizationStatus,
                 MasterId = MasterId,

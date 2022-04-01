@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.DAL.Utils;
 using System;
 
 namespace DataCore.DAL.TableDwhModels
@@ -10,8 +11,6 @@ namespace DataCore.DAL.TableDwhModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDate { get; set; }
-        public virtual DateTime Dlm { get; set; }
         public virtual string Name { get; set; }
         public virtual int StatusId { get; set; }
         public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
@@ -34,8 +33,6 @@ namespace DataCore.DAL.TableDwhModels
         {
             var strInformationSystem = InformationSystem != null ? InformationSystem.Id.ToString() : "null";
             return base.ToString() +
-                   $"{nameof(CreateDate)}: {CreateDate}. " +
-                   $"{nameof(Dlm)}: {Dlm}. " +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(StatusId)}: {StatusId}. " +
                    $"{nameof(InformationSystem)}: {strInformationSystem}. " +
@@ -47,8 +44,6 @@ namespace DataCore.DAL.TableDwhModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(Dlm, entity.Dlm) &&
                    Equals(Name, entity.Name) &&
                    Equals(StatusId, entity.StatusId) &&
                    Equals(InformationSystem, entity.InformationSystem) &&
@@ -78,8 +73,6 @@ namespace DataCore.DAL.TableDwhModels
             if (InformationSystem != null && !InformationSystem.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(Dlm, default(DateTime)) &&
                    Equals(Name, default(string)) &&
                    Equals(StatusId, default(int)) &&
                    Equals(CodeInIs, default(byte[]));
@@ -90,13 +83,13 @@ namespace DataCore.DAL.TableDwhModels
             return new NomenclatureGroupEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDate = CreateDate,
-                Dlm = Dlm,
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Name = Name,
                 StatusId = StatusId,
                 InformationSystem = (InformationSystemEntity)InformationSystem.Clone(),
-                CodeInIs = CloneBytes(CodeInIs),
+                CodeInIs = DataUtils.CloneBytes(CodeInIs),
             };
         }
 

@@ -16,8 +16,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDate { get; set; } = default;
-        public virtual DateTime ModifiedDate { get; set; } = default;
         public virtual TemplateEntity Template { get; set; } = new TemplateEntity();
         public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
         public virtual NomenclatureEntity Nomenclature { get; set; } = new NomenclatureEntity();
@@ -36,7 +34,6 @@ namespace DataCore.DAL.TableScaleModels
         public virtual decimal NominalWeight { get; set; }
         public virtual decimal LowerWeightThreshold { get; set; }
         public virtual bool CheckWeight { get; set; }
-        public virtual bool IsMarked { get; set; } = false;
 
         #endregion
 
@@ -202,8 +199,6 @@ namespace DataCore.DAL.TableScaleModels
             string strScale = Scale != null ? Scale.Id.ToString() : "null";
             string strNomenclature = Nomenclature != null ? Nomenclature.Id.ToString() : "null";
             return base.ToString() +
-                   $"{nameof(CreateDate)}: {CreateDate}. " +
-                   $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
                    $"{nameof(Template)}: {strTemplates}. " +
                    $"{nameof(Scale)}: {strScale}. " +
                    $"{nameof(Nomenclature)}: {strNomenclature}. " +
@@ -221,8 +216,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(UpperWeightThreshold)}: {UpperWeightThreshold}. " +
                    $"{nameof(NominalWeight)}: {NominalWeight}. " +
                    $"{nameof(LowerWeightThreshold)}: {LowerWeightThreshold}. " +
-                   $"{nameof(CheckWeight)}: {CheckWeight}. " +
-                   $"{nameof(IsMarked)}: {IsMarked}. ";
+                   $"{nameof(CheckWeight)}: {CheckWeight}. ";
         }
 
         public virtual bool Equals(PluEntity entity)
@@ -230,8 +224,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(Template, entity.Template) &&
                    Equals(Scale, entity.Scale) &&
                    Equals(Nomenclature, entity.Nomenclature) &&
@@ -249,8 +241,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(UpperWeightThreshold, entity.UpperWeightThreshold) &&
                    Equals(NominalWeight, entity.NominalWeight) &&
                    Equals(LowerWeightThreshold, entity.LowerWeightThreshold) &&
-                   Equals(CheckWeight, entity.CheckWeight) &&
-                   Equals(IsMarked, entity.IsMarked);
+                   Equals(CheckWeight, entity.CheckWeight);
         }
 
         public override bool Equals(object obj)
@@ -280,8 +271,6 @@ namespace DataCore.DAL.TableScaleModels
             if (Nomenclature != null && !Nomenclature.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(GoodsName, default(string)) &&
                    Equals(GoodsFullName, default(string)) &&
                    Equals(GoodsDescription, default(string)) &&
@@ -296,8 +285,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(UpperWeightThreshold, default(decimal)) &&
                    Equals(NominalWeight, default(decimal)) &&
                    Equals(LowerWeightThreshold, default(decimal)) &&
-                   Equals(CheckWeight, default(bool)) &&
-                   Equals(IsMarked, false);
+                   Equals(CheckWeight, default(bool));
         }
 
         public override object Clone()
@@ -305,9 +293,9 @@ namespace DataCore.DAL.TableScaleModels
             return new PluEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Template = (TemplateEntity)Template.Clone(),
                 Scale = (ScaleEntity)Scale.Clone(),
                 Nomenclature = (NomenclatureEntity)Nomenclature.Clone(),
@@ -326,7 +314,6 @@ namespace DataCore.DAL.TableScaleModels
                 NominalWeight = NominalWeight,
                 LowerWeightThreshold = LowerWeightThreshold,
                 CheckWeight = CheckWeight,
-                IsMarked = IsMarked,
             };
         }
 

@@ -15,8 +15,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDate { get; set; }
-        public virtual DateTime ModifiedDate { get; set; }
         public virtual string Name { get; set; } = string.Empty;
         public virtual string Ip { get; set; } = string.Empty;
         public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
@@ -31,7 +29,6 @@ namespace DataCore.DAL.TableScaleModels
         }
         public virtual bool PeelOffSet { get; set; }
         public virtual short DarknessLevel { get; set; }
-        public virtual bool IsMarked { get; set; } = false;
         public virtual System.Net.HttpStatusCode HttpStatusCode { get; set; } = System.Net.HttpStatusCode.BadRequest;
         public virtual Exception? HttpStatusException { get; set; } = null;
 
@@ -53,8 +50,6 @@ namespace DataCore.DAL.TableScaleModels
         {
             string? strPrinterType = PrinterType != null ? PrinterType.Id.ToString() : "null";
             return base.ToString() +
-                   $"{nameof(CreateDate)}: {CreateDate}. " +
-                   $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(Ip)}: {Ip}. " +
                    $"{nameof(Port)}: {Port}. " +
@@ -63,7 +58,6 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(MacAddress)}: {MacAddress}. " +
                    $"{nameof(PeelOffSet)}: {PeelOffSet}. " +
                    $"{nameof(DarknessLevel)}: {DarknessLevel}. " +
-                   $"{nameof(IsMarked)}: {IsMarked}. " + 
                    $"{nameof(HttpStatusCode)}: {HttpStatusCode}. " + 
                    $"{nameof(HttpStatusException)}: {HttpStatusException}. ";
         }
@@ -73,8 +67,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(Name, entity.Name) &&
                    Equals(Ip, entity.Ip) &&
                    Equals(Port, entity.Port) &&
@@ -83,7 +75,6 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(MacAddress, entity.MacAddress) &&
                    Equals(PeelOffSet, entity.PeelOffSet) &&
                    Equals(DarknessLevel, entity.DarknessLevel) &&
-                   Equals(IsMarked, entity.IsMarked) &&
                    Equals(HttpStatusCode, entity.HttpStatusCode) &&
                    Equals(HttpStatusException, entity.HttpStatusException);
         }
@@ -113,15 +104,12 @@ namespace DataCore.DAL.TableScaleModels
             if (MacAddress != null && !MacAddress.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(Name, default(string)) &&
                    Equals(Ip, default(string)) &&
                    Equals(Port, default(short)) &&
                    Equals(Password, default(string)) &&
                    Equals(PeelOffSet, default(bool)) &&
                    Equals(DarknessLevel, default(short)) &&
-                   Equals(IsMarked, default(bool)) &&
                    Equals(HttpStatusCode, System.Net.HttpStatusCode.BadRequest) &&
                    Equals(HttpStatusException, null);
         }
@@ -131,9 +119,9 @@ namespace DataCore.DAL.TableScaleModels
             return new PrinterEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Name = Name,
                 Ip = Ip,
                 Port = Port,
@@ -142,7 +130,6 @@ namespace DataCore.DAL.TableScaleModels
                 MacAddress = (MacAddressEntity)MacAddress.Clone(),
                 PeelOffSet = PeelOffSet,
                 DarknessLevel = DarknessLevel,
-                IsMarked = IsMarked,
                 HttpStatusCode = HttpStatusCode,
                 HttpStatusException = HttpStatusException,
             };

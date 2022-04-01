@@ -32,7 +32,7 @@
 //                            {
 //                                Id = i,
 //                                CreateDate = dt,
-//                                ModifiedDate = dt,
+//                                ChangeDt = dt,
 //                                Code = s,
 //                                Name = s,
 //                                SerializedRepresentationObject = s,
@@ -56,7 +56,7 @@
 //                {
 //                    Id = -1,
 //                    CreateDate = DateTime.Now,
-//                    ModifiedDate = DateTime.Now,
+//                    ChangeDt = DateTime.Now,
 //                    Code = default,
 //                    Name = "NomenclatureEntity test",
 //                    SerializedRepresentationObject = default,

@@ -9,7 +9,7 @@ namespace DataCore.DAL.TableDwhModels
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
 
         #endregion
 
@@ -67,7 +67,9 @@ namespace DataCore.DAL.TableDwhModels
             return new StatusEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Name = Name,
             };
         }

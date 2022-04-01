@@ -13,9 +13,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDate { get; set; } = default;
-        public virtual DateTime ModifiedDate { get; set; } = default;
-        public virtual bool IsMarked { get; set; } = false;
         public virtual TemplateEntity? TemplateDefault { get; set; } = new();
         public virtual TemplateEntity? TemplateSeries { get; set; } = new();
         public virtual WorkshopEntity WorkShop { get; set; } = new();
@@ -52,16 +49,12 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strCreateDate = CreateDate != null ? CreateDate.ToString() : "null";
-            string? strModifiedDate = ModifiedDate != null ? ModifiedDate.ToString() : "null";
             string? strTemplateDefault = TemplateDefault != null ? TemplateDefault.Id.ToString() : "null";
             string? strTemplateSeries = TemplateSeries != null ? TemplateSeries.Id.ToString() : "null";
             string? strWorkShop = WorkShop != null ? WorkShop.Id.ToString() : "null";
             string? strPrinter = Printer != null ? Printer.Id.ToString() : "null";
             string? strHost = Host != null ? Host.Id.ToString() : "null";
             return base.ToString() +
-                   $"{nameof(CreateDate)}: {strCreateDate}. " +
-                   $"{nameof(ModifiedDate)}: {strModifiedDate}. " +
                    $"{nameof(Description)}: {Description}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +
                    $"{nameof(DeviceIp)}: {DeviceIp}. " +
@@ -80,7 +73,6 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(ScaleFactor)}: {ScaleFactor}. " +
                    $"{nameof(WorkShop)}: {strWorkShop}. " +
                    $"{nameof(Printer)}: {strPrinter}. " +
-                   $"{nameof(IsMarked)}: {IsMarked}. " +
                    $"{nameof(Host)}: {strHost}. ";
         }
 
@@ -89,8 +81,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate) &&
                    TemplateDefault != null && entity.TemplateDefault != null && TemplateDefault.Equals(entity.TemplateDefault) &&
                    TemplateSeries != null && entity.TemplateSeries != null && TemplateSeries.Equals(entity.TemplateSeries) &&
                    Equals(Description, entity.Description) &&
@@ -109,7 +99,6 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(ScaleFactor, entity.ScaleFactor) &&
                    WorkShop.Equals(entity.WorkShop) &&
                    Printer != null && entity.Printer != null && Printer.Equals(entity.Printer) &&
-                   Equals(IsMarked, entity.IsMarked) &&
                    Host != null && entity.Host != null && Host.Equals(entity.Host);
         }
 
@@ -144,8 +133,6 @@ namespace DataCore.DAL.TableScaleModels
             if (Host != null && !Host.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(Description, default(string)) &&
                    Equals(IdRRef, default(Guid?)) &&
                    Equals(DeviceIp, default(string)) &&
@@ -159,8 +146,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(UseOrder, default(bool?)) &&
                    Equals(VerScalesUi, default(string)) &&
                    Equals(DeviceNumber, default(int?)) &&
-                   Equals(ScaleFactor, default(int?)) &&
-                   Equals(IsMarked, false);
+                   Equals(ScaleFactor, default(int?));
         }
 
         public override object Clone()
@@ -168,9 +154,9 @@ namespace DataCore.DAL.TableScaleModels
             return new ScaleEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 TemplateDefault = TemplateDefault != null ? (TemplateEntity)TemplateDefault.Clone() : null,
                 TemplateSeries = TemplateSeries != null ? (TemplateEntity)TemplateSeries.Clone() : null,
                 WorkShop = (WorkshopEntity)WorkShop.Clone(),
@@ -190,7 +176,6 @@ namespace DataCore.DAL.TableScaleModels
                 VerScalesUi = VerScalesUi,
                 DeviceNumber = DeviceNumber,
                 ScaleFactor = ScaleFactor,
-                IsMarked = IsMarked,
             };
         }
 

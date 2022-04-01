@@ -21,7 +21,7 @@ else
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="NomenclatureEntity" @bind-Value=@ItemObject
-        RowDoubleClick=@(args => ActionAsync(UserSettings, DbTableAction.Edit, false, false))
+        RowDoubleClick=@(args => ActionEditAsync(UserSettings, false, false))
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns >
@@ -34,7 +34,7 @@ else
                 Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
                 <Template Context="item" >
                     <RadzenDatePicker 
-                        TValue="string" Value=@item.CreateDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                        TValue="string" Value=@item.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
@@ -42,7 +42,7 @@ else
                 Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="15%" >
                 <Template Context="item" >
                     <RadzenDatePicker 
-                        TValue="string" Value=@item.ModifiedDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                        TValue="string" Value=@item.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 

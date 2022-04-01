@@ -33,12 +33,12 @@
 //                                        {
 //                                            Id = i,
 //                                            CreateDate = dt,
-//                                            ModifiedDate = dt,
+//                                            ChangeDt = dt,
 //                                            Name = s,
 //                                            Ip = s,
 //                                            MacAddress = new DataShareCore.DAL.Models.MacAddressEntity(s),
 //                                            IdRRef = guid,
-//                                            Marked = b,
+//                                            IsMarked = b,
 //                                            SettingsFile = s,
 //                                        };
 //                                        _ = entity.ToString();

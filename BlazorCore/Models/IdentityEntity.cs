@@ -13,6 +13,10 @@ namespace BlazorCore.Models
         public string Name { get; set; }
         public ShareEnums.AccessRights AccessRights { get; private set; }
         public string NameWithRights => $"{GetName()} [{GetDescriptionAccessRights(AccessRights)}]";
+        public bool AccessRightsIsNone => (byte)AccessRights == (byte)ShareEnums.AccessRights.None;
+        public bool AccessRightsIsRead => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Read;
+        public bool AccessRightsIsWrite => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Write;
+        public bool AccessRightsIsAdmin => (byte)AccessRights >= (byte)ShareEnums.AccessRights.Admin;
 
         #endregion
 

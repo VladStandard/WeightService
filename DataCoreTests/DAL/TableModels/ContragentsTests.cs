@@ -33,9 +33,9 @@
 //                                {
 //                                    Id = i,
 //                                    CreateDate = dt,
-//                                    ModifiedDate = dt,
+//                                    ChangeDt = dt,
 //                                    Name = s,
-//                                    Marked = b,
+//                                    IsMarked = b,
 //                                    SerializedRepresentationObject = s,
 //                                };
 //                                _ = entity.ToString();
@@ -57,9 +57,9 @@
 //                {
 //                    Id = -1,
 //                    CreateDate = DateTime.Now,
-//                    ModifiedDate = DateTime.Now,
+//                    ChangeDt = DateTime.Now,
 //                    Name = "ContragentsEntity test",
-//                    Marked = default,
+//                    IsMarked = default,
 //                    SerializedRepresentationObject = null,
 //                };
 //                DataAccessUtilsTests.DataAccess.Crud.SaveEntity(entity);
@@ -81,7 +81,7 @@
 //                if (entityExists.EqualsDefault())
 //                    return;
 //                // UpdateEntity
-//                entityExists.Marked = true;
+//                entityExists.IsMarked = true;
 //                DataAccessUtilsTests.DataAccess.Crud.UpdateEntity(entityExists);
 //            });
 

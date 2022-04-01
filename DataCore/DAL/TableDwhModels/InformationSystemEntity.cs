@@ -83,7 +83,9 @@ namespace DataCore.DAL.TableDwhModels
             return new InformationSystemEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Name = Name,
                 ConnectString1 = Name,
                 ConnectString2 = Name,

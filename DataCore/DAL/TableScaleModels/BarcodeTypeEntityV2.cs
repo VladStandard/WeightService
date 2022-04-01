@@ -13,9 +13,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDt { get; set; } = default;
-        public virtual DateTime ChangeDt { get; set; } = default;
-        public virtual bool IsMarked { get; set; } = false;
         public virtual string Name { get; set; } = string.Empty;
 
         #endregion
@@ -34,9 +31,6 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                $"{nameof(CreateDt)}: {CreateDt}. " +
-                $"{nameof(ChangeDt)}: {ChangeDt}. " +
-                $"{nameof(IsMarked)}: {IsMarked}." +
                 $"{nameof(Name)}: {Name}. ";
         }
 
@@ -45,9 +39,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                Equals(CreateDt, entity.CreateDt) &&
-                Equals(ChangeDt, entity.ChangeDt) &&
-                Equals(IsMarked, entity.IsMarked) &&
                 Equals(Name, entity.Name);
         }
 
@@ -72,9 +63,6 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                Equals(CreateDt, default(DateTime)) &&
-                Equals(ChangeDt, default(DateTime)) &&
-                Equals(IsMarked, false) &&
                 Equals(Name, string.Empty);
         }
 
@@ -83,7 +71,6 @@ namespace DataCore.DAL.TableScaleModels
             return new BarCodeTypeEntityV2
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Uid = Uid,
                 CreateDt = CreateDt,
                 ChangeDt = ChangeDt,
                 IsMarked = IsMarked,

@@ -79,7 +79,9 @@ namespace DataCore.DAL.TableScaleModels
             return new OrderStatusEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 OrderId = OrderId,
                 CurrentDate = CurrentDate,
                 CurrentStatus = CurrentStatus

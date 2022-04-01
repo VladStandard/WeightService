@@ -17,7 +17,7 @@ namespace DataCore.DAL.TableDirectModels
         public long Id { get; set; } = default;
         public string Name { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime ChangeDt { get; set; }
         public string RRefID { get; set; } = string.Empty;
         public bool IsMarked { get; set; } = false;
         [XmlIgnore]
@@ -61,7 +61,7 @@ namespace DataCore.DAL.TableDirectModels
                         Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
                         Name = SqlConnect.GetValueAsString(reader, "Name");
                         CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate");
-                        ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate");
+                        ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt");
                         RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID");
                         IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked");
                     }
@@ -123,7 +123,7 @@ namespace DataCore.DAL.TableDirectModels
                                 Id = SqlConnect.GetValueAsNotNullable<long>(reader, "Id"),
                                 Name = SqlConnect.GetValueAsString(reader, "Name"),
                                 CreateDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "CreateDate"),
-                                ModifiedDate = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ModifiedDate"),
+                                ChangeDt = SqlConnect.GetValueAsNotNullable<DateTime>(reader, "ChangeDt"),
                                 RRefID = SqlConnect.GetValueAsString(reader, "1CRRefID"),
                                 IsMarked = SqlConnect.GetValueAsNotNullable<bool>(reader, "Marked")
                             };

@@ -33,13 +33,13 @@
 //                                    {
 //                                        Id = i,
 //                                        CreateDate = dt,
-//                                        ModifiedDate = dt,
+//                                        ChangeDt = dt,
 //                                        Name = s,
 //                                        Description = s,
 //                                        Type = s,
 //                                        ImageData = TestsEnums.GetBytes().ToArray(),
 //                                        IdRRef = guid,
-//                                        Marked = b,
+//                                        IsMarked = b,
 //                                    };
 //                                    _ = entity.ToString();
 //                                    Assert.AreEqual(false, entityNew.Equals(entity));
@@ -64,7 +64,7 @@
 //                        Name = "TemplateResourcesEntity name",
 //                        Description = "TemplateResourcesEntity description",
 //                        CreateDate = DateTime.Now,
-//                        ModifiedDate = DateTime.Now,
+//                        ChangeDt = DateTime.Now,
 //                    };
 //                    DataAccessUtilsTests.DataAccess.Crud.SaveEntity(entity);
 

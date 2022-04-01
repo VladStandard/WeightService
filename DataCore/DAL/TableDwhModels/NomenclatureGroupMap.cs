@@ -12,8 +12,8 @@ namespace DataCore.DAL.TableDwhModels
             Table("[DW].[DimNomenclatureGroups]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-            Map(x => x.Dlm).CustomSqlType("DATETIME").Column("DLM").Not.Nullable();
+            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("DLM").Not.Nullable();
             Map(x => x.Name).CustomSqlType("NVARCHAR").Length(150).Column("Name").Nullable();
             Map(x => x.StatusId).CustomSqlType("INT").Column("StatusID").Not.Nullable();
             References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();

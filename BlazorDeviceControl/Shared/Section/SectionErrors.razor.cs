@@ -55,8 +55,8 @@ namespace BlazorDeviceControl.Shared.Section
                                         Items.Add(new ErrorEntity()
                                         {
                                             Id = id,
-                                            CreatedDate = Convert.ToDateTime(item[1]),
-                                            ModifiedDate = Convert.ToDateTime(item[2]),
+                                            CreateDt = Convert.ToDateTime(item[1]),
+                                            ChangeDt = Convert.ToDateTime(item[2]),
                                             FilePath = Convert.ToString(item[3]),
                                             LineNumber = Convert.ToInt32(item[4]),
                                             MemberName = Convert.ToString(item[5]),

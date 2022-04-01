@@ -12,8 +12,9 @@ namespace DataCore.DAL.TableScaleModels
             Table("[db_scales].[Scales]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-            Map(x => x.ModifiedDate).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
             References(x => x.TemplateDefault).Column("TemplateIdDefault").Not.Nullable();
             References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
             References(x => x.WorkShop).Column("WorkShopId").Not.Nullable();
@@ -33,7 +34,6 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.VerScalesUi).CustomSqlType("VARCHAR").Column("VerScalesUI").Length(30);
             Map(x => x.DeviceNumber).CustomSqlType("INT").Column("DeviceNumber");
             Map(x => x.ScaleFactor).CustomSqlType("INT").Column("ScaleFactor").Default("1000");
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
         }
     }
 }

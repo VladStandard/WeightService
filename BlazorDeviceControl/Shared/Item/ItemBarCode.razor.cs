@@ -40,12 +40,19 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeEntityV2>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Uid.ToString(), Uid } }), null);
-                        if (Uid != null && TableAction == DbTableAction.New)
+                        switch (TableAction)
                         {
-                            ItemCast.Uid = (Guid)Uid;
-                            ItemCast.Value = "NEW BARCODE";
+                            case DbTableAction.New:
+                                ItemCast = new();
+                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                                ItemCast.IsMarked = false;
+                                ItemCast.Value = "NEW BARCODE";
+                                break;
+                            default:
+                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeEntityV2>(
+                                    new FieldListEntity(new Dictionary<string, object?> 
+                                    { { DbField.Uid.ToString(), Uid } }), null);
+                                break;
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }

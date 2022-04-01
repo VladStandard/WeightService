@@ -12,11 +12,11 @@ namespace DataCore.DAL.TableScaleModels
             Table("[db_scales].[ZebraPrinterResourceRef]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
             References(x => x.Printer).Column("PrinterID").Not.Nullable();
             References(x => x.Resource).Column("ResourceID").Not.Nullable();
             Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150).Nullable();
-            Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-            Map(x => x.ModifiedDate).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
         }
     }
 }

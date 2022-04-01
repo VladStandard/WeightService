@@ -14,7 +14,7 @@ namespace DataCore.DAL.TableScaleModels
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             References(x => x.WeithingFact).Column("WeithingFactId").Not.Nullable();
             Map(x => x.Label).CustomSqlType("VARBINARY(MAX)").Column("Label").Nullable();
-            Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
             Map(x => x.Zpl).CustomSqlType("NVARCHAR(MAX)").Column("ZPL").Nullable();
         }
     }

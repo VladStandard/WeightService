@@ -34,7 +34,7 @@
 //                    {
 //                        Id = i,
 //                        CreateDate = dt,
-//                        ModifiedDate = dt,
+//                        ChangeDt = dt,
 //                        IdRRef = guid,
 //                        CategoryId = s,
 //                        Title = s,
@@ -61,7 +61,7 @@
 //                    TemplateEntity entity = new()
 //                    {
 //                        CreateDate = DateTime.Now,
-//                        ModifiedDate = DateTime.Now,
+//                        ChangeDt = DateTime.Now,
 //                        IdRRef = Guid.Empty,
 //                        CategoryId = string.Empty,
 //                        Title = title,

@@ -75,7 +75,7 @@ where [NAME]=@app
                     public static string GetErrors => @"
 SELECT [Id]
       ,[CreatedDate]
-      ,[ModifiedDate]
+      ,[ChangeDt]
       ,[FilePath]
       ,[LineNumber]
       ,[MemberName]
@@ -164,7 +164,7 @@ WHERE [Id]=@ID
 SELECT
 	[H].[Id]
    ,[H].[CreateDate]
-   ,[H].[ModifiedDate]
+   ,[H].[ChangeDt]
    ,[H].[ACCESS_DT]
    ,[H].[Name]
    ,[S].[Id] [SCALE_ID]
@@ -291,7 +291,7 @@ WHERE [id] = @scale_id
 select
 	 [s].[Id]
 	,[s].[CreateDate]
-	,[s].[ModifiedDate]
+	,[s].[ChangeDt]
 	,[s].[OrganizationId]
 	,[s].[Description]
 	,[s].[DeviceIP]
@@ -343,7 +343,7 @@ SET [Description] = @Description
 	,[DeviceComPort] = @ComPort
 	,[UseOrder] = @UseOrder
 	,[VerScalesUI] = @VerScalesUI
-	,[ModifiedDate] = GETDATE()
+	,[ChangeDt] = GETDATE()
 	,[ScaleFactor] = @ScaleFactor
 WHERE [Id] = @ID
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');

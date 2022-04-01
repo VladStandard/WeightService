@@ -33,7 +33,7 @@
 //                                        {
 //                                            Id = i,
 //                                            CreateDate = dt,
-//                                            ModifiedDate = dt,
+//                                            ChangeDt = dt,
 //                                            TemplateDefault = new TemplateEntity(),
 //                                            TemplateSeries = new TemplateEntity(),
 //                                            WorkShop = new WorkshopEntity(),

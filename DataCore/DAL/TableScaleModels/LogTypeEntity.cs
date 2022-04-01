@@ -71,7 +71,9 @@ namespace DataCore.DAL.TableScaleModels
             return new LogTypeEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Uid = Uid,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 Number = Number,
                 Icon = Icon,
             };

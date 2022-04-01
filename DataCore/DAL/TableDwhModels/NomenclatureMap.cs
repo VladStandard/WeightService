@@ -12,8 +12,10 @@ namespace DataCore.DAL.TableDwhModels
             Table("[DW].[DimNomenclatures]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
+            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("DLM").Not.Nullable();
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Nullable();
             Map(x => x.Code).CustomSqlType("NVARCHAR").Length(15).Column("Code").Nullable();
-            Map(x => x.Marked).CustomSqlType("BIT").Column("Marked").Nullable();
             Map(x => x.Name).CustomSqlType("NVARCHAR").Length(150).Column("Name").Nullable();
             Map(x => x.Parents).CustomSqlType("NVARCHAR").Length(1024).Column("Parents").Nullable();
             Map(x => x.Article).CustomSqlType("NVARCHAR").Length(25).Column("Article").Nullable();
@@ -38,8 +40,6 @@ namespace DataCore.DAL.TableDwhModels
             Map(x => x.PackTypeId).CustomSqlType("BINARY").Length(16).Column("packTypeID").Nullable();
             Map(x => x.PackTypeName).CustomSqlType("NVARCHAR").Length(200).Column("packTypeName").Nullable();
             Map(x => x.SerializedRepresentationObject).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
-            Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
-            Map(x => x.Dlm).CustomSqlType("DATETIME").Column("DLM").Not.Nullable();
             References(x => x.Status).Column("StatusID").Not.Nullable();
             References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();
             Map(x => x.CodeInIs).CustomSqlType("VARBINARY").Length(16).Column("CodeInIS").Not.Nullable();

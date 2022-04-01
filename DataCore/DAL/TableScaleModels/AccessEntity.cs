@@ -10,9 +10,6 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDt { get; set; }
-        public virtual DateTime ChangeDt { get; set; }
-        public virtual bool IsMarked { get; set; } = false;
         public virtual string User { get; set; } = string.Empty;
         public virtual byte Rights { get; set; } = 0;
 
@@ -33,9 +30,6 @@ namespace DataCore.DAL.TableScaleModels
         {
             return base.ToString() +
                    $"{nameof(Uid)}: {Uid}. " +
-                   $"{nameof(CreateDt)}: {CreateDt}. " +
-                   $"{nameof(ChangeDt)}: {ChangeDt}. " +
-                   $"{nameof(IsMarked)}: {IsMarked}. " +
                    $"{nameof(User)}: {User}. " +
                    $"{nameof(Rights)}: {Rights}. ";
         }
@@ -45,9 +39,6 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDt, entity.CreateDt) &&
-                   Equals(ChangeDt, entity.ChangeDt) &&
-                   Equals(IsMarked, entity.IsMarked) &&
                    Equals(User, entity.User) &&
                    Equals(Rights, entity.Rights);
         }
@@ -73,9 +64,6 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(CreateDt, default(DateTime)) &&
-                   Equals(ChangeDt, default(DateTime)) &&
-                   Equals(IsMarked, false) &&
                    Equals(User, string.Empty) &&
                    Equals(Rights, 0);
         }
@@ -85,7 +73,6 @@ namespace DataCore.DAL.TableScaleModels
             return new AccessEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Uid = Uid,
                 CreateDt = CreateDt,
                 ChangeDt = ChangeDt,
                 IsMarked = IsMarked,

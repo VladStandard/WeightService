@@ -42,10 +42,22 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == DbTableAction.New)
-                            ItemCast.Id = (int)Id;
+                        switch (TableAction)
+                        {
+                            case DbTableAction.New:
+                                ItemCast = new();
+                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                                ItemCast.IsMarked = false;
+                                ItemCast.Title = "NEW TEMPLATE";
+                                ItemCast.IdRRef = System.Guid.Empty;
+                                ItemCast.CategoryId = "300 dpi";
+                                ItemCast.ImageData.SetTemplateValue();
+                                break;
+                            default:
+                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?>{ { DbField.Id.ToString(), Id } }), null);
+                                break;
+                        }
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

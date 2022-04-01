@@ -38,10 +38,19 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == DbTableAction.New)
-                            ItemCast.Id = (long)Id;
+                        switch (TableAction)
+                        {
+                            case DbTableAction.New:
+                                ItemCast = new();
+                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                                ItemCast.Name = "NEW NOMENCLATURE";
+                                break;
+                            default:
+                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> 
+                                    { { DbField.Id.ToString(), Id } }), null);
+                                break;
+                        }
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

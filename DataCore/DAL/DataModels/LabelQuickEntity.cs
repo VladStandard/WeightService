@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.DAL.Utils;
 using System;
 using System.Text;
 
@@ -29,13 +30,13 @@ namespace DataCore.DAL.DataModels
         }
         public virtual string LabelInfo
         {
-            get => GetBytesLength(Label);
+            get => DataUtils.GetBytesLength(Label);
             set => _ = value;
         }
         public virtual string Zpl { get; set; } = string.Empty;
         public virtual string ZplInfo
         {
-            get => GetStringLength(Zpl);
+            get => DataUtils.GetStringLength(Zpl);
             set => _ = value;
         }
 
@@ -138,7 +139,7 @@ namespace DataCore.DAL.DataModels
                 TareWeight = TareWeight,
                 ProductDate = ProductDate,
                 RegNum = RegNum,
-                Label = CloneBytes(Label),
+                Label = DataUtils.CloneBytes(Label),
                 Zpl = Zpl,
             };
         }

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.DAL.Utils;
 using System;
 using System.Text;
 
@@ -14,28 +15,11 @@ namespace DataCore.DAL.TableScaleModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDate { get; set; } = default;
-        public virtual DateTime ModifiedDate { get; set; } = default;
         public virtual string CategoryId { get; set; } = string.Empty;
         public virtual Guid? IdRRef { get; set; }
         public virtual string Title { get; set; } = string.Empty;
-        public virtual byte[] ImageData { get; set; } = new byte[0];
-        public virtual string ImageDataStringAscii
-        {
-            get => ImageData == null || ImageData.Length == 0 ? string.Empty : Encoding.Default.GetString(ImageData);
-            set => ImageData = Encoding.Default.GetBytes(value);
-        }
-        public virtual string ImageDataStringUnicode
-        {
-            get => ImageData == null || ImageData.Length == 0 ? string.Empty : Encoding.Unicode.GetString(ImageData);
-            set => ImageData = Encoding.Unicode.GetBytes(value);
-        }
-        public virtual string ImageDataInfo
-        {
-            get => GetBytesLength(ImageData);
-            set => _ = value;
-        }
-        public virtual bool IsMarked { get; set; } = false;
+        public virtual ImageDataEntity ImageData { get; set; } = new();
+        public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
 
         #endregion
 
@@ -53,13 +37,10 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                   $"{nameof(CreateDate)}: {CreateDate}. " +
-                   $"{nameof(ModifiedDate)}: {ModifiedDate}. " +
                    $"{nameof(CategoryId)}: {CategoryId}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +
                    $"{nameof(Title)}: {Title}. " +
-                   $"{nameof(ImageDataInfo)}: {ImageDataInfo}. " +
-                   $"{nameof(IsMarked)}: {IsMarked}. ";
+                   $"{nameof(ImageData)}: {ImageData}. ";
         }
 
         public virtual bool Equals(TemplateEntity entity)
@@ -67,13 +48,10 @@ namespace DataCore.DAL.TableScaleModels
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
-                   Equals(CreateDate, entity.CreateDate) &&
-                   Equals(ModifiedDate, entity.ModifiedDate) &&
                    Equals(CategoryId, entity.CategoryId) &&
                    Equals(IdRRef, entity.IdRRef) &&
                    Equals(Title, entity.Title) &&
-                   Equals(ImageData, entity.ImageData) &&
-                   Equals(IsMarked, entity.IsMarked);
+                   Equals(ImageData, entity.ImageData);
         }
 
         public override bool Equals(object obj)
@@ -97,13 +75,10 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ModifiedDate, default(DateTime)) &&
                    Equals(CategoryId, default(string)) &&
                    Equals(IdRRef, default(Guid?)) &&
                    Equals(Title, default(string)) &&
-                   Equals(ImageData, default(byte[])) &&
-                   Equals(IsMarked, false);
+                   Equals(ImageData, new());
         }
 
         public override object Clone()
@@ -111,14 +86,13 @@ namespace DataCore.DAL.TableScaleModels
             return new TemplateEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
-                CreateDate = CreateDate,
-                ModifiedDate = ModifiedDate,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 CategoryId = CategoryId,
                 IdRRef = IdRRef,
                 Title = Title,
-                ImageData = CloneBytes(ImageData),
-                IsMarked = IsMarked,
+                ImageData = new(ImageData.Value),
             };
         }
 

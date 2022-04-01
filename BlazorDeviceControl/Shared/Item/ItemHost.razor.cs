@@ -38,15 +38,22 @@ namespace BlazorDeviceControl.Shared.Item
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.Id.ToString(), Id } }), null);
-                        if (Id != null && TableAction == DbTableAction.New)
+                        switch (TableAction)
                         {
-                            ItemCast.Id = (int)Id;
-                            ItemCast.Name = "NEW HOST";
-                            ItemCast.IdRRef = System.Guid.NewGuid();
-                            ItemCast.Ip = "127.0.0.1";
-                            ItemCast.MacAddress.Default();
+                            case DbTableAction.New:
+                                ItemCast = new();
+                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                                ItemCast.IsMarked = false;
+                                ItemCast.IdRRef = System.Guid.Empty;
+                                ItemCast.Name = "NEW HOST";
+                                ItemCast.Ip = "127.0.0.1";
+                                ItemCast.MacAddress.Default();
+                                break;
+                            default:
+                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> 
+                                    { { DbField.Id.ToString(), Id } }), null);
+                                break;
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }

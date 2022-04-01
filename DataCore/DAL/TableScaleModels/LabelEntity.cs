@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.DAL.Utils;
 using System;
 using System.Text;
 
@@ -15,7 +16,6 @@ namespace DataCore.DAL.TableScaleModels
         #region Public and private fields and properties
 
         public virtual WeithingFactEntity WeithingFact { get; set; } = new WeithingFactEntity();
-        public virtual DateTime CreateDate { get; set; } = default;
         public virtual byte[] Label { get; set; } = new byte[0];
         public virtual string LabelString
         {
@@ -24,13 +24,13 @@ namespace DataCore.DAL.TableScaleModels
         }
         public virtual string LabelInfo
         {
-            get => GetBytesLength(Label);
+            get => DataUtils.GetBytesLength(Label);
             set => _ = value;
         }
         public virtual string Zpl { get; set; } = string.Empty;
         public virtual string ZplInfo
         {
-            get => GetStringLength(Zpl);
+            get => DataUtils.GetStringLength(Zpl);
             set => _ = value;
         }
 
@@ -53,8 +53,7 @@ namespace DataCore.DAL.TableScaleModels
             return base.ToString() +
                    $"{nameof(WeithingFact)}: {strWeithingFact}. " +
                    $"{nameof(Label)}: {LabelString}. " +
-                   $"{nameof(Zpl)}: {ZplInfo}. " +
-                   $"{nameof(CreateDate)}: {CreateDate}. ";
+                   $"{nameof(Zpl)}: {ZplInfo}. ";
         }
 
         public virtual bool Equals(LabelEntity entity)
@@ -63,7 +62,6 @@ namespace DataCore.DAL.TableScaleModels
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
                    WeithingFact.Equals(entity.WeithingFact) &&
-                   Equals(CreateDate, entity.CreateDate) &&
                    Equals(Label, entity.Label) &&
                    Equals(Zpl, entity.Zpl);
         }
@@ -91,7 +89,6 @@ namespace DataCore.DAL.TableScaleModels
             if (WeithingFact != null && !WeithingFact.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(CreateDate, default(DateTime)) &&
                    Equals(Label, default(byte[])) &&
                    Equals(Zpl, default(string));
         }
@@ -102,10 +99,11 @@ namespace DataCore.DAL.TableScaleModels
             return new LabelEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
                 WeithingFact = (WeithingFactEntity)WeithingFact.Clone(),
-                CreateDate = CreateDate,
-                Label = CloneBytes(Label),
+                Label = DataUtils.CloneBytes(Label),
                 Zpl = Zpl,
             };
         }

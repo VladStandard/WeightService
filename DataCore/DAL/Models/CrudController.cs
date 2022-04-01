@@ -46,8 +46,8 @@ namespace DataCore.DAL.Models
             ErrorEntity error = new()
             {
                 Id = idLast + 1,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now,
+                CreateDt = DateTime.Now,
+                ChangeDt = DateTime.Now,
                 FilePath = filePath,
                 LineNumber = lineNumber,
                 MemberName = memberName,
@@ -718,6 +718,12 @@ namespace DataCore.DAL.Models
                         session.Save(printerType);
                     }, filePath, lineNumber, memberName);
                     break;
+                case TemplateEntity template:
+                    ExecuteTransaction((session) =>
+                    {
+                        session.Save(template);
+                    }, filePath, lineNumber, memberName);
+                    break;
             }
         }
 
@@ -759,7 +765,7 @@ namespace DataCore.DAL.Models
                     ExecuteTransaction((session) => { session.SaveOrUpdate(label); }, filePath, lineNumber, memberName);
                     break;
                 case OrderEntity order:
-                    order.ModifiedDate = DateTime.Now;
+                    order.ChangeDt = DateTime.Now;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(order); }, filePath, lineNumber, memberName);
                     break;
                 case OrderStatusEntity orderStatus:
@@ -778,30 +784,30 @@ namespace DataCore.DAL.Models
                     ExecuteTransaction((session) => { session.SaveOrUpdate(productSeries); }, filePath, lineNumber, memberName);
                     break;
                 case ScaleEntity scale:
-                    scale.ModifiedDate = DateTime.Now;
+                    scale.ChangeDt = DateTime.Now;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(scale); }, filePath, lineNumber, memberName);
                     break;
                 case TemplateEntity template:
-                    template.ModifiedDate = DateTime.Now;
+                    template.ChangeDt = DateTime.Now;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(template); }, filePath, lineNumber, memberName);
                     break;
                 case TemplateResourceEntity templateResource:
-                    templateResource.ModifiedDate = DateTime.Now;
+                    templateResource.ChangeDt = DateTime.Now;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(templateResource); }, filePath, lineNumber, memberName);
                     break;
                 case WeithingFactEntity weithingFact:
                     ExecuteTransaction((session) => { session.SaveOrUpdate(weithingFact); }, filePath, lineNumber, memberName);
                     break;
                 case WorkshopEntity workshop:
-                    workshop.ModifiedDate = DateTime.Now;
+                    workshop.ChangeDt = DateTime.Now;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(workshop); }, filePath, lineNumber, memberName);
                     break;
                 case PrinterEntity printer:
-                    printer.ModifiedDate = DateTime.Now;
+                    printer.ChangeDt = DateTime.Now;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(printer); }, filePath, lineNumber, memberName);
                     break;
                 case PrinterResourceEntity printerResource:
-                    printerResource.ModifiedDate = DateTime.Now;
+                    printerResource.ChangeDt = DateTime.Now;
                     ExecuteTransaction((session) => { session.SaveOrUpdate(printerResource); }, filePath, lineNumber, memberName);
                     break;
                 case PrinterTypeEntity printerType:
@@ -995,7 +1001,7 @@ namespace DataCore.DAL.Models
 
         #endregion
 
-        #region Public and private methods - HostEntity
+        #region Public and private methods
 
         public List<HostEntity> GetFreeHosts(long? id, bool? isMarked,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")

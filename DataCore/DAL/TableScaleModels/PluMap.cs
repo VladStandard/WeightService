@@ -12,8 +12,9 @@ namespace DataCore.DAL.TableScaleModels
             Table("[db_scales].[PLU]");
             LazyLoad();
             Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
-            Map(x => x.CreateDate).CustomSqlType("DATETIME").Column("CreateDate").Nullable();
-            Map(x => x.ModifiedDate).CustomSqlType("DATETIME").Column("ModifiedDate").Nullable();
+            Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Nullable();
+            Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Nullable();
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
             References(x => x.Template).Column("TemplateID").Nullable();
             References(x => x.Scale).Column("ScaleId").Not.Nullable();
             References(x => x.Nomenclature).Column("NomenclatureId").Not.Nullable();
@@ -32,7 +33,6 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.NominalWeight).CustomSqlType("DECIMAL(10,3)").Column("NominalWeight").Nullable();
             Map(x => x.LowerWeightThreshold).CustomSqlType("DECIMAL(10,3)").Column("LowerWeightThreshold").Nullable();
             Map(x => x.CheckWeight).CustomSqlType("BIT").Column("CheckWeight").Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
         }
     }
 }

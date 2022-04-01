@@ -70,8 +70,10 @@ namespace DataCore.DAL.TableScaleModels
             return new OrderTypeEntity
             {
                 PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                Id = Id,
-                Description = Description
+                CreateDt = CreateDt,
+                ChangeDt = ChangeDt,
+                IsMarked = IsMarked,
+                Description = Description,
             };
         }
 
