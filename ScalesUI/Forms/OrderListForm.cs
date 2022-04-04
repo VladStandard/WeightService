@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using WeightCore.Helpers;
 
@@ -91,7 +92,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void AddRow(int i)
+        private void AddRow(int i, [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -103,11 +104,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
         }
 
-        private void NewButton(TableLayoutPanel panel, int offset, int i, OrderDirect order)
+        private void NewButton(TableLayoutPanel panel, int offset, int i, OrderDirect order,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -130,7 +132,7 @@ namespace ScalesUI.Forms
                 {
                     SessionState.CurrentOrder = OrdList[btn.TabIndex];
                     SessionState.CurrentOrder.LoadTemplate();
-                    SessionState.CurrentPlu = SessionState.CurrentOrder.PLU;
+                    SessionState.SetCurrentPlu(SessionState.CurrentOrder.PLU);
                     //ws.CurrentPLU.LoadTemplate();
                     //_sessionState.WeightTare = (int)( _sessionState.CurrentOrder.PLU.GoodsTareWeight * _sessionState.CurrentPLU.);
                     //_sessionState.WeightReal = 0;
@@ -141,11 +143,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
         }
 
-        private void DropButtons(TableLayoutPanel panel)
+        private void DropButtons(TableLayoutPanel panel,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -153,11 +156,12 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
         }
 
-        private void GetPage(TableLayoutPanel panel, int offset = 0, int rowCount = 10)
+        private void GetPage(TableLayoutPanel panel, int offset = 0, int rowCount = 10,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -183,7 +187,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
         }
 

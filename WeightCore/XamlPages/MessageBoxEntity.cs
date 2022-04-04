@@ -85,7 +85,7 @@ namespace WeightCore.XamlPages
         public string ButtonYes
         {
             get => _buttonYes;
-            set
+            private set
             {
                 _buttonYes = value;
                 OnPropertyChanged();
@@ -95,7 +95,7 @@ namespace WeightCore.XamlPages
         public string ButtonRetry
         {
             get => _buttonRetry;
-            set
+            private set
             {
                 _buttonRetry = value;
                 OnPropertyChanged();
@@ -105,7 +105,7 @@ namespace WeightCore.XamlPages
         public string ButtonNo
         {
             get => _buttonNo;
-            set
+            private set
             {
                 _buttonNo = value;
                 OnPropertyChanged();
@@ -115,7 +115,7 @@ namespace WeightCore.XamlPages
         public string ButtonIgnore
         {
             get => _buttonIgnore;
-            set
+            private set
             {
                 _buttonIgnore = value;
                 OnPropertyChanged();
@@ -125,7 +125,7 @@ namespace WeightCore.XamlPages
         public string ButtonCancel
         {
             get => _buttonCancel;
-            set
+            private set
             {
                 _buttonCancel = value;
                 OnPropertyChanged();
@@ -135,7 +135,7 @@ namespace WeightCore.XamlPages
         public string ButtonAbort
         {
             get => _buttonAbort;
-            set
+            private set
             {
                 _buttonAbort = value;
                 OnPropertyChanged();
@@ -145,7 +145,7 @@ namespace WeightCore.XamlPages
         public string ButtonOk
         {
             get => _buttonOk;
-            set
+            private set
             {
                 _buttonOk = value;
                 OnPropertyChanged();

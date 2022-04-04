@@ -4,6 +4,7 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using WeightCore.Helpers;
 
 namespace WeightCore.Gui
 {
@@ -13,6 +14,7 @@ namespace WeightCore.Gui
 
         private ushort UnlockCode => (ushort)(DateTime.Now.Hour * 100 + DateTime.Now.Minute);
         private ushort UserCode { get; set; } = 0;
+        private DebugHelper Debug { get; set; } = DebugHelper.Instance;
 
         #endregion
 
@@ -21,6 +23,7 @@ namespace WeightCore.Gui
         public PasswordForm()
         {
             InitializeComponent();
+            TopMost = !Debug.IsDebug;
         }
 
         #endregion

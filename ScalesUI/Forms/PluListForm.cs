@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
@@ -67,7 +68,8 @@ namespace ScalesUI.Forms
             }
         }
 
-        private Control[,] CreateControls(IReadOnlyList<PluDirect> pluEntities, int x, int y)
+        private Control[,] CreateControls(IReadOnlyList<PluDirect> pluEntities, int x, int y,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             Control[,] controls = new Control[x, y];
             try
@@ -85,12 +87,13 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
             return controls;
         }
 
-        private Control CreateNewControl(PluDirect plu, int pageNumber, int i)
+        private Control CreateNewControl(PluDirect plu, int pageNumber, int i,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             Button button = null;
             try
@@ -128,7 +131,7 @@ namespace ScalesUI.Forms
                     Dock = DockStyle.None,
                     Left = 3,
                     Top = 3,
-                    BackColor = plu.CheckWeight == false
+                    BackColor = plu.IsCheckWeight == false
                         ? Color.FromArgb(255, 255, 92, 92)
                         : Color.FromArgb(255, 92, 255, 92),
                     BorderStyle = BorderStyle.FixedSingle,
@@ -144,14 +147,14 @@ namespace ScalesUI.Forms
                 Label labelCount = new()
                 {
                     Font = new Font("Arial", 20, FontStyle.Bold),
-                    Text = plu.CheckWeight == false ? @"шт" : @"вес",
+                    Text = plu.IsCheckWeight == false ? @"шт" : @"вес",
                     TextAlign = ContentAlignment.MiddleCenter,
                     Parent = button,
                     Size = new Size((int)(PluListGrid.Height * mashtabW), (int)(PluListGrid.Height * mashtabH)),
                     Dock = DockStyle.None,
                     Left = label.Width + 15,
                     Top = 3,
-                    BackColor = plu.CheckWeight == false
+                    BackColor = plu.IsCheckWeight == false
                         ? Color.FromArgb(255, 255, 92, 92)
                         : Color.FromArgb(255, 92, 255, 92),
                     BorderStyle = BorderStyle.FixedSingle,
@@ -164,7 +167,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
             return button;
         }
@@ -192,7 +195,7 @@ namespace ScalesUI.Forms
                     tabIndex = control.TabIndex;
                 if (OrderList?.Count >= tabIndex)
                 {
-                    SessionState.CurrentPlu = OrderList[tabIndex];
+                    SessionState.SetCurrentPlu(OrderList[tabIndex]);
                     SessionState.CurrentPlu.LoadTemplate();
                     //_sessionState.WeightTare = (int)(_sessionState.CurrentPLU.GoodsTareWeight * _sessionState.Calibre);
                     //_sessionState.WeightReal = 0;

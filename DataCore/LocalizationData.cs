@@ -445,6 +445,8 @@ namespace DataCore
             public static List<string> ListResolutions => Lang == ShareEnums.Lang.English
                 ? new List<string> { "Maximum", "1024x768", "1366x768", "1600x1024", "1920x1080" }
                 : new List<string> { "Максимальное", "1024x768", "1366x768", "1600x1024", "1920x1080" };
+            public static string DeviceControlIsPreview => Lang == ShareEnums.Lang.English 
+                ? "Open a preview-version of device management?" : "Открыть превью-версию управления устройствами?";
             public static string ProgramLoad => Lang == ShareEnums.Lang.English ? "Loading the program ..." : "Загрузка программы ...";
             public static string ProgramExit => Lang == ShareEnums.Lang.English ? "Ending the program ..." : "Завершение программы ...";
             public static string Exception => Lang == ShareEnums.Lang.English ? "Exception" : "Ошибка";
@@ -466,34 +468,44 @@ namespace DataCore
                     "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
             public static string OperationControl => Lang == ShareEnums.Lang.English ? "Control of operations" : "Контроль операций";
             public static readonly decimal MassaThreshold = 0.05M;
-            public static string MassaCheck(decimal currentWeight) => Lang == ShareEnums.Lang.English
+            public static string CheckWeightBefore(decimal currentWeight) => Lang == ShareEnums.Lang.English
                 ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine +
                  $"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine +
-                 $"Current gross value: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
-                 $"  {Buttons.Yes} - continue." + Environment.NewLine +
-                 $"  {Buttons.No} - suspend."
+                 $"Current gross value: {currentWeight:0.000} {UnitKg}."
                 : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine +
                  $"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine +
-                 $"Текущее значение брутто: {currentWeight:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
-                 $"  {Buttons.Yes} - продолжить." + Environment.NewLine +
-                 $"  {Buttons.No} - приостановить.";
-            public static string MassaCheckBeforePrint(decimal currentNet) => Lang == ShareEnums.Lang.English
-                ? "For products by weight, put the product on the scale!" + Environment.NewLine + Environment.NewLine +
-                 $"Current net value: {currentNet:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
-                 $"  {Buttons.Yes} - continue." + Environment.NewLine +
-                 $"  {Buttons.No} - suspend."
-                : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + Environment.NewLine +
-                 $"Текущее значение нетто: {currentNet:0.000} {UnitKg}." + Environment.NewLine + Environment.NewLine +
-                 $"  {Buttons.Yes} - продолжить." + Environment.NewLine +
-                 $"  {Buttons.No} - приостановить.";
+                 $"Текущее значение брутто: {currentWeight:0.000} {UnitKg}.";
+            public static string CheckWeightIsEmpty() => Lang == ShareEnums.Lang.English
+                ? "For products by weight, put the product on the scale!" + Environment.NewLine + $"Label printing is not possible!"
+                : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + $"Печать этикетки невозможна!";
+            public static string PluIsEmpty => Lang == ShareEnums.Lang.English ? "PLU not selected!" : "Не выбрана PLU!";
+            public static string CheckWeightThresholds(decimal currentNet,
+                decimal upperWeightThreshold, decimal lowerWeightThreshold) => Lang == ShareEnums.Lang.English
+                ? WeightingControl + Environment.NewLine +
+                    $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine +
+                    $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine +
+                    $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine +
+                    $"Label printing is not possible!"
+                : WeightingControl + Environment.NewLine +
+                    $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine +
+                    $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine +
+                    $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine +
+                    $"Печать этикетки невозможна!";
+            public static string CheckWeightThreshold(decimal weightNet) => Lang == ShareEnums.Lang.English
+                ? WeightingControl + Environment.NewLine +
+                    $"Product weight: {weightNet:0.000} {UnitKg}" + Environment.NewLine +
+                    $"Label printing is not possible!"
+                : WeightingControl + Environment.NewLine +
+                    $"Вес продукта: {weightNet:0.000} {UnitKg}" + Environment.NewLine +
+                    $"Печать этикетки невозможна!";
             public static string PrinterWarningOpenCover => Lang == ShareEnums.Lang.English
                 ? "Open the cover of the separator before proceeding with the calibration!"
                 : "Прежде чем продолжить калибровку, откройте крышку отделителя!";
             public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English
                 ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator."
                 : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
-            public static string MassaNotQuering => Lang == ShareEnums.Lang.English
-                ? "Massa-K scales are not respond!" : "Весы Масса-К не отвечают!";
+            public static string MassaNotQuering => Lang == ShareEnums.Lang.English ? "Massa-K scales are not respond!" : "Весы Масса-К не отвечают!";
+            public static string MassaNotFound => Lang == ShareEnums.Lang.English ? "The device of the scales has not been found!" : "Устройство весов не обнаружено!";
             public static string IsNotLoaded => Lang == ShareEnums.Lang.English
                 ? "The program is not yet loaded!" + Environment.NewLine + "Wait for it..."
                 : "Программа ещё не загружена!" + Environment.NewLine + "Подождите...";

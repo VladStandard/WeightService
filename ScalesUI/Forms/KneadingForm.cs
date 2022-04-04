@@ -3,6 +3,7 @@
 
 using DataCore;
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using WeightCore.Gui;
 using WeightCore.Helpers;
@@ -59,7 +60,7 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void ShowProductDate()
+        private void ShowProductDate([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -67,11 +68,11 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
         }
 
-        private void GuiUpdate()
+        private void GuiUpdate([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -79,7 +80,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
         }
 
@@ -137,7 +138,7 @@ namespace ScalesUI.Forms
             if (SessionState.CurrentPlu == null)
                 return;
 
-            if (SessionState.CurrentPlu.CheckWeight == true && SessionState.LabelsCount > 1)
+            if (SessionState.CurrentPlu.IsCheckWeight == true && SessionState.LabelsCount > 1)
             {
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
@@ -261,7 +262,8 @@ namespace ScalesUI.Forms
             SetLabelsCount(1);
         }
         
-        private void SetLabelsCount(int count)
+        private void SetLabelsCount(int count,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -270,7 +272,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
         }
         

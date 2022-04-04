@@ -4,6 +4,7 @@
 using DataCore;
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
@@ -41,7 +42,8 @@ namespace WeightCore.Gui
 
         public WpfPageLoader(ProjectsEnums.Page page, bool useOwnerSize, FormBorderStyle formBorderStyle = FormBorderStyle.None, 
             double fontSizeCaption = 30, double fontSizeMessage = 26, double fontSizeButton = 22,
-            ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1) : this()
+            ushort sizeCaption = 1, ushort sizeMessage = 5, ushort sizeButton = 1,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") : this()
         {
             try
             {
@@ -57,7 +59,7 @@ namespace WeightCore.Gui
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, false);
+                Exception.Catch(this, ref ex, false, filePath, lineNumber, memberName);
             }
         }
 
@@ -168,8 +170,10 @@ namespace WeightCore.Gui
                         }
                         break;
                     case ProjectsEnums.Page.Default:
+                    case ProjectsEnums.Page.MessageBox:
                     default:
-                        DialogResult = DialogResult.Cancel;
+                        DialogResult = MessageBox.Result;
+                        //DialogResult = DialogResult.Cancel;
                         break;
                 }
             }

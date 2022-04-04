@@ -33,7 +33,7 @@ namespace WeightCore.Managers
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
-            Open(sqlViewModel,
+            Open(sqlViewModel, false,
             () =>
             {
                 MemorySize.Open();

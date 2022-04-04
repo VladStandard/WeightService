@@ -11,11 +11,11 @@ namespace DataCore.DAL.TableDwhModels
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; }
-        public virtual string Code { get; set; }
-        public virtual int StatusId { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Code { get; set; } = string.Empty;
+        public virtual int StatusId { get; set; } = 0;
         public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
-        public virtual byte[] CodeInIs { get; set; }
+        public virtual byte[] CodeInIs { get; set; } = new byte[0x00];
 
         #endregion
 

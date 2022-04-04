@@ -55,9 +55,9 @@ namespace WeightCore.Managers
             5_000, 250, 500, 3_000, 1_000);
         }
 
-        public void Open(SqlViewModelEntity sqlViewModel)
+        public void Open(SqlViewModelEntity sqlViewModel, bool isCheckWeight)
         {
-            Open(sqlViewModel,
+            Open(sqlViewModel, isCheckWeight,
             () =>
             {
                 MassaDevice?.Open();

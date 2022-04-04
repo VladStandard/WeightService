@@ -10,6 +10,7 @@ using System;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using WeightCore.Gui;
@@ -324,7 +325,7 @@ namespace ScalesUI.Forms
 
         #region Private methods - Кнопки по умолчанию
 
-        private void DefaultComPortName()
+        private void DefaultComPortName([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -363,7 +364,7 @@ namespace ScalesUI.Forms
             }
             catch (Exception ex)
             {
-                Exception.Catch(this, ref ex, true);
+                Exception.Catch(this, ref ex, true, filePath, lineNumber, memberName);
             }
             finally
             {

@@ -206,22 +206,22 @@ namespace DataCore.DAL.TableDirectModels
         //    }
         //}
 
-        public WeighingFactDirect New(ScaleDirect scale, PluDirect plu, DateTime productDate, int kneadingNumber,
-            int? scaleFactor, decimal netWeight, decimal tareWeight)
-        {
-            WeighingFactDirect weighingFact = new()
-            {
-                ScaleId = scale.Id,
-                ScaleFactor = scaleFactor,
-                Scale = scale,
-                PLU = plu,
-                ProductDate = productDate,
-                KneadingNumber = kneadingNumber,
-                NetWeight = netWeight,
-                TareWeight = tareWeight
-            };
-            return weighingFact;
-        }
+        //public WeighingFactDirect New(ScaleDirect scale, PluDirect plu, DateTime productDate, int kneadingNumber,
+        //    int? scaleFactor, decimal netWeight, decimal tareWeight)
+        //{
+        //    WeighingFactDirect weighingFact = new()
+        //    {
+        //        ScaleId = scale.Id,
+        //        ScaleFactor = scaleFactor,
+        //        Scale = scale,
+        //        PLU = plu,
+        //        ProductDate = productDate,
+        //        KneadingNumber = kneadingNumber,
+        //        NetWeight = netWeight,
+        //        TareWeight = tareWeight
+        //    };
+        //    return weighingFact;
+        //}
 
         #endregion
     }

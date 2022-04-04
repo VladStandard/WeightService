@@ -30,9 +30,17 @@ namespace WeightCore.MassaK
             // сюда надо вставить логику
             int i = 6;
             using MemoryStream memStream = new();
-            while (response.Length > i || response[i] != 0x0D)
+
+            //while (response.Length > i || response[i] != 0x0D)
+            //{
+            //    memStream.WriteByte(response[i++]);
+            //}
+            while (response.Length > i)
             {
-                memStream.WriteByte(response[i++]);
+                i++;
+                if (response.Length <= i || response[i] == 0x0D)
+                    break;
+                memStream.WriteByte(response[i]);
             }
 
             P_Max = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
@@ -45,9 +53,19 @@ namespace WeightCore.MassaK
                 i++;
             memStream.SetLength(0);
 
-            while (response[i] != 0x0D)
+            //while (response[i] != 0x0D)
+            //{
+            //    memStream.WriteByte(response[i++]);
+            //}
+            if (response.Length > i)
             {
-                memStream.WriteByte(response[i++]);
+                while (response[i] != 0x0D)
+                {
+                    i++;
+                    if (response.Length <= i || response[i] == 0x0D)
+                        break;
+                    memStream.WriteByte(response[i]);
+                }
             }
             P_Min = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
             i++; // пропустим 0x0D

@@ -14,7 +14,7 @@ namespace WeightCore.Managers
 
         public ManagerMassa Massa { get; private set; } = new ManagerMassa();
         public ManagerMemory Memory { get; private set; } = new ManagerMemory();
-        public ManagerPrintV2 Print { get; private set; } = new ManagerPrintV2();
+        public ManagerPrint Print { get; private set; } = new ManagerPrint();
 
         #endregion
 
@@ -43,17 +43,17 @@ namespace WeightCore.Managers
             Print.Init(printBrand, currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
         }
 
-        public void Open(SqlViewModelEntity sqlViewModel)
+        public void Open(SqlViewModelEntity sqlViewModel, bool isCheckWeight)
         {
             Open();
-            Massa.Open(sqlViewModel);
+            Massa.Open(sqlViewModel, isCheckWeight);
             Memory.Open(sqlViewModel);
             Print.Open(sqlViewModel);
         }
 
-        public void OpenMassa(SqlViewModelEntity sqlViewModel)
+        public void OpenMassa(SqlViewModelEntity sqlViewModel, bool isCheckWeight)
         {
-            Massa.Open(sqlViewModel);
+            Massa.Open(sqlViewModel, isCheckWeight);
         }
 
         public void OpenMemory(SqlViewModelEntity sqlViewModel)

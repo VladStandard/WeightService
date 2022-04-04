@@ -118,7 +118,7 @@ SELECT @ID";
             using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
-                string query = "SELECT [Id],[Name],[CreateDate],[ChangeDt],[1CRRefID] FROM [db_scales].[GetProductionFacility] (default);";
+                string query = "SELECT [Id],[Name],[CreateDate],[ModifiedDate],[IdRRef] FROM [db_scales].[GetProductionFacility] (default);";
                 using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;

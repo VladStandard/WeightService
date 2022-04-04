@@ -48,7 +48,7 @@ namespace DataCore.DAL.TableDirectModels
         /// <summary>
         /// Весовая продукция.
         /// </summary>
-        public bool? CheckWeight { get; set; }
+        public bool IsCheckWeight { get; set; }
         /// <summary>
         /// ID шаблона.
         /// </summary>
@@ -225,7 +225,7 @@ from [db_scales].[GetPLUByID] (@ScaleID, @PLU)
                         UpperWeightThreshold = SqlConnect.GetValueAsNotNullable<decimal>(reader, "UpperWeightThreshold");
                         NominalWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "NominalWeight");
                         LowerWeightThreshold = SqlConnect.GetValueAsNotNullable<decimal>(reader, "LowerWeightThreshold");
-                        CheckWeight = SqlConnect.GetValueAsNotNullable<bool>(reader, "CheckWeight");
+                        IsCheckWeight = SqlConnect.GetValueAsNotNullable<bool>(reader, "CheckWeight");
                     }
                 }
                 reader.Close();
@@ -301,7 +301,7 @@ order by [PLU]
                                     UpperWeightThreshold = SqlConnect.GetValueAsNotNullable<decimal>(reader, "UpperWeightThreshold"),
                                     NominalWeight = SqlConnect.GetValueAsNotNullable<decimal>(reader, "NominalWeight"),
                                     LowerWeightThreshold = SqlConnect.GetValueAsNotNullable<decimal>(reader, "LowerWeightThreshold"),
-                                    CheckWeight = SqlConnect.GetValueAsNotNullable<bool>(reader, "CheckWeight")
+                                    IsCheckWeight = SqlConnect.GetValueAsNotNullable<bool>(reader, "CheckWeight")
                                 };
                                 result.Add(pluEntity);
                             }

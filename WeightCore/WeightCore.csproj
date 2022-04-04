@@ -363,8 +363,8 @@
     <Compile Include="Helpers\XamlHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Managers\ManagerBase.cs" />
-    <Compile Include="Managers\ManagerPrintV2.cs" />
     <Compile Include="Managers\ManagerPrint.cs" />
+    <Compile Include="Managers\ManagerPrintDeprecated.cs" />
     <Compile Include="Managers\ManagerMassa.cs" />
     <Compile Include="Managers\ManagerMemory.cs" />
     <Compile Include="Managers\ManagerHelper.cs" />
@@ -384,7 +384,6 @@
     <Compile Include="Models\WindowResolution.cs" />
     <Compile Include="Models\XmlTag.cs" />
     <Compile Include="Print\Native\RawPrinterHelper.cs" />
-    <Compile Include="Print\PrintManagerEntityBackup.cs" />
     <Compile Include="Print\Tsc\TscLib.cs" />
     <Compile Include="Print\Zebra\DeviceEntity.cs" />
     <Compile Include="Print\Zebra\DeviceSocketRaw.cs" />

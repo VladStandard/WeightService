@@ -106,14 +106,16 @@ namespace DataCore.DAL.Utils
 
             XDocument doc = XDocument.Load(FilePathToken);
             Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
-            //string EncryptConnectionString = doc.Root.Elements("EncryptConnectionString").First().Value;
-            //string connectionString = EncryptDecryptUtils.Decrypt(EncryptConnectionString);
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref },
             };
 
             bool result = default;
-            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, delegate (SqlDataReader reader)
+            //SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, delegate (SqlDataReader reader)
+            //{
+            //    result = reader.Read();
+            //});
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, (SqlDataReader reader) => 
             {
                 result = reader.Read();
             });

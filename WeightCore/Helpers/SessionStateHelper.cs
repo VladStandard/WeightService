@@ -8,6 +8,7 @@ using DataCore.DAL.TableDirectModels;
 using DataCore.DAL.Utils;
 using MvvmHelpers;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
@@ -57,7 +58,7 @@ namespace WeightCore.Helpers
             ? PrintBrand.TSC : PrintBrand.Zebra;
 
         [XmlElement(IsNullable = true)]
-        public WeighingFactDirect CurrentWeighingFact { get; set; }
+        public WeighingFactDirect CurrentWeighingFact { get; private set; }
 
         private int _currentPage;
         /// <summary>
@@ -88,6 +89,7 @@ namespace WeightCore.Helpers
             }
         }
         public RoutedEventHandler WpfPageLoader_OnClose { get; set; }
+        public bool IsCheckWeight => CurrentPlu != null ? CurrentPlu.IsCheckWeight : false;
 
         #endregion
 
@@ -180,19 +182,7 @@ namespace WeightCore.Helpers
             ProductSeries.New();
             if (Manager == null || Manager.Print == null)
                 return;
-            Manager.Print.ClearPrintBuffer(PrintBrand);
-            switch (PrintBrand)
-            {
-                case PrintBrand.Default:
-                    break;
-                case PrintBrand.Zebra:
-                    Manager.Print.SetOdometorUserLabel(1);
-                    break;
-                case PrintBrand.TSC:
-                    break;
-                default:
-                    break;
-            }
+            //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
         }
 
         #endregion
@@ -210,19 +200,7 @@ namespace WeightCore.Helpers
                 _kneading = value;
                 if (Manager == null || Manager.Print == null)
                     return;
-                Manager.Print.ClearPrintBuffer(PrintBrand);
-                switch (PrintBrand)
-                {
-                    case PrintBrand.Default:
-                        break;
-                    case PrintBrand.Zebra:
-                        break;
-                    case PrintBrand.TSC:
-                        Manager.Print.SetOdometorUserLabel(LabelsCurrent);
-                        break;
-                    default:
-                        break;
-                }
+                //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
             }
         }
 
@@ -258,7 +236,6 @@ namespace WeightCore.Helpers
                 _productDate = value;
                 if (Manager == null || Manager.Print == null)
                     return;
-                Manager.Print.ClearPrintBuffer(PrintBrand);
             }
         }
 
@@ -287,25 +264,187 @@ namespace WeightCore.Helpers
         public PluDirect CurrentPlu
         {
             get => _currentPlu;
-            set
+            private set
             {
                 _currentPlu = value;
                 LabelsCurrent = 1;
                 if (Manager == null || Manager.Print == null)
                     return;
-                // если ПЛУ изменился - чистим очередь печати
-                Manager.Print.ClearPrintBuffer(PrintBrand);
-                Manager.Print.SetOdometorUserLabel(1);
+                //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
             }
+        }
+
+        public void SetCurrentPlu(PluDirect plu)
+        {
+            if (CurrentPlu != plu)
+                CurrentPlu = plu;
+        }
+
+        public void ClearCurrentPlu()
+        {
+            if (CurrentPlu != null)
+                CurrentPlu = null;
         }
 
         #endregion
 
         #region PrintMethods
 
-        public void PrintLabel(IWin32Window owner)
+        /// <summary>
+        /// Show pin-code form.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool ShowPinCodeForm(IWin32Window owner)
         {
-            CurrentWeighingFact = null;
+            using PasswordForm passwordForm = new();
+            DialogResult resultPsw = passwordForm.ShowDialog(owner);
+            passwordForm.Close();
+            passwordForm.Dispose();
+            return resultPsw == DialogResult.OK;
+        }
+
+        /// <summary>
+        /// Check PLU is empty.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool CheckPluIsEmpty(IWin32Window owner)
+        {
+            if (CurrentPlu == null)
+            {
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.PluIsEmpty;
+                Log.Information(wpfPageLoader.MessageBox.Message);
+                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(owner);
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check Massa-K device exists.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool CheckWeightMassaDeviceExists(IWin32Window owner)
+        {
+            if (Manager == null || Manager.Massa == null)
+            {
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.MassaNotFound;
+                Log.Information(wpfPageLoader.MessageBox.Message);
+                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(owner);
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check weight is negative.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool CheckWeightIsNegative(IWin32Window owner)
+        {
+            if (!IsCheckWeight)
+                return true;
+            if (Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight < LocalizationData.ScalesUI.MassaThreshold)
+            {
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.CheckWeightThreshold(Manager.Massa.WeightNet);
+                Log.Information(wpfPageLoader.MessageBox.Message);
+                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(owner);
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                if (result != DialogResult.Yes)
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check weight is positive.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool CheckWeightIsPositive(IWin32Window owner)
+        {
+            if (!IsCheckWeight)
+                return true;
+            if (Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight > LocalizationData.ScalesUI.MassaThreshold)
+            {
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.CheckWeightThreshold(Manager.Massa.WeightNet);
+                Log.Information(wpfPageLoader.MessageBox.Message);
+                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(owner);
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                if (result != DialogResult.Yes)
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check weight thresholds.
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <returns></returns>
+        public bool CheckWeightThresholds(IWin32Window owner)
+        {
+            if (!IsCheckWeight)
+                return true;
+            bool isCheck = false;
+            if (CurrentPlu.NominalWeight > 0)
+            {
+                if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold && CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
+                    isCheck = true;
+            }
+            else
+                isCheck = true;
+            if (!isCheck)
+            {
+                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.CheckWeightThresholds(
+                    CurrentWeighingFact.NetWeight, CurrentPlu.UpperWeightThreshold, CurrentPlu.LowerWeightThreshold);
+                Log.Information(wpfPageLoader.MessageBox.Message);
+                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
+                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.ShowDialog(owner);
+                DialogResult result = wpfPageLoader.MessageBox.Result;
+                wpfPageLoader.Close();
+                wpfPageLoader.Dispose();
+                if (result != DialogResult.Yes)
+                    return false;
+            }
+            return true;
+        }
+
+        public void PrintLabel()
+        {
             TemplateDirect template = null;
             if (CurrentOrder != null && CurrentScale != null && CurrentScale.UseOrder == true)
             {
@@ -320,16 +459,18 @@ namespace WeightCore.Helpers
             // Template exist.
             if (template != null)
             {
-                switch (CurrentPlu?.CheckWeight)
+                switch (IsCheckWeight)
                 {
                     case true:
-                        PrintWeightLabel(template);
+                        PrintLabel(template);
                         break;
                     default:
-                        PrintCountLabel(owner, template);
+                        PrintCountLabel(template);
                         break;
                 }
             }
+
+            CurrentWeighingFact = null;
         }
 
         /// <summary>
@@ -377,54 +518,48 @@ namespace WeightCore.Helpers
         /// <summary>
         /// Item label printing.
         /// </summary>
-        /// <param name="owner"></param>
         /// <param name="template"></param>
-        private void PrintCountLabel(IWin32Window owner, TemplateDirect template)
+        private void PrintCountLabel(TemplateDirect template)
         {
-            // Вывести серию этикеток по заданному размеру паллеты.
-            CurrentWeighingFact = new WeighingFactDirect(CurrentScale, CurrentPlu, ProductDate, Kneading,
-                CurrentPlu.Scale.ScaleFactor, CurrentPlu.NominalWeight, CurrentPlu.GoodsTareWeight);
-
-            // Указан номинальный вес.
-            bool isCheck = false;
-            if (CurrentPlu.NominalWeight > 0)
-            {
-                if (Manager?.Massa != null)
-                    CurrentWeighingFact.NetWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
-                else
-                    CurrentWeighingFact.NetWeight -= CurrentPlu.GoodsTareWeight;
-                if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
-                    CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
-                {
-                    isCheck = true;
-                }
-            }
-            else
-                isCheck = true;
-
-            if (!isCheck)
-            {
-                // WPF MessageBox.
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                wpfPageLoader.MessageBox.Message =
-                    LocalizationData.ScalesUI.WeightingControl + Environment.NewLine +
-                    $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
-                    $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
-                    $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
-                    $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
-                    "Для продолжения печати нажмите Ignore.";
-                wpfPageLoader.MessageBox.ButtonAbortVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.ButtonRetryVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
-                wpfPageLoader.ShowDialog(owner);
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
-                if (result != DialogResult.Ignore)
-                    return;
-            }
+            //// Указан номинальный вес.
+            //bool isCheck = false;
+            //if (CurrentPlu.NominalWeight > 0)
+            //{
+            //    if (Manager?.Massa != null)
+            //        CurrentWeighingFact.NetWeight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
+            //    else
+            //        CurrentWeighingFact.NetWeight -= CurrentPlu.GoodsTareWeight;
+            //    if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
+            //        CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
+            //    {
+            //        isCheck = true;
+            //    }
+            //}
+            //else
+            //    isCheck = true;
+            //if (!isCheck)
+            //{
+            //    // WPF MessageBox.
+            //    using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
+            //    wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
+            //    wpfPageLoader.MessageBox.Message =
+            //        LocalizationData.ScalesUI.WeightingControl + Environment.NewLine +
+            //        $"Вес нетто: {CurrentWeighingFact.NetWeight} кг" + Environment.NewLine +
+            //        $"Номинальный вес: {CurrentPlu.NominalWeight} кг" + Environment.NewLine +
+            //        $"Верхнее значение веса: {CurrentPlu.UpperWeightThreshold} кг" + Environment.NewLine +
+            //        $"Нижнее значение веса: {CurrentPlu.LowerWeightThreshold} кг" + Environment.NewLine + Environment.NewLine +
+            //        "Для продолжения печати нажмите Ignore.";
+            //    wpfPageLoader.MessageBox.ButtonAbortVisibility = Visibility.Visible;
+            //    wpfPageLoader.MessageBox.ButtonRetryVisibility = Visibility.Visible;
+            //    wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
+            //    wpfPageLoader.MessageBox.Localization();
+            //    wpfPageLoader.ShowDialog(owner);
+            //    DialogResult result = wpfPageLoader.MessageBox.Result;
+            //    wpfPageLoader.Close();
+            //    wpfPageLoader.Dispose();
+            //    if (result != DialogResult.Ignore)
+            //        return;
+            //}
 
             // Шаблон с указанием кол-ва.
             if (template.XslContent.Contains("^PQ1"))
@@ -447,44 +582,20 @@ namespace WeightCore.Helpers
         }
 
         /// <summary>
-        /// Weight label printing.
+        /// Вывести серию этикеток по заданному размеру паллеты.
         /// </summary>
-        /// <param name="template"></param>
-        private void PrintWeightLabel(TemplateDirect template)
+        public void SetCurrentWeighingFact()
         {
-            // Check scales exists.
-            if (Manager == null || Manager.Massa == null)
-            {
-                Log.Information(@"Устройство весов не обнаружено!");
-                return;
-            }
-            // Check product's weight on the scales.
-            if (Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight <= 0)
-            {
-                Log.Information($@"Вес товара: {Manager.Massa.WeightNet} кг, печать этикетки невозможна!");
-                return;
-            }
-
-            CurrentWeighingFact = new WeighingFactDirect(CurrentScale, CurrentPlu, ProductDate, Kneading, CurrentPlu.Scale.ScaleFactor,
-                Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
-
-            // Указан номинальный вес.
-            bool isCheck = false;
-            if (CurrentPlu.NominalWeight > 0)
-            {
-                if (CurrentWeighingFact.NetWeight >= CurrentPlu.LowerWeightThreshold &&
-                    CurrentWeighingFact.NetWeight <= CurrentPlu.UpperWeightThreshold)
-                    isCheck = true;
-            }
+            if (IsCheckWeight)
+                CurrentWeighingFact = new WeighingFactDirect(CurrentScale, CurrentPlu, ProductDate, Kneading,
+                    CurrentPlu.Scale.ScaleFactor, Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
             else
-                isCheck = true;
-            if (!isCheck)
-                return;
-
-            PrintLabel(template);
+                CurrentWeighingFact = new WeighingFactDirect(CurrentScale, CurrentPlu, ProductDate, Kneading,
+                    CurrentPlu.Scale.ScaleFactor, CurrentPlu.NominalWeight, CurrentPlu.GoodsTareWeight);
         }
 
-        private void PrintLabel(TemplateDirect template)
+        private void PrintLabel(TemplateDirect template,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
             {
@@ -501,12 +612,13 @@ namespace WeightCore.Helpers
                 if (Manager == null || Manager.Print == null)
                     return;
 
-                // Send doc to the printrer.
+                // Print.
+                Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
                 Manager.Print.SendCmd(printCmd);
             }
             catch (Exception ex)
             {
-                Exception.Catch(null, ref ex, true);
+                Exception.Catch(null, ref ex, true, filePath, lineNumber, memberName);
             }
         }
 

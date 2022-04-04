@@ -61,7 +61,8 @@ namespace DataCore.DAL.TableDirectModels
         {
             using SqlConnection con = SqlConnect.GetConnection();
             con.Open();
-            string query = "SELECT [Id] ,[Name] ,[ProductionFacilityID] ,[CreateDate] ,[ChangeDt] ,[1CRRefID]  FROM [db_scales].[GetWorkShop] (default,@Id);";
+            string query =
+                "SELECT [Id],[Name],[ProductionFacilityID],[CreateDate],[ModifiedDate],[IdRRef] FROM [db_scales].[GetWorkShop] (default,@Id);";
             using (SqlCommand cmd = new(query))
             {
                 cmd.Connection = con;
@@ -124,7 +125,8 @@ namespace DataCore.DAL.TableDirectModels
             using (SqlConnection con = SqlConnect.GetConnection())
             {
                 con.Open();
-                string query = "SELECT [Id] ,[Name] ,[ProductionFacilityID] ,[CreateDate] ,[ChangeDt] ,[1CRRefID]  FROM [db_scales].[GetWorkShop] (@Id,default);";
+                string query =
+                    "SELECT [Id],[Name],[ProductionFacilityID],[CreateDate],[ModifiedDate],[IdRRef] FROM [db_scales].[GetWorkShop](@ID, DEFAULT);";
                 using (SqlCommand cmd = new(query))
                 {
                     cmd.Connection = con;

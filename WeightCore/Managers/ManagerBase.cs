@@ -97,7 +97,7 @@ namespace WeightCore.Managers
                 Log.Information(message, filePath, memberName, lineNumber);
         }
 
-        public void Open(SqlViewModelEntity sqlViewModel,
+        public void Open(SqlViewModelEntity sqlViewModel, bool isCheckWeight,
             ReopenCallback reopenCallback, RequestCallback requestCallback, ResponseCallback responseCallback)
         {
             CloseMethod();
@@ -113,12 +113,25 @@ namespace WeightCore.Managers
             CtsReopen = null;
             CtsRequest = null;
             CtsResponse = null;
-            
-            if (sqlViewModel.IsTaskEnabled(TaskType))
+
+            switch (TaskType)
             {
-                OpenTaskReopen(reopenCallback);
-                OpenTaskRequest(requestCallback);
-                OpenTaskResponse(responseCallback);
+                case ProjectsEnums.TaskType.MassaManager:
+                    if (isCheckWeight)
+                    {
+                        OpenTaskReopen(reopenCallback);
+                        OpenTaskRequest(requestCallback);
+                        OpenTaskResponse(responseCallback);
+                    }
+                    break;
+                default:
+                    if (sqlViewModel.IsTaskEnabled(TaskType))
+                    {
+                        OpenTaskReopen(reopenCallback);
+                        OpenTaskRequest(requestCallback);
+                        OpenTaskResponse(responseCallback);
+                    }
+                    break;
             }
         }
 
@@ -133,7 +146,8 @@ namespace WeightCore.Managers
                 task.Dispose();
         }
 
-        private void OpenTaskReopen(ReopenCallback callback)
+        private void OpenTaskReopen(ReopenCallback callback,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             OpenTaskBase(TaskReopen, CtsReopen);
             CtsReopen = new CancellationTokenSource();
@@ -162,7 +176,7 @@ namespace WeightCore.Managers
                         }
                         catch (Exception ex)
                         {
-                            Exception.Catch(null, ref ex, false);
+                            Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
                             WaitSync(WaitException);
                         }
                     }
@@ -170,7 +184,8 @@ namespace WeightCore.Managers
             });
         }
 
-        private void OpenTaskRequest(RequestCallback callback)
+        private void OpenTaskRequest(RequestCallback callback,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             OpenTaskBase(TaskRequest, CtsRequest);
             CtsRequest = new CancellationTokenSource();
@@ -199,7 +214,7 @@ namespace WeightCore.Managers
                         }
                         catch (Exception ex)
                         {
-                            Exception.Catch(null, ref ex, false);
+                            Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
                             WaitSync(WaitException);
                         }
                     }
@@ -207,7 +222,8 @@ namespace WeightCore.Managers
             });
         }
 
-        private void OpenTaskResponse(ResponseCallback callback)
+        private void OpenTaskResponse(ResponseCallback callback,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             OpenTaskBase(TaskResponse, CtsResponse);
             CtsResponse = new CancellationTokenSource();
@@ -236,7 +252,7 @@ namespace WeightCore.Managers
                         }
                         catch (Exception ex)
                         {
-                            Exception.Catch(null, ref ex, false);
+                            Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
                             WaitSync(WaitException);
                         }
                     }
