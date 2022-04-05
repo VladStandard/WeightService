@@ -3,7 +3,6 @@
 
 using DataCore.DAL;
 using DataCore.DAL.TableDirectModels;
-using DataProjectsCoreTests.DAL;
 using Microsoft.Data.SqlClient;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -24,7 +23,7 @@ namespace DataCoreTests.DAL.TableDirectModels
             {
                 TestContext.WriteLine($"[db_scales].[BarCodeTypes]");
                 List<long> listId = new();
-                SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetAllItems, null, delegate (SqlDataReader reader)
+                SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetAllItems, (SqlDataReader reader) =>
                 {
                     while (reader.Read())
                     {

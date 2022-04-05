@@ -19,7 +19,7 @@ namespace DataCore.DAL.TableDirectModels
         public int DeviceReadTimeout { get; set; }
         public int DeviceWriteTimeout { get; set; }
         public string? DeviceComPort { get; set; }
-        public bool? UseOrder { get; set; }
+        public bool UseOrder { get; set; } = false;
         public string? VerScalesUI { get; set; }
         public int? ScaleFactor { get; set; }
         public long? TemplateIdDefault { get; set; }

@@ -2,131 +2,86 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using System.IO;
+using System.Text;
 
 namespace WeightCore.MassaK
 {
     public class ResponseScaleParEntity
     {
-        //Максимальная нагрузка, Max
+        #region Public and private fields and properties
+
+        /// <summary>
+        /// Максимальная нагрузка, Max.
+        /// </summary>
         public string P_Max;
-        //Минимальная нагрузка, Min
+        /// <summary>
+        /// Минимальная нагрузка, Min.
+        /// </summary>
         public string P_Min;
-        //Поверочный интервал весов
+        /// <summary>
+        /// Поверочный интервал весов.
+        /// </summary>
         public string P_e;
-        //Максимальная масса тары, T
+        /// <summary>
+        /// Максимальная масса тары, T.
+        /// </summary>
         public string P_T;
-        //Параметр фиксации веса
+        /// <summary>
+        /// Параметр фиксации веса.
+        /// </summary>
         public string Fix;
-        //Код юстировки
+        /// <summary>
+        /// Код юстировки.
+        /// </summary>
         public string Calcode;
-        //Версия ПО датчика взвешивания,
+        /// <summary>
+        /// Версия ПО датчика взвешивания.
+        /// </summary>
         public string PO_Ver;
-        //Контрольная сумма ПО датчика взвешивания
+        /// <summary>
+        /// Контрольная сумма ПО датчика взвешивания.
+        /// </summary>
         public string PO_Summ;
+
+        #endregion
+
+        #region Constructor and destructor
 
         public ResponseScaleParEntity(byte[] response)
         {
-            System.Text.ASCIIEncoding encoding = new();
-            // сюда надо вставить логику
-            int i = 6;
+            ASCIIEncoding encoding = new();
             using MemoryStream memStream = new();
+            byte pos = 6;
 
-            //while (response.Length > i || response[i] != 0x0D)
-            //{
-            //    memStream.WriteByte(response[i++]);
-            //}
-            while (response.Length > i)
-            {
-                i++;
-                if (response.Length <= i || response[i] == 0x0D)
-                    break;
-                memStream.WriteByte(response[i]);
-            }
-
-            P_Max = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-
-            // skip 0x0D
-            if (response[i] == 0x0D)
-                i++;
-            // skip 0x0A
-            if (response[i] == 0x0A)
-                i++;
-            memStream.SetLength(0);
-
-            //while (response[i] != 0x0D)
-            //{
-            //    memStream.WriteByte(response[i++]);
-            //}
-            if (response.Length > i)
-            {
-                while (response[i] != 0x0D)
-                {
-                    i++;
-                    if (response.Length <= i || response[i] == 0x0D)
-                        break;
-                    memStream.WriteByte(response[i]);
-                }
-            }
-            P_Min = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-            i++; // пропустим 0x0D
-            i++; // пропустим 0x0A
-            memStream.SetLength(0);
-
-            while (response[i] != 0x0D)
-            {
-                memStream.WriteByte(response[i++]);
-            }
-            P_e = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-            i++; // пропустим 0x0D
-            i++; // пропустим 0x0A
-            memStream.SetLength(0);
-
-            while (response[i] != 0x0D)
-            {
-                memStream.WriteByte(response[i++]);
-            }
-            P_T = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-            i++; // пропустим 0x0D
-            i++; // пропустим 0x0A
-            memStream.SetLength(0);
-
-            while (response[i] != 0x0D)
-            {
-                memStream.WriteByte(response[i++]);
-            }
-            Fix = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-            i++; // пропустим 0x0D
-            i++; // пропустим 0x0A
-            memStream.SetLength(0);
-
-            while (response[i] != 0x0D)
-            {
-                memStream.WriteByte(response[i++]);
-            }
-            Calcode = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-            i++; // пропустим 0x0D
-            i++; // пропустим 0x0A
-            memStream.SetLength(0);
-
-            while (response[i] != 0x0D)
-            {
-                memStream.WriteByte(response[i++]);
-            }
-            PO_Ver = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-            i++; // пропустим 0x0D
-            i++; // пропустим 0x0A
-            memStream.SetLength(0);
-
-            while (response[i] != 0x0D)
-            {
-                memStream.WriteByte(response[i++]);
-            }
-            PO_Summ = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
-            i++; // пропустим 0x0D
-            i++; // пропустим 0x0A
-            memStream.SetLength(0);
-
+            pos = ResponseScaleParGetValue(response, encoding, pos, memStream, ref P_Max);
+            pos = ResponseScaleParGetValue(response, encoding, pos, memStream, ref P_Min);
+            pos = ResponseScaleParGetValue(response, encoding, pos, memStream, ref P_e);
+            pos = ResponseScaleParGetValue(response, encoding, pos, memStream, ref P_T);
+            pos = ResponseScaleParGetValue(response, encoding, pos, memStream, ref Fix);
+            pos = ResponseScaleParGetValue(response, encoding, pos, memStream, ref Calcode);
+            pos = ResponseScaleParGetValue(response, encoding, pos, memStream, ref PO_Ver);
+            pos = ResponseScaleParGetValue(response, encoding, pos, memStream, ref PO_Summ);
             //ErrorMessage = $"Код ответа CMD_ACK_SCALE_PAR: {Command};\n{P_Max};\n{P_Min};\n{P_e};\n{P_T};\n{Fix};\n{Calcode};\n{PO_Ver};\n{PO_Summ}";
         }
+
+        private byte ResponseScaleParGetValue(byte[] response, ASCIIEncoding encoding, byte pos, MemoryStream memStream, ref string value)
+        {
+            while (response.Length > pos && response[pos] != 0x0D)
+            {
+                pos++;
+                if (response.Length > pos)
+                    memStream.WriteByte(response[pos]);
+            }
+            value = encoding.GetString(memStream.ToArray(), 0, memStream.ToArray().Length);
+            // Skip 0x0D and 0x0A.
+            if (response.Length > pos && response[pos] == 0x0D)
+                pos++;
+            if (response.Length > pos && response[pos] == 0x0A)
+                pos++;
+            memStream.SetLength(0);
+            return pos;
+        }
+
+        #endregion
     }
 }

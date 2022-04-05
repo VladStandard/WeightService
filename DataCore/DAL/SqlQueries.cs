@@ -494,6 +494,38 @@ SELECT  @SSCC, @WeithingDate, convert(varchar(max), @xmldata) xmldata, @ID;
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
                 }
             }
+
+			public static class Functions
+			{
+				public static string GetCurrentProductSeries => @"
+DECLARE @SSCC VARCHAR(50)
+DECLARE @WeithingDate DATETIME
+DECLARE @XML XML
+EXECUTE [db_scales].[NewProductSeries] @ScaleID, @SSCC OUTPUT, @XML OUTPUT
+SELECT [Id], [CreateDate], [UUID], [SSCC], [CountUnit], [TotalNetWeight], [TotalTareWeight]
+FROM [db_scales].[GetCurrentProductSeries](@ScaleId)
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+			}
+
+			public static class StoredProcedures
+			{
+				public static string GetBarCode => @"
+SELECT * FROM
+[db_scales].[GetBarCode] (@BarCodeTypeId,@NomenclatureId,@NomenclatureUnitId,@ContragentId)
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				public static string SetBarCode => @"
+DECLARE @ID int
+EXECUTE [db_scales].[SetBarCode]
+     @BarCodeTypeId
+    ,@NomenclatureId
+    ,@NomenclatureUnitId
+    ,@ContragentId
+    ,@Value
+    ,@ID OUTPUT
+    ,@ID OUTPUT
+SELECT @ID as ID
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+			}
         }
     }
 }

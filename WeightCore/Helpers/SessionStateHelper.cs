@@ -108,7 +108,7 @@ namespace WeightCore.Helpers
 
             // начинается новыя серия, упаковки продукции, новая паллета
             ProductSeries = new ProductSeriesDirect(CurrentScale);
-            ProductSeries.New();
+            //ProductSeries.Load();
 
             Manager = new ManagerHelper();
         }
@@ -179,9 +179,9 @@ namespace WeightCore.Helpers
         public void NewPallet()
         {
             LabelsCurrent = 1;
-            ProductSeries.New();
-            if (Manager == null || Manager.Print == null)
-                return;
+            ProductSeries.Load();
+            //if (Manager == null || Manager.Print == null)
+            //    return;
             //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
         }
 

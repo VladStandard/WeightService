@@ -20,11 +20,9 @@ namespace DataCore.DAL
 
         public void ExecuteReaderTemplate(long scaleId)
         {
-            SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@scale_id", System.Data.SqlDbType.BigInt) { Value = scaleId },
-            };
             Result = string.Empty;
-            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription,
+                new SqlParameter("@scale_id", System.Data.SqlDbType.BigInt) { Value = scaleId }, (SqlDataReader reader) =>
             {
                 if (reader.Read())
                 {
@@ -39,7 +37,7 @@ namespace DataCore.DAL
                 new SqlParameter("@scale_id", System.Data.SqlDbType.BigInt) { Value = scaleId },
             };
             string result = string.Empty;
-            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Scales.GetScaleDescription, parameters, (SqlDataReader reader) =>
             {
                 if (reader.Read())
                 {

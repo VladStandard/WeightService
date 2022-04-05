@@ -96,6 +96,16 @@ namespace DataCore.DAL
 
         #region Public and private methods - Wrappers execute
 
+        public void ExecuteReader(string query, ExecuteReaderCallback callback)
+        {
+            ExecuteReader(query, new SqlParameter[] { }, callback);
+        }
+
+        public void ExecuteReader(string query, SqlParameter parameter, ExecuteReaderCallback callback)
+        {
+            ExecuteReader(query, new SqlParameter[] { parameter }, callback);
+        }
+
         public void ExecuteReader(string query, SqlParameter[] parameters, ExecuteReaderCallback callback)
         {
             using SqlConnection con = GetConnection();
@@ -104,7 +114,7 @@ namespace DataCore.DAL
             {
                 cmd.Connection = con;
                 cmd.Parameters.Clear();
-                if (parameters != null)
+                if (parameters?.Length > 0)
                     cmd.Parameters.AddRange(parameters);
                 //cmd.CommandType = CommandType.TableDirect;
                 using SqlDataReader reader = cmd.ExecuteReader();
@@ -117,6 +127,11 @@ namespace DataCore.DAL
             con.Close();
         }
 
+        public T? ExecuteReader<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback)
+        {
+            return ExecuteReader(query, new SqlParameter[] { parameter }, callback);
+        }
+
         public T? ExecuteReader<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback)
         {
             T? result = default;
@@ -126,17 +141,24 @@ namespace DataCore.DAL
             {
                 cmd.Connection = con;
                 cmd.Parameters.Clear();
-                cmd.Parameters.AddRange(parameters);
+                if (parameters?.Length > 0)
+                    cmd.Parameters.AddRange(parameters);
                 //cmd.CommandType = CommandType.TableDirect;
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    result = callback(reader);
+                    if (callback != null)
+                        result = callback.Invoke(reader);
                 }
                 reader.Close();
             }
             con.Close();
             return result;
+        }
+
+        public T ExecuteReaderForEntity<T>(string query, SqlParameter parameter, ExecuteReaderCallback<T> callback) where T : new()
+        {
+            return ExecuteReaderForEntity(query, new SqlParameter[] { parameter }, callback);
         }
 
         public T ExecuteReaderForEntity<T>(string query, SqlParameter[] parameters, ExecuteReaderCallback<T> callback) where T : new()
@@ -150,7 +172,8 @@ namespace DataCore.DAL
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddRange(parameters);
+                    if (parameters?.Length > 0)
+                        cmd.Parameters.AddRange(parameters);
                     //cmd.CommandType = CommandType.TableDirect;
                     using SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
@@ -164,6 +187,11 @@ namespace DataCore.DAL
             }
         }
 
+        public void ExecuteNonQuery(string query, SqlParameter parameter)
+        {
+            ExecuteNonQuery(query, new SqlParameter[] { parameter });
+        }
+
         public void ExecuteNonQuery(string query, SqlParameter[] parameters)
         {
             lock (_locker)
@@ -174,7 +202,8 @@ namespace DataCore.DAL
                 {
                     cmd.Connection = con;
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddRange(parameters);
+                    if (parameters?.Length > 0)
+                        cmd.Parameters.AddRange(parameters);
                     //cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }

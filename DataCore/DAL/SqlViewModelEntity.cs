@@ -53,36 +53,6 @@ namespace DataCore.DAL
                 OnPropertyChanged();
             }
         }
-        private string _dataSource = "";
-        public string DataSource
-        {
-            get => _dataSource;
-            private set
-            {
-                _dataSource = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _dataBase = "";
-        public string DataBase
-        {
-            get => _dataBase;
-            private set
-            {
-                _dataBase = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _host = "";
-        public string Host
-        {
-            get => _host;
-            private set
-            {
-                _host = value;
-                OnPropertyChanged();
-            }
-        }
         private List<TaskDirect> _tasks = new();
         public List<TaskDirect> Tasks
         {
@@ -111,9 +81,6 @@ namespace DataCore.DAL
 
         public SqlViewModelEntity()
         {
-            DataSource = string.Empty;
-            DataBase = string.Empty;
-            Host = string.Empty;
             PublishType = ShareEnums.PublishType.Default;
             PublishDescription = "Неизвестный сервер";
 
@@ -183,30 +150,13 @@ namespace DataCore.DAL
         private string GetInstance()
         {
             string result = string.Empty;
-            using (SqlConnection con = SqlConnect.GetConnection())
+            SqlConnect.ExecuteReader(SqlQueries.DbSystem.Properties.GetInstance, (SqlDataReader reader) =>
             {
-                con.Open();
-                using (SqlCommand cmd = new(SqlQueries.DbSystem.Properties.GetInstance))
+                if (reader.Read())
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.Clear();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            if (reader.Read())
-                            {
-                                result = SqlConnect.GetValueAsString(reader, "InstanceName");
-                            }
-                        }
-                        reader.Close();
-                    }
-                    DataSource = con.DataSource;
-                    DataBase = con.Database;
-                    Host = con.WorkstationId;
+                    result = SqlConnect.GetValueAsString(reader, "InstanceName");
                 }
-                con.Close();
-            }
+            });
             return result;
         }
 

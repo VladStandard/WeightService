@@ -20,13 +20,11 @@ namespace DataCore.DAL.TableDirectModels
         public DateTime CreateDate { get; set; }
         public SsccDirect Sscc { get; set; }
         public PluDirect Plu { get; set; }
-        [XmlIgnore]
-        public TemplateDirect Template { get; set; }
         public int CountUnit { get; set; }
         public decimal TotalNetWeight { get; set; }
         public decimal TotalTareWeight { get; set; }
-        [XmlIgnore]
-        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+        [XmlIgnore] public TemplateDirect Template { get; set; }
+        [XmlIgnore] public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
@@ -52,36 +50,21 @@ namespace DataCore.DAL.TableDirectModels
             Template = new TemplateDirect(id);
         }
 
-        public void New([CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, 
-            [CallerMemberName] string memberName = "")
+        public void Load()
         {
-            if (Scale == null)
+            if (Scale == null || Scale.Id == default) 
             {
                 throw new Exception("Equipment instance not identified. Set [Scale].");
             }
 
-            using SqlConnection con = SqlConnect.GetConnection();
-            con.Open();
-            string query = @"
-DECLARE @SSCC varchar(50)
-DECLARE @WeithingDate datetime
-DECLARE @xmldata xml
-EXECUTE [db_scales].[NewProductSeries] @ScaleID, @SSCC OUTPUT, @xmldata OUTPUT
-SELECT [Id], [CreateDate], [UUID], [SSCC], [CountUnit], [TotalNetWeight], [TotalTareWeight]
-FROM [db_scales].[GetCurrentProductSeries](@ScaleId)
-                ";
-            using (SqlCommand cmd = new(query))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@ScaleID", Scale.Id);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetCurrentProductSeries,
+                new SqlParameter("@ScaleID", System.Data.SqlDbType.VarChar, 38) { Value = Scale.Id }, (SqlDataReader reader) =>
                 {
                     byte count = 0;
                     while (reader.Read())
                     {
                         if (count > 0)
-                            throw new Exception($"{nameof(filePath)}: {filePath}. {nameof(lineNumber)}: {lineNumber}. {nameof(memberName)}: {memberName}.");
+                            throw new Exception($"{nameof(count)} > 0 ({count})");
                         count++;
                         if (reader[0] is long longId)
                             Id = longId;
@@ -94,41 +77,7 @@ FROM [db_scales].[GetCurrentProductSeries](@ScaleId)
                         TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
                         TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
                     }
-                }
-                reader.Close();
-            }
-            con.Close();
-        }
-
-        public void Load()
-        {
-            if (Scale == null || Scale.Id == default) return;
-            using SqlConnection con = SqlConnect.GetConnection();
-            con.Open();
-            string query =
-                "SELECT Id, CreateDate, UUID, SSCC, CountUnit,TotalNetWeight, TotalTareWeight " +
-                " FROM [db_scales].[GetCurrentProductSeries](@ScaleId);";
-            using (SqlCommand cmd = new(query))
-            {
-                cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@ScaleID", Scale.Id);
-                using SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Id = reader.GetInt32(0);
-                        CreateDate = reader.GetDateTime(1);
-                        UUID = reader.GetGuid(2);
-                        CountUnit = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
-                        TotalNetWeight = reader.IsDBNull(5) ? 0 : reader.GetDecimal(5);
-                        TotalTareWeight = reader.IsDBNull(6) ? 0 : reader.GetDecimal(6);
-                        Sscc = new SsccDirect(reader.GetString(3));
-                    }
-                }
-                reader.Close();
-            }
-            con.Close();
+                });
         }
 
         #endregion

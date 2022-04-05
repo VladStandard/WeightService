@@ -14,7 +14,7 @@ namespace DataCore.DAL.TableDirectModels
         #region Public and private fields and properties
 
 
-        [XmlElement("SSCC")]
+        [XmlElement("SSCC")] 
         public string SSCC { get; set; }
 
         [XmlElement("GLN")]

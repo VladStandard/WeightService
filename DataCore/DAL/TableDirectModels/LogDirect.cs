@@ -90,12 +90,9 @@ namespace DataCore.DAL.TableDirectModels
         public Guid? SaveApp(string app)
         {
             StringUtils.SetStringValueTrim(ref app, 32);
-            SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@app", System.Data.SqlDbType.NVarChar, 32) { Value = app },
-            };
-
             Guid? result = default;
-            SqlConnect.ExecuteReader(SqlQueries.DbServiceManaging.Tables.Apps.AddApp, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbServiceManaging.Tables.Apps.AddApp,
+                new SqlParameter("@app", System.Data.SqlDbType.NVarChar, 32) { Value = app }, (SqlDataReader reader) =>
             {
                 if (reader.Read())
                 {
@@ -114,7 +111,7 @@ namespace DataCore.DAL.TableDirectModels
             };
 
             int? result = default;
-            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostId, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostId, parameters, (SqlDataReader reader) =>
             {
                 if (reader.Read())
                 {

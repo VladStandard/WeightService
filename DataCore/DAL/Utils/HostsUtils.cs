@@ -43,10 +43,8 @@ namespace DataCore.DAL.Utils
 
         public static HostDirect Load(Guid idrref)
         {
-            SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref },
-            };
-            HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByUid, parameters, LoadReader);
+            HostDirect result = SqlConnect.ExecuteReaderForEntity(SqlQueries.DbScales.Tables.Hosts.GetHostByUid,
+                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref }, LoadReader);
             if (result == null)
                 result = new HostDirect();
             result.IdRRef = idrref;
@@ -106,16 +104,9 @@ namespace DataCore.DAL.Utils
 
             XDocument doc = XDocument.Load(FilePathToken);
             Guid idrref = Guid.Parse(doc.Root.Elements("ID").First().Value);
-            SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref },
-            };
-
             bool result = default;
-            //SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, delegate (SqlDataReader reader)
-            //{
-            //    result = reader.Read();
-            //});
-            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef, parameters, (SqlDataReader reader) => 
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.Hosts.GetHostIdByIdRRef,
+                new SqlParameter("@idrref", System.Data.SqlDbType.UniqueIdentifier) { Value = idrref }, (SqlDataReader reader) => 
             {
                 result = reader.Read();
             });

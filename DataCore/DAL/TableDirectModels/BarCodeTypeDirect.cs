@@ -51,33 +51,14 @@ namespace DataCore.DAL.TableDirectModels
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@ID", System.Data.SqlDbType.BigInt) { Value = Id },
             };
-            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetItemById, parameters, delegate (SqlDataReader reader)
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Tables.BarCodeTypes.GetItemById, parameters, (SqlDataReader reader) =>
             {
                 while (reader.Read())
                 {
+                    Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
                     Name = SqlConnect.GetValueAsString(reader, "NAME");
                 }
             });
-
-            //using SqlConnection con = SqlConnect.GetConnection();
-            //con.Open();
-            //string query = "SELECT * FROM [db_scales].[GetBarCodeType](@Id);";
-            //using (SqlCommand cmd = new(query))
-            //{
-            //    cmd.Connection = con;
-            //    cmd.Parameters.AddWithValue("@Id", Id);
-            //    using SqlDataReader reader = cmd.ExecuteReader();
-            //    if (reader.HasRows)
-            //    {
-            //        while (reader.Read())
-            //        {
-            //            Id = SqlConnect.GetValueAsNotNullable<long>(reader, "ID");
-            //            Name = SqlConnect.GetValueAsString(reader, "Name");
-            //        }
-            //    }
-            //    reader.Close();
-            //}
-            //con.Close();
         }
 
         #endregion

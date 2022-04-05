@@ -122,6 +122,11 @@ namespace WeightCore.Managers
             }
         }
 
+        public void SetCurrentStatus()
+        {
+            CurrentStatus = ZebraPrinter.GetCurrentStatus();
+        }
+
         private void SendCmdToZebra(string printCmd,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
@@ -129,7 +134,7 @@ namespace WeightCore.Managers
                 return;
             try
             {
-                CurrentStatus = ZebraPrinter.GetCurrentStatus();
+                SetCurrentStatus();
                 if (CurrentStatus.isReadyToPrint)
                 {
                     Peeler = SGD.GET("sensor.peeler", ZebraPrinter.Connection);

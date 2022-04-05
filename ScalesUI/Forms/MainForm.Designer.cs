@@ -32,6 +32,7 @@
             this.fieldWeightTare = new System.Windows.Forms.Label();
             this.fieldWeightNetto = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
+            this.fieldSsccCaption = new System.Windows.Forms.Label();
             this.fieldTasks = new System.Windows.Forms.Label();
             this.fieldLang = new System.Windows.Forms.ComboBox();
             this.fieldMassaQueriesProgress = new System.Windows.Forms.ProgressBar();
@@ -47,7 +48,7 @@
             this.fieldMassaManager = new System.Windows.Forms.Label();
             this.fieldPrintManager = new System.Windows.Forms.Label();
             this.fieldMemoryManager = new System.Windows.Forms.Label();
-            this.fieldCountBox = new System.Windows.Forms.ProgressBar();
+            this.fieldPrintProgress = new System.Windows.Forms.ProgressBar();
             this.fieldResolution = new System.Windows.Forms.ComboBox();
             this.fieldCurrentTime = new System.Windows.Forms.Label();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
@@ -56,7 +57,7 @@
             this.labelProductDate = new System.Windows.Forms.Label();
             this.fieldProductDate = new System.Windows.Forms.Label();
             this.fieldKneading = new System.Windows.Forms.Label();
-            this.fieldLabelsCount = new System.Windows.Forms.Label();
+            this.fieldPrintLabels = new System.Windows.Forms.Label();
             this.fieldTitle = new System.Windows.Forms.Label();
             this.fieldPlu = new System.Windows.Forms.Label();
             this.labelPlu = new System.Windows.Forms.Label();
@@ -70,6 +71,7 @@
             this.buttonScalesInit = new System.Windows.Forms.Button();
             this.buttonRunScalesTerminal = new System.Windows.Forms.Button();
             this.buttonSettings = new System.Windows.Forms.Button();
+            this.fieldSsccValue = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.tableLayoutPanelButtons.SuspendLayout();
@@ -111,7 +113,7 @@
             // fieldWeightNetto
             // 
             this.fieldWeightNetto.AutoSize = true;
-            this.fieldWeightNetto.BackColor = System.Drawing.SystemColors.Control;
+            this.fieldWeightNetto.BackColor = System.Drawing.Color.Transparent;
             this.fieldWeightNetto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldWeightNetto.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldWeightNetto.Location = new System.Drawing.Point(299, 69);
@@ -132,6 +134,8 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.05629F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00938F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.000938F));
+            this.tableLayoutPanelMain.Controls.Add(this.fieldSsccValue, 2, 6);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldSsccCaption, 1, 6);
             this.tableLayoutPanelMain.Controls.Add(this.fieldTasks, 3, 6);
             this.tableLayoutPanelMain.Controls.Add(this.fieldLang, 3, 12);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaQueriesProgress, 3, 10);
@@ -147,7 +151,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.fieldMassaManager, 1, 8);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPrintManager, 1, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldMemoryManager, 1, 11);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldCountBox, 3, 7);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldPrintProgress, 3, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldResolution, 3, 1);
             this.tableLayoutPanelMain.Controls.Add(this.fieldCurrentTime, 1, 1);
             this.tableLayoutPanelMain.Controls.Add(this.pictureBoxClose, 3, 2);
@@ -159,7 +163,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.labelProductDate, 1, 5);
             this.tableLayoutPanelMain.Controls.Add(this.fieldProductDate, 2, 5);
             this.tableLayoutPanelMain.Controls.Add(this.fieldKneading, 2, 4);
-            this.tableLayoutPanelMain.Controls.Add(this.fieldLabelsCount, 2, 7);
+            this.tableLayoutPanelMain.Controls.Add(this.fieldPrintLabels, 2, 7);
             this.tableLayoutPanelMain.Controls.Add(this.fieldTitle, 0, 0);
             this.tableLayoutPanelMain.Controls.Add(this.fieldPlu, 2, 1);
             this.tableLayoutPanelMain.Controls.Add(this.labelPlu, 0, 4);
@@ -182,9 +186,26 @@
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19F));
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(1024, 668);
             this.tableLayoutPanelMain.TabIndex = 7;
             this.tableLayoutPanelMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            // 
+            // fieldSsccCaption
+            // 
+            this.fieldSsccCaption.AutoSize = true;
+            this.fieldSsccCaption.BackColor = System.Drawing.Color.Transparent;
+            this.fieldSsccCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldSsccCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldSsccCaption.Location = new System.Drawing.Point(13, 353);
+            this.fieldSsccCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldSsccCaption.Name = "fieldSsccCaption";
+            this.fieldSsccCaption.Size = new System.Drawing.Size(280, 20);
+            this.fieldSsccCaption.TabIndex = 60;
+            this.fieldSsccCaption.Text = "SSCC caption";
+            this.fieldSsccCaption.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldSsccCaption.DoubleClick += new System.EventHandler(this.FieldSscc_DoubleClick);
             // 
             // fieldTasks
             // 
@@ -220,6 +241,7 @@
             this.fieldMassaQueriesProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.fieldMassaQueriesProgress.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaQueriesProgress.Location = new System.Drawing.Point(913, 457);
             this.fieldMassaQueriesProgress.Name = "fieldMassaQueriesProgress";
             this.fieldMassaQueriesProgress.Size = new System.Drawing.Size(96, 20);
@@ -257,6 +279,7 @@
             this.fieldMassaSetCrc.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaSetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaSetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaSetCrc.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaSetCrc.Location = new System.Drawing.Point(913, 431);
             this.fieldMassaSetCrc.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaSetCrc.Name = "fieldMassaSetCrc";
@@ -264,7 +287,6 @@
             this.fieldMassaSetCrc.TabIndex = 52;
             this.fieldMassaSetCrc.Text = "CRC: ";
             this.fieldMassaSetCrc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaSetCrc.Visible = false;
             // 
             // fieldMassaGetCrc
             // 
@@ -272,6 +294,7 @@
             this.fieldMassaGetCrc.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaGetCrc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaGetCrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaGetCrc.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaGetCrc.Location = new System.Drawing.Point(913, 405);
             this.fieldMassaGetCrc.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaGetCrc.Name = "fieldMassaGetCrc";
@@ -279,7 +302,6 @@
             this.fieldMassaGetCrc.TabIndex = 51;
             this.fieldMassaGetCrc.Text = "CRC: ";
             this.fieldMassaGetCrc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaGetCrc.Visible = false;
             // 
             // fieldMassaComPort
             // 
@@ -287,6 +309,7 @@
             this.fieldMassaComPort.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaComPort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaComPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaComPort.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaComPort.Location = new System.Drawing.Point(13, 431);
             this.fieldMassaComPort.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaComPort.Name = "fieldMassaComPort";
@@ -301,6 +324,7 @@
             this.fieldMassaScalePar.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaScalePar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaScalePar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaScalePar.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaScalePar.Location = new System.Drawing.Point(299, 405);
             this.fieldMassaScalePar.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaScalePar.Name = "fieldMassaScalePar";
@@ -308,7 +332,6 @@
             this.fieldMassaScalePar.TabIndex = 49;
             this.fieldMassaScalePar.Text = "Запрос параметров: ";
             this.fieldMassaScalePar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaScalePar.Visible = false;
             // 
             // fieldMassaSet
             // 
@@ -316,6 +339,7 @@
             this.fieldMassaSet.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaSet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaSet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaSet.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaSet.Location = new System.Drawing.Point(299, 457);
             this.fieldMassaSet.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaSet.Name = "fieldMassaSet";
@@ -323,7 +347,6 @@
             this.fieldMassaSet.TabIndex = 48;
             this.fieldMassaSet.Text = "Команда для весов: ";
             this.fieldMassaSet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaSet.Visible = false;
             // 
             // fieldMassaQueries
             // 
@@ -331,6 +354,7 @@
             this.fieldMassaQueries.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaQueries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaQueries.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaQueries.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaQueries.Location = new System.Drawing.Point(13, 457);
             this.fieldMassaQueries.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaQueries.Name = "fieldMassaQueries";
@@ -345,6 +369,7 @@
             this.fieldMassaGet.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaGet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaGet.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaGet.Location = new System.Drawing.Point(299, 431);
             this.fieldMassaGet.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaGet.Name = "fieldMassaGet";
@@ -352,7 +377,6 @@
             this.fieldMassaGet.TabIndex = 46;
             this.fieldMassaGet.Text = "Сообщение взвешивания: ";
             this.fieldMassaGet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldMassaGet.Visible = false;
             // 
             // fieldMassaManager
             // 
@@ -360,6 +384,7 @@
             this.fieldMassaManager.BackColor = System.Drawing.Color.Transparent;
             this.fieldMassaManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldMassaManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldMassaManager.ForeColor = System.Drawing.SystemColors.ButtonShadow;
             this.fieldMassaManager.Location = new System.Drawing.Point(13, 405);
             this.fieldMassaManager.Margin = new System.Windows.Forms.Padding(3);
             this.fieldMassaManager.Name = "fieldMassaManager";
@@ -375,6 +400,7 @@
             this.fieldPrintManager.BackColor = System.Drawing.Color.Transparent;
             this.fieldPrintManager.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPrintManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldPrintManager.ForeColor = System.Drawing.SystemColors.ControlText;
             this.fieldPrintManager.Location = new System.Drawing.Point(13, 379);
             this.fieldPrintManager.Margin = new System.Windows.Forms.Padding(3);
             this.fieldPrintManager.Name = "fieldPrintManager";
@@ -382,7 +408,6 @@
             this.fieldPrintManager.TabIndex = 43;
             this.fieldPrintManager.Text = "Менеджер принтера";
             this.fieldPrintManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldPrintManager.Visible = false;
             this.fieldPrintManager.DoubleClick += new System.EventHandler(this.FieldPrintManager_DoubleClick);
             this.fieldPrintManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
@@ -402,16 +427,16 @@
             this.fieldMemoryManager.Visible = false;
             this.fieldMemoryManager.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // fieldCountBox
+            // fieldPrintProgress
             // 
-            this.fieldCountBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.fieldPrintProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldCountBox.Location = new System.Drawing.Point(913, 379);
-            this.fieldCountBox.Name = "fieldCountBox";
-            this.fieldCountBox.Size = new System.Drawing.Size(96, 20);
-            this.fieldCountBox.TabIndex = 30;
-            this.fieldCountBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.fieldPrintProgress.Location = new System.Drawing.Point(913, 379);
+            this.fieldPrintProgress.Name = "fieldPrintProgress";
+            this.fieldPrintProgress.Size = new System.Drawing.Size(96, 20);
+            this.fieldPrintProgress.TabIndex = 30;
+            this.fieldPrintProgress.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldResolution
             // 
@@ -510,6 +535,7 @@
             // fieldProductDate
             // 
             this.fieldProductDate.AutoSize = true;
+            this.fieldProductDate.BackColor = System.Drawing.Color.Transparent;
             this.fieldProductDate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldProductDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldProductDate.Location = new System.Drawing.Point(299, 327);
@@ -525,6 +551,7 @@
             // fieldKneading
             // 
             this.fieldKneading.AutoSize = true;
+            this.fieldKneading.BackColor = System.Drawing.Color.Transparent;
             this.fieldKneading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldKneading.Location = new System.Drawing.Point(299, 241);
@@ -537,20 +564,20 @@
             this.fieldKneading.Visible = false;
             this.fieldKneading.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
-            // fieldLabelsCount
+            // fieldPrintLabels
             // 
-            this.fieldLabelsCount.AutoSize = true;
-            this.fieldLabelsCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fieldLabelsCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fieldLabelsCount.Location = new System.Drawing.Point(299, 379);
-            this.fieldLabelsCount.Margin = new System.Windows.Forms.Padding(3);
-            this.fieldLabelsCount.Name = "fieldLabelsCount";
-            this.fieldLabelsCount.Size = new System.Drawing.Size(608, 20);
-            this.fieldLabelsCount.TabIndex = 37;
-            this.fieldLabelsCount.Text = "Этикетки: 0 / 0";
-            this.fieldLabelsCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fieldLabelsCount.Visible = false;
-            this.fieldLabelsCount.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            this.fieldPrintLabels.AutoSize = true;
+            this.fieldPrintLabels.BackColor = System.Drawing.Color.Transparent;
+            this.fieldPrintLabels.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldPrintLabels.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldPrintLabels.Location = new System.Drawing.Point(299, 379);
+            this.fieldPrintLabels.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldPrintLabels.Name = "fieldPrintLabels";
+            this.fieldPrintLabels.Size = new System.Drawing.Size(608, 20);
+            this.fieldPrintLabels.TabIndex = 37;
+            this.fieldPrintLabels.Text = "Этикетки: 0 / 0";
+            this.fieldPrintLabels.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fieldPrintLabels.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldTitle
             // 
@@ -572,7 +599,7 @@
             // fieldPlu
             // 
             this.fieldPlu.AutoSize = true;
-            this.fieldPlu.BackColor = System.Drawing.SystemColors.Control;
+            this.fieldPlu.BackColor = System.Drawing.Color.Transparent;
             this.fieldPlu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fieldPlu.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fieldPlu.Location = new System.Drawing.Point(299, 33);
@@ -773,6 +800,21 @@
             this.buttonSettings.Click += new System.EventHandler(this.ButtonSettings_Click);
             this.buttonSettings.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             // 
+            // fieldSsccValue
+            // 
+            this.fieldSsccValue.AutoSize = true;
+            this.fieldSsccValue.BackColor = System.Drawing.Color.Transparent;
+            this.fieldSsccValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldSsccValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fieldSsccValue.Location = new System.Drawing.Point(299, 353);
+            this.fieldSsccValue.Margin = new System.Windows.Forms.Padding(3);
+            this.fieldSsccValue.Name = "fieldSsccValue";
+            this.fieldSsccValue.Size = new System.Drawing.Size(608, 20);
+            this.fieldSsccValue.TabIndex = 61;
+            this.fieldSsccValue.Text = "SSCC value";
+            this.fieldSsccValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.fieldSsccValue.DoubleClick += new System.EventHandler(this.FieldSscc_DoubleClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -812,12 +854,12 @@
         private System.Windows.Forms.Label fieldCurrentTime;
         private System.Windows.Forms.Label labelKneading;
         private System.Windows.Forms.Label labelProductDate;
-        private System.Windows.Forms.ProgressBar fieldCountBox;
+        private System.Windows.Forms.ProgressBar fieldPrintProgress;
         private System.Windows.Forms.ComboBox fieldResolution;
         private System.Windows.Forms.Label fieldProductDate;
         private System.Windows.Forms.Label fieldKneading;
         private System.Windows.Forms.Label labelPlu;
-        private System.Windows.Forms.Label fieldLabelsCount;
+        private System.Windows.Forms.Label fieldPrintLabels;
         private System.Windows.Forms.Label fieldMassaManager;
         private System.Windows.Forms.Label fieldPrintManager;
         private System.Windows.Forms.Label fieldMemoryManager;
@@ -843,6 +885,8 @@
         private System.Windows.Forms.Button buttonScalesInit;
         private System.Windows.Forms.Button buttonRunScalesTerminal;
         private System.Windows.Forms.Button buttonSettings;
+        private System.Windows.Forms.Label fieldSsccCaption;
+        private System.Windows.Forms.Label fieldSsccValue;
     }
 }
 
