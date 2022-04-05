@@ -14,8 +14,8 @@ namespace DataCore
 
         public static class DeviceControl
         {
-            #region Main
             public static string DataRecords => Lang == ShareEnums.Lang.English ? "records" : "записей";
+            public static string DevicesTitle => Lang == ShareEnums.Lang.English ? "Complexes of industrial devices" : "Комплексы промышленных устройств";
             public static string Index => Lang == ShareEnums.Lang.English ? "DeviceControl" : "Управление устройствами";
             public static string IndexAccessQuery => Lang == ShareEnums.Lang.English ? "Contact your system administrator to access." : "Свяжитесь с администратором системы, чтобы получить доступ.";
             public static string IndexContinue => Lang == ShareEnums.Lang.English ? "Click on a menu section to continue." : "Нажмите на раздел меню, чтобы продолжить.";
@@ -23,10 +23,6 @@ namespace DataCore
             public static string LinkEmailWithSubject => "mailto:morozov_dv@kolbasa-vs.ru&subject=device-control";
             public static string SqlServerDebug => "CREATIO";
             public static string SqlServerRelease => "PALYCH";
-            #endregion
-            #region Комплексы промышленных устройств
-            public static string DevicesTitle => Lang == ShareEnums.Lang.English ? "Complexes of industrial devices" : "Комплексы промышленных устройств";
-            #endregion
             #region URI route item
             public static class UriRouteItem
             {
@@ -106,8 +102,8 @@ namespace DataCore
             public static string ItemPrinter => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
             public static string ItemPrinterResource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
             public static string ItemPrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
-            public static string ItemProductionFacility => Lang == ShareEnums.Lang.English ? "Prod. facility" : "Произв. площадка";
             public static string ItemProductionFacilities => Lang == ShareEnums.Lang.English ? "Prod. facilities" : "Производственные площадки";
+            public static string ItemProductionFacility => Lang == ShareEnums.Lang.English ? "Prod. facility" : "Произв. площадка";
             public static string ItemProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серия продукта";
             public static string ItemResource => Lang == ShareEnums.Lang.English ? "Resource" : "Ресурс";
             public static string ItemScale => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
@@ -173,6 +169,7 @@ namespace DataCore
             public static string TableFieldBrand => Lang == ShareEnums.Lang.English ? "___" : "Brand";
             public static string TableFieldCategoryId => Lang == ShareEnums.Lang.English ? "___" : "ID категории";
             public static string TableFieldCategoryName => Lang == ShareEnums.Lang.English ? "Category" : "Категория";
+            public static string TableFieldChangeDt => Lang == ShareEnums.Lang.English ? "Edit date" : "Дата редактирования";
             public static string TableFieldCheckGtin => Lang == ShareEnums.Lang.English ? "GTIN" : "ГТИН";
             public static string TableFieldCheckWeight => Lang == ShareEnums.Lang.English ? "___" : "Весовая продукция";
             public static string TableFieldCode => Lang == ShareEnums.Lang.English ? "___" : "Код";
@@ -228,7 +225,6 @@ namespace DataCore
             public static string TableFieldMarkedShort => Lang == ShareEnums.Lang.English ? "x" : "х";
             public static string TableFieldMember => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
             public static string TableFieldMessage => Lang == ShareEnums.Lang.English ? "Message" : "Сообщение";
-            public static string TableFieldChangeDt => Lang == ShareEnums.Lang.English ? "Edit date" : "Дата редактирования";
             public static string TableFieldName => Lang == ShareEnums.Lang.English ? "Name" : "Наименование";
             public static string TableFieldNameFull => Lang == ShareEnums.Lang.English ? "Full name" : "Полное наименование";
             public static string TableFieldNetWeight => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
@@ -298,136 +294,114 @@ namespace DataCore
             #region Main
             public static string AppTitle => Lang == ShareEnums.Lang.English ? "Resources VS" : "Ресурсы ВС";
             public static string CallbackEmail => "mailto:morozov_dv@kolbasa-vs.ru&subject=resources-vs.kolbasa-vs.local";
-            public static string SysAdmin => Lang == ShareEnums.Lang.English ? "Administration" : "Администрирование";
             public static string SupportCreatio => "https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/CaseSection/";
+            public static string SysAdmin => Lang == ShareEnums.Lang.English ? "Administration" : "Администрирование";
             #endregion
             #region Support
-            public static string SupportTitle => Lang == ShareEnums.Lang.English ? "Support service" : "Служба поддержки";
             public static string SupportLinkCreatioText => Lang == ShareEnums.Lang.English ? "Creatio appeals" : "Creatio обращения";
+            public static string SupportLinkHelpPath => Lang == ShareEnums.Lang.English ? "mailto:helpdesk@kolbasa-vs.ru?subject=Appeal" : "mailto:helpdesk@kolbasa-vs.ru?subject=Обращение";
             public static string SupportLinkHelpText => Lang == ShareEnums.Lang.English ? "Write a letter" : "Написать письмо";
-
-            public static string SupportLinkHelpPath =>
-                Lang == ShareEnums.Lang.English
-                    ? "mailto:helpdesk@kolbasa-vs.ru?subject=Appeal"
-                    : "mailto:helpdesk@kolbasa-vs.ru?subject=Обращение";
-
+            public static string SupportTitle => Lang == ShareEnums.Lang.English ? "Support service" : "Служба поддержки";
             #endregion
             #region Contacts
-            public static string ContactsTitle => Lang == ShareEnums.Lang.English ? "Contacts" : "Контакты";
-            public static string ContactsPhoneText => Lang == ShareEnums.Lang.English ? "Phone directory" : "Телефонный справочник";
-
-            public static string ContactsPhonePath => "http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP";
-
-            public static string ContactsCreatioText => Lang == ShareEnums.Lang.English ? "Creatio contacts" : "Creatio контакты";
-
             public static string ContactsCreatioPath => "https://kolbasa-vs.terrasoft.ru/0/Nui/ViewModule.aspx#SectionModuleV2/ContactSectionV2/";
-
+            public static string ContactsCreatioText => Lang == ShareEnums.Lang.English ? "Creatio contacts" : "Creatio контакты";
+            public static string ContactsPhonePath => "http://sqlsrsp01.kolbasa-vs.local/Reports/browse/PhoneRP";
+            public static string ContactsPhoneText => Lang == ShareEnums.Lang.English ? "Phone directory" : "Телефонный справочник";
+            public static string ContactsTitle => Lang == ShareEnums.Lang.English ? "Contacts" : "Контакты";
             #endregion
             #region IT department
             public static string DepartmentItTitle => Lang == ShareEnums.Lang.English ? "IT department" : "ИТ отдел";
-
             #endregion
             #region Redmine
+            public const string RedmineGooglePath = "http://192.168.0.50/projects/resources_it/wiki/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%B3%D1%83%D0%B3%D0%BB_%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B";
+            public const string RedmineGoogleText = "Ссылка на гугл таблицы";
+            public const string RedmineProjectsPath = "http://192.168.0.50/projects";
+            public const string RedmineProjectsText = "проекты";
+            public const string RedmineWikiPath = "http://192.168.0.50/projects/resources_it/wiki/Wiki";
             public static string RedmineTitle => "Redmine";
             public static string RedmineWikiText => "Wiki";
-            public const string RedmineWikiPath = "http://192.168.0.50/projects/resources_it/wiki/Wiki";
-            public const string RedmineProjectsText = "проекты";
-            public const string RedmineProjectsPath = "http://192.168.0.50/projects";
-            public const string RedmineGoogleText = "Ссылка на гугл таблицы";
-            public const string RedmineGooglePath = "http://192.168.0.50/projects/resources_it/wiki/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B0_%D0%BD%D0%B0_%D0%B3%D1%83%D0%B3%D0%BB_%D1%82%D0%B0%D0%B1%D0%BB%D0%B8%D1%86%D1%8B";
             #endregion
             #region Zabbix
-            public static string ZabbixTitle => "Zabbix";
-            public static string ZabbixKolbasaText => "kolbasa-vs-terrasoft";
-
-            public static string ZabbixKolbasaPath => "http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
-
-            public static string ZabbixGlobalText => Lang == ShareEnums.Lang.English ? "Global view" : "Глобальное представление";
-
             public static string ZabbixGlobalPath => "http://zabbix.kolbasa-vs.local/zabbix/zabbix.php?action=dashboard.view";
-
-            public static string ZabbixWebText => Lang == ShareEnums.Lang.English ? "Web monitoring" : "Веб-мониторинг";
-
+            public static string ZabbixGlobalText => Lang == ShareEnums.Lang.English ? "Global view" : "Глобальное представление";
+            public static string ZabbixKolbasaPath => "http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
+            public static string ZabbixKolbasaText => "kolbasa-vs-terrasoft";
+            public static string ZabbixTitle => "Zabbix";
             public static string ZabbixWebPath => "http://zabbix.kolbasa-vs.local/zabbix/httpdetails.php?httptestid=7";
-
+            public static string ZabbixWebText => Lang == ShareEnums.Lang.English ? "Web monitoring" : "Веб-мониторинг";
             #endregion
             #region Creatio
+            public const string CreatioAcademyPath = "https://academy.terrasoft.ru/";
+            public const string CreatioCommunityPath = "https://community.terrasoft.ru/";
+            public const string CreatioCreDevDmDev = "http://cre-dev-dm.kolbasa-vs.local/0/dev";
+            public const string CreatioCreDevDmLink = "http://cre-dev-dm.kolbasa-vs.local/";
+            public const string CreatioCreDevIaDev = "http://cre-dev-ia.kolbasa-vs.local/0/dev";
+            public const string CreatioCreDevIaLink = "http://cre-dev-ia.kolbasa-vs.local/";
+            public const string CreatioCreStudyDevPath = "http://cre-study.kolbasa-vs.local/0/dev";
+            public const string CreatioCreStudyPath = "http://cre-study.kolbasa-vs.local/";
+            public const string CreatioCreTestDev = "http://cre-test.kolbasa-vs.local/0/dev";
+            public const string CreatioCreTestLink = "http://cre-test.kolbasa-vs.local/";
+            public const string CreatioCreUpgradeDevPath = "http://cre-upgrade.kolbasa-vs.local/0/dev";
+            public const string CreatioCreUpgradePath = "http://cre-upgrade.kolbasa-vs.local/";
+            public const string CreatioMarketplacePath = "https://marketplace.terrasoft.ru/";
+            public const string CreatioTerrasoftDevPath = "https://kolbasa-vs.terrasoft.ru/0/dev";
+            public const string CreatioTerrasoftPath = "https://kolbasa-vs.terrasoft.ru/";
+            public const string CreatioTerrasoftPre2DevPath = "https://dev2-kolbasa-vs.terrasoft.ru/0/dev";
+            public const string CreatioTerrasoftPre2Path = "https://dev2-kolbasa-vs.terrasoft.ru/";
+            public const string CreatioTerrasoftPreDevPath = "https://dev-kolbasa-vs.terrasoft.ru/0/dev";
+            public const string CreatioTerrasoftPrePath = "https://dev-kolbasa-vs.terrasoft.ru/";
+            public const string CreatioWebinarsPath = "\\isexcd02\\Webinars\\";
+            public static string CreatioAcademyText => Lang == ShareEnums.Lang.English ? "Academy" : "Академия";
+            public static string CreatioCommunityText => Lang == ShareEnums.Lang.English ? "Community" : "Сообщество";
+            public static string CreatioCreDevDmName => Lang == ShareEnums.Lang.English ? "Website development Morozov D.V." : "Сайт разработки Морозов Д.В.";
+            public static string CreatioCreDevIaName => Lang == ShareEnums.Lang.English ? "Website development Andreev I.A." : "Сайт разработки Андреев И.А.";
+            public static string CreatioCreStudyDevText => Lang == ShareEnums.Lang.English ? "cre-study | Training Configuration" : "cre-study | Конфигурация обучения";
+            public static string CreatioCreStudyText => Lang == ShareEnums.Lang.English ? "cre-study | Training site" : "cre-study | Сайт обучения";
+            public static string CreatioCreTestName => Lang == ShareEnums.Lang.English ? "Website testing" : "Сайт тестирования";
+            public static string CreatioCreUpgradeDevText => Lang == ShareEnums.Lang.English ? "Cre-upgrade | Upgrade Configuration" : "cre-upgrade | Конфигурация обновления";
+            public static string CreatioCreUpgradeText => Lang == ShareEnums.Lang.English ? "Cre-upgrade | update site" : "cre-upgrade | Сайт обновления";
+            public static string CreatioMarketplaceText => Lang == ShareEnums.Lang.English ? "Marketplace" : "Маркетплейс";
+            public static string CreatioOfficialTitle => Lang == ShareEnums.Lang.English ? "The official sites of Terrasoft Creatio" : "Официальные сайты Terrasoft Creatio";
+            public static string CreatioRemoteTitle => Lang == ShareEnums.Lang.English ? "Public sites" : "Публичные сайты";
+            public static string CreatioTableFieldDev => Lang == ShareEnums.Lang.English ? "Configuration" : "Конфигурация";
+            public static string CreatioTableFieldLink => Lang == ShareEnums.Lang.English ? "Link" : "Ссылка";
+            public static string CreatioTableFieldName => Lang == ShareEnums.Lang.English ? "Site" : "Сайт";
+            public static string CreatioTableTitle => Lang == ShareEnums.Lang.English ? "Local sites" : "Локальные сайты";
+            public static string CreatioTerrasoftDevText => Lang == ShareEnums.Lang.English ? "kolbasa-vs.terrasoft.ru | Configuration of the product environment" : "kolbasa-vs.terrasoft.ru | Конфигурация продуктовой среды";
+            public static string CreatioTerrasoftPre2DevText => Lang == ShareEnums.Lang.English ? "dev2-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : "dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
+            public static string CreatioTerrasoftPre2Text => Lang == ShareEnums.Lang.English ? "dev2-kolbasa-vs.terrasoft.ru | Pre-prod 2 website" : "dev2-kolbasa-vs.terrasoft.ru | Сайт пре-прод 2";
+            public static string CreatioTerrasoftPreDevText => Lang == ShareEnums.Lang.English ? "dev-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : "dev-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
+            public static string CreatioTerrasoftPreText => Lang == ShareEnums.Lang.English ? "dev-kolbasa-vs.terrasoft.ru | Site pre-prod 1" : "dev-kolbasa-vs.terrasoft.ru | Сайт пре-прод 1";
+            public static string CreatioTerrasoftText => Lang == ShareEnums.Lang.English ? "kolbasa-vs.terrasoft.ru | Product environment" : "dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
             public static string CreatioTitle => Lang == ShareEnums.Lang.English ? "Creatio-server" : "Creatio-сервер";
             public static string CreatioWebinarsText => Lang == ShareEnums.Lang.English ? "Webinars" : "Вебинары";
-            public const string CreatioWebinarsPath = "\\isexcd02\\Webinars\\";
-            public static string CreatioOfficialTitle => Lang == ShareEnums.Lang.English ? "The official sites of Terrasoft Creatio" : "Официальные сайты Terrasoft Creatio";
-            public static string CreatioAcademyText => Lang == ShareEnums.Lang.English ? "Academy" : "Академия";
-            public const string CreatioAcademyPath = "https://academy.terrasoft.ru/";
-            public static string CreatioMarketplaceText => Lang == ShareEnums.Lang.English ? "Marketplace" : "Маркетплейс";
-            public const string CreatioMarketplacePath = "https://marketplace.terrasoft.ru/";
-            public static string CreatioCommunityText => Lang == ShareEnums.Lang.English ? "Community" : "Сообщество";
-            public const string CreatioCommunityPath = "https://community.terrasoft.ru/";
-            public static string CreatioTableTitle => Lang == ShareEnums.Lang.English ? "Local sites" : "Локальные сайты";
-            public static string CreatioTableFieldName => Lang == ShareEnums.Lang.English ? "Site" : "Сайт";
-            public static string CreatioTableFieldLink => Lang == ShareEnums.Lang.English ? "Link" : "Ссылка";
-            public static string CreatioTableFieldDev => Lang == ShareEnums.Lang.English ? "Configuration" : "Конфигурация";
-            public static string CreatioCreDevDmName => Lang == ShareEnums.Lang.English ? "Website development Morozov D.V." : "Сайт разработки Морозов Д.В.";
-            public const string CreatioCreDevDmLink = "http://cre-dev-dm.kolbasa-vs.local/";
-            public const string CreatioCreDevDmDev = "http://cre-dev-dm.kolbasa-vs.local/0/dev";
-            public static string CreatioCreDevIaName => Lang == ShareEnums.Lang.English ? "Website development Andreev I.A." : "Сайт разработки Андреев И.А.";
-            public const string CreatioCreDevIaLink = "http://cre-dev-ia.kolbasa-vs.local/";
-            public const string CreatioCreDevIaDev = "http://cre-dev-ia.kolbasa-vs.local/0/dev";
-            public static string CreatioCreTestName => Lang == ShareEnums.Lang.English ? "Website testing" : "Сайт тестирования";
-            public const string CreatioCreTestLink = "http://cre-test.kolbasa-vs.local/";
-            public const string CreatioCreTestDev = "http://cre-test.kolbasa-vs.local/0/dev";
-            public static string CreatioCreStudyText => Lang == ShareEnums.Lang.English ? "cre-study | Training site" : "cre-study | Сайт обучения";
-            public const string CreatioCreStudyPath = "http://cre-study.kolbasa-vs.local/";
-            public static string CreatioCreStudyDevText => Lang == ShareEnums.Lang.English ? "cre-study | Training Configuration" : "cre-study | Конфигурация обучения";
-            public const string CreatioCreStudyDevPath = "http://cre-study.kolbasa-vs.local/0/dev";
-            public static string CreatioCreUpgradeText => Lang == ShareEnums.Lang.English ? "Cre-upgrade | update site" : "cre-upgrade | Сайт обновления";
-            public const string CreatioCreUpgradePath = "http://cre-upgrade.kolbasa-vs.local/";
-            public static string CreatioCreUpgradeDevText => Lang == ShareEnums.Lang.English ? "Cre-upgrade | Upgrade Configuration" : "cre-upgrade | Конфигурация обновления";
-            public const string CreatioCreUpgradeDevPath = "http://cre-upgrade.kolbasa-vs.local/0/dev";
-            public static string CreatioRemoteTitle => Lang == ShareEnums.Lang.English ? "Public sites" : "Публичные сайты";
-            public static string CreatioTerrasoftPreText => Lang == ShareEnums.Lang.English
-                ? "dev-kolbasa-vs.terrasoft.ru | Site pre-prod 1" : "dev-kolbasa-vs.terrasoft.ru | Сайт пре-прод 1";
-            public const string CreatioTerrasoftPrePath = "https://dev-kolbasa-vs.terrasoft.ru/";
-            public static string CreatioTerrasoftPreDevText => Lang == ShareEnums.Lang.English
-                ? "dev-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : "dev-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
-            public const string CreatioTerrasoftPreDevPath = "https://dev-kolbasa-vs.terrasoft.ru/0/dev";
-            public static string CreatioTerrasoftPre2Text => Lang == ShareEnums.Lang.English
-                ? "dev2-kolbasa-vs.terrasoft.ru | Pre-prod 2 website" : "dev2-kolbasa-vs.terrasoft.ru | Сайт пре-прод 2";
-            public const string CreatioTerrasoftPre2Path = "https://dev2-kolbasa-vs.terrasoft.ru/";
-            public static string CreatioTerrasoftPre2DevText => Lang == ShareEnums.Lang.English
-                ? "dev2-kolbasa-vs.terrasoft.ru | Configuration pre-prod 1" : "dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
-            public const string CreatioTerrasoftPre2DevPath = "https://dev2-kolbasa-vs.terrasoft.ru/0/dev";
-            public static string CreatioTerrasoftText => Lang == ShareEnums.Lang.English
-                ? "kolbasa-vs.terrasoft.ru | Product environment" : "dev2-kolbasa-vs.terrasoft.ru | Конфигурация пре-прод 1";
-            public const string CreatioTerrasoftPath = "https://kolbasa-vs.terrasoft.ru/";
-            public static string CreatioTerrasoftDevText => Lang == ShareEnums.Lang.English
-                ? "kolbasa-vs.terrasoft.ru | Configuration of the product environment" : "kolbasa-vs.terrasoft.ru | Конфигурация продуктовой среды";
-            public const string CreatioTerrasoftDevPath = "https://kolbasa-vs.terrasoft.ru/0/dev";
             #endregion
             #region Контроль версий
-            public const string VersionControlTitle = "Контроль версий";
-            public const string VersionControlSvnVisualStudioText = "SVN visualstudio";
             public const string VersionControlSvnVisualStudioPath = "http://192.168.0.50/svn/visualstudio/";
+            public const string VersionControlSvnVisualStudioText = "SVN visualstudio";
+            public const string VersionControlTitle = "Контроль версий";
             #endregion
             #region Веб-сервер
-            public const string IisServerTitle = "Веб-сервер";
-            public const string IisServerBlazorDeviceText = "blazor-device-control | Управление устройствами";
-            public const string IisServerBlazorDevicePath = "https://blazor-device-control.kolbasa-vs.local/";
-            public const string IisServerBlazorBackupText = "blazor-backup-control | Управление бэкапами";
             public const string IisServerBlazorBackupPath = "https://blazor-backup-control.kolbasa-vs.local/";
-            public const string IisServerBlazorExampleText = "blazor-example | Пример сайта на Blazor";
-            public const string IisServerBlazorExamplePath = "https://blazor-example.kolbasa-vs.local/";
-            public const string IisServerBlazorDao1Text = "data-accessor-test-1 | Доступ к данным 1";
+            public const string IisServerBlazorBackupText = "blazor-backup-control | Управление бэкапами";
             public const string IisServerBlazorDao1Path = "https://data-accessor-test-1.kolbasa-vs.local/";
-            public const string IisServerBlazorDao2Text = "data-accessor-test-2 | Доступ к данным 2";
+            public const string IisServerBlazorDao1Text = "data-accessor-test-1 | Доступ к данным 1";
             public const string IisServerBlazorDao2Path = "https://data-accessor-test-2.kolbasa-vs.local/";
-            public const string IisServerBlazorDbDocText = "database-doc | Database Routine Maintanance Project";
+            public const string IisServerBlazorDao2Text = "data-accessor-test-2 | Доступ к данным 2";
             public const string IisServerBlazorDbDocPath = "https://database-doc.kolbasa-vs.local/";
-            public const string IisServerBlazorResourcesVsText = "resources-vs | Внутренние ресурсы";
+            public const string IisServerBlazorDbDocText = "database-doc | Database Routine Maintanance Project";
+            public const string IisServerBlazorDevicePath = "https://blazor-device-control.kolbasa-vs.local/";
+            public const string IisServerBlazorDeviceText = "blazor-device-control | Управление устройствами";
+            public const string IisServerBlazorExamplePath = "https://blazor-example.kolbasa-vs.local/";
+            public const string IisServerBlazorExampleText = "blazor-example | Пример сайта на Blazor";
             public const string IisServerBlazorResourcesVsPath = "https://resources-vs.kolbasa-vs.local/";
-            public const string IisServerBlazorSmart1Text = "smart-net-data-accessor-test-1 | DAO example 1";
+            public const string IisServerBlazorResourcesVsText = "resources-vs | Внутренние ресурсы";
             public const string IisServerBlazorSmart1Path = "https://smart-net-data-accessor-test-1.kolbasa-vs.local/";
-            public const string IisServerBlazorSmart2Text = "smart-net-data-accessor-test-2 | | DAO example 2";
+            public const string IisServerBlazorSmart1Text = "smart-net-data-accessor-test-1 | DAO example 1";
             public const string IisServerBlazorSmart2Path = "https://smart-net-data-accessor-test-2.kolbasa-vs.local/";
+            public const string IisServerBlazorSmart2Text = "smart-net-data-accessor-test-2 | | DAO example 2";
+            public const string IisServerTitle = "Веб-сервер";
             #endregion
         }
 
@@ -438,149 +412,95 @@ namespace DataCore
 
         public static class ScalesUI
         {
-            public static List<string> ListLanguages => Lang == ShareEnums.Lang.English
-                ? new List<string> { "Russian", "English" }
-                : new List<string> { "Russian", "English" };
-            //: new List<string> { "Русский", "Английский" };
-            public static List<string> ListResolutions => Lang == ShareEnums.Lang.English
-                ? new List<string> { "Maximum", "1024x768", "1366x768", "1600x1024", "1920x1080" }
-                : new List<string> { "Максимальное", "1024x768", "1366x768", "1600x1024", "1920x1080" };
-            public static string DeviceControlIsPreview => Lang == ShareEnums.Lang.English 
-                ? "Open a preview-version of device management?" : "Открыть превью-версию управления устройствами?";
-            public static string ProgramLoad => Lang == ShareEnums.Lang.English ? "Loading the program ..." : "Загрузка программы ...";
-            public static string ProgramExit => Lang == ShareEnums.Lang.English ? "Ending the program ..." : "Завершение программы ...";
-            public static string Exception => Lang == ShareEnums.Lang.English ? "Exception" : "Ошибка";
-            public static string Method => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
-            public static string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
-            public static string ExceptionSqlDb => Lang == ShareEnums.Lang.English ? "The database is unavailable!" : "База данных недоступна!";
-            public static string Registration => Lang == ShareEnums.Lang.English ? "Device registration" : "Регистрация устройства";
-            public static string RegistrationWarning1(Guid uid) => Lang == ShareEnums.Lang.English
-                ? "The monoblock is registered in the information system with the identifier" + Environment.NewLine +
-                  $"{uid}" + Environment.NewLine +
-                  "Before restarting, map it to the current line in DeviceControl."
-                : "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine +
-                 $"{uid}" + Environment.NewLine +
-                  "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
-            public static string RegistrationWarning2(Guid uid) => Lang == ShareEnums.Lang.English
-                ? $"The monoblock is registered in the information system with the identifier {uid}" + Environment.NewLine +
-                    "Before restarting it, map it to the current line in DeviceControl"
-                : $"Моноблок зарегистрирован в информационной системе с идентификатором {uid}" + Environment.NewLine +
-                    "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
-            public static string OperationControl => Lang == ShareEnums.Lang.English ? "Control of operations" : "Контроль операций";
+            public static List<string> ListLanguages => Lang == ShareEnums.Lang.English ? new List<string> { "Russian", "English" } : new List<string> { "Russian", "English" };
+            public static List<string> ListResolutions => Lang == ShareEnums.Lang.English ? new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Maximum" } : new List<string> { "800x600", "1024x768", "1366x768", "1600x1024", "1920x1080", "Максимальное" };
             public static readonly decimal MassaThreshold = 0.05M;
-            public static string CheckWeightBefore(decimal currentWeight) => Lang == ShareEnums.Lang.English
-                ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine +
-                 $"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine +
-                 $"Current gross value: {currentWeight:0.000} {UnitKg}."
-                : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine +
-                 $"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine +
-                 $"Текущее значение брутто: {currentWeight:0.000} {UnitKg}.";
-            public static string CheckWeightIsEmpty() => Lang == ShareEnums.Lang.English
-                ? "For products by weight, put the product on the scale!" + Environment.NewLine + $"Label printing is not possible!"
-                : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + $"Печать этикетки невозможна!";
-            public static string PluIsEmpty => Lang == ShareEnums.Lang.English ? "PLU not selected!" : "Не выбрана PLU!";
-            public static string CheckWeightThresholds(decimal currentNet,
-                decimal upperWeightThreshold, decimal lowerWeightThreshold) => Lang == ShareEnums.Lang.English
-                ? WeightingControl + Environment.NewLine +
-                    $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine +
-                    $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine +
-                    $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine +
-                    $"Label printing is not possible!"
-                : WeightingControl + Environment.NewLine +
-                    $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine +
-                    $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine +
-                    $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine +
-                    $"Печать этикетки невозможна!";
-            public static string CheckWeightThreshold(decimal weightNet) => Lang == ShareEnums.Lang.English
-                ? WeightingControl + Environment.NewLine +
-                    $"Product weight: {weightNet:0.000} {UnitKg}" + Environment.NewLine +
-                    $"Label printing is not possible!"
-                : WeightingControl + Environment.NewLine +
-                    $"Вес продукта: {weightNet:0.000} {UnitKg}" + Environment.NewLine +
-                    $"Печать этикетки невозможна!";
-            public static string PrinterWarningOpenCover => Lang == ShareEnums.Lang.English
-                ? "Open the cover of the separator before proceeding with the calibration!"
-                : "Прежде чем продолжить калибровку, откройте крышку отделителя!";
-            public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English
-                ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator."
-                : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
-            public static string MassaNotQuering => Lang == ShareEnums.Lang.English ? "Massa-K scales are not respond!" : "Весы Масса-К не отвечают!";
-            public static string MassaNotFound => Lang == ShareEnums.Lang.English ? "The device of the scales has not been found!" : "Устройство весов не обнаружено!";
-            public static string IsNotLoaded => Lang == ShareEnums.Lang.English
-                ? "The program is not yet loaded!" + Environment.NewLine + "Wait for it..."
-                : "Программа ещё не загружена!" + Environment.NewLine + "Подождите...";
-            public static string PrinterInfoCaption => Lang == ShareEnums.Lang.English
-                ? "Printer info"
-                : "Информация о принтере";
-            public static string CheckPluWeightCount => Lang == ShareEnums.Lang.English
-                ? "Weighted products can be specified in quantities of 1 piece."
-                : "Весовая продукция может быть указана в количестве 1 штуки.";
-            public static string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
-            public static string PrinterTsc => Lang == ShareEnums.Lang.English ? "Printer TSC" : "Принтер TSC";
-            public static string PrinterZebra => Lang == ShareEnums.Lang.English ? "Printer Zebra" : "Принтер Zebra";
-            public static string PrinterAvailable => Lang == ShareEnums.Lang.English ? "available" : "доступен";
-            public static string PrinterUnavailable => Lang == ShareEnums.Lang.English ? "unavailable" : "не доступен";
-            public static string Memory => Lang == ShareEnums.Lang.English ? "Memory" : "Память";
-            public static string MemoryPhysical => Lang == ShareEnums.Lang.English ? "Physical memory" : "Физическая память";
-            public static string MemoryVirtual => Lang == ShareEnums.Lang.English ? "Virtual memory" : "Виртуальная память";
-            public static string MemoryFree => Lang == ShareEnums.Lang.English ? "free" : "свободно";
-            public static string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
-            public static string PluCount => Lang == ShareEnums.Lang.English ? "PLU (count)" : "ПЛУ (шт)";
-            public static string PluWeight => Lang == ShareEnums.Lang.English ? "PLU (weight)" : "ПЛУ (вес)";
-            public static string UnitPcs => Lang == ShareEnums.Lang.English ? "pcs." : "шт.";
-            public static string UnitKg => Lang == ShareEnums.Lang.English ? "kg" : "кг";
-            public static string UnitWeight => Lang == ShareEnums.Lang.English ? "weight" : "вес";
-            public static string ComPortState => Lang == ShareEnums.Lang.English ? "COM-port status" : "Состояние COM-порта";
-            public static string ScaleQueue => Lang == ShareEnums.Lang.English ? "Scales message queue" : "Очередь сообщений весов";
-            public static string RequestParameters => Lang == ShareEnums.Lang.English ? "Request parameters" : "Запрос параметров";
-            public static string WeightingControl => Lang == ShareEnums.Lang.English ? "The weight is out of bounds!" : "Вес выходит за границы!";
-            public static string WeightingProcess => Lang == ShareEnums.Lang.English ? "Weighing | Gross weight" : "Взвешивание | Вес брутто";
-            public static string WeightingStable => Lang == ShareEnums.Lang.English ? "Scales are stable | Gross weight" : "Весы стабильны | Вес брутто";
-            public static string WeightingMessage => Lang == ShareEnums.Lang.English ? "Weighting message" : "Сообщение взвешивания";
-            public static string WeightingScaleCmd => Lang == ShareEnums.Lang.English ? "Command for scales" : "Команда для весов";
-            public static string Crc => "CRC";
-            public static string Threads => Lang == ShareEnums.Lang.English ? "Threads" : "Потоки";
-            public static string ThreadsCount => Lang == ShareEnums.Lang.English ? "Threads count" : "Количество потоков";
-            public static string ThreadName => Lang == ShareEnums.Lang.English ? "Name" : "Имя";
-            public static string ThreadState => Lang == ShareEnums.Lang.English ? "State" : "Состояние";
-            public static string ThreadStartTime => Lang == ShareEnums.Lang.English ? "Start time" : "Время запуска";
-            public static string ThreadId => "ID";
-            public static string ThreadPriorityLevel => Lang == ShareEnums.Lang.English ? "Priority level" : "Приоритет";
-            public static string ThreadIsBackground => Lang == ShareEnums.Lang.English ? "Is background" : "Фоновый";
-            public static string StateResponsed => Lang == ShareEnums.Lang.English ? "responsed" : "отвечает";
-            public static string StateNotResponsed => Lang == ShareEnums.Lang.English ? "not responsed" : "не отвечает";
-            public static string StateCorrect => Lang == ShareEnums.Lang.English ? "correct" : "верна";
-            public static string StateError => Lang == ShareEnums.Lang.English ? "error" : "ошибка";
-            public static string QuestionRunApp => Lang == ShareEnums.Lang.English ? "Run the app" : "Запустить приложение";
-            public static string ChoosePlu => Lang == ShareEnums.Lang.English
-                ? "First, you have to choose a PLU!" : "Сперва, необходимо выбрать PLU!";
-            public static string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? "Scales Terminal" : "Весовой терминал";
-            public static string ButtonScalesInit => Lang == ShareEnums.Lang.English
-                ? $"Initialize{Environment.NewLine}the scales" : $"Инициали-{Environment.NewLine}зировать весы";
-            public static string ButtonSelectOrder => Lang == ShareEnums.Lang.English ? $"Order" : $"Заказ";
-            public static string ButtonSettings => Lang == ShareEnums.Lang.English ? "Settings" : "Настройки";
-            public static string ButtonNewPallet => Lang == ShareEnums.Lang.English ? "New pallet" : "Новая палета";
             public static string ButtonAddKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
-            public static string ButtonSelectPlu => Lang == ShareEnums.Lang.English
-                ? $"Select{Environment.NewLine}PLU" : $"Выбрать{Environment.NewLine}PLU";
-            public static string ButtonSetKneading => Lang == ShareEnums.Lang.English ? "More" : "Ещё";
+            public static string ButtonNewPallet => Lang == ShareEnums.Lang.English ? "New pallet" : "Новая палета";
             public static string ButtonPrint => Lang == ShareEnums.Lang.English ? "Print" : "Печать";
+            public static string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? "Scales Terminal" : "Весовой терминал";
+            public static string ButtonScalesInit => Lang == ShareEnums.Lang.English ? $"Initialize the scales" : $"Инициализировать весы";
+            public static string ButtonSelectOrder => Lang == ShareEnums.Lang.English ? $"Order" : $"Заказ";
+            public static string ButtonSelectPlu => Lang == ShareEnums.Lang.English ? $"Select{Environment.NewLine}PLU" : $"Выбрать{Environment.NewLine}PLU";
+            public static string ButtonSetKneading => Lang == ShareEnums.Lang.English ? "More" : "Ещё";
+            public static string ButtonSettings => Lang == ShareEnums.Lang.English ? "Settings" : "Настройки";
+            public static string CheckPluWeightCount => Lang == ShareEnums.Lang.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";
+            public static string CheckWeightBefore(decimal currentWeight) => Lang == ShareEnums.Lang.English ? "Unload the weight platform!" + Environment.NewLine + Environment.NewLine + $"Threshold value: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + $"Current gross value: {currentWeight:0.000} {UnitKg}." : "Разгрузите весовую платформу!" + Environment.NewLine + Environment.NewLine + $"Пороговое значение: {MassaThreshold:0.000} {UnitKg}." + Environment.NewLine + $"Текущее значение брутто: {currentWeight:0.000} {UnitKg}.";
+            public static string CheckWeightIsEmpty() => Lang == ShareEnums.Lang.English ? "For products by weight, put the product on the scale!" + Environment.NewLine + $"Label printing is not possible!" : "Для весовой продукции следует положить продукт на весы!" + Environment.NewLine + $"Печать этикетки невозможна!";
+            public static string CheckWeightThreshold(decimal weightNet) => Lang == ShareEnums.Lang.English ? WeightingControl + Environment.NewLine + $"Product weight: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес продукта: {weightNet:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
+            public static string CheckWeightThresholds(decimal currentNet, decimal upperWeightThreshold, decimal lowerWeightThreshold) => Lang == ShareEnums.Lang.English ? WeightingControl + Environment.NewLine + $"Net weight: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Upper weight value: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Lower weight value: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Label printing is not possible!" : WeightingControl + Environment.NewLine + $"Вес нетто: {currentNet:0.000} {UnitKg}" + Environment.NewLine + $"Верхнее значение веса: {upperWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Нижнее значение веса: {lowerWeightThreshold:0.000} {UnitKg}" + Environment.NewLine + $"Печать этикетки невозможна!";
+            public static string ChoosePlu => Lang == ShareEnums.Lang.English ? "First, you have to choose a PLU!" : "Сперва, необходимо выбрать PLU!";
+            public static string ComPortState => Lang == ShareEnums.Lang.English ? "COM-port status" : "Состояние COM-порта";
+            public static string Crc => "CRC";
+            public static string DeviceControlIsPreview => Lang == ShareEnums.Lang.English ? "Open a preview-version of device management?" : "Открыть превью-версию управления устройствами?";
+            public static string Exception => Lang == ShareEnums.Lang.English ? "Exception" : "Ошибка";
+            public static string ExceptionSqlDb => Lang == ShareEnums.Lang.English ? "The database is unavailable!" : "База данных недоступна!";
             public static string FieldCurrentTime => Lang == ShareEnums.Lang.English ? "Now" : "Сейчас";
-            public static string FieldWeightNetto => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
-            public static string FieldWeightTare => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
             public static string FieldKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
             public static string FieldProductDate => Lang == ShareEnums.Lang.English ? "Date of production" : "Дата производства";
+            public static string FieldWeightNetto => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
+            public static string FieldWeightTare => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
+            public static string IsNotLoaded => Lang == ShareEnums.Lang.English ? "The program is not yet loaded!" + Environment.NewLine + "Wait for it..." : "Программа ещё не загружена!" + Environment.NewLine + "Подождите...";
+            public static string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
+            public static string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
+            public static string MassaNotFound => Lang == ShareEnums.Lang.English ? "The device of the scales has not been found!" : "Устройство весов не обнаружено!";
+            public static string MassaNotQuering => Lang == ShareEnums.Lang.English ? "Massa-K scales are not respond!" : "Весы Масса-К не отвечают!";
+            public static string Memory => Lang == ShareEnums.Lang.English ? "Memory" : "Память";
+            public static string MemoryFree => Lang == ShareEnums.Lang.English ? "free" : "свободно";
+            public static string MemoryPhysical => Lang == ShareEnums.Lang.English ? "Physical memory" : "Физическая память";
+            public static string MemoryVirtual => Lang == ShareEnums.Lang.English ? "Virtual memory" : "Виртуальная память";
+            public static string Method => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
+            public static string OperationControl => Lang == ShareEnums.Lang.English ? "Control of operations" : "Контроль операций";
+            public static string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
+            public static string PluCount => Lang == ShareEnums.Lang.English ? "PLU (count)" : "ПЛУ (шт)";
+            public static string PluIsEmpty => Lang == ShareEnums.Lang.English ? "PLU not selected!" : "Не выбрана PLU!";
+            public static string PluWeight => Lang == ShareEnums.Lang.English ? "PLU (weight)" : "ПЛУ (вес)";
+            public static string PrinterAvailable => Lang == ShareEnums.Lang.English ? "available" : "доступен";
+            public static string PrinterInfoCaption => Lang == ShareEnums.Lang.English ? "Printer info" : "Информация о принтере";
+            public static string PrinterTsc => Lang == ShareEnums.Lang.English ? "Printer TSC" : "Принтер TSC";
+            public static string PrinterUnavailable => Lang == ShareEnums.Lang.English ? "unavailable" : "не доступен";
+            public static string PrinterWarningOpenCover => Lang == ShareEnums.Lang.English ? "Open the cover of the separator before proceeding with the calibration!" : "Прежде чем продолжить калибровку, откройте крышку отделителя!";
+            public static string PrinterZebra => Lang == ShareEnums.Lang.English ? "Printer Zebra" : "Принтер Zebra";
+            public static string ProgramExit => Lang == ShareEnums.Lang.English ? "Ending the program ..." : "Завершение программы ...";
+            public static string ProgramLoad => Lang == ShareEnums.Lang.English ? "Loading the program ..." : "Загрузка программы ...";
+            public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator." : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
+            public static string QuestionRunApp => Lang == ShareEnums.Lang.English ? "Run the app" : "Запустить приложение";
+            public static string Registration => Lang == ShareEnums.Lang.English ? "Device registration" : "Регистрация устройства";
+            public static string RegistrationWarning1(Guid uid) => Lang == ShareEnums.Lang.English ? "The monoblock is registered in the information system with the identifier" + Environment.NewLine + $"{uid}" + Environment.NewLine + "Before restarting, map it to the current line in DeviceControl." : "Моноблок зарегистрирован в информационной системе с идентификатором" + Environment.NewLine + $"{uid}" + Environment.NewLine + "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
+            public static string RegistrationWarning2(Guid uid) => Lang == ShareEnums.Lang.English ? $"The monoblock is registered in the information system with the identifier {uid}" + Environment.NewLine + "Before restarting it, map it to the current line in DeviceControl" : $"Моноблок зарегистрирован в информационной системе с идентификатором {uid}" + Environment.NewLine + "Перед повторным запуском сопоставьте его с текущей линией в приложении DeviceControl.";
+            public static string RequestParameters => Lang == ShareEnums.Lang.English ? "Request parameters" : "Запрос параметров";
+            public static string ScaleQueue => Lang == ShareEnums.Lang.English ? "Scales message queue" : "Очередь сообщений весов";
+            public static string StateCorrect => Lang == ShareEnums.Lang.English ? "correct" : "верна";
+            public static string StateError => Lang == ShareEnums.Lang.English ? "error" : "ошибка";
+            public static string StateNotResponsed => Lang == ShareEnums.Lang.English ? "not responsed" : "не отвечает";
+            public static string StateResponsed => Lang == ShareEnums.Lang.English ? "responsed" : "отвечает";
+            public static string ThreadId => "ID";
+            public static string ThreadIsBackground => Lang == ShareEnums.Lang.English ? "Is background" : "Фоновый";
+            public static string ThreadName => Lang == ShareEnums.Lang.English ? "Name" : "Имя";
+            public static string ThreadPriorityLevel => Lang == ShareEnums.Lang.English ? "Priority level" : "Приоритет";
+            public static string Threads => Lang == ShareEnums.Lang.English ? "Threads" : "Потоки";
+            public static string ThreadsCount => Lang == ShareEnums.Lang.English ? "Threads count" : "Количество потоков";
+            public static string ThreadStartTime => Lang == ShareEnums.Lang.English ? "Start time" : "Время запуска";
+            public static string ThreadState => Lang == ShareEnums.Lang.English ? "State" : "Состояние";
+            public static string UnitKg => Lang == ShareEnums.Lang.English ? "kg" : "кг";
+            public static string UnitPcs => Lang == ShareEnums.Lang.English ? "pcs." : "шт.";
+            public static string UnitWeight => Lang == ShareEnums.Lang.English ? "weight" : "вес";
+            public static string WeightingControl => Lang == ShareEnums.Lang.English ? "The weight is out of bounds!" : "Вес выходит за границы!";
+            public static string WeightingMessage => Lang == ShareEnums.Lang.English ? "Weighting message" : "Сообщение взвешивания";
+            public static string WeightingProcess => Lang == ShareEnums.Lang.English ? "Weighing | Gross weight" : "Взвешивание | Вес брутто";
+            public static string WeightingScaleCmd => Lang == ShareEnums.Lang.English ? "Command for scales" : "Команда для весов";
+            public static string WeightingStable => Lang == ShareEnums.Lang.English ? "Scales are stable | Gross weight" : "Весы стабильны | Вес брутто";
         }
 
         public static class Buttons
         {
-            public static string Yes => Lang == ShareEnums.Lang.English ? "Yes" : "Да";
-            public static string Retry => Lang == ShareEnums.Lang.English ? "Retry" : "Повторить";
-            public static string No => Lang == ShareEnums.Lang.English ? "No" : "Нет";
-            public static string Ignore => Lang == ShareEnums.Lang.English ? "Ignore" : "Игнорировать";
-            public static string Cancel => Lang == ShareEnums.Lang.English ? "Cancel" : "Отмена";
             public static string Abort => Lang == ShareEnums.Lang.English ? "Abort" : "Прервать";
+            public static string Cancel => Lang == ShareEnums.Lang.English ? "Cancel" : "Отмена";
+            public static string Ignore => Lang == ShareEnums.Lang.English ? "Ignore" : "Игнорировать";
+            public static string No => Lang == ShareEnums.Lang.English ? "No" : "Нет";
             public static string Ok => Lang == ShareEnums.Lang.English ? "Ok" : "Ок";
+            public static string Retry => Lang == ShareEnums.Lang.English ? "Retry" : "Повторить";
+            public static string Yes => Lang == ShareEnums.Lang.English ? "Yes" : "Да";
         }
 
         public static class Methods

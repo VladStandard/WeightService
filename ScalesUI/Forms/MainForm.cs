@@ -53,7 +53,8 @@ namespace ScalesUI.Forms
             AppName = $"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}.";
 
             // ComboBoxes.
-            ComboBoxFieldLoad(fieldResolution, FieldResolution_SelectedIndexChanged, LocalizationData.ScalesUI.ListResolutions, Debug.IsDebug ? 2 : 0);
+            ComboBoxFieldLoad(fieldResolution, FieldResolution_SelectedIndexChanged, LocalizationData.ScalesUI.ListResolutions, 
+                Debug.IsDebug ? 0 : LocalizationData.ScalesUI.ListResolutions.Count - 1);
             ComboBoxFieldLoad(fieldLang, FieldLang_SelectedIndexChanged, LocalizationData.ScalesUI.ListLanguages);
             FieldLang_SelectedIndexChanged(null, null);
             FieldResolution_SelectedIndexChanged(null, null);
@@ -620,6 +621,7 @@ namespace ScalesUI.Forms
                 ? backupIndex <= 0 ? 0 : backupIndex
                 : selectedIndex < comboBox.Items.Count ? selectedIndex : 0;
             comboBox.SelectedIndexChanged += eventHandler;
+            eventHandler.Invoke(comboBox, null);
         }
 
         private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
@@ -932,41 +934,35 @@ namespace ScalesUI.Forms
         {
             try
             {
-                switch (fieldResolution.SelectedIndex)
+                switch (fieldResolution.Items[fieldResolution.SelectedIndex])
                 {
-                    // 1024х768
-                    case 1:
+                    case "800x600":
+                        WindowState = FormWindowState.Normal;
+                        Size = new System.Drawing.Size(800, 600);
+                        break;
+                    case "1024x668":
+                        WindowState = FormWindowState.Normal;
+                        Size = new System.Drawing.Size(1024, 668);
+                        break;
+                    case "1024x768":
                         WindowState = FormWindowState.Normal;
                         Size = new System.Drawing.Size(1024, 768);
-                        flowLayoutPanelBottom.Top = tableLayoutPanelMain.Height;
-                        flowLayoutPanelBottom.Height = Height - fieldTitle.Height - 28;
                         break;
-                    // 1366х768
-                    case 2:
+                    case "1366x768":
                         WindowState = FormWindowState.Normal;
                         Size = new System.Drawing.Size(1366, 768);
-                        flowLayoutPanelBottom.Top = tableLayoutPanelMain.Height;
-                        flowLayoutPanelBottom.Height = Height - fieldTitle.Height - 28;
                         break;
-                    // 1600x1024
-                    case 3:
+                    case "1600x1024":
                         WindowState = FormWindowState.Normal;
                         Size = new System.Drawing.Size(1600, 1024);
-                        flowLayoutPanelBottom.Top = tableLayoutPanelMain.Height;
-                        flowLayoutPanelBottom.Height = Height - fieldTitle.Height - 28;
                         break;
-                    // 1920х1080
-                    case 4:
+                    case "1920x1080":
                         WindowState = FormWindowState.Normal;
                         Size = new System.Drawing.Size(1920, 1080);
-                        flowLayoutPanelBottom.Top = tableLayoutPanelMain.Height;
-                        flowLayoutPanelBottom.Height = Height - fieldTitle.Height - 28;
                         break;
                     // Maximum
                     default:
                         WindowState = FormWindowState.Maximized;
-                        flowLayoutPanelBottom.Top = tableLayoutPanelMain.Height; // 851
-                        flowLayoutPanelBottom.Height = Height - fieldTitle.Height - 28;
                         break;
                 }
                 CenterToScreen();
