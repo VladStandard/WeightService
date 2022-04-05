@@ -29,7 +29,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual string ZebraIp { get; set; } = string.Empty;
         public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
         public virtual short? ZebraPort { get; set; }
-        public virtual bool? UseOrder { get; set; }
+        public virtual bool UseOrder { get; set; } = false;
         public virtual string VerScalesUi { get; set; } = string.Empty;
         public virtual int? DeviceNumber { get; set; }
         public virtual int? ScaleFactor { get; set; }
@@ -143,7 +143,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(DeviceComPort, default(string)) &&
                    Equals(ZebraIp, default(string)) &&
                    Equals(ZebraPort, default(short?)) &&
-                   Equals(UseOrder, default(bool?)) &&
+                   Equals(UseOrder, default(bool)) &&
                    Equals(VerScalesUi, default(string)) &&
                    Equals(DeviceNumber, default(int?)) &&
                    Equals(ScaleFactor, default(int?));

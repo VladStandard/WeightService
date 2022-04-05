@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.400] - 2022-04-05
+### Fixed
+- Section and item Scale page
+## Описание обновления:
+- Раздел и страница "Устройства"
+
 ## [0.6.390] - 2022-04-01
 ### Fixed
 - Item PLU page

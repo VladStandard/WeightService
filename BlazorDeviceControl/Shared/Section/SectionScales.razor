@@ -60,9 +60,17 @@ else
                 Title=@LocalizationData.DeviceControl.TableFieldWorkShopName 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
-                TItem="ScaleEntity" Property="TemplateDefault.Title" TextAlign=TextAlign.Left
+                TItem="ScaleEntity" TextAlign=TextAlign.Center
+                Title=@LocalizationData.DeviceControl.TableFieldOrder
+                Type="string" Width="5%">
+                <Template Context="itemCast">
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@itemCast.UseOrder />
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn 
+                TItem="ScaleEntity" TextAlign=TextAlign.Left
                 Title=@LocalizationData.DeviceControl.TableFieldTemplateDefault 
-                Type="string" Width="35%">
+                Type="string" Width="30%">
                 <Template Context="itemCast">
                     <RadzenLabel Text=@(itemCast.TemplateDefault != null ? itemCast.TemplateDefault.Title : "")
                         Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />

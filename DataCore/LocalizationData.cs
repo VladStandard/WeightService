@@ -233,6 +233,7 @@ namespace DataCore
             public static string TableFieldNomenclatureType => Lang == ShareEnums.Lang.English ? "Type of nomenclature" : "Тип номенклатуры";
             public static string TableFieldNomenclatureUnitId => Lang == ShareEnums.Lang.English ? "Nomenclature unit ID" : "ID юнита номенклатуры";
             public static string TableFieldNominalWeight => Lang == ShareEnums.Lang.English ? "Nominal box weight" : "Номинальный вес короба";
+            public static string TableFieldOrder => Lang == ShareEnums.Lang.English ? "Order" : "Заказ";
             public static string TableFieldPackQuantly => Lang == ShareEnums.Lang.English ? "Pack quantly" : "Быстрота упаковки";
             public static string TableFieldPackTypeId => Lang == ShareEnums.Lang.English ? "Package type ID" : "ID типа упаковки";
             public static string TableFieldPackWeight => Lang == ShareEnums.Lang.English ? "Package weight" : "Вес упаковки";
