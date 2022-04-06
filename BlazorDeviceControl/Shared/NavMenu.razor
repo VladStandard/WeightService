@@ -5,10 +5,10 @@
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">
         <RadzenButton 
-            Style="align-content: center; width: 80%; font-size: 14px; "
-            ButtonStyle="ButtonStyle.Primary"
+            Style="margin-left: -10px; margin-top: -7px; align-content: center; width: 82%; font-size: 14px; background-color: transparent; "
+            ButtonStyle=@ButtonStyle.Primary
             Click=@(args => SetParameters.InvokeAsync())
-            MouseEnter="@(args => TooltipService.Open(args, LocalizationData.DeviceControl.TableReadData))"
+            MouseEnter="@(args => TooltipService?.Open(args, LocalizationData.DeviceControl.TableReadData))"
             Text=@LocalizationCore.Strings.Main.AppName
         />
     </a>
@@ -22,97 +22,97 @@
         @if (UserSettings.Identity.AccessRightsIsRead)
         {
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Hosts>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Hosts>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionHosts />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Scales>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Scales>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionScales />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Printers>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Printers>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionPrinters />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.PrinterTypes>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.PrinterTypes>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionPrinterTypes />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Templates>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Templates>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionTemplates />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.TemplateResources>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.TemplateResources>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionTemplateResources />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.ProductionFacilities>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.ProductionFacilities>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionProductionFacilities />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.WorkShops>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.WorkShops>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionWorkshops />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.WeithingFacts>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.WeithingFacts>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionWeithingFacts />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.BarCodes>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.BarCodes>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionBarCodesShort />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.BarCodeTypes>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.BarCodeTypes>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionBarCodeTypesShort />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Plus>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Plus>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionPlus />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Labels>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Labels>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionLabels />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Nomenclatures>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Nomenclatures>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionNomenclatures />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.TaskModules>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.TaskModules>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionTaskModules />
                 </NavLink>
             </li>
             <li class="nav-item px-1">
-                <NavLink class="nav-link" style="height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Contragents>
+                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Contragents>
                     <RadzenIcon Icon="arrow_right_alt" />
                     <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionContragents />
                 </NavLink>

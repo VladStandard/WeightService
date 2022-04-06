@@ -8,7 +8,7 @@
 <MudElement HtmlTag="h3" Class="ma-0">
     @if (!string.IsNullOrEmpty(@Title))
     {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 0%; font-size: 18px; " Text=@Title />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 18px; " Text=@Title />
     }
     @if (IsShowMarkedFilter)
     {
@@ -18,9 +18,7 @@
         />
     }
     <RadzenButton 
-        Style="margin-top: 0px; margin-left: 50px; min-width: 80px; width: 5%; height: 30px; font-size: 12px; "
-        class="oi oi-reload"
-        ButtonStyle="ButtonStyle.Primary"
+        class="radzenButtonShort" ButtonStyle=@ButtonStyle.Primary Icon="refresh"
         Disabled=@AppSettings.DataAccess.IsDisabled 
         Click=@(args => SetParameters.InvokeAsync())
         MouseEnter="@(args => TooltipService?.Open(args, LocalizationData.DeviceControl.TableReadData))"

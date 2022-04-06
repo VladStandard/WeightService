@@ -14,7 +14,7 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        [Inject] public HotKeys HotKeysItem { get; private set; }
+        [Inject] public HotKeys? HotKeysItem { get; private set; }
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
         private readonly object _locker = new();
 

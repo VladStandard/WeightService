@@ -76,7 +76,7 @@ namespace BlazorCore.Models
             }
         }
 
-        public void SetupHotKeys(HotKeys hotKeys)
+        public void SetupHotKeys(HotKeys? hotKeys)
         {
             if (hotKeys != null)
             {

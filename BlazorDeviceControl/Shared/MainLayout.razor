@@ -59,7 +59,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-12">
                     @if (UserSettings.Identity.AccessRightsIsRead)
                     {
-                        <RadzenMenu Style="align-content: center; margin-top: 10px; background-color: transparent; " >
+                        <RadzenMenu Style="margin-left: -20px; margin-top: 0px; align-content: center; background-color: transparent; " >
                             <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocalizationCore.Strings.MenuSystem >
                                 <RadzenMenuItem Icon="home" Style="background-color: transparent; "
                                     Text=@LocalizationCore.Strings.MenuHome Path=@LocalizationData.DeviceControl.UriRouteSection.Root />
@@ -84,7 +84,7 @@
                     }
                 </div>
             </div>
-            <div class="content px-4">
+            <div class="content px-4" style="margin-left: -25px; margin-top: -15px; margin-bottom: -15px; margin-right: -15px; background-color: transparent; " >
                 @Body
             </div>
         </div>

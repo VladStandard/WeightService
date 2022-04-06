@@ -30,6 +30,26 @@ a, .btn-link {
     color: red;
 }
 
+.radzenButtonLong {
+    margin-top: 3px;
+    margin-left: 1%;
+    margin-right: 1%;
+    min-width: 80px;
+    width: 15%;
+    height: 25px;
+    font-size: 14px;
+}
+
+.radzenButtonShort {
+    margin-top: 3px;
+    margin-left: 1%;
+    margin-right: 1%;
+    min-width: 80px;
+    width: 5%;
+    height: 25px;
+    font-size: 14px;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -42,9 +62,9 @@ a, .btn-link {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
