@@ -4,7 +4,6 @@
 using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
-using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -15,8 +14,6 @@ namespace DataCore.DAL.TableDirectModels
 
         public Guid Uid { get; set; } = default;
         public string Name { get; set; } = string.Empty;
-        [XmlIgnore]
-        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 

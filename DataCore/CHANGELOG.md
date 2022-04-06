@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.410] - 2022-04-05
+### Changed
+- DataCore.DAL
+
 ## [0.6.120] - 2022-02-02
 ### Changed
 - DataShareCore namespace renamed into DataCore

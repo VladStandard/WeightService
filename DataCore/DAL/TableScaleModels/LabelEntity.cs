@@ -3,7 +3,6 @@
 
 using DataCore.DAL.Models;
 using DataCore.DAL.Utils;
-using System;
 using System.Text;
 
 namespace DataCore.DAL.TableScaleModels

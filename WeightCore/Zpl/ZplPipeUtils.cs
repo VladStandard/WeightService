@@ -34,8 +34,8 @@ namespace WeightCore.Zpl
 
         public static void XmlReplace(ref string xmlInput)
         {
-            xmlInput = xmlInput.Replace(nameof(BarCodeDirect), "BarCodeEntity");
-            xmlInput = xmlInput.Replace(nameof(ContregentDirect), "ContregentEntity");
+            //xmlInput = xmlInput.Replace(nameof(BarCodeDirect), "BarCodeEntity");
+            //xmlInput = xmlInput.Replace(nameof(ContregentDirect), "ContregentEntity");
             xmlInput = xmlInput.Replace(nameof(HostDirect), "HostEntity");
             xmlInput = xmlInput.Replace(nameof(LogDirect), "LogEntity");
             xmlInput = xmlInput.Replace(nameof(NomenclatureDirect), "NomenclatureEntity");
@@ -49,7 +49,7 @@ namespace WeightCore.Zpl
             xmlInput = xmlInput.Replace(nameof(TemplateDirect), "TemplateEntity");
             xmlInput = xmlInput.Replace(nameof(WeighingFactDirect), "WeighingFactEntity");
             xmlInput = xmlInput.Replace(nameof(WorkShopDirect), "WorkShopEntity");
-            xmlInput = xmlInput.Replace(nameof(ZebraPrinterHelper), "ZebraPrinterEntity");
+            xmlInput = xmlInput.Replace(nameof(PrinterDirect), "ZebraPrinterEntity");
             xmlInput = xmlInput.Replace(nameof(ZplLabelDirect), "ZplLabelEntity");
         }
 

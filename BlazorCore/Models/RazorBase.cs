@@ -1203,19 +1203,19 @@ namespace BlazorCore.Models
 
         private void ItemDwhSave(ProjectsEnums.TableDwh tableDwh)
         {
-            switch (tableDwh)
-            {
-                case ProjectsEnums.TableDwh.Default:
-                    break;
-                case ProjectsEnums.TableDwh.InformationSystem:
-                    break;
-                case ProjectsEnums.TableDwh.Nomenclature:
-                    break;
-                case ProjectsEnums.TableDwh.NomenclatureMaster:
-                    break;
-                case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
-                    break;
-            }
+            //switch (tableDwh)
+            //{
+            //    case ProjectsEnums.TableDwh.Default:
+            //        break;
+            //    case ProjectsEnums.TableDwh.InformationSystem:
+            //        break;
+            //    case ProjectsEnums.TableDwh.Nomenclature:
+            //        break;
+            //    case ProjectsEnums.TableDwh.NomenclatureMaster:
+            //        break;
+            //    case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
+            //        break;
+            //}
         }
 
         public async Task ItemSaveAsync(bool continueOnCapturedContext)

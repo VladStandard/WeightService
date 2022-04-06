@@ -5,7 +5,6 @@ using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -21,8 +20,6 @@ namespace DataCore.DAL.TableDirectModels
         public DateTime CreateDate { get; set; }
         public DateTime ChangeDt { get; set; }
         public string RRefID { get; set; } = string.Empty;
-        [XmlIgnore]
-        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 

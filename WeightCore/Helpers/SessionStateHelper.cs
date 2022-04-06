@@ -374,8 +374,7 @@ namespace WeightCore.Helpers
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
-                if (result != DialogResult.Yes)
-                    return false;
+                return result == DialogResult.Cancel;
             }
             return true;
         }
@@ -401,8 +400,7 @@ namespace WeightCore.Helpers
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
-                if (result != DialogResult.Yes)
-                    return false;
+                return result == DialogResult.Cancel;
             }
             return true;
         }
@@ -429,7 +427,7 @@ namespace WeightCore.Helpers
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
                 wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.CheckWeightThresholds(
-                    CurrentWeighingFact.NetWeight, CurrentPlu.UpperWeightThreshold, CurrentPlu.LowerWeightThreshold);
+                    CurrentWeighingFact.NetWeight, CurrentPlu.UpperWeightThreshold, CurrentPlu.NominalWeight, CurrentPlu.LowerWeightThreshold);
                 Log.Information(wpfPageLoader.MessageBox.Message);
                 wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
@@ -437,8 +435,7 @@ namespace WeightCore.Helpers
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
-                if (result != DialogResult.Yes)
-                    return false;
+                return result == DialogResult.Cancel;
             }
             return true;
         }

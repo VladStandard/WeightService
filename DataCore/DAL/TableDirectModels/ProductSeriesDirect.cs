@@ -4,7 +4,6 @@
 using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
-using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
@@ -24,7 +23,6 @@ namespace DataCore.DAL.TableDirectModels
         public decimal TotalNetWeight { get; set; }
         public decimal TotalTareWeight { get; set; }
         [XmlIgnore] public TemplateDirect Template { get; set; }
-        [XmlIgnore] public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 

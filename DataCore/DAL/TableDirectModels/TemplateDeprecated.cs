@@ -22,15 +22,9 @@
 //        public string Title { get; set; }
 //        public string XslContent { get; set; }
 //        public string TemplateId { get; set; }
-
-//        [XmlIgnoreAttribute]
-//        public string CategoryId { get; set; }
-
-//        [XmlIgnoreAttribute]
-//        public Dictionary<string, string> Fonts { get; set; }
-
-//        [XmlIgnoreAttribute]
-//        public Dictionary<string, string> Logo { get; set; }
+//        [XmlIgnoreAttribute] public string CategoryId { get; set; }
+//        [XmlIgnoreAttribute] public Dictionary<string, string> Fonts { get; set; }
+//        [XmlIgnoreAttribute] public Dictionary<string, string> Logo { get; set; }
 
 //        private void Init()
 //        {
@@ -39,27 +33,6 @@
 //            XslContent = string.Empty;
 //            Fonts = new Dictionary<string, string>();
 //            Logo = new Dictionary<string, string>();
-//        }
-
-//        public override bool Equals(object obj)
-//        {
-//            if (obj is TemplateEntity item)
-//            {
-//                return TemplateId.Equals(item.TemplateId);
-//            }
-//            return false;
-//        }
-
-//        public override int GetHashCode()
-//        {
-//            return TemplateId.GetHashCode();
-//        }
-
-//        public override string ToString()
-//        {
-//            var sb = new StringBuilder();
-//            sb.Append($"{CategoryId}/{Title}");
-//            return sb.ToString();
 //        }
 
 //        public TemplateEntity()

@@ -40,13 +40,6 @@
 //        }
 
 //        [TestMethod()]
-//        public void GetLocalIPAddressTest()
-//        {
-//            string ds = _scale.GetLocalIPAddress();
-//            Assert.IsNotNull(ds);
-//        }
-
-//        [TestMethod()]
 //        public void GetMacAddressTest()
 //        {
 //            string ds = _scale.GetMacAddress();

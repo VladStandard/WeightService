@@ -5,7 +5,6 @@ using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
-using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -17,8 +16,6 @@ namespace DataCore.DAL.TableDirectModels
         public long WeighingFactId { get; set; }
         public string? Label { get; set; }
         public string? Zpl { get; set; }
-        [XmlIgnore]
-        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 

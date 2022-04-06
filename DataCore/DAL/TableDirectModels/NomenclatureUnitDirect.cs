@@ -5,7 +5,6 @@ using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
@@ -24,8 +23,6 @@ namespace DataCore.DAL.TableDirectModels
         public decimal PackWeight { get; set; }
         public int PackQuantly { get; set; }
         public NomenclatureDirect PackType { get; set; } = new NomenclatureDirect();
-        [XmlIgnore]
-        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 

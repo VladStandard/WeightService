@@ -16,6 +16,12 @@ namespace DataCore.DAL.Models
     [Serializable()]
     public class BaseSerializeEntity<T> where T : new()
     {
+        #region Public and private fields and properties
+
+        [XmlIgnore] public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
+
+        #endregion
+
         #region Public and private methods
 
         public XmlWriterSettings GetXmlWriterSettings() => new()

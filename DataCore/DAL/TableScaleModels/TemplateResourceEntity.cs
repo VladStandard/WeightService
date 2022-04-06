@@ -2,9 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
-using DataCore.DAL.Utils;
 using System;
-using System.Text;
 
 namespace DataCore.DAL.TableScaleModels
 {

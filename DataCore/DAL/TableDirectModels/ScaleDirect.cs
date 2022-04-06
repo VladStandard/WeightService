@@ -24,7 +24,7 @@ namespace DataCore.DAL.TableDirectModels
         public int? ScaleFactor { get; set; }
         public long? TemplateIdDefault { get; set; }
         public long? TemplateIdSeries { get; set; }
-        public ZebraPrinterHelper ZebraPrinter = ZebraPrinterHelper.Instance;
+        public PrinterDirect ZebraPrinter = PrinterDirect.Instance;
 
         #endregion
 

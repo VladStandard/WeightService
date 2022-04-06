@@ -5,19 +5,18 @@ using DataCore.DAL.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Threading;
-using System.Xml.Serialization;
 
 namespace DataCore.DAL.TableDirectModels
 {
     [Serializable]
-    public class ZebraPrinterHelper : BaseSerializeEntity<ZebraPrinterHelper>
+    public class PrinterDirect : BaseSerializeEntity<PrinterDirect>
     {
         #region Design pattern "Lazy Singleton"
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        private static ZebraPrinterHelper _instance;
+        private static PrinterDirect _instance;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public static ZebraPrinterHelper Instance => LazyInitializer.EnsureInitialized(ref _instance);
+        public static PrinterDirect Instance => LazyInitializer.EnsureInitialized(ref _instance);
 
         #endregion
 
@@ -30,19 +29,17 @@ namespace DataCore.DAL.TableDirectModels
         public virtual string Mac { get; set; } = string.Empty;
         public virtual string Password { get; set; } = string.Empty;
         public virtual string PrinterType { get; set; } = string.Empty;
-        [XmlIgnore]
-        public SqlConnectFactory SqlConnect { get; private set; } = SqlConnectFactory.Instance;
 
         #endregion
 
         #region Constructor and destructor
 
-        public ZebraPrinterHelper()
+        public PrinterDirect()
         {
             Load(default);
         }
 
-        public ZebraPrinterHelper(long id)
+        public PrinterDirect(long id)
         {
             Load(id);
         }
@@ -62,7 +59,7 @@ SELECT x.Id,x.Name,x.Ip,x.Port,x.Password,x.Mac,y.Name as PrinterType
 FROM [db_scales].[ZebraPrinter] x
 INNER JOIN[db_scales].[ZebraPrinterType] y
 ON x.[PrinterTypeId] = y.Id
-WHERE x.[Id] = @ID;
+WHERE x.[Id] = @ID
                     ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
             using (SqlCommand cmd = new(query))
             {

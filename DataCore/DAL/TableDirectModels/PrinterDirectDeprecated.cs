@@ -12,10 +12,8 @@
 //    [Serializable]
 //    public class ZebraPrinterDirect : BaseSerializeEntity<ZebraPrinterDirect>
 //    {
-//        [XmlIgnore]
-//        public Dictionary<string, string> Fonts { get; set; }
-//        [XmlIgnore]
-//        public Dictionary<string, string> Logo { get; set; }
+//        [XmlIgnore] public Dictionary<string, string> Fonts { get; set; }
+//        [XmlIgnore] public Dictionary<string, string> Logo { get; set; }
 
 //        public ZebraPrinterDirect()
 //        {
