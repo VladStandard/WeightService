@@ -7,30 +7,44 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Заказы".
+    /// Table "Orders".
     /// </summary>
     public class OrderEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual OrderTypeEntity OrderTypes { get; set; } = new OrderTypeEntity();
-        public virtual DateTime ProductDate { get; set; } = default;
+        public virtual OrderTypeEntity OrderTypes { get; set; }
+        public virtual DateTime ProductDate { get; set; }
         public virtual int? PlaneBoxCount { get; set; }
         public virtual int? PlanePalletCount { get; set; }
-        public virtual DateTime PlanePackingOperationBeginDate { get; set; } = default;
-        public virtual DateTime PlanePackingOperationEndDate { get; set; } = default;
-        public virtual ScaleEntity Scales { get; set; } = new ScaleEntity();
-        public virtual PluEntity Plu { get; set; } = new PluEntity();
-        public virtual Guid? IdRRef { get; set; } = null;
-        public virtual TemplateEntity Templates { get; set; } = new TemplateEntity();
+        public virtual DateTime PlanePackingOperationBeginDate { get; set; }
+        public virtual DateTime PlanePackingOperationEndDate { get; set; }
+        public virtual ScaleEntity Scales { get; set; }
+        public virtual PluEntity Plu { get; set; }
+        public virtual Guid IdRRef { get; set; }
+        public virtual TemplateEntity Templates { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public OrderEntity()
+        public OrderEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public OrderEntity(long id) : base(id)
+        {
+            OrderTypes = new();
+            ProductDate = DateTime.MinValue;
+            PlaneBoxCount = default;
+            PlanePalletCount = default;
+            PlanePackingOperationBeginDate = DateTime.MinValue;
+            PlanePackingOperationEndDate = DateTime.MinValue;
+            Scales = new();
+            Plu = new();
+            IdRRef = Guid.Empty;
+            Templates = new();
         }
 
         #endregion
@@ -39,10 +53,10 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strOrderTypes = OrderTypes != null ? OrderTypes.Id.ToString() : "null";
-            string? strScales = Scales != null ? Scales.Id.ToString() : "null";
-            string? strPlu = Plu != null ? Plu.Id.ToString() : "null";
-            string? strTemplates = Templates != null ? Templates.Id.ToString() : "null";
+            string? strOrderTypes = OrderTypes != null ? OrderTypes.IdentityId.ToString() : "null";
+            string? strScales = Scales != null ? Scales.IdentityId.ToString() : "null";
+            string? strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
+            string? strTemplates = Templates != null ? Templates.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(OrderTypes)}: {strOrderTypes}. " +
                    $"{nameof(ProductDate)}: {ProductDate}. " +
@@ -102,33 +116,28 @@ namespace DataCore.DAL.TableScaleModels
             if (Templates != null && !Templates.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(ProductDate, default(DateTime)) &&
-                   Equals(PlaneBoxCount, default(int?)) &&
-                   Equals(PlanePalletCount, default(int?)) &&
-                   Equals(PlanePackingOperationBeginDate, default(DateTime)) &&
-                   Equals(PlanePackingOperationEndDate, default(DateTime)) &&
-                   Equals(IdRRef, default(Guid?));
+                   Equals(ProductDate, DateTime.MinValue) &&
+                   Equals(PlaneBoxCount, null) &&
+                   Equals(PlanePalletCount, null) &&
+                   Equals(PlanePackingOperationBeginDate, DateTime.MinValue) &&
+                   Equals(PlanePackingOperationEndDate, DateTime.MinValue) &&
+                   Equals(IdRRef, Guid.Empty);
         }
 
         public override object Clone()
         {
-            return new OrderEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                OrderTypes = (OrderTypeEntity)OrderTypes.Clone(),
-                ProductDate = ProductDate,
-                PlaneBoxCount = PlaneBoxCount,
-                PlanePalletCount = PlanePalletCount,
-                PlanePackingOperationBeginDate = PlanePackingOperationBeginDate,
-                PlanePackingOperationEndDate = PlanePackingOperationEndDate,
-                Scales = (ScaleEntity)Scales.Clone(),
-                Plu = (PluEntity)Plu.Clone(),
-                IdRRef = IdRRef,
-                Templates = (TemplateEntity)Templates.Clone(),
-            };
+            OrderEntity item = (OrderEntity)base.Clone();
+            item.OrderTypes = (OrderTypeEntity)OrderTypes.Clone();
+            item.ProductDate = ProductDate;
+            item.PlaneBoxCount = PlaneBoxCount;
+            item.PlanePalletCount = PlanePalletCount;
+            item.PlanePackingOperationBeginDate = PlanePackingOperationBeginDate;
+            item.PlanePackingOperationEndDate = PlanePackingOperationEndDate;
+            item.Scales = (ScaleEntity)Scales.Clone();
+            item.Plu = (PluEntity)Plu.Clone();
+            item.IdRRef = IdRRef;
+            item.Templates = (TemplateEntity)Templates.Clone();
+            return item;
         }
 
         #endregion

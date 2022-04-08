@@ -19,7 +19,35 @@ namespace BlazorDeviceControl.Shared.Component
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ItemDates()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                switch (Table)
+                {
+                    case TableSystemEntity:
+                        SetDtFromTableSystem();
+                        break;
+                    case TableScaleEntity:
+                        SetDtFromTableScale();
+                        break;
+                    case TableDwhEntity:
+                        SetDtFromTableDwh();
+                        break;
+                }
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -27,21 +55,7 @@ namespace BlazorDeviceControl.Shared.Component
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        switch (Table)
-                        {
-                            case TableSystemEntity:
-                                SetDtFromTableSystem();
-                                break;
-                            case TableScaleEntity:
-                                SetDtFromTableScale();
-                                break;
-                            case TableDwhEntity:
-                                SetDtFromTableDwh();
-                                break;
-                        }
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -195,7 +209,7 @@ namespace BlazorDeviceControl.Shared.Component
                     }
                     break;
                 case ProjectsEnums.TableScale.Workshops:
-                    WorkshopEntity? workshop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(Id);
+                    WorkShopEntity? workshop = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(Id);
                     if (workshop != null)
                     {
                         CreateDt = workshop.CreateDt.ToString();

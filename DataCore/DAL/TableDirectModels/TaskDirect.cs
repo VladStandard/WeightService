@@ -11,10 +11,10 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public Guid Uid { get; set; } = default;
-        public TaskTypeDirect TaskType { get; set; } = new TaskTypeDirect();
-        public ScaleDirect Scale { get; set; } = new ScaleDirect();
-        public bool Enabled { get; set; } = default;
+        public Guid Uid { get; set; }
+        public TaskTypeDirect TaskType { get; set; }
+        public ScaleDirect Scale { get; set; }
+        public bool Enabled { get; set; }
 
         #endregion
 
@@ -22,7 +22,10 @@ namespace DataCore.DAL.TableDirectModels
 
         public TaskDirect()
         {
-            //
+            Uid = Guid.Empty;
+            TaskType = new TaskTypeDirect();
+            Scale = new ();
+            Enabled = false;
         }
 
         public TaskDirect(Guid uid, long scaleId, string scaleDescription, Guid taskTypeUid, string taskType, bool enabled) : this()

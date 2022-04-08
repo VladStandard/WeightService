@@ -2,28 +2,37 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "ШК".
+    /// Table "BarCodes".
     /// </summary>
     public class BarCodeEntityV2 : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Value { get; set; } = string.Empty;
-        public virtual BarCodeTypeEntityV2? BarcodeType { get; set; } = new();
-        public virtual ContragentEntityV2? Contragent { get; set; } = new();
-        public virtual NomenclatureEntity? Nomenclature { get; set; } = new();
+        public virtual string Value { get; set; }
+        public virtual BarCodeTypeEntityV2? BarcodeType { get; set; }
+        public virtual ContragentEntityV2? Contragent { get; set; }
+        public virtual NomenclatureEntity? Nomenclature { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public BarCodeEntityV2()
+        public BarCodeEntityV2() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
+        }
+
+        public BarCodeEntityV2(Guid uid) : base(uid)
+        {
+            Value = string.Empty;
+            BarcodeType = new();
+            Contragent = new();
+            Nomenclature = new();
         }
 
         #endregion
@@ -32,13 +41,13 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strBarcodeType = BarcodeType != null ? BarcodeType.Uid.ToString() : "null";
-            string? strContragent = Contragent != null ? Contragent.Uid.ToString() : "null";
-            string? strNomenclature = Nomenclature != null ? Nomenclature.Id.ToString() : "null";
+            string? strBarcodeType = BarcodeType != null ? BarcodeType.IdentityUid.ToString() : "null";
+            string? strContragent = Contragent != null ? Contragent.IdentityUid.ToString() : "null";
+            string? strNomenclature = Nomenclature != null ? Nomenclature.IdentityId.ToString() : "null";
             return base.ToString() +
                 $"{nameof(Value)}: {Value}. " +
-                $"{nameof(BarcodeType)}: {strBarcodeType}. " + 
-                $"{nameof(Contragent)}: {strContragent}. " + 
+                $"{nameof(BarcodeType)}: {strBarcodeType}. " +
+                $"{nameof(Contragent)}: {strContragent}. " +
                 $"{nameof(Nomenclature)}: {strNomenclature}. ";
         }
 
@@ -85,17 +94,12 @@ namespace DataCore.DAL.TableScaleModels
 
         public override object Clone()
         {
-            return new BarCodeEntityV2
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Value = Value,
-                BarcodeType = BarcodeType != null ? (BarCodeTypeEntityV2)BarcodeType.Clone() : null,
-                Contragent = Contragent != null ? (ContragentEntityV2)Contragent.Clone() : null,
-                Nomenclature = Nomenclature != null ? (NomenclatureEntity)Nomenclature.Clone() : null,
-            };
+            BarCodeEntityV2 item = (BarCodeEntityV2)base.Clone();
+            item.Value = Value;
+            item.BarcodeType = BarcodeType != null ? (BarCodeTypeEntityV2)BarcodeType.Clone() : null;
+            item.Contragent = Contragent != null ? (ContragentEntityV2)Contragent.Clone() : null;
+            item.Nomenclature = Nomenclature != null ? (NomenclatureEntity)Nomenclature.Clone() : null;
+            return item;
         }
 
         #endregion

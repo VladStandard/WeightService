@@ -7,30 +7,30 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Устройства".
+    /// Tab;e "Scales".
     /// </summary>
     public class ScaleEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual TemplateEntity? TemplateDefault { get; set; } = new();
-        public virtual TemplateEntity? TemplateSeries { get; set; } = new();
-        public virtual WorkshopEntity WorkShop { get; set; } = new();
-        public virtual PrinterEntity? Printer { get; set; } = new();
-        public virtual HostEntity? Host { get; set; } = new();
-        public virtual string Description { get; set; } = string.Empty;
-        public virtual Guid? IdRRef { get; set; } = null;
-        public virtual string DeviceIp { get; set; } = string.Empty;
-        public virtual short? DevicePort { get; set; }
-        public virtual string DeviceMac { get; set; } = string.Empty;
+        public virtual TemplateEntity? TemplateDefault { get; set; }
+        public virtual TemplateEntity? TemplateSeries { get; set; }
+        public virtual WorkShopEntity WorkShop { get; set; }
+        public virtual PrinterEntity? Printer { get; set; }
+        public virtual HostEntity? Host { get; set; }
+        public virtual string Description { get; set; }
+        public virtual Guid IdRRef { get; set; }
+        public virtual string DeviceIp { get; set; }
+        public virtual short DevicePort { get; set; }
+        public virtual string DeviceMac { get; set; }
         public virtual short? DeviceSendTimeout { get; set; }
         public virtual short? DeviceReceiveTimeout { get; set; }
-        public virtual string DeviceComPort { get; set; } = string.Empty;
-        public virtual string ZebraIp { get; set; } = string.Empty;
+        public virtual string DeviceComPort { get; set; }
+        public virtual string ZebraIp { get; set; }
         public virtual string ZebraLink => string.IsNullOrEmpty(ZebraIp) ? string.Empty : $"http://{ZebraIp}";
         public virtual short? ZebraPort { get; set; }
-        public virtual bool UseOrder { get; set; } = false;
-        public virtual string VerScalesUi { get; set; } = string.Empty;
+        public virtual bool UseOrder { get; set; }
+        public virtual string VerScalesUi { get; set; }
         public virtual int? DeviceNumber { get; set; }
         public virtual int? ScaleFactor { get; set; }
 
@@ -38,9 +38,32 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Constructor and destructor
 
-        public ScaleEntity()
+        public ScaleEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public ScaleEntity(long id) : base(id)
+        {
+            TemplateDefault = new();
+            TemplateSeries = new();
+            WorkShop = new();
+            Printer = new();
+            Host = new();
+            Description = string.Empty;
+            IdRRef = Guid.Empty;
+            DeviceIp = string.Empty;
+            DevicePort = 0;
+            DeviceMac = string.Empty;
+            DeviceSendTimeout = default;
+            DeviceReceiveTimeout = default;
+            DeviceComPort = string.Empty;
+            ZebraIp = string.Empty;
+            ZebraPort = default;
+            UseOrder = false;
+            VerScalesUi = string.Empty;
+            DeviceNumber = default;
+            ScaleFactor = default;
         }
 
         #endregion
@@ -49,11 +72,11 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strTemplateDefault = TemplateDefault != null ? TemplateDefault.Id.ToString() : "null";
-            string? strTemplateSeries = TemplateSeries != null ? TemplateSeries.Id.ToString() : "null";
-            string? strWorkShop = WorkShop != null ? WorkShop.Id.ToString() : "null";
-            string? strPrinter = Printer != null ? Printer.Id.ToString() : "null";
-            string? strHost = Host != null ? Host.Id.ToString() : "null";
+            string? strTemplateDefault = TemplateDefault != null ? TemplateDefault.IdentityId.ToString() : "null";
+            string? strTemplateSeries = TemplateSeries != null ? TemplateSeries.IdentityId.ToString() : "null";
+            string? strWorkShop = WorkShop != null ? WorkShop.IdentityId.ToString() : "null";
+            string? strPrinter = Printer != null ? Printer.IdentityId.ToString() : "null";
+            string? strHost = Host != null ? Host.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Description)}: {Description}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. " +
@@ -133,50 +156,45 @@ namespace DataCore.DAL.TableScaleModels
             if (Host != null && !Host.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Description, default(string)) &&
-                   Equals(IdRRef, default(Guid?)) &&
-                   Equals(DeviceIp, default(string)) &&
-                   Equals(DevicePort, default(short?)) &&
-                   Equals(DeviceMac, default(string)) &&
-                   Equals(DeviceSendTimeout, default(short?)) &&
-                   Equals(DeviceReceiveTimeout, default(short?)) &&
-                   Equals(DeviceComPort, default(string)) &&
-                   Equals(ZebraIp, default(string)) &&
-                   Equals(ZebraPort, default(short?)) &&
-                   Equals(UseOrder, default(bool)) &&
-                   Equals(VerScalesUi, default(string)) &&
-                   Equals(DeviceNumber, default(int?)) &&
-                   Equals(ScaleFactor, default(int?));
+                   Equals(Description, string.Empty) &&
+                   Equals(IdRRef, Guid.Empty) &&
+                   Equals(DeviceIp, string.Empty) &&
+                   Equals(DevicePort, 0) &&
+                   Equals(DeviceMac, string.Empty) &&
+                   Equals(DeviceSendTimeout, null) &&
+                   Equals(DeviceReceiveTimeout, null) &&
+                   Equals(DeviceComPort, string.Empty) &&
+                   Equals(ZebraIp, string.Empty) &&
+                   Equals(ZebraPort, null) &&
+                   Equals(UseOrder, false) &&
+                   Equals(VerScalesUi, string.Empty) &&
+                   Equals(DeviceNumber, null) &&
+                   Equals(ScaleFactor, null);
         }
 
         public override object Clone()
         {
-            return new ScaleEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                TemplateDefault = TemplateDefault != null ? (TemplateEntity)TemplateDefault.Clone() : null,
-                TemplateSeries = TemplateSeries != null ? (TemplateEntity)TemplateSeries.Clone() : null,
-                WorkShop = (WorkshopEntity)WorkShop.Clone(),
-                Printer = Printer != null ? (PrinterEntity)Printer.Clone() : null,
-                Host = Host != null ? (HostEntity)Host.Clone() : null,
-                Description = Description,
-                IdRRef = IdRRef,
-                DeviceIp = DeviceIp,
-                DevicePort = DevicePort,
-                DeviceMac = DeviceMac,
-                DeviceSendTimeout = DeviceSendTimeout,
-                DeviceReceiveTimeout = DeviceReceiveTimeout,
-                DeviceComPort = DeviceComPort,
-                ZebraIp = ZebraIp,
-                ZebraPort = ZebraPort,
-                UseOrder = UseOrder,
-                VerScalesUi = VerScalesUi,
-                DeviceNumber = DeviceNumber,
-                ScaleFactor = ScaleFactor,
-            };
+            ScaleEntity item = (ScaleEntity)base.Clone();
+            item.TemplateDefault = TemplateDefault != null ? (TemplateEntity)TemplateDefault.Clone() : null;
+            item.TemplateSeries = TemplateSeries != null ? (TemplateEntity)TemplateSeries.Clone() : null;
+            item.WorkShop = (WorkShopEntity)WorkShop.Clone();
+            item.Printer = Printer != null ? (PrinterEntity)Printer.Clone() : null;
+            item.Host = Host != null ? (HostEntity)Host.Clone() : null;
+            item.Description = Description;
+            item.IdRRef = IdRRef;
+            item.DeviceIp = DeviceIp;
+            item.DevicePort = DevicePort;
+            item.DeviceMac = DeviceMac;
+            item.DeviceSendTimeout = DeviceSendTimeout;
+            item.DeviceReceiveTimeout = DeviceReceiveTimeout;
+            item.DeviceComPort = DeviceComPort;
+            item.ZebraIp = ZebraIp;
+            item.ZebraPort = ZebraPort;
+            item.UseOrder = UseOrder;
+            item.VerScalesUi = VerScalesUi;
+            item.DeviceNumber = DeviceNumber;
+            item.ScaleFactor = ScaleFactor;
+            return item;
         }
 
         #endregion

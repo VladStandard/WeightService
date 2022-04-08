@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using BlazorCore.Models;
 using System;
 using System.Diagnostics;
 
@@ -21,6 +22,28 @@ namespace DataCore.Utils
             if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
                 result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
             return result;
+        }
+
+        public static class GetCssName
+        {
+            public static string Sidebar(AppSettingsHelper appSettings)
+            {
+                if (appSettings != null)
+                {
+                    if (appSettings.IsSqlServerRelease)
+                        return "sidebarRelease";
+                    if (appSettings.IsSqlServerDebug)
+                        return "sidebarDebug";
+                }
+                return "sidebarUnknown";
+            }
+
+            public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
+
+            public static string RadzenPanelMenu => "RadzenPanelMenu";
+            public static string RadzenPanelMenuItem => "RadzenPanelMenuItem";
+            public static string RadzenPanelMenuSubItem => "RadzenPanelMenuSubItem";
+
         }
 
         #endregion

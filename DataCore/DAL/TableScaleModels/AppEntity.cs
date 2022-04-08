@@ -2,22 +2,31 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Table "Apps".
+    /// </summary>
     public class AppEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public AppEntity()
+        public AppEntity() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
+        }
+
+        public AppEntity(Guid uid) : base(uid)
+        {
+            Name = string.Empty;
         }
 
         #endregion
@@ -59,19 +68,14 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Name, default(string));
+                   Equals(Name, string.Empty);
         }
 
         public override object Clone()
         {
-            return new AppEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-            };
+            AppEntity item = (AppEntity)base.Clone();
+            item.Name = Name;
+            return item;
         }
 
         #endregion

@@ -76,14 +76,14 @@ namespace BlazorCore.Models
         public ChartCountEntity[] GetNomenclaturesChartEntities(ShareEnums.DbField field)
         {
             ChartCountEntity[] result = Array.Empty<ChartCountEntity>();
-            NomenclatureEntity[] entities = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
+            NomenclatureEntity[] items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
                 new FieldOrderEntity(ShareEnums.DbField.CreateDt, ShareEnums.DbOrderDirection.Asc));
             int i = 0;
             switch (field)
             {
                 case ShareEnums.DbField.CreateDt:
                     List<ChartCountEntity> entitiesDateCreated = new();
-                    foreach (NomenclatureEntity entity in entities)
+                    foreach (NomenclatureEntity entity in items)
                     {
                         if (entity.CreateDt != default)
                             entitiesDateCreated.Add(new ChartCountEntity(entity.CreateDt.Date, 1));
@@ -100,7 +100,7 @@ namespace BlazorCore.Models
                     break;
                 case ShareEnums.DbField.ChangeDt:
                     List<ChartCountEntity> entitiesDateModified = new();
-                    foreach (NomenclatureEntity entity in entities)
+                    foreach (NomenclatureEntity entity in items)
                     {
                         if (entity.ChangeDt != default)
                             entitiesDateModified.Add(new ChartCountEntity(entity.ChangeDt.Date, 1));

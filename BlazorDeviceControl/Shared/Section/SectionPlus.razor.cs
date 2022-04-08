@@ -24,19 +24,29 @@ namespace BlazorDeviceControl.Shared.Section
 
         #region Public and private methods
 
+        public SectionPlus()
+        {
+            Default();
+        }
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
+                IsShowMarkedFilter = true;
+                Items = null;
+                ButtonSettings = new();
+            }
+        }
+
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
-                        IsShowMarkedFilter = true;
-                        Items = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -45,7 +55,7 @@ namespace BlazorDeviceControl.Shared.Section
                         {
                             long? scaleId = null;
                             if (ItemFilter is ScaleEntity scale)
-                                scaleId = scale.Id;
+                                scaleId = scale.IdentityId;
                             if (IsShowMarkedItems)
                             {
                                 if (scaleId == null)
@@ -56,7 +66,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 else
                                 {
                                     Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", scaleId } }),
+                                        new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", scaleId } }),
                                         new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
                                         ?.ToList<BaseEntity>();
                                     //SetFilterItems(items, scaleId);
@@ -74,7 +84,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 {
                                     Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                                         new FieldListEntity(new Dictionary<string, object?> {
-                                            { "Scale.Id", scaleId }, { DbField.IsMarked.ToString(), false } }),
+                                            { $"Scale.{DbField.IdentityId}", scaleId }, { DbField.IsMarked.ToString(), false } }),
                                         new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
                                         ?.ToList<BaseEntity>();
                                     //SetFilterItems(items, scaleId);
@@ -94,7 +104,7 @@ namespace BlazorDeviceControl.Shared.Section
                 Items = new List<BaseEntity>();
                 foreach (BaseEntity item in items)
                 {
-                    if (item is PluEntity plu && plu.Scale.Id == scaleId)
+                    if (item is PluEntity plu && plu.Scale.IdentityId == scaleId)
                         Items.Add(item);
                 }
             }

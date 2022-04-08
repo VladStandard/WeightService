@@ -2,30 +2,47 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Table "Logs".
+    /// </summary>
     public class LogEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Scale { get; set; } = string.Empty;
-        public virtual HostEntity Host { get; set; } = new HostEntity();
-        public virtual AppEntity App { get; set; } = new AppEntity();
-        public virtual string Version { get; set; } = string.Empty;
-        public virtual string File { get; set; } = string.Empty;
+        public virtual string Scale { get; set; }
+        public virtual HostEntity Host { get; set; }
+        public virtual AppEntity App { get; set; }
+        public virtual string Version { get; set; }
+        public virtual string File { get; set; }
         public virtual int Line { get; set; }
-        public virtual string Member { get; set; } = string.Empty;
-        public virtual LogTypeEntity LogType { get; set; } = new LogTypeEntity();
-        public virtual string Message { get; set; } = string.Empty;
+        public virtual string Member { get; set; }
+        public virtual LogTypeEntity LogType { get; set; }
+        public virtual string Message { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public LogEntity()
+        public LogEntity() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
+        }
+
+        public LogEntity(Guid uid) : base(uid)
+        {
+            Scale = string.Empty;
+            Host = new();
+            App = new();
+            Version = string.Empty;
+            File = string.Empty;
+            Line = 0;
+            Member = string.Empty;
+            LogType = new();
+            Message = string.Empty;
         }
 
         #endregion
@@ -34,9 +51,9 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strHost = Host != null ? Host.Id.ToString() : "null";
-            string? strApp = App != null ? App.Uid.ToString() : "null";
-            string? strLogType = LogType != null ? LogType.Uid.ToString() : "null";
+            string? strHost = Host != null ? Host.IdentityId.ToString() : "null";
+            string? strApp = App != null ? App.IdentityUid.ToString() : "null";
+            string? strLogType = LogType != null ? LogType.IdentityUid.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Scale)}: {Scale}. " +
                    $"{nameof(Host)}: {strHost}. " +
@@ -92,32 +109,27 @@ namespace DataCore.DAL.TableScaleModels
             if (LogType != null && !LogType.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Scale, default(string)) &&
-                   Equals(Version, default(string)) &&
-                   Equals(File, default(string)) &&
-                   Equals(Line, default(int)) &&
-                   Equals(Member, default(string)) &&
-                   Equals(Message, default(string));
+                   Equals(Scale, string.Empty) &&
+                   Equals(Version, string.Empty) &&
+                   Equals(File, string.Empty) &&
+                   Equals(Line, 0) &&
+                   Equals(Member, string.Empty) &&
+                   Equals(Message, string.Empty);
         }
 
         public override object Clone()
         {
-            return new LogEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Scale = Scale,
-                Host = (HostEntity)Host.Clone(),
-                App = (AppEntity)App.Clone(),
-                Version = Version,
-                File = File,
-                Line = Line,
-                Member = Member,
-                LogType = (LogTypeEntity)LogType.Clone(),
-                Message = Message,
-            };
+            LogEntity item = (LogEntity)base.Clone();
+            item.Scale = Scale;
+            item.Host = (HostEntity)Host.Clone();
+            item.App = (AppEntity)App.Clone();
+            item.Version = Version;
+            item.File = File;
+            item.Line = Line;
+            item.Member = Member;
+            item.LogType = (LogTypeEntity)LogType.Clone();
+            item.Message = Message;
+            return item;
         }
 
         #endregion

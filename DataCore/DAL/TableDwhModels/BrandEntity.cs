@@ -10,19 +10,28 @@ namespace DataCore.DAL.TableDwhModels
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
-        public virtual string Code { get; set; } = string.Empty;
-        public virtual int StatusId { get; set; } = 0;
-        public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
-        public virtual byte[] CodeInIs { get; set; } = new byte[0x00];
+        public virtual string Name { get; set; }
+        public virtual string Code { get; set; }
+        public virtual int StatusId { get; set; }
+        public virtual InformationSystemEntity InformationSystem { get; set; }
+        public virtual byte[] CodeInIs { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public BrandEntity()
+        public BrandEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public BrandEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            Code = string.Empty;
+            StatusId = 0;
+            InformationSystem = new();
+            CodeInIs = new byte[0];
         }
 
         #endregion
@@ -31,7 +40,7 @@ namespace DataCore.DAL.TableDwhModels
 
         public override string ToString()
         {
-            var strInformationSystem = InformationSystem != null ? InformationSystem.Id.ToString() : "null";
+            var strInformationSystem = InformationSystem != null ? InformationSystem.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Code)}: {Code}. " +
                    $"{nameof(Name)}: {Name}. " +
@@ -75,26 +84,21 @@ namespace DataCore.DAL.TableDwhModels
             if (InformationSystem != null && !InformationSystem.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Code, default(string)) &&
-                   Equals(Name, default(string)) &&
-                   Equals(StatusId, default(int)) &&
-                   Equals(CodeInIs, default(byte[]));
+                   Equals(Code, string.Empty) &&
+                   Equals(Name, string.Empty) &&
+                   Equals(StatusId, 0) &&
+                   Equals(CodeInIs, new byte[0]);
         }
 
         public override object Clone()
         {
-            return new BrandEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Code = Code,
-                Name = Name,
-                StatusId = StatusId,
-                InformationSystem = (InformationSystemEntity)InformationSystem.Clone(),
-                CodeInIs = DataUtils.CloneBytes(CodeInIs),
-            };
+            BrandEntity item = (BrandEntity)base.Clone();
+            item.Code = Code;
+            item.Name = Name;
+            item.StatusId = StatusId;
+            item.InformationSystem = (InformationSystemEntity)InformationSystem.Clone();
+            item.CodeInIs = DataUtils.CloneBytes(CodeInIs);
+            return item;
         }
 
         #endregion

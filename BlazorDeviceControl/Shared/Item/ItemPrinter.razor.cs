@@ -23,20 +23,34 @@ namespace BlazorDeviceControl.Shared.Item
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ItemPrinter()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+                ItemCast = null;
+                PrinterTypes = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                        ItemCast = null;
-                        PrinterTypes = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -52,14 +66,14 @@ namespace BlazorDeviceControl.Shared.Item
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.Id.ToString(), Id } }), null);
+                                    { { DbField.IdentityId.ToString(), Id } }), null);
                                 break;
                         }
 
                         PrinterTypes = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)?.ToList();
                         if (Id != null && TableAction == DbTableAction.New)
                         {
-                            ItemCast.Id = (int)Id;
+                            ItemCast.IdentityId = (long)Id;
                             ItemCast.Name = "NEW PRINTER";
                             ItemCast.Ip = "127.0.0.1";
                             ItemCast.MacAddress.Default();

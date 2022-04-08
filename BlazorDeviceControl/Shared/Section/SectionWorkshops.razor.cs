@@ -17,12 +17,31 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<WorkshopEntity>? ItemsCast => Items?.Select(x => (WorkshopEntity)x).ToList();
+        private List<WorkShopEntity>? ItemsCast => Items?.Select(x => (WorkShopEntity)x).ToList();
         private readonly object _locker = new();
 
         #endregion
 
+        #region Constructor and destructor
+
+        public SectionWorkshops()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
+                Items = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -30,18 +49,13 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
-                        Items = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
                     {
                         if (AppSettings.DataAccess != null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<WorkshopEntity>(
+                            Items = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
                                 (IsShowMarkedItems == true) ? null
                                     : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                                 new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))

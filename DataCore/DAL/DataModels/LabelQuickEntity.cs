@@ -12,17 +12,16 @@ namespace DataCore.DAL.DataModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDate { get; set; }
-        public virtual long ScaleId { get; set; } = default;
-        public virtual string ScaleDescription { get; set; } = string.Empty;
-        public virtual int PluId { get; set; } = default;
-        public virtual DateTime WeithingDate { get; set; } = default;
-        public virtual decimal NetWeight { get; set; } = default;
-        public virtual decimal TareWeight { get; set; } = default;
-        public virtual DateTime ProductDate { get; set; } = default;
-        public virtual int? RegNum { get; set; } = default;
-        public virtual int? Kneading { get; set; } = default;
-        public virtual byte[] Label { get; set; } = new byte[0];
+        public virtual long ScaleId { get; set; }
+        public virtual string ScaleDescription { get; set; }
+        public virtual int PluId { get; set; }
+        public virtual DateTime WeithingDate { get; set; }
+        public virtual decimal NetWeight { get; set; }
+        public virtual decimal TareWeight { get; set; }
+        public virtual DateTime ProductDate { get; set; }
+        public virtual int? RegNum { get; set; }
+        public virtual int? Kneading { get; set; }
+        public virtual byte[] Label { get; set; }
         public virtual string LabelString
         {
             get => Label == null || Label.Length == 0 ? string.Empty : Encoding.Default.GetString(Label);
@@ -44,9 +43,24 @@ namespace DataCore.DAL.DataModels
 
         #region Constructor and destructor
 
-        public LabelQuickEntity()
+        public LabelQuickEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public LabelQuickEntity(long id) : base(id)
+        {
+            ScaleId = 0;
+            ScaleDescription = string.Empty;
+            PluId = 0;
+            WeithingDate = DateTime.MinValue;
+            NetWeight = 0;
+            TareWeight = 0;
+            ProductDate = DateTime.MinValue;
+            RegNum = null;
+            Kneading = null;
+            Label = new byte[0];
+            Zpl = string.Empty;
         }
 
         #endregion
@@ -56,8 +70,6 @@ namespace DataCore.DAL.DataModels
         public override string ToString()
         {
             return base.ToString() +
-                   $"{nameof(Id)}: {Id}. " +
-                   $"{nameof(CreateDate)}: {CreateDate}. " +
                    $"{nameof(ScaleId)}: {ScaleId}. " +
                    $"{nameof(ScaleDescription)}: {ScaleDescription}. " +
                    $"{nameof(PluId)}: {PluId}. " +
@@ -74,9 +86,7 @@ namespace DataCore.DAL.DataModels
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
-            return
-                   Equals(Uid, entity.Uid) &&
-                   Equals(CreateDate, entity.CreateDate) &&
+            return base.Equals(entity) &&
                    Equals(ScaleId, entity.ScaleId) &&
                    Equals(ScaleDescription, entity.ScaleDescription) &&
                    Equals(PluId, entity.PluId) &&
@@ -111,37 +121,32 @@ namespace DataCore.DAL.DataModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Id, default(int)) &&
-                   Equals(CreateDate, default(DateTime)) &&
-                   Equals(ScaleId, default(long)) &&
-                   Equals(ScaleDescription, default(string)) &&
-                   Equals(PluId, default(int)) &&
-                   Equals(WeithingDate, default(DateTime)) &&
-                   Equals(NetWeight, default(decimal)) &&
-                   Equals(TareWeight, default(decimal)) &&
-                   Equals(ProductDate, default(DateTime)) &&
-                   Equals(RegNum, default(int?)) &&
-                   Equals(Label, default(byte[])) &&
-                   Equals(Zpl, default(string));
+                   Equals(ScaleId, 0) &&
+                   Equals(ScaleDescription, string.Empty) &&
+                   Equals(PluId, 0) &&
+                   Equals(WeithingDate, DateTime.MinValue) &&
+                   Equals(NetWeight, 0) &&
+                   Equals(TareWeight, 0) &&
+                   Equals(ProductDate, DateTime.MinValue) &&
+                   Equals(RegNum, null) &&
+                   Equals(Label, new byte[0]) &&
+                   Equals(Zpl, string.Empty);
         }
 
         public override object Clone()
         {
-            return new LabelQuickEntity
-            {
-                Id = Id,
-                CreateDate = CreateDate,
-                ScaleId = ScaleId,
-                ScaleDescription = ScaleDescription,
-                PluId = PluId,
-                WeithingDate = WeithingDate,
-                NetWeight = NetWeight,
-                TareWeight = TareWeight,
-                ProductDate = ProductDate,
-                RegNum = RegNum,
-                Label = DataUtils.CloneBytes(Label),
-                Zpl = Zpl,
-            };
+            LabelQuickEntity item = (LabelQuickEntity)base.Clone();
+            item.ScaleId = ScaleId;
+            item.ScaleDescription = ScaleDescription;
+            item.PluId = PluId;
+            item.WeithingDate = WeithingDate;
+            item.NetWeight = NetWeight;
+            item.TareWeight = TareWeight;
+            item.ProductDate = ProductDate;
+            item.RegNum = RegNum;
+            item.Label = DataUtils.CloneBytes(Label);
+            item.Zpl = Zpl;
+            return item;
         }
 
         #endregion

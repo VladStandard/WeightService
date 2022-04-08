@@ -10,21 +10,21 @@ using System.Runtime.CompilerServices;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "ПЛУ".
+    /// Table "PLUs".
     /// </summary>
     public class PluEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual TemplateEntity Template { get; set; } = new TemplateEntity();
-        public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
-        public virtual NomenclatureEntity Nomenclature { get; set; } = new NomenclatureEntity();
-        public virtual string GoodsName { get; set; } = string.Empty;
-        public virtual string GoodsFullName { get; set; } = string.Empty;
-        public virtual string GoodsDescription { get; set; } = string.Empty;
-        public virtual string Gtin { get; set; } = string.Empty;
-        public virtual string Ean13 { get; set; } = string.Empty;
-        public virtual string Itf14 { get; set; } = string.Empty;
+        public virtual TemplateEntity Template { get; set; }
+        public virtual ScaleEntity Scale { get; set; }
+        public virtual NomenclatureEntity Nomenclature { get; set; }
+        public virtual string GoodsName { get; set; }
+        public virtual string GoodsFullName { get; set; }
+        public virtual string GoodsDescription { get; set; }
+        public virtual string Gtin { get; set; }
+        public virtual string Ean13 { get; set; }
+        public virtual string Itf14 { get; set; }
         public virtual short GoodsShelfLifeDays { get; set; }
         public virtual decimal GoodsTareWeight { get; set; }
         public virtual int GoodsBoxQuantly { get; set; }
@@ -46,9 +46,31 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Constructor and destructor
 
-        public PluEntity()
+        public PluEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public PluEntity(long id) : base(id)
+        {
+            Template = new();
+            Scale = new ScaleEntity();
+            Nomenclature = new NomenclatureEntity();
+            GoodsName = string.Empty;
+            GoodsFullName = string.Empty;
+            GoodsDescription = string.Empty;
+            Gtin = string.Empty;
+            Ean13 = string.Empty;
+            Itf14 = string.Empty;
+            GoodsShelfLifeDays = 0;
+            GoodsTareWeight = 0;
+            GoodsBoxQuantly = 0;
+            Plu = 0;
+            Active = false;
+            UpperWeightThreshold = 0;
+            NominalWeight = 0;
+            LowerWeightThreshold = 0;
+            CheckWeight = false;
         }
 
         #endregion
@@ -195,9 +217,9 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string strTemplates = Template != null ? Template.Id.ToString() : "null";
-            string strScale = Scale != null ? Scale.Id.ToString() : "null";
-            string strNomenclature = Nomenclature != null ? Nomenclature.Id.ToString() : "null";
+            string strTemplates = Template != null ? Template.IdentityId.ToString() : "null";
+            string strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
+            string strNomenclature = Nomenclature != null ? Nomenclature.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Template)}: {strTemplates}. " +
                    $"{nameof(Scale)}: {strScale}. " +
@@ -271,50 +293,45 @@ namespace DataCore.DAL.TableScaleModels
             if (Nomenclature != null && !Nomenclature.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(GoodsName, default(string)) &&
-                   Equals(GoodsFullName, default(string)) &&
-                   Equals(GoodsDescription, default(string)) &&
-                   Equals(Gtin, default(string)) &&
-                   Equals(Ean13, default(string)) &&
-                   Equals(Itf14, default(string)) &&
-                   Equals(GoodsShelfLifeDays, default(short)) &&
-                   Equals(GoodsTareWeight, default(decimal)) &&
-                   Equals(GoodsBoxQuantly, default(int)) &&
-                   Equals(Plu, default(int)) &&
-                   Equals(Active, default(bool)) &&
-                   Equals(UpperWeightThreshold, default(decimal)) &&
-                   Equals(NominalWeight, default(decimal)) &&
-                   Equals(LowerWeightThreshold, default(decimal)) &&
-                   Equals(CheckWeight, default(bool));
+                   Equals(GoodsName, string.Empty) &&
+                   Equals(GoodsFullName, string.Empty) &&
+                   Equals(GoodsDescription, string.Empty) &&
+                   Equals(Gtin, string.Empty) &&
+                   Equals(Ean13, string.Empty) &&
+                   Equals(Itf14, string.Empty) &&
+                   Equals(GoodsShelfLifeDays, 0) &&
+                   Equals(GoodsTareWeight, 0) &&
+                   Equals(GoodsBoxQuantly, 0) &&
+                   Equals(Plu, 0) &&
+                   Equals(Active, false) &&
+                   Equals(UpperWeightThreshold, 0) &&
+                   Equals(NominalWeight, 0) &&
+                   Equals(LowerWeightThreshold, 0) &&
+                   Equals(CheckWeight, false);
         }
 
         public override object Clone()
         {
-            return new PluEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Template = (TemplateEntity)Template.Clone(),
-                Scale = (ScaleEntity)Scale.Clone(),
-                Nomenclature = (NomenclatureEntity)Nomenclature.Clone(),
-                GoodsName = GoodsName,
-                GoodsFullName = GoodsFullName,
-                GoodsDescription = GoodsDescription,
-                Gtin = Gtin,
-                Ean13 = Ean13,
-                Itf14 = Itf14,
-                GoodsShelfLifeDays = GoodsShelfLifeDays,
-                GoodsTareWeight = GoodsTareWeight,
-                GoodsBoxQuantly = GoodsBoxQuantly,
-                Plu = Plu,
-                Active = Active,
-                UpperWeightThreshold = UpperWeightThreshold,
-                NominalWeight = NominalWeight,
-                LowerWeightThreshold = LowerWeightThreshold,
-                CheckWeight = CheckWeight,
-            };
+            PluEntity item = (PluEntity)base.Clone();
+            item.Template = (TemplateEntity)Template.Clone();
+            item.Scale = (ScaleEntity)Scale.Clone();
+            item.Nomenclature = (NomenclatureEntity)Nomenclature.Clone();
+            item.GoodsName = GoodsName;
+            item.GoodsFullName = GoodsFullName;
+            item.GoodsDescription = GoodsDescription;
+            item.Gtin = Gtin;
+            item.Ean13 = Ean13;
+            item.Itf14 = Itf14;
+            item.GoodsShelfLifeDays = GoodsShelfLifeDays;
+            item.GoodsTareWeight = GoodsTareWeight;
+            item.GoodsBoxQuantly = GoodsBoxQuantly;
+            item.Plu = Plu;
+            item.Active = Active;
+            item.UpperWeightThreshold = UpperWeightThreshold;
+            item.NominalWeight = NominalWeight;
+            item.LowerWeightThreshold = LowerWeightThreshold;
+            item.CheckWeight = CheckWeight;
+            return item;
         }
 
         private T GetXmlValue<T>(XmlProductEntity xmlProduct, string name,

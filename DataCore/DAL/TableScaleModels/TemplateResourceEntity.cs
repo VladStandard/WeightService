@@ -7,26 +7,35 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Ресурсы шаблонов этикеток".
+    /// Table "TemplateResources".
     /// </summary>
     public class TemplateResourceEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
-        public virtual string Description { get; set; } = string.Empty;
-        public virtual string Type { get; set; } = string.Empty;
-        public virtual ImageDataEntity ImageData { get; set; } = new();
+        public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
+        public virtual string Type { get; set; }
+        public virtual ImageDataEntity ImageData { get; set; }
         public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
-        public virtual Guid? IdRRef { get; set; }
+        public virtual Guid IdRRef { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public TemplateResourceEntity()
+        public TemplateResourceEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public TemplateResourceEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            Description = string.Empty;
+            Type = string.Empty;
+            ImageData = new();
+            IdRRef = Guid.Empty;
         }
 
         #endregion
@@ -76,27 +85,22 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Name, default(string)) &&
-                   Equals(Description, default(string)) &&
-                   Equals(Type, default(string)) &&
+                   Equals(Name, string.Empty) &&
+                   Equals(Description, string.Empty) &&
+                   Equals(Type, string.Empty) &&
                    Equals(ImageData, new()) &&
-                   Equals(IdRRef, default(Guid?));
+                   Equals(IdRRef, Guid.Empty);
         }
 
         public override object Clone()
         {
-            return new TemplateResourceEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-                Description = Description,
-                Type = Type,
-                ImageData = new(ImageData.Value),
-                IdRRef = IdRRef,
-            };
+            TemplateResourceEntity item = (TemplateResourceEntity)base.Clone();
+            item.Name = Name;
+            item.Description = Description;
+            item.Type = Type;
+            item.ImageData = new(ImageData.Value);
+            item.IdRRef = IdRRef;
+            return item;
         }
 
         #endregion

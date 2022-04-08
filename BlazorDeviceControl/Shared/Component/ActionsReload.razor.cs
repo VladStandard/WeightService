@@ -13,15 +13,28 @@ namespace BlazorDeviceControl.Shared.Component
         [Parameter] public string Title { get; set; } = string.Empty;
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
         public string ItemsCountResult => $"{LocalizationCore.Strings.Main.ItemsCount}: {(Items == null ? 0 : Items.Count):### ### ###}";
+        private readonly object _locker = new();
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public ActionsReload()
+        {
+            Default();
+        }
 
         #endregion
 
         #region Public and private methods
 
-        public ActionsReload()
+        private void Default()
         {
-            if (ParentRazor != null)
-                IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
+            lock (_locker)
+            {
+                if (ParentRazor != null)
+                    IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
+            }
         }
 
         #endregion

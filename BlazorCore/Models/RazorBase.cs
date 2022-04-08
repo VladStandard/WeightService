@@ -33,11 +33,6 @@ namespace BlazorCore.Models
 
         [Parameter] public long? Id { get; set; } = null;
         [Parameter] public Guid? Uid { get; set; } = null;
-        [Parameter] public string UidStr
-        {
-            get => Uid is Guid uid && !string.IsNullOrEmpty(uid.ToString()) ? uid.ToString() : Guid.Empty.ToString();
-            set => Uid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty;
-        }
         [Parameter] public RazorBase? ParentRazor { get; set; } = null;
         public BaseEntity? Item { get; set; } = null;
         public object? ItemObject
@@ -190,7 +185,7 @@ namespace BlazorCore.Models
                             case TemplateEntity template:
                                 OnItemValueChangeTemplate(filterName, value, template);
                                 break;
-                            case WorkshopEntity workShop:
+                            case WorkShopEntity workShop:
                                 OnItemValueChangeWorkShop(filterName, value, workShop);
                                 break;
                         }
@@ -212,7 +207,7 @@ namespace BlazorCore.Models
             if (filterName == nameof(printer.PrinterType) && value is long printerTypeId)
             {
                 printer.PrinterType = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), printerTypeId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), printerTypeId } }),
                 null);
             }
         }
@@ -222,13 +217,13 @@ namespace BlazorCore.Models
             if (filterName == nameof(printerResource.Printer) && value is long printerId)
             {
                 printerResource.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), printerId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), printerId } }),
                 null);
             }
             if (filterName == nameof(printerResource.Resource) && value is long resourceId)
             {
                 printerResource.Resource = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), resourceId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), resourceId } }),
                 null);
             }
         }
@@ -238,29 +233,29 @@ namespace BlazorCore.Models
             if (filterName == nameof(plu.Nomenclature) && value is long nomenclatureId)
             {
                 plu.Nomenclature = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), nomenclatureId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), nomenclatureId } }),
                 null);
             }
             if (filterName == nameof(plu.Scale) && value is long scaleId)
             {
                 plu.Scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), scaleId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), scaleId } }),
                 null);
             }
             if (filterName == nameof(plu.Template) && value is long templateId)
             {
                 plu.Template = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), templateId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), templateId } }),
                 null);
             }
         }
 
         private void OnItemValueChangeScale(string? filterName, object? value, ScaleEntity scale)
         {
-            if (filterName == nameof(scale.Id) && value is long id)
+            if (filterName == nameof(scale.IdentityId) && value is long id)
             {
                 scale = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), id } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), id } }),
                 null);
             }
             if (filterName == nameof(scale.DeviceComPort) && value is string deviceComPort)
@@ -270,31 +265,31 @@ namespace BlazorCore.Models
             if (filterName == nameof(scale.Host) && value is long hostId)
             {
                 scale.Host = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), hostId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), hostId } }),
                     null);
             }
             if (filterName == nameof(scale.TemplateDefault) && value is long templateDefaultId)
             {
                 scale.TemplateDefault = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), templateDefaultId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), templateDefaultId } }),
                     null);
             }
             if (filterName == nameof(scale.TemplateSeries) && value is long TemplateSeriesId)
             {
                 scale.TemplateSeries = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), TemplateSeriesId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), TemplateSeriesId } }),
                     null);
             }
             if (filterName == nameof(scale.Printer) && value is long printerId)
             {
                 scale.Printer = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), printerId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), printerId } }),
                     null);
             }
             if (filterName == nameof(scale.WorkShop) && value is long workShopId)
             {
-                scale.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), workShopId } }),
+                scale.WorkShop = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), workShopId } }),
                     null);
             }
         }
@@ -307,12 +302,12 @@ namespace BlazorCore.Models
             }
         }
 
-        private void OnItemValueChangeWorkShop(string? filterName, object? value, WorkshopEntity workshop)
+        private void OnItemValueChangeWorkShop(string? filterName, object? value, WorkShopEntity workshop)
         {
             if (filterName == nameof(workshop.ProductionFacility) && value is int ProductionFacilityId)
             {
                 workshop.ProductionFacility = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-                    new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), ProductionFacilityId } }),
+                    new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), ProductionFacilityId } }),
                 null);
             }
         }
@@ -334,10 +329,10 @@ namespace BlazorCore.Models
             {
                 if (Item != item)
                     Item = item;
-                if (Id != item.Id)
-                    Id = item.Id;
-                if (Uid != item.Uid)
-                    Uid = item.Uid;
+                if (Id != item.IdentityId)
+                    Id = item.IdentityId;
+                if (Uid != item.IdentityUid)
+                    Uid = item.IdentityUid;
             }
         }
 
@@ -407,17 +402,17 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableSystem.Default:
                     break;
                 case ProjectsEnums.TableSystem.Accesses:
-                    if (parameters.TryGetValue(DbField.Uid.ToString(), out Guid? uidAccess))
+                    if (parameters.TryGetValue(DbField.IdentityUid.ToString(), out Guid? uidAccess))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Uid.ToString(), uidAccess }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityUid.ToString(), uidAccess }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableSystem.Logs:
-                    if (parameters.TryGetValue(DbField.Uid.ToString(), out Guid? uidLog))
+                    if (parameters.TryGetValue(DbField.IdentityUid.ToString(), out Guid? uidLog))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Uid.ToString(), uidLog }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityUid.ToString(), uidLog }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableSystem.Errors:
@@ -436,146 +431,146 @@ namespace BlazorCore.Models
             switch (table)
             {
                 case ProjectsEnums.TableScale.BarCodeTypes:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idBarcodeType))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idBarcodeType))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idBarcodeType }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idBarcodeType }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.Contragents:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idContragent))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idContragent))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<ContragentEntityV2>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idContragent }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idContragent }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.Hosts:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idHost))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idHost))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idHost }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idHost }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.Labels:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idLabel))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idLabel))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idLabel }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idLabel }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.Nomenclatures:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idNomenclature))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idNomenclature))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idNomenclature }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idNomenclature }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.Orders:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idOrder))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idOrder))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<OrderEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idOrder }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idOrder }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.OrdersStatuses:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idOrderStatus))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idOrderStatus))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<OrderStatusEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idOrderStatus }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idOrderStatus }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.OrdersTypes:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idOrderType))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idOrderType))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<OrderTypeEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idOrderType }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idOrderType }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.Organizations:
                     break;
                 case ProjectsEnums.TableScale.Plus:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idPlu))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPlu))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idPlu }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idPlu }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.Printers:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idPrinter))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPrinter))
                     {
                         Item = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idPrinter }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idPrinter }, }), null);
                     }
                     break;
                 case ProjectsEnums.TableScale.PrintersResources:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idPrinterResource))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPrinterResource))
                     {
                         PrinterResourceEntity printerResourceEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idPrinterResource }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idPrinterResource }, }), null);
                         Item = printerResourceEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.PrintersTypes:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idPrinterType))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idPrinterType))
                     {
                         PrinterTypeEntity printerTypeEntity = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idPrinterType }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idPrinterType }, }), null);
                         Item = printerTypeEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.ProductSeries:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idProductSeries))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idProductSeries))
                     {
                         ProductSeriesEntity productSeriesEntity = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idProductSeries }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idProductSeries }, }), null);
                         Item = productSeriesEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.ProductionFacilities:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idProductionFacility))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idProductionFacility))
                     {
                         ProductionFacilityEntity productionFacilityEntity = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idProductionFacility }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idProductionFacility }, }), null);
                         Item = productionFacilityEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Scales:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idScale))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idScale))
                     {
                         ScaleEntity scaleEntity = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idScale }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idScale }, }), null);
                         Item = scaleEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.TemplatesResources:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idTemplateResource))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idTemplateResource))
                     {
                         TemplateResourceEntity templateResourceEntity = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idTemplateResource }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idTemplateResource }, }), null);
                         Item = templateResourceEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Templates:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idTemplate))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idTemplate))
                     {
                         TemplateEntity templateEntity = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idTemplate }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idTemplate }, }), null);
                         Item = templateEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.WeithingFacts:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idWeithingFact))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idWeithingFact))
                     {
                         WeithingFactEntity weithingFactEntity = AppSettings.DataAccess.Crud.GetEntity<WeithingFactEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idWeithingFact }, }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idWeithingFact }, }), null);
                         Item = weithingFactEntity;
                     }
                     break;
                 case ProjectsEnums.TableScale.Workshops:
-                    if (parameters.TryGetValue(DbField.Id.ToString(), out long? idWorkshop))
+                    if (parameters.TryGetValue(DbField.IdentityId.ToString(), out long? idWorkshop))
                     {
-                        WorkshopEntity workshopEntity = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), idWorkshop }, }), null);
+                        WorkShopEntity workshopEntity = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), idWorkshop }, }), null);
                         Item = workshopEntity;
                     }
                     break;
@@ -841,7 +836,7 @@ namespace BlazorCore.Models
                     break;
                 case ProjectsEnums.TableSystem.Errors:
                     Id = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableSystem.Logs:
                     Uid = Guid.NewGuid();
@@ -864,52 +859,51 @@ namespace BlazorCore.Models
             {
                 case ProjectsEnums.TableScale.BarCodeTypes:
                     Id = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Hosts:
                     Id = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Plus:
                     Id = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Printers:
                     Id = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.PrintersResources:
                     Id = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.PrintersTypes:
                     Id = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.ProductionFacilities:
                     Id = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.ProductSeries:
                     Id = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Scales:
                     Id = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.TemplatesResources:
                     Id = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Templates:
-                    //Id = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(null,
-                    //    new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
-                    item.PrimaryColumn = new(ColumnName.Id);
+                    Id = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(null,
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Workshops:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(null,
-                        new FieldOrderEntity(DbField.Id, DbOrderDirection.Desc)).Id + 1;
+                    Id = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(null,
+                        new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 default:
                     break;
@@ -941,18 +935,18 @@ namespace BlazorCore.Models
                             RouteItemNavigatePrepareTableDwh(item);
                             break;
                     }
-                    if (item.PrimaryColumn.Name == ColumnName.Id)
-                        NavigationManager?.NavigateTo($"{page}/{item.Id}/{tableAction}");
-                    else if (item.PrimaryColumn.Name == ColumnName.Uid)
-                        NavigationManager?.NavigateTo($"{page}/{item.Uid}/{tableAction}");
+                    if (item.IdentityName == ColumnName.Id)
+                        NavigationManager?.NavigateTo($"{page}/{item.IdentityId}/{tableAction}");
+                    else if (item.IdentityName == ColumnName.Uid)
+                        NavigationManager?.NavigateTo($"{page}/{item.IdentityUid}/{tableAction}");
                     break;
                 case DbTableAction.Edit:
                     if (item == null)
                         return;
-                    if (item.PrimaryColumn.Name == ColumnName.Id)
-                        NavigationManager?.NavigateTo($"{page}/{item.Id}");
-                    else if (item.PrimaryColumn.Name == ColumnName.Uid)
-                        NavigationManager?.NavigateTo($"{page}/{item.Uid}");
+                    if (item.IdentityName == ColumnName.Id)
+                        NavigationManager?.NavigateTo($"{page}/{item.IdentityId}");
+                    else if (item.IdentityName == ColumnName.Uid)
+                        NavigationManager?.NavigateTo($"{page}/{item.IdentityUid}");
                     break;
                 case DbTableAction.Default:
                     break;
@@ -1106,10 +1100,10 @@ namespace BlazorCore.Models
         {
             if (ParentRazor?.Item != null)
             {
-                if (ParentRazor.Item.PrimaryColumn.Name == ColumnName.Id)
-                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"ID: {ParentRazor.Item.Id}";
-                else if (ParentRazor.Item.PrimaryColumn.Name == ColumnName.Uid)
-                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"UID: {ParentRazor.Item.Uid}";
+                if (ParentRazor.Item.IdentityName == ColumnName.Id)
+                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"ID: {ParentRazor.Item.IdentityId}";
+                else if (ParentRazor.Item.IdentityName == ColumnName.Uid)
+                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"UID: {ParentRazor.Item.IdentityUid}";
             }
             return string.Empty;
         }
@@ -1194,29 +1188,29 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.WeithingFacts:
                     break;
                 case ProjectsEnums.TableScale.Workshops:
-                    ItemSaveCheck.Workshop(NotificationService, (WorkshopEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.Workshop(NotificationService, (WorkShopEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.BarCodes:
                     break;
             }
         }
 
-        private void ItemDwhSave(ProjectsEnums.TableDwh tableDwh)
-        {
-            //switch (tableDwh)
-            //{
-            //    case ProjectsEnums.TableDwh.Default:
-            //        break;
-            //    case ProjectsEnums.TableDwh.InformationSystem:
-            //        break;
-            //    case ProjectsEnums.TableDwh.Nomenclature:
-            //        break;
-            //    case ProjectsEnums.TableDwh.NomenclatureMaster:
-            //        break;
-            //    case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
-            //        break;
-            //}
-        }
+        //private void ItemDwhSave(ProjectsEnums.TableDwh tableDwh)
+        //{
+        //    switch (tableDwh)
+        //    {
+        //        case ProjectsEnums.TableDwh.Default:
+        //            break;
+        //        case ProjectsEnums.TableDwh.InformationSystem:
+        //            break;
+        //        case ProjectsEnums.TableDwh.Nomenclature:
+        //            break;
+        //        case ProjectsEnums.TableDwh.NomenclatureMaster:
+        //            break;
+        //        case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
+        //            break;
+        //    }
+        //}
 
         public async Task ItemSaveAsync(bool continueOnCapturedContext)
         {
@@ -1235,9 +1229,9 @@ namespace BlazorCore.Models
                             case TableScaleEntity:
                                 ItemScaleSave(ProjectsEnums.GetTableScale(Table.Name));
                                 break;
-                            case TableDwhEntity:
-                                ItemDwhSave(ProjectsEnums.GetTableDwh(Table.Name));
-                                break;
+                            //case TableDwhEntity:
+                            //    ItemDwhSave(ProjectsEnums.GetTableDwh(Table.Name));
+                            //    break;
                         }
                         RouteSectionNavigateToRoot();
                     }

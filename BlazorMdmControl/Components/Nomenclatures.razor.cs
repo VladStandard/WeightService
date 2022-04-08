@@ -125,7 +125,7 @@
 //            ItemMaster = null;
 //            ItemsMaster = BlazorSettings.SqlDataAccess.NomenclatureLightCrud.GetEntitiesAsIEnumerable(new FieldListEntity(new Dictionary<string, object>{
 //            { ShareEnums.DbField.IsProduct.ToString(), true },
-//            { "InformationSystem.Id", 7 },
+//            { $"InformationSystem.{DbField.IdentityId}", 7 },
 //            }),
 //                new FieldOrderEntity(ShareEnums.DbField.Name, ShareEnums.DbOrderDirection.Asc), 0);
 //        }

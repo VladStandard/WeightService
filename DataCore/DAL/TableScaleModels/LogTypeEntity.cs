@@ -2,23 +2,33 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Table "LogTypes".
+    /// </summary>
     public class LogTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
         public virtual byte Number { get; set; }
-        public virtual string Icon { get; set; } = string.Empty;
+        public virtual string Icon { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public LogTypeEntity()
+        public LogTypeEntity() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
+        }
+
+        public LogTypeEntity(Guid uid) : base(uid)
+        {
+            Number = 0x00;
+            Icon = string.Empty;
         }
 
         #endregion
@@ -62,21 +72,16 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Number, default(byte)) &&
-                   Equals(Icon, default(string));
+                   Equals(Number, 0x00) &&
+                   Equals(Icon, string.Empty);
         }
 
         public override object Clone()
         {
-            return new LogTypeEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Number = Number,
-                Icon = Icon,
-            };
+            LogTypeEntity item = (LogTypeEntity)base.Clone();
+            item.Number = Number;
+            item.Icon = Icon;
+            return item;
         }
 
         #endregion

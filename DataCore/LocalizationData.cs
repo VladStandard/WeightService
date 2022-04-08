@@ -80,74 +80,84 @@ namespace DataCore
                 public const string WorkShops = "/section/workshops";
             }
             #endregion
-            #region Items
-            public static string ItemBarcode => Lang == ShareEnums.Lang.English ? "Barcode" : "Штрихкод";
-            public static string ItemBarCodeType => Lang == ShareEnums.Lang.English ? "Barcodes type" : "Тип штрихкода";
-            public static string ItemContragent => Lang == ShareEnums.Lang.English ? "Counterparty" : "Контрагент";
-            public static string ItemDevice => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
-            public static string ItemError => Lang == ShareEnums.Lang.English ? "Error" : "Ошибка";
-            public static string ItemFont => Lang == ShareEnums.Lang.English ? "Font" : "Шрифт";
-            public static string ItemHost => Lang == ShareEnums.Lang.English ? "Host" : "Хост";
-            public static string ItemLabel => Lang == ShareEnums.Lang.English ? "Label" : "Этикетка";
-            public static string ItemLog => Lang == ShareEnums.Lang.English ? "Log" : "Лог";
-            public static string ItemLogo => Lang == ShareEnums.Lang.English ? "Logo" : "Логотип";
-            public static string ItemModule => Lang == ShareEnums.Lang.English ? "Module" : "Модуль";
-            public static string ItemNomenclature => Lang == ShareEnums.Lang.English ? "Nomenclature" : "Номенклатура";
-            public static string ItemNomenclatureUnit => Lang == ShareEnums.Lang.English ? "Package" : "Упаковка";
-            public static string ItemOrder => Lang == ShareEnums.Lang.English ? "Order" : "Заказ";
-            public static string ItemOrderStatus => Lang == ShareEnums.Lang.English ? "Order status" : "Статус заказа";
-            public static string ItemOrderType => Lang == ShareEnums.Lang.English ? "Order type" : "Типы заказа";
-            public static string ItemOrganization => Lang == ShareEnums.Lang.English ? "Organization" : "Организация";
-            public static string ItemPlu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
-            public static string ItemPrinter => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
-            public static string ItemPrinterResource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
-            public static string ItemPrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
-            public static string ItemProductionFacilities => Lang == ShareEnums.Lang.English ? "Prod. facilities" : "Производственные площадки";
-            public static string ItemProductionFacility => Lang == ShareEnums.Lang.English ? "Prod. facility" : "Произв. площадка";
-            public static string ItemProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серия продукта";
-            public static string ItemResource => Lang == ShareEnums.Lang.English ? "Resource" : "Ресурс";
-            public static string ItemScale => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
-            public static string ItemTask => Lang == ShareEnums.Lang.English ? "Task" : "Задача";
-            public static string ItemTaskModule => Lang == ShareEnums.Lang.English ? "Task module" : "Модуль задачи";
-            public static string ItemTemplate => Lang == ShareEnums.Lang.English ? "Template" : "Шаблон";
-            public static string ItemTemplateResource => Lang == ShareEnums.Lang.English ? "Template resource" : "Ресурс шаблона";
-            public static string ItemWeithingFact => Lang == ShareEnums.Lang.English ? "Weithing fact" : "Взвешивание";
-            public static string ItemWorkshop => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
-            #endregion
-            #region Sections
-            public static string SectionBarCodes => Lang == ShareEnums.Lang.English ? "Barcodes" : "Штрихкоды";
-            public static string SectionBarCodesShort => Lang == ShareEnums.Lang.English ? "BC" : "ШК";
-            public static string SectionBarCodeTypes => Lang == ShareEnums.Lang.English ? "Barcodes types" : "Типы штрихкодов";
-            public static string SectionBarCodeTypesShort => Lang == ShareEnums.Lang.English ? "BC types" : "Типы ШК";
-            public static string SectionContragents => Lang == ShareEnums.Lang.English ? "Counterparties" : "Контрагенты";
-            public static string SectionDevices => Lang == ShareEnums.Lang.English ? "Devices" : "Устройства";
-            public static string SectionFonts => Lang == ShareEnums.Lang.English ? "Fonts" : "Шрифты";
-            public static string SectionHosts => Lang == ShareEnums.Lang.English ? "Hosts" : "Хосты";
-            public static string SectionLabels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
-            public static string SectionLogos => Lang == ShareEnums.Lang.English ? "Logos" : "Логотипы";
-            public static string SectionLogs => Lang == ShareEnums.Lang.English ? "Logs" : "Логи";
-            public static string SectionModules => Lang == ShareEnums.Lang.English ? "Modules" : "Модули";
-            public static string SectionNomenclatures => Lang == ShareEnums.Lang.English ? "Nomenclatures" : "Номенклатура";
-            public static string SectionNomenclatureUnits => Lang == ShareEnums.Lang.English ? "Packages" : "Упаковки";
-            public static string SectionOrders => Lang == ShareEnums.Lang.English ? "Orders" : "Заказы";
-            public static string SectionOrderStatuses => Lang == ShareEnums.Lang.English ? "Order statuses" : "Статусы заказов";
-            public static string SectionOrderTypes => Lang == ShareEnums.Lang.English ? "Order types" : "Типы заказов";
-            public static string SectionOrganizations => Lang == ShareEnums.Lang.English ? "Organizations" : "Организации";
-            public static string SectionPlus => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
-            public static string SectionPrinterResources => Lang == ShareEnums.Lang.English ? "Printer resources" : "Ресурсы принтера";
-            public static string SectionPrinters => Lang == ShareEnums.Lang.English ? "Printers" : "Принтеры";
-            public static string SectionPrinterTypes => Lang == ShareEnums.Lang.English ? "Printer types" : "Типы принтеров";
-            public static string SectionProductionFacilities => Lang == ShareEnums.Lang.English ? "Prod. facilities" : "Произв. площадки";
-            public static string SectionProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серии продуктов";
-            public static string SectionResources => Lang == ShareEnums.Lang.English ? "Resources" : "Ресурсы";
-            public static string SectionScales => Lang == ShareEnums.Lang.English ? "Devices" : "Устройства";
-            public static string SectionTaskModules => Lang == ShareEnums.Lang.English ? "Task Modules" : "Модули задач";
-            public static string SectionTasks => Lang == ShareEnums.Lang.English ? "Tasks" : "Задачи";
-            public static string SectionTemplateResources => Lang == ShareEnums.Lang.English ? "Template resources" : "Ресурсы шаблонов";
-            public static string SectionTemplates => Lang == ShareEnums.Lang.English ? "Templates" : "Шаблоны";
-            public static string SectionWeithingFacts => Lang == ShareEnums.Lang.English ? "Weithing facts" : "Взвешивания";
-            public static string SectionWorkshops => Lang == ShareEnums.Lang.English ? "Workshops" : "Цеха";
-            #endregion
+            public static class Items
+            {
+                public static string Barcode => Lang == ShareEnums.Lang.English ? "Barcode" : "Штрихкод";
+                public static string BarCodeType => Lang == ShareEnums.Lang.English ? "Barcodes type" : "Тип штрихкода";
+                public static string Contragent => Lang == ShareEnums.Lang.English ? "Counterparty" : "Контрагент";
+                public static string Device => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
+                public static string Error => Lang == ShareEnums.Lang.English ? "Error" : "Ошибка";
+                public static string Font => Lang == ShareEnums.Lang.English ? "Font" : "Шрифт";
+                public static string Host => Lang == ShareEnums.Lang.English ? "Host" : "Хост";
+                public static string Label => Lang == ShareEnums.Lang.English ? "Label" : "Этикетка";
+                public static string Log => Lang == ShareEnums.Lang.English ? "Log" : "Лог";
+                public static string Logo => Lang == ShareEnums.Lang.English ? "Logo" : "Логотип";
+                public static string Module => Lang == ShareEnums.Lang.English ? "Module" : "Модуль";
+                public static string Nomenclature => Lang == ShareEnums.Lang.English ? "Nomenclature" : "Номенклатура";
+                public static string NomenclatureUnit => Lang == ShareEnums.Lang.English ? "Package" : "Упаковка";
+                public static string Order => Lang == ShareEnums.Lang.English ? "Order" : "Заказ";
+                public static string OrderStatus => Lang == ShareEnums.Lang.English ? "Order status" : "Статус заказа";
+                public static string OrderType => Lang == ShareEnums.Lang.English ? "Order type" : "Типы заказа";
+                public static string Organization => Lang == ShareEnums.Lang.English ? "Organization" : "Организация";
+                public static string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
+                public static string Printer => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
+                public static string PrinterResource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
+                public static string PrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
+                public static string ProductionFacilities => Lang == ShareEnums.Lang.English ? "Prod. facilities" : "Производственные площадки";
+                public static string ProductionFacility => Lang == ShareEnums.Lang.English ? "Prod. facility" : "Произв. площадка";
+                public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серия продукта";
+                public static string Resource => Lang == ShareEnums.Lang.English ? "Resource" : "Ресурс";
+                public static string Scale => Lang == ShareEnums.Lang.English ? "Device" : "Устройство";
+                public static string Task => Lang == ShareEnums.Lang.English ? "Task" : "Задача";
+                public static string TaskModule => Lang == ShareEnums.Lang.English ? "Task module" : "Модуль задачи";
+                public static string Template => Lang == ShareEnums.Lang.English ? "Template" : "Шаблон";
+                public static string TemplateResource => Lang == ShareEnums.Lang.English ? "Template resource" : "Ресурс шаблона";
+                public static string WeithingFact => Lang == ShareEnums.Lang.English ? "Weithing fact" : "Взвешивание";
+                public static string Workshop => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
+            }
+
+            public static class Sections
+            {
+                public static string AutomatedWorkplace => Lang == ShareEnums.Lang.English ? "Automated Workplaces" : "Автоматизированные Рабочие Места";
+                public static string AutomatedWorkplaceShort => Lang == ShareEnums.Lang.English ? "AWs" : "АРМы";
+                public static string BarCodes => Lang == ShareEnums.Lang.English ? "Barcodes" : "Штрихкоды";
+                public static string BarCodesShort => Lang == ShareEnums.Lang.English ? "BC" : "ШК";
+                public static string BarCodeTypes => Lang == ShareEnums.Lang.English ? "Barcodes types" : "Типы штрихкодов";
+                public static string BarCodeTypesShort => Lang == ShareEnums.Lang.English ? "BC types" : "Типы ШК";
+                public static string Contragents => Lang == ShareEnums.Lang.English ? "Counterparties" : "Контрагенты";
+                public static string Devices => Lang == ShareEnums.Lang.English ? "Devices" : "Устройства";
+                public static string Fonts => Lang == ShareEnums.Lang.English ? "Fonts" : "Шрифты";
+                public static string Hosts => Lang == ShareEnums.Lang.English ? "Hosts" : "Хосты";
+                public static string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
+                public static string Logos => Lang == ShareEnums.Lang.English ? "Logos" : "Логотипы";
+                public static string Logs => Lang == ShareEnums.Lang.English ? "Logs" : "Логи";
+                public static string Measurements => Lang == ShareEnums.Lang.English ? "Measurements" : "Измерения";
+                public static string Modules => Lang == ShareEnums.Lang.English ? "Modules" : "Модули";
+                public static string Nomenclatures => Lang == ShareEnums.Lang.English ? "Nomenclatures" : "Номенклатура";
+                public static string NomenclatureUnits => Lang == ShareEnums.Lang.English ? "Packages" : "Упаковки";
+                public static string Orders => Lang == ShareEnums.Lang.English ? "Orders" : "Заказы";
+                public static string OrderStatuses => Lang == ShareEnums.Lang.English ? "Order statuses" : "Статусы заказов";
+                public static string OrderTypes => Lang == ShareEnums.Lang.English ? "Order types" : "Типы заказов";
+                public static string Organizations => Lang == ShareEnums.Lang.English ? "Organizations" : "Организации";
+                public static string Plus => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
+                public static string PrinterResources => Lang == ShareEnums.Lang.English ? "Printer resources" : "Ресурсы принтера";
+                public static string Printers => Lang == ShareEnums.Lang.English ? "Printers" : "Принтеры";
+                public static string PrinterTypes => Lang == ShareEnums.Lang.English ? "Printer types" : "Типы принтеров";
+                public static string ProductionFacilities => Lang == ShareEnums.Lang.English ? "Production facilities" : "Производственные площадки";
+                public static string ProductionFacilitiesShort => Lang == ShareEnums.Lang.English ? "Facilities" : "Площадки";
+                public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серии продуктов";
+                public static string References => Lang == ShareEnums.Lang.English ? "References" : "Справочники";
+                public static string ReferencesAdditional => Lang == ShareEnums.Lang.English ? "Add. references" : "Доп. справочники";
+                public static string ReferencesDwh => Lang == ShareEnums.Lang.English ? "DWH References" : "DWH справочники";
+                public static string Resources => Lang == ShareEnums.Lang.English ? "Resources" : "Ресурсы";
+                public static string Scales => Lang == ShareEnums.Lang.English ? "Devices" : "Устройства";
+                public static string TaskModules => Lang == ShareEnums.Lang.English ? "Task Modules" : "Модули задач";
+                public static string Tasks => Lang == ShareEnums.Lang.English ? "Tasks" : "Задачи";
+                public static string TemplateResources => Lang == ShareEnums.Lang.English ? "Template resources" : "Ресурсы шаблонов";
+                public static string Templates => Lang == ShareEnums.Lang.English ? "Templates" : "Шаблоны";
+                public static string WeithingFacts => Lang == ShareEnums.Lang.English ? "Weithing facts" : "Взвешивания";
+                public static string WorkShops => Lang == ShareEnums.Lang.English ? "Workshops" : "Цеха";
+            }
             #region Tables
             public static string Table => Lang == ShareEnums.Lang.English ? "Table" : "Таблица";
             public static string TableActionAdd => Lang == ShareEnums.Lang.English ? "Add" : "Добавить";
@@ -549,66 +559,66 @@ namespace DataCore
                     switch (tableScale)
                     {
                         case ProjectsEnums.TableScale.BarCodeTypes:
-                            result = DeviceControl.ItemBarCodeType;
+                            result = DeviceControl.Items.BarCodeType;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
-                            result = DeviceControl.ItemContragent;
+                            result = DeviceControl.Items.Contragent;
                             break;
                         case ProjectsEnums.TableScale.Hosts:
-                            result = DeviceControl.ItemHost;
+                            result = DeviceControl.Items.Host;
                             break;
                         case ProjectsEnums.TableScale.Labels:
-                            result = DeviceControl.ItemLabel;
+                            result = DeviceControl.Items.Label;
                             break;
                         case ProjectsEnums.TableScale.Nomenclatures:
-                            result = DeviceControl.ItemNomenclature;
+                            result = DeviceControl.Items.Nomenclature;
                             break;
                         case ProjectsEnums.TableScale.OrdersStatuses:
-                            result = DeviceControl.ItemOrderStatus;
+                            result = DeviceControl.Items.OrderStatus;
                             break;
                         case ProjectsEnums.TableScale.OrdersTypes:
-                            result = DeviceControl.ItemOrderType;
+                            result = DeviceControl.Items.OrderType;
                             break;
                         case ProjectsEnums.TableScale.Orders:
-                            result = DeviceControl.ItemOrder;
+                            result = DeviceControl.Items.Order;
                             break;
                         case ProjectsEnums.TableScale.Plus:
-                            result = DeviceControl.ItemPlu;
+                            result = DeviceControl.Items.Plu;
                             break;
                         case ProjectsEnums.TableScale.Printers:
-                            result = DeviceControl.ItemPrinter;
+                            result = DeviceControl.Items.Printer;
                             break;
                         case ProjectsEnums.TableScale.PrintersResources:
-                            result = DeviceControl.ItemPrinterResource;
+                            result = DeviceControl.Items.PrinterResource;
                             break;
                         case ProjectsEnums.TableScale.PrintersTypes:
-                            result = DeviceControl.ItemPrinterType;
+                            result = DeviceControl.Items.PrinterType;
                             break;
                         case ProjectsEnums.TableScale.ProductSeries:
-                            result = DeviceControl.ItemProductSeries;
+                            result = DeviceControl.Items.ProductSeries;
                             break;
                         case ProjectsEnums.TableScale.ProductionFacilities:
-                            result = DeviceControl.ItemProductionFacility;
+                            result = DeviceControl.Items.ProductionFacility;
                             break;
                         case ProjectsEnums.TableScale.Scales:
-                            result = DeviceControl.ItemScale;
+                            result = DeviceControl.Items.Scale;
                             break;
                         case ProjectsEnums.TableScale.TemplatesResources:
-                            result = DeviceControl.ItemTemplateResource;
+                            result = DeviceControl.Items.TemplateResource;
                             break;
                         case ProjectsEnums.TableScale.Templates:
-                            result = DeviceControl.ItemTemplate;
+                            result = DeviceControl.Items.Template;
                             break;
                         case ProjectsEnums.TableScale.WeithingFacts:
-                            result = DeviceControl.ItemWeithingFact;
+                            result = DeviceControl.Items.WeithingFact;
                             break;
                         case ProjectsEnums.TableScale.Workshops:
-                            result = DeviceControl.ItemWorkshop;
+                            result = DeviceControl.Items.Workshop;
                             break;
                         case ProjectsEnums.TableScale.Default:
                             break;
                         case ProjectsEnums.TableScale.Organizations:
-                            result = DeviceControl.ItemOrganization;
+                            result = DeviceControl.Items.Organization;
                             break;
                         case ProjectsEnums.TableScale.BarCodes:
                             break;
@@ -651,67 +661,67 @@ namespace DataCore
                         case ProjectsEnums.TableScale.Default:
                             break;
                         case ProjectsEnums.TableScale.BarCodes:
-                            result = DeviceControl.SectionBarCodes;
+                            result = DeviceControl.Sections.BarCodes;
                             break;
                         case ProjectsEnums.TableScale.BarCodeTypes:
-                            result = DeviceControl.SectionBarCodeTypes;
+                            result = DeviceControl.Sections.BarCodeTypes;
                             break;
                         case ProjectsEnums.TableScale.Contragents:
-                            result = DeviceControl.SectionContragents;
+                            result = DeviceControl.Sections.Contragents;
                             break;
                         case ProjectsEnums.TableScale.Hosts:
-                            result = DeviceControl.SectionHosts;
+                            result = DeviceControl.Sections.Hosts;
                             break;
                         case ProjectsEnums.TableScale.Labels:
-                            result = DeviceControl.SectionLabels;
+                            result = DeviceControl.Sections.Labels;
                             break;
                         case ProjectsEnums.TableScale.Nomenclatures:
-                            result = DeviceControl.SectionNomenclatures;
+                            result = DeviceControl.Sections.Nomenclatures;
                             break;
                         case ProjectsEnums.TableScale.OrdersStatuses:
-                            result = DeviceControl.SectionOrderStatuses;
+                            result = DeviceControl.Sections.OrderStatuses;
                             break;
                         case ProjectsEnums.TableScale.OrdersTypes:
-                            result = DeviceControl.SectionOrderTypes;
+                            result = DeviceControl.Sections.OrderTypes;
                             break;
                         case ProjectsEnums.TableScale.Orders:
-                            result = DeviceControl.SectionOrders;
+                            result = DeviceControl.Sections.Orders;
                             break;
                         case ProjectsEnums.TableScale.Plus:
-                            result = DeviceControl.SectionPlus;
+                            result = DeviceControl.Sections.Plus;
                             break;
                         case ProjectsEnums.TableScale.Printers:
-                            result = DeviceControl.SectionPrinters;
+                            result = DeviceControl.Sections.Printers;
                             break;
                         case ProjectsEnums.TableScale.PrintersResources:
-                            result = DeviceControl.SectionPrinterResources;
+                            result = DeviceControl.Sections.PrinterResources;
                             break;
                         case ProjectsEnums.TableScale.PrintersTypes:
-                            result = DeviceControl.SectionPrinterTypes;
+                            result = DeviceControl.Sections.PrinterTypes;
                             break;
                         case ProjectsEnums.TableScale.ProductSeries:
-                            result = DeviceControl.SectionProductSeries;
+                            result = DeviceControl.Sections.ProductSeries;
                             break;
                         case ProjectsEnums.TableScale.ProductionFacilities:
-                            result = DeviceControl.SectionProductionFacilities;
+                            result = DeviceControl.Sections.ProductionFacilities;
                             break;
                         case ProjectsEnums.TableScale.Scales:
-                            result = DeviceControl.SectionScales;
+                            result = DeviceControl.Sections.Scales;
                             break;
                         case ProjectsEnums.TableScale.TemplatesResources:
-                            result = DeviceControl.SectionTemplateResources;
+                            result = DeviceControl.Sections.TemplateResources;
                             break;
                         case ProjectsEnums.TableScale.Templates:
-                            result = DeviceControl.SectionTemplates;
+                            result = DeviceControl.Sections.Templates;
                             break;
                         case ProjectsEnums.TableScale.WeithingFacts:
-                            result = DeviceControl.SectionWeithingFacts;
+                            result = DeviceControl.Sections.WeithingFacts;
                             break;
                         case ProjectsEnums.TableScale.Workshops:
-                            result = DeviceControl.SectionWorkshops;
+                            result = DeviceControl.Sections.WorkShops;
                             break;
                         case ProjectsEnums.TableScale.Organizations:
-                            result = DeviceControl.SectionOrganizations;
+                            result = DeviceControl.Sections.Organizations;
                             break;
                     }
                 }

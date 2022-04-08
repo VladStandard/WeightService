@@ -21,7 +21,26 @@ namespace BlazorDeviceControl.Shared.Section
 
         #endregion
 
+        #region Constructor and destructor
+
+        public SectionPrinterTypes()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
+                Items = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -29,12 +48,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
-                        Items = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)

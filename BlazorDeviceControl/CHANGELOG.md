@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.420] - 2022-04-07
+### Fixed
+- Shared.MainLayout
+- Shared.NavMenu
+### Описание обновления:
+- Новое меню слева
+
 ## [0.6.410] - 2022-04-06
 ### Fixed
 - Item PLU page

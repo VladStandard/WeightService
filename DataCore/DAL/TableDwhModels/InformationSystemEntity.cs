@@ -19,9 +19,18 @@ namespace DataCore.DAL.TableDwhModels
 
         #region Constructor and destructor
 
-        public InformationSystemEntity()
+        public InformationSystemEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public InformationSystemEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            ConnectString1 = string.Empty;
+            ConnectString2 = string.Empty;
+            ConnectString3 = string.Empty;
+            StatusId = 0;
         }
 
         #endregion
@@ -71,27 +80,22 @@ namespace DataCore.DAL.TableDwhModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Name, default(string)) &&
-                   Equals(ConnectString1, default(string)) &&
-                   Equals(ConnectString2, default(string)) &&
-                   Equals(ConnectString3, default(string)) &&
-                   Equals(StatusId, default(int));
+                   Equals(Name, string.Empty) &&
+                   Equals(ConnectString1, string.Empty) &&
+                   Equals(ConnectString2, string.Empty) &&
+                   Equals(ConnectString3, string.Empty) &&
+                   Equals(StatusId, 0);
         }
 
         public override object Clone()
         {
-            return new InformationSystemEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-                ConnectString1 = Name,
-                ConnectString2 = Name,
-                ConnectString3 = Name,
-                StatusId = StatusId,
-            };
+            InformationSystemEntity item = (InformationSystemEntity)base.Clone();
+            item.Name = Name;
+            item.ConnectString1 = Name;
+            item.ConnectString2 = Name;
+            item.ConnectString3 = Name;
+            item.StatusId = StatusId;
+            return item;
         }
 
         #endregion

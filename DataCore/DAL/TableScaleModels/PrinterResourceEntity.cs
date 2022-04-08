@@ -6,23 +6,30 @@ using DataCore.DAL.Models;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Ресурсы принтеров".
+    /// Table "PrinterResources".
     /// </summary>
     public class PrinterResourceEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual PrinterEntity Printer { get; set; } = new PrinterEntity();
-        public virtual TemplateResourceEntity Resource { get; set; } = new TemplateResourceEntity();
-        public virtual string Description { get; set; } = string.Empty;
+        public virtual PrinterEntity Printer { get; set; }
+        public virtual TemplateResourceEntity Resource { get; set; }
+        public virtual string Description { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public PrinterResourceEntity()
+        public PrinterResourceEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public PrinterResourceEntity(long id) : base(id)
+        {
+            Printer = new();
+            Resource = new();
+            Description = string.Empty;
         }
 
         #endregion
@@ -31,8 +38,8 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strPrinter = Printer != null ? Printer.Id.ToString() : "null";
-            string? strResource = Resource != null ? Resource.Id.ToString() : "null";
+            string? strPrinter = Printer != null ? Printer.IdentityId.ToString() : "null";
+            string? strResource = Resource != null ? Resource.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Printer)}: {strPrinter}. " +
                    $"{nameof(Resource)}: {strResource}. " +
@@ -74,21 +81,16 @@ namespace DataCore.DAL.TableScaleModels
             if (Resource != null && !Resource.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Description, default(string));
+                   Equals(Description, string.Empty);
         }
 
         public override object Clone()
         {
-            return new PrinterResourceEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Printer = (PrinterEntity)Printer.Clone(),
-                Resource = (TemplateResourceEntity)Resource.Clone(),
-                Description = Description,
-            };
+            PrinterResourceEntity item = (PrinterResourceEntity)base.Clone();
+            item.Printer = (PrinterEntity)Printer.Clone();
+            item.Resource = (TemplateResourceEntity)Resource.Clone();
+            item.Description = Description;
+            return item;
         }
 
         #endregion

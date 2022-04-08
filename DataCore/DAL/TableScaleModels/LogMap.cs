@@ -11,7 +11,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             Table("[db_scales].[LOGS]");
             LazyLoad();
-            Id(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+            Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
             References(x => x.Host).Column("HOST_ID").Nullable();
             References(x => x.App).Column("APP_UID").Nullable();

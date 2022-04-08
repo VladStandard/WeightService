@@ -6,23 +6,30 @@ using DataCore.DAL.Models;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Организации".
+    /// Table "Organizations".
     /// </summary>
     public class OrganizationEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
         public virtual int Gln { get; set; }
-        public virtual string SerializedRepresentationObject { get; set; } = string.Empty;
+        public virtual string SerializedRepresentationObject { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public OrganizationEntity()
+        public OrganizationEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public OrganizationEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            Gln = default;
+            SerializedRepresentationObject = string.Empty;
         }
 
         #endregion
@@ -68,23 +75,18 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Name, default(string)) &&
-                   Equals(Gln, default(int)) &&
-                   Equals(SerializedRepresentationObject, default(string));
+                   Equals(Name, string.Empty) &&
+                   Equals(Gln, 0) &&
+                   Equals(SerializedRepresentationObject, string.Empty);
         }
 
         public override object Clone()
         {
-            return new OrganizationEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-                Gln = Gln,
-                SerializedRepresentationObject = SerializedRepresentationObject,
-            };
+            OrganizationEntity item = (OrganizationEntity)base.Clone();
+            item.Name = Name;
+            item.Gln = Gln;
+            item.SerializedRepresentationObject = SerializedRepresentationObject;
+            return item;
         }
 
         #endregion

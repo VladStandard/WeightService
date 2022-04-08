@@ -12,7 +12,7 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemNomenclature SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.Items.Nomenclature SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -30,7 +30,7 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="long" @bind-Value=@ItemCast.Id />
+                        TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldWeighted</td>
                 <td>
@@ -64,7 +64,7 @@ else
 }
 
 @*
-<RadzenLabel Style="width: 100%; text-align: center;" Text=@LocalizationData.DeviceControl.SectionNomenclatureUnits />
+<RadzenLabel Style="width: 100%; text-align: center;" Text=@LocalizationData.DeviceControl.Sections.NomenclatureUnits />
 <br />
     @if (NomenclatureUnitsEntities == null)
     {
@@ -101,7 +101,7 @@ else
         </RadzenGrid>
     }
 
-<RadzenLabel Style="width: 100%; text-align: center;" Text=@LocalizationData.DeviceControl.SectionBarcodes />
+<RadzenLabel Style="width: 100%; text-align: center;" Text=@LocalizationData.DeviceControl.Sections.Barcodes />
 <br />
 @if (BarCodesEntities == null)
     {

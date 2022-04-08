@@ -50,6 +50,36 @@ a, .btn-link {
     font-size: 14px;
 }
 
+.RadzenPanelMenu {
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-left: 0%;
+    margin-right: 0%;
+    font-size: 14px;
+    background-color: transparent;
+    caret-color: transparent;
+}
+
+.RadzenPanelMenuItem {
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-left: -2%;
+    margin-right: 0%;
+    font-size: 14px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.RadzenPanelMenuSubItem {
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-left: -12%;
+    margin-right: 0%;
+    font-size: 14px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

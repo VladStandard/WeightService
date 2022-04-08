@@ -10,7 +10,7 @@ namespace DataCore.DAL.Models
     {
         #region Public and private fields and properties
 
-        public virtual byte[] Value { get; set; } = new byte[0];
+        public virtual byte[] Value { get; set; }
         
         public virtual string ValueAscii
         {
@@ -36,7 +36,7 @@ namespace DataCore.DAL.Models
 
         public ImageDataEntity()
         {
-            //
+            Value = new byte[0];
         }
 
         public ImageDataEntity(byte[] value)
@@ -80,7 +80,7 @@ namespace DataCore.DAL.Models
 
         public virtual bool EqualsDefault()
         {
-            return Equals(Value, default(byte[]));
+            return Equals(Value, new byte[0]);
         }
 
         public void SetTemplateValue()

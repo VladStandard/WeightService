@@ -17,7 +17,7 @@
 else
 {
     <ActionsReload ParentRazor=@this Items=@Items 
-        Title=@LocalizationData.DeviceControl.SectionScales SetParameters=@SetParametersAsync 
+        Title=@LocalizationData.DeviceControl.Sections.Scales SetParameters=@SetParametersAsync 
         IsShowItemsCount=true IsShowMarkedFilter=true />
 
     <RadzenGrid Style="margin-top: 5px;" 
@@ -39,7 +39,7 @@ else
                 TItem="ScaleEntity" Title=@LocalizationData.DeviceControl.TableFieldDescription Type="string" Width="15%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Scale}/{itemCast.Id}")
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Scale}/{itemCast.IdentityId}")
                         Text=@itemCast.Description />
                 </Template>
             </RadzenGridColumn>

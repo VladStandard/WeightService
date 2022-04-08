@@ -12,8 +12,8 @@ namespace DataCore.DAL.TableDirectModels
     {
         #region Public and private fields and properties
 
-        public Guid Uid { get; set; } = default;
-        public string Name { get; set; } = string.Empty;
+        public Guid Uid { get; set; }
+        public string Name { get; set; }
 
         #endregion
 
@@ -21,6 +21,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public TaskTypeDirect()
         {
+            Uid = Guid.Empty;
             Name = string.Empty;
         }
 

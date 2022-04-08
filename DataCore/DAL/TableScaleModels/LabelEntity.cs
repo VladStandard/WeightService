@@ -8,14 +8,14 @@ using System.Text;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Этикетки".
+    /// Table "Labels".
     /// </summary>
     public class LabelEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual WeithingFactEntity WeithingFact { get; set; } = new WeithingFactEntity();
-        public virtual byte[] Label { get; set; } = new byte[0];
+        public virtual WeithingFactEntity WeithingFact { get; set; }
+        public virtual byte[] Label { get; set; }
         public virtual string LabelString
         {
             get => Label == null || Label.Length == 0 ? string.Empty : Encoding.Default.GetString(Label);
@@ -26,7 +26,7 @@ namespace DataCore.DAL.TableScaleModels
             get => DataUtils.GetBytesLength(Label);
             set => _ = value;
         }
-        public virtual string Zpl { get; set; } = string.Empty;
+        public virtual string Zpl { get; set; }
         public virtual string ZplInfo
         {
             get => DataUtils.GetStringLength(Zpl);
@@ -37,9 +37,16 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Constructor and destructor
 
-        public LabelEntity()
+        public LabelEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public LabelEntity(long id) : base(id)
+        {
+            WeithingFact = new();
+            Label = new byte[0];
+            Zpl = string.Empty;
         }
 
         #endregion
@@ -48,7 +55,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strWeithingFact = WeithingFact != null ? WeithingFact.Id.ToString() : "null";
+            string? strWeithingFact = WeithingFact != null ? WeithingFact.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(WeithingFact)}: {strWeithingFact}. " +
                    $"{nameof(Label)}: {LabelString}. " +
@@ -88,23 +95,17 @@ namespace DataCore.DAL.TableScaleModels
             if (WeithingFact != null && !WeithingFact.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Label, default(byte[])) &&
-                   Equals(Zpl, default(string));
+                   Equals(Label, new byte[0]) &&
+                   Equals(Zpl, string.Empty);
         }
 
         public override object Clone()
         {
-
-            return new LabelEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                WeithingFact = (WeithingFactEntity)WeithingFact.Clone(),
-                Label = DataUtils.CloneBytes(Label),
-                Zpl = Zpl,
-            };
+            LabelEntity item = (LabelEntity)base.Clone();
+            item.WeithingFact = (WeithingFactEntity)WeithingFact.Clone();
+            item.Label = DataUtils.CloneBytes(Label);
+            item.Zpl = Zpl;
+            return item;
         }
 
         #endregion

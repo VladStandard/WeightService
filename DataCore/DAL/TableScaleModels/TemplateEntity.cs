@@ -7,25 +7,34 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Шаблоны этикеток".
+    /// Table "Templates".
     /// </summary>
     public class TemplateEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string CategoryId { get; set; } = string.Empty;
-        public virtual Guid? IdRRef { get; set; }
-        public virtual string Title { get; set; } = string.Empty;
-        public virtual ImageDataEntity ImageData { get; set; } = new();
+        public virtual string CategoryId { get; set; }
+        public virtual Guid IdRRef { get; set; }
+        public virtual string Title { get; set; }
+        public virtual ImageDataEntity ImageData { get; set; }
         public virtual byte[] ImageDataValue { get => ImageData.Value; set => ImageData.Value = value; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public TemplateEntity()
+        public TemplateEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public TemplateEntity(long id) : base(id)
+        {
+            CategoryId = string.Empty;
+            IdRRef = Guid.Empty;
+            Title = string.Empty;
+            ImageData = new();
+            ImageDataValue = new byte[0];
         }
 
         #endregion
@@ -73,25 +82,20 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(CategoryId, default(string)) &&
-                   Equals(IdRRef, default(Guid?)) &&
-                   Equals(Title, default(string)) &&
+                   Equals(CategoryId, string.Empty) &&
+                   Equals(IdRRef, Guid.Empty) &&
+                   Equals(Title, string.Empty) &&
                    Equals(ImageData, new());
         }
 
         public override object Clone()
         {
-            return new TemplateEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                CategoryId = CategoryId,
-                IdRRef = IdRRef,
-                Title = Title,
-                ImageData = new(ImageData.Value),
-            };
+            TemplateEntity item = (TemplateEntity)base.Clone();
+            item.CategoryId = CategoryId;
+            item.IdRRef = IdRRef;
+            item.Title = Title;
+            item.ImageData = new(ImageData.Value);
+            return item;
         }
 
         #endregion

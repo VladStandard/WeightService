@@ -13,7 +13,7 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemLog SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.Items.Log SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -30,8 +30,8 @@ else
                 <td>@LocalizationData.DeviceControl.TableFieldUid</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@UidStr />
+                        Disabled=false ReadOnly=true
+                        @bind-Value=@ItemCast.IdentityUidStr />
 				</td>
             </tr>
             <tr>

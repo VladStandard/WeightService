@@ -6,21 +6,26 @@ using DataCore.DAL.Models;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Типы заказов".
+    /// Table "OrderTypes".
     /// </summary>
     public class OrderTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Description { get; set; } = string.Empty;
+        public virtual string Description { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public OrderTypeEntity()
+        public OrderTypeEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public OrderTypeEntity(long id) : base(id)
+        {
+            Description = string.Empty;
         }
 
         #endregion
@@ -62,19 +67,14 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Description, default(string));
+                   Equals(Description, string.Empty);
         }
 
         public override object Clone()
         {
-            return new OrderTypeEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Description = Description,
-            };
+            OrderTypeEntity item = (OrderTypeEntity)base.Clone();
+            item.Description = Description;
+            return item;
         }
 
         #endregion

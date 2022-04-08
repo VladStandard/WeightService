@@ -7,23 +7,30 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Цеха".
+    /// Table "WorkShops".
     /// </summary>
-    public class WorkshopEntity : BaseEntity
+    public class WorkShopEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual ProductionFacilityEntity ProductionFacility { get; set; } = new ProductionFacilityEntity();
-        public virtual string Name { get; set; } = string.Empty;
-        public virtual Guid? IdRRef { get; set; } = null;
+        public virtual ProductionFacilityEntity ProductionFacility { get; set; }
+        public virtual string Name { get; set; }
+        public virtual Guid IdRRef { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public WorkshopEntity()
+        public WorkShopEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public WorkShopEntity(long id) : base(id)
+        {
+            ProductionFacility = new ProductionFacilityEntity();
+            Name = string.Empty;
+            IdRRef = Guid.Empty;
         }
 
         #endregion
@@ -32,14 +39,14 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strProductionFacility = ProductionFacility != null ? ProductionFacility.Id.ToString() : "null";
+            string? strProductionFacility = ProductionFacility != null ? ProductionFacility.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(ProductionFacility)}: {strProductionFacility}. " +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(IdRRef)}: {IdRRef}. ";
         }
 
-        public virtual bool Equals(WorkshopEntity entity)
+        public virtual bool Equals(WorkShopEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
@@ -54,7 +61,7 @@ namespace DataCore.DAL.TableScaleModels
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((WorkshopEntity)obj);
+            return Equals((WorkShopEntity)obj);
         }
 
         public override int GetHashCode()
@@ -64,7 +71,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public virtual bool EqualsNew()
         {
-            return Equals(new WorkshopEntity());
+            return Equals(new WorkShopEntity());
         }
 
         public new virtual bool EqualsDefault()
@@ -72,22 +79,17 @@ namespace DataCore.DAL.TableScaleModels
             if (ProductionFacility != null && !ProductionFacility.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Name, default(string)) &&
-                   Equals(IdRRef, default(Guid?));
+                   Equals(Name, string.Empty) &&
+                   Equals(IdRRef, Guid.Empty);
         }
 
         public override object Clone()
         {
-            return new WorkshopEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                ProductionFacility = (ProductionFacilityEntity)ProductionFacility?.Clone(),
-                Name = Name,
-                IdRRef = IdRRef,
-            };
+            WorkShopEntity item = (WorkShopEntity)base.Clone();
+            item.ProductionFacility = (ProductionFacilityEntity)ProductionFacility.Clone();
+            item.Name = Name;
+            item.IdRRef = IdRRef;
+            return item;
         }
 
         #endregion

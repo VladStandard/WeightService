@@ -23,7 +23,26 @@ namespace BlazorDeviceControl.Shared.Section
 
         #endregion
 
+        #region Constructor and destructor
+
+        public SectionErrors()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Errors);
+                Items = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -31,14 +50,9 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Errors);
-                        Items = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
-                    
+
                     lock (_locker)
                     {
                         if (AppSettings.DataAccess != null)
@@ -54,7 +68,7 @@ namespace BlazorDeviceControl.Shared.Section
                                     {
                                         Items.Add(new ErrorEntity()
                                         {
-                                            Id = id,
+                                            IdentityId = id,
                                             CreateDt = Convert.ToDateTime(item[1]),
                                             ChangeDt = Convert.ToDateTime(item[2]),
                                             FilePath = Convert.ToString(item[3]),

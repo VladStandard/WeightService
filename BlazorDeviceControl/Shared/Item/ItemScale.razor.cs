@@ -5,6 +5,7 @@ using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
+using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,42 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public ScaleEntity? ItemCast { get => Item == null ? null : (ScaleEntity)Item; set => Item = value; }
-        public List<PrinterEntity>? PrinterItems { get; set; } = null;
-        public List<TemplateEntity>? TemplatesDefaultItems { get; set; } = null;
-        public List<TemplateEntity>? TemplatesSeriesItems { get; set; } = null;
-        public List<WorkshopEntity>? WorkshopItems { get; set; } = null;
+        public List<PrinterEntity>? PrinterItems { get; set; }
+        public List<TemplateEntity>? TemplatesDefaultItems { get; set; }
+        public List<TemplateEntity>? TemplatesSeriesItems { get; set; }
+        public List<WorkShopEntity>? WorkshopItems { get; set; }
         public List<TypeEntity<string>>? ComPorts { get; set; }
-        public List<HostEntity>? HostItems { get; set; } = null;
+        public List<HostEntity>? HostItems { get; set; }
         private readonly object _locker = new();
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ItemScale()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
+                ItemCast = null;
+                ComPorts = null;
+                TemplatesDefaultItems = null;
+                TemplatesSeriesItems = null;
+                WorkshopItems = null;
+                PrinterItems = null;
+                HostItems = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -36,32 +62,17 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Scales);
-                        ItemCast = null;
-                        ComPorts = null;
-                        TemplatesDefaultItems = null;
-                        TemplatesSeriesItems = null;
-                        WorkshopItems = null;
-                        PrinterItems = null;
-                        HostItems = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
                     {
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.Id.ToString(), Id } }), null);
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), Id } }), null);
                         if (Id != null && TableAction == DbTableAction.New)
-                            ItemCast.Id = (long)Id;
+                            ItemCast.IdentityId = (long)Id;
                         // ComPorts
-                        ComPorts = new List<TypeEntity<string>>();
-                        for (int i = 1; i < 256; i++)
-                        {
-                            ComPorts.Add(new TypeEntity<string>($"COM{i}", $"COM{i}"));
-                        }
+                        ComPorts = PortUtils.GetComList();
                         // ScaleFactor
                         ItemCast.ScaleFactor ??= 1000;
                         // Other.
@@ -73,7 +84,7 @@ namespace BlazorDeviceControl.Shared.Item
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                             new FieldOrderEntity(DbField.Title, DbOrderDirection.Asc))
                             ?.ToList();
-                        WorkshopItems = AppSettings.DataAccess.Crud.GetEntities<WorkshopEntity>(
+                        WorkshopItems = AppSettings.DataAccess.Crud.GetEntities<WorkShopEntity>(
                             new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                             null)
                             ?.ToList();

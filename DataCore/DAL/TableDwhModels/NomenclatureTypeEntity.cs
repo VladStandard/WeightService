@@ -13,16 +13,25 @@ namespace DataCore.DAL.TableDwhModels
         public virtual string Name { get; set; }
         public virtual bool? GoodsForSale { get; set; }
         public virtual int StatusId { get; set; }
-        public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
+        public virtual InformationSystemEntity InformationSystem { get; set; }
         public virtual byte[] CodeInIs { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public NomenclatureTypeEntity()
+        public NomenclatureTypeEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public NomenclatureTypeEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            GoodsForSale = false;
+            StatusId = 0;
+            InformationSystem = new();
+            CodeInIs = new byte[0];
         }
 
         #endregion
@@ -31,7 +40,7 @@ namespace DataCore.DAL.TableDwhModels
 
         public override string ToString()
         {
-            var strInformationSystem = InformationSystem != null ? InformationSystem.Id.ToString() : "null";
+            var strInformationSystem = InformationSystem != null ? InformationSystem.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(GoodsForSale)}: {GoodsForSale}. " +
@@ -75,26 +84,21 @@ namespace DataCore.DAL.TableDwhModels
             if (InformationSystem != null && !InformationSystem.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Name, default(string)) &&
-                   Equals(GoodsForSale, default(bool?)) &&
-                   Equals(StatusId, default(int)) &&
-                   Equals(CodeInIs, default(byte[]));
+                   Equals(Name, string.Empty) &&
+                   Equals(GoodsForSale, null) &&
+                   Equals(StatusId, 0) &&
+                   Equals(CodeInIs, new byte[0]);
         }
 
         public override object Clone()
         {
-            return new NomenclatureTypeEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-                GoodsForSale = GoodsForSale,
-                StatusId = StatusId,
-                InformationSystem = (InformationSystemEntity)InformationSystem.Clone(),
-                CodeInIs = DataUtils.CloneBytes(CodeInIs),
-            };
+            NomenclatureTypeEntity item = (NomenclatureTypeEntity)base.Clone();
+            item.Name = Name;
+            item.GoodsForSale = GoodsForSale;
+            item.StatusId = StatusId;
+            item.InformationSystem = (InformationSystemEntity)InformationSystem.Clone();
+            item.CodeInIs = DataUtils.CloneBytes(CodeInIs);
+            return item;
         }
 
         #endregion

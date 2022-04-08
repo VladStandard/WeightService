@@ -17,7 +17,7 @@
 else
 {
     <ActionsReload ParentRazor=@this Items=@Items 
-        Title=@LocalizationData.DeviceControl.SectionPrinters SetParameters=@SetParametersAsync IsShowItemsCount=true />
+        Title=@LocalizationData.DeviceControl.Sections.Printers SetParameters=@SetParametersAsync IsShowItemsCount=true />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterEntity" @bind-Value=@ItemObject
@@ -28,14 +28,14 @@ else
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocalizationData.DeviceControl.TableFieldPrinter Width="20%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{itemCast.Id}") 
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Printer}/{itemCast.IdentityId}") 
                         Text=@itemCast.Name />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="PrinterEntity" Title=@LocalizationData.DeviceControl.TableFieldPrinterType Width="18%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.PrinterType.Id}") 
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.PrinterType}/{itemCast.PrinterType.IdentityId}") 
                         Text=@itemCast.PrinterType.Name />
                 </Template>
             </RadzenGridColumn>

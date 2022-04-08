@@ -35,24 +35,9 @@
     }
     else
     {
-        @if (AppSettings.IsSqlServerRelease)
-        {
-            <div class="sidebarRelease">
-                <NavMenu SetParameters=@SetParametersAsync />
-            </div>
-        }
-        else if (AppSettings.IsSqlServerDebug)
-        {
-            <div class="sidebarDebug">
-                <NavMenu SetParameters=@SetParametersAsync />
-            </div>
-        }
-        else
-        {
-            <div class="sidebarUnknown">
-                <NavMenu SetParameters=@SetParametersAsync />
-            </div>
-        }
+        <div class=@BlazorCoreUtuls.GetCssName.Sidebar(AppSettings)>
+            <NavMenu SetParameters=@SetParametersAsync />
+        </div>
 
         <div class="main">
             <div class="top-row px-4 auth">
@@ -62,7 +47,7 @@
                         <RadzenMenu Style="margin-left: -20px; margin-top: 0px; align-content: center; background-color: transparent; " >
                             <RadzenMenuItem Icon="home" Style="background-color: transparent; " Text=@LocalizationCore.Strings.MenuSystem >
                                 <RadzenMenuItem Icon="home" Style="background-color: transparent; "
-                                    Text=@LocalizationCore.Strings.MenuHome Path=@LocalizationData.DeviceControl.UriRouteSection.Root />
+                                    Text=@LocalizationCore.Strings.MenuMain Path=@LocalizationData.DeviceControl.UriRouteSection.Root />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                                     Text=@StringUtils.FormatCurDtRus(true) Path=@LocalizationData.DeviceControl.UriRouteSection.Root />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
@@ -70,7 +55,7 @@
                                     Click=@MemoryClearAsync />
                                 <RadzenMenuItem Icon="people" Style="background-color: transparent; "
                                     Text=@UserSettings.Identity.NameWithRights Path=@LocalizationData.DeviceControl.UriRouteSection.Access
-                                    Click=@SetParametersInvokeAsync />
+                                    Click=@(args => SetParametersAsync(new())) />
                                 <RadzenMenuItem Icon="info" Style="background-color: transparent; "
                                     Text=@LocalizationCore.Strings.MenuInfo Path=@LocalizationData.DeviceControl.UriRouteSection.Info />
                             </RadzenMenuItem>

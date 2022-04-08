@@ -21,7 +21,26 @@ namespace BlazorDeviceControl.Shared.Item
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ItemTaskModule()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
+                ItemCast = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -29,21 +48,16 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
-                        ItemCast = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
                     {
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> {{ DbField.Uid.ToString(), Uid },
+                            new FieldListEntity(new Dictionary<string, object?> {{ DbField.IdentityUid.ToString(), Uid },
                         }), null);
                         if (Id != null && TableAction == DbTableAction.New)
-                            ItemCast.Id = (int)Id;
+                            ItemCast.IdentityId = (long)Id;
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }
                     await GuiRefreshWithWaitAsync();

@@ -101,6 +101,7 @@ namespace DataCore
             public static string MenuAccessDeny => Lang == ShareEnums.Lang.English ? "Menu access denied" : "Доступ к меню запрещён";
             public static string MenuHome => Lang == ShareEnums.Lang.English ? "Home" : "Домой";
             public static string MenuInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
+            public static string MenuMain => Lang == ShareEnums.Lang.English ? "Main" : "Главная";
             public static string MenuReferences => Lang == ShareEnums.Lang.English ? "References" : "Справочники";
             public static string MenuReports => Lang == ShareEnums.Lang.English ? "Reports" : "Журналы";
             public static string MenuSecurity => Lang == ShareEnums.Lang.English ? "Security" : "Безопасность";

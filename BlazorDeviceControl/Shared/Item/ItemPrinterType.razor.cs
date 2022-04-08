@@ -21,7 +21,26 @@ namespace BlazorDeviceControl.Shared.Item
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ItemPrinterType()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
+                ItemCast = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -29,12 +48,7 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
-                        ItemCast = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -50,13 +64,13 @@ namespace BlazorDeviceControl.Shared.Item
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
                                     new FieldListEntity(new Dictionary<string, object?>
-                                    { { DbField.Id.ToString(), Id } }), null);
+                                    { { DbField.IdentityId.ToString(), Id } }), null);
                                 break;
                         }
 
                         if (Id != null && TableAction == DbTableAction.New)
                         {
-                            ItemCast.Id = (int)Id;
+                            ItemCast.IdentityId = (long)Id;
                             ItemCast.Name = "NEW PRINTER_TYPE";
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);

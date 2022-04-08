@@ -33,7 +33,27 @@ namespace BlazorDeviceControl.Shared.Section
 
         #endregion
 
+        #region Constructor and destructor
+
+        public SectionTaskModules()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
+                TaskItem = null;
+                Items = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -41,13 +61,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
-                        TaskItem = null;
-                        Items = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -56,12 +70,12 @@ namespace BlazorDeviceControl.Shared.Section
                         {
                             TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
                                 new FieldListEntity(new Dictionary<string, object?> {
-                                { DbField.Uid.ToString(), Uid },
+                                { DbField.IdentityUid.ToString(), Uid },
                             }), null);
                             Items = TaskItem == null || TaskItem.EqualsDefault() == true
                                 ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)?.ToList<BaseEntity>()
                                 : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { "Scale.Id", TaskItem.Scale.Id } }), null)
+                                    new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", TaskItem.Scale.IdentityId } }), null)
                                     ?.ToList<BaseEntity>();
                         }
                         ButtonSettings = new(true, true, true, true, true, false, false);

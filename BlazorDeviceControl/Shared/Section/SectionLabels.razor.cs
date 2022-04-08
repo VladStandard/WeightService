@@ -23,7 +23,26 @@ namespace BlazorDeviceControl.Shared.Section
 
         #endregion
 
+        #region Constructor and destructor
+
+        public SectionLabels()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
+                Items = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -31,12 +50,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
-                        Items = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -54,8 +68,8 @@ namespace BlazorDeviceControl.Shared.Section
                                     {
                                         Items.Add(new LabelQuickEntity()
                                         {
-                                            Id = id,
-                                            CreateDate = Convert.ToDateTime(item[1]),
+                                            IdentityId = id,
+                                            CreateDt = Convert.ToDateTime(item[1]),
                                             //Label = Convert.ToByte(item[2]),
                                             ScaleId = Convert.ToInt64(item[3]),
                                             ScaleDescription = Convert.ToString(item[4]),

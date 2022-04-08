@@ -2,23 +2,33 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Table "Access".
+    /// </summary>
     public class AccessEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string User { get; set; } = string.Empty;
-        public virtual byte Rights { get; set; } = 0;
+        public virtual string User { get; set; }
+        public virtual byte Rights { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public AccessEntity()
+        public AccessEntity() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
+        }
+
+        public AccessEntity(Guid uid) : base(uid)
+        {
+            User = string.Empty;
+            Rights = 0x00;
         }
 
         #endregion
@@ -28,7 +38,6 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             return base.ToString() +
-                   $"{nameof(Uid)}: {Uid}. " +
                    $"{nameof(User)}: {User}. " +
                    $"{nameof(Rights)}: {Rights}. ";
         }
@@ -64,20 +73,15 @@ namespace DataCore.DAL.TableScaleModels
         {
             return base.EqualsDefault() &&
                    Equals(User, string.Empty) &&
-                   Equals(Rights, 0);
+                   Equals(Rights, 0x00);
         }
 
         public override object Clone()
         {
-            return new AccessEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                User = User,
-                Rights = Rights,
-            };
+            AccessEntity item = (AccessEntity)base.Clone();
+            item.User = User;
+            item.Rights = Rights;
+            return item;
         }
 
         #endregion

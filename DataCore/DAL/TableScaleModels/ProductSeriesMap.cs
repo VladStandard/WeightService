@@ -11,10 +11,10 @@ namespace DataCore.DAL.TableScaleModels
         {
             Table("[db_scales].[ProductSeries]");
             LazyLoad();
-            Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             References(x => x.Scale).Column("ScaleID").Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME(2,7)").Column("CreateDate").Not.Nullable();
-            Map(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UUID").Nullable();
+            Map(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UUID").Nullable();
             Map(x => x.IsClose).CustomSqlType("BIT").Column("IsClose").Nullable();
             Map(x => x.Sscc).CustomSqlType("VARCHAR").Column("SSCC").Length(50).Nullable();
         }

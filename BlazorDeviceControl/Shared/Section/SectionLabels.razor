@@ -28,16 +28,17 @@ else
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
-                <Template Context="labelItem" >
-                    <RadzenDatePicker 
-                        TValue="string" Value=@labelItem.CreateDate Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityId}")
+                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Title=@LocalizationData.DeviceControl.TableFieldScale Type="string" Width="30%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Label}/{itemCast.Id}")
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityId}")
                         Text=@itemCast.ScaleDescription />
                 </Template>
             </RadzenGridColumn>

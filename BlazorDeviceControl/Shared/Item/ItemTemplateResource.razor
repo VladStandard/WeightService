@@ -13,7 +13,7 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemTemplateResource SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.Items.TemplateResource SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -31,7 +31,7 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@ItemCast.Id />
+                        TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>
@@ -94,7 +94,8 @@ else
 {
     <RadzenDropDown Style="width: 70%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                     AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                    Data=@ResourceTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" ValueProperty="Value"
+                    Data=@ResourceTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
+                    ValueProperty="Value"
                     Value=@TemplateResourcesItem.Type Change=@(args => OnItemValueChange(args, "ResourceTypes")) />
 }
  *@

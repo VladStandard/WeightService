@@ -6,27 +6,35 @@ using DataCore.DAL.Models;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Продукты".
+    /// Table "Nomenclatures".
     /// </summary>
     public class NomenclatureEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
-        public virtual string Code { get; set; } = string.Empty;
-        public virtual string SerializedRepresentationObject { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
+        public virtual string Code { get; set; }
+        public virtual string SerializedRepresentationObject { get; set; }
         /// <summary>
-        /// Весовая или штучка.
+        /// Is weighted or pcs.
         /// </summary>
-        public virtual bool Weighted { get; set; } = default;
+        public virtual bool Weighted { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public NomenclatureEntity()
+        public NomenclatureEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public NomenclatureEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            Code = string.Empty;
+            SerializedRepresentationObject = string.Empty;
+            Weighted = false;
         }
 
         #endregion
@@ -73,25 +81,20 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Code, default(string)) &&
-                   Equals(Name, default(string)) &&
-                   Equals(SerializedRepresentationObject, default(string)) &&
-                   Equals(Weighted, default(bool));
+                   Equals(Code, string.Empty) &&
+                   Equals(Name, string.Empty) &&
+                   Equals(SerializedRepresentationObject, string.Empty) &&
+                   Equals(Weighted, false);
         }
 
         public override object Clone()
         {
-            return new NomenclatureEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Code = Code,
-                Name = Name,
-                SerializedRepresentationObject = SerializedRepresentationObject,
-                Weighted = Weighted,
-            };
+            NomenclatureEntity item = (NomenclatureEntity)base.Clone();
+            item.Code = Code;
+            item.Name = Name;
+            item.SerializedRepresentationObject = SerializedRepresentationObject;
+            item.Weighted = Weighted;
+            return item;
         }
 
         #endregion

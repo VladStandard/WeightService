@@ -26,10 +26,29 @@ namespace BlazorDeviceControl.Shared.Item
             set { if (ItemCast != null) ItemCast.Rights = (byte)value; }
         }
 
+        #endregion
+
+        #region Constructor and destructor
+
+        public ItemAccess()
+        {
+            Default();
+        }
 
         #endregion
 
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+                ItemCast = null;
+                TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -37,13 +56,7 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                        ItemCast = null;
-                        TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -59,7 +72,7 @@ namespace BlazorDeviceControl.Shared.Item
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
                                     new FieldListEntity(new Dictionary<string, object?>
-                                    { { DbField.Uid.ToString(), Uid } }), null);
+                                    { { DbField.IdentityUid.ToString(), Uid } }), null);
                                 break;
                         }
                         TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);

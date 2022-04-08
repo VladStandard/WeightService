@@ -5,52 +5,100 @@ using System;
 
 namespace DataCore.DAL.Models
 {
+    public enum ColumnName
+    {
+        Default,
+        Id,
+        Uid,
+    }
+
     public class BaseEntity : ICloneable
     {
         #region Public and private fields and properties
 
-        public virtual PrimaryColumnEntity PrimaryColumn { get; set; } = new PrimaryColumnEntity(ColumnName.Default);
-        public virtual long Id { get => PrimaryColumn.Id; set { PrimaryColumn.Id = value; } }
-        public virtual Guid Uid { get => PrimaryColumn.Uid; set { PrimaryColumn.Uid = value; } }
-        public virtual DateTime CreateDt { get; set; } = default;
-        public virtual DateTime ChangeDt { get; set; } = default;
-        public virtual bool IsMarked { get; set; } = false;
-        public virtual bool IsMarkedGui
+        public virtual long _identityId { get; private set; }
+        public virtual long IdentityId { get => _identityId; set { _identityId = value; IdentityName = ColumnName.Id; } }
+        public virtual Guid _identityUid { get; private set; }
+        public virtual Guid IdentityUid { get => _identityUid; set { _identityUid = value; IdentityName = ColumnName.Uid; } }
+        public virtual string IdentityUidStr { get => IdentityUid.ToString(); 
+            set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+        public virtual ColumnName _identityName { get; private set; }
+        public virtual ColumnName IdentityName { get => _identityName; set => _identityName = value; }
+        public virtual DateTime CreateDt { get; set; }
+        public virtual DateTime ChangeDt { get; set; }
+        public virtual bool IsMarked { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public BaseEntity()
         {
-            get => IsMarked == true;
-            set => IsMarked = value;
+            IdentityName = ColumnName.Default;
+            IdentityId = 0;
+            IdentityUid = Guid.Empty;
+            CreateDt = DateTime.MinValue;
+            ChangeDt = DateTime.MinValue;
+            IsMarked = false;
+        }
+
+        public BaseEntity(long identityId) : this()
+        {
+            IdentityId = identityId;
+        }
+
+        public BaseEntity(Guid identityUid) : this()
+        {
+            IdentityUid = identityUid;
         }
 
         #endregion
 
         #region Public and private methods
 
-        public virtual bool EqualsEmpty() => PrimaryColumn == null;
-
-        #endregion
-
-        #region Public and private methods - override
-
         public override string ToString()
         {
+            string strIdenttity = IdentityName switch
+            {
+                ColumnName.Id => $"{nameof(IdentityId)}: {IdentityId}. ",
+                ColumnName.Uid => $"{nameof(IdentityUid)}: {IdentityUid}. ",
+                _ => $"{nameof(IdentityName)}: {IdentityName}. ",
+            };
             string strCreateDt = CreateDt != null ? CreateDt.ToString() : "null";
             string strChangeDt = ChangeDt != null ? ChangeDt.ToString() : "null";
             return
-                $"{nameof(PrimaryColumn)}: {(PrimaryColumn == null ? "null" : PrimaryColumn.ToString())}. " +
+                $"{nameof(IdentityName)}: {strIdenttity}. " +
                 $"{nameof(CreateDt)}: {strCreateDt}. " +
                 $"{nameof(ChangeDt)}: {strChangeDt}. " +
                 $"{nameof(IsMarked)}: {IsMarked}. ";
         }
 
-        public override int GetHashCode() => PrimaryColumn == null ? -1 : PrimaryColumn.GetHashCode();
+        public override int GetHashCode() => IdentityName switch
+        {
+            ColumnName.Id => IdentityId.GetHashCode(),
+            ColumnName.Uid => IdentityUid.GetHashCode(),
+            _ => default,
+        };
+
+        public virtual bool EqualsEmpty()
+        {
+            bool isIdentityEmpty = IdentityName switch
+            {
+                ColumnName.Id => Equals(IdentityId, 0),
+                ColumnName.Uid => Equals(IdentityUid, Guid.Empty),
+                _ => Equals(IdentityName, ColumnName.Default),
+            };
+            return isIdentityEmpty;
+        }
 
         public virtual bool Equals(BaseEntity entity)
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
-            return 
-                PrimaryColumn != null && 
-                PrimaryColumn.Equals(entity.PrimaryColumn) &&
+            return
+                IdentityName.Equals(entity.IdentityName) &&
+                IdentityId.Equals(entity.IdentityId) &&
+                IdentityUid.Equals(entity.IdentityUid) &&
                 Equals(CreateDt, entity.CreateDt) &&
                 Equals(ChangeDt, entity.ChangeDt) &&
                 Equals(IsMarked, entity.IsMarked);
@@ -64,16 +112,22 @@ namespace DataCore.DAL.Models
             return Equals((BaseEntity)obj);
         }
 
-        public virtual bool EqualsDefault()
-        {
-            return
-                (PrimaryColumn == null || PrimaryColumn.EqualsDefault()) &&
+        public virtual bool EqualsDefault() => Equals(IdentityName, ColumnName.Default) &&
+                Equals(IdentityId, 0) &&
+                Equals(IdentityUid, Guid.Empty) &&
                 Equals(CreateDt, default) &&
                 Equals(ChangeDt, default) &&
                 Equals(IsMarked, false);
-        }
 
-        public virtual object Clone() => PrimaryColumn == null ? new object() : PrimaryColumn.Clone();
+        public virtual object Clone() => new BaseEntity()
+        {
+            IdentityName = IdentityName,
+            IdentityId = IdentityId,
+            IdentityUid = IdentityUid,
+            CreateDt = CreateDt,
+            ChangeDt = ChangeDt,
+            IsMarked = IsMarked,
+        };
 
         #endregion
     }

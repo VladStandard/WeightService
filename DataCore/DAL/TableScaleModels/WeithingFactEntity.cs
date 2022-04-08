@@ -7,22 +7,21 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Взвешивания".
+    /// Table "WeithingFacts".
     /// </summary>
     public class WeithingFactEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual PluEntity Plu { get; set; } = new PluEntity();
-        public virtual ScaleEntity Scales { get; set; } = new ScaleEntity();
-        public virtual ProductSeriesEntity Series { get; set; } = new ProductSeriesEntity();
-        public virtual OrderEntity Orders { get; set; } = new OrderEntity();
-        public virtual string Sscc { get; set; } = string.Empty;
-        public virtual DateTime WeithingDate { get; set; } = default;
+        public virtual PluEntity Plu { get; set; }
+        public virtual ScaleEntity Scales { get; set; }
+        public virtual ProductSeriesEntity Series { get; set; }
+        public virtual OrderEntity Orders { get; set; }
+        public virtual string Sscc { get; set; }
+        public virtual DateTime WeithingDate { get; set; }
         public virtual decimal NetWeight { get; set; }
         public virtual decimal TareWeight { get; set; }
-        //public virtual Guid Uid { get; set; }
-        public virtual DateTime ProductDate { get; set; } = default;
+        public virtual DateTime ProductDate { get; set; }
         public virtual int? RegNum { get; set; }
         public virtual int? Kneading { get; set; }
 
@@ -30,9 +29,24 @@ namespace DataCore.DAL.TableScaleModels
 
         #region Constructor and destructor
 
-        public WeithingFactEntity()
+        public WeithingFactEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public WeithingFactEntity(long id) : base(id)
+        {
+            Plu = new();
+            Scales = new();
+            Series = new();
+            Orders = new();
+            Sscc = string.Empty;
+            WeithingDate = DateTime.MinValue;
+            NetWeight = 0;
+            TareWeight = 0;
+            ProductDate = DateTime.MinValue;
+            RegNum = null;
+            Kneading = null;
         }
 
         #endregion
@@ -41,10 +55,10 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strPlu = Plu != null ? Plu.Id.ToString() : "null";
-            string? strScale = Scales != null ? Scales.Id.ToString() : "null";
-            string? strSeries = Series != null ? Series.Id.ToString() : "null";
-            string? strOrder = Orders != null ? Orders.Id.ToString() : "null";
+            string? strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
+            string? strScale = Scales != null ? Scales.IdentityId.ToString() : "null";
+            string? strSeries = Series != null ? Series.IdentityId.ToString() : "null";
+            string? strOrder = Orders != null ? Orders.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Plu)}: {strPlu}. " +
                    $"{nameof(Scales)}: {strScale}. " +
@@ -54,7 +68,6 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(WeithingDate)}: {WeithingDate}. " +
                    $"{nameof(NetWeight)}: {NetWeight}. " +
                    $"{nameof(TareWeight)}: {TareWeight}." +
-                   $"{nameof(Uid)}: {Uid}." +
                    $"{nameof(ProductDate)}: {ProductDate}." +
                    $"{nameof(RegNum)}: {RegNum}." +
                    $"{nameof(Kneading)}: {Kneading}.";
@@ -73,7 +86,6 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(WeithingDate, entity.WeithingDate) &&
                    Equals(NetWeight, entity.NetWeight) &&
                    Equals(TareWeight, entity.TareWeight) &&
-                   Equals(Uid, entity.Uid) &&
                    Equals(ProductDate, entity.ProductDate) &&
                    Equals(RegNum, entity.RegNum) &&
                    Equals(Kneading, entity.Kneading);
@@ -108,37 +120,30 @@ namespace DataCore.DAL.TableScaleModels
             if (Orders != null && !Orders.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Sscc, default(string)) &&
-                   Equals(WeithingDate, default(DateTime)) &&
-                   Equals(NetWeight, default(decimal)) &&
-                   Equals(TareWeight, default(decimal)) &&
-                   Equals(Uid, default(Guid?)) &&
-                   Equals(ProductDate, default(DateTime)) &&
-                   Equals(RegNum, default(int?)) &&
-                   Equals(Kneading, default(int?));
+                   Equals(Sscc, string.Empty) &&
+                   Equals(WeithingDate, DateTime.MinValue) &&
+                   Equals(NetWeight, 0) &&
+                   Equals(TareWeight, 0) &&
+                   Equals(ProductDate, DateTime.MinValue) &&
+                   Equals(RegNum, null) &&
+                   Equals(Kneading, null);
         }
 
         public override object Clone()
         {
-            return new WeithingFactEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Plu = (PluEntity)Plu?.Clone(),
-                Scales = (ScaleEntity)Scales?.Clone(),
-                Series = (ProductSeriesEntity)Series?.Clone(),
-                Orders = (OrderEntity)Orders?.Clone(),
-                Sscc = Sscc,
-                WeithingDate = WeithingDate,
-                NetWeight = NetWeight,
-                TareWeight = TareWeight,
-                Uid = Uid,
-                ProductDate = ProductDate,
-                RegNum = RegNum,
-                Kneading = Kneading,
-            };
+            WeithingFactEntity item = (WeithingFactEntity)base.Clone();
+            item.Plu = (PluEntity)Plu.Clone();
+            item.Scales = (ScaleEntity)Scales.Clone();
+            item.Series = (ProductSeriesEntity)Series.Clone();
+            item.Orders = (OrderEntity)Orders.Clone();
+            item.Sscc = Sscc;
+            item.WeithingDate = WeithingDate;
+            item.NetWeight = NetWeight;
+            item.TareWeight = TareWeight;
+            item.ProductDate = ProductDate;
+            item.RegNum = RegNum;
+            item.Kneading = Kneading;
+            return item;
         }
 
         #endregion

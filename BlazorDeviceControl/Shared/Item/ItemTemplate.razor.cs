@@ -23,6 +23,26 @@ namespace BlazorDeviceControl.Shared.Item
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ItemTemplate()
+        {
+            Default();
+        }
+
+        #endregion
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+                TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
+                ItemCast = null;
+                ButtonSettings = new();
+            }
+        }
+
         #region Public and private methods
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -31,13 +51,7 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                        TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
-                        ItemCast = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -55,7 +69,7 @@ namespace BlazorDeviceControl.Shared.Item
                                 break;
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?>{ { DbField.Id.ToString(), Id } }), null);
+                                    new FieldListEntity(new Dictionary<string, object?>{ { DbField.IdentityId.ToString(), Id } }), null);
                                 break;
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);

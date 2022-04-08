@@ -84,10 +84,10 @@ namespace DataCore.DAL.TableDirectModels
             Save(message, ShareEnums.LogType.Question, filePath, memberName, lineNumber);
         }
 
-        public Guid? SaveApp(string app)
+        public Guid SaveApp(string app)
         {
             StringUtils.SetStringValueTrim(ref app, 32);
-            Guid? result = default;
+            Guid result = Guid.Empty;
             SqlConnect.ExecuteReader(SqlQueries.DbServiceManaging.Tables.Apps.AddApp,
                 new SqlParameter("@app", System.Data.SqlDbType.NVarChar, 32) { Value = app }, (SqlDataReader reader) =>
             {

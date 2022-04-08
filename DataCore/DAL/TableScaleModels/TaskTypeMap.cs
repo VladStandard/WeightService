@@ -11,7 +11,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             Table("[db_scales].[TASKS_TYPES]");
             LazyLoad();
-            Id(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+            Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
             Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(32).Not.Nullable();
         }
     }

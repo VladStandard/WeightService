@@ -23,7 +23,26 @@ namespace BlazorDeviceControl.Shared.Section
 
         #endregion
 
+        #region Constructor and destructor
+
+        public SectionLogs()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+                Items = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -31,12 +50,7 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                        Items = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -54,7 +68,7 @@ namespace BlazorDeviceControl.Shared.Section
                                     {
                                         Items.Add(new LogQuickEntity()
                                         {
-                                            Uid = uid,
+                                            IdentityUid = uid,
                                             CreateDt = Convert.ToDateTime(item[1]),
                                             Scale = Convert.ToString(item[2]),
                                             Host = Convert.ToString(item[3]),

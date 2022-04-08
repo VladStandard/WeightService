@@ -6,7 +6,6 @@ using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
@@ -22,7 +21,26 @@ namespace BlazorDeviceControl.Shared.Item
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ItemBarCodeType()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
+                ItemCast = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -30,12 +48,7 @@ namespace BlazorDeviceControl.Shared.Item
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
-                        ItemCast = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -51,7 +64,7 @@ namespace BlazorDeviceControl.Shared.Item
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
                                     new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.Uid.ToString(), Uid } }), null);
+                                    { { DbField.IdentityUid.ToString(), Uid } }), null);
                                 break;
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);

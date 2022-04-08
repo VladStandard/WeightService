@@ -9,15 +9,20 @@ namespace DataCore.DAL.TableDwhModels
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public StatusEntity()
+        public StatusEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public StatusEntity(long id) : base(id)
+        {
+            Name = string.Empty;
         }
 
         #endregion
@@ -59,19 +64,14 @@ namespace DataCore.DAL.TableDwhModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Name, default(string));
+                   Equals(Name, string.Empty);
         }
 
         public override object Clone()
         {
-            return new StatusEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-            };
+            StatusEntity item = (StatusEntity)base.Clone();
+            item.Name = Name;
+            return item;
         }
 
         #endregion

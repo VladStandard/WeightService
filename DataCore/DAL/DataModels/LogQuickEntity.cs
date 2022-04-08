@@ -10,24 +10,36 @@ namespace DataCore.DAL.DataModels
     {
         #region Public and private fields and properties
 
-        public virtual DateTime CreateDt { get; set; }
-        public virtual string Scale { get; set; } = string.Empty;
-        public virtual string Host { get; set; } = string.Empty;
-        public virtual string App { get; set; } = string.Empty;
-        public virtual string Version { get; set; } = string.Empty;
-        public virtual string File { get; set; } = string.Empty;
+        public virtual string Scale { get; set; }
+        public virtual string Host { get; set; }
+        public virtual string App { get; set; }
+        public virtual string Version { get; set; }
+        public virtual string File { get; set; }
         public virtual int Line { get; set; }
-        public virtual string Member { get; set; } = string.Empty;
-        public virtual string Icon { get; set; } = string.Empty;
-        public virtual string Message { get; set; } = string.Empty;
+        public virtual string Member { get; set; }
+        public virtual string Icon { get; set; }
+        public virtual string Message { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public LogQuickEntity()
+        public LogQuickEntity() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
+        }
+
+        public LogQuickEntity(Guid uid) : base(uid)
+        {
+            Scale = string.Empty;
+            Host = string.Empty;
+            App = string.Empty;
+            Version = string.Empty;
+            File = string.Empty;
+            Line = 0;
+            Member = string.Empty;
+            Icon = string.Empty;
+            Message = string.Empty;
         }
 
         #endregion
@@ -37,8 +49,6 @@ namespace DataCore.DAL.DataModels
         public override string ToString()
         {
             return base.ToString() +
-                   $"{nameof(Uid)}: {Uid}. " +
-                   $"{nameof(CreateDt)}: {CreateDt}. " +
                    $"{nameof(Scale)}: {Scale}. " +
                    $"{nameof(Host)}: {Host}. " +
                    $"{nameof(App)}: {App}. " +
@@ -54,8 +64,7 @@ namespace DataCore.DAL.DataModels
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
-            return
-                   Equals(Uid, entity.Uid) &&
+            return base.Equals(entity) &&
                    Equals(CreateDt, entity.CreateDt) &&
                    Equals(Scale, entity.Scale) &&
                    Equals(Host, entity.Host) &&
@@ -89,35 +98,30 @@ namespace DataCore.DAL.DataModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Uid, default(Guid)) &&
-                   Equals(CreateDt, default(DateTime)) &&
-                   Equals(Scale, default(string)) &&
-                   Equals(Host, default(string)) &&
-                   Equals(App, default(string)) &&
-                   Equals(Version, default(string)) &&
-                   Equals(File, default(string)) &&
-                   Equals(Line, default(int)) &&
-                   Equals(Member, default(string)) &&
-                   Equals(Icon, default(string)) &&
-                   Equals(Message, default(string));
+                   Equals(Scale, string.Empty) &&
+                   Equals(Host, string.Empty) &&
+                   Equals(App, string.Empty) &&
+                   Equals(Version, string.Empty) &&
+                   Equals(File, string.Empty) &&
+                   Equals(Line, 0) &&
+                   Equals(Member, string.Empty) &&
+                   Equals(Icon, string.Empty) &&
+                   Equals(Message, string.Empty);
         }
 
         public override object Clone()
         {
-            return new LogQuickEntity
-            {
-                Uid = Uid,
-                CreateDt = CreateDt,
-                Scale = Scale,
-                Host = Host,
-                App = App,
-                Version = Version,
-                File = File,
-                Line = Line,
-                Member = Member,
-                Icon = Icon,
-                Message = Message,
-            };
+            LogQuickEntity item = (LogQuickEntity)base.Clone();
+            item.Scale = Scale;
+            item.Host = Host;
+            item.App = App;
+            item.Version = Version;
+            item.File = File;
+            item.Line = Line;
+            item.Member = Member;
+            item.Icon = Icon;
+            item.Message = Message;
+            return item;
         }
 
         #endregion

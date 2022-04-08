@@ -17,7 +17,7 @@
 else
 {
     <ActionsReload ParentRazor=@this Items=@Items 
-        Title=@LocalizationData.DeviceControl.SectionTaskModules SetParameters=@SetParametersAsync IsShowItemsCount=true />
+        Title=@LocalizationData.DeviceControl.Sections.TaskModules SetParameters=@SetParametersAsync IsShowItemsCount=true />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TaskEntity" @bind-Value=@ItemObject
@@ -29,7 +29,7 @@ else
                 TItem="TaskEntity" Title=@LocalizationData.DeviceControl.TableFieldHost Type="string" Width="45%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.TaskModule}/{itemCast.Uid}")
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.TaskModule}/{itemCast.IdentityUid}")
                         Text=@itemCast.Scale?.Host?.Name />
                 </Template>
             </RadzenGridColumn>

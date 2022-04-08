@@ -17,13 +17,31 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        [Parameter] public long? PrinterId { get; set; }
         private List<PrinterResourceEntity>? ItemsCast => Items?.Select(x => (PrinterResourceEntity)x).ToList();
         private readonly object _locker = new();
 
         #endregion
 
+        #region Constructor and destructor
+
+        public SectionPrinterResources()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
+                Items = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -31,21 +49,21 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
-                        Items = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
                     {
                         if (AppSettings.DataAccess != null)
+                        {
+                            long? printerId = null;
+                            if (ItemFilter is PrinterEntity printer)
+                                printerId = printer.IdentityId;
                             Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                new FieldListEntity(new Dictionary<string, object?> { { "Printer.Id", PrinterId } }),
+                                new FieldListEntity(new Dictionary<string, object?> { { $"Printer.{DbField.IdentityId}", printerId } }),
                                 new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
-                            ?.ToList<BaseEntity>();
+                                ?.ToList<BaseEntity>();
+                        }
                         ButtonSettings = new(true, true, true, true, true, false, false);
                     }
                     await GuiRefreshWithWaitAsync();

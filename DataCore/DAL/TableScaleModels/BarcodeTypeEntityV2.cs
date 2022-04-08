@@ -2,27 +2,33 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Типы ШК".
+    /// Table "BarCodeTypes".
     /// </summary>
     public class BarCodeTypeEntityV2 : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public BarCodeTypeEntityV2()
+        public BarCodeTypeEntityV2() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
         }
 
+        public BarCodeTypeEntityV2(Guid uid) : base(uid)
+        {
+            Name = string.Empty;
+        }
+        
         #endregion
 
         #region Public and private methods
@@ -67,14 +73,9 @@ namespace DataCore.DAL.TableScaleModels
 
         public override object Clone()
         {
-            return new BarCodeTypeEntityV2
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-            };
+            BarCodeTypeEntityV2 item = (BarCodeTypeEntityV2)base.Clone();
+            item.Name = Name;
+            return item;
         }
 
         #endregion

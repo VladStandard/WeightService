@@ -11,7 +11,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             Table("[db_scales].[ProductionFacility]");
             LazyLoad();
-            Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Nullable();
             Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Nullable();
             Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");

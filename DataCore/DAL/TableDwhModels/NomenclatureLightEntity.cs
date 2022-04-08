@@ -13,7 +13,8 @@ namespace DataCore.DAL.TableDwhModels
         public virtual string Code { get; set; }
         public virtual string Name { get; set; }
         public virtual string Parents { get; set; }
-        public virtual NomenclatureParentEntity ParentConvert => string.IsNullOrEmpty(Parents) ? null : JsonConvert.DeserializeObject<NomenclatureParentEntity>(Parents);
+        public virtual NomenclatureParentEntity ParentConvert => 
+            string.IsNullOrEmpty(Parents) ? null : JsonConvert.DeserializeObject<NomenclatureParentEntity>(Parents);
         public virtual string NameFull { get; set; }
         public virtual bool? IsService { get; set; }
         public virtual bool? IsProduct { get; set; }
@@ -26,9 +27,23 @@ namespace DataCore.DAL.TableDwhModels
 
         #region Constructor and destructor
 
-        public NomenclatureLightEntity()
+        public NomenclatureLightEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public NomenclatureLightEntity(long id) : base(id)
+        {
+            Code = string.Empty;
+            Name = string.Empty;
+            Parents = string.Empty;
+            NameFull = string.Empty;
+            IsService = null;
+            IsProduct = null;
+            InformationSystem = new();
+            RelevanceStatus = null;
+            NormalizationStatus = null;
+            MasterId = null;
         }
 
         #endregion
@@ -37,7 +52,7 @@ namespace DataCore.DAL.TableDwhModels
 
         public override string ToString()
         {
-            var strInformationSystem = InformationSystem != null ? InformationSystem.Id.ToString() : "null";
+            var strInformationSystem = InformationSystem != null ? InformationSystem.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Code)}: {Code}. " +
                    $"{nameof(Name)}: {Name}. " +
@@ -91,36 +106,31 @@ namespace DataCore.DAL.TableDwhModels
             if (InformationSystem != null && !InformationSystem.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Code, default(string)) &&
-                   Equals(Name, default(string)) &&
-                   Equals(Parents, default(string)) &&
-                   Equals(NameFull, default(string)) &&
-                   Equals(IsService, default(bool?)) &&
-                   Equals(IsProduct, default(bool?)) &&
-                   Equals(RelevanceStatus, default(short?)) &&
-                   Equals(NormalizationStatus, default(short?)) &&
-                   Equals(MasterId, default(long?));
+                   Equals(Code, string.Empty) &&
+                   Equals(Name, string.Empty) &&
+                   Equals(Parents, string.Empty) &&
+                   Equals(NameFull, string.Empty) &&
+                   Equals(IsService, null) &&
+                   Equals(IsProduct, null) &&
+                   Equals(RelevanceStatus, null) &&
+                   Equals(NormalizationStatus, null) &&
+                   Equals(MasterId, null);
         }
 
         public override object Clone()
         {
-            return new NomenclatureLightEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Code = Code,
-                Name = Name,
-                Parents = Parents,
-                NameFull = NameFull,
-                IsService = IsService,
-                IsProduct = IsProduct,
-                InformationSystem = (InformationSystemEntity)InformationSystem.Clone(),
-                RelevanceStatus = RelevanceStatus,
-                NormalizationStatus = NormalizationStatus,
-                MasterId = MasterId,
-            };
+            NomenclatureLightEntity item = (NomenclatureLightEntity)base.Clone();
+            item.Code = Code;
+            item.Name = Name;
+            item.Parents = Parents;
+            item.NameFull = NameFull;
+            item.IsService = IsService;
+            item.IsProduct = IsProduct;
+            item.InformationSystem = (InformationSystemEntity)InformationSystem.Clone();
+            item.RelevanceStatus = RelevanceStatus;
+            item.NormalizationStatus = NormalizationStatus;
+            item.MasterId = MasterId;
+            return item;
         }
 
         #endregion

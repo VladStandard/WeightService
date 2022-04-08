@@ -7,26 +7,35 @@ using System.IO;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Ошибки".
+    /// Table "Errors".
     /// </summary>
     public class ErrorEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string? FilePath { get; set; } = null;
-        public virtual string? FilePathShort => !string.IsNullOrEmpty(FilePath) ? Path.GetFileName(FilePath) : string.Empty;
+        public virtual string FilePath { get; set; }
+        public virtual string FilePathShort => !string.IsNullOrEmpty(FilePath) ? Path.GetFileName(FilePath) : string.Empty;
         public virtual int LineNumber { get; set; }
-        public virtual string? MemberName { get; set; } = null;
-        public virtual string? Exception { get; set; } = null;
-        public virtual string? InnerException { get; set; } = null;
+        public virtual string MemberName { get; set; }
+        public virtual string Exception { get; set; }
+        public virtual string InnerException { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public ErrorEntity()
+        public ErrorEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public ErrorEntity(long id) : base(id)
+        {
+            FilePath = string.Empty;
+            LineNumber = 0;
+            MemberName = string.Empty;
+            Exception = string.Empty;
+            InnerException = string.Empty;
         }
 
         #endregion
@@ -76,27 +85,22 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(FilePath, default(string)) &&
-                   Equals(LineNumber, default(int)) &&
-                   Equals(MemberName, default(string)) &&
-                   Equals(Exception, default(string)) &&
-                   Equals(InnerException, default(string));
+                   Equals(FilePath, string.Empty) &&
+                   Equals(LineNumber, 0) &&
+                   Equals(MemberName, string.Empty) &&
+                   Equals(Exception, string.Empty) &&
+                   Equals(InnerException, string.Empty);
         }
 
         public override object Clone()
         {
-            return new ErrorEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                FilePath = FilePath,
-                LineNumber = LineNumber,
-                MemberName = MemberName,
-                Exception = Exception,
-                InnerException = InnerException,
-            };
+            ErrorEntity item = (ErrorEntity)base.Clone();
+            item.FilePath = FilePath;
+            item.LineNumber = LineNumber;
+            item.MemberName = MemberName;
+            item.Exception = Exception;
+            item.InnerException = InnerException;
+            return item;
         }
 
         #endregion

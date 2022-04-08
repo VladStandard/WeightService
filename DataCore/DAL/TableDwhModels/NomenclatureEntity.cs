@@ -16,36 +16,35 @@ namespace DataCore.DAL.TableDwhModels
         public virtual string Parents { get; set; }
 
         public virtual NomenclatureParentEntity ParentConvert => string.IsNullOrEmpty(Parents)
-            ? null
-            : JsonConvert.DeserializeObject<NomenclatureParentEntity>(Parents);
-        public virtual string Article { get; set; }
+            ? new(new string[0]) : JsonConvert.DeserializeObject<NomenclatureParentEntity>(Parents);
+        public virtual string? Article { get; set; }
         public virtual bool? Weighted { get; set; }
-        public virtual string GuidMercury { get; set; }
+        public virtual string? GuidMercury { get; set; }
         public virtual bool? KeepTrackOfCharacteristics { get; set; }
-        public virtual string NameFull { get; set; }
-        public virtual string Comment { get; set; }
+        public virtual string? NameFull { get; set; }
+        public virtual string? Comment { get; set; }
         public virtual bool? IsService { get; set; }
         public virtual bool? IsProduct { get; set; }
-        public virtual string AdditionalDescriptionOfNomenclature { get; set; }
+        public virtual string? AdditionalDescriptionOfNomenclature { get; set; }
         public virtual byte[] NomenclatureGroupCostBytes { get; set; }
-        public virtual NomenclatureGroupEntity NomenclatureGroupCost { get; set; } = new NomenclatureGroupEntity();
+        public virtual NomenclatureGroupEntity NomenclatureGroupCost { get; set; }
         public virtual byte[] NomenclatureGroupBytes { get; set; }
-        public virtual NomenclatureGroupEntity NomenclatureGroup { get; set; } = new NomenclatureGroupEntity();
+        public virtual NomenclatureGroupEntity NomenclatureGroup { get; set; }
         public virtual byte[] ArticleCost { get; set; }
         public virtual byte[] BrandBytes { get; set; }
-        public virtual BrandEntity Brand { get; set; } = new BrandEntity();
+        public virtual BrandEntity Brand { get; set; }
         public virtual byte[] NomenclatureTypeBytes { get; set; }
-        public virtual NomenclatureTypeEntity NomenclatureType { get; set; } = new NomenclatureTypeEntity();
-        public virtual string VatRate { get; set; }
-        public virtual string Unit { get; set; }
+        public virtual NomenclatureTypeEntity NomenclatureType { get; set; }
+        public virtual string? VatRate { get; set; }
+        public virtual string? Unit { get; set; }
         public virtual decimal Weight { get; set; }
         public virtual byte[] BoxTypeId { get; set; }
-        public virtual string BoxTypeName { get; set; }
+        public virtual string? BoxTypeName { get; set; }
         public virtual byte[] PackTypeId { get; set; }
-        public virtual string PackTypeName { get; set; }
-        public virtual string SerializedRepresentationObject { get; set; }
-        public virtual StatusEntity Status { get; set; } = new StatusEntity();
-        public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
+        public virtual string? PackTypeName { get; set; }
+        public virtual string? SerializedRepresentationObject { get; set; }
+        public virtual StatusEntity Status { get; set; }
+        public virtual InformationSystemEntity InformationSystem { get; set; }
         public virtual byte[] CodeInIs { get; set; }
         public virtual short? RelevanceStatus { get; set; }
         public virtual short? NormalizationStatus { get; set; }
@@ -53,16 +52,64 @@ namespace DataCore.DAL.TableDwhModels
 
         #endregion
 
+        #region Constructor and destructor
+
+        public NomenclatureEntity() : this(0)
+        {
+            //
+        }
+
+        public NomenclatureEntity(long id) : base(id)
+        {
+            Code = string.Empty;
+            Name = string.Empty;
+            Parents = string.Empty;
+            Article = string.Empty;
+            Weighted = false;
+            GuidMercury = string.Empty;
+            KeepTrackOfCharacteristics = false;
+            NameFull = string.Empty;
+            Comment = string.Empty;
+            IsService = false;
+            IsProduct = false;
+            AdditionalDescriptionOfNomenclature = string.Empty;
+            NomenclatureGroupCostBytes = new byte[0];
+            NomenclatureGroupCost = new();
+            NomenclatureGroupBytes = new byte[0];
+            NomenclatureGroup = new();
+            ArticleCost = new byte[0];
+            BrandBytes = new byte[0];
+            Brand = new();
+            NomenclatureTypeBytes = new byte[0];
+            NomenclatureType = new();
+            VatRate = string.Empty;
+            Unit = string.Empty;
+            Weight = 0;
+            BoxTypeId = new byte[0];
+            BoxTypeName = string.Empty;
+            PackTypeId = new byte[0];
+            PackTypeName = string.Empty;
+            SerializedRepresentationObject = string.Empty;
+            Status = new();
+            InformationSystem = new();
+            CodeInIs = new byte[0];
+            RelevanceStatus = null;
+            NormalizationStatus = null;
+            MasterId = null;
+        }
+
+        #endregion
+
         #region Public and private methods
 
         public override string ToString()
         {
-            var strBrand = Brand != null ? Brand.Id.ToString() : "null";
-            var strInformationSystem = InformationSystem != null ? InformationSystem.Id.ToString() : "null";
-            var strNomenclatureGroup = NomenclatureGroup != null ? NomenclatureGroup.Id.ToString() : "null";
-            var strNomenclatureGroupCost = NomenclatureGroupCost != null ? NomenclatureGroupCost.Id.ToString() : "null";
-            var strNomenclatureType = NomenclatureType != null ? NomenclatureType.Id.ToString() : "null";
-            var strStatus = Status != null ? Status.Id.ToString() : "null";
+            var strBrand = Brand != null ? Brand.IdentityId.ToString() : "null";
+            var strInformationSystem = InformationSystem != null ? InformationSystem.IdentityId.ToString() : "null";
+            var strNomenclatureGroup = NomenclatureGroup != null ? NomenclatureGroup.IdentityId.ToString() : "null";
+            var strNomenclatureGroupCost = NomenclatureGroupCost != null ? NomenclatureGroupCost.IdentityId.ToString() : "null";
+            var strNomenclatureType = NomenclatureType != null ? NomenclatureType.IdentityId.ToString() : "null";
+            var strStatus = Status != null ? Status.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Code)}: {Code}. " +
                    $"{nameof(Name)}: {Name}. " +
@@ -176,81 +223,76 @@ namespace DataCore.DAL.TableDwhModels
             if (Status != null && !Status.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Code, default(string)) &&
-                   Equals(Name, default(string)) &&
-                   Equals(Parents, default(string)) &&
-                   Equals(Article, default(string)) &&
-                   Equals(Weighted, default(bool?)) &&
-                   Equals(GuidMercury, default(string)) &&
-                   Equals(KeepTrackOfCharacteristics, default(bool?)) &&
-                   Equals(NameFull, default(string)) &&
-                   Equals(Comment, default(string)) &&
-                   Equals(IsService, default(bool?)) &&
-                   Equals(IsProduct, default(bool?)) &&
-                   Equals(AdditionalDescriptionOfNomenclature, default(string)) &&
-                   Equals(NomenclatureGroupCostBytes, default(byte[])) &&
-                   Equals(NomenclatureGroupBytes, default(byte[])) &&
-                   Equals(ArticleCost, default(byte[])) &&
-                   Equals(BrandBytes, default(byte[])) &&
-                   Equals(NomenclatureTypeBytes, default(byte[])) &&
-                   Equals(VatRate, default(string)) &&
-                   Equals(Unit, default(string)) &&
-                   Equals(Weight, default(decimal)) &&
-                   Equals(BoxTypeId, default(byte[])) &&
-                   Equals(BoxTypeName, default(string)) &&
-                   Equals(PackTypeId, default(byte[])) &&
-                   Equals(PackTypeName, default(string)) &&
-                   Equals(SerializedRepresentationObject, default(string)) &&
-                   Equals(CodeInIs, default(byte[])) &&
-                   Equals(RelevanceStatus, default(short?)) &&
-                   Equals(NormalizationStatus, default(short?)) &&
-                   Equals(MasterId, default(long?));
+                   Equals(Code, string.Empty) &&
+                   Equals(Name, string.Empty) &&
+                   Equals(Parents, string.Empty) &&
+                   Equals(Article, string.Empty) &&
+                   Equals(Weighted, null) &&
+                   Equals(GuidMercury, string.Empty) &&
+                   Equals(KeepTrackOfCharacteristics, null) &&
+                   Equals(NameFull, string.Empty) &&
+                   Equals(Comment, string.Empty) &&
+                   Equals(IsService, null) &&
+                   Equals(IsProduct, null) &&
+                   Equals(AdditionalDescriptionOfNomenclature, string.Empty) &&
+                   Equals(NomenclatureGroupCostBytes, new byte[0]) &&
+                   Equals(NomenclatureGroupBytes, new byte[0]) &&
+                   Equals(ArticleCost, new byte[0]) &&
+                   Equals(BrandBytes, new byte[0]) &&
+                   Equals(NomenclatureTypeBytes, new byte[0]) &&
+                   Equals(VatRate, string.Empty) &&
+                   Equals(Unit, string.Empty) &&
+                   Equals(Weight, 0) &&
+                   Equals(BoxTypeId, new byte[0]) &&
+                   Equals(BoxTypeName, string.Empty) &&
+                   Equals(PackTypeId, new byte[0]) &&
+                   Equals(PackTypeName, string.Empty) &&
+                   Equals(SerializedRepresentationObject, string.Empty) &&
+                   Equals(CodeInIs, new byte[0]) &&
+                   Equals(RelevanceStatus, null) &&
+                   Equals(NormalizationStatus, null) &&
+                   Equals(MasterId, null);
         }
 
         public override object Clone()
         {
-            return new NomenclatureEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Code = Code,
-                Name = Name,
-                Parents = Parents,
-                Article = Article,
-                Weighted = Weighted,
-                GuidMercury = GuidMercury,
-                KeepTrackOfCharacteristics = KeepTrackOfCharacteristics,
-                NameFull = NameFull,
-                Comment = Comment,
-                IsService = IsService,
-                IsProduct = IsProduct,
-                AdditionalDescriptionOfNomenclature = AdditionalDescriptionOfNomenclature,
-                NomenclatureGroupCostBytes = DataUtils.CloneBytes(NomenclatureGroupCostBytes),
-                NomenclatureGroupCost = (NomenclatureGroupEntity)NomenclatureGroupCost.Clone(),
-                NomenclatureGroupBytes = DataUtils.CloneBytes(NomenclatureGroupBytes),
-                NomenclatureGroup = (NomenclatureGroupEntity)NomenclatureGroup.Clone(),
-                ArticleCost = DataUtils.CloneBytes(ArticleCost),
-                BrandBytes = DataUtils.CloneBytes(BrandBytes),
-                Brand = (BrandEntity)Brand.Clone(),
-                NomenclatureTypeBytes = DataUtils.CloneBytes(NomenclatureTypeBytes),
-                NomenclatureType = (NomenclatureTypeEntity)NomenclatureType.Clone(),
-                VatRate = VatRate,
-                Unit = Unit,
-                Weight = Weight,
-                BoxTypeId = DataUtils.CloneBytes(BoxTypeId),
-                BoxTypeName = BoxTypeName,
-                PackTypeId = DataUtils.CloneBytes(PackTypeId),
-                PackTypeName = PackTypeName,
-                SerializedRepresentationObject = SerializedRepresentationObject,
-                Status = (StatusEntity)Status.Clone(),
-                InformationSystem = (InformationSystemEntity)InformationSystem.Clone(),
-                CodeInIs = DataUtils.CloneBytes(CodeInIs),
-                RelevanceStatus = RelevanceStatus,
-                NormalizationStatus = NormalizationStatus,
-                MasterId = MasterId,
-            };
+            NomenclatureEntity item = (NomenclatureEntity)base.Clone();
+            item.Code = Code;
+            item.Name = Name;
+            item.Parents = Parents;
+            item.Article = Article;
+            item.Weighted = Weighted;
+            item.GuidMercury = GuidMercury;
+            item.KeepTrackOfCharacteristics = KeepTrackOfCharacteristics;
+            item.NameFull = NameFull;
+            item.Comment = Comment;
+            item.IsService = IsService;
+            item.IsProduct = IsProduct;
+            item.AdditionalDescriptionOfNomenclature = AdditionalDescriptionOfNomenclature;
+            item.NomenclatureGroupCostBytes = DataUtils.CloneBytes(NomenclatureGroupCostBytes);
+            item.NomenclatureGroupCost = (NomenclatureGroupEntity)NomenclatureGroupCost.Clone();
+            item.NomenclatureGroupBytes = DataUtils.CloneBytes(NomenclatureGroupBytes);
+            item.NomenclatureGroup = (NomenclatureGroupEntity)NomenclatureGroup.Clone();
+            item.ArticleCost = DataUtils.CloneBytes(ArticleCost);
+            item.BrandBytes = DataUtils.CloneBytes(BrandBytes);
+            item.Brand = (BrandEntity)Brand.Clone();
+            item.NomenclatureTypeBytes = DataUtils.CloneBytes(NomenclatureTypeBytes);
+            item.NomenclatureType = (NomenclatureTypeEntity)NomenclatureType.Clone();
+            item.VatRate = VatRate;
+            item.Unit = Unit;
+            item.Weight = Weight;
+            item.BoxTypeId = DataUtils.CloneBytes(BoxTypeId);
+            item.BoxTypeName = BoxTypeName;
+            item.PackTypeId = DataUtils.CloneBytes(PackTypeId);
+            item.PackTypeName = PackTypeName;
+            item.SerializedRepresentationObject = SerializedRepresentationObject;
+            item.Status = (StatusEntity)Status.Clone();
+            item.InformationSystem = (InformationSystemEntity)InformationSystem.Clone();
+            item.CodeInIs = DataUtils.CloneBytes(CodeInIs);
+            item.RelevanceStatus = RelevanceStatus;
+            item.NormalizationStatus = NormalizationStatus;
+            item.MasterId = MasterId;
+            return item;
         }
 
         #endregion

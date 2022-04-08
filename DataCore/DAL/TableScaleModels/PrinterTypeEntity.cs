@@ -6,21 +6,26 @@ using DataCore.DAL.Models;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Типы принтеров".
+    /// Table "PrinterTypes".
     /// </summary>
     public class PrinterTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public PrinterTypeEntity()
+        public PrinterTypeEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public PrinterTypeEntity(long id) : base(id)
+        {
+            Name = string.Empty;
         }
 
         #endregion
@@ -62,19 +67,14 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Name, default(string));
+                   Equals(Name, string.Empty);
         }
 
         public override object Clone()
         {
-            return new PrinterTypeEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-            };
+            PrinterTypeEntity item = (PrinterTypeEntity)base.Clone();
+            item.Name = Name;
+            return item;
         }
 
         #endregion

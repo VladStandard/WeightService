@@ -14,7 +14,7 @@
 else
 {
     <ActionsReload ParentRazor=@this Items=@Items Table=@Table
-        Title=@LocalizationData.DeviceControl.SectionPlus SetParameters=@SetParametersAsync 
+        Title=@LocalizationData.DeviceControl.Sections.Plus SetParameters=@SetParametersAsync 
         IsShowItemsCount=true IsShowMarkedFilter=@IsShowMarkedFilter IsShowMarkedItems=@IsShowMarkedItems 
         IsShowAdditionalFilter=@IsShowAdditionalFilter ItemsFilter=@ItemsFilter ItemFilter=@ItemFilter 
         FilterCaption=LocalizationData.DeviceControl.ItemScale FilterName=@nameof(ScaleEntity) />
@@ -28,7 +28,7 @@ else
             <RadzenGridColumn TItem="PluEntity" Title=@LocalizationData.DeviceControl.TableFieldPlu Type="string" Width="5%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; center; margin-left: 0px; " 
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Plu}/{itemCast.Id}")
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
                         Text=@itemCast.Plu.ToString() />
                 </Template>
             </RadzenGridColumn>
@@ -48,7 +48,7 @@ else
                 Title=@LocalizationData.DeviceControl.TableFieldGoodsName >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Plu}/{itemCast.Id}")
+                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Plu}/{itemCast.IdentityId}")
                         Text=@itemCast.GoodsName />
                 </Template>
             </RadzenGridColumn>

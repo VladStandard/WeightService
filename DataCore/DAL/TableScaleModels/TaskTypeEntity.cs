@@ -2,25 +2,31 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Типы модулей задач".
+    /// Table "TaskTypes".
     /// </summary>
     public class TaskTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public TaskTypeEntity()
+        public TaskTypeEntity() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
+        }
+
+        public TaskTypeEntity(Guid uid) : base(uid)
+        {
+            Name = string.Empty;
         }
 
         #endregion
@@ -62,19 +68,14 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                Equals(Name, default(string));
+                Equals(Name, string.Empty);
         }
 
         public override object Clone()
         {
-            return new TaskTypeEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-            };
+            TaskTypeEntity item = (TaskTypeEntity)base.Clone();
+            item.Name = Name;
+            return item;
         }
 
         #endregion

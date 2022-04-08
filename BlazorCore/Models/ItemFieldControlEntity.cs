@@ -91,7 +91,7 @@ namespace BlazorCore.Models
                 case WeithingFactEntity weithingFact:
                     WeithingFact(ref result, ref detailAddition, weithingFact);
                     break;
-                case WorkshopEntity workshop:
+                case WorkShopEntity workshop:
                     Workshop(ref result, ref detailAddition, workshop);
                     break;
             }
@@ -216,10 +216,10 @@ namespace BlazorCore.Models
                 result = false;
             PluEntity[]? pluEntities = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                 new FieldListEntity(new Dictionary<string, object?> {
-                    { "Scale.Id", plu.Scale.Id },
+                    { $"Scale.{DbField.IdentityId}", plu.Scale.IdentityId },
                     { DbField.Plu.ToString(), plu.Plu }
                 }), null);
-            if (pluEntities != null && pluEntities.Any() && !pluEntities.Where(x => x.Id.Equals(plu.Id)).Select(x => x).Any())
+            if (pluEntities != null && pluEntities.Any() && !pluEntities.Where(x => x.IdentityId.Equals(plu.IdentityId)).Select(x => x).Any())
             {
                 detailAddition += $"{LocalizationCore.Strings.TablePluHavingPlu}: {plu.Plu}" + Environment.NewLine;
                 result = false;
@@ -327,7 +327,7 @@ namespace BlazorCore.Models
                 result = false;
         }
 
-        private void Workshop(ref bool result, ref string detailAddition, WorkshopEntity workshop)
+        private void Workshop(ref bool result, ref string detailAddition, WorkShopEntity workshop)
         {
             if (workshop.EqualsDefault())
                 result = false;

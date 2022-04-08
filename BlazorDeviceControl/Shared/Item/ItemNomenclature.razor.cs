@@ -21,19 +21,29 @@ namespace BlazorDeviceControl.Shared.Item
 
         #endregion
 
+        public ItemNomenclature()
+        {
+            Default();
+        }
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
+                ItemCast = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-                        ItemCast = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
@@ -48,7 +58,7 @@ namespace BlazorDeviceControl.Shared.Item
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.Id.ToString(), Id } }), null);
+                                    { { DbField.IdentityId.ToString(), Id } }), null);
                                 break;
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);

@@ -7,22 +7,27 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "ШК".
+    /// Table "BarCodeTypes".
     /// </summary>
     [Obsolete(@"Use BarcodeTypeEntityV2")]
     public class BarcodeTypeEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public BarcodeTypeEntity()
+        public BarcodeTypeEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public BarcodeTypeEntity(long id) : base(id)
+        {
+            Name = string.Empty;
         }
 
         #endregion
@@ -64,19 +69,14 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-            Equals(Name, default(string));
+            Equals(Name, string.Empty);
         }
 
         public override object Clone()
         {
-            return new BarcodeTypeEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-            };
+            BarcodeTypeEntity item = (BarcodeTypeEntity)base.Clone();
+            item.Name = Name;
+            return item; 
         }
 
         #endregion

@@ -14,7 +14,7 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemPrinterResource SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.Items.PrinterResource SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -32,7 +32,7 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@ItemCast.Id />
+                        TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinter</td>
                 <td>
@@ -47,9 +47,9 @@ else
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
                             Data=@PrinterItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
-                            TextProperty="Name" ValueProperty="Id"
-                            Value=@ItemCast.Printer.Id
-                            Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Printer), args)) />
+                            TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Printer), args)) 
+                            ValueProperty="IdentityId" Value=@ItemCast.Printer.IdentityId
+                            />
                     }
 				</td>
             </tr>
@@ -72,9 +72,9 @@ else
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
                             Data=@ResourceItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
-                            TextProperty="Name" ValueProperty="Id"
-                            Value=@ItemCast.Resource.Id
-                            Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Resource), args)) />
+                            TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Resource), args)) 
+                            ValueProperty="Id" Value=@ItemCast.Resource.IdentityId
+                            />
                     }
 				</td>
             </tr>

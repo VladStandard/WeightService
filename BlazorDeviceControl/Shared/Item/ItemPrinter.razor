@@ -16,7 +16,7 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemPrinter SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.Items.Printer SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -34,7 +34,7 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@ItemCast.Id />
+                        TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
             </tr>
             <tr>
@@ -61,7 +61,7 @@ else
                 </td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@GetPath(UriRouteItem.PrinterType, ItemCast.PrinterType, ItemCast.PrinterType.Id)
+                        Path=@GetPath(UriRouteItem.PrinterType, ItemCast.PrinterType, ItemCast.PrinterType.IdentityId)
                         Text=@LocalizationData.DeviceControl.TableFieldPrinterType />
                 </td>
                 <td>
@@ -75,8 +75,8 @@ else
                             Style="width: 100%;" TValue="int"
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@PrinterTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" ValueProperty="Id"
-                            Value=@ItemCast.PrinterType.Id
+                            Data=@PrinterTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
+                            ValueProperty="IdentityId" Value=@ItemCast.PrinterType.IdentityId
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.PrinterType), args)) >
                             <Columns>
                                 <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />

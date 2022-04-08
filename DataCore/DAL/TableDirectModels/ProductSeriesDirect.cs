@@ -30,13 +30,29 @@ namespace DataCore.DAL.TableDirectModels
 
         public ProductSeriesDirect()
         {
+            Default();
             Load();
         }
 
         public ProductSeriesDirect(ScaleDirect scale)
         {
+            Default();
             Scale = scale;
             Load();
+        }
+
+        public void Default()
+        {
+            Id = 0;
+            UUID = Guid.Empty;
+            Scale = new();
+            CreateDate = default;
+            Sscc = new();
+            Plu = new();
+            CountUnit = 0;
+            TotalNetWeight = 0;
+            TotalTareWeight = 0;
+            Template = new();
         }
 
         #endregion
@@ -45,7 +61,7 @@ namespace DataCore.DAL.TableDirectModels
 
         public void LoadTemplate(long id)
         {
-            Template = new TemplateDirect(id);
+            Template = new(id);
         }
 
         public void Load()

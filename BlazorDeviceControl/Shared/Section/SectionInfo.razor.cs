@@ -32,7 +32,24 @@ namespace BlazorDeviceControl.Shared.Section
 
         #endregion
 
+        #region Constructor and destructor
+
+        public SectionInfo()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                //
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
@@ -40,6 +57,9 @@ namespace BlazorDeviceControl.Shared.Section
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
+                    Default();
+                    await GuiRefreshWithWaitAsync();
+
                     lock (_locker)
                     {
                         TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();

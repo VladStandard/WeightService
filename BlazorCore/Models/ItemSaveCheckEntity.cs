@@ -37,8 +37,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    access.Uid = (Guid)uid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(access);
+                    if (uid is Guid guid)
+                    {
+                        access.IdentityUid = guid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(access);
+                    }
                 }
             }
         }
@@ -60,8 +63,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    barcodeType.Uid = (Guid)uid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(barcodeType);
+                    if (uid is Guid guid)
+                    {
+                        barcodeType.IdentityUid = guid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(barcodeType);
+                    }
                 }
             }
         }
@@ -83,8 +89,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    contragent.Uid = (Guid)uid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(contragent);
+                    if (uid is Guid guid)
+                    {
+                        contragent.IdentityUid = guid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(contragent);
+                    }
                 }
             }
         }
@@ -105,8 +114,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    host.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(host);
+                    if (id is long lid)
+                    {
+                        host.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(host);
+                    }
                 }
             }
         }
@@ -128,8 +140,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    nomenclature.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(nomenclature);
+                    if (id is long lid)
+                    {
+                        nomenclature.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(nomenclature);
+                    }
                 }
             }
         }
@@ -157,8 +172,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    plu.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(plu);
+                    if (id is long lid)
+                    {
+                        plu.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(plu);
+                    }
                 }
             }
         }
@@ -183,8 +201,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    printer.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(printer);
+                    if (id is long lid)
+                    {
+                        printer.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(printer);
+                    }
                 }
             }
         }
@@ -206,8 +227,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    printerResource.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(printerResource);
+                    if (id is long lid)
+                    {
+                        printerResource.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(printerResource);
+                    }
                 }
             }
         }
@@ -229,8 +253,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    printerType.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(printerType);
+                    if (id is long lid)
+                    {
+                        printerType.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(printerType);
+                    }
                 }
             }
         }
@@ -252,8 +279,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    productionFacility.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(productionFacility);
+                    if (id is long lid)
+                    {
+                        productionFacility.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(productionFacility);
+                    }
                 }
             }
         }
@@ -286,8 +316,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    scale.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(scale);
+                    if (id is long lid)
+                    {
+                        scale.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(scale);
+                    }
                 }
             }
         }
@@ -315,7 +348,7 @@ namespace BlazorCore.Models
                 {
                     if (uid is Guid guid)
                     {
-                        task.Uid = guid;
+                        task.IdentityUid = guid;
                         AppSettings.DataAccess?.Crud.UpdateEntity(task);
                     }
                 }
@@ -341,7 +374,7 @@ namespace BlazorCore.Models
                 {
                     if (uid is Guid guid)
                     {
-                        taskType.Uid = guid;
+                        taskType.IdentityUid = guid;
                         AppSettings.DataAccess?.Crud.UpdateEntity(taskType);
                     }
                 }
@@ -366,13 +399,15 @@ namespace BlazorCore.Models
                 else
                 {
                     if (id is long lid)
-                        template.Id = lid;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(template);
+                    {
+                        template.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(template);
+                    }
                 }
             }
         }
 
-        public void Workshop(NotificationService? notificationService, WorkshopEntity? workShop, 
+        public void Workshop(NotificationService? notificationService, WorkShopEntity? workShop, 
             long? id, DbTableAction tableAction)
         {
             if (workShop == null || id == null)
@@ -389,8 +424,11 @@ namespace BlazorCore.Models
                 }
                 else
                 {
-                    workShop.Id = (long)id;
-                    AppSettings.DataAccess?.Crud.UpdateEntity(workShop);
+                    if (id is long lid)
+                    {
+                        workShop.IdentityId = lid;
+                        AppSettings.DataAccess?.Crud.UpdateEntity(workShop);
+                    }
                 }
             }
         }

@@ -11,7 +11,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             Table("[db_scales].[WeithingFact]");
             LazyLoad();
-            Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             References(x => x.Plu).Column("PluId").Not.Nullable();
             References(x => x.Scales).Column("ScaleId").Not.Nullable();
             References(x => x.Series).Column("SeriesId").Not.Nullable();
@@ -20,7 +20,7 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.WeithingDate).CustomSqlType("DATETIME(2,7)").Column("WeithingDate").Nullable();
             Map(x => x.NetWeight).CustomSqlType("NUMERIC(15,3)").Column("NetWeight").Not.Nullable();
             Map(x => x.TareWeight).CustomSqlType("NUMERIC(15,3)").Column("TareWeight").Nullable();
-            Map(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UUID").Nullable();
+            Map(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UUID").Nullable();
             Map(x => x.ProductDate).CustomSqlType("DATE").Column("ProductDate").Nullable();
             Map(x => x.RegNum).CustomSqlType("INT").Column("RegNum").Nullable();
             Map(x => x.Kneading).CustomSqlType("INT").Column("Kneading").Nullable();

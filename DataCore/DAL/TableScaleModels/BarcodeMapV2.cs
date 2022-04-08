@@ -12,7 +12,7 @@ namespace DataCore.DAL.TableScaleModels
             Table("BARCODES_V2");
             Schema("db_scales");
             LazyLoad();
-            Id(x => x.Uid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
+            Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
             Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("CHANGE_DT").Not.Nullable();
             Map(x => x.IsMarked).CustomSqlType("BIT").Column("MARKED").Not.Nullable();

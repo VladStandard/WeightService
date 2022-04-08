@@ -6,13 +6,16 @@ using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
+    /// <summary>
+    /// Table "Hosts".
+    /// </summary>
     public class HostEntity : BaseEntity
     {
         #region Public and private fields and properties
 
         public virtual DateTime AccessDt { get; set; }
-        public virtual string Name { get; set; } = string.Empty;
-        public virtual string Ip { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
+        public virtual string Ip { get; set; }
         public virtual MacAddressEntity MacAddress { get; set; }
         public virtual string MacAddressValue
         {
@@ -26,16 +29,25 @@ namespace DataCore.DAL.TableScaleModels
             get => IdRRef.ToString();
             set => IdRRef = Guid.Parse(value);
         }
-        public virtual string SettingsFile { get; set; } = string.Empty;
+        public virtual string SettingsFile { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public HostEntity()
+        public HostEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
-            MacAddress = new MacAddressEntity();
+            //
+        }
+
+        public HostEntity(long id) : base(id)
+        {
+            AccessDt = DateTime.MinValue;
+            Name = string.Empty;
+            Ip = string.Empty;
+            MacAddress = new();
+            SettingsFile = string.Empty;
+            IdRRef = Guid.Empty;
         }
 
         #endregion
@@ -91,28 +103,23 @@ namespace DataCore.DAL.TableScaleModels
             if (MacAddress != null && !MacAddress.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(AccessDt, default(DateTime)) &&
-                   Equals(Name, default(string)) &&
-                   Equals(Ip, default(string)) &&
-                   Equals(IdRRef, default(Guid)) &&
-                   Equals(SettingsFile, default(byte[]));
+                   Equals(AccessDt, DateTime.MinValue) &&
+                   Equals(Name, string.Empty) &&
+                   Equals(Ip, string.Empty) &&
+                   Equals(IdRRef, Guid.Empty) &&
+                   Equals(SettingsFile, new byte[0]);
         }
 
         public override object Clone()
         {
-            return new HostEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                AccessDt = AccessDt,
-                Name = Name,
-                Ip = Ip,
-                MacAddress = (MacAddressEntity)MacAddress.Clone(),
-                IdRRef = IdRRef,
-                SettingsFile = SettingsFile,
-            };
+            HostEntity item = (HostEntity)base.Clone();
+            item.AccessDt = AccessDt;
+            item.Name = Name;
+            item.Ip = Ip;
+            item.MacAddress = (MacAddressEntity)MacAddress.Clone();
+            item.IdRRef = IdRRef;
+            item.SettingsFile = SettingsFile;
+            return item;
         }
 
         #endregion

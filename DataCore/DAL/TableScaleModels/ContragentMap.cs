@@ -13,7 +13,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             Table("[db_scales].[Contragents]");
             LazyLoad();
-            Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate");
             Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate");
             Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked");

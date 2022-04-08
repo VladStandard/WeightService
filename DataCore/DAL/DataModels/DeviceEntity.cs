@@ -10,7 +10,21 @@ namespace DataCore.DAL.DataModels
     {
         #region Public and private fields and properties
 
-        public virtual ScaleEntity Scales { get; set; } = new ScaleEntity();
+        public virtual ScaleEntity Scales { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public DeviceEntity() : this(0)
+        {
+            //
+        }
+
+        public DeviceEntity(long id) : base(id)
+        {
+            Scales = new();
+        }
 
         #endregion
 
@@ -54,14 +68,9 @@ namespace DataCore.DAL.DataModels
 
         public override object Clone()
         {
-            return new DeviceEntity()
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Scales = (ScaleEntity)Scales.Clone(),
-            };
+            DeviceEntity item = (DeviceEntity)base.Clone();
+            item.Scales = (ScaleEntity)Scales.Clone();
+            return item;
         }
 
         #endregion

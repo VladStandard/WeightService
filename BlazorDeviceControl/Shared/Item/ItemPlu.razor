@@ -15,7 +15,7 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemPlu SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.Items.Plu SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=@IsShowMarkedFilter IsShowMarkedItems=@IsShowMarkedItems />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -31,7 +31,7 @@ else
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.Id)
+                        Path=@GetPath(UriRouteItem.Scale, ItemCast.Scale, ItemCast.Scale.IdentityId)
                         Text=@LocalizationData.DeviceControl.TableFieldScale />
                 </td>
                 <td>
@@ -46,14 +46,14 @@ else
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true AllowSorting=true
                             Data=@ScaleItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
-                            TextProperty="Description" ValueProperty="Id"
-                            TValue="long" Value=@ItemCast.Scale.Id 
-                            Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Scale), args)) />
+                            TextProperty="Description" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Scale), args)) 
+                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.Scale.IdentityId 
+                            />
                     }
 				</td>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.Id)
+                        Path=@GetPath(UriRouteItem.Template, ItemCast.Template, ItemCast.Template.IdentityId)
                         Text=@LocalizationData.DeviceControl.TableFieldTemplate />
                 </td>
                 <td>
@@ -68,16 +68,16 @@ else
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true AllowSorting=true
                             Data=@TemplateItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
-                            TextProperty="Title" ValueProperty="Id"
-                            TValue="long" Value=@ItemCast.Template.Id
-                            Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Template), args)) />
+                            TextProperty="Title" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Template), args)) 
+                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.Template.IdentityId
+                            />
                     }
 				</td>
             </tr>
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@GetPath(UriRouteItem.Nomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.Id)
+                        Path=@GetPath(UriRouteItem.Nomenclature, ItemCast.Nomenclature, ItemCast.Nomenclature.IdentityId)
                         Text=@LocalizationData.DeviceControl.TableFieldNomenclatureName />
                 </td>
                 <td>
@@ -92,9 +92,9 @@ else
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true AllowSorting=true
                             Data=@NomenclatureItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
-                            TextProperty="Name" ValueProperty="Id"
-                            TValue="long" Value=@ItemCast.Nomenclature.Id
-                            Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Nomenclature), args)) />
+                            TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Nomenclature), args)) 
+                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.Nomenclature.IdentityId
+                            />
                     }
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldActive</td>

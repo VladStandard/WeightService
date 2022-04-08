@@ -14,9 +14,9 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemTaskModule SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.Items.TaskModule SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
-    <TaskModules Uid=@ItemCast?.Uid />
+    <TaskModules Uid=@ItemCast?.IdentityUid />
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
 }

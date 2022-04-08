@@ -7,23 +7,30 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Статусы заказов".
+    /// Table "OrderStatuses".
     /// </summary>
     public class OrderStatusEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string OrderId { get; set; } = string.Empty;
-        public virtual DateTime CurrentDate { get; set; } = default;
-        public virtual byte? CurrentStatus { get; set; } = null;
+        public virtual string OrderId { get; set; }
+        public virtual DateTime CurrentDate { get; set; }
+        public virtual byte CurrentStatus { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public OrderStatusEntity()
+        public OrderStatusEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public OrderStatusEntity(long id) : base(id)
+        {
+            OrderId = string.Empty;
+            CurrentDate = DateTime.MinValue;
+            CurrentStatus = 0x00;
         }
 
         #endregion
@@ -69,23 +76,18 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(OrderId, default(string)) &&
-                   Equals(CurrentDate, default(DateTime)) &&
-                   Equals(CurrentStatus, default(byte?));
+                   Equals(OrderId, string.Empty) &&
+                   Equals(CurrentDate, DateTime.MinValue) &&
+                   Equals(CurrentStatus, 0x00);
         }
 
         public override object Clone()
         {
-            return new OrderStatusEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                OrderId = OrderId,
-                CurrentDate = CurrentDate,
-                CurrentStatus = CurrentStatus
-            };
+            OrderStatusEntity item = (OrderStatusEntity)base.Clone();
+            item.OrderId = OrderId;
+            item.CurrentDate = CurrentDate;
+            item.CurrentStatus = CurrentStatus;
+            return item;
         }
 
         #endregion

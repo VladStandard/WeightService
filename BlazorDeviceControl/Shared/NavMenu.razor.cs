@@ -9,8 +9,7 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        private bool _collapseNavMenu = true;
-        private string NavMenuCssClass => _collapseNavMenu ? "collapse" : string.Empty;
+        private bool CollapseNavMenu { get; set; } = true;
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
 
         #endregion
@@ -19,7 +18,7 @@ namespace BlazorDeviceControl.Shared
 
         private void ToggleNavMenu()
         {
-            _collapseNavMenu = !_collapseNavMenu;
+            CollapseNavMenu = !CollapseNavMenu;
         }
 
         #endregion

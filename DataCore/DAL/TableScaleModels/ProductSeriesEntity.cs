@@ -6,43 +6,30 @@ using DataCore.DAL.Models;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Серии продуктов".
+    /// Table "ProductSeries".
     /// </summary>
     public class ProductSeriesEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
-        //public virtual string UidGui
-        //{
-        //    get => Uid.ToString();
-        //    set
-        //    {
-        //        try
-        //        {
-        //            Uid = Guid.Parse(value);
-        //        }
-        //        catch (Exception)
-        //        {
-        //            Uid = Guid.Empty;
-        //        }
-        //    }
-        //}
+        public virtual ScaleEntity Scale { get; set; }
         public virtual bool? IsClose { get; set; }
-        public virtual bool IsCloseGui
-        {
-            get => IsClose == true;
-            set => IsClose = value;
-        }
-        public virtual string Sscc { get; set; } = string.Empty;
+        public virtual string Sscc { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public ProductSeriesEntity()
+        public ProductSeriesEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public ProductSeriesEntity(long id) : base(id)
+        {
+            Scale = new ScaleEntity();
+            IsClose = default;
+            Sscc = string.Empty;
         }
 
         #endregion
@@ -51,11 +38,9 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strScale = Scale != null ? Scale.Id.ToString() : "null";
+            string? strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Scale)}: {strScale}. " +
-                   $"{nameof(CreateDt)}: {CreateDt}. " +
-                   $"{nameof(Uid)}: {Uid}. " +
                    $"{nameof(IsClose)}: {IsClose}. " +
                    $"{nameof(Sscc)}: {Sscc}.";
         }
@@ -67,7 +52,6 @@ namespace DataCore.DAL.TableScaleModels
             return base.Equals(entity) &&
                    Equals(CreateDt, entity.CreateDt) &&
                    Equals(Scale, entity.Scale) &&
-                   Equals(Uid, entity.Uid) &&
                    Equals(IsClose, entity.IsClose) &&
                    Equals(Sscc, entity.Sscc);
         }
@@ -95,22 +79,17 @@ namespace DataCore.DAL.TableScaleModels
             if (Scale != null && !Scale.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(IsClose, default(bool?)) &&
-                   Equals(Sscc, default(string));
+                   Equals(IsClose, null) &&
+                   Equals(Sscc, string.Empty);
         }
 
         public override object Clone()
         {
-            return new ProductSeriesEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Scale = (ScaleEntity)Scale?.Clone(),
-                IsClose = IsClose,
-                Sscc = Sscc,
-            };
+            ProductSeriesEntity item = (ProductSeriesEntity)base.Clone();
+            item.Scale = (ScaleEntity)Scale.Clone();
+            item.IsClose = IsClose;
+            item.Sscc = Sscc;
+            return item;
         }
 
         #endregion

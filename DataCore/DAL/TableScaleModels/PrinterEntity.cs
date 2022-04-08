@@ -9,37 +9,46 @@ using System.Threading.Tasks;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Принтеры".
+    /// Table "Printers".
     /// </summary>
     public class PrinterEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
-        public virtual string Ip { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
+        public virtual string Ip { get; set; }
         public virtual string Link => string.IsNullOrEmpty(Ip) ? string.Empty : $"http://{Ip}";
         public virtual short Port { get; set; }
-        public virtual string Password { get; set; } = string.Empty;
-        public virtual PrinterTypeEntity PrinterType { get; set; } = new PrinterTypeEntity();
+        public virtual string Password { get; set; }
+        public virtual PrinterTypeEntity PrinterType { get; set; }
         public virtual MacAddressEntity MacAddress { get; set; }
-        public virtual string MacAddressValue
-        {
-            get => MacAddress.Value;
-            set => MacAddress.Value = value;
-        }
+        public virtual string MacAddressValue { get => MacAddress.Value; set => MacAddress.Value = value; }
         public virtual bool PeelOffSet { get; set; }
         public virtual short DarknessLevel { get; set; }
-        public virtual System.Net.HttpStatusCode HttpStatusCode { get; set; } = System.Net.HttpStatusCode.BadRequest;
-        public virtual Exception? HttpStatusException { get; set; } = null;
+        public virtual System.Net.HttpStatusCode HttpStatusCode { get; set; }
+        public virtual Exception? HttpStatusException { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public PrinterEntity()
+        public PrinterEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
-            MacAddress = new MacAddressEntity();
+            //
+        }
+
+        public PrinterEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            Ip = string.Empty;
+            Port = 0;
+            Password = string.Empty;
+            PrinterType = new PrinterTypeEntity();
+            MacAddress = new();
+            PeelOffSet = false;
+            DarknessLevel = 0;
+            HttpStatusCode = System.Net.HttpStatusCode.BadRequest;
+            HttpStatusException = null;
         }
 
         #endregion
@@ -48,7 +57,7 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strPrinterType = PrinterType != null ? PrinterType.Id.ToString() : "null";
+            string? strPrinterType = PrinterType != null ? PrinterType.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(Ip)}: {Ip}. " +
@@ -104,35 +113,30 @@ namespace DataCore.DAL.TableScaleModels
             if (MacAddress != null && !MacAddress.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Name, default(string)) &&
-                   Equals(Ip, default(string)) &&
-                   Equals(Port, default(short)) &&
-                   Equals(Password, default(string)) &&
-                   Equals(PeelOffSet, default(bool)) &&
-                   Equals(DarknessLevel, default(short)) &&
+                   Equals(Name, string.Empty) &&
+                   Equals(Ip, string.Empty) &&
+                   Equals(Port, 0) &&
+                   Equals(Password, string.Empty) &&
+                   Equals(PeelOffSet, false) &&
+                   Equals(DarknessLevel, 0) &&
                    Equals(HttpStatusCode, System.Net.HttpStatusCode.BadRequest) &&
                    Equals(HttpStatusException, null);
         }
 
         public override object Clone()
         {
-            return new PrinterEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-                Ip = Ip,
-                Port = Port,
-                Password = Password,
-                PrinterType = (PrinterTypeEntity)PrinterType.Clone(),
-                MacAddress = (MacAddressEntity)MacAddress.Clone(),
-                PeelOffSet = PeelOffSet,
-                DarknessLevel = DarknessLevel,
-                HttpStatusCode = HttpStatusCode,
-                HttpStatusException = HttpStatusException,
-            };
+            PrinterEntity item = (PrinterEntity)base.Clone();
+            item.Name = Name;
+            item.Ip = Ip;
+            item.Port = Port;
+            item.Password = Password;
+            item.PrinterType = (PrinterTypeEntity)PrinterType.Clone();
+            item.MacAddress = (MacAddressEntity)MacAddress.Clone();
+            item.PeelOffSet = PeelOffSet;
+            item.DarknessLevel = DarknessLevel;
+            item.HttpStatusCode = HttpStatusCode;
+            item.HttpStatusException = HttpStatusException;
+            return item;
         }
 
         public virtual async Task SetHttpStatusAsync(int timeOut = 100, bool continueOnCapturedContext = true)

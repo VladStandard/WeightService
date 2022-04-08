@@ -11,15 +11,17 @@ namespace DataCore.DAL.DataModels
     /// </summary>
     public class XmlProductEntity
     {
-        public string Category { get; set; } = string.Empty;
-        public string Code { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string Comment { get; set; } = string.Empty;
-        public string Sku { get; set; } = string.Empty;
-        public string DescriptionOptional { get; set; } = string.Empty;
-        public Guid GuidMercury { get; set; } = default;
-        public string Temperature { get; set; } = string.Empty;
-        public string ProductShelfLife { get; set; } = string.Empty;
+        #region Public and private fields and properties
+
+        public string Category { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+        public string Comment { get; set; }
+        public string Sku { get; set; }
+        public string DescriptionOptional { get; set; }
+        public Guid GuidMercury { get; set; }
+        public string Temperature { get; set; }
+        public string ProductShelfLife { get; set; }
         public short ProductShelfLifeShort
         {
             get
@@ -35,13 +37,41 @@ namespace DataCore.DAL.DataModels
             }
             set => ProductShelfLife = $"{value}  сут.";
         }
-        public string Brand { get; set; } = string.Empty;
-        public List<ProductUnitEntity> Units { get; set; } = new List<ProductUnitEntity>();
-        public List<ProductBarcodeEntity> Barcodes { get; set; } = new List<ProductBarcodeEntity>();
-        public List<ProductBoxEntity> Boxes { get; set; } = new List<ProductBoxEntity>();
-        public List<ProductBoxEntity> Packs { get; set; } = new List<ProductBoxEntity>();
-        public string NameFull { get; set; } = string.Empty;
-        public string AdditionalDescriptionOfNomenclature { get; set; } = string.Empty;
+        public string Brand { get; set; }
+        public List<ProductUnitEntity> Units { get; set; }
+        public List<ProductBarcodeEntity> Barcodes { get; set; }
+        public List<ProductBoxEntity> Boxes { get; set; }
+        public List<ProductBoxEntity> Packs { get; set; }
+        public string NameFull { get; set; }
+        public string AdditionalDescriptionOfNomenclature { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public XmlProductEntity()
+        {
+            Category = string.Empty;
+            Code = string.Empty;
+            Description = string.Empty;
+            Comment = string.Empty;
+            Sku = string.Empty;
+            DescriptionOptional = string.Empty;
+            GuidMercury = Guid.Empty;
+            Temperature = string.Empty;
+            ProductShelfLife = string.Empty;
+            Brand = string.Empty;
+            Units = new();
+            Barcodes = new();
+            Boxes = new();
+            Packs = new();
+            NameFull = string.Empty;
+            AdditionalDescriptionOfNomenclature = string.Empty;
+        }
+
+        #endregion
+
+        #region Public and private methods
 
         public override string ToString()
         {
@@ -133,6 +163,8 @@ namespace DataCore.DAL.DataModels
         {
             return Equals(new XmlProductEntity());
         }
+
+        #endregion
     }
 
     /// <summary>

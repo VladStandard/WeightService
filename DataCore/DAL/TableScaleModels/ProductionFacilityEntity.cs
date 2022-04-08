@@ -7,22 +7,28 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Производственные площадки".
+    /// Table "ProductionFacilities".
     /// </summary>
     public class ProductionFacilityEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
-        public virtual Guid? IdRRef { get; set; } = null;
+        public virtual string Name { get; set; }
+        public virtual Guid IdRRef { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public ProductionFacilityEntity()
+        public ProductionFacilityEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public ProductionFacilityEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            IdRRef = Guid.Empty;
         }
 
         #endregion
@@ -66,21 +72,16 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Name, default(string)) &&
-                   Equals(IdRRef, default(Guid?));
+                   Equals(Name, string.Empty) &&
+                   Equals(IdRRef, Guid.Empty);
         }
 
         public override object Clone()
         {
-            return new ProductionFacilityEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-                IdRRef = IdRRef,
-            };
+            ProductionFacilityEntity item = (ProductionFacilityEntity)base.Clone();
+            item.Name = Name;
+            item.IdRRef = IdRRef;
+            return item;
         }
 
         #endregion

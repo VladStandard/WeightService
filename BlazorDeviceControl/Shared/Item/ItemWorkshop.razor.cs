@@ -17,34 +17,48 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public WorkshopEntity? ItemCast { get => Item == null ? null : (WorkshopEntity)Item; set => Item = value; }
+        public WorkShopEntity? ItemCast { get => Item == null ? null : (WorkShopEntity)Item; set => Item = value; }
         public List<ProductionFacilityEntity>? ProductionFacilities { get; set; } = null;
         private readonly object _locker = new();
 
         #endregion
 
+        #region Constructor and destructor
+
+        public ItemWorkshop()
+        {
+            Default();
+        }
+
+        #endregion
+
         #region Public and private methods
+
+        private void Default()
+        {
+            lock (_locker)
+            {
+                Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
+                ItemCast = null;
+                ProductionFacilities = null;
+                ButtonSettings = new();
+            }
+        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async() => {
-                    lock (_locker)
-                    {
-                        Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
-                        ItemCast = null;
-                        ProductionFacilities = null;
-                        ButtonSettings = new();
-                    }
+                    Default();
                     await GuiRefreshWithWaitAsync();
 
                     lock (_locker)
                     {
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<WorkshopEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.Id.ToString(), Id } }), null);
+                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(
+                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.IdentityId.ToString(), Id } }), null);
                         if (Id != null && TableAction == DbTableAction.New)
-                            ItemCast.Id = (long)Id;
+                            ItemCast.IdentityId = (long)Id;
                         ProductionFacilities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null)?.ToList();
                         ButtonSettings = new(false, false, false, false, false, true, true);
                     }

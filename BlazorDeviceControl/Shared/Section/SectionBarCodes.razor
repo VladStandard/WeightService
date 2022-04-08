@@ -17,7 +17,7 @@
 else
 {
     <ActionsReload ParentRazor=@this Items=@Items 
-        Title=@LocalizationData.DeviceControl.SectionBarCodeTypes SetParameters=@SetParametersAsync 
+        Title=@LocalizationData.DeviceControl.Sections.BarCodeTypes SetParameters=@SetParametersAsync 
         IsShowItemsCount=true IsShowMarkedFilter=true />
     
     <RadzenGrid Style="margin-top: 5px;" 
@@ -38,15 +38,16 @@ else
             <RadzenGridColumn 
                 TItem="BarCodeEntityV2" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
-                <Template Context="logItem">
-                    <RadzenDatePicker 
-                        TValue="string" Value=@logItem.CreateDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Text=@itemCast.CreateDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="BarCodeEntityV2" TextAlign=TextAlign.Center
                     Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
-                <Template Context="logItem">
-                    <RadzenDatePicker TValue="string" Value=@logItem.ChangeDt Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Text=@itemCast.ChangeDt.ToString("yyyy-MM-dd HH:mm:ss") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 

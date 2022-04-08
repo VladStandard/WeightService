@@ -23,7 +23,9 @@ namespace DataCore.DAL.TableDirectModels
 
         public LogTypeDirect()
         {
-            //
+            Uid = Guid.Empty;
+            Number = 0;
+            Icon = string.Empty;
         }
 
         public LogTypeDirect(Guid uid, byte number, string icon) : this()

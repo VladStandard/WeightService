@@ -31,8 +31,8 @@ else
                 <td>@LocalizationData.DeviceControl.TableFieldUid</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
-                        Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@UidStr />
+                        Disabled=false ReadOnly=true
+                        @bind-Value=@ItemCast.IdentityUidStr />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>
@@ -52,8 +52,8 @@ else
                         Disabled=false TValue=@ShareEnums.AccessRights
                         AllowFiltering=false AllowClear=false AllowFilteringByAllStringColumns=false
                         Data=@TemplateAccessRights PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
-                        TextProperty="Name" ValueProperty="Value"
-                        Value=@Rights Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Rights), args)) 
+                        TextProperty="Name" Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.Rights), args)) 
+                        ValueProperty="Value" Value=@Rights 
                     />
 				</td>
             </tr>

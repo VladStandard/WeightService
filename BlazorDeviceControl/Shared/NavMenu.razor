@@ -1,4 +1,5 @@
 ﻿@using BlazorCore
+@using DataCore.Utils
 @using Microsoft.VisualBasic.CompilerServices
 @inherits BlazorCore.Models.RazorDisposable
 
@@ -17,106 +18,54 @@
     </button>
 </div>
 
-<div class=@NavMenuCssClass @onclick=@ToggleNavMenu>
+<div class=@BlazorCoreUtuls.GetCssName.NavMenu(CollapseNavMenu) @onclick=@ToggleNavMenu>
     <ul class="nav flex-column">
         @if (UserSettings.Identity.AccessRightsIsRead)
         {
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Hosts>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionHosts />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Scales>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionScales />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Printers>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionPrinters />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.PrinterTypes>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionPrinterTypes />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Templates>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionTemplates />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.TemplateResources>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionTemplateResources />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.ProductionFacilities>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionProductionFacilities />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.WorkShops>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionWorkshops />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.WeithingFacts>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionWeithingFacts />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.BarCodes>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionBarCodesShort />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.BarCodeTypes>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionBarCodeTypesShort />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Plus>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionPlus />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Labels>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionLabels />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Nomenclatures>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionNomenclatures />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.TaskModules>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionTaskModules />
-                </NavLink>
-            </li>
-            <li class="nav-item px-1">
-                <NavLink class="nav-link" style="margin-left: -10px; height: 30px; " href=@LocalizationData.DeviceControl.UriRouteSection.Contragents>
-                    <RadzenIcon Icon="arrow_right_alt" />
-                    <RadzenLabel Style="margin-left: 10px; font-size: 14px; cursor: hand; " Text=@LocalizationData.DeviceControl.SectionContragents />
-                </NavLink>
-            </li>
+            <RadzenPanelMenu class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenu >
+                <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuItem Text=@LocalizationData.DeviceControl.Sections.Scales >
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.AutomatedWorkplaceShort Path=@LocalizationData.DeviceControl.UriRouteSection.Scales />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.ProductionFacilitiesShort Path=@LocalizationData.DeviceControl.UriRouteSection.ProductionFacilities />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.WorkShops Path=@LocalizationData.DeviceControl.UriRouteSection.WorkShops />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem
+                        Text=@LocalizationData.DeviceControl.Sections.Hosts Path=@LocalizationData.DeviceControl.UriRouteSection.Hosts />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.Printers Path=@LocalizationData.DeviceControl.UriRouteSection.Printers />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.PrinterTypes Path=@LocalizationData.DeviceControl.UriRouteSection.PrinterTypes />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.PrinterResources Path=@LocalizationData.DeviceControl.UriRouteSection.PrinterResources />
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuItem Text=@LocalizationData.DeviceControl.Sections.Measurements >
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.WeithingFacts Path=@LocalizationData.DeviceControl.UriRouteSection.WeithingFacts />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.Labels Path=@LocalizationData.DeviceControl.UriRouteSection.Labels />
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuItem Text=@LocalizationData.DeviceControl.Sections.ReferencesDwh >
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.Contragents Path=@LocalizationData.DeviceControl.UriRouteSection.Contragents />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.Nomenclatures Path=@LocalizationData.DeviceControl.UriRouteSection.Nomenclatures />
+                </RadzenPanelMenuItem>
+                <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuItem Text=@LocalizationData.DeviceControl.Sections.ReferencesAdditional >
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.Plus Path=@LocalizationData.DeviceControl.UriRouteSection.Plus />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.Templates Path=@LocalizationData.DeviceControl.UriRouteSection.Templates />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.TemplateResources Path=@LocalizationData.DeviceControl.UriRouteSection.TemplateResources />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.BarCodesShort Path=@LocalizationData.DeviceControl.UriRouteSection.BarCodes />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.BarCodeTypesShort Path=@LocalizationData.DeviceControl.UriRouteSection.BarCodeTypes />
+                    <RadzenPanelMenuItem class=@BlazorCoreUtuls.GetCssName.RadzenPanelMenuSubItem 
+                        Text=@LocalizationData.DeviceControl.Sections.TaskModules Path=@LocalizationData.DeviceControl.UriRouteSection.TaskModules />
+                </RadzenPanelMenuItem>
+            </RadzenPanelMenu>
         }
     </ul>
 </div>

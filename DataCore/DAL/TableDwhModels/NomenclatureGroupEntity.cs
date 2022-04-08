@@ -12,16 +12,24 @@ namespace DataCore.DAL.TableDwhModels
 
         public virtual string Name { get; set; }
         public virtual int StatusId { get; set; }
-        public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
+        public virtual InformationSystemEntity InformationSystem { get; set; }
         public virtual byte[] CodeInIs { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public NomenclatureGroupEntity()
+        public NomenclatureGroupEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public NomenclatureGroupEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            StatusId = 0;
+            InformationSystem = new();
+            CodeInIs = new byte[0];
         }
 
         #endregion
@@ -30,7 +38,7 @@ namespace DataCore.DAL.TableDwhModels
 
         public override string ToString()
         {
-            var strInformationSystem = InformationSystem != null ? InformationSystem.Id.ToString() : "null";
+            var strInformationSystem = InformationSystem != null ? InformationSystem.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Name)}: {Name}. " +
                    $"{nameof(StatusId)}: {StatusId}. " +
@@ -72,24 +80,19 @@ namespace DataCore.DAL.TableDwhModels
             if (InformationSystem != null && !InformationSystem.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(Name, default(string)) &&
-                   Equals(StatusId, default(int)) &&
-                   Equals(CodeInIs, default(byte[]));
+                   Equals(Name, string.Empty) &&
+                   Equals(StatusId, 0) &&
+                   Equals(CodeInIs, new byte[0]);
         }
 
         public override object Clone()
         {
-            return new NomenclatureGroupEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-                StatusId = StatusId,
-                InformationSystem = (InformationSystemEntity)InformationSystem.Clone(),
-                CodeInIs = DataUtils.CloneBytes(CodeInIs),
-            };
+            NomenclatureGroupEntity item = (NomenclatureGroupEntity)base.Clone();
+            item.Name = Name;
+            item.StatusId = StatusId;
+            item.InformationSystem = (InformationSystemEntity)InformationSystem.Clone();
+            item.CodeInIs = DataUtils.CloneBytes(CodeInIs);
+            return item;
         }
 
         #endregion

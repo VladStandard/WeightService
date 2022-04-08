@@ -2,27 +2,35 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using System;
 
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Модули задач".
+    /// Table "Tasks".
     /// </summary>
     public class TaskEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual TaskTypeEntity TaskType { get; set; } = new TaskTypeEntity();
-        public virtual ScaleEntity Scale { get; set; } = new ScaleEntity();
-        public virtual bool Enabled { get; set; } = default;
+        public virtual TaskTypeEntity TaskType { get; set; }
+        public virtual ScaleEntity Scale { get; set; }
+        public virtual bool Enabled { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public TaskEntity()
+        public TaskEntity() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
+        }
+
+        public TaskEntity(Guid uid) : base(uid)
+        {
+            TaskType = new();
+            Scale = new();
+            Enabled = false;
         }
 
         #endregion
@@ -31,8 +39,8 @@ namespace DataCore.DAL.TableScaleModels
 
         public override string ToString()
         {
-            string? strTaskType = TaskType != null ? TaskType.Uid.ToString() : "null";
-            string? strScale = Scale != null ? Scale.Id.ToString() : "null";
+            string? strTaskType = TaskType != null ? TaskType.IdentityUid.ToString() : "null";
+            string? strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
             return base.ToString() +
                 $"{nameof(TaskType)}: {strTaskType}. " +
                 $"{nameof(Scale)}: {strScale}. " +
@@ -70,21 +78,16 @@ namespace DataCore.DAL.TableScaleModels
         public new virtual bool EqualsDefault()
         {
             return base.EqualsDefault() &&
-                   Equals(Enabled, default(bool));
+                   Equals(Enabled, false);
         }
 
         public override object Clone()
         {
-            return new TaskEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                TaskType = (TaskTypeEntity)TaskType.Clone(),
-                Scale = (ScaleEntity)Scale.Clone(),
-                Enabled = Enabled,
-            };
+            TaskEntity item = (TaskEntity)base.Clone();
+            item.TaskType = (TaskTypeEntity)TaskType.Clone();
+            item.Scale = (ScaleEntity)Scale.Clone();
+            item.Enabled = Enabled;
+            return item;
         }
 
         #endregion

@@ -12,7 +12,7 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.ItemProductionFacility SetParameters=@SetParametersAsync 
+    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.Items.ProductionFacility SetParameters=@SetParametersAsync 
         IsShowItemsCount=false IsShowMarkedFilter=false />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
@@ -30,14 +30,14 @@ else
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
-                        TValue="long" @bind-Value=@ItemCast.Id />
+                        TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
-            <tr>
+            @*<tr>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: left;" 
@@ -50,7 +50,7 @@ else
                         Disabled=false ReadOnly=false
                         TValue="string" @Value=@ItemCast.IdRRef />
 				</td>
-            </tr>
+            </tr>*@
         </tbody>
     </MudSimpleTable>
     

@@ -15,10 +15,28 @@ namespace DataCore.DAL.DataModels
 
         public virtual string WeithingDay => WeithingDate == default || WeithingDate == DateTime.MaxValue || WeithingDate == DateTime.MinValue
             ? string.Empty : EnumUtils.GetDayOfWeekRu(WeithingDate.DayOfWeek);
-        public virtual int Count { get; set; } = default;
-        public virtual string Scale { get; set; } = string.Empty;
-        public virtual string Host { get; set; } = string.Empty;
-        public virtual string Printer { get; set; } = string.Empty;
+        public virtual int Count { get; set; }
+        public virtual string Scale { get; set; }
+        public virtual string Host { get; set; }
+        public virtual string Printer { get; set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public WeithingFactSummaryEntity() : this(0)
+        {
+            //
+        }
+
+        public WeithingFactSummaryEntity(long id) : base(id)
+        {
+            WeithingDate = DateTime.MinValue;
+            Count = 0;
+            Scale = string.Empty;
+            Host = string.Empty;
+            Printer = string.Empty;
+        }
 
         #endregion
 
@@ -39,7 +57,7 @@ namespace DataCore.DAL.DataModels
         {
             if (entity is null) return false;
             if (ReferenceEquals(this, entity)) return true;
-            return
+            return base.Equals(entity) &&
                    Equals(WeithingDate, entity.WeithingDate) &&
                    Equals(WeithingDay, entity.WeithingDay) &&
                    Equals(Count, entity.Count) &&
@@ -69,28 +87,23 @@ namespace DataCore.DAL.DataModels
         public virtual bool EqualsDefault()
         {
             return
-                   Equals(WeithingDate, default(DateTime)) &&
+                   Equals(WeithingDate, DateTime.MinValue) &&
                    Equals(WeithingDay, string.Empty) &&
-                   Equals(Count, default(int)) &&
-                   Equals(Scale, default(string)) &&
-                   Equals(Host, default(string)) &&
-                   Equals(Printer, default(string));
+                   Equals(Count, 0) &&
+                   Equals(Scale, string.Empty) &&
+                   Equals(Host, string.Empty) &&
+                   Equals(Printer, string.Empty);
         }
 
-        public object Clone()
+        public override object Clone()
         {
-            return new WeithingFactSummaryEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                WeithingDate = WeithingDate,
-                Count = Count,
-                Scale = Scale,
-                Host = Host,
-                Printer = Printer,
-            };
+            WeithingFactSummaryEntity item = (WeithingFactSummaryEntity)base.Clone();
+            item.WeithingDate = WeithingDate;
+            item.Count = Count;
+            item.Scale = Scale;
+            item.Host = Host;
+            item.Printer = Printer;
+            return item;
         }
 
         #endregion

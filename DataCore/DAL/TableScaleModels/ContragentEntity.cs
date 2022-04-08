@@ -7,23 +7,29 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Контрагенты".
+    /// Table "Contragents".
     /// </summary>
     [Obsolete(@"Use ContragentEntityV2")]
     public class ContragentEntity : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
-        public virtual string SerializedRepresentationObject { get; set; } = string.Empty;
+        public virtual string Name { get; set; }
+        public virtual string SerializedRepresentationObject { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public ContragentEntity()
+        public ContragentEntity() : this(0)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Id);
+            //
+        }
+
+        public ContragentEntity(long id) : base(id)
+        {
+            Name = string.Empty;
+            SerializedRepresentationObject = string.Empty;
         }
 
         #endregion
@@ -73,15 +79,10 @@ namespace DataCore.DAL.TableScaleModels
 
         public override object Clone()
         {
-            return new ContragentEntity
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-                SerializedRepresentationObject = SerializedRepresentationObject,
-            };
+            ContragentEntity item = (ContragentEntity)base.Clone();
+            item.Name = Name;
+            item.SerializedRepresentationObject = SerializedRepresentationObject;
+            return item;
         }
 
         #endregion

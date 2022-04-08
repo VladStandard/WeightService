@@ -7,30 +7,39 @@ using System;
 namespace DataCore.DAL.TableScaleModels
 {
     /// <summary>
-    /// Таблица "Контрагенты".
+    /// Table "Contragents".
     /// </summary>
     public class ContragentEntityV2 : BaseEntity
     {
         #region Public and private fields and properties
 
-        public virtual string Name { get; set; } = string.Empty;
-        public virtual string FullName { get; set; } = string.Empty;
-        public virtual Guid? IdRRef { get; set; } = null;
+        public virtual string Name { get; set; }
+        public virtual string FullName { get; set; }
+        public virtual Guid IdRRef { get; set; }
         public virtual string IdRRefAsString
         {
             get => IdRRef.ToString();
             set => IdRRef = Guid.Parse(value);
         }
-        public virtual int DwhId { get; set; } = 0;
-        public virtual string Xml { get; set; } = string.Empty;
+        public virtual int DwhId { get; set; }
+        public virtual string Xml { get; set; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public ContragentEntityV2()
+        public ContragentEntityV2() : this(Guid.Empty)
         {
-            PrimaryColumn = new PrimaryColumnEntity(ColumnName.Uid);
+            //
+        }
+
+        public ContragentEntityV2(Guid uid) : base(uid)
+        {
+            Name = string.Empty;
+            FullName = string.Empty;
+            IdRRef = Guid.Empty;
+            DwhId = 0;
+            Xml = string.Empty;
         }
 
         #endregion
@@ -82,25 +91,20 @@ namespace DataCore.DAL.TableScaleModels
             return base.EqualsDefault() &&
                    Equals(Name, string.Empty) &&
                    Equals(FullName, string.Empty) &&
-                   Equals(IdRRef, null) &&
+                   Equals(IdRRef, Guid.Empty) &&
                    Equals(DwhId, 0) &&
                    Equals(Xml, string.Empty);
         }
 
         public override object Clone()
         {
-            return new ContragentEntityV2
-            {
-                PrimaryColumn = (PrimaryColumnEntity)PrimaryColumn.Clone(),
-                CreateDt = CreateDt,
-                ChangeDt = ChangeDt,
-                IsMarked = IsMarked,
-                Name = Name,
-                FullName = FullName,
-                IdRRef = IdRRef,
-                DwhId = DwhId,
-                Xml = Xml,
-            };
+            ContragentEntityV2 item = (ContragentEntityV2)base.Clone();
+            item.Name = Name;
+            item.FullName = FullName;
+            item.IdRRef = IdRRef;
+            item.DwhId = DwhId;
+            item.Xml = Xml;
+            return item;
         }
 
         #endregion

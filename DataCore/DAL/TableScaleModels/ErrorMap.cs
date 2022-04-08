@@ -11,7 +11,7 @@ namespace DataCore.DAL.TableScaleModels
         {
             Table("[db_scales].[Errors]");
             LazyLoad();
-            Id(x => x.Id).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreatedDate").Not.Nullable();
             Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
             Map(x => x.FilePath).CustomSqlType("NVARCHAR").Column("FilePath").Length(1024).Nullable();

@@ -15,7 +15,7 @@
 else
 {
     <ActionsReload ParentRazor=@this Items=@Items 
-        Title=@LocalizationData.DeviceControl.SectionWeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true />
+        Title=@LocalizationData.DeviceControl.Sections.WeithingFacts SetParameters=@SetParametersAsync IsShowItemsCount=true />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="WeithingFactSummaryEntity" @bind-Value=@ItemObject
@@ -25,8 +25,9 @@ else
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
                 Title=@LocalizationData.DeviceControl.TableFieldWeithingDate
                 Type="date" Width="15%">
-                <Template Context="weithingFactItem">
-                    <RadzenDatePicker TValue="string" Value=@weithingFactItem.WeithingDate Disabled=false ReadOnly=true DateFormat="d" />
+                <Template Context="itemCast">
+                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                        Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd") />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign=TextAlign.Center
