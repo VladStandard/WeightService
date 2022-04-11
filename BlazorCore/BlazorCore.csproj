@@ -3,8 +3,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <Nullable>enable</Nullable>
-    <FileVersion>0.6.420</FileVersion>
-    <AssemblyVersion>0.6.420</AssemblyVersion>
+    <FileVersion>0.6.430</FileVersion>
+    <AssemblyVersion>0.6.430</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Component1.razor" />
@@ -49,9 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataCore\DataCore.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
   </ItemGroup>
   <PropertyGroup>
     <LangVersion>9.0</LangVersion>

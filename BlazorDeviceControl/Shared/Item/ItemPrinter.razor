@@ -1,7 +1,7 @@
-﻿@inherits BlazorCore.Models.RazorDisposable
+﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/printer"
-@page "/item/printer/{Id:long}"
-@page "/item/printer/{Id:long}/{TableActionString}"
+@page "/item/printer/{IdentityId:long}"
+@page "/item/printer/{IdentityId:long}/{TableAction}"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
@@ -22,10 +22,10 @@ else
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
             <tr>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
-                <th Style="color:blue; font-weight:bold; width: 20%; ">@LocalizationCore.Strings.Main.RecordName</th>
-                <th Style="color:blue; font-weight:bold; width: 30%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordValue</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordName</th>
+                <th Style="color:blue; font-weight:bold; width: 25%; ">@LocalizationCore.Strings.Main.RecordValue</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +36,10 @@ else
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
+                </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
@@ -72,14 +76,15 @@ else
                     else
                     {
                         <RadzenDropDownDataGrid 
-                            Style="width: 100%;" TValue="int"
+                            Style="width: 100%;" TValue="long"
                             FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
                             AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@PrinterTypes PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
-                            ValueProperty="IdentityId" Value=@ItemCast.PrinterType.IdentityId
+                            PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount 
+                            Data=@PrinterTypes Value=@ItemCast.PrinterType.IdentityId
+                            ValueProperty=@nameof(ItemCast.IdentityId) TextProperty=@nameof(ItemCast.Name)
                             Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.PrinterType), args)) >
                             <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
+                                <RadzenDropDownDataGridColumn Property=@nameof(ItemCast.Name) Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
                             </Columns>
                         </RadzenDropDownDataGrid>
                     }
@@ -118,10 +123,28 @@ else
                     <td colspan=2>@LocalizationData.DeviceControl.TableFieldHttpStatusNoException</td>
                 }
             </tr>
+            <tr>
+                <td>@LocalizationData.DeviceControl.Actions</td>
+                <td>
+                    <RadzenButton Click=@(args => PrinterResourcesClear(UserSettings, ItemCast))
+                        class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
+                        Text=@LocalizationData.DeviceControl.TableFieldPrinterResourcesClear Disabled=@AppSettings.DataAccess.IsDisabled />
+				</td>
+                <td>
+                    <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "TTF"))
+                        class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
+                        Text=@LocalizationData.DeviceControl.TableFieldPrinterResourcesLoadTtf Disabled=@AppSettings.DataAccess.IsDisabled />
+				</td>
+                <td>
+                    <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "GRF"))
+                        class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
+                        Text=@LocalizationData.DeviceControl.TableFieldPrinterResourcesLoadGrf Disabled=@AppSettings.DataAccess.IsDisabled />
+				</td>
+            </tr>
         </tbody>
     </MudSimpleTable>
     
-    <PrinterResources Table=@Table PrinterId=@Id />
+    <SectionPrinterResources Table=@Table ItemFilter=@ItemCast IsShowMarkedFilter=true />
     
     <ActionsSave ParentRazor=@this ButtonSettings=@ButtonSettings />
     <ItemDates ParentRazor=@this />

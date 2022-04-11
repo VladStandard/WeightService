@@ -1,7 +1,7 @@
-﻿@inherits BlazorCore.Models.RazorDisposable
+﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/label"
-@page "/item/label/{Id:long}"
-@page "/item/label/{Id:long}/{TableActionString}"
+@page "/item/label/{IdentityId:long}"
+@page "/item/label/{IdentityId:long}/{TableAction}"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
@@ -34,6 +34,10 @@ else
                         Disabled=false ReadOnly=true 
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
+                </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldScale</td>

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.430] - 2022-04-11
+### Added
+- DataCore.Models.ZplExchangeEntity
+- DataCore.Utils.ZplUtils
+
 ## [0.6.410] - 2022-04-05
 ### Changed
 - DataCore.DAL

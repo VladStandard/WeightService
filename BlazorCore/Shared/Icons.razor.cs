@@ -1,26 +1,40 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+﻿//// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+//// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
+//using Microsoft.AspNetCore.Components;
+//using System.Collections.Generic;
 
-namespace BlazorCore.Shared
-{
-    public partial class Icons
-    {
-        #region Public and private fields and properties
+//namespace BlazorCore.Shared
+//{
+//    public partial class Icons
+//    {
+//        #region Public and private fields and properties
 
-        [Parameter] public List<string> ListIcons { get; set; }
+//        [Parameter] public List<string> ListIcons { get; set; }
 
-        #endregion
+//        #endregion
 
-        #region Public and private methods
+//        #region Public and private methods
 
-        public Icons()
-        {
-            ListIcons = new List<string>();
-        }
+//        public Icons() : base()
+//        {
+//            //Default();
+//        }
 
-        #endregion
-    }
-}
+//        #endregion
+
+//        #region Public and private methods
+
+//        public void Default()
+//        {
+//            if (!IsBusy)
+//            {
+//                IsBusy = true;
+//                ListIcons = new();
+//                IsBusy = false;
+//            }
+//        }
+
+//        #endregion
+//    }
+//}

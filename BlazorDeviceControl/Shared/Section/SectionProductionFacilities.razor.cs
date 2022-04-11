@@ -18,15 +18,14 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<ProductionFacilityEntity>? ItemsCast => Items?.Select(x => (ProductionFacilityEntity)x).ToList();
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionProductionFacilities()
+        public SectionProductionFacilities() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -35,11 +34,13 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.ProductionFacilities);
                 Items = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -52,8 +53,9 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (AppSettings.DataAccess != null)
                             Items = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(
                                 (IsShowMarkedItems == true) ? null
@@ -61,6 +63,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
                             ?.ToList<BaseEntity>();
                         ButtonSettings = new(true, true, true, true, true, false, false);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

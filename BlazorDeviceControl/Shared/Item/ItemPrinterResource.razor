@@ -1,12 +1,12 @@
-﻿@page "/item/printerresource"
-@page "/item/printerresource/{Id:long}"
-@page "/item/printerresource/{Id:long}/{TableActionString}"
-@using System.Globalization
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/item/printerresource"
+@page "/item/printerresource/{IdentityId:long}"
+@page "/item/printerresource/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
-@inherits BlazorCore.Models.RazorDisposable
+@using System.Globalization
 
 @if (ItemCast == null)
 {
@@ -34,6 +34,12 @@ else
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
+                </td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldPrinter</td>
                 <td>
                     @if (PrinterItems == null)

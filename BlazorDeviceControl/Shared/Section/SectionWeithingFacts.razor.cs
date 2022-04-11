@@ -19,15 +19,14 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<WeithingFactSummaryEntity>? ItemsCast => Items?.Select(x => (WeithingFactSummaryEntity)x).ToList();
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionWeithingFacts()
+        public SectionWeithingFacts() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -36,11 +35,13 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
                 Items = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -53,8 +54,9 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (AppSettings.DataAccess != null)
                         {
                             object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
@@ -76,6 +78,7 @@ namespace BlazorDeviceControl.Shared.Section
                             }
                         }
                         ButtonSettings = new(true, true, true, true, true, false, false);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

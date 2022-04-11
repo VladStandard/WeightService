@@ -18,25 +18,26 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<PluEntity>? ItemsCast => Items?.Select(x => (PluEntity)x).ToList();
-        private readonly object _locker = new();
 
         #endregion
 
         #region Public and private methods
 
-        public SectionPlus()
+        public SectionPlus() : base()
         {
-            Default();
+            //Default();
         }
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
                 IsShowMarkedFilter = true;
                 Items = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -49,8 +50,9 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (AppSettings.DataAccess != null)
                         {
                             long? scaleId = null;
@@ -69,7 +71,6 @@ namespace BlazorDeviceControl.Shared.Section
                                         new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", scaleId } }),
                                         new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
                                         ?.ToList<BaseEntity>();
-                                    //SetFilterItems(items, scaleId);
                                 }
                             }
                             else
@@ -87,11 +88,11 @@ namespace BlazorDeviceControl.Shared.Section
                                             { $"Scale.{DbField.IdentityId}", scaleId }, { DbField.IsMarked.ToString(), false } }),
                                         new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
                                         ?.ToList<BaseEntity>();
-                                    //SetFilterItems(items, scaleId);
                                 }
                             }
                         }
                         ButtonSettings = new(true, true, true, true, true, false, false);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

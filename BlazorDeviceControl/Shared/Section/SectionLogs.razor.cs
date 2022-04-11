@@ -19,15 +19,14 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<LogQuickEntity>? ItemsCast => Items?.Select(x => (LogQuickEntity)x).ToList();
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionLogs()
+        public SectionLogs() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -36,11 +35,13 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
                 Items = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -53,8 +54,9 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (AppSettings.DataAccess != null)
                         {
                             object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
@@ -85,6 +87,7 @@ namespace BlazorDeviceControl.Shared.Section
                             }
                         }
                         ButtonSettings = new(false, true, true, false, false, false, false);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

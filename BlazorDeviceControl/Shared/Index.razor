@@ -1,9 +1,9 @@
-﻿@page "/"
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
 @using Microsoft.AspNetCore.Authorization
-@inherits BlazorCore.Models.RazorDisposable
 
 <MudElement HtmlTag="h3" Style="width: 100%;">@LocalizationData.DeviceControl.Index</MudElement>
 

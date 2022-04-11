@@ -12,6 +12,7 @@ namespace DataCore.DAL.TableScaleModels
             Table("[db_scales].[WeithingFact]");
             LazyLoad();
             Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
             References(x => x.Plu).Column("PluId").Not.Nullable();
             References(x => x.Scales).Column("ScaleId").Not.Nullable();
             References(x => x.Series).Column("SeriesId").Not.Nullable();

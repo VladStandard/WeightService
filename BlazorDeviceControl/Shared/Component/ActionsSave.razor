@@ -1,4 +1,4 @@
-﻿@inherits BlazorCore.Models.RazorDisposable
+﻿@inherits BlazorCore.Models.RazorBase
 @page "/component/actionssave"
 @using BlazorCore
 @using DataCore
@@ -7,7 +7,7 @@
 
 <MudPaper Width="100%" Height="31px" Square=false Color="Color.Default" >
     <div class="row col-sm-12 col-md-12 col-lg-12" Style="margin-top: 5px; " >
-        @if (Id == null && Uid == null && TableAction != DbTableAction.New)
+        @if (IdentityId == null && IdentityUid == null && TableAction != DbTableAction.New)
         {
             <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
         }

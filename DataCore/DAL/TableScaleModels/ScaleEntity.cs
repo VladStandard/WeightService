@@ -17,6 +17,9 @@ namespace DataCore.DAL.TableScaleModels
         public virtual TemplateEntity? TemplateSeries { get; set; }
         public virtual WorkShopEntity WorkShop { get; set; }
         public virtual PrinterEntity? Printer { get; set; }
+        public virtual bool IsShipping { get; set; }
+        public virtual PrinterEntity? ShippingPrinter { get; set; }
+        public virtual byte ShippingLength { get; set; }
         public virtual HostEntity? Host { get; set; }
         public virtual string Description { get; set; }
         public virtual Guid IdRRef { get; set; }
@@ -49,6 +52,9 @@ namespace DataCore.DAL.TableScaleModels
             TemplateSeries = new();
             WorkShop = new();
             Printer = new();
+            ShippingPrinter = new();
+            IsShipping = false;
+            ShippingLength = 0;
             Host = new();
             Description = string.Empty;
             IdRRef = Guid.Empty;
@@ -76,6 +82,7 @@ namespace DataCore.DAL.TableScaleModels
             string? strTemplateSeries = TemplateSeries != null ? TemplateSeries.IdentityId.ToString() : "null";
             string? strWorkShop = WorkShop != null ? WorkShop.IdentityId.ToString() : "null";
             string? strPrinter = Printer != null ? Printer.IdentityId.ToString() : "null";
+            string? strPrinterVehicle = ShippingPrinter != null ? ShippingPrinter.IdentityId.ToString() : "null";
             string? strHost = Host != null ? Host.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Description)}: {Description}. " +
@@ -96,6 +103,9 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(ScaleFactor)}: {ScaleFactor}. " +
                    $"{nameof(WorkShop)}: {strWorkShop}. " +
                    $"{nameof(Printer)}: {strPrinter}. " +
+                   $"{nameof(ShippingPrinter)}: {strPrinterVehicle}. " +
+                   $"{nameof(IsShipping)}: {IsShipping}. " +
+                   $"{nameof(ShippingLength)}: {ShippingLength}. " +
                    $"{nameof(Host)}: {strHost}. ";
         }
 
@@ -122,6 +132,9 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(ScaleFactor, entity.ScaleFactor) &&
                    WorkShop.Equals(entity.WorkShop) &&
                    Printer != null && entity.Printer != null && Printer.Equals(entity.Printer) &&
+                   ShippingPrinter != null && entity.ShippingPrinter != null && ShippingPrinter.Equals(entity.ShippingPrinter) &&
+                   IsShipping.Equals(entity.IsShipping) &&
+                   ShippingLength.Equals(entity.ShippingLength) &&
                    Host != null && entity.Host != null && Host.Equals(entity.Host);
         }
 
@@ -153,6 +166,8 @@ namespace DataCore.DAL.TableScaleModels
                 return false;
             if (Printer != null && !Printer.EqualsDefault())
                 return false;
+            if (ShippingPrinter != null && !ShippingPrinter.EqualsDefault())
+                return false;
             if (Host != null && !Host.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
@@ -169,7 +184,9 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(UseOrder, false) &&
                    Equals(VerScalesUi, string.Empty) &&
                    Equals(DeviceNumber, null) &&
-                   Equals(ScaleFactor, null);
+                   Equals(ScaleFactor, null) &&
+                   Equals(IsShipping, false) &&
+                   Equals(ShippingLength, 0);
         }
 
         public override object Clone()
@@ -179,6 +196,9 @@ namespace DataCore.DAL.TableScaleModels
             item.TemplateSeries = TemplateSeries != null ? (TemplateEntity)TemplateSeries.Clone() : null;
             item.WorkShop = (WorkShopEntity)WorkShop.Clone();
             item.Printer = Printer != null ? (PrinterEntity)Printer.Clone() : null;
+            item.ShippingPrinter = ShippingPrinter != null ? (PrinterEntity)ShippingPrinter.Clone() : null;
+            item.IsShipping = IsShipping;
+            item.ShippingLength = ShippingLength;
             item.Host = Host != null ? (HostEntity)Host.Clone() : null;
             item.Description = Description;
             item.IdRRef = IdRRef;

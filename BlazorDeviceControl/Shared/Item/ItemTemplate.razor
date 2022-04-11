@@ -1,10 +1,10 @@
-﻿@page "/item/template"
-@page "/item/template/{Id:long}"
-@page "/item/template/{Id:long}/{TableActionString}"
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/item/template"
+@page "/item/template/{IdentityId:long}"
+@page "/item/template/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
-@inherits BlazorCore.Models.RazorDisposable
 
 @if (ItemCast == null)
 {

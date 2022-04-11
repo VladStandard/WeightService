@@ -18,15 +18,14 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<PrinterResourceEntity>? ItemsCast => Items?.Select(x => (PrinterResourceEntity)x).ToList();
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionPrinterResources()
+        public SectionPrinterResources() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -35,11 +34,13 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
                 Items = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -52,19 +53,50 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (AppSettings.DataAccess != null)
                         {
                             long? printerId = null;
                             if (ItemFilter is PrinterEntity printer)
                                 printerId = printer.IdentityId;
-                            Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                new FieldListEntity(new Dictionary<string, object?> { { $"Printer.{DbField.IdentityId}", printerId } }),
-                                new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
-                                ?.ToList<BaseEntity>();
+                            if (IsShowMarkedItems)
+                            {
+                                if (printerId == null)
+                                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                        null,
+                                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                        ?.ToList<BaseEntity>();
+                                else
+                                {
+                                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> { { $"Printer.{DbField.IdentityId}", printerId } }),
+                                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                        ?.ToList<BaseEntity>();
+                                }
+                            }
+                            else
+                            {
+                                if (printerId == null)
+                                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> {
+                                            { DbField.IsMarked.ToString(), false } }),
+                                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                        ?.ToList<BaseEntity>();
+                                else
+                                {
+                                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                        new FieldListEntity(new Dictionary<string, object?> {
+                                            { $"Printer.{DbField.IdentityId}", printerId }, { DbField.IsMarked.ToString(), false } }),
+                                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                        ?.ToList<BaseEntity>();
+                                }
+                            }
+
                         }
                         ButtonSettings = new(true, true, true, true, true, false, false);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

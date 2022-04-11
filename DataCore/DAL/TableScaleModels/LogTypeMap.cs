@@ -12,7 +12,8 @@ namespace DataCore.DAL.TableScaleModels
             Table("[db_scales].[LOG_TYPES]");
             LazyLoad();
             Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
-            Map(x => x.Number).CustomSqlType("tinyint").Column("NUMBER").Not.Nullable();
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
+            Map(x => x.Number).CustomSqlType("TINYINT").Column("NUMBER").Not.Nullable();
             Map(x => x.Icon).CustomSqlType("NVARCHAR").Column("ICON").Length(32).Not.Nullable();
         }
     }

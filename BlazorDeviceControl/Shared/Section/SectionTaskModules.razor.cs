@@ -29,15 +29,14 @@ namespace BlazorDeviceControl.Shared.Section
                 return items;
             }
         }
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionTaskModules()
+        public SectionTaskModules() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -46,12 +45,14 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
                 TaskItem = null;
                 Items = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -64,13 +65,14 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (AppSettings.DataAccess != null)
                         {
                             TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
                                 new FieldListEntity(new Dictionary<string, object?> {
-                                { DbField.IdentityUid.ToString(), Uid },
+                                { DbField.IdentityUid.ToString(), IdentityUid },
                             }), null);
                             Items = TaskItem == null || TaskItem.EqualsDefault() == true
                                 ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)?.ToList<BaseEntity>()
@@ -79,6 +81,7 @@ namespace BlazorDeviceControl.Shared.Section
                                     ?.ToList<BaseEntity>();
                         }
                         ButtonSettings = new(true, true, true, true, true, false, false);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

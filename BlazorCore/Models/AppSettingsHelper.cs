@@ -67,14 +67,15 @@ namespace BlazorCore.Models
 
         #region Public and private methods
 
-        public void SetupMemory(MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)
+        //public void SetupMemory(MemoryEntity.DelegateGuiRefreshAsync callRefreshAsync)
+        public void SetupMemory()
         {
             if (Memory != null)
             {
                 Memory.Close();
             }
-            Memory = new MemoryEntity(1_000, 5_000);
-            Memory.Open(callRefreshAsync);
+            Memory = new(1_000, 5_000);
+            //Memory.OpenAsync(callRefreshAsync);
             Memory.MemorySize.Open();
         }
 

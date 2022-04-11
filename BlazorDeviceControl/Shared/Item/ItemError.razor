@@ -1,6 +1,6 @@
-﻿@inherits BlazorCore.Models.RazorDisposable
+﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/error"
-@page "/item/error/{Id:long}"
+@page "/item/error/{IdentityId:long}"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
@@ -33,6 +33,10 @@ else
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
+                </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldFilePath</td>

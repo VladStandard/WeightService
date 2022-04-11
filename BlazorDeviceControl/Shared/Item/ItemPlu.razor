@@ -1,7 +1,7 @@
-﻿@inherits BlazorCore.Models.RazorDisposable
+﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/plu"
-@page "/item/plu/{Id:long}"
-@page "/item/plu/{Id:long}/{TableActionString}"
+@page "/item/plu/{IdentityId:long}"
+@page "/item/plu/{IdentityId:long}/{TableAction}"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
@@ -28,6 +28,18 @@ else
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
+                        Disabled=false ReadOnly=true 
+                        TValue="long" @bind-Value=@ItemCast.IdentityId />
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
+                </td>
+            </tr>
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 

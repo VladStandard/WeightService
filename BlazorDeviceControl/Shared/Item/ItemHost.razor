@@ -1,12 +1,12 @@
-﻿@page "/item/host"
-@page "/item/host/{Id:long}"
-@page "/item/host/{Id:long}/{TableActionString}"
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/item/host"
+@page "/item/host/{IdentityId:long}"
+@page "/item/host/{IdentityId:long}/{TableAction}"
+@using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
-@using BlazorCore
 @using Microsoft.VisualBasic.CompilerServices
-@inherits BlazorCore.Models.RazorDisposable
 
 @if (ItemCast == null)
 {

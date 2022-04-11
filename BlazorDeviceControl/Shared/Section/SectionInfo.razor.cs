@@ -28,15 +28,14 @@ namespace BlazorDeviceControl.Shared.Section
         private uint DbMaxSize { get; set; } = 10_240;
         private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
         private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionInfo()
+        public SectionInfo() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -45,9 +44,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
-                //
+                IsBusy = true;
+                IsBusy = false;
             }
         }
 
@@ -60,8 +60,9 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
                         TemplateIsDebug = DataSourceDicsEntity.GetTemplateIsDebug();
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
@@ -76,6 +77,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 }
                             }
                         }
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

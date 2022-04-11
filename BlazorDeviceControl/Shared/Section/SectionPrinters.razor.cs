@@ -18,15 +18,14 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<PrinterEntity>? ItemsCast => Items?.Select(x => (PrinterEntity)x).ToList();
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionPrinters()
+        public SectionPrinters() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -35,11 +34,13 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
                 Items = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -52,14 +53,16 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (AppSettings.DataAccess != null)
                             Items = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
                                 new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                                 new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
                             ?.ToList<BaseEntity>();
                         ButtonSettings = new(true, true, true, true, true, false, false);
+                        IsBusy = false;
                     }
 
                     if (ItemsCast != null)

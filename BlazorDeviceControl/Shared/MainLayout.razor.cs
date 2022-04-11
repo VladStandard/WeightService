@@ -16,31 +16,19 @@ namespace BlazorDeviceControl.Shared
 
         [Inject] public HotKeys? HotKeysItem { get; private set; }
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
-        private bool IsBusy { get; set; }
-        private bool IsComplete { get; set; }
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public MainLayout()
+        public MainLayout() : base()
         {
-            IsBusy = false;
-            IsComplete = false;
+            //Default();
         }
 
         #endregion
 
         #region Public and private methods
-
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            await base.OnAfterRenderAsync(firstRender).ConfigureAwait(true);
-            if (!IsComplete)
-                await SetParametersAsync(new()).ConfigureAwait(true);
-            IsComplete = true;
-        }
 
         private async void MemoryClearAsync(Radzen.MenuItemEventArgs args)
         {
@@ -48,28 +36,16 @@ namespace BlazorDeviceControl.Shared
             GC.Collect();
         }
 
-        //private async void SetParametersInvokeAsync(Radzen.MenuItemEventArgs args)
-        //{
-        //    await SetParametersAsync(new ParameterView()).ConfigureAwait(true);
-        //}
-
         private void Default()
         {
-            //lock (_locker)
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Default);
-                Items = null;
-                ButtonSettings = new();
-                AppSettings.SetupMemory(GuiRefreshAsync);
-                UserSettings.SetupHotKeys(HotKeysItem);
-                if (UserSettings.HotKeys != null)
-                    UserSettings.HotKeysContext = UserSettings.HotKeys.CreateContext()
-                        .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
-                UserSettings.SetupAccessRights(AppSettings.DataAccess);
-                IsBusy = false;
-            }
+            Table = new TableSystemEntity(ProjectsEnums.TableSystem.Default);
+            Items = null;
+            ButtonSettings = new();
+            UserSettings.SetupHotKeys(HotKeysItem);
+            if (UserSettings.HotKeys != null)
+                UserSettings.HotKeysContext = UserSettings.HotKeys.CreateContext()
+                    .Add(ModKeys.Alt, Keys.Num1, HotKeysMenuRoot, "Menu root");
+            UserSettings.SetupAccessRights(AppSettings.DataAccess);
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -83,14 +59,13 @@ namespace BlazorDeviceControl.Shared
                 }), true);
 
             // Don't change it, because GuiRefreshAsync can get exception!
-            //RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
-            //    new Task(() =>
-            //    {
-            //        lock (_locker)
-            //        {
-            //            AppSettings.SetupMemory(GuiRefreshAsync);
-            //        }
-            //    }), true);
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+                new Task(async () =>
+                {
+                    AppSettings.SetupMemory();
+                    //await AppSettings.Memory.OpenAsync(GuiRefreshAsync).ConfigureAwait(false);
+                    await AppSettings.Memory.OpenAsync().ConfigureAwait(false);
+                }), true);
         }
 
         #endregion

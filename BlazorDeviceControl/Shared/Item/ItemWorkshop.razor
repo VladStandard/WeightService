@@ -1,11 +1,11 @@
-﻿@page "/item/workshop"
-@page "/item/workshop/{Id:long}"
-@page "/item/workshop/{Id:long}/{TableActionString}"
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/item/workshop"
+@page "/item/workshop/{IdentityId:long}"
+@page "/item/workshop/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
 @using static DataCore.LocalizationData.DeviceControl
-@inherits BlazorCore.Models.RazorDisposable
 
 @if (ItemCast == null)
 {

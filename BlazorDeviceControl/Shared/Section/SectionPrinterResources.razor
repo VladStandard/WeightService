@@ -1,6 +1,5 @@
-﻿@inherits BlazorCore.Models.RazorDisposable
+﻿@inherits BlazorCore.Models.RazorBase
 @page "/section/printerresources"
-@page "/section/printerresources/{PrinterId:long}"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
@@ -23,7 +22,16 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns>
-            <RadzenGridColumn TItem="PrinterResourceEntity" Property="Id"
+            @if (@IsShowMarkedItems)
+            {
+                <RadzenGridColumn TItem="PrinterResourceEntity" TextAlign=TextAlign.Center 
+                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    <Template Context="itemCast">
+                        <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
+                    </Template>
+                </RadzenGridColumn>
+            }
+            <RadzenGridColumn TItem="PrinterResourceEntity" Property="IdentityId"
                 Title=@LocalizationData.DeviceControl.TableFieldId Type="int" Width="10%" />
             <RadzenGridColumn TItem="PrinterResourceEntity" Property="Description"
                 Title=@LocalizationData.DeviceControl.TableFieldDescription Type="string" Width="30%" />

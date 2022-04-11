@@ -5,13 +5,16 @@ using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
 using DataCore.Models;
+using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Radzen;
-using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
@@ -19,56 +22,66 @@ namespace BlazorCore.Models
 {
     public class RazorBase : LayoutComponentBase
     {
-        #region Public and private fields and properties - Inject
-
-        [Inject] public DialogService? DialogService { get; set; }
-        [Inject] public IJSRuntime? JsRuntime { get; set; }
-        [Inject] public NavigationManager? NavigationManager { get; set; }
-        [Inject] public NotificationService? NotificationService { get; set; }
-        [Inject] public TooltipService? TooltipService { get; set; }
-
-        #endregion
-
-        #region Public and private fields and properties - Parameter
-
-        [Parameter] public long? Id { get; set; } = null;
-        [Parameter] public Guid? Uid { get; set; } = null;
-        [Parameter] public RazorBase? ParentRazor { get; set; } = null;
-        public BaseEntity? Item { get; set; } = null;
-        public object? ItemObject
-        {
-            get => Item ?? null;
-            set => Item = (BaseEntity?)value;
-        }
-        [Parameter] public List<BaseEntity>? Items { get; set; } = null;
-        [Parameter] public TableBase Table { get; set; } = new(string.Empty);
-        [Parameter] public DbTableAction TableAction { get; set; } = DbTableAction.Default;
-        [Parameter] public string TableActionString
-        {
-            get => TableAction.ToString().ToLower();
-            set => TableAction = !string.IsNullOrEmpty(value) && Enum.TryParse(value, out DbTableAction dbTableAction)
-                ? dbTableAction : DbTableAction.Default;
-        }
-        [Parameter] public bool IsMarked { get; set; }
-        [Parameter] public bool IsShowItemsCount { get; set; }
-        [Parameter] public bool IsShowMarkedFilter { get; set; } = false;
-        [Parameter] public bool IsShowAdditionalFilter { get; set; } = false;
-        [Parameter] public bool IsShowMarkedItems { get; set; } = false;
-        [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; } = new ButtonSettingsEntity();
-        [Parameter] public List<BaseEntity>? ItemsFilter { get; set; } = null;
-        [Parameter] public BaseEntity? ItemFilter { get; set; } = null;
-        [Parameter] public string? FilterCaption { get; set; } = string.Empty;
-        [Parameter] public string? FilterName { get; set; } = string.Empty;
-
-        #endregion
-
         #region Public and private fields and properties
 
-        public AppSettingsHelper AppSettings { get; private set; } = AppSettingsHelper.Instance;
-        public UserSettingsHelper UserSettings { get; private set; } = UserSettingsHelper.Instance;
-        private ItemSaveCheckEntity ItemSaveCheck { get; set; } = new ItemSaveCheckEntity();
-        private readonly object _locker = new();
-        public RadzenGrid<BaseEntity> GridItem { get; set; } = new RadzenGrid<BaseEntity>();
+        [Inject] public DialogService DialogService { get; set; }
+        [Inject] public IJSRuntime JsRuntime { get; set; }
+        [Inject] public NavigationManager NavigationManager { get; set; }
+        [Inject] public NotificationService NotificationService { get; set; }
+        [Inject] public TooltipService TooltipService { get; set; }
+        [Parameter] public BaseEntity? ItemFilter { get; set; }
+        [Parameter] public bool IsMarked { get; set; }
+        [Parameter] public bool IsShowAdditionalFilter { get; set; }
+        [Parameter] public bool IsShowItemsCount { get; set; }
+        [Parameter] public bool IsShowMarkedFilter { get; set; }
+        [Parameter] public bool IsShowMarkedItems { get; set; }
+        [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; }
+        [Parameter] public DbTableAction TableAction { get; set; }
+        [Parameter] public Guid? IdentityUid { get; set; }
+        [Parameter] public virtual string IdentityUidStr { get => IdentityUid != null ? IdentityUid.ToString() : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+        [Parameter] public List<BaseEntity>? Items { get; set; }
+        [Parameter] public List<BaseEntity>? ItemsFilter { get; set; }
+        [Parameter] public long? IdentityId { get; set; }
+        [Parameter] public RazorBase? ParentRazor { get; set; }
+        [Parameter] public string? FilterCaption { get; set; }
+        [Parameter] public string? FilterName { get; set; }
+        [Parameter] public TableBase Table { get; set; }
+        private ItemSaveCheckEntity ItemSaveCheck { get; set; }
+        public AppSettingsHelper AppSettings { get; private set; }
+        public BaseEntity? Item { get; set; }
+        public bool IsBusy { get; set; }
+        public object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
+        public UserSettingsHelper UserSettings { get; private set; }
+
+        #endregion
+
+        #region Constructor and destructor
+
+        public RazorBase()
+        {
+            ButtonSettings = new();
+            FilterCaption = string.Empty;
+            FilterName = string.Empty;
+            IdentityId = null;
+            IsMarked = false;
+            IsShowAdditionalFilter = false;
+            IsShowItemsCount = false;
+            IsShowMarkedFilter = false;
+            IsShowMarkedItems = false;
+            Item = null;
+            ItemFilter = null;
+            Items = null;
+            ItemsFilter = null;
+            ParentRazor = null;
+            Table = new(string.Empty);
+            TableAction = DbTableAction.Default;
+            IdentityUid = null;
+
+            AppSettings = AppSettingsHelper.Instance;
+            ItemSaveCheck = new();
+            UserSettings = UserSettingsHelper.Instance;
+            IsBusy = false;
+        }
 
         #endregion
 
@@ -79,8 +92,9 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnChangeCheckBox)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         switch (name)
                         {
                             case nameof(IsShowMarkedItems):
@@ -88,6 +102,7 @@ namespace BlazorCore.Models
                                     IsShowMarkedItems = isShowMarkedItems;
                                 break;
                         }
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -98,14 +113,16 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (value is Lang lang)
                         {
                             LocalizationCore.Lang = lang;
                             LocalizationData.Lang = lang;
                         }
                         templateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -116,8 +133,9 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         switch (filterName)
                         {
                             case nameof(jsonSettings.IsDebug):
@@ -153,6 +171,7 @@ namespace BlazorCore.Models
                                     AppSettings.DataAccess.JsonSettings.Password = password;
                                 break;
                         }
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -163,8 +182,9 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         switch (item)
                         {
                             case AccessEntity access:
@@ -173,6 +193,9 @@ namespace BlazorCore.Models
                             case PrinterEntity printer:
                                 OnItemValueChangePrinter(filterName, value, printer);
                                 break;
+                            //case PrinterTypeEntity printerType:
+                            //    OnItemValueChangePrinterType(filterName, value, printerType);
+                            //    break;
                             case PrinterResourceEntity printerResource:
                                 OnItemValueChangePrinterResource(filterName, value, printerResource);
                                 break;
@@ -189,6 +212,7 @@ namespace BlazorCore.Models
                                 OnItemValueChangeWorkShop(filterName, value, workShop);
                                 break;
                         }
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -211,6 +235,16 @@ namespace BlazorCore.Models
                 null);
             }
         }
+
+        //private void OnItemValueChangePrinterType(string? filterName, object? value, PrinterTypeEntity printerType)
+        //{
+        //    if (filterName == nameof(printerType) && value is long printerTypeId)
+        //    {
+        //        printerType = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
+        //            new FieldListEntity(new Dictionary<string, object?> { { DbField.IdentityId.ToString(), printerTypeId } }),
+        //        null);
+        //    }
+        //}
 
         private void OnItemValueChangePrinterResource(string? filterName, object? value, PrinterResourceEntity printerResource)
         {
@@ -325,14 +359,16 @@ namespace BlazorCore.Models
 
         public void ItemSelect(BaseEntity item)
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 if (Item != item)
                     Item = item;
-                if (Id != item.IdentityId)
-                    Id = item.IdentityId;
-                if (Uid != item.IdentityUid)
-                    Uid = item.IdentityUid;
+                if (IdentityId != item.IdentityId)
+                    IdentityId = item.IdentityId;
+                if (IdentityUid != item.IdentityUid)
+                    IdentityUid = item.IdentityUid;
+                IsBusy = false;
             }
         }
 
@@ -363,10 +399,10 @@ namespace BlazorCore.Models
             AppSettings.FontSize = parameters.TryGetValue("FontSize", out int fontSize) ? fontSize : 14;
             AppSettings.FontSizeHeader = parameters.TryGetValue("FontSizeHeader", out int fontSizeHeader) ? fontSizeHeader : 20;
 
-            if (Id == null && ParentRazor?.Id != null)
-                Id = ParentRazor.Id;
-            if (Uid == null && ParentRazor?.Uid != null)
-                Uid = ParentRazor.Uid;
+            if (IdentityId == null && ParentRazor?.IdentityId != null)
+                IdentityId = ParentRazor.IdentityId;
+            if (IdentityUid == null && ParentRazor?.IdentityUid != null)
+                IdentityUid = ParentRazor.IdentityUid;
             if (Table == null || string.IsNullOrEmpty(Table.Name))
             {
                 if (ParentRazor != null)
@@ -716,10 +752,10 @@ namespace BlazorCore.Models
             }
         }
 
-        public string GetPath(string uriItemRoute, BaseEntity? item, long? id) =>
+        public static string GetPath(string uriItemRoute, BaseEntity? item, long? id) =>
             item == null || id == null ? string.Empty : $"{uriItemRoute}/{id}";
 
-        public string GetPath(string uriItemRoute, BaseEntity? item, Guid? uid) =>
+        public static string GetPath(string uriItemRoute, BaseEntity? item, Guid? uid) =>
             item == null || uid == null ? string.Empty : $"{uriItemRoute}/{uid}";
 
         #endregion
@@ -832,23 +868,23 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableSystem.Default:
                     break;
                 case ProjectsEnums.TableSystem.Accesses:
-                    Uid = Guid.NewGuid();
+                    IdentityUid = Guid.NewGuid();
                     break;
                 case ProjectsEnums.TableSystem.Errors:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<ErrorEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableSystem.Logs:
-                    Uid = Guid.NewGuid();
+                    IdentityUid = Guid.NewGuid();
                     break;
                 case ProjectsEnums.TableSystem.LogTypes:
-                    Uid = Guid.NewGuid();
+                    IdentityUid = Guid.NewGuid();
                     break;
                 case ProjectsEnums.TableSystem.Tasks:
-                    Uid = Guid.NewGuid();
+                    IdentityUid = Guid.NewGuid();
                     break;
                 case ProjectsEnums.TableSystem.TasksTypes:
-                    Uid = Guid.NewGuid();
+                    IdentityUid = Guid.NewGuid();
                     break;
             }
         }
@@ -858,51 +894,51 @@ namespace BlazorCore.Models
             switch (ProjectsEnums.GetTableScale(Table.Name))
             {
                 case ProjectsEnums.TableScale.BarCodeTypes:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Hosts:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Plus:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Printers:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.PrintersResources:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.PrintersTypes:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.ProductionFacilities:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<ProductionFacilityEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.ProductSeries:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<ProductSeriesEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Scales:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<ScaleEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.TemplatesResources:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Templates:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 case ProjectsEnums.TableScale.Workshops:
-                    Id = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(null,
+                    IdentityId = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(null,
                         new FieldOrderEntity(DbField.IdentityId, DbOrderDirection.Desc)).IdentityId + 1;
                     break;
                 default:
@@ -967,10 +1003,10 @@ namespace BlazorCore.Models
         {
             _ = Task.Run(async () =>
             {
-                if (Uid != null && Uid != Guid.Empty && JsRuntime != null)
-                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{Uid}", "_blank").ConfigureAwait(false);
-                else if (Id != null && JsRuntime != null)
-                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{Id}", "_blank").ConfigureAwait(false);
+                if (IdentityUid != null && IdentityUid != Guid.Empty && JsRuntime != null)
+                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityUid}", "_blank").ConfigureAwait(false);
+                else if (IdentityId != null && JsRuntime != null)
+                    await JsRuntime.InvokeAsync<object>("open", $"{page}/{IdentityId}", "_blank").ConfigureAwait(false);
             }).ConfigureAwait(true);
         }
 
@@ -1101,9 +1137,9 @@ namespace BlazorCore.Models
             if (ParentRazor?.Item != null)
             {
                 if (ParentRazor.Item.IdentityName == ColumnName.Id)
-                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"ID: {ParentRazor.Item.IdentityId}";
+                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityId)}: {ParentRazor.Item.IdentityId}";
                 else if (ParentRazor.Item.IdentityName == ColumnName.Uid)
-                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"UID: {ParentRazor.Item.IdentityUid}";
+                    return LocalizationCore.Strings.DialogQuestion + Environment.NewLine + $"{nameof(ParentRazor.Item.IdentityUid)}: {ParentRazor.Item.IdentityUid}";
             }
             return string.Empty;
         }
@@ -1115,7 +1151,7 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableSystem.Default:
                     break;
                 case ProjectsEnums.TableSystem.Accesses:
-                    ItemSaveCheck.Access(NotificationService, (AccessEntity?)ParentRazor?.Item, Uid, DbTableAction.Save);
+                    ItemSaveCheck.Access(NotificationService, (AccessEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableSystem.Logs:
                     break;
@@ -1124,10 +1160,10 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableSystem.LogTypes:
                     break;
                 case ProjectsEnums.TableSystem.Tasks:
-                    ItemSaveCheck.Task(NotificationService, (TaskEntity?)ParentRazor?.Item, Uid, DbTableAction.Save);
+                    ItemSaveCheck.Task(NotificationService, (TaskEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableSystem.TasksTypes:
-                    ItemSaveCheck.TaskType(NotificationService, (TaskTypeEntity?)ParentRazor?.Item, Uid, DbTableAction.Save);
+                    ItemSaveCheck.TaskType(NotificationService, (TaskTypeEntity?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                     break;
             }
         }
@@ -1139,18 +1175,18 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Default:
                     break;
                 case ProjectsEnums.TableScale.BarCodeTypes:
-                    ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntityV2?)ParentRazor?.Item, Uid, DbTableAction.Save);
+                    ItemSaveCheck.BarcodeType(NotificationService, (BarCodeTypeEntityV2?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Contragents:
-                    ItemSaveCheck.Contragent(NotificationService, (ContragentEntityV2?)ParentRazor?.Item, Uid, DbTableAction.Save);
+                    ItemSaveCheck.Contragent(NotificationService, (ContragentEntityV2?)ParentRazor?.Item, IdentityUid, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Hosts:
-                    ItemSaveCheck.Host(NotificationService, (HostEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.Host(NotificationService, (HostEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Labels:
                     break;
                 case ProjectsEnums.TableScale.Nomenclatures:
-                    ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.Nomenclature(NotificationService, (NomenclatureEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Orders:
                     break;
@@ -1161,34 +1197,34 @@ namespace BlazorCore.Models
                 case ProjectsEnums.TableScale.Organizations:
                     break;
                 case ProjectsEnums.TableScale.Plus:
-                    ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.Plu(NotificationService, (PluEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.PrintersResources:
-                    ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.PrinterResource(NotificationService, (PrinterResourceEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.Printers:
-                    ItemSaveCheck.Printer(NotificationService, (PrinterEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.Printer(NotificationService, (PrinterEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.PrintersTypes:
-                    ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.PrinterType(NotificationService, (PrinterTypeEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.ProductionFacilities:
-                    ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.ProductionFacility(NotificationService, (ProductionFacilityEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.ProductSeries:
                     break;
                 case ProjectsEnums.TableScale.Scales:
-                    ItemSaveCheck.Scale(NotificationService, (ScaleEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.Scale(NotificationService, (ScaleEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.TemplatesResources:
                     break;
                 case ProjectsEnums.TableScale.Templates:
-                    ItemSaveCheck.Template(NotificationService, (TemplateEntity?)ParentRazor?.Item, Id, ParentRazor?.TableAction);
+                    ItemSaveCheck.Template(NotificationService, (TemplateEntity?)ParentRazor?.Item, IdentityId, ParentRazor?.TableAction);
                     break;
                 case ProjectsEnums.TableScale.WeithingFacts:
                     break;
                 case ProjectsEnums.TableScale.Workshops:
-                    ItemSaveCheck.Workshop(NotificationService, (WorkShopEntity?)ParentRazor?.Item, Id, DbTableAction.Save);
+                    ItemSaveCheck.Workshop(NotificationService, (WorkShopEntity?)ParentRazor?.Item, IdentityId, DbTableAction.Save);
                     break;
                 case ProjectsEnums.TableScale.BarCodes:
                     break;
@@ -1219,8 +1255,9 @@ namespace BlazorCore.Models
                 LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         switch (Table)
                         {
                             case TableSystemEntity:
@@ -1234,6 +1271,7 @@ namespace BlazorCore.Models
                             //    break;
                         }
                         RouteSectionNavigateToRoot();
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), continueOnCapturedContext);
@@ -1251,8 +1289,8 @@ namespace BlazorCore.Models
                 new Task(async () =>
                 {
                     item = new();
-                    Id = null;
-                    Uid = null;
+                    IdentityId = null;
+                    IdentityUid = null;
                     RouteItemNavigate(isNewWindow, item, DbTableAction.New);
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -1344,6 +1382,72 @@ namespace BlazorCore.Models
                 new Task(async () =>
                 {
                     AppSettings.DataAccess.Crud.DeleteEntity(item);
+                    await GuiRefreshWithWaitAsync();
+                }), true);
+        }
+
+        public async Task PrinterResourcesClear(UserSettingsHelper userSettings, PrinterEntity printer)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+            if (!userSettings.Identity.AccessRightsIsWrite)
+                return;
+
+            RunTasksWithQeustion(LocalizationData.DeviceControl.TableFieldPrinterResourcesClear, LocalizationCore.Strings.DialogResultSuccess,
+                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
+                new Task(async () =>
+                {
+                    List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
+                        null, new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                        ?.ToList();
+                    if (items is List<TemplateResourceEntity> templates)
+                    {
+                        foreach (TemplateResourceEntity? resource in templates)
+                        {
+                            if (resource.Name.Contains("TTF"))
+                            {
+                                TcpClient client = ZplUtils.TcpClientSendData(printer.Ip, printer.Port,
+                                    new List<ZplExchangeEntity>() {
+                                        new ZplExchangeEntity($"^XA^ID"),
+                                        new ZplExchangeEntity(resource.Name),
+                                        new ZplExchangeEntity($"^FS^XZ"),
+                                    });
+                            }
+                        }
+                    }
+                    await GuiRefreshWithWaitAsync();
+                }), true);
+        }
+
+        public async Task PrinterResourcesLoad(UserSettingsHelper userSettings, PrinterEntity printer, string fileType)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
+            if (!userSettings.Identity.AccessRightsIsWrite)
+                return;
+
+            RunTasksWithQeustion(LocalizationData.DeviceControl.TableFieldPrinterResourcesLoadTtf, LocalizationCore.Strings.DialogResultSuccess,
+                LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
+                new Task(async () =>
+                {
+                    List<TemplateResourceEntity>? items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
+                        null, new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                        ?.ToList();
+                    if (items is List<TemplateResourceEntity> templates)
+                    {
+                        foreach (TemplateResourceEntity? resource in templates)
+                        {
+                            if (resource.Name.Contains(fileType))
+                            {
+                                TcpClient client = ZplUtils.TcpClientSendData(printer.Ip, printer.Port, 
+                                    new List<ZplExchangeEntity>() {
+                                        new ZplExchangeEntity($"^XA^MNN^LL500~DYE:{resource.Name}.TTF,B,T,{resource.ImageData.Value.Length},,"),
+                                        new ZplExchangeEntity(resource.ImageData.Value),
+                                        new ZplExchangeEntity($"^XZ"),
+                                    });
+                            }
+                        }
+                    }
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

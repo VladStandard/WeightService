@@ -5,6 +5,15 @@ namespace BlazorDeviceControl.Shared.Component
 {
     public partial class ActionsButtons
     {
+        #region Constructor and destructor
+
+        public ActionsButtons() : base()
+        {
+            //
+        }
+
+        #endregion
+
         #region Public and private methods
 
         //

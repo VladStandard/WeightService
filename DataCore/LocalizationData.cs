@@ -159,6 +159,7 @@ namespace DataCore
                 public static string WorkShops => Lang == ShareEnums.Lang.English ? "Workshops" : "Цеха";
             }
             #region Tables
+            public static string Actions => Lang == ShareEnums.Lang.English ? "Aaction" : "Действия";
             public static string Table => Lang == ShareEnums.Lang.English ? "Table" : "Таблица";
             public static string TableActionAdd => Lang == ShareEnums.Lang.English ? "Add" : "Добавить";
             public static string TableActionCancel => Lang == ShareEnums.Lang.English ? "Cancel" : "Отмена";
@@ -225,6 +226,8 @@ namespace DataCore
             public static string TableFieldImageDataInfo => Lang == ShareEnums.Lang.English ? "Info" : "Информация";
             public static string TableFieldInnerException => Lang == ShareEnums.Lang.English ? "Inner exception" : "Вложенное исключение";
             public static string TableFieldIsClose => Lang == ShareEnums.Lang.English ? "Is close" : "Закрыто";
+            public static string TableFieldIsShipping => Lang == ShareEnums.Lang.English ? "Shipping labels" : "Транспортные этикетки";
+            public static string TableFieldIsShippingLength => Lang == ShareEnums.Lang.English ? "Count of shipping labels in a box" : "Количество транспортных этикеток в коробе";
             public static string TableFieldItf14 => "ITF14";
             public static string TableFieldKneding => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
             public static string TableFieldLevel => Lang == ShareEnums.Lang.English ? "Level" : "Уровень";
@@ -259,6 +262,9 @@ namespace DataCore
             public static string TableFieldPrinterPeelOffSet => Lang == ShareEnums.Lang.English ? "Offset" : "Смещение";
             public static string TableFieldPrinterPort => Lang == ShareEnums.Lang.English ? "Printer port" : "Порт принтера";
             public static string TableFieldPrinterPortShort => Lang == ShareEnums.Lang.English ? "Port" : "Порт";
+            public static string TableFieldPrinterResourcesClear => Lang == ShareEnums.Lang.English ? "Clear resources" : "Удалить ресурсы";
+            public static string TableFieldPrinterResourcesLoadGrf => Lang == ShareEnums.Lang.English ? "Load GRF (pics)" : "Загрузить GRF (картинки)";
+            public static string TableFieldPrinterResourcesLoadTtf => Lang == ShareEnums.Lang.English ? "Load TTF (fonts)" : "Загрузить TTF (шрифты)";
             public static string TableFieldPrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
             public static string TableFieldProductDate => Lang == ShareEnums.Lang.English ? "Product date" : "Дата продукции";
             public static string TableFieldProductionFacilityName => Lang == ShareEnums.Lang.English ? "Production facility" : "Производственная площадка";
@@ -270,6 +276,7 @@ namespace DataCore
             public static string TableFieldScaleId => Lang == ShareEnums.Lang.English ? "Scale ID" : "ID весов";
             public static string TableFieldSettingsFile => Lang == ShareEnums.Lang.English ? "Settings file" : "Файл настроек";
             public static string TableFieldShelfLifeDays => Lang == ShareEnums.Lang.English ? "Shelf life (days)" : "Срок годности (суток)";
+            public static string TableFieldShippingPrinter => Lang == ShareEnums.Lang.English ? "Shipping printer" : "Транспортный принтер";
             public static string TableFieldSscc => Lang == ShareEnums.Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
             public static string TableFieldState => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
             public static string TableFieldStorage => Lang == ShareEnums.Lang.English ? "Storage" : "Склад";

@@ -1,10 +1,10 @@
-﻿@page "/item/nomenclature"
-@page "/item/nomenclature/{Id:long}"
-@page "/item/nomenclature/{Id:long}/{TableActionString}"
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/item/nomenclature"
+@page "/item/nomenclature/{IdentityId:long}"
+@page "/item/nomenclature/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
-@inherits BlazorCore.Models.RazorDisposable
 
 @if (ItemCast == null)
 {
@@ -32,6 +32,12 @@ else
                         Disabled=false ReadOnly=true 
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
+                </td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldWeighted</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.Weighted />
@@ -79,7 +85,7 @@ else
                     AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
                     AllowSorting=true ColumnWidth="200px">
             <Columns>
-                <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="Id" Title=@LocalizationData.DeviceControl.TableFieldId
+                <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="IdentityId" Title=@LocalizationData.DeviceControl.TableFieldId
                                     Type="int" Width="10%" />
                 <RadzenGridColumn TItem="NomenclatureUnitsEntity" Property="CreateDate" Title=@LocalizationData.DeviceControl.TableFieldCreateDt
                                     Type="DateTime" Width="10%" />
@@ -116,7 +122,7 @@ else
                     AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount
                     AllowSorting=true ColumnWidth="200px">
             <Columns>
-                <RadzenGridColumn TItem="BarCodesEntity" Property="Id" Title=@LocalizationData.DeviceControl.TableFieldId
+                <RadzenGridColumn TItem="BarCodesEntity" Property="IdentityId" Title=@LocalizationData.DeviceControl.TableFieldId
                                     Type="int" Width="10%" />
                 <RadzenGridColumn TItem="BarCodesEntity" Property="CreateDate" Title=@LocalizationData.DeviceControl.TableFieldCreateDt
                                     Type="DateTime" Width="10%" />

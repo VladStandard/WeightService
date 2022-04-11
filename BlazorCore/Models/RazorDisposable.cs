@@ -18,9 +18,6 @@ namespace BlazorCore.Models
                 //AppSettings.HotKeysContextItem?.Dispose();
                 //AppSettings.CoreSettings = null;
                 //AppSettings.IdentityItem = null;
-                //AppSettings.DataAccess = null;
-                //AppSettings.DataSource = null;
-                //AppSettings.DataAccess.JsonSettings = null;
                 //AppSettings.HotKeysItem.DisposeAsync();
                 //AppSettings.HotKeysContextItem.Dispose();
                 //AppSettings.Memory.Close();

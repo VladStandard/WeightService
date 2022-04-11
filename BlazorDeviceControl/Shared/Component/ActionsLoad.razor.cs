@@ -14,5 +14,14 @@ namespace BlazorDeviceControl.Shared.Component
         [Parameter] public bool IsShowProgress { get; set; }
 
         #endregion
+
+        #region Constructor and destructor
+
+        public ActionsLoad() : base()
+        {
+            //
+        }
+
+        #endregion
     }
 }

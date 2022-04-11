@@ -28,15 +28,14 @@ namespace BlazorDeviceControl.Shared.Item
         public List<NomenclatureEntity>? NomenclatureItems { get; set; } = null;
         private XmlProductHelper ProductHelper { get; set; } = XmlProductHelper.Instance;
         private BarcodeHelper Barcode { get; set; } = BarcodeHelper.Instance;
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public ItemPlu()
+        public ItemPlu() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -45,14 +44,16 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
                 ItemCast = null;
                 ScaleItems = null;
                 TemplateItems = null;
                 NomenclatureItems = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -64,8 +65,9 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         switch (TableAction)
                         {
                             case DbTableAction.New:
@@ -76,7 +78,7 @@ namespace BlazorDeviceControl.Shared.Item
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<PluEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.IdentityId.ToString(), Id } }), null);
+                                    { { DbField.IdentityId.ToString(), IdentityId } }), null);
                                 break;
                         }
 
@@ -108,6 +110,7 @@ namespace BlazorDeviceControl.Shared.Item
                         //        PluItem.Plu = pluEntity.Plu + 1;
                         //    }
                         ButtonSettings = new(false, false, false, false, false, true, true);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -120,71 +123,76 @@ namespace BlazorDeviceControl.Shared.Item
                 return;
             try
             {
-                switch (name)
+                if (!IsBusy)
                 {
-                    case nameof(LocalizationData.DeviceControl.TableActionClear):
-                        ItemCast.Nomenclature = new();
-                        ItemCast.GoodsName = string.Empty;
-                        ItemCast.GoodsFullName = string.Empty;
-                        ItemCast.GoodsDescription = string.Empty;
-                        ItemCast.GoodsShelfLifeDays = 0;
-                        ItemCast.Gtin = string.Empty;
-                        ItemCast.Ean13 = string.Empty;
-                        ItemCast.Itf14 = string.Empty;
-                        ItemCast.GoodsBoxQuantly = 0;
-                        ItemCast.GoodsTareWeight = 0;
-                        break;
-                    case nameof(LocalizationData.DeviceControl.TableActionFill):
-                        if (string.IsNullOrEmpty(ItemCast.GoodsName))
+                    IsBusy = true;
+                    switch (name)
+                    {
+                        case nameof(LocalizationData.DeviceControl.TableActionClear):
+                            ItemCast.Nomenclature = new();
+                            ItemCast.GoodsName = string.Empty;
+                            ItemCast.GoodsFullName = string.Empty;
+                            ItemCast.GoodsDescription = string.Empty;
+                            ItemCast.GoodsShelfLifeDays = 0;
+                            ItemCast.Gtin = string.Empty;
+                            ItemCast.Ean13 = string.Empty;
+                            ItemCast.Itf14 = string.Empty;
+                            ItemCast.GoodsBoxQuantly = 0;
+                            ItemCast.GoodsTareWeight = 0;
+                            break;
+                        case nameof(LocalizationData.DeviceControl.TableActionFill):
+                            if (string.IsNullOrEmpty(ItemCast.GoodsName))
+                                ItemCast.GoodsName = ItemCast.XmlGoodsName;
+                            if (string.IsNullOrEmpty(ItemCast.GoodsFullName))
+                                ItemCast.GoodsFullName = ItemCast.XmlGoodsFullName;
+                            if (string.IsNullOrEmpty(ItemCast.GoodsDescription))
+                                ItemCast.GoodsDescription = ItemCast.XmlGoodsDescription;
+                            if (ItemCast.GoodsShelfLifeDays == 0)
+                                ItemCast.GoodsShelfLifeDays = ItemCast.XmlGoodsShelfLifeDays;
+                            if (string.IsNullOrEmpty(ItemCast.Gtin))
+                                ItemCast.Gtin = ItemCast.XmlGtin;
+                            if (string.IsNullOrEmpty(ItemCast.Ean13))
+                                ItemCast.Ean13 = ItemCast.XmlEan13;
+                            if (string.IsNullOrEmpty(ItemCast.Itf14))
+                                ItemCast.Itf14 = ItemCast.XmlItf14;
+                            if (ItemCast.GoodsBoxQuantly == 0)
+                                ItemCast.GoodsBoxQuantly = ItemCast.XmlGoodsBoxQuantly;
+                            if (ItemCast.GoodsTareWeight == 0)
+                                ItemCast.GoodsTareWeight = ItemCast.CalcGoodsTareWeight();
+                            break;
+                        case nameof(ItemCast.XmlGoodsName):
                             ItemCast.GoodsName = ItemCast.XmlGoodsName;
-                        if (string.IsNullOrEmpty(ItemCast.GoodsFullName))
+                            break;
+                        case nameof(ItemCast.XmlGoodsFullName):
                             ItemCast.GoodsFullName = ItemCast.XmlGoodsFullName;
-                        if (string.IsNullOrEmpty(ItemCast.GoodsDescription))
+                            break;
+                        case nameof(ItemCast.XmlGoodsDescription):
                             ItemCast.GoodsDescription = ItemCast.XmlGoodsDescription;
-                        if (ItemCast.GoodsShelfLifeDays == 0)
+                            break;
+                        case nameof(ItemCast.XmlGoodsShelfLifeDays):
                             ItemCast.GoodsShelfLifeDays = ItemCast.XmlGoodsShelfLifeDays;
-                        if (string.IsNullOrEmpty(ItemCast.Gtin))
+                            break;
+                        case nameof(ItemCast.XmlGtin):
                             ItemCast.Gtin = ItemCast.XmlGtin;
-                        if (string.IsNullOrEmpty(ItemCast.Ean13))
+                            break;
+                        case nameof(Barcode.GetGtin):
+                            if (ItemCast.Gtin.Length > 12)
+                                ItemCast.Gtin = Barcode.GetGtin(ItemCast.Gtin[..13]);
+                            break;
+                        case nameof(ItemCast.XmlEan13):
                             ItemCast.Ean13 = ItemCast.XmlEan13;
-                        if (string.IsNullOrEmpty(ItemCast.Itf14))
+                            break;
+                        case nameof(ItemCast.XmlItf14):
                             ItemCast.Itf14 = ItemCast.XmlItf14;
-                        if (ItemCast.GoodsBoxQuantly == 0)
+                            break;
+                        case nameof(ItemCast.XmlGoodsBoxQuantly):
                             ItemCast.GoodsBoxQuantly = ItemCast.XmlGoodsBoxQuantly;
-                        if (ItemCast.GoodsTareWeight == 0)
+                            break;
+                        case nameof(ItemCast.CalcGoodsTareWeight):
                             ItemCast.GoodsTareWeight = ItemCast.CalcGoodsTareWeight();
-                        break;
-                    case nameof(ItemCast.XmlGoodsName):
-                        ItemCast.GoodsName = ItemCast.XmlGoodsName;
-                        break;
-                    case nameof(ItemCast.XmlGoodsFullName):
-                        ItemCast.GoodsFullName = ItemCast.XmlGoodsFullName;
-                        break;
-                    case nameof(ItemCast.XmlGoodsDescription):
-                        ItemCast.GoodsDescription = ItemCast.XmlGoodsDescription;
-                        break;
-                    case nameof(ItemCast.XmlGoodsShelfLifeDays):
-                        ItemCast.GoodsShelfLifeDays = ItemCast.XmlGoodsShelfLifeDays;
-                        break;
-                    case nameof(ItemCast.XmlGtin):
-                        ItemCast.Gtin = ItemCast.XmlGtin;
-                        break;
-                    case nameof(Barcode.GetGtin):
-                        if (ItemCast.Gtin.Length > 12)
-                            ItemCast.Gtin = Barcode.GetGtin(ItemCast.Gtin[..13]);
-                        break;
-                    case nameof(ItemCast.XmlEan13):
-                        ItemCast.Ean13 = ItemCast.XmlEan13;
-                        break;
-                    case nameof(ItemCast.XmlItf14):
-                        ItemCast.Itf14 = ItemCast.XmlItf14;
-                        break;
-                    case nameof(ItemCast.XmlGoodsBoxQuantly):
-                        ItemCast.GoodsBoxQuantly = ItemCast.XmlGoodsBoxQuantly;
-                        break;
-                    case nameof(ItemCast.CalcGoodsTareWeight):
-                        ItemCast.GoodsTareWeight = ItemCast.CalcGoodsTareWeight();
-                        break;
+                            break;
+                    }
+                    IsBusy = false;
                 }
             }
             catch (Exception ex)

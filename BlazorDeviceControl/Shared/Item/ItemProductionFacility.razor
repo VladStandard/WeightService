@@ -1,10 +1,10 @@
-﻿@page "/item/productionfacility"
-@page "/item/productionfacility/{Id:long}"
-@page "/item/productionfacility/{Id:long}/{TableActionString}"
+﻿@inherits BlazorCore.Models.RazorBase
+@page "/item/productionfacility"
+@page "/item/productionfacility/{IdentityId:long}"
+@page "/item/productionfacility/{IdentityId:long}/{TableAction}"
 @using BlazorDeviceControl.Shared.Component
 @using DataCore
 @using DataCore.Utils
-@inherits BlazorCore.Models.RazorDisposable
 
 @if (ItemCast == null)
 {

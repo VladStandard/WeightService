@@ -17,15 +17,14 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public BarCodeTypeEntityV2? ItemCast { get => Item == null ? null : (BarCodeTypeEntityV2)Item; set => Item = value; }
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public ItemBarCodeType()
+        public ItemBarCodeType() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -34,11 +33,13 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
                 ItemCast = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -51,8 +52,9 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         switch (TableAction)
                         {
                             case DbTableAction.New:
@@ -64,10 +66,11 @@ namespace BlazorDeviceControl.Shared.Item
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
                                     new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.IdentityUid.ToString(), Uid } }), null);
+                                    { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
                                 break;
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

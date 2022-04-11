@@ -1,7 +1,7 @@
-﻿@inherits BlazorCore.Models.RazorDisposable
+﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/printertype"
-@page "/item/printertype/{Id:long}"
-@page "/item/printertype/{Id:long}/{TableActionString}"
+@page "/item/printertype/{IdentityId:long}"
+@page "/item/printertype/{IdentityId:long}/{TableAction}"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
@@ -34,6 +34,12 @@ else
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
+                </td>
+            </tr>
+            <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldName</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 

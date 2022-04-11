@@ -50,6 +50,15 @@ a, .btn-link {
     font-size: 14px;
 }
 
+.radzenButtonFullWidth {
+    margin-top: 3px;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 100%;
+    height: 25px;
+    font-size: 14px;
+}
+
 .RadzenPanelMenu {
     margin-top: 0%;
     margin-bottom: 0%;

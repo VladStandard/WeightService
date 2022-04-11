@@ -16,17 +16,16 @@ namespace DataCore.DAL.Models
     {
         #region Public and private fields and properties
 
-        public virtual long _identityId { get; private set; }
-        public virtual long IdentityId { get => _identityId; set { _identityId = value; IdentityName = ColumnName.Id; } }
-        public virtual Guid _identityUid { get; private set; }
-        public virtual Guid IdentityUid { get => _identityUid; set { _identityUid = value; IdentityName = ColumnName.Uid; } }
-        public virtual string IdentityUidStr { get => IdentityUid.ToString(); 
-            set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
+        public virtual bool IsMarked { get; set; }
         public virtual ColumnName _identityName { get; private set; }
         public virtual ColumnName IdentityName { get => _identityName; set => _identityName = value; }
-        public virtual DateTime CreateDt { get; set; }
         public virtual DateTime ChangeDt { get; set; }
-        public virtual bool IsMarked { get; set; }
+        public virtual DateTime CreateDt { get; set; }
+        public virtual Guid _identityUid { get; private set; }
+        public virtual Guid IdentityUid { get => _identityUid; set { _identityUid = value; IdentityName = ColumnName.Uid; } }
+        public virtual long _identityId { get; private set; }
+        public virtual long IdentityId { get => _identityId; set { _identityId = value; IdentityName = ColumnName.Id; } }
+        public virtual string IdentityUidStr { get => IdentityUid.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
 
         #endregion
 

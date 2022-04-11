@@ -18,15 +18,14 @@ namespace BlazorDeviceControl.Shared.Section
         #region Public and private fields and properties
 
         private List<TemplateResourceEntity>? ItemsCast => Items?.Select(x => (TemplateResourceEntity)x).ToList();
-        private readonly object _locker = new();
-
+        
         #endregion
 
         #region Constructor and destructor
 
-        public SectionTemplateResources()
+        public SectionTemplateResources() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -35,11 +34,13 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
                 Items = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -52,14 +53,16 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (AppSettings.DataAccess != null)
                             Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
                                 new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
                                 new FieldOrderEntity(DbField.Type, DbOrderDirection.Asc))
                             ?.ToList<BaseEntity>();
                         ButtonSettings = new(true, true, true, true, true, false, false);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

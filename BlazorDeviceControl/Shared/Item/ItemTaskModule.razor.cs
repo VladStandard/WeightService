@@ -17,15 +17,14 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public TaskEntity? ItemCast { get => Item == null ? null : (TaskEntity)Item; set => Item = value; }
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public ItemTaskModule()
+        public ItemTaskModule() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -34,11 +33,13 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
                 ItemCast = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -51,14 +52,16 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         ItemCast = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> {{ DbField.IdentityUid.ToString(), Uid },
+                            new FieldListEntity(new Dictionary<string, object?> {{ DbField.IdentityUid.ToString(), IdentityUid },
                         }), null);
-                        if (Id != null && TableAction == DbTableAction.New)
-                            ItemCast.IdentityId = (long)Id;
+                        if (IdentityId != null && TableAction == DbTableAction.New)
+                            ItemCast.IdentityId = (long)IdentityId;
                         ButtonSettings = new(false, false, false, false, false, true, true);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

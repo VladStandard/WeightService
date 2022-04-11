@@ -13,6 +13,15 @@ namespace BlazorDeviceControl.Shared
 
         #endregion
 
+        #region Constructor and destructor
+
+        public Index() : base()
+        {
+            //
+        }
+
+        #endregion
+
         #region Public and private methods
 
         //

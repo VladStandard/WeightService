@@ -1,7 +1,7 @@
-﻿@inherits BlazorCore.Models.RazorDisposable
+﻿@inherits BlazorCore.Models.RazorBase
 @page "/item/scale"
-@page "/item/scale/{Id:long}"
-@page "/item/scale/{Id:long}/{TableActionString}"
+@page "/item/scale/{IdentityId:long}"
+@page "/item/scale/{IdentityId:long}/{TableAction}"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
@@ -64,7 +64,7 @@ else
                             ValueProperty="IdentityId" TValue="long" Value=@ItemCast.Host?.IdentityId
                             Change=@(args => OnItemValueChange(Item, nameof(ItemCast.Host), args)) >
                             <Columns>
-                                <RadzenDropDownDataGridColumn Property="Id" TextAlign=TextAlign.Center Title=@LocalizationData.DeviceControl.TableFieldId Width="15%" />
+                                <RadzenDropDownDataGridColumn Property="IdentityId" TextAlign=TextAlign.Center Title=@LocalizationData.DeviceControl.TableFieldId Width="15%" />
                                 <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="85%" />
                             </Columns>
                         </RadzenDropDownDataGrid>
@@ -100,7 +100,7 @@ else
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@GetPath(UriRouteItem.Printer, ItemCast.Printer, ItemCast.Printer?.IdentityId)
+                        Path=@GetPath(UriRouteItem.Printer, ItemCast.ShippingPrinter, ItemCast.ShippingPrinter?.IdentityId)
                         Text=@LocalizationData.DeviceControl.TableFieldPrinter />
                 </td>
                 <td>
@@ -126,6 +126,43 @@ else
                     <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="short?" @bind-Value=@ItemCast.DeviceSendTimeout />
 				</td>
+            </tr>
+            <tr>
+                <td>
+                    <RadzenLink Style="width: 100%; margin-left: 0px; " 
+                        Path=@GetPath(UriRouteItem.Printer, ItemCast.ShippingPrinter, ItemCast.ShippingPrinter?.IdentityId)
+                        Text=@LocalizationData.DeviceControl.TableFieldShippingPrinter />
+                </td>
+                <td>
+                    @if (ShippingPrinterItems == null)
+                    {
+                        <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+                    }
+                    else
+                    {
+                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
+                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+                            Data=@ShippingPrinterItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
+                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.ShippingPrinter?.IdentityId
+                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.ShippingPrinter), args)) >
+                            <Columns>
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
+                            </Columns>
+                        </RadzenDropDownDataGrid>
+                    }
+				</td>
+                <td>@LocalizationData.DeviceControl.TableFieldIsShipping</td>
+                <td>
+                    <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsShipping />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=3>@LocalizationData.DeviceControl.TableFieldIsShippingLength</td>
+                <td>
+                    <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
+                        Name="fieldDeviceNumber"
+                        TValue="byte" @bind-Value=@ItemCast.ShippingLength />
+                </td>
             </tr>
             <tr>
                 <td>@LocalizationData.DeviceControl.TableFieldDeviceNumber</td>

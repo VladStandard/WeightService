@@ -19,6 +19,7 @@ namespace DataCore.DAL.TableScaleModels
             References(x => x.TemplateSeries).Column("TemplateIdSeries").Nullable();
             References(x => x.WorkShop).Column("WorkShopId").Not.Nullable();
             References(x => x.Printer).Column("ZebraPrinterId").Nullable();
+            References(x => x.ShippingPrinter).Column("SHIPPING_PRINTER_ID").Nullable();
             References(x => x.Host).Column("HostId").Nullable();
             Map(x => x.Description).CustomSqlType("NVARCHAR").Column("Description").Length(150);
             Map(x => x.IdRRef).CustomSqlType("UNIQUEIDENTIFIER").Column("IdRRef").Nullable();
@@ -34,6 +35,8 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.VerScalesUi).CustomSqlType("VARCHAR").Column("VerScalesUI").Length(30);
             Map(x => x.DeviceNumber).CustomSqlType("INT").Column("DeviceNumber");
             Map(x => x.ScaleFactor).CustomSqlType("INT").Column("ScaleFactor").Default("1000");
+            Map(x => x.IsShipping).CustomSqlType("BIT").Column("IS_SHIPPING").Not.Nullable().Default("0");
+            Map(x => x.ShippingLength).CustomSqlType("INT").Column("SHIPPING_LEN").Not.Nullable().Default("0");
         }
     }
 }

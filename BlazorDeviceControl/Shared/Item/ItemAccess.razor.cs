@@ -18,7 +18,6 @@ namespace BlazorDeviceControl.Shared.Item
         #region Public and private fields and properties
 
         public AccessEntity? ItemCast { get => Item == null ? null : (AccessEntity)Item; set => Item = value; }
-        private readonly object _locker = new();
         public List<TypeEntity<AccessRights>>? TemplateAccessRights { get; set; }
         public AccessRights Rights
         {
@@ -30,9 +29,9 @@ namespace BlazorDeviceControl.Shared.Item
 
         #region Constructor and destructor
 
-        public ItemAccess()
+        public ItemAccess() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -41,12 +40,14 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
                 ItemCast = null;
                 TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -59,8 +60,9 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         switch (TableAction)
                         {
                             case DbTableAction.New:
@@ -72,11 +74,12 @@ namespace BlazorDeviceControl.Shared.Item
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
                                     new FieldListEntity(new Dictionary<string, object?>
-                                    { { DbField.IdentityUid.ToString(), Uid } }), null);
+                                    { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
                                 break;
                         }
                         TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);
                         ButtonSettings = new(false, false, false, false, false, true, true);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

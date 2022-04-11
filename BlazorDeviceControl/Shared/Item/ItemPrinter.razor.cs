@@ -19,15 +19,14 @@ namespace BlazorDeviceControl.Shared.Item
 
         public PrinterEntity? ItemCast { get => Item == null ? null : (PrinterEntity)Item; set => Item = value; }
         public List<PrinterTypeEntity>? PrinterTypes { get; set; } = null;
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public ItemPrinter()
+        public ItemPrinter() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -36,12 +35,14 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
                 ItemCast = null;
                 PrinterTypes = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -53,8 +54,9 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         switch (TableAction)
                         {
                             case DbTableAction.New:
@@ -66,23 +68,23 @@ namespace BlazorDeviceControl.Shared.Item
                             default:
                                 ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.IdentityId.ToString(), Id } }), null);
+                                    { { DbField.IdentityId.ToString(), IdentityId } }), null);
                                 break;
                         }
 
                         PrinterTypes = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)?.ToList();
-                        if (Id != null && TableAction == DbTableAction.New)
+                        if (IdentityId != null && TableAction == DbTableAction.New)
                         {
-                            ItemCast.IdentityId = (long)Id;
+                            ItemCast.IdentityId = (long)IdentityId;
                             ItemCast.Name = "NEW PRINTER";
                             ItemCast.Ip = "127.0.0.1";
                             ItemCast.MacAddress.Default();
                         }
                         ButtonSettings = new(false, false, false, false, false, true, true);
+                        IsBusy = false;
                     }
-
-                    await ItemCast.SetHttpStatusAsync().ConfigureAwait(true);
-
+                    if (ItemCast != null)
+                        await ItemCast.SetHttpStatusAsync().ConfigureAwait(true);
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

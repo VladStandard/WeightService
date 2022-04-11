@@ -21,15 +21,14 @@ namespace BlazorDeviceControl.Shared.Section
         private List<TypeEntity<string>>? TemplateCategories { get; set; }
         private string? TemplateCategory { get; set; } = string.Empty;
         private List<TemplateEntity>? ItemsCast => Items?.Select(x => (TemplateEntity)x).ToList();
-        private readonly object _locker = new();
 
         #endregion
 
         #region Constructor and destructor
 
-        public SectionTemplates()
+        public SectionTemplates() : base()
         {
-            Default();
+            //Default();
         }
 
         #endregion
@@ -38,13 +37,15 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            lock (_locker)
+            if (!IsBusy)
             {
+                IsBusy = true;
                 Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
                 TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
                 TemplateCategory = null;
                 Items = null;
                 ButtonSettings = new();
+                IsBusy = false;
             }
         }
 
@@ -57,8 +58,9 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    lock (_locker)
+                    if (!IsBusy)
                     {
+                        IsBusy = true;
                         if (string.IsNullOrEmpty(TemplateCategory))
                         {
                             TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
@@ -82,6 +84,7 @@ namespace BlazorDeviceControl.Shared.Section
                                 ?.ToList<BaseEntity>();
                         }
                         ButtonSettings = new(true, true, true, true, true, false, false);
+                        IsBusy = false;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);

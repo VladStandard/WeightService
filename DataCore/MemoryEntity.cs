@@ -45,8 +45,11 @@ namespace DataCore
 
         #region Public and private methods
 
-        public void Open(DelegateGuiRefreshAsync callRefreshAsync)
+        //public async Task OpenAsync(DelegateGuiRefreshAsync callRefreshAsync)
+        public async Task OpenAsync()
         {
+            await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+
             IsExecute = true;
             Process? proc = Process.GetCurrentProcess();
             while (IsExecute)
@@ -66,7 +69,8 @@ namespace DataCore
                         MemorySize.VirtualCurrent.Bytes = 0;
                 }
                 //callRefreshAsync?.Invoke(false).ConfigureAwait(false);
-                Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
+                //Thread.Sleep(TimeSpan.FromMilliseconds(SleepMiliSeconds));
+                await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
             }
         }
 

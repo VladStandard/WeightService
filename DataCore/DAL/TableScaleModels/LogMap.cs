@@ -13,6 +13,7 @@ namespace DataCore.DAL.TableScaleModels
             LazyLoad();
             Id(x => x.IdentityUid).CustomSqlType("UNIQUEIDENTIFIER").Column("UID").Unique().GeneratedBy.Guid().Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CREATE_DT").Not.Nullable();
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
             References(x => x.Host).Column("HOST_ID").Nullable();
             References(x => x.App).Column("APP_UID").Nullable();
             Map(x => x.Version).CustomSqlType("NVARCHAR").Column("VERSION").Length(12).Nullable();
