@@ -191,7 +191,7 @@ namespace DataCore
             public static string TableFieldCreateDt => Lang == ShareEnums.Lang.English ? "___" : "Дата создания";
             public static string TableFieldDayOfWeek => Lang == ShareEnums.Lang.English ? "___" : "День недели";
             public static string TableFieldDescription => Lang == ShareEnums.Lang.English ? "___" : "Описание";
-            public static string TableFieldDeviceComPort => Lang == ShareEnums.Lang.English ? "___" : "COM-порт";
+            public static string TableFieldDeviceComPort => Lang == ShareEnums.Lang.English ? "COM-port" : "COM-порт";
             public static string TableFieldDeviceIp => Lang == ShareEnums.Lang.English ? "IP-address" : "IP-адрес";
             public static string TableFieldDeviceMac => Lang == ShareEnums.Lang.English ? "MAC-address" : "MAC-адрес";
             public static string TableFieldDeviceNumber => Lang == ShareEnums.Lang.English ? "Device number" : "Номер устройства";
@@ -227,7 +227,7 @@ namespace DataCore
             public static string TableFieldInnerException => Lang == ShareEnums.Lang.English ? "Inner exception" : "Вложенное исключение";
             public static string TableFieldIsClose => Lang == ShareEnums.Lang.English ? "Is close" : "Закрыто";
             public static string TableFieldIsShipping => Lang == ShareEnums.Lang.English ? "Shipping labels" : "Транспортные этикетки";
-            public static string TableFieldIsShippingLength => Lang == ShareEnums.Lang.English ? "Count of shipping labels in a box" : "Количество транспортных этикеток в коробе";
+            public static string TableFieldIsShippingLength => Lang == ShareEnums.Lang.English ? "Count of labels in a box" : "Количество этикеток в коробе";
             public static string TableFieldItf14 => "ITF14";
             public static string TableFieldKneding => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
             public static string TableFieldLevel => Lang == ShareEnums.Lang.English ? "Level" : "Уровень";

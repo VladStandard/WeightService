@@ -7,7 +7,7 @@
 @using DataCore.Utils
 @using static DataCore.LocalizationData.DeviceControl
 
-@if (ItemCast == null)
+@if (!IsLoaded)
 {
     <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }

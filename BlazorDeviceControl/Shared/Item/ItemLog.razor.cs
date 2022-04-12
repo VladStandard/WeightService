@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public LogEntity? ItemCast { get => Item == null ? null : (LogEntity)Item; set => Item = value; }
+        public LogEntity ItemCast { get => Item == null ? new() : (LogEntity)Item; set => Item = value; }
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemLog() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -33,14 +33,10 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                ItemCast = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+            ItemCast = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -52,24 +48,20 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    switch (TableAction)
                     {
-                        IsBusy = true;
-                        switch (TableAction)
-                        {
-                            case DbTableAction.New:
-                                ItemCast = new();
-                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                                break;
-                            default:
-                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
-                                break;
-                        }
-                        ButtonSettings = new(false, false, false, false, false, false, true);
-                        IsBusy = false;
+                        case DbTableAction.New:
+                            ItemCast = new();
+                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                            break;
+                        default:
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<LogEntity>(
+                                new FieldListEntity(new Dictionary<string, object?> 
+                                { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
+                            break;
                     }
+                    ButtonSettings = new(false, false, false, false, false, false, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public TaskEntity? ItemCast { get => Item == null ? null : (TaskEntity)Item; set => Item = value; }
+        public TaskEntity ItemCast { get => Item == null ? new() : (TaskEntity)Item; set => Item = value; }
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemTaskModule() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -33,14 +33,10 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
-                ItemCast = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
+            ItemCast = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -52,17 +48,13 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
-                    {
-                        IsBusy = true;
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> {{ DbField.IdentityUid.ToString(), IdentityUid },
-                        }), null);
-                        if (IdentityId != null && TableAction == DbTableAction.New)
-                            ItemCast.IdentityId = (long)IdentityId;
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
-                    }
+                    ItemCast = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
+                        new FieldListEntity(new Dictionary<string, object?> {{ DbField.IdentityUid.ToString(), IdentityUid },
+                    }), null);
+                    if (IdentityId != null && TableAction == DbTableAction.New)
+                        ItemCast.IdentityId = (long)IdentityId;
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

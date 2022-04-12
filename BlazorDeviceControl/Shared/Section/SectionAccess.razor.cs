@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<AccessEntity>? ItemsCast => Items?.Select(x => (AccessEntity)x).ToList();
+        private List<AccessEntity> ItemsCast => Items == null ? new() : Items.Select(x => (AccessEntity)x).ToList();
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionAccess() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -34,14 +34,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -53,20 +49,16 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    if (AppSettings.DataAccess != null)
                     {
-                        IsBusy = true;
-                        if (AppSettings.DataAccess != null)
-                        {
-                            Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
-                                (IsShowMarkedItems == true) ? null
-                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
-                                new FieldOrderEntity(DbField.User, DbOrderDirection.Asc)
-                            )?.ToList<BaseEntity>();
-                        }
-                        ButtonSettings = new(true, false, true, true, true, false, false);
-                        IsBusy = false;
+                        Items = AppSettings.DataAccess.Crud.GetEntities<AccessEntity>(
+                            (IsShowMarkedItems == true) ? null
+                                : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            new FieldOrderEntity(DbField.User, DbOrderDirection.Asc)
+                        )?.ToList<BaseEntity>();
                     }
+                    ButtonSettings = new(true, false, true, true, true, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

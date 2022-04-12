@@ -72,7 +72,7 @@ a, .btn-link {
 .RadzenPanelMenuItem {
     margin-top: 0%;
     margin-bottom: 0%;
-    margin-left: -2%;
+    margin-left: 0%;
     margin-right: 0%;
     font-size: 14px;
     background-color: transparent;
@@ -82,9 +82,20 @@ a, .btn-link {
 .RadzenPanelMenuSubItem {
     margin-top: 0%;
     margin-bottom: 0%;
-    margin-left: -12%;
+    margin-left: 0%;
     margin-right: 0%;
     font-size: 14px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.MudSelect {
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-left: 0%;
+    margin-right: 0%;
+    width: 100%;
+    line-height: 20px;
     background-color: transparent;
     border-color: transparent;
 }

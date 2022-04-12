@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public PrinterTypeEntity? ItemCast { get => Item == null ? null : (PrinterTypeEntity)Item; set => Item = value; }
+        public PrinterTypeEntity ItemCast { get => Item == null ? new() : (PrinterTypeEntity)Item; set => Item = value; }
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemPrinterType() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -33,14 +33,10 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
-                ItemCast = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersTypes);
+            ItemCast = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -52,31 +48,27 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    switch (TableAction)
                     {
-                        IsBusy = true;
-                        switch (TableAction)
-                        {
-                            case DbTableAction.New:
-                                ItemCast = new();
-                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                                ItemCast.IsMarked = false;
-                                ItemCast.Name = "NEW PRINTER";
-                                break;
-                            default:
-                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?>
-                                    { { DbField.IdentityId.ToString(), IdentityId } }), null);
-                                break;
-                        }
-                        if (IdentityId != null && TableAction == DbTableAction.New)
-                        {
-                            ItemCast.IdentityId = (long)IdentityId;
-                            ItemCast.Name = "NEW PRINTER_TYPE";
-                        }
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
+                        case DbTableAction.New:
+                            ItemCast = new();
+                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                            ItemCast.IsMarked = false;
+                            ItemCast.Name = "NEW PRINTER";
+                            break;
+                        default:
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterTypeEntity>(
+                                new FieldListEntity(new Dictionary<string, object?>
+                                { { DbField.IdentityId.ToString(), IdentityId } }), null);
+                            break;
                     }
+                    if (IdentityId != null && TableAction == DbTableAction.New)
+                    {
+                        ItemCast.IdentityId = (long)IdentityId;
+                        ItemCast.Name = "NEW PRINTER_TYPE";
+                    }
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

@@ -6,10 +6,13 @@
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
 @using DataCore
+@using DataCore.DAL.TableScaleModels
+@using DataCore.Models
 @using DataCore.Utils
+@using static DataCore.Utils.BlazorCoreUtuls
 @using static DataCore.LocalizationData.DeviceControl
 
-@if (ItemCast == null)
+@if (!IsLoaded)
 {
     <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
@@ -52,22 +55,19 @@ else
                         Text=@LocalizationData.DeviceControl.TableFieldHost />
                 </td>
                 <td>
-                    @if (HostItems == null)
+                    @if (HostItems == null || ItemCast.Host == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@HostItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
-                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.Host?.IdentityId
-                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.Host), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property="IdentityId" TextAlign=TextAlign.Center Title=@LocalizationData.DeviceControl.TableFieldId Width="15%" />
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="85%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                            @bind-Value=@ItemCast.Host.IdentityId >
+                            @foreach (HostEntity item in HostItems)
+                            {
+                                <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
 				</td>
             </tr>
@@ -80,15 +80,13 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@ComPorts PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
-                            ValueProperty="Value" TValue="string" @bind-Value=@ItemCast.DeviceComPort 
-                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.DeviceComPort), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                            @bind-Value=@ItemCast.DeviceComPort >
+                            @foreach (TypeEntity<string> item in ComPorts)
+                            {
+                                <MudSelectItem Value=@item.Value >@item.Name</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldDeviceReceiveTimeout</td>
@@ -100,25 +98,23 @@ else
             <tr>
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
-                        Path=@GetPath(UriRouteItem.Printer, ItemCast.ShippingPrinter, ItemCast.ShippingPrinter?.IdentityId)
+                        Path=@GetPath(UriRouteItem.Printer, ItemCast.Printer, ItemCast.Printer?.IdentityId)
                         Text=@LocalizationData.DeviceControl.TableFieldPrinter />
                 </td>
                 <td>
-                    @if (PrinterItems == null)
+                    @if (PrinterItems == null || ItemCast.Printer == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@PrinterItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
-                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.Printer?.IdentityId
-                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.Printer), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                            @bind-Value=@ItemCast.Printer.IdentityId >
+                            @foreach (PrinterEntity item in PrinterItems)
+                            {
+                                <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldDeviceSendTimeout</td>
@@ -134,21 +130,19 @@ else
                         Text=@LocalizationData.DeviceControl.TableFieldShippingPrinter />
                 </td>
                 <td>
-                    @if (ShippingPrinterItems == null)
+                    @if (ShippingPrinterItems == null || ItemCast.ShippingPrinter == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@ShippingPrinterItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
-                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.ShippingPrinter?.IdentityId
-                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.ShippingPrinter), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                            @bind-Value=@ItemCast.ShippingPrinter.IdentityId >
+                            @foreach (PrinterEntity item in ShippingPrinterItems)
+                            {
+                                <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldIsShipping</td>
@@ -157,7 +151,7 @@ else
                 </td>
             </tr>
             <tr>
-                <td colspan=3>@LocalizationData.DeviceControl.TableFieldIsShippingLength</td>
+                <td >@LocalizationData.DeviceControl.TableFieldIsShippingLength</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         Name="fieldDeviceNumber"
@@ -187,21 +181,19 @@ else
                         Text=@LocalizationData.DeviceControl.TableFieldTemplateDefault />
                 </td>
                 <td>
-                    @if (TemplatesDefaultItems == null)
+                    @if (TemplatesDefaultItems == null || ItemCast.TemplateDefault == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@TemplatesDefaultItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Title" 
-                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.TemplateDefault?.IdentityId
-                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.TemplateDefault), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property="Title" Title=@LocalizationData.DeviceControl.TableFieldTitle Width="100%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                            @bind-Value=@ItemCast.TemplateDefault.IdentityId >
+                            @foreach (TemplateEntity item in TemplatesDefaultItems)
+                            {
+                                <MudSelectItem Value=@item.IdentityId >@item.Title</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
 				</td>
                 <td>
@@ -210,21 +202,19 @@ else
                         Text=@LocalizationData.DeviceControl.TableFieldTemplateSeries />
                 </td>
                 <td>
-                    @if (TemplatesSeriesItems == null)
+                    @if (TemplatesSeriesItems == null || ItemCast.TemplateSeries == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@TemplatesSeriesItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Title" 
-                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.TemplateSeries?.IdentityId
-                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.TemplateSeries), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property="Title" Title=@LocalizationData.DeviceControl.TableFieldTitle Width="100%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                            @bind-Value=@ItemCast.TemplateSeries.IdentityId >
+                            @foreach (TemplateEntity item in TemplatesSeriesItems)
+                            {
+                                <MudSelectItem Value=@item.IdentityId >@item.Title</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
 				</td>
             </tr>
@@ -235,21 +225,19 @@ else
                         Text=@LocalizationData.DeviceControl.TableFieldWorkShopName />
                 </td>
                 <td>
-                    @if (WorkshopItems == null)
+                    @if (WorkShopItems == null || ItemCast.WorkShop == null)
                     {
                         <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid Style="width: 100%;" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            Data=@WorkshopItems PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
-                            ValueProperty="IdentityId" TValue="long" Value=@ItemCast.WorkShop?.IdentityId
-                            Change=@(args => OnItemValueChange(Item, nameof(ItemCast.WorkShop), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                            @bind-Value=@ItemCast.WorkShop.IdentityId >
+                            @foreach (WorkShopEntity item in WorkShopItems)
+                            {
+                                <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
 				</td>
                 <td>@LocalizationData.DeviceControl.TableFieldScaleFactor</td>

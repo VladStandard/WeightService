@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<PluEntity>? ItemsCast => Items?.Select(x => (PluEntity)x).ToList();
+        private List<PluEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PluEntity)x).ToList();
 
         #endregion
 
@@ -25,20 +25,16 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionPlus() : base()
         {
-            //Default();
+            //
         }
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
-                IsShowMarkedFilter = true;
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.Plus);
+            IsShowMarkedFilter = true;
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -50,50 +46,46 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    if (AppSettings.DataAccess != null)
                     {
-                        IsBusy = true;
-                        if (AppSettings.DataAccess != null)
+                        long? scaleId = null;
+                        if (ItemFilter is ScaleEntity scale)
+                            scaleId = scale.IdentityId;
+                        if (IsShowMarkedItems)
                         {
-                            long? scaleId = null;
-                            if (ItemFilter is ScaleEntity scale)
-                                scaleId = scale.IdentityId;
-                            if (IsShowMarkedItems)
-                            {
-                                if (scaleId == null)
-                                    Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                        null,
-                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
-                                        ?.ToList<BaseEntity>();
-                                else
-                                {
-                                    Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", scaleId } }),
-                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
-                                        ?.ToList<BaseEntity>();
-                                }
-                            }
+                            if (scaleId == null)
+                                Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                    null,
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                    ?.ToList<BaseEntity>();
                             else
                             {
-                                if (scaleId == null)
-                                    Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { 
-                                            { DbField.IsMarked.ToString(), false } }),
-                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
-                                        ?.ToList<BaseEntity>();
-                                else
-                                {
-                                    Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> {
-                                            { $"Scale.{DbField.IdentityId}", scaleId }, { DbField.IsMarked.ToString(), false } }),
-                                        new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
-                                        ?.ToList<BaseEntity>();
-                                }
+                                Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", scaleId } }),
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                    ?.ToList<BaseEntity>();
                             }
                         }
-                        ButtonSettings = new(true, true, true, true, true, false, false);
-                        IsBusy = false;
+                        else
+                        {
+                            if (scaleId == null)
+                                Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> { 
+                                        { DbField.IsMarked.ToString(), false } }),
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                    ?.ToList<BaseEntity>();
+                            else
+                            {
+                                Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> {
+                                        { $"Scale.{DbField.IdentityId}", scaleId }, { DbField.IsMarked.ToString(), false } }),
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                    ?.ToList<BaseEntity>();
+                            }
+                        }
                     }
+                    ButtonSettings = new(true, true, true, true, true, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<NomenclatureEntity>? ItemsCast => Items?.Select(x => (NomenclatureEntity)x).ToList();
+        private List<NomenclatureEntity> ItemsCast => Items == null ? new() : Items.Select(x => (NomenclatureEntity)x).ToList();
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionNomenclatures() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -34,14 +34,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -53,16 +49,12 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
-                    {
-                        IsBusy = true;
-                        if (AppSettings.DataAccess != null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
-                                new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
-                            ?.ToList<BaseEntity>();
-                        ButtonSettings = new(true, true, true, true, true, false, false);
-                        IsBusy = false;
-                    }
+                    if (AppSettings.DataAccess != null)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<NomenclatureEntity>(null,
+                            new FieldOrderEntity(DbField.Name, DbOrderDirection.Asc))
+                        ?.ToList<BaseEntity>();
+                    ButtonSettings = new(true, true, true, true, true, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

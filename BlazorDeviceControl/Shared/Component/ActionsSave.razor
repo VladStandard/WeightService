@@ -23,7 +23,7 @@
             }
             @if (ButtonSettings.IsShowCancel)
             {
-                <RadzenButton Click=@(args => ItemCancelAsync(false))
+                <RadzenButton Click=@(args => ItemCancelAsync(true))
                     class="radzenButtonLong" ButtonStyle=@ButtonStyle.Secondary
                     Style="margin-top: 3px; margin-left: 30px; width: 15%; height: 25px; font-size: 14px; "
                     Text=@LocalizationData.DeviceControl.TableActionCancel 

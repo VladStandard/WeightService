@@ -3,6 +3,7 @@
 
 using DataCore;
 using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Component
 {
@@ -20,7 +21,7 @@ namespace BlazorDeviceControl.Shared.Component
 
         public ActionsReload() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -29,13 +30,21 @@ namespace BlazorDeviceControl.Shared.Component
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                if (ParentRazor != null)
-                    IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            if (ParentRazor != null)
+                IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
+        }
+
+        public override async Task SetParametersAsync(ParameterView parameters)
+        {
+            await base.SetParametersAsync(parameters).ConfigureAwait(true);
+            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+                new Task(async () =>
+                {
+                    Default();
+                    IsLoaded = true;
+                    await GuiRefreshWithWaitAsync();
+                }), true);
         }
 
         #endregion

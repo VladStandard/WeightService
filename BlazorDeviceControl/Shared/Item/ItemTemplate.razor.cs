@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public TemplateEntity? ItemCast { get => Item == null ? null : (TemplateEntity)Item; set => Item = value; }
+        public TemplateEntity ItemCast { get => Item == null ? new() : (TemplateEntity)Item; set => Item = value; }
         public List<TypeEntity<string>>? TemplateCategories { get; set; }
 
         #endregion
@@ -26,22 +26,18 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemTemplate() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
-                ItemCast = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+            TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
+            ItemCast = new();
+            ButtonSettings = new();
         }
 
         #region Public and private methods
@@ -55,28 +51,24 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    switch (TableAction)
                     {
-                        IsBusy = true;
-                        switch (TableAction)
-                        {
-                            case DbTableAction.New:
-                                ItemCast = new();
-                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                                ItemCast.IsMarked = false;
-                                ItemCast.Title = "NEW TEMPLATE";
-                                ItemCast.IdRRef = System.Guid.Empty;
-                                ItemCast.CategoryId = "300 dpi";
-                                ItemCast.ImageData.SetTemplateValue();
-                                break;
-                            default:
-                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?>{ { DbField.IdentityId.ToString(), IdentityId } }), null);
-                                break;
-                        }
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
+                        case DbTableAction.New:
+                            ItemCast = new();
+                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                            ItemCast.IsMarked = false;
+                            ItemCast.Title = "NEW TEMPLATE";
+                            ItemCast.IdRRef = System.Guid.Empty;
+                            ItemCast.CategoryId = "300 dpi";
+                            ItemCast.ImageData.SetTemplateValue();
+                            break;
+                        default:
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateEntity>(
+                                new FieldListEntity(new Dictionary<string, object?>{ { DbField.IdentityId.ToString(), IdentityId } }), null);
+                            break;
                     }
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

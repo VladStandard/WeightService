@@ -29,7 +29,7 @@ namespace DataCore
         {
             SleepMiliSeconds = sleepMiliSeconds;
             WaitCloseMiliSeconds = waitCloseMiliSeconds;
-            MemorySize = new MemorySizeEntity();
+            MemorySize = new();
             IsExecute = false;
             ExceptionMsg = string.Empty;
         }
@@ -38,7 +38,7 @@ namespace DataCore
 
         ~MemoryEntity()
         {
-            MemorySize?.Dispose(false);
+            MemorySize.Dispose(false);
         }
 
         #endregion
@@ -56,16 +56,16 @@ namespace DataCore
             {
                 if (proc != null)
                 {
-                    if (MemorySize?.PhysicalCurrent != null)
+                    if (MemorySize.PhysicalCurrent != null)
                         MemorySize.PhysicalCurrent.Bytes = (ulong)proc.WorkingSet64;
-                    if (MemorySize?.VirtualCurrent != null)
+                    if (MemorySize.VirtualCurrent != null)
                         MemorySize.VirtualCurrent.Bytes = (ulong)proc.PrivateMemorySize64;
                 }
                 else
                 {
-                    if (MemorySize?.PhysicalCurrent != null)
+                    if (MemorySize.PhysicalCurrent != null)
                         MemorySize.PhysicalCurrent.Bytes = 0;
-                    if (MemorySize?.VirtualCurrent != null)
+                    if (MemorySize.VirtualCurrent != null)
                         MemorySize.VirtualCurrent.Bytes = 0;
                 }
                 //callRefreshAsync?.Invoke(false).ConfigureAwait(false);

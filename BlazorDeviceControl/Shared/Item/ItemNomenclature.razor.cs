@@ -16,27 +16,23 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public NomenclatureEntity? ItemCast { get => Item == null ? null : (NomenclatureEntity)Item; set => Item = value; }
+        public NomenclatureEntity ItemCast { get => Item == null ? new() : (NomenclatureEntity)Item; set => Item = value; }
 
         #endregion
 
         public ItemNomenclature() : base()
         {
-            //Default();
+            //
         }
 
         #region Public and private methods
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
-                ItemCast = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.Nomenclatures);
+            ItemCast = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -47,25 +43,21 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    switch (TableAction)
                     {
-                        IsBusy = true;
-                        switch (TableAction)
-                        {
-                            case DbTableAction.New:
-                                ItemCast = new();
-                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                                ItemCast.Name = "NEW NOMENCLATURE";
-                                break;
-                            default:
-                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.IdentityId.ToString(), IdentityId } }), null);
-                                break;
-                        }
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
+                        case DbTableAction.New:
+                            ItemCast = new();
+                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                            ItemCast.Name = "NEW NOMENCLATURE";
+                            break;
+                        default:
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<NomenclatureEntity>(
+                                new FieldListEntity(new Dictionary<string, object?> 
+                                { { DbField.IdentityId.ToString(), IdentityId } }), null);
+                            break;
                     }
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

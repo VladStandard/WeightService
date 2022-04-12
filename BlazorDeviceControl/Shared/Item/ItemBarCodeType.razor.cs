@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public BarCodeTypeEntityV2? ItemCast { get => Item == null ? null : (BarCodeTypeEntityV2)Item; set => Item = value; }
+        public BarCodeTypeEntityV2 ItemCast { get => Item == null ? new() : (BarCodeTypeEntityV2)Item; set => Item = value; }
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemBarCodeType() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -33,14 +33,10 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
-                ItemCast = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.BarCodeTypes);
+            ItemCast = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -52,26 +48,22 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    switch (TableAction)
                     {
-                        IsBusy = true;
-                        switch (TableAction)
-                        {
-                            case DbTableAction.New:
-                                ItemCast = new();
-                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                                ItemCast.IsMarked = false;
-                                ItemCast.Name = "NEW BARCODE_TYPE";
-                                break;
-                            default:
-                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
-                                    new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
-                                break;
-                        }
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
+                        case DbTableAction.New:
+                            ItemCast = new();
+                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                            ItemCast.IsMarked = false;
+                            ItemCast.Name = "NEW BARCODE_TYPE";
+                            break;
+                        default:
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<BarCodeTypeEntityV2>(
+                                new FieldListEntity(new Dictionary<string, object?> 
+                                { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
+                            break;
                     }
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

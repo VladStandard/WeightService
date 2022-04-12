@@ -14,33 +14,40 @@ namespace BlazorDeviceControl.Shared
 
         private bool CollapseNavMenu { get; set; } = true;
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
+        private bool IsDebug { get; set; } =
+#if DEBUG
+    true;
+#else
+    false;
+#endif
 
-        #endregion
+#endregion
 
-        #region Public and private methods
+#region Public and private methods
 
         private void ToggleNavMenu()
         {
             CollapseNavMenu = !CollapseNavMenu;
         }
 
-        #endregion
+#endregion
 
-        #region Constructor and destructor
+#region Constructor and destructor
 
         public NavMenu() : base()
         {
-            //Default();
+            //
         }
 
-        #endregion
+#endregion
 
-        #region Public and private methods
+#region Public and private methods
 
         private void Default()
         {
+            IsLoaded = false;
             Table = new TableSystemEntity(ProjectsEnums.TableSystem.Default);
-            Items = null;
+            Items = new();
             ButtonSettings = new();
         }
 
@@ -51,11 +58,12 @@ namespace BlazorDeviceControl.Shared
                 new Task(async () =>
                 {
                     Default();
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
 
         }
 
-        #endregion
+#endregion
     }
 }

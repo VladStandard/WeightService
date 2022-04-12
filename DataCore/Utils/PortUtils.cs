@@ -10,16 +10,42 @@ namespace DataCore.Utils
     {
         #region Public and private methods
 
-        public static List<TypeEntity<string>> GetComList()
-        {
-            List<TypeEntity<string>> result = new();
+        public static List<string> GetListComPorts(ShareEnums.Lang lang)
+        {        
+            List<string> result = new();
             for (int i = 1; i < 256; i++)
             {
-                result.Add(new TypeEntity<string>($"COM{i}", $"COM{i}"));
+                switch (lang)
+                {
+                    case ShareEnums.Lang.Russian:
+                        result.Add($"КОМ{i}");
+                        break;
+                    default:
+                        result.Add($"COM{i}");
+                        break;
+                }
             }
             return result;
         }
 
-        #endregion
-    }
+    public static List<TypeEntity<string>> GetListTypeComPorts(ShareEnums.Lang lang)
+        {
+            List<TypeEntity<string>> result = new();
+            for (int i = 1; i < 256; i++)
+            {
+                switch (lang)
+                {
+                    case ShareEnums.Lang.Russian:
+                        result.Add(new TypeEntity<string>($"КОМ{i}", $"COM{i}"));
+                        break;
+                    default:
+                        result.Add(new TypeEntity<string>($"COM{i}", $"COM{i}"));
+                        break;
+                }
+            }
+            return result;
+        }
+
+    #endregion
+}
 }

@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public WorkShopEntity? ItemCast { get => Item == null ? null : (WorkShopEntity)Item; set => Item = value; }
+        public WorkShopEntity ItemCast { get => Item == null ? new() : (WorkShopEntity)Item; set => Item = value; }
         public List<ProductionFacilityEntity>? ProductionFacilities { get; set; } = null;
 
         #endregion
@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemWorkshop() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -35,15 +35,11 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
-                ItemCast = null;
-                ProductionFacilities = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.Workshops);
+            ItemCast = new();
+            ProductionFacilities = null;
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -54,17 +50,13 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
-                    {
-                        IsBusy = true;
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.IdentityId.ToString(), IdentityId } }), null);
-                        if (IdentityId != null && TableAction == DbTableAction.New)
-                            ItemCast.IdentityId = (long)IdentityId;
-                        ProductionFacilities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null)?.ToList();
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
-                    }
+                    ItemCast = AppSettings.DataAccess.Crud.GetEntity<WorkShopEntity>(
+                        new FieldListEntity(new Dictionary<string, object?>{ { DbField.IdentityId.ToString(), IdentityId } }), null);
+                    if (IdentityId != null && TableAction == DbTableAction.New)
+                        ItemCast.IdentityId = (long)IdentityId;
+                    ProductionFacilities = AppSettings.DataAccess.Crud.GetEntities<ProductionFacilityEntity>(null, null)?.ToList();
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

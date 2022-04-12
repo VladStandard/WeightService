@@ -16,7 +16,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public HostEntity? ItemCast { get => Item == null ? null : (HostEntity)Item; set => Item = value; }
+        public HostEntity ItemCast { get => Item == null ? new() : (HostEntity)Item; set => Item = value; }
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemHost() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -33,14 +33,10 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
-                ItemCast = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.Hosts);
+            ItemCast = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -51,29 +47,25 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    switch (TableAction)
                     {
-                        IsBusy = true;
-                        switch (TableAction)
-                        {
-                            case DbTableAction.New:
-                                ItemCast = new();
-                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                                ItemCast.IsMarked = false;
-                                ItemCast.IdRRef = System.Guid.Empty;
-                                ItemCast.Name = "NEW HOST";
-                                ItemCast.Ip = "127.0.0.1";
-                                ItemCast.MacAddress.Default();
-                                break;
-                            default:
-                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.IdentityId.ToString(), IdentityId } }), null);
-                                break;
-                        }
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
+                        case DbTableAction.New:
+                            ItemCast = new();
+                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                            ItemCast.IsMarked = false;
+                            ItemCast.IdRRef = System.Guid.Empty;
+                            ItemCast.Name = "NEW HOST";
+                            ItemCast.Ip = "127.0.0.1";
+                            ItemCast.MacAddress.Default();
+                            break;
+                        default:
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<HostEntity>(
+                                new FieldListEntity(new Dictionary<string, object?> 
+                                { { DbField.IdentityId.ToString(), IdentityId } }), null);
+                            break;
                     }
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

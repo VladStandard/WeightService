@@ -11,7 +11,8 @@ using System;
 
 namespace DataCore.DAL.Models
 {
-    public class DataAccessEntity : IDisposable
+    //public class DataAccessEntity : IDisposable
+    public class DataAccessEntity
     {
         #region Public and private fields and properties
 
@@ -149,10 +150,10 @@ namespace DataCore.DAL.Models
 
         public ISession? GetSession() => SessionFactory?.OpenSession();
 
-        public void Dispose()
-        {
-            _sessionFactory?.Dispose();
-        }
+        //public void Dispose()
+        //{
+        //    _sessionFactory?.Dispose();
+        //}
 
         #endregion
     }

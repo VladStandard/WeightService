@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<TemplateResourceEntity>? ItemsCast => Items?.Select(x => (TemplateResourceEntity)x).ToList();
+        private List<TemplateResourceEntity> ItemsCast => Items == null ? new() : Items.Select(x => (TemplateResourceEntity)x).ToList();
         
         #endregion
 
@@ -25,7 +25,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionTemplateResources() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -34,14 +34,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -53,17 +49,13 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
-                    {
-                        IsBusy = true;
-                        if (AppSettings.DataAccess != null)
-                            Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
-                                new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
-                                new FieldOrderEntity(DbField.Type, DbOrderDirection.Asc))
-                            ?.ToList<BaseEntity>();
-                        ButtonSettings = new(true, true, true, true, true, false, false);
-                        IsBusy = false;
-                    }
+                    if (AppSettings.DataAccess != null)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            new FieldOrderEntity(DbField.Type, DbOrderDirection.Asc))
+                        ?.ToList<BaseEntity>();
+                    ButtonSettings = new(true, true, true, true, true, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

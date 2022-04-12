@@ -8,7 +8,7 @@
 @using DataCore.Utils
 @using Microsoft.VisualBasic.CompilerServices
 
-@if (ItemCast == null)
+@if (!IsLoaded)
 {
     <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }

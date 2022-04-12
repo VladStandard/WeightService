@@ -9,7 +9,7 @@
 @using DataCore.Utils
 @using static DataCore.ShareEnums
 
-@if (ItemsCast == null)
+@if (!IsLoaded)
 {
     <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }

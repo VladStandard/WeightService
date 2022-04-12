@@ -20,7 +20,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         private List<TypeEntity<string>>? TemplateCategories { get; set; }
         private string? TemplateCategory { get; set; } = string.Empty;
-        private List<TemplateEntity>? ItemsCast => Items?.Select(x => (TemplateEntity)x).ToList();
+        private List<TemplateEntity> ItemsCast => Items == null ? new() : Items.Select(x => (TemplateEntity)x).ToList();
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionTemplates() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -37,16 +37,12 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
-                TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
-                TemplateCategory = null;
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.Templates);
+            TemplateCategories = DataSourceDicsEntity.GetTemplateCategories();
+            TemplateCategory = null;
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -58,34 +54,30 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    if (string.IsNullOrEmpty(TemplateCategory))
                     {
-                        IsBusy = true;
-                        if (string.IsNullOrEmpty(TemplateCategory))
-                        {
-                            TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
-                            if (AppSettings.DataAccess != null)
-                                Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                                    (IsShowMarkedItems == true) ? null
-                                        : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
-                                    new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))
-                                ?.ToList<BaseEntity>();
-                        }
-                        else
-                        {
-                            if (AppSettings.DataAccess != null)
-                                Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
-                                    (IsShowMarkedItems == true)
-                                        ? new FieldListEntity(new Dictionary<string, object?> {
-                                            { DbField.CategoryId.ToString(), TemplateCategory } })
-                                        : new FieldListEntity(new Dictionary<string, object?> {
-                                            { DbField.IsMarked.ToString(), false }, { DbField.CategoryId.ToString(), TemplateCategory } }),
-                                    new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))
-                                ?.ToList<BaseEntity>();
-                        }
-                        ButtonSettings = new(true, true, true, true, true, false, false);
-                        IsBusy = false;
+                        TemplateCategory = TemplateCategories.FirstOrDefault()?.Value;
+                        if (AppSettings.DataAccess != null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+                                (IsShowMarkedItems == true) ? null
+                                    : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                                new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))
+                            ?.ToList<BaseEntity>();
                     }
+                    else
+                    {
+                        if (AppSettings.DataAccess != null)
+                            Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
+                                (IsShowMarkedItems == true)
+                                    ? new FieldListEntity(new Dictionary<string, object?> {
+                                        { DbField.CategoryId.ToString(), TemplateCategory } })
+                                    : new FieldListEntity(new Dictionary<string, object?> {
+                                        { DbField.IsMarked.ToString(), false }, { DbField.CategoryId.ToString(), TemplateCategory } }),
+                                new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))
+                            ?.ToList<BaseEntity>();
+                    }
+                    ButtonSettings = new(true, true, true, true, true, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

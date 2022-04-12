@@ -19,9 +19,9 @@ namespace DataCore.Utils
                 return result;
 
             result = fieVersionInfo.FileVersion;
-            if (!string.IsNullOrEmpty(result) && result.EndsWith(".0"))
+            if (result.EndsWith(".0"))
                 result = result[..result.IndexOf(".0", StringComparison.InvariantCultureIgnoreCase)];
-            return result;
+            return result ?? string.Empty;
         }
 
         public static class GetCssName
@@ -38,12 +38,11 @@ namespace DataCore.Utils
                 return "sidebarUnknown";
             }
 
+            public static string MudSelect => "MudSelect";
             public static string NavMenu(bool collapseNavMenu) => collapseNavMenu ? "collapse" : string.Empty;
-
             public static string RadzenPanelMenu => "RadzenPanelMenu";
             public static string RadzenPanelMenuItem => "RadzenPanelMenuItem";
             public static string RadzenPanelMenuSubItem => "RadzenPanelMenuSubItem";
-
         }
 
         #endregion

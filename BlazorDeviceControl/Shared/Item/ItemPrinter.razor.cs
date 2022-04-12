@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public PrinterEntity? ItemCast { get => Item == null ? null : (PrinterEntity)Item; set => Item = value; }
+        public PrinterEntity ItemCast { get => Item == null ? new() : (PrinterEntity)Item; set => Item = value; }
         public List<PrinterTypeEntity>? PrinterTypes { get; set; } = null;
 
         #endregion
@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemPrinter() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -35,15 +35,11 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
-                ItemCast = null;
-                PrinterTypes = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.Printers);
+            ItemCast = new();
+            PrinterTypes = null;
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -54,37 +50,32 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    switch (TableAction)
                     {
-                        IsBusy = true;
-                        switch (TableAction)
-                        {
-                            case DbTableAction.New:
-                                ItemCast = new();
-                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                                ItemCast.IsMarked = false;
-                                ItemCast.Name = "NEW PRINTER";
-                                break;
-                            default:
-                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> 
-                                    { { DbField.IdentityId.ToString(), IdentityId } }), null);
-                                break;
-                        }
-
-                        PrinterTypes = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)?.ToList();
-                        if (IdentityId != null && TableAction == DbTableAction.New)
-                        {
-                            ItemCast.IdentityId = (long)IdentityId;
+                        case DbTableAction.New:
+                            ItemCast = new();
+                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                            ItemCast.IsMarked = false;
                             ItemCast.Name = "NEW PRINTER";
-                            ItemCast.Ip = "127.0.0.1";
-                            ItemCast.MacAddress.Default();
-                        }
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
+                            break;
+                        default:
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterEntity>(
+                                new FieldListEntity(new Dictionary<string, object?> 
+                                { { DbField.IdentityId.ToString(), IdentityId } }), null);
+                            break;
                     }
-                    if (ItemCast != null)
-                        await ItemCast.SetHttpStatusAsync().ConfigureAwait(true);
+
+                    PrinterTypes = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)?.ToList();
+                    if (IdentityId != null && TableAction == DbTableAction.New)
+                    {
+                        ItemCast.IdentityId = (long)IdentityId;
+                        ItemCast.Name = "NEW PRINTER";
+                        ItemCast.Ip = "127.0.0.1";
+                        ItemCast.MacAddress.Default();
+                    }
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    await ItemCast.SetHttpStatusAsync().ConfigureAwait(true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

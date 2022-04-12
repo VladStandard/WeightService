@@ -23,7 +23,7 @@ namespace BlazorDeviceControl.Shared
 
         public MainLayout() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -38,8 +38,9 @@ namespace BlazorDeviceControl.Shared
 
         private void Default()
         {
+            IsLoaded = false;
             Table = new TableSystemEntity(ProjectsEnums.TableSystem.Default);
-            Items = null;
+            Items = new();
             ButtonSettings = new();
             UserSettings.SetupHotKeys(HotKeysItem);
             if (UserSettings.HotKeys != null)
@@ -55,6 +56,7 @@ namespace BlazorDeviceControl.Shared
                 new Task(async () =>
                 {
                     Default();
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
 

@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<WeithingFactSummaryEntity>? ItemsCast => Items?.Select(x => (WeithingFactSummaryEntity)x).ToList();
+        private List<WeithingFactSummaryEntity> ItemsCast => Items == null ? new() : Items.Select(x => (WeithingFactSummaryEntity)x).ToList();
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionWeithingFacts() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -35,14 +35,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -54,32 +50,28 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    if (AppSettings.DataAccess != null)
                     {
-                        IsBusy = true;
-                        if (AppSettings.DataAccess != null)
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
+                            SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts);
+                        Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
+                        foreach (object obj in objects)
                         {
-                            object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                                SqlQueries.DbScales.Tables.WeithingFacts.GetWeithingFacts);
-                            Items = new List<WeithingFactSummaryEntity>().ToList<BaseEntity>();
-                            foreach (object obj in objects)
+                            if (obj is object[] { Length: 5 } item)
                             {
-                                if (obj is object[] { Length: 5 } item)
+                                Items.Add(new WeithingFactSummaryEntity
                                 {
-                                    Items.Add(new WeithingFactSummaryEntity
-                                    {
-                                        WeithingDate = Convert.ToDateTime(item[0]),
-                                        Count = Convert.ToInt32(item[1]),
-                                        Scale = Convert.ToString(item[2]),
-                                        Host = Convert.ToString(item[3]),
-                                        Printer = Convert.ToString(item[4]),
-                                    });
-                                }
+                                    WeithingDate = Convert.ToDateTime(item[0]),
+                                    Count = Convert.ToInt32(item[1]),
+                                    Scale = Convert.ToString(item[2]),
+                                    Host = Convert.ToString(item[3]),
+                                    Printer = Convert.ToString(item[4]),
+                                });
                             }
                         }
-                        ButtonSettings = new(true, true, true, true, true, false, false);
-                        IsBusy = false;
                     }
+                    ButtonSettings = new(true, true, true, true, true, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

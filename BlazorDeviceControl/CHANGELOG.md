@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.440] - 2022-04-12
+### Fixed
+- Shared.ItemPrinter
+- Shared.ItemPrinterResource
+- Shared.ItemPrinterType
+- Shared.SectionPrinterResources
+- Shared.SectionPrinters
+- Shared.SectionPrinterTypes
+### Описание обновления:
+- Раздел и страница "Принтеры"
+- Раздел и страница "Ресурсы принтера"
+- Страница "Ресурсы принтера": Удалить ресурсы, загрузить шрифты, загрузить картинки
+
 ## [0.6.420] - 2022-04-07
 ### Fixed
 - Shared.MainLayout

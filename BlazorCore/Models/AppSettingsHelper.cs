@@ -44,9 +44,9 @@ namespace BlazorCore.Models
             ? $"{Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} " +
               $"{LocalizationCore.Strings.Main.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
             : $"{LocalizationCore.Strings.Memory}: - MB";
-        public float MemoryFillSize => Memory?.MemorySize?.PhysicalCurrent == null || Memory?.MemorySize?.PhysicalTotal == null
+        public float MemoryFillSize => Memory.MemorySize.PhysicalCurrent == null || Memory.MemorySize.PhysicalTotal == null
             || Memory.MemorySize.PhysicalTotal.MegaBytes == 0 
-            ? 0 : Memory.MemorySize.PhysicalCurrent.MegaBytes * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
+            ? 0f : (float)(Memory.MemorySize.PhysicalCurrent.MegaBytes) * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
         public string SqlServerDescription => DataAccess.JsonSettings is { Server: { } }
             ? DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
                 ? LocalizationCore.Strings.Main.ServerRelease : LocalizationCore.Strings.Main.ServerDevelop

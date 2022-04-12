@@ -8,7 +8,7 @@
 @using DataCore.DAL.DataModels
 @using DataCore.Utils
 
-@if (ItemsCast == null)
+@if (!IsLoaded)
 {
     <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }

@@ -35,7 +35,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionInfo() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -44,11 +44,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                IsBusy = false;
-            }
+            IsLoaded = false;
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -60,25 +56,21 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
+                    TemplateIsDebug = DataSourceDicsEntity.GetTemplateIsDebug();
+                    object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
+                    DbCurSize = 0;
+                    foreach (object obj in objects)
                     {
-                        IsBusy = true;
-                        TemplateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
-                        TemplateIsDebug = DataSourceDicsEntity.GetTemplateIsDebug();
-                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(SqlQueries.DbSystem.Properties.GetDbSpace);
-                        DbCurSize = 0;
-                        foreach (object obj in objects)
+                        if (obj is object[] { Length: 5 } item)
                         {
-                            if (obj is object[] { Length: 5 } item)
+                            if (uint.TryParse(Convert.ToString(item[2]), out uint dbSizeMb))
                             {
-                                if (uint.TryParse(Convert.ToString(item[2]), out uint dbSizeMb))
-                                {
-                                    DbCurSize += dbSizeMb;
-                                }
+                                DbCurSize += dbSizeMb;
                             }
                         }
-                        IsBusy = false;
                     }
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

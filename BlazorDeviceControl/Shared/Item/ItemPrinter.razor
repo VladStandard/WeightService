@@ -8,9 +8,10 @@
 @using DataCore
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using static DataCore.Utils.BlazorCoreUtuls
 @using static DataCore.LocalizationData.DeviceControl
 
-@if (ItemCast == null)
+@if (!IsLoaded)
 {
     <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
@@ -75,18 +76,13 @@ else
                     }
                     else
                     {
-                        <RadzenDropDownDataGrid 
-                            Style="width: 100%;" TValue="long"
-                            FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                            AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                            PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount 
-                            Data=@PrinterTypes Value=@ItemCast.PrinterType.IdentityId
-                            ValueProperty=@nameof(ItemCast.IdentityId) TextProperty=@nameof(ItemCast.Name)
-                            Change=@(args => OnItemValueChange(ItemCast, nameof(ItemCast.PrinterType), args)) >
-                            <Columns>
-                                <RadzenDropDownDataGridColumn Property=@nameof(ItemCast.Name) Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
-                            </Columns>
-                        </RadzenDropDownDataGrid>
+                        <MudSelect Class=@GetCssName.MudSelect Variant=@Variant.Outlined Margin=@Margin.Dense
+                            @bind-Value=@ItemCast.PrinterType.IdentityId >
+                            @foreach (PrinterTypeEntity item in PrinterTypes)
+                            {
+                                <MudSelectItem Value=@item.IdentityId >@item.Name</MudSelectItem>
+                            }
+                        </MudSelect>
                     }
                 </td>
             </tr>

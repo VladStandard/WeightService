@@ -36,7 +36,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionTaskModules() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -45,15 +45,11 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
-                TaskItem = null;
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableSystemEntity(ProjectsEnums.TableSystem.Tasks);
+            TaskItem = null;
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -65,24 +61,20 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    if (AppSettings.DataAccess != null)
                     {
-                        IsBusy = true;
-                        if (AppSettings.DataAccess != null)
-                        {
-                            TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
-                                new FieldListEntity(new Dictionary<string, object?> {
-                                { DbField.IdentityUid.ToString(), IdentityUid },
-                            }), null);
-                            Items = TaskItem == null || TaskItem.EqualsDefault() == true
-                                ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)?.ToList<BaseEntity>()
-                                : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", TaskItem.Scale.IdentityId } }), null)
-                                    ?.ToList<BaseEntity>();
-                        }
-                        ButtonSettings = new(true, true, true, true, true, false, false);
-                        IsBusy = false;
+                        TaskItem = AppSettings.DataAccess.Crud.GetEntity<TaskEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> {
+                            { DbField.IdentityUid.ToString(), IdentityUid },
+                        }), null);
+                        Items = TaskItem == null || TaskItem.EqualsDefault() == true
+                            ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)?.ToList<BaseEntity>()
+                            : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
+                                new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", TaskItem.Scale.IdentityId } }), null)
+                                ?.ToList<BaseEntity>();
                     }
+                    ButtonSettings = new(true, true, true, true, true, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

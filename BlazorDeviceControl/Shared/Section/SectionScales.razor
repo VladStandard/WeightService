@@ -10,7 +10,7 @@
 @using DataCore.Utils
 @using static DataCore.ShareEnums
 
-@if (ItemsCast == null)
+@if (!IsLoaded)
 {
     <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
 }
@@ -39,7 +39,7 @@ else
                 TItem="ScaleEntity" Title=@LocalizationData.DeviceControl.TableFieldDescription Type="string" Width="15%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
-                        Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Scale}/{itemCast.IdentityId}")
+                        Path=@($"{LocalizationData.DeviceControl.UriRouteItem.Scale}/{itemCast.IdentityId}")
                         Text=@itemCast.Description />
                 </Template>
             </RadzenGridColumn>

@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<PrinterResourceEntity>? ItemsCast => Items?.Select(x => (PrinterResourceEntity)x).ToList();
+        private List<PrinterResourceEntity> ItemsCast => Items == null ? new() : Items.Select(x => (PrinterResourceEntity)x).ToList();
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionPrinterResources() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -34,14 +34,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -53,51 +49,47 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    if (AppSettings.DataAccess != null)
                     {
-                        IsBusy = true;
-                        if (AppSettings.DataAccess != null)
+                        long? printerId = null;
+                        if (ItemFilter is PrinterEntity printer)
+                            printerId = printer.IdentityId;
+                        if (IsShowMarkedItems)
                         {
-                            long? printerId = null;
-                            if (ItemFilter is PrinterEntity printer)
-                                printerId = printer.IdentityId;
-                            if (IsShowMarkedItems)
-                            {
-                                if (printerId == null)
-                                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                        null,
-                                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
-                                        ?.ToList<BaseEntity>();
-                                else
-                                {
-                                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> { { $"Printer.{DbField.IdentityId}", printerId } }),
-                                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
-                                        ?.ToList<BaseEntity>();
-                                }
-                            }
+                            if (printerId == null)
+                                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                    null,
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                    ?.ToList<BaseEntity>();
                             else
                             {
-                                if (printerId == null)
-                                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> {
-                                            { DbField.IsMarked.ToString(), false } }),
-                                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
-                                        ?.ToList<BaseEntity>();
-                                else
-                                {
-                                    Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
-                                        new FieldListEntity(new Dictionary<string, object?> {
-                                            { $"Printer.{DbField.IdentityId}", printerId }, { DbField.IsMarked.ToString(), false } }),
-                                        new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
-                                        ?.ToList<BaseEntity>();
-                                }
+                                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> { { $"Printer.{DbField.IdentityId}", printerId } }),
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                    ?.ToList<BaseEntity>();
                             }
-
                         }
-                        ButtonSettings = new(true, true, true, true, true, false, false);
-                        IsBusy = false;
+                        else
+                        {
+                            if (printerId == null)
+                                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> {
+                                        { DbField.IsMarked.ToString(), false } }),
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                    ?.ToList<BaseEntity>();
+                            else
+                            {
+                                Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
+                                    new FieldListEntity(new Dictionary<string, object?> {
+                                        { $"Printer.{DbField.IdentityId}", printerId }, { DbField.IsMarked.ToString(), false } }),
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                    ?.ToList<BaseEntity>();
+                            }
+                        }
+
                     }
+                    ButtonSettings = new(true, true, true, true, true, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

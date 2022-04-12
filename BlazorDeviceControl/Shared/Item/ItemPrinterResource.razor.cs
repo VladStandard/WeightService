@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public PrinterResourceEntity? ItemCast { get => Item == null ? null : (PrinterResourceEntity)Item; set => Item = value; }
+        public PrinterResourceEntity ItemCast { get => Item == null ? new() : (PrinterResourceEntity)Item; set => Item = value; }
         public List<PrinterEntity>? PrinterItems { get; set; } = null;
         public List<TemplateResourceEntity>? ResourceItems { get; set; } = null;
 
@@ -27,7 +27,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemPrinterResource() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -36,16 +36,12 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
-                ItemCast = null;
-                PrinterItems = null;
-                ResourceItems = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.PrintersResources);
+            ItemCast = new();
+            PrinterItems = null;
+            ResourceItems = null;
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -56,30 +52,26 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    switch (TableAction)
                     {
-                        IsBusy = true;
-                        switch (TableAction)
-                        {
-                            case DbTableAction.New:
-                                ItemCast = new();
-                                ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                                ItemCast.Description = "NEW RESOURCE";
-                                break;
-                            default:
-                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?>
-                                    { { DbField.IdentityId.ToString(), IdentityId } }), null);
-                                break;
-                        }
-
-                        PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
-                            new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
-                            null)?.ToList();
-                        ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null)?.ToList();
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
+                        case DbTableAction.New:
+                            ItemCast = new();
+                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
+                            ItemCast.Description = "NEW RESOURCE";
+                            break;
+                        default:
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<PrinterResourceEntity>(
+                                new FieldListEntity(new Dictionary<string, object?>
+                                { { DbField.IdentityId.ToString(), IdentityId } }), null);
+                            break;
                     }
+
+                    PrinterItems = AppSettings.DataAccess.Crud.GetEntities<PrinterEntity>(
+                        new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                        null)?.ToList();
+                    ResourceItems = AppSettings.DataAccess.Crud.GetEntities<TemplateResourceEntity>(null, null)?.ToList();
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

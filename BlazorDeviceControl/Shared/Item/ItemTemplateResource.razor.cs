@@ -22,7 +22,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public TemplateResourceEntity? ItemCast { get => Item == null ? null : (TemplateResourceEntity)Item; set => Item = value; }
+        public TemplateResourceEntity ItemCast { get => Item == null ? new() : (TemplateResourceEntity)Item; set => Item = value; }
         public List<TypeEntity<string>>? ResourceTypes { get; set; }
         [Inject] private IFileUpload? FileUpload { get; set; }
         [Inject] private IFileDownload? FileDownload { get; set; }
@@ -39,7 +39,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemTemplateResource() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -48,15 +48,11 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
-                ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
-                ItemCast = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.TemplatesResources);
+            ResourceTypes = new List<TypeEntity<string>> { new("TTF", "TTF"), new("GRF", "GRF") };
+            ItemCast = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -67,16 +63,12 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
-                    {
-                        IsBusy = true;
-                        ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
-                            new FieldListEntity(new Dictionary<string, object?>{ { DbField.IdentityId.ToString(), IdentityId } }), null);
-                        if (IdentityId != null && TableAction == DbTableAction.New)
-                            ItemCast.IdentityId = (long)IdentityId;
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
-                    }
+                    ItemCast = AppSettings.DataAccess.Crud.GetEntity<TemplateResourceEntity>(
+                        new FieldListEntity(new Dictionary<string, object?>{ { DbField.IdentityId.ToString(), IdentityId } }), null);
+                    if (IdentityId != null && TableAction == DbTableAction.New)
+                        ItemCast.IdentityId = (long)IdentityId;
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

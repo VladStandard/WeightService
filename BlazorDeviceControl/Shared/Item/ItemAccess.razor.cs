@@ -17,7 +17,7 @@ namespace BlazorDeviceControl.Shared.Item
     {
         #region Public and private fields and properties
 
-        public AccessEntity? ItemCast { get => Item == null ? null : (AccessEntity)Item; set => Item = value; }
+        public AccessEntity ItemCast { get => Item == null ? new() : (AccessEntity)Item; set => Item = value; }
         public List<TypeEntity<AccessRights>>? TemplateAccessRights { get; set; }
         public AccessRights Rights
         {
@@ -31,7 +31,7 @@ namespace BlazorDeviceControl.Shared.Item
 
         public ItemAccess() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -40,15 +40,11 @@ namespace BlazorDeviceControl.Shared.Item
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
-                ItemCast = null;
-                TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableSystemEntity(ProjectsEnums.TableSystem.Accesses);
+            ItemCast = new();
+            TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -60,27 +56,23 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    switch (TableAction)
                     {
-                        IsBusy = true;
-                        switch (TableAction)
-                        {
-                            case DbTableAction.New:
-                                ItemCast = new();
-                                ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
-                                ItemCast.IsMarked = false;
-                                ItemCast.User = "NEW USER";
-                                break;
-                            default:
-                                ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
-                                    new FieldListEntity(new Dictionary<string, object?>
-                                    { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
-                                break;
-                        }
-                        TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);
-                        ButtonSettings = new(false, false, false, false, false, true, true);
-                        IsBusy = false;
+                        case DbTableAction.New:
+                            ItemCast = new();
+                            ItemCast.ChangeDt = ItemCast.CreateDt = DateTime.Now;
+                            ItemCast.IsMarked = false;
+                            ItemCast.User = "NEW USER";
+                            break;
+                        default:
+                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<AccessEntity>(
+                                new FieldListEntity(new Dictionary<string, object?>
+                                { { DbField.IdentityUid.ToString(), IdentityUid } }), null);
+                            break;
                     }
+                    TemplateAccessRights = AppSettings.DataSourceDics.GetTemplateAccessRights(ItemCast.Rights);
+                    ButtonSettings = new(false, false, false, false, false, true, true);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

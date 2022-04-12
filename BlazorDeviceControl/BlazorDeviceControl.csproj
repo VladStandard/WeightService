@@ -11,8 +11,8 @@
 	<AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<FileVersion>0.6.430</FileVersion>
-    <AssemblyVersion>0.6.430</AssemblyVersion>
+	<FileVersion>0.6.440</FileVersion>
+    <AssemblyVersion>0.6.440</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
 	<Nullable>enable</Nullable>
@@ -80,6 +80,7 @@
       <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
   </ItemGroup>
   <ItemGroup>
+    <Watch Remove="Shared\Component\MudPage.razor" />
     <Watch Remove="Shared\Item\ItemAccess.razor" />
     <Watch Remove="Shared\Item\ItemBarCode.razor" />
     <Watch Remove="Shared\Item\ItemBarCodeType.razor" />
@@ -99,6 +100,7 @@
     <Watch Remove="Shared\Item\ItemTemplate.razor" />
     <Watch Remove="Shared\Item\ItemTemplateResource.razor" />
     <Watch Remove="Shared\Item\ItemWorkshop.razor" />
+    <Watch Remove="Shared\Item\RadzenPage.razor" />
     <Watch Remove="Shared\Section\SectionAccess.razor" />
     <Watch Remove="Shared\Section\SectionBarCodes.razor" />
     <Watch Remove="Shared\Section\SectionBarCodeTypes.razor" />
@@ -109,15 +111,11 @@
     <Watch Remove="Shared\Section\SectionLabels.razor" />
     <Watch Remove="Shared\Section\SectionLogs.razor" />
     <Watch Remove="Shared\Section\SectionNomenclatures.razor" />
-    <Watch Remove="Shared\Section\SectionOrders.razor" />
-    <Watch Remove="Shared\Section\SectionOrderStatuses.razor" />
-    <Watch Remove="Shared\Section\SectionOrderTypes.razor" />
     <Watch Remove="Shared\Section\SectionPlus.razor" />
     <Watch Remove="Shared\Section\SectionPrinterResources.razor" />
     <Watch Remove="Shared\Section\SectionPrinters.razor" />
     <Watch Remove="Shared\Section\SectionPrinterTypes.razor" />
     <Watch Remove="Shared\Section\SectionProductionFacilities.razor" />
-    <Watch Remove="Shared\Section\SectionProductSeries.razor" />
     <Watch Remove="Shared\Section\SectionScales.razor" />
     <Watch Remove="Shared\Section\SectionTaskModules.razor" />
     <Watch Remove="Shared\Section\SectionTemplateResources.razor" />

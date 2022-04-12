@@ -14,7 +14,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
@@ -38,7 +37,6 @@ namespace BlazorCore.Models
         [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; }
         [Parameter] public DbTableAction TableAction { get; set; }
         [Parameter] public Guid? IdentityUid { get; set; }
-        [Parameter] public virtual string IdentityUidStr { get => IdentityUid != null ? IdentityUid.ToString() : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
         [Parameter] public List<BaseEntity>? Items { get; set; }
         [Parameter] public List<BaseEntity>? ItemsFilter { get; set; }
         [Parameter] public long? IdentityId { get; set; }
@@ -46,10 +44,11 @@ namespace BlazorCore.Models
         [Parameter] public string? FilterCaption { get; set; }
         [Parameter] public string? FilterName { get; set; }
         [Parameter] public TableBase Table { get; set; }
+        [Parameter] public virtual string IdentityUidStr { get => IdentityUid != null ? IdentityUid.ToString() : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
         private ItemSaveCheckEntity ItemSaveCheck { get; set; }
         public AppSettingsHelper AppSettings { get; private set; }
         public BaseEntity? Item { get; set; }
-        public bool IsBusy { get; set; }
+        public bool IsLoaded { get; set; }
         public object? ItemObject { get => Item ?? null; set => Item = (BaseEntity?)value; }
         public UserSettingsHelper UserSettings { get; private set; }
 
@@ -62,7 +61,6 @@ namespace BlazorCore.Models
             ButtonSettings = new();
             FilterCaption = string.Empty;
             FilterName = string.Empty;
-            IdentityId = null;
             IsMarked = false;
             IsShowAdditionalFilter = false;
             IsShowItemsCount = false;
@@ -75,12 +73,13 @@ namespace BlazorCore.Models
             ParentRazor = null;
             Table = new(string.Empty);
             TableAction = DbTableAction.Default;
+            IdentityId = null;
             IdentityUid = null;
 
             AppSettings = AppSettingsHelper.Instance;
             ItemSaveCheck = new();
             UserSettings = UserSettingsHelper.Instance;
-            IsBusy = false;
+            IsLoaded = false;
         }
 
         #endregion
@@ -92,17 +91,12 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnChangeCheckBox)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    if (!IsBusy)
+                    switch (name)
                     {
-                        IsBusy = true;
-                        switch (name)
-                        {
-                            case nameof(IsShowMarkedItems):
-                                if (value is bool isShowMarkedItems)
-                                    IsShowMarkedItems = isShowMarkedItems;
-                                break;
-                        }
-                        IsBusy = false;
+                        case nameof(IsShowMarkedItems):
+                            if (value is bool isShowMarkedItems)
+                                IsShowMarkedItems = isShowMarkedItems;
+                            break;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -113,17 +107,12 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    if (!IsBusy)
+                    if (value is Lang lang)
                     {
-                        IsBusy = true;
-                        if (value is Lang lang)
-                        {
-                            LocalizationCore.Lang = lang;
-                            LocalizationData.Lang = lang;
-                        }
-                        templateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
-                        IsBusy = false;
+                        LocalizationCore.Lang = lang;
+                        LocalizationData.Lang = lang;
                     }
+                    templateLanguages = AppSettings.DataSourceDics.GetTemplateLanguages();
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
@@ -133,45 +122,40 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    if (!IsBusy)
+                    switch (filterName)
                     {
-                        IsBusy = true;
-                        switch (filterName)
-                        {
-                            case nameof(jsonSettings.IsDebug):
-                                if (value is bool isDebug)
-                                    AppSettings.DataAccess.JsonSettings.IsDebug = isDebug;
-                                break;
-                            case nameof(jsonSettings.ItemRowCount):
-                                if (value is int itemRowCount)
-                                    AppSettings.DataAccess.JsonSettings.ItemRowCount = itemRowCount;
-                                break;
-                            case nameof(jsonSettings.SectionRowCount):
-                                if (value is int sectionRowCount)
-                                    AppSettings.DataAccess.JsonSettings.SectionRowCount = sectionRowCount;
-                                break;
-                            case nameof(jsonSettings.Server):
-                                if (value is string server)
-                                    AppSettings.DataAccess.JsonSettings.Server = server;
-                                break;
-                            case nameof(jsonSettings.Db):
-                                if (value is string db)
-                                    AppSettings.DataAccess.JsonSettings.Db = db;
-                                break;
-                            case nameof(jsonSettings.Trusted):
-                                if (value is bool trusted)
-                                    AppSettings.DataAccess.JsonSettings.Trusted = trusted;
-                                break;
-                            case nameof(jsonSettings.Username):
-                                if (value is string username)
-                                    AppSettings.DataAccess.JsonSettings.Username = username;
-                                break;
-                            case nameof(jsonSettings.Password):
-                                if (value is string password)
-                                    AppSettings.DataAccess.JsonSettings.Password = password;
-                                break;
-                        }
-                        IsBusy = false;
+                        case nameof(jsonSettings.IsDebug):
+                            if (value is bool isDebug)
+                                AppSettings.DataAccess.JsonSettings.IsDebug = isDebug;
+                            break;
+                        case nameof(jsonSettings.ItemRowCount):
+                            if (value is int itemRowCount)
+                                AppSettings.DataAccess.JsonSettings.ItemRowCount = itemRowCount;
+                            break;
+                        case nameof(jsonSettings.SectionRowCount):
+                            if (value is int sectionRowCount)
+                                AppSettings.DataAccess.JsonSettings.SectionRowCount = sectionRowCount;
+                            break;
+                        case nameof(jsonSettings.Server):
+                            if (value is string server)
+                                AppSettings.DataAccess.JsonSettings.Server = server;
+                            break;
+                        case nameof(jsonSettings.Db):
+                            if (value is string db)
+                                AppSettings.DataAccess.JsonSettings.Db = db;
+                            break;
+                        case nameof(jsonSettings.Trusted):
+                            if (value is bool trusted)
+                                AppSettings.DataAccess.JsonSettings.Trusted = trusted;
+                            break;
+                        case nameof(jsonSettings.Username):
+                            if (value is string username)
+                                AppSettings.DataAccess.JsonSettings.Username = username;
+                            break;
+                        case nameof(jsonSettings.Password):
+                            if (value is string password)
+                                AppSettings.DataAccess.JsonSettings.Password = password;
+                            break;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -182,37 +166,29 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(OnItemValueChange)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    if (!IsBusy)
+                    switch (item)
                     {
-                        IsBusy = true;
-                        switch (item)
-                        {
-                            case AccessEntity access:
-                                OnItemValueChangeAccess(filterName, value, access);
-                                break;
-                            case PrinterEntity printer:
-                                OnItemValueChangePrinter(filterName, value, printer);
-                                break;
-                            //case PrinterTypeEntity printerType:
-                            //    OnItemValueChangePrinterType(filterName, value, printerType);
-                            //    break;
-                            case PrinterResourceEntity printerResource:
-                                OnItemValueChangePrinterResource(filterName, value, printerResource);
-                                break;
-                            case PluEntity plu:
-                                OnItemValueChangePlu(filterName, value, plu);
-                                break;
-                            case ScaleEntity scale:
-                                OnItemValueChangeScale(filterName, value, scale);
-                                break;
-                            case TemplateEntity template:
-                                OnItemValueChangeTemplate(filterName, value, template);
-                                break;
-                            case WorkShopEntity workShop:
-                                OnItemValueChangeWorkShop(filterName, value, workShop);
-                                break;
-                        }
-                        IsBusy = false;
+                        case AccessEntity access:
+                            OnItemValueChangeAccess(filterName, value, access);
+                            break;
+                        case PrinterEntity printer:
+                            OnItemValueChangePrinter(filterName, value, printer);
+                            break;
+                        case PrinterResourceEntity printerResource:
+                            OnItemValueChangePrinterResource(filterName, value, printerResource);
+                            break;
+                        case PluEntity plu:
+                            OnItemValueChangePlu(filterName, value, plu);
+                            break;
+                        case ScaleEntity scale:
+                            OnItemValueChangeScale(filterName, value, scale);
+                            break;
+                        case TemplateEntity template:
+                            OnItemValueChangeTemplate(filterName, value, template);
+                            break;
+                        case WorkShopEntity workShop:
+                            OnItemValueChangeWorkShop(filterName, value, workShop);
+                            break;
                     }
                     await GuiRefreshWithWaitAsync();
                 }), true);
@@ -359,17 +335,12 @@ namespace BlazorCore.Models
 
         public void ItemSelect(BaseEntity item)
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                if (Item != item)
-                    Item = item;
-                if (IdentityId != item.IdentityId)
-                    IdentityId = item.IdentityId;
-                if (IdentityUid != item.IdentityUid)
-                    IdentityUid = item.IdentityUid;
-                IsBusy = false;
-            }
+            if (Item != item)
+                Item = item;
+            if (IdentityId != item.IdentityId)
+                IdentityId = item.IdentityId;
+            if (IdentityUid != item.IdentityUid)
+                IdentityUid = item.IdentityUid;
         }
 
         public async Task GuiRefreshAsync(bool continueOnCapturedContext)
@@ -1121,15 +1092,15 @@ namespace BlazorCore.Models
             return page;
         }
 
-        public async Task ItemCancelAsync(bool isNewWindow)
+        public async Task ItemCancelAsync(bool continueOnCapturedContext)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(ItemCancelAsync)}", LocalizationCore.Strings.DialogResultSuccess,
+            RunTasks(LocalizationCore.Strings.TableCancel, LocalizationCore.Strings.DialogResultSuccess,
                 LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel,
                 new Task(() =>
                 {
-                    RouteSectionNavigate(isNewWindow);
-                }), false);
+                    RouteSectionNavigate(false);
+                }), continueOnCapturedContext);
         }
 
         private string GetQuestionAdd()
@@ -1255,24 +1226,19 @@ namespace BlazorCore.Models
                 LocalizationCore.Strings.DialogResultFail, LocalizationCore.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
-                    if (!IsBusy)
+                    switch (Table)
                     {
-                        IsBusy = true;
-                        switch (Table)
-                        {
-                            case TableSystemEntity:
-                                ItemSystemSave(ProjectsEnums.GetTableSystem(Table.Name));
-                                break;
-                            case TableScaleEntity:
-                                ItemScaleSave(ProjectsEnums.GetTableScale(Table.Name));
-                                break;
-                            //case TableDwhEntity:
-                            //    ItemDwhSave(ProjectsEnums.GetTableDwh(Table.Name));
-                            //    break;
-                        }
-                        RouteSectionNavigateToRoot();
-                        IsBusy = false;
+                        case TableSystemEntity:
+                            ItemSystemSave(ProjectsEnums.GetTableSystem(Table.Name));
+                            break;
+                        case TableScaleEntity:
+                            ItemScaleSave(ProjectsEnums.GetTableScale(Table.Name));
+                            break;
+                        //case TableDwhEntity:
+                        //    ItemDwhSave(ProjectsEnums.GetTableDwh(Table.Name));
+                        //    break;
                     }
+                    RouteSectionNavigate(false);
                     await GuiRefreshWithWaitAsync();
                 }), continueOnCapturedContext);
         }

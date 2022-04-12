@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<LabelQuickEntity>? ItemsCast => Items?.Select(x => (LabelQuickEntity)x).ToList();
+        private List<LabelQuickEntity> ItemsCast => Items == null ? new() : Items.Select(x => (LabelQuickEntity)x).ToList();
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionLabels() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -35,14 +35,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -54,43 +50,39 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    if (AppSettings.DataAccess != null)
                     {
-                        IsBusy = true;
-                        if (AppSettings.DataAccess != null)
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
+                            SqlQueries.DbScales.Tables.Labels.GetLabels);
+                        Items = new List<LabelQuickEntity>().ToList<BaseEntity>();
+                        foreach (object obj in objects)
                         {
-                            object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                                SqlQueries.DbScales.Tables.Labels.GetLabels);
-                            Items = new List<LabelQuickEntity>().ToList<BaseEntity>();
-                            foreach (object obj in objects)
+                            if (obj is object[] { Length: 14 } item)
                             {
-                                if (obj is object[] { Length: 14 } item)
+                                if (long.TryParse(Convert.ToString(item[0]), out long id))
                                 {
-                                    if (long.TryParse(Convert.ToString(item[0]), out long id))
+                                    Items.Add(new LabelQuickEntity()
                                     {
-                                        Items.Add(new LabelQuickEntity()
-                                        {
-                                            IdentityId = id,
-                                            CreateDt = Convert.ToDateTime(item[1]),
-                                            //Label = Convert.ToByte(item[2]),
-                                            ScaleId = Convert.ToInt64(item[3]),
-                                            ScaleDescription = Convert.ToString(item[4]),
-                                            PluId = Convert.ToInt32(item[5]),
-                                            WeithingDate = Convert.ToDateTime(item[6]),
-                                            NetWeight = Convert.ToDecimal(item[7]),
-                                            TareWeight = Convert.ToDecimal(item[8]),
-                                            ProductDate = Convert.ToDateTime(item[9]),
-                                            RegNum = Convert.ToInt32(item[10]),
-                                            Kneading = Convert.ToInt32(item[11]),
-                                            Zpl = Convert.ToString(item[12]),
-                                        });
-                                    }
+                                        IdentityId = id,
+                                        CreateDt = Convert.ToDateTime(item[1]),
+                                        //Label = Convert.ToByte(item[2]),
+                                        ScaleId = Convert.ToInt64(item[3]),
+                                        ScaleDescription = Convert.ToString(item[4]),
+                                        PluId = Convert.ToInt32(item[5]),
+                                        WeithingDate = Convert.ToDateTime(item[6]),
+                                        NetWeight = Convert.ToDecimal(item[7]),
+                                        TareWeight = Convert.ToDecimal(item[8]),
+                                        ProductDate = Convert.ToDateTime(item[9]),
+                                        RegNum = Convert.ToInt32(item[10]),
+                                        Kneading = Convert.ToInt32(item[11]),
+                                        Zpl = Convert.ToString(item[12]),
+                                    });
                                 }
                             }
                         }
-                        ButtonSettings = new(true, true, true, false, false, false, false);
-                        IsBusy = false;
                     }
+                    ButtonSettings = new(true, true, true, false, false, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }

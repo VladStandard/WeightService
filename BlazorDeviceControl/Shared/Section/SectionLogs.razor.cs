@@ -18,7 +18,7 @@ namespace BlazorDeviceControl.Shared.Section
     {
         #region Public and private fields and properties
 
-        private List<LogQuickEntity>? ItemsCast => Items?.Select(x => (LogQuickEntity)x).ToList();
+        private List<LogQuickEntity> ItemsCast => Items == null ? new() : Items.Select(x => (LogQuickEntity)x).ToList();
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         public SectionLogs() : base()
         {
-            //Default();
+            //
         }
 
         #endregion
@@ -35,14 +35,10 @@ namespace BlazorDeviceControl.Shared.Section
 
         private void Default()
         {
-            if (!IsBusy)
-            {
-                IsBusy = true;
-                Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
-                Items = null;
-                ButtonSettings = new();
-                IsBusy = false;
-            }
+            IsLoaded = false;
+            Table = new TableSystemEntity(ProjectsEnums.TableSystem.Logs);
+            Items = new();
+            ButtonSettings = new();
         }
 
         public override async Task SetParametersAsync(ParameterView parameters)
@@ -54,41 +50,37 @@ namespace BlazorDeviceControl.Shared.Section
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    if (!IsBusy)
+                    if (AppSettings.DataAccess != null)
                     {
-                        IsBusy = true;
-                        if (AppSettings.DataAccess != null)
+                        object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
+                            SqlQueries.DbServiceManaging.Tables.Logs.GetLogs);
+                        Items = new List<LogQuickEntity>().ToList<BaseEntity>();
+                        foreach (object obj in objects)
                         {
-                            object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                                SqlQueries.DbServiceManaging.Tables.Logs.GetLogs);
-                            Items = new List<LogQuickEntity>().ToList<BaseEntity>();
-                            foreach (object obj in objects)
+                            if (obj is object[] { Length: 11 } item)
                             {
-                                if (obj is object[] { Length: 11 } item)
+                                if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
                                 {
-                                    if (Guid.TryParse(Convert.ToString(item[0]), out Guid uid))
+                                    Items.Add(new LogQuickEntity()
                                     {
-                                        Items.Add(new LogQuickEntity()
-                                        {
-                                            IdentityUid = uid,
-                                            CreateDt = Convert.ToDateTime(item[1]),
-                                            Scale = Convert.ToString(item[2]),
-                                            Host = Convert.ToString(item[3]),
-                                            App = Convert.ToString(item[4]),
-                                            Version = Convert.ToString(item[5]),
-                                            File = Convert.ToString(item[6]),
-                                            Line = Convert.ToInt32(item[7]),
-                                            Member = Convert.ToString(item[8]),
-                                            Icon = Convert.ToString(item[9]),
-                                            Message = Convert.ToString(item[10]),
-                                        });
-                                    }
+                                        IdentityUid = uid,
+                                        CreateDt = Convert.ToDateTime(item[1]),
+                                        Scale = Convert.ToString(item[2]),
+                                        Host = Convert.ToString(item[3]),
+                                        App = Convert.ToString(item[4]),
+                                        Version = Convert.ToString(item[5]),
+                                        File = Convert.ToString(item[6]),
+                                        Line = Convert.ToInt32(item[7]),
+                                        Member = Convert.ToString(item[8]),
+                                        Icon = Convert.ToString(item[9]),
+                                        Message = Convert.ToString(item[10]),
+                                    });
                                 }
                             }
                         }
-                        ButtonSettings = new(false, true, true, false, false, false, false);
-                        IsBusy = false;
                     }
+                    ButtonSettings = new(false, true, true, false, false, false, false);
+                    IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);
         }
