@@ -13,7 +13,7 @@ namespace DataCore.DAL.TableScaleModels
         #region Public and private fields and properties
 
         public virtual ScaleEntity Scale { get; set; }
-        public virtual bool? IsClose { get; set; }
+        public virtual bool IsClose { get; set; }
         public virtual string Sscc { get; set; }
 
         #endregion
@@ -28,7 +28,7 @@ namespace DataCore.DAL.TableScaleModels
         public ProductSeriesEntity(long id) : base(id)
         {
             Scale = new ScaleEntity();
-            IsClose = default;
+            IsClose = false;
             Sscc = string.Empty;
         }
 
@@ -79,7 +79,7 @@ namespace DataCore.DAL.TableScaleModels
             if (Scale != null && !Scale.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
-                   Equals(IsClose, null) &&
+                   Equals(IsClose, false) &&
                    Equals(Sscc, string.Empty);
         }
 

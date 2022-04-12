@@ -28,11 +28,11 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.GoodsTareWeight).CustomSqlType("DECIMAL(10,3)").Column("GoodsTareWeight").Nullable();
             Map(x => x.GoodsBoxQuantly).CustomSqlType("INT").Column("GoodsBoxQuantly").Nullable();
             Map(x => x.Plu).CustomSqlType("INT").Column("Plu").Not.Nullable().Check("C_PLU_PLU");
-            Map(x => x.Active).CustomSqlType("BIT").Column("Active").Nullable();
+            Map(x => x.Active).CustomSqlType("BIT").Column("Active").Not.Nullable().Default("0");
             Map(x => x.UpperWeightThreshold).CustomSqlType("DECIMAL(10,3)").Column("UpperWeightThreshold").Nullable();
             Map(x => x.NominalWeight).CustomSqlType("DECIMAL(10,3)").Column("NominalWeight").Nullable();
             Map(x => x.LowerWeightThreshold).CustomSqlType("DECIMAL(10,3)").Column("LowerWeightThreshold").Nullable();
-            Map(x => x.CheckWeight).CustomSqlType("BIT").Column("CheckWeight").Nullable();
+            Map(x => x.CheckWeight).CustomSqlType("BIT").Column("CheckWeight").Not.Nullable().Default("0");
         }
     }
 }

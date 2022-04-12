@@ -44,7 +44,6 @@ namespace BlazorCore.Models
         [Parameter] public string? FilterCaption { get; set; }
         [Parameter] public string? FilterName { get; set; }
         [Parameter] public TableBase Table { get; set; }
-        [Parameter] public virtual string IdentityUidStr { get => IdentityUid != null ? IdentityUid.ToString() : Guid.Empty.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
         private ItemSaveCheckEntity ItemSaveCheck { get; set; }
         public AppSettingsHelper AppSettings { get; private set; }
         public BaseEntity? Item { get; set; }
@@ -1254,11 +1253,14 @@ namespace BlazorCore.Models
             RunTasks($"{LocalizationCore.Strings.Method} {nameof(ActionNewAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
-                    item = new();
-                    IdentityId = null;
-                    IdentityUid = null;
-                    RouteItemNavigate(isNewWindow, item, DbTableAction.New);
-                    await GuiRefreshWithWaitAsync();
+                    await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(false);
+                    throw new NotImplementedException("Fix here!");
+                    // Uncomment here.
+                    //item = new();
+                    //IdentityId = null;
+                    //IdentityUid = null;
+                    //RouteItemNavigate(isNewWindow, item, DbTableAction.New);
+                    //await GuiRefreshWithWaitAsync();
                 }), true);
         }
 

@@ -16,8 +16,8 @@ namespace DataCore.DAL.TableDwhModels
         public virtual NomenclatureParentEntity ParentConvert => 
             string.IsNullOrEmpty(Parents) ? null : JsonConvert.DeserializeObject<NomenclatureParentEntity>(Parents);
         public virtual string NameFull { get; set; }
-        public virtual bool? IsService { get; set; }
-        public virtual bool? IsProduct { get; set; }
+        public virtual bool IsService { get; set; }
+        public virtual bool IsProduct { get; set; }
         public virtual InformationSystemEntity InformationSystem { get; set; } = new InformationSystemEntity();
         public virtual short? RelevanceStatus { get; set; }
         public virtual short? NormalizationStatus { get; set; }
@@ -38,8 +38,8 @@ namespace DataCore.DAL.TableDwhModels
             Name = string.Empty;
             Parents = string.Empty;
             NameFull = string.Empty;
-            IsService = null;
-            IsProduct = null;
+            IsService = false;
+            IsProduct = false;
             InformationSystem = new();
             RelevanceStatus = null;
             NormalizationStatus = null;
@@ -110,8 +110,8 @@ namespace DataCore.DAL.TableDwhModels
                    Equals(Name, string.Empty) &&
                    Equals(Parents, string.Empty) &&
                    Equals(NameFull, string.Empty) &&
-                   Equals(IsService, null) &&
-                   Equals(IsProduct, null) &&
+                   Equals(IsService, false) &&
+                   Equals(IsProduct, false) &&
                    Equals(RelevanceStatus, null) &&
                    Equals(NormalizationStatus, null) &&
                    Equals(MasterId, null);

@@ -3,7 +3,6 @@
 
 using DataCore.DAL.Models;
 using DataCore.DAL.Utils;
-using Newtonsoft.Json;
 
 namespace DataCore.DAL.TableDwhModels
 {
@@ -14,17 +13,16 @@ namespace DataCore.DAL.TableDwhModels
         public virtual string Code { get; set; }
         public virtual string Name { get; set; }
         public virtual string Parents { get; set; }
-
-        public virtual NomenclatureParentEntity ParentConvert => string.IsNullOrEmpty(Parents)
-            ? new(new string[0]) : JsonConvert.DeserializeObject<NomenclatureParentEntity>(Parents);
+        //public virtual NomenclatureParentEntity ParentConvert => string.IsNullOrEmpty(Parents)
+        //    ? new(new string[0]) : JsonConvert.DeserializeObject<NomenclatureParentEntity>(Parents);
         public virtual string? Article { get; set; }
-        public virtual bool? Weighted { get; set; }
+        public virtual bool Weighted { get; set; }
         public virtual string? GuidMercury { get; set; }
-        public virtual bool? KeepTrackOfCharacteristics { get; set; }
+        public virtual bool KeepTrackOfCharacteristics { get; set; }
         public virtual string? NameFull { get; set; }
         public virtual string? Comment { get; set; }
-        public virtual bool? IsService { get; set; }
-        public virtual bool? IsProduct { get; set; }
+        public virtual bool IsService { get; set; }
+        public virtual bool IsProduct { get; set; }
         public virtual string? AdditionalDescriptionOfNomenclature { get; set; }
         public virtual byte[] NomenclatureGroupCostBytes { get; set; }
         public virtual NomenclatureGroupEntity NomenclatureGroupCost { get; set; }
@@ -227,13 +225,13 @@ namespace DataCore.DAL.TableDwhModels
                    Equals(Name, string.Empty) &&
                    Equals(Parents, string.Empty) &&
                    Equals(Article, string.Empty) &&
-                   Equals(Weighted, null) &&
+                   Equals(Weighted, false) &&
                    Equals(GuidMercury, string.Empty) &&
-                   Equals(KeepTrackOfCharacteristics, null) &&
+                   Equals(KeepTrackOfCharacteristics, false) &&
                    Equals(NameFull, string.Empty) &&
                    Equals(Comment, string.Empty) &&
-                   Equals(IsService, null) &&
-                   Equals(IsProduct, null) &&
+                   Equals(IsService, false) &&
+                   Equals(IsProduct, false) &&
                    Equals(AdditionalDescriptionOfNomenclature, string.Empty) &&
                    Equals(NomenclatureGroupCostBytes, new byte[0]) &&
                    Equals(NomenclatureGroupBytes, new byte[0]) &&

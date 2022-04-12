@@ -34,13 +34,11 @@ namespace WeightCore.Helpers
         public ManagerHelper Manager { get; private set; }
         public ExceptionHelper Exception { get; private set; } = ExceptionHelper.Instance;
         public LogHelper Log { get; private set; } = LogHelper.Instance;
-
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
         public ProductSeriesDirect ProductSeries { get; private set; }
         public HostDirect Host { get; private set; }
         public int CurrentScaleId { get; }
         public OrderDirect CurrentOrder { get; set; }
-
         [XmlElement(IsNullable = true)]
         private ScaleDirect _currentScale;
         public ScaleDirect CurrentScale
@@ -53,13 +51,10 @@ namespace WeightCore.Helpers
                 OnPropertyChanged();
             }
         }
-
         public PrintBrand PrintBrand => CurrentScale != null && CurrentScale.ZebraPrinter.PrinterType.Contains("TSC ")
             ? PrintBrand.TSC : PrintBrand.Zebra;
-
         [XmlElement(IsNullable = true)]
         public WeighingFactDirect CurrentWeighingFact { get; private set; }
-
         private int _currentPage;
         /// <summary>
         /// Текущая страница.
@@ -73,7 +68,6 @@ namespace WeightCore.Helpers
                 OnPropertyChanged();
             }
         }
-
         private bool _isWpfPageLoaderClose;
         /// <summary>
         /// Close WpfPageLoader form.
@@ -289,20 +283,6 @@ namespace WeightCore.Helpers
         #endregion
 
         #region PrintMethods
-
-        /// <summary>
-        /// Show pin-code form.
-        /// </summary>
-        /// <param name="owner"></param>
-        /// <returns></returns>
-        public bool ShowPinCodeForm(IWin32Window owner)
-        {
-            using PasswordForm passwordForm = new();
-            DialogResult resultPsw = passwordForm.ShowDialog(owner);
-            passwordForm.Close();
-            passwordForm.Dispose();
-            return resultPsw == DialogResult.OK;
-        }
 
         /// <summary>
         /// Check PLU is empty.

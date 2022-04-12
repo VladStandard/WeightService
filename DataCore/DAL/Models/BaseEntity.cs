@@ -17,21 +17,18 @@ namespace DataCore.DAL.Models
         #region Public and private fields and properties
 
         public virtual bool IsMarked { get; set; }
-        public virtual ColumnName _identityName { get; private set; }
-        public virtual ColumnName IdentityName { get => _identityName; set => _identityName = value; }
+        public virtual ColumnName IdentityName { get; private set; }
         public virtual DateTime ChangeDt { get; set; }
         public virtual DateTime CreateDt { get; set; }
-        public virtual Guid _identityUid { get; private set; }
-        public virtual Guid IdentityUid { get => _identityUid; set { _identityUid = value; IdentityName = ColumnName.Uid; } }
-        public virtual long _identityId { get; private set; }
-        public virtual long IdentityId { get => _identityId; set { _identityId = value; IdentityName = ColumnName.Id; } }
+        public virtual Guid IdentityUid { get; set; }
+        public virtual long IdentityId { get; set; }
         public virtual string IdentityUidStr { get => IdentityUid.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
 
         #endregion
 
         #region Constructor and destructor
 
-        public BaseEntity()
+        private BaseEntity()
         {
             IdentityName = ColumnName.Default;
             IdentityId = 0;
@@ -43,11 +40,13 @@ namespace DataCore.DAL.Models
 
         public BaseEntity(long identityId) : this()
         {
+            IdentityName = ColumnName.Id;
             IdentityId = identityId;
         }
 
         public BaseEntity(Guid identityUid) : this()
         {
+            IdentityName = ColumnName.Uid;
             IdentityUid = identityUid;
         }
 

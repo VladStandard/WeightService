@@ -21,7 +21,7 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.Port).CustomSqlType("SMALLINT").Column("Port").Nullable();
             Map(x => x.Password).CustomSqlType("VARCHAR").Length(15).Column("Password").Nullable();
             Map(x => x.MacAddressValue).CustomSqlType("VARCHAR").Column("Mac").Length(20).Nullable();
-            Map(x => x.PeelOffSet).CustomSqlType("BIT").Column("PeelOffSet").Nullable();
+            Map(x => x.PeelOffSet).CustomSqlType("BIT").Column("PeelOffSet").Not.Nullable().Default("0");
             Map(x => x.DarknessLevel).CustomSqlType("SMALLINT").Column("DarknessLevel").Nullable();
         }
     }

@@ -14,7 +14,7 @@ namespace DataCore.DAL.TableScaleModels
             Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
             Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate").Not.Nullable();
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable();
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
             References(x => x.OrderTypes).Column("OrderType");
             Map(x => x.ProductDate).CustomSqlType("DATETIME").Column("ProductDate").Nullable();
             Map(x => x.PlaneBoxCount).CustomSqlType("INT").Column("PlaneBoxCount").Nullable();

@@ -16,7 +16,7 @@ namespace DataCore.DAL.TableScaleModels
             Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate");
             Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("ModifiedDate");
-            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked");
+            Map(x => x.IsMarked).CustomSqlType("BIT").Column("Marked").Not.Nullable().Default("0");
             Map(x => x.Name).CustomSqlType("NVARCHAR").Column("Name").Length(150).Not.Nullable();
             Map(x => x.SerializedRepresentationObject).CustomSqlType("XML").Column("SerializedRepresentationObject").Nullable();
         }

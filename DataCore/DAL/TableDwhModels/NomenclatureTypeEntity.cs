@@ -11,7 +11,7 @@ namespace DataCore.DAL.TableDwhModels
         #region Public and private fields and properties
 
         public virtual string Name { get; set; }
-        public virtual bool? GoodsForSale { get; set; }
+        public virtual bool GoodsForSale { get; set; }
         public virtual int StatusId { get; set; }
         public virtual InformationSystemEntity InformationSystem { get; set; }
         public virtual byte[] CodeInIs { get; set; }
@@ -85,7 +85,7 @@ namespace DataCore.DAL.TableDwhModels
                 return false;
             return base.EqualsDefault() &&
                    Equals(Name, string.Empty) &&
-                   Equals(GoodsForSale, null) &&
+                   Equals(GoodsForSale, false) &&
                    Equals(StatusId, 0) &&
                    Equals(CodeInIs, new byte[0]);
         }

@@ -71,7 +71,6 @@
             this.buttonOrder = new System.Windows.Forms.Button();
             this.buttonScalesInit = new System.Windows.Forms.Button();
             this.buttonScalesTerminal = new System.Windows.Forms.Button();
-            this.buttonSettings = new System.Windows.Forms.Button();
             this.tableLayoutPanelRight = new System.Windows.Forms.TableLayoutPanel();
             this.fieldLang = new System.Windows.Forms.ComboBox();
             this.fieldResolution = new System.Windows.Forms.ComboBox();
@@ -665,7 +664,6 @@
             this.tableLayoutPanelButtons.Controls.Add(this.buttonOrder, 3, 0);
             this.tableLayoutPanelButtons.Controls.Add(this.buttonScalesInit, 2, 0);
             this.tableLayoutPanelButtons.Controls.Add(this.buttonScalesTerminal, 0, 0);
-            this.tableLayoutPanelButtons.Controls.Add(this.buttonSettings, 1, 0);
             this.tableLayoutPanelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelButtons.Location = new System.Drawing.Point(3, 535);
             this.tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
@@ -802,22 +800,6 @@
             this.buttonScalesTerminal.Click += new System.EventHandler(this.ButtonScalesTerminal_Click);
             this.buttonScalesTerminal.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             // 
-            // buttonSettings
-            // 
-            this.buttonSettings.BackColor = System.Drawing.Color.Transparent;
-            this.buttonSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSettings.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonSettings.Location = new System.Drawing.Point(116, 2);
-            this.buttonSettings.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
-            this.buttonSettings.Name = "buttonSettings";
-            this.buttonSettings.Size = new System.Drawing.Size(101, 126);
-            this.buttonSettings.TabIndex = 102;
-            this.buttonSettings.Text = "Settings";
-            this.buttonSettings.UseVisualStyleBackColor = false;
-            this.buttonSettings.Click += new System.EventHandler(this.ButtonSettings_Click);
-            this.buttonSettings.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
-            // 
             // tableLayoutPanelRight
             // 
             this.tableLayoutPanelRight.ColumnCount = 1;
@@ -927,7 +909,6 @@
         private System.Windows.Forms.Button buttonOrder;
         private System.Windows.Forms.Button buttonScalesInit;
         private System.Windows.Forms.Button buttonScalesTerminal;
-        private System.Windows.Forms.Button buttonSettings;
         private System.Windows.Forms.Label labelSscc;
         private System.Windows.Forms.Label fieldSscc;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelRight;

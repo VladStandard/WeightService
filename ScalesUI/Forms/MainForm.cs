@@ -271,7 +271,6 @@ namespace ScalesUI.Forms
 
             // FontButtons.
             buttonScalesTerminal.Font = FontButtons;
-            buttonSettings.Font = FontButtons;
             buttonScalesInit.Font = FontButtons;
             buttonOrder.Font = FontButtons;
             buttonNewPallet.Font = FontButtons;
@@ -811,7 +810,6 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(buttonScalesTerminal, LocalizationData.ScalesUI.ButtonRunScalesTerminal);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(buttonScalesInit, LocalizationData.ScalesUI.ButtonScalesInitShort);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(buttonOrder, LocalizationData.ScalesUI.ButtonSelectOrder);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(buttonSettings, LocalizationData.ScalesUI.ButtonSettings);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(buttonNewPallet, LocalizationData.ScalesUI.ButtonNewPallet);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(buttonKneading, LocalizationData.ScalesUI.ButtonAddKneading);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(buttonPlu, LocalizationData.ScalesUI.ButtonSelectPlu);
@@ -875,7 +873,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                if (SessionState.ShowPinCodeForm(this))
+                if (GuiUtils.ShowPinCodeForm(this))
                 {
                     using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                     wpfPageLoader.MessageBox.Message = $"{@LocalizationData.ScalesUI.QuestionRunApp} ScalesTerminal?";
@@ -920,45 +918,30 @@ namespace ScalesUI.Forms
             }
         }
         
-        private void ButtonSettings_Click(object sender, EventArgs e)
-        {
-            bool isClose = false;
-            try
-            {
-                if (SessionState.ShowPinCodeForm(this))
-                {
-                    SessionState.Manager.Close();
-
-                    using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                    wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                    wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.DeviceControlIsPreview;
-                    wpfPageLoader.MessageBox.ButtonYesVisibility = Visibility.Visible;
-                    wpfPageLoader.MessageBox.ButtonNoVisibility = Visibility.Visible;
-                    wpfPageLoader.MessageBox.Localization();
-                    DialogResult resultWpf = wpfPageLoader.ShowDialog(this);
-                    wpfPageLoader.Close();
-                    wpfPageLoader.Dispose();
-                    if (resultWpf == DialogResult.Yes)
-                        Process.Start(Debug.IsDebug
-                            ? "https://device-control-dev-preview.kolbasa-vs.local/" : "https://device-control-prod-preview.kolbasa-vs.local/");
-                    else
-                        Process.Start(Debug.IsDebug
-                            ? "https://device-control-dev.kolbasa-vs.local/" : "https://device-control.kolbasa-vs.local/");
-                    isClose = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Exception.Catch(this, ref ex, true);
-            }
-            finally
-            {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
-                SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
-            }
-            if (isClose && !Debug.IsDebug)
-                PictureBoxClose_Click(null, null);
-        }
+        //private void ButtonSettings_Click(object sender, EventArgs e)
+        //{
+        //    bool isClose = false;
+        //    try
+        //    {
+        //        if (GuiUtils.ShowPinCodeForm(this))
+        //        {
+        //            SessionState.Manager.Close();
+        //            GuiUtils.ShowWpfSettings(this, Debug.IsDebug);
+        //            isClose = true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Exception.Catch(this, ref ex, true);
+        //    }
+        //    finally
+        //    {
+        //        MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+        //        SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
+        //    }
+        //    if (isClose && !Debug.IsDebug)
+        //        PictureBoxClose_Click(null, null);
+        //}
 
         private void ButtonScalesInit_Click(object sender, EventArgs e)
         {

@@ -270,12 +270,9 @@ namespace DataCore.DAL.Models
                 case LogEntity log:
                     if (!log.EqualsEmpty())
                     {
-                        if (log.App?.IdentityUid != null)
-                            log.App = GetEntity<AppEntity>(log.App.IdentityUid);
-                        if (log.Host?.IdentityId != null)
-                            log.Host = GetEntity<HostEntity>(log.Host.IdentityId);
-                        if (log.LogType?.IdentityUid != null)
-                            log.LogType = GetEntity<LogTypeEntity>(log.LogType.IdentityUid);
+                        log.App = log.App?.IdentityUid == null ? new() : GetEntity<AppEntity>(log.App.IdentityUid);
+                        log.Host = log.Host?.IdentityId == null ? new() : GetEntity<HostEntity>(log.Host.IdentityId);
+                        log.LogType = log.LogType?.IdentityUid == null ? new() : GetEntity<LogTypeEntity>(log.LogType.IdentityUid);
                     }
                     break;
                 case LogTypeEntity logType:
@@ -294,8 +291,7 @@ namespace DataCore.DAL.Models
                 case DeviceEntity device:
                     if (!device.EqualsEmpty())
                     {
-                        if (device.Scales?.IdentityId != null)
-                            device.Scales = GetEntity<ScaleEntity>(device.Scales.IdentityId);
+                        device.Scales = device.Scales?.IdentityId == null ? new() : GetEntity<ScaleEntity>(device.Scales.IdentityId);
                     }
                     break;
             }
@@ -309,12 +305,9 @@ namespace DataCore.DAL.Models
                     {
                         if (!barcode.EqualsEmpty())
                         {
-                            if (barcode.BarcodeType?.IdentityUid != null)
-                                barcode.BarcodeType = GetEntity<BarCodeTypeEntityV2>(barcode.BarcodeType.IdentityUid);
-                            if (barcode.Contragent?.IdentityUid != null)
-                                barcode.Contragent = GetEntity<ContragentEntityV2>(barcode.Contragent.IdentityUid);
-                            if (barcode.Nomenclature?.IdentityId != null)
-                                barcode.Nomenclature = GetEntity<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
+                            barcode.BarcodeType = barcode.BarcodeType?.IdentityUid == null ? new() : GetEntity<BarCodeTypeEntityV2>(barcode.BarcodeType.IdentityUid);
+                            barcode.Contragent = barcode.Contragent?.IdentityUid == null ? new() : GetEntity<ContragentEntityV2>(barcode.Contragent.IdentityUid);
+                            barcode.Nomenclature = barcode.Nomenclature?.IdentityId == null ? new() : GetEntity<TableScaleModels.NomenclatureEntity>(barcode.Nomenclature.IdentityId);
                         }
                         break;
                     }
@@ -337,8 +330,7 @@ namespace DataCore.DAL.Models
                 case LabelEntity label:
                     if (!label.EqualsEmpty())
                     {
-                        if (label.WeithingFact?.IdentityId != null)
-                            label.WeithingFact = GetEntity<WeithingFactEntity>(label.WeithingFact.IdentityId);
+                        label.WeithingFact = label.WeithingFact?.IdentityId == null ? new() : GetEntity<WeithingFactEntity>(label.WeithingFact.IdentityId);
                     }
                     break;
                 case TableScaleModels.NomenclatureEntity nomenclature:
@@ -350,14 +342,10 @@ namespace DataCore.DAL.Models
                 case OrderEntity order:
                     if (!order.EqualsEmpty())
                     {
-                        if (order.OrderTypes?.IdentityId != null)
-                            order.OrderTypes = GetEntity<OrderTypeEntity>(order.OrderTypes.IdentityId);
-                        if (order.Scales?.IdentityId != null)
-                            order.Scales = GetEntity<ScaleEntity>(order.Scales.IdentityId);
-                        if (order.Plu?.IdentityId != null)
-                            order.Plu = GetEntity<PluEntity>(order.Plu.IdentityId);
-                        if (order.Templates?.IdentityId != null)
-                            order.Templates = GetEntity<TemplateEntity>(order.Templates.IdentityId);
+                        order.OrderTypes = order.OrderTypes?.IdentityId == null ? new() : GetEntity<OrderTypeEntity>(order.OrderTypes.IdentityId);
+                        order.Scales = order.Scales?.IdentityId == null ? new() : GetEntity<ScaleEntity>(order.Scales.IdentityId);
+                        order.Plu = order.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(order.Plu.IdentityId);
+                        order.Templates = order.Templates?.IdentityId == null ? new() : GetEntity<TemplateEntity>(order.Templates.IdentityId);
                     }
                     break;
                 case OrderStatusEntity orderStatus:
@@ -381,12 +369,9 @@ namespace DataCore.DAL.Models
                 case PluEntity plu:
                     if (!plu.EqualsEmpty())
                     {
-                        if (plu.Template?.IdentityId != null)
-                            plu.Template = GetEntity<TemplateEntity>(plu.Template.IdentityId);
-                        if (plu.Scale?.IdentityId != null)
-                            plu.Scale = GetEntity<ScaleEntity>(plu.Scale.IdentityId);
-                        if (plu.Nomenclature?.IdentityId != null)
-                            plu.Nomenclature = GetEntity<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
+                        plu.Template = plu.Template?.IdentityId == null ? new() : GetEntity<TemplateEntity>(plu.Template.IdentityId);
+                        plu.Scale = plu.Scale?.IdentityId == null ? new() : GetEntity<ScaleEntity>(plu.Scale.IdentityId);
+                        plu.Nomenclature = plu.Nomenclature?.IdentityId == null ? new() : GetEntity<TableScaleModels.NomenclatureEntity>(plu.Nomenclature.IdentityId);
                     }
                     break;
                 case PrinterEntity printer:
@@ -435,10 +420,8 @@ namespace DataCore.DAL.Models
                 case TaskEntity task:
                     if (!task.EqualsEmpty())
                     {
-                        if (task.TaskType?.IdentityUid != null)
-                            task.TaskType = GetEntity<TaskTypeEntity>(task.TaskType.IdentityUid);
-                        if (task.Scale?.IdentityId != null)
-                            task.Scale = GetEntity<ScaleEntity>(task.Scale.IdentityId);
+                        task.TaskType = task.TaskType?.IdentityUid == null ? new() : GetEntity<TaskTypeEntity>(task.TaskType.IdentityUid);
+                        task.Scale = task.Scale?.IdentityId == null ? new() : GetEntity<ScaleEntity>(task.Scale.IdentityId);
                     }
                     break;
                 case TaskTypeEntity taskType:
@@ -462,21 +445,16 @@ namespace DataCore.DAL.Models
                 case WeithingFactEntity weithingFact:
                     if (!weithingFact.EqualsEmpty())
                     {
-                        if (weithingFact.Plu?.IdentityId != null)
-                            weithingFact.Plu = GetEntity<PluEntity>(weithingFact.Plu.IdentityId);
-                        if (weithingFact.Scales?.IdentityId != null)
-                            weithingFact.Scales = GetEntity<ScaleEntity>(weithingFact.Scales.IdentityId);
-                        if (weithingFact.Series?.IdentityId != null)
-                            weithingFact.Series = GetEntity<ProductSeriesEntity>(weithingFact.Series.IdentityId);
-                        if (weithingFact.Orders?.IdentityId != null)
-                            weithingFact.Orders = GetEntity<OrderEntity>(weithingFact.Orders.IdentityId);
+                        weithingFact.Plu = weithingFact.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(weithingFact.Plu.IdentityId);
+                        weithingFact.Scales = weithingFact.Scales?.IdentityId == null ? new() : GetEntity<ScaleEntity>(weithingFact.Scales.IdentityId);
+                        weithingFact.Series = weithingFact.Series?.IdentityId == null ? new() : GetEntity<ProductSeriesEntity>(weithingFact.Series.IdentityId);
+                        weithingFact.Orders = weithingFact.Orders?.IdentityId == null ? new() : GetEntity<OrderEntity>(weithingFact.Orders.IdentityId);
                     }
                     break;
                 case WorkShopEntity workshop:
                     if (!workshop.EqualsEmpty())
                     {
-                        if (workshop.ProductionFacility?.IdentityId != null)
-                            workshop.ProductionFacility = GetEntity<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);
+                        workshop.ProductionFacility = workshop.ProductionFacility?.IdentityId == null ? new() : GetEntity<ProductionFacilityEntity>(workshop.ProductionFacility.IdentityId);
                     }
                     break;
             }
@@ -489,8 +467,7 @@ namespace DataCore.DAL.Models
                 case BrandEntity brand:
                     if (!brand.EqualsEmpty())
                     {
-                        if (brand.InformationSystem?.IdentityId != null)
-                            brand.InformationSystem = GetEntity<InformationSystemEntity>(brand.InformationSystem.IdentityId);
+                        brand.InformationSystem = brand.InformationSystem?.IdentityId == null ? new() : GetEntity<InformationSystemEntity>(brand.InformationSystem.IdentityId);
                     }
                     break;
                 case InformationSystemEntity informationSystem:
@@ -512,22 +489,19 @@ namespace DataCore.DAL.Models
                         //    nomenclatureEntity.NomenclatureGroup = DataAccess.NomenclatureGroupCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureGroupBytes);
                         //if (nomenclatureEntity.NomenclatureTypeBytes != null && nomenclatureEntity.NomenclatureTypeBytes.Length > 0)
                         //    nomenclatureEntity.NomenclatureType = DataAccess.NomenclatureTypeCrud.GetEntity(ShareEnums.DbField.CodeInIs, nomenclatureEntity.NomenclatureTypeBytes);
-                        if (nomenclature.Status?.IdentityId != null)
-                            nomenclature.Status = GetEntity<StatusEntity>(nomenclature.Status.IdentityId);
+                        nomenclature.Status = nomenclature.Status?.IdentityId == null ? new() : GetEntity<StatusEntity>(nomenclature.Status.IdentityId);
                     }
                     break;
                 case NomenclatureGroupEntity nomenclatureGroup:
                     if (!nomenclatureGroup.EqualsEmpty())
                     {
-                        if (nomenclatureGroup.InformationSystem?.IdentityId != null)
-                            nomenclatureGroup.InformationSystem = GetEntity<InformationSystemEntity>(nomenclatureGroup.InformationSystem.IdentityId);
+                        nomenclatureGroup.InformationSystem = nomenclatureGroup.InformationSystem?.IdentityId == null ? new() : GetEntity<InformationSystemEntity>(nomenclatureGroup.InformationSystem.IdentityId);
                     }
                     break;
                 case NomenclatureLightEntity nomenclatureLight:
                     if (!nomenclatureLight.EqualsEmpty())
                     {
-                        if (nomenclatureLight.InformationSystem?.IdentityId != null)
-                            nomenclatureLight.InformationSystem = GetEntity<InformationSystemEntity>(nomenclatureLight.InformationSystem.IdentityId);
+                        nomenclatureLight.InformationSystem = nomenclatureLight.InformationSystem?.IdentityId == null ? new() : GetEntity<InformationSystemEntity>(nomenclatureLight.InformationSystem.IdentityId);
                     }
                     break;
                 case NomenclatureParentEntity:
@@ -536,8 +510,7 @@ namespace DataCore.DAL.Models
                 case NomenclatureTypeEntity nomenclatureType:
                     if (!nomenclatureType.EqualsEmpty())
                     {
-                        if (nomenclatureType.InformationSystem?.IdentityId != null)
-                            nomenclatureType.InformationSystem = GetEntity<InformationSystemEntity>(nomenclatureType.InformationSystem.IdentityId);
+                        nomenclatureType.InformationSystem = nomenclatureType.InformationSystem?.IdentityId == null ? new() : GetEntity<InformationSystemEntity>(nomenclatureType.InformationSystem.IdentityId);
                     }
                     break;
                 case StatusEntity status:
@@ -832,7 +805,7 @@ namespace DataCore.DAL.Models
 
         public void DeleteEntity<T>(T item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity, new()
+            where T : BaseEntity
         {
             if (item.EqualsEmpty()) return;
             ExecuteTransaction((session) => { session.Delete(item); }, filePath, lineNumber, memberName);
@@ -840,7 +813,7 @@ namespace DataCore.DAL.Models
 
         public void MarkedEntity<T>(T item,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
-            where T : BaseEntity, new()
+            where T : BaseEntity
         {
             if (item.EqualsEmpty()) return;
 

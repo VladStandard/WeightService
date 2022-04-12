@@ -329,6 +329,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Gui\GridCustomizator.cs" />
+    <Compile Include="Gui\GuiUtils.cs" />
     <Compile Include="Gui\NumberInputForm.cs">
       <SubType>Form</SubType>
     </Compile>

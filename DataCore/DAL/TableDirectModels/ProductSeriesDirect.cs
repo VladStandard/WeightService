@@ -22,6 +22,7 @@ namespace DataCore.DAL.TableDirectModels
         public int CountUnit { get; set; }
         public decimal TotalNetWeight { get; set; }
         public decimal TotalTareWeight { get; set; }
+        public bool IsMarked { get; set; }
         [XmlIgnore] public TemplateDirect Template { get; set; }
 
         #endregion
@@ -30,29 +31,23 @@ namespace DataCore.DAL.TableDirectModels
 
         public ProductSeriesDirect()
         {
-            Default();
-            Load();
-        }
-
-        public ProductSeriesDirect(ScaleDirect scale)
-        {
-            Default();
-            Scale = scale;
-            Load();
-        }
-
-        public void Default()
-        {
             Id = 0;
+            IsMarked = false;
             UUID = Guid.Empty;
-            Scale = new();
-            CreateDate = default;
-            Sscc = new();
-            Plu = new();
+            CreateDate = DateTime.MinValue;
             CountUnit = 0;
             TotalNetWeight = 0;
             TotalTareWeight = 0;
+            Sscc = new();
+            Plu = new();
             Template = new();
+            Scale = new();
+        }
+
+        public ProductSeriesDirect(ScaleDirect scale) : this()
+        {
+            Scale = scale;
+            Load();
         }
 
         #endregion

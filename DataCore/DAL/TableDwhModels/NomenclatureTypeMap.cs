@@ -15,7 +15,7 @@ namespace DataCore.DAL.TableDwhModels
             Map(x => x.CreateDt).CustomSqlType("DATETIME").Column("CreateDate").Not.Nullable();
             Map(x => x.ChangeDt).CustomSqlType("DATETIME").Column("DLM").Not.Nullable();
             Map(x => x.Name).CustomSqlType("NVARCHAR").Length(150).Column("Name").Nullable();
-            Map(x => x.GoodsForSale).CustomSqlType("BIT").Column("GoodsForSale").Nullable();
+            Map(x => x.GoodsForSale).CustomSqlType("BIT").Column("GoodsForSale").Not.Nullable().Default("0");
             Map(x => x.StatusId).CustomSqlType("INT").Column("StatusID").Not.Nullable();
             References(x => x.InformationSystem).Column("InformationSystemID").Not.Nullable();
             Map(x => x.CodeInIs).CustomSqlType("VARBINARY").Length(16).Column("CodeInIS").Not.Nullable();
