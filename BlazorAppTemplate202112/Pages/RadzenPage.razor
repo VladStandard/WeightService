@@ -1,0 +1,22 @@
+﻿@page "/radzen"
+
+<PageTitle>Radzen</PageTitle>
+
+<h1>COM ports</h1>
+
+@if (ListComPorts == null)
+{
+    <ActionsLoad DataLoadItem=ShareEnums.ActionLoad.None IsShowProgress=true />
+}
+else
+{
+    <RadzenDropDown 
+        Style="width: 50%;" TValue="string"
+        FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
+        AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
+        PageSize=50
+        Data=@ListComPorts 
+                            
+        >
+    </RadzenDropDown>
+}
