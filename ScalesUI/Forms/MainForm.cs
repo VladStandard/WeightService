@@ -49,6 +49,7 @@ namespace ScalesUI.Forms
         private Font FontLabelsGray { get; set; }
         private Font FontLabelsMaximum { get; set; }
         private Font FontLabelsTitle { get; set; }
+        private TableLayoutPanel TableLayoutPanelButtons { get; set; }
         private Button ButtonScalesTerminal { get; set; }
         private Button ButtonScalesInit { get; set; }
         private Button ButtonOrder { get; set; }
@@ -190,12 +191,18 @@ namespace ScalesUI.Forms
 
         private void MainFormFontsGet()
         {
-            FontLabelsTitle = new("Microsoft Sans Serif", 20.25f, System.Drawing.FontStyle.Bold & System.Drawing.FontStyle.Underline);
-            FontLabelsGray = new("Microsoft Sans Serif", 9.75f, System.Drawing.FontStyle.Regular);
-            FontLabelsBlack = new("Microsoft Sans Serif", 12.75f, System.Drawing.FontStyle.Bold);
-            FontLabelsMaximum = new("Microsoft Sans Serif", 36f, System.Drawing.FontStyle.Bold);
-            FontButtons = new Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, 204);
-            FontComboBox = new("Microsoft Sans Serif", 8.25f, System.Drawing.FontStyle.Regular);
+            //FontComboBox = new("Microsoft Sans Serif", 8.25f, System.Drawing.FontStyle.Regular);
+            //FontLabelsGray = new("Microsoft Sans Serif", 9.75f, System.Drawing.FontStyle.Regular);
+            //FontLabelsBlack = new("Microsoft Sans Serif", 12.75f, System.Drawing.FontStyle.Bold);
+            //FontButtons = new Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, 204);
+            //FontLabelsTitle = new("Microsoft Sans Serif", 20.25f, System.Drawing.FontStyle.Bold & System.Drawing.FontStyle.Underline);
+            //FontLabelsMaximum = new("Microsoft Sans Serif", 36f, System.Drawing.FontStyle.Bold);
+            FontComboBox = new("Microsoft Sans Serif", 8.00f, System.Drawing.FontStyle.Regular);
+            FontLabelsGray = new("Microsoft Sans Serif", 9.00f, System.Drawing.FontStyle.Regular);
+            FontLabelsBlack = new("Microsoft Sans Serif", 12.00f, System.Drawing.FontStyle.Bold);
+            FontButtons = new Font("Microsoft Sans Serif", 12.00F, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, 204);
+            FontLabelsTitle = new("Microsoft Sans Serif", 20.00f, System.Drawing.FontStyle.Bold & System.Drawing.FontStyle.Underline);
+            FontLabelsMaximum = new("Microsoft Sans Serif", 35f, System.Drawing.FontStyle.Bold);
         }
 
         private void MainFormFontsTransform()
@@ -241,9 +248,12 @@ namespace ScalesUI.Forms
             labelSscc.Font = FontLabelsGray;
             fieldSscc.Font = FontLabelsGray;
             fieldTasks.Font = FontLabelsGray;
-            fieldPrintManager.Font = FontLabelsGray;
-            fieldPrintLabels.Font = FontLabelsGray;
-            fieldPrintProgress.Font = FontLabelsGray;
+            labelPrintLabelsMain.Font = FontLabelsGray;
+            labelPrintLabelsShipping.Font = FontLabelsGray;
+            fieldPrintLabelsMain.Font = FontLabelsGray;
+            fieldPrintLabelsShipping.Font = FontLabelsGray;
+            fieldPrintProgressMain.Font = FontLabelsGray;
+            fieldPrintProgressShipping.Font = FontLabelsGray;
             fieldMassaManager.Font = FontLabelsGray;
             fieldMassaScalePar.Font = FontLabelsGray;
             fieldMassaGetCrc.Font = FontLabelsGray;
@@ -296,105 +306,68 @@ namespace ScalesUI.Forms
         private void MainFormButtonsCreate(bool isButtonScalesTerminal, bool isButtonScalesInit, 
             bool isButtonNewPallet, bool isButtonKneading, bool isButtonPlu, bool isButtonMore, bool isButtonPrint)
         {
-            int column = -1;
+            int column = 0;
+
+            TableLayoutPanelButtons = GuiUtils.GetTableLayoutPanel(tableLayoutPanelMain, nameof(TableLayoutPanelButtons),
+                0, tableLayoutPanelMain.RowCount - 1, tableLayoutPanelMain.ColumnCount);
 
             if (isButtonScalesTerminal)
             {
-                ButtonScalesTerminal = new();
-                MainFormButtonsSetup(ButtonScalesTerminal, nameof(ButtonScalesTerminal), column++);
+                ButtonScalesTerminal = GuiUtils.GetTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesTerminal), column++);
                 ButtonScalesTerminal.Click += new EventHandler(ButtonScalesTerminal_Click);
                 ButtonScalesTerminal.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (isButtonScalesInit)
             {
-                ButtonScalesInit = new();
-                MainFormButtonsSetup(ButtonScalesInit, nameof(ButtonScalesInit), column++);
+                ButtonScalesInit = GuiUtils.GetTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonScalesInit), column++);
                 ButtonScalesInit.Click += new EventHandler(ButtonScalesInit_Click);
                 ButtonScalesInit.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (SessionState.CurrentScale.UseOrder)
             {
-                ButtonOrder = new();
-                MainFormButtonsSetup(ButtonOrder, nameof(ButtonOrder), column++);
+                ButtonOrder = GuiUtils.GetTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonOrder), column++);
                 ButtonOrder.Click += new EventHandler(ButtonOrder_Click);
                 ButtonOrder.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (isButtonNewPallet)
             {
-                ButtonNewPallet = new();
-                MainFormButtonsSetup(ButtonNewPallet, nameof(ButtonNewPallet), column++);
+                ButtonNewPallet = GuiUtils.GetTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonNewPallet), column++);
                 ButtonNewPallet.Click += new EventHandler(ButtonNewPallet_Click);
                 ButtonNewPallet.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (isButtonKneading)
             {
-                ButtonKneading = new();
-                MainFormButtonsSetup(ButtonKneading, nameof(ButtonKneading), column++);
+                ButtonKneading = GuiUtils.GetTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonKneading), column++);
                 ButtonKneading.Click += new EventHandler(ButtonKneading_Click);
                 ButtonKneading.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (isButtonPlu)
             {
-                ButtonPlu = new();
-                MainFormButtonsSetup(ButtonPlu, nameof(ButtonPlu), column++);
+                ButtonPlu = GuiUtils.GetTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPlu), column++);
                 ButtonPlu.Click += new EventHandler(ButtonPlu_Click);
                 ButtonPlu.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (isButtonMore)
             {
-                ButtonMore = new();
-                MainFormButtonsSetup(ButtonMore, nameof(ButtonMore), column++);
+                ButtonMore = GuiUtils.GetTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonMore), column++);
                 ButtonMore.Click += new EventHandler(ButtonMore_Click);
                 ButtonMore.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
             if (isButtonPrint)
             {
-                ButtonPrint = new();
-                MainFormButtonsSetup(ButtonPrint, nameof(ButtonPrint), column++);
+                ButtonPrint = GuiUtils.GetTableLayoutPanelButton(TableLayoutPanelButtons, nameof(ButtonPrint), column++);
                 ButtonPrint.Click += new EventHandler(ButtonPrint_Click);
                 ButtonPrint.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
 
-            SetColumnStyles(column);
-        }
-
-        private void MainFormButtonsSetup(Button button, string name, int column)
-        {
-            button.Name = name;
-            button.BackColor = Color.Transparent;
-            button.Dock = DockStyle.Fill;
-            button.ForeColor = System.Drawing.SystemColors.ControlText;
-            button.Margin = new Padding(5, 2, 5, 2);
-            button.Size = new System.Drawing.Size(101, 126);
-            button.UseVisualStyleBackColor = false;
-            button.TabIndex = 100 + column;
-            button.Location = new System.Drawing.Point(2, 2);
-            tableLayoutPanelButtons.Controls.Add(button, column, 0);
-        }
-
-        private void SetColumnStyles(int column)
-        {
-            tableLayoutPanelButtons.ColumnStyles.Clear();
-            if (column < 2)
-            {
-                tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            }
-            else
-            {
-                tableLayoutPanelButtons.ColumnCount = column;
-                float size = (float)(100 / column);
-                for (int i = 0; i < column; i++)
-                {
-                    tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, size));
-                }
-            }
+            GuiUtils.SetTableLayoutPanelColumnStyles(TableLayoutPanelButtons, column);
         }
 
         #endregion
@@ -422,7 +395,7 @@ namespace ScalesUI.Forms
                 ScheduleMemoryManager();
                 SchedulePrint();
                 ScheduleProduct();
-                SetLabels();
+                //SetLabels();
                 ScheduleControlsVisible();
             }
         }
@@ -465,6 +438,8 @@ namespace ScalesUI.Forms
                 $"{LocalizationData.ScalesUI.FieldThresholdLower}: {SessionState.CurrentPlu.LowerWeightThreshold:0.000} {LocalizationData.ScalesUI.UnitKg} | " +
                 $"{LocalizationData.ScalesUI.FieldThresholdNominal}: {SessionState.CurrentPlu.NominalWeight:0.000} {LocalizationData.ScalesUI.UnitKg} | " +
                 $"{LocalizationData.ScalesUI.FieldThresholdUpper}: {SessionState.CurrentPlu.UpperWeightThreshold:0.000} {LocalizationData.ScalesUI.UnitKg}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(labelPrintLabelsMain, LocalizationData.ScalesUI.FieldPrintLabelsMain);
+            MDSoft.WinFormsUtils.InvokeControl.SetText(labelPrintLabelsShipping, LocalizationData.ScalesUI.FieldPrintLabelsShipping);
         }
 
         private void SetTitleSwitchDev()
@@ -569,15 +544,17 @@ namespace ScalesUI.Forms
 
         private void SchedulePrint()
         {
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintLabels, 
-                $"{@LocalizationData.ScalesUI.Labels}: {SessionState.LabelsCurrent} / {SessionState.LabelsCount}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintLabelsMain, 
+                $"{@LocalizationData.ScalesUI.Labels}: {SessionState.CurrentLabelsMain} / {SessionState.CurrentLabelsCountMain}");
+            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintLabelsShipping, 
+                $"{@LocalizationData.ScalesUI.ShippingLabels}: {SessionState.CurrentLabelsShipping} / {SessionState.CurrentLabelsCountShipping}");
 
             //SessionState.LabelsCurrent = SessionState.Manager.Print.UserLabelCount < SessionState.LabelsCount
             //    ? SessionState.Manager.Print.UserLabelCount : SessionState.LabelsCount;
 
             // LabelsCurrent
-            if (SessionState.LabelsCurrent < 1)
-                SessionState.LabelsCurrent = 1;
+            if (SessionState.CurrentLabelsMain < 1)
+                SessionState.CurrentLabelsMain = 1;
 
             switch (SessionState.PrintBrand)
             {
@@ -589,7 +566,7 @@ namespace ScalesUI.Forms
                     }
                     if (SessionState.Manager.Print.CurrentStatus != null)
                     {
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(labelPrintLabelsMain,
                             $"{@LocalizationData.ScalesUI.PrinterZebra} {SessionState.CurrentScale.ZebraPrinter.Ip}: " +
                             (SessionState.Manager.Print.CurrentStatus.isReadyToPrint
                             ? LocalizationData.ScalesUI.PrinterAvailable : LocalizationData.ScalesUI.PrinterUnavailable) +
@@ -598,7 +575,7 @@ namespace ScalesUI.Forms
                     }
                     break;
                 case WeightCore.Print.PrintBrand.TSC:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintManager,
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(labelPrintLabelsMain,
                         $"{@LocalizationData.ScalesUI.PrinterTsc}: {SessionState.Manager.Print.Win32Printer()?.PrinterStatusDescription} " +
                         $"{SessionState.Manager.Print.ProgressString}");
                     break;
@@ -931,6 +908,7 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelProductDate, LocalizationData.ScalesUI.FieldProductDate);
                 ComboBoxFieldLoad(fieldResolution, FieldResolution_SelectedIndexChanged, LocalizationData.ScalesUI.ListResolutions,
                     Debug.IsDebug ? 2 : LocalizationData.ScalesUI.ListResolutions.Count - 1);
+                SetLabels();
             }
             catch (Exception ex)
             {
@@ -1129,9 +1107,9 @@ namespace ScalesUI.Forms
                 }
                 if (SessionState.CurrentOrder != null)
                 {
-                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgress, SessionState.CurrentOrder.PlaneBoxCount);
-                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldPrintProgress, 0);
-                    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgress, SessionState.CurrentOrder.FactBoxCount);
+                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMaximum(fieldPrintProgressMain, SessionState.CurrentOrder.PlaneBoxCount);
+                    MDSoft.WinFormsUtils.InvokeProgressBar.SetMinimum(fieldPrintProgressMain, 0);
+                    MDSoft.WinFormsUtils.InvokeProgressBar.SetValue(fieldPrintProgressMain, SessionState.CurrentOrder.FactBoxCount);
                 }
             }
             catch (Exception ex)
@@ -1193,7 +1171,6 @@ namespace ScalesUI.Forms
                     if (!SessionState.CheckWeightIsNegative(this) || !SessionState.CheckWeightIsPositive(this))
                         return;
                 }
-
                 SessionState.Manager.Close();
 
                 // PLU form.

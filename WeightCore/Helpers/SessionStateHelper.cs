@@ -83,7 +83,7 @@ namespace WeightCore.Helpers
             }
         }
         public RoutedEventHandler WpfPageLoader_OnClose { get; set; }
-        public bool IsCheckWeight => CurrentPlu != null ? CurrentPlu.IsCheckWeight : false;
+        public bool IsCheckWeight => CurrentPlu != null && CurrentPlu.IsCheckWeight;
 
         #endregion
 
@@ -97,8 +97,8 @@ namespace WeightCore.Helpers
 
             Kneading = KneadingMinValue;
             ProductDate = DateTime.Now;
-            LabelsCurrent = 1;
-            LabelsCount = 1;
+            CurrentLabelsMain = 1;
+            CurrentLabelsCountMain = 1;
 
             // начинается новыя серия, упаковки продукции, новая паллета
             ProductSeries = new ProductSeriesDirect(CurrentScale);
@@ -129,30 +129,23 @@ namespace WeightCore.Helpers
 
         public static readonly int PalletSizeMinValue = 1;
         public static readonly int PalletSizeMaxValue = 130;
-        private int _labelsCount;
-        public int LabelsCount
-        {
-            get => _labelsCount;
-            set
-            {
-                _labelsCount = value;
-            }
-        }
+        public int CurrentLabelsCountMain { get; set; }
+        public int CurrentLabelsCountShipping { get; set; }
 
         public void RotatePalletSize(ProjectsEnums.Direction direction)
         {
             if (direction == ProjectsEnums.Direction.Back)
             {
-                LabelsCount--;
-                if (LabelsCount < PalletSizeMinValue)
-                    LabelsCount = PalletSizeMinValue;
+                CurrentLabelsCountMain--;
+                if (CurrentLabelsCountMain < PalletSizeMinValue)
+                    CurrentLabelsCountMain = PalletSizeMinValue;
 
             }
             if (direction == ProjectsEnums.Direction.Forward)
             {
-                LabelsCount++;
-                if (LabelsCount > PalletSizeMaxValue)
-                    LabelsCount = PalletSizeMaxValue;
+                CurrentLabelsCountMain++;
+                if (CurrentLabelsCountMain > PalletSizeMaxValue)
+                    CurrentLabelsCountMain = PalletSizeMaxValue;
             }
         }
 
@@ -160,19 +153,11 @@ namespace WeightCore.Helpers
 
         #region CurrentBox
 
-        private int _labelsCurrent;
-        public int LabelsCurrent
-        {
-            get => _labelsCurrent;
-            set
-            {
-                _labelsCurrent = value;
-            }
-        }
-
+        public int CurrentLabelsMain { get; set; }
+        public int CurrentLabelsShipping { get; set; }
         public void NewPallet()
         {
-            LabelsCurrent = 1;
+            CurrentLabelsMain = 1;
             ProductSeries.Load();
             //if (Manager == null || Manager.Print == null)
             //    return;
@@ -261,7 +246,7 @@ namespace WeightCore.Helpers
             private set
             {
                 _currentPlu = value;
-                LabelsCurrent = 1;
+                CurrentLabelsMain = 1;
                 if (Manager == null || Manager.Print == null)
                     return;
                 //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
@@ -542,15 +527,15 @@ namespace WeightCore.Helpers
             if (template.XslContent.Contains("^PQ1"))
             {
                 // Изменить кол-во этикеток.
-                if (LabelsCount > 1)
-                    template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{LabelsCount}");
+                if (CurrentLabelsCountMain > 1)
+                    template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{CurrentLabelsCountMain}");
                 // Печать этикетки.
                 PrintLabel(template);
             }
             // Шаблон без указания кол-ва.
             else
             {
-                for (int i = LabelsCurrent; i <= LabelsCount; i++)
+                for (int i = CurrentLabelsMain; i <= CurrentLabelsCountMain; i++)
                 {
                     // Печать этикетки.
                     PrintLabel(template);
@@ -590,7 +575,7 @@ namespace WeightCore.Helpers
                     return;
 
                 // Print.
-                Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
+                Manager.Print.ClearPrintBuffer(true, CurrentLabelsMain);
                 Manager.Print.SendCmd(printCmd);
             }
             catch (Exception ex)

@@ -4,6 +4,7 @@
 using DataCore;
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -61,6 +62,58 @@ namespace WeightCore.Gui
                 wpfPageLoader.ShowDialog();
             wpfPageLoader.Close();
             wpfPageLoader.Dispose();
+        }
+
+        public static TableLayoutPanel GetTableLayoutPanel(TableLayoutPanel tableLayoutPanelParent, string name, int column, int row, int columnSpan)
+        {
+            TableLayoutPanel tableLayoutPanel = new()
+            {
+                Name = name,
+                ColumnCount = 1,
+                Dock = DockStyle.Fill,
+                Location = new System.Drawing.Point(3, 535),
+                RowCount = 1,
+                Size = new System.Drawing.Size(1018, 130),
+                TabIndex = 99,
+            };
+            tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelParent.SetColumnSpan(tableLayoutPanel, columnSpan);
+            tableLayoutPanelParent.Controls.Add(tableLayoutPanel, column, row);
+            return tableLayoutPanel;
+        }
+
+        public static Button GetTableLayoutPanelButton(TableLayoutPanel tableLayoutPanel, string name, int column)
+        {
+            Button button = new()
+            {
+                Name = name,
+                BackColor = Color.Transparent,
+                Dock = DockStyle.Fill,
+                ForeColor = System.Drawing.SystemColors.ControlText,
+                Margin = new Padding(5, 2, 5, 2),
+                Size = new System.Drawing.Size(100, 100),
+                UseVisualStyleBackColor = false,
+                TabIndex = 100 + column,
+                Location = new System.Drawing.Point(2, 2),
+            };
+            tableLayoutPanel.Controls.Add(button, column - 1, 0);
+            return button;
+        }
+
+        public static void SetTableLayoutPanelColumnStyles(TableLayoutPanel tableLayoutPanel, int column)
+        {
+            tableLayoutPanel.ColumnCount = column;
+            float size = 100 / tableLayoutPanel.ColumnCount;
+            if (tableLayoutPanel.ColumnStyles.Count > 0)
+                tableLayoutPanel.ColumnStyles[0] = new ColumnStyle(SizeType.Percent, size);
+            if (tableLayoutPanel.ColumnCount > 1)
+            {
+                for (int i = 0; i < tableLayoutPanel.ColumnCount; i++)
+                {
+                    tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, size));
+                }
+            }
         }
 
         #endregion

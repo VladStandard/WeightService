@@ -31,7 +31,7 @@ namespace ScalesUI.Forms
 
             SaveKneading = SessionState.Kneading;
             SaveProductDate = SessionState.ProductDate;
-            SavePalletSize = SessionState.LabelsCount;
+            SavePalletSize = SessionState.CurrentLabelsCountMain;
         }
 
         #endregion
@@ -124,7 +124,7 @@ namespace ScalesUI.Forms
                 DialogResult = DialogResult.Cancel;
                 SessionState.Kneading = SaveKneading;
                 SessionState.ProductDate = SaveProductDate;
-                SessionState.LabelsCount = SavePalletSize;
+                SessionState.CurrentLabelsCountMain = SavePalletSize;
                 Close();
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace ScalesUI.Forms
             if (SessionState.CurrentPlu == null)
                 return;
 
-            if (SessionState.CurrentPlu.IsCheckWeight == true && SessionState.LabelsCount > 1)
+            if (SessionState.CurrentPlu.IsCheckWeight == true && SessionState.CurrentLabelsCountMain > 1)
             {
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
@@ -149,9 +149,9 @@ namespace ScalesUI.Forms
                 wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
-                SessionState.LabelsCount = 1;
+                SessionState.CurrentLabelsCountMain = 1;
             }
-            fieldPalletSize.Text = SessionState.LabelsCount.ToString();
+            fieldPalletSize.Text = SessionState.CurrentLabelsCountMain.ToString();
         }
 
         private void ButtonOk_Click(object sender, EventArgs e)
@@ -198,7 +198,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                int n = SessionState.LabelsCount == 1 ? 9 : 10;
+                int n = SessionState.CurrentLabelsCountMain == 1 ? 9 : 10;
                 for (int i = 0; i < n; i++)
                 {
                     SessionState.RotatePalletSize(ProjectsEnums.Direction.Forward);
@@ -213,7 +213,7 @@ namespace ScalesUI.Forms
 
         private void ShowPalletSize()
         {
-            fieldPalletSize.Text = SessionState.LabelsCount.ToString();
+            fieldPalletSize.Text = SessionState.CurrentLabelsCountMain.ToString();
         }
 
         private void ButtonPalletSizeNext_Click(object sender, EventArgs e)
@@ -267,7 +267,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.LabelsCount = count;
+                SessionState.CurrentLabelsCountMain = count;
                 ShowPalletSize();
             }
             catch (Exception ex)

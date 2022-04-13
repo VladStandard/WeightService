@@ -477,10 +477,13 @@ namespace DataCore
             public static string FieldThresholdLower => Lang == ShareEnums.Lang.English ? "Lower" : "Нижнее";
             public static string FieldThresholdNominal => Lang == ShareEnums.Lang.English ? "Nominal" : "Номинальное";
             public static string FieldThresholds => Lang == ShareEnums.Lang.English ? "Weight thresholds" : "Пороговые значения веса";
+            public static string FieldPrintLabelsMain => Lang == ShareEnums.Lang.English ? "Basic label printer" : "Принтер основных этикеток";
+            public static string FieldPrintLabelsShipping => Lang == ShareEnums.Lang.English ? "Shipping label printer" : "Принтер транспортных этикеток";
             public static string FieldThresholdUpper => Lang == ShareEnums.Lang.English ? "Upper" : "Верхнее";
             public static string FieldWeightNetto => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
             public static string FieldWeightTare => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
             public static string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
+            public static string ShippingLabels => Lang == ShareEnums.Lang.English ? "Shipping labels" : "Транспортные этикетки";
             public static string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
             public static string MassaNotFound => Lang == ShareEnums.Lang.English ? "The device of the scales has not been found!" : "Устройство весов не обнаружено!";
             public static string MassaNotQuering => Lang == ShareEnums.Lang.English ? "Massa-K scales are not respond!" : "Весы Масса-К не отвечают!";
