@@ -361,6 +361,8 @@ namespace ScalesUI.Forms
                 ButtonPrint.Click += new EventHandler(ButtonPrint_Click);
                 ButtonPrint.KeyUp += new KeyEventHandler(MainForm_KeyUp);
             }
+
+            SetColumnStyles(column);
         }
 
         private void MainFormButtonsSetup(Button button, string name, int column)
@@ -375,6 +377,24 @@ namespace ScalesUI.Forms
             button.TabIndex = 100 + column;
             button.Location = new System.Drawing.Point(2, 2);
             tableLayoutPanelButtons.Controls.Add(button, column, 0);
+        }
+
+        private void SetColumnStyles(int column)
+        {
+            tableLayoutPanelButtons.ColumnStyles.Clear();
+            if (column < 2)
+            {
+                tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            }
+            else
+            {
+                tableLayoutPanelButtons.ColumnCount = column;
+                float size = (float)(100 / column);
+                for (int i = 0; i < column; i++)
+                {
+                    tableLayoutPanelButtons.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, size));
+                }
+            }
         }
 
         #endregion
