@@ -16,9 +16,8 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Items=@Items 
-        Title=@LocalizationData.DeviceControl.Sections.Hosts SetParameters=@SetParametersAsync 
-        IsShowItemsCount=true IsShowMarkedFilter=true />
+    <ActionsReloadSection ParentRazor=@this 
+        Title=@LocalizationData.DeviceControl.Sections.Hosts SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="HostEntity" @bind-Value=@ItemObject

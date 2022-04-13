@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.450] - 2022-04-13
+### Fixed
+- Shared.Component.ActionsReloadBase
+- Shared.Component.ActionsReloadItem
+- Shared.Component.ActionsReloadSection
+### Описание обновления:
+- Область раздела и страницы "Обновить данные": отображать первые 100
+
 ## [0.6.440] - 2022-04-12
 ### Fixed
 - Shared.ItemPrinter

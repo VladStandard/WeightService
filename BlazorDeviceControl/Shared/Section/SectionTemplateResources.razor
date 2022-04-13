@@ -16,8 +16,8 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Items=@Items 
-        Title=@LocalizationData.DeviceControl.Sections.TemplateResources SetParameters=@SetParametersAsync IsShowItemsCount=true />
+    <ActionsReloadSection ParentRazor=@this 
+        Title=@LocalizationData.DeviceControl.Sections.TemplateResources SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="TemplateResourceEntity" @bind-Value=@ItemObject

@@ -109,13 +109,14 @@ namespace DataCore
             public static string ServerResponse => Lang == ShareEnums.Lang.English ? "Server response" : "Ответ сервера";
             #endregion
             #region Action
-            public static string ActionAccessNone => Lang == ShareEnums.Lang.English ? "No access to the actions" : "Доступ к действиям не предусмотрен";
-            public static string ActionAccessDeny => Lang == ShareEnums.Lang.English ? "Access to actions denied" : "Доступ к действиям запрещён";
             public static string ActionAccessAllow => Lang == ShareEnums.Lang.English ? "Access to actions allowed" : "Доступ к действиям разрешён";
-            public static string Method => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
+            public static string ActionAccessDeny => Lang == ShareEnums.Lang.English ? "Access to actions denied" : "Доступ к действиям запрещён";
+            public static string ActionAccessNone => Lang == ShareEnums.Lang.English ? "No access to the actions" : "Доступ к действиям не предусмотрен";
+            public static string ActionIsShowMarked => Lang == ShareEnums.Lang.English ? "Show marked" : "Отображать архивные записи";
+            public static string ActionIsShowTop100 => Lang == ShareEnums.Lang.English ? "Show top 100" : "Отображать первые 100";
             public static string DataControl => Lang == ShareEnums.Lang.English ? "Data control" : "Контроль данных";
             public static string DataControlField => Lang == ShareEnums.Lang.English ? "Need to fill in the field" : "Необходимо заполнить поле";
-            public static string ActionIsShowMarked => Lang == ShareEnums.Lang.English ? "Show marked records" : "Отображать архивные записи";
+            public static string Method => Lang == ShareEnums.Lang.English ? "Method" : "Метод";
             #endregion
             #region Section
             public static string SectionAccessNone => Lang == ShareEnums.Lang.English ? "No access to the section" : "Доступ к разделу не предусмотрен";

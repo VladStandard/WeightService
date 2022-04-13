@@ -13,10 +13,10 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Items=@Items Table=@Table
+    <ActionsReloadSection ParentRazor=@this 
         Title=@LocalizationData.DeviceControl.Sections.Plus SetParameters=@SetParametersAsync 
-        IsShowItemsCount=true IsShowMarkedFilter=@IsShowMarkedFilter IsShowMarkedItems=@IsShowMarkedItems 
-        IsShowAdditionalFilter=@IsShowAdditionalFilter ItemsFilter=@ItemsFilter ItemFilter=@ItemFilter 
+        IsShowMarkedItems=@IsShowMarkedItems IsShowAdditionalFilter=@IsShowAdditionalFilter 
+        ItemsFilter=@ItemsFilter ItemFilter=@ItemFilter 
         FilterCaption=LocalizationData.DeviceControl.ItemScale FilterName=@nameof(ScaleEntity) />
 
     <RadzenGrid Style="margin-top: 5px;"

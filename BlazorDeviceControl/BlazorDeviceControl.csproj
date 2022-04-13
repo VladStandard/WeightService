@@ -11,8 +11,8 @@
 	<AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<FileVersion>0.6.440</FileVersion>
-    <AssemblyVersion>0.6.440</AssemblyVersion>
+	<FileVersion>0.6.450</FileVersion>
+    <AssemblyVersion>0.6.450</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
 	<Nullable>enable</Nullable>
@@ -80,6 +80,8 @@
       <Watch Include="..\**\*.razor;..\**\*.scss;..\**\*.css;..\**\*.html;" />
   </ItemGroup>
   <ItemGroup>
+    <Watch Remove="Shared\Component\ActionsReloadItem.razor" />
+    <Watch Remove="Shared\Component\ActionsReloadSection.razor" />
     <Watch Remove="Shared\Component\MudPage.razor" />
     <Watch Remove="Shared\Item\ItemAccess.razor" />
     <Watch Remove="Shared\Item\ItemBarCode.razor" />

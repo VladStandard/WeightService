@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.440] - 2022-04-13
+### Changed
+- MainForm
+### Описание обновления:
+- Динамическое создание кнопок.
+
 ## [0.6.410] - 2022-04-06
 ### Changed
 - MainForm

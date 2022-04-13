@@ -7,19 +7,17 @@ using System.Threading.Tasks;
 
 namespace BlazorDeviceControl.Shared.Component
 {
-    public partial class ActionsReload
+    public partial class ActionsReloadItem
     {
         #region Public and private fields and properties
 
-        [Parameter] public string Title { get; set; } = string.Empty;
-        [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
-        public string ItemsCountResult => $"{LocalizationCore.Strings.Main.ItemsCount}: {(Items == null ? 0 : Items.Count):### ### ###}";
+        //
 
         #endregion
 
         #region Constructor and destructor
 
-        public ActionsReload() : base()
+        public ActionsReloadItem() : base()
         {
             //
         }
@@ -27,13 +25,6 @@ namespace BlazorDeviceControl.Shared.Component
         #endregion
 
         #region Public and private methods
-
-        private void Default()
-        {
-            IsLoaded = false;
-            if (ParentRazor != null)
-                IsShowMarkedItems = ParentRazor.IsShowMarkedItems;
-        }
 
         public override async Task SetParametersAsync(ParameterView parameters)
         {

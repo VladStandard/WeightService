@@ -15,8 +15,8 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Title=@LocalizationData.DeviceControl.Items.Plu SetParameters=@SetParametersAsync 
-        IsShowItemsCount=false IsShowMarkedFilter=@IsShowMarkedFilter IsShowMarkedItems=@IsShowMarkedItems />
+    <ActionsReloadItem ParentRazor=@this 
+        Title=@LocalizationData.DeviceControl.Items.Plu SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>

@@ -4,6 +4,7 @@
 using DataCore.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using static DataCore.LocalizationCore;
 
 namespace DataCore
@@ -11,6 +12,14 @@ namespace DataCore
     public static class LocalizationData
     {
         public static ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+
+        public static class Program
+        {
+            public static string IsClosed => Lang == ShareEnums.Lang.English ? "The program is closed." : "Программа закрыта.";
+            public static string IsLoaded => Lang == ShareEnums.Lang.English ? "The program is loaded." : "Программа загруженна.";
+            public static string IsNotLoaded => Lang == ShareEnums.Lang.English ? "The program is not yet loaded!" + Environment.NewLine + "Wait for it..." : "Программа ещё не загружена!" + Environment.NewLine + "Подождите...";
+            public static string IsRunning => Lang == ShareEnums.Lang.English ? "The program is running." : "Программа запущена.";
+        }
 
         public static class DeviceControl
         {
@@ -470,7 +479,6 @@ namespace DataCore
             public static string FieldThresholdUpper => Lang == ShareEnums.Lang.English ? "Upper" : "Верхнее";
             public static string FieldWeightNetto => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
             public static string FieldWeightTare => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
-            public static string IsNotLoaded => Lang == ShareEnums.Lang.English ? "The program is not yet loaded!" + Environment.NewLine + "Wait for it..." : "Программа ещё не загружена!" + Environment.NewLine + "Подождите...";
             public static string Labels => Lang == ShareEnums.Lang.English ? "Labels" : "Этикетки";
             public static string Line => Lang == ShareEnums.Lang.English ? "Ling" : "Строка";
             public static string MassaNotFound => Lang == ShareEnums.Lang.English ? "The device of the scales has not been found!" : "Устройство весов не обнаружено!";

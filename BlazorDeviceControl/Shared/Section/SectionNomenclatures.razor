@@ -16,8 +16,8 @@
 }
 else
 {
-    <ActionsReload ParentRazor=@this Items=@Items 
-        Title=@LocalizationData.DeviceControl.Sections.Nomenclatures SetParameters=@SetParametersAsync IsShowItemsCount=true />
+    <ActionsReloadSection ParentRazor=@this 
+        Title=@LocalizationData.DeviceControl.Sections.Nomenclatures SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;" 
         Data=@ItemsCast TItem="NomenclatureEntity" @bind-Value=@ItemObject

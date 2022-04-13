@@ -63,14 +63,6 @@
             this.fieldPlu = new System.Windows.Forms.Label();
             this.labelPlu = new System.Windows.Forms.Label();
             this.tableLayoutPanelButtons = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonPrint = new System.Windows.Forms.Button();
-            this.buttonMore = new System.Windows.Forms.Button();
-            this.buttonPlu = new System.Windows.Forms.Button();
-            this.buttonKneading = new System.Windows.Forms.Button();
-            this.buttonNewPallet = new System.Windows.Forms.Button();
-            this.buttonOrder = new System.Windows.Forms.Button();
-            this.buttonScalesInit = new System.Windows.Forms.Button();
-            this.buttonScalesTerminal = new System.Windows.Forms.Button();
             this.tableLayoutPanelRight = new System.Windows.Forms.TableLayoutPanel();
             this.fieldLang = new System.Windows.Forms.ComboBox();
             this.fieldResolution = new System.Windows.Forms.ComboBox();
@@ -656,14 +648,6 @@
             this.tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11F));
             this.tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11F));
             this.tableLayoutPanelButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
-            this.tableLayoutPanelButtons.Controls.Add(this.buttonPrint, 8, 0);
-            this.tableLayoutPanelButtons.Controls.Add(this.buttonMore, 7, 0);
-            this.tableLayoutPanelButtons.Controls.Add(this.buttonPlu, 6, 0);
-            this.tableLayoutPanelButtons.Controls.Add(this.buttonKneading, 5, 0);
-            this.tableLayoutPanelButtons.Controls.Add(this.buttonNewPallet, 4, 0);
-            this.tableLayoutPanelButtons.Controls.Add(this.buttonOrder, 3, 0);
-            this.tableLayoutPanelButtons.Controls.Add(this.buttonScalesInit, 2, 0);
-            this.tableLayoutPanelButtons.Controls.Add(this.buttonScalesTerminal, 0, 0);
             this.tableLayoutPanelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelButtons.Location = new System.Drawing.Point(3, 535);
             this.tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
@@ -671,134 +655,6 @@
             this.tableLayoutPanelButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelButtons.Size = new System.Drawing.Size(1018, 130);
             this.tableLayoutPanelButtons.TabIndex = 59;
-            // 
-            // buttonPrint
-            // 
-            this.buttonPrint.BackColor = System.Drawing.Color.Transparent;
-            this.buttonPrint.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPrint.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonPrint.Location = new System.Drawing.Point(893, 2);
-            this.buttonPrint.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
-            this.buttonPrint.Name = "buttonPrint";
-            this.buttonPrint.Size = new System.Drawing.Size(120, 126);
-            this.buttonPrint.TabIndex = 100;
-            this.buttonPrint.Text = "Print";
-            this.buttonPrint.UseVisualStyleBackColor = false;
-            this.buttonPrint.Click += new System.EventHandler(this.ButtonPrint_Click);
-            this.buttonPrint.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
-            // 
-            // buttonMore
-            // 
-            this.buttonMore.BackColor = System.Drawing.Color.Transparent;
-            this.buttonMore.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonMore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonMore.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonMore.Location = new System.Drawing.Point(782, 2);
-            this.buttonMore.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
-            this.buttonMore.Name = "buttonMore";
-            this.buttonMore.Size = new System.Drawing.Size(101, 126);
-            this.buttonMore.TabIndex = 108;
-            this.buttonMore.Text = "More";
-            this.buttonMore.UseVisualStyleBackColor = false;
-            this.buttonMore.Click += new System.EventHandler(this.ButtonMore_Click);
-            this.buttonMore.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
-            // 
-            // buttonPlu
-            // 
-            this.buttonPlu.BackColor = System.Drawing.Color.Transparent;
-            this.buttonPlu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonPlu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonPlu.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonPlu.Location = new System.Drawing.Point(671, 2);
-            this.buttonPlu.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
-            this.buttonPlu.Name = "buttonPlu";
-            this.buttonPlu.Size = new System.Drawing.Size(101, 126);
-            this.buttonPlu.TabIndex = 107;
-            this.buttonPlu.Text = "Select PLU";
-            this.buttonPlu.UseVisualStyleBackColor = false;
-            this.buttonPlu.Click += new System.EventHandler(this.ButtonPlu_Click);
-            this.buttonPlu.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
-            // 
-            // buttonKneading
-            // 
-            this.buttonKneading.BackColor = System.Drawing.Color.Transparent;
-            this.buttonKneading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonKneading.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonKneading.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonKneading.Location = new System.Drawing.Point(560, 2);
-            this.buttonKneading.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
-            this.buttonKneading.Name = "buttonKneading";
-            this.buttonKneading.Size = new System.Drawing.Size(101, 126);
-            this.buttonKneading.TabIndex = 106;
-            this.buttonKneading.Text = "Add kneading";
-            this.buttonKneading.UseVisualStyleBackColor = false;
-            this.buttonKneading.Click += new System.EventHandler(this.ButtonKneading_Click);
-            this.buttonKneading.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
-            // 
-            // buttonNewPallet
-            // 
-            this.buttonNewPallet.BackColor = System.Drawing.Color.Transparent;
-            this.buttonNewPallet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonNewPallet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonNewPallet.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonNewPallet.Location = new System.Drawing.Point(449, 2);
-            this.buttonNewPallet.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
-            this.buttonNewPallet.Name = "buttonNewPallet";
-            this.buttonNewPallet.Size = new System.Drawing.Size(101, 126);
-            this.buttonNewPallet.TabIndex = 105;
-            this.buttonNewPallet.Text = "New pallete";
-            this.buttonNewPallet.UseVisualStyleBackColor = false;
-            this.buttonNewPallet.Click += new System.EventHandler(this.ButtonNewPallet_Click);
-            this.buttonNewPallet.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
-            // 
-            // buttonOrder
-            // 
-            this.buttonOrder.BackColor = System.Drawing.Color.Transparent;
-            this.buttonOrder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonOrder.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonOrder.Location = new System.Drawing.Point(338, 2);
-            this.buttonOrder.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
-            this.buttonOrder.Name = "buttonOrder";
-            this.buttonOrder.Size = new System.Drawing.Size(101, 126);
-            this.buttonOrder.TabIndex = 104;
-            this.buttonOrder.Text = "Order";
-            this.buttonOrder.UseVisualStyleBackColor = false;
-            this.buttonOrder.Click += new System.EventHandler(this.ButtonOrder_Click);
-            this.buttonOrder.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
-            // 
-            // buttonScalesInit
-            // 
-            this.buttonScalesInit.BackColor = System.Drawing.Color.Transparent;
-            this.buttonScalesInit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonScalesInit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonScalesInit.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonScalesInit.Location = new System.Drawing.Point(227, 2);
-            this.buttonScalesInit.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
-            this.buttonScalesInit.Name = "buttonScalesInit";
-            this.buttonScalesInit.Size = new System.Drawing.Size(101, 126);
-            this.buttonScalesInit.TabIndex = 103;
-            this.buttonScalesInit.Text = ">0<";
-            this.buttonScalesInit.UseVisualStyleBackColor = false;
-            this.buttonScalesInit.Click += new System.EventHandler(this.ButtonScalesInit_Click);
-            this.buttonScalesInit.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
-            // 
-            // buttonScalesTerminal
-            // 
-            this.buttonScalesTerminal.BackColor = System.Drawing.Color.Transparent;
-            this.buttonScalesTerminal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonScalesTerminal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonScalesTerminal.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonScalesTerminal.Location = new System.Drawing.Point(5, 2);
-            this.buttonScalesTerminal.Margin = new System.Windows.Forms.Padding(5, 2, 5, 2);
-            this.buttonScalesTerminal.Name = "buttonScalesTerminal";
-            this.buttonScalesTerminal.Size = new System.Drawing.Size(101, 126);
-            this.buttonScalesTerminal.TabIndex = 101;
-            this.buttonScalesTerminal.Text = "Scales Terminal";
-            this.buttonScalesTerminal.UseVisualStyleBackColor = false;
-            this.buttonScalesTerminal.Click += new System.EventHandler(this.ButtonScalesTerminal_Click);
-            this.buttonScalesTerminal.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             // 
             // tableLayoutPanelRight
             // 
@@ -901,14 +757,6 @@
         private System.Windows.Forms.ProgressBar fieldMassaQueriesProgress;
         private System.Windows.Forms.Label fieldTasks;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelButtons;
-        private System.Windows.Forms.Button buttonPrint;
-        private System.Windows.Forms.Button buttonMore;
-        private System.Windows.Forms.Button buttonPlu;
-        private System.Windows.Forms.Button buttonKneading;
-        private System.Windows.Forms.Button buttonNewPallet;
-        private System.Windows.Forms.Button buttonOrder;
-        private System.Windows.Forms.Button buttonScalesInit;
-        private System.Windows.Forms.Button buttonScalesTerminal;
         private System.Windows.Forms.Label labelSscc;
         private System.Windows.Forms.Label fieldSscc;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelRight;

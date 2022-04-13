@@ -28,7 +28,6 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
-        private LogHelper Log { get; set; } = LogHelper.Instance;
         private readonly object _locker = new();
 
         #endregion
@@ -40,29 +39,16 @@ namespace WeightCore.Helpers
         {
             lock (_locker)
             {
-                Log.Error(ex.Message, filePath, memberName, lineNumber);
+                LogHelper.Instance.Error(ex.Message, filePath, memberName, lineNumber);
                 if (ex.InnerException != null)
-                    Log.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
-                string msg = ex.Message;
+                    LogHelper.Instance.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
+                string message = ex.Message;
                 if (ex.InnerException != null)
-                    msg += Environment.NewLine + ex.InnerException.Message;
+                    message += Environment.NewLine + ex.InnerException.Message;
 
-                // WPF MessageBox.
                 if (isShowException)
                 {
-                    using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                    wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
-                    wpfPageLoader.MessageBox.Message =
-                        @$"{@LocalizationData.ScalesUI.Method}: {memberName}." + Environment.NewLine +
-                        $"{@LocalizationData.ScalesUI.Line}: {lineNumber}." + Environment.NewLine + Environment.NewLine + msg;
-                    wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
-                    wpfPageLoader.MessageBox.Localization();
-                    if (owner != null)
-                        wpfPageLoader.ShowDialog(owner);
-                    else
-                        wpfPageLoader.ShowDialog();
-                    wpfPageLoader.Close();
-                    wpfPageLoader.Dispose();
+                    GuiUtils.ShowWpfCatch(owner, message, lineNumber, memberName);
                 }
             }
         }

@@ -40,6 +40,7 @@ namespace ScalesUI.Forms
         private readonly object _lockerSeconds = new();
         private string AppName { get; set; } = null;
         private bool IsProgramStateIsRunVisible { get; set; }
+        private Stopwatch StopwatcMain { get; set; }
         private Stopwatch StopwatchPrint { get; set; }
         private Stopwatch StopwatchMassa { get; set; }
         private Font FontButtons { get; set; }
@@ -48,6 +49,14 @@ namespace ScalesUI.Forms
         private Font FontLabelsGray { get; set; }
         private Font FontLabelsMaximum { get; set; }
         private Font FontLabelsTitle { get; set; }
+        private Button ButtonScalesTerminal { get; set; }
+        private Button ButtonScalesInit { get; set; }
+        private Button ButtonOrder { get; set; }
+        private Button ButtonNewPallet { get; set; }
+        private Button ButtonKneading  { get; set; }
+        private Button ButtonPlu { get; set; }
+        private Button ButtonMore { get; set; }
+        private Button ButtonPrint { get; set; }
 
         #endregion
 
@@ -57,7 +66,6 @@ namespace ScalesUI.Forms
         {
             InitializeComponent();
 
-            MainFormGetFonts();
             FormBorderStyle = Debug.IsDebug ? FormBorderStyle.FixedSingle : FormBorderStyle.None;
             TopMost = !Debug.IsDebug;
             AppName = $"{AppVersion.AppTitle}.  {SessionState.CurrentScale.Description}.";
@@ -65,33 +73,20 @@ namespace ScalesUI.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            StopwatcMain = Stopwatch.StartNew();
+            StopwatchPrint = Stopwatch.StartNew();
+            StopwatchMassa = Stopwatch.StartNew();
             try
             {
+                MainFormFontsGet();
+                MainFormButtonsCreate(true, true, true, true, true, true, true);
+
                 ProgramState = ShareEnums.ProgramState.IsLoad;
                 SessionState.Manager.Close();
-                StopwatchPrint = Stopwatch.StartNew();
-                StopwatchMassa = Stopwatch.StartNew();
 
                 MainForm_LoadResources();
-
                 SessionState.NewPallet();
-
                 SetLabels();
-                if (!SessionState.CurrentScale.UseOrder)
-                {
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(buttonOrder, false);
-                    tableLayoutPanelButtons.Controls.Remove(buttonNewPallet);
-                    tableLayoutPanelButtons.Controls.Remove(buttonKneading);
-                    tableLayoutPanelButtons.Controls.Remove(buttonPlu);
-                    tableLayoutPanelButtons.Controls.Remove(buttonMore);
-                    tableLayoutPanelButtons.Controls.Remove(buttonPrint);
-                    tableLayoutPanelButtons.ColumnCount = 8;
-                    tableLayoutPanelButtons.Controls.Add(buttonNewPallet, 3, 0);
-                    tableLayoutPanelButtons.Controls.Add(buttonKneading, 4, 0);
-                    tableLayoutPanelButtons.Controls.Add(buttonPlu, 5, 0);
-                    tableLayoutPanelButtons.Controls.Add(buttonMore, 6, 0);
-                    tableLayoutPanelButtons.Controls.Add(buttonPrint, 7, 0);
-                }
 
                 Quartz.AddJob(QuartzUtils.CronExpression.EveryDays(), delegate { ScheduleEveryDays(); }, 
                     "jobScheduleEveryDays", "triggerScheduleEveryDays", "triggerGroupScheduleEveryDays");
@@ -100,8 +95,6 @@ namespace ScalesUI.Forms
 
                 if (Debug.IsDebug)
                     FieldCurrentTime_Click(sender, e);
-
-                Log.Information("The program is runned");
             }
             catch (Exception ex)
             {
@@ -109,7 +102,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 
                 SessionState.Manager.Init(SessionState.CurrentScale, SessionState.PrintBrand);
                 SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
@@ -118,6 +111,7 @@ namespace ScalesUI.Forms
                 ProgramState = ShareEnums.ProgramState.IsRun;
 
                 ComboBoxFieldLoad(fieldLang, FieldLang_SelectedIndexChanged, LocalizationData.ScalesUI.ListLanguages);
+                Log.Information(LocalizationData.Program.IsLoaded + $" {nameof(StopwatcMain.Elapsed)}: {StopwatcMain.Elapsed}.");
             }
         }
 
@@ -143,7 +137,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
             }
         }
 
@@ -163,8 +157,6 @@ namespace ScalesUI.Forms
             try
             {
                 ProgramState = ShareEnums.ProgramState.IsExit;
-                StopwatchPrint.Stop();
-                StopwatchMassa.Stop();
                 Quartz.Close();
                 Quartz.Dispose();
                 Quartz = null;
@@ -174,11 +166,17 @@ namespace ScalesUI.Forms
                 ManagerBase.WaitSync(0_100);
                 SessionState.Dispose(true);
                 ManagerBase.WaitSync(0_100);
-                Log.Information("The program is closed");
             }
             catch (Exception ex)
             {
                 Exception.Catch(this, ref ex, true);
+            }
+            finally
+            {
+                Log.Information(LocalizationData.Program.IsClosed + $" {nameof(StopwatcMain.Elapsed)}: {StopwatcMain.Elapsed}.");
+                StopwatcMain.Stop();
+                StopwatchPrint.Stop();
+                StopwatchMassa.Stop();
             }
         }
 
@@ -190,17 +188,17 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void MainFormGetFonts()
+        private void MainFormFontsGet()
         {
-            FontLabelsTitle = fieldTitle.Font;
-            FontLabelsGray = labelSscc.Font;
-            FontLabelsBlack = fieldCurrentTime.Font;
-            FontLabelsMaximum = fieldWeightNetto.Font;
-            FontButtons = buttonScalesTerminal.Font;
-            FontComboBox = fieldResolution.Font;
+            FontLabelsTitle = new("Microsoft Sans Serif", 20.25f, System.Drawing.FontStyle.Bold & System.Drawing.FontStyle.Underline);
+            FontLabelsGray = new("Microsoft Sans Serif", 9.75f, System.Drawing.FontStyle.Regular);
+            FontLabelsBlack = new("Microsoft Sans Serif", 12.75f, System.Drawing.FontStyle.Bold);
+            FontLabelsMaximum = new("Microsoft Sans Serif", 36f, System.Drawing.FontStyle.Bold);
+            FontButtons = new Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, GraphicsUnit.Point, 204);
+            FontComboBox = new("Microsoft Sans Serif", 8.25f, System.Drawing.FontStyle.Regular);
         }
 
-        private void MainFormPrepareFonts()
+        private void MainFormFontsTransform()
         {
             float emSize;
             if (Width >= 1920 && Height >= 1080)
@@ -231,7 +229,7 @@ namespace ScalesUI.Forms
             FontLabelsMaximum = new Font(FontLabelsMaximum.FontFamily, emSize + 27.00f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point);
         }
 
-        private void MainFormSetFonts()
+        private void MainFormFontsSet()
         {
             // FontTitle.
             fieldTitle.Font = FontLabelsTitle;
@@ -270,14 +268,22 @@ namespace ScalesUI.Forms
             fieldResolution.Font = FontLabelsBlack;
 
             // FontButtons.
-            buttonScalesTerminal.Font = FontButtons;
-            buttonScalesInit.Font = FontButtons;
-            buttonOrder.Font = FontButtons;
-            buttonNewPallet.Font = FontButtons;
-            buttonKneading.Font = FontButtons;
-            buttonPlu.Font = FontButtons;
-            buttonMore.Font = FontButtons;
-            buttonPrint.Font = FontButtons;
+            if (ButtonScalesTerminal != null)
+                ButtonScalesTerminal.Font = FontButtons;
+            if (ButtonScalesInit != null)
+                ButtonScalesInit.Font = FontButtons;
+            if (ButtonOrder != null)
+                ButtonOrder.Font = FontButtons;
+            if (ButtonNewPallet != null)
+                ButtonNewPallet.Font = FontButtons;
+            if (ButtonKneading  != null)
+                ButtonKneading .Font = FontButtons;
+            if (ButtonPlu != null)
+                ButtonPlu.Font = FontButtons;
+            if (ButtonMore != null)
+                ButtonMore.Font = FontButtons;
+            if (ButtonPrint != null)
+                ButtonPrint.Font = FontButtons;
             
             // FontMaximum.
             fieldWeightNetto.Font = FontLabelsMaximum;
@@ -285,6 +291,90 @@ namespace ScalesUI.Forms
             // FontComboBox.
             fieldResolution.Font = FontComboBox;
             fieldLang.Font = FontComboBox;
+        }
+
+        private void MainFormButtonsCreate(bool isButtonScalesTerminal, bool isButtonScalesInit, 
+            bool isButtonNewPallet, bool isButtonKneading, bool isButtonPlu, bool isButtonMore, bool isButtonPrint)
+        {
+            int column = -1;
+
+            if (isButtonScalesTerminal)
+            {
+                ButtonScalesTerminal = new();
+                MainFormButtonsSetup(ButtonScalesTerminal, nameof(ButtonScalesTerminal), column++);
+                ButtonScalesTerminal.Click += new EventHandler(ButtonScalesTerminal_Click);
+                ButtonScalesTerminal.KeyUp += new KeyEventHandler(MainForm_KeyUp);
+            }
+
+            if (isButtonScalesInit)
+            {
+                ButtonScalesInit = new();
+                MainFormButtonsSetup(ButtonScalesInit, nameof(ButtonScalesInit), column++);
+                ButtonScalesInit.Click += new EventHandler(ButtonScalesInit_Click);
+                ButtonScalesInit.KeyUp += new KeyEventHandler(MainForm_KeyUp);
+            }
+
+            if (SessionState.CurrentScale.UseOrder)
+            {
+                ButtonOrder = new();
+                MainFormButtonsSetup(ButtonOrder, nameof(ButtonOrder), column++);
+                ButtonOrder.Click += new EventHandler(ButtonOrder_Click);
+                ButtonOrder.KeyUp += new KeyEventHandler(MainForm_KeyUp);
+            }
+
+            if (isButtonNewPallet)
+            {
+                ButtonNewPallet = new();
+                MainFormButtonsSetup(ButtonNewPallet, nameof(ButtonNewPallet), column++);
+                ButtonNewPallet.Click += new EventHandler(ButtonNewPallet_Click);
+                ButtonNewPallet.KeyUp += new KeyEventHandler(MainForm_KeyUp);
+            }
+
+            if (isButtonKneading)
+            {
+                ButtonKneading = new();
+                MainFormButtonsSetup(ButtonKneading, nameof(ButtonKneading), column++);
+                ButtonKneading.Click += new EventHandler(ButtonKneading_Click);
+                ButtonKneading.KeyUp += new KeyEventHandler(MainForm_KeyUp);
+            }
+
+            if (isButtonPlu)
+            {
+                ButtonPlu = new();
+                MainFormButtonsSetup(ButtonPlu, nameof(ButtonPlu), column++);
+                ButtonPlu.Click += new EventHandler(ButtonPlu_Click);
+                ButtonPlu.KeyUp += new KeyEventHandler(MainForm_KeyUp);
+            }
+
+            if (isButtonMore)
+            {
+                ButtonMore = new();
+                MainFormButtonsSetup(ButtonMore, nameof(ButtonMore), column++);
+                ButtonMore.Click += new EventHandler(ButtonMore_Click);
+                ButtonMore.KeyUp += new KeyEventHandler(MainForm_KeyUp);
+            }
+
+            if (isButtonPrint)
+            {
+                ButtonPrint = new();
+                MainFormButtonsSetup(ButtonPrint, nameof(ButtonPrint), column++);
+                ButtonPrint.Click += new EventHandler(ButtonPrint_Click);
+                ButtonPrint.KeyUp += new KeyEventHandler(MainForm_KeyUp);
+            }
+        }
+
+        private void MainFormButtonsSetup(Button button, string name, int column)
+        {
+            button.Name = name;
+            button.BackColor = Color.Transparent;
+            button.Dock = DockStyle.Fill;
+            button.ForeColor = System.Drawing.SystemColors.ControlText;
+            button.Margin = new Padding(5, 2, 5, 2);
+            button.Size = new System.Drawing.Size(101, 126);
+            button.UseVisualStyleBackColor = false;
+            button.TabIndex = 100 + column;
+            button.Location = new System.Drawing.Point(2, 2);
+            tableLayoutPanelButtons.Controls.Add(button, column, 0);
         }
 
         #endregion
@@ -561,7 +651,7 @@ namespace ScalesUI.Forms
                 StopwatchMassa.Restart();
             }
             //ScheduleMassaManagerSetControlsColors();
-            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(buttonScalesInit, SessionState.IsCheckWeight);
+            MDSoft.WinFormsUtils.InvokeControl.SetEnabled(ButtonScalesInit, SessionState.IsCheckWeight);
 
             if (SessionState.Manager.Massa.MassaDevice != null)
                 MDSoft.WinFormsUtils.InvokeControl.SetText(fieldMassaComPort, SessionState.Manager.Massa.MassaDevice.IsConnected
@@ -596,7 +686,7 @@ namespace ScalesUI.Forms
         //        MDSoft.WinFormsUtils.InvokeControl.SetForeColor(fieldMassaQueries, Color.Black);
         //        MDSoft.WinFormsUtils.InvokeControl.SetForeColor(fieldMassaSet, Color.Black);
         //        MDSoft.WinFormsUtils.InvokeControl.SetForeColor(fieldMassaQueriesProgress, Color.Black);
-        //        MDSoft.WinFormsUtils.InvokeControl.SetForeColor(buttonScalesInit, Color.Black);
+        //        MDSoft.WinFormsUtils.InvokeControl.SetForeColor(ButtonScalesInit, Color.Black);
         //    }
         //    else
         //    {
@@ -788,8 +878,8 @@ namespace ScalesUI.Forms
                         break;
                 }
                 CenterToScreen();
-                MainFormPrepareFonts();
-                MainFormSetFonts();
+                MainFormFontsTransform();
+                MainFormFontsSet();
                 Log.Information($"Screen resolution: {Width} x {Height}");
             }
             catch (Exception ex)
@@ -798,7 +888,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
             }
         }
 
@@ -807,14 +897,14 @@ namespace ScalesUI.Forms
             try
             {
                 LocalizationCore.Lang = LocalizationData.Lang = fieldLang.SelectedIndex switch { 1 => ShareEnums.Lang.English, _ => ShareEnums.Lang.Russian, };
-                MDSoft.WinFormsUtils.InvokeControl.SetText(buttonScalesTerminal, LocalizationData.ScalesUI.ButtonRunScalesTerminal);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(buttonScalesInit, LocalizationData.ScalesUI.ButtonScalesInitShort);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(buttonOrder, LocalizationData.ScalesUI.ButtonSelectOrder);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(buttonNewPallet, LocalizationData.ScalesUI.ButtonNewPallet);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(buttonKneading, LocalizationData.ScalesUI.ButtonAddKneading);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(buttonPlu, LocalizationData.ScalesUI.ButtonSelectPlu);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(buttonMore, LocalizationData.ScalesUI.ButtonSetKneading);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(buttonPrint, LocalizationData.ScalesUI.ButtonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesTerminal, LocalizationData.ScalesUI.ButtonRunScalesTerminal);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonScalesInit, LocalizationData.ScalesUI.ButtonScalesInitShort);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonOrder, LocalizationData.ScalesUI.ButtonSelectOrder);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonNewPallet, LocalizationData.ScalesUI.ButtonNewPallet);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading , LocalizationData.ScalesUI.ButtonAddKneading);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocalizationData.ScalesUI.ButtonSelectPlu);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocalizationData.ScalesUI.ButtonSetKneading);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocalizationData.ScalesUI.ButtonPrint);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelWeightNetto, LocalizationData.ScalesUI.FieldWeightNetto);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelWeightTare, LocalizationData.ScalesUI.FieldWeightTare);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelKneading, LocalizationData.ScalesUI.FieldKneading);
@@ -828,7 +918,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
             }
         }
 
@@ -860,7 +950,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
             }
         }
@@ -913,7 +1003,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
             }
         }
@@ -936,7 +1026,7 @@ namespace ScalesUI.Forms
         //    }
         //    finally
         //    {
-        //        MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+        //        MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
         //        SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
         //    }
         //    if (isClose && !Debug.IsDebug)
@@ -981,7 +1071,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
             }
         }
 
@@ -1030,7 +1120,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
             }
         }
@@ -1048,7 +1138,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
             }
         }
 
@@ -1069,7 +1159,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
             }
         }
 
@@ -1112,7 +1202,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
             }
         }
@@ -1152,7 +1242,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
             }
         }
@@ -1178,7 +1268,7 @@ namespace ScalesUI.Forms
             }
             finally
             {
-                MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+                MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
                 //_sessionState.TaskManager.OpenPrintManager(CallbackPrintManagerClose, _sessionState.SqlViewModel,
                 //_sessionState.PrintBrand, _sessionState.CurrentScale);
                 SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
@@ -1205,7 +1295,7 @@ namespace ScalesUI.Forms
         //    }
         //    finally
         //    {
-        //        MDSoft.WinFormsUtils.InvokeControl.Select(buttonPrint);
+        //        MDSoft.WinFormsUtils.InvokeControl.Select(ButtonPrint);
         //        SessionState.Manager.Open(SessionState.SqlViewModel, SessionState.IsCheckWeight);
         //    }
         //}

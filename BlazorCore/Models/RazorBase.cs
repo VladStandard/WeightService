@@ -34,6 +34,7 @@ namespace BlazorCore.Models
         [Parameter] public bool IsShowItemsCount { get; set; }
         [Parameter] public bool IsShowMarkedFilter { get; set; }
         [Parameter] public bool IsShowMarkedItems { get; set; }
+        [Parameter] public bool IsShowTop100 { get; set; }
         [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; }
         [Parameter] public DbTableAction TableAction { get; set; }
         [Parameter] public Guid? IdentityUid { get; set; }
@@ -65,6 +66,7 @@ namespace BlazorCore.Models
             IsShowItemsCount = false;
             IsShowMarkedFilter = false;
             IsShowMarkedItems = false;
+            IsShowTop100 = true;
             Item = null;
             ItemFilter = null;
             Items = null;
@@ -95,6 +97,10 @@ namespace BlazorCore.Models
                         case nameof(IsShowMarkedItems):
                             if (value is bool isShowMarkedItems)
                                 IsShowMarkedItems = isShowMarkedItems;
+                            break;
+                        case nameof(IsShowTop100):
+                            if (value is bool isShowTOp100)
+                                IsShowMarkedItems = isShowTOp100;
                             break;
                     }
                     await GuiRefreshWithWaitAsync();

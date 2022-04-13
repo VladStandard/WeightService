@@ -1,11 +1,15 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using System;
 namespace DataCore.DAL
 {
     public static class SqlQueries
     {
-        public static class DbSystem
+		public static string GetTopRecords(int topRecords) =>
+			topRecords == 0 ? string.Empty : $"TOP {topRecords}";
+
+		public static class DbSystem
         {
             public static class Properties
             {
@@ -72,15 +76,16 @@ where [NAME] = @app
 
                 public static class Errors
                 {
-                    public static string GetErrors => @"
-SELECT [Id]
-      ,[CreatedDate]
-      ,[ModifiedDate]
-      ,[FilePath]
-      ,[LineNumber]
-      ,[MemberName]
-      ,[Exception]
-      ,[InnerException]
+                    public static string GetErrors(int topRecords) => $@"
+SELECT {GetTopRecords(topRecords)}
+	 [Id]
+	,[CreatedDate]
+	,[ModifiedDate]
+	,[FilePath]
+	,[LineNumber]
+	,[MemberName]
+	,[Exception]
+	,[InnerException]
 FROM [db_scales].[Errors]
 ORDER BY [CreatedDate] DESC
         ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
@@ -109,9 +114,9 @@ from [db_scales].[LOG_TYPES]
 order by [NUMBER]
             ".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 
-                    public static string GetLogs => @"
+                    public static string GetLogs(int topRecords) => $@"
 -- Table LOGS diagram summary
-select 
+select {GetTopRecords(topRecords)}
 	 [l].[UID]
 	,[l].[CREATE_DT]
 	,[s].[Description] [SCALE]
@@ -551,13 +556,25 @@ ORDER BY [ZP].[Name]
 
 			public static class Functions
 			{
-				public static string GetCurrentProductSeries => @"
+                [Obsolete(@"Use GetCurrentProductSeriesV2")]
+                public static string GetCurrentProductSeries => @"
 DECLARE @SSCC VARCHAR(50)
 DECLARE @WeithingDate DATETIME
 DECLARE @XML XML
 EXECUTE [db_scales].[NewProductSeries] @ScaleID, @SSCC OUTPUT, @XML OUTPUT
 SELECT [Id], [CreateDate], [UUID], [SSCC], [CountUnit], [TotalNetWeight], [TotalTareWeight]
 FROM [db_scales].[GetCurrentProductSeries](@ScaleId)
+						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
+				
+				public static string GetCurrentProductSeriesV2 => @"
+DECLARE @SSCC VARCHAR(50)
+DECLARE @WeithingDate DATETIME
+DECLARE @XML XML
+
+EXECUTE [db_scales].[SP_SET_PRODUCT_SERIES_V2] @SCALE_ID, @SSCC OUTPUT, @XML OUTPUT
+
+SELECT [ID], [CREATE_DT], [UUID], [SSCC], [COUNT_UNIT],[TOTAL_NET_WEIGHT], [TOTAL_TARE_WEIGHT], [IS_MARKED]
+FROM [db_scales].[FN_GET_PRODUCT_SERIES_V2](@SCALE_ID)
 						".TrimStart('\r', ' ', '\n', '\t').TrimEnd('\r', ' ', '\n', '\t');
 			}
 

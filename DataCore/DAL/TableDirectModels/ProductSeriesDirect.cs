@@ -66,8 +66,8 @@ namespace DataCore.DAL.TableDirectModels
                 throw new Exception("Equipment instance not identified. Set [Scale].");
             }
 
-            SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetCurrentProductSeries,
-                new SqlParameter("@ScaleID", System.Data.SqlDbType.VarChar, 38) { Value = Scale.Id }, (SqlDataReader reader) =>
+            SqlConnect.ExecuteReader(SqlQueries.DbScales.Functions.GetCurrentProductSeriesV2,
+                new SqlParameter("@SCALE_ID", System.Data.SqlDbType.VarChar, 38) { Value = Scale.Id }, (SqlDataReader reader) =>
                 {
                     byte count = 0;
                     while (reader.Read())

@@ -53,7 +53,7 @@ namespace BlazorDeviceControl.Shared.Section
                     if (AppSettings.DataAccess != null)
                     {
                         object[] objects = AppSettings.DataAccess.Crud.GetEntitiesNativeObject(
-                            SqlQueries.DbServiceManaging.Tables.Errors.GetErrors);
+                            SqlQueries.DbServiceManaging.Tables.Errors.GetErrors(IsShowTop100 ? 100 : 0));
                         Items = new List<ErrorEntity>().ToList<BaseEntity>();
                         foreach (object obj in objects)
                         {
