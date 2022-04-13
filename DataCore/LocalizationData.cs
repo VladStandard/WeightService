@@ -41,6 +41,7 @@ namespace DataCore
                 public const string Contragent = "/item/contragent";
                 public const string Error = "/item/error";
                 public const string Host = "/item/host";
+                public const string Info = "/item/info";
                 public const string Label = "/item/label";
                 public const string Log = "/item/log";
                 public const string LogType = "/item/logtype";

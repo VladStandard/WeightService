@@ -38,6 +38,7 @@ namespace BlazorCore.Models
         [Parameter] public ButtonSettingsEntity ButtonSettings { get; set; }
         [Parameter] public DbTableAction TableAction { get; set; }
         [Parameter] public Guid? IdentityUid { get; set; }
+        [Parameter] public string IdentityUidStr { get => IdentityUid.ToString(); set => IdentityUid = Guid.TryParse(value, out Guid uid) ? uid : Guid.Empty; }
         [Parameter] public List<BaseEntity>? Items { get; set; }
         [Parameter] public List<BaseEntity>? ItemsFilter { get; set; }
         [Parameter] public long? IdentityId { get; set; }
@@ -401,9 +402,9 @@ namespace BlazorCore.Models
                 case TableScaleEntity:
                     SetParametersForTableScale(parameters, ProjectsEnums.GetTableScale(Table.Name));
                     break;
-                case TableDwhEntity:
-                    SetParametersForTableDwh(parameters, ProjectsEnums.GetTableDwh(Table.Name));
-                    break;
+                //case TableDwhEntity:
+                //    SetParametersForTableDwh(parameters, ProjectsEnums.GetTableDwh(Table.Name));
+                //    break;
             }
         }
 
@@ -593,22 +594,22 @@ namespace BlazorCore.Models
             }
         }
 
-        private void SetParametersForTableDwh(ParameterView parameters, ProjectsEnums.TableDwh table)
-        {
-            switch (table)
-            {
-                case ProjectsEnums.TableDwh.Default:
-                    break;
-                case ProjectsEnums.TableDwh.InformationSystem:
-                    break;
-                case ProjectsEnums.TableDwh.Nomenclature:
-                    break;
-                case ProjectsEnums.TableDwh.NomenclatureMaster:
-                    break;
-                case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
-                    break;
-            }
-        }
+        //private void SetParametersForTableDwh(ParameterView parameters, ProjectsEnums.TableDwh table)
+        //{
+        //    switch (table)
+        //    {
+        //        case ProjectsEnums.TableDwh.Default:
+        //            break;
+        //        case ProjectsEnums.TableDwh.InformationSystem:
+        //            break;
+        //        case ProjectsEnums.TableDwh.Nomenclature:
+        //            break;
+        //        case ProjectsEnums.TableDwh.NomenclatureMaster:
+        //            break;
+        //        case ProjectsEnums.TableDwh.NomenclatureNonNormalize:
+        //            break;
+        //    }
+        //}
 
         public async Task HotKeysMenuRoot()
         {

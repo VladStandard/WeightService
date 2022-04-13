@@ -68,9 +68,10 @@ namespace BlazorDeviceControl.Shared.Section
                             { DbField.IdentityUid.ToString(), IdentityUid },
                         }), null);
                         Items = TaskItem == null || TaskItem.EqualsDefault() == true
-                            ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null)?.ToList<BaseEntity>()
+                            ? AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(null, null, IsShowTop100 ? 100 : 0)?.ToList<BaseEntity>()
                             : AppSettings.DataAccess.Crud.GetEntities<TaskEntity>(
-                                new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", TaskItem.Scale.IdentityId } }), null)
+                                new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", TaskItem.Scale.IdentityId } }), 
+                                null, IsShowTop100 ? 100 : 0)
                                 ?.ToList<BaseEntity>();
                     }
                     ButtonSettings = new(true, true, true, true, true, false, false);

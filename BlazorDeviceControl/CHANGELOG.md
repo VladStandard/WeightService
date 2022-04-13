@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Shared.Component.ActionsReloadItem
 - Shared.Component.ActionsReloadSection
 ### Описание обновления:
-- Область раздела и страницы "Обновить данные": отображать первые 100
+- Добавлена новая функция разделов: отображать первые 100 записей (включена по-умолчанию)
 
 ## [0.6.440] - 2022-04-12
 ### Fixed

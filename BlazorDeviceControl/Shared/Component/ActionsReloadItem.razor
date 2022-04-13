@@ -10,45 +10,24 @@
     {
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 18px; " Text=@Title />
     }
-    @if (ParentRazor == null || ParentRazor.Item == null)
+    
+    @if (ParentRazor == null)
     {
         <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
     }
     else
     {
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocalizationCore.Strings.ActionIsShowTop100 />
-        <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowTop100
-            Change=@(args => OnChangeCheckBox(args, nameof(IsShowTop100)))
-        />
-
-        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@LocalizationCore.Strings.ActionIsShowMarked />
-        <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ParentRazor.IsShowMarkedItems
-            Change=@(args => OnChangeCheckBox(args, nameof(IsShowMarkedItems)))
-        />
-
         <RadzenButton 
             class="radzenButtonShort" ButtonStyle=@ButtonStyle.Primary Icon="refresh"
             Disabled=@AppSettings.DataAccess.IsDisabled 
             Click=@(args => SetParameters.InvokeAsync())
             MouseEnter="@(args => TooltipService?.Open(args, LocalizationData.DeviceControl.TableReadData))"
         />
-        
-        @if (IsShowItemsCount)
-        {
-            <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@ItemsCountResult />
-        }
-        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true 
-            Icon=@(ParentRazor.Item.IsMarked ? "delete" : "") />
-        
-        @if (IsShowAdditionalFilter)
-        {
-            <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@FilterCaption />
-            <RadzenDropDown Style="width: 100%;" TValue="string" FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive
-                AllowFiltering=true AllowClear=true AllowFilteringByAllStringColumns=true
-                Data=@ItemsFilter PageSize=@AppSettings.DataAccess.JsonSettings.ItemRowCount TextProperty="Name" 
-                ValueProperty="Value" Value=@ItemFilter 
-                Change=@(args => OnItemValueChange(ItemFilter, FilterName, args)) />
-        }
     }
 
+    @if (ParentRazor?.Item != null)
+    {
+        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true 
+            Icon=@(ParentRazor.Item.IsMarked ? "delete" : "") />
+    }
 </MudElement>

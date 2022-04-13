@@ -10,7 +10,7 @@
     {
         <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 18px; " Text=@Title />
     }
-    @if (ParentRazor == null || ParentRazor.Item == null)
+    @if (ParentRazor == null)
     {
         <ActionsLoad ParentRazor=@this DataLoadItem=ShareEnums.ActionLoad.Loading IsShowProgress=true />
     }
@@ -33,12 +33,7 @@
             MouseEnter="@(args => TooltipService?.Open(args, LocalizationData.DeviceControl.TableReadData))"
         />
         
-        @if (IsShowItemsCount)
-        {
-            <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@ItemsCountResult />
-        }
-        <RadzenIcon Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Disabled=false ReadOnly=true 
-            Icon=@(ParentRazor.Item.IsMarked ? "delete" : "") />
+        <RadzenLabel Style="margin-top: 3px; margin-left: 1%; font-size: 14px; " Text=@ItemsCountResult />
         
         @if (IsShowAdditionalFilter)
         {
@@ -50,5 +45,4 @@
                 Change=@(args => OnItemValueChange(ItemFilter, FilterName, args)) />
         }
     }
-
 </MudElement>

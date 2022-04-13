@@ -59,13 +59,13 @@ namespace BlazorDeviceControl.Shared.Section
                             if (printerId == null)
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                                     null,
-                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                                     ?.ToList<BaseEntity>();
                             else
                             {
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> { { $"Printer.{DbField.IdentityId}", printerId } }),
-                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                                     ?.ToList<BaseEntity>();
                             }
                         }
@@ -75,14 +75,14 @@ namespace BlazorDeviceControl.Shared.Section
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> {
                                         { DbField.IsMarked.ToString(), false } }),
-                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                                     ?.ToList<BaseEntity>();
                             else
                             {
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PrinterResourceEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> {
                                         { $"Printer.{DbField.IdentityId}", printerId }, { DbField.IsMarked.ToString(), false } }),
-                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc))
+                                    new FieldOrderEntity(DbField.Description, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                                     ?.ToList<BaseEntity>();
                             }
                         }

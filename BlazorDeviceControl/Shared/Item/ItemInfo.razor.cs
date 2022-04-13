@@ -11,9 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Section
+namespace BlazorDeviceControl.Shared.Item
 {
-    public partial class SectionInfo
+    public partial class ItemInfo
     {
         #region Public and private fields and properties
 
@@ -33,7 +33,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         #region Constructor and destructor
 
-        public SectionInfo() : base()
+        public ItemInfo() : base()
         {
             //
         }

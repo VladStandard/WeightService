@@ -89,6 +89,7 @@
     <Watch Remove="Shared\Item\ItemContragent.razor" />
     <Watch Remove="Shared\Item\ItemError.razor" />
     <Watch Remove="Shared\Item\ItemHost.razor" />
+    <Watch Remove="Shared\Item\ItemInfo.razor" />
     <Watch Remove="Shared\Item\ItemLabel.razor" />
     <Watch Remove="Shared\Item\ItemLog.razor" />
     <Watch Remove="Shared\Item\ItemNomenclature.razor" />

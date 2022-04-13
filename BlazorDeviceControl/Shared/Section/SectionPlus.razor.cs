@@ -56,13 +56,13 @@ namespace BlazorDeviceControl.Shared.Section
                             if (scaleId == null)
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                                     null,
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                                     ?.ToList<BaseEntity>();
                             else
                             {
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> { { $"Scale.{DbField.IdentityId}", scaleId } }),
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                                     ?.ToList<BaseEntity>();
                             }
                         }
@@ -72,14 +72,14 @@ namespace BlazorDeviceControl.Shared.Section
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> { 
                                         { DbField.IsMarked.ToString(), false } }),
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                                     ?.ToList<BaseEntity>();
                             else
                             {
                                 Items = AppSettings.DataAccess.Crud.GetEntities<PluEntity>(
                                     new FieldListEntity(new Dictionary<string, object?> {
                                         { $"Scale.{DbField.IdentityId}", scaleId }, { DbField.IsMarked.ToString(), false } }),
-                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc))
+                                    new FieldOrderEntity(DbField.GoodsName, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                                     ?.ToList<BaseEntity>();
                             }
                         }

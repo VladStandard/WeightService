@@ -61,7 +61,7 @@ namespace BlazorDeviceControl.Shared.Section
                             Items = AppSettings.DataAccess.Crud.GetEntities<TemplateEntity>(
                                 (IsShowMarkedItems == true) ? null
                                     : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
-                                new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))
+                                new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                             ?.ToList<BaseEntity>();
                     }
                     else
@@ -73,7 +73,7 @@ namespace BlazorDeviceControl.Shared.Section
                                         { DbField.CategoryId.ToString(), TemplateCategory } })
                                     : new FieldListEntity(new Dictionary<string, object?> {
                                         { DbField.IsMarked.ToString(), false }, { DbField.CategoryId.ToString(), TemplateCategory } }),
-                                new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc))
+                                new FieldOrderEntity(DbField.CategoryId, DbOrderDirection.Asc), IsShowTop100 ? 100 : 0)
                             ?.ToList<BaseEntity>();
                     }
                     ButtonSettings = new(true, true, true, true, true, false, false);

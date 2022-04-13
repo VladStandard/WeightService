@@ -49,7 +49,7 @@ namespace BlazorDeviceControl.Shared.Section
                     await GuiRefreshWithWaitAsync();
 
                     if (AppSettings.DataAccess != null)
-                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null)
+                        Items = AppSettings.DataAccess.Crud.GetEntities<PrinterTypeEntity>(null, null, IsShowTop100 ? 100 : 0)
                             ?.OrderBy(x => x.Name).ToList<BaseEntity>();
                     ButtonSettings = new(true, true, true, true, true, false, false);
                     IsLoaded = true;

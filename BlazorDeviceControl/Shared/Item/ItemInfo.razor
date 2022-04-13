@@ -1,11 +1,11 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/section/info"
+@page "/item/info"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using DataCore.Utils
 @using static DataCore.ShareEnums
 
-<ActionsReloadSection ParentRazor=@this 
+<ActionsReloadItem ParentRazor=@this 
     Title=@LocalizationCore.Strings.SysInfo SetParameters=@SetParametersAsync />
     
 <MudElement HtmlTag="h3" Class="ma-0">@LocalizationCore.Strings.Main.AppSettings</MudElement>
