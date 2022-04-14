@@ -51,12 +51,12 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(InitComPort_Execute_DoesNotThrow)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            Assert.DoesNotThrow(() => _serialPort.InitComPort("COM3"));
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(InitComPort_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(InitComPort_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        [Test]
@@ -64,14 +64,14 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(OpenComPort_Execute_Throws)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            Assert.DoesNotThrow(() => _serialPort.InitComPort("COM124"));
 //            Assert.DoesNotThrow(() => _serialPort.OpenComPort());
 //            Assert.AreEqual(_serialPort.ComPortException.Message, "Порт 'COM124' не существует.");
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(OpenComPort_Execute_Throws)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(OpenComPort_Execute_Throws)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        [Test]
@@ -79,14 +79,14 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(OpenComPort_Execute_DoesNotThrow)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            Assert.DoesNotThrow(() => _serialPort.OpenComPort());
 //            Assert.DoesNotThrow(() => _serialPort.InitComPort("COM1"));
 //            Assert.DoesNotThrow(() => _serialPort.OpenComPort());
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(OpenComPort_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(OpenComPort_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        [Test]
@@ -94,14 +94,14 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(CloseComPort_Execute_DoesNotThrow)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            Assert.DoesNotThrow(() => _serialPort.CloseComPort());
 //            Assert.DoesNotThrow(() => _serialPort.InitComPort("COM1"));
 //            Assert.DoesNotThrow(() => _serialPort.CloseComPort());
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(CloseComPort_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(CloseComPort_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        #endregion

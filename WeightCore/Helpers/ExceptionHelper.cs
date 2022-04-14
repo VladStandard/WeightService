@@ -39,16 +39,16 @@ namespace WeightCore.Helpers
         {
             lock (_locker)
             {
-                LogHelper.Instance.Error(ex.Message, filePath, memberName, lineNumber);
+                LogHelper.Instance.Error(ex.Message, filePath, lineNumber, memberName);
                 if (ex.InnerException != null)
-                    LogHelper.Instance.Error(ex.InnerException.Message, filePath, memberName, lineNumber);
+                    LogHelper.Instance.Error(ex.InnerException.Message, filePath, lineNumber, memberName);
                 string message = ex.Message;
                 if (ex.InnerException != null)
                     message += Environment.NewLine + ex.InnerException.Message;
 
                 if (isShowException)
                 {
-                    GuiUtils.ShowWpfCatch(owner, message, lineNumber, memberName);
+                    GuiUtils.WpfForm.ShowNewCatch(owner, message, filePath, lineNumber, memberName);
                 }
             }
         }

@@ -41,12 +41,12 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SearchingDriver_AreEqual)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             Assert.AreEqual(true, true);
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(SearchingDriver_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(SearchingDriver_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
     }
 }

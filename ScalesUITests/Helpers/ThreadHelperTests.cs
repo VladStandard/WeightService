@@ -57,12 +57,12 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(UpdatedResourcesDt_Execute_DoesNotThrow)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            Assert.DoesNotThrow(() => _thread.UpdatedResourcesDt(new Label()));
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(UpdatedResourcesDt_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(UpdatedResourcesDt_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        #endregion
@@ -74,12 +74,12 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(UpdatedResourcesComPort_Execute_DoesNotThrow)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            Assert.DoesNotThrow(() => _thread.UpdatedResourcesComPort(_sessionState, new Label(), new Button(), new Button(), new Button(), new Button()));
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(UpdatedResourcesComPort_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(UpdatedResourcesComPort_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        #endregion
@@ -91,12 +91,12 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(LoadResourcesScale_Execute_DoesNotThrow)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            Assert.DoesNotThrow(() => _thread.LoadResourcesScale(new Label(), new Label(), new Label(), new Label(), new Label(), new Button(), new PictureBox()));
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(LoadResourcesScale_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(LoadResourcesScale_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        [Test]
@@ -104,12 +104,12 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(UnloadResourcesScale_Execute_DoesNotThrow)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            Assert.DoesNotThrow(() => _thread.UnloadResourcesScale(new Label(), new Label(), new Label(), new Label(), new Label(), new Button(), new PictureBox()));
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(UnloadResourcesScale_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(UnloadResourcesScale_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        [Test]
@@ -117,12 +117,12 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(UpdatedResourcesScale_Execute_DoesNotThrow)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            Assert.DoesNotThrow(() => _thread.UpdatedResourcesScale(_sessionState, new Label(), new Label(), new Label(), new Label(), new Label(), new Button()));
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(UpdatedResourcesScale_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(UpdatedResourcesScale_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        #endregion

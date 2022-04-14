@@ -42,7 +42,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(GetDriverFileName_AreEqual)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             string actual = Collections.GetDriverFileName(ShareEnums.WinVersion.Win10x64);
             Assert.AreEqual("VCP_V1.5.0_Setup_W8_x64_64bits.exe", actual);
@@ -57,8 +57,8 @@ namespace WeightCoreTests.Helpers
             actual = Collections.GetDriverFileName(ShareEnums.WinVersion.Win7x32);
             Assert.AreEqual("VCP_V1.5.0_Setup_W7_x86_32bits.exe", actual);
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(GetDriverFileName_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(GetDriverFileName_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
     }
 }

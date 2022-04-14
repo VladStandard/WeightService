@@ -54,7 +54,7 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(ResetAsync_Execute_DoesNotThrow)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            foreach (EnumZebraAction action in Enum.GetValues(typeof(EnumZebraAction)))
 //            {
@@ -62,8 +62,8 @@
 //                TestContext.WriteLine($@"_printZebra.ActionAsync({action}, ""127.0.0.1"", 9100, ProjectsEnums.SilentUI.True, new Button()).");
 //            }
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(ResetAsync_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(ResetAsync_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 
 //        #endregion

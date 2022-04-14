@@ -144,7 +144,7 @@ namespace ScalesUI.Forms
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
                 wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.CheckPluWeightCount;
-                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog(this);
                 wpfPageLoader.Close();

@@ -278,16 +278,8 @@ namespace WeightCore.Helpers
         {
             if (CurrentPlu == null)
             {
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.PluIsEmpty;
-                Log.Information(wpfPageLoader.MessageBox.Message);
-                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
-                wpfPageLoader.ShowDialog(owner);
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocalizationData.ScalesUI.PluIsEmpty, 
+                    new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
 
@@ -303,16 +295,8 @@ namespace WeightCore.Helpers
         {
             if (Manager == null || Manager.Massa == null)
             {
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.MassaNotFound;
-                Log.Information(wpfPageLoader.MessageBox.Message);
-                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
-                wpfPageLoader.ShowDialog(owner);
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocalizationData.ScalesUI.MassaNotFound,
+                    new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
             return true;
@@ -329,17 +313,10 @@ namespace WeightCore.Helpers
                 return true;
             if (Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight < LocalizationData.ScalesUI.MassaThreshold)
             {
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.CheckWeightThreshold(Manager.Massa.WeightNet);
-                Log.Information(wpfPageLoader.MessageBox.Message);
-                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
-                wpfPageLoader.ShowDialog(owner);
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
-                return result == DialogResult.Cancel;
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+                    LocalizationData.ScalesUI.CheckWeightThreshold(Manager.Massa.WeightNet),
+                    new() { ButtonCancelVisibility = Visibility.Visible });
+                return false;
             }
             return true;
         }
@@ -355,16 +332,9 @@ namespace WeightCore.Helpers
                 return true;
             if (Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight > LocalizationData.ScalesUI.MassaThreshold)
             {
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.CheckWeightThreshold(Manager.Massa.WeightNet);
-                Log.Information(wpfPageLoader.MessageBox.Message);
-                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
-                wpfPageLoader.ShowDialog(owner);
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
+                DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, 
+                    LocalizationData.ScalesUI.CheckWeightThreshold(Manager.Massa.WeightNet),
+                    new() { ButtonCancelVisibility = Visibility.Visible });
                 return result == DialogResult.Cancel;
             }
             return true;
@@ -389,18 +359,10 @@ namespace WeightCore.Helpers
                 isCheck = true;
             if (!isCheck)
             {
-                using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
-                wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.CheckWeightThresholds(
-                    CurrentWeighingFact.NetWeight, CurrentPlu.UpperWeightThreshold, CurrentPlu.NominalWeight, CurrentPlu.LowerWeightThreshold);
-                Log.Information(wpfPageLoader.MessageBox.Message);
-                wpfPageLoader.MessageBox.ButtonCancelVisibility = Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
-                wpfPageLoader.ShowDialog(owner);
-                DialogResult result = wpfPageLoader.MessageBox.Result;
-                wpfPageLoader.Close();
-                wpfPageLoader.Dispose();
-                return result == DialogResult.Cancel;
+                GuiUtils.WpfForm.ShowNewOperationControl(owner, LocalizationData.ScalesUI.CheckWeightThresholds(
+                    CurrentWeighingFact.NetWeight, CurrentPlu.UpperWeightThreshold, CurrentPlu.NominalWeight, CurrentPlu.LowerWeightThreshold),
+                    new() { ButtonCancelVisibility = Visibility.Visible });
+                return false;
             }
             return true;
         }

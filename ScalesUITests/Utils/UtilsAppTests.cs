@@ -37,7 +37,7 @@
 //        {
 //            TestContext.WriteLine(@"--------------------------------------------------------------------------------");
 //            TestContext.WriteLine($@"{nameof(IsAdmin_AreEqual)} start.");
-//            var sw = Stopwatch.StartNew();
+//            var stopwatch = Stopwatch.StartNew();
 
 //            var hostName = System.Net.Dns.GetHostName();
 //            TestContext.WriteLine($"hostName: {hostName}");
@@ -46,8 +46,8 @@
 //            TestContext.WriteLine($"actual/expected: {actual}");
 //            Assert.AreEqual(expected, actual);
 
-//            sw.Stop();
-//            TestContext.WriteLine($@"{nameof(IsAdmin_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+//            TestContext.WriteLine($@"{nameof(IsAdmin_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+//            stopwatch.Stop();
 //        }
 //    }
 //}

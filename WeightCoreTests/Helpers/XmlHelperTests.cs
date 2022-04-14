@@ -47,7 +47,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }));
             Assert.Throws<FileNotFoundException>(() => Xml.Checks("test", new Collection<XmlTag>() { new XmlTag(null) }, "test"));
@@ -63,8 +63,8 @@ namespace WeightCoreTests.Helpers
             Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }));
             Assert.DoesNotThrow(() => Xml.Checks(TestFile, new Collection<XmlTag>() { new XmlTag("test", "test") }, "test"));
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(Checks_Throws_Exception)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Read_AreEqual)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             ResultXmlRead actual = Xml.Read(TestFile, new Collection<XmlTag>()
             {
@@ -91,8 +91,8 @@ namespace WeightCoreTests.Helpers
 
             Assert.AreEqual(actual.NoError ? "NOT IsPersonalizationRestricted()" : string.Empty, actual.Value);
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(Read_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(Read_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             if (File.Exists(Settings.GetScalesConfigFileName()))
             {
@@ -124,8 +124,8 @@ namespace WeightCoreTests.Helpers
             else
                 Assert.AreEqual(string.Empty, string.Empty);
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(ReadScalesUI_ConnectionString_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             if (File.Exists(Settings.GetScalesConfigFileName()))
             {
@@ -156,8 +156,8 @@ namespace WeightCoreTests.Helpers
             else
                 Assert.AreEqual(string.Empty, string.Empty);
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(ReadScalesUI_ScalesID_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
     }
 }

@@ -34,8 +34,8 @@ namespace ScalesUI
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Registration;
                 wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.RegistrationWarning1(uid);
-                wpfPageLoader.MessageBox.ButtonYesVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.ButtonNoVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonYesVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonNoVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog();
                 DialogResult result = wpfPageLoader.MessageBox.Result;
@@ -59,7 +59,7 @@ namespace ScalesUI
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
                 wpfPageLoader.MessageBox.Message = message;
-                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog();
                 wpfPageLoader.Close();
@@ -87,7 +87,7 @@ namespace ScalesUI
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
                 wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.ExceptionSqlDb + Environment.NewLine + Environment.NewLine + ex.Message;
-                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog();
                 wpfPageLoader.Close();
@@ -111,7 +111,7 @@ namespace ScalesUI
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Registration;
                 wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.RegistrationWarning2(host.IdRRef);
-                wpfPageLoader.MessageBox.ButtonOkVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog();
                 DialogResult result = wpfPageLoader.MessageBox.Result;

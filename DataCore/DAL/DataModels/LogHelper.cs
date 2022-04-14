@@ -40,20 +40,20 @@ namespace DataCore.DAL.DataModels
 
         #region Public and private methods
 
-        public void Error(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "",
-            [CallerLineNumber] int lineNumber = 0) =>
+        public void Error(string message,
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
             _logDirect.SaveError(message, filePath, memberName, lineNumber);
 
         public void Stop(string message,
-            [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0) =>
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
             _logDirect.SaveStop(message, filePath, memberName, lineNumber);
 
         public void Information(string message,
-            [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0) =>
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
             _logDirect.SaveInformation(message, filePath, memberName, lineNumber);
 
         public void Warning(string message,
-            [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0) =>
+            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "") =>
             _logDirect.SaveWarning(message, filePath, memberName, lineNumber);
 
         #endregion

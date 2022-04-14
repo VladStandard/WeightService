@@ -44,7 +44,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SetupDirs_AreEqual)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             bool actual = Settings.SetupAndCheckDirs(@"c:\Program Files (x86)\VladimirStandardCorp\ScalesUI", ProjectsEnums.SilentUI.True,
                 ShareEnums.Lang.Russian);
@@ -69,8 +69,8 @@ namespace WeightCoreTests.Helpers
                 Assert.AreEqual(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + @"\VladimirStandardCorp\ScalesUI\Manuals", Settings.DirManuals);
             }
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(SetupDirs_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(SetupDirs_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
     }
 }

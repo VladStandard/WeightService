@@ -44,7 +44,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_Empty)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             foreach (ShareEnums.WinProvider provider in Enum.GetValues(typeof(ShareEnums.WinProvider)))
             {
@@ -57,8 +57,8 @@ namespace WeightCoreTests.Helpers
                 }
             }
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_Empty)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_Empty)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -66,15 +66,15 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             WmiSoftwareEntity actual = Win.SearchingSoftware(ShareEnums.WinProvider.Registry, "Microsoft .NET Framework", ShareEnums.StringTemplate.StartsWith);
             TestContext.WriteLine($"actual: {actual}");
             TestContext.WriteLine($"actual.Name: {actual.Name}");
             Assert.AreEqual("Microsoft Corporation", actual.Vendor);
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(SearchingSoftware_AreEqual_FromRegistry)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
     }
 }

@@ -55,15 +55,15 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(GetCurrentVersionSubString_Execute_DoesNotThrow)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             string version = "0.1.5.123";
             string actual = string.Empty;
             Assert.DoesNotThrow(() => actual = App.GetCurrentVersionSubString(version));
             Assert.AreEqual("0.1.5", actual);
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(GetCurrentVersionSubString_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(GetCurrentVersionSubString_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_Default)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             string result = string.Empty;
             foreach (ShareEnums.AppVerStringFormat strFormat in Enum.GetValues(typeof(ShareEnums.AppVerStringFormat)))
@@ -85,8 +85,8 @@ namespace WeightCoreTests.Helpers
                 }
             }
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_Default)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_Default)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -94,7 +94,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_DoesNotThrow)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             string result = string.Empty;
 
@@ -105,8 +105,8 @@ namespace WeightCoreTests.Helpers
                 TestContext.WriteLine($@"_app.GetCurrentVersion({countDigits}, {strFormats}) = {result}");
             }
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_DoesNotThrow)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_DoesNotThrow)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_AreEqual)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             string result = string.Empty;
             Version version = new(0, 1, 5, 123);
@@ -149,8 +149,8 @@ namespace WeightCoreTests.Helpers
                     Assert.AreEqual("0.1.5.123", result);
             }
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -158,15 +158,15 @@ namespace WeightCoreTests.Helpers
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_AreEqual)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             Assert.DoesNotThrow(() => App.SetNewSize(null));
             Assert.DoesNotThrow(() => App.SetNewSize(null, FormStartPosition.CenterParent));
             Assert.DoesNotThrow(() => App.SetNewSize(new Form()));
             Assert.DoesNotThrow(() => App.SetNewSize(new Form(), FormStartPosition.CenterParent));
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_AreEqual)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(GetCurrentVersion_Execute_AreEqual)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         #endregion

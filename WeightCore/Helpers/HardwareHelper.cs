@@ -76,8 +76,8 @@ namespace WeightCore.Helpers
         /// <returns></returns>
         public List<string> ProgramPrint()
         {
-            Stopwatch pr = new();
-            Stopwatch pr2 = new();
+            Stopwatch stopwatch1 = new();
+            Stopwatch stopwatch2 = new();
             List<string> installed_program = new();
 
             string registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
@@ -97,9 +97,9 @@ namespace WeightCore.Helpers
                         }
                     }
             }
-            pr.Stop();
-            Console.WriteLine(@"Time elapsed using: {0}", pr.Elapsed);
-            Console.WriteLine(@"Time elapsed foreach: {0}", pr2.Elapsed);
+            stopwatch1.Stop();
+            Console.WriteLine(@"Time elapsed using: {0}", stopwatch1.Elapsed);
+            Console.WriteLine(@"Time elapsed foreach: {0}", stopwatch2.Elapsed);
             return installed_program;
         }
 

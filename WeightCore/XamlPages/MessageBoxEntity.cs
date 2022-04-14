@@ -3,7 +3,6 @@
 
 using DataCore;
 using MvvmHelpers;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace WeightCore.XamlPages
@@ -32,11 +31,11 @@ namespace WeightCore.XamlPages
                 OnPropertyChanged();
             }
         }
-        
+
         private DialogResult _result;
         public DialogResult Result
         {
-            get => _result; 
+            get => _result;
             set
             {
                 _result = value;
@@ -152,73 +151,13 @@ namespace WeightCore.XamlPages
             }
         }
 
-        private Visibility _buttonYesVisibility;
-        public Visibility ButtonYesVisibility
+        private VisibilitySettingsEntity _visibilitySettings;
+        public VisibilitySettingsEntity VisibilitySettings
         {
-            get => _buttonYesVisibility;
+            get => _visibilitySettings;
             set
             {
-                _buttonYesVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-        private Visibility _buttonRetryVisibility;
-        public Visibility ButtonRetryVisibility
-        {
-            get => _buttonRetryVisibility;
-            set
-            {
-                _buttonRetryVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-        private Visibility _buttonNoVisibility;
-        public Visibility ButtonNoVisibility
-        {
-            get => _buttonNoVisibility;
-            set
-            {
-                _buttonNoVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-        private Visibility _buttonIgnoreVisibility;
-        public Visibility ButtonIgnoreVisibility
-        {
-            get => _buttonIgnoreVisibility;
-            set
-            {
-                _buttonIgnoreVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-        private Visibility _buttonCancelVisibility;
-        public Visibility ButtonCancelVisibility
-        {
-            get => _buttonCancelVisibility;
-            set
-            {
-                _buttonCancelVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-        private Visibility _buttonAbortVisibility;
-        public Visibility ButtonAbortVisibility
-        {
-            get => _buttonAbortVisibility;
-            set
-            {
-                _buttonAbortVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-        private Visibility _buttonOkVisibility;
-        public Visibility ButtonOkVisibility
-        {
-            get => _buttonOkVisibility;
-            set
-            {
-                _buttonOkVisibility = value;
+                _visibilitySettings = value;
                 OnPropertyChanged();
             }
         }
@@ -237,13 +176,7 @@ namespace WeightCore.XamlPages
 
             Localization();
 
-            ButtonYesVisibility = Visibility.Hidden;
-            ButtonRetryVisibility = Visibility.Hidden;
-            ButtonNoVisibility = Visibility.Hidden;
-            ButtonIgnoreVisibility = Visibility.Hidden;
-            ButtonCancelVisibility = Visibility.Hidden;
-            ButtonAbortVisibility = Visibility.Hidden;
-            ButtonOkVisibility = Visibility.Hidden;
+            VisibilitySettings = new();
 
             Result = DialogResult.Cancel;
         }

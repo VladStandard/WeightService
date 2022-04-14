@@ -97,19 +97,19 @@ namespace WeightCore.XamlPages
         private ushort GetGridColCount()
         {
             ushort count = 0;
-            if (MessageBox.ButtonYesVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonYesVisibility == System.Windows.Visibility.Visible)
                 count++;
-            if (MessageBox.ButtonRetryVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonRetryVisibility == System.Windows.Visibility.Visible)
                 count++;
-            if (MessageBox.ButtonNoVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonNoVisibility == System.Windows.Visibility.Visible)
                 count++;
-            if (MessageBox.ButtonIgnoreVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonIgnoreVisibility == System.Windows.Visibility.Visible)
                 count++;
-            if (MessageBox.ButtonCancelVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonCancelVisibility == System.Windows.Visibility.Visible)
                 count++;
-            if (MessageBox.ButtonAbortVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonAbortVisibility == System.Windows.Visibility.Visible)
                 count++;
-            if (MessageBox.ButtonOkVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonOkVisibility == System.Windows.Visibility.Visible)
                 count++;
             return count;
         }
@@ -186,7 +186,7 @@ namespace WeightCore.XamlPages
 
         private void GetButtonYes(Grid gridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.ButtonYesVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonYesVisibility == System.Windows.Visibility.Visible)
             {
                 Button button = new()
                 {
@@ -205,7 +205,7 @@ namespace WeightCore.XamlPages
 
         private void GetButtonRetry(Grid gridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.ButtonRetryVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonRetryVisibility == System.Windows.Visibility.Visible)
             {
                 Button button = new()
                 {
@@ -224,7 +224,7 @@ namespace WeightCore.XamlPages
 
         private void GetButtonNo(Grid gridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.ButtonNoVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonNoVisibility == System.Windows.Visibility.Visible)
             {
                 Button button = new()
                 {
@@ -243,7 +243,7 @@ namespace WeightCore.XamlPages
 
         private void GetButtonIgnore(Grid gridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.ButtonIgnoreVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonIgnoreVisibility == System.Windows.Visibility.Visible)
             {
                 Button button = new()
                 {
@@ -262,7 +262,7 @@ namespace WeightCore.XamlPages
 
         private void GetButtonCancel(Grid gridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.ButtonCancelVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonCancelVisibility == System.Windows.Visibility.Visible)
             {
                 Button button = new()
                 {
@@ -281,7 +281,7 @@ namespace WeightCore.XamlPages
 
         private void GetButtonAbort(Grid gridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.ButtonAbortVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonAbortVisibility == System.Windows.Visibility.Visible)
             {
                 Button button = new()
                 {
@@ -300,7 +300,7 @@ namespace WeightCore.XamlPages
 
         private void GetButtonOk(Grid gridMain, ref ushort col, ushort row)
         {
-            if (MessageBox.ButtonOkVisibility == System.Windows.Visibility.Visible)
+            if (MessageBox.VisibilitySettings.ButtonOkVisibility == System.Windows.Visibility.Visible)
             {
                 Button button = new()
                 {

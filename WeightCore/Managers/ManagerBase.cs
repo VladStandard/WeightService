@@ -77,9 +77,9 @@ namespace WeightCore.Managers
                 miliseconds = 50;
             if (miliseconds > 5_000)
                 miliseconds = 5_000;
-            Stopwatch sw = Stopwatch.StartNew();
-            sw.Restart();
-            while (sw.Elapsed.TotalMilliseconds < miliseconds)
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            stopwatch.Restart();
+            while (stopwatch.Elapsed.TotalMilliseconds < miliseconds)
             {
                 if (task != null && task.Status != TaskStatus.WaitingForActivation)
                     if (task.Status == TaskStatus.Canceled || task.Status == TaskStatus.Faulted)
@@ -87,14 +87,14 @@ namespace WeightCore.Managers
                 Thread.Sleep(50);
                 System.Windows.Forms.Application.DoEvents();
             }
-            sw.Stop();
+            stopwatch.Stop();
         }
 
         public void DebugLog(string message, [CallerFilePath] string filePath = "", [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0)
         {
             CheckIsDisposed();
             if (Debug.IsDebug)
-                Log.Information(message, filePath, memberName, lineNumber);
+                Log.Information(message, filePath, lineNumber, memberName);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel, bool isCheckWeight,

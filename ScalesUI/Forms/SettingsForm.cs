@@ -213,8 +213,8 @@ namespace ScalesUI.Forms
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
                 wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.PrinterWarningOpenCover;
-                wpfPageLoader.MessageBox.ButtonRetryVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.ButtonCancelVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonRetryVisibility = System.Windows.Visibility.Visible;
+                wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.Localization();
                 wpfPageLoader.ShowDialog(this);
                 DialogResult result = wpfPageLoader.MessageBox.Result;

@@ -46,7 +46,7 @@ namespace WeightCoreTests.Models
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             foreach (ushort port in EnumValuesUtils.GetUshort())
             {
@@ -78,8 +78,8 @@ namespace WeightCoreTests.Models
                 }
             }
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace WeightCoreTests.Models
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             SqlAuthentication sqlAu = new(null, null, null, null);
             Assert.IsFalse(sqlAu.Exists());
@@ -95,8 +95,8 @@ namespace WeightCoreTests.Models
             sqlAu = new SqlAuthentication("server", "database", "user", "password");
             Assert.IsTrue(sqlAu.Exists());
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(Exists_Execute_Assert)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         #endregion

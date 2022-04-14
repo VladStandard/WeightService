@@ -47,7 +47,7 @@ namespace WeightCoreTests.Models
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Constructor_Create_Error)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new(); });
             foreach (string name in EnumValuesUtils.GetString())
@@ -55,8 +55,8 @@ namespace WeightCoreTests.Models
                 Assert.Catch<ArgumentException>(() => { SqlTableField<string> field = new(name); });
             }
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(Constructor_Create_Error)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(Constructor_Create_Error)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace WeightCoreTests.Models
         {
             TestContext.WriteLine(@"--------------------------------------------------------------------------------");
             TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} start.");
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             SqlTableField<string> field = new("FieldName");
             Assert.AreEqual("FieldName", field.Name);
@@ -86,8 +86,8 @@ namespace WeightCoreTests.Models
                 }
             }
 
-            sw.Stop();
-            TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {sw.Elapsed}");
+            TestContext.WriteLine($@"{nameof(Constructor_Create_Correct)} complete. Elapsed time: {stopwatch.Elapsed}");
+            stopwatch.Stop();
         }
 
         #endregion

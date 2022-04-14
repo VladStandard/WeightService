@@ -328,6 +328,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="XamlPages\VisibilitySettingsEntity.cs" />
     <Compile Include="Gui\GridCustomizator.cs" />
     <Compile Include="Gui\GuiUtils.cs" />
     <Compile Include="Gui\NumberInputForm.cs">
