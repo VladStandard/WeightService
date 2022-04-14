@@ -4,6 +4,7 @@
 using BlazorCore.Models;
 using DataCore;
 using DataCore.DAL;
+using DataCore.Localization;
 using DataCore.Models;
 using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
@@ -20,11 +21,11 @@ namespace BlazorDeviceControl.Shared.Item
         public string VerApp => DataCoreUtuls.GetAppVersion(System.Reflection.Assembly.GetExecutingAssembly());
         public string VerLibBlazorCore => BlazorCoreUtuls.GetLibVersion();
         public string VerLibDataCore => DataCoreUtuls.GetLibVersion();
-        public string IsDebug => $@"{LocalizationCore.Strings.Main.IsEnableHe(AppSettings.IsDebug)}";
+        public string IsDebug => $@"{Core.Strings.Main.IsEnableHe(AppSettings.IsDebug)}";
         public List<TypeEntity<ShareEnums.Lang>>? TemplateLanguages { get; set; }
         public List<TypeEntity<bool>> TemplateIsDebug { get; set; } = new();
         private uint DbCurSize { get; set; } = 0;
-        private string DbCurSizeAsString => $"{DbCurSize:### ###} {LocalizationCore.Strings.Main.From} {DbMaxSize:### ###} MB";
+        private string DbCurSizeAsString => $"{DbCurSize:### ###} {Core.Strings.Main.From} {DbMaxSize:### ###} MB";
         private uint DbMaxSize { get; set; } = 10_240;
         private uint DbFillSize => DbCurSize == 0 ? 0 : DbCurSize * 100 / DbMaxSize;
         private string DbFillSizeAsString => $"{DbFillSize:### ###} %";
@@ -50,7 +51,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{Core.Strings.Method} {nameof(SetParametersAsync)}", "", Core.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     Default();

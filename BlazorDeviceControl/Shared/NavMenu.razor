@@ -1,6 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorBase
 @using BlazorCore
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using Microsoft.VisualBasic.CompilerServices
 @using static DataCore.Utils.BlazorCoreUtuls
 
@@ -34,11 +35,11 @@
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem
                         Text=@LocalizationData.DeviceControl.Sections.Hosts Path=@LocalizationData.DeviceControl.UriRouteSection.Hosts />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem 
-                        Text=@LocalizationData.DeviceControl.Sections.Printers Path=@LocalizationData.DeviceControl.UriRouteSection.Printers />
+                        Text=@LocalizationCore.Print.Names Path=@LocalizationData.DeviceControl.UriRouteSection.Printers />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem 
-                        Text=@LocalizationData.DeviceControl.Sections.PrinterTypes Path=@LocalizationData.DeviceControl.UriRouteSection.PrinterTypes />
+                        Text=@LocalizationCore.Print.Types Path=@LocalizationData.DeviceControl.UriRouteSection.PrinterTypes />
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem 
-                        Text=@LocalizationData.DeviceControl.Sections.PrinterResources Path=@LocalizationData.DeviceControl.UriRouteSection.PrinterResources />
+                        Text=@LocalizationData.DeviceControl.Sections.Resources Path=@LocalizationData.DeviceControl.UriRouteSection.PrinterResources />
                 </RadzenPanelMenuItem>
                 <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuItem Text=@LocalizationData.DeviceControl.Sections.Measurements >
                     <RadzenPanelMenuItem class=@GetCssName.RadzenPanelMenuSubItem 

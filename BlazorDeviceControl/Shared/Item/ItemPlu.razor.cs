@@ -6,6 +6,7 @@ using DataCore;
 using DataCore.DAL.DataModels;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Localization;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using Radzen;
@@ -56,7 +57,7 @@ namespace BlazorDeviceControl.Shared.Item
         public override async Task SetParametersAsync(ParameterView parameters)
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
-            RunTasks($"{LocalizationCore.Strings.Method} {nameof(SetParametersAsync)}", "", LocalizationCore.Strings.DialogResultFail, "",
+            RunTasks($"{Core.Strings.Method} {nameof(SetParametersAsync)}", "", Core.Strings.DialogResultFail, "",
                 new Task(async () =>
                 {
                     Default();
@@ -188,7 +189,7 @@ namespace BlazorDeviceControl.Shared.Item
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Error,
-                    Summary = $"{LocalizationCore.Strings.Main.MethodError} [{nameof(OnClickFieldsFill)}]!",
+                    Summary = $"{Core.Strings.Main.MethodError} [{nameof(OnClickFieldsFill)}]!",
                     Detail = ex.Message,
                     Duration = AppSettingsHelper.Delay
                 };

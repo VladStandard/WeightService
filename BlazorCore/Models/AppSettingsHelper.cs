@@ -3,6 +3,7 @@
 
 using DataCore;
 using DataCore.DAL.Models;
+using DataCore.Localization;
 using DataCore.Models;
 using DataCore.Utils;
 using Microsoft.AspNetCore.Components;
@@ -33,24 +34,24 @@ namespace BlazorCore.Models
         public static int Delay => 5_000;
         public string MemoryInfoWithDt => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null
-            ? $"{LocalizationCore.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
-            : $"{LocalizationCore.Strings.Memory}: - MB";
+            ? $"{Core.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB  |  {StringUtils.FormatCurDtRus(true)}"
+            : $"{Core.Strings.Memory}: - MB";
         public string MemoryInfo => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null
-            ? $"{LocalizationCore.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB"
-            : $"{LocalizationCore.Strings.Memory}: - MB";
+            ? $"{Core.Strings.Memory}: {Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} MB"
+            : $"{Core.Strings.Memory}: - MB";
         public string MemoryInfoShort => Memory != null && Memory.MemorySize != null &&
             Memory.MemorySize.PhysicalCurrent != null && Memory.MemorySize.PhysicalTotal != null
             ? $"{Memory.MemorySize.PhysicalCurrent.MegaBytes:N0} " +
-              $"{LocalizationCore.Strings.Main.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
-            : $"{LocalizationCore.Strings.Memory}: - MB";
+              $"{Core.Strings.Main.From} {Memory.MemorySize.PhysicalTotal.MegaBytes:N0} MB"
+            : $"{Core.Strings.Memory}: - MB";
         public float MemoryFillSize => Memory.MemorySize.PhysicalCurrent == null || Memory.MemorySize.PhysicalTotal == null
             || Memory.MemorySize.PhysicalTotal.MegaBytes == 0 
             ? 0f : (float)(Memory.MemorySize.PhysicalCurrent.MegaBytes) * 100 / Memory.MemorySize.PhysicalTotal.MegaBytes;
         public string SqlServerDescription => DataAccess.JsonSettings is { Server: { } }
             ? DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase)
-                ? LocalizationCore.Strings.Main.ServerRelease : LocalizationCore.Strings.Main.ServerDevelop
-            : LocalizationCore.Strings.Main.NotLoad;
+                ? Core.Strings.Main.ServerRelease : Core.Strings.Main.ServerDevelop
+            : Core.Strings.Main.NotLoad;
         public bool IsSqlServerRelease => DataAccess.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerRelease, StringComparison.InvariantCultureIgnoreCase);
         public bool IsSqlServerDebug => DataAccess.JsonSettings is { Server: { } } && DataAccess.JsonSettings.Server.Contains(LocalizationData.DeviceControl.SqlServerDebug, StringComparison.InvariantCultureIgnoreCase);
 

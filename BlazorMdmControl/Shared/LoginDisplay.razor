@@ -1,7 +1,8 @@
-﻿@page "/login"
-@using DataCore
+﻿@inherits MdmControlBlazor.Data.BaseRazorEntity
+@page "/login"
 @using BlazorCore
-@inherits MdmControlBlazor.Data.BaseRazorEntity
+@using DataCore
+@using LocalizationCore = DataCore.Localization.Core
 
 <AuthorizeView>
     <Authorizing>

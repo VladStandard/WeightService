@@ -8,6 +8,7 @@
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -52,7 +53,7 @@ else
                 Type="string" Width="10%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Printer.Name" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldPrinter 
+                Title=@LocalizationCore.Print.Name
                 Type="string" Width="15%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="WorkShop.Name" TextAlign=TextAlign.Center

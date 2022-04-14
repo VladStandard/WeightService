@@ -9,8 +9,9 @@
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Models
 @using DataCore.Utils
-@using static DataCore.Utils.BlazorCoreUtuls
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.LocalizationData.DeviceControl
+@using static DataCore.Utils.BlazorCoreUtuls
 
 @if (!IsLoaded)
 {
@@ -99,7 +100,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Printer, ItemCast.Printer, ItemCast.Printer?.IdentityId)
-                        Text=@LocalizationData.DeviceControl.TableFieldPrinter />
+                        Text=@LocalizationCore.Print.NameMain />
                 </td>
                 <td>
                     @if (PrinterItems == null || ItemCast.Printer == null)
@@ -127,7 +128,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Printer, ItemCast.ShippingPrinter, ItemCast.ShippingPrinter?.IdentityId)
-                        Text=@LocalizationData.DeviceControl.TableFieldShippingPrinter />
+                        Text=@LocalizationCore.Print.NameShipping />
                 </td>
                 <td>
                     @if (ShippingPrinterItems == null || ItemCast.ShippingPrinter == null)

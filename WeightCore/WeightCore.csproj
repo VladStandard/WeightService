@@ -328,6 +328,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\WeighingSettingsEntity.cs" />
     <Compile Include="XamlPages\VisibilitySettingsEntity.cs" />
     <Compile Include="Gui\GridCustomizator.cs" />
     <Compile Include="Gui\GuiUtils.cs" />
@@ -369,7 +370,7 @@
     <Compile Include="Managers\ManagerPrintDeprecated.cs" />
     <Compile Include="Managers\ManagerMassa.cs" />
     <Compile Include="Managers\ManagerMemory.cs" />
-    <Compile Include="Managers\ManagerHelper.cs" />
+    <Compile Include="Managers\ManagerEntity.cs" />
     <Compile Include="MassaK\MassaCrcHelper.cs" />
     <Compile Include="MassaK\MassaEnums.cs" />
     <Compile Include="MassaK\MassaExchangeEntity.cs" />

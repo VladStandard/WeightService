@@ -59,8 +59,8 @@ namespace ScalesUI.Forms
                 {
                     fieldSendTimeout.Text = SessionState.CurrentScale.DeviceWriteTimeout.ToString();
                     fieldReceiveTimeOut.Text = SessionState.CurrentScale.DeviceReadTimeout.ToString();
-                    fieldZebraTcpAddress.Text = SessionState.CurrentScale.ZebraPrinter.Ip;
-                    fieldZebraTcpPort.Text = SessionState.CurrentScale.ZebraPrinter.Port.ToString();
+                    fieldZebraTcpAddress.Text = SessionState.CurrentScale.PrinterMain.Ip;
+                    fieldZebraTcpPort.Text = SessionState.CurrentScale.PrinterMain.Port.ToString();
                     fieldDescription.Text = SessionState.CurrentScale.Description;
                 }
 
@@ -167,8 +167,8 @@ namespace ScalesUI.Forms
                 Application.DoEvents();
 
                 ZplConverterHelper zp = new();
-                zp.LogoClear(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port);
-                zp.FontsClear(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port);
+                zp.LogoClear(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port);
+                zp.FontsClear(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port);
                 if (SessionState.CurrentScale.UseOrder == true)
                 {
                     if (SessionState.CurrentOrder == null)
@@ -179,8 +179,8 @@ namespace ScalesUI.Forms
                         return;
                     }
 
-                    zp.LogoUpload(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port, SessionState.CurrentOrder.Template.Logo);
-                    zp.FontsUpload(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port, SessionState.CurrentOrder.Template.Fonts);
+                    zp.LogoUpload(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port, SessionState.CurrentOrder.Template.Logo);
+                    zp.FontsUpload(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port, SessionState.CurrentOrder.Template.Fonts);
                 }
                 else
                 {
@@ -191,8 +191,8 @@ namespace ScalesUI.Forms
                         MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    zp.LogoUpload(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port, SessionState.CurrentPlu.Template.Logo);
-                    zp.FontsUpload(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port, SessionState.CurrentPlu.Template.Fonts);
+                    zp.LogoUpload(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port, SessionState.CurrentPlu.Template.Logo);
+                    zp.FontsUpload(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port, SessionState.CurrentPlu.Template.Fonts);
                 }
             }
             catch (Exception ex)
@@ -212,10 +212,10 @@ namespace ScalesUI.Forms
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.PrinterWarningOpenCover;
+                wpfPageLoader.MessageBox.Message = LocalizationData.Print.WarningOpenCover;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonRetryVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
                 wpfPageLoader.ShowDialog(this);
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
@@ -227,7 +227,7 @@ namespace ScalesUI.Forms
                     Application.DoEvents();
 
                     ZplConverterHelper zp = new();
-                    zp.Сalibration(SessionState.CurrentScale.ZebraPrinter.Ip, SessionState.CurrentScale.ZebraPrinter.Port);
+                    zp.Сalibration(SessionState.CurrentScale.PrinterMain.Ip, SessionState.CurrentScale.PrinterMain.Port);
                 }
             }
             catch (Exception ex)
@@ -260,7 +260,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplPowerOnReset());
+                SessionState.Manager.PrintMain.SendCmd(ZplPipeUtils.ZplPowerOnReset());
             }
             catch (Exception ex)
             {
@@ -282,12 +282,12 @@ namespace ScalesUI.Forms
             try
             {
                 //_taskManager.PrintManager.PrintControl.CmdCalibrate();
-                switch (SessionState.PrintBrand)
+                switch (SessionState.PrintBrandMain)
                 {
                     case WeightCore.Print.PrintBrand.Default:
                         break;
                     case WeightCore.Print.PrintBrand.Zebra:
-                        SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplCalibration());
+                        SessionState.Manager.PrintMain.SendCmd(ZplPipeUtils.ZplCalibration());
                         break;
                     case WeightCore.Print.PrintBrand.TSC:
                         break;
@@ -309,7 +309,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplPrintConfigurationLabel());
+                SessionState.Manager.PrintMain.SendCmd(ZplPipeUtils.ZplPrintConfigurationLabel());
             }
             catch (Exception ex)
             {
@@ -437,7 +437,7 @@ namespace ScalesUI.Forms
         {
             try
             {
-                SessionState.Manager.Print.SendCmd(ZplPipeUtils.ZplClearPrintBuffer());
+                SessionState.Manager.PrintMain.SendCmd(ZplPipeUtils.ZplClearPrintBuffer());
             }
             catch (Exception ex)
             {

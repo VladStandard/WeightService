@@ -5,6 +5,7 @@
 @using DataCore
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -14,7 +15,7 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Sections.PrinterResources SetParameters=@SetParametersAsync />
+        Title=@LocalizationCore.Print.Resources SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterResourceEntity" @bind-Value=@ItemObject

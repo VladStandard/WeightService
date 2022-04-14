@@ -157,28 +157,28 @@ namespace WeightCore.Managers
                 MutexReopen = new AsyncLock();
                 while (MutexReopen != null && CtsReopen != null)
                 {
-                    // AsyncLock can be locked asynchronously
-                    using (await MutexReopen.LockAsync(CtsReopen.Token))
+                    try
                     {
-                    if (CtsReopen.IsCancellationRequested)
-                        break;
-                        try
+                        // AsyncLock can be locked asynchronously
+                        using (await MutexReopen.LockAsync(CtsReopen.Token))
                         {
+                            if (CtsReopen.IsCancellationRequested)
+                                break;
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
                             callback?.Invoke();
                             //WaitSync(WaitReopen);
                         }
-                        catch (TaskCanceledException)
-                        {
-                            // Console.WriteLine(tcex.Message);
-                            // Not the problem.
-                        }
-                        catch (Exception ex)
-                        {
-                            Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
-                            WaitSync(WaitException);
-                        }
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        // Console.WriteLine(tcex.Message);
+                        // Not the problem.
+                    }
+                    catch (Exception ex)
+                    {
+                        Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                        WaitSync(WaitException);
                     }
                 }
             });
@@ -195,28 +195,28 @@ namespace WeightCore.Managers
                 MutexRequest = new AsyncLock();
                 while (MutexRequest != null && CtsRequest != null)
                 {
-                    // AsyncLock can be locked asynchronously
-                    using (await MutexRequest.LockAsync(CtsRequest.Token))
+                    try
                     {
-                        if (CtsRequest.IsCancellationRequested)
-                            break;
-                        try
+                        // AsyncLock can be locked asynchronously
+                        using (await MutexRequest.LockAsync(CtsRequest.Token))
                         {
+                            if (CtsRequest.IsCancellationRequested)
+                                break;
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
                             callback?.Invoke();
                             //WaitSync(WaitRequest);
                         }
-                        catch (TaskCanceledException)
-                        {
-                            // Console.WriteLine(tcex.Message);
-                            // Not the problem.
-                        }
-                        catch (Exception ex)
-                        {
-                            Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
-                            WaitSync(WaitException);
-                        }
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        // Console.WriteLine(tcex.Message);
+                        // Not the problem.
+                    }
+                    catch (Exception ex)
+                    {
+                        Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                        WaitSync(WaitException);
                     }
                 }
             });
@@ -233,28 +233,28 @@ namespace WeightCore.Managers
                 MutexResponse = new AsyncLock();
                 while (MutexResponse != null && CtsResponse != null)
                 {
-                    // AsyncLock can be locked asynchronously
-                    using (await MutexResponse.LockAsync(CtsResponse.Token))
+                    try
                     {
-                        if (CtsResponse.IsCancellationRequested)
-                            break;
-                        try
+                        // AsyncLock can be locked asynchronously
+                        using (await MutexResponse.LockAsync(CtsResponse.Token))
                         {
+                            if (CtsResponse.IsCancellationRequested)
+                                break;
                             // It's safe to await while the lock is held
                             await Task.Delay(TimeSpan.FromMilliseconds(1)).ConfigureAwait(true);
                             callback?.Invoke();
                             //WaitSync(WaitResponse);
                         }
-                        catch (TaskCanceledException)
-                        {
-                            // Console.WriteLine(tcex.Message);
-                            // Not the problem.
-                        }
-                        catch (Exception ex)
-                        {
-                            Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
-                            WaitSync(WaitException);
-                        }
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        // Console.WriteLine(tcex.Message);
+                        // Not the problem.
+                    }
+                    catch (Exception ex)
+                    {
+                        Exception.Catch(null, ref ex, false, filePath, lineNumber, memberName);
+                        WaitSync(WaitException);
                     }
                 }
             });

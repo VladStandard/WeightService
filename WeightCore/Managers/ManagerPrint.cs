@@ -71,12 +71,19 @@ namespace WeightCore.Managers
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
-            Open(sqlViewModel, false,
-            () =>
+            try
             {
-                //
-            },
-            null, null);
+                Open(sqlViewModel, false,
+                () =>
+                {
+                    //
+                },
+                null, null);
+            }
+            catch (Exception ex)
+            {
+                Exception.Catch(null, ref ex, false);
+            }
         }
 
         public new void CloseMethod()

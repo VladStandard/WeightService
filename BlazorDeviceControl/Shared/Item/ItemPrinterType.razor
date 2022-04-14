@@ -7,6 +7,7 @@
 @using BlazorDeviceControl.Shared.Section
 @using DataCore
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 
 @if (!IsLoaded)
 {
@@ -15,7 +16,7 @@
 else
 {
     <ActionsReloadItem ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Items.PrinterType SetParameters=@SetParametersAsync />
+        Title=@LocalizationCore.Print.Type SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>

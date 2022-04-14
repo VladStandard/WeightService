@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
+using DataCore.Localization;
 
 namespace BlazorDeviceControl.Shared
 {
@@ -9,7 +9,7 @@ namespace BlazorDeviceControl.Shared
     {
         #region Public and private fields and properties
 
-        public string UserDescription => LocalizationCore.Strings.Main.AuthorizingUserName + " : " + UserSettings.Identity.Name;
+        public string UserDescription => Core.Strings.Main.AuthorizingUserName + " : " + UserSettings.Identity.Name;
 
         #endregion
 

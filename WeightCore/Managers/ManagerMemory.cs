@@ -4,6 +4,8 @@
 using DataCore;
 using DataCore.DAL;
 using DataCore.Memory;
+using System;
+using WeightCore.Helpers;
 
 namespace WeightCore.Managers
 {
@@ -33,13 +35,20 @@ namespace WeightCore.Managers
 
         public void Open(SqlViewModelEntity sqlViewModel)
         {
-            Open(sqlViewModel, false,
-            () =>
+            try
             {
-                MemorySize.Open();
-            },
-            null,
-            null);
+                Open(sqlViewModel, false,
+                () =>
+                {
+                    MemorySize.Open();
+                },
+                null,
+                null);
+            }
+            catch (Exception ex)
+            {
+                Exception.Catch(null, ref ex, false);
+            }
         }
 
         public new void CloseMethod()

@@ -20,7 +20,7 @@ using WeightCore.Zpl;
 
 namespace WeightCore.Helpers
 {
-    public class SessionStateHelper : BaseViewModel, IDisposable
+    public class SessionStateHelper : BaseViewModel//, IDisposable
     {
         #region Design pattern "Lazy Singleton"
 
@@ -31,7 +31,7 @@ namespace WeightCore.Helpers
 
         #region Public and private fields and properties
 
-        public ManagerHelper Manager { get; private set; }
+        public ManagerEntity Manager { get; private set; }
         public ExceptionHelper Exception { get; private set; } = ExceptionHelper.Instance;
         public LogHelper Log { get; private set; } = LogHelper.Instance;
         public SqlViewModelEntity SqlViewModel { get; set; } = SqlViewModelEntity.Instance;
@@ -51,8 +51,8 @@ namespace WeightCore.Helpers
                 OnPropertyChanged();
             }
         }
-        public PrintBrand PrintBrand => CurrentScale != null && CurrentScale.ZebraPrinter.PrinterType.Contains("TSC ")
-            ? PrintBrand.TSC : PrintBrand.Zebra;
+        public PrintBrand PrintBrandMain => CurrentScale != null && CurrentScale.PrinterMain.PrinterType.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
+        public PrintBrand PrintBrandShipping => CurrentScale != null && CurrentScale.PrinterShipping.PrinterType.Contains("TSC ") ? PrintBrand.TSC : PrintBrand.Zebra;
         [XmlElement(IsNullable = true)]
         public WeighingFactDirect CurrentWeighingFact { get; private set; }
         private int _currentPage;
@@ -84,6 +84,7 @@ namespace WeightCore.Helpers
         }
         public RoutedEventHandler WpfPageLoader_OnClose { get; set; }
         public bool IsCheckWeight => CurrentPlu != null && CurrentPlu.IsCheckWeight;
+        public WeighingSettingsEntity WeighingSettings { get; set; }
 
         #endregion
 
@@ -95,59 +96,32 @@ namespace WeightCore.Helpers
             Host = HostsUtils.TokenRead();
             CurrentScale = ScalesUtils.GetScale(Host.ScaleId);
 
-            Kneading = KneadingMinValue;
             ProductDate = DateTime.Now;
             CurrentLabelsMain = 1;
-            CurrentLabelsCountMain = 1;
 
             // начинается новыя серия, упаковки продукции, новая паллета
-            ProductSeries = new ProductSeriesDirect(CurrentScale);
+            ProductSeries = new(CurrentScale);
             //ProductSeries.Load();
 
-            Manager = new ManagerHelper();
+            Manager = new();
+            WeighingSettings = new();
         }
 
-        ~SessionStateHelper()
-        {
-            Dispose();
-        }
+        //~SessionStateHelper()
+        //{
+        //    Dispose();
+        //}
 
-        public void Dispose()
-        {
-            Dispose(false);
-        }
+        //public void Dispose()
+        //{
+        //    Dispose(false);
+        //}
 
-        public virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-                Manager?.Dispose(disposing);
-        }
-
-        #endregion
-
-        #region PalletSize
-
-        public static readonly int PalletSizeMinValue = 1;
-        public static readonly int PalletSizeMaxValue = 130;
-        public int CurrentLabelsCountMain { get; set; }
-        public int CurrentLabelsCountShipping { get; set; }
-
-        public void RotatePalletSize(ProjectsEnums.Direction direction)
-        {
-            if (direction == ProjectsEnums.Direction.Back)
-            {
-                CurrentLabelsCountMain--;
-                if (CurrentLabelsCountMain < PalletSizeMinValue)
-                    CurrentLabelsCountMain = PalletSizeMinValue;
-
-            }
-            if (direction == ProjectsEnums.Direction.Forward)
-            {
-                CurrentLabelsCountMain++;
-                if (CurrentLabelsCountMain > PalletSizeMaxValue)
-                    CurrentLabelsCountMain = PalletSizeMaxValue;
-            }
-        }
+        //public virtual void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //        Manager?.Dispose(disposing);
+        //}
 
         #endregion
 
@@ -166,43 +140,9 @@ namespace WeightCore.Helpers
 
         #endregion
 
-        #region Kneading
-        public static readonly int KneadingMinValue = 1;
-        public static readonly int KneadingMaxValue = 140;
-
-        private int _kneading;
-        public int Kneading
-        {
-            get => _kneading;
-            set
-            {
-                _kneading = value;
-                if (Manager == null || Manager.Print == null)
-                    return;
-                //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
-            }
-        }
-
-        public void RotateKneading(ProjectsEnums.Direction direction)
-        {
-            if (direction == ProjectsEnums.Direction.Back)
-            {
-                Kneading--;
-                if (Kneading < KneadingMinValue)
-                    Kneading = KneadingMinValue;
-            }
-            if (direction == ProjectsEnums.Direction.Forward)
-            {
-                Kneading++;
-                if (Kneading > KneadingMaxValue)
-                    Kneading = KneadingMaxValue;
-            }
-        }
-        #endregion
-
         #region ProductDate
 
-        public static readonly DateTime ProductDateMaxValue = DateTime.Now.AddDays(+7);
+        public static readonly DateTime ProductDateMaxValue = DateTime.Now.AddDays(+31);
         public static readonly DateTime ProductDateMinValue = DateTime.Now.AddDays(-31);
 
         private DateTime _productDate;
@@ -213,20 +153,20 @@ namespace WeightCore.Helpers
             set
             {
                 _productDate = value;
-                if (Manager == null || Manager.Print == null)
+                if (Manager == null || Manager.PrintMain == null)
                     return;
             }
         }
 
         public void RotateProductDate(ProjectsEnums.Direction direction)
         {
-            if (direction == ProjectsEnums.Direction.Back)
+            if (direction == ProjectsEnums.Direction.Left)
             {
                 ProductDate = ProductDate.AddDays(-1);
                 if (ProductDate < ProductDateMinValue)
                     ProductDate = ProductDateMinValue;
             }
-            if (direction == ProjectsEnums.Direction.Forward)
+            if (direction == ProjectsEnums.Direction.Right)
             {
                 ProductDate = ProductDate.AddDays(1);
                 if (ProductDate > ProductDateMaxValue)
@@ -247,7 +187,7 @@ namespace WeightCore.Helpers
             {
                 _currentPlu = value;
                 CurrentLabelsMain = 1;
-                if (Manager == null || Manager.Print == null)
+                if (Manager == null || Manager.PrintMain == null)
                     return;
                 //Manager.Print.ClearPrintBuffer(true, LabelsCurrent);
             }
@@ -367,7 +307,7 @@ namespace WeightCore.Helpers
             return true;
         }
 
-        public void PrintLabel()
+        public void PrintLabel(bool isClearBuffer)
         {
             TemplateDirect template = null;
             if (CurrentOrder != null && CurrentScale != null && CurrentScale.UseOrder == true)
@@ -386,10 +326,10 @@ namespace WeightCore.Helpers
                 switch (IsCheckWeight)
                 {
                     case true:
-                        PrintLabel(template);
+                        PrintLabel(template, isClearBuffer);
                         break;
                     default:
-                        PrintCountLabel(template);
+                        PrintLabelCount(template, isClearBuffer);
                         break;
                 }
             }
@@ -404,7 +344,7 @@ namespace WeightCore.Helpers
         public void PrintCmdReplacePics(ref string value)
         {
             // Подменить картинки ZPL.
-            switch (PrintBrand)
+            switch (PrintBrandMain)
             {
                 case PrintBrand.Default:
                     break;
@@ -440,10 +380,10 @@ namespace WeightCore.Helpers
         }
 
         /// <summary>
-        /// Item label printing.
+        /// Count label printing.
         /// </summary>
         /// <param name="template"></param>
-        private void PrintCountLabel(TemplateDirect template)
+        private void PrintLabelCount(TemplateDirect template, bool isClearBuffer)
         {
             //// Указан номинальный вес.
             //bool isCheck = false;
@@ -476,7 +416,7 @@ namespace WeightCore.Helpers
             //    wpfPageLoader.MessageBox.ButtonAbortVisibility = Visibility.Visible;
             //    wpfPageLoader.MessageBox.ButtonRetryVisibility = Visibility.Visible;
             //    wpfPageLoader.MessageBox.ButtonIgnoreVisibility = Visibility.Visible;
-            //    wpfPageLoader.MessageBox.Localization();
+            //    wpfPageLoader.MessageBox.VisibilitySettings.Localization();
             //    wpfPageLoader.ShowDialog(owner);
             //    DialogResult result = wpfPageLoader.MessageBox.Result;
             //    wpfPageLoader.Close();
@@ -489,18 +429,18 @@ namespace WeightCore.Helpers
             if (template.XslContent.Contains("^PQ1"))
             {
                 // Изменить кол-во этикеток.
-                if (CurrentLabelsCountMain > 1)
-                    template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{CurrentLabelsCountMain}");
+                if (WeighingSettings.CurrentLabelsCountMain > 1)
+                    template.XslContent = template.XslContent.Replace("^PQ1", $"^PQ{WeighingSettings.CurrentLabelsCountMain}");
                 // Печать этикетки.
-                PrintLabel(template);
+                PrintLabel(template, isClearBuffer);
             }
             // Шаблон без указания кол-ва.
             else
             {
-                for (int i = CurrentLabelsMain; i <= CurrentLabelsCountMain; i++)
+                for (int i = CurrentLabelsMain; i <= WeighingSettings.CurrentLabelsCountMain; i++)
                 {
                     // Печать этикетки.
-                    PrintLabel(template);
+                    PrintLabel(template, isClearBuffer);
                 }
             }
         }
@@ -511,14 +451,22 @@ namespace WeightCore.Helpers
         public void SetCurrentWeighingFact()
         {
             if (IsCheckWeight)
-                CurrentWeighingFact = new WeighingFactDirect(CurrentScale, CurrentPlu, ProductDate, Kneading,
+                CurrentWeighingFact = new(CurrentScale, CurrentPlu, ProductDate, WeighingSettings.Kneading,
                     CurrentPlu.Scale.ScaleFactor, Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight, CurrentPlu.GoodsTareWeight);
             else
-                CurrentWeighingFact = new WeighingFactDirect(CurrentScale, CurrentPlu, ProductDate, Kneading,
+                CurrentWeighingFact = new(CurrentScale, CurrentPlu, ProductDate, WeighingSettings.Kneading,
                     CurrentPlu.Scale.ScaleFactor, CurrentPlu.NominalWeight, CurrentPlu.GoodsTareWeight);
         }
 
-        private void PrintLabel(TemplateDirect template,
+        /// <summary>
+        /// Weight label printing.
+        /// </summary>
+        /// <param name="template"></param>
+        /// <param name="isClearBuffer"></param>
+        /// <param name="filePath"></param>
+        /// <param name="lineNumber"></param>
+        /// <param name="memberName"></param>
+        private void PrintLabel(TemplateDirect template, bool isClearBuffer,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
             try
@@ -533,12 +481,13 @@ namespace WeightCore.Helpers
                 PrintCmdReplacePics(ref printCmd);
                 // DB save ZPL-query to Labels.
                 PrintSaveLabel(printCmd, CurrentWeighingFact.Id);
-                if (Manager == null || Manager.Print == null)
+                if (Manager == null || Manager.PrintMain == null)
                     return;
 
                 // Print.
-                Manager.Print.ClearPrintBuffer(true, CurrentLabelsMain);
-                Manager.Print.SendCmd(printCmd);
+                if (isClearBuffer)
+                    Manager.PrintMain.ClearPrintBuffer(true, CurrentLabelsMain);
+                Manager.PrintMain.SendCmd(printCmd);
             }
             catch (Exception ex)
             {

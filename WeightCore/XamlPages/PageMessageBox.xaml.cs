@@ -41,6 +41,7 @@ namespace WeightCore.XamlPages
             GetFieldMessage(gridMain, colCount, ref row);
 
             ushort col = 0;
+            GetButtonCustom(gridMain, ref col, row);
             GetButtonYes(gridMain, ref col, row);
             GetButtonRetry(gridMain, ref col, row);
             GetButtonNo(gridMain, ref col, row);
@@ -97,6 +98,8 @@ namespace WeightCore.XamlPages
         private ushort GetGridColCount()
         {
             ushort count = 0;
+            if (MessageBox.VisibilitySettings.ButtonCustomVisibility == System.Windows.Visibility.Visible)
+                count++;
             if (MessageBox.VisibilitySettings.ButtonYesVisibility == System.Windows.Visibility.Visible)
                 count++;
             if (MessageBox.VisibilitySettings.ButtonRetryVisibility == System.Windows.Visibility.Visible)
@@ -184,13 +187,32 @@ namespace WeightCore.XamlPages
             }
         }
 
+        private void GetButtonCustom(Grid gridMain, ref ushort col, ushort row)
+        {
+            if (MessageBox.VisibilitySettings.ButtonCustomVisibility == System.Windows.Visibility.Visible)
+            {
+                Button button = new()
+                {
+                    Content = MessageBox.VisibilitySettings.ButtonCustomContent,
+                    Margin = new System.Windows.Thickness(2),
+                    FontSize = MessageBox.FontSizeButton,
+                    FontWeight = System.Windows.FontWeights.Bold,
+                };
+                Grid.SetColumn(button, col);
+                Grid.SetRow(button, row);
+                gridMain.Children.Add(button);
+                button.Click += ButtonCustom_OnClick;
+                col++;
+            }
+        }
+
         private void GetButtonYes(Grid gridMain, ref ushort col, ushort row)
         {
             if (MessageBox.VisibilitySettings.ButtonYesVisibility == System.Windows.Visibility.Visible)
             {
                 Button button = new()
                 {
-                    Content = MessageBox.ButtonYes,
+                    Content = MessageBox.VisibilitySettings.ButtonYesContent,
                     Margin = new System.Windows.Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
@@ -209,7 +231,7 @@ namespace WeightCore.XamlPages
             {
                 Button button = new()
                 {
-                    Content = MessageBox.ButtonRetry,
+                    Content = MessageBox.VisibilitySettings.ButtonRetryContent,
                     Margin = new System.Windows.Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
@@ -228,7 +250,7 @@ namespace WeightCore.XamlPages
             {
                 Button button = new()
                 {
-                    Content = MessageBox.ButtonNo,
+                    Content = MessageBox.VisibilitySettings.ButtonNoContent,
                     Margin = new System.Windows.Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
@@ -247,7 +269,7 @@ namespace WeightCore.XamlPages
             {
                 Button button = new()
                 {
-                    Content = MessageBox.ButtonIgnore,
+                    Content = MessageBox.VisibilitySettings.ButtonIgnoreContent,
                     Margin = new System.Windows.Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
@@ -266,7 +288,7 @@ namespace WeightCore.XamlPages
             {
                 Button button = new()
                 {
-                    Content = MessageBox.ButtonCancel,
+                    Content = MessageBox.VisibilitySettings.ButtonCancelContent,
                     Margin = new System.Windows.Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
@@ -285,7 +307,7 @@ namespace WeightCore.XamlPages
             {
                 Button button = new()
                 {
-                    Content = MessageBox.ButtonAbort,
+                    Content = MessageBox.VisibilitySettings.ButtonAbortContent,
                     Margin = new System.Windows.Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
@@ -304,7 +326,7 @@ namespace WeightCore.XamlPages
             {
                 Button button = new()
                 {
-                    Content = MessageBox.ButtonOk,
+                    Content = MessageBox.VisibilitySettings.ButtonOkContent,
                     Margin = new System.Windows.Thickness(2),
                     FontSize = MessageBox.FontSizeButton,
                     FontWeight = System.Windows.FontWeights.Bold,
@@ -320,6 +342,12 @@ namespace WeightCore.XamlPages
         #endregion
 
         #region Public and private methods - Actions
+
+        public void ButtonCustom_OnClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MessageBox.Result = System.Windows.Forms.DialogResult.Retry;
+            SessionState.IsWpfPageLoaderClose = true;
+        }
 
         public void ButtonYes_OnClick(object sender, System.Windows.RoutedEventArgs e)
         {

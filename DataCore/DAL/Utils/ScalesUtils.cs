@@ -71,7 +71,7 @@ namespace DataCore.DAL.Utils
                             result.DeviceReadTimeout = SqlConnect.GetValueAsNotNullable<int>(reader, "DeviceReceiveTimeout");
                             result.DeviceComPort = SqlConnect.GetValueAsString(reader, "DeviceComPort");
                             //result.ZebraPrinter = new ZebraPrinterHelper(SqlConnect.GetValueAsNullable<long?>(reader, "ZebraPrinterId"));
-                            result.ZebraPrinter.Load(SqlConnect.GetValueAsNotNullable<long>(reader, "ZebraPrinterId"));
+                            result.PrinterMain.Load(SqlConnect.GetValueAsNotNullable<long>(reader, "ZebraPrinterId"));
                             result.UseOrder = SqlConnect.GetValueAsNotNullable<bool>(reader, "UseOrder");
                             result.TemplateIdDefault = SqlConnect.GetValueAsNotNullable<long>(reader, "TemplateIdDefault");
                             result.TemplateIdSeries = SqlConnect.GetValueAsNullable<long?>(reader, "TemplateIdSeries");

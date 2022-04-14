@@ -1,17 +1,24 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
+using DataCore.Localization;
 using DataCore.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using static DataCore.LocalizationCore;
+using static DataCore.Localization.Core;
 
 namespace DataCore
 {
     public static class LocalizationData
     {
-        public static ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+        private static ShareEnums.Lang _lang;
+        public static ShareEnums.Lang Lang { get => _lang; set { Print.Lang = _lang = value; } }
+        public static PrintHelper Print { get; private set; } = PrintHelper.Instance;
+
+        static LocalizationData()
+        {
+            Lang = ShareEnums.Lang.Russian;
+        }
 
         public static class Program
         {
@@ -110,9 +117,6 @@ namespace DataCore
                 public static string OrderType => Lang == ShareEnums.Lang.English ? "Order type" : "Типы заказа";
                 public static string Organization => Lang == ShareEnums.Lang.English ? "Organization" : "Организация";
                 public static string Plu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
-                public static string Printer => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
-                public static string PrinterResource => Lang == ShareEnums.Lang.English ? "Printer resource" : "Ресурс принтера";
-                public static string PrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
                 public static string ProductionFacilities => Lang == ShareEnums.Lang.English ? "Prod. facilities" : "Производственные площадки";
                 public static string ProductionFacility => Lang == ShareEnums.Lang.English ? "Prod. facility" : "Произв. площадка";
                 public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серия продукта";
@@ -150,9 +154,6 @@ namespace DataCore
                 public static string OrderTypes => Lang == ShareEnums.Lang.English ? "Order types" : "Типы заказов";
                 public static string Organizations => Lang == ShareEnums.Lang.English ? "Organizations" : "Организации";
                 public static string Plus => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
-                public static string PrinterResources => Lang == ShareEnums.Lang.English ? "Printer resources" : "Ресурсы принтера";
-                public static string Printers => Lang == ShareEnums.Lang.English ? "Printers" : "Принтеры";
-                public static string PrinterTypes => Lang == ShareEnums.Lang.English ? "Printer types" : "Типы принтеров";
                 public static string ProductionFacilities => Lang == ShareEnums.Lang.English ? "Production facilities" : "Производственные площадки";
                 public static string ProductionFacilitiesShort => Lang == ShareEnums.Lang.English ? "Facilities" : "Площадки";
                 public static string ProductSeries => Lang == ShareEnums.Lang.English ? "Product series" : "Серии продуктов";
@@ -263,19 +264,6 @@ namespace DataCore
             public static string TableFieldPlu => Lang == ShareEnums.Lang.English ? "PLU" : "ПЛУ";
             public static string TableFieldPluDescription => Lang == ShareEnums.Lang.English ? "Use the `|` symbol to move the line." : "Для переноса строки используйте символ `|`";
             public static string TableFieldPluNumber => Lang == ShareEnums.Lang.English ? "# PLU" : "№ ПЛУ";
-            public static string TableFieldPrinter => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
-            public static string TableFieldPrinterControlPanel => Lang == ShareEnums.Lang.English ? "Printer control panel" : "Панель управления принтером";
-            public static string TableFieldPrinterDarknessLevel => Lang == ShareEnums.Lang.English ? "Level of darkness" : "Уровень темноты";
-            public static string TableFieldPrinterIp => Lang == ShareEnums.Lang.English ? "IP-address" : "IP-адрес";
-            public static string TableFieldPrinterMac => Lang == ShareEnums.Lang.English ? "MAC-address" : "MAC-адрес";
-            public static string TableFieldPrinterPassword => Lang == ShareEnums.Lang.English ? "Printer password" : "Пароль принтера";
-            public static string TableFieldPrinterPeelOffSet => Lang == ShareEnums.Lang.English ? "Offset" : "Смещение";
-            public static string TableFieldPrinterPort => Lang == ShareEnums.Lang.English ? "Printer port" : "Порт принтера";
-            public static string TableFieldPrinterPortShort => Lang == ShareEnums.Lang.English ? "Port" : "Порт";
-            public static string TableFieldPrinterResourcesClear => Lang == ShareEnums.Lang.English ? "Clear resources" : "Удалить ресурсы";
-            public static string TableFieldPrinterResourcesLoadGrf => Lang == ShareEnums.Lang.English ? "Load GRF (pics)" : "Загрузить GRF (картинки)";
-            public static string TableFieldPrinterResourcesLoadTtf => Lang == ShareEnums.Lang.English ? "Load TTF (fonts)" : "Загрузить TTF (шрифты)";
-            public static string TableFieldPrinterType => Lang == ShareEnums.Lang.English ? "Printer type" : "Тип принтера";
             public static string TableFieldProductDate => Lang == ShareEnums.Lang.English ? "Product date" : "Дата продукции";
             public static string TableFieldProductionFacilityName => Lang == ShareEnums.Lang.English ? "Production facility" : "Производственная площадка";
             public static string TableFieldRegNum => Lang == ShareEnums.Lang.English ? "#" : "№";
@@ -286,7 +274,6 @@ namespace DataCore
             public static string TableFieldScaleId => Lang == ShareEnums.Lang.English ? "Scale ID" : "ID весов";
             public static string TableFieldSettingsFile => Lang == ShareEnums.Lang.English ? "Settings file" : "Файл настроек";
             public static string TableFieldShelfLifeDays => Lang == ShareEnums.Lang.English ? "Shelf life (days)" : "Срок годности (суток)";
-            public static string TableFieldShippingPrinter => Lang == ShareEnums.Lang.English ? "Shipping printer" : "Транспортный принтер";
             public static string TableFieldSscc => Lang == ShareEnums.Lang.English ? "Transport packing code (SSCC)" : "Код транспортной упаковки (SSCC)";
             public static string TableFieldState => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
             public static string TableFieldStorage => Lang == ShareEnums.Lang.English ? "Storage" : "Склад";
@@ -445,12 +432,12 @@ namespace DataCore
             public static readonly decimal MassaThreshold = 0.05M;
             public static string ButtonAddKneading => Lang == ShareEnums.Lang.English ? "Kneading" : "Замес";
             public static string ButtonNewPallet => Lang == ShareEnums.Lang.English ? $"New{Environment.NewLine}pallet" : $"Новая{Environment.NewLine}палета";
-            public static string ButtonPrint => Lang == ShareEnums.Lang.English ? "Print" : "Печать";
             public static string ButtonRunScalesTerminal => Lang == ShareEnums.Lang.English ? $"Scales{Environment.NewLine}Terminal" : $"Весовой{Environment.NewLine}терминал";
             public static string ButtonScalesInit => Lang == ShareEnums.Lang.English ? $"Initialize scales" : $"Инициализировать весы";
             public static string ButtonScalesInitShort => $">0<";
             public static string ButtonSelectOrder => Lang == ShareEnums.Lang.English ? $"Order" : $"Заказ";
             public static string ButtonSelectPlu => Lang == ShareEnums.Lang.English ? $"Select{Environment.NewLine}PLU" : $"Выбрать{Environment.NewLine}ПЛУ";
+            public static string ButtonSelectPluWeight => Lang == ShareEnums.Lang.English ? $"Must select weight PLU!{Environment.NewLine}Or Massa-K scales are not respond!" : $"Необходимо выбрать весовую ПЛУ!{Environment.NewLine}Либо весы Масса-К не отвечают!";
             public static string ButtonSetKneading => Lang == ShareEnums.Lang.English ? "More" : "Ещё";
             public static string ButtonSettings => Lang == ShareEnums.Lang.English ? "Settings" : "Настройки";
             public static string CheckPluWeightCount => Lang == ShareEnums.Lang.English ? "Weighted products can be specified in quantities of 1 piece." : "Весовая продукция может быть указана в количестве 1 штуки.";
@@ -471,14 +458,12 @@ namespace DataCore
             public static string FieldSsccControlNumber => Lang == ShareEnums.Lang.English ? "Control number" : "Контрольное число";
             public static string FieldSsccGln => Lang == ShareEnums.Lang.English ? "GLN" : "Код GLN";
             public static string FieldSsccShort => Lang == ShareEnums.Lang.English ? "SSCC" : "Код ТУ";
-            public static string FieldSsccSynonym=> Lang == ShareEnums.Lang.English ? "Synonym" : "Синоним";
+            public static string FieldSsccSynonym => Lang == ShareEnums.Lang.English ? "Synonym" : "Синоним";
             public static string FieldSsccUnitId => Lang == ShareEnums.Lang.English ? "Unit ID" : "ИД юнита";
             public static string FieldSsccUnitType => Lang == ShareEnums.Lang.English ? "Unit type" : "Тип юнита";
             public static string FieldThresholdLower => Lang == ShareEnums.Lang.English ? "Lower" : "Нижнее";
             public static string FieldThresholdNominal => Lang == ShareEnums.Lang.English ? "Nominal" : "Номинальное";
             public static string FieldThresholds => Lang == ShareEnums.Lang.English ? "Weight thresholds" : "Пороговые значения веса";
-            public static string FieldPrintLabelsMain => Lang == ShareEnums.Lang.English ? "Basic label printer" : "Принтер основных этикеток";
-            public static string FieldPrintLabelsShipping => Lang == ShareEnums.Lang.English ? "Shipping label printer" : "Принтер транспортных этикеток";
             public static string FieldThresholdUpper => Lang == ShareEnums.Lang.English ? "Upper" : "Верхнее";
             public static string FieldWeightNetto => Lang == ShareEnums.Lang.English ? "Net weight" : "Вес нетто";
             public static string FieldWeightTare => Lang == ShareEnums.Lang.English ? "Tare weight" : "Вес тары";
@@ -497,19 +482,6 @@ namespace DataCore
             public static string PluCount => Lang == ShareEnums.Lang.English ? "PLU (count)" : "ПЛУ (шт)";
             public static string PluIsEmpty => Lang == ShareEnums.Lang.English ? "PLU not selected!" : "Не выбрана PLU!";
             public static string PluWeight => Lang == ShareEnums.Lang.English ? "PLU (weight)" : "ПЛУ (вес)";
-            public static string Printer => Lang == ShareEnums.Lang.English ? "Printer" : "Принтер";
-            public static string PrinterAvailable => Lang == ShareEnums.Lang.English ? "available" : "доступен";
-            public static string PrinterDriver => Lang == ShareEnums.Lang.English ? "Driver" : "Драйвер";
-            public static string PrinterInfoCaption => Lang == ShareEnums.Lang.English ? "Printer info" : "Информация о принтере";
-            public static string PrinterPort => Lang == ShareEnums.Lang.English ? "Port" : "Порт";
-            public static string PrinterState => Lang == ShareEnums.Lang.English ? "State" : "Состояние";
-            public static string PrinterStateCode => Lang == ShareEnums.Lang.English ? "State code" : "Код состояния";
-            public static string PrinterStatus => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
-            public static string PrinterStatusCode => Lang == ShareEnums.Lang.English ? "Status code" : "Код статуса";
-            public static string PrinterTsc => Lang == ShareEnums.Lang.English ? "Printer TSC" : "Принтер TSC";
-            public static string PrinterUnavailable => Lang == ShareEnums.Lang.English ? "unavailable" : "не доступен";
-            public static string PrinterWarningOpenCover => Lang == ShareEnums.Lang.English ? "Open the cover of the separator before proceeding with the calibration!" : "Прежде чем продолжить калибровку, откройте крышку отделителя!";
-            public static string PrinterZebra => Lang == ShareEnums.Lang.English ? "Printer Zebra" : "Принтер Zebra";
             public static string ProgramExit => Lang == ShareEnums.Lang.English ? "Ending the program ..." : "Завершение программы ...";
             public static string ProgramLoad => Lang == ShareEnums.Lang.English ? "Loading the program ..." : "Загрузка программы ...";
             public static string ProgramNotFound(string fileName) => Lang == ShareEnums.Lang.English ? "Program not found!" + Environment.NewLine + fileName + Environment.NewLine + "Contact your system administrator." : "Программа не найдена!" + Environment.NewLine + fileName + Environment.NewLine + "Обратитесь к системному администратору.";
@@ -545,6 +517,7 @@ namespace DataCore
         {
             public static string Abort => Lang == ShareEnums.Lang.English ? "Abort" : "Прервать";
             public static string Cancel => Lang == ShareEnums.Lang.English ? "Cancel" : "Отмена";
+            public static string Custom => Lang == ShareEnums.Lang.English ? "Custom" : "Кастом";
             public static string Ignore => Lang == ShareEnums.Lang.English ? "Ignore" : "Игнорировать";
             public static string No => Lang == ShareEnums.Lang.English ? "No" : "Нет";
             public static string Ok => Lang == ShareEnums.Lang.English ? "Ok" : "Ок";
@@ -605,13 +578,13 @@ namespace DataCore
                             result = DeviceControl.Items.Plu;
                             break;
                         case ProjectsEnums.TableScale.Printers:
-                            result = DeviceControl.Items.Printer;
+                            result = Print.Name;
                             break;
                         case ProjectsEnums.TableScale.PrintersResources:
-                            result = DeviceControl.Items.PrinterResource;
+                            result = Print.Resource;
                             break;
                         case ProjectsEnums.TableScale.PrintersTypes:
-                            result = DeviceControl.Items.PrinterType;
+                            result = Print.Type;
                             break;
                         case ProjectsEnums.TableScale.ProductSeries:
                             result = DeviceControl.Items.ProductSeries;
@@ -710,13 +683,13 @@ namespace DataCore
                             result = DeviceControl.Sections.Plus;
                             break;
                         case ProjectsEnums.TableScale.Printers:
-                            result = DeviceControl.Sections.Printers;
+                            result = Print.Name;
                             break;
                         case ProjectsEnums.TableScale.PrintersResources:
-                            result = DeviceControl.Sections.PrinterResources;
+                            result = Print.Resources;
                             break;
                         case ProjectsEnums.TableScale.PrintersTypes:
-                            result = DeviceControl.Sections.PrinterTypes;
+                            result = Print.Types;
                             break;
                         case ProjectsEnums.TableScale.ProductSeries:
                             result = DeviceControl.Sections.ProductSeries;

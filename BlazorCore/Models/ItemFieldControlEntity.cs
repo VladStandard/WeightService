@@ -1,9 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
 using DataCore.DAL.Models;
 using DataCore.DAL.TableScaleModels;
+using DataCore.Localization;
 using Radzen;
 using System;
 using System.Collections.Generic;
@@ -100,8 +100,8 @@ namespace BlazorCore.Models
                 NotificationMessage msg = new()
                 {
                     Severity = NotificationSeverity.Warning,
-                    Summary = LocalizationCore.Strings.DataControl,
-                    Detail = $"{LocalizationCore.Strings.DataControlField} [{field}]!" +
+                    Summary = Core.Strings.DataControl,
+                    Detail = $"{Core.Strings.DataControlField} [{field}]!" +
                         (Equals(detailAddition, Environment.NewLine) ? string.Empty : detailAddition),
                     Duration = AppSettingsHelper.Delay
                 };
@@ -117,12 +117,12 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(access.User))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldUser}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldUser}" + Environment.NewLine;
                 result = false;
             }
             if (access.Rights < 0 || access.Rights > 3)
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsNotInRange}: {LocalizationCore.Strings.Main.AccessRights}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsNotInRange}: {Core.Strings.Main.AccessRights}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -133,7 +133,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(barCodeType.Name))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -144,7 +144,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(contragent.Name))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -155,17 +155,17 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(host.Name))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldName}" + Environment.NewLine;
                 result = false;
             }
             if (Equals(host.IdRRef, Guid.Empty))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldIdRRef}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldIdRRef}" + Environment.NewLine;
                 result = false;
             }
             if (string.IsNullOrEmpty(host.Ip))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldIpAddress}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldIpAddress}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -176,7 +176,7 @@ namespace BlazorCore.Models
                 result = false;
             if (label.Label.Length == 0)
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldLabel}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldLabel}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -187,7 +187,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(nomenclature.Name))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -221,7 +221,7 @@ namespace BlazorCore.Models
                 }), null);
             if (pluEntities != null && pluEntities.Any() && !pluEntities.Where(x => x.IdentityId.Equals(plu.IdentityId)).Select(x => x).Any())
             {
-                detailAddition += $"{LocalizationCore.Strings.TablePluHavingPlu}: {plu.Plu}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.TablePluHavingPlu}: {plu.Plu}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -244,7 +244,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(printerType.Name))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -255,7 +255,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(productionFacility.Name))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -272,7 +272,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(scale.Description))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldDescription}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldDescription}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -289,7 +289,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(taskType.Name))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -300,7 +300,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(templateResource.Name))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -311,12 +311,12 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(template.Title))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldTitle}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldTitle}" + Environment.NewLine;
                 result = false;
             }
             if (string.IsNullOrEmpty(template.CategoryId))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldCategory}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldCategory}" + Environment.NewLine;
                 result = false;
             }
         }
@@ -333,7 +333,7 @@ namespace BlazorCore.Models
                 result = false;
             if (string.IsNullOrEmpty(workshop.Name))
             {
-                detailAddition += $"{LocalizationCore.Strings.FieldIsEmpty}: {LocalizationCore.Strings.FieldName}" + Environment.NewLine;
+                detailAddition += $"{Core.Strings.FieldIsEmpty}: {Core.Strings.FieldName}" + Environment.NewLine;
                 result = false;
             }
         }

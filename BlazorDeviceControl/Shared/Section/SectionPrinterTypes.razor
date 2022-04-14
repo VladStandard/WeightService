@@ -8,6 +8,7 @@
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -17,7 +18,7 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Sections.PrinterTypes SetParameters=@SetParametersAsync />
+        Title=@LocalizationCore.Print.Types SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="PrinterTypeEntity" @bind-Value=@ItemObject
@@ -25,7 +26,7 @@ else
         AllowFiltering=true FilterCaseSensitivity=FilterCaseSensitivity.CaseInsensitive FilterMode="FilterMode.Advanced"
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns>
-            <RadzenGridColumn TItem="PrinterTypeEntity" Title=@LocalizationData.DeviceControl.TableFieldPrinter 
+            <RadzenGridColumn TItem="PrinterTypeEntity" Title=@LocalizationCore.Print.Name 
                 Type="string" Width="100%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "

@@ -1,7 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-using DataCore;
+using DataCore.Localization;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
@@ -13,7 +13,7 @@ namespace BlazorDeviceControl.Shared.Component
 
         [Parameter] public string Title { get; set; } = string.Empty;
         [Parameter] public EventCallback<ParameterView> SetParameters { get; set; }
-        public string ItemsCountResult => $"{LocalizationCore.Strings.Main.ItemsCount}: {(ParentRazor?.Items == null ? 0 : ParentRazor.Items.Count):### ### ###}";
+        public string ItemsCountResult => $"{Core.Strings.Main.ItemsCount}: {(ParentRazor?.Items == null ? 0 : ParentRazor.Items.Count):### ### ###}";
 
         #endregion
 

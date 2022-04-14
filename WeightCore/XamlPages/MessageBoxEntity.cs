@@ -80,77 +80,6 @@ namespace WeightCore.XamlPages
             set { _sizeButton = value; }
         }
 
-        private string _buttonYes;
-        public string ButtonYes
-        {
-            get => _buttonYes;
-            private set
-            {
-                _buttonYes = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _buttonRetry;
-        public string ButtonRetry
-        {
-            get => _buttonRetry;
-            private set
-            {
-                _buttonRetry = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _buttonNo;
-        public string ButtonNo
-        {
-            get => _buttonNo;
-            private set
-            {
-                _buttonNo = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _buttonIgnore;
-        public string ButtonIgnore
-        {
-            get => _buttonIgnore;
-            private set
-            {
-                _buttonIgnore = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _buttonCancel;
-        public string ButtonCancel
-        {
-            get => _buttonCancel;
-            private set
-            {
-                _buttonCancel = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _buttonAbort;
-        public string ButtonAbort
-        {
-            get => _buttonAbort;
-            private set
-            {
-                _buttonAbort = value;
-                OnPropertyChanged();
-            }
-        }
-        private string _buttonOk;
-        public string ButtonOk
-        {
-            get => _buttonOk;
-            private set
-            {
-                _buttonOk = value;
-                OnPropertyChanged();
-            }
-        }
-
         private VisibilitySettingsEntity _visibilitySettings;
         public VisibilitySettingsEntity VisibilitySettings
         {
@@ -174,22 +103,9 @@ namespace WeightCore.XamlPages
             FontSizeMessage = 26;
             FontSizeButton = 22;
 
-            Localization();
-
             VisibilitySettings = new();
 
             Result = DialogResult.Cancel;
-        }
-
-        public void Localization()
-        {
-            ButtonYes = LocalizationData.Buttons.Yes;
-            ButtonRetry = LocalizationData.Buttons.Retry;
-            ButtonNo = LocalizationData.Buttons.No;
-            ButtonIgnore = LocalizationData.Buttons.Ignore;
-            ButtonCancel = LocalizationData.Buttons.Cancel;
-            ButtonAbort = LocalizationData.Buttons.Abort;
-            ButtonOk = LocalizationData.Buttons.Ok;
         }
 
         #endregion

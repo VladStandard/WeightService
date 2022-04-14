@@ -1,11 +1,18 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-namespace DataCore
+namespace DataCore.Localization
 {
-    public static class LocalizationCore
+    public static class Core
     {
-        public static ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
+        private static ShareEnums.Lang _lang;
+        public static ShareEnums.Lang Lang { get => _lang; set { Print.Lang = _lang = value; } }
+        public static PrintHelper Print { get; private set; } = PrintHelper.Instance;
+
+        static Core()
+        {
+            Lang = ShareEnums.Lang.Russian;
+        }
 
         public static class Strings
         {
@@ -85,7 +92,7 @@ namespace DataCore
                 public static string TaskModule => Lang == ShareEnums.Lang.English ? "Task module" : "Модуль задачи";
                 public static string TaskModuleType => Lang == ShareEnums.Lang.English ? "Task module type" : "Тип модуля задачи";
                 public static string TaskType => Lang == ShareEnums.Lang.English ? "Task type" : "Тип задачи";
-                public static string Template  => Lang == ShareEnums.Lang.English ? "Template" : "Шаблон";
+                public static string Template => Lang == ShareEnums.Lang.English ? "Template" : "Шаблон";
                 public static string TemplateDefault => Lang == ShareEnums.Lang.English ? "Default template" : "Шаблон по-умолчанию";
                 public static string Workshop => Lang == ShareEnums.Lang.English ? "Workshop" : "Цех";
             }

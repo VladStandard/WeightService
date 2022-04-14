@@ -36,8 +36,8 @@ namespace DataCore
 
         public enum Direction
         {
-            Forward,
-            Back
+            Left,
+            Right,
         }
 
         public enum Page

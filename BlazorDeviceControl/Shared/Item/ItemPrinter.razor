@@ -8,8 +8,9 @@
 @using DataCore
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
-@using static DataCore.Utils.BlazorCoreUtuls
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.LocalizationData.DeviceControl
+@using static DataCore.Utils.BlazorCoreUtuls
 
 @if (!IsLoaded)
 {
@@ -18,7 +19,7 @@
 else
 {
     <ActionsReloadItem ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Items.Printer SetParameters=@SetParametersAsync />
+        Title=@LocalizationCore.Print.Name SetParameters=@SetParametersAsync />
 
     <MudSimpleTable Style="overflow-x: auto; " Dense=true Bordered=true FixedHeader=false>
         <thead>
@@ -48,7 +49,7 @@ else
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Name />
                 </td>
-                <td>@LocalizationData.DeviceControl.TableFieldPrinterMac</td>
+                <td>@LocalizationCore.Print.Mac</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.MacAddress.Value />
@@ -58,7 +59,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " Target="_blank"
                         Path=@ItemCast.Link 
-                        Text=@LocalizationData.DeviceControl.TableFieldPrinterControlPanel />
+                        Text=@LocalizationCore.Print.ControlPanel />
                 </td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
@@ -67,7 +68,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@GetPath(UriRouteItem.PrinterType, ItemCast.PrinterType, ItemCast.PrinterType.IdentityId)
-                        Text=@LocalizationData.DeviceControl.TableFieldPrinterType />
+                        Text=@LocalizationCore.Print.Type />
                 </td>
                 <td>
                     @if (PrinterTypes == null)
@@ -87,19 +88,19 @@ else
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldPrinterPort</td>
+                <td>@LocalizationCore.Print.Port</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="short" @bind-Value=@ItemCast.Port />
                 </td>
-                <td>@LocalizationData.DeviceControl.TableFieldPrinterPassword</td>
+                <td>@LocalizationCore.Print.Password</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Password />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldHttpStatusCode</td>
+                <td>@LocalizationCore.Print.StatusCode</td>
                 <td>
                     <RadzenIcon Style="width: 16%; align-content: center; "
                         Icon=@(ItemCast.HttpStatusCode == System.Net.HttpStatusCode.OK ? "network_wifi_3_bar" : "signal_wifi_statusbar_null")/>
@@ -124,17 +125,17 @@ else
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesClear(UserSettings, ItemCast))
                         class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocalizationData.DeviceControl.TableFieldPrinterResourcesClear Disabled=@AppSettings.DataAccess.IsDisabled />
+                        Text=@LocalizationCore.Print.ResourcesClear Disabled=@AppSettings.DataAccess.IsDisabled />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "TTF"))
                         class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocalizationData.DeviceControl.TableFieldPrinterResourcesLoadTtf Disabled=@AppSettings.DataAccess.IsDisabled />
+                        Text=@LocalizationCore.Print.ResourcesLoadTtf Disabled=@AppSettings.DataAccess.IsDisabled />
 				</td>
                 <td>
                     <RadzenButton Click=@(args => PrinterResourcesLoad(UserSettings, ItemCast, "GRF"))
                         class="radzenButtonFullWidth" ButtonStyle=@ButtonStyle.Primary
-                        Text=@LocalizationData.DeviceControl.TableFieldPrinterResourcesLoadGrf Disabled=@AppSettings.DataAccess.IsDisabled />
+                        Text=@LocalizationCore.Print.ResourcesLoadGrf Disabled=@AppSettings.DataAccess.IsDisabled />
 				</td>
             </tr>
         </tbody>

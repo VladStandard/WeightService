@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.460] - 2022-04-14
+### Changed
+- MainForm
+### Описание обновления:
+- 
+
 ## [0.6.450] - 2022-04-13
 ### Changed
 - MainForm

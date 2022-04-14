@@ -4,6 +4,7 @@
 using DataCore;
 using DataCore.DAL;
 using DataCore.DAL.TableDirectModels;
+using System;
 using System.Collections.Concurrent;
 using WeightCore.MassaK;
 using static WeightCore.MassaK.MassaEnums;
@@ -57,25 +58,32 @@ namespace WeightCore.Managers
 
         public void Open(SqlViewModelEntity sqlViewModel, bool isCheckWeight)
         {
-            Open(sqlViewModel, isCheckWeight,
-            () =>
+            try
             {
-                MassaDevice?.Open();
-            },
-            () =>
+                Open(sqlViewModel, isCheckWeight,
+                () =>
+                {
+                    MassaDevice?.Open();
+                },
+                () =>
+                {
+                    if (MassaDevice?.IsConnected == true)
+                        GetMassa();
+                    else
+                        ClearRequests(0);
+                },
+                () =>
+                {
+                    if (MassaDevice?.IsConnected == true)
+                        OpenResponse();
+                    else
+                        ResetMassa();
+                });
+            }
+            catch (Exception ex)
             {
-                if (MassaDevice?.IsConnected == true)
-                    GetMassa();
-                else
-                    ClearRequests(0);
-            },
-            () =>
-            {
-                if (MassaDevice?.IsConnected == true)
-                    OpenResponse();
-                else
-                    ResetMassa();
-            });
+                Exception.Catch(null, ref ex, false);
+            }
         }
 
         public new void CloseMethod()

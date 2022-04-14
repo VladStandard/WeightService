@@ -8,39 +8,43 @@ using WeightCore.Print;
 
 namespace WeightCore.Managers
 {
-    public class ManagerHelper : DisposableBase
+    public class ManagerEntity : DisposableBase
     {
         #region Public and private fields and properties
 
         public ManagerMassa Massa { get; private set; } = new ManagerMassa();
         public ManagerMemory Memory { get; private set; } = new ManagerMemory();
-        public ManagerPrint Print { get; private set; } = new ManagerPrint();
+        public ManagerPrint PrintMain { get; private set; } = new ManagerPrint();
+        public ManagerPrint PrintShipping { get; private set; } = new ManagerPrint();
 
         #endregion
 
         #region Constructor and destructor
 
-        public ManagerHelper()
+        public ManagerEntity()
         {
             Init(CloseMethod, ReleaseManaged, ReleaseUnmanaged);
         }
 
-        ~ManagerHelper()
-        {
-            Massa?.Dispose(false);
-            Memory?.Dispose(false);
-            Print?.Dispose(false);
-        }
+        //~ManagerEntity()
+        //{
+        //    Massa?.Dispose(false);
+        //    Memory?.Dispose(false);
+        //    PrintMain?.Dispose(false);
+        //    PrintShipping?.Dispose(false);
+        //}
 
         #endregion
 
         #region Public and private methods
 
-        public void Init(ScaleDirect currentScale, PrintBrand printBrand)
+        public void Init(ScaleDirect currentScale, PrintBrand printBrandMain, PrintBrand printBrandShipping)
         {
             Massa.Init(currentScale);
             Memory.Init();
-            Print.Init(printBrand, currentScale.ZebraPrinter.Name, currentScale.ZebraPrinter.Ip, currentScale.ZebraPrinter.Port);
+            PrintMain.Init(printBrandMain, currentScale.PrinterMain.Name, currentScale.PrinterMain.Ip, currentScale.PrinterMain.Port);
+            PrintShipping.Init(printBrandShipping, currentScale.PrinterShipping.Name, currentScale.PrinterShipping.Ip, currentScale.PrinterShipping.Port);
+            PrintShipping.Init(printBrandMain, currentScale.PrinterMain.Name, currentScale.PrinterMain.Ip, currentScale.PrinterMain.Port);
         }
 
         public void Open(SqlViewModelEntity sqlViewModel, bool isCheckWeight)
@@ -48,7 +52,7 @@ namespace WeightCore.Managers
             Open();
             Massa.Open(sqlViewModel, isCheckWeight);
             Memory.Open(sqlViewModel);
-            Print.Open(sqlViewModel);
+            PrintMain.Open(sqlViewModel);
         }
 
         public void OpenMassa(SqlViewModelEntity sqlViewModel, bool isCheckWeight)
@@ -63,28 +67,28 @@ namespace WeightCore.Managers
 
         public void OpenPrint(SqlViewModelEntity sqlViewModel)
         {
-            Print.Open(sqlViewModel);
+            PrintMain.Open(sqlViewModel);
         }
 
         public void CloseMethod()
         {
             Massa.Close();
             Memory.Close();
-            Print.Close();
+            PrintMain.Close();
         }
 
         public void ReleaseManaged()
         {
             Massa.ReleaseManaged();
             Memory.ReleaseManaged();
-            Print.ReleaseManaged();
+            PrintMain.ReleaseManaged();
         }
 
         public void ReleaseUnmanaged()
         {
             Massa.ReleaseUnmanaged();
             Memory.ReleaseUnmanaged();
-            Print.ReleaseUnmanaged();
+            PrintMain.ReleaseUnmanaged();
         }
 
         #endregion

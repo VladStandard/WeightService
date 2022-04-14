@@ -6,7 +6,6 @@ using DataCore.DAL.DataModels;
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Forms;
 using WeightCore.XamlPages;
@@ -49,7 +48,7 @@ namespace WeightCore.Gui
                 wpfPageLoader.MessageBox.Caption = caption;
                 wpfPageLoader.MessageBox.Message = message;
                 wpfPageLoader.MessageBox.VisibilitySettings = visibilitySettings;
-                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
                 DialogResult resultWpf;
                 if (owner != null)
                     resultWpf = wpfPageLoader.ShowDialog(owner);
@@ -67,7 +66,7 @@ namespace WeightCore.Gui
             /// <param name="isDebug"></param>
             public static DialogResult ShowNewSettings(IWin32Window owner, bool isDebug)
             {
-                DialogResult resultWpf = ShowNew(owner, LocalizationData.ScalesUI.OperationControl, 
+                DialogResult resultWpf = ShowNew(owner, LocalizationData.ScalesUI.OperationControl,
                     LocalizationData.ScalesUI.DeviceControlIsPreview,
                     new() { ButtonYesVisibility = Visibility.Visible, ButtonNoVisibility = Visibility.Visible });
                 if (resultWpf == DialogResult.Yes)
@@ -87,7 +86,7 @@ namespace WeightCore.Gui
             public static DialogResult ShowNewOperationControl(IWin32Window owner, string message, VisibilitySettingsEntity visibility = null)
             {
                 LogHelper.Instance.Information(message);
-                return ShowNew(owner, LocalizationData.ScalesUI.OperationControl, message, 
+                return ShowNew(owner, LocalizationData.ScalesUI.OperationControl, message,
                     visibility ?? new() { ButtonOkVisibility = Visibility.Visible });
             }
 

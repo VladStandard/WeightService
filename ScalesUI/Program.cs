@@ -36,7 +36,7 @@ namespace ScalesUI
                 wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.RegistrationWarning1(uid);
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonYesVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonNoVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
                 wpfPageLoader.ShowDialog();
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();
@@ -60,7 +60,7 @@ namespace ScalesUI
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
                 wpfPageLoader.MessageBox.Message = message;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
                 wpfPageLoader.ShowDialog();
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
@@ -88,7 +88,7 @@ namespace ScalesUI
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Exception;
                 wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.ExceptionSqlDb + Environment.NewLine + Environment.NewLine + ex.Message;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
                 wpfPageLoader.ShowDialog();
                 wpfPageLoader.Close();
                 wpfPageLoader.Dispose();
@@ -112,7 +112,7 @@ namespace ScalesUI
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.Registration;
                 wpfPageLoader.MessageBox.Message = LocalizationData.ScalesUI.RegistrationWarning2(host.IdRRef);
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = System.Windows.Visibility.Visible;
-                wpfPageLoader.MessageBox.Localization();
+                wpfPageLoader.MessageBox.VisibilitySettings.Localization();
                 wpfPageLoader.ShowDialog();
                 DialogResult result = wpfPageLoader.MessageBox.Result;
                 wpfPageLoader.Close();

@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore;
+using DataCore.Localization;
 using DataCore.Models;
 using System.Collections.Generic;
 
@@ -52,7 +53,7 @@ namespace BlazorCore.Models
 
         public List<TypeEntity<ShareEnums.Lang>> GetTemplateLanguages()
         {
-            return LocalizationCore.Lang switch
+            return Core.Lang switch
             {
                 ShareEnums.Lang.English => GetTemplateLanguagesEng(),
                 ShareEnums.Lang.Russian => GetTemplateLanguagesRus(),
