@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.470] - 2022-04-13
+### Fixed
+- Shared.Item.Measurements.SectionLabels
+- Shared.Item.Measurements.SectionWeithingFacts
+- Shared.Item.Measurements.SectionWeithingFactsAggregation
+- Shared.Section.Measurements.SectionLabels
+- Shared.Section.Measurements.SectionWeithingFacts
+- Shared.Section.Measurements.SectionWeithingFactsAggregation
+### Описание обновления:
+- Раздел и страница "Взвешивания"
+
 ## [0.6.450] - 2022-04-13
 ### Fixed
 - Shared.Component.ActionsReloadBase

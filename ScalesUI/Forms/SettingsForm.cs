@@ -17,6 +17,7 @@ using WeightCore.Gui;
 using WeightCore.Helpers;
 using WeightCore.Zpl;
 using static DataCore.ShareEnums;
+using LocalizationCore = DataCore.Localization.Core;
 
 namespace ScalesUI.Forms
 {
@@ -212,7 +213,7 @@ namespace ScalesUI.Forms
                 // WPF MessageBox.
                 using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false) { Width = 700, Height = 400 };
                 wpfPageLoader.MessageBox.Caption = LocalizationData.ScalesUI.OperationControl;
-                wpfPageLoader.MessageBox.Message = LocalizationData.Print.WarningOpenCover;
+                wpfPageLoader.MessageBox.Message = LocalizationCore.Print.WarningOpenCover;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonRetryVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.ButtonCancelVisibility = System.Windows.Visibility.Visible;
                 wpfPageLoader.MessageBox.VisibilitySettings.Localization();

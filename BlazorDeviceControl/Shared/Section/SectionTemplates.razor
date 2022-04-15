@@ -8,6 +8,7 @@
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -28,7 +29,7 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="TemplateEntity" TextAlign=TextAlign.Center 
-                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
@@ -36,9 +37,9 @@ else
             }
             <RadzenGridColumn 
                 TItem="TemplateEntity" Property="CategoryId" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldCategoryName Width="15%" />
+                Title=@LocalizationCore.TableField.CategoryName Width="15%" />
             <RadzenGridColumn 
-                TItem="TemplateEntity" Title=@LocalizationData.DeviceControl.TableFieldTitle Width="85%" >
+                TItem="TemplateEntity" Title=@LocalizationCore.TableField.Title Width="85%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Template}/{itemCast.IdentityId}")

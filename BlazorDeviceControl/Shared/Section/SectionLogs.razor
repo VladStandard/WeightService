@@ -27,7 +27,7 @@ else
         <Columns >
             <RadzenGridColumn 
                 TItem="LogQuickEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
+                Title=@LocalizationCore.TableField.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
@@ -35,7 +35,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LogQuickEntity" Title=@LocalizationData.DeviceControl.TableFieldHost Type="string" Width="12%" >
+                TItem="LogQuickEntity" Title=@LocalizationCore.TableField.Host Type="string" Width="12%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Log}/{itemCast.IdentityUid}")
@@ -44,23 +44,23 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="App" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldApp Type="string" Width="7%" />
+                Title=@LocalizationCore.TableField.App Type="string" Width="7%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="File" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="12%" />
+                Title=@LocalizationCore.TableField.File Type="string" Width="12%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Line" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="5%">
+                Title=@LocalizationCore.TableField.Row Type="int" Width="5%">
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Member" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="14%" />
+                Title=@LocalizationCore.TableField.Member Type="string" Width="14%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Icon" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldIcon Type="string" Width="7%" />
+                Title=@LocalizationCore.TableField.Icon Type="string" Width="7%" />
             <RadzenGridColumn 
                 TItem="LogQuickEntity" Property="Message" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldMessage Type="string" Width="28%">
+                Title=@LocalizationCore.TableField.Message Type="string" Width="28%">
                 <Template Context="logItem">
                     <RadzenLabel 
                         Style="height: 80%; width=80%; white-space: pre-wrap; " 

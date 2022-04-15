@@ -29,36 +29,36 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>@LocalizationCore.TableField.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>@LocalizationCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td>@LocalizationCore.TableField.Name</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldDeviceIp</td>
+                <td>@LocalizationCore.TableField.DeviceIp</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Ip />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldIdRRef</td>
+                <td>@LocalizationCore.TableField.IdRRef</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.IdRRefAsString />
                 </td>
-                <td>@LocalizationData.DeviceControl.TableFieldDeviceMac</td>
+                <td>@LocalizationCore.TableField.DeviceMac</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.MacAddress.Value />
@@ -66,7 +66,7 @@ else
             </tr>
             <tr >
                 <td>
-                    <RadzenLabel Style="width: 100%;" Text=@LocalizationData.DeviceControl.TableFieldSettingsFile />
+                    <RadzenLabel Style="width: 100%;" Text=@LocalizationCore.TableField.SettingsFile />
                 </td>
                 <td colspan=3 >
                     <RadzenTextArea Style="width: 100%; height: 50%; font-size: 12px; line-height: 20px; "

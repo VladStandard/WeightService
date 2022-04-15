@@ -32,19 +32,19 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>@LocalizationCore.TableField.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>@LocalizationCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td>@LocalizationCore.TableField.Name</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Name />
@@ -109,7 +109,7 @@ else
                 </td>
                 @if (ItemCast.HttpStatusException != null)
                 {
-                    <td>@LocalizationData.DeviceControl.TableFieldHttpStatusException</td>
+                    <td>@LocalizationCore.TableField.HttpStatusException</td>
                     <td>
                         <RadzenLabel Style="width: 100%; " 
                             Text=@(ItemCast.HttpStatusException != null ? ItemCast.HttpStatusException.Message : "") />
@@ -117,7 +117,7 @@ else
                 }
                 else
                 {
-                    <td colspan=2>@LocalizationData.DeviceControl.TableFieldHttpStatusNoException</td>
+                    <td colspan=2>@LocalizationCore.TableField.HttpStatusNoException</td>
                 }
             </tr>
             <tr>

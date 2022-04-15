@@ -18,6 +18,7 @@ namespace DataCore.DAL.TableScaleModels
         public virtual WorkShopEntity WorkShop { get; set; }
         public virtual PrinterEntity? Printer { get; set; }
         public virtual bool IsShipping { get; set; }
+        public virtual bool IsKneading { get; set; }
         public virtual PrinterEntity? ShippingPrinter { get; set; }
         public virtual byte ShippingLength { get; set; }
         public virtual HostEntity? Host { get; set; }
@@ -54,6 +55,7 @@ namespace DataCore.DAL.TableScaleModels
             Printer = new();
             ShippingPrinter = new();
             IsShipping = false;
+            IsKneading = false;
             ShippingLength = 0;
             Host = new();
             Description = string.Empty;
@@ -105,6 +107,7 @@ namespace DataCore.DAL.TableScaleModels
                    $"{nameof(Printer)}: {strPrinter}. " +
                    $"{nameof(ShippingPrinter)}: {strPrinterVehicle}. " +
                    $"{nameof(IsShipping)}: {IsShipping}. " +
+                   $"{nameof(IsKneading)}: {IsKneading}. " +
                    $"{nameof(ShippingLength)}: {ShippingLength}. " +
                    $"{nameof(Host)}: {strHost}. ";
         }
@@ -134,6 +137,7 @@ namespace DataCore.DAL.TableScaleModels
                    Printer != null && entity.Printer != null && Printer.Equals(entity.Printer) &&
                    ShippingPrinter != null && entity.ShippingPrinter != null && ShippingPrinter.Equals(entity.ShippingPrinter) &&
                    IsShipping.Equals(entity.IsShipping) &&
+                   IsKneading.Equals(entity.IsKneading) &&
                    ShippingLength.Equals(entity.ShippingLength) &&
                    Host != null && entity.Host != null && Host.Equals(entity.Host);
         }
@@ -186,6 +190,7 @@ namespace DataCore.DAL.TableScaleModels
                    Equals(DeviceNumber, null) &&
                    Equals(ScaleFactor, null) &&
                    Equals(IsShipping, false) &&
+                   Equals(IsKneading, false) &&
                    Equals(ShippingLength, 0);
         }
 
@@ -198,6 +203,7 @@ namespace DataCore.DAL.TableScaleModels
             item.Printer = Printer != null ? (PrinterEntity)Printer.Clone() : null;
             item.ShippingPrinter = ShippingPrinter != null ? (PrinterEntity)ShippingPrinter.Clone() : null;
             item.IsShipping = IsShipping;
+            item.IsKneading = IsKneading;
             item.ShippingLength = ShippingLength;
             item.Host = Host != null ? (HostEntity)Host.Clone() : null;
             item.Description = Description;

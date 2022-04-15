@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
-using DataCore.Utils;
 using System;
 
 namespace DataCore.DAL.DataModels
@@ -12,9 +11,6 @@ namespace DataCore.DAL.DataModels
         #region Public and private fields and properties
 
         public virtual DateTime WeithingDate { get; set; }
-
-        public virtual string WeithingDay => WeithingDate == default || WeithingDate == DateTime.MaxValue || WeithingDate == DateTime.MinValue
-            ? string.Empty : EnumUtils.GetDayOfWeekRu(WeithingDate.DayOfWeek);
         public virtual int Count { get; set; }
         public virtual string Scale { get; set; }
         public virtual string Host { get; set; }
@@ -46,7 +42,6 @@ namespace DataCore.DAL.DataModels
         {
             return base.ToString() +
                    $"{nameof(WeithingDate)}: {WeithingDate}. " +
-                   $"{nameof(WeithingDay)}: {WeithingDay}. " +
                    $"{nameof(Count)}: {Count}. " +
                    $"{nameof(Scale)}: {Scale}. " +
                    $"{nameof(Host)}: {Host}. " +
@@ -59,7 +54,6 @@ namespace DataCore.DAL.DataModels
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
                    Equals(WeithingDate, entity.WeithingDate) &&
-                   Equals(WeithingDay, entity.WeithingDay) &&
                    Equals(Count, entity.Count) &&
                    Equals(Scale, entity.Scale) &&
                    Equals(Host, entity.Host) &&
@@ -84,11 +78,10 @@ namespace DataCore.DAL.DataModels
             return Equals(new WeithingFactSummaryEntity());
         }
 
-        public virtual bool EqualsDefault()
+        public new virtual bool EqualsDefault()
         {
-            return
+            return base.EqualsDefault() &&
                    Equals(WeithingDate, DateTime.MinValue) &&
-                   Equals(WeithingDay, string.Empty) &&
                    Equals(Count, 0) &&
                    Equals(Scale, string.Empty) &&
                    Equals(Host, string.Empty) &&

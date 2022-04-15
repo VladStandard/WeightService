@@ -8,6 +8,7 @@
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -27,10 +28,10 @@ else
         <Columns >
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Type" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldType 
+                Title=@LocalizationCore.TableField.Type 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
-                TItem="TemplateResourceEntity" Title=@LocalizationData.DeviceControl.TableFieldName Width="25%" >
+                TItem="TemplateResourceEntity" Title=@LocalizationCore.TableField.Name Width="25%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.TemplateResource}/{itemCast.IdentityId}")
@@ -39,11 +40,11 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="Description"
-                Title=@LocalizationData.DeviceControl.TableFieldDescription 
+                Title=@LocalizationCore.TableField.Description 
                 Type="string" Width="40%" />
             <RadzenGridColumn 
                 TItem="TemplateResourceEntity" Property="ImageData.Info"
-                Title=@LocalizationData.DeviceControl.TableFieldImageDataInfo 
+                Title=@LocalizationCore.TableField.ImageDataInfo 
                 Type="string" Width="25%" />
         </Columns>
     </RadzenGrid>

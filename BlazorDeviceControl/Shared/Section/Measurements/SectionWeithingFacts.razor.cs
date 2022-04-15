@@ -8,22 +8,23 @@ using DataCore.Localization;
 using DataCore.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
 
-namespace BlazorDeviceControl.Shared.Item
+namespace BlazorDeviceControl.Shared.Section.Measurements
 {
-    public partial class ItemLabel
+    public partial class SectionWeithingFacts
     {
         #region Public and private fields and properties
 
-        public LabelEntity ItemCast { get => Item == null ? new() : (LabelEntity)Item; set => Item = value; }
+        private List<WeithingFactEntity> ItemsCast => Items == null ? new() : Items.Select(x => (WeithingFactEntity)x).ToList();
 
         #endregion
 
         #region Constructor and destructor
 
-        public ItemLabel() : base()
+        public SectionWeithingFacts() : base()
         {
             //
         }
@@ -35,8 +36,8 @@ namespace BlazorDeviceControl.Shared.Item
         private void Default()
         {
             IsLoaded = false;
-            Table = new TableScaleEntity(ProjectsEnums.TableScale.Labels);
-            ItemCast = new();
+            Table = new TableScaleEntity(ProjectsEnums.TableScale.WeithingFacts);
+            Items = new();
             ButtonSettings = new();
         }
 
@@ -49,19 +50,15 @@ namespace BlazorDeviceControl.Shared.Item
                     Default();
                     await GuiRefreshWithWaitAsync();
 
-                    switch (TableAction)
+                    if (AppSettings.DataAccess != null)
                     {
-                        case DbTableAction.New:
-                            ItemCast = new();
-                            ItemCast.ChangeDt = ItemCast.CreateDt = System.DateTime.Now;
-                            break;
-                        default:
-                            ItemCast = AppSettings.DataAccess.Crud.GetEntity<LabelEntity>(
-                                new FieldListEntity(new Dictionary<string, object?> 
-                                { { DbField.IdentityId.ToString(), IdentityId } }), null);
-                            break;
+                        Items = AppSettings.DataAccess.Crud.GetEntities<WeithingFactEntity>(
+                            (IsShowMarkedItems == true) ? null
+                                : new FieldListEntity(new Dictionary<string, object?> { { DbField.IsMarked.ToString(), false } }),
+                            new FieldOrderEntity(DbField.WeithingDate, DbOrderDirection.Desc), IsShowTop100 ? 100 : 0)
+                        ?.ToList<BaseEntity>();
                     }
-                    ButtonSettings = new(false, false, false, false, false, false, true);
+                    ButtonSettings = new(true, true, true, true, true, false, false);
                     IsLoaded = true;
                     await GuiRefreshWithWaitAsync();
                 }), true);

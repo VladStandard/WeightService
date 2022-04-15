@@ -36,6 +36,7 @@ namespace DataCore.DAL.TableScaleModels
             Map(x => x.DeviceNumber).CustomSqlType("INT").Column("DeviceNumber");
             Map(x => x.ScaleFactor).CustomSqlType("INT").Column("ScaleFactor").Default("1000");
             Map(x => x.IsShipping).CustomSqlType("BIT").Column("IS_SHIPPING").Not.Nullable().Default("0");
+            Map(x => x.IsKneading).CustomSqlType("BIT").Column("IS_KNEADING").Not.Nullable().Default("0");
             Map(x => x.ShippingLength).CustomSqlType("INT").Column("SHIPPING_LEN").Not.Nullable().Default("0");
         }
     }

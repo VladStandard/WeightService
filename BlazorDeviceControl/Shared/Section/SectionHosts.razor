@@ -8,6 +8,7 @@
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -28,14 +29,14 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="HostEntity" TextAlign=TextAlign.Center 
-                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="HostEntity" Title=@LocalizationData.DeviceControl.TableFieldName Width="25.0%" >
+                TItem="HostEntity" Title=@LocalizationCore.TableField.Name Width="25.0%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; center; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Host}/{itemCast.IdentityId}")
@@ -43,13 +44,13 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="HostEntity" Property="Ip" Title=@LocalizationData.DeviceControl.TableFieldDeviceIp
+                TItem="HostEntity" Property="Ip" Title=@LocalizationCore.TableField.DeviceIp
                 Type="string" Width="25.0%" />
             <RadzenGridColumn 
-                TItem="HostEntity" Property="IdRRef" Title=@LocalizationData.DeviceControl.TableFieldIdRRef
+                TItem="HostEntity" Property="IdRRef" Title=@LocalizationCore.TableField.IdRRef
                 Type="string" Width="25.0%" />
             <RadzenGridColumn 
-                TItem="HostEntity" TextAlign=TextAlign.Center Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationData.DeviceControl.TableFieldDeviceMac
+                TItem="HostEntity" TextAlign=TextAlign.Center Property="MacAddress.ValuePrettyLookMinus" Title=@LocalizationCore.TableField.DeviceMac
                 Type="string" Width="25.0%" />
         </Columns>
     </RadzenGrid>

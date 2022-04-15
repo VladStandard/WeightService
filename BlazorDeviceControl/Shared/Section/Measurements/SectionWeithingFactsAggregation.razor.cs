@@ -13,9 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Section
+namespace BlazorDeviceControl.Shared.Section.Measurements
 {
-    public partial class SectionWeithingFacts
+    public partial class SectionWeithingFactsAggregation
     {
         #region Public and private fields and properties
 
@@ -25,7 +25,7 @@ namespace BlazorDeviceControl.Shared.Section
 
         #region Constructor and destructor
 
-        public SectionWeithingFacts() : base()
+        public SectionWeithingFactsAggregation() : base()
         {
             //
         }
@@ -46,7 +46,7 @@ namespace BlazorDeviceControl.Shared.Section
         {
             await base.SetParametersAsync(parameters).ConfigureAwait(true);
             RunTasks($"{Core.Strings.Method} {nameof(SetParametersAsync)}", "", Core.Strings.DialogResultFail, "",
-                new Task(async() =>
+                new Task(async () =>
                 {
                     Default();
                     await GuiRefreshWithWaitAsync();

@@ -8,6 +8,7 @@
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -26,7 +27,7 @@ else
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns >
             <RadzenGridColumn 
-                TItem="TaskEntity" Title=@LocalizationData.DeviceControl.TableFieldHost Type="string" Width="45%" >
+                TItem="TaskEntity" Title=@LocalizationCore.TableField.Host Type="string" Width="45%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.TaskModule}/{itemCast.IdentityUid}")
@@ -35,14 +36,14 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="TaskEntity" TextAlign=TextAlign.Left Type="string" Width="45%"
-                Title=@LocalizationData.DeviceControl.TableFieldTaskType >
+                Title=@LocalizationCore.TableField.TaskType >
                 <Template Context="itemCast">
                     <RadzenLabel Text=@itemCast.TaskType?.Name Disabled=false ReadOnly=true Style="white-space: pre-wrap;" />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="TaskEntity" Property="Enabled" TextAlign=TextAlign.Center Width="10%" 
-                Title=@LocalizationData.DeviceControl.TableFieldEnabled >
+                Title=@LocalizationCore.TableField.Enabled >
                 <Template Context="itemCast">
                     <RadzenCheckBox TValue="bool" @bind-Value=@itemCast.Enabled Disabled=@Disabled />
                 </Template>

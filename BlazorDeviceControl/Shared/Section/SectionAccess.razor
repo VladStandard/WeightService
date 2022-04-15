@@ -29,7 +29,7 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center 
-                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
@@ -37,7 +37,7 @@ else
             }
             <RadzenGridColumn 
                 TItem="AccessEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
+                Title=@LocalizationCore.TableField.CreateDt Type="date" Width="20%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Access}/{itemCast.IdentityUid}")
@@ -45,7 +45,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
-                    Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
+                    Title=@LocalizationCore.TableField.ChangeDt Type="date" Width="20%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Access}/{itemCast.IdentityUid}")
@@ -53,7 +53,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldUser Type="string" Width="30%" >
+                Title=@LocalizationCore.TableField.User Type="string" Width="30%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Access}/{itemCast.IdentityUid}")
@@ -61,7 +61,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldAccessLevel Type="string" Width="30%">
+                Title=@LocalizationCore.TableField.AccessLevel Type="string" Width="30%">
                 <Template Context="accessItem">
                     <RadzenLabel Text=@BlazorCore.Models.IdentityEntity.GetDescriptionAccessRights(accessItem.Rights) Disabled=false ReadOnly=true />
                 </Template>

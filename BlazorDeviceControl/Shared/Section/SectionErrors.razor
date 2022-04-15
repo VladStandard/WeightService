@@ -28,7 +28,7 @@ else
         <Columns >
             <RadzenGridColumn 
                 TItem="ErrorEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
+                Title=@LocalizationCore.TableField.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast" >
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Error}/{itemCast.IdentityId}")
@@ -36,7 +36,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="ErrorEntity" Title=@LocalizationData.DeviceControl.TableFieldFile Type="string" Width="13%" >
+                TItem="ErrorEntity" Title=@LocalizationCore.TableField.File Type="string" Width="13%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Error}/{itemCast.IdentityId}")
@@ -45,13 +45,13 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ErrorEntity" Property="LineNumber" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldRow Type="int" Width="6%" />
+                Title=@LocalizationCore.TableField.Row Type="int" Width="6%" />
             <RadzenGridColumn 
                 TItem="ErrorEntity" Property="MemberName" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldMember Type="string" Width="12%" />
+                Title=@LocalizationCore.TableField.Member Type="string" Width="12%" />
             <RadzenGridColumn 
                 TItem="ErrorEntity" Property="Exception" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldException Type="int" Width="54%">
+                Title=@LocalizationCore.TableField.Exception Type="int" Width="54%">
             </RadzenGridColumn>
         </Columns>
     </RadzenGrid>

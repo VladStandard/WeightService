@@ -33,19 +33,19 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>@LocalizationCore.TableField.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>@LocalizationCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldDescription</td>
+                <td>@LocalizationCore.TableField.Description</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Description />
@@ -53,7 +53,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Host, ItemCast.Host, ItemCast.Host?.IdentityId)
-                        Text=@LocalizationData.DeviceControl.TableFieldHost />
+                        Text=@LocalizationCore.TableField.Host />
                 </td>
                 <td>
                     @if (HostItems == null || ItemCast.Host == null)
@@ -73,7 +73,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldDeviceComPort</td>
+                <td>@LocalizationCore.TableField.DeviceComPort</td>
                 <td>
                     @if (ComPorts == null)
                     {
@@ -90,7 +90,7 @@ else
                         </MudSelect>
                     }
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldDeviceReceiveTimeout</td>
+                <td>@LocalizationCore.TableField.DeviceReceiveTimeout</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" 
                         Disabled=false TValue="short?" @bind-Value=@ItemCast.DeviceReceiveTimeout />
@@ -118,7 +118,7 @@ else
                         </MudSelect>
                     }
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldDeviceSendTimeout</td>
+                <td>@LocalizationCore.TableField.DeviceSendTimeout</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="short?" @bind-Value=@ItemCast.DeviceSendTimeout />
@@ -146,13 +146,13 @@ else
                         </MudSelect>
                     }
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldIsShipping</td>
+                <td>@LocalizationCore.TableField.IsShipping</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsShipping />
                 </td>
             </tr>
             <tr>
-                <td >@LocalizationData.DeviceControl.TableFieldIsShippingLength</td>
+                <td >@LocalizationCore.TableField.IsShippingLength</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         Name="fieldDeviceNumber"
@@ -160,7 +160,7 @@ else
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldDeviceNumber</td>
+                <td>@LocalizationCore.TableField.DeviceNumber</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         Name="fieldDeviceNumber"
@@ -169,7 +169,7 @@ else
                         Component="fieldDeviceNumber" Min="0"
                         Text=@LocalizationCore.Strings.InputControlMuchZero Popup=true Style="position: absolute;" />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldUseOrder</td>
+                <td>@LocalizationCore.TableField.UseOrder</td>
                 <td>
                     <RadzenCheckBox Disabled=false 
                         TValue="bool" @bind-Value=@ItemCast.UseOrder />
@@ -179,7 +179,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateDefault, ItemCast.TemplateDefault?.IdentityId)
-                        Text=@LocalizationData.DeviceControl.TableFieldTemplateDefault />
+                        Text=@LocalizationCore.TableField.TemplateDefault />
                 </td>
                 <td>
                     @if (TemplatesDefaultItems == null || ItemCast.TemplateDefault == null)
@@ -200,7 +200,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.Template, ItemCast.TemplateSeries, ItemCast.TemplateSeries?.IdentityId)
-                        Text=@LocalizationData.DeviceControl.TableFieldTemplateSeries />
+                        Text=@LocalizationCore.TableField.TemplateSeries />
                 </td>
                 <td>
                     @if (TemplatesSeriesItems == null || ItemCast.TemplateSeries == null)
@@ -223,7 +223,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.WorkShop, ItemCast.WorkShop, ItemCast.WorkShop.IdentityId)
-                        Text=@LocalizationData.DeviceControl.TableFieldWorkShopName />
+                        Text=@LocalizationCore.TableField.WorkShopName />
                 </td>
                 <td>
                     @if (WorkShopItems == null || ItemCast.WorkShop == null)
@@ -241,7 +241,7 @@ else
                         </MudSelect>
                     }
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldScaleFactor</td>
+                <td>@LocalizationCore.TableField.ScaleFactor</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="int?" @bind-Value=@ItemCast.ScaleFactor />

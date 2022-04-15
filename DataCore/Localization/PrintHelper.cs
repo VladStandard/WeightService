@@ -15,12 +15,7 @@ namespace DataCore.Localization
 
         #endregion
 
-        #region Constructor and destructor
-
-        public PrintHelper() { }
-
-
-        #endregion
+        #region Public and private fields and properties
 
         public ShareEnums.Lang Lang { get; set; } = ShareEnums.Lang.Russian;
         public string ActionPrint => Lang == ShareEnums.Lang.English ? "Print" : "Печать";
@@ -49,6 +44,7 @@ namespace DataCore.Localization
         public string ResourcesClear => Lang == ShareEnums.Lang.English ? "Clear resources" : "Удалить ресурсы";
         public string ResourcesLoadGrf => Lang == ShareEnums.Lang.English ? "Load GRF (pics)" : "Загрузить GRF (картинки)";
         public string ResourcesLoadTtf => Lang == ShareEnums.Lang.English ? "Load TTF (fonts)" : "Загрузить TTF (шрифты)";
+        public string SensorPeeler => Lang == ShareEnums.Lang.English ? "Sensor Peeler" : "Датчик Peeler";
         public string State => Lang == ShareEnums.Lang.English ? "State" : "Состояние";
         public string StateCode => Lang == ShareEnums.Lang.English ? "State code" : "Код состояния";
         public string Status => Lang == ShareEnums.Lang.English ? "Status" : "Статус";
@@ -57,5 +53,7 @@ namespace DataCore.Localization
         public string Types => Lang == ShareEnums.Lang.English ? "Printer types" : "Типы принтеров";
         public string Unavailable => Lang == ShareEnums.Lang.English ? "unavailable" : "не доступен";
         public string WarningOpenCover => Lang == ShareEnums.Lang.English ? "Open the cover of the separator before proceeding with the calibration!" : "Прежде чем продолжить калибровку, откройте крышку отделителя!";
+
+        #endregion
     }
 }

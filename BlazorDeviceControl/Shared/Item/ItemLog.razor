@@ -28,25 +28,25 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldUid</td>
+                <td>@LocalizationCore.TableField.Uid</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         @bind-Value=@ItemCast.IdentityUidStr />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>@LocalizationCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldHost</td>
+                <td>@LocalizationCore.TableField.Host</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@ItemCast.Host.Name />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldApp</td>
+                <td>@LocalizationCore.TableField.App</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -54,13 +54,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldVersion</td>
+                <td>@LocalizationCore.TableField.Version</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="string" @bind-Value=@ItemCast.Version />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldFile</td>
+                <td>@LocalizationCore.TableField.File</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -68,13 +68,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldRow</td>
+                <td>@LocalizationCore.TableField.Row</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="int" @bind-Value=@ItemCast.Line />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldMember</td>
+                <td>@LocalizationCore.TableField.Member</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -82,7 +82,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldLogType</td>
+                <td>@LocalizationCore.TableField.LogType</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -90,7 +90,7 @@ else
 				</td>
             </tr>
             <tr >
-                <td>@LocalizationData.DeviceControl.TableFieldMessage</td>
+                <td>@LocalizationCore.TableField.Message</td>
                 <td colspan=3 rowspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 

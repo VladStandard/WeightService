@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/section/labels"
+@page "/section/measurements/labels"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
@@ -28,7 +28,7 @@ else
         <Columns >
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="15%" >
+                Title=@LocalizationCore.TableField.CreateDt Type="date" Width="15%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityId}")
@@ -36,7 +36,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="LabelQuickEntity" Title=@LocalizationData.DeviceControl.TableFieldScale Type="string" Width="30%" >
+                TItem="LabelQuickEntity" Title=@LocalizationCore.TableField.Scale Type="string" Width="30%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.Label}/{itemCast.IdentityId}")
@@ -45,19 +45,19 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="PluId" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldPlu Type="int" Width="10%" />
+                Title=@LocalizationCore.TableField.Plu Type="int" Width="10%" />
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="NetWeight" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldNetWeight Type="decimal" Width="10%" />
+                Title=@LocalizationCore.TableField.NetWeight Type="decimal" Width="10%" />
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="TareWeight" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldTareWeight Type="decimal" Width="10%" />
+                Title=@LocalizationCore.TableField.TareWeight Type="decimal" Width="10%" />
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="RegNum" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldRegNum Type="int" Width="10%" />
+                Title=@LocalizationCore.TableField.RegNum Type="int" Width="10%" />
             <RadzenGridColumn 
                 TItem="LabelQuickEntity" Property="ZplInfo" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldImageDataInfo Type="string" Width="15%" />
+                Title=@LocalizationCore.TableField.ImageDataInfo Type="string" Width="15%" />
         </Columns>
     </RadzenGrid>
 

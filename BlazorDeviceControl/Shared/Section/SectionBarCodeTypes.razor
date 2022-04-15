@@ -8,6 +8,7 @@
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -28,7 +29,7 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="BarCodeTypeEntityV2" TextAlign=TextAlign.Center 
-                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
@@ -36,7 +37,7 @@ else
             }
             <RadzenGridColumn 
                 TItem="BarCodeTypeEntityV2" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldCreateDt Type="date" Width="20%">
+                Title=@LocalizationCore.TableField.CreateDt Type="date" Width="20%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.BarCodeType}/{itemCast.IdentityUid}")
@@ -44,7 +45,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="BarCodeTypeEntityV2" TextAlign=TextAlign.Center
-                    Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="20%">
+                    Title=@LocalizationCore.TableField.ChangeDt Type="date" Width="20%">
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.BarCodeType}/{itemCast.IdentityUid}")
@@ -52,7 +53,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="BarCodeTypeEntityV2" Title=@LocalizationData.DeviceControl.TableFieldName Width="60%" >
+                TItem="BarCodeTypeEntityV2" Title=@LocalizationCore.TableField.Name Width="60%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.BarCodeType}/{itemCast.IdentityUid}")

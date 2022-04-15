@@ -390,12 +390,12 @@ namespace ScalesUI.Forms
                     return;
                 ScheduleMassaManager();
                 ScheduleMemoryManager();
-                SchedulePrint(labelPrintLabelsMain, LocalizationData.Print.NameMain,
-                    fieldPrintLabelsMain, 
-                    $"{@LocalizationData.ScalesUI.Labels}: {SessionState.CurrentLabelsMain} / {SessionState.WeighingSettings.CurrentLabelsCountMain}");
-                SchedulePrint(labelPrintLabelsShipping, LocalizationData.Print.NameShipping,
-                    fieldPrintLabelsShipping,
-                    $"{@LocalizationData.ScalesUI.Labels}: {SessionState.CurrentLabelsShipping} / {SessionState.WeighingSettings.CurrentLabelsCountShipping}");
+                SchedulePrint(labelPrintLabelsMain, LocalizationCore.Print.NameMain, fieldPrintLabelsMain, 
+                    $"{@LocalizationData.ScalesUI.Labels}: {SessionState.CurrentLabelsMain} / {SessionState.WeighingSettings.CurrentLabelsCountMain}",
+                    SessionState.Manager.PrintMain);
+                SchedulePrint(labelPrintLabelsShipping, LocalizationCore.Print.NameShipping, fieldPrintLabelsShipping,
+                    $"{@LocalizationData.ScalesUI.Labels}: {SessionState.CurrentLabelsShipping} / {SessionState.WeighingSettings.CurrentLabelsCountShipping}",
+                    SessionState.Manager.PrintShipping);
                 ScheduleProduct();
                 ScheduleControlsVisible();
                 SetLabels();
@@ -529,8 +529,8 @@ namespace ScalesUI.Forms
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPlu, true);
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelWeightNetto, true);
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWeightTare, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, true);
-                        MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, true);
+                        //MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, true);
+                        //MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, true);
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelProductDate, true);
                         MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldProductDate, true);
                         IsProgramStateIsRunVisible = true;
@@ -542,8 +542,8 @@ namespace ScalesUI.Forms
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldPlu, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelWeightNetto, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldWeightTare, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, false);
-                    MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, false);
+                    //MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelKneading, false);
+                    //MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldKneading, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(labelProductDate, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldProductDate, false);
                     MDSoft.WinFormsUtils.InvokeControl.SetVisible(fieldResolution, false);
@@ -559,10 +559,9 @@ namespace ScalesUI.Forms
             }
         }
 
-        private void SchedulePrint(Label labelPrint, string caption, Label fieldPrint, string value)
+        private void SchedulePrint(Label labelPrint, string caption, Label fieldPrint, string value, ManagerPrint managerPrint)
         {
             MDSoft.WinFormsUtils.InvokeControl.SetText(labelPrint, caption);
-            MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrint, value);
             //SessionState.LabelsCurrent = SessionState.Manager.Print.UserLabelCount < SessionState.LabelsCount
             //    ? SessionState.Manager.Print.UserLabelCount : SessionState.LabelsCount;
 
@@ -575,22 +574,23 @@ namespace ScalesUI.Forms
                 case WeightCore.Print.PrintBrand.Zebra:
                     if (ProgramState == ShareEnums.ProgramState.IsRun && StopwatchPrintMain.Elapsed.TotalSeconds > 5)
                     {
-                        SessionState.Manager.PrintMain.SetCurrentStatus();
+                        //SessionState.Manager.PrintMain.SetCurrentStatus();
                         StopwatchPrintMain.Restart();
                     }
-                    if (SessionState.Manager.PrintMain.CurrentStatus != null)
+                    if (managerPrint.CurrentStatus != null)
                     {
-                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintLabelsMain,
-                            $"{@LocalizationData.Print.ModelZebra} {SessionState.CurrentScale.PrinterMain.Ip}: " +
-                            (SessionState.Manager.PrintMain.CurrentStatus.isReadyToPrint
-                            ? LocalizationData.Print.Available : LocalizationData.Print.Unavailable) +
-                            $" {SessionState.Manager.PrintMain.ProgressString}"
+                        MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrint,
+                            $"{@LocalizationCore.Print.ModelZebra} {SessionState.CurrentScale.PrinterMain.Ip}: " +
+                            (managerPrint.CurrentStatus.isReadyToPrint
+                                ? $"{LocalizationCore.Print.Available}" 
+                                : $"{LocalizationCore.Print.Unavailable}"
+                            ) + $" | {LocalizationCore.Print.SensorPeeler}: {managerPrint.SensorPeelerStatus} | {value} | {SessionState.Manager.PrintMain.ProgressString}"
                         );
                     }
                     break;
                 case WeightCore.Print.PrintBrand.TSC:
-                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrintLabelsMain,
-                        $"{@LocalizationData.Print.ModelTsc}: {SessionState.Manager.PrintMain.Win32Printer()?.PrinterStatusDescription} " +
+                    MDSoft.WinFormsUtils.InvokeControl.SetText(fieldPrint,
+                        $"{@LocalizationCore.Print.ModelTsc}: {SessionState.Manager.PrintMain.Win32Printer()?.PrinterStatusDescription} " +
                         $"{SessionState.Manager.PrintMain.ProgressString}");
                     break;
                 case WeightCore.Print.PrintBrand.Default:
@@ -756,23 +756,23 @@ namespace ScalesUI.Forms
             eventHandler.Invoke(comboBox, null);
         }
 
-        private void FieldPrintManager_DoubleClick(object sender, EventArgs e)
+        private void FieldPrintManager_Click(object sender, EventArgs e)
         {
             WmiWin32PrinterEntity win32Printer = SessionState.Manager.PrintMain.Win32Printer();
             if (win32Printer == null)
                 return;
             using WpfPageLoader wpfPageLoader = new(ProjectsEnums.Page.MessageBox, false, FormBorderStyle.FixedDialog, 26, 20, 18) { Width = 700, Height = 400 };
-            wpfPageLoader.Text = LocalizationData.Print.InfoCaption;
-            wpfPageLoader.MessageBox.Caption = LocalizationData.Print.InfoCaption;
+            wpfPageLoader.Text = LocalizationCore.Print.InfoCaption;
+            wpfPageLoader.MessageBox.Caption = LocalizationCore.Print.InfoCaption;
             wpfPageLoader.MessageBox.Message =
-                $"{LocalizationData.Print.Name}: {win32Printer.Name}" + Environment.NewLine +
-                $"{LocalizationData.Print.Driver}: {win32Printer.DriverName}" + Environment.NewLine +
-                $"{LocalizationData.Print.Port}: {win32Printer.PortName}" + Environment.NewLine +
-                $"{LocalizationData.Print.StateCode}: {win32Printer.PrinterState}" + Environment.NewLine +
-                $"{LocalizationData.Print.StatusCode}: {win32Printer.PrinterStatus}" + Environment.NewLine +
-                $"{LocalizationData.Print.Status}: {win32Printer.PrinterStatusDescription}" + Environment.NewLine +
-                $"{LocalizationData.Print.State} (ENG): {win32Printer.Status}" + Environment.NewLine +
-                $"{LocalizationData.Print.State}: {win32Printer.StatusDescription}";
+                $"{LocalizationCore.Print.Name}: {win32Printer.Name}" + Environment.NewLine +
+                $"{LocalizationCore.Print.Driver}: {win32Printer.DriverName}" + Environment.NewLine +
+                $"{LocalizationCore.Print.Port}: {win32Printer.PortName}" + Environment.NewLine +
+                $"{LocalizationCore.Print.StateCode}: {win32Printer.PrinterState}" + Environment.NewLine +
+                $"{LocalizationCore.Print.StatusCode}: {win32Printer.PrinterStatus}" + Environment.NewLine +
+                $"{LocalizationCore.Print.Status}: {win32Printer.PrinterStatusDescription}" + Environment.NewLine +
+                $"{LocalizationCore.Print.State} (ENG): {win32Printer.Status}" + Environment.NewLine +
+                $"{LocalizationCore.Print.State}: {win32Printer.StatusDescription}";
             wpfPageLoader.MessageBox.VisibilitySettings.ButtonOkVisibility = Visibility.Visible;
             wpfPageLoader.MessageBox.VisibilitySettings.ButtonCustomVisibility = Visibility.Visible;
             wpfPageLoader.MessageBox.VisibilitySettings.ButtonCustomContent = LocalizationCore.Print.ClearQueue;
@@ -888,7 +888,7 @@ namespace ScalesUI.Forms
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonKneading , LocalizationData.ScalesUI.ButtonAddKneading);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPlu, LocalizationData.ScalesUI.ButtonSelectPlu);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonMore, LocalizationData.ScalesUI.ButtonSetKneading);
-                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocalizationData.Print.ActionPrint);
+                MDSoft.WinFormsUtils.InvokeControl.SetText(ButtonPrint, LocalizationCore.Print.ActionPrint);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelWeightNetto, LocalizationData.ScalesUI.FieldWeightNetto);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelWeightTare, LocalizationData.ScalesUI.FieldWeightTare);
                 MDSoft.WinFormsUtils.InvokeControl.SetText(labelKneading, LocalizationData.ScalesUI.FieldKneading);

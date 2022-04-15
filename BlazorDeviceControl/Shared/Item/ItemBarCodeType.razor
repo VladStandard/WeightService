@@ -29,19 +29,19 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldUid</td>
+                <td>@LocalizationCore.TableField.Uid</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         @bind-Value=@ItemCast.IdentityUidStr />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>@LocalizationCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td>@LocalizationCore.TableField.Name</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center;" Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Name />

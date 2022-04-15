@@ -1,7 +1,7 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/item/label"
-@page "/item/label/{IdentityId:long}"
-@page "/item/label/{IdentityId:long}/{TableAction}"
+@page "/item/measurements/label"
+@page "/item/measurements/label/{IdentityId:long}"
+@page "/item/measurements/label/{IdentityId:long}/{TableAction}"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Section
@@ -29,25 +29,25 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>@LocalizationCore.TableField.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>@LocalizationCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldScale</td>
+                <td>@LocalizationCore.TableField.Scale</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
-                        TValue="string" @bind-Value=@ItemCast.WeithingFact.Scales.Description />
+                        TValue="string" @bind-Value=@ItemCast.WeithingFact.Scale.Description />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldPlu</td>
+                <td>@LocalizationCore.TableField.Plu</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -55,13 +55,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldWeithingDate</td>
+                <td>@LocalizationCore.TableField.WeithingDate</td>
                 <td>
                     <RadzenDatePicker Style="width: 100%; text-align: center; background-color: lightgray; " 
                         TValue="string" Value=@ItemCast.WeithingFact.WeithingDate 
                         Disabled=false ReadOnly=true DateFormat="yyyy-MM-dd HH:mm:ss" />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldProductDate</td>
+                <td>@LocalizationCore.TableField.ProductDate</td>
                 <td>
                     <RadzenDatePicker Style="width: 100%; text-align: center; background-color: lightgray; " 
                         TValue="string" Value=@ItemCast.WeithingFact.ProductDate 
@@ -69,13 +69,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldNetWeight</td>
+                <td>@LocalizationCore.TableField.NetWeight</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="decimal" @bind-Value=@ItemCast.WeithingFact.NetWeight />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldTareWeight</td>
+                <td>@LocalizationCore.TableField.TareWeight</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -83,13 +83,13 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldRegNum</td>
+                <td>@LocalizationCore.TableField.RegNum</td>
                 <td >
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
                         TValue="int?" @bind-Value=@ItemCast.WeithingFact.RegNum />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldKneding</td>
+                <td>@LocalizationCore.TableField.Kneding</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 
@@ -97,7 +97,7 @@ else
                 </td>
             </tr>
             <tr >
-                <td>@LocalizationData.DeviceControl.TableFieldZpl</td>
+                <td>@LocalizationCore.TableField.Zpl</td>
                 <td colspan=3>
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; background-color: lightgray; " 
                         Disabled=false ReadOnly=true 

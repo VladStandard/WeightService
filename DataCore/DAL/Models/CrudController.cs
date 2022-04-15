@@ -445,10 +445,19 @@ namespace DataCore.DAL.Models
                 case WeithingFactEntity weithingFact:
                     if (!weithingFact.EqualsEmpty())
                     {
-                        weithingFact.Plu = weithingFact.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(weithingFact.Plu.IdentityId);
-                        weithingFact.Scales = weithingFact.Scales?.IdentityId == null ? new() : GetEntity<ScaleEntity>(weithingFact.Scales.IdentityId);
-                        weithingFact.Series = weithingFact.Series?.IdentityId == null ? new() : GetEntity<ProductSeriesEntity>(weithingFact.Series.IdentityId);
-                        weithingFact.Orders = weithingFact.Orders?.IdentityId == null ? new() : GetEntity<OrderEntity>(weithingFact.Orders.IdentityId);
+                        //weithingFact.Plu = weithingFact.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(weithingFact.Plu.IdentityId);
+                        weithingFact.Plu = weithingFact.Plu?.IdentityId == null ? new() : GetEntity<PluEntity>(
+                            new FieldListEntity(new Dictionary<string, object?> {
+                                { ShareEnums.DbField.Plu.ToString(), (int)weithingFact.Plu.IdentityId },
+                                //{ ShareEnums.DbField.ScaleId.ToString(), (int)weithingFact.Scale.IdentityId },
+                            }),
+                            null
+                            //new FieldOrderEntity(ShareEnums.DbField.Plu, ShareEnums.DbOrderDirection.Desc)
+                            );
+                        ;
+                        weithingFact.Scale = weithingFact.Scale?.IdentityId == null ? new() : GetEntity<ScaleEntity>(weithingFact.Scale.IdentityId);
+                        weithingFact.Serie = weithingFact.Serie?.IdentityId == null ? new() : GetEntity<ProductSeriesEntity>(weithingFact.Serie.IdentityId);
+                        weithingFact.Order = weithingFact.Order?.IdentityId == null ? new() : GetEntity<OrderEntity>(weithingFact.Order.IdentityId);
                     }
                     break;
                 case WorkShopEntity workshop:

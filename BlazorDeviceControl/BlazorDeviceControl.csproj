@@ -11,8 +11,8 @@
 	<AssemblyName>BlazorDeviceControl</AssemblyName>
     <RootNamespace>BlazorDeviceControl</RootNamespace>
     <NeutralLanguage>ru-RU</NeutralLanguage>
-	<FileVersion>0.6.450</FileVersion>
-    <AssemblyVersion>0.6.450</AssemblyVersion>
+	<FileVersion>0.6.480</FileVersion>
+    <AssemblyVersion>0.6.480</AssemblyVersion>
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;Dev</Configurations>
 	<Nullable>enable</Nullable>
@@ -90,7 +90,6 @@
     <Watch Remove="Shared\Item\ItemError.razor" />
     <Watch Remove="Shared\Item\ItemHost.razor" />
     <Watch Remove="Shared\Item\ItemInfo.razor" />
-    <Watch Remove="Shared\Item\ItemLabel.razor" />
     <Watch Remove="Shared\Item\ItemLog.razor" />
     <Watch Remove="Shared\Item\ItemNomenclature.razor" />
     <Watch Remove="Shared\Item\ItemPlu.razor" />
@@ -103,7 +102,9 @@
     <Watch Remove="Shared\Item\ItemTemplate.razor" />
     <Watch Remove="Shared\Item\ItemTemplateResource.razor" />
     <Watch Remove="Shared\Item\ItemWorkshop.razor" />
+    <Watch Remove="Shared\Item\Measurements\ItemWf.razor" />
     <Watch Remove="Shared\Item\RadzenPage.razor" />
+    <Watch Remove="Shared\Item\Measurements\ItemLabel.razor" />
     <Watch Remove="Shared\Section\SectionAccess.razor" />
     <Watch Remove="Shared\Section\SectionBarCodes.razor" />
     <Watch Remove="Shared\Section\SectionBarCodeTypes.razor" />
@@ -111,7 +112,6 @@
     <Watch Remove="Shared\Section\SectionErrors.razor" />
     <Watch Remove="Shared\Section\SectionHosts.razor" />
     <Watch Remove="Shared\Section\SectionInfo.razor" />
-    <Watch Remove="Shared\Section\SectionLabels.razor" />
     <Watch Remove="Shared\Section\SectionLogs.razor" />
     <Watch Remove="Shared\Section\SectionNomenclatures.razor" />
     <Watch Remove="Shared\Section\SectionPlus.razor" />
@@ -123,8 +123,10 @@
     <Watch Remove="Shared\Section\SectionTaskModules.razor" />
     <Watch Remove="Shared\Section\SectionTemplateResources.razor" />
     <Watch Remove="Shared\Section\SectionTemplates.razor" />
-    <Watch Remove="Shared\Section\SectionWeithingFacts.razor" />
     <Watch Remove="Shared\Section\SectionWorkshops.razor" />
+    <Watch Remove="Shared\Section\Measurements\SectionLabels.razor" />
+    <Watch Remove="Shared\Section\Measurements\SectionWeithingFacts.razor" />
+    <Watch Remove="Shared\Section\Measurements\SectionWeithingFactsAggregation.razor" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlazorCore\BlazorCore.csproj" />

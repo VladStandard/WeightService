@@ -2,6 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using DataCore.DAL.Models;
+using DataCore.Utils;
 using System;
 
 namespace DataCore.DAL.TableScaleModels
@@ -14,9 +15,9 @@ namespace DataCore.DAL.TableScaleModels
         #region Public and private fields and properties
 
         public virtual PluEntity Plu { get; set; }
-        public virtual ScaleEntity Scales { get; set; }
-        public virtual ProductSeriesEntity Series { get; set; }
-        public virtual OrderEntity Orders { get; set; }
+        public virtual ScaleEntity Scale { get; set; }
+        public virtual ProductSeriesEntity Serie { get; set; }
+        public virtual OrderEntity Order { get; set; }
         public virtual string Sscc { get; set; }
         public virtual DateTime WeithingDate { get; set; }
         public virtual decimal NetWeight { get; set; }
@@ -37,9 +38,9 @@ namespace DataCore.DAL.TableScaleModels
         public WeithingFactEntity(long id) : base(id)
         {
             Plu = new();
-            Scales = new();
-            Series = new();
-            Orders = new();
+            Scale = new();
+            Serie = new();
+            Order = new();
             Sscc = string.Empty;
             WeithingDate = DateTime.MinValue;
             NetWeight = 0;
@@ -56,14 +57,14 @@ namespace DataCore.DAL.TableScaleModels
         public override string ToString()
         {
             string? strPlu = Plu != null ? Plu.IdentityId.ToString() : "null";
-            string? strScale = Scales != null ? Scales.IdentityId.ToString() : "null";
-            string? strSeries = Series != null ? Series.IdentityId.ToString() : "null";
-            string? strOrder = Orders != null ? Orders.IdentityId.ToString() : "null";
+            string? strScale = Scale != null ? Scale.IdentityId.ToString() : "null";
+            string? strSeries = Serie != null ? Serie.IdentityId.ToString() : "null";
+            string? strOrder = Order != null ? Order.IdentityId.ToString() : "null";
             return base.ToString() +
                    $"{nameof(Plu)}: {strPlu}. " +
-                   $"{nameof(Scales)}: {strScale}. " +
-                   $"{nameof(Series)}: {strSeries}. " +
-                   $"{nameof(Orders)}: {strOrder}. " +
+                   $"{nameof(Scale)}: {strScale}. " +
+                   $"{nameof(Serie)}: {strSeries}. " +
+                   $"{nameof(Order)}: {strOrder}. " +
                    $"{nameof(Sscc)}: {Sscc}. " +
                    $"{nameof(WeithingDate)}: {WeithingDate}. " +
                    $"{nameof(NetWeight)}: {NetWeight}. " +
@@ -79,9 +80,9 @@ namespace DataCore.DAL.TableScaleModels
             if (ReferenceEquals(this, entity)) return true;
             return base.Equals(entity) &&
                    Plu.Equals(entity.Plu) &&
-                   Scales.Equals(entity.Scales) &&
-                   Series.Equals(entity.Series) &&
-                   Orders.Equals(entity.Orders) &&
+                   Scale.Equals(entity.Scale) &&
+                   Serie.Equals(entity.Serie) &&
+                   Order.Equals(entity.Order) &&
                    Equals(Sscc, entity.Sscc) &&
                    Equals(WeithingDate, entity.WeithingDate) &&
                    Equals(NetWeight, entity.NetWeight) &&
@@ -113,11 +114,11 @@ namespace DataCore.DAL.TableScaleModels
         {
             if (Plu != null && !Plu.EqualsDefault())
                 return false;
-            if (Scales != null && !Scales.EqualsDefault())
+            if (Scale != null && !Scale.EqualsDefault())
                 return false;
-            if (Series != null && !Series.EqualsDefault())
+            if (Serie != null && !Serie.EqualsDefault())
                 return false;
-            if (Orders != null && !Orders.EqualsDefault())
+            if (Order != null && !Order.EqualsDefault())
                 return false;
             return base.EqualsDefault() &&
                    Equals(Sscc, string.Empty) &&
@@ -133,9 +134,9 @@ namespace DataCore.DAL.TableScaleModels
         {
             WeithingFactEntity item = (WeithingFactEntity)base.Clone();
             item.Plu = (PluEntity)Plu.Clone();
-            item.Scales = (ScaleEntity)Scales.Clone();
-            item.Series = (ProductSeriesEntity)Series.Clone();
-            item.Orders = (OrderEntity)Orders.Clone();
+            item.Scale = (ScaleEntity)Scale.Clone();
+            item.Serie = (ProductSeriesEntity)Serie.Clone();
+            item.Order = (OrderEntity)Order.Clone();
             item.Sscc = Sscc;
             item.WeithingDate = WeithingDate;
             item.NetWeight = NetWeight;

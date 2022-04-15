@@ -28,25 +28,25 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>@LocalizationCore.TableField.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>@LocalizationCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldName</td>
+                <td>@LocalizationCore.TableField.Name</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: left;" 
                         Disabled=false ReadOnly=false
                         TValue="string" @bind-Value=@ItemCast.Name />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldIdRRef</td>
+                <td>@LocalizationCore.TableField.IdRRef</td>
                 <td >
                     <RadzenTextBox Style="width: 100%; text-align: center; " 
                         Disabled=false ReadOnly=false
@@ -57,7 +57,7 @@ else
                 <td>
                     <RadzenLink Style="width: 100%; margin-left: 0px; " 
                         Path=@GetPath(UriRouteItem.ProductionFacility, ItemCast.ProductionFacility, ItemCast.ProductionFacility.IdentityId)
-                        Text=@LocalizationData.DeviceControl.TableFieldProductionFacilityName />
+                        Text=@LocalizationCore.TableField.ProductionFacilityName />
                 </td>
                 <td>
                     @if (ProductionFacilities == null)
@@ -72,7 +72,7 @@ else
                             ValueProperty="IdentityId" Value=@ItemCast.ProductionFacility.IdentityId
                             Change=@(args => OnItemValueChange(Item, nameof(ItemCast.ProductionFacility), args)) >
                             <Columns>
-                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationData.DeviceControl.TableFieldName Width="100%" />
+                                <RadzenDropDownDataGridColumn Property="Name" Title=@LocalizationCore.TableField.Name Width="100%" />
                             </Columns>
                         </RadzenDropDownDataGrid>
                     }

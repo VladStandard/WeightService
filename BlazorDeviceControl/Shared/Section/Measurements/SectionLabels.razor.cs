@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorDeviceControl.Shared.Section
+namespace BlazorDeviceControl.Shared.Section.Measurements
 {
     public partial class SectionLabels
     {

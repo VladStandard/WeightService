@@ -14,9 +14,9 @@ namespace DataCore.DAL.TableScaleModels
             Id(x => x.IdentityId).CustomSqlType("INT").Column("Id").Unique().GeneratedBy.Identity().Not.Nullable();
             Map(x => x.IsMarked).CustomSqlType("BIT").Column("IS_MARKED").Not.Nullable().Default("0");
             References(x => x.Plu).Column("PluId").Not.Nullable();
-            References(x => x.Scales).Column("ScaleId").Not.Nullable();
-            References(x => x.Series).Column("SeriesId").Not.Nullable();
-            References(x => x.Orders).Column("OrderId").Not.Nullable();
+            References(x => x.Scale).Column("ScaleId").Not.Nullable();
+            References(x => x.Serie).Column("SeriesId").Not.Nullable();
+            References(x => x.Order).Column("OrderId").Not.Nullable();
             Map(x => x.Sscc).CustomSqlType("VARCHAR").Column("SSCC").Length(50).Not.Nullable();
             Map(x => x.WeithingDate).CustomSqlType("DATETIME(2,7)").Column("WeithingDate").Nullable();
             Map(x => x.NetWeight).CustomSqlType("NUMERIC(15,3)").Column("NetWeight").Not.Nullable();

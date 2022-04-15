@@ -222,8 +222,8 @@
             this.labelPrintLabelsShipping.TabIndex = 65;
             this.labelPrintLabelsShipping.Text = "labelPrintLabelsShipping";
             this.labelPrintLabelsShipping.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelPrintLabelsShipping.Click += new System.EventHandler(this.FieldPrintManager_DoubleClick);
-            this.labelPrintLabelsShipping.DoubleClick += new System.EventHandler(this.FieldPrintManager_DoubleClick);
+            this.labelPrintLabelsShipping.Click += new System.EventHandler(this.FieldPrintManager_Click);
+            this.labelPrintLabelsShipping.DoubleClick += new System.EventHandler(this.FieldPrintManager_Click);
             // 
             // fieldThreshold
             // 
@@ -473,8 +473,8 @@
             this.labelPrintLabelsMain.TabIndex = 43;
             this.labelPrintLabelsMain.Text = "labelPrintLabelsMain";
             this.labelPrintLabelsMain.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelPrintLabelsMain.Click += new System.EventHandler(this.FieldPrintManager_DoubleClick);
-            this.labelPrintLabelsMain.DoubleClick += new System.EventHandler(this.FieldPrintManager_DoubleClick);
+            this.labelPrintLabelsMain.Click += new System.EventHandler(this.FieldPrintManager_Click);
+            this.labelPrintLabelsMain.DoubleClick += new System.EventHandler(this.FieldPrintManager_Click);
             this.labelPrintLabelsMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             // 
             // fieldMemoryManager

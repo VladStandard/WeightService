@@ -29,14 +29,14 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="ScaleEntity" TextAlign=TextAlign.Center 
-                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="ScaleEntity" Title=@LocalizationData.DeviceControl.TableFieldDescription Type="string" Width="15%" >
+                TItem="ScaleEntity" Title=@LocalizationCore.TableField.Description Type="string" Width="15%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{LocalizationData.DeviceControl.UriRouteItem.Scale}/{itemCast.IdentityId}")
@@ -45,11 +45,11 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Host.Name" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldHost 
+                Title=@LocalizationCore.TableField.Host 
                 Type="string" Width="15%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Host.Ip" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldDeviceIp 
+                Title=@LocalizationCore.TableField.DeviceIp 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="Printer.Name" TextAlign=TextAlign.Left
@@ -57,11 +57,11 @@ else
                 Type="string" Width="15%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" Property="WorkShop.Name" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldWorkShopName 
+                Title=@LocalizationCore.TableField.WorkShopName 
                 Type="string" Width="10%" />
             <RadzenGridColumn 
                 TItem="ScaleEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldOrder
+                Title=@LocalizationCore.TableField.Order
                 Type="string" Width="5%">
                 <Template Context="itemCast">
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@itemCast.UseOrder />
@@ -69,7 +69,7 @@ else
             </RadzenGridColumn>
             <RadzenGridColumn 
                 TItem="ScaleEntity" TextAlign=TextAlign.Left
-                Title=@LocalizationData.DeviceControl.TableFieldTemplateDefault 
+                Title=@LocalizationCore.TableField.TemplateDefault 
                 Type="string" Width="30%">
                 <Template Context="itemCast">
                     <RadzenLabel Text=@(itemCast.TemplateDefault != null ? itemCast.TemplateDefault.Title : "")

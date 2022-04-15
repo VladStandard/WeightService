@@ -1,5 +1,5 @@
 ﻿@inherits BlazorCore.Models.RazorBase
-@page "/section/weithingfacts"
+@page "/section/measurements/weithingfacts_aggregation"
 @using BlazorCore
 @using BlazorDeviceControl.Shared.Component
 @using BlazorDeviceControl.Shared.Item
@@ -7,6 +7,7 @@
 @using DataCore
 @using DataCore.DAL.DataModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 
 @if (!IsLoaded)
 {
@@ -15,7 +16,7 @@
 else
 {
     <ActionsReloadSection ParentRazor=@this 
-        Title=@LocalizationData.DeviceControl.Sections.WeithingFacts SetParameters=@SetParametersAsync />
+        Title=@LocalizationData.DeviceControl.Sections.WeithingFactsAggregation SetParameters=@SetParametersAsync />
 
     <RadzenGrid Style="margin-top: 5px;"
         Data=@ItemsCast TItem="WeithingFactSummaryEntity" @bind-Value=@ItemObject
@@ -23,21 +24,26 @@ else
         AllowPaging="true" PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount AllowSorting=true ColumnWidth="100px">
         <Columns>
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldWeithingDate
+                Title=@LocalizationCore.TableField.WeithingDate
                 Type="date" Width="15%">
                 <Template Context="itemCast">
-                    <RadzenLink Style="width: 100%; margin-left: 0px; "
+                    <RadzenLabel Style="width: 100%; margin-left: 0px; "
                         Text=@itemCast.WeithingDate.ToString("yyyy-MM-dd") />
                 </Template>
             </RadzenGridColumn>
-            <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="WeithingDay" TextAlign=TextAlign.Center
-                                Title=@LocalizationData.DeviceControl.TableFieldDayOfWeek
-                                Type="string" Width="15%" />
+            <RadzenGridColumn TItem="WeithingFactSummaryEntity" TextAlign=TextAlign.Center
+                Title=@LocalizationCore.TableField.DayOfWeek
+                Type="string" Width="15%">
+                <Template Context="itemCast">
+                    <RadzenLabel Style="width: 100%; margin-left: 0px; "
+                        Text=@EnumUtils.GetDayOfWeekRu(itemCast.WeithingDate.DayOfWeek) />
+                </Template>
+            </RadzenGridColumn>
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Count" TextAlign=TextAlign.Center
-                                Title=@LocalizationData.DeviceControl.TableFieldCount
+                                Title=@LocalizationCore.TableField.Count
                                 Type="int" Width="15%" />
             <RadzenGridColumn TItem="WeithingFactSummaryEntity" Property="Scale" TextAlign=TextAlign.Left
-                                Title=@LocalizationData.DeviceControl.TableFieldScale
+                                Title=@LocalizationCore.TableField.Scale
                                 Type="string" Width="55%" />
         </Columns>
     </RadzenGrid>

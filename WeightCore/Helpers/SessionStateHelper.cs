@@ -251,10 +251,11 @@ namespace WeightCore.Helpers
         {
             if (!IsCheckWeight)
                 return true;
-            if (Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight < LocalizationData.ScalesUI.MassaThreshold)
+            decimal weight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
+            if (weight < LocalizationData.ScalesUI.MassaThreshold)
             {
                 GuiUtils.WpfForm.ShowNewOperationControl(owner, 
-                    LocalizationData.ScalesUI.CheckWeightThreshold(Manager.Massa.WeightNet),
+                    LocalizationData.ScalesUI.CheckWeightThreshold(weight),
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return false;
             }
@@ -270,10 +271,11 @@ namespace WeightCore.Helpers
         {
             if (!IsCheckWeight)
                 return true;
-            if (Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight > LocalizationData.ScalesUI.MassaThreshold)
+            decimal weight = Manager.Massa.WeightNet - CurrentPlu.GoodsTareWeight;
+            if (weight > LocalizationData.ScalesUI.MassaThreshold)
             {
                 DialogResult result = GuiUtils.WpfForm.ShowNewOperationControl(owner, 
-                    LocalizationData.ScalesUI.CheckWeightThreshold(Manager.Massa.WeightNet),
+                    LocalizationData.ScalesUI.CheckWeightThreshold(weight),
                     new() { ButtonCancelVisibility = Visibility.Visible });
                 return result == DialogResult.Cancel;
             }

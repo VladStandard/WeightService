@@ -27,25 +27,25 @@ else
         </thead>
         <tbody>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldId</td>
+                <td>@LocalizationCore.TableField.Id</td>
                 <td>
                     <RadzenNumeric Style="width: 100%; text-align: center; background-color: lightgray; " 
                         Disabled=false ReadOnly=true
                         TValue="long" @bind-Value=@ItemCast.IdentityId />
 				</td>
-                <td>@LocalizationData.DeviceControl.TableFieldMarked</td>
+                <td>@LocalizationCore.TableField.Marked</td>
                 <td>
                     <RadzenCheckBox Disabled=false TValue="bool" @bind-Value=@ItemCast.IsMarked />
                 </td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldTitle</td>
+                <td>@LocalizationCore.TableField.Title</td>
                 <td>
                     <RadzenTextBox Style="width: 100%; text-align: center; " Disabled=false 
                         TValue="string" @bind-Value=@ItemCast.Title />
 				</td>
                 <td>
-                    <RadzenLabel Style="width: 100%; text-align: center; " Text=@LocalizationData.DeviceControl.TableFieldCategoryName />
+                    <RadzenLabel Style="width: 100%; text-align: center; " Text=@LocalizationCore.TableField.CategoryName />
                 </td>
                 <td>
                     @if (TemplateCategories == null)
@@ -64,7 +64,7 @@ else
 				</td>
             </tr>
             <tr>
-                <td>@LocalizationData.DeviceControl.TableFieldImageData</td>
+                <td>@LocalizationCore.TableField.ImageData</td>
                 <td colspan=3 >
                     <RadzenTextArea Style="width: 100%; text-align: left; font-size: 12px; line-height: 20px; " Disabled=false ReadOnly=false
                         TValue="string" @bind-Value=@ItemCast.ImageData.ValueUnicode Rows=26 />

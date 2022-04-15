@@ -6,12 +6,14 @@ using DataCore.DAL;
 using DataCore.Wmi;
 using System;
 using System.Runtime.CompilerServices;
+using WeightCore.Gui;
 using WeightCore.Print;
 using WeightCore.Print.Tsc;
 using Zebra.Sdk.Comm;
 using Zebra.Sdk.Printer;
 using ZebraConnectionBuilder = Zebra.Sdk.Comm.ConnectionBuilder;
 //using ZebraPrinterStatus = Zebra.Sdk.Printer.PrinterStatus;
+using LocalizationCore = DataCore.Localization.Core;
 
 namespace WeightCore.Managers
 {
@@ -19,20 +21,20 @@ namespace WeightCore.Managers
     {
         #region Public and private fields and properties
 
-        public string Peeler { get; private set; }
-        public PrinterStatus CurrentStatus { get; private set; }
-        public Connection ZebraConnection { get; private set; }
-        private ZebraPrinter _zebraPrinter;
-        public ZebraPrinter ZebraPrinter
+        public string SensorPeelerStatus { get; private set; }
+        public PrinterStatus CurrentStatus { get => CurrentPrinter.GetCurrentStatus(); }
+        public Connection CurrentConnection { get; private set; }
+        private ZebraPrinter _currentPrinter;
+        public ZebraPrinter CurrentPrinter
         {
             get
             {
-                if (ZebraConnection != null && _zebraPrinter == null)
+                if (CurrentConnection != null && _currentPrinter == null)
                 {
-                    _zebraPrinter = ZebraPrinterFactory.GetInstance(ZebraConnection);
+                    _currentPrinter = ZebraPrinterFactory.GetInstance(CurrentConnection);
                 }
 
-                return _zebraPrinter;
+                return _currentPrinter;
             }
         }
 
@@ -62,8 +64,8 @@ namespace WeightCore.Managers
                 if (PrintBrand == PrintBrand.Zebra)
                 {
                     //ZebraConnection = new TcpConnection(ip, port);
-                    ZebraConnection = ZebraConnectionBuilder.Build(ip);
-                    ZebraConnection.Open();
+                    CurrentConnection = ZebraConnectionBuilder.Build(ip);
+                    CurrentConnection.Open();
                 }
                 TscPrintControl.Init(name);
             }, 1_000);
@@ -73,12 +75,14 @@ namespace WeightCore.Managers
         {
             try
             {
-                Open(sqlViewModel, false,
-                () =>
-                {
-                    //
-                },
-                null, null);
+                // Fix here. 2022-04-15.
+                //Open(sqlViewModel, false,
+                //() =>
+                //{
+                //    //
+                //},
+                //null, null);
+                Open(sqlViewModel, false, null, null, null);
             }
             catch (Exception ex)
             {
@@ -97,11 +101,11 @@ namespace WeightCore.Managers
 
             if (PrintBrand == PrintBrand.Zebra)
             {
-                ZebraConnection?.Close();
+                CurrentConnection?.Close();
             }
 
-            CurrentStatus = null;
-            ZebraConnection = null;
+            //CurrentStatus = null;
+            CurrentConnection = null;
             Wmi = null;
         }
 
@@ -109,7 +113,7 @@ namespace WeightCore.Managers
         {
             base.ReleaseUnmanaged();
 
-            Peeler = null;
+            SensorPeelerStatus = null;
         }
 
         public void SendCmd(string printCmd)
@@ -129,26 +133,30 @@ namespace WeightCore.Managers
             }
         }
 
-        public void SetCurrentStatus()
-        {
-            CurrentStatus = ZebraPrinter.GetCurrentStatus();
-        }
+        //public void SetCurrentStatus()
+        //{
+        //    CurrentStatus = CurrentPrinter.GetCurrentStatus();
+        //}
 
         private void SendCmdToZebra(string printCmd,
             [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0, [CallerMemberName] string memberName = "")
         {
-            if (string.IsNullOrEmpty(printCmd) || ZebraPrinter == null)
+            if (string.IsNullOrEmpty(printCmd) || CurrentPrinter == null)
                 return;
             try
             {
-                SetCurrentStatus();
+                //SetCurrentStatus();
                 if (CurrentStatus.isReadyToPrint)
                 {
-                    Peeler = SGD.GET("sensor.peeler", ZebraPrinter.Connection);
-                    if (Peeler == "clear")
+                    SensorPeelerStatus = SGD.GET("sensor.peeler", CurrentPrinter.Connection);
+                    if (SensorPeelerStatus == "clear")
                     {
                         string docReplace = printCmd.Replace("|", "\\&");
-                        ZebraPrinter.SendCommand(docReplace);
+                        CurrentPrinter.SendCommand(docReplace);
+                    }
+                    else {
+                        GuiUtils.WpfForm.ShowNewCatch(null, $"{LocalizationCore.Print.SensorPeeler}: {SensorPeelerStatus}",
+                            filePath, lineNumber, memberName);
                     }
                 }
             }

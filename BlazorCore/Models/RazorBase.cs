@@ -17,6 +17,7 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using static DataCore.ShareEnums;
+using LocalizationCore = DataCore.Localization.Core;
 
 namespace BlazorCore.Models
 {
@@ -403,9 +404,9 @@ namespace BlazorCore.Models
                 case TableScaleEntity:
                     SetParametersForTableScale(parameters, ProjectsEnums.GetTableScale(Table.Name));
                     break;
-                //case TableDwhEntity:
-                //    SetParametersForTableDwh(parameters, ProjectsEnums.GetTableDwh(Table.Name));
-                //    break;
+                    //case TableDwhEntity:
+                    //    SetParametersForTableDwh(parameters, ProjectsEnums.GetTableDwh(Table.Name));
+                    //    break;
             }
         }
 
@@ -1241,9 +1242,9 @@ namespace BlazorCore.Models
                         case TableScaleEntity:
                             ItemScaleSave(ProjectsEnums.GetTableScale(Table.Name));
                             break;
-                        //case TableDwhEntity:
-                        //    ItemDwhSave(ProjectsEnums.GetTableDwh(Table.Name));
-                        //    break;
+                            //case TableDwhEntity:
+                            //    ItemDwhSave(ProjectsEnums.GetTableDwh(Table.Name));
+                            //    break;
                     }
                     RouteSectionNavigate(false);
                     await GuiRefreshWithWaitAsync();
@@ -1369,7 +1370,7 @@ namespace BlazorCore.Models
             if (!userSettings.Identity.AccessRightsIsWrite)
                 return;
 
-            RunTasksWithQeustion(LocalizationData.Print.ResourcesClear, Core.Strings.DialogResultSuccess,
+            RunTasksWithQeustion(LocalizationCore.Print.ResourcesClear, Core.Strings.DialogResultSuccess,
                 Core.Strings.DialogResultFail, Core.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
@@ -1402,7 +1403,7 @@ namespace BlazorCore.Models
             if (!userSettings.Identity.AccessRightsIsWrite)
                 return;
 
-            RunTasksWithQeustion(LocalizationData.Print.ResourcesLoadTtf, Core.Strings.DialogResultSuccess,
+            RunTasksWithQeustion(LocalizationCore.Print.ResourcesLoadTtf, Core.Strings.DialogResultSuccess,
                 Core.Strings.DialogResultFail, Core.Strings.DialogResultCancel, GetQuestionAdd(),
                 new Task(async () =>
                 {
@@ -1415,7 +1416,7 @@ namespace BlazorCore.Models
                         {
                             if (resource.Name.Contains(fileType))
                             {
-                                TcpClient client = ZplUtils.TcpClientSendData(printer.Ip, printer.Port, 
+                                TcpClient client = ZplUtils.TcpClientSendData(printer.Ip, printer.Port,
                                     new List<ZplExchangeEntity>() {
                                         new ZplExchangeEntity($"^XA^MNN^LL500~DYE:{resource.Name}.TTF,B,T,{resource.ImageData.Value.Length},,"),
                                         new ZplExchangeEntity(resource.ImageData.Value),

@@ -22,13 +22,13 @@
         PageSize=@AppSettings.DataAccess.JsonSettings.SectionRowCount >
         <Columns >
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="50%">
+                Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="50%">
                 <Template Context="icon">
                     <RadzenIcon Icon=@icon />
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn TItem="AccessEntity" TextAlign=TextAlign.Center
-                Title=@LocalizationData.DeviceControl.TableFieldChangeDt Type="date" Width="50%">
+                Title=@LocalizationCore.TableField.ChangeDt Type="date" Width="50%">
                 <Template Context="icon">
                     <RadzenLabel Text=@icon Disabled=false ReadOnly=true />
                 </Template>

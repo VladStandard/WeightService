@@ -8,6 +8,7 @@
 @using DataCore.DAL.DataModels
 @using DataCore.DAL.TableScaleModels
 @using DataCore.Utils
+@using LocalizationCore = DataCore.Localization.Core
 @using static DataCore.ShareEnums
 
 @if (!IsLoaded)
@@ -28,14 +29,14 @@ else
             @if (@IsShowMarkedItems)
             {
                 <RadzenGridColumn TItem="WorkShopEntity" TextAlign=TextAlign.Center 
-                    Title=@LocalizationData.DeviceControl.TableFieldMarkedShort Type="bool" Width="3.5%">
+                    Title=@LocalizationCore.TableField.MarkedShort Type="bool" Width="3.5%">
                     <Template Context="itemCast">
                         <RadzenIcon Icon=@(itemCast.IsMarked ? "delete" : "") />
                     </Template>
                 </RadzenGridColumn>
             }
             <RadzenGridColumn 
-                TItem="WorkShopEntity" Title=@LocalizationData.DeviceControl.TableFieldWorkShopName Width="50%" >
+                TItem="WorkShopEntity" Title=@LocalizationCore.TableField.WorkShopName Width="50%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.WorkShop}/{itemCast.IdentityId}")
@@ -43,7 +44,7 @@ else
                 </Template>
             </RadzenGridColumn>
             <RadzenGridColumn 
-                TItem="WorkShopEntity" Title=@LocalizationData.DeviceControl.TableFieldProductionFacilityName Width="50%" >
+                TItem="WorkShopEntity" Title=@LocalizationCore.TableField.ProductionFacilityName Width="50%" >
                 <Template Context="itemCast">
                     <RadzenLink Style="width: 100%; margin-left: 0px; "
                         Path=@($"{@LocalizationData.DeviceControl.UriRouteItem.ProductionFacility}/{itemCast.ProductionFacility.IdentityId}")
